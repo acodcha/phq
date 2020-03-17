@@ -17,15 +17,15 @@ public:
   }
 
   std::string print() const noexcept {
-    return real_number_to_string(value_);
+    return PhQ::number_to_string(value_);
   }
 
   std::string json() const noexcept {
-    return real_number_to_string(value_);
+    return PhQ::number_to_string(value_);
   }
 
   std::string xml() const noexcept {
-    return real_number_to_string(value_);
+    return PhQ::number_to_string(value_);
   }
 
   constexpr bool operator==(const DimensionlessScalarQuantity& other) const noexcept {

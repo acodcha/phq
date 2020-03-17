@@ -134,19 +134,19 @@ const std::unordered_map<std::string, System> spellings {
 /// \brief Abbreviation of a unit system.
 /// \details For example, abbreviate(System::MetreKilogramSecondKelvin) returns "m-kg-s-K".
 std::string abbreviation(System system) noexcept {
-  return abbreviations.find(system)->second;
+  return PhQ::abbreviations.find(system)->second;
 }
 
 std::ostream& operator<<(std::ostream& outputStream, System system) noexcept {
-  outputStream << abbreviation(system);
+  outputStream << PhQ::abbreviation(system);
   return outputStream;
 }
 
 /// \brief Obtain a unit system from its spelling.
 /// \details For example, PhQ::parse_system("m-kg-s") returns PhQ::System::MetreKilogramSecondKelvin.
 std::optional<System> parse_system(const std::string& spelling) noexcept {
-  const typename std::unordered_map<std::string, System>::const_iterator system{spellings.find(spelling)};
-  if (system != spellings.cend()) {
+  const typename std::unordered_map<std::string, System>::const_iterator system{PhQ::spellings.find(spelling)};
+  if (system != PhQ::spellings.cend()) {
     return {system->second};
   } else {
     return {};
@@ -158,7 +158,7 @@ template <typename Unit> const std::map<System, Unit> consistent_units;
 /// \brief Obtain a unit of a given type from a unit system.
 /// \details For example, PhQ::unit<Force>(PhQ::System::MetreKilogramSecondKelvin) returns PhQ::Unit::Force::Newton.
 template <typename Unit> constexpr Unit unit(const System& system) noexcept {
-  return consistent_units<Unit>.at(system);
+  return PhQ::consistent_units<Unit>.find(system)->second;
 }
 
 template <typename Unit> const std::map<Unit, System> related_systems;
@@ -166,8 +166,8 @@ template <typename Unit> const std::map<Unit, System> related_systems;
 /// \brief Obtain a unit system, if one exists, from a unit.
 /// \details For example, PhQ::system(PhQ::Unit::Length::Millimetre) returns PhQ::System::MillimetreGramSecondKelvin.
 template <typename Unit> std::optional<System> system(const Unit& unit) noexcept {
-  const typename std::map<Unit, System>::const_iterator system{related_systems<Unit>.find(unit)};
-  if (system != related_systems<Unit>.cend()) {
+  const typename std::map<Unit, System>::const_iterator system{PhQ::related_systems<Unit>.find(unit)};
+  if (system != PhQ::related_systems<Unit>.cend()) {
     return {system->second};
   } else {
     return {};

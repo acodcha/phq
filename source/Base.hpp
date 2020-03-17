@@ -32,7 +32,7 @@
 
 namespace PhQ {
 
-std::string real_number_to_string(double value) noexcept {
+std::string number_to_string(double value) noexcept {
   if (value == 0.0) {
     return {"0"};
   } else {

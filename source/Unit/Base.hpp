@@ -7,7 +7,7 @@ namespace PhQ {
 
 namespace Unit {
 
-template <typename Unit> constexpr const Unit standard{consistent_units<Unit>.at(PhQ::standard)};
+template <typename Unit> constexpr const Unit standard{PhQ::consistent_units<Unit>.find(PhQ::standard)->second};
 
 template <typename Unit> constexpr const Dimension::Set dimension;
 
@@ -20,19 +20,20 @@ template <typename Unit, size_t size> const std::map<Unit, std::map<Unit, std::f
 /// \brief Abbreviation of a unit of measure.
 /// \details For example, PhQ::Unit::abbreviation(PhQ::Unit::Length::Centimetre) returns "cm".
 template <typename Unit> std::string abbreviation(Unit unit) noexcept {
-  return abbreviations<Unit>.at(unit);
+  return PhQ::Unit::abbreviations<Unit>.find(unit)->second;
 }
 
 template <typename Unit> std::ostream& operator<<(std::ostream& stream, Unit unit) noexcept {
-  stream << abbreviation<Unit>(unit);
+  using std::operator<<;
+  stream << PhQ::Unit::abbreviation<Unit>(unit);
   return stream;
 }
 
 /// \brief Obtain a unit of measure from its spelling.
 /// \details For example, PhQ::Unit::parse<Unit::Length>("km") returns PhQ::Unit::Length::Kilometre.
 template <typename Unit> std::optional<Unit> parse(const std::string& spelling) noexcept {
-  const typename std::unordered_map<std::string, Unit>::const_iterator unit{spellings<Unit>.find(spelling)};
-  if (unit != spellings<Unit>.cend()) {
+  const typename std::unordered_map<std::string, Unit>::const_iterator unit{PhQ::Unit::spellings<Unit>.find(spelling)};
+  if (unit != PhQ::Unit::spellings<Unit>.cend()) {
     return {unit->second};
   } else {
     return {};
@@ -44,22 +45,32 @@ template <typename Unit> std::optional<Unit> parse(const std::string& spelling) 
 template <typename Unit> double convert(double value, Unit old_unit, Unit new_unit) noexcept {
   if (old_unit != new_unit) {
     std::array<double, 1> values{value};
-    conversions<Unit, 1>.at(old_unit).at(new_unit)(values);
+    PhQ::Unit::conversions<Unit, 1>.find(old_unit)->second.find(new_unit)->second(values);
     return values[0];
   } else {
     return value;
   }
 }
 
+template <typename Unit> double convert(double value, Unit old_unit, System new_system) noexcept {
+  const Unit new_unit{PhQ::unit<Unit>(new_system)};
+  return PhQ::Unit::convert<Unit>(value, old_unit, new_unit);
+}
+
 /// \brief Converts an array of values between units of measure of the same dimension.
 template <typename Unit, size_t size> std::array<double, size> convert(const std::array<double, size>& values, Unit old_unit, Unit new_unit) noexcept {
   if (old_unit != new_unit) {
     std::array<double, size> new_values{values};
-    conversions<Unit, size>.at(old_unit).at(new_unit)(new_values);
+    PhQ::Unit::conversions<Unit, size>.find(old_unit)->second.find(new_unit)->second(new_values);
     return new_values;
   } else {
     return values;
   }
+}
+
+template <typename Unit, size_t size> std::array<double, size> convert(const std::array<double, size>& values, Unit old_unit, System new_system) noexcept {
+  const Unit new_unit{PhQ::unit<Unit>(new_system)};
+  return PhQ::Unit::convert<Unit, size>(values, old_unit, new_unit);
 }
 
 } // namespace Unit

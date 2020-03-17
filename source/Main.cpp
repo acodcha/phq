@@ -1,3 +1,4 @@
+#include "Quantity/Dimensional/Scalar/Length.hpp"
 #include "Quantity/Dimensionless/Scalar/ReynoldsNumber.hpp"
 #include "Value/CartesianVector.hpp"
 #include "Unit/Relation.hpp"
@@ -24,6 +25,12 @@ int main(int argc, char *argv[]) {
   std::cout << re << std::endl;
 
   std::cout << PhQ::System::MetreKilogramSecondKelvin << std::endl;
+
+  PhQ::Length length{10.0, PhQ::Unit::Length::Inch};
+  std::cout << length << std::endl;
+  //std::cout << std::pair{length, PhQ::Unit::Length::Inch} << std::endl;
+  //std::cout << std::pair{length, PhQ::System::InchPoundSecondRankine} << std::endl;
+  std::cout << length.print(PhQ::Unit::Length::Inch) << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << duration.count() << std::endl;

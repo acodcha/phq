@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Unit/Base.hpp"
+#include "../../Unit/Base.hpp"
 #include "../Base.hpp"
 
 namespace PhQ {
@@ -12,15 +12,15 @@ public:
   constexpr DimensionalQuantity() noexcept : Quantity() {}
 
   constexpr Unit unit() const noexcept {
-    return Unit::standard<Unit>;
+    return PhQ::Unit::standard<Unit>;
   }
 
   constexpr Dimension::Set dimension() const noexcept {
-    return Unit::dimension(unit());
+    return PhQ::Unit::dimension<Unit>(unit());
   }
 
   constexpr System system() const noexcept {
-    return standard;
+    return PhQ::standard;
   }
 
   virtual std::string print(System system = system()) const noexcept = 0;
@@ -38,7 +38,13 @@ public:
 };
 
 template <typename Unit> std::ostream& operator<<(std::ostream& stream, const DimensionalQuantity<Unit>& quantity) noexcept {
-  stream << quantity.print();
+  stream << quantity.print(quantity.unit());
+  return stream;
+}
+
+/*
+template <typename Unit> std::ostream& operator<<(std::ostream& stream, std::pair<DimensionalQuantity<Unit>, System>& quantity_and_system) noexcept {
+  stream << quantity_and_system->first.print(quantity_and_system->second);
   return stream;
 }
 
@@ -46,5 +52,6 @@ template <typename Unit> std::ostream& operator<<(std::ostream& stream, std::pai
   stream << quantity_and_unit->first.print(quantity_and_unit->second);
   return stream;
 }
+*/
 
 } // namespace PhQ

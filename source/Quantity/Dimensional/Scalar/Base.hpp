@@ -4,44 +4,44 @@
 
 namespace PhQ {
 
-template <typename Unit> class DimensionalScalarQuantity : public Quantity {
+template <typename Unit> class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
 
 public:
 
-  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity() {}
+  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity(), value_(Unit::convert(value, unit, this->unit())) {}
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(value, unit, this->unit())) {}
 
   constexpr double convert(const System system) const noexcept {
-    return convert(unit(system));
+    return PhQ::Unit::convert(value_, this->unit(), system);
   }
 
   constexpr double convert(const Unit unit) const noexcept {
-    return Unit::convert(value_, this->unit(), unit);
+    return PhQ::Unit::convert(value_, this->unit(), unit);
   }
 
-  std::string print(System system = system()) const noexcept {
-    return real_number_to_string(value_) + " " + abbreviation(unit(system));
+  std::string print(System system) const noexcept {
+    return PhQ::number_to_string(convert(system)) + " " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system));
   }
 
-  std::string print(Unit unit = unit()) const noexcept {
-    return real_number_to_string(value_) + " " + abbreviation(unit);
+  std::string print(Unit unit) const noexcept {
+    return PhQ::number_to_string(convert(unit)) + " " + PhQ::Unit::abbreviation(unit);
   }
 
-  std::string json(System system = system()) const noexcept {
-    return "{ \"value\": " + real_number_to_string(value_) + ", \"unit\": " + abbreviation(unit(system)) + "}";
+  std::string json(System system) const noexcept {
+    return "{ \"value\": " + PhQ::number_to_string(convert(system)) + ", \"unit\": " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "}";
   }
 
-  std::string json(Unit unit = unit()) const noexcept {
-    return "{ \"value\": " + real_number_to_string(value_) + ", \"unit\": " + abbreviation(unit) + "}";
+  std::string json(Unit unit) const noexcept {
+    return "{ \"value\": " + PhQ::number_to_string(convert(unit)) + ", \"unit\": " + PhQ::Unit::abbreviation(unit) + "}";
   }
 
-  std::string json(System system = system()) const noexcept {
-    return "<value>" + real_number_to_string(value_) + "</value><unit>" + abbreviation(unit(system)) + "</unit>";
+  std::string xml(System system) const noexcept {
+    return "<value>" + PhQ::number_to_string(convert(system)) + "</value><unit>" + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
   }
 
-  std::string json(Unit unit = unit()) const noexcept {
-    return "<value>" + real_number_to_string(value_) + "</value><unit>" + abbreviation(unit) + "</unit>";
+  std::string xml(Unit unit) const noexcept {
+    return "<value>" + PhQ::number_to_string(convert(unit)) + "</value><unit>" + PhQ::Unit::abbreviation(unit) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalScalarQuantity<Unit>& other) const noexcept {
@@ -72,7 +72,7 @@ public:
     return {value_ + other.value_};
   }
 
-  void operator+=(const DimensionalScalarQuantity<Unit>& other) const noexcept {
+  void operator+=(const DimensionalScalarQuantity<Unit>& other) noexcept {
     value_ += other.value_;
   }
 
@@ -80,7 +80,7 @@ public:
     return {value_ - other.value_};
   }
 
-  void operator-=(const DimensionalScalarQuantity<Unit>& other) const noexcept {
+  void operator-=(const DimensionalScalarQuantity<Unit>& other) noexcept {
     value_ -= other.value_;
   }
 
@@ -88,7 +88,7 @@ public:
     return {value_ * number};
   }
 
-  void operator*=(double number) const noexcept {
+  void operator*=(double number) noexcept {
     value_ *= number;
   }
 
@@ -100,7 +100,7 @@ public:
     }
   }
 
-  void operator/=(double number) const noexcept {
+  void operator/=(double number) noexcept {
     if (number != 0.0) {
       value_ /= number;
     } else {
@@ -110,7 +110,7 @@ public:
 
 protected:
 
-  constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity(), value_(value) {}
+  constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
 
   double value_;
 
