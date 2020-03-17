@@ -20,80 +20,80 @@ public:
     const Length& length = {},
     const Mass& mass = {},
     const Time& time = {},
-    const ElectricCurrent& electricCurrent = {},
+    const ElectricCurrent& electric_current = {},
     const Temperature& temperature = {},
-    const SubstanceAmount& substanceAmount = {},
-    const LuminousIntensity& luminousIntensity = {})
-  : myLength(length),
-    myMass(mass),
-    myTime(time),
-    myElectricCurrent(electricCurrent),
-    myTemperature(temperature),
-    mySubstanceAmount(substanceAmount),
-    myLuminousIntensity(luminousIntensity) {}
+    const SubstanceAmount& substance_amount = {},
+    const LuminousIntensity& luminous_intensity = {})
+  : length_(length),
+    mass_(mass),
+    time_(time),
+    electric_current_(electric_current),
+    temperature_(temperature),
+    substance_amount_(substance_amount),
+    luminous_intensity_(luminous_intensity) {}
 
   constexpr const Length& length() const noexcept {
-    return myLength;
+    return length_;
   }
 
   constexpr const Mass& mass() const noexcept {
-    return myMass;
+    return mass_;
   }
 
   constexpr const Time& time() const noexcept {
-    return myTime;
+    return time_;
   }
 
-  constexpr const ElectricCurrent& electricCurrent() const noexcept {
-    return myElectricCurrent;
+  constexpr const ElectricCurrent& electric_current() const noexcept {
+    return electric_current_;
   }
 
   constexpr const Temperature& temperature() const noexcept {
-    return myTemperature;
+    return temperature_;
   }
 
-  constexpr const SubstanceAmount& substanceAmount() const noexcept {
-    return mySubstanceAmount;
+  constexpr const SubstanceAmount& substance_amount() const noexcept {
+    return substance_amount_;
   }
 
-  constexpr const LuminousIntensity& luminousIntensity() const noexcept {
-    return myLuminousIntensity;
+  constexpr const LuminousIntensity& luminous_intensity() const noexcept {
+    return luminous_intensity_;
   }
 
-  std::string string() const noexcept {
+  std::string print() const noexcept {
     std::string text;
-    const std::string length{myLength.string()};
-    const std::string mass{myMass.string()};
-    const std::string time{myTime.string()};
-    const std::string electricCurrent{myElectricCurrent.string()};
-    const std::string temperature{myTemperature.string()};
-    const std::string substanceAmount{mySubstanceAmount.string()};
-    const std::string luminousIntensity{myLuminousIntensity.string()};
+    const std::string length{length_.print()};
+    const std::string mass{mass_.print()};
+    const std::string time{time_.print()};
+    const std::string electric_current{electric_current_.print()};
+    const std::string temperature{temperature_.print()};
+    const std::string substance_amount{substance_amount_.print()};
+    const std::string luminous_intensity{luminous_intensity_.print()};
     text.append(length);
-    if (!length.empty() && (!mass.empty() || !time.empty() || !electricCurrent.empty() || !temperature.empty() || !substanceAmount.empty() || !luminousIntensity.empty())) {
+    if (!length.empty() && (!mass.empty() || !time.empty() || !electric_current.empty() || !temperature.empty() || !substance_amount.empty() || !luminous_intensity.empty())) {
       text.append("·");
     }
     text.append(mass);
-    if (!mass.empty() && (!time.empty() || !electricCurrent.empty() || !temperature.empty() || !substanceAmount.empty() || !luminousIntensity.empty())) {
+    if (!mass.empty() && (!time.empty() || !electric_current.empty() || !temperature.empty() || !substance_amount.empty() || !luminous_intensity.empty())) {
       text.append("·");
     }
     text.append(time);
-    if (!time.empty() && (!electricCurrent.empty() || !temperature.empty() || !substanceAmount.empty() || !luminousIntensity.empty())) {
+    if (!time.empty() && (!electric_current.empty() || !temperature.empty() || !substance_amount.empty() || !luminous_intensity.empty())) {
       text.append("·");
     }
-    text.append(electricCurrent);
-    if (!electricCurrent.empty() && (!temperature.empty() || !substanceAmount.empty() || !luminousIntensity.empty())) {
+    text.append(electric_current);
+    if (!electric_current.empty() && (!temperature.empty() || !substance_amount.empty() || !luminous_intensity.empty())) {
       text.append("·");
     }
     text.append(temperature);
-    if (!temperature.empty() && (!substanceAmount.empty() || !luminousIntensity.empty())) {
+    if (!temperature.empty() && (!substance_amount.empty() || !luminous_intensity.empty())) {
       text.append("·");
     }
-    text.append(substanceAmount);
-    if (!substanceAmount.empty() && !luminousIntensity.empty()) {
+    text.append(substance_amount);
+    if (!substance_amount.empty() && !luminous_intensity.empty()) {
       text.append("·");
     }
-    text.append(luminousIntensity);
+    text.append(luminous_intensity);
     if (!text.empty()) {
       return text;
     } else {
@@ -101,35 +101,43 @@ public:
     }
   }
 
+  std::string json() const noexcept {
+    return "{\"" + length_.abbreviation() + "\": " + std::to_string(length_.value()) + ", \"" + mass_.abbreviation() + "\": " + std::to_string(mass_.value()) + ", \"" + time_.abbreviation() + "\": " + std::to_string(time_.value()) + ", \"" + electric_current_.abbreviation() + "\": " + std::to_string(electric_current_.value()) + ", \"" + temperature_.abbreviation() + "\": " + std::to_string(temperature_.value()) + ", \"" + substance_amount_.abbreviation() + "\": " + std::to_string(substance_amount_.value()) + ", \"" + luminous_intensity_.abbreviation() + "\": " + std::to_string(luminous_intensity_.value()) + "}";
+  }
+
+  std::string xml() const noexcept {
+    return "<" + length_.abbreviation() + ">" + std::to_string(length_.value()) + "</" + length_.abbreviation() + "><" + mass_.abbreviation() + ">" + std::to_string(mass_.value()) + "</" + mass_.abbreviation() + "><" + time_.abbreviation() + ">" + std::to_string(time_.value()) + "</" + time_.abbreviation() + "><" + electric_current_.abbreviation() + ">" + std::to_string(electric_current_.value()) + "</" + electric_current_.abbreviation() + "><" + temperature_.abbreviation() + ">" + std::to_string(temperature_.value()) + "</" + temperature_.abbreviation() + "><" + substance_amount_.abbreviation() + ">" + std::to_string(substance_amount_.value()) + "</" + substance_amount_.abbreviation() + "><" + luminous_intensity_.abbreviation() + ">" + std::to_string(luminous_intensity_.value()) + "</" + luminous_intensity_.abbreviation() + ">";
+  }
+
   constexpr bool operator==(const Set& other) const noexcept {
-    return myLength == other.myLength && myMass == other.myMass && myTime == other.myTime && myElectricCurrent == other.myElectricCurrent && myTemperature == other.myTemperature && mySubstanceAmount == other.mySubstanceAmount && myLuminousIntensity == other.myLuminousIntensity;
+    return length_ == other.length_ && mass_ == other.mass_ && time_ == other.time_ && electric_current_ == other.electric_current_ && temperature_ == other.temperature_ && substance_amount_ == other.substance_amount_ && luminous_intensity_ == other.luminous_intensity_;
   }
 
   constexpr bool operator!=(const Set& other) const noexcept {
-    return myLength != other.myLength || myMass != other.myMass || myTime != other.myTime || myElectricCurrent != other.myElectricCurrent || myTemperature != other.myTemperature || mySubstanceAmount != other.mySubstanceAmount || myLuminousIntensity != other.myLuminousIntensity;
+    return length_ != other.length_ || mass_ != other.mass_ || time_ != other.time_ || electric_current_ != other.electric_current_ || temperature_ != other.temperature_ || substance_amount_ != other.substance_amount_ || luminous_intensity_ != other.luminous_intensity_;
   }
 
 private:
 
-  Length myLength;
+  Length length_;
 
-  Mass myMass;
+  Mass mass_;
 
-  Time myTime;
+  Time time_;
 
-  ElectricCurrent myElectricCurrent;
+  ElectricCurrent electric_current_;
 
-  Temperature myTemperature;
+  Temperature temperature_;
 
-  SubstanceAmount mySubstanceAmount;
+  SubstanceAmount substance_amount_;
 
-  LuminousIntensity myLuminousIntensity;
+  LuminousIntensity luminous_intensity_;
 
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const Set& set) {
-  outputStream << set.string();
-  return outputStream;
+std::ostream& operator<<(std::ostream& stream, const Set& set) {
+  stream << set.print();
+  return stream;
 }
 
 } // namespace Dimension

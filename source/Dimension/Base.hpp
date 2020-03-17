@@ -10,59 +10,59 @@ class Base {
 
 public:
 
-  constexpr Base(int_least8_t value = 0) noexcept : myValue(value) {}
+  constexpr Base(int_least8_t value = 0) noexcept : value_(value) {}
 
   constexpr const int_least8_t& value() const noexcept {
-    return myValue;
+    return value_;
   }
 
-  std::string string() const noexcept {
-    if (myValue == 0) {
+  std::string print() const noexcept {
+    if (value_ == 0) {
       return {};
-    } else if (myValue == 1) {
+    } else if (value_ == 1) {
       return abbreviation();
-    } else if (myValue > 0) {
-      return abbreviation() + "^" + std::to_string(myValue);
+    } else if (value_ > 0) {
+      return abbreviation() + "^" + std::to_string(value_);
     } else {
-      return abbreviation() + "^(" + std::to_string(myValue) + ")";
+      return abbreviation() + "^(" + std::to_string(value_) + ")";
     }
   }
 
   virtual std::string abbreviation() const noexcept = 0;
 
   constexpr bool operator==(const Base& other) const noexcept {
-    return myValue == other.myValue;
+    return value_ == other.value_;
   }
 
   constexpr bool operator!=(const Base& other) const noexcept {
-    return myValue != other.myValue;
+    return value_ != other.value_;
   }
 
   constexpr bool operator<(const Base& other) const noexcept {
-    return myValue < other.myValue;
+    return value_ < other.value_;
   }
 
   constexpr bool operator<=(const Base& other) const noexcept {
-    return myValue <= other.myValue;
+    return value_ <= other.value_;
   }
 
   constexpr bool operator>(const Base& other) const noexcept {
-    return myValue > other.myValue;
+    return value_ > other.value_;
   }
 
   constexpr bool operator>=(const Base& other) const noexcept {
-    return myValue >= other.myValue;
+    return value_ >= other.value_;
   }
 
 protected:
 
-  int_least8_t myValue;
+  int_least8_t value_;
 
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const Base& base) noexcept {
-  outputStream << base.string();
-  return outputStream;
+std::ostream& operator<<(std::ostream& stream, const Base& base) noexcept {
+  stream << base.print();
+  return stream;
 }
 
 } // namespace Dimension

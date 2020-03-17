@@ -6,6 +6,11 @@
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 
+  PhQ::Dimension::Set dim{{1}, {-1}, {2}, {-2}, {3}, {-3}, {4}};
+  std::cout << dim << std::endl;
+  std::cout << dim.json() << std::endl;
+  std::cout << dim.xml() << std::endl;
+
   double time{600.0};
   time = PhQ::Unit::convert(time, PhQ::Unit::Time::Second, PhQ::Unit::Time::Hour);
   std::cout << time << std::endl;
