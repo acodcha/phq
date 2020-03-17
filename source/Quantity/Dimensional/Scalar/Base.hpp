@@ -10,14 +10,14 @@ public:
 
   constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity() {}
 
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity(), value_(Unit::convert(value, unit, Unit::standard<Unit>)) {}
-
-  constexpr double convert(const Unit unit) const noexcept {
-    return Unit::convert(value_, this->unit(), unit);
-  }
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity(), value_(Unit::convert(value, unit, this->unit())) {}
 
   constexpr double convert(const System system) const noexcept {
     return convert(unit(system));
+  }
+
+  constexpr double convert(const Unit unit) const noexcept {
+    return Unit::convert(value_, this->unit(), unit);
   }
 
   std::string print(System system = system()) const noexcept {
@@ -69,7 +69,7 @@ public:
   }
 
   DimensionalScalarQuantity<Unit> operator+(const DimensionalScalarQuantity<Unit>& other) const noexcept {
-    return {value_ + other.value_, unit()};
+    return {value_ + other.value_};
   }
 
   void operator+=(const DimensionalScalarQuantity<Unit>& other) const noexcept {
@@ -77,7 +77,7 @@ public:
   }
 
   DimensionalScalarQuantity<Unit> operator-(const DimensionalScalarQuantity<Unit>& other) const noexcept {
-    return {value_ - other.value_, unit()};
+    return {value_ - other.value_};
   }
 
   void operator-=(const DimensionalScalarQuantity<Unit>& other) const noexcept {
@@ -109,6 +109,8 @@ public:
   }
 
 protected:
+
+  constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity(), value_(value) {}
 
   double value_;
 
