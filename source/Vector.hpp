@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Direction.hpp"
+#include "Direction.hpp"
 
 namespace PhQ {
 
@@ -18,6 +18,10 @@ public:
   constexpr CartesianVector(double x, double y, double z) noexcept : xyz_{x, y, z} {}
 
   constexpr CartesianVector(double magnitude, const CartesianDirection& cartesianDirection) : xyz_{magnitude * cartesianDirection.x(), magnitude * cartesianDirection.y(), magnitude * cartesianDirection.z()} {}
+
+  constexpr std::array<double, 3> x_y_z() const noexcept {
+    return xyz_;
+  }
 
   constexpr double x() const noexcept {
     return xyz_[0];

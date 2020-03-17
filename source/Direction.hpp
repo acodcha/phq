@@ -30,6 +30,10 @@ public:
 
   CartesianDirection(const Value::CartesianVector& cartesianVector);
 
+  constexpr std::array<double, 3> x_y_z() const noexcept {
+    return xyz_;
+  }
+
   constexpr double x() const noexcept {
     return xyz_[0];
   }

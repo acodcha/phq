@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CartesianVector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -13,6 +13,10 @@ public:
   SymmetricCartesianDyad() noexcept = default;
 
   constexpr SymmetricCartesianDyad(double xx, double xy, double xz, double yy, double yz, double zz) noexcept : xx_xy_xz_yy_yz_zz_{xx, xy, xz, yy, yz, zz} {}
+
+  constexpr std::array<double, 6> xx_xy_xz_yy_yz_zz() const noexcept {
+    return xx_xy_xz_yy_yz_zz_;
+  }
 
   constexpr double xx() const noexcept {
     return xx_xy_xz_yy_yz_zz_[0];
