@@ -36,8 +36,6 @@ int main(int argc, char *argv[]) {
   PhQ::Length length2{10.0, PhQ::Unit::Length::Centimetre};
   std::cout << length2 << std::endl;
   std::cout << PhQ::Length{length1 - length2} << std::endl;
-  //std::cout << std::pair{length, PhQ::Unit::Length::Inch} << std::endl;
-  //std::cout << std::pair{length, PhQ::System::InchPoundSecondRankine} << std::endl;
 
   PhQ::Position position1{{10.0, 20.0, 30.0}, PhQ::Unit::Length::Inch};
   std::cout << "Position = " <<  position1 << " = " << position1.print(PhQ::Unit::Length::Inch) << ". Magnitude = " << position1.magnitude() << "." << std::endl;

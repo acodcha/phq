@@ -12,6 +12,10 @@ public:
 
   constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(value, unit, this->unit())) {}
 
+  constexpr double value() const noexcept {
+    return value_;
+  }
+
   constexpr double convert(const System system) const noexcept {
     return PhQ::Unit::convert(value_, this->unit(), system);
   }

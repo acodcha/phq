@@ -13,6 +13,10 @@ public:
 
   constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(value, unit, this->unit())) {}
 
+  constexpr PhQ::Value::CartesianVector value() const noexcept {
+    return value_;
+  }
+
   constexpr PhQ::Value::CartesianVector convert(const System system) const noexcept {
     return PhQ::Unit::convert(value_, this->unit(), system);
   }
