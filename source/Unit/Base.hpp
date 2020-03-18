@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../Dimension/Set.hpp"
+#include "../Dyad.hpp"
 #include "../System.hpp"
+#include "../Vector.hpp"
 
 namespace PhQ {
 
@@ -71,6 +73,14 @@ template <typename Unit, size_t size> std::array<double, size> convert(const std
 template <typename Unit, size_t size> std::array<double, size> convert(const std::array<double, size>& values, Unit old_unit, System new_system) noexcept {
   const Unit new_unit{PhQ::unit<Unit>(new_system)};
   return PhQ::Unit::convert<Unit, size>(values, old_unit, new_unit);
+}
+
+template <typename Unit> PhQ::Value::CartesianVector convert(const PhQ::Value::CartesianVector& values, Unit old_unit, Unit new_unit) noexcept {
+  return {PhQ::Unit::convert(values.x_y_z(), old_unit, new_unit)};
+}
+
+template <typename Unit> PhQ::Value::CartesianVector convert(const PhQ::Value::CartesianVector& values, Unit old_unit, System new_system) noexcept {
+  return {PhQ::Unit::convert(values.x_y_z(), old_unit, new_system)};
 }
 
 } // namespace Unit
