@@ -31,11 +31,13 @@ int main(int argc, char *argv[]) {
 
   std::cout << PhQ::System::MetreKilogramSecondKelvin << std::endl;
 
-  PhQ::Length length{10.0, PhQ::Unit::Length::Inch};
-  std::cout << length << std::endl;
+  PhQ::Length length1{10.0, PhQ::Unit::Length::Inch};
+  std::cout << length1 << " = " << length1.print(PhQ::Unit::Length::Inch) << std::endl;
+  PhQ::Length length2{10.0, PhQ::Unit::Length::Centimetre};
+  std::cout << length2 << std::endl;
+  std::cout << PhQ::Length{length1 - length2} << std::endl;
   //std::cout << std::pair{length, PhQ::Unit::Length::Inch} << std::endl;
   //std::cout << std::pair{length, PhQ::System::InchPoundSecondRankine} << std::endl;
-  std::cout << length.print(PhQ::Unit::Length::Inch) << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << duration.count() << std::endl;
