@@ -56,6 +56,10 @@ public:
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
+  std::string name() const noexcept {
+    return "symmetric Cartesian dyad";
+  }
+
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }

@@ -114,4 +114,36 @@ std::vector<std::string> split_by_whitespace(const std::string& text) noexcept {
   return words;
 }
 
+template <class Numerator, class Denominator, class Result> constexpr Result division(const Numerator& numerator, const Denominator& denominator) {
+  if (denominator.value() != 0.0) {
+    return {numerator.value() / denominator.value()};
+  } else {
+    throw std::runtime_error{"Division of " + numerator.print() + " by " + denominator.print() + "."};
+  }
+}
+
+template <class Numerator, class Result> constexpr Result division(const Numerator& numerator, double denominator) {
+  if (denominator != 0.0) {
+    return {numerator.value() / denominator};
+  } else {
+    throw std::runtime_error{"Division of " + numerator.print() + " by 0."};
+  }
+}
+
+template <class Denominator, class Result> constexpr Result division(double numerator, const Denominator& denominator) {
+  if (denominator.value() != 0.0) {
+    return {numerator / denominator.value()};
+  } else {
+    throw std::runtime_error{"Division of " + PhQ::number_to_string(numerator) + " by " + denominator.print() + "."};
+  }
+}
+
+constexpr double division(double numerator, double denominator) {
+  if (denominator != 0.0) {
+    return {numerator / denominator};
+  } else {
+    throw std::runtime_error{"Division of a scalar by a zero scalar."};
+  }
+}
+
 } // namespace PhQ

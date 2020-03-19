@@ -4,12 +4,12 @@
 
 namespace PhQ {
 
-// Forward declaration of PhQ::Value::CartesianVector for PhQ::CartesianDirection.
+// Forward declarations.
 namespace Value {
-
 class CartesianVector;
-
 } // namespace Value
+template <typename Unit> class DimensionalScalarQuantity;
+template <typename Unit> class DimensionalCartesianVectorQuantity;
 
 class CartesianDirection {
 
@@ -39,7 +39,7 @@ public:
     }
   }
 
-  CartesianDirection(const Value::CartesianVector& cartesianVector);
+  CartesianDirection(const Value::CartesianVector& vector);
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;
@@ -57,6 +57,10 @@ public:
     return x_y_z_[2];
   }
 
+  std::string name() const noexcept {
+    return "cartesian direction";
+  }
+
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
   }
@@ -69,19 +73,21 @@ public:
     return "<x>" + PhQ::number_to_string(x_y_z_[0]) + "</x><y>" + PhQ::number_to_string(x_y_z_[1]) + "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
   }
 
-  constexpr bool operator==(const CartesianDirection& other) const noexcept {
-    return x_y_z_[0] == other.x_y_z_[0] && x_y_z_[1] == other.x_y_z_[1] && x_y_z_[2] == other.x_y_z_[2];
+  constexpr bool operator==(const CartesianDirection& direction) const noexcept {
+    return x_y_z_[0] == direction.x_y_z_[0] && x_y_z_[1] == direction.x_y_z_[1] && x_y_z_[2] == direction.x_y_z_[2];
   }
 
-  constexpr bool operator!=(const CartesianDirection& other) const noexcept {
-    return x_y_z_[0] != other.x_y_z_[0] || x_y_z_[1] != other.x_y_z_[1] || x_y_z_[2] != other.x_y_z_[2];
+  constexpr bool operator!=(const CartesianDirection& direction) const noexcept {
+    return x_y_z_[0] != direction.x_y_z_[0] || x_y_z_[1] != direction.x_y_z_[1] || x_y_z_[2] != direction.x_y_z_[2];
   }
 
-  constexpr double dot(const CartesianDirection& other) const noexcept {
-    return x_y_z_[0] * other.x_y_z_[0] + x_y_z_[1] * other.x_y_z_[1] + x_y_z_[2] * other.x_y_z_[2];
+  template <typename Unit> constexpr DimensionalCartesianVectorQuantity<Unit> operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept;
+
+  constexpr double dot(const CartesianDirection& direction) const noexcept {
+    return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] + x_y_z_[2] * direction.x_y_z_[2];
   }
 
-  constexpr double dot(const Value::CartesianVector& other) const noexcept;
+  constexpr double dot(const Value::CartesianVector& vector) const noexcept;
 
 private:
 
@@ -89,9 +95,9 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const CartesianDirection& cartesianDirection) noexcept {
-  outputStream << cartesianDirection.print();
-  return outputStream;
+std::ostream& operator<<(std::ostream& output_stream, const CartesianDirection& direction) noexcept {
+  output_stream << direction.print();
+  return output_stream;
 }
 
 } // namespace PhQ

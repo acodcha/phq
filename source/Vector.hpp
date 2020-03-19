@@ -19,7 +19,7 @@ public:
 
   constexpr CartesianVector(double x, double y, double z) noexcept : x_y_z_{x, y, z} {}
 
-  constexpr CartesianVector(double magnitude, const CartesianDirection& cartesianDirection) : x_y_z_{magnitude * cartesianDirection.x(), magnitude * cartesianDirection.y(), magnitude * cartesianDirection.z()} {}
+  constexpr CartesianVector(double r, const CartesianDirection& d) : x_y_z_{r * d.x(), r * d.y(), r * d.z()} {}
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;
@@ -45,6 +45,10 @@ public:
     return {*this};
   }
 
+  std::string name() const noexcept {
+    return "cartesian vector";
+  }
+
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
   }
@@ -57,75 +61,75 @@ public:
     return "<x>" + PhQ::number_to_string(x_y_z_[0]) + "</x><y>" + PhQ::number_to_string(x_y_z_[1]) + "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
   }
 
-  constexpr double dot(const CartesianDirection& other) const noexcept {
-    return x_y_z_[0] * other.x() + x_y_z_[1] * other.y() + x_y_z_[2] * other.z();
+  constexpr double dot(const CartesianDirection& direction) const noexcept {
+    return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() + x_y_z_[2] * direction.z();
   }
 
-  constexpr double dot(const CartesianVector& other) const noexcept {
-    return x_y_z_[0] * other.x_y_z_[0] + x_y_z_[1] * other.x_y_z_[1] + x_y_z_[2] * other.x_y_z_[2];
+  constexpr double dot(const CartesianVector& vector) const noexcept {
+    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] + x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  constexpr CartesianVector cross(const CartesianDirection& other) const noexcept {
-    return {x_y_z_[1] * other.z() - x_y_z_[2] * other.y(), x_y_z_[2] * other.x() - x_y_z_[0] * other.z(), x_y_z_[0] * other.y() - x_y_z_[1] * other.x()};
+  constexpr CartesianVector cross(const CartesianDirection& direction) const noexcept {
+    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(), x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(), x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
   }
 
-  constexpr CartesianVector cross(const CartesianVector& other) const noexcept {
-    return {x_y_z_[1] * other.x_y_z_[2] - x_y_z_[2] * other.x_y_z_[1], x_y_z_[2] * other.x_y_z_[0] - x_y_z_[0] * other.x_y_z_[2], x_y_z_[0] * other.x_y_z_[1] - x_y_z_[1] * other.x_y_z_[0]};
+  constexpr CartesianVector cross(const CartesianVector& vector) const noexcept {
+    return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2], x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  constexpr bool operator==(const CartesianVector& other) const noexcept {
-    return x_y_z_[0] == other.x_y_z_[0] && x_y_z_[1] == other.x_y_z_[1] && x_y_z_[2] == other.x_y_z_[2];
+  constexpr bool operator==(const CartesianVector& vector) const noexcept {
+    return x_y_z_[0] == vector.x_y_z_[0] && x_y_z_[1] == vector.x_y_z_[1] && x_y_z_[2] == vector.x_y_z_[2];
   }
 
-  constexpr bool operator!=(const CartesianVector& other) const noexcept {
-    return x_y_z_[0] != other.x_y_z_[0] || x_y_z_[1] != other.x_y_z_[1] || x_y_z_[2] != other.x_y_z_[2];
+  constexpr bool operator!=(const CartesianVector& vector) const noexcept {
+    return x_y_z_[0] != vector.x_y_z_[0] || x_y_z_[1] != vector.x_y_z_[1] || x_y_z_[2] != vector.x_y_z_[2];
   }
 
-  constexpr CartesianVector operator+(const CartesianVector& other) const noexcept {
-    return {x_y_z_[0] + other.x_y_z_[0], x_y_z_[1] + other.x_y_z_[1], x_y_z_[2] + other.x_y_z_[2]};
+  constexpr CartesianVector operator+(const CartesianVector& vector) const noexcept {
+    return {x_y_z_[0] + vector.x_y_z_[0], x_y_z_[1] + vector.x_y_z_[1], x_y_z_[2] + vector.x_y_z_[2]};
   }
 
-  constexpr void operator+=(const CartesianVector& other) noexcept {
-    x_y_z_[0] += other.x_y_z_[0];
-    x_y_z_[1] += other.x_y_z_[1];
-    x_y_z_[2] += other.x_y_z_[2];
+  constexpr void operator+=(const CartesianVector& vector) noexcept {
+    x_y_z_[0] += vector.x_y_z_[0];
+    x_y_z_[1] += vector.x_y_z_[1];
+    x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  constexpr CartesianVector operator-(const CartesianVector& other) const noexcept {
-    return {x_y_z_[0] - other.x_y_z_[0], x_y_z_[1] - other.x_y_z_[1], x_y_z_[2] - other.x_y_z_[2]};
+  constexpr CartesianVector operator-(const CartesianVector& vector) const noexcept {
+    return {x_y_z_[0] - vector.x_y_z_[0], x_y_z_[1] - vector.x_y_z_[1], x_y_z_[2] - vector.x_y_z_[2]};
   }
 
-  constexpr void operator-=(const CartesianVector& other) noexcept {
-    x_y_z_[0] -= other.x_y_z_[0];
-    x_y_z_[1] -= other.x_y_z_[1];
-    x_y_z_[2] -= other.x_y_z_[2];
+  constexpr void operator-=(const CartesianVector& vector) noexcept {
+    x_y_z_[0] -= vector.x_y_z_[0];
+    x_y_z_[1] -= vector.x_y_z_[1];
+    x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr CartesianVector operator*(const double& number) const noexcept {
-    return {x_y_z_[0] * number, x_y_z_[1] * number, x_y_z_[2] * number};
+  constexpr CartesianVector operator*(const double& real) const noexcept {
+    return {x_y_z_[0] * real, x_y_z_[1] * real, x_y_z_[2] * real};
   }
 
-  constexpr void operator*=(const double& number) noexcept {
-    x_y_z_[0] *= number;
-    x_y_z_[1] *= number;
-    x_y_z_[2] *= number;
+  constexpr void operator*=(const double& real) noexcept {
+    x_y_z_[0] *= real;
+    x_y_z_[1] *= real;
+    x_y_z_[2] *= real;
   }
 
-  constexpr CartesianVector operator/(const double& number) const {
-    if (number != 0.0) {
-      return {x_y_z_[0] / number, x_y_z_[1] / number, x_y_z_[2] / number};
+  constexpr CartesianVector operator/(const double& real) const {
+    if (real != 0.0) {
+      return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
     } else {
-      throw std::runtime_error{"Scalar division of " + print() + " by zero."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
-  constexpr void operator/=(const double& number) {
-    if (number != 0.0) {
-      x_y_z_[0] /= number;
-      x_y_z_[1] /= number;
-      x_y_z_[2] /= number;
+  constexpr void operator/=(const double& real) {
+    if (real != 0.0) {
+      x_y_z_[0] /= real;
+      x_y_z_[1] /= real;
+      x_y_z_[2] /= real;
     } else {
-      throw std::runtime_error{"Scalar division of " + print() + " by zero."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
@@ -135,21 +139,21 @@ protected:
 
 };
 
-constexpr CartesianVector operator*(double number, const CartesianVector& cartesian_vector) noexcept {
-  return {cartesian_vector * number};
+constexpr CartesianVector operator*(double real, const CartesianVector& vector) noexcept {
+  return {vector * real};
 }
 
-std::ostream& operator<<(std::ostream& stream, const CartesianVector& cartesian_vector) noexcept {
-  stream << cartesian_vector.print();
-  return stream;
+std::ostream& operator<<(std::ostream& output_stream, const CartesianVector& vector) noexcept {
+  output_stream << vector.print();
+  return output_stream;
 }
 
 } // namespace Value
 
-CartesianDirection::CartesianDirection(const Value::CartesianVector& cartesian_vector) : CartesianDirection(cartesian_vector.x(), cartesian_vector.y(), cartesian_vector.z()) {}
+CartesianDirection::CartesianDirection(const Value::CartesianVector& vector) : CartesianDirection(vector.x(), vector.y(), vector.z()) {}
 
-constexpr double CartesianDirection::dot(const Value::CartesianVector& other) const noexcept {
-  return x_y_z_[0] * other.x() + x_y_z_[1] * other.y() + x_y_z_[2] * other.z();
+constexpr double CartesianDirection::dot(const Value::CartesianVector& vector) const noexcept {
+  return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() + x_y_z_[2] * vector.z();
 }
 
 } // namespace PhQ

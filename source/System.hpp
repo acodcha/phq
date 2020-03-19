@@ -137,9 +137,9 @@ std::string abbreviation(System system) noexcept {
   return PhQ::abbreviations.find(system)->second;
 }
 
-std::ostream& operator<<(std::ostream& outputStream, System system) noexcept {
-  outputStream << PhQ::abbreviation(system);
-  return outputStream;
+std::ostream& operator<<(std::ostream& output_stream, System system) noexcept {
+  output_stream << PhQ::abbreviation(system);
+  return output_stream;
 }
 
 /// \brief Obtain a unit system from its spelling.

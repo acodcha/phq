@@ -5,8 +5,10 @@
 
 namespace PhQ {
 
-// Forward declaration of PhQ::Position for PhQ::Length.
+// Forward declarations.
+class Area;
 class Position;
+class Volume;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 
@@ -20,11 +22,19 @@ public:
 
   constexpr Length(const Position& position) noexcept;
 
+  Area operator*(const Length& length) const noexcept;
+
+  Volume operator*(const Area& area) const noexcept;
+
 protected:
 
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
 
+  friend class Area;
+
   friend class Position;
+
+  friend class Volume;
 
 };
 

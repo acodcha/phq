@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../Vector.hpp"
-#include "../Base.hpp"
+#include "../Scalar/Base.hpp"
 
 namespace PhQ {
 
@@ -11,7 +11,9 @@ public:
 
   constexpr DimensionalCartesianVectorQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(value, unit, this->unit())) {}
+  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& vector, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(vector, unit, this->unit())) {}
+
+  constexpr DimensionalCartesianVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const PhQ::CartesianDirection& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
 
   constexpr PhQ::Value::CartesianVector value() const noexcept {
     return value_;
@@ -23,6 +25,10 @@ public:
 
   constexpr PhQ::Value::CartesianVector convert(const Unit unit) const noexcept {
     return PhQ::Unit::convert(value_, this->unit(), unit);
+  }
+
+  constexpr CartesianDirection direction() const {
+    return {*this};
   }
 
   std::string print(System system) const noexcept {
@@ -49,59 +55,61 @@ public:
     return "<value>" + convert(unit).print() + "</value><unit>" + PhQ::Unit::abbreviation(unit) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalCartesianVectorQuantity<Unit>& other) const noexcept {
-    return value_ == other.value_;
+  constexpr bool operator==(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+    return value_ == vector.value_;
   }
 
-  constexpr bool operator!=(const DimensionalCartesianVectorQuantity<Unit>& other) const noexcept {
-    return value_ != other.value_;
+  constexpr bool operator!=(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+    return value_ != vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator+(const DimensionalCartesianVectorQuantity<Unit>& other) const noexcept {
-    return {value_ + other.value_};
+  DimensionalCartesianVectorQuantity<Unit> operator+(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+    return {value_ + vector.value_};
   }
 
-  void operator+=(const DimensionalCartesianVectorQuantity<Unit>& other) noexcept {
-    value_ += other.value_;
+  void operator+=(const DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+    value_ += vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator-(const DimensionalCartesianVectorQuantity<Unit>& other) const noexcept {
-    return {value_ - other.value_};
+  DimensionalCartesianVectorQuantity<Unit> operator-(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+    return {value_ - vector.value_};
   }
 
-  void operator-=(const DimensionalCartesianVectorQuantity<Unit>& other) noexcept {
-    value_ -= other.value_;
+  void operator-=(const DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+    value_ -= vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator*(double number) const noexcept {
-    return {value_ * number};
+  DimensionalCartesianVectorQuantity<Unit> operator*(double real) const noexcept {
+    return {value_ * real};
   }
 
-  void operator*=(double number) noexcept {
-    value_ *= number;
+  void operator*=(double real) noexcept {
+    value_ *= real;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator/(double number) const {
-    if (number != 0.0) {
-      return {value_ / number};
+  DimensionalCartesianVectorQuantity<Unit> operator/(double real) const {
+    return PhQ::division<DimensionalCartesianVectorQuantity<Unit>, DimensionalCartesianVectorQuantity<Unit>>(*this, real);
+  }
+
+  PhQ::Value::CartesianVector operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
+    return PhQ::division<DimensionalCartesianVectorQuantity<Unit>, DimensionalScalarQuantity<Unit>, PhQ::Value::CartesianVector>(*this, scalar);
+  }
+
+  void operator/=(double real) noexcept {
+    if (real != 0.0) {
+      value_ /= real;
     } else {
-      throw std::runtime_error{"Division by zero."};
-    }
-  }
-
-  void operator/=(double number) noexcept {
-    if (number != 0.0) {
-      value_ /= number;
-    } else {
-      throw std::runtime_error{"Division by zero."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
 protected:
 
-  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& vector) noexcept : DimensionalQuantity<Unit>(), value_(vector) {}
 
   PhQ::Value::CartesianVector value_;
+
+  friend class DimensionalScalarQuantity<Unit>;
 
 };
 
