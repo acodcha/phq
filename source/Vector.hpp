@@ -6,9 +6,6 @@ namespace PhQ {
 
 namespace Value {
 
-// Forward declaration of PhQ::Value::SymmetricCartesianDyad for PhQ::Value::CartesianVector.
-class SymmetricCartesianDyad;
-
 class CartesianVector {
 
 public:
