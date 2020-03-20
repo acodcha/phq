@@ -15,11 +15,15 @@ public:
 
   constexpr Area(double value, Unit::Area unit) noexcept : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  Length operator/(const Length& length) const noexcept {
-    return PhQ::division<Area, Length, Length>(*this, length);
-  }
-
   Volume operator*(const Length& length) const noexcept;
+
+  Length operator/(const Length& length) const noexcept {
+    if (length.value_ != 0.0) {
+      return {value_ / length.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print(system()) + " by " + length.print(system()) + "."};
+    }
+  }
 
 protected:
 
@@ -28,8 +32,6 @@ protected:
   friend class Length;
 
   friend class Volume;
-
-  friend constexpr Length PhQ::division<Area, Length, Length>(const Area& numerator, const Length& denominator);
 
 };
 

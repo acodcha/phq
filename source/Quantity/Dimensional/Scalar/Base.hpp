@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../../Direction.hpp"
+#include "../../Dimensionless/Scalar/Base.hpp"
 #include "../Base.hpp"
 
 namespace PhQ {
@@ -52,71 +53,93 @@ public:
     return "<value>" + PhQ::number_to_string(convert(unit)) + "</value><unit>" + PhQ::Unit::abbreviation(unit) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ == dimensional_scalar_quantity.value_;
+  constexpr bool operator==(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ == scalar.value_;
   }
 
-  constexpr bool operator!=(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ != dimensional_scalar_quantity.value_;
+  constexpr bool operator!=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ != scalar.value_;
   }
 
-  constexpr bool operator<(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ < dimensional_scalar_quantity.value_;
+  constexpr bool operator<(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ < scalar.value_;
   }
 
-  constexpr bool operator<=(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ <= dimensional_scalar_quantity.value_;
+  constexpr bool operator<=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ <= scalar.value_;
   }
 
-  constexpr bool operator>(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ > dimensional_scalar_quantity.value_;
+  constexpr bool operator>(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ > scalar.value_;
   }
 
-  constexpr bool operator>=(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return value_ >= dimensional_scalar_quantity.value_;
+  constexpr bool operator>=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return value_ >= scalar.value_;
   }
 
-  DimensionalScalarQuantity<Unit> operator+(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return {value_ + dimensional_scalar_quantity.value_};
+  DimensionalScalarQuantity<Unit> operator+(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return {value_ + scalar.value_};
   }
 
-  void operator+=(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) noexcept {
-    value_ += dimensional_scalar_quantity.value_;
+  void operator+=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
+    value_ += scalar.value_;
   }
 
-  DimensionalScalarQuantity<Unit> operator-(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-    return {value_ - dimensional_scalar_quantity.value_};
+  DimensionalScalarQuantity<Unit> operator-(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+    return {value_ - scalar.value_};
   }
 
-  void operator-=(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) noexcept {
-    value_ -= dimensional_scalar_quantity.value_;
+  void operator-=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
+    value_ -= scalar.value_;
   }
 
-  DimensionalScalarQuantity<Unit> operator*(double number) const noexcept {
-    return {value_ * number};
+  DimensionalScalarQuantity<Unit> operator*(double real) const noexcept {
+    return {value_ * real};
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator*(const CartesianDirection& cartesian_direction) const noexcept {
-    return {*this, cartesian_direction};
+  DimensionalScalarQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ * scalar.value()};
   }
 
-  void operator*=(double number) noexcept {
-    value_ *= number;
+  DimensionalCartesianVectorQuantity<Unit> operator*(const CartesianDirection& cartesian_direction) const noexcept;
+
+  void operator*=(double real) noexcept {
+    value_ *= real;
   }
 
-  DimensionalScalarQuantity<Unit> operator/(double number) const {
-    return PhQ::division<DimensionalScalarQuantity<Unit>, DimensionalScalarQuantity<Unit>>(*this, number);
+  void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ *= scalar.value();
   }
 
-  double operator/(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const {
-    return PhQ::division<DimensionalScalarQuantity<Unit>, DimensionalScalarQuantity<Unit>, double>(*this, dimensional_scalar_quantity);
-  }
-
-  void operator/=(double number) noexcept {
-    if (number != 0.0) {
-      value_ /= number;
+  DimensionalScalarQuantity<Unit> operator/(double real) const {
+    if (real != 0.0) {
+      return {value_ / real};
     } else {
-      throw std::runtime_error{"Division of " + this->print() + " by 0."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
+    }
+  }
+
+  double operator/(const DimensionlessScalarQuantity& scalar) const {
+    if (scalar != 0.0) {
+      return {value_ / scalar.value()};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+    }
+  }
+
+  double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
+    if (scalar != 0.0) {
+      return {value_ / scalar.value()};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+    }
+  }
+
+  void operator/=(double real) noexcept {
+    if (real != 0.0) {
+      value_ /= real;
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
@@ -130,40 +153,40 @@ protected:
 
 };
 
-template <typename Unit> constexpr DimensionalCartesianVectorQuantity<Unit> CartesianDirection::operator*(const DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) const noexcept {
-  return {dimensional_scalar_quantity, *this};
+template <typename Unit> constexpr DimensionalCartesianVectorQuantity<Unit> CartesianDirection::operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+  return {scalar, *this};
 }
 
 } // namespace PhQ
 
 namespace std {
 
-template <typename Unit> double cbrt(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) {
-  return cbrt(dimensional_scalar_quantity.value());
+template <typename Unit> double cbrt(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
+  return cbrt(scalar.value());
 };
 
-template <typename Unit> double exp(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) {
-  return exp(dimensional_scalar_quantity.value());
+template <typename Unit> double exp(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
+  return exp(scalar.value());
 };
 
-template <typename Unit> double log(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) {
-  return log(dimensional_scalar_quantity.value());
+template <typename Unit> double log(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
+  return log(scalar.value());
 };
 
-template <typename Unit> double log10(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) {
-  return log10(dimensional_scalar_quantity.value());
+template <typename Unit> double log10(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
+  return log10(scalar.value());
 };
 
-template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity, int_least64_t exponent) {
-  return pow(dimensional_scalar_quantity.value(), exponent);
+template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& scalar, int_least64_t exponent) {
+  return pow(scalar.value(), exponent);
 };
 
-template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity, double exponent) {
-  return pow(dimensional_scalar_quantity.value(), exponent);
+template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& scalar, double exponent) {
+  return pow(scalar.value(), exponent);
 };
 
-template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>& dimensional_scalar_quantity) {
-  return sqrt(dimensional_scalar_quantity.value());
+template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
+  return sqrt(scalar.value());
 };
 
 } // namespace std

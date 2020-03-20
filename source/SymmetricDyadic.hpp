@@ -189,3 +189,8 @@ std::ostream& operator<<(std::ostream& output_stream, const SymmetricCartesianDy
 } // namespace Value
 
 } // namespace PhQ
+
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricCartesianDyadic& dyadic) noexcept {
+  output_stream << dyadic.print();
+  return output_stream;
+}

@@ -1,5 +1,6 @@
 #include "Quantity/Dimensional/Vector/Position.hpp"
 #include "Quantity/Dimensionless/Scalar/ReynoldsNumber.hpp"
+#include "Quantity/Dimensionless/SymmetricDyadic/Strain.hpp"
 #include "Vector.hpp"
 #include "Unit/Relation.hpp"
 
@@ -39,6 +40,9 @@ int main(int argc, char *argv[]) {
 
   PhQ::Position position1{{10.0, 20.0, 30.0}, PhQ::Unit::Length::Inch};
   std::cout << "Position = " <<  position1 << " = " << position1.print(PhQ::Unit::Length::Inch) << ". Magnitude = " << position1.magnitude() << "." << std::endl;
+
+  PhQ::Strain strain1{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
+  std::cout << strain1 << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << "Runtime: " << duration.count() << " microseconds." << std::endl;

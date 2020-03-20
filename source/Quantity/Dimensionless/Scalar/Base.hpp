@@ -28,91 +28,91 @@ public:
     return PhQ::number_to_string(value_);
   }
 
-  constexpr bool operator==(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ == other.value_;
+  constexpr bool operator==(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ == scalar.value_;
   }
 
-  constexpr bool operator!=(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ != other.value_;
+  constexpr bool operator!=(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ != scalar.value_;
   }
 
-  constexpr bool operator<(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ < other.value_;
+  constexpr bool operator<(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ < scalar.value_;
   }
 
-  constexpr bool operator<=(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ <= other.value_;
+  constexpr bool operator<=(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ <= scalar.value_;
   }
 
-  constexpr bool operator>(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ > other.value_;
+  constexpr bool operator>(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ > scalar.value_;
   }
 
-  constexpr bool operator>=(const DimensionlessScalarQuantity& other) const noexcept {
-    return value_ >= other.value_;
+  constexpr bool operator>=(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ >= scalar.value_;
   }
 
-  DimensionlessScalarQuantity operator+(double number) const noexcept {
-    return {value_ + number};
+  DimensionlessScalarQuantity operator+(double real) const noexcept {
+    return {value_ + real};
   }
 
-  DimensionlessScalarQuantity operator+(const DimensionlessScalarQuantity& other) const noexcept {
-    return {value_ + other.value_};
+  DimensionlessScalarQuantity operator+(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ + scalar.value_};
   }
 
-  void operator+=(double number) noexcept {
-    value_ += number;
+  constexpr void operator+=(double real) noexcept {
+    value_ += real;
   }
 
-  void operator+=(const DimensionlessScalarQuantity& other) noexcept {
-    value_ += other.value_;
+  constexpr void operator+=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ += scalar.value_;
   }
 
-  DimensionlessScalarQuantity operator-(double number) const noexcept {
-    return {value_ - number};
+  DimensionlessScalarQuantity operator-(double real) const noexcept {
+    return {value_ - real};
   }
 
-  DimensionlessScalarQuantity operator-(const DimensionlessScalarQuantity& other) const noexcept {
-    return {value_ - other.value_};
+  DimensionlessScalarQuantity operator-(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ - scalar.value_};
   }
 
-  void operator-=(double number) noexcept {
-    value_ -= number;
+  constexpr void operator-=(double real) noexcept {
+    value_ -= real;
   }
 
-  void operator-=(const DimensionlessScalarQuantity& other) noexcept {
-    value_ -= other.value_;
+  constexpr void operator-=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ -= scalar.value_;
   }
 
-  DimensionlessScalarQuantity operator*(double number) const noexcept {
-    return {value_ * number};
+  constexpr DimensionlessScalarQuantity operator*(double real) const noexcept {
+    return {value_ * real};
   }
 
-  void operator*=(double number) noexcept {
-    value_ *= number;
+  constexpr void operator*=(double real) noexcept {
+    value_ *= real;
   }
 
-  DimensionlessScalarQuantity operator/(double number) const {
-    if (number != 0.0) {
-      return {value_ / number};
+  DimensionlessScalarQuantity operator/(double real) const {
+    if (real != 0.0) {
+      return {value_ / real};
     } else {
-      throw std::runtime_error{"Division by zero."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
-  double operator/(const DimensionlessScalarQuantity& other) const {
-    if (other.value_ != 0.0) {
-      return value_ / other.value_;
+  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const {
+    if (scalar.value_ != 0.0) {
+      return value_ / scalar.value_;
     } else {
-      throw std::runtime_error{"Division by zero."};
+      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
     }
   }
 
-  void operator/=(double number) {
-    if (number != 0.0) {
-      value_ /= number;
+  constexpr void operator/=(double real) {
+    if (real != 0.0) {
+      value_ /= real;
     } else {
-      throw std::runtime_error{"Division by zero."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
@@ -124,34 +124,39 @@ protected:
 
 } // namespace PhQ
 
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
+  output_stream << scalar.print();
+  return output_stream;
+}
+
 namespace std {
 
-double cbrt(const PhQ::DimensionlessScalarQuantity& quantity) {
-  return cbrt(quantity.value());
+double cbrt(const PhQ::DimensionlessScalarQuantity& scalar) {
+  return cbrt(scalar.value());
 };
 
-double exp(const PhQ::DimensionlessScalarQuantity& quantity) {
-  return exp(quantity.value());
+double exp(const PhQ::DimensionlessScalarQuantity& scalar) {
+  return exp(scalar.value());
 };
 
-double log(const PhQ::DimensionlessScalarQuantity& quantity) {
-  return log(quantity.value());
+double log(const PhQ::DimensionlessScalarQuantity& scalar) {
+  return log(scalar.value());
 };
 
-double log10(const PhQ::DimensionlessScalarQuantity& quantity) {
-  return log10(quantity.value());
+double log10(const PhQ::DimensionlessScalarQuantity& scalar) {
+  return log10(scalar.value());
 };
 
-double pow(const PhQ::DimensionlessScalarQuantity& quantity, int_least64_t exponent) {
-  return pow(quantity.value(), exponent);
+double pow(const PhQ::DimensionlessScalarQuantity& scalar, int_least64_t exponent) {
+  return pow(scalar.value(), exponent);
 };
 
-double pow(const PhQ::DimensionlessScalarQuantity& quantity, double exponent) {
-  return pow(quantity.value(), exponent);
+double pow(const PhQ::DimensionlessScalarQuantity& scalar, double exponent) {
+  return pow(scalar.value(), exponent);
 };
 
-double sqrt(const PhQ::DimensionlessScalarQuantity& quantity) {
-  return sqrt(quantity.value());
+double sqrt(const PhQ::DimensionlessScalarQuantity& scalar) {
+  return sqrt(scalar.value());
 };
 
 } // namespace std

@@ -91,9 +91,9 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream& output_stream, const CartesianDirection& direction) noexcept {
+} // namespace PhQ
+
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::CartesianDirection& direction) noexcept {
   output_stream << direction.print();
   return output_stream;
 }
-
-} // namespace PhQ

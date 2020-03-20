@@ -132,11 +132,6 @@ protected:
 
 };
 
-std::ostream& operator<<(std::ostream& output_stream, const CartesianVector& vector) noexcept {
-  output_stream << vector.print();
-  return output_stream;
-}
-
 } // namespace Value
 
 CartesianDirection::CartesianDirection(const Value::CartesianVector& vector) : CartesianDirection(vector.x(), vector.y(), vector.z()) {}
@@ -146,3 +141,8 @@ constexpr double CartesianDirection::dot(const Value::CartesianVector& vector) c
 }
 
 } // namespace PhQ
+
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::CartesianVector& vector) noexcept {
+  output_stream << vector.print();
+  return output_stream;
+}
