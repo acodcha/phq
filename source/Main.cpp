@@ -1,7 +1,6 @@
 #include "Quantity/Dimensional/Vector/Position.hpp"
 #include "Quantity/Dimensionless/Scalar/ReynoldsNumber.hpp"
 #include "Quantity/Dimensionless/SymmetricDyadic/Strain.hpp"
-#include "Vector.hpp"
 #include "Unit/Relation.hpp"
 
 int main(int argc, char *argv[]) {

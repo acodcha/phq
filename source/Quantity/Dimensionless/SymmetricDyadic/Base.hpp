@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../SymmetricDyadic.hpp"
+#include "../../../Value/SymmetricDyadic.hpp"
 #include "../Scalar/Base.hpp"
 #include "../Base.hpp"
 

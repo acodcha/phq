@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Vector.hpp"
+#include "../../../Value/Vector.hpp"
 #include "../Scalar/Base.hpp"
 
 namespace PhQ {

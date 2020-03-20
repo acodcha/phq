@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../Dimension/Set.hpp"
-#include "../SymmetricDyadic.hpp"
 #include "../System.hpp"
-#include "../Vector.hpp"
+#include "../Value/SymmetricDyadic.hpp"
+#include "../Value/Vector.hpp"
 
 namespace PhQ {
 
