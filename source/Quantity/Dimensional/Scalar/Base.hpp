@@ -190,3 +190,8 @@ template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>&
 };
 
 } // namespace std
+
+template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
+  output_stream << scalar.print(PhQ::standard);
+  return output_stream;
+}

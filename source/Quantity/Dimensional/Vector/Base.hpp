@@ -141,8 +141,13 @@ protected:
 
 };
 
-template <typename Unit> DimensionalCartesianVectorQuantity<Unit> DimensionalScalarQuantity<Unit>::operator*(const CartesianDirection& cartesian_direction) const noexcept {
-  return {*this, cartesian_direction};
+template <typename Unit> DimensionalCartesianVectorQuantity<Unit> DimensionalScalarQuantity<Unit>::operator*(const CartesianDirection& direction) const noexcept {
+  return {*this, direction};
 }
 
 } // namespace PhQ
+
+template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+  output_stream << vector.print(PhQ::standard);
+  return output_stream;
+}
