@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Direction.hpp"
+#include "../Quantity/Direction.hpp"
 
 namespace PhQ {
 
