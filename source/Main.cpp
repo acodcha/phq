@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   PhQ::Value::CartesianVector v{-10.0, 40.0, -50.0};
   u += v;
   u *= 2;
-  std::cout << 2.0 * u << std::endl;
+  std::cout << u * 2.0 << std::endl;
 
   PhQ::ReynoldsNumber re{1000.0};
   re *= 10.0;

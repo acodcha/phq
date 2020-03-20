@@ -116,7 +116,7 @@ public:
     if (number != 0.0) {
       value_ /= number;
     } else {
-      throw std::runtime_error{"Division of a " + this->name() + " by a zero scalar."};
+      throw std::runtime_error{"Division of " + this->print() + " by 0."};
     }
   }
 

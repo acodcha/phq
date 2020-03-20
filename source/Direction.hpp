@@ -57,10 +57,6 @@ public:
     return x_y_z_[2];
   }
 
-  std::string name() const noexcept {
-    return "cartesian direction";
-  }
-
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
   }

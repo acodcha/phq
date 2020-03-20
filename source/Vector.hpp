@@ -45,10 +45,6 @@ public:
     return {*this};
   }
 
-  std::string name() const noexcept {
-    return "cartesian vector";
-  }
-
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
   }
@@ -105,17 +101,17 @@ public:
     x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr CartesianVector operator*(const double& real) const noexcept {
+  constexpr CartesianVector operator*(double real) const noexcept {
     return {x_y_z_[0] * real, x_y_z_[1] * real, x_y_z_[2] * real};
   }
 
-  constexpr void operator*=(const double& real) noexcept {
+  constexpr void operator*=(double real) noexcept {
     x_y_z_[0] *= real;
     x_y_z_[1] *= real;
     x_y_z_[2] *= real;
   }
 
-  constexpr CartesianVector operator/(const double& real) const {
+  constexpr CartesianVector operator/(double real) const {
     if (real != 0.0) {
       return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
     } else {
@@ -123,7 +119,7 @@ public:
     }
   }
 
-  constexpr void operator/=(const double& real) {
+  constexpr void operator/=(double real) {
     if (real != 0.0) {
       x_y_z_[0] /= real;
       x_y_z_[1] /= real;
@@ -138,10 +134,6 @@ protected:
   std::array<double, 3> x_y_z_;
 
 };
-
-constexpr CartesianVector operator*(double real, const CartesianVector& vector) noexcept {
-  return {vector * real};
-}
 
 std::ostream& operator<<(std::ostream& output_stream, const CartesianVector& vector) noexcept {
   output_stream << vector.print();
