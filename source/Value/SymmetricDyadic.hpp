@@ -57,7 +57,7 @@ public:
   }
 
   std::string print() const noexcept {
-    return "(" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + ")";
+    return "(" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + "; " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + "; " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
   std::string json() const noexcept {
@@ -66,6 +66,10 @@ public:
 
   std::string xml() const noexcept {
     return "<xx>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + "</yy><yz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + "</yz><zz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
+  }
+
+  constexpr bool is_symmetric() const noexcept {
+    return true;
   }
 
   constexpr double trace() const noexcept {
@@ -180,11 +184,6 @@ protected:
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
 
 };
-
-std::ostream& operator<<(std::ostream& output_stream, const SymmetricCartesianDyadic& dyad) noexcept {
-  output_stream << dyad.print();
-  return output_stream;
-}
 
 } // namespace Value
 
