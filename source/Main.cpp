@@ -1,3 +1,4 @@
+#include "Quantity/Dimensional/Scalar/Time.hpp"
 #include "Quantity/Dimensional/Vector/Position.hpp"
 #include "Quantity/Dimensionless/Scalar/ReynoldsNumber.hpp"
 #include "Quantity/Dimensionless/SymmetricDyadic/Strain.hpp"
@@ -11,13 +12,9 @@ int main(int argc, char *argv[]) {
   std::cout << dim.json() << std::endl;
   std::cout << dim.xml() << std::endl;
 
-  double time{600.0};
-  time = PhQ::Unit::convert(time, PhQ::Unit::Time::Second, PhQ::Unit::Time::Hour);
+  PhQ::Time time{10.0, PhQ::Unit::Time::Minute};
+  time /= 2.0;
   std::cout << time << std::endl;
-
-  std::array<double, 3> times{100.0, 200.0, 300.0};
-  times = PhQ::Unit::convert(times, PhQ::Unit::Time::Second, PhQ::Unit::Time::Hour);
-  std::cout << times[0] << " " << times[1] << " " << times[2] << std::endl;
 
   PhQ::Value::CartesianVector u{10.0, 20.0, 30.0};
   PhQ::Value::CartesianVector v{-10.0, 40.0, -50.0};
@@ -29,7 +26,7 @@ int main(int argc, char *argv[]) {
   re *= 10.0;
   std::cout << re << std::endl;
 
-  std::cout << PhQ::System::MetreKilogramSecondKelvin << std::endl;
+  std::cout << PhQ::abbreviation(PhQ::System::MetreKilogramSecondKelvin) << std::endl;
 
   PhQ::Length length1{10.0, PhQ::Unit::Length::Inch};
   std::cout << length1 << " = " << length1.print(PhQ::Unit::Length::Inch) << std::endl;

@@ -15,42 +15,42 @@ public:
 
   constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(value, unit, this->unit())) {}
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::convert(value, unit, this->unit())) {}
 
   constexpr double value() const noexcept {
     return value_;
   }
 
   constexpr double convert(const System system) const noexcept {
-    return PhQ::Unit::convert(value_, this->unit(), system);
+    return PhQ::convert(value_, this->unit(), system);
   }
 
   constexpr double convert(const Unit unit) const noexcept {
-    return PhQ::Unit::convert(value_, this->unit(), unit);
+    return PhQ::convert(value_, this->unit(), unit);
   }
 
   std::string print(System system) const noexcept {
-    return PhQ::number_to_string(convert(system)) + " " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system));
+    return PhQ::number_to_string(convert(system)) + " " + PhQ::abbreviation(PhQ::unit<Unit>(system));
   }
 
   std::string print(Unit unit) const noexcept {
-    return PhQ::number_to_string(convert(unit)) + " " + PhQ::Unit::abbreviation(unit);
+    return PhQ::number_to_string(convert(unit)) + " " + PhQ::abbreviation(unit);
   }
 
   std::string json(System system) const noexcept {
-    return "{ \"value\": " + PhQ::number_to_string(convert(system)) + ", \"unit\": " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "}";
+    return "{ \"value\": " + PhQ::number_to_string(convert(system)) + ", \"unit\": " + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "}";
   }
 
   std::string json(Unit unit) const noexcept {
-    return "{ \"value\": " + PhQ::number_to_string(convert(unit)) + ", \"unit\": " + PhQ::Unit::abbreviation(unit) + "}";
+    return "{ \"value\": " + PhQ::number_to_string(convert(unit)) + ", \"unit\": " + PhQ::abbreviation(unit) + "}";
   }
 
   std::string xml(System system) const noexcept {
-    return "<value>" + PhQ::number_to_string(convert(system)) + "</value><unit>" + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
+    return "<value>" + PhQ::number_to_string(convert(system)) + "</value><unit>" + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
   }
 
   std::string xml(Unit unit) const noexcept {
-    return "<value>" + PhQ::number_to_string(convert(unit)) + "</value><unit>" + PhQ::Unit::abbreviation(unit) + "</unit>";
+    return "<value>" + PhQ::number_to_string(convert(unit)) + "</value><unit>" + PhQ::abbreviation(unit) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
@@ -115,7 +115,7 @@ public:
     if (real != 0.0) {
       return {value_ / real};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
     }
   }
 
@@ -123,7 +123,7 @@ public:
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
     }
   }
 
@@ -131,15 +131,15 @@ public:
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
     }
   }
 
-  void operator/=(double real) noexcept {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
     }
   }
 
@@ -192,6 +192,6 @@ template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>&
 } // namespace std
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
-  output_stream << scalar.print(PhQ::standard);
+  output_stream << scalar.print(PhQ::standard_system);
   return output_stream;
 }

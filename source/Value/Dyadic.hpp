@@ -204,7 +204,7 @@ protected:
 
 } // namespace PhQ
 
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricCartesianDyadic& dyadic) noexcept {
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::CartesianDyadic& dyadic) noexcept {
   output_stream << dyadic.print();
   return output_stream;
 }

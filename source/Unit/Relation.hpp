@@ -9,111 +9,94 @@
 
 namespace PhQ {
 
-namespace Unit {
-
-template <typename Type, typename RelatedType> const std::map<Type, RelatedType> relations;
-
-template <> const std::map<Length, Area> relations<Length, Area> {
-  {Length::Metre, Area::SquareMetre},
-  {Length::Decimetre, Area::SquareDecimetre},
-  {Length::Centimetre, Area::SquareCentimetre},
-  {Length::Millimetre, Area::SquareMillimetre},
-  {Length::Micrometre, Area::SquareMicrometre},
-  {Length::Kilometre, Area::SquareKilometre},
-  {Length::Mile, Area::SquareMile},
-  {Length::Yard, Area::SquareYard},
-  {Length::Foot, Area::SquareFoot},
-  {Length::Inch, Area::SquareInch},
-  {Length::Milliinch, Area::SquareMilliinch}
+template <> const std::map<Unit::Length, Unit::Area> related_units<Unit::Length, Unit::Area> {
+  {Unit::Length::Metre, Unit::Area::SquareMetre},
+  {Unit::Length::Decimetre, Unit::Area::SquareDecimetre},
+  {Unit::Length::Centimetre, Unit::Area::SquareCentimetre},
+  {Unit::Length::Millimetre, Unit::Area::SquareMillimetre},
+  {Unit::Length::Micrometre, Unit::Area::SquareMicrometre},
+  {Unit::Length::Kilometre, Unit::Area::SquareKilometre},
+  {Unit::Length::Mile, Unit::Area::SquareMile},
+  {Unit::Length::Yard, Unit::Area::SquareYard},
+  {Unit::Length::Foot, Unit::Area::SquareFoot},
+  {Unit::Length::Inch, Unit::Area::SquareInch},
+  {Unit::Length::Milliinch, Unit::Area::SquareMilliinch}
 };
 
-template <> const std::map<Length, Volume> relations<Length, Volume> {
-  {Length::Metre, Volume::CubicMetre},
-  {Length::Decimetre, Volume::CubicDecimetre},
-  {Length::Centimetre, Volume::CubicCentimetre},
-  {Length::Millimetre, Volume::CubicMillimetre},
-  {Length::Micrometre, Volume::CubicMicrometre},
-  {Length::Kilometre, Volume::CubicKilometre},
-  {Length::Mile, Volume::CubicMile},
-  {Length::Yard, Volume::CubicYard},
-  {Length::Foot, Volume::CubicFoot},
-  {Length::Inch, Volume::CubicInch},
-  {Length::Milliinch, Volume::CubicMilliinch}
+template <> const std::map<Unit::Length, Unit::Volume> related_units<Unit::Length, Unit::Volume> {
+  {Unit::Length::Metre, Unit::Volume::CubicMetre},
+  {Unit::Length::Decimetre, Unit::Volume::CubicDecimetre},
+  {Unit::Length::Centimetre, Unit::Volume::CubicCentimetre},
+  {Unit::Length::Millimetre, Unit::Volume::CubicMillimetre},
+  {Unit::Length::Micrometre, Unit::Volume::CubicMicrometre},
+  {Unit::Length::Kilometre, Unit::Volume::CubicKilometre},
+  {Unit::Length::Mile, Unit::Volume::CubicMile},
+  {Unit::Length::Yard, Unit::Volume::CubicYard},
+  {Unit::Length::Foot, Unit::Volume::CubicFoot},
+  {Unit::Length::Inch, Unit::Volume::CubicInch},
+  {Unit::Length::Milliinch, Unit::Volume::CubicMilliinch}
 };
 
-template <> const std::map<Area, Length> relations<Area, Length> {
-  {Area::SquareMetre, Length::Metre},
-  {Area::SquareDecimetre, Length::Decimetre},
-  {Area::SquareCentimetre, Length::Centimetre},
-  {Area::SquareMillimetre, Length::Millimetre},
-  {Area::SquareMicrometre, Length::Micrometre},
-  {Area::SquareKilometre, Length::Kilometre},
-  {Area::SquareMile, Length::Mile},
-  {Area::SquareYard, Length::Yard},
-  {Area::SquareFoot, Length::Foot},
-  {Area::SquareInch, Length::Inch},
-  {Area::SquareMilliinch, Length::Milliinch}
+template <> const std::map<Unit::Area, Unit::Length> related_units<Unit::Area, Unit::Length> {
+  {Unit::Area::SquareMetre, Unit::Length::Metre},
+  {Unit::Area::SquareDecimetre, Unit::Length::Decimetre},
+  {Unit::Area::SquareCentimetre, Unit::Length::Centimetre},
+  {Unit::Area::SquareMillimetre, Unit::Length::Millimetre},
+  {Unit::Area::SquareMicrometre, Unit::Length::Micrometre},
+  {Unit::Area::SquareKilometre, Unit::Length::Kilometre},
+  {Unit::Area::SquareMile, Unit::Length::Mile},
+  {Unit::Area::SquareYard, Unit::Length::Yard},
+  {Unit::Area::SquareFoot, Unit::Length::Foot},
+  {Unit::Area::SquareInch, Unit::Length::Inch},
+  {Unit::Area::SquareMilliinch, Unit::Length::Milliinch}
 };
 
-template <> const std::map<Area, Volume> relations<Area, Volume> {
-  {Area::SquareMetre, Volume::CubicMetre},
-  {Area::SquareDecimetre, Volume::CubicDecimetre},
-  {Area::SquareCentimetre, Volume::CubicCentimetre},
-  {Area::SquareMillimetre, Volume::CubicMillimetre},
-  {Area::SquareMicrometre, Volume::CubicMicrometre},
-  {Area::SquareKilometre, Volume::CubicKilometre},
-  {Area::SquareMile, Volume::CubicMile},
-  {Area::SquareYard, Volume::CubicYard},
-  {Area::SquareFoot, Volume::CubicFoot},
-  {Area::SquareInch, Volume::CubicInch},
-  {Area::SquareMilliinch, Volume::CubicMilliinch}
+template <> const std::map<Unit::Area, Unit::Volume> related_units<Unit::Area, Unit::Volume> {
+  {Unit::Area::SquareMetre, Unit::Volume::CubicMetre},
+  {Unit::Area::SquareDecimetre, Unit::Volume::CubicDecimetre},
+  {Unit::Area::SquareCentimetre, Unit::Volume::CubicCentimetre},
+  {Unit::Area::SquareMillimetre, Unit::Volume::CubicMillimetre},
+  {Unit::Area::SquareMicrometre, Unit::Volume::CubicMicrometre},
+  {Unit::Area::SquareKilometre, Unit::Volume::CubicKilometre},
+  {Unit::Area::SquareMile, Unit::Volume::CubicMile},
+  {Unit::Area::SquareYard, Unit::Volume::CubicYard},
+  {Unit::Area::SquareFoot, Unit::Volume::CubicFoot},
+  {Unit::Area::SquareInch, Unit::Volume::CubicInch},
+  {Unit::Area::SquareMilliinch, Unit::Volume::CubicMilliinch}
 };
 
-template <> const std::map<Volume, Length> relations<Volume, Length> {
-  {Volume::CubicMetre, Length::Metre},
-  {Volume::CubicDecimetre, Length::Decimetre},
-  {Volume::CubicCentimetre, Length::Centimetre},
-  {Volume::CubicMillimetre, Length::Millimetre},
-  {Volume::CubicMicrometre, Length::Micrometre},
-  {Volume::CubicKilometre, Length::Kilometre},
-  {Volume::Litre, Length::Decimetre},
-  {Volume::Millilitre, Length::Centimetre},
-  {Volume::Microlitre, Length::Millimetre},
-  {Volume::CubicMile, Length::Mile},
-  {Volume::CubicYard, Length::Yard},
-  {Volume::CubicFoot, Length::Foot},
-  {Volume::CubicInch, Length::Inch},
-  {Volume::CubicMilliinch, Length::Milliinch}
+template <> const std::map<Unit::Volume, Unit::Length> related_units<Unit::Volume, Unit::Length> {
+  {Unit::Volume::CubicMetre, Unit::Length::Metre},
+  {Unit::Volume::CubicDecimetre, Unit::Length::Decimetre},
+  {Unit::Volume::CubicCentimetre, Unit::Length::Centimetre},
+  {Unit::Volume::CubicMillimetre, Unit::Length::Millimetre},
+  {Unit::Volume::CubicMicrometre, Unit::Length::Micrometre},
+  {Unit::Volume::CubicKilometre, Unit::Length::Kilometre},
+  {Unit::Volume::Litre, Unit::Length::Decimetre},
+  {Unit::Volume::Millilitre, Unit::Length::Centimetre},
+  {Unit::Volume::Microlitre, Unit::Length::Millimetre},
+  {Unit::Volume::CubicMile, Unit::Length::Mile},
+  {Unit::Volume::CubicYard, Unit::Length::Yard},
+  {Unit::Volume::CubicFoot, Unit::Length::Foot},
+  {Unit::Volume::CubicInch, Unit::Length::Inch},
+  {Unit::Volume::CubicMilliinch, Unit::Length::Milliinch}
 };
 
-template <> const std::map<Volume, Area> relations<Volume, Area> {
-  {Volume::CubicMetre, Area::SquareMetre},
-  {Volume::CubicDecimetre, Area::SquareDecimetre},
-  {Volume::CubicCentimetre, Area::SquareCentimetre},
-  {Volume::CubicMillimetre, Area::SquareMillimetre},
-  {Volume::CubicMicrometre, Area::SquareMicrometre},
-  {Volume::CubicKilometre, Area::SquareKilometre},
-  {Volume::Litre, Area::SquareDecimetre},
-  {Volume::Millilitre, Area::SquareCentimetre},
-  {Volume::Microlitre, Area::SquareMillimetre},
-  {Volume::CubicMile, Area::SquareMile},
-  {Volume::CubicYard, Area::SquareYard},
-  {Volume::CubicFoot, Area::SquareFoot},
-  {Volume::CubicInch, Area::SquareInch},
-  {Volume::CubicMilliinch, Area::SquareMilliinch}
+template <> const std::map<Unit::Volume, Unit::Area> related_units<Unit::Volume, Unit::Area> {
+  {Unit::Volume::CubicMetre, Unit::Area::SquareMetre},
+  {Unit::Volume::CubicDecimetre, Unit::Area::SquareDecimetre},
+  {Unit::Volume::CubicCentimetre, Unit::Area::SquareCentimetre},
+  {Unit::Volume::CubicMillimetre, Unit::Area::SquareMillimetre},
+  {Unit::Volume::CubicMicrometre, Unit::Area::SquareMicrometre},
+  {Unit::Volume::CubicKilometre, Unit::Area::SquareKilometre},
+  {Unit::Volume::Litre, Unit::Area::SquareDecimetre},
+  {Unit::Volume::Millilitre, Unit::Area::SquareCentimetre},
+  {Unit::Volume::Microlitre, Unit::Area::SquareMillimetre},
+  {Unit::Volume::CubicMile, Unit::Area::SquareMile},
+  {Unit::Volume::CubicYard, Unit::Area::SquareYard},
+  {Unit::Volume::CubicFoot, Unit::Area::SquareFoot},
+  {Unit::Volume::CubicInch, Unit::Area::SquareInch},
+  {Unit::Volume::CubicMilliinch, Unit::Area::SquareMilliinch}
 };
-
-/// \brief Obtain a related unit of measure of a different type.
-/// \details For example, PhQ::Unit::related_unit<PhQ::Unit::Volume>(PhQ::Unit::Length::Millimetre) returns PhQ::Unit::Volume::CubicMillimetre.
-template <typename Unit, typename RelatedUnit> std::optional<RelatedUnit> relation(Unit unit) noexcept {
-  const typename std::map<Unit, RelatedUnit>::const_iterator related_unit{relations<Unit, RelatedUnit>.find(unit)};
-  if (related_unit != relations<Unit, RelatedUnit>.cend()) {
-    return {related_unit->second};
-  } else {
-    return {};
-  }
-}
-
-} // namespace Unit
 
 } // namespace PhQ

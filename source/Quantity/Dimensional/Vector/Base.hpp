@@ -11,7 +11,7 @@ public:
 
   constexpr DimensionalCartesianVectorQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& vector, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::Unit::convert(vector, unit, this->unit())) {}
+  constexpr DimensionalCartesianVectorQuantity(const PhQ::Value::CartesianVector& vector, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::convert(vector, unit, this->unit())) {}
 
   constexpr DimensionalCartesianVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const PhQ::CartesianDirection& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
 
@@ -20,11 +20,11 @@ public:
   }
 
   PhQ::Value::CartesianVector convert(const System system) const noexcept {
-    return PhQ::Unit::convert(value_, this->unit(), system);
+    return PhQ::convert(value_, this->unit(), system);
   }
 
   PhQ::Value::CartesianVector convert(const Unit unit) const noexcept {
-    return PhQ::Unit::convert(value_, this->unit(), unit);
+    return PhQ::convert(value_, this->unit(), unit);
   }
 
   CartesianDirection direction() const {
@@ -32,27 +32,27 @@ public:
   }
 
   std::string print(System system) const noexcept {
-    return convert(system).print() + " " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system));
+    return convert(system).print() + " " + PhQ::abbreviation(PhQ::unit<Unit>(system));
   }
 
   std::string print(Unit unit) const noexcept {
-    return convert(unit).print() + " " + PhQ::Unit::abbreviation(unit);
+    return convert(unit).print() + " " + PhQ::abbreviation(unit);
   }
 
   std::string json(System system) const noexcept {
-    return "{ \"value\": " + convert(system).print() + ", \"unit\": " + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "}";
+    return "{ \"value\": " + convert(system).print() + ", \"unit\": " + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "}";
   }
 
   std::string json(Unit unit) const noexcept {
-    return "{ \"value\": " + convert(unit).print() + ", \"unit\": " + PhQ::Unit::abbreviation(unit) + "}";
+    return "{ \"value\": " + convert(unit).print() + ", \"unit\": " + PhQ::abbreviation(unit) + "}";
   }
 
   std::string xml(System system) const noexcept {
-    return "<value>" + convert(system).print() + "</value><unit>" + PhQ::Unit::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
+    return "<value>" + convert(system).print() + "</value><unit>" + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
   }
 
   std::string xml(Unit unit) const noexcept {
-    return "<value>" + convert(unit).print() + "</value><unit>" + PhQ::Unit::abbreviation(unit) + "</unit>";
+    return "<value>" + convert(unit).print() + "</value><unit>" + PhQ::abbreviation(unit) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
@@ -95,7 +95,7 @@ public:
     if (real != 0.0) {
       return {value_ / real};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
     }
   }
 
@@ -103,7 +103,7 @@ public:
     if (scalar.value() != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
     }
   }
 
@@ -111,23 +111,23 @@ public:
     if (scalar.value() != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
     }
   }
 
-  constexpr void operator/=(double real) noexcept {
+  constexpr void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
     }
   }
 
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
+  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) {
     if (scalar.value() != 0.0) {
       value_ /= scalar.value();
     } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
+      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
     }
   }
 
@@ -148,6 +148,6 @@ template <typename Unit> DimensionalCartesianVectorQuantity<Unit> DimensionalSca
 } // namespace PhQ
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
-  output_stream << vector.print(PhQ::standard);
+  output_stream << vector.print(PhQ::standard_system);
   return output_stream;
 }

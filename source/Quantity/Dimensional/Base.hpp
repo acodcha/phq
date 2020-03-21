@@ -12,46 +12,30 @@ public:
   constexpr DimensionalQuantity() noexcept : Quantity() {}
 
   constexpr Unit unit() const noexcept {
-    return PhQ::Unit::standard<Unit>;
+    return PhQ::standard_unit<Unit>;
   }
 
   constexpr Dimension::Set dimension() const noexcept {
-    return PhQ::Unit::dimension<Unit>(unit());
+    return PhQ::dimension<Unit>(unit());
   }
 
-  constexpr System system() const noexcept {
-    return PhQ::standard;
-  }
+  virtual std::string print(System system = PhQ::standard_system) const noexcept = 0;
 
-  virtual std::string print(System system = system()) const noexcept = 0;
+  virtual std::string print(Unit unit = PhQ::standard_unit<Unit>) const noexcept = 0;
 
-  virtual std::string print(Unit unit = unit()) const noexcept = 0;
+  virtual std::string json(System system = PhQ::standard_system) const noexcept = 0;
 
-  virtual std::string json(System system = system()) const noexcept = 0;
+  virtual std::string json(Unit unit = PhQ::standard_unit<Unit>) const noexcept = 0;
 
-  virtual std::string json(Unit unit = unit()) const noexcept = 0;
+  virtual std::string xml(System system = PhQ::standard_system) const noexcept = 0;
 
-  virtual std::string xml(System system = system()) const noexcept = 0;
-
-  virtual std::string xml(Unit unit = unit()) const noexcept = 0;
+  virtual std::string xml(Unit unit = PhQ::standard_unit<Unit>) const noexcept = 0;
 
 };
 
 template <typename Unit> std::ostream& operator<<(std::ostream& stream, const DimensionalQuantity<Unit>& quantity) noexcept {
-  stream << quantity.print(quantity.unit());
+  stream << quantity.print(PhQ::standard_unit<Unit>);
   return stream;
 }
-
-/*
-template <typename Unit> std::ostream& operator<<(std::ostream& stream, std::pair<DimensionalQuantity<Unit>, System>& quantity_and_system) noexcept {
-  stream << quantity_and_system->first.print(quantity_and_system->second);
-  return stream;
-}
-
-template <typename Unit> std::ostream& operator<<(std::ostream& stream, std::pair<DimensionalQuantity<Unit>, Unit>& quantity_and_unit) noexcept {
-  stream << quantity_and_unit->first.print(quantity_and_unit->second);
-  return stream;
-}
-*/
 
 } // namespace PhQ

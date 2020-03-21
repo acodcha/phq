@@ -23,27 +23,6 @@ enum class Area : uint_least8_t {
   SquareMicroinch
 };
 
-template <> constexpr const Area standard<Area>{Area::SquareMetre};
-
-template <> constexpr const Dimension::Set dimension<Area>{Dimension::Set{Dimension::Length{2}}};
-
-template <> const std::map<Area, std::string> abbreviations<Area>{
-  {Area::SquareMile, "mi^2"},
-  {Area::SquareKilometre, "km^2"},
-  {Area::Hectare, "ha"},
-  {Area::Acre, "ac"},
-  {Area::SquareYard, "yd^2"},
-  {Area::SquareMetre, "m^2"},
-  {Area::SquareFoot, "ft^2"},
-  {Area::SquareDecimetre, "dm^2"},
-  {Area::SquareInch, "in^2"},
-  {Area::SquareCentimetre, "cm^2"},
-  {Area::SquareMillimetre, "mm^2"},
-  {Area::SquareMilliinch, "thou^2"},
-  {Area::SquareMicrometre, "μm^2"},
-  {Area::SquareMicroinch, "μin^2"}
-};
-
 } // namespace Unit
 
 template <> const std::map<System, Unit::Area> consistent_units<Unit::Area>{
@@ -60,6 +39,27 @@ template <> const std::map<Unit::Area, System> related_systems<Unit::Area>{
   {Unit::Area::SquareMillimetre, System::MillimetreGramSecondKelvin},
   {Unit::Area::SquareFoot, System::FootPoundSecondRankine},
   {Unit::Area::SquareInch, System::InchPoundSecondRankine},
+};
+
+template <> constexpr const Unit::Area standard_unit<Unit::Area>{Unit::Area::SquareMetre};
+
+template <> constexpr const Dimension::Set dimension<Unit::Area>{Dimension::Set{Dimension::Length{2}}};
+
+template <> const std::map<Unit::Area, std::string> abbreviations<Unit::Area>{
+  {Unit::Area::SquareMile, "mi^2"},
+  {Unit::Area::SquareKilometre, "km^2"},
+  {Unit::Area::Hectare, "ha"},
+  {Unit::Area::Acre, "ac"},
+  {Unit::Area::SquareYard, "yd^2"},
+  {Unit::Area::SquareMetre, "m^2"},
+  {Unit::Area::SquareFoot, "ft^2"},
+  {Unit::Area::SquareDecimetre, "dm^2"},
+  {Unit::Area::SquareInch, "in^2"},
+  {Unit::Area::SquareCentimetre, "cm^2"},
+  {Unit::Area::SquareMillimetre, "mm^2"},
+  {Unit::Area::SquareMilliinch, "thou^2"},
+  {Unit::Area::SquareMicrometre, "μm^2"},
+  {Unit::Area::SquareMicroinch, "μin^2"}
 };
 
 } // namespace PhQ

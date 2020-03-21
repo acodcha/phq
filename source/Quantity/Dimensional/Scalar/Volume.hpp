@@ -19,7 +19,7 @@ public:
     if (length.value_ != 0.0) {
       return {value_ / length.value_};
     } else {
-      throw std::runtime_error{"Division of " + print(system()) + " by " + length.print(system()) + "."};
+      throw std::runtime_error{"Division of " + print(PhQ::standard_system) + " by " + length.print(PhQ::standard_system) + "."};
     }
   }
 
@@ -27,7 +27,7 @@ public:
     if (area.value_ != 0.0) {
       return {value_ / area.value_};
     } else {
-      throw std::runtime_error{"Division of " + print(system()) + " by " + area.print(system()) + "."};
+      throw std::runtime_error{"Division of " + print(PhQ::standard_system) + " by " + area.print(PhQ::standard_system) + "."};
     }
   }
 
