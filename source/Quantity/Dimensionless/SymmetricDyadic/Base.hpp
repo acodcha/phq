@@ -14,7 +14,7 @@ public:
 
   constexpr DimensionlessSymmetricCartesianDyadicQuantity(const Value::SymmetricCartesianDyadic& value) noexcept : DimensionlessQuantity(), value_(value) {}
 
-  constexpr Value::SymmetricCartesianDyadic value() const noexcept {
+  constexpr const Value::SymmetricCartesianDyadic& value() const noexcept {
     return value_;
   }
 
@@ -30,44 +30,44 @@ public:
     return value_.xml();
   }
 
-  constexpr bool operator==(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) const noexcept {
-    return value_ == quantity.value_;
+  constexpr bool operator==(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) const noexcept {
+    return value_ == dyadic.value_;
   }
 
-  constexpr bool operator!=(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) const noexcept {
-    return value_ != quantity.value_;
+  constexpr bool operator!=(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) const noexcept {
+    return value_ != dyadic.value_;
   }
 
   DimensionlessSymmetricCartesianDyadicQuantity operator+(const Value::SymmetricCartesianDyadic& value) const noexcept {
     return {value_ + value};
   }
 
-  DimensionlessSymmetricCartesianDyadicQuantity operator+(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) const noexcept {
-    return {value_ + quantity.value_};
+  DimensionlessSymmetricCartesianDyadicQuantity operator+(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) const noexcept {
+    return {value_ + dyadic.value_};
   }
 
   constexpr void operator+=(const Value::SymmetricCartesianDyadic& value) noexcept {
     value_ += value;
   }
 
-  constexpr void operator+=(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) noexcept {
-    value_ += quantity.value_;
+  constexpr void operator+=(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) noexcept {
+    value_ += dyadic.value_;
   }
 
   DimensionlessSymmetricCartesianDyadicQuantity operator-(const Value::SymmetricCartesianDyadic& value) const noexcept {
     return {value_ - value};
   }
 
-  DimensionlessSymmetricCartesianDyadicQuantity operator-(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) const noexcept {
-    return {value_ - quantity.value_};
+  DimensionlessSymmetricCartesianDyadicQuantity operator-(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) const noexcept {
+    return {value_ - dyadic.value_};
   }
 
   constexpr void operator-=(const Value::SymmetricCartesianDyadic& value) noexcept {
     value_ -= value;
   }
 
-  constexpr void operator-=(const DimensionlessSymmetricCartesianDyadicQuantity& quantity) noexcept {
-    value_ -= quantity.value_;
+  constexpr void operator-=(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic) noexcept {
+    value_ -= dyadic.value_;
   }
 
   DimensionlessSymmetricCartesianDyadicQuantity operator*(double real) const noexcept {
@@ -123,5 +123,9 @@ protected:
   Value::SymmetricCartesianDyadic value_;
 
 };
+
+template <> constexpr bool sort(const DimensionlessSymmetricCartesianDyadicQuantity& dyadic1, const DimensionlessSymmetricCartesianDyadicQuantity& dyadic2) noexcept {
+  return sort(dyadic1.value(), dyadic2.value());
+}
 
 } // namespace PhQ

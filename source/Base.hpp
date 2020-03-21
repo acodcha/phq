@@ -49,7 +49,7 @@ template <typename Enumeration> std::optional<Enumeration> parse(const std::stri
   }
 }
 
-template <class Type> class sort {};
+template <class Type> constexpr bool sort(const Type& type1, const Type& type2) noexcept;
 
 std::string number_to_string(double value) noexcept {
   if (value == 0.0) {

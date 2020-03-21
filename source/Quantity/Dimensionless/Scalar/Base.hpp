@@ -122,6 +122,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar1, const DimensionlessScalarQuantity& scalar2) noexcept {
+  return scalar1.value() < scalar2.value();
+}
+
 } // namespace PhQ
 
 namespace std {

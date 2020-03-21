@@ -202,6 +202,58 @@ protected:
 
 } // namespace Value
 
+template <> constexpr bool sort(const Value::CartesianDyadic& dyadic1, const Value::CartesianDyadic& dyadic2) noexcept {
+  if (dyadic1.xx() < dyadic2.xx()) {
+    return true;
+  } else if (dyadic1.xx() > dyadic2.xx()) {
+    return false;
+  } else {
+    if (dyadic1.yy() < dyadic2.yy()) {
+      return true;
+    } else if (dyadic1.yy() > dyadic2.yy()) {
+      return false;
+    } else {
+      if (dyadic1.zz() < dyadic2.zz()) {
+        return true;
+      } else if (dyadic1.zz() > dyadic2.zz()) {
+        return false;
+      } else {
+        if (dyadic1.xy() < dyadic2.xy()) {
+          return true;
+        } else if (dyadic1.xy() > dyadic2.xy()) {
+          return false;
+        } else {
+          if (dyadic1.yx() < dyadic2.yx()) {
+            return true;
+          } else if (dyadic1.yx() > dyadic2.yx()) {
+            return false;
+          } else {
+            if (dyadic1.yz() < dyadic2.yz()) {
+              return true;
+            } else if (dyadic1.yz() > dyadic2.yz()) {
+              return false;
+            } else {
+              if (dyadic1.zy() < dyadic2.zy()) {
+                return true;
+              } else if (dyadic1.zy() > dyadic2.zy()) {
+                return false;
+              } else {
+                if (dyadic1.xz() < dyadic2.xz()) {
+                  return true;
+                } else if (dyadic1.xz() > dyadic2.xz()) {
+                  return false;
+                } else {
+                  return dyadic1.zx() < dyadic2.zx();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 } // namespace PhQ
 
 std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::CartesianDyadic& dyadic) noexcept {

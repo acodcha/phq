@@ -134,6 +134,22 @@ protected:
 
 } // namespace Value
 
+template <> constexpr bool sort(const Value::CartesianVector& vector1, const Value::CartesianVector& vector2) noexcept {
+  if (vector1.x() < vector2.x()) {
+    return true;
+  } else if (vector1.x() > vector2.x()) {
+    return false;
+  } else {
+    if (vector1.y() < vector2.y()) {
+      return true;
+    } else if (vector1.y() > vector2.y()) {
+      return false;
+    } else {
+      return vector1.z() < vector2.z();
+    }
+  }
+}
+
 CartesianDirection::CartesianDirection(const Value::CartesianVector& vector) : CartesianDirection(vector.x(), vector.y(), vector.z()) {}
 
 constexpr double CartesianDirection::dot(const Value::CartesianVector& vector) const noexcept {

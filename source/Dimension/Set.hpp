@@ -137,51 +137,45 @@ private:
 
 } // namespace Dimension
 
-template <> class sort<Dimension::Set> {
-
-public:
-
-  inline constexpr bool operator()(const Dimension::Set& set1, const Dimension::Set& set2) const noexcept {
-    if (set1.length() < set2.length()) {
+template <> constexpr bool sort(const Dimension::Set& set1, const Dimension::Set& set2) noexcept {
+  if (set1.length() < set2.length()) {
+    return true;
+  } else if (set1.length() > set2.length()) {
+    return false;
+  } else {
+    if (set1.mass() < set2.mass()) {
       return true;
-    } else if (set1.length() > set2.length()) {
+    } else if (set1.mass() > set2.mass()) {
       return false;
     } else {
-      if (set1.mass() < set2.mass()) {
+      if (set1.time() < set2.time()) {
         return true;
-      } else if (set1.mass() > set2.mass()) {
+      } else if (set1.time() > set2.time()) {
         return false;
       } else {
-        if (set1.time() < set2.time()) {
+        if (set1.electric_current() < set2.electric_current()) {
           return true;
-        } else if (set1.time() > set2.time()) {
+        } else if (set1.electric_current() > set2.electric_current()) {
           return false;
         } else {
-          if (set1.electric_current() < set2.electric_current()) {
+          if (set1.temperature() < set2.temperature()) {
             return true;
-          } else if (set1.electric_current() > set2.electric_current()) {
+          } else if (set1.temperature() > set2.temperature()) {
             return false;
           } else {
-            if (set1.temperature() < set2.temperature()) {
+            if (set1.substance_amount() < set2.substance_amount()) {
               return true;
-            } else if (set1.temperature() > set2.temperature()) {
+            } else if (set1.substance_amount() > set2.substance_amount()) {
               return false;
             } else {
-              if (set1.substance_amount() < set2.substance_amount()) {
-                return true;
-              } else if (set1.substance_amount() > set2.substance_amount()) {
-                return false;
-              } else {
-                return set1.luminous_intensity() < set2.luminous_intensity();
-              }
+              return set1.luminous_intensity() < set2.luminous_intensity();
             }
           }
         }
       }
     }
   }
-
-};
+}
 
 } // namespace PhQ
 

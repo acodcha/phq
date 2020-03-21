@@ -187,6 +187,40 @@ protected:
 
 } // namespace Value
 
+template <> constexpr bool sort(const Value::SymmetricCartesianDyadic& dyadic1, const Value::SymmetricCartesianDyadic& dyadic2) noexcept {
+  if (dyadic1.xx() < dyadic2.xx()) {
+    return true;
+  } else if (dyadic1.xx() > dyadic2.xx()) {
+    return false;
+  } else {
+    if (dyadic1.yy() < dyadic2.yy()) {
+      return true;
+    } else if (dyadic1.yy() > dyadic2.yy()) {
+      return false;
+    } else {
+      if (dyadic1.zz() < dyadic2.zz()) {
+        return true;
+      } else if (dyadic1.zz() > dyadic2.zz()) {
+        return false;
+      } else {
+        if (dyadic1.xy() < dyadic2.xy()) {
+          return true;
+        } else if (dyadic1.xy() > dyadic2.xy()) {
+          return false;
+        } else {
+          if (dyadic1.yz() < dyadic2.yz()) {
+            return true;
+          } else if (dyadic1.yz() > dyadic2.yz()) {
+            return false;
+          } else {
+            return dyadic1.xz() < dyadic2.xz();
+          }
+        }
+      }
+    }
+  }
+}
+
 } // namespace PhQ
 
 std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricCartesianDyadic& dyadic) noexcept {
