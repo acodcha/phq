@@ -125,8 +125,3 @@ protected:
 };
 
 } // namespace PhQ
-
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionlessSymmetricCartesianDyadicQuantity& dyadic) noexcept {
-  output_stream << dyadic.print();
-  return output_stream;
-}

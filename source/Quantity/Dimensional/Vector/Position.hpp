@@ -13,9 +13,9 @@ public:
 
   constexpr Position(const DimensionalCartesianVectorQuantity<Unit::Length>& quantity) noexcept : DimensionalCartesianVectorQuantity<Unit::Length>(quantity) {}
 
-  constexpr Position(const PhQ::Value::CartesianVector& value, Unit::Length unit) noexcept : DimensionalCartesianVectorQuantity<Unit::Length>(value, unit) {}
+  constexpr Position(const Value::CartesianVector& value, Unit::Length unit) noexcept : DimensionalCartesianVectorQuantity<Unit::Length>(value, unit) {}
 
-  PhQ::Length magnitude() const noexcept {
+  Length magnitude() const noexcept {
     return {value_.magnitude()};
   }
 

@@ -15,42 +15,30 @@ public:
 
   constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(PhQ::convert(value, unit, this->unit())) {}
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   constexpr double value() const noexcept {
     return value_;
   }
 
-  constexpr double convert(const System system) const noexcept {
-    return PhQ::convert(value_, this->unit(), system);
+  constexpr double value(const Unit unit) const noexcept {
+    if (unit == standard_unit<Unit>) {
+      return value_;
+    } else {
+      return convert(value_, standard_unit<Unit>, unit);
+    }
   }
 
-  constexpr double convert(const Unit unit) const noexcept {
-    return PhQ::convert(value_, this->unit(), unit);
+  std::string print(Unit unit = standard_unit<Unit>) const noexcept {
+    return number_to_string(value(unit)) + " " + abbreviation(unit);
   }
 
-  std::string print(System system) const noexcept {
-    return PhQ::number_to_string(convert(system)) + " " + PhQ::abbreviation(PhQ::unit<Unit>(system));
+  std::string json(Unit unit = standard_unit<Unit>) const noexcept {
+    return "{ \"value\": " + number_to_string(value(unit)) + ", \"unit\": " + abbreviation(unit) + "}";
   }
 
-  std::string print(Unit unit) const noexcept {
-    return PhQ::number_to_string(convert(unit)) + " " + PhQ::abbreviation(unit);
-  }
-
-  std::string json(System system) const noexcept {
-    return "{ \"value\": " + PhQ::number_to_string(convert(system)) + ", \"unit\": " + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "}";
-  }
-
-  std::string json(Unit unit) const noexcept {
-    return "{ \"value\": " + PhQ::number_to_string(convert(unit)) + ", \"unit\": " + PhQ::abbreviation(unit) + "}";
-  }
-
-  std::string xml(System system) const noexcept {
-    return "<value>" + PhQ::number_to_string(convert(system)) + "</value><unit>" + PhQ::abbreviation(PhQ::unit<Unit>(system)) + "</unit>";
-  }
-
-  std::string xml(Unit unit) const noexcept {
-    return "<value>" + PhQ::number_to_string(convert(unit)) + "</value><unit>" + PhQ::abbreviation(unit) + "</unit>";
+  std::string xml(Unit unit = standard_unit<Unit>) const noexcept {
+    return "<value>" + number_to_string(value(unit)) + "</value><unit>" + abbreviation(unit) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
@@ -115,7 +103,7 @@ public:
     if (real != 0.0) {
       return {value_ / real};
     } else {
-      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
@@ -123,7 +111,7 @@ public:
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
+      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
     }
   }
 
@@ -131,7 +119,7 @@ public:
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
-      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by " + scalar.print(standard_unit<Unit>) + "."};
+      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
     }
   }
 
@@ -139,7 +127,7 @@ public:
     if (real != 0.0) {
       value_ /= real;
     } else {
-      throw std::runtime_error{"Division of " + print(standard_unit<Unit>) + " by 0."};
+      throw std::runtime_error{"Division of " + print() + " by 0."};
     }
   }
 
@@ -192,6 +180,6 @@ template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>&
 } // namespace std
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
-  output_stream << scalar.print(PhQ::standard_system);
+  output_stream << scalar.print();
   return output_stream;
 }

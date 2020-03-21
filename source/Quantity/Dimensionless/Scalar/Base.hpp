@@ -17,15 +17,15 @@ public:
   }
 
   std::string print() const noexcept {
-    return PhQ::number_to_string(value_);
+    return number_to_string(value_);
   }
 
   std::string json() const noexcept {
-    return PhQ::number_to_string(value_);
+    return number_to_string(value_);
   }
 
   std::string xml() const noexcept {
-    return PhQ::number_to_string(value_);
+    return number_to_string(value_);
   }
 
   constexpr bool operator==(const DimensionlessScalarQuantity& scalar) const noexcept {
@@ -123,11 +123,6 @@ protected:
 };
 
 } // namespace PhQ
-
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
-  output_stream << scalar.print();
-  return output_stream;
-}
 
 namespace std {
 
