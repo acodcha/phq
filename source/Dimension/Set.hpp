@@ -109,12 +109,12 @@ public:
     return "<" + length_.abbreviation() + ">" + std::to_string(length_.value()) + "</" + length_.abbreviation() + "><" + mass_.abbreviation() + ">" + std::to_string(mass_.value()) + "</" + mass_.abbreviation() + "><" + time_.abbreviation() + ">" + std::to_string(time_.value()) + "</" + time_.abbreviation() + "><" + electric_current_.abbreviation() + ">" + std::to_string(electric_current_.value()) + "</" + electric_current_.abbreviation() + "><" + temperature_.abbreviation() + ">" + std::to_string(temperature_.value()) + "</" + temperature_.abbreviation() + "><" + substance_amount_.abbreviation() + ">" + std::to_string(substance_amount_.value()) + "</" + substance_amount_.abbreviation() + "><" + luminous_intensity_.abbreviation() + ">" + std::to_string(luminous_intensity_.value()) + "</" + luminous_intensity_.abbreviation() + ">";
   }
 
-  constexpr bool operator==(const Set& other) const noexcept {
-    return length_ == other.length_ && mass_ == other.mass_ && time_ == other.time_ && electric_current_ == other.electric_current_ && temperature_ == other.temperature_ && substance_amount_ == other.substance_amount_ && luminous_intensity_ == other.luminous_intensity_;
+  constexpr bool operator==(const Set& set) const noexcept {
+    return length_ == set.length_ && mass_ == set.mass_ && time_ == set.time_ && electric_current_ == set.electric_current_ && temperature_ == set.temperature_ && substance_amount_ == set.substance_amount_ && luminous_intensity_ == set.luminous_intensity_;
   }
 
-  constexpr bool operator!=(const Set& other) const noexcept {
-    return length_ != other.length_ || mass_ != other.mass_ || time_ != other.time_ || electric_current_ != other.electric_current_ || temperature_ != other.temperature_ || substance_amount_ != other.substance_amount_ || luminous_intensity_ != other.luminous_intensity_;
+  constexpr bool operator!=(const Set& set) const noexcept {
+    return length_ != set.length_ || mass_ != set.mass_ || time_ != set.time_ || electric_current_ != set.electric_current_ || temperature_ != set.temperature_ || substance_amount_ != set.substance_amount_ || luminous_intensity_ != set.luminous_intensity_;
   }
 
 private:
@@ -135,11 +135,57 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream& stream, const Set& set) {
-  stream << set.print();
-  return stream;
-}
-
 } // namespace Dimension
 
+template <> class sort<Dimension::Set> {
+
+public:
+
+  inline constexpr bool operator()(const Dimension::Set& set1, const Dimension::Set& set2) const noexcept {
+    if (set1.length() < set2.length()) {
+      return true;
+    } else if (set1.length() > set2.length()) {
+      return false;
+    } else {
+      if (set1.mass() < set2.mass()) {
+        return true;
+      } else if (set1.mass() > set2.mass()) {
+        return false;
+      } else {
+        if (set1.time() < set2.time()) {
+          return true;
+        } else if (set1.time() > set2.time()) {
+          return false;
+        } else {
+          if (set1.electric_current() < set2.electric_current()) {
+            return true;
+          } else if (set1.electric_current() > set2.electric_current()) {
+            return false;
+          } else {
+            if (set1.temperature() < set2.temperature()) {
+              return true;
+            } else if (set1.temperature() > set2.temperature()) {
+              return false;
+            } else {
+              if (set1.substance_amount() < set2.substance_amount()) {
+                return true;
+              } else if (set1.substance_amount() > set2.substance_amount()) {
+                return false;
+              } else {
+                return set1.luminous_intensity() < set2.luminous_intensity();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+};
+
 } // namespace PhQ
+
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Dimension::Set& set) {
+  output_stream << set.print();
+  return output_stream;
+}

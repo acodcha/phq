@@ -12,9 +12,11 @@ public:
 
   constexpr Base(int_least8_t value = 0) noexcept : value_(value) {}
 
-  constexpr const int_least8_t& value() const noexcept {
+  constexpr int_least8_t value() const noexcept {
     return value_;
   }
+
+  virtual std::string abbreviation() const noexcept = 0;
 
   std::string print() const noexcept {
     if (value_ == 0) {
@@ -28,30 +30,28 @@ public:
     }
   }
 
-  virtual std::string abbreviation() const noexcept = 0;
-
-  constexpr bool operator==(const Base& other) const noexcept {
-    return value_ == other.value_;
+  constexpr bool operator==(const Base& base) const noexcept {
+    return value_ == base.value_;
   }
 
-  constexpr bool operator!=(const Base& other) const noexcept {
-    return value_ != other.value_;
+  constexpr bool operator!=(const Base& base) const noexcept {
+    return value_ != base.value_;
   }
 
-  constexpr bool operator<(const Base& other) const noexcept {
-    return value_ < other.value_;
+  constexpr bool operator<(const Base& base) const noexcept {
+    return value_ < base.value_;
   }
 
-  constexpr bool operator<=(const Base& other) const noexcept {
-    return value_ <= other.value_;
+  constexpr bool operator<=(const Base& base) const noexcept {
+    return value_ <= base.value_;
   }
 
-  constexpr bool operator>(const Base& other) const noexcept {
-    return value_ > other.value_;
+  constexpr bool operator>(const Base& base) const noexcept {
+    return value_ > base.value_;
   }
 
-  constexpr bool operator>=(const Base& other) const noexcept {
-    return value_ >= other.value_;
+  constexpr bool operator>=(const Base& base) const noexcept {
+    return value_ >= base.value_;
   }
 
 protected:
@@ -60,11 +60,11 @@ protected:
 
 };
 
-std::ostream& operator<<(std::ostream& stream, const Base& base) noexcept {
-  stream << base.print();
-  return stream;
-}
-
 } // namespace Dimension
 
 } // namespace PhQ
+
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Dimension::Base& base) noexcept {
+  output_stream << base.print();
+  return output_stream;
+}

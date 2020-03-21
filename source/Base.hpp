@@ -49,6 +49,8 @@ template <typename Enumeration> std::optional<Enumeration> parse(const std::stri
   }
 }
 
+template <class Type> class sort {};
+
 std::string number_to_string(double value) noexcept {
   if (value == 0.0) {
     return {"0"};
