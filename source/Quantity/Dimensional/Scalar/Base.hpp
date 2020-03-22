@@ -7,7 +7,7 @@
 namespace PhQ {
 
 // Forward declaration.
-template <typename Unit> class DimensionalCartesianVectorQuantity;
+template <typename Unit> class DimensionalVectorQuantity;
 
 template <typename Unit> class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
 
@@ -121,7 +121,7 @@ public:
     return {value_ * scalar.value()};
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator*(const CartesianDirection& cartesian_direction) const noexcept;
+  DimensionalVectorQuantity<Unit> operator*(const Direction& cartesian_direction) const noexcept;
 
   void operator*=(double real) noexcept {
     value_ *= real;
@@ -169,11 +169,11 @@ protected:
 
   double value_;
 
-  friend class DimensionalCartesianVectorQuantity<Unit>;
+  friend class DimensionalVectorQuantity<Unit>;
 
 };
 
-template <typename Unit> constexpr DimensionalCartesianVectorQuantity<Unit> CartesianDirection::operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
+template <typename Unit> constexpr DimensionalVectorQuantity<Unit> Direction::operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
   return {scalar, *this};
 }
 

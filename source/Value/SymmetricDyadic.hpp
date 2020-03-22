@@ -6,15 +6,15 @@ namespace PhQ {
 
 namespace Value {
 
-class SymmetricCartesianDyadic {
+class SymmetricDyadic {
 
 public:
 
-  SymmetricCartesianDyadic() noexcept = default;
+  SymmetricDyadic() noexcept = default;
 
-  constexpr SymmetricCartesianDyadic(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept : xx_xy_xz_yy_yz_zz_{xx_xy_xz_yy_yz_zz} {}
+  constexpr SymmetricDyadic(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept : xx_xy_xz_yy_yz_zz_{xx_xy_xz_yy_yz_zz} {}
 
-  constexpr SymmetricCartesianDyadic(double xx, double xy, double xz, double yy, double yz, double zz) noexcept : xx_xy_xz_yy_yz_zz_{xx, xy, xz, yy, yz, zz} {}
+  constexpr SymmetricDyadic(double xx, double xy, double xz, double yy, double yz, double zz) noexcept : xx_xy_xz_yy_yz_zz_{xx, xy, xz, yy, yz, zz} {}
 
   constexpr std::array<double, 6> xx_xy_xz_yy_yz_zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_;
@@ -80,11 +80,11 @@ public:
     return xx() * (yy() * zz() - yz() * yz()) + xy() * (xz() * yz() - xy() * zz()) + xz() * (xy() * yz() - xz() * yy());
   }
 
-  constexpr SymmetricCartesianDyadic transpose() const noexcept {
+  constexpr SymmetricDyadic transpose() const noexcept {
     return *this;
   }
 
-  constexpr SymmetricCartesianDyadic cofactors() const noexcept {
+  constexpr SymmetricDyadic cofactors() const noexcept {
     const double cofactor_xx{yy() * zz() - yz() * yz()};
     const double cofactor_xy{xz() * yz() - xy() * zz()};
     const double cofactor_xz{xy() * yz() - xz() * yy()};
@@ -94,11 +94,11 @@ public:
     return {cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  constexpr SymmetricCartesianDyadic adjugate() const noexcept {
+  constexpr SymmetricDyadic adjugate() const noexcept {
     return cofactors().transpose();
   }
 
-  constexpr SymmetricCartesianDyadic inverse() const {
+  constexpr SymmetricDyadic inverse() const {
     const double determinant_{determinant()};
     if (determinant_ != 0.0) {
       return adjugate() / determinant_;
@@ -107,23 +107,23 @@ public:
     }
   }
 
-  constexpr CartesianVector dot(const CartesianVector& vector) const noexcept {
+  constexpr Vector dot(const Vector& vector) const noexcept {
     return {xx() * vector.x() + xy() * vector.y() + xz() * vector.z(), yx() * vector.x() + yy() * vector.y() + yz() * vector.z(), zx() * vector.x() + zy() * vector.y() + zz() * vector.z()};
   }
 
-  constexpr bool operator==(const SymmetricCartesianDyadic& dyad) const noexcept {
+  constexpr bool operator==(const SymmetricDyadic& dyad) const noexcept {
     return xx_xy_xz_yy_yz_zz_[0] == dyad.xx_xy_xz_yy_yz_zz_[0] && xx_xy_xz_yy_yz_zz_[1] == dyad.xx_xy_xz_yy_yz_zz_[1] && xx_xy_xz_yy_yz_zz_[2] == dyad.xx_xy_xz_yy_yz_zz_[2] && xx_xy_xz_yy_yz_zz_[3] == dyad.xx_xy_xz_yy_yz_zz_[3] && xx_xy_xz_yy_yz_zz_[4] == dyad.xx_xy_xz_yy_yz_zz_[4] && xx_xy_xz_yy_yz_zz_[5] == dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr bool operator!=(const SymmetricCartesianDyadic& dyad) const noexcept {
+  constexpr bool operator!=(const SymmetricDyadic& dyad) const noexcept {
     return xx_xy_xz_yy_yz_zz_[0] != dyad.xx_xy_xz_yy_yz_zz_[0] || xx_xy_xz_yy_yz_zz_[1] != dyad.xx_xy_xz_yy_yz_zz_[1] || xx_xy_xz_yy_yz_zz_[2] != dyad.xx_xy_xz_yy_yz_zz_[2] || xx_xy_xz_yy_yz_zz_[3] != dyad.xx_xy_xz_yy_yz_zz_[3] || xx_xy_xz_yy_yz_zz_[4] != dyad.xx_xy_xz_yy_yz_zz_[4] || xx_xy_xz_yy_yz_zz_[5] != dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr SymmetricCartesianDyadic operator+(const SymmetricCartesianDyadic& dyad) const noexcept {
+  constexpr SymmetricDyadic operator+(const SymmetricDyadic& dyad) const noexcept {
     return {xx_xy_xz_yy_yz_zz_[0] + dyad.xx_xy_xz_yy_yz_zz_[0], xx_xy_xz_yy_yz_zz_[1] + dyad.xx_xy_xz_yy_yz_zz_[1], xx_xy_xz_yy_yz_zz_[2] + dyad.xx_xy_xz_yy_yz_zz_[2], xx_xy_xz_yy_yz_zz_[3] + dyad.xx_xy_xz_yy_yz_zz_[3], xx_xy_xz_yy_yz_zz_[4] + dyad.xx_xy_xz_yy_yz_zz_[4], xx_xy_xz_yy_yz_zz_[5] + dyad.xx_xy_xz_yy_yz_zz_[5]};
   }
 
-  constexpr void operator+=(const SymmetricCartesianDyadic& dyad) noexcept {
+  constexpr void operator+=(const SymmetricDyadic& dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] += dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] += dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] += dyad.xx_xy_xz_yy_yz_zz_[2];
@@ -132,11 +132,11 @@ public:
     xx_xy_xz_yy_yz_zz_[5] += dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr SymmetricCartesianDyadic operator-(const SymmetricCartesianDyadic& dyad) const noexcept {
+  constexpr SymmetricDyadic operator-(const SymmetricDyadic& dyad) const noexcept {
     return {xx_xy_xz_yy_yz_zz_[0] - dyad.xx_xy_xz_yy_yz_zz_[0], xx_xy_xz_yy_yz_zz_[1] - dyad.xx_xy_xz_yy_yz_zz_[1], xx_xy_xz_yy_yz_zz_[2] - dyad.xx_xy_xz_yy_yz_zz_[2], xx_xy_xz_yy_yz_zz_[3] - dyad.xx_xy_xz_yy_yz_zz_[3], xx_xy_xz_yy_yz_zz_[4] - dyad.xx_xy_xz_yy_yz_zz_[4], xx_xy_xz_yy_yz_zz_[5] - dyad.xx_xy_xz_yy_yz_zz_[5]};
   }
 
-  constexpr void operator-=(const SymmetricCartesianDyadic& dyad) noexcept {
+  constexpr void operator-=(const SymmetricDyadic& dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] -= dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] -= dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] -= dyad.xx_xy_xz_yy_yz_zz_[2];
@@ -145,7 +145,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] -= dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr SymmetricCartesianDyadic operator*(double real) const noexcept {
+  constexpr SymmetricDyadic operator*(double real) const noexcept {
     return {xx_xy_xz_yy_yz_zz_[0] * real, xx_xy_xz_yy_yz_zz_[1] * real, xx_xy_xz_yy_yz_zz_[2] * real, xx_xy_xz_yy_yz_zz_[3] * real, xx_xy_xz_yy_yz_zz_[4] * real, xx_xy_xz_yy_yz_zz_[5] * real};
   }
 
@@ -158,7 +158,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] *= real;
   }
 
-  constexpr SymmetricCartesianDyadic operator/(double real) const {
+  constexpr SymmetricDyadic operator/(double real) const {
     if (real != 0.0) {
       return {xx_xy_xz_yy_yz_zz_[0] / real, xx_xy_xz_yy_yz_zz_[1] / real, xx_xy_xz_yy_yz_zz_[2] / real, xx_xy_xz_yy_yz_zz_[3] / real, xx_xy_xz_yy_yz_zz_[4] / real, xx_xy_xz_yy_yz_zz_[5] / real};
     } else {
@@ -187,7 +187,7 @@ protected:
 
 } // namespace Value
 
-template <> constexpr bool sort(const Value::SymmetricCartesianDyadic& dyadic1, const Value::SymmetricCartesianDyadic& dyadic2) noexcept {
+template <> constexpr bool sort(const Value::SymmetricDyadic& dyadic1, const Value::SymmetricDyadic& dyadic2) noexcept {
   if (dyadic1.xx() < dyadic2.xx()) {
     return true;
   } else if (dyadic1.xx() > dyadic2.xx()) {
@@ -223,7 +223,7 @@ template <> constexpr bool sort(const Value::SymmetricCartesianDyadic& dyadic1, 
 
 } // namespace PhQ
 
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricCartesianDyadic& dyadic) noexcept {
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricDyadic& dyadic) noexcept {
   output_stream << dyadic.print();
   return output_stream;
 }

@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
   time /= 2.0;
   std::cout << time << std::endl;
 
-  PhQ::Value::CartesianVector u{10.0, 20.0, 30.0};
-  PhQ::Value::CartesianVector v{-10.0, 40.0, -50.0};
+  PhQ::Value::Vector u{10.0, 20.0, 30.0};
+  PhQ::Value::Vector v{-10.0, 40.0, -50.0};
   u += v;
   u *= 2;
   std::cout << u * 2.0 << std::endl;

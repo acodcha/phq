@@ -5,15 +5,15 @@
 
 namespace PhQ {
 
-class Position : public DimensionalCartesianVectorQuantity<Unit::Length> {
+class Position : public DimensionalVectorQuantity<Unit::Length> {
 
 public:
 
-  constexpr Position() noexcept : DimensionalCartesianVectorQuantity<Unit::Length>() {}
+  constexpr Position() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
 
-  constexpr Position(const DimensionalCartesianVectorQuantity<Unit::Length>& quantity) noexcept : DimensionalCartesianVectorQuantity<Unit::Length>(quantity) {}
+  constexpr Position(const DimensionalVectorQuantity<Unit::Length>& quantity) noexcept : DimensionalVectorQuantity<Unit::Length>(quantity) {}
 
-  constexpr Position(const Value::CartesianVector& value, Unit::Length unit) noexcept : DimensionalCartesianVectorQuantity<Unit::Length>(value, unit) {}
+  constexpr Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
   Length magnitude() const noexcept {
     return {value_.magnitude()};

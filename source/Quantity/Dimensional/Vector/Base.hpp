@@ -5,21 +5,21 @@
 
 namespace PhQ {
 
-template <typename Unit> class DimensionalCartesianVectorQuantity : public DimensionalQuantity<Unit> {
+template <typename Unit> class DimensionalVectorQuantity : public DimensionalQuantity<Unit> {
 
 public:
 
-  constexpr DimensionalCartesianVectorQuantity() noexcept : DimensionalQuantity<Unit>() {}
+  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalCartesianVectorQuantity(const Value::CartesianVector& vector, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(vector, unit, standard_unit<Unit>)) {}
+  constexpr DimensionalVectorQuantity(const Value::Vector& vector, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(vector, unit, standard_unit<Unit>)) {}
 
-  constexpr DimensionalCartesianVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const CartesianDirection& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
+  constexpr DimensionalVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const Direction& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
 
-  const Value::CartesianVector& value() const noexcept {
+  const Value::Vector& value() const noexcept {
     return value_;
   }
 
-  Value::CartesianVector value(const Unit unit) const noexcept {
+  Value::Vector value(const Unit unit) const noexcept {
     if (unit == standard_unit<Unit>) {
       return value_;
     } else {
@@ -27,7 +27,7 @@ public:
     }
   }
 
-  Value::CartesianVector value(const System system) const noexcept {
+  Value::Vector value(const System system) const noexcept {
     if (system == standard_system) {
       return value_;
     } else {
@@ -35,7 +35,7 @@ public:
     }
   }
 
-  CartesianDirection direction() const {
+  Direction direction() const {
     return {value_};
   }
 
@@ -75,35 +75,35 @@ public:
     return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+  constexpr bool operator==(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
     return value_ == vector.value_;
   }
 
-  constexpr bool operator!=(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+  constexpr bool operator!=(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
     return value_ != vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator+(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+  DimensionalVectorQuantity<Unit> operator+(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
     return {value_ + vector.value_};
   }
 
-  constexpr void operator+=(const DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+  constexpr void operator+=(const DimensionalVectorQuantity<Unit>& vector) noexcept {
     value_ += vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator-(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {
+  DimensionalVectorQuantity<Unit> operator-(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
     return {value_ - vector.value_};
   }
 
-  constexpr void operator-=(const DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+  constexpr void operator-=(const DimensionalVectorQuantity<Unit>& vector) noexcept {
     value_ -= vector.value_;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator*(double real) const noexcept {
+  DimensionalVectorQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  DimensionalVectorQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -111,7 +111,7 @@ public:
     value_ *= real;
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator/(double real) const {
+  DimensionalVectorQuantity<Unit> operator/(double real) const {
     if (real != 0.0) {
       return {value_ / real};
     } else {
@@ -119,7 +119,7 @@ public:
     }
   }
 
-  DimensionalCartesianVectorQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
+  DimensionalVectorQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
     if (scalar.value() != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -127,7 +127,7 @@ public:
     }
   }
 
-  Value::CartesianVector operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
+  Value::Vector operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
     if (scalar.value() != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -153,21 +153,21 @@ public:
 
 protected:
 
-  constexpr DimensionalCartesianVectorQuantity(const Value::CartesianVector& vector) noexcept : DimensionalQuantity<Unit>(), value_(vector) {}
+  constexpr DimensionalVectorQuantity(const Value::Vector& vector) noexcept : DimensionalQuantity<Unit>(), value_(vector) {}
 
-  Value::CartesianVector value_;
+  Value::Vector value_;
 
   friend class DimensionalScalarQuantity<Unit>;
 
 };
 
-template <typename Unit> DimensionalCartesianVectorQuantity<Unit> DimensionalScalarQuantity<Unit>::operator*(const CartesianDirection& direction) const noexcept {
+template <typename Unit> DimensionalVectorQuantity<Unit> DimensionalScalarQuantity<Unit>::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
 } // namespace PhQ
 
-template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalCartesianVectorQuantity<Unit>& vector) noexcept {
+template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalVectorQuantity<Unit>& vector) noexcept {
   output_stream << vector.print();
   return output_stream;
 }

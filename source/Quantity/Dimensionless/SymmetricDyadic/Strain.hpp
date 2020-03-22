@@ -4,13 +4,13 @@
 
 namespace PhQ {
 
-class Strain : public DimensionlessSymmetricCartesianDyadicQuantity {
+class Strain : public DimensionlessSymmetricDyadicQuantity {
 
 public:
 
-  Strain() noexcept : DimensionlessSymmetricCartesianDyadicQuantity() {}
+  Strain() noexcept : DimensionlessSymmetricDyadicQuantity() {}
 
-  constexpr Strain(const Value::SymmetricCartesianDyadic& value) noexcept : DimensionlessSymmetricCartesianDyadicQuantity(value) {}
+  constexpr Strain(const Value::SymmetricDyadic& value) noexcept : DimensionlessSymmetricDyadicQuantity(value) {}
 
 };
 

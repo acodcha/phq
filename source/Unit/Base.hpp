@@ -42,11 +42,11 @@ template <typename Unit, size_t size> std::array<double, size> convert(const std
   return PhQ::convert<Unit, size>(values, old_unit, new_unit);
 }
 
-template <typename Unit> PhQ::Value::CartesianVector convert(const PhQ::Value::CartesianVector& values, Unit old_unit, Unit new_unit) noexcept {
+template <typename Unit> PhQ::Value::Vector convert(const PhQ::Value::Vector& values, Unit old_unit, Unit new_unit) noexcept {
   return {PhQ::convert(values.x_y_z(), old_unit, new_unit)};
 }
 
-template <typename Unit> PhQ::Value::CartesianVector convert(const PhQ::Value::CartesianVector& values, Unit old_unit, System new_system) noexcept {
+template <typename Unit> PhQ::Value::Vector convert(const PhQ::Value::Vector& values, Unit old_unit, System new_system) noexcept {
   return {PhQ::convert(values.x_y_z(), old_unit, new_system)};
 }
 
