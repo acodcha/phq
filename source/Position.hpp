@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Scalar/Length.hpp"
-#include "Base.hpp"
+#include "Length.hpp"
+#include "Quantity/DimensionalVector.hpp"
 
 namespace PhQ {
 

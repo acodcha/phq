@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../../Value/Dyadic.hpp"
-#include "../SymmetricDyadic/Base.hpp"
+#include "../Value/Dyadic.hpp"
+#include "DimensionlessSymmetricDyadic.hpp"
 
 namespace PhQ {
 

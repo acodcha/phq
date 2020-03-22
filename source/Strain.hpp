@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.hpp"
+#include "Quantity/DimensionlessSymmetricDyadic.hpp"
 
 namespace PhQ {
 

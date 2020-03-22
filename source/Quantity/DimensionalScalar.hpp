@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../../Direction.hpp"
-#include "../../Dimensionless/Scalar/Base.hpp"
-#include "../Base.hpp"
+#include "../Direction.hpp"
+#include "Dimensional.hpp"
+#include "DimensionlessScalar.hpp"
 
 namespace PhQ {
 

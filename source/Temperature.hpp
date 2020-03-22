@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../../Unit/Temperature.hpp"
-#include "Base.hpp"
+#include "Quantity/DimensionalScalar.hpp"
+#include "Unit/Temperature.hpp"
 
 namespace PhQ {
 

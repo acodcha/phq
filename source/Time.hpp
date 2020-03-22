@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../../Unit/Time.hpp"
-#include "Base.hpp"
+#include "Quantity/DimensionalScalar.hpp"
+#include "Unit/Time.hpp"
 
 namespace PhQ {
 
