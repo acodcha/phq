@@ -29,16 +29,48 @@ public:
     }
   }
 
-  std::string print(Unit unit = standard_unit<Unit>) const noexcept {
+  constexpr double value(const System system) const noexcept {
+    if (system == standard_system) {
+      return value_;
+    } else {
+      return convert(value_, standard_unit<Unit>, system);
+    }
+  }
+
+  std::string print() const noexcept {
+    return number_to_string(value_) + " " + abbreviation(standard_unit<Unit>);
+  }
+
+  std::string print(Unit unit) const noexcept {
     return number_to_string(value(unit)) + " " + abbreviation(unit);
   }
 
-  std::string json(Unit unit = standard_unit<Unit>) const noexcept {
+  std::string print(System system) const noexcept {
+    return number_to_string(value(system)) + " " + abbreviation(unit<Unit>(system));
+  }
+
+  std::string json() const noexcept {
+    return "{ \"value\": " + number_to_string(value_) + ", \"unit\": " + abbreviation(standard_unit<Unit>) + "}";
+  }
+
+  std::string json(Unit unit) const noexcept {
     return "{ \"value\": " + number_to_string(value(unit)) + ", \"unit\": " + abbreviation(unit) + "}";
   }
 
-  std::string xml(Unit unit = standard_unit<Unit>) const noexcept {
+  std::string json(System system) const noexcept {
+    return "{ \"value\": " + number_to_string(value(system)) + ", \"unit\": " + abbreviation(unit<Unit>(system)) + "}";
+  }
+
+  std::string xml() const noexcept {
+    return "<value>" + number_to_string(value_) + "</value><unit>" + abbreviation(standard_unit<Unit>) + "</unit>";
+  }
+
+  std::string xml(Unit unit) const noexcept {
     return "<value>" + number_to_string(value(unit)) + "</value><unit>" + abbreviation(unit) + "</unit>";
+  }
+
+  std::string xml(System system) const noexcept {
+    return "<value>" + number_to_string(value(system)) + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {

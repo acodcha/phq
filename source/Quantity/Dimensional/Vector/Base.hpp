@@ -15,7 +15,7 @@ public:
 
   constexpr DimensionalCartesianVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const CartesianDirection& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
 
-  Value::CartesianVector value() const noexcept {
+  const Value::CartesianVector& value() const noexcept {
     return value_;
   }
 
@@ -27,20 +27,52 @@ public:
     }
   }
 
-  CartesianDirection direction() const {
-    return {*this};
+  Value::CartesianVector value(const System system) const noexcept {
+    if (system == standard_system) {
+      return value_;
+    } else {
+      return convert(value_, standard_unit<Unit>, system);
+    }
   }
 
-  std::string print(Unit unit = standard_unit<Unit>) const noexcept {
+  CartesianDirection direction() const {
+    return {value_};
+  }
+
+  std::string print() const noexcept {
+    return value_.print() + " " + abbreviation(standard_unit<Unit>);
+  }
+
+  std::string print(Unit unit) const noexcept {
     return value(unit).print() + " " + abbreviation(unit);
   }
 
-  std::string json(Unit unit = standard_unit<Unit>) const noexcept {
+  std::string print(System system) const noexcept {
+    return value(system).print() + " " + abbreviation(unit<Unit>(system));
+  }
+
+  std::string json() const noexcept {
+    return "{ \"value\": " + value_.print() + ", \"unit\": " + abbreviation(standard_unit<Unit>) + "}";
+  }
+
+  std::string json(Unit unit) const noexcept {
     return "{ \"value\": " + value(unit).print() + ", \"unit\": " + abbreviation(unit) + "}";
   }
 
-  std::string xml(Unit unit = standard_unit<Unit>) const noexcept {
+  std::string json(System system) const noexcept {
+    return "{ \"value\": " + value(system).print() + ", \"unit\": " + abbreviation(unit<Unit>(system)) + "}";
+  }
+
+  std::string xml() const noexcept {
+    return "<value>" + value_.print() + "</value><unit>" + abbreviation(standard_unit<Unit>) + "</unit>";
+  }
+
+  std::string xml(Unit unit) const noexcept {
     return "<value>" + value(unit).print() + "</value><unit>" + abbreviation(unit) + "</unit>";
+  }
+
+  std::string xml(System system) const noexcept {
+    return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
   constexpr bool operator==(const DimensionalCartesianVectorQuantity<Unit>& vector) const noexcept {

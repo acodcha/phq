@@ -15,11 +15,23 @@ public:
     return PhQ::dimension<Unit>();
   }
 
-  virtual std::string print(Unit unit = standard_unit<Unit>) const noexcept = 0;
+  virtual std::string print() const noexcept = 0;
 
-  virtual std::string json(Unit unit = standard_unit<Unit>) const noexcept = 0;
+  virtual std::string print(Unit unit) const noexcept = 0;
 
-  virtual std::string xml(Unit unit = standard_unit<Unit>) const noexcept = 0;
+  virtual std::string print(System system) const noexcept = 0;
+
+  virtual std::string json() const noexcept = 0;
+
+  virtual std::string json(Unit unit) const noexcept = 0;
+
+  virtual std::string json(System system) const noexcept = 0;
+
+  virtual std::string xml() const noexcept = 0;
+
+  virtual std::string xml(Unit unit) const noexcept = 0;
+
+  virtual std::string xml(System system) const noexcept = 0;
 
 };
 
