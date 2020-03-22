@@ -10,6 +10,10 @@ public:
 
   constexpr DimensionlessQuantity() noexcept : Quantity() {}
 
+  Dimension::Set dimension() const noexcept {
+    return {};
+  }
+
   virtual std::string print() const noexcept = 0;
 
   virtual std::string json() const noexcept = 0;

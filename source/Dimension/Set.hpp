@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Base/Type.hpp"
 #include "ElectricCurrent.hpp"
 #include "Length.hpp"
 #include "LuminousIntensity.hpp"

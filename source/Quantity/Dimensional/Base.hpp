@@ -11,8 +11,8 @@ public:
 
   constexpr DimensionalQuantity() noexcept : Quantity() {}
 
-  constexpr Dimension::Set dimension() const noexcept {
-    return PhQ::dimension<Unit>();
+  Dimension::Set dimension() const noexcept {
+    return PhQ::dimension<Unit>;
   }
 
   virtual std::string print() const noexcept = 0;

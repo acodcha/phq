@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Base.hpp"
+#include "../Dimension/Set.hpp"
 
 namespace PhQ {
 
@@ -9,6 +9,8 @@ class Quantity {
 public:
 
   constexpr Quantity() noexcept = default;
+
+  virtual Dimension::Set dimension() const noexcept = 0;
 
 };
 

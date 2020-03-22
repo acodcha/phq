@@ -1,55 +1,8 @@
 #pragma once
 
-#include <algorithm>
-#include <array>
-#include <cctype>
-#include <climits>
-#include <chrono>
-#include <cmath>
-#include <cstdlib>
-#include <experimental/filesystem>
-#include <fstream>
-#include <functional>
-#include <iomanip>
-#include <iostream>
-#include <iterator>
-#include <limits>
-#include <map>
-#include <optional>
-#include <random>
-#include <set>
-#include <sstream>
-#include <stdexcept>
-#include <string>
-#include <thread>
-#include <unordered_map>
-#include <vector>
-
-// Define M_PI if it has not been defined by the compiler.
-#ifndef M_PI
-  #define M_PI (3.14159265358979323846)
-#endif
+#include "Include.hpp"
 
 namespace PhQ {
-
-template <typename Enumeration> const std::map<Enumeration, std::string> abbreviations;
-
-template <typename Enumeration> std::string abbreviation(Enumeration enumeration) noexcept {
-  return abbreviations<Enumeration>.find(enumeration)->second;
-}
-
-template <typename Enumeration> const std::unordered_map<std::string, Enumeration> spellings;
-
-template <typename Enumeration> std::optional<Enumeration> parse(const std::string& spelling) noexcept {
-  const typename std::unordered_map<std::string, Enumeration>::const_iterator enumeration{spellings<Enumeration>.find(spelling)};
-  if (enumeration != spellings<Enumeration>.cend()) {
-    return {enumeration->second};
-  } else {
-    return {};
-  }
-}
-
-template <class Type> constexpr bool sort(const Type& type1, const Type& type2) noexcept;
 
 std::string number_to_string(double value) noexcept {
   if (value == 0.0) {

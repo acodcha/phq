@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Base.hpp"
+#include "../Base/String.hpp"
+#include "../Base/Type.hpp"
 
 namespace PhQ {
 
@@ -90,6 +91,22 @@ private:
   std::array<double, 3> x_y_z_;
 
 };
+
+template <> constexpr bool sort(const Direction& direction1, const Direction& direction2) noexcept {
+  if (direction1.x() < direction2.x()) {
+    return true;
+  } else if (direction1.x() > direction2.x()) {
+    return false;
+  } else {
+    if (direction1.y() < direction2.y()) {
+      return true;
+    } else if (direction1.y() > direction2.y()) {
+      return false;
+    } else {
+      return direction1.z() < direction2.z();
+    }
+  }
+}
 
 } // namespace PhQ
 
