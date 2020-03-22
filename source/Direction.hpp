@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Base/String.hpp"
-#include "../Base/Type.hpp"
+#include "Base/String.hpp"
+#include "Base/Type.hpp"
 
 namespace PhQ {
 

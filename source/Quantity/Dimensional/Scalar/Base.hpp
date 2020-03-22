@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Direction.hpp"
+#include "../../../Direction.hpp"
 #include "../../Dimensionless/Scalar/Base.hpp"
 #include "../Base.hpp"
 
