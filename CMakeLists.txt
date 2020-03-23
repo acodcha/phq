@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=x86-64 -ffast-math -O3 -Wall -Wno
 
 project(PhysicalQuantities CXX)
 
-file(GLOB_RECURSE source_files source/*.cpp)
+file(GLOB_RECURSE source_files test/*.cpp)
 
 add_executable(physicalQuantities ${source_files})
 target_link_libraries(physicalQuantities)
