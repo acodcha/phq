@@ -1,4 +1,6 @@
 .vscode/*
 build/linux/files/*
 build/linux/physicalQuantities
+doc/html/*
+doc/latex/*
 
