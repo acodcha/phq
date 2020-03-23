@@ -15,7 +15,7 @@ public:
 
   constexpr Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  Length magnitude() const noexcept {
+  constexpr Length magnitude() const noexcept {
     return {value_.magnitude()};
   }
 
@@ -23,6 +23,6 @@ public:
 
 };
 
-constexpr Length::Length(const Position& position) noexcept : Length(position.value_.magnitude()) {}
+constexpr Length::Length(const Position& position) noexcept : Length(position.magnitude()) {}
 
 } // namespace PhQ
