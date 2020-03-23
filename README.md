@@ -7,7 +7,9 @@ Library of physical quantities, units of measure, and related concepts for scien
 - **Doxygen (Optional):** Doxygen can optionally be used to generate HTML and/or LaTeX documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive-full`.
 
 ## Compilation
-This is a header-only library, so no compilation is needed; simply include the headers you need in your project.
+This is a header-only library, so no compilation is needed to use the library; simply include the headers you need in your project.
+
+Unit tests can be built with `./build/linux/compile.sh`.
 
 ## License
 This work is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the [LICENSE](LICENSE) file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
