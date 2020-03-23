@@ -17,7 +17,7 @@ public:
 
   Volume operator*(const Length& length) const noexcept;
 
-  Length operator/(const Length& length) const noexcept {
+  Length operator/(const Length& length) const {
     if (length.value_ != 0.0) {
       return {value_ / length.value_};
     } else {

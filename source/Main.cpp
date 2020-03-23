@@ -1,3 +1,4 @@
+#include "Angle.hpp"
 #include "DisplacementGradient.hpp"
 #include "Mass.hpp"
 #include "Position.hpp"
@@ -5,6 +6,8 @@
 #include "Strain.hpp"
 #include "Stress.hpp"
 #include "Time.hpp"
+#include "Temperature.hpp"
+#include "Volume.hpp"
 
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};

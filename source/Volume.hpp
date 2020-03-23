@@ -15,7 +15,7 @@ public:
 
   constexpr Volume(double value, Unit::Volume unit) noexcept : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
-  Area operator/(const Length& length) const noexcept {
+  Area operator/(const Length& length) const {
     if (length.value_ != 0.0) {
       return {value_ / length.value_};
     } else {
@@ -23,7 +23,7 @@ public:
     }
   }
 
-  Length operator/(const Area& area) const noexcept {
+  Length operator/(const Area& area) const {
     if (area.value_ != 0.0) {
       return {value_ / area.value_};
     } else {

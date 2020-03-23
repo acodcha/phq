@@ -9,8 +9,8 @@ namespace Unit {
 enum class Area : uint_least8_t {
   SquareMile,
   SquareKilometre,
-  Hectare,
-  Acre,
+//  Hectare,
+//  Acre,
   SquareYard,
   SquareMetre,
   SquareFoot,
@@ -28,8 +28,8 @@ enum class Area : uint_least8_t {
 template <> const std::map<Unit::Area, std::string> abbreviations<Unit::Area>{
   {Unit::Area::SquareMile, "mi^2"},
   {Unit::Area::SquareKilometre, "km^2"},
-  {Unit::Area::Hectare, "ha"},
-  {Unit::Area::Acre, "ac"},
+//  {Unit::Area::Hectare, "ha"},
+//  {Unit::Area::Acre, "ac"},
   {Unit::Area::SquareYard, "yd^2"},
   {Unit::Area::SquareMetre, "m^2"},
   {Unit::Area::SquareFoot, "ft^2"},
@@ -47,8 +47,8 @@ template <> const std::unordered_map<std::string, Unit::Area> spellings<Unit::Ar
   {"mi2", Unit::Area::SquareMile},
   {"km^2", Unit::Area::SquareKilometre},
   {"km2", Unit::Area::SquareKilometre},
-  {"ha", Unit::Area::Hectare},
-  {"ac", Unit::Area::Acre},
+//  {"ha", Unit::Area::Hectare},
+//  {"ac", Unit::Area::Acre},
   {"yd^2", Unit::Area::SquareYard},
   {"yd2", Unit::Area::SquareYard},
   {"m^2", Unit::Area::SquareMetre},
@@ -123,6 +123,283 @@ template <> const std::map<Unit::Area, Unit::Length> related_units<Unit::Area, U
   {Unit::Area::SquareMilliinch, Unit::Length::Milliinch}
 };
 
-// TODO: Area conversions.
+template <size_t size> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(std::array<double, size>&)>>> conversions<Unit::Area, size>{
+  {Unit::Area::SquareMile, {
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1.609344, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1760.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1609.344, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(5280.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(16093.44, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(63360.0, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(160934.4, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1609344.0, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(63360000.0, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1609344000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(63360000000.0, 2);});}}}},
+  {Unit::Area::SquareKilometre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(1.609344, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0009144, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000.0, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0003048, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(10000.0, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000254, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(100000.0, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000000.0, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000000254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000000000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000000000254, 2);});}}}},
+  {Unit::Area::SquareYard, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(1760.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0009144, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.9144, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(3.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(9.144, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(36.0, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(91.44, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(914.4, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(36000.0, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(914400.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(36000000.0, 2);});}}}},
+  {Unit::Area::SquareMetre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(1609.344, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.001, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.9144, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.3048, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(10.0, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0254, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(100.0, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000.0, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000000254, 2);});}}}},
+  {Unit::Area::SquareFoot, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(5280.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0003048, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(3.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.3048, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(3.048, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(12.0, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(30.48, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(304.8, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(12000.0, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(304800.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(12000000.0, 2);});}}}},
+  {Unit::Area::SquareDecimetre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(16093.44, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0001, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(9.144, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.1, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(3.048, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.254, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(10.0, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(100.0, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.000254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(100000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.000000254, 2);});}}}},
+  {Unit::Area::SquareInch, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(63360.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000254, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(36.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0254, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(12.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.254, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(2.54, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(25.4, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000.0, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(25400.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000000.0, 2);});}}}},
+  {Unit::Area::SquareCentimetre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(160934.4, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.00001, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(91.44, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.01, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(30.48, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.1, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(2.54, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(10.0, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.00254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(10000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.00000254, 2);});}}}},
+  {Unit::Area::SquareMillimetre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(1609344.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000001, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(914.4, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.001, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(304.8, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.01, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(25.4, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.1, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000.0, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0000254, 2);});}}}},
+  {Unit::Area::SquareMilliinch, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(63360000.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000000254, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(36000.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000254, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(12000.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000254, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.001, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.00254, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0254, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(25.4, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(1000.0, 2);});}}}},
+  {Unit::Area::SquareMicrometre, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(1609344000.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000000001, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(914400.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000001, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(304800.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.00001, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(25400.0, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0001, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.001, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(25.4, 2);});}},
+    {Unit::Area::SquareMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(0.0254, 2);});}}}},
+  {Unit::Area::SquareMicroinch, {
+    {Unit::Area::SquareMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(63360000000.0, 2);});}},
+    {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000000000254, 2);});}},
+    {Unit::Area::SquareYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(36000000.0, 2);});}},
+    {Unit::Area::SquareMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000000254, 2);});}},
+    {Unit::Area::SquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value /= std::pow(12000000.0, 2);});}},
+    {Unit::Area::SquareDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000000254, 2);});}},
+    {Unit::Area::SquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.000001, 2);});}},
+    {Unit::Area::SquareCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.00000254, 2);});}},
+    {Unit::Area::SquareMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0000254, 2);});}},
+    {Unit::Area::SquareMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.001, 2);});}},
+    {Unit::Area::SquareMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
+      value *= std::pow(0.0254, 2);});}}}}
+};
 
 } // namespace PhQ
