@@ -4,6 +4,7 @@
 #include "Area.hpp"
 #include "Force.hpp"
 #include "Length.hpp"
+#include "Mass.hpp"
 #include "Pressure.hpp"
 #include "Temperature.hpp"
 #include "Time.hpp"

@@ -1,4 +1,5 @@
 #include "DisplacementGradient.hpp"
+#include "Mass.hpp"
 #include "Position.hpp"
 #include "ReynoldsNumber.hpp"
 #include "Strain.hpp"
@@ -44,6 +45,9 @@ int main(int argc, char *argv[]) {
 
   PhQ::Stress stress1{{10.0, 20.0, 30.0, 40.0, 50.0, 60.0}, PhQ::Unit::Pressure::PoundPerSquareInch};
   std::cout << stress1 << std::endl;
+
+  PhQ::Mass mass1{10.0, PhQ::Unit::Mass::Pound};
+  std::cout << mass1 << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << "Runtime: " << duration.count() << " microseconds." << std::endl;
