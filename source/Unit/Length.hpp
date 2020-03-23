@@ -23,24 +23,6 @@ enum class Length : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Length> consistent_units<Unit::Length>{
-  {System::MetreKilogramSecondKelvin, Unit::Length::Metre},
-  {System::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
-  {System::FootPoundSecondRankine, Unit::Length::Foot},
-  {System::InchPoundSecondRankine, Unit::Length::Inch}
-};
-
-template <> const std::map<Unit::Length, System> related_systems<Unit::Length>{
-  {Unit::Length::Metre, System::MetreKilogramSecondKelvin},
-  {Unit::Length::Millimetre, System::MillimetreGramSecondKelvin},
-  {Unit::Length::Foot, System::FootPoundSecondRankine},
-  {Unit::Length::Inch, System::InchPoundSecondRankine},
-};
-
-template <> constexpr const Unit::Length standard_unit<Unit::Length>{Unit::Length::Metre};
-
-template <> constexpr const Dimension::Set dimension<Unit::Length>{Dimension::Set{Dimension::Length{1}}};
-
 template <> const std::map<Unit::Length, std::string> abbreviations<Unit::Length>{
   {Unit::Length::Mile, "mi"},
   {Unit::Length::Kilometre, "km"},
@@ -116,6 +98,24 @@ template <> const std::unordered_map<std::string, Unit::Length> spellings<Unit::
   {"microinch", Unit::Length::Microinch},
   {"microinches", Unit::Length::Microinch}
 };
+
+template <> const std::map<System, Unit::Length> consistent_units<Unit::Length>{
+  {System::MetreKilogramSecondKelvin, Unit::Length::Metre},
+  {System::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
+  {System::FootPoundSecondRankine, Unit::Length::Foot},
+  {System::InchPoundSecondRankine, Unit::Length::Inch}
+};
+
+template <> const std::map<Unit::Length, System> related_systems<Unit::Length>{
+  {Unit::Length::Metre, System::MetreKilogramSecondKelvin},
+  {Unit::Length::Millimetre, System::MillimetreGramSecondKelvin},
+  {Unit::Length::Foot, System::FootPoundSecondRankine},
+  {Unit::Length::Inch, System::InchPoundSecondRankine},
+};
+
+template <> constexpr const Unit::Length standard_unit<Unit::Length>{Unit::Length::Metre};
+
+template <> constexpr const Dimension::Set dimension<Unit::Length>{Dimension::Set{Dimension::Length{1}}};
 
 template <size_t size> const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::array<double, size>&)>>> conversions<Unit::Length, size>{
   {Unit::Length::Mile, {

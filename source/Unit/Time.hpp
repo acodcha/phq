@@ -14,17 +14,6 @@ enum class Time : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Time> consistent_units<Unit::Time>{
-  {System::MetreKilogramSecondKelvin, Unit::Time::Second},
-  {System::MillimetreGramSecondKelvin, Unit::Time::Second},
-  {System::FootPoundSecondRankine, Unit::Time::Second},
-  {System::InchPoundSecondRankine, Unit::Time::Second}
-};
-
-template <> constexpr const Unit::Time standard_unit<Unit::Time>{Unit::Time::Second};
-
-template <> constexpr const Dimension::Set dimension<Unit::Time>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{1}}};
-
 template <> const std::map<Unit::Time, std::string> abbreviations<Unit::Time>{
   {Unit::Time::Second, "s"},
   {Unit::Time::Minute, "min"},
@@ -46,6 +35,17 @@ template <> const std::unordered_map<std::string, Unit::Time> spellings<Unit::Ti
   {"hour", Unit::Time::Hour},
   {"hours", Unit::Time::Hour}
 };
+
+template <> const std::map<System, Unit::Time> consistent_units<Unit::Time>{
+  {System::MetreKilogramSecondKelvin, Unit::Time::Second},
+  {System::MillimetreGramSecondKelvin, Unit::Time::Second},
+  {System::FootPoundSecondRankine, Unit::Time::Second},
+  {System::InchPoundSecondRankine, Unit::Time::Second}
+};
+
+template <> constexpr const Unit::Time standard_unit<Unit::Time>{Unit::Time::Second};
+
+template <> constexpr const Dimension::Set dimension<Unit::Time>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{1}}};
 
 template <size_t size> const std::map<Unit::Time, std::map<Unit::Time, std::function<void(std::array<double, size>&)>>> conversions<Unit::Time, size>{
   {Unit::Time::Second, {

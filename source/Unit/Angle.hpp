@@ -15,17 +15,6 @@ enum class Angle : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Angle> consistent_units<Unit::Angle>{
-  {System::MetreKilogramSecondKelvin, Unit::Angle::Radian},
-  {System::MillimetreGramSecondKelvin, Unit::Angle::Radian},
-  {System::FootPoundSecondRankine, Unit::Angle::Radian},
-  {System::InchPoundSecondRankine, Unit::Angle::Radian}
-};
-
-template <> constexpr const Unit::Angle standard_unit<Unit::Angle>{Unit::Angle::Radian};
-
-template <> constexpr const Dimension::Set dimension<Unit::Angle>{Dimension::Set{}};
-
 template <> const std::map<Unit::Angle, std::string> abbreviations<Unit::Angle>{
   {Unit::Angle::Radian, "rad"},
   {Unit::Angle::Degree, "deg"},
@@ -53,6 +42,17 @@ template <> const std::unordered_map<std::string, Unit::Angle> spellings<Unit::A
   {"arcsecond", Unit::Angle::Arcsecond},
   {"arcseconds", Unit::Angle::Arcsecond}
 };
+
+template <> const std::map<System, Unit::Angle> consistent_units<Unit::Angle>{
+  {System::MetreKilogramSecondKelvin, Unit::Angle::Radian},
+  {System::MillimetreGramSecondKelvin, Unit::Angle::Radian},
+  {System::FootPoundSecondRankine, Unit::Angle::Radian},
+  {System::InchPoundSecondRankine, Unit::Angle::Radian}
+};
+
+template <> constexpr const Unit::Angle standard_unit<Unit::Angle>{Unit::Angle::Radian};
+
+template <> constexpr const Dimension::Set dimension<Unit::Angle>{Dimension::Set{}};
 
 template <size_t size> const std::map<Unit::Angle, std::map<Unit::Angle, std::function<void(std::array<double, size>&)>>> conversions<Unit::Angle, size>{
   {Unit::Angle::Radian, {

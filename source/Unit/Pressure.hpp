@@ -14,17 +14,6 @@ enum class Pressure : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Pressure> consistent_units<Unit::Pressure>{
-  {System::MetreKilogramSecondKelvin, Unit::Pressure::Pascal},
-  {System::MillimetreGramSecondKelvin, Unit::Pressure::Pascal},
-  {System::FootPoundSecondRankine, Unit::Pressure::PoundPerSquareFoot},
-  {System::InchPoundSecondRankine, Unit::Pressure::PoundPerSquareInch}
-};
-
-template <> constexpr const Unit::Pressure standard_unit<Unit::Pressure>{Unit::Pressure::Pascal};
-
-template <> constexpr const Dimension::Set dimension<Unit::Pressure>{Dimension::Set{Dimension::Length{-1}, Dimension::Mass{1}, Dimension::Time{-2}}};
-
 template <> const std::map<Unit::Pressure, std::string> abbreviations<Unit::Pressure>{
   {Unit::Pressure::Pascal, "Pa"},
   {Unit::Pressure::PoundPerSquareFoot, "lbf/ft^2"},
@@ -48,6 +37,17 @@ template <> const std::unordered_map<std::string, Unit::Pressure> spellings<Unit
   {"lb/in2", Unit::Pressure::PoundPerSquareInch},
   {"psi", Unit::Pressure::PoundPerSquareInch}
 };
+
+template <> const std::map<System, Unit::Pressure> consistent_units<Unit::Pressure>{
+  {System::MetreKilogramSecondKelvin, Unit::Pressure::Pascal},
+  {System::MillimetreGramSecondKelvin, Unit::Pressure::Pascal},
+  {System::FootPoundSecondRankine, Unit::Pressure::PoundPerSquareFoot},
+  {System::InchPoundSecondRankine, Unit::Pressure::PoundPerSquareInch}
+};
+
+template <> constexpr const Unit::Pressure standard_unit<Unit::Pressure>{Unit::Pressure::Pascal};
+
+template <> constexpr const Dimension::Set dimension<Unit::Pressure>{Dimension::Set{Dimension::Length{-1}, Dimension::Mass{1}, Dimension::Time{-2}}};
 
 template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, std::function<void(std::array<double, size>&)>>> conversions<Unit::Pressure, size>{
   {Unit::Pressure::Pascal, {

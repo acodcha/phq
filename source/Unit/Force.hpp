@@ -14,17 +14,6 @@ enum class Force : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Force> consistent_units<Unit::Force>{
-  {System::MetreKilogramSecondKelvin, Unit::Force::Newton},
-  {System::MillimetreGramSecondKelvin, Unit::Force::Micronewton},
-  {System::FootPoundSecondRankine, Unit::Force::Pound},
-  {System::InchPoundSecondRankine, Unit::Force::Pound}
-};
-
-template <> constexpr const Unit::Force standard_unit<Unit::Force>{Unit::Force::Newton};
-
-template <> constexpr const Dimension::Set dimension<Unit::Force>{Dimension::Set{Dimension::Length{1}, Dimension::Mass{1}, Dimension::Time{-2}}};
-
 template <> const std::map<Unit::Force, std::string> abbreviations<Unit::Force>{
   {Unit::Force::Newton, "N"},
   {Unit::Force::Micronewton, "μN"},
@@ -42,6 +31,17 @@ template <> const std::unordered_map<std::string, Unit::Force> spellings<Unit::F
   {"lbf", Unit::Force::Pound},
   {"lb", Unit::Force::Pound}
 };
+
+template <> const std::map<System, Unit::Force> consistent_units<Unit::Force>{
+  {System::MetreKilogramSecondKelvin, Unit::Force::Newton},
+  {System::MillimetreGramSecondKelvin, Unit::Force::Micronewton},
+  {System::FootPoundSecondRankine, Unit::Force::Pound},
+  {System::InchPoundSecondRankine, Unit::Force::Pound}
+};
+
+template <> constexpr const Unit::Force standard_unit<Unit::Force>{Unit::Force::Newton};
+
+template <> constexpr const Dimension::Set dimension<Unit::Force>{Dimension::Set{Dimension::Length{1}, Dimension::Mass{1}, Dimension::Time{-2}}};
 
 template <size_t size> const std::map<Unit::Force, std::map<Unit::Force, std::function<void(std::array<double, size>&)>>> conversions<Unit::Force, size>{
   {Unit::Force::Newton, {

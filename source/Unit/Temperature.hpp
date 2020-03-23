@@ -15,17 +15,6 @@ enum class Temperature : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Temperature> consistent_units<Unit::Temperature>{
-  {System::MetreKilogramSecondKelvin, Unit::Temperature::Kelvin},
-  {System::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin},
-  {System::FootPoundSecondRankine, Unit::Temperature::Rankine},
-  {System::InchPoundSecondRankine, Unit::Temperature::Rankine}
-};
-
-template <> constexpr const Unit::Temperature standard_unit<Unit::Temperature>{Unit::Temperature::Kelvin};
-
-template <> constexpr const Dimension::Set dimension<Unit::Temperature>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{}, Dimension::ElectricCurrent{}, Dimension::Temperature{1}}};
-
 template <> const std::map<Unit::Temperature, std::string> abbreviations<Unit::Temperature>{
   {Unit::Temperature::Kelvin, "K"},
   {Unit::Temperature::Celsius, "°C"},
@@ -51,6 +40,17 @@ template <> const std::unordered_map<std::string, Unit::Temperature> spellings<U
   {"degF", Unit::Temperature::Fahrenheit},
   {"deg F", Unit::Temperature::Fahrenheit}
 };
+
+template <> const std::map<System, Unit::Temperature> consistent_units<Unit::Temperature>{
+  {System::MetreKilogramSecondKelvin, Unit::Temperature::Kelvin},
+  {System::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin},
+  {System::FootPoundSecondRankine, Unit::Temperature::Rankine},
+  {System::InchPoundSecondRankine, Unit::Temperature::Rankine}
+};
+
+template <> constexpr const Unit::Temperature standard_unit<Unit::Temperature>{Unit::Temperature::Kelvin};
+
+template <> constexpr const Dimension::Set dimension<Unit::Temperature>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{}, Dimension::ElectricCurrent{}, Dimension::Temperature{1}}};
 
 template <size_t size> const std::map<Unit::Temperature, std::map<Unit::Temperature, std::function<void(std::array<double, size>&)>>> conversions<Unit::Temperature, size>{
   {Unit::Temperature::Kelvin, {

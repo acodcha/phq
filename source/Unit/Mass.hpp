@@ -16,17 +16,6 @@ enum class Mass : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<System, Unit::Mass> consistent_units<Unit::Mass>{
-  {System::MetreKilogramSecondKelvin, Unit::Mass::Kilogram},
-  {System::MillimetreGramSecondKelvin, Unit::Mass::Gram},
-  {System::FootPoundSecondRankine, Unit::Mass::Slug},
-  {System::InchPoundSecondRankine, Unit::Mass::Slinch}
-};
-
-template <> constexpr const Unit::Mass standard_unit<Unit::Mass>{Unit::Mass::Kilogram};
-
-template <> constexpr const Dimension::Set dimension<Unit::Mass>{Dimension::Set{Dimension::Length{0}, Dimension::Mass{1}}};
-
 template <> const std::map<Unit::Mass, std::string> abbreviations<Unit::Mass>{
   {Unit::Mass::Kilogram, "kg"},
   {Unit::Mass::Gram, "g"},
@@ -43,6 +32,17 @@ template <> const std::unordered_map<std::string, Unit::Mass> spellings<Unit::Ma
   {"lbm", Unit::Mass::Pound},
   {"lb", Unit::Mass::Pound}
 };
+
+template <> const std::map<System, Unit::Mass> consistent_units<Unit::Mass>{
+  {System::MetreKilogramSecondKelvin, Unit::Mass::Kilogram},
+  {System::MillimetreGramSecondKelvin, Unit::Mass::Gram},
+  {System::FootPoundSecondRankine, Unit::Mass::Slug},
+  {System::InchPoundSecondRankine, Unit::Mass::Slinch}
+};
+
+template <> constexpr const Unit::Mass standard_unit<Unit::Mass>{Unit::Mass::Kilogram};
+
+template <> constexpr const Dimension::Set dimension<Unit::Mass>{Dimension::Set{Dimension::Length{0}, Dimension::Mass{1}}};
 
 template <size_t size> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(std::array<double, size>&)>>> conversions<Unit::Mass, size>{
   {Unit::Mass::Kilogram, {
