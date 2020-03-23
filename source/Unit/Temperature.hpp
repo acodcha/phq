@@ -17,7 +17,6 @@ enum class Temperature : uint_least8_t {
 
 template <> const std::map<System, Unit::Temperature> consistent_units<Unit::Temperature>{
   {System::MetreKilogramSecondKelvin, Unit::Temperature::Kelvin},
-  {System::CentimetreGramSecondKelvin, Unit::Temperature::Kelvin},
   {System::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin},
   {System::FootPoundSecondRankine, Unit::Temperature::Rankine},
   {System::InchPoundSecondRankine, Unit::Temperature::Rankine}

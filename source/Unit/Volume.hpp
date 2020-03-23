@@ -28,7 +28,6 @@ enum class Volume : uint_least8_t {
 
 template <> const std::map<System, Unit::Volume> consistent_units<Unit::Volume>{
   {System::MetreKilogramSecondKelvin, Unit::Volume::CubicMetre},
-  {System::CentimetreGramSecondKelvin, Unit::Volume::CubicCentimetre},
   {System::MillimetreGramSecondKelvin, Unit::Volume::CubicMillimetre},
   {System::FootPoundSecondRankine, Unit::Volume::CubicFoot},
   {System::InchPoundSecondRankine, Unit::Volume::CubicInch}
@@ -36,8 +35,6 @@ template <> const std::map<System, Unit::Volume> consistent_units<Unit::Volume>{
 
 template <> const std::map<Unit::Volume, System> related_systems<Unit::Volume>{
   {Unit::Volume::CubicMetre, System::MetreKilogramSecondKelvin},
-  {Unit::Volume::CubicCentimetre, System::CentimetreGramSecondKelvin},
-  {Unit::Volume::Millilitre, System::CentimetreGramSecondKelvin},
   {Unit::Volume::CubicMillimetre, System::MillimetreGramSecondKelvin},
   {Unit::Volume::Microlitre, System::MillimetreGramSecondKelvin},
   {Unit::Volume::CubicFoot, System::FootPoundSecondRankine},

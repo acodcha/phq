@@ -16,7 +16,6 @@ enum class Time : uint_least8_t {
 
 template <> const std::map<System, Unit::Time> consistent_units<Unit::Time>{
   {System::MetreKilogramSecondKelvin, Unit::Time::Second},
-  {System::CentimetreGramSecondKelvin, Unit::Time::Second},
   {System::MillimetreGramSecondKelvin, Unit::Time::Second},
   {System::FootPoundSecondRankine, Unit::Time::Second},
   {System::InchPoundSecondRankine, Unit::Time::Second}
@@ -36,10 +35,16 @@ template <> const std::unordered_map<std::string, Unit::Time> spellings<Unit::Ti
   {"s", Unit::Time::Second},
   {"sec", Unit::Time::Second},
   {"secs", Unit::Time::Second},
+  {"second", Unit::Time::Second},
+  {"seconds", Unit::Time::Second},
   {"min", Unit::Time::Minute},
   {"mins", Unit::Time::Minute},
+  {"minute", Unit::Time::Minute},
+  {"minutes", Unit::Time::Minute},
   {"hr", Unit::Time::Hour},
   {"hrs", Unit::Time::Hour},
+  {"hour", Unit::Time::Hour},
+  {"hours", Unit::Time::Hour}
 };
 
 template <size_t size> const std::map<Unit::Time, std::map<Unit::Time, std::function<void(std::array<double, size>&)>>> conversions<Unit::Time, size>{

@@ -7,7 +7,6 @@ namespace PhQ {
 
 enum class System : uint_least8_t {
   MetreKilogramSecondKelvin,
-  CentimetreGramSecondKelvin,
   MillimetreGramSecondKelvin,
   FootPoundSecondRankine,
   InchPoundSecondRankine,
@@ -17,7 +16,6 @@ const System standard_system{System::MetreKilogramSecondKelvin};
 
 template <> const std::map<System, std::string> abbreviations<System>{
   {System::MetreKilogramSecondKelvin, "m·kg·s·K"},
-  {System::CentimetreGramSecondKelvin, "cm·g·s·K"},
   {System::MillimetreGramSecondKelvin, "mm·g·s·K"},
   {System::FootPoundSecondRankine, "ft·lbf·s·°R"},
   {System::InchPoundSecondRankine, "in·lbf·s·°R"}
@@ -38,19 +36,6 @@ template <> const std::unordered_map<std::string, System> spellings<System>{
   {"m, kg", System::MetreKilogramSecondKelvin},
   {"m", System::MetreKilogramSecondKelvin},
   {"kg", System::MetreKilogramSecondKelvin},
-  {"cm·g·s·K", System::CentimetreGramSecondKelvin},
-  {"cm-g-s-K", System::CentimetreGramSecondKelvin},
-  {"cm g s K", System::CentimetreGramSecondKelvin},
-  {"cm, g, s, K", System::CentimetreGramSecondKelvin},
-  {"cm·g·s", System::CentimetreGramSecondKelvin},
-  {"cm-g-s", System::CentimetreGramSecondKelvin},
-  {"cm g s", System::CentimetreGramSecondKelvin},
-  {"cm, g, s", System::CentimetreGramSecondKelvin},
-  {"cm·g", System::CentimetreGramSecondKelvin},
-  {"cm-g", System::CentimetreGramSecondKelvin},
-  {"cm g", System::CentimetreGramSecondKelvin},
-  {"cm, g", System::CentimetreGramSecondKelvin},
-  {"cm", System::CentimetreGramSecondKelvin},
   {"mm·g·s·K", System::MillimetreGramSecondKelvin},
   {"mm-g-s-K", System::MillimetreGramSecondKelvin},
   {"mm g s K", System::MillimetreGramSecondKelvin},

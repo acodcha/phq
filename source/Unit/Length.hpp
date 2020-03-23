@@ -25,7 +25,6 @@ enum class Length : uint_least8_t {
 
 template <> const std::map<System, Unit::Length> consistent_units<Unit::Length>{
   {System::MetreKilogramSecondKelvin, Unit::Length::Metre},
-  {System::CentimetreGramSecondKelvin, Unit::Length::Centimetre},
   {System::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
   {System::FootPoundSecondRankine, Unit::Length::Foot},
   {System::InchPoundSecondRankine, Unit::Length::Inch}
@@ -33,7 +32,6 @@ template <> const std::map<System, Unit::Length> consistent_units<Unit::Length>{
 
 template <> const std::map<Unit::Length, System> related_systems<Unit::Length>{
   {Unit::Length::Metre, System::MetreKilogramSecondKelvin},
-  {Unit::Length::Centimetre, System::CentimetreGramSecondKelvin},
   {Unit::Length::Millimetre, System::MillimetreGramSecondKelvin},
   {Unit::Length::Foot, System::FootPoundSecondRankine},
   {Unit::Length::Inch, System::InchPoundSecondRankine},

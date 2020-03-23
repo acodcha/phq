@@ -17,7 +17,6 @@ enum class Angle : uint_least8_t {
 
 template <> const std::map<System, Unit::Angle> consistent_units<Unit::Angle>{
   {System::MetreKilogramSecondKelvin, Unit::Angle::Radian},
-  {System::CentimetreGramSecondKelvin, Unit::Angle::Radian},
   {System::MillimetreGramSecondKelvin, Unit::Angle::Radian},
   {System::FootPoundSecondRankine, Unit::Angle::Radian},
   {System::InchPoundSecondRankine, Unit::Angle::Radian}

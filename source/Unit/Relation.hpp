@@ -2,7 +2,9 @@
 
 #include "Angle.hpp"
 #include "Area.hpp"
+#include "Force.hpp"
 #include "Length.hpp"
+#include "Pressure.hpp"
 #include "Temperature.hpp"
 #include "Time.hpp"
 #include "Volume.hpp"

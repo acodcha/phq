@@ -2,6 +2,7 @@
 #include "Position.hpp"
 #include "ReynoldsNumber.hpp"
 #include "Strain.hpp"
+#include "Stress.hpp"
 #include "Time.hpp"
 #include "Unit/Relation.hpp"
 
@@ -40,6 +41,9 @@ int main(int argc, char *argv[]) {
 
   PhQ::Strain strain1{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
   std::cout << strain1 << std::endl;
+
+  PhQ::Stress stress1{{10.0, 20.0, 30.0, 40.0, 50.0, 60.0}, PhQ::Unit::Pressure::PoundPerSquareInch};
+  std::cout << stress1 << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << "Runtime: " << duration.count() << " microseconds." << std::endl;

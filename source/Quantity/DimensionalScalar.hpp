@@ -6,8 +6,10 @@
 
 namespace PhQ {
 
-// Forward declaration.
+// Forward declarations.
 template <typename Unit> class DimensionalVectorQuantity;
+template <typename Unit> class DimensionalSymmetricDyadicQuantity;
+template <typename Unit> class DimensionalDyadicQuantity;
 
 template <typename Unit> class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
 
@@ -101,7 +103,7 @@ public:
     return {value_ + scalar.value_};
   }
 
-  void operator+=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
+  constexpr void operator+=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
     value_ += scalar.value_;
   }
 
@@ -109,7 +111,7 @@ public:
     return {value_ - scalar.value_};
   }
 
-  void operator-=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
+  constexpr void operator-=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
     value_ -= scalar.value_;
   }
 
@@ -123,11 +125,11 @@ public:
 
   DimensionalVectorQuantity<Unit> operator*(const Direction& cartesian_direction) const noexcept;
 
-  void operator*=(double real) noexcept {
+  constexpr void operator*=(double real) noexcept {
     value_ *= real;
   }
 
-  void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
+  constexpr void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
     value_ *= scalar.value();
   }
 
@@ -139,7 +141,7 @@ public:
     }
   }
 
-  double operator/(const DimensionlessScalarQuantity& scalar) const {
+  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const {
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -147,7 +149,7 @@ public:
     }
   }
 
-  double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
+  constexpr double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -155,7 +157,7 @@ public:
     }
   }
 
-  void operator/=(double real) {
+  constexpr void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
@@ -170,6 +172,8 @@ protected:
   double value_;
 
   friend class DimensionalVectorQuantity<Unit>;
+
+  friend class DimensionalSymmetricDyadicQuantity<Unit>;
 
 };
 

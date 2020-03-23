@@ -15,6 +15,10 @@ public:
     return PhQ::dimension<Unit>;
   }
 
+  constexpr Unit unit() const noexcept {
+    return standard_unit<Unit>;
+  }
+
   virtual std::string print() const noexcept = 0;
 
   virtual std::string print(Unit unit) const noexcept = 0;

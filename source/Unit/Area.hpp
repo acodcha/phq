@@ -27,7 +27,6 @@ enum class Area : uint_least8_t {
 
 template <> const std::map<System, Unit::Area> consistent_units<Unit::Area>{
   {System::MetreKilogramSecondKelvin, Unit::Area::SquareMetre},
-  {System::CentimetreGramSecondKelvin, Unit::Area::SquareCentimetre},
   {System::MillimetreGramSecondKelvin, Unit::Area::SquareMillimetre},
   {System::FootPoundSecondRankine, Unit::Area::SquareFoot},
   {System::InchPoundSecondRankine, Unit::Area::SquareInch}
@@ -35,7 +34,6 @@ template <> const std::map<System, Unit::Area> consistent_units<Unit::Area>{
 
 template <> const std::map<Unit::Area, System> related_systems<Unit::Area>{
   {Unit::Area::SquareMetre, System::MetreKilogramSecondKelvin},
-  {Unit::Area::SquareCentimetre, System::CentimetreGramSecondKelvin},
   {Unit::Area::SquareMillimetre, System::MillimetreGramSecondKelvin},
   {Unit::Area::SquareFoot, System::FootPoundSecondRankine},
   {Unit::Area::SquareInch, System::InchPoundSecondRankine},
