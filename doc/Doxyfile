@@ -1,7 +1,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Physical Quantities"
 PROJECT_NUMBER         =
-PROJECT_BRIEF          = "Library of physical quantities, units of measure, and related concepts for scientific computation."
+PROJECT_BRIEF          = "C++17 library of physical quantities, units of measure, and related concepts for scientific computation."
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       =
 CREATE_SUBDIRS         = NO
