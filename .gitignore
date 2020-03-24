@@ -1,6 +1,7 @@
 .vscode/*
 build/files/*
-build/test_all
+build/test_main
+build/test_conversions
 doc/html/*
 doc/latex/*
 

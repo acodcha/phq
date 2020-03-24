@@ -8,8 +8,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -ffast-math -O3 -Wall -Wno
 
 project(PhysicalQuantities CXX)
 
-file(GLOB_RECURSE source_files test/*.cpp)
+file(GLOB_RECURSE source_files *.cpp)
 
-add_executable(test_all ${source_files})
-target_link_libraries(test_all)
+add_executable(test_main test/Main.cpp)
+target_link_libraries(test_main)
+
+add_executable(test_conversions test/Conversions.cpp)
+target_link_libraries(test_conversions)
 
