@@ -1,6 +1,6 @@
 .vscode/*
-build/linux/files/*
-build/linux/physicalQuantities
+build/files/*
+build/test_all
 doc/html/*
 doc/latex/*
 

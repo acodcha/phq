@@ -6,16 +6,16 @@ Library of physical quantities, units of measure, and related concepts for scien
 - **CMake (Optional):** CMake can optionally be used to build unit tests. On Ubuntu, install with `sudo apt install cmake`.
 - **Doxygen (Optional):** Doxygen can optionally be used to generate HTML and/or LaTeX documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive-full`.
 
-## Compilation
-This is a header-only library, so no compilation is needed to use the library; simply include the headers you need in your project.
+## Building
+This is a header-only library, so no compilation is needed. Install the libray to `/usr/local/include/PhQ` with `sudo ./build/install.sh`. To use the library in one of your projects, add `find_package(PhQ REQUIRED)` to your project's `CMakeLists.txt` file, and include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`.
 
-Unit tests can be built with `./build/linux/compile.sh`.
+You can uninstall the library with `sudo ./build/uninstall.sh`, and you can also generate unit tests with `./build/generate_tests.sh`.
+
+## Documentation
+You can optionally generate documentation using Doxygen with `./doc/generate.sh`.
 
 ## License
 This work is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the [LICENSE](LICENSE) file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
-
-## Documentation
-Documentation can optionally be generated using Doxygen with `./doc/generate.sh`.
 
 ## Maintainer
 - Alexandre Coderre-Chabot (<alexandre.coderre.chabot@gmail.com>)
