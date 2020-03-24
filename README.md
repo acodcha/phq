@@ -4,10 +4,10 @@ Library of physical quantities, units of measure, and related concepts for scien
 ## Dependencies
 - **C++17 Compiler (Required):** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
 - **CMake (Optional):** CMake can optionally be used to build unit tests. On Ubuntu, install with `sudo apt install cmake`.
-- **Doxygen (Optional):** Doxygen can optionally be used to generate HTML and/or LaTeX documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive-full`.
+- **Doxygen (Optional):** Doxygen can optionally be used to generate HTML and/or LaTeX documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive`.
 
 ## Installation
-This is a header-only library, so no compilation is needed. Install the libray to `/usr/local/include/PhQ` with `sudo ./build/install.sh`.
+This is a header-only library, so no compilation is needed. Simply install the libray to `/usr/local/include/PhQ` with `sudo ./build/install.sh`.
 
 To use the library in one of your projects, add `find_package(PhQ REQUIRED)` to your project's `CMakeLists.txt` file, and include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`.
 
