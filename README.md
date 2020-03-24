@@ -1,5 +1,5 @@
 # Physical Quantities
-Library of physical quantities, units of measure, and related concepts for scientific computation.
+C++17 library of physical quantities, units of measure, and related concepts for scientific computation.
 
 ## Dependencies
 - **C++17 Compiler (Required):** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
