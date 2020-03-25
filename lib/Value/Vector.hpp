@@ -42,18 +42,6 @@ public:
     return {*this};
   }
 
-  std::string print() const noexcept {
-    return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
-  }
-
-  std::string json() const noexcept {
-    return "{\"x\": " + PhQ::number_to_string(x_y_z_[0]) + ", \"y\": " + PhQ::number_to_string(x_y_z_[1]) + ", \"z\": " + PhQ::number_to_string(x_y_z_[2]) + "}";
-  }
-
-  std::string xml() const noexcept {
-    return "<x>" + PhQ::number_to_string(x_y_z_[0]) + "</x><y>" + PhQ::number_to_string(x_y_z_[1]) + "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
-  }
-
   constexpr double dot(const Direction& direction) const noexcept {
     return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() + x_y_z_[2] * direction.z();
   }
@@ -63,16 +51,45 @@ public:
   }
 
   Vector cross(const Direction& direction) const noexcept {
-    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(), x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(), x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
+    return {
+      x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
+      x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
+      x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()
+    };
   }
 
   Vector cross(const Vector& vector) const noexcept {
-    return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2], x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
+    return {
+      x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
+      x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
+      x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]
+    };
   }
 
   Value::Dyadic dyadic(const Direction& direction) const noexcept;
 
   Value::Dyadic dyadic(const Vector& vector) const noexcept;
+
+  std::string print() const noexcept {
+    return
+      "(" + PhQ::number_to_string(x_y_z_[0]) + ", " +
+      PhQ::number_to_string(x_y_z_[1]) + ", " +
+      PhQ::number_to_string(x_y_z_[2]) + ")";
+  }
+
+  std::string json() const noexcept {
+    return
+      "{\"x\": " + PhQ::number_to_string(x_y_z_[0]) +
+      ", \"y\": " + PhQ::number_to_string(x_y_z_[1]) +
+      ", \"z\": " + PhQ::number_to_string(x_y_z_[2]) + "}";
+  }
+
+  std::string xml() const noexcept {
+    return
+      "<x>" + PhQ::number_to_string(x_y_z_[0]) +
+      "</x><y>" + PhQ::number_to_string(x_y_z_[1]) +
+      "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
+  }
 
   constexpr bool operator==(const Vector& vector) const noexcept {
     return x_y_z_[0] == vector.x_y_z_[0] && x_y_z_[1] == vector.x_y_z_[1] && x_y_z_[2] == vector.x_y_z_[2];
@@ -161,7 +178,11 @@ constexpr double Direction::dot(const Value::Vector& vector) const noexcept {
 }
 
 Value::Vector Direction::cross(const Value::Vector& vector) const noexcept {
-  return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(), x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(), x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()};
+  return {
+    x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
+    x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),
+    x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()
+  };
 }
 
 } // namespace PhQ

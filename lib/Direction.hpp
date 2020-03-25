@@ -64,16 +64,44 @@ public:
     return 1.0;
   }
 
+  constexpr double dot(const Direction& direction) const noexcept {
+    return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] + x_y_z_[2] * direction.x_y_z_[2];
+  }
+
+  constexpr double dot(const Value::Vector& vector) const noexcept;
+
+  Direction cross(const Direction& direction) const noexcept {
+    return {
+      x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
+      x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
+      x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
+  }
+
+  Value::Vector cross(const Value::Vector& vector) const noexcept;
+
+  Value::Dyadic dyadic(const Direction& direction) const noexcept;
+
+  Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
+
   std::string print() const noexcept {
-    return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
+    return
+      "(" + PhQ::number_to_string(x_y_z_[0]) + ", " +
+      PhQ::number_to_string(x_y_z_[1]) + ", " +
+      PhQ::number_to_string(x_y_z_[2]) + ")";
   }
 
   std::string json() const noexcept {
-    return "{\"x\":" + PhQ::number_to_string(x_y_z_[0]) + ", \"y\":" + PhQ::number_to_string(x_y_z_[1]) + ", \"z\":" + PhQ::number_to_string(x_y_z_[2]) + "}";
+    return
+      "{\"x\":" + PhQ::number_to_string(x_y_z_[0]) +
+      ", \"y\":" + PhQ::number_to_string(x_y_z_[1]) +
+      ", \"z\":" + PhQ::number_to_string(x_y_z_[2]) + "}";
   }
 
   std::string xml() const noexcept {
-    return "<x>" + PhQ::number_to_string(x_y_z_[0]) + "</x><y>" + PhQ::number_to_string(x_y_z_[1]) + "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
+    return
+      "<x>" + PhQ::number_to_string(x_y_z_[0]) +
+      "</x><y>" + PhQ::number_to_string(x_y_z_[1]) +
+      "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
   }
 
   constexpr bool operator==(const Direction& direction) const noexcept {
@@ -85,22 +113,6 @@ public:
   }
 
   template <typename Unit> constexpr DimensionalVectorQuantity<Unit> operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept;
-
-  constexpr double dot(const Direction& direction) const noexcept {
-    return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] + x_y_z_[2] * direction.x_y_z_[2];
-  }
-
-  constexpr double dot(const Value::Vector& vector) const noexcept;
-
-  Direction cross(const Direction& direction) const noexcept {
-    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(), x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(), x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
-  }
-
-  Value::Vector cross(const Value::Vector& vector) const noexcept;
-
-  Value::Dyadic dyadic(const Direction& direction) const noexcept;
-
-  Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
 
 private:
 

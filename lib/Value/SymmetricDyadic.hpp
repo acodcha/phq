@@ -56,18 +56,6 @@ public:
     return xx_xy_xz_yy_yz_zz_[5];
   }
 
-  std::string print() const noexcept {
-    return "(" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + "; " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + "; " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + ")";
-  }
-
-  std::string json() const noexcept {
-    return "{\"xx\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", \"xy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", \"xz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + ", \"yy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", \"yz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + ", \"zz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "}";
-  }
-
-  std::string xml() const noexcept {
-    return "<xx>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + "</yy><yz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + "</yz><zz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
-  }
-
   constexpr bool is_symmetric() const noexcept {
     return true;
   }
@@ -77,7 +65,10 @@ public:
   }
 
   constexpr double determinant() const noexcept {
-    return xx() * (yy() * zz() - yz() * yz()) + xy() * (xz() * yz() - xy() * zz()) + xz() * (xy() * yz() - xz() * yy());
+    return
+      xx() * (yy() * zz() - yz() * yz()) +
+      xy() * (xz() * yz() - xy() * zz()) +
+      xz() * (xy() * yz() - xz() * yy());
   }
 
   constexpr SymmetricDyadic transpose() const noexcept {
@@ -107,20 +98,65 @@ public:
     }
   }
 
-  constexpr Vector dot(const Vector& vector) const noexcept {
-    return {xx() * vector.x() + xy() * vector.y() + xz() * vector.z(), yx() * vector.x() + yy() * vector.y() + yz() * vector.z(), zx() * vector.x() + zy() * vector.y() + zz() * vector.z()};
+  std::string print() const noexcept {
+    return
+      "(" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) + ", " +
+      PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) + ", " +
+      PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) + "; " +
+      PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) + ", " +
+      PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) + "; " +
+      PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + ")";
+  }
+
+  std::string json() const noexcept {
+    return
+      "{\"xx\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) +
+      ", \"xy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) +
+      ", \"xz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) +
+      ", \"yy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) +
+      ", \"yz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) +
+      ", \"zz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "}";
+  }
+
+  std::string xml() const noexcept {
+    return
+      "<xx>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) +
+      "</xx><xy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) +
+      "</xy><xz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) +
+      "</xz><yy>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) +
+      "</yy><yz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) +
+      "</yz><zz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
   constexpr bool operator==(const SymmetricDyadic& dyad) const noexcept {
-    return xx_xy_xz_yy_yz_zz_[0] == dyad.xx_xy_xz_yy_yz_zz_[0] && xx_xy_xz_yy_yz_zz_[1] == dyad.xx_xy_xz_yy_yz_zz_[1] && xx_xy_xz_yy_yz_zz_[2] == dyad.xx_xy_xz_yy_yz_zz_[2] && xx_xy_xz_yy_yz_zz_[3] == dyad.xx_xy_xz_yy_yz_zz_[3] && xx_xy_xz_yy_yz_zz_[4] == dyad.xx_xy_xz_yy_yz_zz_[4] && xx_xy_xz_yy_yz_zz_[5] == dyad.xx_xy_xz_yy_yz_zz_[5];
+    return
+      xx_xy_xz_yy_yz_zz_[0] == dyad.xx_xy_xz_yy_yz_zz_[0] &&
+      xx_xy_xz_yy_yz_zz_[1] == dyad.xx_xy_xz_yy_yz_zz_[1] &&
+      xx_xy_xz_yy_yz_zz_[2] == dyad.xx_xy_xz_yy_yz_zz_[2] &&
+      xx_xy_xz_yy_yz_zz_[3] == dyad.xx_xy_xz_yy_yz_zz_[3] &&
+      xx_xy_xz_yy_yz_zz_[4] == dyad.xx_xy_xz_yy_yz_zz_[4] &&
+      xx_xy_xz_yy_yz_zz_[5] == dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
   constexpr bool operator!=(const SymmetricDyadic& dyad) const noexcept {
-    return xx_xy_xz_yy_yz_zz_[0] != dyad.xx_xy_xz_yy_yz_zz_[0] || xx_xy_xz_yy_yz_zz_[1] != dyad.xx_xy_xz_yy_yz_zz_[1] || xx_xy_xz_yy_yz_zz_[2] != dyad.xx_xy_xz_yy_yz_zz_[2] || xx_xy_xz_yy_yz_zz_[3] != dyad.xx_xy_xz_yy_yz_zz_[3] || xx_xy_xz_yy_yz_zz_[4] != dyad.xx_xy_xz_yy_yz_zz_[4] || xx_xy_xz_yy_yz_zz_[5] != dyad.xx_xy_xz_yy_yz_zz_[5];
+    return
+      xx_xy_xz_yy_yz_zz_[0] != dyad.xx_xy_xz_yy_yz_zz_[0] ||
+      xx_xy_xz_yy_yz_zz_[1] != dyad.xx_xy_xz_yy_yz_zz_[1] ||
+      xx_xy_xz_yy_yz_zz_[2] != dyad.xx_xy_xz_yy_yz_zz_[2] ||
+      xx_xy_xz_yy_yz_zz_[3] != dyad.xx_xy_xz_yy_yz_zz_[3] ||
+      xx_xy_xz_yy_yz_zz_[4] != dyad.xx_xy_xz_yy_yz_zz_[4] ||
+      xx_xy_xz_yy_yz_zz_[5] != dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
   constexpr SymmetricDyadic operator+(const SymmetricDyadic& dyad) const noexcept {
-    return {xx_xy_xz_yy_yz_zz_[0] + dyad.xx_xy_xz_yy_yz_zz_[0], xx_xy_xz_yy_yz_zz_[1] + dyad.xx_xy_xz_yy_yz_zz_[1], xx_xy_xz_yy_yz_zz_[2] + dyad.xx_xy_xz_yy_yz_zz_[2], xx_xy_xz_yy_yz_zz_[3] + dyad.xx_xy_xz_yy_yz_zz_[3], xx_xy_xz_yy_yz_zz_[4] + dyad.xx_xy_xz_yy_yz_zz_[4], xx_xy_xz_yy_yz_zz_[5] + dyad.xx_xy_xz_yy_yz_zz_[5]};
+    return {
+      xx_xy_xz_yy_yz_zz_[0] + dyad.xx_xy_xz_yy_yz_zz_[0],
+      xx_xy_xz_yy_yz_zz_[1] + dyad.xx_xy_xz_yy_yz_zz_[1],
+      xx_xy_xz_yy_yz_zz_[2] + dyad.xx_xy_xz_yy_yz_zz_[2],
+      xx_xy_xz_yy_yz_zz_[3] + dyad.xx_xy_xz_yy_yz_zz_[3],
+      xx_xy_xz_yy_yz_zz_[4] + dyad.xx_xy_xz_yy_yz_zz_[4],
+      xx_xy_xz_yy_yz_zz_[5] + dyad.xx_xy_xz_yy_yz_zz_[5]
+    };
   }
 
   constexpr void operator+=(const SymmetricDyadic& dyad) noexcept {
@@ -133,7 +169,14 @@ public:
   }
 
   constexpr SymmetricDyadic operator-(const SymmetricDyadic& dyad) const noexcept {
-    return {xx_xy_xz_yy_yz_zz_[0] - dyad.xx_xy_xz_yy_yz_zz_[0], xx_xy_xz_yy_yz_zz_[1] - dyad.xx_xy_xz_yy_yz_zz_[1], xx_xy_xz_yy_yz_zz_[2] - dyad.xx_xy_xz_yy_yz_zz_[2], xx_xy_xz_yy_yz_zz_[3] - dyad.xx_xy_xz_yy_yz_zz_[3], xx_xy_xz_yy_yz_zz_[4] - dyad.xx_xy_xz_yy_yz_zz_[4], xx_xy_xz_yy_yz_zz_[5] - dyad.xx_xy_xz_yy_yz_zz_[5]};
+    return {
+      xx_xy_xz_yy_yz_zz_[0] - dyad.xx_xy_xz_yy_yz_zz_[0],
+      xx_xy_xz_yy_yz_zz_[1] - dyad.xx_xy_xz_yy_yz_zz_[1],
+      xx_xy_xz_yy_yz_zz_[2] - dyad.xx_xy_xz_yy_yz_zz_[2],
+      xx_xy_xz_yy_yz_zz_[3] - dyad.xx_xy_xz_yy_yz_zz_[3],
+      xx_xy_xz_yy_yz_zz_[4] - dyad.xx_xy_xz_yy_yz_zz_[4],
+      xx_xy_xz_yy_yz_zz_[5] - dyad.xx_xy_xz_yy_yz_zz_[5]
+    };
   }
 
   constexpr void operator-=(const SymmetricDyadic& dyad) noexcept {
@@ -146,8 +189,27 @@ public:
   }
 
   constexpr SymmetricDyadic operator*(double real) const noexcept {
-    return {xx_xy_xz_yy_yz_zz_[0] * real, xx_xy_xz_yy_yz_zz_[1] * real, xx_xy_xz_yy_yz_zz_[2] * real, xx_xy_xz_yy_yz_zz_[3] * real, xx_xy_xz_yy_yz_zz_[4] * real, xx_xy_xz_yy_yz_zz_[5] * real};
+    return {
+      xx_xy_xz_yy_yz_zz_[0] * real,
+      xx_xy_xz_yy_yz_zz_[1] * real,
+      xx_xy_xz_yy_yz_zz_[2] * real,
+      xx_xy_xz_yy_yz_zz_[3] * real,
+      xx_xy_xz_yy_yz_zz_[4] * real,
+      xx_xy_xz_yy_yz_zz_[5] * real
+    };
   }
+
+  constexpr Vector operator*(const Vector& vector) const noexcept {
+    return {
+      xx() * vector.x() + xy() * vector.y() + xz() * vector.z(),
+      yx() * vector.x() + yy() * vector.y() + yz() * vector.z(),
+      zx() * vector.x() + zy() * vector.y() + zz() * vector.z()
+    };
+  }
+
+  constexpr Dyadic operator*(const SymmetricDyadic& dyadic) const noexcept;
+
+  constexpr Dyadic operator*(const Dyadic& dyadic) const noexcept;
 
   constexpr void operator*=(double real) noexcept {
     xx_xy_xz_yy_yz_zz_[0] *= real;
@@ -160,7 +222,14 @@ public:
 
   constexpr SymmetricDyadic operator/(double real) const {
     if (real != 0.0) {
-      return {xx_xy_xz_yy_yz_zz_[0] / real, xx_xy_xz_yy_yz_zz_[1] / real, xx_xy_xz_yy_yz_zz_[2] / real, xx_xy_xz_yy_yz_zz_[3] / real, xx_xy_xz_yy_yz_zz_[4] / real, xx_xy_xz_yy_yz_zz_[5] / real};
+      return {
+        xx_xy_xz_yy_yz_zz_[0] / real,
+        xx_xy_xz_yy_yz_zz_[1] / real,
+        xx_xy_xz_yy_yz_zz_[2] / real,
+        xx_xy_xz_yy_yz_zz_[3] / real,
+        xx_xy_xz_yy_yz_zz_[4] / real,
+        xx_xy_xz_yy_yz_zz_[5] / real
+      };
     } else {
       throw std::runtime_error{"Division of " + print() + " by 0."};
     }
