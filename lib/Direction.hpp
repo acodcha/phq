@@ -8,6 +8,8 @@ namespace PhQ {
 // Forward declarations.
 namespace Value {
 class Vector;
+class SymmetricDyadic;
+class Dyadic;
 } // namespace Value
 template <typename Unit> class DimensionalScalarQuantity;
 template <typename Unit> class DimensionalVectorQuantity;
@@ -58,6 +60,10 @@ public:
     return x_y_z_[2];
   }
 
+  constexpr double magnitude() const noexcept {
+    return 1.0;
+  }
+
   std::string print() const noexcept {
     return "(" + PhQ::number_to_string(x_y_z_[0]) + ", " + PhQ::number_to_string(x_y_z_[1]) + ", " + PhQ::number_to_string(x_y_z_[2]) + ")";
   }
@@ -85,6 +91,16 @@ public:
   }
 
   constexpr double dot(const Value::Vector& vector) const noexcept;
+
+  Direction cross(const Direction& direction) const noexcept {
+    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(), x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(), x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
+  }
+
+  Value::Vector cross(const Value::Vector& vector) const noexcept;
+
+  Value::Dyadic dyadic(const Direction& direction) const noexcept;
+
+  Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
 
 private:
 

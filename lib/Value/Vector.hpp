@@ -62,13 +62,17 @@ public:
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] + x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  constexpr Vector cross(const Direction& direction) const noexcept {
+  Vector cross(const Direction& direction) const noexcept {
     return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(), x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(), x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
   }
 
-  constexpr Vector cross(const Vector& vector) const noexcept {
+  Vector cross(const Vector& vector) const noexcept {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2], x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
+
+  Value::Dyadic dyadic(const Direction& direction) const noexcept;
+
+  Value::Dyadic dyadic(const Vector& vector) const noexcept;
 
   constexpr bool operator==(const Vector& vector) const noexcept {
     return x_y_z_[0] == vector.x_y_z_[0] && x_y_z_[1] == vector.x_y_z_[1] && x_y_z_[2] == vector.x_y_z_[2];
@@ -78,7 +82,7 @@ public:
     return x_y_z_[0] != vector.x_y_z_[0] || x_y_z_[1] != vector.x_y_z_[1] || x_y_z_[2] != vector.x_y_z_[2];
   }
 
-  constexpr Vector operator+(const Vector& vector) const noexcept {
+  Vector operator+(const Vector& vector) const noexcept {
     return {x_y_z_[0] + vector.x_y_z_[0], x_y_z_[1] + vector.x_y_z_[1], x_y_z_[2] + vector.x_y_z_[2]};
   }
 
@@ -88,7 +92,7 @@ public:
     x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  constexpr Vector operator-(const Vector& vector) const noexcept {
+  Vector operator-(const Vector& vector) const noexcept {
     return {x_y_z_[0] - vector.x_y_z_[0], x_y_z_[1] - vector.x_y_z_[1], x_y_z_[2] - vector.x_y_z_[2]};
   }
 
@@ -98,7 +102,7 @@ public:
     x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr Vector operator*(double real) const noexcept {
+  Vector operator*(double real) const noexcept {
     return {x_y_z_[0] * real, x_y_z_[1] * real, x_y_z_[2] * real};
   }
 
@@ -108,7 +112,7 @@ public:
     x_y_z_[2] *= real;
   }
 
-  constexpr Vector operator/(double real) const {
+  Vector operator/(double real) const {
     if (real != 0.0) {
       return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
     } else {
@@ -154,6 +158,10 @@ Direction::Direction(const Value::Vector& vector) : Direction(vector.x(), vector
 
 constexpr double Direction::dot(const Value::Vector& vector) const noexcept {
   return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() + x_y_z_[2] * vector.z();
+}
+
+Value::Vector Direction::cross(const Value::Vector& vector) const noexcept {
+  return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(), x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(), x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()};
 }
 
 } // namespace PhQ

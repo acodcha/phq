@@ -202,6 +202,22 @@ protected:
 
 } // namespace Value
 
+Value::Dyadic Direction::dyadic(const Direction& direction) const noexcept {
+  return {x() * direction.x(), x() * direction.y(), x() * direction.z(), y() * direction.x(), y() * direction.y(), y() * direction.z(), z() * direction.x(), z() * direction.y(), z() * direction.z()};
+}
+
+Value::Dyadic Direction::dyadic(const Value::Vector& vector) const noexcept {
+  return {x() * vector.x(), x() * vector.y(), x() * vector.z(), y() * vector.x(), y() * vector.y(), y() * vector.z(), z() * vector.x(), z() * vector.y(), z() * vector.z()};
+}
+
+Value::Dyadic Value::Vector::dyadic(const Direction& direction) const noexcept {
+  return {x() * direction.x(), x() * direction.y(), x() * direction.z(), y() * direction.x(), y() * direction.y(), y() * direction.z(), z() * direction.x(), z() * direction.y(), z() * direction.z()};
+}
+
+Value::Dyadic Value::Vector::dyadic(const Value::Vector& vector) const noexcept {
+  return {x() * vector.x(), x() * vector.y(), x() * vector.z(), y() * vector.x(), y() * vector.y(), y() * vector.z(), z() * vector.x(), z() * vector.y(), z() * vector.z()};
+}
+
 template <> constexpr bool sort(const Value::Dyadic& dyadic1, const Value::Dyadic& dyadic2) noexcept {
   if (dyadic1.xx() < dyadic2.xx()) {
     return true;
