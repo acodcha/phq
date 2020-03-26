@@ -13,6 +13,7 @@ class Dyadic;
 } // namespace Value
 template <typename Unit> class DimensionalScalarQuantity;
 template <typename Unit> class DimensionalVectorQuantity;
+class Angle;
 
 class Direction {
 
@@ -82,6 +83,10 @@ public:
   Value::Dyadic dyadic(const Direction& direction) const noexcept;
 
   Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
+
+  Angle angle(const Direction& direction) const noexcept;
+
+  Angle angle(const Value::Vector& vector) const noexcept;
 
   std::string print() const noexcept {
     return

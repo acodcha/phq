@@ -66,9 +66,13 @@ public:
     };
   }
 
-  Value::Dyadic dyadic(const Direction& direction) const noexcept;
+  Dyadic dyadic(const Direction& direction) const noexcept;
 
-  Value::Dyadic dyadic(const Vector& vector) const noexcept;
+  Dyadic dyadic(const Vector& vector) const noexcept;
+
+  Angle angle(const Direction& direction) const noexcept;
+
+  Angle angle(const Vector& vector) const noexcept;
 
   std::string print() const noexcept {
     return
