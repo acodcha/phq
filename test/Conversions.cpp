@@ -1,3 +1,4 @@
+#include "../lib/Unit/Acceleration.hpp"
 #include "../lib/Unit/Angle.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Mass.hpp"
@@ -16,6 +17,23 @@ template <typename Unit> void test_conversions(const std::string& name, double v
       }
     }
   }
+}
+
+void test_acceleration() noexcept {
+  test_conversions<PhQ::Unit::Acceleration>("Acceleration", 1.0, {
+    PhQ::Unit::Acceleration::MilePerSquareSecond,
+    PhQ::Unit::Acceleration::KilometrePerSquareSecond,
+    PhQ::Unit::Acceleration::YardPerSquareSecond,
+    PhQ::Unit::Acceleration::MetrePerSquareSecond,
+    PhQ::Unit::Acceleration::FootPerSquareSecond,
+    PhQ::Unit::Acceleration::DecimetrePerSquareSecond,
+    PhQ::Unit::Acceleration::InchPerSquareSecond,
+    PhQ::Unit::Acceleration::CentimetrePerSquareSecond,
+    PhQ::Unit::Acceleration::MillimetrePerSquareSecond,
+    PhQ::Unit::Acceleration::MilliinchPerSquareSecond,
+    PhQ::Unit::Acceleration::MicrometrePerSquareSecond,
+    PhQ::Unit::Acceleration::MicroinchPerSquareSecond
+  });
 }
 
 void test_angle() noexcept {
@@ -88,6 +106,23 @@ void test_pressure() noexcept {
   });
 }
 
+void test_speed() noexcept {
+  test_conversions<PhQ::Unit::Speed>("Speed", 1.0, {
+    PhQ::Unit::Speed::MilePerSecond,
+    PhQ::Unit::Speed::KilometrePerSecond,
+    PhQ::Unit::Speed::YardPerSecond,
+    PhQ::Unit::Speed::MetrePerSecond,
+    PhQ::Unit::Speed::FootPerSecond,
+    PhQ::Unit::Speed::DecimetrePerSecond,
+    PhQ::Unit::Speed::InchPerSecond,
+    PhQ::Unit::Speed::CentimetrePerSecond,
+    PhQ::Unit::Speed::MillimetrePerSecond,
+    PhQ::Unit::Speed::MilliinchPerSecond,
+    PhQ::Unit::Speed::MicrometrePerSecond,
+    PhQ::Unit::Speed::MicroinchPerSecond
+  });
+}
+
 void test_temperature() noexcept {
   test_conversions<PhQ::Unit::Temperature>("Temperature", 100.0, {
     PhQ::Unit::Temperature::Kelvin,
@@ -125,12 +160,14 @@ void test_volume() noexcept {
 }
 
 int main(int argc, char *argv[]) {
+  test_acceleration();
   test_angle();
   test_area();
   test_force();
   test_length();
   test_mass();
   test_pressure();
+  test_speed();
   test_temperature();
   test_time();
   test_volume();

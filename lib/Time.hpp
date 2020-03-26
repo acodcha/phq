@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "Length.hpp"
 #include "Unit/Time.hpp"
 
 namespace PhQ {
@@ -14,6 +14,12 @@ public:
   constexpr Time(const DimensionalScalarQuantity<Unit::Time>& quantity) noexcept : DimensionalScalarQuantity<Unit::Time>(quantity) {}
 
   constexpr Time(double value, Unit::Time unit) noexcept : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
+
+  friend class Length;
+
+  friend class Speed;
+
+  friend class AccelerationMagnitude;
 
 };
 

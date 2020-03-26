@@ -9,6 +9,8 @@ namespace PhQ {
 class Area;
 class Position;
 class Volume;
+class Time;
+class Speed;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 
@@ -26,6 +28,8 @@ public:
 
   Volume operator*(const Area& area) const noexcept;
 
+  Speed operator/(const Time& time) const;
+
 protected:
 
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
@@ -35,6 +39,10 @@ protected:
   friend class Position;
 
   friend class Volume;
+
+  friend class Time;
+
+  friend class Speed;
 
 };
 
