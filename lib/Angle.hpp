@@ -11,8 +11,6 @@ public:
 
   constexpr Angle() noexcept : DimensionalScalarQuantity<Unit::Angle>() {}
 
-  constexpr Angle(const DimensionalScalarQuantity<Unit::Angle>& quantity) noexcept : DimensionalScalarQuantity<Unit::Angle>(quantity) {}
-
   constexpr Angle(double value, Unit::Angle unit) noexcept : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
   Angle(const Direction& direction1, const Direction& direction2) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction1.angle(direction2)) {}
@@ -22,6 +20,46 @@ public:
   Angle(const Value::Vector& vector, const Direction& direction) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector.angle(direction)) {}
 
   Angle(const Value::Vector& vector1, const Value::Vector& vector2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector1.angle(vector2)) {}
+
+  constexpr bool operator==(const Angle& angle) const noexcept {
+    return value_ == angle.value_;
+  }
+
+  constexpr bool operator!=(const Angle& angle) const noexcept {
+    return value_ != angle.value_;
+  }
+
+  constexpr bool operator<(const Angle& angle) const noexcept {
+    return value_ < angle.value_;
+  }
+
+  constexpr bool operator<=(const Angle& angle) const noexcept {
+    return value_ <= angle.value_;
+  }
+
+  constexpr bool operator>(const Angle& angle) const noexcept {
+    return value_ > angle.value_;
+  }
+
+  constexpr bool operator>=(const Angle& angle) const noexcept {
+    return value_ >= angle.value_;
+  }
+
+  Angle operator+(const Angle& angle) const noexcept {
+    return {value_ + angle.value_};
+  }
+
+  constexpr void operator+=(const Angle& angle) noexcept {
+    value_ += angle.value_;
+  }
+
+  Angle operator-(const Angle& angle) const noexcept {
+    return {value_ - angle.value_};
+  }
+
+  constexpr void operator-=(const Angle& angle) noexcept {
+    value_ -= angle.value_;
+  }
 
 protected:
 

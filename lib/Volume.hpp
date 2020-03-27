@@ -11,9 +11,47 @@ public:
 
   constexpr Volume() noexcept : DimensionalScalarQuantity<Unit::Volume>() {}
 
-  constexpr Volume(const DimensionalScalarQuantity<Unit::Volume>& quantity) noexcept : DimensionalScalarQuantity<Unit::Volume>(quantity) {}
-
   constexpr Volume(double value, Unit::Volume unit) noexcept : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
+
+  constexpr bool operator==(const Volume& volume) const noexcept {
+    return value_ == volume.value_;
+  }
+
+  constexpr bool operator!=(const Volume& volume) const noexcept {
+    return value_ != volume.value_;
+  }
+
+  constexpr bool operator<(const Volume& volume) const noexcept {
+    return value_ < volume.value_;
+  }
+
+  constexpr bool operator<=(const Volume& volume) const noexcept {
+    return value_ <= volume.value_;
+  }
+
+  constexpr bool operator>(const Volume& volume) const noexcept {
+    return value_ > volume.value_;
+  }
+
+  constexpr bool operator>=(const Volume& volume) const noexcept {
+    return value_ >= volume.value_;
+  }
+
+  Volume operator+(const Volume& volume) const noexcept {
+    return {value_ + volume.value_};
+  }
+
+  constexpr void operator+=(const Volume& volume) noexcept {
+    value_ += volume.value_;
+  }
+
+  Volume operator-(const Volume& volume) const noexcept {
+    return {value_ - volume.value_};
+  }
+
+  constexpr void operator-=(const Volume& volume) noexcept {
+    value_ -= volume.value_;
+  }
 
   Area operator/(const Length& length) const {
     if (length.value_ != 0.0) {

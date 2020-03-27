@@ -75,46 +75,6 @@ public:
     return "<value>" + number_to_string(value(system)) + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ == scalar.value_;
-  }
-
-  constexpr bool operator!=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ != scalar.value_;
-  }
-
-  constexpr bool operator<(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ < scalar.value_;
-  }
-
-  constexpr bool operator<=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ <= scalar.value_;
-  }
-
-  constexpr bool operator>(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ > scalar.value_;
-  }
-
-  constexpr bool operator>=(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return value_ >= scalar.value_;
-  }
-
-  DimensionalScalarQuantity<Unit> operator+(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return {value_ + scalar.value_};
-  }
-
-  constexpr void operator+=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
-    value_ += scalar.value_;
-  }
-
-  DimensionalScalarQuantity<Unit> operator-(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-    return {value_ - scalar.value_};
-  }
-
-  constexpr void operator-=(const DimensionalScalarQuantity<Unit>& scalar) noexcept {
-    value_ -= scalar.value_;
-  }
-
   DimensionalScalarQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
@@ -182,38 +142,6 @@ template <typename Unit> constexpr DimensionalVectorQuantity<Unit> Direction::op
 }
 
 } // namespace PhQ
-
-namespace std {
-
-template <typename Unit> double cbrt(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
-  return cbrt(scalar.value());
-};
-
-template <typename Unit> double exp(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
-  return exp(scalar.value());
-};
-
-template <typename Unit> double log(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
-  return log(scalar.value());
-};
-
-template <typename Unit> double log10(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
-  return log10(scalar.value());
-};
-
-template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& scalar, int_least64_t exponent) {
-  return pow(scalar.value(), exponent);
-};
-
-template <typename Unit> double pow(const PhQ::DimensionalScalarQuantity<Unit>& scalar, double exponent) {
-  return pow(scalar.value(), exponent);
-};
-
-template <typename Unit> double sqrt(const PhQ::DimensionalScalarQuantity<Unit>& scalar) {
-  return sqrt(scalar.value());
-};
-
-} // namespace std
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
   output_stream << scalar.print();

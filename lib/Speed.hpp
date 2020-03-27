@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Duration.hpp"
 #include "Length.hpp"
-#include "Time.hpp"
 #include "Unit/Speed.hpp"
 
 namespace PhQ {
@@ -16,17 +16,55 @@ public:
 
   constexpr Speed() noexcept : DimensionalScalarQuantity<Unit::Speed>() {}
 
-  constexpr Speed(const DimensionalScalarQuantity<Unit::Speed>& quantity) noexcept : DimensionalScalarQuantity<Unit::Speed>(quantity) {}
-
   constexpr Speed(double value, Unit::Speed unit) noexcept : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
   constexpr Speed(const Velocity& velocity) noexcept;
 
-  Length operator*(const Time& time) const noexcept {
-    return {value_ * time.value_};
+  constexpr bool operator==(const Speed& speed) const noexcept {
+    return value_ == speed.value_;
   }
 
-  AccelerationMagnitude operator/(const Time& time) const;
+  constexpr bool operator!=(const Speed& speed) const noexcept {
+    return value_ != speed.value_;
+  }
+
+  constexpr bool operator<(const Speed& speed) const noexcept {
+    return value_ < speed.value_;
+  }
+
+  constexpr bool operator<=(const Speed& speed) const noexcept {
+    return value_ <= speed.value_;
+  }
+
+  constexpr bool operator>(const Speed& speed) const noexcept {
+    return value_ > speed.value_;
+  }
+
+  constexpr bool operator>=(const Speed& speed) const noexcept {
+    return value_ >= speed.value_;
+  }
+
+  Speed operator+(const Speed& speed) const noexcept {
+    return {value_ + speed.value_};
+  }
+
+  constexpr void operator+=(const Speed& speed) noexcept {
+    value_ += speed.value_;
+  }
+
+  Speed operator-(const Speed& speed) const noexcept {
+    return {value_ - speed.value_};
+  }
+
+  constexpr void operator-=(const Speed& speed) noexcept {
+    value_ -= speed.value_;
+  }
+
+  Length operator*(const Duration& duration) const noexcept {
+    return {value_ * duration.value_};
+  }
+
+  AccelerationMagnitude operator/(const Duration& duration) const;
 
 protected:
 
@@ -34,7 +72,7 @@ protected:
 
   friend class Length;
 
-  friend class Time;
+  friend class Duration;
 
   friend class Velocity;
 
@@ -42,11 +80,11 @@ protected:
 
 };
 
-Speed Length::operator/(const Time& time) const {
-  if (time.value_ != 0.0) {
-    return {value_ / time.value_};
+Speed Length::operator/(const Duration& duration) const {
+  if (duration.value_ != 0.0) {
+    return {value_ / duration.value_};
   } else {
-    throw std::runtime_error{"Division of " + print() + " by " + time.print() + "."};
+    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
   }
 }
 

@@ -1,3 +1,4 @@
+#include "../lib/AccelerationMagnitude.hpp"
 #include "../lib/Angle.hpp"
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/Force.hpp"
@@ -7,7 +8,6 @@
 #include "../lib/ReynoldsNumber.hpp"
 #include "../lib/Strain.hpp"
 #include "../lib/Stress.hpp"
-#include "../lib/Time.hpp"
 #include "../lib/Temperature.hpp"
 #include "../lib/Volume.hpp"
 

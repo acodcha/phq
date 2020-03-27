@@ -11,9 +11,51 @@ public:
 
   constexpr Temperature() noexcept : DimensionalScalarQuantity<Unit::Temperature>() {}
 
-  constexpr Temperature(const DimensionalScalarQuantity<Unit::Temperature>& quantity) noexcept : DimensionalScalarQuantity<Unit::Temperature>(quantity) {}
-
   constexpr Temperature(double value, Unit::Temperature unit) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+
+  constexpr bool operator==(const Temperature& temperature) const noexcept {
+    return value_ == temperature.value_;
+  }
+
+  constexpr bool operator!=(const Temperature& temperature) const noexcept {
+    return value_ != temperature.value_;
+  }
+
+  constexpr bool operator<(const Temperature& temperature) const noexcept {
+    return value_ < temperature.value_;
+  }
+
+  constexpr bool operator<=(const Temperature& temperature) const noexcept {
+    return value_ <= temperature.value_;
+  }
+
+  constexpr bool operator>(const Temperature& temperature) const noexcept {
+    return value_ > temperature.value_;
+  }
+
+  constexpr bool operator>=(const Temperature& temperature) const noexcept {
+    return value_ >= temperature.value_;
+  }
+
+  Temperature operator+(const Temperature& temperature) const noexcept {
+    return {value_ + temperature.value_};
+  }
+
+  constexpr void operator+=(const Temperature& temperature) noexcept {
+    value_ += temperature.value_;
+  }
+
+  Temperature operator-(const Temperature& temperature) const noexcept {
+    return {value_ - temperature.value_};
+  }
+
+  constexpr void operator-=(const Temperature& temperature) noexcept {
+    value_ -= temperature.value_;
+  }
+
+protected:
+
+  constexpr Temperature(double value) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 
 };
 
