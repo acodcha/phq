@@ -23,6 +23,30 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr bool operator==(const Velocity& velocity) const noexcept {
+    return value_ == velocity.value_;
+  }
+
+  constexpr bool operator!=(const Velocity& velocity) const noexcept {
+    return value_ != velocity.value_;
+  }
+
+  Velocity operator+(const Velocity& velocity) const noexcept {
+    return {value_ + velocity.value_};
+  }
+
+  constexpr void operator+=(const Velocity& velocity) noexcept {
+    value_ += velocity.value_;
+  }
+
+  Velocity operator-(const Velocity& velocity) const noexcept {
+    return {value_ - velocity.value_};
+  }
+
+  constexpr void operator-=(const Velocity& velocity) noexcept {
+    value_ -= velocity.value_;
+  }
+
   Displacement operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
   }

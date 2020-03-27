@@ -19,6 +19,30 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr bool operator==(const Acceleration& acceleration) const noexcept {
+    return value_ == acceleration.value_;
+  }
+
+  constexpr bool operator!=(const Acceleration& acceleration) const noexcept {
+    return value_ != acceleration.value_;
+  }
+
+  Acceleration operator+(const Acceleration& acceleration) const noexcept {
+    return {value_ + acceleration.value_};
+  }
+
+  constexpr void operator+=(const Acceleration& acceleration) noexcept {
+    value_ += acceleration.value_;
+  }
+
+  Acceleration operator-(const Acceleration& acceleration) const noexcept {
+    return {value_ - acceleration.value_};
+  }
+
+  constexpr void operator-=(const Acceleration& acceleration) noexcept {
+    value_ -= acceleration.value_;
+  }
+
   Velocity operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
   }
