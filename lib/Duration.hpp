@@ -81,6 +81,12 @@ protected:
 
   friend class AccelerationMagnitude;
 
+  friend class Displacement;
+
+  friend class Velocity;
+
+  friend class Acceleration;
+
 };
 
 Time Time::operator+(const Duration& duration) const noexcept {
@@ -89,6 +95,10 @@ Time Time::operator+(const Duration& duration) const noexcept {
 
 constexpr void Time::operator+=(const Duration& duration) noexcept {
   value_ += duration.value_;
+}
+
+Duration Time::operator-(const Time& time) const noexcept {
+  return {value_ - time.value_};
 }
 
 Time Time::operator-(const Duration& duration) const noexcept {

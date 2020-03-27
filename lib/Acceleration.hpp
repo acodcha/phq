@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Quantity/DimensionalVector.hpp"
 #include "AccelerationMagnitude.hpp"
+#include "Velocity.hpp"
 
 namespace PhQ {
 
@@ -19,10 +19,30 @@ public:
     return {value_.magnitude()};
   }
 
+  Velocity operator*(const Duration& duration) const noexcept {
+    return {value_ * duration.value_};
+  }
+
+protected:
+
+  constexpr Acceleration(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
+
+  friend class Duration;
+
   friend class AccelerationMagnitude;
+
+  friend class Velocity;
 
 };
 
 constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
+
+Acceleration Velocity::operator/(const Duration& duration) const {
+  if (duration.value_ != 0.0) {
+    return {value_ / duration.value_};
+  } else {
+    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
+  }
+}
 
 } // namespace PhQ

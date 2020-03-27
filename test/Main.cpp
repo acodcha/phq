@@ -1,4 +1,4 @@
-#include "../lib/AccelerationMagnitude.hpp"
+#include "../lib/Acceleration.hpp"
 #include "../lib/Angle.hpp"
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/Force.hpp"

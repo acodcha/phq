@@ -11,8 +11,6 @@ public:
 
   constexpr Stress() noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>() {}
 
-  constexpr Stress(const DimensionalSymmetricDyadicQuantity<Unit::Pressure>& quantity) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>(quantity) {}
-
   constexpr Stress(const Value::SymmetricDyadic& value, Unit::Pressure unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>(value, unit) {}
 
 };

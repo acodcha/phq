@@ -7,10 +7,11 @@ namespace PhQ {
 
 // Forward declarations.
 class Area;
-class Position;
 class Volume;
 class Duration;
 class Speed;
+class Position;
+class Displacement;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 
@@ -20,8 +21,7 @@ public:
 
   constexpr Length(double value, Unit::Length unit) noexcept : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
-  // TODO: This should be Displacement, not Position.
-  constexpr Length(const Position& position) noexcept;
+  constexpr Length(const Displacement& displacement) noexcept;
 
   constexpr bool operator==(const Length& length) const noexcept {
     return value_ == length.value_;
@@ -75,13 +75,15 @@ protected:
 
   friend class Area;
 
-  friend class Position;
-
   friend class Volume;
 
   friend class Duration;
 
   friend class Speed;
+
+  friend class Position;
+
+  friend class Displacement;
 
 };
 

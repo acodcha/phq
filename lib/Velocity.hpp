@@ -1,9 +1,13 @@
 #pragma once
 
-#include "Quantity/DimensionalVector.hpp"
+#include "Displacement.hpp"
+#include "Duration.hpp"
 #include "Speed.hpp"
 
 namespace PhQ {
+
+// Forward declaration.
+class Acceleration;
 
 class Velocity : public DimensionalVectorQuantity<Unit::Speed> {
 
@@ -19,10 +23,34 @@ public:
     return {value_.magnitude()};
   }
 
+  Displacement operator*(const Duration& duration) const noexcept {
+    return {value_ * duration.value_};
+  }
+
+  Acceleration operator/(const Duration& duration) const;
+
+protected:
+
+  constexpr Velocity(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Speed>(value) {}
+
+  friend class Duration;
+
   friend class Speed;
+
+  friend class Displacement;
+
+  friend class Acceleration;
 
 };
 
 constexpr Speed::Speed(const Velocity& velocity) noexcept : Speed(velocity.magnitude()) {}
+
+Velocity Displacement::operator/(const Duration& duration) const {
+  if (duration.value_ != 0.0) {
+    return {value_ / duration.value_};
+  } else {
+    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
+  }
+}
 
 } // namespace PhQ

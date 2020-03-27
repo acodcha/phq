@@ -75,30 +75,6 @@ public:
     return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
-    return value_ == vector.value_;
-  }
-
-  constexpr bool operator!=(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
-    return value_ != vector.value_;
-  }
-
-  DimensionalVectorQuantity<Unit> operator+(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
-    return {value_ + vector.value_};
-  }
-
-  constexpr void operator+=(const DimensionalVectorQuantity<Unit>& vector) noexcept {
-    value_ += vector.value_;
-  }
-
-  DimensionalVectorQuantity<Unit> operator-(const DimensionalVectorQuantity<Unit>& vector) const noexcept {
-    return {value_ - vector.value_};
-  }
-
-  constexpr void operator-=(const DimensionalVectorQuantity<Unit>& vector) noexcept {
-    value_ -= vector.value_;
-  }
-
   DimensionalVectorQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }

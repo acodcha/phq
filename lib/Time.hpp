@@ -52,9 +52,7 @@ public:
 
   constexpr void operator+=(const Duration& duration) noexcept;
 
-  Time operator-(const Time& time) const noexcept {
-    return {value_ - time.value_};
-  }
+  Duration operator-(const Time& time) const noexcept;
 
   Time operator-(const Duration& duration) const noexcept;
 
