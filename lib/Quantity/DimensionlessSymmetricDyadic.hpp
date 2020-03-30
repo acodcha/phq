@@ -29,46 +29,6 @@ public:
     return value_.xml();
   }
 
-  constexpr bool operator==(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
-    return value_ == dyadic.value_;
-  }
-
-  constexpr bool operator!=(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
-    return value_ != dyadic.value_;
-  }
-
-  constexpr DimensionlessSymmetricDyadicQuantity operator+(const Value::SymmetricDyadic& value) const noexcept {
-    return {value_ + value};
-  }
-
-  constexpr DimensionlessSymmetricDyadicQuantity operator+(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
-    return {value_ + dyadic.value_};
-  }
-
-  constexpr void operator+=(const Value::SymmetricDyadic& value) noexcept {
-    value_ += value;
-  }
-
-  constexpr void operator+=(const DimensionlessSymmetricDyadicQuantity& dyadic) noexcept {
-    value_ += dyadic.value_;
-  }
-
-  constexpr DimensionlessSymmetricDyadicQuantity operator-(const Value::SymmetricDyadic& value) const noexcept {
-    return {value_ - value};
-  }
-
-  constexpr DimensionlessSymmetricDyadicQuantity operator-(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
-    return {value_ - dyadic.value_};
-  }
-
-  constexpr void operator-=(const Value::SymmetricDyadic& value) noexcept {
-    value_ -= value;
-  }
-
-  constexpr void operator-=(const DimensionlessSymmetricDyadicQuantity& dyadic) noexcept {
-    value_ -= dyadic.value_;
-  }
-
   constexpr DimensionlessSymmetricDyadicQuantity operator*(double real) const noexcept {
     return {value_ * real};
   }

@@ -29,46 +29,6 @@ public:
     return value_.xml();
   }
 
-  constexpr bool operator==(const DimensionlessDyadicQuantity& dyadic) const noexcept {
-    return value_ == dyadic.value_;
-  }
-
-  constexpr bool operator!=(const DimensionlessDyadicQuantity& dyadic) const noexcept {
-    return value_ != dyadic.value_;
-  }
-
-  constexpr DimensionlessDyadicQuantity operator+(const Value::Dyadic& value) const noexcept {
-    return {value_ + value};
-  }
-
-  constexpr DimensionlessDyadicQuantity operator+(const DimensionlessDyadicQuantity& dyadic) const noexcept {
-    return {value_ + dyadic.value_};
-  }
-
-  constexpr void operator+=(const Value::Dyadic& value) noexcept {
-    value_ += value;
-  }
-
-  constexpr void operator+=(const DimensionlessDyadicQuantity& dyadic) noexcept {
-    value_ += dyadic.value_;
-  }
-
-  constexpr DimensionlessDyadicQuantity operator-(const Value::Dyadic& value) const noexcept {
-    return {value_ - value};
-  }
-
-  constexpr DimensionlessDyadicQuantity operator-(const DimensionlessDyadicQuantity& dyadic) const noexcept {
-    return {value_ - dyadic.value_};
-  }
-
-  constexpr void operator-=(const Value::Dyadic& value) noexcept {
-    value_ -= value;
-  }
-
-  constexpr void operator-=(const DimensionlessDyadicQuantity& dyadic) noexcept {
-    value_ -= dyadic.value_;
-  }
-
   constexpr DimensionlessDyadicQuantity operator*(double real) const noexcept {
     return {value_ * real};
   }

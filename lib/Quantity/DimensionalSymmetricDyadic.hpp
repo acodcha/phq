@@ -70,30 +70,6 @@ public:
     return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  constexpr bool operator==(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
-    return value_ == dyadic.value_;
-  }
-
-  constexpr bool operator!=(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
-    return value_ != dyadic.value_;
-  }
-
-  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator+(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
-    return {value_ + dyadic.value_};
-  }
-
-  constexpr void operator+=(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
-    value_ += dyadic.value_;
-  }
-
-  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator-(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
-    return {value_ - dyadic.value_};
-  }
-
-  constexpr void operator-=(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
-    value_ -= dyadic.value_;
-  }
-
   constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
