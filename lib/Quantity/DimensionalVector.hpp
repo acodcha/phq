@@ -35,7 +35,7 @@ public:
     }
   }
 
-  Direction direction() const {
+  constexpr Direction direction() const {
     return {value_};
   }
 
@@ -75,11 +75,11 @@ public:
     return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  DimensionalVectorQuantity<Unit> operator*(double real) const noexcept {
+  constexpr DimensionalVectorQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionalVectorQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionalVectorQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -115,7 +115,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
@@ -123,7 +123,7 @@ public:
     }
   }
 
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) {
+  void operator/=(const DimensionlessScalarQuantity& scalar) {
     if (scalar.value() != 0.0) {
       value_ /= scalar.value();
     } else {

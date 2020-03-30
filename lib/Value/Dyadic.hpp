@@ -94,7 +94,7 @@ public:
     return cofactors().transpose();
   }
 
-  constexpr Dyadic inverse() const {
+  Dyadic inverse() const {
     const double determinant_{determinant()};
     if (determinant_ != 0.0) {
       return adjugate() / determinant_;
@@ -282,7 +282,7 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= real;
   }
 
-  constexpr Dyadic operator/(double real) const {
+  Dyadic operator/(double real) const {
     if (real != 0.0) {
       return {
         xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] / real,
@@ -300,7 +300,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
       xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
@@ -322,7 +322,7 @@ protected:
 
 };
 
-Dyadic Vector::dyadic(const Vector& vector) const noexcept {
+constexpr Dyadic Vector::dyadic(const Vector& vector) const noexcept {
   return {
     x() * vector.x(), x() * vector.y(), x() * vector.z(),
     y() * vector.x(), y() * vector.y(), y() * vector.z(),
@@ -360,7 +360,7 @@ constexpr Dyadic SymmetricDyadic::operator*(const Dyadic& dyadic) const noexcept
 
 } // namespace Value
 
-Value::Dyadic Direction::dyadic(const Direction& direction) const noexcept {
+constexpr Value::Dyadic Direction::dyadic(const Direction& direction) const noexcept {
   return {
     x() * direction.x(), x() * direction.y(), x() * direction.z(),
     y() * direction.x(), y() * direction.y(), y() * direction.z(),
@@ -368,7 +368,7 @@ Value::Dyadic Direction::dyadic(const Direction& direction) const noexcept {
   };
 }
 
-Value::Dyadic Direction::dyadic(const Value::Vector& vector) const noexcept {
+constexpr Value::Dyadic Direction::dyadic(const Value::Vector& vector) const noexcept {
   return {
     x() * vector.x(), x() * vector.y(), x() * vector.z(),
     y() * vector.x(), y() * vector.y(), y() * vector.z(),
@@ -376,7 +376,7 @@ Value::Dyadic Direction::dyadic(const Value::Vector& vector) const noexcept {
   };
 }
 
-Value::Dyadic Value::Vector::dyadic(const Direction& direction) const noexcept {
+constexpr Value::Dyadic Value::Vector::dyadic(const Direction& direction) const noexcept {
   return {
     x() * direction.x(), x() * direction.y(), x() * direction.z(),
     y() * direction.x(), y() * direction.y(), y() * direction.z(),

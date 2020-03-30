@@ -37,11 +37,11 @@ public:
     return value_ != dyadic.value_;
   }
 
-  DimensionlessSymmetricDyadicQuantity operator+(const Value::SymmetricDyadic& value) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator+(const Value::SymmetricDyadic& value) const noexcept {
     return {value_ + value};
   }
 
-  DimensionlessSymmetricDyadicQuantity operator+(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator+(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
     return {value_ + dyadic.value_};
   }
 
@@ -53,11 +53,11 @@ public:
     value_ += dyadic.value_;
   }
 
-  DimensionlessSymmetricDyadicQuantity operator-(const Value::SymmetricDyadic& value) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator-(const Value::SymmetricDyadic& value) const noexcept {
     return {value_ - value};
   }
 
-  DimensionlessSymmetricDyadicQuantity operator-(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator-(const DimensionlessSymmetricDyadicQuantity& dyadic) const noexcept {
     return {value_ - dyadic.value_};
   }
 
@@ -69,11 +69,11 @@ public:
     value_ -= dyadic.value_;
   }
 
-  DimensionlessSymmetricDyadicQuantity operator*(double real) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionlessSymmetricDyadicQuantity operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionlessSymmetricDyadicQuantity operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -101,7 +101,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
@@ -109,7 +109,7 @@ public:
     }
   }
 
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) {
+  void operator/=(const DimensionlessScalarQuantity& scalar) {
     if (scalar.value() != 0.0) {
       value_ /= scalar.value();
     } else {

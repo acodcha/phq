@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Angle.hpp"
 #include "Length.hpp"
 #include "Quantity/DimensionalVector.hpp"
 
@@ -20,6 +21,10 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr Angle angle(const Position& position) const noexcept {
+    return value_.angle(position.value_);
+  }
+
   constexpr bool operator==(const Position& position) const noexcept {
     return value_ == position.value_;
   }
@@ -28,11 +33,11 @@ public:
     return value_ != position.value_;
   }
 
-  Position operator+(const Position& position) const noexcept {
+  constexpr Position operator+(const Position& position) const noexcept {
     return {value_ + position.value_};
   }
 
-  Position operator+(const Displacement& displacement) const noexcept;
+  constexpr Position operator+(const Displacement& displacement) const noexcept;
 
   constexpr void operator+=(const Position& position) noexcept {
     value_ += position.value_;
@@ -40,9 +45,9 @@ public:
 
   constexpr void operator+=(const Displacement& displacement) noexcept;
 
-  Displacement operator-(const Position& position) const noexcept;
+  constexpr Displacement operator-(const Position& position) const noexcept;
 
-  Position operator-(const Displacement& displacement) const noexcept;
+  constexpr Position operator-(const Displacement& displacement) const noexcept;
 
   constexpr void operator-=(const Position& position) noexcept {
     value_ -= position.value_;
@@ -59,5 +64,7 @@ protected:
   friend class Displacement;
 
 };
+
+constexpr Angle::Angle(const Position& position1, const Position& position2) noexcept : DimensionalScalarQuantity<Unit::Angle>(position1.angle(position2)) {}
 
 } // namespace PhQ

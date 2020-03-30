@@ -14,7 +14,7 @@ public:
 
   constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
-  const Value::SymmetricDyadic& value() const noexcept {
+  constexpr const Value::SymmetricDyadic& value() const noexcept {
     return value_;
   }
 
@@ -78,7 +78,7 @@ public:
     return value_ != dyadic.value_;
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator+(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
+  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator+(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
     return {value_ + dyadic.value_};
   }
 
@@ -86,7 +86,7 @@ public:
     value_ += dyadic.value_;
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator-(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
+  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator-(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic) const noexcept {
     return {value_ - dyadic.value_};
   }
 
@@ -94,11 +94,11 @@ public:
     value_ -= dyadic.value_;
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator*(double real) const noexcept {
+  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -134,7 +134,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
@@ -142,7 +142,7 @@ public:
     }
   }
 
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) {
+  void operator/=(const DimensionlessScalarQuantity& scalar) {
     if (scalar.value() != 0.0) {
       value_ /= scalar.value();
     } else {

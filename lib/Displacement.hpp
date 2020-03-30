@@ -20,6 +20,10 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr Angle angle(const Displacement& displacement) const noexcept {
+    return value_.angle(displacement.value_);
+  }
+
   constexpr bool operator==(const Displacement& displacement) const noexcept {
     return value_ == displacement.value_;
   }
@@ -28,11 +32,11 @@ public:
     return value_ != displacement.value_;
   }
 
-  Position operator+(const Position& position) const noexcept {
+  constexpr Position operator+(const Position& position) const noexcept {
     return {value_ + position.value_};
   }
 
-  Displacement operator+(const Displacement& displacement) const noexcept {
+  constexpr Displacement operator+(const Displacement& displacement) const noexcept {
     return {value_ + displacement.value_};
   }
 
@@ -40,11 +44,11 @@ public:
     value_ += displacement.value_;
   }
 
-  Displacement operator-(const Position& position) const noexcept {
+  constexpr Displacement operator-(const Position& position) const noexcept {
     return {value_ - position.value_};
   }
 
-  Displacement operator-(const Displacement& displacement) const noexcept {
+  constexpr Displacement operator-(const Displacement& displacement) const noexcept {
     return {value_ - displacement.value_};
   }
 
@@ -68,17 +72,19 @@ protected:
 
 };
 
+constexpr Angle::Angle(const Displacement& displacement1, const Displacement& displacement2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement1.angle(displacement2)) {}
+
 constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.magnitude()) {}
 
-Position Position::operator+(const Displacement& displacement) const noexcept {
+constexpr Position Position::operator+(const Displacement& displacement) const noexcept {
   return {value_ + displacement.value_};
 }
 
-Displacement Position::operator-(const Position& position) const noexcept {
+constexpr Displacement Position::operator-(const Position& position) const noexcept {
   return {value_ - position.value_};
 }
 
-Position Position::operator-(const Displacement& displacement) const noexcept {
+constexpr Position Position::operator-(const Displacement& displacement) const noexcept {
   return {value_ - displacement.value_};
 }
 

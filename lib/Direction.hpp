@@ -19,7 +19,7 @@ class Direction {
 
 public:
 
-  Direction() noexcept : x_y_z_{1.0, 0.0, 0.0} {}
+  constexpr Direction() noexcept : x_y_z_{1.0, 0.0, 0.0} {}
 
   Direction(const std::array<double, 3>& x_y_z) {
     const double magnitude{std::sqrt(std::pow(x_y_z[0], 2) + std::pow(x_y_z[1], 2) + std::pow(x_y_z[2], 2))};
@@ -78,15 +78,15 @@ public:
       x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
   }
 
-  Value::Vector cross(const Value::Vector& vector) const noexcept;
+  constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
 
-  Value::Dyadic dyadic(const Direction& direction) const noexcept;
+  constexpr Value::Dyadic dyadic(const Direction& direction) const noexcept;
 
-  Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
+  constexpr Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
 
-  Angle angle(const Direction& direction) const noexcept;
+  constexpr Angle angle(const Direction& direction) const noexcept;
 
-  Angle angle(const Value::Vector& vector) const noexcept;
+  constexpr Angle angle(const Value::Vector& vector) const noexcept;
 
   std::string print() const noexcept {
     return

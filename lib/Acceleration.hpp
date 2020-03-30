@@ -19,6 +19,10 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr Angle angle(const Acceleration& acceleration) const noexcept {
+    return value_.angle(acceleration.value_);
+  }
+
   constexpr bool operator==(const Acceleration& acceleration) const noexcept {
     return value_ == acceleration.value_;
   }
@@ -27,7 +31,7 @@ public:
     return value_ != acceleration.value_;
   }
 
-  Acceleration operator+(const Acceleration& acceleration) const noexcept {
+  constexpr Acceleration operator+(const Acceleration& acceleration) const noexcept {
     return {value_ + acceleration.value_};
   }
 
@@ -35,7 +39,7 @@ public:
     value_ += acceleration.value_;
   }
 
-  Acceleration operator-(const Acceleration& acceleration) const noexcept {
+  constexpr Acceleration operator-(const Acceleration& acceleration) const noexcept {
     return {value_ - acceleration.value_};
   }
 
@@ -43,7 +47,7 @@ public:
     value_ -= acceleration.value_;
   }
 
-  Velocity operator*(const Duration& duration) const noexcept {
+  constexpr Velocity operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
   }
 
@@ -58,6 +62,8 @@ protected:
   friend class Velocity;
 
 };
+
+constexpr Angle::Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration1.angle(acceleration2)) {}
 
 constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
 

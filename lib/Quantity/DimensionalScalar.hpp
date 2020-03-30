@@ -75,15 +75,15 @@ public:
     return "<value>" + number_to_string(value(system)) + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  DimensionalScalarQuantity<Unit> operator*(double real) const noexcept {
+  constexpr DimensionalScalarQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionalScalarQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionalScalarQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
-  DimensionalVectorQuantity<Unit> operator*(const Direction& cartesian_direction) const noexcept;
+  DimensionalVectorQuantity<Unit> operator*(const Direction& direction) const noexcept;
 
   constexpr void operator*=(double real) noexcept {
     value_ *= real;
@@ -101,7 +101,7 @@ public:
     }
   }
 
-  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const {
+  double operator/(const DimensionlessScalarQuantity& scalar) const {
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -109,7 +109,7 @@ public:
     }
   }
 
-  constexpr double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
+  double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
     if (scalar != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -117,7 +117,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {

@@ -23,6 +23,10 @@ public:
     return {value_.magnitude()};
   }
 
+  constexpr Angle angle(const Velocity& velocity) const noexcept {
+    return value_.angle(velocity.value_);
+  }
+
   constexpr bool operator==(const Velocity& velocity) const noexcept {
     return value_ == velocity.value_;
   }
@@ -31,7 +35,7 @@ public:
     return value_ != velocity.value_;
   }
 
-  Velocity operator+(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator+(const Velocity& velocity) const noexcept {
     return {value_ + velocity.value_};
   }
 
@@ -39,7 +43,7 @@ public:
     value_ += velocity.value_;
   }
 
-  Velocity operator-(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator-(const Velocity& velocity) const noexcept {
     return {value_ - velocity.value_};
   }
 
@@ -47,7 +51,7 @@ public:
     value_ -= velocity.value_;
   }
 
-  Displacement operator*(const Duration& duration) const noexcept {
+  constexpr Displacement operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
   }
 
@@ -66,6 +70,8 @@ protected:
   friend class Acceleration;
 
 };
+
+constexpr Angle::Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept : DimensionalScalarQuantity<Unit::Angle>(velocity1.angle(velocity2)) {}
 
 constexpr Speed::Speed(const Velocity& velocity) noexcept : Speed(velocity.magnitude()) {}
 

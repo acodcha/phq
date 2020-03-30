@@ -52,11 +52,11 @@ public:
     return value_ >= scalar.value_;
   }
 
-  DimensionlessScalarQuantity operator+(double real) const noexcept {
+  constexpr DimensionlessScalarQuantity operator+(double real) const noexcept {
     return {value_ + real};
   }
 
-  DimensionlessScalarQuantity operator+(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionlessScalarQuantity operator+(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ + scalar.value_};
   }
 
@@ -68,11 +68,11 @@ public:
     value_ += scalar.value_;
   }
 
-  DimensionlessScalarQuantity operator-(double real) const noexcept {
+  constexpr DimensionlessScalarQuantity operator-(double real) const noexcept {
     return {value_ - real};
   }
 
-  DimensionlessScalarQuantity operator-(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionlessScalarQuantity operator-(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ - scalar.value_};
   }
 

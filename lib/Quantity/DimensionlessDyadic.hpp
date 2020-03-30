@@ -37,11 +37,11 @@ public:
     return value_ != dyadic.value_;
   }
 
-  DimensionlessDyadicQuantity operator+(const Value::Dyadic& value) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator+(const Value::Dyadic& value) const noexcept {
     return {value_ + value};
   }
 
-  DimensionlessDyadicQuantity operator+(const DimensionlessDyadicQuantity& dyadic) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator+(const DimensionlessDyadicQuantity& dyadic) const noexcept {
     return {value_ + dyadic.value_};
   }
 
@@ -53,11 +53,11 @@ public:
     value_ += dyadic.value_;
   }
 
-  DimensionlessDyadicQuantity operator-(const Value::Dyadic& value) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator-(const Value::Dyadic& value) const noexcept {
     return {value_ - value};
   }
 
-  DimensionlessDyadicQuantity operator-(const DimensionlessDyadicQuantity& dyadic) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator-(const DimensionlessDyadicQuantity& dyadic) const noexcept {
     return {value_ - dyadic.value_};
   }
 
@@ -69,11 +69,11 @@ public:
     value_ -= dyadic.value_;
   }
 
-  DimensionlessDyadicQuantity operator*(double real) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  DimensionlessDyadicQuantity operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionlessDyadicQuantity operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -101,7 +101,7 @@ public:
     }
   }
 
-  constexpr void operator/=(double real) {
+  void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
     } else {
@@ -109,7 +109,7 @@ public:
     }
   }
 
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) {
+  void operator/=(const DimensionlessScalarQuantity& scalar) {
     if (scalar.value() != 0.0) {
       value_ /= scalar.value();
     } else {
