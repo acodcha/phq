@@ -10,19 +10,6 @@ template <typename Unit> constexpr const Unit standard_unit;
 
 template <typename Unit> constexpr const Dimension::Set dimension;
 
-template <typename Unit, typename RelatedUnit> const std::map<Unit, RelatedUnit> related_units;
-
-/// \brief Obtain a related unit of measure of a different type.
-/// \details For example, PhQ::Unit::related_unit<PhQ::Unit::Unit::Volume>(PhQ::Unit::Unit::Length::Millimetre) returns PhQ::Unit::Unit::Volume::CubicMillimetre.
-template <typename Unit, typename RelatedUnit> std::optional<RelatedUnit> related_unit(Unit unit) noexcept {
-  const typename std::map<Unit, RelatedUnit>::const_iterator related_unit{related_units<Unit, RelatedUnit>.find(unit)};
-  if (related_unit != related_units<Unit, RelatedUnit>.cend()) {
-    return {related_unit->second};
-  } else {
-    return {};
-  }
-}
-
 template <typename Unit, size_t size> const std::map<Unit, std::map<Unit, std::function<void(std::array<double, size>&)>>> conversions;
 
 template <typename Unit> double convert(double value, Unit old_unit, Unit new_unit) noexcept {

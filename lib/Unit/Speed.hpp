@@ -94,34 +94,6 @@ template <> constexpr const Unit::Speed standard_unit<Unit::Speed>{Unit::Speed::
 
 template <> constexpr const Dimension::Set dimension<Unit::Speed>{Dimension::Set{Dimension::Length{1}, Dimension::Mass{}, Dimension::Time{-1}}};
 
-template <> const std::map<Unit::Speed, Unit::Length> related_units<Unit::Speed, Unit::Length> {
-  {Unit::Speed::MetrePerSecond, Unit::Length::Metre},
-  {Unit::Speed::DecimetrePerSecond, Unit::Length::Decimetre},
-  {Unit::Speed::CentimetrePerSecond, Unit::Length::Centimetre},
-  {Unit::Speed::MillimetrePerSecond, Unit::Length::Millimetre},
-  {Unit::Speed::MicrometrePerSecond, Unit::Length::Micrometre},
-  {Unit::Speed::KilometrePerSecond, Unit::Length::Kilometre},
-  {Unit::Speed::MilePerSecond, Unit::Length::Mile},
-  {Unit::Speed::YardPerSecond, Unit::Length::Yard},
-  {Unit::Speed::FootPerSecond, Unit::Length::Foot},
-  {Unit::Speed::InchPerSecond, Unit::Length::Inch},
-  {Unit::Speed::MilliinchPerSecond, Unit::Length::Milliinch}
-};
-
-template <> const std::map<Unit::Speed, Unit::Time> related_units<Unit::Speed, Unit::Time> {
-  {Unit::Speed::MetrePerSecond, Unit::Time::Second},
-  {Unit::Speed::DecimetrePerSecond, Unit::Time::Second},
-  {Unit::Speed::CentimetrePerSecond, Unit::Time::Second},
-  {Unit::Speed::MillimetrePerSecond, Unit::Time::Second},
-  {Unit::Speed::MicrometrePerSecond, Unit::Time::Second},
-  {Unit::Speed::KilometrePerSecond, Unit::Time::Second},
-  {Unit::Speed::MilePerSecond, Unit::Time::Second},
-  {Unit::Speed::YardPerSecond, Unit::Time::Second},
-  {Unit::Speed::FootPerSecond, Unit::Time::Second},
-  {Unit::Speed::InchPerSecond, Unit::Time::Second},
-  {Unit::Speed::MilliinchPerSecond, Unit::Time::Second}
-};
-
 template <size_t size> const std::map<Unit::Speed, std::map<Unit::Speed, std::function<void(std::array<double, size>&)>>> conversions<Unit::Speed, size>{
   {Unit::Speed::MilePerSecond, {
     {Unit::Speed::KilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{

@@ -95,34 +95,6 @@ template <> constexpr const Unit::Area standard_unit<Unit::Area>{Unit::Area::Squ
 
 template <> constexpr const Dimension::Set dimension<Unit::Area>{Dimension::Set{Dimension::Length{2}}};
 
-template <> const std::map<Unit::Length, Unit::Area> related_units<Unit::Length, Unit::Area> {
-  {Unit::Length::Metre, Unit::Area::SquareMetre},
-  {Unit::Length::Decimetre, Unit::Area::SquareDecimetre},
-  {Unit::Length::Centimetre, Unit::Area::SquareCentimetre},
-  {Unit::Length::Millimetre, Unit::Area::SquareMillimetre},
-  {Unit::Length::Micrometre, Unit::Area::SquareMicrometre},
-  {Unit::Length::Kilometre, Unit::Area::SquareKilometre},
-  {Unit::Length::Mile, Unit::Area::SquareMile},
-  {Unit::Length::Yard, Unit::Area::SquareYard},
-  {Unit::Length::Foot, Unit::Area::SquareFoot},
-  {Unit::Length::Inch, Unit::Area::SquareInch},
-  {Unit::Length::Milliinch, Unit::Area::SquareMilliinch}
-};
-
-template <> const std::map<Unit::Area, Unit::Length> related_units<Unit::Area, Unit::Length> {
-  {Unit::Area::SquareMetre, Unit::Length::Metre},
-  {Unit::Area::SquareDecimetre, Unit::Length::Decimetre},
-  {Unit::Area::SquareCentimetre, Unit::Length::Centimetre},
-  {Unit::Area::SquareMillimetre, Unit::Length::Millimetre},
-  {Unit::Area::SquareMicrometre, Unit::Length::Micrometre},
-  {Unit::Area::SquareKilometre, Unit::Length::Kilometre},
-  {Unit::Area::SquareMile, Unit::Length::Mile},
-  {Unit::Area::SquareYard, Unit::Length::Yard},
-  {Unit::Area::SquareFoot, Unit::Length::Foot},
-  {Unit::Area::SquareInch, Unit::Length::Inch},
-  {Unit::Area::SquareMilliinch, Unit::Length::Milliinch}
-};
-
 template <size_t size> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(std::array<double, size>&)>>> conversions<Unit::Area, size>{
   {Unit::Area::SquareMile, {
     {Unit::Area::SquareKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{

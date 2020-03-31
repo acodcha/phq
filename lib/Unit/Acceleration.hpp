@@ -161,62 +161,6 @@ template <> constexpr const Unit::Acceleration standard_unit<Unit::Acceleration>
 
 template <> constexpr const Dimension::Set dimension<Unit::Acceleration>{Dimension::Set{Dimension::Length{1}, Dimension::Mass{}, Dimension::Time{-2}}};
 
-template <> const std::map<Unit::Speed, Unit::Acceleration> related_units<Unit::Speed, Unit::Acceleration> {
-  {Unit::Speed::MetrePerSecond, Unit::Acceleration::MetrePerSquareSecond},
-  {Unit::Speed::DecimetrePerSecond, Unit::Acceleration::DecimetrePerSquareSecond},
-  {Unit::Speed::CentimetrePerSecond, Unit::Acceleration::CentimetrePerSquareSecond},
-  {Unit::Speed::MillimetrePerSecond, Unit::Acceleration::MillimetrePerSquareSecond},
-  {Unit::Speed::MicrometrePerSecond, Unit::Acceleration::MicrometrePerSquareSecond},
-  {Unit::Speed::KilometrePerSecond, Unit::Acceleration::KilometrePerSquareSecond},
-  {Unit::Speed::MilePerSecond, Unit::Acceleration::MilePerSquareSecond},
-  {Unit::Speed::YardPerSecond, Unit::Acceleration::YardPerSquareSecond},
-  {Unit::Speed::FootPerSecond, Unit::Acceleration::FootPerSquareSecond},
-  {Unit::Speed::InchPerSecond, Unit::Acceleration::InchPerSquareSecond},
-  {Unit::Speed::MilliinchPerSecond, Unit::Acceleration::MilliinchPerSquareSecond}
-};
-
-template <> const std::map<Unit::Acceleration, Unit::Length> related_units<Unit::Acceleration, Unit::Length> {
-  {Unit::Acceleration::MetrePerSquareSecond, Unit::Length::Metre},
-  {Unit::Acceleration::DecimetrePerSquareSecond, Unit::Length::Decimetre},
-  {Unit::Acceleration::CentimetrePerSquareSecond, Unit::Length::Centimetre},
-  {Unit::Acceleration::MillimetrePerSquareSecond, Unit::Length::Millimetre},
-  {Unit::Acceleration::MicrometrePerSquareSecond, Unit::Length::Micrometre},
-  {Unit::Acceleration::KilometrePerSquareSecond, Unit::Length::Kilometre},
-  {Unit::Acceleration::MilePerSquareSecond, Unit::Length::Mile},
-  {Unit::Acceleration::YardPerSquareSecond, Unit::Length::Yard},
-  {Unit::Acceleration::FootPerSquareSecond, Unit::Length::Foot},
-  {Unit::Acceleration::InchPerSquareSecond, Unit::Length::Inch},
-  {Unit::Acceleration::MilliinchPerSquareSecond, Unit::Length::Milliinch}
-};
-
-template <> const std::map<Unit::Acceleration, Unit::Time> related_units<Unit::Acceleration, Unit::Time> {
-  {Unit::Acceleration::MetrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::DecimetrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::CentimetrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::MillimetrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::MicrometrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::KilometrePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::MilePerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::YardPerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::FootPerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::InchPerSquareSecond, Unit::Time::Second},
-  {Unit::Acceleration::MilliinchPerSquareSecond, Unit::Time::Second}
-};
-
-template <> const std::map<Unit::Acceleration, Unit::Speed> related_units<Unit::Acceleration, Unit::Speed> {
-  {Unit::Acceleration::MetrePerSquareSecond, Unit::Speed::MetrePerSecond},
-  {Unit::Acceleration::DecimetrePerSquareSecond, Unit::Speed::DecimetrePerSecond},
-  {Unit::Acceleration::CentimetrePerSquareSecond, Unit::Speed::CentimetrePerSecond},
-  {Unit::Acceleration::MillimetrePerSquareSecond, Unit::Speed::MillimetrePerSecond},
-  {Unit::Acceleration::MicrometrePerSquareSecond, Unit::Speed::MicrometrePerSecond},
-  {Unit::Acceleration::KilometrePerSquareSecond, Unit::Speed::KilometrePerSecond},
-  {Unit::Acceleration::MilePerSquareSecond, Unit::Speed::MilePerSecond},
-  {Unit::Acceleration::YardPerSquareSecond, Unit::Speed::YardPerSecond},
-  {Unit::Acceleration::FootPerSquareSecond, Unit::Speed::FootPerSecond},
-  {Unit::Acceleration::InchPerSquareSecond, Unit::Speed::InchPerSecond},
-  {Unit::Acceleration::MilliinchPerSquareSecond, Unit::Speed::MilliinchPerSecond}
-};
-
 template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceleration, std::function<void(std::array<double, size>&)>>> conversions<Unit::Acceleration, size>{
   {Unit::Acceleration::MilePerSquareSecond, {
     {Unit::Acceleration::KilometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
