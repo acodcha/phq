@@ -8,6 +8,8 @@ namespace PhQ {
 class Length;
 class Speed;
 class AccelerationMagnitude;
+class Memory;
+class MemoryRate;
 
 class Duration : public DimensionalScalarQuantity<Unit::Time> {
 
@@ -86,6 +88,10 @@ protected:
   friend class Velocity;
 
   friend class Acceleration;
+
+  friend class Memory;
+
+  friend class MemoryRate;
 
 };
 

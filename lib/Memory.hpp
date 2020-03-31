@@ -5,6 +5,10 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class Duration;
+class MemoryRate;
+
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 
 public:
@@ -53,9 +57,15 @@ public:
     value_ -= memory.value_;
   }
 
+  MemoryRate operator/(const Duration& duration) const;
+
 protected:
 
   constexpr Memory(double value) noexcept : DimensionalScalarQuantity<Unit::Memory>(value) {}
+
+  friend class Duration;
+
+  friend class MemoryRate;
 
 };
 

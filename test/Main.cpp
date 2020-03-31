@@ -3,7 +3,7 @@
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/Force.hpp"
 #include "../lib/Mass.hpp"
-#include "../lib/Memory.hpp"
+#include "../lib/MemoryRate.hpp"
 #include "../lib/Position.hpp"
 #include "../lib/Pressure.hpp"
 #include "../lib/ReynoldsNumber.hpp"

@@ -2,7 +2,7 @@
 #include "../lib/Unit/Angle.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Mass.hpp"
-#include "../lib/Unit/Memory.hpp"
+#include "../lib/Unit/MemoryRate.hpp"
 #include "../lib/Unit/Pressure.hpp"
 #include "../lib/Unit/Temperature.hpp"
 #include "../lib/Unit/Time.hpp"
@@ -112,6 +112,17 @@ void test_memory() noexcept {
   });
 }
 
+void test_memory_rate() noexcept {
+  test_conversions<PhQ::Unit::MemoryRate>("Memory Rate", 1.0, {
+    PhQ::Unit::MemoryRate::BitPerSecond,
+    PhQ::Unit::MemoryRate::BytePerSecond,
+    PhQ::Unit::MemoryRate::KilobytePerSecond,
+    PhQ::Unit::MemoryRate::MegabytePerSecond,
+    PhQ::Unit::MemoryRate::GigabytePerSecond,
+    PhQ::Unit::MemoryRate::TerabytePerSecond
+  });
+}
+
 void test_pressure() noexcept {
   test_conversions<PhQ::Unit::Pressure>("Pressure", 1.0, {
     PhQ::Unit::Pressure::Pascal,
@@ -184,6 +195,7 @@ int main(int argc, char *argv[]) {
   test_length();
   test_mass();
   test_memory();
+  test_memory_rate();
   test_pressure();
   test_speed();
   test_temperature();
