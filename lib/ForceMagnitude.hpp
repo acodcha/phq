@@ -43,7 +43,7 @@ public:
     return value_ >= force_magnitude.value_;
   }
 
-  ForceMagnitude operator+(const ForceMagnitude& force_magnitude) const noexcept {
+  constexpr ForceMagnitude operator+(const ForceMagnitude& force_magnitude) const noexcept {
     return {value_ + force_magnitude.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += force_magnitude.value_;
   }
 
-  ForceMagnitude operator-(const ForceMagnitude& force_magnitude) const noexcept {
+  constexpr ForceMagnitude operator-(const ForceMagnitude& force_magnitude) const noexcept {
     return {value_ - force_magnitude.value_};
   }
 
