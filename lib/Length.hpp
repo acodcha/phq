@@ -7,12 +7,12 @@ namespace PhQ {
 
 // Forward declarations.
 class Area;
-class Volume;
-class Duration;
-class Speed;
-class Position;
 class Displacement;
+class Duration;
 class Frequency;
+class Position;
+class Speed;
+class Volume;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 
@@ -77,18 +77,12 @@ protected:
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
 
   friend class Area;
-
-  friend class Volume;
-
-  friend class Duration;
-
-  friend class Speed;
-
-  friend class Position;
-
   friend class Displacement;
-
+  friend class Duration;
   friend class Frequency;
+  friend class Position;
+  friend class Speed;
+  friend class Volume;
 
 };
 

@@ -64,9 +64,7 @@ protected:
   constexpr MemoryRate(double value) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}
 
   friend class Duration;
-
   friend class Frequency;
-
   friend class Memory;
 
 };

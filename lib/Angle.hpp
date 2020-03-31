@@ -6,11 +6,11 @@
 namespace PhQ {
 
 // Forward declarations.
-class Position;
-class Displacement;
-class Velocity;
 class Acceleration;
+class Displacement;
 class Force;
+class Position;
+class Velocity;
 
 class Angle : public DimensionalScalarQuantity<Unit::Angle> {
 
@@ -83,11 +83,8 @@ protected:
   constexpr Angle(double value) noexcept : DimensionalScalarQuantity<Unit::Angle>(value) {}
 
   friend Angle Direction::angle(const Direction& direction) const noexcept;
-
   friend Angle Direction::angle(const Value::Vector& vector) const noexcept;
-
   friend Angle Value::Vector::angle(const Direction& direction) const noexcept;
-
   friend Angle Value::Vector::angle(const Value::Vector& vector) const noexcept;
 
 };

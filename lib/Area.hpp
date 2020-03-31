@@ -73,13 +73,10 @@ protected:
 
   constexpr Area(double value) noexcept : DimensionalScalarQuantity<Unit::Area>(value) {}
 
-  friend class Length;
-
-  friend class Volume;
-
   friend class ForceMagnitude;
-
+  friend class Length;
   friend class Pressure;
+  friend class Volume;
 
 };
 

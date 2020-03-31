@@ -74,7 +74,6 @@ protected:
   constexpr Volume(double value) noexcept : DimensionalScalarQuantity<Unit::Volume>(value) {}
 
   friend class Area;
-
   friend class Length;
 
 };

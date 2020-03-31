@@ -74,13 +74,10 @@ protected:
 
   constexpr AccelerationMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
 
-  friend class Duration;
-
-  friend class Speed;
-
   friend class Acceleration;
-
+  friend class Duration;
   friend class Frequency;
+  friend class Speed;
 
 };
 

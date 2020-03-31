@@ -59,9 +59,8 @@ protected:
 
   constexpr Position(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 
-  friend class Length;
-
   friend class Displacement;
+  friend class Length;
 
 };
 

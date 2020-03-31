@@ -71,15 +71,11 @@ protected:
 
   constexpr Velocity(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Speed>(value) {}
 
-  friend class Duration;
-
-  friend class Speed;
-
-  friend class Displacement;
-
   friend class Acceleration;
-
+  friend class Displacement;
+  friend class Duration;
   friend class Frequency;
+  friend class Speed;
 
 };
 

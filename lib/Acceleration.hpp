@@ -63,13 +63,10 @@ protected:
 
   constexpr Acceleration(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 
-  friend class Duration;
-
   friend class AccelerationMagnitude;
-
-  friend class Velocity;
-
+  friend class Duration;
   friend class Frequency;
+  friend class Velocity;
 
 };
 

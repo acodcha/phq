@@ -6,8 +6,8 @@
 namespace PhQ {
 
 // Forward declarations.
-class Pressure;
 class Force;
+class Pressure;
 
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 
@@ -66,10 +66,8 @@ protected:
   constexpr ForceMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Force>(value) {}
 
   friend class Area;
-
-  friend class Pressure;
-
   friend class Force;
+  friend class Pressure;
 
 };
 

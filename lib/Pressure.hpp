@@ -64,7 +64,6 @@ protected:
   constexpr Pressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class Area;
-
   friend class ForceMagnitude;
 
 };

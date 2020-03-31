@@ -7,8 +7,8 @@ namespace PhQ {
 
 // Forward declaration.
 class Duration;
-class MemoryRate;
 class Frequency;
+class MemoryRate;
 
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 
@@ -67,10 +67,8 @@ protected:
   constexpr Memory(double value) noexcept : DimensionalScalarQuantity<Unit::Memory>(value) {}
 
   friend class Duration;
-
-  friend class MemoryRate;
-
   friend class Frequency;
+  friend class MemoryRate;
 
 };
 

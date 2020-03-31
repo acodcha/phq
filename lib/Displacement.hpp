@@ -6,8 +6,8 @@ namespace PhQ {
 
 // Forward declarations.
 class Duration;
-class Velocity;
 class Frequency;
+class Velocity;
 
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 
@@ -65,15 +65,11 @@ protected:
 
   constexpr Displacement(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 
-  friend class Length;
-
   friend class Duration;
-
-  friend class Position;
-
-  friend class Velocity;
-
   friend class Frequency;
+  friend class Length;
+  friend class Position;
+  friend class Velocity;
 
 };
 
