@@ -163,6 +163,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Acceleration>{Dimensi
 
 template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceleration, std::function<void(std::array<double, size>&)>>> conversions<Unit::Acceleration, size>{
   {Unit::Acceleration::MilePerSquareSecond, {
+    {Unit::Acceleration::MilePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::KilometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1.609344;});}},
     {Unit::Acceleration::YardPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -188,6 +189,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
   {Unit::Acceleration::KilometrePerSquareSecond, {
     {Unit::Acceleration::MilePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 1.609344;});}},
+    {Unit::Acceleration::KilometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::YardPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.0009144;});}},
     {Unit::Acceleration::MetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -213,6 +215,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value /= 1760.0;});}},
     {Unit::Acceleration::KilometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.0009144;});}},
+    {Unit::Acceleration::YardPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::MetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.9144;});}},
     {Unit::Acceleration::FootPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -238,6 +241,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value *= 0.001;});}},
     {Unit::Acceleration::YardPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.9144;});}},
+    {Unit::Acceleration::MetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::FootPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.3048;});}},
     {Unit::Acceleration::DecimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -263,6 +267,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value /= 3.0;});}},
     {Unit::Acceleration::MetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.3048;});}},
+    {Unit::Acceleration::FootPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::DecimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 3.048;});}},
     {Unit::Acceleration::InchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -288,6 +293,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value *= 0.1;});}},
     {Unit::Acceleration::FootPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 3.048;});}},
+    {Unit::Acceleration::DecimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::InchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.254;});}},
     {Unit::Acceleration::CentimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -313,6 +319,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value /= 12.0;});}},
     {Unit::Acceleration::DecimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.254;});}},
+    {Unit::Acceleration::InchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::CentimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 2.54;});}},
     {Unit::Acceleration::MillimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -338,6 +345,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value *= 0.1;});}},
     {Unit::Acceleration::InchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 2.54;});}},
+    {Unit::Acceleration::CentimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::MillimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 10.0;});}},
     {Unit::Acceleration::MilliinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -363,6 +371,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value /= 25.4;});}},
     {Unit::Acceleration::CentimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.1;});}},
+    {Unit::Acceleration::MillimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::MilliinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.0254;});}},
     {Unit::Acceleration::MicrometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -388,6 +397,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value *= 0.00254;});}},
     {Unit::Acceleration::MillimetrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.0254;});}},
+    {Unit::Acceleration::MilliinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::MicrometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 25.4;});}},
     {Unit::Acceleration::MicroinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -413,6 +423,7 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
       value *= 0.001;});}},
     {Unit::Acceleration::MilliinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 25.4;});}},
+    {Unit::Acceleration::MicrometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Acceleration::MicroinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 0.0254;});}}}},
   {Unit::Acceleration::MicroinchPerSquareSecond, {
@@ -437,7 +448,8 @@ template <size_t size> const std::map<Unit::Acceleration, std::map<Unit::Acceler
     {Unit::Acceleration::MilliinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.001;});}},
     {Unit::Acceleration::MicrometrePerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254;});}}}}
+      value *= 0.0254;});}},
+    {Unit::Acceleration::MicroinchPerSquareSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
 };
 
 } // namespace PhQ

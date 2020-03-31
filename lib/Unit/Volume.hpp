@@ -99,6 +99,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Volume>{Dimension::Se
 
 template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::function<void(std::array<double, size>&)>>> conversions<Unit::Volume, size>{
   {Unit::Volume::CubicMile, {
+    {Unit::Volume::CubicMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(1.609344, 3);});}},
     {Unit::Volume::CubicYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -128,6 +129,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
   {Unit::Volume::CubicKilometre, {
     {Unit::Volume::CubicMile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(1.609344, 3);});}},
+    {Unit::Volume::CubicKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.0009144, 3);});}},
     {Unit::Volume::CubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -157,6 +159,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value /= std::pow(1760.0, 3);});}},
     {Unit::Volume::CubicKilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.0009144, 3);});}},
+    {Unit::Volume::CubicYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.9144, 3);});}},
     {Unit::Volume::CubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -186,6 +189,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.001, 3);});}},
     {Unit::Volume::CubicYard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.9144, 3);});}},
+    {Unit::Volume::CubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.3048, 3);});}},
     {Unit::Volume::CubicDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -215,6 +219,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value /= std::pow(3.0, 3);});}},
     {Unit::Volume::CubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.3048, 3);});}},
+    {Unit::Volume::CubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(3.048, 3);});}},
     {Unit::Volume::Litre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -244,8 +249,8 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.1, 3);});}},
     {Unit::Volume::CubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(3.048, 3);});}},
-    {Unit::Volume::Litre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      ;});}},
+    {Unit::Volume::CubicDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Volume::Litre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.254, 3);});}},
     {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -271,8 +276,8 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.1, 3);});}},
     {Unit::Volume::CubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(3.048, 3);});}},
-    {Unit::Volume::CubicDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      ;});}},
+    {Unit::Volume::CubicDecimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Volume::Litre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.254, 3);});}},
     {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -302,6 +307,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.254, 3);});}},
     {Unit::Volume::Litre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.254, 3);});}},
+    {Unit::Volume::CubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(2.54, 3);});}},
     {Unit::Volume::Millilitre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -331,8 +337,8 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.1, 3);});}},
     {Unit::Volume::CubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(2.54, 3);});}},
-    {Unit::Volume::Millilitre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      ;});}},
+    {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Volume::Millilitre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(10.0, 3);});}},
     {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -358,8 +364,8 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.1, 3);});}},
     {Unit::Volume::CubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(2.54, 3);});}},
-    {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      ;});}},
+    {Unit::Volume::CubicCentimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Volume::Millilitre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(10.0, 3);});}},
     {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -389,6 +395,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.1, 3);});}},
     {Unit::Volume::Millilitre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.1, 3);});}},
+    {Unit::Volume::CubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.0254, 3);});}},
     {Unit::Volume::CubicMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -418,6 +425,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.00254, 3);});}},
     {Unit::Volume::CubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.0254, 3);});}},
+    {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(25.4, 3);});}},
     {Unit::Volume::CubicMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -447,6 +455,7 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
       value *= std::pow(0.001, 3);});}},
     {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(25.4, 3);});}},
+    {Unit::Volume::CubicMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Volume::CubicMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(0.0254, 3);});}}}},
   {Unit::Volume::CubicMicroinch, {
@@ -475,7 +484,8 @@ template <size_t size> const std::map<Unit::Volume, std::map<Unit::Volume, std::
     {Unit::Volume::CubicMilliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= std::pow(0.001, 3);});}},
     {Unit::Volume::CubicMicrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 3);});}}}}
+      value *= std::pow(0.0254, 3);});}},
+    {Unit::Volume::CubicMicroinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
 };
 
 } // namespace PhQ

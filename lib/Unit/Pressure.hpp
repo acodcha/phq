@@ -92,6 +92,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Pressure>{Dimension::
 
 template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, std::function<void(std::array<double, size>&)>>> conversions<Unit::Pressure, size>{
   {Unit::Pressure::Pascal, {
+    {Unit::Pressure::Pascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Pressure::Kilopascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.001;});}},
     {Unit::Pressure::Megapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -105,6 +106,7 @@ template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, s
   {Unit::Pressure::Kilopascal, {
     {Unit::Pressure::Pascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1000.0;});}},
+    {Unit::Pressure::Kilopascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Pressure::Megapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.001;});}},
     {Unit::Pressure::Gigapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -118,6 +120,7 @@ template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, s
       value *= 1000000.0;});}},
     {Unit::Pressure::Kilopascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1000.0;});}},
+    {Unit::Pressure::Megapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Pressure::Gigapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.001;});}},
     {Unit::Pressure::PoundPerSquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -131,6 +134,7 @@ template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, s
       value *= 1000000.0;});}},
     {Unit::Pressure::Megapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1000.0;});}},
+    {Unit::Pressure::Gigapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Pressure::PoundPerSquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1000000000.0 * std::pow(0.3048, 2) / (0.45359237 * 9.80665);});}},
     {Unit::Pressure::PoundPerSquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -144,6 +148,7 @@ template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, s
       value *= 0.000001 * 0.45359237 * 9.80665 / std::pow(0.3048, 2);});}},
     {Unit::Pressure::Gigapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.000000001 * 0.45359237 * 9.80665 / std::pow(0.3048, 2);});}},
+    {Unit::Pressure::PoundPerSquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Pressure::PoundPerSquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= std::pow(12.0, 2);});}}}},
   {Unit::Pressure::PoundPerSquareInch, {
@@ -156,7 +161,8 @@ template <size_t size> const std::map<Unit::Pressure, std::map<Unit::Pressure, s
     {Unit::Pressure::Gigapascal, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.000000001 * 0.45359237 * 9.80665 / std::pow(0.0254, 2);});}},
     {Unit::Pressure::PoundPerSquareFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12.0, 2);});}}}}
+      value *= std::pow(12.0, 2);});}},
+    {Unit::Pressure::PoundPerSquareInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
 };
 
 } // namespace PhQ

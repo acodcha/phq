@@ -45,6 +45,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Force>{Dimension::Set
 
 template <size_t size> const std::map<Unit::Force, std::map<Unit::Force, std::function<void(std::array<double, size>&)>>> conversions<Unit::Force, size>{
   {Unit::Force::Newton, {
+    {Unit::Force::Newton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Force::Micronewton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 1000000.0;});}},
     {Unit::Force::Pound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -52,13 +53,15 @@ template <size_t size> const std::map<Unit::Force, std::map<Unit::Force, std::fu
   {Unit::Force::Micronewton, {
     {Unit::Force::Newton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.000001;});}},
+    {Unit::Force::Micronewton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Force::Pound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 453592.37 * 9.80665;});}}}},
   {Unit::Force::Pound, {
     {Unit::Force::Newton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 0.45359237 * 9.80665;});}},
     {Unit::Force::Micronewton, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 453592.37 * 9.80665;});}}}}
+      value *= 453592.37 * 9.80665;});}},
+    {Unit::Force::Pound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
 };
 
 } // namespace PhQ

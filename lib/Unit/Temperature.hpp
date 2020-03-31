@@ -54,6 +54,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Temperature>{Dimensio
 
 template <size_t size> const std::map<Unit::Temperature, std::map<Unit::Temperature, std::function<void(std::array<double, size>&)>>> conversions<Unit::Temperature, size>{
   {Unit::Temperature::Kelvin, {
+    {Unit::Temperature::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Temperature::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = value - 273.15;});}},
     {Unit::Temperature::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -63,6 +64,7 @@ template <size_t size> const std::map<Unit::Temperature, std::map<Unit::Temperat
   {Unit::Temperature::Celsius, {
     {Unit::Temperature::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = value + 273.15;});}},
+    {Unit::Temperature::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Temperature::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = (value + 273.15) * 9.0 / 5.0;});}},
     {Unit::Temperature::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
@@ -72,6 +74,7 @@ template <size_t size> const std::map<Unit::Temperature, std::map<Unit::Temperat
       value = value * 5.0 / 9.0;});}},
     {Unit::Temperature::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = (value - 491.67) * 5.0 / 9.0;});}},
+    {Unit::Temperature::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Temperature::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = value - 459.67;});}}}},
   {Unit::Temperature::Fahrenheit, {
@@ -80,7 +83,8 @@ template <size_t size> const std::map<Unit::Temperature, std::map<Unit::Temperat
     {Unit::Temperature::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value = (value - 32.0) * 5.0 / 9.0;});}},
     {Unit::Temperature::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value = value + 459.67;});}}}}
+      value = value + 459.67;});}},
+    {Unit::Temperature::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
 };
 
 } // namespace PhQ
