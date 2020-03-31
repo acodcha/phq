@@ -10,6 +10,7 @@ class Speed;
 class AccelerationMagnitude;
 class Memory;
 class MemoryRate;
+class Frequency;
 
 class Duration : public DimensionalScalarQuantity<Unit::Time> {
 
@@ -18,6 +19,8 @@ public:
   constexpr Duration() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
 
   constexpr Duration(double value, Unit::Time unit) noexcept : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
+
+  Frequency frequency() const;
 
   constexpr bool operator==(const Duration& duration) const noexcept {
     return value_ == duration.value_;
@@ -71,6 +74,8 @@ public:
     value_ -= duration.value_;
   }
 
+  constexpr double operator*(const Frequency& frequency) const noexcept;
+
 protected:
 
   constexpr Duration(double value) noexcept : DimensionalScalarQuantity<Unit::Time>(value) {}
@@ -92,6 +97,8 @@ protected:
   friend class Memory;
 
   friend class MemoryRate;
+
+  friend class Frequency;
 
 };
 

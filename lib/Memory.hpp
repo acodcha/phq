@@ -8,6 +8,7 @@ namespace PhQ {
 // Forward declaration.
 class Duration;
 class MemoryRate;
+class Frequency;
 
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 
@@ -57,6 +58,8 @@ public:
     value_ -= memory.value_;
   }
 
+  constexpr MemoryRate operator*(const Frequency& frequency) const noexcept;
+
   MemoryRate operator/(const Duration& duration) const;
 
 protected:
@@ -66,6 +69,8 @@ protected:
   friend class Duration;
 
   friend class MemoryRate;
+
+  friend class Frequency;
 
 };
 

@@ -12,6 +12,7 @@ class Duration;
 class Speed;
 class Position;
 class Displacement;
+class Frequency;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 
@@ -63,9 +64,11 @@ public:
     value_ -= length.value_;
   }
 
-  Area operator*(const Length& length) const noexcept;
+  constexpr Area operator*(const Length& length) const noexcept;
 
-  Volume operator*(const Area& area) const noexcept;
+  constexpr Volume operator*(const Area& area) const noexcept;
+
+  constexpr Speed operator*(const Frequency& frequency) const noexcept;
 
   Speed operator/(const Duration& time) const;
 
@@ -84,6 +87,8 @@ protected:
   friend class Position;
 
   friend class Displacement;
+
+  friend class Frequency;
 
 };
 

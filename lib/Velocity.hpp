@@ -55,7 +55,17 @@ public:
     return {value_ * duration.value_};
   }
 
+  constexpr Acceleration operator*(const Frequency& frequency) const noexcept;
+
   Acceleration operator/(const Duration& duration) const;
+
+  Displacement operator/(const Frequency& frequency) const {
+    if (frequency.value_ != 0.0) {
+      return {value_ / frequency.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
+    }
+  }
 
 protected:
 
@@ -69,11 +79,21 @@ protected:
 
   friend class Acceleration;
 
+  friend class Frequency;
+
 };
 
 constexpr Angle::Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept : DimensionalScalarQuantity<Unit::Angle>(velocity1.angle(velocity2)) {}
 
 constexpr Speed::Speed(const Velocity& velocity) noexcept : Speed(velocity.magnitude()) {}
+
+constexpr Velocity Frequency::operator*(const Displacement& displacement) const noexcept {
+  return {displacement.value_ * value_};
+}
+
+constexpr Velocity Displacement::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
+}
 
 Velocity Displacement::operator/(const Duration& duration) const {
   if (duration.value_ != 0.0) {

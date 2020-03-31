@@ -2,6 +2,7 @@
 #include "../lib/Unit/Angle.hpp"
 #include "../lib/Unit/Area.hpp"
 #include "../lib/Unit/Force.hpp"
+#include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/Length.hpp"
 #include "../lib/Unit/Mass.hpp"
 #include "../lib/Unit/Memory.hpp"
@@ -75,6 +76,15 @@ void test_force() noexcept {
     PhQ::Unit::Force::Newton,
     PhQ::Unit::Force::Micronewton,
     PhQ::Unit::Force::Pound
+  });
+}
+
+void test_frequency() noexcept {
+  test_conversions<PhQ::Unit::Frequency>("Frequency", 1.0, {
+    PhQ::Unit::Frequency::Hertz,
+    PhQ::Unit::Frequency::Kilohertz,
+    PhQ::Unit::Frequency::Megahertz,
+    PhQ::Unit::Frequency::Gigahertz
   });
 }
 
@@ -196,6 +206,7 @@ int main(int argc, char *argv[]) {
   test_angle();
   test_area();
   test_force();
+  test_frequency();
   test_length();
   test_mass();
   test_memory();

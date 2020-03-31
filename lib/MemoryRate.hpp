@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Duration.hpp"
+#include "Frequency.hpp"
 #include "Memory.hpp"
 #include "Unit/MemoryRate.hpp"
 
@@ -64,9 +65,19 @@ protected:
 
   friend class Duration;
 
+  friend class Frequency;
+
   friend class Memory;
 
 };
+
+constexpr MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
+  return {value_ * memory.value_};
+}
+
+constexpr MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
+}
 
 MemoryRate Memory::operator/(const Duration& duration) const {
   if (duration.value_ != 0.0) {

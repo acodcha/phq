@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Duration.hpp"
+#include "Frequency.hpp"
 #include "Length.hpp"
 #include "Unit/Speed.hpp"
 
@@ -44,7 +44,7 @@ public:
     return value_ >= speed.value_;
   }
 
-  Speed operator+(const Speed& speed) const noexcept {
+  constexpr Speed operator+(const Speed& speed) const noexcept {
     return {value_ + speed.value_};
   }
 
@@ -52,7 +52,7 @@ public:
     value_ += speed.value_;
   }
 
-  Speed operator-(const Speed& speed) const noexcept {
+  constexpr Speed operator-(const Speed& speed) const noexcept {
     return {value_ - speed.value_};
   }
 
@@ -60,11 +60,21 @@ public:
     value_ -= speed.value_;
   }
 
-  Length operator*(const Duration& duration) const noexcept {
+  constexpr Length operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
   }
 
+  constexpr AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
+
   AccelerationMagnitude operator/(const Duration& duration) const;
+
+  Length operator/(const Frequency& frequency) const {
+    if (frequency.value_ != 0.0) {
+      return {value_ / frequency.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
+    }
+  }
 
 protected:
 
@@ -78,7 +88,17 @@ protected:
 
   friend class AccelerationMagnitude;
 
+  friend class Frequency;
+
 };
+
+constexpr Speed Length::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
+}
+
+constexpr Speed Frequency::operator*(const Length& length) const noexcept {
+  return {value_ * length.value_};
+}
 
 Speed Length::operator/(const Duration& duration) const {
   if (duration.value_ != 0.0) {

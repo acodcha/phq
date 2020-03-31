@@ -41,7 +41,7 @@ public:
     return value_ >= area.value_;
   }
 
-  Area operator+(const Area& area) const noexcept {
+  constexpr Area operator+(const Area& area) const noexcept {
     return {value_ + area.value_};
   }
 
@@ -49,7 +49,7 @@ public:
     value_ += area.value_;
   }
 
-  Area operator-(const Area& area) const noexcept {
+  constexpr Area operator-(const Area& area) const noexcept {
     return {value_ - area.value_};
   }
 
@@ -57,9 +57,9 @@ public:
     value_ -= area.value_;
   }
 
-  Volume operator*(const Length& length) const noexcept;
+  constexpr Volume operator*(const Length& length) const noexcept;
 
-  ForceMagnitude operator*(const Pressure& pressure) const noexcept;
+  constexpr ForceMagnitude operator*(const Pressure& pressure) const noexcept;
 
   Length operator/(const Length& length) const {
     if (length.value_ != 0.0) {
@@ -83,7 +83,7 @@ protected:
 
 };
 
-Area Length::operator*(const Length& length) const noexcept {
+constexpr Area Length::operator*(const Length& length) const noexcept {
   return {value_ * length.value_};
 }
 

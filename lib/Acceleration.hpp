@@ -51,6 +51,14 @@ public:
     return {value_ * duration.value_};
   }
 
+  Velocity operator/(const Frequency& frequency) const {
+    if (frequency.value_ != 0.0) {
+      return {value_ / frequency.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr Acceleration(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
@@ -61,11 +69,17 @@ protected:
 
   friend class Velocity;
 
+  friend class Frequency;
+
 };
 
 constexpr Angle::Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration1.angle(acceleration2)) {}
 
 constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
+
+constexpr Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
+}
 
 Acceleration Velocity::operator/(const Duration& duration) const {
   if (duration.value_ != 0.0) {

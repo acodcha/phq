@@ -39,7 +39,7 @@ public:
     return value_ >= pressure.value_;
   }
 
-  Pressure operator+(const Pressure& pressure) const noexcept {
+  constexpr Pressure operator+(const Pressure& pressure) const noexcept {
     return {value_ + pressure.value_};
   }
 
@@ -47,7 +47,7 @@ public:
     value_ += pressure.value_;
   }
 
-  Pressure operator-(const Pressure& pressure) const noexcept {
+  constexpr Pressure operator-(const Pressure& pressure) const noexcept {
     return {value_ - pressure.value_};
   }
 
@@ -69,7 +69,7 @@ protected:
 
 };
 
-ForceMagnitude Area::operator*(const Pressure& pressure) const noexcept {
+constexpr ForceMagnitude Area::operator*(const Pressure& pressure) const noexcept {
   return {value_ * pressure.value_};
 }
 

@@ -42,7 +42,7 @@ public:
     return value_ >= acceleration_magnitude.value_;
   }
 
-  AccelerationMagnitude operator+(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+  constexpr AccelerationMagnitude operator+(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return {value_ + acceleration_magnitude.value_};
   }
 
@@ -50,7 +50,7 @@ public:
     value_ += acceleration_magnitude.value_;
   }
 
-  AccelerationMagnitude operator-(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+  constexpr AccelerationMagnitude operator-(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return {value_ - acceleration_magnitude.value_};
   }
 
@@ -58,8 +58,16 @@ public:
     value_ -= acceleration_magnitude.value_;
   }
 
-  Speed operator*(const Duration& duration) const noexcept {
+  constexpr Speed operator*(const Duration& duration) const noexcept {
     return {value_ * duration.value_};
+  }
+
+  Speed operator/(const Frequency& frequency) const {
+    if (frequency.value_ != 0.0) {
+      return {value_ / frequency.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
+    }
   }
 
 protected:
@@ -72,7 +80,17 @@ protected:
 
   friend class Acceleration;
 
+  friend class Frequency;
+
 };
+
+constexpr AccelerationMagnitude Frequency::operator*(const Speed& speed) const noexcept {
+  return {value_ * speed.value_};
+}
+
+constexpr AccelerationMagnitude Speed::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
+}
 
 AccelerationMagnitude Speed::operator/(const Duration& duration) const {
   if (duration.value_ != 0.0) {

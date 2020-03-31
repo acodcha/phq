@@ -37,7 +37,7 @@ public:
     return value_ >= volume.value_;
   }
 
-  Volume operator+(const Volume& volume) const noexcept {
+  constexpr Volume operator+(const Volume& volume) const noexcept {
     return {value_ + volume.value_};
   }
 
@@ -45,7 +45,7 @@ public:
     value_ += volume.value_;
   }
 
-  Volume operator-(const Volume& volume) const noexcept {
+  constexpr Volume operator-(const Volume& volume) const noexcept {
     return {value_ - volume.value_};
   }
 
@@ -79,11 +79,11 @@ protected:
 
 };
 
-Volume Length::operator*(const Area& area) const noexcept {
+constexpr Volume Length::operator*(const Area& area) const noexcept {
   return {value_ * area.value_};
 }
 
-Volume Area::operator*(const Length& length) const noexcept {
+constexpr Volume Area::operator*(const Length& length) const noexcept {
   return {value_ * length.value_};
 }
 

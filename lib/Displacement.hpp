@@ -7,6 +7,7 @@ namespace PhQ {
 // Forward declarations.
 class Duration;
 class Velocity;
+class Frequency;
 
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 
@@ -56,6 +57,8 @@ public:
     value_ -= displacement.value_;
   }
 
+  constexpr Velocity operator*(const Frequency& frequency) const noexcept;
+
   Velocity operator/(const Duration& duration) const;
 
 protected:
@@ -69,6 +72,8 @@ protected:
   friend class Position;
 
   friend class Velocity;
+
+  friend class Frequency;
 
 };
 
