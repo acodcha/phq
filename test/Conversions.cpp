@@ -7,8 +7,10 @@
 #include "../lib/Unit/Time.hpp"
 #include "../lib/Unit/Volume.hpp"
 
+const std::string test_separator{"----------------------------------------"};
+
 template <typename Unit> void test_conversions(const std::string& name, double value, const std::set<Unit>& units) {
-  std::cout << "----------------------------------------" << std::endl;
+  std::cout << test_separator << std::endl;
   std::cout << name << ":" << std::endl;
   for (const Unit& unit1 : units) {
     for (const Unit& unit2 : units) {
@@ -101,6 +103,9 @@ void test_mass() noexcept {
 void test_pressure() noexcept {
   test_conversions<PhQ::Unit::Pressure>("Pressure", 1.0, {
     PhQ::Unit::Pressure::Pascal,
+    PhQ::Unit::Pressure::Kilopascal,
+    PhQ::Unit::Pressure::Megapascal,
+    PhQ::Unit::Pressure::Gigapascal,
     PhQ::Unit::Pressure::PoundPerSquareFoot,
     PhQ::Unit::Pressure::PoundPerSquareInch
   });
@@ -171,5 +176,6 @@ int main(int argc, char *argv[]) {
   test_temperature();
   test_time();
   test_volume();
+  std::cout << test_separator << std::endl;
   return EXIT_SUCCESS;
 }
