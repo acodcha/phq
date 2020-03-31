@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Memory.hpp"
-#include "Time.hpp"
+#include "Base.hpp"
 
 namespace PhQ {
 
