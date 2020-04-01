@@ -128,6 +128,18 @@ template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar1, cons
 
 } // namespace PhQ
 
+constexpr PhQ::DimensionlessScalarQuantity operator*(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
+  return {scalar * real};
+}
+
+constexpr double operator/(double real, const PhQ::DimensionlessScalarQuantity& scalar) {
+  if (scalar.value() != 0.0) {
+    return real / scalar.value();
+  } else {
+    throw std::runtime_error{"Division of " + PhQ::number_to_string(real) + " by " + scalar.print() + "."};
+  }
+}
+
 namespace std {
 
 double cbrt(const PhQ::DimensionlessScalarQuantity& scalar) {

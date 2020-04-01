@@ -191,6 +191,10 @@ constexpr Value::Vector Direction::cross(const Value::Vector& vector) const noex
 
 } // namespace PhQ
 
+constexpr PhQ::Value::Vector operator*(double real, const PhQ::Value::Vector& vector) noexcept {
+  return {vector * real};
+}
+
 std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Vector& vector) noexcept {
   output_stream << vector.print();
   return output_stream;

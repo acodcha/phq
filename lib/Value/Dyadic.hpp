@@ -438,6 +438,10 @@ template <> constexpr bool sort(const Value::Dyadic& dyadic1, const Value::Dyadi
 
 } // namespace PhQ
 
+constexpr PhQ::Value::Dyadic operator*(double real, const PhQ::Value::Dyadic& dyadic) noexcept {
+  return {dyadic * real};
+}
+
 std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Dyadic& dyadic) noexcept {
   output_stream << dyadic.print();
   return output_stream;

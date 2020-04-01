@@ -292,6 +292,10 @@ template <> constexpr bool sort(const Value::SymmetricDyadic& dyadic1, const Val
 
 } // namespace PhQ
 
+constexpr PhQ::Value::SymmetricDyadic operator*(double real, const PhQ::Value::SymmetricDyadic& dyadic) noexcept {
+  return {dyadic * real};
+}
+
 std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricDyadic& dyadic) noexcept {
   output_stream << dyadic.print();
   return output_stream;

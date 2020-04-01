@@ -133,12 +133,19 @@ protected:
   Value::SymmetricDyadic value_;
 
   friend class DimensionalScalarQuantity<Unit>;
-
   friend class DimensionalVectorQuantity<Unit>;
 
 };
 
 } // namespace PhQ
+
+template <typename Unit> constexpr PhQ::DimensionalSymmetricDyadicQuantity<Unit> operator*(double real, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
+  return {dyadic * real};
+}
+
+template <typename Unit> constexpr PhQ::DimensionalSymmetricDyadicQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
+  return {dyadic * scalar.value()};
+}
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
   output_stream << dyadic.print();

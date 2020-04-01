@@ -88,3 +88,11 @@ template <> constexpr bool sort(const DimensionlessSymmetricDyadicQuantity& dyad
 }
 
 } // namespace PhQ
+
+constexpr PhQ::DimensionlessSymmetricDyadicQuantity operator*(double real, const PhQ::DimensionlessSymmetricDyadicQuantity& dyadic) noexcept {
+  return {dyadic * real};
+}
+
+constexpr PhQ::DimensionlessSymmetricDyadicQuantity operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionlessSymmetricDyadicQuantity& dyadic) noexcept {
+  return {dyadic * scalar.value()};
+}

@@ -132,16 +132,23 @@ protected:
   double value_;
 
   friend class DimensionalVectorQuantity<Unit>;
-
   friend class DimensionalSymmetricDyadicQuantity<Unit>;
 
 };
 
-template <typename Unit> constexpr DimensionalVectorQuantity<Unit> Direction::operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-  return {scalar, *this};
+} // namespace PhQ
+
+template <typename Unit> constexpr PhQ::DimensionalVectorQuantity<Unit> operator*(const PhQ::DimensionalScalarQuantity<Unit>& scalar, const PhQ::Direction& direction) noexcept {
+  return {scalar, direction};
 }
 
-} // namespace PhQ
+template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(double real, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
+  return {scalar * real};
+}
+
+template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& dimensionless, const PhQ::DimensionalScalarQuantity<Unit>& dimensional) noexcept {
+  return {dimensional * dimensionless.value()};
+}
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
   output_stream << scalar.print();
