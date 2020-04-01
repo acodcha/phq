@@ -18,8 +18,8 @@ enum class Angle : uint_least8_t {
 template <> const std::map<Unit::Angle, std::string> abbreviations<Unit::Angle>{
   {Unit::Angle::Radian, "rad"},
   {Unit::Angle::Degree, "deg"},
-  {Unit::Angle::Arcminute, "'"},
-  {Unit::Angle::Arcsecond, "\""}
+  {Unit::Angle::Arcminute, "arcmin"},
+  {Unit::Angle::Arcsecond, "arcsec"}
 };
 
 template <> const std::unordered_map<std::string, Unit::Angle> spellings<Unit::Angle>{

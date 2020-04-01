@@ -7,8 +7,11 @@ namespace PhQ {
 
 // Forward declarations.
 class Acceleration;
+class AngularSpeed;
 class Displacement;
+class Duration;
 class Force;
+class Frequency;
 class Position;
 class Velocity;
 
@@ -78,10 +81,17 @@ public:
     value_ -= angle.value_;
   }
 
+  constexpr AngularSpeed operator*(const Frequency& frequency) const noexcept;
+
+  AngularSpeed operator/(const Duration& time) const;
+
 protected:
 
   constexpr Angle(double value) noexcept : DimensionalScalarQuantity<Unit::Angle>(value) {}
 
+  friend class AngularSpeed;
+  friend class Duration;
+  friend class Frequency;
   friend Angle Direction::angle(const Direction& direction) const noexcept;
   friend Angle Direction::angle(const Value::Vector& vector) const noexcept;
   friend Angle Value::Vector::angle(const Direction& direction) const noexcept;

@@ -8,6 +8,8 @@ namespace PhQ {
 // Forward declarations.
 class Acceleration;
 class AccelerationMagnitude;
+class Angle;
+class AngularSpeed;
 class Displacement;
 class Length;
 class Memory;
@@ -77,6 +79,8 @@ public:
 
   constexpr Speed operator*(const Length& length) const noexcept;
 
+  constexpr AngularSpeed operator*(const Angle& angle) const noexcept;
+
   constexpr Velocity operator*(const Displacement& displacement) const noexcept;
 
   constexpr MemoryRate operator*(const Memory& memory) const noexcept;
@@ -89,6 +93,8 @@ protected:
 
   friend class Acceleration;
   friend class AccelerationMagnitude;
+  friend class Angle;
+  friend class AngularSpeed;
   friend class Displacement;
   friend class Duration;
   friend class Length;

@@ -1,5 +1,5 @@
 #include "../lib/Acceleration.hpp"
-#include "../lib/Angle.hpp"
+#include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/Force.hpp"
 #include "../lib/Mass.hpp"

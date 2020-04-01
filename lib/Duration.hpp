@@ -6,6 +6,8 @@ namespace PhQ {
 
 // Forward declarations.
 class AccelerationMagnitude;
+class Angle;
+class AngularSpeed;
 class Frequency;
 class Length;
 class Memory;
@@ -82,6 +84,8 @@ protected:
 
   friend class Acceleration;
   friend class AccelerationMagnitude;
+  friend class Angle;
+  friend class AngularSpeed;
   friend class Displacement;
   friend class Frequency;
   friend class Length;
