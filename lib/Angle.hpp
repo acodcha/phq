@@ -13,6 +13,7 @@ class Duration;
 class Force;
 class Frequency;
 class Position;
+class Traction;
 class Velocity;
 
 class Angle : public DimensionalScalarQuantity<Unit::Angle> {
@@ -40,6 +41,8 @@ public:
   constexpr Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept;
 
   constexpr Angle(const Force& force1, const Force& force2) noexcept;
+
+  constexpr Angle(const Traction& traction1, const Traction& traction2) noexcept;
 
   constexpr bool operator==(const Angle& angle) const noexcept {
     return value_ == angle.value_;

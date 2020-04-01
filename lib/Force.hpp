@@ -6,6 +6,9 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class Traction;
+
 class Force : public DimensionalVectorQuantity<Unit::Force> {
 
 public:
@@ -46,9 +49,14 @@ public:
     value_ -= force.value_;
   }
 
+  Traction operator/(const Area& area) const;
+
 protected:
 
   constexpr Force(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Force>(value) {}
+
+  friend class Area;
+  friend class Traction;
 
 };
 
