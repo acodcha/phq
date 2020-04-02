@@ -7,7 +7,7 @@
 #include "../lib/ReynoldsNumber.hpp"
 #include "../lib/Strain.hpp"
 #include "../lib/Stress.hpp"
-#include "../lib/Temperature.hpp"
+#include "../lib/TemperatureDifference.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/Volume.hpp"
 
