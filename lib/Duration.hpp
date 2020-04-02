@@ -57,8 +57,6 @@ public:
     return {value_ + duration.value_};
   }
 
-  constexpr void operator+=(const Time& time) noexcept; // Never defined, because nonsensical.
-
   constexpr void operator+=(const Duration& duration) noexcept {
     value_ += duration.value_;
   }
@@ -70,8 +68,6 @@ public:
   Duration operator-(const Duration& duration) const noexcept {
     return {value_ - duration.value_};
   }
-
-  constexpr void operator-=(const Time& time) noexcept; // Never defined, because nonsensical.
 
   constexpr void operator-=(const Duration& duration) noexcept {
     value_ -= duration.value_;
