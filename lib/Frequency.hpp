@@ -9,6 +9,7 @@ namespace PhQ {
 class Acceleration;
 class AccelerationMagnitude;
 class Angle;
+class AngularAccelerationMagnitude;
 class AngularSpeed;
 class Displacement;
 class Length;
@@ -87,6 +88,8 @@ public:
 
   constexpr AccelerationMagnitude operator*(const Speed& speed) const noexcept;
 
+  constexpr AngularAccelerationMagnitude operator*(const AngularSpeed& angular_speed) const noexcept;
+
 protected:
 
   constexpr Frequency(double value) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value) {}
@@ -94,6 +97,7 @@ protected:
   friend class Acceleration;
   friend class AccelerationMagnitude;
   friend class Angle;
+  friend class AngularAccelerationMagnitude;
   friend class AngularSpeed;
   friend class Displacement;
   friend class Duration;

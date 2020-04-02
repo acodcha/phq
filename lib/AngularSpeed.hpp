@@ -6,6 +6,9 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class AngularAccelerationMagnitude;
+
 class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
 
 public:
@@ -58,6 +61,10 @@ public:
     return {value_ * duration.value_};
   }
 
+  constexpr AngularAccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
+
+  AngularAccelerationMagnitude operator/(const Duration& duration) const;
+
   Angle operator/(const Frequency& frequency) const {
     if (frequency.value_ != 0.0) {
       return {value_ / frequency.value_};
@@ -66,11 +73,20 @@ public:
     }
   }
 
+  Frequency operator/(const Angle& angle) const {
+    if (angle.value_ != 0.0) {
+      return {value_ / angle.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + angle.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr AngularSpeed(double value) noexcept : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
 
   friend class Angle;
+  friend class AngularAccelerationMagnitude;
   friend class Duration;
   friend class Frequency;
 

@@ -1,5 +1,6 @@
 #include "../lib/Unit/Acceleration.hpp"
 #include "../lib/Unit/Angle.hpp"
+#include "../lib/Unit/AngularAcceleration.hpp"
 #include "../lib/Unit/AngularSpeed.hpp"
 #include "../lib/Unit/Area.hpp"
 #include "../lib/Unit/Force.hpp"
@@ -51,6 +52,20 @@ void test_angle() noexcept {
     PhQ::Unit::Angle::Degree,
     PhQ::Unit::Angle::Arcminute,
     PhQ::Unit::Angle::Arcsecond
+  });
+}
+
+void test_angular_acceleration() noexcept {
+  test_conversions<PhQ::Unit::AngularAcceleration>("Angular Acceleration", 1.0, {
+    PhQ::Unit::AngularAcceleration::RadianPerSquareSecond,
+    PhQ::Unit::AngularAcceleration::RadianPerSquareMinute,
+    PhQ::Unit::AngularAcceleration::RadianPerSquareHour,
+    PhQ::Unit::AngularAcceleration::DegreePerSquareSecond,
+    PhQ::Unit::AngularAcceleration::DegreePerSquareMinute,
+    PhQ::Unit::AngularAcceleration::DegreePerSquareHour,
+    PhQ::Unit::AngularAcceleration::RevolutionPerSquareSecond,
+    PhQ::Unit::AngularAcceleration::RevolutionPerSquareMinute,
+    PhQ::Unit::AngularAcceleration::RevolutionPerSquareHour
   });
 }
 
@@ -219,6 +234,7 @@ void test_volume() noexcept {
 int main(int argc, char *argv[]) {
   test_acceleration();
   test_angle();
+  test_angular_acceleration();
   test_angular_speed();
   test_area();
   test_force();
