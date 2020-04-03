@@ -18,7 +18,7 @@ You can uninstall the library with `sudo ./build/uninstall.sh`.
 You can generate unit tests using CMake with `./build/generate_tests.sh`.
 
 ## Documentation
-You can generate documentation using Doxygen with `./doc/generate.sh`.
+You can generate documentation using Doxygen with `./docs/generate.sh`.
 
 ## License
 This work is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the [LICENSE](LICENSE) file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
