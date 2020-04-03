@@ -5,6 +5,10 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class Mass;
+class MassDensity;
+
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
 
 public:
@@ -53,6 +57,8 @@ public:
     value_ -= volume.value_;
   }
 
+  constexpr Mass operator*(const MassDensity& mass_density) const noexcept;
+
   Area operator/(const Length& length) const {
     if (length.value_ != 0.0) {
       return {value_ / length.value_};
@@ -75,6 +81,8 @@ protected:
 
   friend class Area;
   friend class Length;
+  friend class Mass;
+  friend class MassDensity;
 
 };
 

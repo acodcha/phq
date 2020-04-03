@@ -7,6 +7,7 @@
 #include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/Length.hpp"
 #include "../lib/Unit/Mass.hpp"
+#include "../lib/Unit/MassDensity.hpp"
 #include "../lib/Unit/Memory.hpp"
 #include "../lib/Unit/MemoryRate.hpp"
 #include "../lib/Unit/Pressure.hpp"
@@ -145,6 +146,17 @@ void test_mass() noexcept {
   });
 }
 
+void test_mass_density() noexcept {
+  test_conversions<PhQ::Unit::MassDensity>("Mass Density", 1.0, {
+    PhQ::Unit::MassDensity::KilogramPerCubicMetre,
+    PhQ::Unit::MassDensity::GramPerCubicMillimetre,
+    PhQ::Unit::MassDensity::SlugPerCubicFoot,
+    PhQ::Unit::MassDensity::SlinchPerCubicInch,
+    PhQ::Unit::MassDensity::PoundPerCubicFoot,
+    PhQ::Unit::MassDensity::PoundPerCubicInch
+  });
+}
+
 void test_memory() noexcept {
   test_conversions<PhQ::Unit::Memory>("Memory", 1.0, {
     PhQ::Unit::Memory::Bit,
@@ -241,6 +253,7 @@ int main(int argc, char *argv[]) {
   test_frequency();
   test_length();
   test_mass();
+  test_mass_density();
   test_memory();
   test_memory_rate();
   test_pressure();
