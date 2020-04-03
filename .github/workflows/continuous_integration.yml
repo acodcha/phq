@@ -1,0 +1,18 @@
+name: Continuous Integration
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    name: Generate and Run Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Generate Tests
+      run: ./build/generate_tests.sh
+    - name: Run Conversion Test
+      run: ./build/test_conversions
+    - name: Run Main Test
+      run: ./build/test_main
