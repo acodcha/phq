@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Duration.hpp"
+#include "Time.hpp"
 #include "Unit/Frequency.hpp"
 
 namespace PhQ {

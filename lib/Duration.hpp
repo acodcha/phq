@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Time.hpp"
+#include "Quantity/DimensionalScalar.hpp"
+#include "Unit/Time.hpp"
 
 namespace PhQ {
 
@@ -14,6 +15,7 @@ class Length;
 class Memory;
 class MemoryRate;
 class Speed;
+class Time;
 
 class Duration : public DimensionalScalarQuantity<Unit::Time> {
 
@@ -49,9 +51,7 @@ public:
     return value_ >= duration.value_;
   }
 
-  Time operator+(const Time& time) const noexcept {
-    return {value_ + time.value_};
-  }
+  Time operator+(const Time& time) const noexcept;
 
   Duration operator+(const Duration& duration) const noexcept {
     return {value_ + duration.value_};
@@ -61,9 +61,7 @@ public:
     value_ += duration.value_;
   }
 
-  Time operator-(const Time& time) const noexcept {
-    return {value_ - time.value_};
-  }
+  Time operator-(const Time& time) const noexcept;
 
   Duration operator-(const Duration& duration) const noexcept {
     return {value_ - duration.value_};
@@ -94,25 +92,5 @@ protected:
   friend class Velocity;
 
 };
-
-Time Time::operator+(const Duration& duration) const noexcept {
-  return {value_ + duration.value_};
-}
-
-constexpr void Time::operator+=(const Duration& duration) noexcept {
-  value_ += duration.value_;
-}
-
-Duration Time::operator-(const Time& time) const noexcept {
-  return {value_ - time.value_};
-}
-
-Time Time::operator-(const Duration& duration) const noexcept {
-  return {value_ - duration.value_};
-}
-
-constexpr void Time::operator-=(const Duration& duration) noexcept {
-  value_ -= duration.value_;
-}
 
 } // namespace PhQ

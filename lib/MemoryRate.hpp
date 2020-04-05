@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Duration.hpp"
 #include "Frequency.hpp"
 #include "Memory.hpp"
 #include "Unit/MemoryRate.hpp"

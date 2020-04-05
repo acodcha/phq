@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Displacement.hpp"
-#include "Duration.hpp"
 #include "Speed.hpp"
 
 namespace PhQ {
