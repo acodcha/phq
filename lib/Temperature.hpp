@@ -1,12 +1,8 @@
 #pragma once
 
-#include "Quantity/DimensionalScalar.hpp"
-#include "Unit/Temperature.hpp"
+#include "TemperatureDifference.hpp"
 
 namespace PhQ {
-
-// Forward declaration.
-class TemperatureDifference;
 
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 
@@ -44,23 +40,33 @@ public:
     return {value_ + temperature.value_};
   }
 
-  Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept;
+  Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
+    return {value_ + temperature_difference.value_};
+  }
 
   constexpr void operator+=(const Temperature& temperature) noexcept {
     value_ += temperature.value_;
   }
 
-  constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept;
+  constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept {
+    value_ += temperature_difference.value_;
+  }
 
-  TemperatureDifference operator-(const Temperature& temperature) const noexcept;
+  TemperatureDifference operator-(const Temperature& temperature) const noexcept {
+    return {value_ - temperature.value_};
+  }
 
-  Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept;
+  Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
+    return {value_ - temperature_difference.value_};
+  }
 
   constexpr void operator-=(const Temperature& temperature) noexcept {
     value_ -= temperature.value_;
   }
 
-  constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept;
+  constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
+    value_ -= temperature_difference.value_;
+  }
 
 protected:
 
@@ -69,5 +75,13 @@ protected:
   friend class TemperatureDifference;
 
 };
+
+Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
+  return {value_ + temperature.value_};
+}
+
+Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
+  return {value_ - temperature.value_};
+}
 
 } // namespace PhQ

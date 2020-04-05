@@ -8,7 +8,7 @@
 #include "../lib/ReynoldsNumber.hpp"
 #include "../lib/Strain.hpp"
 #include "../lib/Stress.hpp"
-#include "../lib/TemperatureDifference.hpp"
+#include "../lib/Temperature.hpp"
 #include "../lib/Traction.hpp"
 
 int main(int argc, char *argv[]) {

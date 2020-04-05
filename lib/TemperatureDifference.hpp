@@ -1,8 +1,12 @@
 #pragma once
 
-#include "Temperature.hpp"
+#include "Quantity/DimensionalScalar.hpp"
+#include "Unit/Temperature.hpp"
 
 namespace PhQ {
+
+// Forward declaration.
+class Temperature;
 
 class TemperatureDifference : public DimensionalScalarQuantity<Unit::Temperature> {
 
@@ -36,9 +40,7 @@ public:
     return value_ >= temperature_difference.value_;
   }
 
-  Temperature operator+(const Temperature& temperature) const noexcept {
-    return {value_ + temperature.value_};
-  }
+  Temperature operator+(const Temperature& temperature) const noexcept;
 
   TemperatureDifference operator+(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ + temperature_difference.value_};
@@ -48,9 +50,7 @@ public:
     value_ += temperature_difference.value_;
   }
 
-  Temperature operator-(const Temperature& temperature) const noexcept {
-    return {value_ - temperature.value_};
-  }
+  Temperature operator-(const Temperature& temperature) const noexcept;
 
   TemperatureDifference operator-(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ - temperature_difference.value_};
@@ -67,25 +67,5 @@ protected:
   friend class Temperature;
 
 };
-
-Temperature Temperature::operator+(const TemperatureDifference& temperature_difference) const noexcept {
-  return {value_ + temperature_difference.value_};
-}
-
-constexpr void Temperature::operator+=(const TemperatureDifference& temperature_difference) noexcept {
-  value_ += temperature_difference.value_;
-}
-
-TemperatureDifference Temperature::operator-(const Temperature& temperature) const noexcept {
-  return {value_ - temperature.value_};
-}
-
-Temperature Temperature::operator-(const TemperatureDifference& temperature_difference) const noexcept {
-  return {value_ - temperature_difference.value_};
-}
-
-constexpr void Temperature::operator-=(const TemperatureDifference& temperature_difference) noexcept {
-  value_ -= temperature_difference.value_;
-}
 
 } // namespace PhQ
