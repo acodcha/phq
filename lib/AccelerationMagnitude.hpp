@@ -76,6 +76,14 @@ public:
     }
   }
 
+  Frequency operator/(const Speed& speed) const {
+    if (speed.value_ != 0.0) {
+      return {value_ / speed.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + speed.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr AccelerationMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Acceleration>(value) {}

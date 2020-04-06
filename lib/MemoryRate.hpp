@@ -64,6 +64,22 @@ public:
     return {value_ + duration.value_};
   }
 
+  Memory operator/(const Frequency& frequency) const {
+    if (frequency.value_ != 0.0) {
+      return {value_ / frequency.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
+    }
+  }
+
+  Frequency operator/(const Memory& memory) const {
+    if (memory.value_ != 0.0) {
+      return {value_ / memory.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + memory.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr MemoryRate(double value) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}

@@ -72,6 +72,14 @@ public:
     }
   }
 
+  Frequency operator/(const AngularSpeed& angular_speed) const {
+    if (angular_speed.value_ != 0.0) {
+      return {value_ / angular_speed.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + angular_speed.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr AngularAccelerationMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::AngularAcceleration>(value) {}
