@@ -24,6 +24,8 @@ class Memory;
 class MemoryRate;
 class Speed;
 class Time;
+class Volume;
+class VolumeRate;
 
 class Duration : public DimensionalScalarQuantity<Unit::Time> {
 
@@ -83,6 +85,8 @@ public:
 
   constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
 
+  constexpr Volume operator*(const VolumeRate& volume_rate) const noexcept;
+
 protected:
 
   constexpr Duration(double value) noexcept : DimensionalScalarQuantity<Unit::Time>(value) {}
@@ -102,6 +106,8 @@ protected:
   friend class Speed;
   friend class Time;
   friend class Velocity;
+  friend class Volume;
+  friend class VolumeRate;
 
 };
 

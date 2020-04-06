@@ -13,17 +13,8 @@ namespace PhQ {
 
 // Forward declarations.
 class Acceleration;
-class AccelerationMagnitude;
-class Angle;
-class AngularAccelerationMagnitude;
-class AngularSpeed;
 class Displacement;
 class Length;
-class Mass;
-class MassRate;
-class Memory;
-class MemoryRate;
-class Speed;
 class Velocity;
 
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
@@ -100,6 +91,8 @@ public:
 
   constexpr MassRate operator*(const Mass& mass) const noexcept;
 
+  constexpr VolumeRate operator*(const Volume& volume) const noexcept;
+
 protected:
 
   constexpr Frequency(double value) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value) {}
@@ -118,6 +111,8 @@ protected:
   friend class MemoryRate;
   friend class Speed;
   friend class Velocity;
+  friend class Volume;
+  friend class VolumeRate;
 
 };
 

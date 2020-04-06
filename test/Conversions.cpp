@@ -22,6 +22,7 @@
 #include "../lib/Unit/Temperature.hpp"
 #include "../lib/Unit/Time.hpp"
 #include "../lib/Unit/Volume.hpp"
+#include "../lib/Unit/VolumeRate.hpp"
 
 const std::string test_separator{"----------------------------------------"};
 
@@ -260,6 +261,25 @@ void test_volume() noexcept {
   });
 }
 
+void test_volume_rate() noexcept {
+  test_conversions<PhQ::Unit::VolumeRate>("Volume Rate", 1.0, {
+    PhQ::Unit::VolumeRate::CubicMilePerSecond,
+    PhQ::Unit::VolumeRate::CubicKilometrePerSecond,
+    PhQ::Unit::VolumeRate::CubicYardPerSecond,
+    PhQ::Unit::VolumeRate::CubicMetrePerSecond,
+    PhQ::Unit::VolumeRate::CubicFootPerSecond,
+    PhQ::Unit::VolumeRate::CubicDecimetrePerSecond,
+    PhQ::Unit::VolumeRate::LitrePerSecond,
+    PhQ::Unit::VolumeRate::CubicInchPerSecond,
+    PhQ::Unit::VolumeRate::CubicCentimetrePerSecond,
+    PhQ::Unit::VolumeRate::MillilitrePerSecond,
+    PhQ::Unit::VolumeRate::CubicMillimetrePerSecond,
+    PhQ::Unit::VolumeRate::CubicMilliinchPerSecond,
+    PhQ::Unit::VolumeRate::CubicMicrometrePerSecond,
+    PhQ::Unit::VolumeRate::CubicMicroinchPerSecond
+  });
+}
+
 int main(int argc, char *argv[]) {
   test_acceleration();
   test_angle();
@@ -279,6 +299,7 @@ int main(int argc, char *argv[]) {
   test_temperature();
   test_time();
   test_volume();
+  test_volume_rate();
   std::cout << test_separator << std::endl;
   return EXIT_SUCCESS;
 }
