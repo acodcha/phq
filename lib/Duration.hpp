@@ -18,6 +18,8 @@ class AngularAccelerationMagnitude;
 class AngularSpeed;
 class Frequency;
 class Length;
+class Mass;
+class MassRate;
 class Memory;
 class MemoryRate;
 class Speed;
@@ -79,6 +81,8 @@ public:
 
   constexpr double operator*(const Frequency& frequency) const noexcept;
 
+  constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
+
 protected:
 
   constexpr Duration(double value) noexcept : DimensionalScalarQuantity<Unit::Time>(value) {}
@@ -91,6 +95,8 @@ protected:
   friend class Displacement;
   friend class Frequency;
   friend class Length;
+  friend class Mass;
+  friend class MassRate;
   friend class Memory;
   friend class MemoryRate;
   friend class Speed;
