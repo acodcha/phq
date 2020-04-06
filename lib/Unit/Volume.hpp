@@ -81,8 +81,12 @@ template <> const std::unordered_map<std::string, Unit::Volume> spellings<Unit::
   {"milliinch3", Unit::Volume::CubicMilliinch},
   {"μm^3", Unit::Volume::CubicMicrometre},
   {"μm3", Unit::Volume::CubicMicrometre},
+  {"um^3", Unit::Volume::CubicMicrometre},
+  {"um3", Unit::Volume::CubicMicrometre},
   {"μin^3", Unit::Volume::CubicMicroinch},
-  {"μin3", Unit::Volume::CubicMicroinch}
+  {"μin3", Unit::Volume::CubicMicroinch},
+  {"uin^3", Unit::Volume::CubicMicroinch},
+  {"uin3", Unit::Volume::CubicMicroinch}
 };
 
 template <> const std::map<System, Unit::Volume> consistent_units<Unit::Volume>{

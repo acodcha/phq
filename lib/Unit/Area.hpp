@@ -79,8 +79,12 @@ template <> const std::unordered_map<std::string, Unit::Area> spellings<Unit::Ar
   {"milliinch2", Unit::Area::SquareMilliinch},
   {"μm^2", Unit::Area::SquareMicrometre},
   {"μm2", Unit::Area::SquareMicrometre},
+  {"um^2", Unit::Area::SquareMicrometre},
+  {"um2", Unit::Area::SquareMicrometre},
   {"μin^2", Unit::Area::SquareMicroinch},
-  {"μin2", Unit::Area::SquareMicroinch}
+  {"μin2", Unit::Area::SquareMicroinch},
+  {"uin^2", Unit::Area::SquareMicroinch},
+  {"uin2", Unit::Area::SquareMicroinch}
 };
 
 template <> const std::map<System, Unit::Area> consistent_units<Unit::Area>{
