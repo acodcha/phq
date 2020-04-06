@@ -1,5 +1,5 @@
 # Physical Quantities
-![Continuous Integration](https://github.com/acodcha/PhysicalQuantities/workflows/Continuous%20Integration/badge.svg?branch=master)
+![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=master)
 
 C++17 library of physical quantities, units of measure, and related concepts for scientific computation.
 
