@@ -1,4 +1,4 @@
-name: Build and Test
+name: build and test
 on:
   push:
     branches: [ master ]
@@ -6,14 +6,14 @@ on:
     branches: [ master ]
 jobs:
   build:
-    name: Build and Run Tests
+    name: build and run tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build Tests
+    - name: build tests
       run: ./build/generate_tests.sh
-    - name: Run Conversion Test
+    - name: run conversion test
       run: ./build/test_conversions
-    - name: Run Main Test
+    - name: run main test
       run: ./build/test_main
 
