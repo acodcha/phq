@@ -16,6 +16,7 @@
 #include "../lib/Strain.hpp"
 #include "../lib/Stress.hpp"
 #include "../lib/Temperature.hpp"
+#include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VolumeRate.hpp"
 
