@@ -9,6 +9,7 @@
 #include "../lib/Unit/AngularAcceleration.hpp"
 #include "../lib/Unit/AngularSpeed.hpp"
 #include "../lib/Unit/Area.hpp"
+#include "../lib/Unit/Diffusivity.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/Length.hpp"
@@ -107,6 +108,24 @@ void test_area() noexcept {
     PhQ::Unit::Area::SquareMilliinch,
     PhQ::Unit::Area::SquareMicrometre,
     PhQ::Unit::Area::SquareMicroinch
+  });
+}
+
+void test_diffusivity() noexcept {
+  test_conversions<PhQ::Unit::Diffusivity>("Diffusivity", 1.0, {
+    PhQ::Unit::Diffusivity::SquareMetrePerSecond,
+    PhQ::Unit::Diffusivity::SquareMilePerSecond,
+    PhQ::Unit::Diffusivity::SquareKilometrePerSecond,
+    PhQ::Unit::Diffusivity::SquareYardPerSecond,
+    PhQ::Unit::Diffusivity::SquareMetrePerSecond,
+    PhQ::Unit::Diffusivity::SquareFootPerSecond,
+    PhQ::Unit::Diffusivity::SquareDecimetrePerSecond,
+    PhQ::Unit::Diffusivity::SquareInchPerSecond,
+    PhQ::Unit::Diffusivity::SquareCentimetrePerSecond,
+    PhQ::Unit::Diffusivity::SquareMillimetrePerSecond,
+    PhQ::Unit::Diffusivity::SquareMilliinchPerSecond,
+    PhQ::Unit::Diffusivity::SquareMicrometrePerSecond,
+    PhQ::Unit::Diffusivity::SquareMicroinchPerSecond
   });
 }
 
@@ -286,6 +305,7 @@ int main(int argc, char *argv[]) {
   test_angular_acceleration();
   test_angular_speed();
   test_area();
+  test_diffusivity();
   test_force();
   test_frequency();
   test_length();
