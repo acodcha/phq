@@ -10,9 +10,9 @@ project(PhysicalQuantities CXX)
 
 file(GLOB_RECURSE source_files *.cpp)
 
-add_executable(test_main test/Main.cpp)
-target_link_libraries(test_main)
+add_executable(conversions lib/Test/Conversions.cpp)
+target_link_libraries(conversions)
 
-add_executable(test_conversions test/Conversions.cpp)
-target_link_libraries(test_conversions)
+add_executable(relations lib/Test/Relations.cpp)
+target_link_libraries(relations)
 

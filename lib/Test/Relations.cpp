@@ -4,22 +4,22 @@
 // PhysicalQuantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 // You should have received a copy of the GNU Lesser General Public License along with PhysicalQuantities. If not, see <https://www.gnu.org/licenses/>.
 
-#include "../lib/Acceleration.hpp"
-#include "../lib/AngularSpeed.hpp"
-#include "../lib/DisplacementGradient.hpp"
-#include "../lib/KinematicViscosity.hpp"
-#include "../lib/MassDensity.hpp"
-#include "../lib/MassRate.hpp"
-#include "../lib/MemoryRate.hpp"
-#include "../lib/PoissonRatio.hpp"
-#include "../lib/Position.hpp"
-#include "../lib/ReynoldsNumber.hpp"
-#include "../lib/Strain.hpp"
-#include "../lib/Stress.hpp"
-#include "../lib/Temperature.hpp"
-#include "../lib/ThermalDiffusivity.hpp"
-#include "../lib/Traction.hpp"
-#include "../lib/VolumeRate.hpp"
+#include "../Acceleration.hpp"
+#include "../AngularSpeed.hpp"
+#include "../DisplacementGradient.hpp"
+#include "../KinematicViscosity.hpp"
+#include "../MassDensity.hpp"
+#include "../MassRate.hpp"
+#include "../MemoryRate.hpp"
+#include "../PoissonRatio.hpp"
+#include "../Position.hpp"
+#include "../ReynoldsNumber.hpp"
+#include "../Strain.hpp"
+#include "../Stress.hpp"
+#include "../Temperature.hpp"
+#include "../ThermalDiffusivity.hpp"
+#include "../Traction.hpp"
+#include "../VolumeRate.hpp"
 
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
