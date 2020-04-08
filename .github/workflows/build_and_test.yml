@@ -11,9 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: build tests
-      run: ./build/test.sh
+      run: ./build/tests.sh
     - name: run conversions test
-      run: ./test/conversions
+      run: ./build/bin/conversions
     - name: run relations test
-      run: ./test/relations
+      run: ./build/bin/relations
 
