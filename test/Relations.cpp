@@ -11,16 +11,15 @@
 #include "../lib/MassDensity.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"
-#include "../lib/PoissonRatio.hpp"
 #include "../lib/Position.hpp"
 #include "../lib/ReynoldsNumber.hpp"
+#include "../lib/ShearModulus.hpp"
 #include "../lib/Strain.hpp"
 #include "../lib/Stress.hpp"
 #include "../lib/Temperature.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VolumeRate.hpp"
-#include "../lib/YoungModulus.hpp"
 
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};

@@ -10,6 +10,10 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class ShearModulus;
+class YoungModulus;
+
 class PoissonRatio : public DimensionlessScalarQuantity {
 
 public:
@@ -17,6 +21,8 @@ public:
   PoissonRatio() noexcept : DimensionlessScalarQuantity() {}
 
   constexpr PoissonRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
+
+  PoissonRatio(const YoungModulus& young_modulus, const ShearModulus& shear_modulus);
 
 };
 
