@@ -20,6 +20,7 @@
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VolumeRate.hpp"
+#include "../lib/YoungModulus.hpp"
 
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
