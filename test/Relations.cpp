@@ -7,7 +7,7 @@
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"
-#include "../lib/KinematicViscosity.hpp"
+#include "../lib/DynamicViscosity.hpp"
 #include "../lib/MassDensity.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"

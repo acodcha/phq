@@ -10,6 +10,7 @@
 #include "../lib/Unit/AngularSpeed.hpp"
 #include "../lib/Unit/Area.hpp"
 #include "../lib/Unit/Diffusivity.hpp"
+#include "../lib/Unit/DynamicViscosity.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/Length.hpp"
@@ -126,6 +127,17 @@ void test_diffusivity() noexcept {
     PhQ::Unit::Diffusivity::SquareMilliinchPerSecond,
     PhQ::Unit::Diffusivity::SquareMicrometrePerSecond,
     PhQ::Unit::Diffusivity::SquareMicroinchPerSecond
+  });
+}
+
+void test_dynamic_viscosity() noexcept {
+  test_conversions<PhQ::Unit::DynamicViscosity>("Dynamic Viscosity", 1.0, {
+    PhQ::Unit::DynamicViscosity::PascalSecond,
+    PhQ::Unit::DynamicViscosity::KilopascalSecond,
+    PhQ::Unit::DynamicViscosity::MegapascalSecond,
+    PhQ::Unit::DynamicViscosity::GigapascalSecond,
+    PhQ::Unit::DynamicViscosity::PoundSecondPerSquareFoot,
+    PhQ::Unit::DynamicViscosity::PoundSecondPerSquareInch
   });
 }
 
@@ -306,6 +318,7 @@ int main(int argc, char *argv[]) {
   test_angular_speed();
   test_area();
   test_diffusivity();
+  test_dynamic_viscosity();
   test_force();
   test_frequency();
   test_length();

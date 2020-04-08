@@ -12,6 +12,10 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class DynamicViscosity;
+class KinematicViscosity;
+
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 
 public:
@@ -60,14 +64,18 @@ public:
     value_ -= mass_density.value_;
   }
 
-constexpr Mass operator*(const Volume& volume) const noexcept {
-  return {value_ * volume.value_};
-}
+  constexpr Mass operator*(const Volume& volume) const noexcept {
+    return {value_ * volume.value_};
+  }
+
+  constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
 
 protected:
 
   constexpr MassDensity(double value) noexcept : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
 
+  friend class DynamicViscosity;
+  friend class KinematicViscosity;
   friend class Mass;
   friend class Volume;
 
