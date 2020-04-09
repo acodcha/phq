@@ -15,7 +15,7 @@ To use the library in one of your projects, add `find_package(PhQ REQUIRED)` to 
 
 You can uninstall the library with `sudo ./build/uninstall.sh`.
 
-You can generate unit tests using CMake with `./build/generate_tests.sh`.
+You can build unit tests using CMake with `./build/tests.sh`.
 
 ## Documentation
 You can generate documentation using Doxygen with `./docs/generate.sh`.
