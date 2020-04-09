@@ -77,11 +77,15 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept {
+  return sort(acceleration_1.value(), acceleration_2.value());
+}
+
 constexpr Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
   return {{x_y_z_[0] * acceleration_magnitude.value_, x_y_z_[1] * acceleration_magnitude.value_, x_y_z_[2] * acceleration_magnitude.value_}};
 }
 
-constexpr Angle::Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration1.angle(acceleration2)) {}
+constexpr Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration_1.angle(acceleration_2)) {}
 
 constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
 

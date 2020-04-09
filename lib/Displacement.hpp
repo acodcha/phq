@@ -80,11 +80,15 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Displacement& displacement_1, const Displacement& displacement_2) noexcept {
+  return sort(displacement_1.value(), displacement_2.value());
+}
+
 constexpr Displacement Direction::operator*(const Length& length) const noexcept {
   return {{x_y_z_[0] * length.value_, x_y_z_[1] * length.value_, x_y_z_[2] * length.value_}};
 }
 
-constexpr Angle::Angle(const Displacement& displacement1, const Displacement& displacement2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement1.angle(displacement2)) {}
+constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement_1.angle(displacement_2)) {}
 
 constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.magnitude()) {}
 

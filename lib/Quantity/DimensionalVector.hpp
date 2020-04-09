@@ -19,7 +19,7 @@ public:
 
   constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
-  const Value::Vector& value() const noexcept {
+  constexpr const Value::Vector& value() const noexcept {
     return value_;
   }
 

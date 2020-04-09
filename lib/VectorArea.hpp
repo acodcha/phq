@@ -64,6 +64,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const VectorArea& vector_area_1, const VectorArea& vector_area_2) noexcept {
+  return sort(vector_area_1.value(), vector_area_2.value());
+}
+
 constexpr VectorArea Direction::operator*(const Area& area) const noexcept {
   return {{x_y_z_[0] * area.value_, x_y_z_[1] * area.value_, x_y_z_[2] * area.value_}};
 }

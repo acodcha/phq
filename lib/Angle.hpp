@@ -31,25 +31,25 @@ public:
 
   constexpr Angle(double value, Unit::Angle unit) noexcept : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  constexpr Angle(const Direction& direction1, const Direction& direction2) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction1.angle(direction2)) {}
+  constexpr Angle(const Direction& direction_1, const Direction& direction_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction_1.angle(direction_2)) {}
 
   constexpr Angle(const Direction& direction, const Value::Vector& vector) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction.angle(vector)) {}
 
   constexpr Angle(const Value::Vector& vector, const Direction& direction) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector.angle(direction)) {}
 
-  constexpr Angle(const Value::Vector& vector1, const Value::Vector& vector2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector1.angle(vector2)) {}
+  constexpr Angle(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector_1.angle(vector_2)) {}
 
-  constexpr Angle(const Position& position1, const Position& position2) noexcept;
+  constexpr Angle(const Position& position_1, const Position& position_2) noexcept;
 
-  constexpr Angle(const Displacement& displacement1, const Displacement& displacement2) noexcept;
+  constexpr Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept;
 
-  constexpr Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
+  constexpr Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept;
 
-  constexpr Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept;
+  constexpr Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept;
 
-  constexpr Angle(const Force& force1, const Force& force2) noexcept;
+  constexpr Angle(const Force& force_1, const Force& force_2) noexcept;
 
-  constexpr Angle(const Traction& traction1, const Traction& traction2) noexcept;
+  constexpr Angle(const Traction& traction_1, const Traction& traction_2) noexcept;
 
   constexpr Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2) noexcept;
 

@@ -70,6 +70,10 @@ protected:
 
 };
 
-constexpr Angle::Angle(const Position& position1, const Position& position2) noexcept : DimensionalScalarQuantity<Unit::Angle>(position1.angle(position2)) {}
+template <> constexpr bool sort(const Position& position_1, const Position& position_2) noexcept {
+  return sort(position_1.value(), position_2.value());
+}
+
+constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(position_1.angle(position_2)) {}
 
 } // namespace PhQ

@@ -67,11 +67,15 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Force& force_1, const Force& force_2) noexcept {
+  return sort(force_1.value(), force_2.value());
+}
+
 constexpr Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
   return {{x_y_z_[0] * force_magnitude.value_, x_y_z_[1] * force_magnitude.value_, x_y_z_[2] * force_magnitude.value_}};
 }
 
-constexpr Angle::Angle(const Force& force1, const Force& force2) noexcept : DimensionalScalarQuantity<Unit::Angle>(force1.angle(force2)) {}
+constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(force_1.angle(force_2)) {}
 
 constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.magnitude()) {}
 

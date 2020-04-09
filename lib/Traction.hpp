@@ -60,11 +60,20 @@ protected:
   constexpr Traction(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value) {}
 
   friend class Area;
+  friend class Direction;
   friend class Force;
 
 };
 
-constexpr Angle::Angle(const Traction& traction1, const Traction& traction2) noexcept : DimensionalScalarQuantity<Unit::Angle>(traction1.angle(traction2)) {}
+template <> constexpr bool sort(const Traction& traction_1, const Traction& traction_2) noexcept {
+  return sort(traction_1.value(), traction_2.value());
+}
+
+constexpr Traction Direction::operator*(const Pressure& pressure) const noexcept {
+  return {{x_y_z_[0] * pressure.value_, x_y_z_[1] * pressure.value_, x_y_z_[2] * pressure.value_}};
+}
+
+constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(traction_1.angle(traction_2)) {}
 
 constexpr Pressure::Pressure(const Traction& traction) noexcept : Pressure(traction.magnitude()) {}
 
@@ -77,3 +86,7 @@ Traction Force::operator/(const Area& area) const {
 }
 
 } // namespace PhQ
+
+constexpr PhQ::Traction operator*(const PhQ::Pressure& pressure, const PhQ::Direction& direction) noexcept {
+  return {direction * pressure};
+}
