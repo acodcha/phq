@@ -19,7 +19,17 @@ class Dyadic;
 } // namespace Value
 template <typename Unit> class DimensionalScalarQuantity;
 template <typename Unit> class DimensionalVectorQuantity;
+class Acceleration;
+class AccelerationMagnitude;
+class Area;
 class Angle;
+class Displacement;
+class Force;
+class ForceMagnitude;
+class Length;
+class Speed;
+class VectorArea;
+class Velocity;
 
 class Direction {
 
@@ -38,16 +48,7 @@ public:
     }
   }
 
-  Direction(double x, double y, double z) {
-    const double magnitude{std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2))};
-    if (magnitude > 0.0) {
-      x_y_z_[0] = x / magnitude;
-      x_y_z_[1] = y / magnitude;
-      x_y_z_[2] = z / magnitude;
-    } else {
-      throw std::runtime_error{"Attempting to create a cartesian direction from (0, 0, 0)."};
-    }
-  }
+  Direction(double x, double y, double z) : Direction(std::array<double, 3>{x, y, z}) {}
 
   Direction(const Value::Vector& vector);
 
@@ -123,11 +124,30 @@ public:
     return x_y_z_[0] != direction.x_y_z_[0] || x_y_z_[1] != direction.x_y_z_[1] || x_y_z_[2] != direction.x_y_z_[2];
   }
 
-  template <typename Unit> constexpr DimensionalVectorQuantity<Unit> operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept;
+  constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+
+  constexpr VectorArea operator*(const Area& area) const noexcept;
+
+  constexpr Displacement operator*(const Length& length) const noexcept;
+
+  constexpr Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
+
+  constexpr Velocity operator*(const Speed& speed) const noexcept;
 
 private:
 
   std::array<double, 3> x_y_z_;
+
+  friend class Acceleration;
+  friend class AccelerationMagnitude;
+  friend class Area;
+  friend class Displacement;
+  friend class Force;
+  friend class ForceMagnitude;
+  friend class Length;
+  friend class Speed;
+  friend class VectorArea;
+  friend class Velocity;
 
 };
 

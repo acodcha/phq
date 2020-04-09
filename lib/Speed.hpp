@@ -14,6 +14,7 @@ namespace PhQ {
 
 // Forward declarations.
 class AccelerationMagnitude;
+class Direction;
 class Velocity;
 
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
@@ -95,6 +96,7 @@ protected:
   constexpr Speed(double value) noexcept : DimensionalScalarQuantity<Unit::Speed>(value) {}
 
   friend class AccelerationMagnitude;
+  friend class Direction;
   friend class Duration;
   friend class Frequency;
   friend class Length;

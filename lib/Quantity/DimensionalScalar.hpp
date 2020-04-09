@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "../Direction.hpp"
 #include "Dimensional.hpp"
 #include "DimensionlessScalar.hpp"
 
@@ -89,8 +88,6 @@ public:
     return {value_ * scalar.value()};
   }
 
-  DimensionalVectorQuantity<Unit> operator*(const Direction& direction) const noexcept;
-
   constexpr void operator*=(double real) noexcept {
     value_ *= real;
   }
@@ -143,10 +140,6 @@ protected:
 };
 
 } // namespace PhQ
-
-template <typename Unit> constexpr PhQ::DimensionalVectorQuantity<Unit> operator*(const PhQ::DimensionalScalarQuantity<Unit>& scalar, const PhQ::Direction& direction) noexcept {
-  return {scalar, direction};
-}
 
 template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(double real, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
   return {scalar * real};

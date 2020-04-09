@@ -62,12 +62,21 @@ protected:
   constexpr Force(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Force>(value) {}
 
   friend class Area;
+  friend class Direction;
   friend class Traction;
 
 };
+
+constexpr Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
+  return {{x_y_z_[0] * force_magnitude.value_, x_y_z_[1] * force_magnitude.value_, x_y_z_[2] * force_magnitude.value_}};
+}
 
 constexpr Angle::Angle(const Force& force1, const Force& force2) noexcept : DimensionalScalarQuantity<Unit::Angle>(force1.angle(force2)) {}
 
 constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.magnitude()) {}
 
 } // namespace PhQ
+
+constexpr PhQ::Force operator*(const PhQ::ForceMagnitude& force_magnitude, const PhQ::Direction& direction) noexcept {
+  return {direction * force_magnitude};
+}

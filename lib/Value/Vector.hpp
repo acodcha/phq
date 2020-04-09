@@ -22,7 +22,7 @@ public:
 
   constexpr Vector(double x, double y, double z) noexcept : x_y_z_{x, y, z} {}
 
-  constexpr Vector(double r, const Direction& d) : x_y_z_{r * d.x(), r * d.y(), r * d.z()} {}
+  constexpr Vector(double value, const Direction& direction) : x_y_z_{value * direction.x(), value * direction.y(), value * direction.z()} {}
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;

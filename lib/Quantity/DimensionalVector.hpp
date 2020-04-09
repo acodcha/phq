@@ -19,8 +19,6 @@ public:
 
   constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
-  constexpr DimensionalVectorQuantity(DimensionalScalarQuantity<Unit> scalar, const Direction& direction) noexcept : DimensionalQuantity<Unit>(), value_(direction * scalar.value_) {}
-
   const Value::Vector& value() const noexcept {
     return value_;
   }
@@ -148,22 +146,10 @@ protected:
 
 };
 
-template <typename Unit> constexpr DimensionalVectorQuantity<Unit> Direction::operator*(const DimensionalScalarQuantity<Unit>& scalar) const noexcept {
-  return {scalar, *this};
-}
-
-template <typename Unit> DimensionalVectorQuantity<Unit> DimensionalScalarQuantity<Unit>::operator*(const Direction& direction) const noexcept {
-  return {*this, direction};
-}
-
 } // namespace PhQ
 
 template <typename Unit> constexpr PhQ::DimensionalVectorQuantity<Unit> operator*(double real, const PhQ::DimensionalVectorQuantity<Unit>& vector) noexcept {
   return {vector * real};
-}
-
-template <typename Unit> constexpr PhQ::DimensionalVectorQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionalVectorQuantity<Unit>& vector) noexcept {
-  return {vector * scalar.value()};
 }
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalVectorQuantity<Unit>& vector) noexcept {

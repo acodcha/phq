@@ -83,6 +83,6 @@ PoissonRatio::PoissonRatio(const YoungModulus& young_modulus, const ShearModulus
   }
 }
 
-constexpr YoungModulus::YoungModulus(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept : YoungModulus(2.0 * shear_modulus * (poisson_ratio + 1.0)) {}
+constexpr YoungModulus::YoungModulus(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept : YoungModulus(shear_modulus * 2.0 * (poisson_ratio + 1.0)) {}
 
 } // namespace PhQ

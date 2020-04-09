@@ -70,11 +70,16 @@ protected:
   constexpr Acceleration(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 
   friend class AccelerationMagnitude;
+  friend class Direction;
   friend class Duration;
   friend class Frequency;
   friend class Velocity;
 
 };
+
+constexpr Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+  return {{x_y_z_[0] * acceleration_magnitude.value_, x_y_z_[1] * acceleration_magnitude.value_, x_y_z_[2] * acceleration_magnitude.value_}};
+}
 
 constexpr Angle::Angle(const Acceleration& acceleration1, const Acceleration& acceleration2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration1.angle(acceleration2)) {}
 
@@ -93,3 +98,7 @@ Acceleration Velocity::operator/(const Duration& duration) const {
 }
 
 } // namespace PhQ
+
+constexpr PhQ::Acceleration operator*(const PhQ::AccelerationMagnitude& acceleration_magnitude, const PhQ::Direction& direction) noexcept {
+  return {direction * acceleration_magnitude};
+}

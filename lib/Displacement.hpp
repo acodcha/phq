@@ -71,6 +71,7 @@ protected:
 
   constexpr Displacement(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 
+  friend class Direction;
   friend class Duration;
   friend class Frequency;
   friend class Length;
@@ -78,6 +79,10 @@ protected:
   friend class Velocity;
 
 };
+
+constexpr Displacement Direction::operator*(const Length& length) const noexcept {
+  return {{x_y_z_[0] * length.value_, x_y_z_[1] * length.value_, x_y_z_[2] * length.value_}};
+}
 
 constexpr Angle::Angle(const Displacement& displacement1, const Displacement& displacement2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement1.angle(displacement2)) {}
 
@@ -104,3 +109,7 @@ constexpr void Position::operator-=(const Displacement& displacement) noexcept {
 }
 
 } // namespace PhQ
+
+constexpr PhQ::Displacement operator*(const PhQ::Length& length, const PhQ::Direction& direction) noexcept {
+  return {direction * length};
+}

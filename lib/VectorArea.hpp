@@ -60,9 +60,18 @@ protected:
   constexpr VectorArea(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Area>(value) {}
 
   friend class Area;
+  friend class Direction;
 
 };
+
+constexpr VectorArea Direction::operator*(const Area& area) const noexcept {
+  return {{x_y_z_[0] * area.value_, x_y_z_[1] * area.value_, x_y_z_[2] * area.value_}};
+}
 
 constexpr Angle::Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector_area_1.angle(vector_area_2)) {}
 
 } // namespace PhQ
+
+constexpr PhQ::VectorArea operator*(const PhQ::Area& area, const PhQ::Direction& direction) noexcept {
+  return {direction * area};
+}

@@ -13,6 +13,7 @@ namespace PhQ {
 
 // Forward declarations.
 class Area;
+class Direction;
 class Displacement;
 class Duration;
 class Frequency;
@@ -83,6 +84,7 @@ protected:
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
 
   friend class Area;
+  friend class Direction;
   friend class Displacement;
   friend class Duration;
   friend class Frequency;
