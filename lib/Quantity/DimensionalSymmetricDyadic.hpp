@@ -143,6 +143,10 @@ protected:
 
 };
 
+template <typename Unit> constexpr bool sort(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic1, const DimensionalSymmetricDyadicQuantity<Unit>& dyadic2) noexcept {
+  return sort(dyadic1.value(), dyadic2.value());
+}
+
 } // namespace PhQ
 
 template <typename Unit> constexpr PhQ::DimensionalSymmetricDyadicQuantity<Unit> operator*(double real, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
