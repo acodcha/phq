@@ -134,6 +134,14 @@ template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar1, cons
 
 } // namespace PhQ
 
+constexpr PhQ::DimensionlessScalarQuantity operator+(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
+  return {scalar + real};
+}
+
+constexpr PhQ::DimensionlessScalarQuantity operator-(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
+  return {real - scalar.value()};
+}
+
 constexpr PhQ::DimensionlessScalarQuantity operator*(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
   return {scalar * real};
 }
