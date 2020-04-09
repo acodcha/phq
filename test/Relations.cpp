@@ -19,6 +19,7 @@
 #include "../lib/Temperature.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
+#include "../lib/VectorArea.hpp"
 #include "../lib/VolumeRate.hpp"
 
 int main(int argc, char *argv[]) {

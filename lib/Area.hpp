@@ -12,10 +12,12 @@
 namespace PhQ {
 
 // Forward declarations.
+class Direction;
 class Force;
 class ForceMagnitude;
 class Pressure;
 class Traction;
+class VectorArea;
 
 class Area : public DimensionalScalarQuantity<Unit::Area> {
 
@@ -87,6 +89,7 @@ protected:
   friend class Pressure;
   friend class Traction;
   friend class Volume;
+  friend class VectorArea;
 
 };
 
