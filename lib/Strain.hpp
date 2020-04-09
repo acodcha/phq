@@ -10,6 +10,10 @@
 
 namespace PhQ {
 
+class Duration;
+class Frequency;
+class StrainRate;
+
 class Strain : public DimensionlessSymmetricDyadicQuantity {
 
 public:
@@ -41,6 +45,14 @@ public:
   constexpr void operator-=(const Strain& strain) noexcept {
     value_ -= strain.value_;
   }
+
+  constexpr StrainRate operator*(const Frequency& frequency) const noexcept;
+
+  StrainRate operator/(const Duration& duration) const;
+
+  friend class Duration;
+  friend class Frequency;
+  friend class StrainRate;
 
 };
 

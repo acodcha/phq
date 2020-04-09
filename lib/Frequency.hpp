@@ -93,6 +93,8 @@ public:
 
   constexpr VolumeRate operator*(const Volume& volume) const noexcept;
 
+  constexpr StrainRate operator*(const Strain& strain) const noexcept;
+
 protected:
 
   constexpr Frequency(double value) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value) {}
@@ -110,6 +112,8 @@ protected:
   friend class Memory;
   friend class MemoryRate;
   friend class Speed;
+  friend class Strain;
+  friend class StrainRate;
   friend class Velocity;
   friend class Volume;
   friend class VolumeRate;

@@ -14,7 +14,7 @@
 #include "../lib/Position.hpp"
 #include "../lib/ReynoldsNumber.hpp"
 #include "../lib/ShearModulus.hpp"
-#include "../lib/Strain.hpp"
+#include "../lib/StrainRate.hpp"
 #include "../lib/Stress.hpp"
 #include "../lib/Temperature.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
