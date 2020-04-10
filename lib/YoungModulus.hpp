@@ -23,8 +23,6 @@ public:
 
   constexpr YoungModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr YoungModulus(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept;
-
   constexpr bool operator==(const YoungModulus& young_modulus) const noexcept {
     return value_ == young_modulus.value_;
   }
@@ -68,8 +66,6 @@ public:
 protected:
 
   constexpr YoungModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
-
-  constexpr YoungModulus(const DimensionalScalarQuantity<Unit::Pressure>& quantity) noexcept : DimensionalScalarQuantity<Unit::Pressure>(quantity) {}
 
 };
 

@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "PoissonRatio.hpp"
-#include "YoungModulus.hpp"
+#include "Quantity/DimensionalScalar.hpp"
+#include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
@@ -18,15 +18,6 @@ public:
   constexpr ShearModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   constexpr ShearModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
-
-  ShearModulus(const YoungModulus& young_modulus, const PoissonRatio& poisson_ratio) : ShearModulus() {
-    const double denominator{2.0 * (1.0 + poisson_ratio.value())};
-    if (denominator != 0.0) {
-      value_ = young_modulus.value() / denominator;
-    } else {
-      throw std::runtime_error{"Division of " + young_modulus.print() + " by " + number_to_string(denominator) + "."};
-    }
-  }
 
   constexpr bool operator==(const ShearModulus& shear_modulus) const noexcept {
     return value_ == shear_modulus.value_;
@@ -73,16 +64,5 @@ protected:
   constexpr ShearModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
-
-PoissonRatio::PoissonRatio(const YoungModulus& young_modulus, const ShearModulus& shear_modulus) : PoissonRatio() {
-  const double denominator{2.0 * shear_modulus.value()};
-  if (denominator != 0.0) {
-    value_ = young_modulus.value() / denominator - 1.0;
-  } else {
-    throw std::runtime_error{"Division of " + young_modulus.print() + " by " + number_to_string(denominator) + "."};
-  }
-}
-
-constexpr YoungModulus::YoungModulus(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept : YoungModulus(shear_modulus * 2.0 * (poisson_ratio + 1.0)) {}
 
 } // namespace PhQ

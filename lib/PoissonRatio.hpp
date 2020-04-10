@@ -22,8 +22,6 @@ public:
 
   constexpr PoissonRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
 
-  PoissonRatio(const YoungModulus& young_modulus, const ShearModulus& shear_modulus);
-
 };
 
 } // namespace PhQ
