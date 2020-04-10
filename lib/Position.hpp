@@ -6,14 +6,9 @@
 
 #pragma once
 
-#include "Angle.hpp"
-#include "Length.hpp"
-#include "Quantity/DimensionalVector.hpp"
+#include "Displacement.hpp"
 
 namespace PhQ {
-
-// Forward declaration.
-class Displacement;
 
 class Position : public DimensionalVectorQuantity<Unit::Length> {
 
@@ -43,23 +38,33 @@ public:
     return {value_ + position.value_};
   }
 
-  constexpr Position operator+(const Displacement& displacement) const noexcept;
+  constexpr Position operator+(const Displacement& displacement) const noexcept {
+    return {value_ + displacement.value_};
+  }
 
   constexpr void operator+=(const Position& position) noexcept {
     value_ += position.value_;
   }
 
-  constexpr void operator+=(const Displacement& displacement) noexcept;
+  constexpr void operator+=(const Displacement& displacement) noexcept {
+    value_ += displacement.value_;
+  }
 
-  constexpr Displacement operator-(const Position& position) const noexcept;
+  constexpr Displacement operator-(const Position& position) const noexcept {
+    return {value_ - position.value_};
+  }
 
-  constexpr Position operator-(const Displacement& displacement) const noexcept;
+  constexpr Position operator-(const Displacement& displacement) const noexcept {
+    return {value_ - displacement.value_};
+  }
 
   constexpr void operator-=(const Position& position) noexcept {
     value_ -= position.value_;
   }
 
-  constexpr void operator-=(const Displacement& displacement) noexcept;
+  constexpr void operator-=(const Displacement& displacement) noexcept {
+    value_ -= displacement.value_;
+  }
 
 protected:
 
@@ -75,5 +80,13 @@ template <> constexpr bool sort(const Position& position_1, const Position& posi
 }
 
 constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(position_1.angle(position_2)) {}
+
+constexpr Position Displacement::operator+(const Position& position) const noexcept {
+  return {value_ + position.value_};
+}
+
+constexpr Position Displacement::operator-(const Position& position) const noexcept {
+  return {value_ - position.value_};
+}
 
 } // namespace PhQ

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Displacement.hpp"
+#include "Position.hpp"
 #include "Speed.hpp"
 
 namespace PhQ {

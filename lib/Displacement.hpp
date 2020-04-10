@@ -6,13 +6,16 @@
 
 #pragma once
 
-#include "Position.hpp"
+#include "Angle.hpp"
+#include "Length.hpp"
+#include "Quantity/DimensionalVector.hpp"
 
 namespace PhQ {
 
 // Forward declarations.
 class Duration;
 class Frequency;
+class Position;
 class Velocity;
 
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
@@ -39,9 +42,7 @@ public:
     return value_ != displacement.value_;
   }
 
-  constexpr Position operator+(const Position& position) const noexcept {
-    return {value_ + position.value_};
-  }
+  constexpr Position operator+(const Position& position) const noexcept;
 
   constexpr Displacement operator+(const Displacement& displacement) const noexcept {
     return {value_ + displacement.value_};
@@ -51,9 +52,7 @@ public:
     value_ += displacement.value_;
   }
 
-  constexpr Displacement operator-(const Position& position) const noexcept {
-    return {value_ - position.value_};
-  }
+  constexpr Position operator-(const Position& position) const noexcept;
 
   constexpr Displacement operator-(const Displacement& displacement) const noexcept {
     return {value_ - displacement.value_};
@@ -91,26 +90,6 @@ constexpr Displacement Direction::operator*(const Length& length) const noexcept
 constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement_1.angle(displacement_2)) {}
 
 constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.magnitude()) {}
-
-constexpr Position Position::operator+(const Displacement& displacement) const noexcept {
-  return {value_ + displacement.value_};
-}
-
-constexpr Displacement Position::operator-(const Position& position) const noexcept {
-  return {value_ - position.value_};
-}
-
-constexpr Position Position::operator-(const Displacement& displacement) const noexcept {
-  return {value_ - displacement.value_};
-}
-
-constexpr void Position::operator+=(const Displacement& displacement) noexcept {
-  value_ += displacement.value_;
-}
-
-constexpr void Position::operator-=(const Displacement& displacement) noexcept {
-  value_ -= displacement.value_;
-}
 
 } // namespace PhQ
 
