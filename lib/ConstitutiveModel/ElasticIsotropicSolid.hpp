@@ -6,7 +6,11 @@
 
 #pragma once
 
+#include "../LameFirstModulus.hpp"
+#include "../IsentropicBulkModulus.hpp"
+#include "../IsothermalBulkModulus.hpp"
 #include "../PoissonRatio.hpp"
+#include "../PWaveModulus.hpp"
 #include "../ShearModulus.hpp"
 #include "../Strain.hpp"
 #include "../Stress.hpp"
@@ -45,11 +49,49 @@ public:
   }
 
   constexpr ShearModulus shear_modulus() const {
-    const double denominator{2.0 * (1.0 + poisson_ratio_.value())};
+    const double denominator{2.0 + 2.0 * poisson_ratio_.value()};
     if (denominator != 0.0) {
       return {young_modulus_.value() / denominator, standard_unit<Unit::Pressure>};
     } else {
       throw std::runtime_error{"Division of " + young_modulus_.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  constexpr IsentropicBulkModulus isentropic_bulk_modulus() const {
+    const double denominator{3.0 - 6.0 * poisson_ratio_.value()};
+    if (denominator != 0.0) {
+      return {young_modulus_.value() / denominator, standard_unit<Unit::Pressure>};
+    } else {
+      throw std::runtime_error{"Division of " + young_modulus_.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  constexpr IsothermalBulkModulus isothermal_bulk_modulus() const {
+    const double denominator{3.0 - 6.0 * poisson_ratio_.value()};
+    if (denominator != 0.0) {
+      return {young_modulus_.value() / denominator, standard_unit<Unit::Pressure>};
+    } else {
+      throw std::runtime_error{"Division of " + young_modulus_.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  constexpr PWaveModulus p_wave_modulus() const {
+    const double numerator{young_modulus_.value() * (1.0 - poisson_ratio_.value())};
+    const double denominator{(1.0 + poisson_ratio_.value()) * (1.0 - 2.0 * poisson_ratio_.value())};
+    if (denominator != 0.0) {
+      return {numerator / denominator, standard_unit<Unit::Pressure>};
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  constexpr LameFirstModulus lame_first_modulus() const {
+    const double numerator{young_modulus_.value() * poisson_ratio_.value()};
+    const double denominator{(1.0 + poisson_ratio_.value()) * (1.0 - 2.0 * poisson_ratio_.value())};
+    if (denominator != 0.0) {
+      return {numerator / denominator, standard_unit<Unit::Pressure>};
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator) + " by " + number_to_string(denominator) + "."};
     }
   }
 
@@ -58,11 +100,11 @@ public:
   }
 
   std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"elastic_modulus\": " + young_modulus_.print() + ", \"poisson_ratio\": " + poisson_ratio_.print() + "}"};
+    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"young_modulus\": " + young_modulus_.print() + ", \"poisson_ratio\": " + poisson_ratio_.print() + "}"};
   }
 
   std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><elastic_modulus>" + young_modulus_.print() + "</elastic_modulus><poisson_ratio>" + poisson_ratio_.print() + "</poisson_ratio>"};
+    return {"<type>" + lowercase(abbreviation(type())) + "</type><young_modulus>" + young_modulus_.print() + "</young_modulus><poisson_ratio>" + poisson_ratio_.print() + "</poisson_ratio>"};
   }
 
 protected:

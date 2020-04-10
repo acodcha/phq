@@ -10,10 +10,6 @@
 
 namespace PhQ {
 
-// Forward declarations.
-class ShearModulus;
-class YoungModulus;
-
 class PoissonRatio : public DimensionlessScalarQuantity {
 
 public:

@@ -11,57 +11,57 @@
 
 namespace PhQ {
 
-class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 
 public:
 
-  constexpr YoungModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr LameFirstModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr YoungModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  constexpr LameFirstModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr bool operator==(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator==(const LameFirstModulus& young_modulus) const noexcept {
     return value_ == young_modulus.value_;
   }
 
-  constexpr bool operator!=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator!=(const LameFirstModulus& young_modulus) const noexcept {
     return value_ != young_modulus.value_;
   }
 
-  constexpr bool operator<(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator<(const LameFirstModulus& young_modulus) const noexcept {
     return value_ < young_modulus.value_;
   }
 
-  constexpr bool operator<=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator<=(const LameFirstModulus& young_modulus) const noexcept {
     return value_ <= young_modulus.value_;
   }
 
-  constexpr bool operator>(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator>(const LameFirstModulus& young_modulus) const noexcept {
     return value_ > young_modulus.value_;
   }
 
-  constexpr bool operator>=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator>=(const LameFirstModulus& young_modulus) const noexcept {
     return value_ >= young_modulus.value_;
   }
 
-  constexpr YoungModulus operator+(const YoungModulus& young_modulus) const noexcept {
+  constexpr LameFirstModulus operator+(const LameFirstModulus& young_modulus) const noexcept {
     return {value_ + young_modulus.value_};
   }
 
-  constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator+=(const LameFirstModulus& young_modulus) noexcept {
     value_ += young_modulus.value_;
   }
 
-  constexpr YoungModulus operator-(const YoungModulus& young_modulus) const noexcept {
+  constexpr LameFirstModulus operator-(const LameFirstModulus& young_modulus) const noexcept {
     return {value_ - young_modulus.value_};
   }
 
-  constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator-=(const LameFirstModulus& young_modulus) noexcept {
     value_ -= young_modulus.value_;
   }
 
 protected:
 
-  constexpr YoungModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  constexpr LameFirstModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
 

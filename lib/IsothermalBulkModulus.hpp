@@ -11,57 +11,57 @@
 
 namespace PhQ {
 
-class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 
 public:
 
-  constexpr YoungModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr IsothermalBulkModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr YoungModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  constexpr IsothermalBulkModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr bool operator==(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator==(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ == young_modulus.value_;
   }
 
-  constexpr bool operator!=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator!=(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ != young_modulus.value_;
   }
 
-  constexpr bool operator<(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator<(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ < young_modulus.value_;
   }
 
-  constexpr bool operator<=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator<=(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ <= young_modulus.value_;
   }
 
-  constexpr bool operator>(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator>(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ > young_modulus.value_;
   }
 
-  constexpr bool operator>=(const YoungModulus& young_modulus) const noexcept {
+  constexpr bool operator>=(const IsothermalBulkModulus& young_modulus) const noexcept {
     return value_ >= young_modulus.value_;
   }
 
-  constexpr YoungModulus operator+(const YoungModulus& young_modulus) const noexcept {
+  constexpr IsothermalBulkModulus operator+(const IsothermalBulkModulus& young_modulus) const noexcept {
     return {value_ + young_modulus.value_};
   }
 
-  constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator+=(const IsothermalBulkModulus& young_modulus) noexcept {
     value_ += young_modulus.value_;
   }
 
-  constexpr YoungModulus operator-(const YoungModulus& young_modulus) const noexcept {
+  constexpr IsothermalBulkModulus operator-(const IsothermalBulkModulus& young_modulus) const noexcept {
     return {value_ - young_modulus.value_};
   }
 
-  constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator-=(const IsothermalBulkModulus& young_modulus) noexcept {
     value_ -= young_modulus.value_;
   }
 
 protected:
 
-  constexpr YoungModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  constexpr IsothermalBulkModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
 
