@@ -19,44 +19,44 @@ public:
 
   constexpr IsothermalBulkModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr bool operator==(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ == young_modulus.value_;
+  constexpr bool operator==(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ == isothermal_bulk_modulus.value_;
   }
 
-  constexpr bool operator!=(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ != young_modulus.value_;
+  constexpr bool operator!=(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ != isothermal_bulk_modulus.value_;
   }
 
-  constexpr bool operator<(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ < young_modulus.value_;
+  constexpr bool operator<(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ < isothermal_bulk_modulus.value_;
   }
 
-  constexpr bool operator<=(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ <= young_modulus.value_;
+  constexpr bool operator<=(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ <= isothermal_bulk_modulus.value_;
   }
 
-  constexpr bool operator>(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ > young_modulus.value_;
+  constexpr bool operator>(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ > isothermal_bulk_modulus.value_;
   }
 
-  constexpr bool operator>=(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return value_ >= young_modulus.value_;
+  constexpr bool operator>=(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ >= isothermal_bulk_modulus.value_;
   }
 
-  constexpr IsothermalBulkModulus operator+(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return {value_ + young_modulus.value_};
+  constexpr IsothermalBulkModulus operator+(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return {value_ + isothermal_bulk_modulus.value_};
   }
 
-  constexpr void operator+=(const IsothermalBulkModulus& young_modulus) noexcept {
-    value_ += young_modulus.value_;
+  constexpr void operator+=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+    value_ += isothermal_bulk_modulus.value_;
   }
 
-  constexpr IsothermalBulkModulus operator-(const IsothermalBulkModulus& young_modulus) const noexcept {
-    return {value_ - young_modulus.value_};
+  constexpr IsothermalBulkModulus operator-(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return {value_ - isothermal_bulk_modulus.value_};
   }
 
-  constexpr void operator-=(const IsothermalBulkModulus& young_modulus) noexcept {
-    value_ -= young_modulus.value_;
+  constexpr void operator-=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+    value_ -= isothermal_bulk_modulus.value_;
   }
 
 protected:
@@ -64,5 +64,9 @@ protected:
   constexpr IsothermalBulkModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
+
+template <> constexpr bool sort(const IsothermalBulkModulus& isothermal_bulk_modulus_1, const IsothermalBulkModulus& isothermal_bulk_modulus_2) noexcept {
+  return isothermal_bulk_modulus_1.value() < isothermal_bulk_modulus_2.value();
+}
 
 } // namespace PhQ

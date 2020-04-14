@@ -120,6 +120,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Frequency& frequency_1, const Frequency& frequency_2) noexcept {
+  return frequency_1.value() < frequency_2.value();
+}
+
 Frequency Duration::frequency() const {
   if (value_ != 0.0) {
     return {1.0 / value_};

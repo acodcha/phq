@@ -65,4 +65,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const ShearModulus& shear_modulus_1, const ShearModulus& shear_modulus_2) noexcept {
+  return shear_modulus_1.value() < shear_modulus_2.value();
+}
+
 } // namespace PhQ

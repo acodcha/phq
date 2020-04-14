@@ -117,4 +117,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Duration& duration_1, const Duration& duration_2) noexcept {
+  return duration_1.value() < duration_2.value();
+}
+
 } // namespace PhQ

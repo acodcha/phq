@@ -90,6 +90,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const VolumeRate& volume_rate_1, const VolumeRate& volume_rate_2) noexcept {
+  return volume_rate_1.value() < volume_rate_2.value();
+}
+
 constexpr Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
   return {value_ * volume_rate.value_};
 }

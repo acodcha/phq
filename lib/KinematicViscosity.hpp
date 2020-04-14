@@ -74,4 +74,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const KinematicViscosity& kinematic_viscosity_1, const KinematicViscosity& kinematic_viscosity_2) noexcept {
+  return kinematic_viscosity_1.value() < kinematic_viscosity_2.value();
+}
+
 } // namespace PhQ

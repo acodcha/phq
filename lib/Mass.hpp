@@ -84,4 +84,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept {
+  return mass_1.value() < mass_2.value();
+}
+
 } // namespace PhQ

@@ -81,6 +81,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const MassDensity& mass_density_1, const MassDensity& mass_density_2) noexcept {
+  return mass_density_1.value() < mass_density_2.value();
+}
+
 MassDensity Mass::operator/(const Volume& volume) const {
   if (volume.value_ != 0.0) {
     return {value_ / volume.value_};

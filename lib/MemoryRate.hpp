@@ -90,6 +90,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const MemoryRate& memory_rate_1, const MemoryRate& memory_rate_2) noexcept {
+  return memory_rate_1.value() < memory_rate_2.value();
+}
+
 constexpr MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
   return {value_ * memory.value_};
 }

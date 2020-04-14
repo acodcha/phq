@@ -98,6 +98,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const AngularSpeed& angular_speed_1, const AngularSpeed& angular_speed_2) noexcept {
+  return angular_speed_1.value() < angular_speed_2.value();
+}
+
 constexpr AngularSpeed Angle::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }

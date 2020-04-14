@@ -102,6 +102,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Volume& volume_1, const Volume& volume_2) noexcept {
+  return volume_1.value() < volume_2.value();
+}
+
 constexpr Volume Length::operator*(const Area& area) const noexcept {
   return {value_ * area.value_};
 }

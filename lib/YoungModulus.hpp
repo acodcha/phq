@@ -65,4 +65,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const YoungModulus& young_modulus_1, const YoungModulus& young_modulus_2) noexcept {
+  return young_modulus_1.value() < young_modulus_2.value();
+}
+
 } // namespace PhQ

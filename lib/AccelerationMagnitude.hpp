@@ -97,6 +97,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const AccelerationMagnitude& acceleration_magnitude_1, const AccelerationMagnitude& acceleration_magnitude_2) noexcept {
+  return acceleration_magnitude_1.value() < acceleration_magnitude_2.value();
+}
+
 constexpr AccelerationMagnitude Frequency::operator*(const Speed& speed) const noexcept {
   return {value_ * speed.value_};
 }

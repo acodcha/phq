@@ -104,6 +104,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Speed& speed_1, const Speed& speed_2) noexcept {
+  return speed_1.value() < speed_2.value();
+}
+
 constexpr Speed Length::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }

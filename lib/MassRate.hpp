@@ -92,6 +92,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const MassRate& mass_rate_1, const MassRate& mass_rate_2) noexcept {
+  return mass_rate_1.value() < mass_rate_2.value();
+}
+
 constexpr Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
   return {value_ * mass_rate.value_};
 }

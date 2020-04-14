@@ -19,44 +19,44 @@ public:
 
   constexpr LameFirstModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr bool operator==(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ == young_modulus.value_;
+  constexpr bool operator==(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ == lame_first_modulus.value_;
   }
 
-  constexpr bool operator!=(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ != young_modulus.value_;
+  constexpr bool operator!=(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ != lame_first_modulus.value_;
   }
 
-  constexpr bool operator<(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ < young_modulus.value_;
+  constexpr bool operator<(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ < lame_first_modulus.value_;
   }
 
-  constexpr bool operator<=(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ <= young_modulus.value_;
+  constexpr bool operator<=(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ <= lame_first_modulus.value_;
   }
 
-  constexpr bool operator>(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ > young_modulus.value_;
+  constexpr bool operator>(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ > lame_first_modulus.value_;
   }
 
-  constexpr bool operator>=(const LameFirstModulus& young_modulus) const noexcept {
-    return value_ >= young_modulus.value_;
+  constexpr bool operator>=(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ >= lame_first_modulus.value_;
   }
 
-  constexpr LameFirstModulus operator+(const LameFirstModulus& young_modulus) const noexcept {
-    return {value_ + young_modulus.value_};
+  constexpr LameFirstModulus operator+(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return {value_ + lame_first_modulus.value_};
   }
 
-  constexpr void operator+=(const LameFirstModulus& young_modulus) noexcept {
-    value_ += young_modulus.value_;
+  constexpr void operator+=(const LameFirstModulus& lame_first_modulus) noexcept {
+    value_ += lame_first_modulus.value_;
   }
 
-  constexpr LameFirstModulus operator-(const LameFirstModulus& young_modulus) const noexcept {
-    return {value_ - young_modulus.value_};
+  constexpr LameFirstModulus operator-(const LameFirstModulus& lame_first_modulus) const noexcept {
+    return {value_ - lame_first_modulus.value_};
   }
 
-  constexpr void operator-=(const LameFirstModulus& young_modulus) noexcept {
-    value_ -= young_modulus.value_;
+  constexpr void operator-=(const LameFirstModulus& lame_first_modulus) noexcept {
+    value_ -= lame_first_modulus.value_;
   }
 
 protected:
@@ -64,5 +64,9 @@ protected:
   constexpr LameFirstModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
+
+template <> constexpr bool sort(const LameFirstModulus& lame_first_modulus_1, const LameFirstModulus& lame_first_modulus_2) noexcept {
+  return lame_first_modulus_1.value() < lame_first_modulus_2.value();
+}
 
 } // namespace PhQ

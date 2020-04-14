@@ -94,6 +94,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Area& area_1, const Area& area_2) noexcept {
+  return area_1.value() < area_2.value();
+}
+
 constexpr Area Length::operator*(const Length& length) const noexcept {
   return {value_ * length.value_};
 }

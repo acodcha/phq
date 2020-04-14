@@ -78,4 +78,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Memory& memory_1, const Memory& memory_2) noexcept {
+  return memory_1.value() < memory_2.value();
+}
+
 } // namespace PhQ

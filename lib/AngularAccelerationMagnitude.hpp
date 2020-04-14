@@ -90,6 +90,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const AngularAccelerationMagnitude& angular_acceleration_magnitude_1, const AngularAccelerationMagnitude& angular_acceleration_magnitude_2) noexcept {
+  return angular_acceleration_magnitude_1.value() < angular_acceleration_magnitude_2.value();
+}
+
 constexpr AngularAccelerationMagnitude Frequency::operator*(const AngularSpeed& angular_speed) const noexcept {
   return {value_ * angular_speed.value_};
 }

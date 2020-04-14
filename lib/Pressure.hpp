@@ -80,6 +80,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Pressure& pressure_1, const Pressure& pressure_2) noexcept {
+  return pressure_1.value() < pressure_2.value();
+}
+
 constexpr ForceMagnitude Area::operator*(const Pressure& pressure) const noexcept {
   return {value_ * pressure.value_};
 }

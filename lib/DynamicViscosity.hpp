@@ -85,6 +85,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const DynamicViscosity& dynamic_viscosity_1, const DynamicViscosity& dynamic_viscosity_2) noexcept {
+  return dynamic_viscosity_1.value() < dynamic_viscosity_2.value();
+}
+
 constexpr DynamicViscosity KinematicViscosity::operator*(const MassDensity& mass_density) const noexcept {
   return {value_ * mass_density.value_};
 }

@@ -19,44 +19,44 @@ public:
 
   constexpr IsentropicBulkModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr bool operator==(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ == young_modulus.value_;
+  constexpr bool operator==(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ == isentropic_bulk_modulus.value_;
   }
 
-  constexpr bool operator!=(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ != young_modulus.value_;
+  constexpr bool operator!=(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ != isentropic_bulk_modulus.value_;
   }
 
-  constexpr bool operator<(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ < young_modulus.value_;
+  constexpr bool operator<(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ < isentropic_bulk_modulus.value_;
   }
 
-  constexpr bool operator<=(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ <= young_modulus.value_;
+  constexpr bool operator<=(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ <= isentropic_bulk_modulus.value_;
   }
 
-  constexpr bool operator>(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ > young_modulus.value_;
+  constexpr bool operator>(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ > isentropic_bulk_modulus.value_;
   }
 
-  constexpr bool operator>=(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return value_ >= young_modulus.value_;
+  constexpr bool operator>=(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ >= isentropic_bulk_modulus.value_;
   }
 
-  constexpr IsentropicBulkModulus operator+(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return {value_ + young_modulus.value_};
+  constexpr IsentropicBulkModulus operator+(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return {value_ + isentropic_bulk_modulus.value_};
   }
 
-  constexpr void operator+=(const IsentropicBulkModulus& young_modulus) noexcept {
-    value_ += young_modulus.value_;
+  constexpr void operator+=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+    value_ += isentropic_bulk_modulus.value_;
   }
 
-  constexpr IsentropicBulkModulus operator-(const IsentropicBulkModulus& young_modulus) const noexcept {
-    return {value_ - young_modulus.value_};
+  constexpr IsentropicBulkModulus operator-(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return {value_ - isentropic_bulk_modulus.value_};
   }
 
-  constexpr void operator-=(const IsentropicBulkModulus& young_modulus) noexcept {
-    value_ -= young_modulus.value_;
+  constexpr void operator-=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+    value_ -= isentropic_bulk_modulus.value_;
   }
 
 protected:
@@ -64,5 +64,9 @@ protected:
   constexpr IsentropicBulkModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
 };
+
+template <> constexpr bool sort(const IsentropicBulkModulus& isentropic_bulk_modulus_1, const IsentropicBulkModulus& isentropic_bulk_modulus_2) noexcept {
+  return isentropic_bulk_modulus_1.value() < isentropic_bulk_modulus_2.value();
+}
 
 } // namespace PhQ

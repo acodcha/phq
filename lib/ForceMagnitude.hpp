@@ -79,4 +79,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const ForceMagnitude& force_magnitude_1, const ForceMagnitude& force_magnitude_2) noexcept {
+  return force_magnitude_1.value() < force_magnitude_2.value();
+}
+
 } // namespace PhQ

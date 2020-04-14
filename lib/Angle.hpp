@@ -111,6 +111,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Angle& angle_1, const Angle& angle_2) noexcept {
+  return angle_1.value() < angle_2.value();
+}
+
 constexpr Angle Direction::angle(const Direction& direction) const noexcept {
   return {std::acos(dot(direction))};
 }

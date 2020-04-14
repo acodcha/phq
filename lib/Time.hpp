@@ -85,6 +85,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Time& time_1, const Time& time_2) noexcept {
+  return time_1.value() < time_2.value();
+}
+
 Time Duration::operator+(const Time& time) const noexcept {
   return {value_ + time.value_};
 }

@@ -65,4 +65,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const ThermalDiffusivity& thermal_diffusivity_1, const ThermalDiffusivity& thermal_diffusivity_2) noexcept {
+  return thermal_diffusivity_1.value() < thermal_diffusivity_2.value();
+}
+
 } // namespace PhQ

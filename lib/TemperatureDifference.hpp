@@ -74,4 +74,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const TemperatureDifference& temperature_difference_1, const TemperatureDifference& temperature_difference_2) noexcept {
+  return temperature_difference_1.value() < temperature_difference_2.value();
+}
+
 } // namespace PhQ

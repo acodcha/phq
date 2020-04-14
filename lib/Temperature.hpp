@@ -82,6 +82,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Temperature& temperature_1, const Temperature& temperature_2) noexcept {
+  return temperature_1.value() < temperature_2.value();
+}
+
 Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
   return {value_ + temperature.value_};
 }
