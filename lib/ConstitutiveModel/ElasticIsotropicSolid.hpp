@@ -29,14 +29,179 @@ public:
 
   constexpr ElasticIsotropicSolid(const YoungModulus& young_modulus, const PoissonRatio& poisson_ratio) noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus), poisson_ratio_(poisson_ratio) {}
 
-  constexpr ElasticIsotropicSolid(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(shear_modulus.value() * 2.0 * (poisson_ratio.value() + 1.0), standard_unit<Unit::Pressure>), poisson_ratio_(poisson_ratio) {}
-
   ElasticIsotropicSolid(const YoungModulus& young_modulus, const ShearModulus& shear_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus) {
     const double denominator{2.0 * shear_modulus.value()};
     if (denominator != 0.0) {
       poisson_ratio_ = young_modulus.value() / denominator - 1.0;
     } else {
       throw std::runtime_error{"Division of " + young_modulus.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const YoungModulus& young_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus) {
+    const double denominator{6.0 * isentropic_bulk_modulus.value()};
+    if (denominator != 0.0) {
+      poisson_ratio_ = 0.5 - young_modulus.value() / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + young_modulus.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const YoungModulus& young_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus) {
+    const double denominator{6.0 * isothermal_bulk_modulus.value()};
+    if (denominator != 0.0) {
+      poisson_ratio_ = 0.5 - young_modulus.value() / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + young_modulus.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const YoungModulus& young_modulus, const LameFirstModulus& lame_first_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus) {
+    const double denominator{young_modulus_.value() + lame_first_modulus.value() + std::sqrt(std::pow(young_modulus_.value(), 2) + 9.0 * std::pow(lame_first_modulus.value(), 2) + 2.0 * young_modulus_.value() * lame_first_modulus.value())};
+    if (denominator != 0.0) {
+      poisson_ratio_ = 2.0 * lame_first_modulus.value() / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + lame_first_modulus.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const YoungModulus& young_modulus, const PWaveModulus& p_wave_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(young_modulus) {
+    const double denominator{4.0 * p_wave_modulus.value()};
+    const double numerator{young_modulus.value() - p_wave_modulus.value() + std::sqrt(std::pow(young_modulus.value(), 2) + 9.0 * std::pow(p_wave_modulus.value(), 2) - 10.0 * young_modulus.value() * p_wave_modulus.value())};
+    if (denominator != 0.0) {
+      poisson_ratio_ = numerator / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  constexpr ElasticIsotropicSolid(const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio) noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), young_modulus_(shear_modulus.value() * 2.0 * (poisson_ratio.value() + 1.0), standard_unit<Unit::Pressure>), poisson_ratio_(poisson_ratio) {}
+
+  ElasticIsotropicSolid(const ShearModulus& shear_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * shear_modulus.value() * isentropic_bulk_modulus.value()};
+    const double denominator_1{shear_modulus.value() + 3.0 * isentropic_bulk_modulus.value()};
+    if (denominator_1 != 0.0) {
+      young_modulus_ = {numerator_1 / denominator_1, standard_unit<Unit::Pressure>};
+      const double numerator_2{3.0 * isentropic_bulk_modulus.value() - 2.0 * shear_modulus.value()};
+      const double denominator_2{2.0 * shear_modulus.value() + 6.0 * isentropic_bulk_modulus.value()};
+      if (denominator_2 != 0.0) {
+        poisson_ratio_ = numerator_2 / denominator_2;
+      } else {
+        throw std::runtime_error{"Division of " + number_to_string(numerator_2) + " by " + number_to_string(denominator_2) + "."};
+      }
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator_1) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const ShearModulus& shear_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * shear_modulus.value() * isothermal_bulk_modulus.value()};
+    const double denominator_1{shear_modulus.value() + 3.0 * isothermal_bulk_modulus.value()};
+    if (denominator_1 != 0.0) {
+      young_modulus_ = {numerator_1 / denominator_1, standard_unit<Unit::Pressure>};
+      const double numerator_2{3.0 * isothermal_bulk_modulus.value() - 2.0 * shear_modulus.value()};
+      const double denominator_2{2.0 * shear_modulus.value() + 6.0 * isothermal_bulk_modulus.value()};
+      if (denominator_2 != 0.0) {
+        poisson_ratio_ = numerator_2 / denominator_2;
+      } else {
+        throw std::runtime_error{"Division of " + number_to_string(numerator_2) + " by " + number_to_string(denominator_2) + "."};
+      }
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator_1) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const ShearModulus& shear_modulus, const LameFirstModulus& lame_first_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{shear_modulus.value() * (2.0 * shear_modulus.value() + 3.0 * lame_first_modulus.value())};
+    const double denominator_1{shear_modulus.value() + lame_first_modulus.value()};
+    if (denominator_1 != 0.0) {
+      young_modulus_ = {numerator_1 / denominator_1, standard_unit<Unit::Pressure>};
+      const double numerator_2{lame_first_modulus.value()};
+      const double denominator_2{2.0 * (shear_modulus.value() + lame_first_modulus.value())};
+      if (denominator_2 != 0.0) {
+        poisson_ratio_ = numerator_2 / denominator_2;
+      } else {
+        throw std::runtime_error{"Division of " + number_to_string(numerator_2) + " by " + number_to_string(denominator_2) + "."};
+      }
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator_1) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const ShearModulus& shear_modulus, const PWaveModulus& p_wave_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{shear_modulus.value() * (3.0 * p_wave_modulus.value() - 4.0 * shear_modulus.value())};
+    const double denominator_1{p_wave_modulus.value() - shear_modulus.value()};
+    if (denominator_1 != 0.0) {
+      young_modulus_ = {numerator_1 / denominator_1, standard_unit<Unit::Pressure>};
+      const double numerator_2{p_wave_modulus.value() - 2.0 * shear_modulus.value()};
+      const double denominator_2{2.0 * (p_wave_modulus.value() - shear_modulus.value())};
+      if (denominator_2 != 0.0) {
+        poisson_ratio_ = numerator_2 / denominator_2;
+      } else {
+        throw std::runtime_error{"Division of " + number_to_string(numerator_2) + " by " + number_to_string(denominator_2) + "."};
+      }
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator_1) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus, const LameFirstModulus& lame_first_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * isentropic_bulk_modulus.value() * (isentropic_bulk_modulus.value() - lame_first_modulus.value())};
+    const double denominator{3.0 * isentropic_bulk_modulus.value() - lame_first_modulus.value()};
+    if (denominator != 0.0) {
+      young_modulus_ = {numerator_1 / denominator, standard_unit<Unit::Pressure>};
+      const double numerator_2{lame_first_modulus.value()};
+      poisson_ratio_ = numerator_2 / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus, const PWaveModulus& p_wave_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * isentropic_bulk_modulus.value() * (p_wave_modulus.value() - isentropic_bulk_modulus.value())};
+    const double denominator{3.0 * isentropic_bulk_modulus.value() + p_wave_modulus.value()};
+    if (denominator != 0.0) {
+      young_modulus_ = {numerator_1 / denominator, standard_unit<Unit::Pressure>};
+      const double numerator_2{3.0 * isentropic_bulk_modulus.value() - p_wave_modulus.value()};
+      poisson_ratio_ = numerator_2 / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus, const LameFirstModulus& lame_first_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * isothermal_bulk_modulus.value() * (isothermal_bulk_modulus.value() - lame_first_modulus.value())};
+    const double denominator{3.0 * isothermal_bulk_modulus.value() - lame_first_modulus.value()};
+    if (denominator != 0.0) {
+      young_modulus_ = {numerator_1 / denominator, standard_unit<Unit::Pressure>};
+      const double numerator_2{lame_first_modulus.value()};
+      poisson_ratio_ = numerator_2 / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus, const PWaveModulus& p_wave_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{9.0 * isothermal_bulk_modulus.value() * (p_wave_modulus.value() - isothermal_bulk_modulus.value())};
+    const double denominator{3.0 * isothermal_bulk_modulus.value() + p_wave_modulus.value()};
+    if (denominator != 0.0) {
+      young_modulus_ = {numerator_1 / denominator, standard_unit<Unit::Pressure>};
+      const double numerator_2{3.0 * isothermal_bulk_modulus.value() - p_wave_modulus.value()};
+      poisson_ratio_ = numerator_2 / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator) + "."};
+    }
+  }
+
+  ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus, const PWaveModulus& p_wave_modulus) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
+    const double numerator_1{(p_wave_modulus.value() - lame_first_modulus.value()) * (p_wave_modulus.value() + 2.0 * lame_first_modulus.value())};
+    const double denominator{p_wave_modulus.value() + lame_first_modulus.value()};
+    if (denominator != 0.0) {
+      young_modulus_ = {numerator_1 / denominator, standard_unit<Unit::Pressure>};
+      const double numerator_2{lame_first_modulus.value()};
+      poisson_ratio_ = numerator_2 / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(numerator_1) + " by " + number_to_string(denominator) + "."};
     }
   }
 
