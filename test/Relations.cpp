@@ -67,7 +67,12 @@ int main(int argc, char *argv[]) {
   PhQ::PoissonRatio aluminum_poisson_ratio{0.33};
   PhQ::ConstitutiveModel::ElasticIsotropicSolid aluminum{aluminum_young_modulus, aluminum_poisson_ratio};
   std::cout << "Aluminum: " << aluminum << std::endl;
-  std::cout << "Aluminum Shear Modulus: G = " << aluminum.shear_modulus() << std::endl;
+  std::cout << "Aluminum: E = " << aluminum.young_modulus() << std::endl;
+  std::cout << "Aluminum: G = " << aluminum.shear_modulus() << std::endl;
+  std::cout << "Aluminum: K = " << aluminum.isentropic_bulk_modulus() << std::endl;
+  std::cout << "Aluminum: λ = " << aluminum.lame_first_modulus() << std::endl;
+  std::cout << "Aluminum: M = " << aluminum.p_wave_modulus() << std::endl;
+  std::cout << "Aluminum: ν = " << aluminum.poisson_ratio() << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << "Runtime: " << duration.count() << " microseconds." << std::endl;
