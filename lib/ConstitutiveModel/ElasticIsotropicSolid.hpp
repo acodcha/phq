@@ -150,6 +150,33 @@ public:
     }
   }
 
+  constexpr Stress stress(const Strain& strain) const noexcept {
+    // stress = a * strain + b * trace(strain) * identity_matrix
+    // a = 2 * shear_modulus
+    // b = lame_first_modulus
+    const double temporary{lame_first_modulus_.value() * strain.value().trace()};
+    return {2.0 * shear_modulus_.value() * strain.value() + Value::SymmetricDyadic{temporary, 0.0, 0.0, temporary, 0.0, temporary}, standard_unit<Unit::Pressure>};
+  }
+
+  Strain strain(const Stress& stress) const {
+    // strain = a * stress - b * trace(stress) * identity_matrix
+    // a = 1 / (2 * shear_modulus)
+    // b = lame_first_modulus / ((2 * shear_modulus) * (2 * shear_modulus + 3 * lame_first_modulus))
+    const double denominator_1{2.0 * shear_modulus_.value()};
+    if (denominator_1 != 0.0) {
+      const double numerator_2{-lame_first_modulus_.value()};
+      const double denominator_2{2.0 * shear_modulus_.value() * (2.0 * shear_modulus_.value() + 3.0 * lame_first_modulus_.value())};
+      if (denominator_2 != 0.0) {
+        const double temporary{numerator_2 / denominator_2 * stress.value().trace()};
+        return {stress.value() / denominator_1 + Value::SymmetricDyadic{temporary, 0.0, 0.0, temporary, 0.0, temporary}};
+      } else {
+        throw std::runtime_error{"Division of " + number_to_string(numerator_2) + " by " + number_to_string(denominator_2) + "."};
+      }
+    } else {
+      throw std::runtime_error{"Division of " + number_to_string(1.0) + " by " + number_to_string(denominator_1) + "."};
+    }
+  }
+
   std::string print() const noexcept {
     return {"G = " + shear_modulus_.print() + ", λ = " + lame_first_modulus_.print()};
   }

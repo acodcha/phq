@@ -54,12 +54,6 @@ int main(int argc, char *argv[]) {
   PhQ::Position position1{{10.0, 20.0, 30.0}, PhQ::Unit::Length::Inch};
   std::cout << "Position = " <<  position1 << " = " << position1.print(PhQ::Unit::Length::Inch) << ". Magnitude = " << position1.magnitude() << "." << std::endl;
 
-  PhQ::Strain strain1{{1.0, 2.0, 3.0, 4.0, 5.0, 6.0}};
-  std::cout << strain1 << std::endl;
-
-  PhQ::Stress stress1{{10.0, 20.0, 30.0, 40.0, 50.0, 60.0}, PhQ::Unit::Pressure::PoundPerSquareInch};
-  std::cout << stress1 << std::endl;
-
   PhQ::Mass mass1{10.0, PhQ::Unit::Mass::Pound};
   std::cout << mass1 << std::endl;
 
@@ -68,11 +62,12 @@ int main(int argc, char *argv[]) {
   PhQ::ConstitutiveModel::ElasticIsotropicSolid aluminum{aluminum_young_modulus, aluminum_poisson_ratio};
   std::cout << "Aluminum: " << aluminum << std::endl;
   std::cout << "Aluminum: E = " << aluminum.young_modulus() << std::endl;
-  std::cout << "Aluminum: G = " << aluminum.shear_modulus() << std::endl;
   std::cout << "Aluminum: K = " << aluminum.isentropic_bulk_modulus() << std::endl;
-  std::cout << "Aluminum: λ = " << aluminum.lame_first_modulus() << std::endl;
   std::cout << "Aluminum: M = " << aluminum.p_wave_modulus() << std::endl;
   std::cout << "Aluminum: ν = " << aluminum.poisson_ratio() << std::endl;
+  PhQ::Strain strain{{0.010, -0.002, -0.003, 0.008, -0.004, -0.006}};
+  std::cout << "Strain: " << strain << std::endl;
+  std::cout << "Stress: " << aluminum.stress(strain) << std::endl;
 
   const auto duration{std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start)};
   std::cout << "Runtime: " << duration.count() << " microseconds." << std::endl;
