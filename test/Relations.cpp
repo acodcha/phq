@@ -5,7 +5,6 @@
 // You should have received a copy of the GNU Lesser General Public License along with PhysicalQuantities. If not, see <https://www.gnu.org/licenses/>.
 
 #include "../lib/ConstitutiveModel/ElasticIsotropicSolid.hpp"
-#include "../lib/Quantity/DimensionalDyadic.hpp"
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"
@@ -15,11 +14,11 @@
 #include "../lib/MemoryRate.hpp"
 #include "../lib/Position.hpp"
 #include "../lib/ReynoldsNumber.hpp"
-#include "../lib/StrainRate.hpp"
 #include "../lib/Temperature.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VectorArea.hpp"
+#include "../lib/VelocityGradient.hpp"
 #include "../lib/VolumeRate.hpp"
 
 int main(int argc, char *argv[]) {
