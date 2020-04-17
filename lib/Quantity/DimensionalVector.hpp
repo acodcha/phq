@@ -111,14 +111,6 @@ public:
     }
   }
 
-  Value::Vector operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
-    if (scalar.value() != 0.0) {
-      return {value_ / scalar.value()};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
-  }
-
   void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
@@ -140,9 +132,6 @@ protected:
   constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
 
   Value::Vector value_;
-
-  friend class DimensionalScalarQuantity<Unit>;
-  friend class DimensionalSymmetricDyadicQuantity<Unit>;
 
 };
 

@@ -11,11 +11,6 @@
 
 namespace PhQ {
 
-// Forward declarations.
-template <typename Unit> class DimensionalVectorQuantity;
-template <typename Unit> class DimensionalSymmetricDyadicQuantity;
-template <typename Unit> class DimensionalDyadicQuantity;
-
 template <typename Unit> class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
 
 public:
@@ -112,14 +107,6 @@ public:
     }
   }
 
-  double operator/(const DimensionalScalarQuantity<Unit>& scalar) const {
-    if (scalar != 0.0) {
-      return {value_ / scalar.value()};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
-  }
-
   void operator/=(double real) {
     if (real != 0.0) {
       value_ /= real;
@@ -133,9 +120,6 @@ protected:
   constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
 
   double value_;
-
-  friend class DimensionalVectorQuantity<Unit>;
-  friend class DimensionalSymmetricDyadicQuantity<Unit>;
 
 };
 

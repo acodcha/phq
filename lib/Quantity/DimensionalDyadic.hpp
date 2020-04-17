@@ -6,25 +6,25 @@
 
 #pragma once
 
-#include "../Value/SymmetricDyadic.hpp"
-#include "DimensionalVector.hpp"
-#include "DimensionlessSymmetricDyadic.hpp"
+#include "../Value/Dyadic.hpp"
+#include "DimensionalSymmetricDyadic.hpp"
+#include "DimensionlessDyadic.hpp"
 
 namespace PhQ {
 
-template <typename Unit> class DimensionalSymmetricDyadicQuantity : public DimensionalQuantity<Unit> {
+template <typename Unit> class DimensionalDyadicQuantity : public DimensionalQuantity<Unit> {
 
 public:
 
-  constexpr DimensionalSymmetricDyadicQuantity() noexcept : DimensionalQuantity<Unit>() {}
+  constexpr DimensionalDyadicQuantity() noexcept : DimensionalQuantity<Unit>() {}
 
-  constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
+  constexpr DimensionalDyadicQuantity(const Value::Dyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
-  constexpr const Value::SymmetricDyadic& value() const noexcept {
+  constexpr const Value::Dyadic& value() const noexcept {
     return value_;
   }
 
-  Value::SymmetricDyadic value(const Unit unit) const noexcept {
+  Value::Dyadic value(const Unit unit) const noexcept {
     if (unit == standard_unit<Unit>) {
       return value_;
     } else {
@@ -32,7 +32,7 @@ public:
     }
   }
 
-  Value::SymmetricDyadic value(const System system) const noexcept {
+  Value::Dyadic value(const System system) const noexcept {
     if (system == standard_system) {
       return value_;
     } else {
@@ -76,11 +76,11 @@ public:
     return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
-  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(double real) const noexcept {
+  constexpr DimensionalDyadicQuantity<Unit> operator*(double real) const noexcept {
     return {value_ * real};
   }
 
-  constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+  constexpr DimensionalDyadicQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
     return {value_ * scalar.value()};
   }
 
@@ -92,7 +92,7 @@ public:
     value_ *= scalar.value();
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator/(double real) const {
+  DimensionalDyadicQuantity<Unit> operator/(double real) const {
     if (real != 0.0) {
       return {value_ / real};
     } else {
@@ -100,7 +100,7 @@ public:
     }
   }
 
-  DimensionalSymmetricDyadicQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
+  DimensionalDyadicQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
     if (scalar.value() != 0.0) {
       return {value_ / scalar.value()};
     } else {
@@ -126,27 +126,27 @@ public:
 
 protected:
 
-  constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+  constexpr DimensionalDyadicQuantity(const Value::Dyadic& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
 
-  Value::SymmetricDyadic value_;
+  Value::Dyadic value_;
 
 };
 
-template <typename Unit> constexpr bool sort(const DimensionalSymmetricDyadicQuantity<Unit>& dyadic1, const DimensionalSymmetricDyadicQuantity<Unit>& dyadic2) noexcept {
+template <typename Unit> constexpr bool sort(const DimensionalDyadicQuantity<Unit>& dyadic1, const DimensionalDyadicQuantity<Unit>& dyadic2) noexcept {
   return sort(dyadic1.value(), dyadic2.value());
 }
 
 } // namespace PhQ
 
-template <typename Unit> constexpr PhQ::DimensionalSymmetricDyadicQuantity<Unit> operator*(double real, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
+template <typename Unit> constexpr PhQ::DimensionalDyadicQuantity<Unit> operator*(double real, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {
   return {dyadic * real};
 }
 
-template <typename Unit> constexpr PhQ::DimensionalSymmetricDyadicQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
+template <typename Unit> constexpr PhQ::DimensionalDyadicQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {
   return {dyadic * scalar.value()};
 }
 
-template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& dyadic) noexcept {
+template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {
   output_stream << dyadic.print();
   return output_stream;
 }
