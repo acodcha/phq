@@ -20,8 +20,6 @@ public:
 
   constexpr Velocity() noexcept : DimensionalVectorQuantity<Unit::Speed>() {}
 
-  constexpr Velocity(const DimensionalVectorQuantity<Unit::Speed>& quantity) noexcept : DimensionalVectorQuantity<Unit::Speed>(quantity) {}
-
   constexpr Velocity(const Value::Vector& value, Unit::Speed unit) noexcept : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
 
   constexpr Speed magnitude() const noexcept {

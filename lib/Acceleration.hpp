@@ -17,8 +17,6 @@ public:
 
   constexpr Acceleration() noexcept : DimensionalVectorQuantity<Unit::Acceleration>() {}
 
-  constexpr Acceleration(const DimensionalVectorQuantity<Unit::Acceleration>& quantity) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(quantity) {}
-
   constexpr Acceleration(const Value::Vector& value, Unit::Acceleration unit) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
 
   constexpr AccelerationMagnitude magnitude() const noexcept {

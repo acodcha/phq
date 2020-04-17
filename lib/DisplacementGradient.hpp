@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Quantity/DimensionlessDyadic.hpp"
+#include "Strain.hpp"
 
 namespace PhQ {
 
@@ -17,6 +18,10 @@ public:
   DisplacementGradient() noexcept : DimensionlessDyadicQuantity() {}
 
   constexpr DisplacementGradient(const Value::Dyadic& value) noexcept : DimensionlessDyadicQuantity(value) {}
+
+  constexpr Strain strain() const noexcept {
+    return {{value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}};
+  }
 
   constexpr bool operator==(const DisplacementGradient& displacement_gradient) const noexcept {
     return value_ == displacement_gradient.value_;

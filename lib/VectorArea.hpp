@@ -19,8 +19,6 @@ public:
 
   constexpr VectorArea() noexcept : DimensionalVectorQuantity<Unit::Area>() {}
 
-  constexpr VectorArea(const DimensionalVectorQuantity<Unit::Area>& quantity) noexcept : DimensionalVectorQuantity<Unit::Area>(quantity) {}
-
   constexpr VectorArea(const Value::Vector& value, Unit::Area unit) noexcept : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
   constexpr Area magnitude() const noexcept {
