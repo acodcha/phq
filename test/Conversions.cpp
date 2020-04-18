@@ -11,6 +11,7 @@
 #include "../lib/Unit/Area.hpp"
 #include "../lib/Unit/Diffusivity.hpp"
 #include "../lib/Unit/DynamicViscosity.hpp"
+#include "../lib/Unit/Energy.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/Length.hpp"
@@ -138,6 +139,20 @@ void test_dynamic_viscosity() noexcept {
     PhQ::Unit::DynamicViscosity::GigapascalSecond,
     PhQ::Unit::DynamicViscosity::PoundSecondPerSquareFoot,
     PhQ::Unit::DynamicViscosity::PoundSecondPerSquareInch
+  });
+}
+
+void test_energy() noexcept {
+  test_conversions<PhQ::Unit::Energy>("Energy", 1.0, {
+    PhQ::Unit::Energy::Joule,
+    PhQ::Unit::Energy::Millijoule,
+    PhQ::Unit::Energy::Microjoule,
+    PhQ::Unit::Energy::Nanojoule,
+    PhQ::Unit::Energy::Kilojoule,
+    PhQ::Unit::Energy::Megajoule,
+    PhQ::Unit::Energy::Gigajoule,
+    PhQ::Unit::Energy::FootPound,
+    PhQ::Unit::Energy::InchPound
   });
 }
 
@@ -319,6 +334,7 @@ int main(int argc, char *argv[]) {
   test_area();
   test_diffusivity();
   test_dynamic_viscosity();
+  test_energy();
   test_force();
   test_frequency();
   test_length();
