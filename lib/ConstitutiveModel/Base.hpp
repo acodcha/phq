@@ -14,7 +14,9 @@ namespace PhQ {
 namespace ConstitutiveModel {
 
 enum class Type : uint_least8_t {
-  ElasticIsotropicSolid
+  ElasticIsotropicSolid,
+  IncompressibleNewtonianFluid,
+  CompressibleNewtonianFluid
 };
 
 template <Type ConstitutiveModelType> class GenericConstitutiveModel {
@@ -38,14 +40,24 @@ public:
 } // namespace ConstitutiveModel
 
 template <> const std::map<ConstitutiveModel::Type, std::string> abbreviations<ConstitutiveModel::Type>{
-  {ConstitutiveModel::Type::ElasticIsotropicSolid, "Elastic Isotropic Solid"}
+  {ConstitutiveModel::Type::ElasticIsotropicSolid, "Elastic Isotropic Solid"},
+  {ConstitutiveModel::Type::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
+  {ConstitutiveModel::Type::CompressibleNewtonianFluid, "Compressible Newtonian Fluid"}
 };
 
 template <> const std::unordered_map<std::string, ConstitutiveModel::Type> spellings<ConstitutiveModel::Type>{
   {"Elastic Isotropic Solid", ConstitutiveModel::Type::ElasticIsotropicSolid},
   {"ElasticIsotropicSolid", ConstitutiveModel::Type::ElasticIsotropicSolid},
   {"elastic isotropic solid", ConstitutiveModel::Type::ElasticIsotropicSolid},
-  {"elastic_isotropic_solid", ConstitutiveModel::Type::ElasticIsotropicSolid}
+  {"elastic_isotropic_solid", ConstitutiveModel::Type::ElasticIsotropicSolid},
+  {"Incompressible Newtonian Fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+  {"IncompressibleNewtonianFluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+  {"incompressible newtonian fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+  {"incompressible_newtonian_fluid", ConstitutiveModel::Type::IncompressibleNewtonianFluid},
+  {"Compressible Newtonian Fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
+  {"CompressibleNewtonianFluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
+  {"compressible newtonian fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
+  {"compressible_newtonian_fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid}
 };
 
 } // namespace PhQ

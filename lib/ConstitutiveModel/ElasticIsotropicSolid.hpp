@@ -25,7 +25,7 @@ class ElasticIsotropicSolid : public GenericConstitutiveModel<Type::ElasticIsotr
 
 public:
 
-  ElasticIsotropicSolid() noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {}
+  constexpr ElasticIsotropicSolid() noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {}
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus, const PoissonRatio& poisson_ratio) : GenericConstitutiveModel<Type::ElasticIsotropicSolid>() {
     const double numerator_1{young_modulus.value()};
@@ -161,7 +161,7 @@ public:
   Strain strain(const Stress& stress) const {
     // strain = a * stress - b * trace(stress) * identity_matrix
     // a = 1 / (2 * shear_modulus)
-    // b = lame_first_modulus / ((2 * shear_modulus) * (2 * shear_modulus + 3 * lame_first_modulus))
+    // b = lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3 * lame_first_modulus))
     const double denominator_1{2.0 * shear_modulus_.value()};
     if (denominator_1 != 0.0) {
       const double numerator_2{-lame_first_modulus_.value()};
@@ -182,11 +182,11 @@ public:
   }
 
   std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"shear_modulus\": " + shear_modulus_.print() + ", \"lamé_first_modulus\": " + lame_first_modulus_.print() + "}"};
+    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"shear_modulus\": " + shear_modulus_.json() + ", \"lamé_first_modulus\": " + lame_first_modulus_.json() + "}"};
   }
 
   std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><shear_modulus>" + shear_modulus_.print() + "</shear_modulus><lamé_first_modulus>" + lame_first_modulus_.print() + "</lamé_first_modulus>"};
+    return {"<type>" + lowercase(abbreviation(type())) + "</type><shear_modulus>" + shear_modulus_.xml() + "</shear_modulus><lamé_first_modulus>" + lame_first_modulus_.xml() + "</lamé_first_modulus>"};
   }
 
 protected:
