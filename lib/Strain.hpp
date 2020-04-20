@@ -10,6 +10,8 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class DisplacementGradient;
 class Duration;
 class Frequency;
 class StrainRate;
@@ -21,6 +23,8 @@ public:
   Strain() noexcept : DimensionlessSymmetricDyadicQuantity() {}
 
   constexpr Strain(const Value::SymmetricDyadic& value) noexcept : DimensionlessSymmetricDyadicQuantity(value) {}
+
+  constexpr Strain(const DisplacementGradient& displacement_gradient) noexcept;
 
   constexpr bool operator==(const Strain& strain) const noexcept {
     return value_ == strain.value_;

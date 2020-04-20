@@ -53,4 +53,6 @@ protected:
 
 };
 
+constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate(velocity_gradient.strain_rate()) {}
+
 } // namespace PhQ

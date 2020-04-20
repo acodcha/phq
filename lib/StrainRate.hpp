@@ -13,6 +13,9 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class VelocityGradient;
+
 class StrainRate : public DimensionalSymmetricDyadicQuantity<Unit::Frequency> {
 
 public:
@@ -20,6 +23,8 @@ public:
   constexpr StrainRate() noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>() {}
 
   constexpr StrainRate(const Value::SymmetricDyadic& value, Unit::Frequency unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>(value, unit) {}
+
+  constexpr StrainRate(const VelocityGradient& velocity_gradient) noexcept;
 
   constexpr bool operator==(const StrainRate& strain_rate) const noexcept {
     return value_ == strain_rate.value_;

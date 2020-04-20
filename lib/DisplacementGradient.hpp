@@ -49,4 +49,6 @@ public:
 
 };
 
+constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain(displacement_gradient.strain()) {}
+
 } // namespace PhQ
