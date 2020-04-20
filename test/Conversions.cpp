@@ -20,6 +20,7 @@
 #include "../lib/Unit/MassRate.hpp"
 #include "../lib/Unit/Memory.hpp"
 #include "../lib/Unit/MemoryRate.hpp"
+#include "../lib/Unit/Power.hpp"
 #include "../lib/Unit/Pressure.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
@@ -243,6 +244,20 @@ void test_memory_rate() noexcept {
   });
 }
 
+void test_power() noexcept {
+  test_conversions<PhQ::Unit::Power>("Power", 1.0, {
+    PhQ::Unit::Power::Watt,
+    PhQ::Unit::Power::Milliwatt,
+    PhQ::Unit::Power::Microwatt,
+    PhQ::Unit::Power::Nanowatt,
+    PhQ::Unit::Power::Kilowatt,
+    PhQ::Unit::Power::Megawatt,
+    PhQ::Unit::Power::Gigawatt,
+    PhQ::Unit::Power::FootPoundPerSecond,
+    PhQ::Unit::Power::InchPoundPerSecond
+  });
+}
+
 void test_pressure() noexcept {
   test_conversions<PhQ::Unit::Pressure>("Pressure", 1.0, {
     PhQ::Unit::Pressure::Pascal,
@@ -343,6 +358,7 @@ int main(int argc, char *argv[]) {
   test_mass_rate();
   test_memory();
   test_memory_rate();
+  test_power();
   test_pressure();
   test_speed();
   test_temperature();

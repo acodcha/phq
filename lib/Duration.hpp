@@ -16,12 +16,14 @@ class AccelerationMagnitude;
 class Angle;
 class AngularAccelerationMagnitude;
 class AngularSpeed;
+class Energy;
 class Frequency;
 class Length;
 class Mass;
 class MassRate;
 class Memory;
 class MemoryRate;
+class Power;
 class Speed;
 class Strain;
 class StrainRate;
@@ -89,6 +91,8 @@ public:
 
   constexpr Volume operator*(const VolumeRate& volume_rate) const noexcept;
 
+  constexpr Energy operator*(const Power& power) const noexcept;
+
   constexpr Strain operator*(const StrainRate& strain_rate) const noexcept;
 
 protected:
@@ -101,12 +105,14 @@ protected:
   friend class AngularAccelerationMagnitude;
   friend class AngularSpeed;
   friend class Displacement;
+  friend class Energy;
   friend class Frequency;
   friend class Length;
   friend class Mass;
   friend class MassRate;
   friend class Memory;
   friend class MemoryRate;
+  friend class Power;
   friend class Speed;
   friend class Strain;
   friend class StrainRate;

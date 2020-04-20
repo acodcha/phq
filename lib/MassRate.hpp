@@ -20,8 +20,6 @@ public:
 
   constexpr MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
-  Frequency frequency() const;
-
   constexpr bool operator==(const MassRate& mass_rate) const noexcept {
     return value_ == mass_rate.value_;
   }

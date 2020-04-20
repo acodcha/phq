@@ -93,6 +93,8 @@ public:
 
   constexpr VolumeRate operator*(const Volume& volume) const noexcept;
 
+  constexpr Power operator*(const Energy& energy) const noexcept;
+
   constexpr StrainRate operator*(const Strain& strain) const noexcept;
 
 protected:
@@ -106,11 +108,13 @@ protected:
   friend class AngularSpeed;
   friend class Displacement;
   friend class Duration;
+  friend class Energy;
   friend class Length;
   friend class Mass;
   friend class MassRate;
   friend class Memory;
   friend class MemoryRate;
+  friend class Power;
   friend class Speed;
   friend class Strain;
   friend class StrainRate;
