@@ -80,13 +80,18 @@ public:
     }
   }
 
+  SpecificPower operator/(const Mass& mass) const;
+
 protected:
 
   constexpr Power(double value) noexcept : DimensionalScalarQuantity<Unit::Power>(value) {}
 
   friend class Duration;
-  friend class Frequency;
   friend class Energy;
+  friend class Frequency;
+  friend class Mass;
+  friend class SpecificEnergy;
+  friend class SpecificPower;
 
 };
 
@@ -98,12 +103,12 @@ constexpr Energy Duration::operator*(const Power& power) const noexcept {
   return {value_ * power.value_};
 }
 
-constexpr Power Energy::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
-}
-
 constexpr Power Frequency::operator*(const Energy& energy) const noexcept {
   return {value_ * energy.value_};
+}
+
+constexpr Power Energy::operator*(const Frequency& frequency) const noexcept {
+  return {value_ * frequency.value_};
 }
 
 Power Energy::operator/(const Duration& duration) const {

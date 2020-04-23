@@ -14,7 +14,10 @@ namespace PhQ {
 // Forward declarations.
 class Duration;
 class Frequency;
+class Mass;
 class Power;
+class SpecificEnergy;
+class SpecificPower;
 
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 
@@ -68,13 +71,18 @@ public:
 
   Power operator/(const Duration& duration) const;
 
+  SpecificEnergy operator/(const Mass& mass) const;
+
 protected:
 
   constexpr Energy(double value) noexcept : DimensionalScalarQuantity<Unit::Energy>(value) {}
 
   friend class Duration;
   friend class Frequency;
+  friend class Mass;
   friend class Power;
+  friend class SpecificEnergy;
+  friend class SpecificPower;
 
 };
 

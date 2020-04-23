@@ -13,9 +13,13 @@ namespace PhQ {
 
 // Forward declarations.
 class Duration;
+class Energy;
 class Frequency;
 class MassDensity;
 class MassRate;
+class Power;
+class SpecificEnergy;
+class SpecificPower;
 class Volume;
 
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
@@ -68,6 +72,10 @@ public:
 
   constexpr MassRate operator*(const Frequency& frequency) const noexcept;
 
+  constexpr Energy operator*(const SpecificEnergy& specific_energy) const noexcept;
+
+  constexpr Power operator*(const SpecificPower& specific_power) const noexcept;
+
   MassDensity operator/(const Volume& volume) const;
 
   MassRate operator/(const Duration& duration) const;
@@ -77,9 +85,13 @@ protected:
   constexpr Mass(double value) noexcept : DimensionalScalarQuantity<Unit::Mass>(value) {}
 
   friend class Duration;
+  friend class Energy;
   friend class Frequency;
   friend class MassDensity;
   friend class MassRate;
+  friend class Power;
+  friend class SpecificEnergy;
+  friend class SpecificPower;
   friend class Volume;
 
 };

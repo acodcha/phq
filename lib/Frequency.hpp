@@ -95,6 +95,8 @@ public:
 
   constexpr Power operator*(const Energy& energy) const noexcept;
 
+  constexpr SpecificPower operator*(const SpecificEnergy& specific_energy) const noexcept;
+
   constexpr StrainRate operator*(const Strain& strain) const noexcept;
 
 protected:
@@ -115,6 +117,8 @@ protected:
   friend class Memory;
   friend class MemoryRate;
   friend class Power;
+  friend class SpecificEnergy;
+  friend class SpecificPower;
   friend class Speed;
   friend class Strain;
   friend class StrainRate;

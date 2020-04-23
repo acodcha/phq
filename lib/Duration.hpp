@@ -24,6 +24,8 @@ class MassRate;
 class Memory;
 class MemoryRate;
 class Power;
+class SpecificEnergy;
+class SpecificPower;
 class Speed;
 class Strain;
 class StrainRate;
@@ -93,6 +95,8 @@ public:
 
   constexpr Energy operator*(const Power& power) const noexcept;
 
+  constexpr SpecificEnergy operator*(const SpecificPower& specific_power) const noexcept;
+
   constexpr Strain operator*(const StrainRate& strain_rate) const noexcept;
 
 protected:
@@ -113,6 +117,8 @@ protected:
   friend class Memory;
   friend class MemoryRate;
   friend class Power;
+  friend class SpecificEnergy;
+  friend class SpecificPower;
   friend class Speed;
   friend class Strain;
   friend class StrainRate;

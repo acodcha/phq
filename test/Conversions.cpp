@@ -22,6 +22,8 @@
 #include "../lib/Unit/MemoryRate.hpp"
 #include "../lib/Unit/Power.hpp"
 #include "../lib/Unit/Pressure.hpp"
+#include "../lib/Unit/SpecificEnergy.hpp"
+#include "../lib/Unit/SpecificPower.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
 #include "../lib/Unit/Time.hpp"
@@ -269,6 +271,24 @@ void test_pressure() noexcept {
   });
 }
 
+void test_specific_energy() noexcept {
+  test_conversions<PhQ::Unit::SpecificEnergy>("Specific Energy", 1.0, {
+    PhQ::Unit::SpecificEnergy::JoulePerKilogram,
+    PhQ::Unit::SpecificEnergy::NanojoulePerGram,
+    PhQ::Unit::SpecificEnergy::FootPoundPerSlug,
+    PhQ::Unit::SpecificEnergy::InchPoundPerSlinch
+  });
+}
+
+void test_specific_power() noexcept {
+  test_conversions<PhQ::Unit::SpecificPower>("Specific Power", 1.0, {
+    PhQ::Unit::SpecificPower::WattPerKilogram,
+    PhQ::Unit::SpecificPower::NanowattPerGram,
+    PhQ::Unit::SpecificPower::FootPoundPerSlugPerSecond,
+    PhQ::Unit::SpecificPower::InchPoundPerSlinchPerSecond
+  });
+}
+
 void test_speed() noexcept {
   test_conversions<PhQ::Unit::Speed>("Speed", 1.0, {
     PhQ::Unit::Speed::MilePerSecond,
@@ -360,6 +380,8 @@ int main(int argc, char *argv[]) {
   test_memory_rate();
   test_power();
   test_pressure();
+  test_specific_energy();
+  test_specific_power();
   test_speed();
   test_temperature();
   test_time();
