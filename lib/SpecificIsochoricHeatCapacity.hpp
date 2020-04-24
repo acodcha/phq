@@ -44,15 +44,17 @@ public:
     return value_ >= specific_isochoric_heat_capacity.value_;
   }
 
-  SpecificIsochoricHeatCapacity operator+(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
+  constexpr SpecificIsochoricHeatCapacity operator+(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
     return {value_ + specific_isochoric_heat_capacity.value_};
   }
+
+  constexpr SpecificIsobaricHeatCapacity operator+(const SpecificGasConstant& specific_gas_constant) const noexcept;
 
   constexpr void operator+=(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept {
     value_ += specific_isochoric_heat_capacity.value_;
   }
 
-  SpecificIsochoricHeatCapacity operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
+  constexpr SpecificIsochoricHeatCapacity operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
     return {value_ - specific_isochoric_heat_capacity.value_};
   }
 
@@ -70,6 +72,10 @@ protected:
 
   friend class IsochoricHeatCapacity;
   friend class Mass;
+  friend class SpecificGasConstant;
+  friend class SpecificHeatRatio;
+  friend class SpecificIsobaricHeatCapacity;
+
 
 };
 

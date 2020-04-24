@@ -7,13 +7,10 @@
 #pragma once
 
 #include "Quantity/DimensionalScalar.hpp"
+#include "SpecificHeatRatio.hpp"
 #include "Unit/HeatCapacity.hpp"
 
 namespace PhQ {
-
-// Forward declarations.
-class Mass;
-class SpecificIsochoricHeatCapacity;
 
 class IsochoricHeatCapacity : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 
@@ -47,15 +44,17 @@ public:
     return value_ >= isochoric_heat_capacity.value_;
   }
 
-  IsochoricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+  constexpr IsochoricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {value_ + isochoric_heat_capacity.value_};
   }
+
+  constexpr IsobaricHeatCapacity operator+(const GasConstant& gas_constant) const noexcept;
 
   constexpr void operator+=(const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
     value_ += isochoric_heat_capacity.value_;
   }
 
-  IsochoricHeatCapacity operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+  constexpr IsochoricHeatCapacity operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {value_ - isochoric_heat_capacity.value_};
   }
 
@@ -69,7 +68,10 @@ protected:
 
   constexpr IsochoricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 
+  friend class GasConstant;
+  friend class IsobaricHeatCapacity;
   friend class Mass;
+  friend class SpecificHeatRatio;
   friend class SpecificIsochoricHeatCapacity;
 
 };

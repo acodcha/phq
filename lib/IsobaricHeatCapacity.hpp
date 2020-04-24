@@ -6,14 +6,9 @@
 
 #pragma once
 
-#include "Quantity/DimensionalScalar.hpp"
-#include "Unit/HeatCapacity.hpp"
+#include "IsochoricHeatCapacity.hpp"
 
 namespace PhQ {
-
-// Forward declarations.
-class Mass;
-class SpecificIsobaricHeatCapacity;
 
 class IsobaricHeatCapacity : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 
@@ -47,7 +42,7 @@ public:
     return value_ >= isobaric_heat_capacity.value_;
   }
 
-  IsobaricHeatCapacity operator+(const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
+  constexpr IsobaricHeatCapacity operator+(const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
     return {value_ + isobaric_heat_capacity.value_};
   }
 
@@ -55,9 +50,11 @@ public:
     value_ += isobaric_heat_capacity.value_;
   }
 
-  IsobaricHeatCapacity operator-(const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
+  constexpr IsobaricHeatCapacity operator-(const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
     return {value_ - isobaric_heat_capacity.value_};
   }
+
+  constexpr GasConstant operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
   constexpr void operator-=(const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
     value_ -= isobaric_heat_capacity.value_;
@@ -65,11 +62,22 @@ public:
 
   SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
 
+  SpecificHeatRatio operator/(const IsochoricHeatCapacity& isochoric_heat_capacity) const {
+    if (isochoric_heat_capacity.value_ != 0.0) {
+      return {value_ / isochoric_heat_capacity.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + isochoric_heat_capacity.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr IsobaricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 
+  friend class GasConstant;
+  friend class IsochoricHeatCapacity;
   friend class Mass;
+  friend class SpecificHeatRatio;
   friend class SpecificIsobaricHeatCapacity;
 
 };

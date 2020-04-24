@@ -6,9 +6,8 @@
 
 #pragma once
 
-#include "Mass.hpp"
 #include "IsobaricHeatCapacity.hpp"
-#include "Unit/SpecificHeatCapacity.hpp"
+#include "SpecificIsochoricHeatCapacity.hpp"
 
 namespace PhQ {
 
@@ -44,7 +43,7 @@ public:
     return value_ >= specific_isobaric_heat_capacity.value_;
   }
 
-  SpecificIsobaricHeatCapacity operator+(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
+  constexpr SpecificIsobaricHeatCapacity operator+(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
     return {value_ + specific_isobaric_heat_capacity.value_};
   }
 
@@ -52,9 +51,11 @@ public:
     value_ += specific_isobaric_heat_capacity.value_;
   }
 
-  SpecificIsobaricHeatCapacity operator-(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
+  constexpr SpecificIsobaricHeatCapacity operator-(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
     return {value_ - specific_isobaric_heat_capacity.value_};
   }
+
+  constexpr SpecificGasConstant operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
 
   constexpr void operator-=(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
     value_ -= specific_isobaric_heat_capacity.value_;
@@ -64,12 +65,23 @@ public:
     return {value_ * mass.value_};
   }
 
+  SpecificHeatRatio operator/(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const {
+    if (specific_isochoric_heat_capacity.value_ != 0.0) {
+      return {value_ / specific_isochoric_heat_capacity.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + specific_isochoric_heat_capacity.print() + "."};
+    }
+  }
+
 protected:
 
   constexpr SpecificIsobaricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 
   friend class IsobaricHeatCapacity;
   friend class Mass;
+  friend class SpecificGasConstant;
+  friend class SpecificHeatRatio;
+  friend class SpecificIsochoricHeatCapacity;
 
 };
 
