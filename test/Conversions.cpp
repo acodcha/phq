@@ -24,6 +24,7 @@
 #include "../lib/Unit/Power.hpp"
 #include "../lib/Unit/Pressure.hpp"
 #include "../lib/Unit/SpecificEnergy.hpp"
+#include "../lib/Unit/SpecificHeatCapacity.hpp"
 #include "../lib/Unit/SpecificPower.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
@@ -291,6 +292,15 @@ void test_specific_energy() noexcept {
   });
 }
 
+void test_specific_heat_capacity() noexcept {
+  test_conversions<PhQ::Unit::SpecificHeatCapacity>("Specific Heat Capacity", 1.0, {
+    PhQ::Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+    PhQ::Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
+    PhQ::Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,
+    PhQ::Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine
+  });
+}
+
 void test_specific_power() noexcept {
   test_conversions<PhQ::Unit::SpecificPower>("Specific Power", 1.0, {
     PhQ::Unit::SpecificPower::WattPerKilogram,
@@ -393,6 +403,7 @@ int main(int argc, char *argv[]) {
   test_power();
   test_pressure();
   test_specific_energy();
+  test_specific_heat_capacity();
   test_specific_power();
   test_speed();
   test_temperature();

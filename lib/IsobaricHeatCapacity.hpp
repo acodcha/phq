@@ -11,6 +11,10 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class Mass;
+class SpecificIsobaricHeatCapacity;
+
 class IsobaricHeatCapacity : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 
 public:
@@ -59,9 +63,14 @@ public:
     value_ -= isobaric_heat_capacity.value_;
   }
 
+  SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
+
 protected:
 
   constexpr IsobaricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
+
+  friend class Mass;
+  friend class SpecificIsobaricHeatCapacity;
 
 };
 

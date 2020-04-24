@@ -15,10 +15,14 @@ namespace PhQ {
 class Duration;
 class Energy;
 class Frequency;
+class IsobaricHeatCapacity;
+class IsochoricHeatCapacity;
 class MassDensity;
 class MassRate;
 class Power;
 class SpecificEnergy;
+class SpecificIsobaricHeatCapacity;
+class SpecificIsochoricHeatCapacity;
 class SpecificPower;
 class Volume;
 
@@ -76,6 +80,10 @@ public:
 
   constexpr Power operator*(const SpecificPower& specific_power) const noexcept;
 
+  constexpr IsobaricHeatCapacity operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept;
+
+  constexpr IsochoricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
+
   MassDensity operator/(const Volume& volume) const;
 
   MassRate operator/(const Duration& duration) const;
@@ -87,10 +95,14 @@ protected:
   friend class Duration;
   friend class Energy;
   friend class Frequency;
+  friend class IsobaricHeatCapacity;
+  friend class IsochoricHeatCapacity;
   friend class MassDensity;
   friend class MassRate;
   friend class Power;
   friend class SpecificEnergy;
+  friend class SpecificIsobaricHeatCapacity;
+  friend class SpecificIsochoricHeatCapacity;
   friend class SpecificPower;
   friend class Volume;
 
