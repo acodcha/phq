@@ -14,6 +14,7 @@
 #include "../lib/Unit/Energy.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Frequency.hpp"
+#include "../lib/Unit/HeatCapacity.hpp"
 #include "../lib/Unit/Length.hpp"
 #include "../lib/Unit/Mass.hpp"
 #include "../lib/Unit/MassDensity.hpp"
@@ -173,6 +174,16 @@ void test_frequency() noexcept {
     PhQ::Unit::Frequency::Kilohertz,
     PhQ::Unit::Frequency::Megahertz,
     PhQ::Unit::Frequency::Gigahertz
+  });
+}
+
+
+void test_heat_capacity() noexcept {
+  test_conversions<PhQ::Unit::HeatCapacity>("Heat Capacity", 1.0, {
+    PhQ::Unit::HeatCapacity::JoulePerKelvin,
+    PhQ::Unit::HeatCapacity::NanojoulePerKelvin,
+    PhQ::Unit::HeatCapacity::FootPoundPerRankine,
+    PhQ::Unit::HeatCapacity::InchPoundPerRankine
   });
 }
 
@@ -372,6 +383,7 @@ int main(int argc, char *argv[]) {
   test_energy();
   test_force();
   test_frequency();
+  test_heat_capacity();
   test_length();
   test_mass();
   test_mass_density();

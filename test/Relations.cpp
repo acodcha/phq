@@ -10,6 +10,8 @@
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"
+#include "../lib/IsobaricHeatCapacity.hpp"
+#include "../lib/IsochoricHeatCapacity.hpp"
 #include "../lib/MassDensity.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"
