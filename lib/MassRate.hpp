@@ -44,7 +44,7 @@ public:
     return value_ >= mass_rate.value_;
   }
 
-  MassRate operator+(const MassRate& mass_rate) const noexcept {
+  constexpr MassRate operator+(const MassRate& mass_rate) const noexcept {
     return {value_ + mass_rate.value_};
   }
 
@@ -52,7 +52,7 @@ public:
     value_ += mass_rate.value_;
   }
 
-  MassRate operator-(const MassRate& mass_rate) const noexcept {
+  constexpr MassRate operator-(const MassRate& mass_rate) const noexcept {
     return {value_ - mass_rate.value_};
   }
 

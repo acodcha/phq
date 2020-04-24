@@ -48,7 +48,7 @@ public:
     return value_ >= mass_density.value_;
   }
 
-  MassDensity operator+(const MassDensity& mass_density) const noexcept {
+  constexpr MassDensity operator+(const MassDensity& mass_density) const noexcept {
     return {value_ + mass_density.value_};
   }
 
@@ -56,7 +56,7 @@ public:
     value_ += mass_density.value_;
   }
 
-  MassDensity operator-(const MassDensity& mass_density) const noexcept {
+  constexpr MassDensity operator-(const MassDensity& mass_density) const noexcept {
     return {value_ - mass_density.value_};
   }
 

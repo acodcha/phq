@@ -42,11 +42,11 @@ public:
     return value_ >= temperature.value_;
   }
 
-  Temperature operator+(const Temperature& temperature) const noexcept {
+  constexpr Temperature operator+(const Temperature& temperature) const noexcept {
     return {value_ + temperature.value_};
   }
 
-  Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
+  constexpr Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ + temperature_difference.value_};
   }
 
@@ -58,11 +58,11 @@ public:
     value_ += temperature_difference.value_;
   }
 
-  TemperatureDifference operator-(const Temperature& temperature) const noexcept {
+  constexpr TemperatureDifference operator-(const Temperature& temperature) const noexcept {
     return {value_ - temperature.value_};
   }
 
-  Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
+  constexpr Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ - temperature_difference.value_};
   }
 
@@ -86,11 +86,11 @@ template <> constexpr bool sort(const Temperature& temperature_1, const Temperat
   return temperature_1.value() < temperature_2.value();
 }
 
-Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
+constexpr Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
   return {value_ + temperature.value_};
 }
 
-Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
+constexpr Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
   return {value_ - temperature.value_};
 }
 

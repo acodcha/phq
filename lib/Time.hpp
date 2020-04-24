@@ -45,11 +45,11 @@ public:
     return value_ >= time.value_;
   }
 
-  Time operator+(const Time& time) const noexcept {
+  constexpr Time operator+(const Time& time) const noexcept {
     return {value_ + time.value_};
   }
 
-  Time operator+(const Duration& duration) const noexcept {
+  constexpr Time operator+(const Duration& duration) const noexcept {
     return {value_ + duration.value_};
   }
 
@@ -61,11 +61,11 @@ public:
     value_ += duration.value_;
   }
 
-  Duration operator-(const Time& time) const noexcept {
+  constexpr Duration operator-(const Time& time) const noexcept {
     return {value_ - time.value_};
   }
 
-  Time operator-(const Duration& duration) const noexcept {
+  constexpr Time operator-(const Duration& duration) const noexcept {
     return {value_ - duration.value_};
   }
 
@@ -89,11 +89,11 @@ template <> constexpr bool sort(const Time& time_1, const Time& time_2) noexcept
   return time_1.value() < time_2.value();
 }
 
-Time Duration::operator+(const Time& time) const noexcept {
+constexpr Time Duration::operator+(const Time& time) const noexcept {
   return {value_ + time.value_};
 }
 
-Time Duration::operator-(const Time& time) const noexcept {
+constexpr Time Duration::operator-(const Time& time) const noexcept {
   return {value_ - time.value_};
 }
 

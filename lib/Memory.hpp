@@ -48,7 +48,7 @@ public:
     return value_ >= memory.value_;
   }
 
-  Memory operator+(const Memory& memory) const noexcept {
+  constexpr Memory operator+(const Memory& memory) const noexcept {
     return {value_ + memory.value_};
   }
 
@@ -56,7 +56,7 @@ public:
     value_ += memory.value_;
   }
 
-  Memory operator-(const Memory& memory) const noexcept {
+  constexpr Memory operator-(const Memory& memory) const noexcept {
     return {value_ - memory.value_};
   }
 

@@ -65,7 +65,7 @@ public:
     value_ -= pressure.value_;
   }
 
-  ForceMagnitude operator*(const Area& area) const noexcept {
+  constexpr ForceMagnitude operator*(const Area& area) const noexcept {
     return {value_ * area.value_};
   }
 

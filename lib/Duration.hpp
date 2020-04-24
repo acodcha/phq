@@ -67,9 +67,9 @@ public:
     return value_ >= duration.value_;
   }
 
-  Time operator+(const Time& time) const noexcept;
+  constexpr Time operator+(const Time& time) const noexcept;
 
-  Duration operator+(const Duration& duration) const noexcept {
+  constexpr Duration operator+(const Duration& duration) const noexcept {
     return {value_ + duration.value_};
   }
 
@@ -77,9 +77,9 @@ public:
     value_ += duration.value_;
   }
 
-  Time operator-(const Time& time) const noexcept;
+  constexpr Time operator-(const Time& time) const noexcept;
 
-  Duration operator-(const Duration& duration) const noexcept {
+  constexpr Duration operator-(const Duration& duration) const noexcept {
     return {value_ - duration.value_};
   }
 

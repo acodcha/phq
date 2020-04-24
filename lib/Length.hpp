@@ -55,7 +55,7 @@ public:
     return value_ >= length.value_;
   }
 
-  Length operator+(const Length& length) const noexcept {
+  constexpr Length operator+(const Length& length) const noexcept {
     return {value_ + length.value_};
   }
 
@@ -63,7 +63,7 @@ public:
     value_ += length.value_;
   }
 
-  Length operator-(const Length& length) const noexcept {
+  constexpr Length operator-(const Length& length) const noexcept {
     return {value_ - length.value_};
   }
 

@@ -44,7 +44,7 @@ public:
     return value_ >= memory_rate.value_;
   }
 
-  MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
     return {value_ + memory_rate.value_};
   }
 
@@ -52,7 +52,7 @@ public:
     value_ += memory_rate.value_;
   }
 
-  MemoryRate operator-(const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator-(const MemoryRate& memory_rate) const noexcept {
     return {value_ - memory_rate.value_};
   }
 
@@ -60,7 +60,7 @@ public:
     value_ -= memory_rate.value_;
   }
 
-  Memory operator*(const Duration& duration) const noexcept {
+  constexpr Memory operator*(const Duration& duration) const noexcept {
     return {value_ + duration.value_};
   }
 

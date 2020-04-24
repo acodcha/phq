@@ -60,7 +60,7 @@ public:
     return value_ >= mass.value_;
   }
 
-  Mass operator+(const Mass& mass) const noexcept {
+  constexpr Mass operator+(const Mass& mass) const noexcept {
     return {value_ + mass.value_};
   }
 
@@ -68,7 +68,7 @@ public:
     value_ += mass.value_;
   }
 
-  Mass operator-(const Mass& mass) const noexcept {
+  constexpr Mass operator-(const Mass& mass) const noexcept {
     return {value_ - mass.value_};
   }
 

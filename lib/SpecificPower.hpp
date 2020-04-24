@@ -43,7 +43,7 @@ public:
     return value_ >= specific_power.value_;
   }
 
-  SpecificPower operator+(const SpecificPower& specific_power) const noexcept {
+  constexpr SpecificPower operator+(const SpecificPower& specific_power) const noexcept {
     return {value_ + specific_power.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += specific_power.value_;
   }
 
-  SpecificPower operator-(const SpecificPower& specific_power) const noexcept {
+  constexpr SpecificPower operator-(const SpecificPower& specific_power) const noexcept {
     return {value_ - specific_power.value_};
   }
 

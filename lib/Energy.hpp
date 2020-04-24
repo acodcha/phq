@@ -51,7 +51,7 @@ public:
     return value_ >= energy.value_;
   }
 
-  Energy operator+(const Energy& energy) const noexcept {
+  constexpr Energy operator+(const Energy& energy) const noexcept {
     return {value_ + energy.value_};
   }
 
@@ -59,7 +59,7 @@ public:
     value_ += energy.value_;
   }
 
-  Energy operator-(const Energy& energy) const noexcept {
+  constexpr Energy operator-(const Energy& energy) const noexcept {
     return {value_ - energy.value_};
   }
 
