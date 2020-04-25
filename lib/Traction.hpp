@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Force.hpp"
-#include "Pressure.hpp"
+#include "StaticPressure.hpp"
 
 namespace PhQ {
 
@@ -19,7 +19,7 @@ public:
 
   constexpr Traction(const Value::Vector& value, Unit::Pressure unit) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr Pressure magnitude() const noexcept {
+  constexpr StaticPressure magnitude() const noexcept {
     return {value_.magnitude()};
   }
 
@@ -62,6 +62,7 @@ protected:
   friend class Area;
   friend class Direction;
   friend class Force;
+  friend class StaticPressure;
 
 };
 
@@ -69,13 +70,17 @@ template <> constexpr bool sort(const Traction& traction_1, const Traction& trac
   return sort(traction_1.value(), traction_2.value());
 }
 
-constexpr Traction Direction::operator*(const Pressure& pressure) const noexcept {
-  return {{x_y_z_[0] * pressure.value_, x_y_z_[1] * pressure.value_, x_y_z_[2] * pressure.value_}};
+constexpr Traction Direction::operator*(const StaticPressure& static_pressure) const noexcept {
+  return {{x_y_z_[0] * static_pressure.value_, x_y_z_[1] * static_pressure.value_, x_y_z_[2] * static_pressure.value_}};
 }
 
 constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(traction_1.angle(traction_2)) {}
 
-constexpr Pressure::Pressure(const Traction& traction) noexcept : Pressure(traction.magnitude()) {}
+constexpr StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.magnitude()) {}
+
+constexpr Traction StaticPressure::operator*(const Direction& direction) const noexcept {
+  return {{direction.x_y_z_[0] * value_, direction.x_y_z_[1] * value_, direction.x_y_z_[2] * value_}};
+}
 
 Traction Force::operator/(const Area& area) const {
   if (area.value_ != 0.0) {
@@ -86,7 +91,3 @@ Traction Force::operator/(const Area& area) const {
 }
 
 } // namespace PhQ
-
-constexpr PhQ::Traction operator*(const PhQ::Pressure& pressure, const PhQ::Direction& direction) noexcept {
-  return {direction * pressure};
-}

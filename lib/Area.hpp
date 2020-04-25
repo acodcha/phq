@@ -15,7 +15,7 @@ namespace PhQ {
 class Direction;
 class Force;
 class ForceMagnitude;
-class Pressure;
+class StaticPressure;
 class Traction;
 class VectorArea;
 
@@ -69,7 +69,7 @@ public:
 
   constexpr Volume operator*(const Length& length) const noexcept;
 
-  constexpr ForceMagnitude operator*(const Pressure& pressure) const noexcept;
+  constexpr ForceMagnitude operator*(const StaticPressure& static_pressure) const noexcept;
 
   Length operator/(const Length& length) const {
     if (length.value_ != 0.0) {
@@ -87,7 +87,7 @@ protected:
   friend class Force;
   friend class ForceMagnitude;
   friend class Length;
-  friend class Pressure;
+  friend class StaticPressure;
   friend class Traction;
   friend class Volume;
   friend class VectorArea;

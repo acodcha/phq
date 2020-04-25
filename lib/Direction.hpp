@@ -27,8 +27,8 @@ class Displacement;
 class Force;
 class ForceMagnitude;
 class Length;
-class Pressure;
 class Speed;
+class StaticPressure;
 class Traction;
 class VectorArea;
 class Velocity;
@@ -134,7 +134,7 @@ public:
 
   constexpr Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
 
-  constexpr Traction operator*(const Pressure& pressure) const noexcept;
+  constexpr Traction operator*(const StaticPressure& static_pressure) const noexcept;
 
   constexpr Velocity operator*(const Speed& speed) const noexcept;
 
@@ -149,8 +149,8 @@ private:
   friend class Force;
   friend class ForceMagnitude;
   friend class Length;
-  friend class Pressure;
   friend class Speed;
+  friend class StaticPressure;
   friend class Traction;
   friend class VectorArea;
   friend class Velocity;

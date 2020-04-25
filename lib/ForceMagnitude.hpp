@@ -14,7 +14,7 @@ namespace PhQ {
 // Forward declarations.
 class Direction;
 class Force;
-class Pressure;
+class StaticPressure;
 
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 
@@ -66,7 +66,7 @@ public:
     value_ -= force_magnitude.value_;
   }
 
-  Pressure operator/(const Area& area) const;
+  StaticPressure operator/(const Area& area) const;
 
 protected:
 
@@ -75,7 +75,7 @@ protected:
   friend class Area;
   friend class Direction;
   friend class Force;
-  friend class Pressure;
+  friend class StaticPressure;
 
 };
 

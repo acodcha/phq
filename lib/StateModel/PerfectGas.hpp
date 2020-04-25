@@ -8,7 +8,7 @@
 
 #include "../SpecificGasConstant.hpp"
 #include "../MassDensity.hpp"
-#include "../Pressure.hpp"
+#include "../StaticPressure.hpp"
 #include "../Temperature.hpp"
 #include "Base.hpp"
 
@@ -68,25 +68,25 @@ public:
     return specific_gas_constant_;
   }
 
-  MassDensity mass_density(const Pressure& pressure, const Temperature& temperature) const {
+  MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const {
     const double denominator{temperature.value() * specific_gas_constant_.value()};
     if (denominator != 0.0) {
-      return {pressure.value() / denominator, standard_unit<Unit::MassDensity>};
+      return {static_pressure.value() / denominator, standard_unit<Unit::MassDensity>};
     } else {
-      throw std::runtime_error{"Division of " + pressure.print() + " by " + number_to_string(denominator) + "."};
+      throw std::runtime_error{"Division of " + static_pressure.print() + " by " + number_to_string(denominator) + "."};
     }
   }
 
-  constexpr Pressure pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
+  constexpr StaticPressure static_pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
     return {mass_density.value() * temperature.value() * specific_gas_constant_.value(), standard_unit<Unit::Pressure>};
   }
 
-  Temperature temperature(const MassDensity& mass_density, const Pressure& pressure) const {
+  Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const {
     const double denominator{mass_density.value() * specific_gas_constant_.value()};
     if (denominator != 0.0) {
-      return {pressure.value() / denominator, standard_unit<Unit::Temperature>};
+      return {static_pressure.value() / denominator, standard_unit<Unit::Temperature>};
     } else {
-      throw std::runtime_error{"Division of " + pressure.print() + " by " + number_to_string(denominator) + "."};
+      throw std::runtime_error{"Division of " + static_pressure.print() + " by " + number_to_string(denominator) + "."};
     }
   }
 
