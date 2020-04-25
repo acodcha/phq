@@ -27,6 +27,18 @@ public:
 
   constexpr SpecificHeatRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
 
+  constexpr IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+
+  constexpr SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
+
+  friend class GasConstant;
+  friend class IsobaricHeatCapacity;
+  friend class IsochoricHeatCapacity;
+  friend class Mass;
+  friend class SpecificGasConstant;
+  friend class SpecificIsobaricHeatCapacity;
+  friend class SpecificIsochoricHeatCapacity;
+
 };
 
 } // namespace PhQ

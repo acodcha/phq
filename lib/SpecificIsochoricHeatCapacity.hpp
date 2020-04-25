@@ -66,6 +66,8 @@ public:
     return {value_ * mass.value_};
   }
 
+  constexpr SpecificIsobaricHeatCapacity operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept;
+
 protected:
 
   constexpr SpecificIsochoricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}

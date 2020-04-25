@@ -103,4 +103,8 @@ constexpr SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(const Spec
   return {value_ - specific_isochoric_heat_capacity.value_};
 }
 
+constexpr SpecificIsochoricHeatCapacity SpecificIsobaricHeatCapacity::operator-(const SpecificGasConstant& specific_gas_constant) const noexcept {
+  return {value_ - specific_gas_constant.value_};
+}
+
 } // namespace PhQ

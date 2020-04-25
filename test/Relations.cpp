@@ -7,6 +7,7 @@
 #include "../lib/ConstitutiveModel/CompressibleNewtonianFluid.hpp"
 #include "../lib/ConstitutiveModel/ElasticIsotropicSolid.hpp"
 #include "../lib/ConstitutiveModel/IncompressibleNewtonianFluid.hpp"
+#include "../lib/StateModel/PerfectGas.hpp"
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"

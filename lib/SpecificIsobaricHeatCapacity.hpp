@@ -57,6 +57,8 @@ public:
 
   constexpr SpecificGasConstant operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
 
+  constexpr SpecificIsochoricHeatCapacity operator-(const SpecificGasConstant& specific_gas_constant) const noexcept;
+
   constexpr void operator-=(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
     value_ -= specific_isobaric_heat_capacity.value_;
   }
@@ -70,6 +72,14 @@ public:
       return {value_ / specific_isochoric_heat_capacity.value_};
     } else {
       throw std::runtime_error{"Division of " + print() + " by " + specific_isochoric_heat_capacity.print() + "."};
+    }
+  }
+
+  SpecificIsochoricHeatCapacity operator/(const SpecificHeatRatio& specific_heat_ratio) const {
+    if (specific_heat_ratio.value_ != 0.0) {
+      return {value_ / specific_heat_ratio.value_};
+    } else {
+      throw std::runtime_error{"Division of " + print() + " by " + specific_heat_ratio.print() + "."};
     }
   }
 
@@ -93,12 +103,20 @@ constexpr IsobaricHeatCapacity Mass::operator*(const SpecificIsobaricHeatCapacit
   return {value_ * specific_isobaric_heat_capacity.value_};
 }
 
+constexpr SpecificIsobaricHeatCapacity SpecificHeatRatio::operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
+  return {value_ * specific_isochoric_heat_capacity.value_};
+}
+
 SpecificIsobaricHeatCapacity IsobaricHeatCapacity::operator/(const Mass& mass) const {
   if (mass.value_ != 0.0) {
     return {value_ / mass.value_};
   } else {
     throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
   }
+}
+
+constexpr SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+  return {value_ * specific_heat_ratio.value_};
 }
 
 } // namespace PhQ
