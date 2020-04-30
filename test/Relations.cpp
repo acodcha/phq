@@ -11,7 +11,6 @@
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/DisplacementGradient.hpp"
-#include "../lib/MassDensity.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"
 #include "../lib/Position.hpp"

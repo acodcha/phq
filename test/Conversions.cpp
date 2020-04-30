@@ -28,6 +28,7 @@
 #include "../lib/Unit/SpecificPower.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
+#include "../lib/Unit/ThermalConductivity.hpp"
 #include "../lib/Unit/Time.hpp"
 #include "../lib/Unit/Volume.hpp"
 #include "../lib/Unit/VolumeRate.hpp"
@@ -336,6 +337,14 @@ void test_temperature() noexcept {
   });
 }
 
+void test_thermal_conductivity() noexcept {
+  test_conversions<PhQ::Unit::ThermalConductivity>("Thermal Conductivity", 1.0, {
+    PhQ::Unit::ThermalConductivity::WattPerMetrePerKelvin,
+    PhQ::Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
+    PhQ::Unit::ThermalConductivity::PoundPerSecondPerRankine
+  });
+}
+
 void test_time() noexcept {
   test_conversions<PhQ::Unit::Time>("Time", 1.0, {
     PhQ::Unit::Time::Hour,
@@ -407,6 +416,7 @@ int main(int argc, char *argv[]) {
   test_specific_power();
   test_speed();
   test_temperature();
+  test_thermal_conductivity();
   test_time();
   test_volume();
   test_volume_rate();

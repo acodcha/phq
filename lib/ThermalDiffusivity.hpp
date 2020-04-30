@@ -6,7 +6,9 @@
 
 #pragma once
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "MassDensity.hpp"
+#include "SpecificIsobaricHeatCapacity.hpp"
+#include "ThermalConductivity.hpp"
 #include "Unit/Diffusivity.hpp"
 
 namespace PhQ {
@@ -18,6 +20,15 @@ public:
   constexpr ThermalDiffusivity() noexcept : DimensionalScalarQuantity<Unit::Diffusivity>() {}
 
   constexpr ThermalDiffusivity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
+
+  ThermalDiffusivity(const ThermalConductivity& thermal_conductivity, const MassDensity& mass_density, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) : DimensionalScalarQuantity<Unit::Diffusivity>() {
+    const double denominator{mass_density.value() * specific_isobaric_heat_capacity.value()};
+    if (denominator != 0.0) {
+      value_ = thermal_conductivity.value() / denominator;
+    } else {
+      throw std::runtime_error{"Division of " + thermal_conductivity.print() + " by " + number_to_string(denominator) + "."};
+    }
+  }
 
   constexpr bool operator==(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return value_ == thermal_diffusivity.value_;

@@ -32,19 +32,15 @@ template <> const std::unordered_map<std::string, Unit::Temperature> spellings<U
   {"K", Unit::Temperature::Kelvin},
   {"°K", Unit::Temperature::Kelvin},
   {"degK", Unit::Temperature::Kelvin},
-  {"deg K", Unit::Temperature::Kelvin},
   {"°C", Unit::Temperature::Celsius},
   {"C", Unit::Temperature::Celsius},
   {"degC", Unit::Temperature::Celsius},
-  {"deg C", Unit::Temperature::Celsius},
   {"°R", Unit::Temperature::Rankine},
   {"R", Unit::Temperature::Rankine},
   {"degR", Unit::Temperature::Rankine},
-  {"deg R", Unit::Temperature::Rankine},
   {"°F", Unit::Temperature::Fahrenheit},
   {"F", Unit::Temperature::Fahrenheit},
-  {"degF", Unit::Temperature::Fahrenheit},
-  {"deg F", Unit::Temperature::Fahrenheit}
+  {"degF", Unit::Temperature::Fahrenheit}
 };
 
 template <> const std::map<System, Unit::Temperature> consistent_units<Unit::Temperature>{
