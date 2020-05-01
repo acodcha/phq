@@ -17,7 +17,7 @@
 #include "../lib/ReynoldsNumber.hpp"
 #include "../lib/SpecificGasConstant.hpp"
 #include "../lib/SpecificPower.hpp"
-#include "../lib/Temperature.hpp"
+#include "../lib/TemperatureGradient.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VectorArea.hpp"

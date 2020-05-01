@@ -28,6 +28,7 @@
 #include "../lib/Unit/SpecificPower.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
+#include "../lib/Unit/TemperatureGradient.hpp"
 #include "../lib/Unit/ThermalConductivity.hpp"
 #include "../lib/Unit/Time.hpp"
 #include "../lib/Unit/Volume.hpp"
@@ -337,6 +338,19 @@ void test_temperature() noexcept {
   });
 }
 
+void test_temperature_gradient() noexcept {
+  test_conversions<PhQ::Unit::TemperatureGradient>("Temperature Gradient", 1.0, {
+    PhQ::Unit::TemperatureGradient::KelvinPerMetre,
+    PhQ::Unit::TemperatureGradient::CelsiusPerMetre,
+    PhQ::Unit::TemperatureGradient::KelvinPerMillimetre,
+    PhQ::Unit::TemperatureGradient::CelsiusPerMillimetre,
+    PhQ::Unit::TemperatureGradient::RankinePerFoot,
+    PhQ::Unit::TemperatureGradient::FahrenheitPerFoot,
+    PhQ::Unit::TemperatureGradient::RankinePerInch,
+    PhQ::Unit::TemperatureGradient::FahrenheitPerInch
+  });
+}
+
 void test_thermal_conductivity() noexcept {
   test_conversions<PhQ::Unit::ThermalConductivity>("Thermal Conductivity", 1.0, {
     PhQ::Unit::ThermalConductivity::WattPerMetrePerKelvin,
@@ -416,6 +430,7 @@ int main(int argc, char *argv[]) {
   test_specific_power();
   test_speed();
   test_temperature();
+  test_temperature_gradient();
   test_thermal_conductivity();
   test_time();
   test_volume();

@@ -19,6 +19,7 @@ class Duration;
 class Force;
 class Frequency;
 class Position;
+class TemperatureGradient;
 class Traction;
 class VectorArea;
 class Velocity;
@@ -52,6 +53,8 @@ public:
   constexpr Angle(const Traction& traction_1, const Traction& traction_2) noexcept;
 
   constexpr Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2) noexcept;
+
+  constexpr Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept;
 
   constexpr bool operator==(const Angle& angle) const noexcept {
     return value_ == angle.value_;
