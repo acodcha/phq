@@ -10,6 +10,7 @@
 #include "../lib/StateModel/PerfectGas.hpp"
 #include "../lib/Acceleration.hpp"
 #include "../lib/AngularSpeed.hpp"
+#include "../lib/AreaVector.hpp"
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"
@@ -20,7 +21,6 @@
 #include "../lib/TemperatureGradient.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/Traction.hpp"
-#include "../lib/VectorArea.hpp"
 #include "../lib/VelocityGradient.hpp"
 #include "../lib/VolumeRate.hpp"
 

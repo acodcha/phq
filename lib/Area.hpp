@@ -12,12 +12,12 @@
 namespace PhQ {
 
 // Forward declarations.
+class AreaVector;
 class Direction;
 class Force;
 class ForceMagnitude;
 class StaticPressure;
 class Traction;
-class VectorArea;
 
 class Area : public DimensionalScalarQuantity<Unit::Area> {
 
@@ -27,7 +27,7 @@ public:
 
   constexpr Area(double value, Unit::Area unit) noexcept : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  constexpr Area(const VectorArea& vector_area) noexcept;
+  constexpr Area(const AreaVector& vector_area) noexcept;
 
   constexpr bool operator==(const Area& area) const noexcept {
     return value_ == area.value_;
@@ -73,7 +73,7 @@ public:
 
   constexpr ForceMagnitude operator*(const StaticPressure& static_pressure) const noexcept;
 
-  constexpr VectorArea operator*(const Direction& direction) const noexcept;
+  constexpr AreaVector operator*(const Direction& direction) const noexcept;
 
   Length operator/(const Length& length) const {
     if (length.value_ != 0.0) {
@@ -87,6 +87,7 @@ protected:
 
   constexpr Area(double value) noexcept : DimensionalScalarQuantity<Unit::Area>(value) {}
 
+  friend class AreaVector;
   friend class Direction;
   friend class Force;
   friend class ForceMagnitude;
@@ -94,7 +95,6 @@ protected:
   friend class StaticPressure;
   friend class Traction;
   friend class Volume;
-  friend class VectorArea;
 
 };
 

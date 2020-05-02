@@ -22,6 +22,7 @@ template <typename Unit> class DimensionalVectorQuantity;
 class Acceleration;
 class AccelerationMagnitude;
 class Area;
+class AreaVector;
 class Angle;
 class Displacement;
 class Force;
@@ -32,7 +33,6 @@ class StaticPressure;
 class TemperatureGradient;
 class TemperatureGradientMagnitude;
 class Traction;
-class VectorArea;
 class Velocity;
 
 class Direction {
@@ -130,7 +130,7 @@ public:
 
   constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
-  constexpr VectorArea operator*(const Area& area) const noexcept;
+  constexpr AreaVector operator*(const Area& area) const noexcept;
 
   constexpr Displacement operator*(const Length& length) const noexcept;
 
@@ -149,6 +149,7 @@ private:
   friend class Acceleration;
   friend class AccelerationMagnitude;
   friend class Area;
+  friend class AreaVector;
   friend class Displacement;
   friend class Force;
   friend class ForceMagnitude;
@@ -158,7 +159,6 @@ private:
   friend class TemperatureGradient;
   friend class TemperatureGradientMagnitude;
   friend class Traction;
-  friend class VectorArea;
   friend class Velocity;
 
 };
