@@ -12,7 +12,9 @@
 namespace PhQ {
 
 // Forward declaration.
+class Length;
 class Temperature;
+class TemperatureGradientMagnitude;
 
 class TemperatureDifference : public DimensionalScalarQuantity<Unit::Temperature> {
 
@@ -66,11 +68,14 @@ public:
     value_ -= temperature_difference.value_;
   }
 
+  TemperatureGradientMagnitude operator/(const Length& length) const;
+
 protected:
 
   constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 
   friend class Temperature;
+  friend class TemperatureGradientMagnitude;
 
 };
 

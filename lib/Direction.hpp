@@ -29,6 +29,8 @@ class ForceMagnitude;
 class Length;
 class Speed;
 class StaticPressure;
+class TemperatureGradient;
+class TemperatureGradientMagnitude;
 class Traction;
 class VectorArea;
 class Velocity;
@@ -138,6 +140,8 @@ public:
 
   constexpr Velocity operator*(const Speed& speed) const noexcept;
 
+  constexpr TemperatureGradient operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept;
+
 private:
 
   std::array<double, 3> x_y_z_;
@@ -151,6 +155,8 @@ private:
   friend class Length;
   friend class Speed;
   friend class StaticPressure;
+  friend class TemperatureGradient;
+  friend class TemperatureGradientMagnitude;
   friend class Traction;
   friend class VectorArea;
   friend class Velocity;
