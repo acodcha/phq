@@ -66,6 +66,8 @@ public:
     value_ -= force_magnitude.value_;
   }
 
+  constexpr Force operator*(const Direction& direction) const noexcept;
+
   StaticPressure operator/(const Area& area) const;
 
 protected:

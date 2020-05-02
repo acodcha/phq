@@ -63,6 +63,7 @@ protected:
 
   friend class Area;
   friend class Direction;
+  friend class ForceMagnitude;
   friend class Traction;
 
 };
@@ -79,8 +80,8 @@ constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Di
 
 constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.magnitude()) {}
 
-} // namespace PhQ
-
-constexpr PhQ::Force operator*(const PhQ::ForceMagnitude& force_magnitude, const PhQ::Direction& direction) noexcept {
-  return {direction * force_magnitude};
+constexpr Force ForceMagnitude::operator*(const Direction& direction) const noexcept {
+  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
 }
+
+} // namespace PhQ

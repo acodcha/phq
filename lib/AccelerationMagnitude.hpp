@@ -69,6 +69,8 @@ public:
     return {value_ * duration.value_};
   }
 
+  constexpr Acceleration operator*(const Direction& direction) const noexcept;
+
   Speed operator/(const Frequency& frequency) const {
     if (frequency.value_ != 0.0) {
       return {value_ / frequency.value_};

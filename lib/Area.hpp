@@ -27,6 +27,8 @@ public:
 
   constexpr Area(double value, Unit::Area unit) noexcept : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
+  constexpr Area(const VectorArea& vector_area) noexcept;
+
   constexpr bool operator==(const Area& area) const noexcept {
     return value_ == area.value_;
   }
@@ -70,6 +72,8 @@ public:
   constexpr Volume operator*(const Length& length) const noexcept;
 
   constexpr ForceMagnitude operator*(const StaticPressure& static_pressure) const noexcept;
+
+  constexpr VectorArea operator*(const Direction& direction) const noexcept;
 
   Length operator/(const Length& length) const {
     if (length.value_ != 0.0) {

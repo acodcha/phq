@@ -79,7 +79,7 @@ constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) n
 constexpr StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.magnitude()) {}
 
 constexpr Traction StaticPressure::operator*(const Direction& direction) const noexcept {
-  return {{direction.x_y_z_[0] * value_, direction.x_y_z_[1] * value_, direction.x_y_z_[2] * value_}};
+  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
 }
 
 Traction Force::operator/(const Area& area) const {

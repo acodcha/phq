@@ -72,8 +72,10 @@ constexpr VectorArea Direction::operator*(const Area& area) const noexcept {
 
 constexpr Angle::Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector_area_1.angle(vector_area_2)) {}
 
-} // namespace PhQ
+constexpr Area::Area(const VectorArea& vector_area) noexcept : Area(vector_area.magnitude()) {}
 
-constexpr PhQ::VectorArea operator*(const PhQ::Area& area, const PhQ::Direction& direction) noexcept {
-  return {direction * area};
+constexpr VectorArea Area::operator*(const Direction& direction) const noexcept {
+  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
 }
+
+} // namespace PhQ

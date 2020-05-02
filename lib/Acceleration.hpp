@@ -87,6 +87,10 @@ constexpr Angle::Angle(const Acceleration& acceleration_1, const Acceleration& a
 
 constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
 
+constexpr Acceleration AccelerationMagnitude::operator*(const Direction& direction) const noexcept {
+  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+}
+
 constexpr Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }
@@ -100,7 +104,3 @@ Acceleration Velocity::operator/(const Duration& duration) const {
 }
 
 } // namespace PhQ
-
-constexpr PhQ::Acceleration operator*(const PhQ::AccelerationMagnitude& acceleration_magnitude, const PhQ::Direction& direction) noexcept {
-  return {direction * acceleration_magnitude};
-}

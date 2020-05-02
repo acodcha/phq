@@ -73,6 +73,8 @@ public:
 
   constexpr AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
 
+  constexpr Velocity operator*(const Direction& direction) const noexcept;
+
   AccelerationMagnitude operator/(const Duration& duration) const;
 
   Length operator/(const Frequency& frequency) const {

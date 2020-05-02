@@ -77,6 +77,8 @@ public:
 
   constexpr Speed operator*(const Frequency& frequency) const noexcept;
 
+  constexpr Displacement operator*(const Direction& direction) const noexcept;
+
   Speed operator/(const Duration& time) const;
 
 protected:

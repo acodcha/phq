@@ -91,8 +91,8 @@ constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& d
 
 constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.magnitude()) {}
 
-} // namespace PhQ
-
-constexpr PhQ::Displacement operator*(const PhQ::Length& length, const PhQ::Direction& direction) noexcept {
-  return {direction * length};
+constexpr Displacement Length::operator*(const Direction& direction) const noexcept {
+  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
 }
+
+} // namespace PhQ
