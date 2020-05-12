@@ -11,20 +11,20 @@
 
 namespace PhQ {
 
-namespace StateModel {
+namespace ThermodynamicStateModel {
 
 enum class Type : uint_least8_t {
   PerfectGas
 };
 
-template <Type StateModelType> class GenericStateModel {
+template <Type ThermodynamicStateModelType> class GenericThermodynamicStateModel {
 
 public:
 
-  constexpr GenericStateModel() noexcept = default;
+  constexpr GenericThermodynamicStateModel() noexcept = default;
 
   constexpr Type type() const noexcept {
-    return StateModelType;
+    return ThermodynamicStateModelType;
   }
 
   virtual std::string print() const noexcept = 0;
@@ -35,22 +35,22 @@ public:
 
 };
 
-} // namespace StateModel
+} // namespace ThermodynamicStateModel
 
-template <> const std::map<StateModel::Type, std::string> abbreviations<StateModel::Type>{
-  {StateModel::Type::PerfectGas, "Perfect Gas"}
+template <> const std::map<ThermodynamicStateModel::Type, std::string> abbreviations<ThermodynamicStateModel::Type>{
+  {ThermodynamicStateModel::Type::PerfectGas, "Perfect Gas"}
 };
 
-template <> const std::unordered_map<std::string, StateModel::Type> spellings<StateModel::Type>{
-  {"Perfect Gas", StateModel::Type::PerfectGas},
-  {"PerfectGas", StateModel::Type::PerfectGas},
-  {"perfect gas", StateModel::Type::PerfectGas},
-  {"perfect_gas", StateModel::Type::PerfectGas}
+template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type> spellings<ThermodynamicStateModel::Type>{
+  {"Perfect Gas", ThermodynamicStateModel::Type::PerfectGas},
+  {"PerfectGas", ThermodynamicStateModel::Type::PerfectGas},
+  {"perfect gas", ThermodynamicStateModel::Type::PerfectGas},
+  {"perfect_gas", ThermodynamicStateModel::Type::PerfectGas}
 };
 
 } // namespace PhQ
 
-template <PhQ::StateModel::Type StateModelType> std::ostream& operator<<(std::ostream& output_stream, const PhQ::StateModel::GenericStateModel<StateModelType>& state_model) noexcept {
-  output_stream << state_model.print();
+template <PhQ::ThermodynamicStateModel::Type ThermodynamicStateModelType> std::ostream& operator<<(std::ostream& output_stream, const PhQ::ThermodynamicStateModel::GenericThermodynamicStateModel<ThermodynamicStateModelType>& thermodynamic_state_model) noexcept {
+  output_stream << thermodynamic_state_model.print();
   return output_stream;
 }
