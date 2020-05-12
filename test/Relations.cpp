@@ -12,6 +12,7 @@
 #include "../lib/AngularSpeed.hpp"
 #include "../lib/AreaVector.hpp"
 #include "../lib/DisplacementGradient.hpp"
+#include "../lib/LinearThermalExpansionCoefficient.hpp"
 #include "../lib/MassRate.hpp"
 #include "../lib/MemoryRate.hpp"
 #include "../lib/Position.hpp"
@@ -23,6 +24,7 @@
 #include "../lib/Traction.hpp"
 #include "../lib/VelocityGradient.hpp"
 #include "../lib/VolumeRate.hpp"
+#include "../lib/VolumetricThermalExpansionCoefficient.hpp"
 
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};

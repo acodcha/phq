@@ -13,8 +13,10 @@ namespace PhQ {
 
 // Forward declaration.
 class Length;
+class LinearThermalExpansionCoefficient;
 class Temperature;
 class TemperatureGradientMagnitude;
+class VolumetricThermalExpansionCoefficient;
 
 class TemperatureDifference : public DimensionalScalarQuantity<Unit::Temperature> {
 
@@ -67,6 +69,10 @@ public:
   constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
     value_ -= temperature_difference.value_;
   }
+
+  constexpr double operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
+
+  constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
 
   TemperatureGradientMagnitude operator/(const Length& length) const;
 

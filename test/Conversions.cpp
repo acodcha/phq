@@ -30,6 +30,7 @@
 #include "../lib/Unit/Temperature.hpp"
 #include "../lib/Unit/TemperatureGradient.hpp"
 #include "../lib/Unit/ThermalConductivity.hpp"
+#include "../lib/Unit/ThermalExpansion.hpp"
 #include "../lib/Unit/Time.hpp"
 #include "../lib/Unit/Volume.hpp"
 #include "../lib/Unit/VolumeRate.hpp"
@@ -359,6 +360,15 @@ void test_thermal_conductivity() noexcept {
   });
 }
 
+void test_thermal_expansion() noexcept {
+  test_conversions<PhQ::Unit::ThermalExpansion>("Thermal Expansion", 1.0, {
+    PhQ::Unit::ThermalExpansion::PerKelvin,
+    PhQ::Unit::ThermalExpansion::PerCelsius,
+    PhQ::Unit::ThermalExpansion::PerRankine,
+    PhQ::Unit::ThermalExpansion::PerFahrenheit
+  });
+}
+
 void test_time() noexcept {
   test_conversions<PhQ::Unit::Time>("Time", 1.0, {
     PhQ::Unit::Time::Hour,
@@ -432,6 +442,7 @@ int main(int argc, char *argv[]) {
   test_temperature();
   test_temperature_gradient();
   test_thermal_conductivity();
+  test_thermal_expansion();
   test_time();
   test_volume();
   test_volume_rate();
