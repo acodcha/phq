@@ -7,6 +7,7 @@
 #pragma once
 
 #include "TemperatureDifference.hpp"
+#include "Unit/Temperature.hpp"
 
 namespace PhQ {
 

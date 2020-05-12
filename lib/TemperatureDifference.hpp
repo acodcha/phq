@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Quantity/DimensionalScalar.hpp"
-#include "Unit/Temperature.hpp"
+#include "Unit/TemperatureDifference.hpp"
 
 namespace PhQ {
 
@@ -18,13 +18,13 @@ class Temperature;
 class TemperatureGradientMagnitude;
 class VolumetricThermalExpansionCoefficient;
 
-class TemperatureDifference : public DimensionalScalarQuantity<Unit::Temperature> {
+class TemperatureDifference : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 
 public:
 
-  constexpr TemperatureDifference() noexcept : DimensionalScalarQuantity<Unit::Temperature>() {}
+  constexpr TemperatureDifference() noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
 
-  constexpr TemperatureDifference(double value, Unit::Temperature unit) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+  constexpr TemperatureDifference(double value, Unit::TemperatureDifference unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
   constexpr bool operator==(const TemperatureDifference& temperature_difference) const noexcept {
     return value_ == temperature_difference.value_;
@@ -78,7 +78,7 @@ public:
 
 protected:
 
-  constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value) {}
+  constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
   friend class TemperatureGradientMagnitude;

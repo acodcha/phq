@@ -28,6 +28,7 @@
 #include "../lib/Unit/SpecificPower.hpp"
 #include "../lib/Unit/Speed.hpp"
 #include "../lib/Unit/Temperature.hpp"
+#include "../lib/Unit/TemperatureDifference.hpp"
 #include "../lib/Unit/TemperatureGradient.hpp"
 #include "../lib/Unit/ThermalConductivity.hpp"
 #include "../lib/Unit/ThermalExpansion.hpp"
@@ -339,6 +340,15 @@ void test_temperature() noexcept {
   });
 }
 
+void test_temperature_difference() noexcept {
+  test_conversions<PhQ::Unit::TemperatureDifference>("Temperature Difference", 1.0, {
+    PhQ::Unit::TemperatureDifference::Kelvin,
+    PhQ::Unit::TemperatureDifference::Celsius,
+    PhQ::Unit::TemperatureDifference::Rankine,
+    PhQ::Unit::TemperatureDifference::Fahrenheit
+  });
+}
+
 void test_temperature_gradient() noexcept {
   test_conversions<PhQ::Unit::TemperatureGradient>("Temperature Gradient", 1.0, {
     PhQ::Unit::TemperatureGradient::KelvinPerMetre,
@@ -440,6 +450,7 @@ int main(int argc, char *argv[]) {
   test_specific_power();
   test_speed();
   test_temperature();
+  test_temperature_difference();
   test_temperature_gradient();
   test_thermal_conductivity();
   test_thermal_expansion();
