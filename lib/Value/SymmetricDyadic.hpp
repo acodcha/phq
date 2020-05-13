@@ -16,11 +16,11 @@ class SymmetricDyadic {
 
 public:
 
-  SymmetricDyadic() noexcept = default;
+  constexpr SymmetricDyadic() noexcept : xx_xy_xz_yy_yz_zz_() {}
 
-  constexpr SymmetricDyadic(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept : xx_xy_xz_yy_yz_zz_{xx_xy_xz_yy_yz_zz} {}
+  constexpr SymmetricDyadic(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
-  constexpr SymmetricDyadic(double xx, double xy, double xz, double yy, double yz, double zz) noexcept : xx_xy_xz_yy_yz_zz_{xx, xy, xz, yy, yz, zz} {}
+  constexpr SymmetricDyadic(double xx, double xy, double xz, double yy, double yz, double zz) noexcept : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
   constexpr std::array<double, 6> xx_xy_xz_yy_yz_zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_;
@@ -134,64 +134,64 @@ public:
       "</yz><zz>" + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
-  constexpr bool operator==(const SymmetricDyadic& dyad) const noexcept {
+  constexpr bool operator==(const SymmetricDyadic& symmetric_dyadic) const noexcept {
     return
-      xx_xy_xz_yy_yz_zz_[0] == dyad.xx_xy_xz_yy_yz_zz_[0] &&
-      xx_xy_xz_yy_yz_zz_[1] == dyad.xx_xy_xz_yy_yz_zz_[1] &&
-      xx_xy_xz_yy_yz_zz_[2] == dyad.xx_xy_xz_yy_yz_zz_[2] &&
-      xx_xy_xz_yy_yz_zz_[3] == dyad.xx_xy_xz_yy_yz_zz_[3] &&
-      xx_xy_xz_yy_yz_zz_[4] == dyad.xx_xy_xz_yy_yz_zz_[4] &&
-      xx_xy_xz_yy_yz_zz_[5] == dyad.xx_xy_xz_yy_yz_zz_[5];
+      xx_xy_xz_yy_yz_zz_[0] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0] &&
+      xx_xy_xz_yy_yz_zz_[1] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1] &&
+      xx_xy_xz_yy_yz_zz_[2] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2] &&
+      xx_xy_xz_yy_yz_zz_[3] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3] &&
+      xx_xy_xz_yy_yz_zz_[4] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4] &&
+      xx_xy_xz_yy_yz_zz_[5] == symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr bool operator!=(const SymmetricDyadic& dyad) const noexcept {
+  constexpr bool operator!=(const SymmetricDyadic& symmetric_dyadic) const noexcept {
     return
-      xx_xy_xz_yy_yz_zz_[0] != dyad.xx_xy_xz_yy_yz_zz_[0] ||
-      xx_xy_xz_yy_yz_zz_[1] != dyad.xx_xy_xz_yy_yz_zz_[1] ||
-      xx_xy_xz_yy_yz_zz_[2] != dyad.xx_xy_xz_yy_yz_zz_[2] ||
-      xx_xy_xz_yy_yz_zz_[3] != dyad.xx_xy_xz_yy_yz_zz_[3] ||
-      xx_xy_xz_yy_yz_zz_[4] != dyad.xx_xy_xz_yy_yz_zz_[4] ||
-      xx_xy_xz_yy_yz_zz_[5] != dyad.xx_xy_xz_yy_yz_zz_[5];
+      xx_xy_xz_yy_yz_zz_[0] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0] ||
+      xx_xy_xz_yy_yz_zz_[1] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1] ||
+      xx_xy_xz_yy_yz_zz_[2] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2] ||
+      xx_xy_xz_yy_yz_zz_[3] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3] ||
+      xx_xy_xz_yy_yz_zz_[4] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4] ||
+      xx_xy_xz_yy_yz_zz_[5] != symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr SymmetricDyadic operator+(const SymmetricDyadic& dyad) const noexcept {
+  constexpr SymmetricDyadic operator+(const SymmetricDyadic& symmetric_dyadic) const noexcept {
     return {
-      xx_xy_xz_yy_yz_zz_[0] + dyad.xx_xy_xz_yy_yz_zz_[0],
-      xx_xy_xz_yy_yz_zz_[1] + dyad.xx_xy_xz_yy_yz_zz_[1],
-      xx_xy_xz_yy_yz_zz_[2] + dyad.xx_xy_xz_yy_yz_zz_[2],
-      xx_xy_xz_yy_yz_zz_[3] + dyad.xx_xy_xz_yy_yz_zz_[3],
-      xx_xy_xz_yy_yz_zz_[4] + dyad.xx_xy_xz_yy_yz_zz_[4],
-      xx_xy_xz_yy_yz_zz_[5] + dyad.xx_xy_xz_yy_yz_zz_[5]
+      xx_xy_xz_yy_yz_zz_[0] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0],
+      xx_xy_xz_yy_yz_zz_[1] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1],
+      xx_xy_xz_yy_yz_zz_[2] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2],
+      xx_xy_xz_yy_yz_zz_[3] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3],
+      xx_xy_xz_yy_yz_zz_[4] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4],
+      xx_xy_xz_yy_yz_zz_[5] + symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5]
     };
   }
 
-  constexpr void operator+=(const SymmetricDyadic& dyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] += dyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] += dyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] += dyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] += dyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] += dyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] += dyad.xx_xy_xz_yy_yz_zz_[5];
+  constexpr void operator+=(const SymmetricDyadic& symmetric_dyadic) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] += symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr SymmetricDyadic operator-(const SymmetricDyadic& dyad) const noexcept {
+  constexpr SymmetricDyadic operator-(const SymmetricDyadic& symmetric_dyadic) const noexcept {
     return {
-      xx_xy_xz_yy_yz_zz_[0] - dyad.xx_xy_xz_yy_yz_zz_[0],
-      xx_xy_xz_yy_yz_zz_[1] - dyad.xx_xy_xz_yy_yz_zz_[1],
-      xx_xy_xz_yy_yz_zz_[2] - dyad.xx_xy_xz_yy_yz_zz_[2],
-      xx_xy_xz_yy_yz_zz_[3] - dyad.xx_xy_xz_yy_yz_zz_[3],
-      xx_xy_xz_yy_yz_zz_[4] - dyad.xx_xy_xz_yy_yz_zz_[4],
-      xx_xy_xz_yy_yz_zz_[5] - dyad.xx_xy_xz_yy_yz_zz_[5]
+      xx_xy_xz_yy_yz_zz_[0] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0],
+      xx_xy_xz_yy_yz_zz_[1] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1],
+      xx_xy_xz_yy_yz_zz_[2] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2],
+      xx_xy_xz_yy_yz_zz_[3] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3],
+      xx_xy_xz_yy_yz_zz_[4] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4],
+      xx_xy_xz_yy_yz_zz_[5] - symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5]
     };
   }
 
-  constexpr void operator-=(const SymmetricDyadic& dyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] -= dyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] -= dyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] -= dyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] -= dyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] -= dyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] -= dyad.xx_xy_xz_yy_yz_zz_[5];
+  constexpr void operator-=(const SymmetricDyadic& symmetric_dyadic) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] -= symmetric_dyadic.xx_xy_xz_yy_yz_zz_[5];
   }
 
   constexpr SymmetricDyadic operator*(double real) const noexcept {
@@ -213,7 +213,7 @@ public:
     };
   }
 
-  constexpr Dyadic operator*(const SymmetricDyadic& dyadic) const noexcept;
+  constexpr Dyadic operator*(const SymmetricDyadic& symmetric_dyadic) const noexcept;
 
   constexpr Dyadic operator*(const Dyadic& dyadic) const noexcept;
 
@@ -226,32 +226,24 @@ public:
     xx_xy_xz_yy_yz_zz_[5] *= real;
   }
 
-  constexpr SymmetricDyadic operator/(double real) const {
-    if (real != 0.0) {
-      return {
-        xx_xy_xz_yy_yz_zz_[0] / real,
-        xx_xy_xz_yy_yz_zz_[1] / real,
-        xx_xy_xz_yy_yz_zz_[2] / real,
-        xx_xy_xz_yy_yz_zz_[3] / real,
-        xx_xy_xz_yy_yz_zz_[4] / real,
-        xx_xy_xz_yy_yz_zz_[5] / real
-      };
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr SymmetricDyadic operator/(double real) const noexcept {
+    return {
+      xx_xy_xz_yy_yz_zz_[0] / real,
+      xx_xy_xz_yy_yz_zz_[1] / real,
+      xx_xy_xz_yy_yz_zz_[2] / real,
+      xx_xy_xz_yy_yz_zz_[3] / real,
+      xx_xy_xz_yy_yz_zz_[4] / real,
+      xx_xy_xz_yy_yz_zz_[5] / real
+    };
   }
 
-  constexpr void operator/=(double real) {
-    if (real != 0.0) {
-      xx_xy_xz_yy_yz_zz_[0] /= real;
-      xx_xy_xz_yy_yz_zz_[1] /= real;
-      xx_xy_xz_yy_yz_zz_[2] /= real;
-      xx_xy_xz_yy_yz_zz_[3] /= real;
-      xx_xy_xz_yy_yz_zz_[4] /= real;
-      xx_xy_xz_yy_yz_zz_[5] /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] /= real;
+    xx_xy_xz_yy_yz_zz_[1] /= real;
+    xx_xy_xz_yy_yz_zz_[2] /= real;
+    xx_xy_xz_yy_yz_zz_[3] /= real;
+    xx_xy_xz_yy_yz_zz_[4] /= real;
+    xx_xy_xz_yy_yz_zz_[5] /= real;
   }
 
 protected:
@@ -262,47 +254,37 @@ protected:
 
 } // namespace Value
 
-template <> constexpr bool sort(const Value::SymmetricDyadic& dyadic1, const Value::SymmetricDyadic& dyadic2) noexcept {
-  if (dyadic1.xx() < dyadic2.xx()) {
-    return true;
-  } else if (dyadic1.xx() > dyadic2.xx()) {
-    return false;
-  } else {
-    if (dyadic1.yy() < dyadic2.yy()) {
-      return true;
-    } else if (dyadic1.yy() > dyadic2.yy()) {
-      return false;
-    } else {
-      if (dyadic1.zz() < dyadic2.zz()) {
-        return true;
-      } else if (dyadic1.zz() > dyadic2.zz()) {
-        return false;
-      } else {
-        if (dyadic1.xy() < dyadic2.xy()) {
-          return true;
-        } else if (dyadic1.xy() > dyadic2.xy()) {
-          return false;
-        } else {
-          if (dyadic1.yz() < dyadic2.yz()) {
-            return true;
-          } else if (dyadic1.yz() > dyadic2.yz()) {
-            return false;
+template <> constexpr bool sort(const Value::SymmetricDyadic& symmetric_dyadic_1, const Value::SymmetricDyadic& symmetric_dyadic_2) noexcept {
+  if (symmetric_dyadic_1.xx() == symmetric_dyadic_2.xx()) {
+    if (symmetric_dyadic_1.xy() == symmetric_dyadic_2.xy()) {
+      if (symmetric_dyadic_1.xz() == symmetric_dyadic_2.xz()) {
+        if (symmetric_dyadic_1.yy() == symmetric_dyadic_2.yy()) {
+          if (symmetric_dyadic_1.yz() == symmetric_dyadic_2.yz()) {
+            return symmetric_dyadic_1.zz() < symmetric_dyadic_2.zz();
           } else {
-            return dyadic1.xz() < dyadic2.xz();
+            return symmetric_dyadic_1.yz() < symmetric_dyadic_2.yz();
           }
+        } else {
+          return symmetric_dyadic_1.yy() < symmetric_dyadic_2.yy();
         }
+      } else {
+        return symmetric_dyadic_1.xz() < symmetric_dyadic_2.xz();
       }
+    } else {
+      return symmetric_dyadic_1.xy() < symmetric_dyadic_2.xy();
     }
+  } else {
+    return symmetric_dyadic_1.xx() < symmetric_dyadic_2.xx();
   }
 }
 
 } // namespace PhQ
 
-constexpr PhQ::Value::SymmetricDyadic operator*(double real, const PhQ::Value::SymmetricDyadic& dyadic) noexcept {
-  return {dyadic * real};
+constexpr PhQ::Value::SymmetricDyadic operator*(double real, const PhQ::Value::SymmetricDyadic& symmetric_dyadic) noexcept {
+  return {symmetric_dyadic * real};
 }
 
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricDyadic& dyadic) noexcept {
-  output_stream << dyadic.print();
+std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::SymmetricDyadic& symmetric_dyadic) noexcept {
+  output_stream << symmetric_dyadic.print();
   return output_stream;
 }

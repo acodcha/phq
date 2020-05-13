@@ -15,7 +15,7 @@ template <typename Unit> class DimensionalVectorQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>() {}
+  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
 
   constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
@@ -39,7 +39,7 @@ public:
     }
   }
 
-  constexpr Direction direction() const {
+  constexpr Direction direction() const noexcept {
     return {value_};
   }
 
@@ -95,36 +95,20 @@ public:
     value_ *= scalar.value();
   }
 
-  DimensionalVectorQuantity<Unit> operator/(double real) const {
-    if (real != 0.0) {
-      return {value_ / real};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr DimensionalVectorQuantity<Unit> operator/(double real) const noexcept {
+    return {value_ / real};
   }
 
-  DimensionalVectorQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
-    if (scalar.value() != 0.0) {
-      return {value_ / scalar.value()};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr DimensionalVectorQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ / scalar.value()};
   }
 
-  void operator/=(double real) {
-    if (real != 0.0) {
-      value_ /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    value_ /= real;
   }
 
-  void operator/=(const DimensionlessScalarQuantity& scalar) {
-    if (scalar.value() != 0.0) {
-      value_ /= scalar.value();
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ /= scalar.value();
   }
 
 protected:
@@ -134,6 +118,10 @@ protected:
   Value::Vector value_;
 
 };
+
+template <typename Unit> constexpr DimensionalVectorQuantity<Unit> DimensionlessScalarQuantity::operator*(const DimensionalVectorQuantity<Unit>& dimensional_vector) noexcept {
+  return {dimensional_vector * value_};
+}
 
 } // namespace PhQ
 

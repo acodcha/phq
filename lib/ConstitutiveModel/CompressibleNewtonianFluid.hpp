@@ -20,7 +20,7 @@ class CompressibleNewtonianFluid : public GenericConstitutiveModel<Type::Compres
 
 public:
 
-  constexpr CompressibleNewtonianFluid() noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>() {}
+  constexpr CompressibleNewtonianFluid() noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
 
   constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity), bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.value(), standard_unit<Unit::DynamicViscosity>}) {}
 
@@ -65,13 +65,11 @@ protected:
 
 } // namespace ConstitutiveModel
 
-constexpr bool sort(const ConstitutiveModel::CompressibleNewtonianFluid& model1, const ConstitutiveModel::CompressibleNewtonianFluid& model2) noexcept {
-  if (model1.dynamic_viscosity() < model2.dynamic_viscosity()) {
-    return true;
-  } else if (model1.dynamic_viscosity() > model2.dynamic_viscosity()) {
-    return false;
+constexpr bool sort(const ConstitutiveModel::CompressibleNewtonianFluid& model_1, const ConstitutiveModel::CompressibleNewtonianFluid& model_2) noexcept {
+  if (model_1.dynamic_viscosity() == model_2.dynamic_viscosity()) {
+    return model_1.bulk_dynamic_viscosity() < model_2.bulk_dynamic_viscosity();
   } else {
-    return model1.bulk_dynamic_viscosity() < model2.bulk_dynamic_viscosity();
+    return model_1.dynamic_viscosity() < model_2.dynamic_viscosity();
   }
 }
 

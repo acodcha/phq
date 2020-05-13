@@ -21,8 +21,6 @@ template <Type ThermodynamicStateModelType> class GenericThermodynamicStateModel
 
 public:
 
-  constexpr GenericThermodynamicStateModel() noexcept = default;
-
   constexpr Type type() const noexcept {
     return ThermodynamicStateModelType;
   }
@@ -32,6 +30,10 @@ public:
   virtual std::string json() const noexcept = 0;
 
   virtual std::string xml() const noexcept = 0;
+
+protected:
+
+  constexpr GenericThermodynamicStateModel() noexcept = default;
 
 };
 

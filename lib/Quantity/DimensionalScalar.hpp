@@ -15,7 +15,7 @@ template <typename Unit> class DimensionalScalarQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>() {}
+  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
 
   constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
@@ -23,7 +23,7 @@ public:
     return value_;
   }
 
-  constexpr double value(const Unit unit) const noexcept {
+  double value(const Unit unit) const noexcept {
     if (unit == standard_unit<Unit>) {
       return value_;
     } else {
@@ -31,7 +31,7 @@ public:
     }
   }
 
-  constexpr double value(const System system) const noexcept {
+  double value(const System system) const noexcept {
     if (system == standard_system) {
       return value_;
     } else {
@@ -91,28 +91,20 @@ public:
     value_ *= scalar.value();
   }
 
-  DimensionalScalarQuantity<Unit> operator/(double real) const {
-    if (real != 0.0) {
-      return {value_ / real};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr DimensionalScalarQuantity<Unit> operator/(double real) const noexcept {
+    return {value_ / real};
   }
 
-  double operator/(const DimensionlessScalarQuantity& scalar) const {
-    if (scalar != 0.0) {
-      return {value_ / scalar.value()};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ / scalar.value()};
   }
 
-  void operator/=(double real) {
-    if (real != 0.0) {
-      value_ /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    value_ /= real;
+  }
+
+  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ /= scalar.value();
   }
 
 protected:
@@ -123,14 +115,14 @@ protected:
 
 };
 
+template <typename Unit> constexpr DimensionalScalarQuantity<Unit> DimensionlessScalarQuantity::operator*(const DimensionalScalarQuantity<Unit>& dimensional_scalar) noexcept {
+  return {dimensional_scalar * value_};
+}
+
 } // namespace PhQ
 
 template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(double real, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
   return {scalar * real};
-}
-
-template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& dimensionless, const PhQ::DimensionalScalarQuantity<Unit>& dimensional) noexcept {
-  return {dimensional * dimensionless.value()};
 }
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {

@@ -16,13 +16,13 @@ class Vector {
 
 public:
 
-  Vector() noexcept = default;
+  constexpr Vector() noexcept : x_y_z_() {}
 
-  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept : x_y_z_{x_y_z} {}
+  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept : x_y_z_(x_y_z) {}
 
-  constexpr Vector(double x, double y, double z) noexcept : x_y_z_{x, y, z} {}
+  constexpr Vector(double x, double y, double z) noexcept : x_y_z_({x, y, z}) {}
 
-  constexpr Vector(double value, const Direction& direction) : x_y_z_{value * direction.x(), value * direction.y(), value * direction.z()} {}
+  constexpr Vector(double value, const Direction& direction) noexcept : x_y_z_({value * direction.x(), value * direction.y(), value * direction.z()}) {}
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;
@@ -44,7 +44,7 @@ public:
     return std::sqrt(std::pow(x_y_z_[0], 2) + std::pow(x_y_z_[1], 2) + std::pow(x_y_z_[2], 2));
   }
 
-  Direction direction() const {
+  constexpr Direction direction() const {
     return {*this};
   }
 
@@ -139,22 +139,14 @@ public:
     x_y_z_[2] *= real;
   }
 
-  Vector operator/(double real) const {
-    if (real != 0.0) {
-      return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr Vector operator/(double real) const noexcept {
+    return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
   }
 
-  constexpr void operator/=(double real) {
-    if (real != 0.0) {
-      x_y_z_[0] /= real;
-      x_y_z_[1] /= real;
-      x_y_z_[2] /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    x_y_z_[0] /= real;
+    x_y_z_[1] /= real;
+    x_y_z_[2] /= real;
   }
 
 protected:
@@ -165,23 +157,19 @@ protected:
 
 } // namespace Value
 
-template <> constexpr bool sort(const Value::Vector& vector1, const Value::Vector& vector2) noexcept {
-  if (vector1.x() < vector2.x()) {
-    return true;
-  } else if (vector1.x() > vector2.x()) {
-    return false;
-  } else {
-    if (vector1.y() < vector2.y()) {
-      return true;
-    } else if (vector1.y() > vector2.y()) {
-      return false;
+template <> constexpr bool sort(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept {
+  if (vector_1.x() == vector_2.x()) {
+    if (vector_1.y() == vector_2.y()) {
+      return vector_1.z() < vector_2.z();
     } else {
-      return vector1.z() < vector2.z();
+      return vector_1.y() < vector_2.y();
     }
+  } else {
+    return vector_1.x() < vector_2.x();
   }
 }
 
-Direction::Direction(const Value::Vector& vector) : Direction(vector.x(), vector.y(), vector.z()) {}
+constexpr Direction::Direction(const Value::Vector& vector) : Direction(vector.x(), vector.y(), vector.z()) {}
 
 constexpr double Direction::dot(const Value::Vector& vector) const noexcept {
   return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() + x_y_z_[2] * vector.z();

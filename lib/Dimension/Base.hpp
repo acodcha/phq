@@ -16,8 +16,6 @@ class Base {
 
 public:
 
-  constexpr Base(int_least8_t value = 0) noexcept : value_(value) {}
-
   constexpr int_least8_t value() const noexcept {
     return value_;
   }
@@ -61,6 +59,8 @@ public:
   }
 
 protected:
+
+  constexpr Base(int_least8_t value = 0) noexcept : value_(value) {}
 
   int_least8_t value_;
 

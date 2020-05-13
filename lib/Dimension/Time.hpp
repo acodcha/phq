@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::Time& time_1, const Dimension::Time& time_2) noexcept {
+  return time_1 < time_2;
+}
+
 } // namespace PhQ

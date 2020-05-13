@@ -16,7 +16,7 @@ template <typename Unit> class DimensionalDyadicQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalDyadicQuantity() noexcept : DimensionalQuantity<Unit>() {}
+  constexpr DimensionalDyadicQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
 
   constexpr DimensionalDyadicQuantity(const Value::Dyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
@@ -92,36 +92,20 @@ public:
     value_ *= scalar.value();
   }
 
-  DimensionalDyadicQuantity<Unit> operator/(double real) const {
-    if (real != 0.0) {
-      return {value_ / real};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr DimensionalDyadicQuantity<Unit> operator/(double real) const noexcept {
+    return {value_ / real};
   }
 
-  DimensionalDyadicQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const {
-    if (scalar.value() != 0.0) {
-      return {value_ / scalar.value()};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr DimensionalDyadicQuantity<Unit> operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return {value_ / scalar.value()};
   }
 
-  void operator/=(double real) {
-    if (real != 0.0) {
-      value_ /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    value_ /= real;
   }
 
-  void operator/=(const DimensionlessScalarQuantity& scalar) {
-    if (scalar.value() != 0.0) {
-      value_ /= scalar.value();
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ /= scalar.value();
   }
 
 protected:
@@ -132,18 +116,14 @@ protected:
 
 };
 
-template <typename Unit> constexpr bool sort(const DimensionalDyadicQuantity<Unit>& dyadic1, const DimensionalDyadicQuantity<Unit>& dyadic2) noexcept {
-  return sort(dyadic1.value(), dyadic2.value());
+template <typename Unit> constexpr DimensionalDyadicQuantity<Unit> DimensionlessScalarQuantity::operator*(const DimensionalDyadicQuantity<Unit>& dimensional_dyadic) noexcept {
+  return {dimensional_dyadic * value_};
 }
 
 } // namespace PhQ
 
 template <typename Unit> constexpr PhQ::DimensionalDyadicQuantity<Unit> operator*(double real, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {
   return {dyadic * real};
-}
-
-template <typename Unit> constexpr PhQ::DimensionalDyadicQuantity<Unit> operator*(const PhQ::DimensionlessScalarQuantity& scalar, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {
-  return {dyadic * scalar.value()};
 }
 
 template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalDyadicQuantity<Unit>& dyadic) noexcept {

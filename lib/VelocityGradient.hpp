@@ -53,6 +53,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const VelocityGradient& velocity_gradient_1, const VelocityGradient& velocity_gradient_2) noexcept {
+  return sort(velocity_gradient_1.value(), velocity_gradient_2.value());
+}
+
 constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate(velocity_gradient.strain_rate()) {}
 
 } // namespace PhQ

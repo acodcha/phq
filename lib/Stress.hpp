@@ -49,4 +49,8 @@ protected:
 
 };
 
+template <> constexpr bool sort(const Stress& stress_1, const Stress& stress_2) noexcept {
+  return sort(stress_1.value(), stress_2.value());
+}
+
 } // namespace PhQ

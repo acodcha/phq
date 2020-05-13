@@ -14,7 +14,7 @@ class PoissonRatio : public DimensionlessScalarQuantity {
 
 public:
 
-  PoissonRatio() noexcept : DimensionlessScalarQuantity() {}
+  constexpr PoissonRatio() noexcept : DimensionlessScalarQuantity() {}
 
   constexpr PoissonRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
 

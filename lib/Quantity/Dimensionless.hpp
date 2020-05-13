@@ -16,7 +16,7 @@ public:
 
   constexpr DimensionlessQuantity() noexcept : Quantity() {}
 
-  Dimension::Set dimension() const noexcept {
+  constexpr Dimension::Set dimension() const noexcept {
     return {};
   }
 

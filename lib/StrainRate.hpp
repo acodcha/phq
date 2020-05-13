@@ -72,6 +72,10 @@ protected:
 
 };
 
+template <> constexpr bool sort(const StrainRate& strain_rate_1, const StrainRate& strain_rate_2) noexcept {
+  return sort(strain_rate_1.value(), strain_rate_2.value());
+}
+
 constexpr StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }

@@ -16,13 +16,13 @@ class Dyadic {
 
 public:
 
-  Dyadic() noexcept = default;
+  constexpr Dyadic() noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
 
-  constexpr Dyadic(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_{xx_xy_xz_yx_yy_yz_zx_zy_zz} {}
+  constexpr Dyadic(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
-  constexpr Dyadic(double xx, double xy, double xz, double yx, double yy, double yz, double zx, double zy, double zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_{xx, xy, xz, yx, yy, yz, zx, zy, zz} {}
+  constexpr Dyadic(double xx, double xy, double xz, double yx, double yy, double yz, double zx, double zy, double zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
 
-  constexpr Dyadic(const SymmetricDyadic& dyadic) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_({dyadic.xx(), dyadic.xy(), dyadic.xz(), dyadic.yx(), dyadic.yy(), dyadic.yz(), dyadic.zx(), dyadic.zy(), dyadic.zz()}) {}
+  constexpr Dyadic(const SymmetricDyadic& symmetric_dyadic) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_({symmetric_dyadic.xx(), symmetric_dyadic.xy(), symmetric_dyadic.xz(), symmetric_dyadic.yx(), symmetric_dyadic.yy(), symmetric_dyadic.yz(), symmetric_dyadic.zx(), symmetric_dyadic.zy(), symmetric_dyadic.zz()}) {}
 
   constexpr std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
@@ -148,82 +148,82 @@ public:
       "</zy><zz>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]) + "</zz>";
   }
 
-  constexpr bool operator==(const Dyadic& dyad) const noexcept {
+  constexpr bool operator==(const Dyadic& dyadic) const noexcept {
     return
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] == dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] &&
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  constexpr bool operator!=(const Dyadic& dyad) const noexcept {
+  constexpr bool operator!=(const Dyadic& dyadic) const noexcept {
     return
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] != dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] ||
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  constexpr Dyadic operator+(const Dyadic& dyad) const noexcept {
+  constexpr Dyadic operator+(const Dyadic& dyadic) const noexcept {
     return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] + dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
     };
   }
 
-  constexpr void operator+=(const Dyadic& dyad) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+  constexpr void operator+=(const Dyadic& dyadic) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  constexpr Dyadic operator-(const Dyadic& dyad) const noexcept {
+  constexpr Dyadic operator-(const Dyadic& dyadic) const noexcept {
     return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] - dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
     };
   }
 
-  constexpr void operator-=(const Dyadic& dyad) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+  constexpr void operator-=(const Dyadic& dyadic) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
   constexpr Dyadic operator*(double real) const noexcept {
@@ -288,38 +288,30 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= real;
   }
 
-  Dyadic operator/(double real) const {
-    if (real != 0.0) {
-      return {
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] / real,
-        xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] / real
-      };
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr Dyadic operator/(double real) const noexcept {
+    return {
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] / real,
+      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] / real
+    };
   }
 
-  void operator/=(double real) {
-    if (real != 0.0) {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= real;
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator/=(double real) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= real;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= real;
   }
 
 protected:
@@ -336,17 +328,17 @@ constexpr Dyadic Vector::dyadic(const Vector& vector) const noexcept {
   };
 }
 
-constexpr Dyadic SymmetricDyadic::operator*(const SymmetricDyadic& dyadic) const noexcept {
+constexpr Dyadic SymmetricDyadic::operator*(const SymmetricDyadic& symmetric_dyadic) const noexcept {
   return {
-    xx() * dyadic.xx() + xy() * dyadic.yx() + xz() * dyadic.zx(),
-    xx() * dyadic.xy() + xy() * dyadic.yy() + xz() * dyadic.zy(),
-    xx() * dyadic.xz() + xy() * dyadic.yz() + xz() * dyadic.zz(),
-    yx() * dyadic.xx() + yy() * dyadic.yx() + yz() * dyadic.zx(),
-    yx() * dyadic.xy() + yy() * dyadic.yy() + yz() * dyadic.zy(),
-    yx() * dyadic.xz() + yy() * dyadic.yz() + yz() * dyadic.zz(),
-    zx() * dyadic.xx() + zy() * dyadic.yx() + zz() * dyadic.zx(),
-    zx() * dyadic.xy() + zy() * dyadic.yy() + zz() * dyadic.zy(),
-    zx() * dyadic.xz() + zy() * dyadic.yz() + zz() * dyadic.zz()
+    xx() * symmetric_dyadic.xx() + xy() * symmetric_dyadic.yx() + xz() * symmetric_dyadic.zx(),
+    xx() * symmetric_dyadic.xy() + xy() * symmetric_dyadic.yy() + xz() * symmetric_dyadic.zy(),
+    xx() * symmetric_dyadic.xz() + xy() * symmetric_dyadic.yz() + xz() * symmetric_dyadic.zz(),
+    yx() * symmetric_dyadic.xx() + yy() * symmetric_dyadic.yx() + yz() * symmetric_dyadic.zx(),
+    yx() * symmetric_dyadic.xy() + yy() * symmetric_dyadic.yy() + yz() * symmetric_dyadic.zy(),
+    yx() * symmetric_dyadic.xz() + yy() * symmetric_dyadic.yz() + yz() * symmetric_dyadic.zz(),
+    zx() * symmetric_dyadic.xx() + zy() * symmetric_dyadic.yx() + zz() * symmetric_dyadic.zx(),
+    zx() * symmetric_dyadic.xy() + zy() * symmetric_dyadic.yy() + zz() * symmetric_dyadic.zy(),
+    zx() * symmetric_dyadic.xz() + zy() * symmetric_dyadic.yz() + zz() * symmetric_dyadic.zz()
   };
 }
 
@@ -390,55 +382,39 @@ constexpr Value::Dyadic Value::Vector::dyadic(const Direction& direction) const 
   };
 }
 
-template <> constexpr bool sort(const Value::Dyadic& dyadic1, const Value::Dyadic& dyadic2) noexcept {
-  if (dyadic1.xx() < dyadic2.xx()) {
-    return true;
-  } else if (dyadic1.xx() > dyadic2.xx()) {
-    return false;
-  } else {
-    if (dyadic1.yy() < dyadic2.yy()) {
-      return true;
-    } else if (dyadic1.yy() > dyadic2.yy()) {
-      return false;
-    } else {
-      if (dyadic1.zz() < dyadic2.zz()) {
-        return true;
-      } else if (dyadic1.zz() > dyadic2.zz()) {
-        return false;
-      } else {
-        if (dyadic1.xy() < dyadic2.xy()) {
-          return true;
-        } else if (dyadic1.xy() > dyadic2.xy()) {
-          return false;
-        } else {
-          if (dyadic1.yx() < dyadic2.yx()) {
-            return true;
-          } else if (dyadic1.yx() > dyadic2.yx()) {
-            return false;
-          } else {
-            if (dyadic1.yz() < dyadic2.yz()) {
-              return true;
-            } else if (dyadic1.yz() > dyadic2.yz()) {
-              return false;
-            } else {
-              if (dyadic1.zy() < dyadic2.zy()) {
-                return true;
-              } else if (dyadic1.zy() > dyadic2.zy()) {
-                return false;
-              } else {
-                if (dyadic1.xz() < dyadic2.xz()) {
-                  return true;
-                } else if (dyadic1.xz() > dyadic2.xz()) {
-                  return false;
+template <> constexpr bool sort(const Value::Dyadic& dyadic_1, const Value::Dyadic& dyadic_2) noexcept {
+  if (dyadic_1.xx() == dyadic_2.xx()) {
+    if (dyadic_1.xy() == dyadic_2.xy()) {
+      if (dyadic_1.xz() == dyadic_2.xz()) {
+        if (dyadic_1.yx() == dyadic_2.yx()) {
+          if (dyadic_1.yy() == dyadic_2.yy()) {
+            if (dyadic_1.yz() == dyadic_2.yz()) {
+              if (dyadic_1.zx() == dyadic_2.zx()) {
+                if (dyadic_1.zy() == dyadic_2.zy()) {
+                  return dyadic_1.zz() < dyadic_2.zz();
                 } else {
-                  return dyadic1.zx() < dyadic2.zx();
+                  return dyadic_1.zy() < dyadic_2.zy();
                 }
+              } else {
+                return dyadic_1.zx() < dyadic_2.zx();
               }
+            } else {
+              return dyadic_1.yz() < dyadic_2.yz();
             }
+          } else {
+            return dyadic_1.yy() < dyadic_2.yy();
           }
+        } else {
+          return dyadic_1.yx() < dyadic_2.yx();
         }
+      } else {
+        return dyadic_1.xz() < dyadic_2.xz();
       }
+    } else {
+      return dyadic_1.xy() < dyadic_2.xy();
     }
+  } else {
+    return dyadic_1.xx() < dyadic_2.xx();
   }
 }
 

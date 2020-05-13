@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::ElectricCurrent& electric_current_1, const Dimension::ElectricCurrent& electric_current_2) noexcept {
+  return electric_current_1 < electric_current_2;
+}
+
 } // namespace PhQ

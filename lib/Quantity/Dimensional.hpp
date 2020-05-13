@@ -17,7 +17,7 @@ public:
 
   constexpr DimensionalQuantity() noexcept : Quantity() {}
 
-  Dimension::Set dimension() const noexcept {
+  constexpr Dimension::Set dimension() const noexcept {
     return PhQ::dimension<Unit>;
   }
 

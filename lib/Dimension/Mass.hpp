@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::Mass& mass_1, const Dimension::Mass& mass_2) noexcept {
+  return mass_1 < mass_2;
+}
+
 } // namespace PhQ

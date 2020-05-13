@@ -23,8 +23,6 @@ template <Type ConstitutiveModelType> class GenericConstitutiveModel {
 
 public:
 
-  constexpr GenericConstitutiveModel() noexcept = default;
-
   constexpr Type type() const noexcept {
     return ConstitutiveModelType;
   }
@@ -34,6 +32,10 @@ public:
   virtual std::string json() const noexcept = 0;
 
   virtual std::string xml() const noexcept = 0;
+
+protected:
+
+  constexpr GenericConstitutiveModel() noexcept = default;
 
 };
 

@@ -39,22 +39,22 @@ class Direction {
 
 public:
 
-  constexpr Direction() noexcept : x_y_z_{1.0, 0.0, 0.0} {}
+  constexpr Direction() noexcept : x_y_z_({1.0, 0.0, 0.0}) {}
 
-  Direction(const std::array<double, 3>& x_y_z) {
+  constexpr Direction(const std::array<double, 3>& x_y_z) : x_y_z_() {
     const double magnitude{std::sqrt(std::pow(x_y_z[0], 2) + std::pow(x_y_z[1], 2) + std::pow(x_y_z[2], 2))};
     if (magnitude > 0.0) {
       x_y_z_[0] = x_y_z[0] / magnitude;
       x_y_z_[1] = x_y_z[1] / magnitude;
       x_y_z_[2] = x_y_z[2] / magnitude;
     } else {
-      throw std::runtime_error{"Attempting to create a cartesian direction from (0, 0, 0)."};
+      throw std::runtime_error{"Attempting to create a direction from (0, 0, 0)."};
     }
   }
 
-  Direction(double x, double y, double z) : Direction(std::array<double, 3>{x, y, z}) {}
+  constexpr Direction(double x, double y, double z) : Direction(std::array<double, 3>{x, y, z}) {}
 
-  Direction(const Value::Vector& vector);
+  constexpr Direction(const Value::Vector& vector);
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;
@@ -73,7 +73,7 @@ public:
   }
 
   constexpr double magnitude() const noexcept {
-    return 1.0;
+    return std::sqrt(std::pow(x_y_z_[0], 2) + std::pow(x_y_z_[1], 2) + std::pow(x_y_z_[2], 2));
   }
 
   constexpr double dot(const Direction& direction) const noexcept {
@@ -82,7 +82,7 @@ public:
 
   constexpr double dot(const Value::Vector& vector) const noexcept;
 
-  Direction cross(const Direction& direction) const noexcept {
+  constexpr Direction cross(const Direction& direction) const noexcept {
     return {
       x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
       x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
@@ -163,19 +163,15 @@ private:
 
 };
 
-template <> constexpr bool sort(const Direction& direction1, const Direction& direction2) noexcept {
-  if (direction1.x() < direction2.x()) {
-    return true;
-  } else if (direction1.x() > direction2.x()) {
-    return false;
-  } else {
-    if (direction1.y() < direction2.y()) {
-      return true;
-    } else if (direction1.y() > direction2.y()) {
-      return false;
+template <> constexpr bool sort(const Direction& direction_1, const Direction& direction_2) noexcept {
+  if (direction_1.x() == direction_2.x()) {
+    if (direction_1.y() == direction_2.y()) {
+      return direction_1.z() < direction_2.z();
     } else {
-      return direction1.z() < direction2.z();
+      return direction_1.y() < direction_2.y();
     }
+  } else {
+    return direction_1.x() < direction_2.x();
   }
 }
 

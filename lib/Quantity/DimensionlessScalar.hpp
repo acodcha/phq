@@ -10,11 +10,19 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class DimensionlessDyadicQuantity;
+class DimensionlessSymmetricDyadicQuantity;
+template <typename Unit> class DimensionalDyadicQuantity;
+template <typename Unit> class DimensionalScalarQuantity;
+template <typename Unit> class DimensionalSymmetricDyadicQuantity;
+template <typename Unit> class DimensionalVectorQuantity;
+
 class DimensionlessScalarQuantity : public DimensionlessQuantity {
 
 public:
 
-  DimensionlessScalarQuantity() noexcept : DimensionlessQuantity() {}
+  constexpr DimensionlessScalarQuantity() noexcept : DimensionlessQuantity(), value_() {}
 
   constexpr DimensionlessScalarQuantity(double value) noexcept : DimensionlessQuantity(), value_(value) {}
 
@@ -94,32 +102,44 @@ public:
     return {value_ * real};
   }
 
+  constexpr double operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ * scalar.value_;
+  }
+
+  constexpr DimensionlessSymmetricDyadicQuantity operator*(const DimensionlessSymmetricDyadicQuantity& symmetric_dyadic) const noexcept;
+
+  constexpr DimensionlessDyadicQuantity operator*(const DimensionlessDyadicQuantity& dyadic) const noexcept;
+
+  template <typename Unit> constexpr DimensionalScalarQuantity<Unit> operator*(const DimensionalScalarQuantity<Unit>& dimensional_scalar) noexcept;
+
+  template <typename Unit> constexpr DimensionalVectorQuantity<Unit> operator*(const DimensionalVectorQuantity<Unit>& dimensional_vector) noexcept;
+
+  template <typename Unit> constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(const DimensionalSymmetricDyadicQuantity<Unit>& dimensional_symmetric_dyadic) noexcept;
+
+  template <typename Unit> constexpr DimensionalDyadicQuantity<Unit> operator*(const DimensionalDyadicQuantity<Unit>& dimensional_dyadic) noexcept;
+
   constexpr void operator*=(double real) noexcept {
     value_ *= real;
   }
 
-  DimensionlessScalarQuantity operator/(double real) const {
-    if (real != 0.0) {
-      return {value_ / real};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ *= scalar.value_;
   }
 
-  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const {
-    if (scalar.value_ != 0.0) {
-      return value_ / scalar.value_;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + scalar.print() + "."};
-    }
+  constexpr DimensionlessScalarQuantity operator/(double real) const noexcept {
+    return {value_ / real};
   }
 
-  constexpr void operator/=(double real) {
-    if (real != 0.0) {
-      value_ /= real;
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by 0."};
-    }
+  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
+    return value_ / scalar.value_;
+  }
+
+  constexpr void operator/=(double real) noexcept {
+    value_ /= real;
+  }
+
+  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
+    value_ /= scalar.value_;
   }
 
 protected:
@@ -128,8 +148,8 @@ protected:
 
 };
 
-template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar1, const DimensionlessScalarQuantity& scalar2) noexcept {
-  return scalar1.value() < scalar2.value();
+template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar_1, const DimensionlessScalarQuantity& scalar_2) noexcept {
+  return scalar_1.value() < scalar_2.value();
 }
 
 } // namespace PhQ
@@ -146,12 +166,8 @@ constexpr PhQ::DimensionlessScalarQuantity operator*(double real, const PhQ::Dim
   return {scalar * real};
 }
 
-constexpr double operator/(double real, const PhQ::DimensionlessScalarQuantity& scalar) {
-  if (scalar.value() != 0.0) {
-    return real / scalar.value();
-  } else {
-    throw std::runtime_error{"Division of " + PhQ::number_to_string(real) + " by " + scalar.print() + "."};
-  }
+constexpr double operator/(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
+  return real / scalar.value();
 }
 
 namespace std {

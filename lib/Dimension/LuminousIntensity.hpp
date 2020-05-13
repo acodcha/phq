@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::LuminousIntensity& luminous_intensity_1, const Dimension::LuminousIntensity& luminous_intensity_2) noexcept {
+  return luminous_intensity_1 < luminous_intensity_2;
+}
+
 } // namespace PhQ

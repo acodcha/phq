@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::SubstanceAmount& substance_amount_1, const Dimension::SubstanceAmount& substance_amount_2) noexcept {
+  return substance_amount_1 < substance_amount_2;
+}
+
 } // namespace PhQ

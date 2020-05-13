@@ -30,7 +30,7 @@ public:
     const ElectricCurrent& electric_current = {},
     const Temperature& temperature = {},
     const SubstanceAmount& substance_amount = {},
-    const LuminousIntensity& luminous_intensity = {})
+    const LuminousIntensity& luminous_intensity = {}) noexcept
   : length_(length),
     mass_(mass),
     time_(time),
@@ -144,43 +144,31 @@ private:
 
 } // namespace Dimension
 
-template <> constexpr bool sort(const Dimension::Set& set1, const Dimension::Set& set2) noexcept {
-  if (set1.length() < set2.length()) {
-    return true;
-  } else if (set1.length() > set2.length()) {
-    return false;
-  } else {
-    if (set1.mass() < set2.mass()) {
-      return true;
-    } else if (set1.mass() > set2.mass()) {
-      return false;
-    } else {
-      if (set1.time() < set2.time()) {
-        return true;
-      } else if (set1.time() > set2.time()) {
-        return false;
-      } else {
-        if (set1.electric_current() < set2.electric_current()) {
-          return true;
-        } else if (set1.electric_current() > set2.electric_current()) {
-          return false;
-        } else {
-          if (set1.temperature() < set2.temperature()) {
-            return true;
-          } else if (set1.temperature() > set2.temperature()) {
-            return false;
-          } else {
-            if (set1.substance_amount() < set2.substance_amount()) {
-              return true;
-            } else if (set1.substance_amount() > set2.substance_amount()) {
-              return false;
+template <> constexpr bool sort(const Dimension::Set& set_1, const Dimension::Set& set_2) noexcept {
+  if (set_1.length() == set_2.length()) {
+    if (set_1.mass() == set_2.mass()) {
+      if (set_1.time() == set_2.time()) {
+        if (set_1.electric_current() == set_2.electric_current()) {
+          if (set_1.temperature() == set_2.temperature()) {
+            if (set_1.substance_amount() == set_2.substance_amount()) {
+              return set_1.luminous_intensity() < set_2.luminous_intensity();
             } else {
-              return set1.luminous_intensity() < set2.luminous_intensity();
+              return set_1.substance_amount() < set_2.substance_amount();
             }
+          } else {
+            return set_1.temperature() < set_2.temperature();
           }
+        } else {
+          return set_1.electric_current() < set_2.electric_current();
         }
+      } else {
+        return set_1.time() < set_2.time();
       }
+    } else {
+      return set_1.mass() < set_2.mass();
     }
+  } else {
+    return set_1.length() < set_2.length();
   }
 }
 

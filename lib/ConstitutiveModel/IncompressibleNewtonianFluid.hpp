@@ -19,7 +19,7 @@ class IncompressibleNewtonianFluid : public GenericConstitutiveModel<Type::Incom
 
 public:
 
-  constexpr IncompressibleNewtonianFluid() noexcept : GenericConstitutiveModel<Type::IncompressibleNewtonianFluid>() {}
+  constexpr IncompressibleNewtonianFluid() noexcept : GenericConstitutiveModel<Type::IncompressibleNewtonianFluid>(), dynamic_viscosity_() {}
 
   constexpr IncompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::IncompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity) {}
 
@@ -32,14 +32,9 @@ public:
     return {{2.0 * dynamic_viscosity_.value() * strain_rate.value()}, standard_unit<Unit::Pressure>};
   }
 
-  StrainRate strain_rate(const Stress& stress) const {
+  constexpr StrainRate strain_rate(const Stress& stress) const noexcept {
     // strain_rate = stress / (2 * dynamic_viscosity)
-    const double denominator{2.0 * dynamic_viscosity_.value()};
-    if (denominator != 0.0) {
-      return {{stress.value() / denominator}, standard_unit<Unit::Frequency>};
-    } else {
-      throw std::runtime_error{"Division of " + stress.print() + " by " + dynamic_viscosity_.print() + "."};
-    }
+    return {{stress.value() / (2.0 * dynamic_viscosity_.value())}, standard_unit<Unit::Frequency>};
   }
 
   std::string print() const noexcept {

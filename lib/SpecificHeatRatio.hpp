@@ -23,7 +23,7 @@ class SpecificHeatRatio : public DimensionlessScalarQuantity {
 
 public:
 
-  SpecificHeatRatio() noexcept : DimensionlessScalarQuantity() {}
+  constexpr SpecificHeatRatio() noexcept : DimensionlessScalarQuantity() {}
 
   constexpr SpecificHeatRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
 

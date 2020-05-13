@@ -26,4 +26,8 @@ public:
 
 } // namespace Dimension
 
+template <> constexpr bool sort(const Dimension::Temperature& temperature_1, const Dimension::Temperature& temperature_2) noexcept {
+  return temperature_1 < temperature_2;
+}
+
 } // namespace PhQ

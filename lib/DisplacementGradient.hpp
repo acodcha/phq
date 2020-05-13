@@ -49,6 +49,10 @@ public:
 
 };
 
+template <> constexpr bool sort(const DisplacementGradient& displacement_gradient_1, const DisplacementGradient& displacement_gradient_2) noexcept {
+  return sort(displacement_gradient_1.value(), displacement_gradient_2.value());
+}
+
 constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain(displacement_gradient.strain()) {}
 
 } // namespace PhQ

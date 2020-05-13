@@ -20,26 +20,13 @@ class PerfectGas : public GenericThermodynamicStateModel<Type::PerfectGas> {
 
 public:
 
-  constexpr PerfectGas() noexcept : GenericThermodynamicStateModel<Type::PerfectGas>() {}
+  constexpr PerfectGas() noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(), specific_gas_constant_() {}
 
   constexpr PerfectGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_heat_ratio * specific_isochoric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity_ - specific_isochoric_heat_capacity) {}
 
-  PerfectGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {
-    if (specific_heat_ratio != 0.0) {
-      specific_gas_constant_ = {specific_isobaric_heat_capacity.value() * (1.0 - 1.0 / specific_heat_ratio.value()), standard_unit<Unit::SpecificHeatCapacity>};
-    } else {
-      throw std::runtime_error{"Division of " + number_to_string(1.0) + " by " + specific_heat_ratio.print() + "."};
-    }
-  }
+  constexpr PerfectGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity.value() * (1.0 - 1.0 / specific_heat_ratio.value()), standard_unit<Unit::SpecificHeatCapacity>) {}
 
-  PerfectGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificGasConstant& specific_gas_constant) : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_gas_constant_(specific_gas_constant) {
-    const double denominator{specific_heat_ratio.value() - 1.0};
-    if (denominator != 0.0) {
-      specific_isobaric_heat_capacity_ = {specific_heat_ratio.value() * specific_gas_constant.value() / denominator, standard_unit<Unit::SpecificHeatCapacity>};
-    } else {
-      throw std::runtime_error{"Division of " + number_to_string(1.0) + " by " + number_to_string(denominator) + "."};
-    }
-  }
+  constexpr PerfectGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificGasConstant& specific_gas_constant) noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_heat_ratio.value() * specific_gas_constant.value() / (specific_heat_ratio.value() - 1.0), standard_unit<Unit::SpecificHeatCapacity>), specific_gas_constant_(specific_gas_constant) {}
 
   constexpr PerfectGas(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity - specific_isochoric_heat_capacity) {}
 
@@ -47,13 +34,8 @@ public:
 
   constexpr PerfectGas(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const SpecificGasConstant& specific_gas_constant) noexcept : GenericThermodynamicStateModel<Type::PerfectGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_gas_constant) {}
 
-  SpecificHeatRatio specific_heat_ratio() const {
-    const SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity_{specific_isochoric_heat_capacity()};
-    if (specific_isochoric_heat_capacity_.value() != 0.0) {
-      return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity_};
-    } else {
-      throw std::runtime_error{"Division of " + specific_isobaric_heat_capacity_.print() + " by " + specific_isochoric_heat_capacity_.print() + "."};
-    }
+  constexpr SpecificHeatRatio specific_heat_ratio() const noexcept {
+    return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity()};
   }
 
   constexpr SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
@@ -68,26 +50,16 @@ public:
     return specific_gas_constant_;
   }
 
-  MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const {
-    const double denominator{temperature.value() * specific_gas_constant_.value()};
-    if (denominator != 0.0) {
-      return {static_pressure.value() / denominator, standard_unit<Unit::MassDensity>};
-    } else {
-      throw std::runtime_error{"Division of " + static_pressure.print() + " by " + number_to_string(denominator) + "."};
-    }
+  constexpr MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const noexcept {
+    return {static_pressure.value() / (temperature.value() * specific_gas_constant_.value()), standard_unit<Unit::MassDensity>};
   }
 
   constexpr StaticPressure static_pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
     return {mass_density.value() * temperature.value() * specific_gas_constant_.value(), standard_unit<Unit::Pressure>};
   }
 
-  Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const {
-    const double denominator{mass_density.value() * specific_gas_constant_.value()};
-    if (denominator != 0.0) {
-      return {static_pressure.value() / denominator, standard_unit<Unit::Temperature>};
-    } else {
-      throw std::runtime_error{"Division of " + static_pressure.print() + " by " + number_to_string(denominator) + "."};
-    }
+  constexpr Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const noexcept {
+    return {static_pressure.value() / (mass_density.value() * specific_gas_constant_.value()), standard_unit<Unit::Temperature>};
   }
 
   std::string print() const noexcept {
@@ -113,12 +85,10 @@ protected:
 } // namespace ThermodynamicStateModel
 
 constexpr bool sort(const ThermodynamicStateModel::PerfectGas& model_1, const ThermodynamicStateModel::PerfectGas& model_2) noexcept {
-  if (model_1.specific_isobaric_heat_capacity() < model_2.specific_isobaric_heat_capacity()) {
-    return true;
-  } else if (model_1.specific_isobaric_heat_capacity() > model_2.specific_isobaric_heat_capacity()) {
-    return false;
-  } else {
+  if (model_1.specific_isobaric_heat_capacity() == model_2.specific_isobaric_heat_capacity()) {
     return model_1.specific_gas_constant() < model_2.specific_gas_constant();
+  } else {
+    return model_1.specific_isobaric_heat_capacity() < model_2.specific_isobaric_heat_capacity();
   }
 }
 
