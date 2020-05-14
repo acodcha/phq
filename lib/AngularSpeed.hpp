@@ -69,22 +69,14 @@ public:
 
   constexpr AngularAccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
 
-  AngularAccelerationMagnitude operator/(const Duration& duration) const;
+  constexpr AngularAccelerationMagnitude operator/(const Duration& duration) const noexcept;
 
-  Angle operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Angle operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Angle& angle) const {
-    if (angle.value_ != 0.0) {
-      return {value_ / angle.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + angle.print() + "."};
-    }
+  constexpr Frequency operator/(const Angle& angle) const noexcept {
+    return {value_ / angle.value_};
   }
 
 protected:
@@ -110,8 +102,8 @@ constexpr AngularSpeed Frequency::operator*(const Angle& angle) const noexcept {
   return {value_ * angle.value_};
 }
 
-AngularSpeed Angle::operator/(const Duration& time) const {
-
+constexpr AngularSpeed Angle::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

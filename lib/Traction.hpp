@@ -82,12 +82,8 @@ constexpr Traction StaticPressure::operator*(const Direction& direction) const n
   return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
 }
 
-Traction Force::operator/(const Area& area) const {
-  if (area.value_ != 0.0) {
-    return {value_ / area.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + area.print() + "."};
-  }
+constexpr Traction Force::operator/(const Area& area) const noexcept {
+  return {value_ / area.value_};
 }
 
 } // namespace PhQ

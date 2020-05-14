@@ -64,23 +64,15 @@ public:
     return {value_ * duration.value_};
   }
 
-  Energy operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Energy operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Energy& energy) const {
-    if (energy.value_ != 0.0) {
-      return {value_ / energy.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + energy.print() + "."};
-    }
+  constexpr Frequency operator/(const Energy& energy) const noexcept {
+    return {value_ / energy.value_};
   }
 
-  SpecificPower operator/(const Mass& mass) const;
+  constexpr SpecificPower operator/(const Mass& mass) const noexcept;
 
 protected:
 
@@ -111,12 +103,8 @@ constexpr Power Energy::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }
 
-Power Energy::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr Power Energy::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

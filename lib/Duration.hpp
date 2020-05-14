@@ -41,7 +41,7 @@ public:
 
   constexpr Duration(double value, Unit::Time unit) noexcept : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
-  Frequency frequency() const;
+  constexpr Frequency frequency() const noexcept;
 
   constexpr bool operator==(const Duration& duration) const noexcept {
     return value_ == duration.value_;

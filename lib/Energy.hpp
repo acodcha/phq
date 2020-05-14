@@ -69,9 +69,9 @@ public:
 
   constexpr Power operator*(const Frequency& frequency) const noexcept;
 
-  Power operator/(const Duration& duration) const;
+  constexpr Power operator/(const Duration& duration) const noexcept;
 
-  SpecificEnergy operator/(const Mass& mass) const;
+  constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
 
 protected:
 

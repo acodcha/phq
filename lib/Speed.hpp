@@ -75,22 +75,14 @@ public:
 
   constexpr Velocity operator*(const Direction& direction) const noexcept;
 
-  AccelerationMagnitude operator/(const Duration& duration) const;
+  constexpr AccelerationMagnitude operator/(const Duration& duration) const noexcept;
 
-  Length operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Length operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Length& length) const {
-    if (length.value_ != 0.0) {
-      return {value_ / length.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + length.print() + "."};
-    }
+  constexpr Frequency operator/(const Length& length) const noexcept {
+    return {value_ / length.value_};
   }
 
 protected:
@@ -118,12 +110,8 @@ constexpr Speed Frequency::operator*(const Length& length) const noexcept {
   return {value_ * length.value_};
 }
 
-Speed Length::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr Speed Length::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

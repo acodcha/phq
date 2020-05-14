@@ -64,7 +64,7 @@ public:
 
   constexpr Velocity operator*(const Frequency& frequency) const noexcept;
 
-  Velocity operator/(const Duration& duration) const;
+  constexpr Velocity operator/(const Duration& duration) const noexcept;
 
 protected:
 

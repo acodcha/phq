@@ -62,22 +62,14 @@ public:
     value_ -= isobaric_heat_capacity.value_;
   }
 
-  SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
+  constexpr SpecificIsobaricHeatCapacity operator/(const Mass& mass) const noexcept;
 
-  SpecificHeatRatio operator/(const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    if (isochoric_heat_capacity.value_ != 0.0) {
-      return {value_ / isochoric_heat_capacity.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + isochoric_heat_capacity.print() + "."};
-    }
+  constexpr SpecificHeatRatio operator/(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+    return {value_ / isochoric_heat_capacity.value_};
   }
 
-  IsochoricHeatCapacity operator/(const SpecificHeatRatio& specific_heat_ratio) const {
-    if (specific_heat_ratio.value_ != 0.0) {
-      return {value_ / specific_heat_ratio.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + specific_heat_ratio.print() + "."};
-    }
+  constexpr IsochoricHeatCapacity operator/(const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+    return {value_ / specific_heat_ratio.value_};
   }
 
 protected:

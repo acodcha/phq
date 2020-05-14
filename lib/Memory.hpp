@@ -66,7 +66,7 @@ public:
 
   constexpr MemoryRate operator*(const Frequency& frequency) const noexcept;
 
-  MemoryRate operator/(const Duration& duration) const;
+  constexpr MemoryRate operator/(const Duration& duration) const noexcept;
 
 protected:
 

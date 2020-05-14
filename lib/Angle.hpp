@@ -98,7 +98,7 @@ public:
 
   constexpr AngularSpeed operator*(const Frequency& frequency) const noexcept;
 
-  AngularSpeed operator/(const Duration& time) const;
+  constexpr AngularSpeed operator/(const Duration& duration) const noexcept;
 
 protected:
 

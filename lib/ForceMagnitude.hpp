@@ -68,7 +68,7 @@ public:
 
   constexpr Force operator*(const Direction& direction) const noexcept;
 
-  StaticPressure operator/(const Area& area) const;
+  constexpr StaticPressure operator/(const Area& area) const noexcept;
 
 protected:
 

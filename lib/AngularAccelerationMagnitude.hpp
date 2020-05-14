@@ -11,7 +11,6 @@
 
 namespace PhQ {
 
-
 class AngularAccelerationMagnitude : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
 
 public:
@@ -64,20 +63,12 @@ public:
     return {value_ * duration.value_};
   }
 
-  AngularSpeed operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr AngularSpeed operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const AngularSpeed& angular_speed) const {
-    if (angular_speed.value_ != 0.0) {
-      return {value_ / angular_speed.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + angular_speed.print() + "."};
-    }
+  constexpr Frequency operator/(const AngularSpeed& angular_speed) const noexcept {
+    return {value_ / angular_speed.value_};
   }
 
 protected:
@@ -102,12 +93,8 @@ constexpr AngularAccelerationMagnitude AngularSpeed::operator*(const Frequency& 
   return {value_ * frequency.value_};
 }
 
-AngularAccelerationMagnitude AngularSpeed::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr AngularAccelerationMagnitude AngularSpeed::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

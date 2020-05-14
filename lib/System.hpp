@@ -55,6 +55,7 @@ template <> const std::unordered_map<std::string, System> spellings<System>{
   {"mm g", System::MillimetreGramSecondKelvin},
   {"mm, g", System::MillimetreGramSecondKelvin},
   {"mm", System::MillimetreGramSecondKelvin},
+  {"g", System::MillimetreGramSecondKelvin},
   {"ft·lbf·s·°R", System::FootPoundSecondRankine},
   {"ft-lbf-s-°R", System::FootPoundSecondRankine},
   {"ft lbf s °R", System::FootPoundSecondRankine},

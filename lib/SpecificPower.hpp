@@ -67,20 +67,12 @@ public:
     return {value_ * mass.value_};
   }
 
-  SpecificEnergy operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr SpecificEnergy operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const SpecificEnergy& specific_energy) const {
-    if (specific_energy.value_ != 0.0) {
-      return {value_ / specific_energy.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + specific_energy.print() + "."};
-    }
+  constexpr Frequency operator/(const SpecificEnergy& specific_energy) const noexcept {
+    return {value_ / specific_energy.value_};
   }
 
 protected:
@@ -112,24 +104,16 @@ constexpr SpecificPower Frequency::operator*(const SpecificEnergy& specific_ener
   return {value_ * specific_energy.value_};
 }
 
-SpecificPower Power::operator/(const Mass& mass) const {
-  if (mass.value_ != 0.0) {
-    return {value_ / mass.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-  }
+constexpr SpecificPower Power::operator/(const Mass& mass) const noexcept {
+  return {value_ / mass.value_};
 }
 
 constexpr SpecificPower SpecificEnergy::operator*(const Frequency& frequency) const noexcept {
   return {value_ * frequency.value_};
 }
 
-SpecificPower SpecificEnergy::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr SpecificPower SpecificEnergy::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

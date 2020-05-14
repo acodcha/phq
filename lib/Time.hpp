@@ -10,9 +10,6 @@
 
 namespace PhQ {
 
-// Forward declaration.
-class Duration;
-
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 
 public:

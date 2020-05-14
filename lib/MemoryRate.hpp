@@ -64,20 +64,12 @@ public:
     return {value_ + duration.value_};
   }
 
-  Memory operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Memory operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Memory& memory) const {
-    if (memory.value_ != 0.0) {
-      return {value_ / memory.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + memory.print() + "."};
-    }
+  constexpr Frequency operator/(const Memory& memory) const noexcept {
+    return {value_ / memory.value_};
   }
 
 protected:
@@ -102,12 +94,8 @@ constexpr MemoryRate Memory::operator*(const Frequency& frequency) const noexcep
   return {value_ * frequency.value_};
 }
 
-MemoryRate Memory::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr MemoryRate Memory::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

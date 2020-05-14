@@ -15,7 +15,7 @@ class VelocityGradient : public DimensionalDyadicQuantity<Unit::Frequency> {
 
 public:
 
-  VelocityGradient() noexcept : DimensionalDyadicQuantity<Unit::Frequency>() {}
+  constexpr VelocityGradient() noexcept : DimensionalDyadicQuantity<Unit::Frequency>() {}
 
   constexpr VelocityGradient(const Value::Dyadic& value, const Unit::Frequency& unit) noexcept : DimensionalDyadicQuantity<Unit::Frequency>(value, unit) {}
 

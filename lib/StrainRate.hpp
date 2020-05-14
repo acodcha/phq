@@ -54,12 +54,8 @@ public:
     return {value_ * duration.value_};
   }
 
-  Strain operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Strain operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
 protected:
@@ -80,12 +76,8 @@ constexpr StrainRate Strain::operator*(const Frequency& frequency) const noexcep
   return {value_ * frequency.value_};
 }
 
-StrainRate Strain::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr StrainRate Strain::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 constexpr Strain Duration::operator*(const StrainRate& strain_rate) const noexcept {

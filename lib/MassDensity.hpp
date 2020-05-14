@@ -85,12 +85,8 @@ template <> constexpr bool sort(const MassDensity& mass_density_1, const MassDen
   return mass_density_1.value() < mass_density_2.value();
 }
 
-MassDensity Mass::operator/(const Volume& volume) const {
-  if (volume.value_ != 0.0) {
-    return {value_ / volume.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + volume.print() + "."};
-  }
+constexpr MassDensity Mass::operator/(const Volume& volume) const noexcept {
+  return {value_ / volume.value_};
 }
 
 constexpr Mass Volume::operator*(const MassDensity& mass_density) const noexcept {

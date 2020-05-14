@@ -75,12 +75,8 @@ public:
 
   constexpr AreaVector operator*(const Direction& direction) const noexcept;
 
-  Length operator/(const Length& length) const {
-    if (length.value_ != 0.0) {
-      return {value_ / length.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + length.print() + "."};
-    }
+  constexpr Length operator/(const Length& length) const noexcept {
+    return {value_ / length.value_};
   }
 
 protected:

@@ -60,20 +60,12 @@ public:
     value_ -= dynamic_viscosity.value_;
   }
 
-  KinematicViscosity operator/(const MassDensity& mass_density) const {
-    if (mass_density.value_ != 0.0) {
-      return {value_ / mass_density.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + mass_density.print() + "."};
-    }
+  constexpr KinematicViscosity operator/(const MassDensity& mass_density) const noexcept {
+    return {value_ / mass_density.value_};
   }
 
-  MassDensity operator/(const KinematicViscosity& kinematic_viscosity) const {
-    if (kinematic_viscosity.value_ != 0.0) {
-      return {value_ / kinematic_viscosity.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + kinematic_viscosity.print() + "."};
-    }
+  constexpr MassDensity operator/(const KinematicViscosity& kinematic_viscosity) const noexcept {
+    return {value_ / kinematic_viscosity.value_};
   }
 
 protected:

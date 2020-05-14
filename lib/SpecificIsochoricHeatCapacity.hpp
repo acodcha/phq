@@ -89,12 +89,8 @@ constexpr IsochoricHeatCapacity Mass::operator*(const SpecificIsochoricHeatCapac
   return {value_ * specific_isochoric_heat_capacity.value_};
 }
 
-SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(const Mass& mass) const {
-  if (mass.value_ != 0.0) {
-    return {value_ / mass.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-  }
+constexpr SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(const Mass& mass) const noexcept {
+  return {value_ / mass.value_};
 }
 
 } // namespace PhQ

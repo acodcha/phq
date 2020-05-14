@@ -87,12 +87,8 @@ constexpr GasConstant Mass::operator*(const SpecificGasConstant& specific_gas_co
   return {value_ * specific_gas_constant.value_};
 }
 
-SpecificGasConstant GasConstant::operator/(const Mass& mass) const {
-  if (mass.value_ != 0.0) {
-    return {value_ / mass.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-  }
+constexpr SpecificGasConstant GasConstant::operator/(const Mass& mass) const noexcept {
+  return {value_ / mass.value_};
 }
 
 constexpr SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator+(const SpecificGasConstant& specific_gas_constant) const noexcept {

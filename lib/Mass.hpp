@@ -88,9 +88,9 @@ public:
 
   constexpr GasConstant operator*(const SpecificGasConstant& specific_gas_constant) const noexcept;
 
-  MassDensity operator/(const Volume& volume) const;
+  constexpr MassDensity operator/(const Volume& volume) const noexcept;
 
-  MassRate operator/(const Duration& duration) const;
+  constexpr MassRate operator/(const Duration& duration) const noexcept;
 
 protected:
 

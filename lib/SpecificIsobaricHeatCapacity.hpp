@@ -99,12 +99,8 @@ constexpr SpecificIsobaricHeatCapacity SpecificHeatRatio::operator*(const Specif
   return {value_ * specific_isochoric_heat_capacity.value_};
 }
 
-SpecificIsobaricHeatCapacity IsobaricHeatCapacity::operator/(const Mass& mass) const {
-  if (mass.value_ != 0.0) {
-    return {value_ / mass.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-  }
+constexpr SpecificIsobaricHeatCapacity IsobaricHeatCapacity::operator/(const Mass& mass) const noexcept {
+  return {value_ / mass.value_};
 }
 
 constexpr SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept {

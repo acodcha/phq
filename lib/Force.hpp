@@ -55,7 +55,7 @@ public:
     value_ -= force.value_;
   }
 
-  Traction operator/(const Area& area) const;
+  constexpr Traction operator/(const Area& area) const noexcept;
 
 protected:
 

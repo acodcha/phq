@@ -65,7 +65,7 @@ public:
     value_ -= gas_constant.value_;
   }
 
-  SpecificGasConstant operator/(const Mass& mass) const;
+  constexpr SpecificGasConstant operator/(const Mass& mass) const noexcept;
 
 protected:
 
