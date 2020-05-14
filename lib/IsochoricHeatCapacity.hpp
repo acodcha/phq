@@ -64,7 +64,7 @@ public:
 
   constexpr IsobaricHeatCapacity operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept;
 
-  SpecificIsochoricHeatCapacity operator/(const Mass& mass) const;
+  constexpr SpecificIsochoricHeatCapacity operator/(const Mass& mass) const noexcept;
 
 protected:
 

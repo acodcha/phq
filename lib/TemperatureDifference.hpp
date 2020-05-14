@@ -74,7 +74,7 @@ public:
 
   constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
 
-  TemperatureGradientMagnitude operator/(const Length& length) const;
+  constexpr TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
 
 protected:
 

@@ -27,6 +27,10 @@ template <typename Enumeration> std::optional<Enumeration> parse(const std::stri
   }
 }
 
-template <class Type> constexpr bool sort(const Type& type1, const Type& type2) noexcept;
+template <class Type> constexpr bool sort(const Type& type_1, const Type& type_2) noexcept;
+
+template <> constexpr bool sort(const double& real_1, const double& real_2) noexcept {
+  return real_1 < real_2;
+}
 
 } // namespace PhQ

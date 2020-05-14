@@ -79,7 +79,7 @@ public:
 
   constexpr Displacement operator*(const Direction& direction) const noexcept;
 
-  Speed operator/(const Duration& time) const;
+  constexpr Speed operator/(const Duration& duration) const noexcept;
 
 protected:
 

@@ -20,7 +20,7 @@ class Strain : public DimensionlessSymmetricDyadicQuantity {
 
 public:
 
-  Strain() noexcept : DimensionlessSymmetricDyadicQuantity() {}
+  constexpr Strain() noexcept : DimensionlessSymmetricDyadicQuantity() {}
 
   constexpr Strain(const Value::SymmetricDyadic& value) noexcept : DimensionlessSymmetricDyadicQuantity(value) {}
 
@@ -52,7 +52,7 @@ public:
 
   constexpr StrainRate operator*(const Frequency& frequency) const noexcept;
 
-  StrainRate operator/(const Duration& duration) const;
+  constexpr StrainRate operator/(const Duration& duration) const noexcept;
 
   friend class Duration;
   friend class Frequency;

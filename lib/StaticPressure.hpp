@@ -90,12 +90,8 @@ constexpr ForceMagnitude Area::operator*(const StaticPressure& static_pressure) 
   return {value_ * static_pressure.value_};
 }
 
-StaticPressure ForceMagnitude::operator/(const Area& area) const {
-  if (area.value_ != 0.0) {
-    return {value_ / area.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + area.print() + "."};
-  }
+constexpr StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
+  return {value_ / area.value_};
 }
 
 } // namespace PhQ

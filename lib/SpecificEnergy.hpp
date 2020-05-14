@@ -69,7 +69,7 @@ public:
     return {value_ * mass.value_};
   }
 
-  SpecificPower operator/(const Duration& duration) const;
+  constexpr SpecificPower operator/(const Duration& duration) const noexcept;
 
 protected:
 
@@ -92,12 +92,8 @@ constexpr Energy Mass::operator*(const SpecificEnergy& specific_energy) const no
   return {value_ * specific_energy.value_};
 }
 
-SpecificEnergy Energy::operator/(const Mass& mass) const {
-  if (mass.value_ != 0.0) {
-    return {value_ / mass.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-  }
+constexpr SpecificEnergy Energy::operator/(const Mass& mass) const noexcept {
+  return {value_ / mass.value_};
 }
 
 } // namespace PhQ

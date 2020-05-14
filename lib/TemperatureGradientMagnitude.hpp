@@ -26,7 +26,7 @@ public:
 
   constexpr TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept;
 
-  TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference / length) {}
+  constexpr TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference / length) {}
 
   constexpr bool operator==(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
     return value_ == temperature_gradient_magnitude.value_;
@@ -88,12 +88,8 @@ template <> constexpr bool sort(const TemperatureGradientMagnitude& temperature_
   return temperature_gradient_magnitude_1.value() < temperature_gradient_magnitude_2.value();
 }
 
-TemperatureGradientMagnitude TemperatureDifference::operator/(const Length& length) const {
-  if (length.value() != 0.0) {
-    return {value_ / length.value()};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + length.print() + "."};
-  }
+constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(const Length& length) const noexcept {
+  return {value_ / length.value()};
 }
 
 } // namespace PhQ

@@ -25,12 +25,8 @@ public:
 
   constexpr Frequency(double value, Unit::Frequency unit) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
-  Duration period() const {
-    if (value_ != 0.0) {
-      return {1.0 / value_};
-    } else {
-      throw std::runtime_error{"Inversion of " + print() + "."};
-    }
+  constexpr Duration period() const noexcept {
+    return {1.0 / value_};
   }
 
   constexpr bool operator==(const Frequency& frequency) const noexcept {
@@ -132,12 +128,8 @@ template <> constexpr bool sort(const Frequency& frequency_1, const Frequency& f
   return frequency_1.value() < frequency_2.value();
 }
 
-Frequency Duration::frequency() const {
-  if (value_ != 0.0) {
-    return {1.0 / value_};
-  } else {
-    throw std::runtime_error{"Inversion of " + print() + "."};
-  }
+constexpr Frequency Duration::frequency() const noexcept {
+  return {1.0 / value_};
 }
 
 constexpr double Duration::operator*(const Frequency& frequency) const noexcept {

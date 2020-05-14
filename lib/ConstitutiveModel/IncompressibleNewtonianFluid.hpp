@@ -57,8 +57,8 @@ protected:
 
 } // namespace ConstitutiveModel
 
-constexpr bool sort(const ConstitutiveModel::IncompressibleNewtonianFluid& model1, const ConstitutiveModel::IncompressibleNewtonianFluid& model2) noexcept {
-  return sort(model1.dynamic_viscosity(), model2.dynamic_viscosity());
+constexpr bool sort(const ConstitutiveModel::IncompressibleNewtonianFluid& model_1, const ConstitutiveModel::IncompressibleNewtonianFluid& model_2) noexcept {
+  return sort(model_1.dynamic_viscosity(), model_2.dynamic_viscosity());
 }
 
 } // namespace PhQ

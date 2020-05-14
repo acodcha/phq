@@ -60,14 +60,10 @@ public:
 
   constexpr Acceleration operator*(const Frequency& frequency) const noexcept;
 
-  Acceleration operator/(const Duration& duration) const;
+  constexpr Acceleration operator/(const Duration& duration) const noexcept;
 
-  Displacement operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Displacement operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
 protected:
@@ -107,12 +103,8 @@ constexpr Velocity Displacement::operator*(const Frequency& frequency) const noe
   return {value_ * frequency.value_};
 }
 
-Velocity Displacement::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr Velocity Displacement::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

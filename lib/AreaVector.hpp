@@ -53,6 +53,10 @@ public:
     value_ -= area_vector.value_;
   }
 
+  constexpr Direction operator/(const Area& area) const noexcept {
+    return {value_ / area.value_};
+  }
+
 protected:
 
   constexpr AreaVector(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Area>(value) {}

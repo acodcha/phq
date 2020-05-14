@@ -64,20 +64,12 @@ public:
     return {value_ * duration.value_};
   }
 
-  Volume operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Volume operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Volume& volume) const {
-    if (volume.value_ != 0.0) {
-      return {value_ / volume.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + volume.print() + "."};
-    }
+  constexpr Frequency operator/(const Volume& volume) const noexcept {
+    return {value_ / volume.value_};
   }
 
 protected:
@@ -106,12 +98,8 @@ constexpr VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
   return {value_ * volume.value_};
 }
 
-VolumeRate Volume::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr VolumeRate Volume::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

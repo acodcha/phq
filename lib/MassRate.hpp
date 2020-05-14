@@ -64,20 +64,12 @@ public:
     return {value_ * duration.value_};
   }
 
-  Mass operator/(const Frequency& frequency) const {
-    if (frequency.value_ != 0.0) {
-      return {value_ / frequency.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + frequency.print() + "."};
-    }
+  constexpr Mass operator/(const Frequency& frequency) const noexcept {
+    return {value_ / frequency.value_};
   }
 
-  Frequency operator/(const Mass& mass) const {
-    if (mass.value_ != 0.0) {
-      return {value_ / mass.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + mass.print() + "."};
-    }
+  constexpr Frequency operator/(const Mass& mass) const noexcept {
+    return {value_ / mass.value_};
   }
 
 protected:
@@ -106,12 +98,8 @@ constexpr MassRate Frequency::operator*(const Mass& mass) const noexcept {
   return {value_ * mass.value_};
 }
 
-MassRate Mass::operator/(const Duration& duration) const {
-  if (duration.value_ != 0.0) {
-    return {value_ / duration.value_};
-  } else {
-    throw std::runtime_error{"Division of " + print() + " by " + duration.print() + "."};
-  }
+constexpr MassRate Mass::operator/(const Duration& duration) const noexcept {
+  return {value_ / duration.value_};
 }
 
 } // namespace PhQ

@@ -70,23 +70,15 @@ public:
 
   constexpr VolumeRate operator*(const Frequency& frequency) const noexcept;
 
-  Area operator/(const Length& length) const {
-    if (length.value_ != 0.0) {
-      return {value_ / length.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + length.print() + "."};
-    }
+  constexpr Area operator/(const Length& length) const noexcept {
+    return {value_ / length.value_};
   }
 
-  Length operator/(const Area& area) const {
-    if (area.value_ != 0.0) {
-      return {value_ / area.value_};
-    } else {
-      throw std::runtime_error{"Division of " + print() + " by " + area.print() + "."};
-    }
+  constexpr Length operator/(const Area& area) const noexcept {
+    return {value_ / area.value_};
   }
 
-  VolumeRate operator/(const Duration& duration) const;
+  constexpr VolumeRate operator/(const Duration& duration) const noexcept;
 
 protected:
 
