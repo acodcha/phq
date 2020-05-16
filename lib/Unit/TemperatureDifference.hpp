@@ -59,22 +59,26 @@ template <size_t size> const std::map<Unit::TemperatureDifference, std::map<Unit
     {Unit::TemperatureDifference::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::TemperatureDifference::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::TemperatureDifference::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}}}},
+    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}}
+  }},
   {Unit::TemperatureDifference::Celsius, {
     {Unit::TemperatureDifference::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::TemperatureDifference::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::TemperatureDifference::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}}}},
+    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}}
+  }},
   {Unit::TemperatureDifference::Rankine, {
     {Unit::TemperatureDifference::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
     {Unit::TemperatureDifference::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
     {Unit::TemperatureDifference::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}},
+    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }},
   {Unit::TemperatureDifference::Fahrenheit, {
     {Unit::TemperatureDifference::Kelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
     {Unit::TemperatureDifference::Celsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
     {Unit::TemperatureDifference::Rankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::TemperatureDifference::Fahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

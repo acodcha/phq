@@ -55,76 +55,52 @@ template <> constexpr const Dimension::Set dimension<Unit::MemoryRate>{Dimension
 template <size_t size> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::function<void(std::array<double, size>&)>>> conversions<Unit::MemoryRate, size>{
   {Unit::MemoryRate::BitPerSecond, {
     {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.125;});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.125 / 1024.0;});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.125 / std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.125 / std::pow(1024.0, 3);});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.125 / std::pow(1024.0, 4);});}}}},
+    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125;});}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 / 1024.0;});}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 / std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 / std::pow(1024.0, 3);});}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 / std::pow(1024.0, 4);});}}
+  }},
   {Unit::MemoryRate::BytePerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 8.0;});}},
+    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0;});}},
     {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1024.0;});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 3);});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 4);});}}}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 4);});}}
+  }},
   {Unit::MemoryRate::KilobytePerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 8.0 * 1024.0;});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1024.0;});}},
+    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 * 1024.0;});}},
+    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1024.0;});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 3);});}}}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}}
+  }},
   {Unit::MemoryRate::MegabytePerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 8.0 * std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1024.0;});}},
+    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 * std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1024.0;});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1024.0, 2);});}}}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}}
+  }},
   {Unit::MemoryRate::GigabytePerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 8.0 * std::pow(1024.0, 3);});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 3);});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1024.0;});}},
+    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 * std::pow(1024.0, 3);});}},
+    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
     {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1024.0;});}}}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}}
+  }},
   {Unit::MemoryRate::TerabytePerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 8.0 * std::pow(1024.0, 4);});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 4);});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 3);});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1024.0, 2);});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1024.0;});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::MemoryRate::BitPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 * std::pow(1024.0, 4);});}},
+    {Unit::MemoryRate::BytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 4);});}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
+    {Unit::MemoryRate::TerabytePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

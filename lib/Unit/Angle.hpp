@@ -68,7 +68,8 @@ template <size_t size> const std::map<Unit::Angle, std::map<Unit::Angle, std::fu
     {Unit::Angle::Arcminute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 10800.0 / M_PI;});}},
     {Unit::Angle::Arcsecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 648000.0 / M_PI;});}}}},
+      value *= 648000.0 / M_PI;});}}
+  }},
   {Unit::Angle::Degree, {
     {Unit::Angle::Radian, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= M_PI / 180.0;});}},
@@ -76,7 +77,8 @@ template <size_t size> const std::map<Unit::Angle, std::map<Unit::Angle, std::fu
     {Unit::Angle::Arcminute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= 60.0;});}},
     {Unit::Angle::Arcsecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 3600.0;});}}}},
+      value *= 3600.0;});}}
+  }},
   {Unit::Angle::Arcminute, {
     {Unit::Angle::Radian, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= M_PI / 10800.0;});}},
@@ -84,7 +86,8 @@ template <size_t size> const std::map<Unit::Angle, std::map<Unit::Angle, std::fu
       value /= 60.0;});}},
     {Unit::Angle::Arcminute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Angle::Arcsecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 60.0;});}}}},
+      value *= 60.0;});}}
+  }},
   {Unit::Angle::Arcsecond, {
     {Unit::Angle::Radian, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value *= M_PI / 648000.0;});}},
@@ -92,7 +95,8 @@ template <size_t size> const std::map<Unit::Angle, std::map<Unit::Angle, std::fu
       value /= 3600.0;});}},
     {Unit::Angle::Arcminute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
       value /= 60.0;});}},
-    {Unit::Angle::Arcsecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::Angle::Arcsecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ
