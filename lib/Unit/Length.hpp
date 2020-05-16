@@ -126,292 +126,172 @@ template <> constexpr const Dimension::Set dimension<Unit::Length>{Dimension::Se
 template <size_t size> const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::array<double, size>&)>>> conversions<Unit::Length, size>{
   {Unit::Length::Mile, {
     {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.609344;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1760.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1609.344;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 5280.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 16093.44;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 63360.0;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 160934.4;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1609344.0;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 63360000.0;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1609344000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 63360000000.0;});}}}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.609344;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1760.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1609.344;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 5280.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 16093.44;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 63360.0;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 160934.4;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1609344.0;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 63360000.0;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1609344000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 63360000000.0;});}}
+  }},
   {Unit::Length::Kilometre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.609344;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.609344;});}},
     {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0009144;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000.0;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0003048;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 10000.0;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000254;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 100000.0;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000000.0;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000000254;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000000000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000000000254;});}}}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0009144;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0003048;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10000.0;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000254;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 100000.0;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000000254;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000000000254;});}}
+  }},
   {Unit::Length::Yard, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1760.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0009144;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1760.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0009144;});}},
     {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.9144;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 3.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 9.144;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 36.0;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 91.44;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 914.4;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 36000.0;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 914400.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 36000000.0;});}}}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.9144;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.144;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 36.0;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 91.44;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 914.4;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 36000.0;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 914400.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 36000000.0;});}}
+  }},
   {Unit::Length::Metre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1609.344;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.001;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.9144;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1609.344;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.9144;});}},
     {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.3048;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 10.0;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0254;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 100.0;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000.0;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000254;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000000254;});}}}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 100.0;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000254;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000000254;});}}
+  }},
   {Unit::Length::Foot, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 5280.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0003048;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 3.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.3048;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 5280.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048;});}},
     {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 3.048;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 12.0;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 30.48;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 304.8;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 12000.0;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 304800.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 12000000.0;});}}}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.048;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.48;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 304.8;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12000.0;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 304800.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12000000.0;});}}
+  }},
   {Unit::Length::Decimetre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 16093.44;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0001;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 9.144;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.1;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 3.048;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 16093.44;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0001;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 9.144;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3.048;});}},
     {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.254;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 10.0;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 100.0;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.000254;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 100000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.000000254;});}}}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.254;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 100.0;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.000254;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 100000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.000000254;});}}
+  }},
   {Unit::Length::Inch, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 63360.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000254;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 36.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 12.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.254;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 63360.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 36.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.254;});}},
     {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 2.54;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 25.4;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000.0;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 25400.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000000.0;});}}}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.54;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 25.4;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 25400.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}}
+  }},
   {Unit::Length::Centimetre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 160934.4;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.00001;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 91.44;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.01;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 30.48;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.1;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 2.54;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 160934.4;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.00001;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 91.44;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.01;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 30.48;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 2.54;});}},
     {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 10.0;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.00254;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 10000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.00000254;});}}}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.00254;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.00000254;});}}
+  }},
   {Unit::Length::Millimetre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1609344.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000001;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 914.4;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.001;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 304.8;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.01;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 25.4;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.1;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1609344.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 914.4;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 304.8;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.01;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 25.4;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
     {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0254;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000.0;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0000254;});}}}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000254;});}}
+  }},
   {Unit::Length::Milliinch, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 63360000.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000000254;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 36000.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000254;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 12000.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000254;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.001;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.00254;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 63360000.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000000254;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 36000.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12000.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000254;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.00254;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
     {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 25.4;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1000.0;});}}}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 25.4;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}}
+  }},
   {Unit::Length::Micrometre, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1609344000.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000000001;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 914400.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000001;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 304800.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.00001;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 25400.0;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0001;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.001;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 25.4;});}},
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1609344000.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000000001;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 914400.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 304800.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.00001;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 25400.0;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0001;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 25.4;});}},
     {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0254;});}}}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}}
+  }},
   {Unit::Length::Microinch, {
-    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 63360000000.0;});}},
-    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000000000254;});}},
-    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 36000000.0;});}},
-    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000000254;});}},
-    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 12000000.0;});}},
-    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000000254;});}},
-    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.000001;});}},
-    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.00000254;});}},
-    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0000254;});}},
-    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.001;});}},
-    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254;});}},
-    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::Length::Mile, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 63360000000.0;});}},
+    {Unit::Length::Kilometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000000000254;});}},
+    {Unit::Length::Yard, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 36000000.0;});}},
+    {Unit::Length::Metre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000000254;});}},
+    {Unit::Length::Foot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12000000.0;});}},
+    {Unit::Length::Decimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000000254;});}},
+    {Unit::Length::Inch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
+    {Unit::Length::Centimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.00000254;});}},
+    {Unit::Length::Millimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254;});}},
+    {Unit::Length::Milliinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::Length::Micrometre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
+    {Unit::Length::Microinch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

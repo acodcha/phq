@@ -176,22 +176,26 @@ template <size_t size> const std::map<Unit::SpecificPower, std::map<Unit::Specif
     {Unit::SpecificPower::WattPerKilogram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2);});}},
-    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}}},
+    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}
+  }},
   {Unit::SpecificPower::NanowattPerGram, {
     {Unit::SpecificPower::WattPerKilogram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2);});}},
-    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}}}},
+    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}}
+  }},
   {Unit::SpecificPower::FootPoundPerSlugPerSecond, {
     {Unit::SpecificPower::WattPerKilogram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2);});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2);});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}}},
+    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}
+  }},
   {Unit::SpecificPower::InchPoundPerSlinchPerSecond, {
     {Unit::SpecificPower::WattPerKilogram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
-    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

@@ -85,166 +85,103 @@ template <> constexpr const Dimension::Set dimension<Unit::Energy>{Dimension::Se
 template <size_t size> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<void(std::array<double, size>&)>>> conversions<Unit::Energy, size>{
   {Unit::Energy::Joule, {
     {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Millijoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Microjoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-15;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Nanojoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-15;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-18;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-18;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Kilojoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
     {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Megajoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e15;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::Gigajoule, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e15;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e18;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e18;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Energy::FootPound, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 12.0;});}}}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
+  }},
   {Unit::Energy::InchPound, {
-    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 12.0;});}},
-    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::Energy::Joule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Millijoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Microjoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Nanojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Kilojoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Megajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::Gigajoule, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Energy::FootPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
+    {Unit::Energy::InchPound, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

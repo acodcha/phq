@@ -148,392 +148,228 @@ template <> constexpr const Dimension::Set dimension<Unit::VolumeRate>{Dimension
 template <size_t size> const std::map<Unit::VolumeRate, std::map<Unit::VolumeRate, std::function<void(std::array<double, size>&)>>> conversions<Unit::VolumeRate, size>{
   {Unit::VolumeRate::CubicMilePerSecond, {
     {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1.609344, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1760.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609.344, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(5280.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(16093.44, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(16093.44, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360.0, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(160934.4, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(160934.4, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609344.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609344000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360000000.0, 3);});}}}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1.609344, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1760.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609.344, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(5280.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(16093.44, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(16093.44, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360.0, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(160934.4, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(160934.4, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609344.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609344000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360000000.0, 3);});}}
+  }},
   {Unit::VolumeRate::CubicKilometrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1.609344, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1.609344, 3);});}},
     {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0009144, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0003048, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000000254, 3);});}}}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0009144, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0003048, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000000254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicYardPerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1760.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0009144, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1760.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0009144, 3);});}},
     {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.9144, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(3.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(9.144, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(9.144, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36.0, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(91.44, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(91.44, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(914.4, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(914400.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36000000.0, 3);});}}}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.9144, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(9.144, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(9.144, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36.0, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(91.44, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(91.44, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(914.4, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(914400.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36000000.0, 3);});}}
+  }},
   {Unit::VolumeRate::CubicMetrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609.344, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.9144, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609.344, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.9144, 3);});}},
     {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.3048, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000254, 3);});}}}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicFootPerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(5280.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0003048, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(3.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.3048, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(5280.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0003048, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 3);});}},
     {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(3.048, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(3.048, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12.0, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(30.48, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(30.48, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(304.8, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(304800.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12000000.0, 3);});}}}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.048, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.048, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(30.48, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(30.48, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304800.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12000000.0, 3);});}}
+  }},
   {Unit::VolumeRate::CubicDecimetrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(16093.44, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(9.144, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(3.048, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(16093.44, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(9.144, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.048, 3);});}},
     {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.254, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000000254, 3);});}}}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.254, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000000254, 3);});}}
+  }},
   {Unit::VolumeRate::LitrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(16093.44, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(9.144, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(3.048, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(16093.44, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(9.144, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.048, 3);});}},
     {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.254, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000000254, 3);});}}}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.254, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000000254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicInchPerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.254, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.254, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.254, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.254, 3);});}},
     {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(2.54, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(2.54, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25.4, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25400.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 3);});}}}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(2.54, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(2.54, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25400.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 3);});}}
+  }},
   {Unit::VolumeRate::CubicCentimetrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(160934.4, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(91.44, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(30.48, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(2.54, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(160934.4, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(91.44, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(30.48, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(2.54, 3);});}},
     {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00000254, 3);});}}}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00000254, 3);});}}
+  }},
   {Unit::VolumeRate::MillilitrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(160934.4, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(91.44, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(30.48, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(2.54, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(160934.4, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(91.44, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(30.48, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(2.54, 3);});}},
     {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00000254, 3);});}}}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00000254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicMillimetrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609344.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(914.4, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(304.8, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25.4, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609344.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(914.4, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 3);});}},
     {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 3);});}}}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicMilliinchPerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360000.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000254, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36000.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12000.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000254, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000254, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00254, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00254, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360000.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000254, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36000.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12000.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000254, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000254, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00254, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00254, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 3);});}},
     {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25.4, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 3);});}}}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 3);});}}
+  }},
   {Unit::VolumeRate::CubicMicrometrePerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609344000.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000000001, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(914400.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(304800.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25400.0, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25.4, 3);});}},
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609344000.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000000001, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(914400.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304800.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25400.0, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 3);});}},
     {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 3);});}}}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 3);});}}
+  }},
   {Unit::VolumeRate::CubicMicroinchPerSecond, {
-    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360000000.0, 3);});}},
-    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000000254, 3);});}},
-    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36000000.0, 3);});}},
-    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000254, 3);});}},
-    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12000000.0, 3);});}},
-    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000000254, 3);});}},
-    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000000254, 3);});}},
-    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 3);});}},
-    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00000254, 3);});}},
-    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00000254, 3);});}},
-    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 3);});}},
-    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 3);});}},
-    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 3);});}},
-    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::VolumeRate::CubicMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360000000.0, 3);});}},
+    {Unit::VolumeRate::CubicKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000000254, 3);});}},
+    {Unit::VolumeRate::CubicYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36000000.0, 3);});}},
+    {Unit::VolumeRate::CubicMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000254, 3);});}},
+    {Unit::VolumeRate::CubicFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12000000.0, 3);});}},
+    {Unit::VolumeRate::CubicDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000000254, 3);});}},
+    {Unit::VolumeRate::LitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000000254, 3);});}},
+    {Unit::VolumeRate::CubicInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 3);});}},
+    {Unit::VolumeRate::CubicCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00000254, 3);});}},
+    {Unit::VolumeRate::MillilitrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00000254, 3);});}},
+    {Unit::VolumeRate::CubicMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 3);});}},
+    {Unit::VolumeRate::CubicMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 3);});}},
+    {Unit::VolumeRate::CubicMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 3);});}},
+    {Unit::VolumeRate::CubicMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

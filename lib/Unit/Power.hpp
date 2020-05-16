@@ -85,166 +85,103 @@ template <> constexpr const Dimension::Set dimension<Unit::Power>{Dimension::Set
 template <size_t size> const std::map<Unit::Power, std::map<Unit::Power, std::function<void(std::array<double, size>&)>>> conversions<Unit::Power, size>{
   {Unit::Power::Watt, {
     {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Milliwatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Microwatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-15;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Nanowatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-12;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-15;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-18;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-18;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Kilowatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
     {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Megawatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e15;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::Gigawatt, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e12;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e15;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e18;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e18;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}
+  }},
   {Unit::Power::FootPoundPerSecond, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 12.0;});}}}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
+  }},
   {Unit::Power::InchPoundPerSecond, {
-    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= 12.0;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::Power::Watt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Milliwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Microwatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Nanowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Kilowatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Megawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::Gigawatt, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
+    {Unit::Power::FootPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
+    {Unit::Power::InchPoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

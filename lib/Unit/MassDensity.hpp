@@ -77,42 +77,48 @@ template <size_t size> const std::map<Unit::MassDensity, std::map<Unit::MassDens
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 4) / (0.45359237 * 9.80665);});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 4) / (0.45359237 * 9.80665);});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 3) / 0.45359237;});}},
-    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 3) / 0.45359237;});}}}},
+    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 3) / 0.45359237;});}}
+  }},
   {Unit::MassDensity::GramPerCubicMillimetre, {
     {Unit::MassDensity::KilogramPerCubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
     {Unit::MassDensity::GramPerCubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.3048, 4) / (0.45359237 * 9.80665);});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.0254, 4) / (0.45359237 * 9.80665);});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.3048, 3) / 0.45359237;});}},
-    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.0254, 3) / 0.45359237;});}}}},
+    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.0254, 3) / 0.45359237;});}}
+  }},
   {Unit::MassDensity::SlugPerCubicFoot, {
     {Unit::MassDensity::KilogramPerCubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);});}},
     {Unit::MassDensity::GramPerCubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / (1000000.0 * std::pow(0.3048, 4));});}},
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 4);});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.3048;});}},
-    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / (0.3048 * std::pow(12.0, 3));});}}}},
+    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / (0.3048 * std::pow(12.0, 3));});}}
+  }},
   {Unit::MassDensity::SlinchPerCubicInch, {
     {Unit::MassDensity::KilogramPerCubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);});}},
     {Unit::MassDensity::GramPerCubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / (1000000.0 * std::pow(0.0254, 4));});}},
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 4);});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 * std::pow(12.0, 3) / 0.0254;});}},
-    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}}},
+    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}
+  }},
   {Unit::MassDensity::PoundPerCubicFoot, {
     {Unit::MassDensity::KilogramPerCubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 / std::pow(0.3048, 3);});}},
     {Unit::MassDensity::GramPerCubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 / (1000000.0 * std::pow(0.3048, 3));});}},
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / 9.80665;});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (9.80665 * std::pow(12.0, 3));});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 3);});}}}},
+    {Unit::MassDensity::PoundPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 3);});}}
+  }},
   {Unit::MassDensity::PoundPerCubicInch, {
     {Unit::MassDensity::KilogramPerCubicMetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 / std::pow(0.0254, 3);});}},
     {Unit::MassDensity::GramPerCubicMillimetre, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 / (1000000.0 * std::pow(0.0254, 3));});}},
     {Unit::MassDensity::SlugPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 * std::pow(12.0, 3) / 9.80665;});}},
     {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / 9.80665;});}},
     {Unit::MassDensity::PoundPerCubicFoot, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 3);});}},
-    {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::MassDensity::SlinchPerCubicInch, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ

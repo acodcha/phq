@@ -136,292 +136,172 @@ template <> constexpr const Dimension::Set dimension<Unit::Diffusivity>{Dimensio
 template <size_t size> const std::map<Unit::Diffusivity, std::map<Unit::Diffusivity, std::function<void(std::array<double, size>&)>>> conversions<Unit::Diffusivity, size>{
   {Unit::Diffusivity::SquareMilePerSecond, {
     {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1.609344, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1760.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609.344, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(5280.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(16093.44, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360.0, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(160934.4, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609344.0, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1609344000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(63360000000.0, 2);});}}}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1.609344, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1760.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609.344, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(5280.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(16093.44, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360.0, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(160934.4, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609344.0, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609344000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(63360000000.0, 2);});}}
+  }},
   {Unit::Diffusivity::SquareKilometrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1.609344, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1.609344, 2);});}},
     {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0009144, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0003048, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000254, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000000254, 2);});}}}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0009144, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0003048, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000254, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000000254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareYardPerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1760.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0009144, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1760.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0009144, 2);});}},
     {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.9144, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(3.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(9.144, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36.0, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(91.44, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(914.4, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(914400.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(36000000.0, 2);});}}}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.9144, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(9.144, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36.0, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(91.44, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(914.4, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(914400.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(36000000.0, 2);});}}
+  }},
   {Unit::Diffusivity::SquareMetrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609.344, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.9144, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609.344, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.9144, 2);});}},
     {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.3048, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000000254, 2);});}}}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000000254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareFootPerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(5280.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0003048, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(3.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.3048, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(5280.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0003048, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2);});}},
     {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(3.048, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12.0, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(30.48, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(304.8, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(304800.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(12000000.0, 2);});}}}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.048, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(30.48, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304800.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12000000.0, 2);});}}
+  }},
   {Unit::Diffusivity::SquareDecimetrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(16093.44, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(9.144, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(3.048, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(16093.44, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(9.144, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.048, 2);});}},
     {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.254, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100.0, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000254, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(100000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.000000254, 2);});}}}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.254, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000254, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.000000254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareInchPerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.254, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.254, 2);});}},
     {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(2.54, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25.4, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25400.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000000.0, 2);});}}}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(2.54, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25400.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000000.0, 2);});}}
+  }},
   {Unit::Diffusivity::SquareCentimetrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(160934.4, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(91.44, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(30.48, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(2.54, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(160934.4, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(91.44, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(30.48, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(2.54, 2);});}},
     {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10.0, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00254, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(10000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.00000254, 2);});}}}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00254, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00000254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareMillimetrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609344.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(914.4, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(304.8, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.01, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25.4, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.1, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609344.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(914.4, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
     {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0000254, 2);});}}}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareMilliinchPerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360000.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000254, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36000.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12000.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000254, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00254, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360000.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000254, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36000.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12000.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000254, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00254, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
     {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(25.4, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(1000.0, 2);});}}}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}}
+  }},
   {Unit::Diffusivity::SquareMicrometrePerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(1609344000.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000000001, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(914400.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(304800.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00001, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25400.0, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0001, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(25.4, 2);});}},
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609344000.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000000001, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(914400.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304800.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00001, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25400.0, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}},
     {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(0.0254, 2);});}}}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}
+  }},
   {Unit::Diffusivity::SquareMicroinchPerSecond, {
-    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(63360000000.0, 2);});}},
-    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000000254, 2);});}},
-    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(36000000.0, 2);});}},
-    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000000254, 2);});}},
-    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value /= std::pow(12000000.0, 2);});}},
-    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000000254, 2);});}},
-    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.000001, 2);});}},
-    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.00000254, 2);});}},
-    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0000254, 2);});}},
-    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.001, 2);});}},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{
-      value *= std::pow(0.0254, 2);});}},
-    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}}}
+    {Unit::Diffusivity::SquareMilePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(63360000000.0, 2);});}},
+    {Unit::Diffusivity::SquareKilometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000000254, 2);});}},
+    {Unit::Diffusivity::SquareYardPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(36000000.0, 2);});}},
+    {Unit::Diffusivity::SquareMetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000000254, 2);});}},
+    {Unit::Diffusivity::SquareFootPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12000000.0, 2);});}},
+    {Unit::Diffusivity::SquareDecimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000000254, 2);});}},
+    {Unit::Diffusivity::SquareInchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.000001, 2);});}},
+    {Unit::Diffusivity::SquareCentimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00000254, 2);});}},
+    {Unit::Diffusivity::SquareMillimetrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 2);});}},
+    {Unit::Diffusivity::SquareMilliinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::Diffusivity::SquareMicrometrePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
+    {Unit::Diffusivity::SquareMicroinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+  }}
 };
 
 } // namespace PhQ
