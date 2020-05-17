@@ -70,7 +70,7 @@ protected:
 };
 
 template <> constexpr bool sort(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient_1, const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient_2) noexcept {
-  return volumetric_thermal_expansion_coefficient_1.value() < volumetric_thermal_expansion_coefficient_2.value();
+  return sort(volumetric_thermal_expansion_coefficient_1.value(), volumetric_thermal_expansion_coefficient_2.value());
 }
 
 constexpr double TemperatureDifference::operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {

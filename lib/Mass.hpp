@@ -36,6 +36,10 @@ public:
 
   constexpr Mass(double value, Unit::Mass unit) noexcept : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
+  constexpr Mass(const MassDensity& mass_density, const Volume& volume) noexcept;
+
+  // TODO: Add Mass from MassRate constructors.
+
   constexpr bool operator==(const Mass& mass) const noexcept {
     return value_ == mass.value_;
   }
@@ -92,6 +96,8 @@ public:
 
   constexpr MassRate operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const MassRate& mass_rate) const noexcept;
+
 protected:
 
   constexpr Mass(double value) noexcept : DimensionalScalarQuantity<Unit::Mass>(value) {}
@@ -115,7 +121,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept {
-  return mass_1.value() < mass_2.value();
+  return sort(mass_1.value(), mass_2.value());
 }
 
 } // namespace PhQ

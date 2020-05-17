@@ -25,8 +25,12 @@ public:
 
   constexpr Frequency(double value, Unit::Frequency unit) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
+  constexpr Frequency(const Duration& duration) noexcept : Frequency(1.0 / duration.value()) {}
+
+  // TODO: Add all the Frequency constructors, see Duration.
+
   constexpr Duration period() const noexcept {
-    return {1.0 / value_};
+    return {*this};
   }
 
   constexpr bool operator==(const Frequency& frequency) const noexcept {
@@ -125,11 +129,13 @@ protected:
 };
 
 template <> constexpr bool sort(const Frequency& frequency_1, const Frequency& frequency_2) noexcept {
-  return frequency_1.value() < frequency_2.value();
+  return sort(frequency_1.value(), frequency_2.value());
 }
 
+constexpr Duration::Duration(const Frequency& frequency) noexcept : Duration(1.0 / frequency.value()) {}
+
 constexpr Frequency Duration::frequency() const noexcept {
-  return {1.0 / value_};
+  return {*this};
 }
 
 constexpr double Duration::operator*(const Frequency& frequency) const noexcept {

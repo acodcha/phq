@@ -27,6 +27,8 @@ public:
 
   constexpr Energy(double value, Unit::Energy unit) noexcept : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
+  // TODO: Add Energy constructors.
+
   constexpr bool operator==(const Energy& energy) const noexcept {
     return value_ == energy.value_;
   }
@@ -70,6 +72,8 @@ public:
   constexpr Power operator*(const Frequency& frequency) const noexcept;
 
   constexpr Power operator/(const Duration& duration) const noexcept;
+
+  constexpr Duration operator/(const Power& power) const noexcept;
 
   constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
 

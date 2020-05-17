@@ -11,6 +11,11 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class MassDensity;
+class ThermalConductivity;
+class ThermalDiffusivity;
+
 class SpecificIsobaricHeatCapacity : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 
 public:
@@ -18,6 +23,8 @@ public:
   constexpr SpecificIsobaricHeatCapacity() noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
 
   constexpr SpecificIsobaricHeatCapacity(double value, Unit::SpecificHeatCapacity unit) noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
+
+  constexpr SpecificIsobaricHeatCapacity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const MassDensity& mass_density) noexcept;
 
   constexpr bool operator==(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
     return value_ == specific_isobaric_heat_capacity.value_;
@@ -88,7 +95,7 @@ protected:
 };
 
 template <> constexpr bool sort(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity_1, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity_2) noexcept {
-  return specific_isobaric_heat_capacity_1.value() < specific_isobaric_heat_capacity_2.value();
+  return sort(specific_isobaric_heat_capacity_1.value(), specific_isobaric_heat_capacity_2.value());
 }
 
 constexpr IsobaricHeatCapacity Mass::operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {

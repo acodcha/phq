@@ -15,6 +15,9 @@ namespace PhQ {
 // Forward declarations.
 class DynamicViscosity;
 class KinematicViscosity;
+class SpecificIsobaricHeatCapacity;
+class ThermalConductivity;
+class ThermalDiffusivity;
 
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 
@@ -23,6 +26,10 @@ public:
   constexpr MassDensity() noexcept : DimensionalScalarQuantity<Unit::MassDensity>() {}
 
   constexpr MassDensity(double value, Unit::MassDensity unit) noexcept : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
+
+  constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept : MassDensity(mass.value() / volume.value()) {}
+
+  constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
   constexpr bool operator==(const MassDensity& mass_density) const noexcept {
     return value_ == mass_density.value_;
@@ -65,7 +72,7 @@ public:
   }
 
   constexpr Mass operator*(const Volume& volume) const noexcept {
-    return {value_ * volume.value_};
+    return {*this, volume};
   }
 
   constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
@@ -82,15 +89,19 @@ protected:
 };
 
 template <> constexpr bool sort(const MassDensity& mass_density_1, const MassDensity& mass_density_2) noexcept {
-  return mass_density_1.value() < mass_density_2.value();
+  return sort(mass_density_1.value(), mass_density_2.value());
 }
 
+constexpr Volume::Volume(const MassDensity& mass_density, const Mass& mass) noexcept : Volume(mass.value() / mass_density.value()) {}
+
+constexpr Mass::Mass(const MassDensity& mass_density, const Volume& volume) noexcept : Mass(mass_density.value() * volume.value()) {}
+
 constexpr MassDensity Mass::operator/(const Volume& volume) const noexcept {
-  return {value_ / volume.value_};
+  return {*this, volume};
 }
 
 constexpr Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
-  return {value_ * mass_density.value_};
+  return {mass_density, *this};
 }
 
 } // namespace PhQ

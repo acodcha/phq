@@ -20,6 +20,10 @@ public:
 
   constexpr VolumeRate(double value, Unit::VolumeRate unit) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
+  constexpr VolumeRate(const Volume& volume, const Duration& duration) noexcept : VolumeRate(volume.value() / duration.value()) {}
+
+  constexpr VolumeRate(const Volume& volume, const Frequency& frequency) noexcept : VolumeRate(volume.value() * frequency.value()) {}
+
   constexpr bool operator==(const VolumeRate& volume_rate) const noexcept {
     return value_ == volume_rate.value_;
   }
@@ -83,23 +87,33 @@ protected:
 };
 
 template <> constexpr bool sort(const VolumeRate& volume_rate_1, const VolumeRate& volume_rate_2) noexcept {
-  return volume_rate_1.value() < volume_rate_2.value();
+  return sort(volume_rate_1.value(), volume_rate_2.value());
 }
 
+constexpr Volume::Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept : Volume(volume_rate.value() * duration.value()) {}
+
+constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept : Volume(volume_rate.value() / frequency.value()) {}
+
+constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept : Duration(volume.value() / volume_rate.value()) {}
+
 constexpr Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
-  return {value_ * volume_rate.value_};
+  return {volume_rate, *this};
 }
 
 constexpr VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
+}
+
+constexpr Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
+  return {volume_rate, *this};
 }
 
 constexpr VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
-  return {value_ * volume.value_};
+  return {volume, *this};
 }
 
 constexpr VolumeRate Volume::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 } // namespace PhQ

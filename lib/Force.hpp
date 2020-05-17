@@ -23,12 +23,16 @@ public:
 
   constexpr Force(const Value::Vector& value, Unit::Force unit) noexcept : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
 
+  constexpr Force(const ForceMagnitude& force_magnitude, const Direction& direction) noexcept : Force({force_magnitude.value() * direction.x(), force_magnitude.value() * direction.y(), force_magnitude.value() * direction.z()}) {}
+
+  constexpr Force(const Traction& traction, const Area& area) noexcept;
+
   constexpr ForceMagnitude magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const Force& force) const noexcept {
-    return value_.angle(force.value_);
+    return {*this, force};
   }
 
   constexpr bool operator==(const Force& force) const noexcept {
@@ -72,16 +76,18 @@ template <> constexpr bool sort(const Force& force_1, const Force& force_2) noex
   return sort(force_1.value(), force_2.value());
 }
 
+constexpr Direction::Direction(const Force& force) : Direction(force.value()) {}
+
+constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.angle(force_2)) {}
+
+constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.value().magnitude()) {}
+
 constexpr Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
-  return {{x_y_z_[0] * force_magnitude.value_, x_y_z_[1] * force_magnitude.value_, x_y_z_[2] * force_magnitude.value_}};
+  return {force_magnitude, *this};
 }
 
-constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(force_1.angle(force_2)) {}
-
-constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.magnitude()) {}
-
 constexpr Force ForceMagnitude::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
 
 } // namespace PhQ

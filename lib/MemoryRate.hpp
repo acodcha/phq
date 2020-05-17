@@ -20,6 +20,8 @@ public:
 
   constexpr MemoryRate(double value, Unit::MemoryRate unit) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
 
+  // TODO: Add MemoryRate constructors.
+
   constexpr bool operator==(const MemoryRate& memory_rate) const noexcept {
     return value_ == memory_rate.value_;
   }
@@ -83,8 +85,10 @@ protected:
 };
 
 template <> constexpr bool sort(const MemoryRate& memory_rate_1, const MemoryRate& memory_rate_2) noexcept {
-  return memory_rate_1.value() < memory_rate_2.value();
+  return sort(memory_rate_1.value(), memory_rate_2.value());
 }
+
+constexpr Duration::Duration(const MemoryRate& memory_rate, const Memory& memory) noexcept : Duration(memory.value() / memory_rate.value()) {}
 
 constexpr MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
   return {value_ * memory.value_};
@@ -96,6 +100,10 @@ constexpr MemoryRate Memory::operator*(const Frequency& frequency) const noexcep
 
 constexpr MemoryRate Memory::operator/(const Duration& duration) const noexcept {
   return {value_ / duration.value_};
+}
+
+constexpr Duration Memory::operator/(const MemoryRate& memory_rate) const noexcept {
+  return {memory_rate, *this};
 }
 
 } // namespace PhQ

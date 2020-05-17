@@ -19,8 +19,14 @@ public:
 
   constexpr Acceleration(const Value::Vector& value, Unit::Acceleration unit) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
 
+  constexpr Acceleration(const AccelerationMagnitude& acceleration_magnitude, const Direction& direction) noexcept : Acceleration({acceleration_magnitude.value() * direction.x(), acceleration_magnitude.value() * direction.y(), acceleration_magnitude.value() * direction.z()}) {}
+
+  constexpr Acceleration(const Velocity& velocity, const Duration& duration) noexcept : Acceleration(velocity.value() / duration.value()) {}
+
+  constexpr Acceleration(const Velocity& velocity, const Frequency& frequency) noexcept : Acceleration(velocity.value() * frequency.value()) {}
+
   constexpr AccelerationMagnitude magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const Acceleration& acceleration) const noexcept {
@@ -52,11 +58,11 @@ public:
   }
 
   constexpr Velocity operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Velocity operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
 protected:
@@ -75,24 +81,30 @@ template <> constexpr bool sort(const Acceleration& acceleration_1, const Accele
   return sort(acceleration_1.value(), acceleration_2.value());
 }
 
+constexpr Direction::Direction(const Acceleration& acceleration) : Direction(acceleration.value()) {}
+
+constexpr Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept : Angle(acceleration_1.angle(acceleration_2)) {}
+
+constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.value().magnitude()) {}
+
+constexpr Velocity::Velocity(const Acceleration& acceleration, const Duration& duration) noexcept : Velocity(acceleration.value() * duration.value()) {}
+
+constexpr Velocity::Velocity(const Acceleration& acceleration, const Frequency& frequency) noexcept : Velocity(acceleration.value() / frequency.value()) {}
+
 constexpr Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
-  return {{x_y_z_[0] * acceleration_magnitude.value_, x_y_z_[1] * acceleration_magnitude.value_, x_y_z_[2] * acceleration_magnitude.value_}};
+  return {acceleration_magnitude, *this};
 }
 
-constexpr Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(acceleration_1.angle(acceleration_2)) {}
-
-constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.magnitude()) {}
-
 constexpr Acceleration AccelerationMagnitude::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
 
 constexpr Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr Acceleration Velocity::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 } // namespace PhQ

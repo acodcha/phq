@@ -23,6 +23,8 @@ public:
 
   constexpr SpecificEnergy(double value, Unit::SpecificEnergy unit) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
+  // TODO: SpecificEnergy constructors.
+
   constexpr bool operator==(const SpecificEnergy& specific_energy) const noexcept {
     return value_ == specific_energy.value_;
   }
@@ -71,6 +73,8 @@ public:
 
   constexpr SpecificPower operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const SpecificPower& specific_power) const noexcept;
+
 protected:
 
   constexpr SpecificEnergy(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
@@ -85,7 +89,7 @@ protected:
 };
 
 template <> constexpr bool sort(const SpecificEnergy& specific_energy_1, const SpecificEnergy& specific_energy_2) noexcept {
-  return specific_energy_1.value() < specific_energy_2.value();
+  return sort(specific_energy_1.value(), specific_energy_2.value());
 }
 
 constexpr Energy Mass::operator*(const SpecificEnergy& specific_energy) const noexcept {

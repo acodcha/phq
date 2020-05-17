@@ -31,6 +31,16 @@ public:
 
   constexpr Length(const Displacement& displacement) noexcept;
 
+  constexpr Length(const Position& position) noexcept;
+
+  constexpr Length(const Area& area, const Length& length) noexcept;
+
+  constexpr Length(const Volume& volume, const Area& area) noexcept;
+
+  constexpr Length(const Speed& speed, const Duration& duration) noexcept;
+
+  constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
+
   constexpr bool operator==(const Length& length) const noexcept {
     return value_ == length.value_;
   }
@@ -81,6 +91,8 @@ public:
 
   constexpr Speed operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const Speed& speed) const noexcept;
+
 protected:
 
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
@@ -97,7 +109,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Length& length_1, const Length& length_2) noexcept {
-  return length_1.value() < length_2.value();
+  return sort(length_1.value(), length_2.value());
 }
 
 } // namespace PhQ

@@ -21,7 +21,7 @@ public:
 
   constexpr ThermalDiffusivity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
-  constexpr ThermalDiffusivity(const ThermalConductivity& thermal_conductivity, const MassDensity& mass_density, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(thermal_conductivity.value() / (mass_density.value() * specific_isobaric_heat_capacity.value())) {}
+  constexpr ThermalDiffusivity(const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept : ThermalDiffusivity(thermal_conductivity.value() / (mass_density.value() * specific_isobaric_heat_capacity.value())) {}
 
   constexpr bool operator==(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return value_ == thermal_diffusivity.value_;
@@ -70,7 +70,13 @@ protected:
 };
 
 template <> constexpr bool sort(const ThermalDiffusivity& thermal_diffusivity_1, const ThermalDiffusivity& thermal_diffusivity_2) noexcept {
-  return thermal_diffusivity_1.value() < thermal_diffusivity_2.value();
+  return sort(thermal_diffusivity_1.value(), thermal_diffusivity_2.value());
 }
+
+constexpr ThermalConductivity::ThermalConductivity(const ThermalDiffusivity& thermal_diffusivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept : ThermalConductivity(thermal_diffusivity.value() * specific_isobaric_heat_capacity.value() * mass_density.value()) {}
+
+constexpr MassDensity::MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : MassDensity(thermal_conductivity.value() / (thermal_diffusivity.value() * specific_isobaric_heat_capacity.value())) {}
+
+constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const MassDensity& mass_density) noexcept : SpecificIsobaricHeatCapacity(thermal_conductivity.value() / (thermal_diffusivity.value() * mass_density.value())) {}
 
 } // namespace PhQ

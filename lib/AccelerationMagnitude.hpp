@@ -23,6 +23,10 @@ public:
 
   constexpr AccelerationMagnitude(double value, Unit::Acceleration unit) noexcept : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
 
+  constexpr AccelerationMagnitude(const Speed& speed, const Duration& duration) noexcept : AccelerationMagnitude(speed.value() / duration.value()) {}
+
+  constexpr AccelerationMagnitude(const Speed& speed, const Frequency& frequency) noexcept : AccelerationMagnitude(speed.value() * frequency.value()) {}
+
   constexpr AccelerationMagnitude(const Acceleration& acceleration) noexcept;
 
   constexpr bool operator==(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
@@ -66,15 +70,16 @@ public:
   }
 
   constexpr Speed operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Acceleration operator*(const Direction& direction) const noexcept;
 
   constexpr Speed operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
+  // TODO: Update this once Frequency has a constructor that takes a Speed and an AccelerationMagnitude.
   constexpr Frequency operator/(const Speed& speed) const noexcept {
     return {value_ / speed.value_};
   }
@@ -92,19 +97,29 @@ protected:
 };
 
 template <> constexpr bool sort(const AccelerationMagnitude& acceleration_magnitude_1, const AccelerationMagnitude& acceleration_magnitude_2) noexcept {
-  return acceleration_magnitude_1.value() < acceleration_magnitude_2.value();
+  return sort(acceleration_magnitude_1.value(), acceleration_magnitude_2.value());
 }
 
+constexpr Duration::Duration(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept : Duration(speed.value() / acceleration_magnitude.value()) {}
+
+constexpr Speed::Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept : Speed(acceleration_magnitude.value() * duration.value()) {}
+
+constexpr Speed::Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency) noexcept : Speed(acceleration_magnitude.value() / frequency.value()) {}
+
 constexpr AccelerationMagnitude Frequency::operator*(const Speed& speed) const noexcept {
-  return {value_ * speed.value_};
+  return {speed, *this};
 }
 
 constexpr AccelerationMagnitude Speed::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr AccelerationMagnitude Speed::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
+}
+
+constexpr Duration Speed::operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+  return {acceleration_magnitude, *this};
 }
 
 } // namespace PhQ

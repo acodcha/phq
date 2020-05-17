@@ -27,7 +27,13 @@ public:
 
   constexpr Area(double value, Unit::Area unit) noexcept : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
+  constexpr Area(const Length& length_1, const Length& length_2) noexcept : Area(length_1.value() * length_2.value()) {}
+
+  constexpr Area(const Volume& volume, const Length& length) noexcept;
+
   constexpr Area(const AreaVector& vector_area) noexcept;
+
+  constexpr Area(const StaticPressure& static_pressure, const ForceMagnitude& force_magnitude) noexcept;
 
   constexpr bool operator==(const Area& area) const noexcept {
     return value_ == area.value_;
@@ -76,7 +82,7 @@ public:
   constexpr AreaVector operator*(const Direction& direction) const noexcept;
 
   constexpr Length operator/(const Length& length) const noexcept {
-    return {value_ / length.value_};
+    return {*this, length};
   }
 
 protected:
@@ -95,11 +101,13 @@ protected:
 };
 
 template <> constexpr bool sort(const Area& area_1, const Area& area_2) noexcept {
-  return area_1.value() < area_2.value();
+  return sort(area_1.value(), area_2.value());
 }
 
+constexpr Length::Length(const Area& area, const Length& length) noexcept : Length(area.value() / length.value()) {}
+
 constexpr Area Length::operator*(const Length& length) const noexcept {
-  return {value_ * length.value_};
+  return {*this, length};
 }
 
 } // namespace PhQ

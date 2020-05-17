@@ -32,29 +32,33 @@ public:
 
   constexpr Angle(double value, Unit::Angle unit) noexcept : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  constexpr Angle(const Direction& direction_1, const Direction& direction_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction_1.angle(direction_2)) {}
+  constexpr Angle(const Direction& direction_1, const Direction& direction_2) noexcept : Angle(direction_1.angle(direction_2)) {}
 
-  constexpr Angle(const Direction& direction, const Value::Vector& vector) noexcept : DimensionalScalarQuantity<Unit::Angle>(direction.angle(vector)) {}
+  constexpr Angle(const Direction& direction, const Value::Vector& vector) noexcept : Angle(direction.angle(vector)) {}
 
-  constexpr Angle(const Value::Vector& vector, const Direction& direction) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector.angle(direction)) {}
+  constexpr Angle(const Value::Vector& vector, const Direction& direction) noexcept : Angle(vector.angle(direction)) {}
 
-  constexpr Angle(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(vector_1.angle(vector_2)) {}
+  constexpr Angle(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept : Angle(vector_1.angle(vector_2)) {}
 
-  constexpr Angle(const Position& position_1, const Position& position_2) noexcept;
+  constexpr Angle(const AngularSpeed& angular_speed, const Duration& duration) noexcept;
 
-  constexpr Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept;
-
-  constexpr Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept;
+  constexpr Angle(const AngularSpeed& angular_speed, const Frequency& frequency) noexcept;
 
   constexpr Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept;
 
+  constexpr Angle(const AreaVector& vector_area_1, const AreaVector& vector_area_2) noexcept;
+
+  constexpr Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept;
+
   constexpr Angle(const Force& force_1, const Force& force_2) noexcept;
+
+  constexpr Angle(const Position& position_1, const Position& position_2) noexcept;
+
+  constexpr Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept;
 
   constexpr Angle(const Traction& traction_1, const Traction& traction_2) noexcept;
 
-  constexpr Angle(const AreaVector& vector_area_1, const AreaVector& vector_area_2) noexcept;
-
-  constexpr Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept;
+  constexpr Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept;
 
   constexpr bool operator==(const Angle& angle) const noexcept {
     return value_ == angle.value_;
@@ -100,6 +104,8 @@ public:
 
   constexpr AngularSpeed operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const AngularSpeed& angular_speed) const noexcept;
+
 protected:
 
   constexpr Angle(double value) noexcept : DimensionalScalarQuantity<Unit::Angle>(value) {}
@@ -115,7 +121,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Angle& angle_1, const Angle& angle_2) noexcept {
-  return angle_1.value() < angle_2.value();
+  return sort(angle_1.value(), angle_2.value());
 }
 
 constexpr Angle Direction::angle(const Direction& direction) const noexcept {

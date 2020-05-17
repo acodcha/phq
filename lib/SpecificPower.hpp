@@ -19,6 +19,8 @@ public:
 
   constexpr SpecificPower(double value, Unit::SpecificPower unit) noexcept : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
 
+  // TODO: Add SpecificPower constructors.
+
   constexpr bool operator==(const SpecificPower& specific_power) const noexcept {
     return value_ == specific_power.value_;
   }
@@ -89,8 +91,10 @@ protected:
 };
 
 template <> constexpr bool sort(const SpecificPower& specific_power_1, const SpecificPower& specific_power_2) noexcept {
-  return specific_power_1.value() < specific_power_2.value();
+  return sort(specific_power_1.value(), specific_power_2.value());
 }
+
+constexpr Duration::Duration(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept : Duration(specific_energy.value() / specific_power.value()) {}
 
 constexpr Power Mass::operator*(const SpecificPower& specific_power) const noexcept {
   return {value_ * specific_power.value_};
@@ -114,6 +118,10 @@ constexpr SpecificPower SpecificEnergy::operator*(const Frequency& frequency) co
 
 constexpr SpecificPower SpecificEnergy::operator/(const Duration& duration) const noexcept {
   return {value_ / duration.value_};
+}
+
+constexpr Duration SpecificEnergy::operator/(const SpecificPower& specific_power) const noexcept {
+  return {specific_power, *this};
 }
 
 } // namespace PhQ

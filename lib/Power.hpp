@@ -20,6 +20,8 @@ public:
 
   constexpr Power(double value, Unit::Power unit) noexcept : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
 
+  // TODO: Add Power constructors.
+
   constexpr bool operator==(const Power& power) const noexcept {
     return value_ == power.value_;
   }
@@ -88,8 +90,10 @@ protected:
 };
 
 template <> constexpr bool sort(const Power& power_1, const Power& power_2) noexcept {
-  return power_1.value() < power_2.value();
+  return sort(power_1.value(), power_2.value());
 }
+
+constexpr Duration::Duration(const Power& power, const Energy& energy) noexcept : Duration(energy.value() / power.value()) {}
 
 constexpr Energy Duration::operator*(const Power& power) const noexcept {
   return {value_ * power.value_};
@@ -105,6 +109,10 @@ constexpr Power Energy::operator*(const Frequency& frequency) const noexcept {
 
 constexpr Power Energy::operator/(const Duration& duration) const noexcept {
   return {value_ / duration.value_};
+}
+
+constexpr Duration Energy::operator/(const Power& power) const noexcept {
+  return {power, *this};
 }
 
 } // namespace PhQ

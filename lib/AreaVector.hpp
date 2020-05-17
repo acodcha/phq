@@ -21,12 +21,14 @@ public:
 
   constexpr AreaVector(const Value::Vector& value, Unit::Area unit) noexcept : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
+  constexpr AreaVector(const Area& area, const Direction& direction) noexcept : AreaVector({area.value() * direction.x(), area.value() * direction.y(), area.value() * direction.z()}) {}
+
   constexpr Area magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const AreaVector& area_vector) const noexcept {
-    return value_.angle(area_vector.value_);
+    return {*this, area_vector};
   }
 
   constexpr bool operator==(const AreaVector& area_vector) const noexcept {
@@ -53,10 +55,6 @@ public:
     value_ -= area_vector.value_;
   }
 
-  constexpr Direction operator/(const Area& area) const noexcept {
-    return {value_ / area.value_};
-  }
-
 protected:
 
   constexpr AreaVector(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Area>(value) {}
@@ -70,16 +68,18 @@ template <> constexpr bool sort(const AreaVector& area_vector_1, const AreaVecto
   return sort(area_vector_1.value(), area_vector_2.value());
 }
 
+constexpr Direction::Direction(const AreaVector& area_vector) : Direction(area_vector.value()) {}
+
+constexpr Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.angle(area_vector_2)) {}
+
+constexpr Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.value().magnitude()) {}
+
 constexpr AreaVector Direction::operator*(const Area& area) const noexcept {
-  return {{x_y_z_[0] * area.value_, x_y_z_[1] * area.value_, x_y_z_[2] * area.value_}};
+  return {area, *this};
 }
 
-constexpr Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(area_vector_1.angle(area_vector_2)) {}
-
-constexpr Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.magnitude()) {}
-
 constexpr AreaVector Area::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
 
 } // namespace PhQ

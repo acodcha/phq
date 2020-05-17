@@ -20,6 +20,8 @@ public:
 
   constexpr MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
+  // TODO Add MassRate constructors.
+
   constexpr bool operator==(const MassRate& mass_rate) const noexcept {
     return value_ == mass_rate.value_;
   }
@@ -83,8 +85,10 @@ protected:
 };
 
 template <> constexpr bool sort(const MassRate& mass_rate_1, const MassRate& mass_rate_2) noexcept {
-  return mass_rate_1.value() < mass_rate_2.value();
+  return sort(mass_rate_1.value(), mass_rate_2.value());
 }
+
+constexpr Duration::Duration(const MassRate& mass_rate, const Mass& mass) noexcept : Duration(mass.value() / mass_rate.value()) {}
 
 constexpr Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
   return {value_ * mass_rate.value_};
@@ -100,6 +104,10 @@ constexpr MassRate Frequency::operator*(const Mass& mass) const noexcept {
 
 constexpr MassRate Mass::operator/(const Duration& duration) const noexcept {
   return {value_ / duration.value_};
+}
+
+constexpr Duration Mass::operator/(const MassRate& mass_rate) const noexcept {
+  return {mass_rate, *this};
 }
 
 } // namespace PhQ

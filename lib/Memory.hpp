@@ -24,6 +24,8 @@ public:
 
   constexpr Memory(double value, Unit::Memory unit) noexcept : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
+  // TODO: Add Memory constructors.
+
   constexpr bool operator==(const Memory& memory) const noexcept {
     return value_ == memory.value_;
   }
@@ -68,6 +70,8 @@ public:
 
   constexpr MemoryRate operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const MemoryRate& memory_rate) const noexcept;
+
 protected:
 
   constexpr Memory(double value) noexcept : DimensionalScalarQuantity<Unit::Memory>(value) {}
@@ -79,7 +83,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Memory& memory_1, const Memory& memory_2) noexcept {
-  return memory_1.value() < memory_2.value();
+  return sort(memory_1.value(), memory_2.value());
 }
 
 } // namespace PhQ

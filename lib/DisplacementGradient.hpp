@@ -20,7 +20,7 @@ public:
   constexpr DisplacementGradient(const Value::Dyadic& value) noexcept : DimensionlessDyadicQuantity(value) {}
 
   constexpr Strain strain() const noexcept {
-    return {{value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}};
+    return {*this};
   }
 
   constexpr bool operator==(const DisplacementGradient& displacement_gradient) const noexcept {
@@ -53,6 +53,6 @@ template <> constexpr bool sort(const DisplacementGradient& displacement_gradien
   return sort(displacement_gradient_1.value(), displacement_gradient_2.value());
 }
 
-constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain(displacement_gradient.strain()) {}
+constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 } // namespace PhQ

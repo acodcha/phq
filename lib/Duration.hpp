@@ -41,6 +41,26 @@ public:
 
   constexpr Duration(double value, Unit::Time unit) noexcept : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
+  constexpr Duration(const Frequency& frequency) noexcept;
+
+  constexpr Duration(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept;
+
+  constexpr Duration(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const AngularSpeed& angular_speed) noexcept;
+
+  constexpr Duration(const AngularSpeed& angular_speed, const Angle& angle) noexcept;
+
+  constexpr Duration(const MassRate& mass_rate, const Mass& mass) noexcept;
+
+  constexpr Duration(const MemoryRate& memory_rate, const Memory& memory) noexcept;
+
+  constexpr Duration(const Power& power, const Energy& energy) noexcept;
+
+  constexpr Duration(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept;
+
+  constexpr Duration(const Speed& speed, const Length& length) noexcept;
+
+  constexpr Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept;
+
   constexpr Frequency frequency() const noexcept;
 
   constexpr bool operator==(const Duration& duration) const noexcept {
@@ -130,7 +150,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Duration& duration_1, const Duration& duration_2) noexcept {
-  return duration_1.value() < duration_2.value();
+  return sort(duration_1.value(), duration_2.value());
 }
 
 } // namespace PhQ

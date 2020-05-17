@@ -26,6 +26,14 @@ public:
 
   constexpr Volume(double value, Unit::Volume unit) noexcept : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
+  constexpr Volume(const Area& area, const Length& length) noexcept : Volume(area.value() * length.value()) {}
+
+  constexpr Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept;
+
+  constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept;
+
+  constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
+
   constexpr bool operator==(const Volume& volume) const noexcept {
     return value_ == volume.value_;
   }
@@ -71,14 +79,16 @@ public:
   constexpr VolumeRate operator*(const Frequency& frequency) const noexcept;
 
   constexpr Area operator/(const Length& length) const noexcept {
-    return {value_ / length.value_};
+    return {*this, length};
   }
 
   constexpr Length operator/(const Area& area) const noexcept {
-    return {value_ / area.value_};
+    return {*this, area};
   }
 
   constexpr VolumeRate operator/(const Duration& duration) const noexcept;
+
+  constexpr Duration operator/(const VolumeRate& volume_rate) const noexcept;
 
 protected:
 
@@ -95,16 +105,19 @@ protected:
 };
 
 template <> constexpr bool sort(const Volume& volume_1, const Volume& volume_2) noexcept {
-  return volume_1.value() < volume_2.value();
+  return sort(volume_1.value(), volume_2.value());
 }
 
+constexpr Length::Length(const Volume& volume, const Area& area) noexcept : Length(volume.value() / area.value()) {}
+
+constexpr Area::Area(const Volume& volume, const Length& length) noexcept : Area(volume.value() / length.value()) {}
+
 constexpr Volume Length::operator*(const Area& area) const noexcept {
-  return {value_ * area.value_};
+  return {area, *this};
 }
 
 constexpr Volume Area::operator*(const Length& length) const noexcept {
-  return {value_ * length.value_};
+  return {*this, length};
 }
-
 
 } // namespace PhQ
