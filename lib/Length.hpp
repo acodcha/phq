@@ -97,15 +97,6 @@ protected:
 
   constexpr Length(double value) noexcept : DimensionalScalarQuantity<Unit::Length>(value) {}
 
-  friend class Area;
-  friend class Direction;
-  friend class Displacement;
-  friend class Duration;
-  friend class Frequency;
-  friend class Position;
-  friend class Speed;
-  friend class Volume;
-
 };
 
 template <> constexpr bool sort(const Length& length_1, const Length& length_2) noexcept {

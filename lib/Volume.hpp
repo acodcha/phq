@@ -94,14 +94,6 @@ protected:
 
   constexpr Volume(double value) noexcept : DimensionalScalarQuantity<Unit::Volume>(value) {}
 
-  friend class Area;
-  friend class Duration;
-  friend class Frequency;
-  friend class Length;
-  friend class Mass;
-  friend class MassDensity;
-  friend class VolumeRate;
-
 };
 
 template <> constexpr bool sort(const Volume& volume_1, const Volume& volume_2) noexcept {

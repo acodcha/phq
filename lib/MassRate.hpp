@@ -80,10 +80,6 @@ protected:
 
   constexpr MassRate(double value) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value) {}
 
-  friend class Duration;
-  friend class Frequency;
-  friend class Mass;
-
 };
 
 template <> constexpr bool sort(const MassRate& mass_rate_1, const MassRate& mass_rate_2) noexcept {

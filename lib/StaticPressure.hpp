@@ -77,11 +77,6 @@ protected:
 
   constexpr StaticPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
-  friend class Area;
-  friend class Direction;
-  friend class ForceMagnitude;
-  friend class Traction;
-
 };
 
 template <> constexpr bool sort(const StaticPressure& static_pressure_1, const StaticPressure& static_pressure_2) noexcept {

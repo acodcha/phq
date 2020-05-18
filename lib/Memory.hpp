@@ -78,10 +78,6 @@ protected:
 
   constexpr Memory(double value) noexcept : DimensionalScalarQuantity<Unit::Memory>(value) {}
 
-  friend class Duration;
-  friend class Frequency;
-  friend class MemoryRate;
-
 };
 
 template <> constexpr bool sort(const Memory& memory_1, const Memory& memory_2) noexcept {

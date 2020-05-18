@@ -83,7 +83,6 @@ protected:
   constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
-  friend class TemperatureGradientMagnitude;
 
 };
 

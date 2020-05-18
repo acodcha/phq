@@ -80,13 +80,6 @@ protected:
 
   constexpr SpecificIsochoricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 
-  friend class IsochoricHeatCapacity;
-  friend class Mass;
-  friend class SpecificGasConstant;
-  friend class SpecificHeatRatio;
-  friend class SpecificIsobaricHeatCapacity;
-
-
 };
 
 template <> constexpr bool sort(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity_1, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity_2) noexcept {

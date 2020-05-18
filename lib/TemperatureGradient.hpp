@@ -58,9 +58,6 @@ protected:
 
   constexpr TemperatureGradient(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(value) {}
 
-  friend class Direction;
-  friend class TemperatureGradientMagnitude;
-
 };
 
 template <> constexpr bool sort(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept {

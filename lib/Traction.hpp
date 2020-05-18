@@ -63,11 +63,6 @@ protected:
 
   constexpr Traction(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value) {}
 
-  friend class Area;
-  friend class Direction;
-  friend class Force;
-  friend class StaticPressure;
-
 };
 
 template <> constexpr bool sort(const Traction& traction_1, const Traction& traction_2) noexcept {

@@ -87,12 +87,6 @@ protected:
 
   constexpr AccelerationMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
 
-  friend class Acceleration;
-  friend class Direction;
-  friend class Duration;
-  friend class Frequency;
-  friend class Speed;
-
 };
 
 template <> constexpr bool sort(const AccelerationMagnitude& acceleration_magnitude_1, const AccelerationMagnitude& acceleration_magnitude_2) noexcept {

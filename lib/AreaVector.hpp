@@ -59,9 +59,6 @@ protected:
 
   constexpr AreaVector(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Area>(value) {}
 
-  friend class Area;
-  friend class Direction;
-
 };
 
 template <> constexpr bool sort(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept {

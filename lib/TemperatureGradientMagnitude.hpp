@@ -78,10 +78,6 @@ protected:
 
   constexpr TemperatureGradientMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(value) {}
 
-  friend class Direction;
-  friend class TemperatureDifference;
-  friend class TemperatureGradient;
-
 };
 
 template <> constexpr bool sort(const TemperatureGradientMagnitude& temperature_gradient_magnitude_1, const TemperatureGradientMagnitude& temperature_gradient_magnitude_2) noexcept {

@@ -90,7 +90,7 @@ public:
   }
 
   constexpr double operator*(const Duration& duration) const noexcept {
-    return value_ * duration.value_;
+    return value_ * duration.value();
   }
 
   constexpr Speed operator*(const Length& length) const noexcept;
@@ -119,29 +119,6 @@ protected:
 
   constexpr Frequency(double value) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value) {}
 
-  friend class Acceleration;
-  friend class AccelerationMagnitude;
-  friend class Angle;
-  friend class AngularAccelerationMagnitude;
-  friend class AngularSpeed;
-  friend class Displacement;
-  friend class Duration;
-  friend class Energy;
-  friend class Length;
-  friend class Mass;
-  friend class MassRate;
-  friend class Memory;
-  friend class MemoryRate;
-  friend class Power;
-  friend class SpecificEnergy;
-  friend class SpecificPower;
-  friend class Speed;
-  friend class Strain;
-  friend class StrainRate;
-  friend class Velocity;
-  friend class Volume;
-  friend class VolumeRate;
-
 };
 
 template <> constexpr bool sort(const Frequency& frequency_1, const Frequency& frequency_2) noexcept {
@@ -155,7 +132,7 @@ constexpr Frequency Duration::frequency() const noexcept {
 }
 
 constexpr double Duration::operator*(const Frequency& frequency) const noexcept {
-  return value_ * frequency.value_;
+  return value_ * frequency.value();
 }
 
 } // namespace PhQ

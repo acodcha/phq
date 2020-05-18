@@ -39,7 +39,7 @@ public:
   }
 
   constexpr Position operator+(const Displacement& displacement) const noexcept {
-    return {value_ + displacement.value_};
+    return {value_ + displacement.value()};
   }
 
   constexpr void operator+=(const Position& position) noexcept {
@@ -47,7 +47,7 @@ public:
   }
 
   constexpr void operator+=(const Displacement& displacement) noexcept {
-    value_ += displacement.value_;
+    value_ += displacement.value();
   }
 
   constexpr Displacement operator-(const Position& position) const noexcept {
@@ -55,7 +55,7 @@ public:
   }
 
   constexpr Position operator-(const Displacement& displacement) const noexcept {
-    return {value_ - displacement.value_};
+    return {value_ - displacement.value()};
   }
 
   constexpr void operator-=(const Position& position) noexcept {
@@ -63,7 +63,7 @@ public:
   }
 
   constexpr void operator-=(const Displacement& displacement) noexcept {
-    value_ -= displacement.value_;
+    value_ -= displacement.value();
   }
 
 protected:
@@ -71,7 +71,6 @@ protected:
   constexpr Position(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Displacement;
-  friend class Length;
 
 };
 
@@ -86,11 +85,11 @@ constexpr Angle::Angle(const Position& position_1, const Position& position_2) n
 constexpr Length::Length(const Position& position) noexcept : Length(position.value().magnitude()) {}
 
 constexpr Position Displacement::operator+(const Position& position) const noexcept {
-  return {value_ + position.value_};
+  return {value_ + position.value()};
 }
 
 constexpr Position Displacement::operator-(const Position& position) const noexcept {
-  return {value_ - position.value_};
+  return {value_ - position.value()};
 }
 
 } // namespace PhQ

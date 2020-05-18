@@ -66,10 +66,6 @@ protected:
 
   constexpr StrainRate(const Value::SymmetricDyadic& value) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>(value) {}
 
-  friend class Duration;
-  friend class Frequency;
-  friend class Strain;
-
 };
 
 template <> constexpr bool sort(const StrainRate& strain_rate_1, const StrainRate& strain_rate_2) noexcept {

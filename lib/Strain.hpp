@@ -58,10 +58,6 @@ public:
 
   constexpr StrainRate operator/(const Duration& duration) const noexcept;
 
-  friend class Duration;
-  friend class Frequency;
-  friend class StrainRate;
-
 };
 
 } // namespace PhQ

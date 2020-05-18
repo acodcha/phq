@@ -83,11 +83,6 @@ protected:
 
   constexpr MassDensity(double value) noexcept : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
 
-  friend class DynamicViscosity;
-  friend class KinematicViscosity;
-  friend class Mass;
-  friend class Volume;
-
 };
 
 template <> constexpr bool sort(const MassDensity& mass_density_1, const MassDensity& mass_density_2) noexcept {
