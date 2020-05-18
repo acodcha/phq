@@ -71,7 +71,7 @@ template <> constexpr bool sort(const Traction& traction_1, const Traction& trac
 
 constexpr Direction::Direction(const Traction& traction) : Direction(traction.value()) {}
 
-constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : Angle(traction_1.angle(traction_2)) {}
+constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : Angle(traction_1.value(), traction_2.value()) {}
 
 constexpr StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.value().magnitude()) {}
 

@@ -37,7 +37,7 @@ public:
   }
 
   constexpr Angle angle(const Velocity& velocity) const noexcept {
-    return value_.angle(velocity.value_);
+    return {*this, velocity};
   }
 
   constexpr bool operator==(const Velocity& velocity) const noexcept {
@@ -88,7 +88,7 @@ template <> constexpr bool sort(const Velocity& velocity_1, const Velocity& velo
 
 constexpr Direction::Direction(const Velocity& velocity) : Direction(velocity.value()) {}
 
-constexpr Angle::Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept : Angle(velocity_1.angle(velocity_2)) {}
+constexpr Angle::Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept : Angle(velocity_1.value(), velocity_2.value()) {}
 
 constexpr Displacement::Displacement(const Velocity& velocity, const Duration& duration) noexcept : Displacement(velocity.value() * duration.value()) {}
 

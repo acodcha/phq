@@ -23,7 +23,7 @@ public:
   }
 
   constexpr Angle angle(const Position& position) const noexcept {
-    return value_.angle(position.value_);
+    return {*this, position};
   }
 
   constexpr bool operator==(const Position& position) const noexcept {
@@ -80,7 +80,7 @@ template <> constexpr bool sort(const Position& position_1, const Position& posi
 
 constexpr Direction::Direction(const Position& position) : Direction(position.value()) {}
 
-constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.angle(position_2)) {}
+constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.value(), position_2.value()) {}
 
 constexpr Length::Length(const Position& position) noexcept : Length(position.value().magnitude()) {}
 

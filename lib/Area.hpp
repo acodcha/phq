@@ -31,7 +31,7 @@ public:
 
   constexpr Area(const Volume& volume, const Length& length) noexcept;
 
-  constexpr Area(const AreaVector& vector_area) noexcept;
+  constexpr Area(const AreaVector& area_vector) noexcept;
 
   constexpr Area(const StaticPressure& static_pressure, const ForceMagnitude& force_magnitude) noexcept;
 

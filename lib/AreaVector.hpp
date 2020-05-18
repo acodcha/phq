@@ -67,7 +67,7 @@ template <> constexpr bool sort(const AreaVector& area_vector_1, const AreaVecto
 
 constexpr Direction::Direction(const AreaVector& area_vector) : Direction(area_vector.value()) {}
 
-constexpr Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.angle(area_vector_2)) {}
+constexpr Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.value(), area_vector_2.value()) {}
 
 constexpr Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.value().magnitude()) {}
 

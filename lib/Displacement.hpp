@@ -37,7 +37,7 @@ public:
   }
 
   constexpr Angle angle(const Displacement& displacement) const noexcept {
-    return value_.angle(displacement.value_);
+    return {*this, displacement};
   }
 
   constexpr bool operator==(const Displacement& displacement) const noexcept {
@@ -86,7 +86,7 @@ template <> constexpr bool sort(const Displacement& displacement_1, const Displa
 
 constexpr Direction::Direction(const Displacement& displacement) : Direction(displacement.value()) {}
 
-constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : Angle(displacement_1.angle(displacement_2)) {}
+constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : Angle(displacement_1.value(), displacement_2.value()) {}
 
 constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.value().magnitude()) {}
 
