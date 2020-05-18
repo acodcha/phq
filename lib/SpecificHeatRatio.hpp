@@ -27,6 +27,18 @@ public:
 
   constexpr SpecificHeatRatio(double value) noexcept : DimensionlessScalarQuantity(value) {}
 
+  constexpr SpecificHeatRatio(const SpecificGasConstant& specific_gas_constant, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
+
+  constexpr SpecificHeatRatio(const SpecificGasConstant& specific_gas_constant, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept;
+
+  constexpr SpecificHeatRatio(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept;
+
+  constexpr SpecificHeatRatio(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+
+  constexpr SpecificHeatRatio(const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+
+  constexpr SpecificHeatRatio(const IsobaricHeatCapacity& isobaric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+
   constexpr IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
   constexpr SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;

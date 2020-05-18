@@ -87,14 +87,13 @@ public:
     return {*this, frequency};
   }
 
+  constexpr Frequency operator/(const Length& length) const noexcept {
+    return {*this, length};
+  }
+
   constexpr AccelerationMagnitude operator/(const Duration& duration) const noexcept;
 
   constexpr Duration operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
-
-  // TODO: Update this once Frequency has a constructor that takes a Speed and a Length.
-  constexpr Frequency operator/(const Length& length) const noexcept {
-    return {value_ / length.value_};
-  }
 
 protected:
 
@@ -118,6 +117,8 @@ constexpr Length::Length(const Speed& speed, const Duration& duration) noexcept 
 constexpr Length::Length(const Speed& speed, const Frequency& frequency) noexcept : Length(speed.value() / frequency.value()) {}
 
 constexpr Duration::Duration(const Speed& speed, const Length& length) noexcept : Duration(length.value() / speed.value()) {}
+
+constexpr Frequency::Frequency(const Speed& speed, const Length& length) noexcept : Frequency(speed.value() / length.value()) {}
 
 constexpr Speed Length::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};

@@ -27,7 +27,11 @@ public:
 
   constexpr Energy(double value, Unit::Energy unit) noexcept : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
-  // TODO: Add Energy constructors.
+  constexpr Energy(const Power& power, const Duration& duration) noexcept;
+
+  constexpr Energy(const Power& power, const Frequency& frequency) noexcept;
+
+  constexpr Energy(const SpecificEnergy& specific_energy, const Mass& mass) noexcept;
 
   constexpr bool operator==(const Energy& energy) const noexcept {
     return value_ == energy.value_;
@@ -77,6 +81,8 @@ public:
 
   constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
 
+  constexpr Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
+
 protected:
 
   constexpr Energy(double value) noexcept : DimensionalScalarQuantity<Unit::Energy>(value) {}
@@ -91,7 +97,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Energy& energy_1, const Energy& energy_2) noexcept {
-  return energy_1.value() < energy_2.value();
+  return sort(energy_1.value(), energy_2.value());
 }
 
 } // namespace PhQ

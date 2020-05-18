@@ -20,7 +20,11 @@ public:
 
   constexpr Power(double value, Unit::Power unit) noexcept : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
 
-  // TODO: Add Power constructors.
+  constexpr Power(const Energy& energy, const Duration& duration) noexcept : Power(energy.value() / duration.value()) {}
+
+  constexpr Power(const Energy& energy, const Frequency& frequency) noexcept : Power(energy.value() * frequency.value()) {}
+
+  constexpr Power(const SpecificPower& specific_power, const Mass& mass) noexcept;
 
   constexpr bool operator==(const Power& power) const noexcept {
     return value_ == power.value_;
@@ -63,18 +67,20 @@ public:
   }
 
   constexpr Energy operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Energy operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const Energy& energy) const noexcept {
-    return {value_ / energy.value_};
+    return {*this, energy};
   }
 
   constexpr SpecificPower operator/(const Mass& mass) const noexcept;
+
+  constexpr Mass operator/(const SpecificPower& specific_power) const noexcept;
 
 protected:
 
@@ -95,20 +101,26 @@ template <> constexpr bool sort(const Power& power_1, const Power& power_2) noex
 
 constexpr Duration::Duration(const Power& power, const Energy& energy) noexcept : Duration(energy.value() / power.value()) {}
 
+constexpr Frequency::Frequency(const Power& power, const Energy& energy) noexcept : Frequency(power.value() / energy.value()) {}
+
+constexpr Energy::Energy(const Power& power, const Duration& duration) noexcept : Energy(power.value() * duration.value()) {}
+
+constexpr Energy::Energy(const Power& power, const Frequency& frequency) noexcept : Energy(power.value() / frequency.value()) {}
+
 constexpr Energy Duration::operator*(const Power& power) const noexcept {
-  return {value_ * power.value_};
+  return {power, *this};
 }
 
 constexpr Power Frequency::operator*(const Energy& energy) const noexcept {
-  return {value_ * energy.value_};
+  return {energy, *this};
 }
 
 constexpr Power Energy::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr Power Energy::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 constexpr Duration Energy::operator/(const Power& power) const noexcept {

@@ -38,7 +38,19 @@ public:
 
   constexpr Mass(const MassDensity& mass_density, const Volume& volume) noexcept;
 
-  // TODO: Add Mass from MassRate constructors.
+  constexpr Mass(const MassRate& mass_rate, const Duration& duration) noexcept;
+
+  constexpr Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept;
+
+  constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy) noexcept;
+
+  constexpr Mass(const SpecificPower& specific_power, const Power& power) noexcept;
+
+  constexpr Mass(const SpecificGasConstant& specific_gas_constant, const GasConstant& gas_constant) noexcept;
+
+  constexpr Mass(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+
+  constexpr Mass(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
   constexpr bool operator==(const Mass& mass) const noexcept {
     return value_ == mass.value_;

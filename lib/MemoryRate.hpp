@@ -20,7 +20,9 @@ public:
 
   constexpr MemoryRate(double value, Unit::MemoryRate unit) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
 
-  // TODO: Add MemoryRate constructors.
+  constexpr MemoryRate(const Memory& memory, const Duration& duration) noexcept : MemoryRate(memory.value() / duration.value()) {}
+
+  constexpr MemoryRate(const Memory& memory, const Frequency& frequency) noexcept : MemoryRate(memory.value() * frequency.value()) {}
 
   constexpr bool operator==(const MemoryRate& memory_rate) const noexcept {
     return value_ == memory_rate.value_;
@@ -63,15 +65,15 @@ public:
   }
 
   constexpr Memory operator*(const Duration& duration) const noexcept {
-    return {value_ + duration.value_};
+    return {*this, duration};
   }
 
   constexpr Memory operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const Memory& memory) const noexcept {
-    return {value_ / memory.value_};
+    return {*this, memory};
   }
 
 protected:
@@ -90,16 +92,22 @@ template <> constexpr bool sort(const MemoryRate& memory_rate_1, const MemoryRat
 
 constexpr Duration::Duration(const MemoryRate& memory_rate, const Memory& memory) noexcept : Duration(memory.value() / memory_rate.value()) {}
 
+constexpr Frequency::Frequency(const MemoryRate& memory_rate, const Memory& memory) noexcept : Frequency(memory_rate.value() / memory.value()) {}
+
+constexpr Memory::Memory(const MemoryRate& memory_rate, const Duration& duration) noexcept : Memory(memory_rate.value() * duration.value()) {}
+
+constexpr Memory::Memory(const MemoryRate& memory_rate, const Frequency& frequency) noexcept : Memory(memory_rate.value() / frequency.value()) {}
+
 constexpr MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
-  return {value_ * memory.value_};
+  return {memory, *this};
 }
 
 constexpr MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr MemoryRate Memory::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 constexpr Duration Memory::operator/(const MemoryRate& memory_rate) const noexcept {

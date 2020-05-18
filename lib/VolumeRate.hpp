@@ -65,15 +65,15 @@ public:
   }
 
   constexpr Volume operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Volume operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const Volume& volume) const noexcept {
-    return {value_ / volume.value_};
+    return {*this, volume};
   }
 
 protected:
@@ -95,6 +95,8 @@ constexpr Volume::Volume(const VolumeRate& volume_rate, const Duration& duration
 constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept : Volume(volume_rate.value() / frequency.value()) {}
 
 constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept : Duration(volume.value() / volume_rate.value()) {}
+
+constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept : Frequency(volume_rate.value() / volume.value()) {}
 
 constexpr Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};

@@ -79,9 +79,8 @@ public:
     return {*this, frequency};
   }
 
-  // TODO: Update this once Frequency has a constructor that takes a Speed and an AccelerationMagnitude.
   constexpr Frequency operator/(const Speed& speed) const noexcept {
-    return {value_ / speed.value_};
+    return {*this, speed};
   }
 
 protected:
@@ -101,6 +100,8 @@ template <> constexpr bool sort(const AccelerationMagnitude& acceleration_magnit
 }
 
 constexpr Duration::Duration(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept : Duration(speed.value() / acceleration_magnitude.value()) {}
+
+constexpr Frequency::Frequency(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept : Frequency(acceleration_magnitude.value() / speed.value()) {}
 
 constexpr Speed::Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept : Speed(acceleration_magnitude.value() * duration.value()) {}
 

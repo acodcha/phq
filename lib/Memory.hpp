@@ -24,7 +24,9 @@ public:
 
   constexpr Memory(double value, Unit::Memory unit) noexcept : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
-  // TODO: Add Memory constructors.
+  constexpr Memory(const MemoryRate& memory_rate, const Duration& duration) noexcept;
+
+  constexpr Memory(const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
 
   constexpr bool operator==(const Memory& memory) const noexcept {
     return value_ == memory.value_;

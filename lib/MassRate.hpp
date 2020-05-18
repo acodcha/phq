@@ -20,7 +20,9 @@ public:
 
   constexpr MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
-  // TODO Add MassRate constructors.
+  constexpr MassRate(const Mass& mass, const Duration& duration) noexcept : MassRate(mass.value() / duration.value()) {}
+
+  constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept : MassRate(mass.value() * frequency.value()) {}
 
   constexpr bool operator==(const MassRate& mass_rate) const noexcept {
     return value_ == mass_rate.value_;
@@ -62,16 +64,16 @@ public:
     value_ -= mass_rate.value_;
   }
 
+  constexpr Frequency operator/(const Mass& mass) const noexcept {
+    return {*this, mass};
+  }
+
   constexpr Mass operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Mass operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
-  }
-
-  constexpr Frequency operator/(const Mass& mass) const noexcept {
-    return {value_ / mass.value_};
+    return {*this, frequency};
   }
 
 protected:
@@ -90,20 +92,26 @@ template <> constexpr bool sort(const MassRate& mass_rate_1, const MassRate& mas
 
 constexpr Duration::Duration(const MassRate& mass_rate, const Mass& mass) noexcept : Duration(mass.value() / mass_rate.value()) {}
 
+constexpr Frequency::Frequency(const MassRate& mass_rate, const Mass& mass) noexcept : Frequency(mass_rate.value() / mass.value()) {}
+
+constexpr Mass::Mass(const MassRate& mass_rate, const Duration& duration) noexcept : Mass(mass_rate.value() * duration.value()) {}
+
+constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept : Mass(mass_rate.value() / frequency.value()) {}
+
 constexpr Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
-  return {value_ * mass_rate.value_};
+  return {mass_rate, *this};
 }
 
 constexpr MassRate Mass::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr MassRate Frequency::operator*(const Mass& mass) const noexcept {
-  return {value_ * mass.value_};
+  return {mass, *this};
 }
 
 constexpr MassRate Mass::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 constexpr Duration Mass::operator/(const MassRate& mass_rate) const noexcept {

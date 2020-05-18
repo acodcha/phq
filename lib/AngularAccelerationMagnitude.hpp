@@ -64,15 +64,15 @@ public:
   }
 
   constexpr AngularSpeed operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr AngularSpeed operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const AngularSpeed& angular_speed) const noexcept {
-    return {value_ / angular_speed.value_};
+    return {*this, angular_speed};
   }
 
 protected:
@@ -91,20 +91,22 @@ template <> constexpr bool sort(const AngularAccelerationMagnitude& angular_acce
 
 constexpr Duration::Duration(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const AngularSpeed& angular_speed) noexcept : Duration(angular_speed.value() / angular_acceleration_magnitude.value()) {}
 
+constexpr Frequency::Frequency(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const AngularSpeed& angular_speed) noexcept : Frequency(angular_acceleration_magnitude.value() / angular_speed.value()) {}
+
 constexpr AngularSpeed::AngularSpeed(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const Duration& duration) noexcept : AngularSpeed(angular_acceleration_magnitude.value() * duration.value()) {}
 
 constexpr AngularSpeed::AngularSpeed(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const Frequency& frequency) noexcept : AngularSpeed(angular_acceleration_magnitude.value() / frequency.value()) {}
 
 constexpr AngularAccelerationMagnitude Frequency::operator*(const AngularSpeed& angular_speed) const noexcept {
-  return {value_ * angular_speed.value_};
+  return {angular_speed, *this};
 }
 
 constexpr AngularAccelerationMagnitude AngularSpeed::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr AngularAccelerationMagnitude AngularSpeed::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 constexpr Duration AngularSpeed::operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude) const noexcept {

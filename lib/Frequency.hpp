@@ -27,7 +27,23 @@ public:
 
   constexpr Frequency(const Duration& duration) noexcept : Frequency(1.0 / duration.value()) {}
 
-  // TODO: Add all the Frequency constructors, see Duration.
+  constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept;
+
+  constexpr Frequency(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const AngularSpeed& angular_speed) noexcept;
+
+  constexpr Frequency(const AngularSpeed& angular_speed, const Angle& angle) noexcept;
+
+  constexpr Frequency(const MassRate& mass_rate, const Mass& mass) noexcept;
+
+  constexpr Frequency(const MemoryRate& memory_rate, const Memory& memory) noexcept;
+
+  constexpr Frequency(const Power& power, const Energy& energy) noexcept;
+
+  constexpr Frequency(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept;
+
+  constexpr Frequency(const Speed& speed, const Length& length) noexcept;
+
+  constexpr Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
   constexpr Duration period() const noexcept {
     return {*this};
