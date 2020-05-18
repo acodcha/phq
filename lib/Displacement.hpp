@@ -76,12 +76,7 @@ protected:
 
   constexpr Displacement(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 
-  friend class Direction;
-  friend class Duration;
-  friend class Frequency;
-  friend class Length;
   friend class Position;
-  friend class Velocity;
 
 };
 

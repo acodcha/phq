@@ -161,21 +161,6 @@ private:
 
   std::array<double, 3> x_y_z_;
 
-  friend class Acceleration;
-  friend class AccelerationMagnitude;
-  friend class Area;
-  friend class AreaVector;
-  friend class Displacement;
-  friend class Force;
-  friend class ForceMagnitude;
-  friend class Length;
-  friend class Speed;
-  friend class StaticPressure;
-  friend class TemperatureGradient;
-  friend class TemperatureGradientMagnitude;
-  friend class Traction;
-  friend class Velocity;
-
 };
 
 template <> constexpr bool sort(const Direction& direction_1, const Direction& direction_2) noexcept {

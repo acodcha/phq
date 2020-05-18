@@ -81,12 +81,6 @@ protected:
 
   constexpr GasConstant(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 
-  friend class IsobaricHeatCapacity;
-  friend class IsochoricHeatCapacity;
-  friend class Mass;
-  friend class SpecificHeatRatio;
-  friend class SpecificGasConstant;
-
 };
 
 template <> constexpr bool sort(const GasConstant& gas_constant_1, const GasConstant& gas_constant_2) noexcept {

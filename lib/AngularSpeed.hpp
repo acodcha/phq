@@ -93,11 +93,6 @@ protected:
 
   constexpr AngularSpeed(double value) noexcept : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
 
-  friend class Angle;
-  friend class AngularAccelerationMagnitude;
-  friend class Duration;
-  friend class Frequency;
-
 };
 
 template <> constexpr bool sort(const AngularSpeed& angular_speed_1, const AngularSpeed& angular_speed_2) noexcept {

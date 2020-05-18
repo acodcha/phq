@@ -89,15 +89,6 @@ protected:
 
   constexpr Area(double value) noexcept : DimensionalScalarQuantity<Unit::Area>(value) {}
 
-  friend class AreaVector;
-  friend class Direction;
-  friend class Force;
-  friend class ForceMagnitude;
-  friend class Length;
-  friend class StaticPressure;
-  friend class Traction;
-  friend class Volume;
-
 };
 
 template <> constexpr bool sort(const Area& area_1, const Area& area_2) noexcept {

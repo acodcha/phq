@@ -83,13 +83,6 @@ protected:
 
   constexpr SpecificEnergy(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 
-  friend class Duration;
-  friend class Energy;
-  friend class Frequency;
-  friend class Mass;
-  friend class Power;
-  friend class SpecificPower;
-
 };
 
 template <> constexpr bool sort(const SpecificEnergy& specific_energy_1, const SpecificEnergy& specific_energy_2) noexcept {

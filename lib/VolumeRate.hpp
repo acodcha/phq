@@ -80,10 +80,6 @@ protected:
 
   constexpr VolumeRate(double value) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
 
-  friend class Duration;
-  friend class Frequency;
-  friend class Volume;
-
 };
 
 template <> constexpr bool sort(const VolumeRate& volume_rate_1, const VolumeRate& volume_rate_2) noexcept {

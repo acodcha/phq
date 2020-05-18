@@ -74,9 +74,6 @@ protected:
 
   constexpr DynamicViscosity(double value) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 
-  friend class KinematicViscosity;
-  friend class MassDensity;
-
 };
 
 template <> constexpr bool sort(const DynamicViscosity& dynamic_viscosity_1, const DynamicViscosity& dynamic_viscosity_2) noexcept {

@@ -114,22 +114,6 @@ protected:
 
   constexpr Mass(double value) noexcept : DimensionalScalarQuantity<Unit::Mass>(value) {}
 
-  friend class Duration;
-  friend class Energy;
-  friend class Frequency;
-  friend class GasConstant;
-  friend class IsobaricHeatCapacity;
-  friend class IsochoricHeatCapacity;
-  friend class MassDensity;
-  friend class MassRate;
-  friend class Power;
-  friend class SpecificEnergy;
-  friend class SpecificGasConstant;
-  friend class SpecificIsobaricHeatCapacity;
-  friend class SpecificIsochoricHeatCapacity;
-  friend class SpecificPower;
-  friend class Volume;
-
 };
 
 template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept {

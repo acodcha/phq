@@ -69,12 +69,6 @@ protected:
 
   constexpr Acceleration(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 
-  friend class AccelerationMagnitude;
-  friend class Direction;
-  friend class Duration;
-  friend class Frequency;
-  friend class Velocity;
-
 };
 
 template <> constexpr bool sort(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept {

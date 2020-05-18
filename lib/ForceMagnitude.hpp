@@ -76,11 +76,6 @@ protected:
 
   constexpr ForceMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Force>(value) {}
 
-  friend class Area;
-  friend class Direction;
-  friend class Force;
-  friend class StaticPressure;
-
 };
 
 template <> constexpr bool sort(const ForceMagnitude& force_magnitude_1, const ForceMagnitude& force_magnitude_2) noexcept {

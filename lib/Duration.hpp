@@ -123,29 +123,7 @@ protected:
 
   constexpr Duration(double value) noexcept : DimensionalScalarQuantity<Unit::Time>(value) {}
 
-  friend class Acceleration;
-  friend class AccelerationMagnitude;
-  friend class Angle;
-  friend class AngularAccelerationMagnitude;
-  friend class AngularSpeed;
-  friend class Displacement;
-  friend class Energy;
-  friend class Frequency;
-  friend class Length;
-  friend class Mass;
-  friend class MassRate;
-  friend class Memory;
-  friend class MemoryRate;
-  friend class Power;
-  friend class SpecificEnergy;
-  friend class SpecificPower;
-  friend class Speed;
-  friend class Strain;
-  friend class StrainRate;
   friend class Time;
-  friend class Velocity;
-  friend class Volume;
-  friend class VolumeRate;
 
 };
 

@@ -65,11 +65,6 @@ protected:
 
   constexpr Force(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Force>(value) {}
 
-  friend class Area;
-  friend class Direction;
-  friend class ForceMagnitude;
-  friend class Traction;
-
 };
 
 template <> constexpr bool sort(const Force& force_1, const Force& force_2) noexcept {
