@@ -66,7 +66,7 @@ protected:
 };
 
 template <> constexpr bool sort(const LameFirstModulus& lame_first_modulus_1, const LameFirstModulus& lame_first_modulus_2) noexcept {
-  return lame_first_modulus_1.value() < lame_first_modulus_2.value();
+  return sort(lame_first_modulus_1.value(), lame_first_modulus_2.value());
 }
 
 } // namespace PhQ

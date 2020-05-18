@@ -23,6 +23,14 @@ public:
 
   constexpr AngularSpeed(double value, Unit::AngularSpeed unit) noexcept : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
+  constexpr AngularSpeed(const Angle& angle, const Duration& duration) noexcept : AngularSpeed(angle.value() / duration.value()) {}
+
+  constexpr AngularSpeed(const Angle& angle, const Frequency& frequency) noexcept : AngularSpeed(angle.value() * frequency.value()) {}
+
+  constexpr AngularSpeed(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const Duration& duration) noexcept;
+
+  constexpr AngularSpeed(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const Frequency& frequency) noexcept;
+
   constexpr bool operator==(const AngularSpeed& angular_speed) const noexcept {
     return value_ == angular_speed.value_;
   }
@@ -64,20 +72,22 @@ public:
   }
 
   constexpr Angle operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr AngularAccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
 
-  constexpr AngularAccelerationMagnitude operator/(const Duration& duration) const noexcept;
-
   constexpr Angle operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const Angle& angle) const noexcept {
-    return {value_ / angle.value_};
+    return {*this, angle};
   }
+
+  constexpr AngularAccelerationMagnitude operator/(const Duration& duration) const noexcept;
+
+  constexpr Duration operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude) const noexcept;
 
 protected:
 
@@ -91,19 +101,31 @@ protected:
 };
 
 template <> constexpr bool sort(const AngularSpeed& angular_speed_1, const AngularSpeed& angular_speed_2) noexcept {
-  return angular_speed_1.value() < angular_speed_2.value();
+  return sort(angular_speed_1.value(), angular_speed_2.value());
 }
 
+constexpr Angle::Angle(const AngularSpeed& angular_speed, const Duration& duration) noexcept : Angle(angular_speed.value() * duration.value()) {}
+
+constexpr Angle::Angle(const AngularSpeed& angular_speed, const Frequency& frequency) noexcept : Angle(angular_speed.value() / frequency.value()) {}
+
+constexpr Duration::Duration(const AngularSpeed& angular_speed, const Angle& angle) noexcept : Duration(angle.value() / angular_speed.value()) {}
+
+constexpr Frequency::Frequency(const AngularSpeed& angular_speed, const Angle& angle) noexcept : Frequency(angular_speed.value() / angle.value()) {}
+
 constexpr AngularSpeed Angle::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr AngularSpeed Frequency::operator*(const Angle& angle) const noexcept {
-  return {value_ * angle.value_};
+  return {angle, *this};
 }
 
 constexpr AngularSpeed Angle::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
+}
+
+constexpr Duration Angle::operator/(const AngularSpeed& angular_speed) const noexcept {
+  return {angular_speed, *this};
 }
 
 } // namespace PhQ

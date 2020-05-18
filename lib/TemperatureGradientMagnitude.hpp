@@ -12,7 +12,7 @@
 
 namespace PhQ {
 
-// Forward declaration.
+// Forward declarations.
 class Direction;
 class TemperatureGradient;
 
@@ -26,7 +26,7 @@ public:
 
   constexpr TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept;
 
-  constexpr TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference / length) {}
+  constexpr TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference.value() / length.value()) {}
 
   constexpr bool operator==(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
     return value_ == temperature_gradient_magnitude.value_;
@@ -69,7 +69,7 @@ public:
   }
 
   constexpr TemperatureDifference operator*(const Length& length) const noexcept {
-    return {value_ * length.value()};
+    return {*this, length};
   }
 
   constexpr TemperatureGradient operator*(const Direction& direction) const noexcept;
@@ -85,11 +85,13 @@ protected:
 };
 
 template <> constexpr bool sort(const TemperatureGradientMagnitude& temperature_gradient_magnitude_1, const TemperatureGradientMagnitude& temperature_gradient_magnitude_2) noexcept {
-  return temperature_gradient_magnitude_1.value() < temperature_gradient_magnitude_2.value();
+  return sort(temperature_gradient_magnitude_1.value(), temperature_gradient_magnitude_2.value());
 }
 
+constexpr TemperatureDifference::TemperatureDifference(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length) noexcept : TemperatureDifference(temperature_gradient_magnitude.value() * length.value()) {}
+
 constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(const Length& length) const noexcept {
-  return {value_ / length.value()};
+  return {*this, length};
 }
 
 } // namespace PhQ

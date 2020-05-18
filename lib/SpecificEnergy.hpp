@@ -23,6 +23,12 @@ public:
 
   constexpr SpecificEnergy(double value, Unit::SpecificEnergy unit) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
+  constexpr SpecificEnergy(const Energy& energy, const Mass& mass) noexcept : SpecificEnergy(energy.value() / mass.value()) {}
+
+  constexpr SpecificEnergy(const SpecificPower& specific_power, const Duration& duration) noexcept;
+
+  constexpr SpecificEnergy(const SpecificPower& specific_power, const Frequency& frequency) noexcept;
+
   constexpr bool operator==(const SpecificEnergy& specific_energy) const noexcept {
     return value_ == specific_energy.value_;
   }
@@ -63,13 +69,15 @@ public:
     value_ -= specific_energy.value_;
   }
 
-  constexpr SpecificPower operator*(const Frequency& frequency) const noexcept;
-
   constexpr Energy operator*(const Mass& mass) const noexcept {
-    return {value_ * mass.value_};
+    return {*this, mass};
   }
 
+  constexpr SpecificPower operator*(const Frequency& frequency) const noexcept;
+
   constexpr SpecificPower operator/(const Duration& duration) const noexcept;
+
+  constexpr Duration operator/(const SpecificPower& specific_power) const noexcept;
 
 protected:
 
@@ -85,15 +93,23 @@ protected:
 };
 
 template <> constexpr bool sort(const SpecificEnergy& specific_energy_1, const SpecificEnergy& specific_energy_2) noexcept {
-  return specific_energy_1.value() < specific_energy_2.value();
+  return sort(specific_energy_1.value(), specific_energy_2.value());
 }
 
+constexpr Mass::Mass(const SpecificEnergy& specific_energy, const Energy& energy) noexcept : Mass(energy.value() / specific_energy.value()) {}
+
+constexpr Energy::Energy(const SpecificEnergy& specific_energy, const Mass& mass) noexcept : Energy(specific_energy.value() * mass.value()) {}
+
 constexpr Energy Mass::operator*(const SpecificEnergy& specific_energy) const noexcept {
-  return {value_ * specific_energy.value_};
+  return {specific_energy, *this};
+}
+
+constexpr Mass Energy::operator/(const SpecificEnergy& specific_energy) const noexcept {
+  return {specific_energy, *this};
 }
 
 constexpr SpecificEnergy Energy::operator/(const Mass& mass) const noexcept {
-  return {value_ / mass.value_};
+  return {*this, mass};
 }
 
 } // namespace PhQ

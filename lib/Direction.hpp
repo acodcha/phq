@@ -17,8 +17,6 @@ class Vector;
 class SymmetricDyadic;
 class Dyadic;
 } // namespace Value
-template <typename Unit> class DimensionalScalarQuantity;
-template <typename Unit> class DimensionalVectorQuantity;
 class Acceleration;
 class AccelerationMagnitude;
 class Area;
@@ -28,6 +26,7 @@ class Displacement;
 class Force;
 class ForceMagnitude;
 class Length;
+class Position;
 class Speed;
 class StaticPressure;
 class TemperatureGradient;
@@ -55,6 +54,22 @@ public:
   constexpr Direction(double x, double y, double z) : Direction(std::array<double, 3>{x, y, z}) {}
 
   constexpr Direction(const Value::Vector& vector);
+
+  constexpr Direction(const Acceleration& acceleration);
+
+  constexpr Direction(const AreaVector& area_vector);
+
+  constexpr Direction(const Displacement& displacement);
+
+  constexpr Direction(const Force& force);
+
+  constexpr Direction(const Position& position);
+
+  constexpr Direction(const TemperatureGradient& temperature_gradient);
+
+  constexpr Direction(const Traction& traction);
+
+  constexpr Direction(const Velocity& velocity);
 
   constexpr std::array<double, 3> x_y_z() const noexcept {
     return x_y_z_;

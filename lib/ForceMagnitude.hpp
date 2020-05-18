@@ -26,6 +26,8 @@ public:
 
   constexpr ForceMagnitude(const Force& force) noexcept;
 
+  constexpr ForceMagnitude(const StaticPressure& static_pressure, const Area& area) noexcept;
+
   constexpr bool operator==(const ForceMagnitude& force_magnitude) const noexcept {
     return value_ == force_magnitude.value_;
   }
@@ -82,7 +84,7 @@ protected:
 };
 
 template <> constexpr bool sort(const ForceMagnitude& force_magnitude_1, const ForceMagnitude& force_magnitude_2) noexcept {
-  return force_magnitude_1.value() < force_magnitude_2.value();
+  return sort(force_magnitude_1.value(), force_magnitude_2.value());
 }
 
 } // namespace PhQ

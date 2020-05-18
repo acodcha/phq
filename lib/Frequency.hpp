@@ -25,8 +25,28 @@ public:
 
   constexpr Frequency(double value, Unit::Frequency unit) noexcept : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
+  constexpr Frequency(const Duration& duration) noexcept : Frequency(1.0 / duration.value()) {}
+
+  constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed) noexcept;
+
+  constexpr Frequency(const AngularAccelerationMagnitude& angular_acceleration_magnitude, const AngularSpeed& angular_speed) noexcept;
+
+  constexpr Frequency(const AngularSpeed& angular_speed, const Angle& angle) noexcept;
+
+  constexpr Frequency(const MassRate& mass_rate, const Mass& mass) noexcept;
+
+  constexpr Frequency(const MemoryRate& memory_rate, const Memory& memory) noexcept;
+
+  constexpr Frequency(const Power& power, const Energy& energy) noexcept;
+
+  constexpr Frequency(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept;
+
+  constexpr Frequency(const Speed& speed, const Length& length) noexcept;
+
+  constexpr Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept;
+
   constexpr Duration period() const noexcept {
-    return {1.0 / value_};
+    return {*this};
   }
 
   constexpr bool operator==(const Frequency& frequency) const noexcept {
@@ -125,11 +145,13 @@ protected:
 };
 
 template <> constexpr bool sort(const Frequency& frequency_1, const Frequency& frequency_2) noexcept {
-  return frequency_1.value() < frequency_2.value();
+  return sort(frequency_1.value(), frequency_2.value());
 }
 
+constexpr Duration::Duration(const Frequency& frequency) noexcept : Duration(1.0 / frequency.value()) {}
+
 constexpr Frequency Duration::frequency() const noexcept {
-  return {1.0 / value_};
+  return {*this};
 }
 
 constexpr double Duration::operator*(const Frequency& frequency) const noexcept {

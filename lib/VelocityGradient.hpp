@@ -20,7 +20,7 @@ public:
   constexpr VelocityGradient(const Value::Dyadic& value, const Unit::Frequency& unit) noexcept : DimensionalDyadicQuantity<Unit::Frequency>(value, unit) {}
 
   constexpr StrainRate strain_rate() const noexcept {
-    return {{value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}, standard_unit<Unit::Frequency>};
+    return {*this};
   }
 
   constexpr bool operator==(const VelocityGradient& velocity_gradient) const noexcept {
@@ -57,6 +57,6 @@ template <> constexpr bool sort(const VelocityGradient& velocity_gradient_1, con
   return sort(velocity_gradient_1.value(), velocity_gradient_2.value());
 }
 
-constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate(velocity_gradient.strain_rate()) {}
+constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 } // namespace PhQ

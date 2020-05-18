@@ -24,6 +24,10 @@ public:
 
   constexpr StrainRate(const Value::SymmetricDyadic& value, Unit::Frequency unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>(value, unit) {}
 
+  constexpr StrainRate(const Strain& strain, const Duration& duration) noexcept : StrainRate(strain.value() / duration.value()) {}
+
+  constexpr StrainRate(const Strain& strain, const Frequency& frequency) noexcept : StrainRate(strain.value() * frequency.value()) {}
+
   constexpr StrainRate(const VelocityGradient& velocity_gradient) noexcept;
 
   constexpr bool operator==(const StrainRate& strain_rate) const noexcept {
@@ -51,11 +55,11 @@ public:
   }
 
   constexpr Strain operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr Strain operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
 protected:
@@ -72,20 +76,24 @@ template <> constexpr bool sort(const StrainRate& strain_rate_1, const StrainRat
   return sort(strain_rate_1.value(), strain_rate_2.value());
 }
 
+constexpr Strain::Strain(const StrainRate& strain_rate, const Duration& duration) noexcept : Strain(strain_rate.value() * duration.value()) {}
+
+constexpr Strain::Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept : Strain(strain_rate.value() / frequency.value()) {}
+
 constexpr StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
 }
 
 constexpr StrainRate Strain::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 constexpr Strain Duration::operator*(const StrainRate& strain_rate) const noexcept {
-  return {value_ * strain_rate.value_};
+  return {strain_rate, *this};
 }
 
 constexpr StrainRate Frequency::operator*(const Strain& strain) const noexcept {
-  return {value_ * strain.value_};
+  return {strain, *this};
 }
 
 } // namespace PhQ

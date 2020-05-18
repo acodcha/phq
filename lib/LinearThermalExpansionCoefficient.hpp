@@ -70,7 +70,7 @@ protected:
 };
 
 template <> constexpr bool sort(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient_1, const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient_2) noexcept {
-  return linear_thermal_expansion_coefficient_1.value() < linear_thermal_expansion_coefficient_2.value();
+  return sort(linear_thermal_expansion_coefficient_1.value(), linear_thermal_expansion_coefficient_2.value());
 }
 
 constexpr double TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {

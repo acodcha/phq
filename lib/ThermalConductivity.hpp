@@ -11,6 +11,11 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class MassDensity;
+class SpecificIsobaricHeatCapacity;
+class ThermalDiffusivity;
+
 class ThermalConductivity : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 
 public:
@@ -18,6 +23,8 @@ public:
   constexpr ThermalConductivity() noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
 
   constexpr ThermalConductivity(double value, Unit::ThermalConductivity unit) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
+
+  constexpr ThermalConductivity(const ThermalDiffusivity& thermal_diffusivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept;
 
   constexpr bool operator==(const ThermalConductivity& thermal_conductivity) const noexcept {
     return value_ == thermal_conductivity.value_;
@@ -66,7 +73,7 @@ protected:
 };
 
 template <> constexpr bool sort(const ThermalConductivity& thermal_conductivity_1, const ThermalConductivity& thermal_conductivity_2) noexcept {
-  return thermal_conductivity_1.value() < thermal_conductivity_2.value();
+  return sort(thermal_conductivity_1.value(), thermal_conductivity_2.value());
 }
 
 } // namespace PhQ

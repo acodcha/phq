@@ -23,6 +23,8 @@ public:
 
   constexpr StaticPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  constexpr StaticPressure(const ForceMagnitude& force_magnitude, const Area& area) noexcept : StaticPressure(force_magnitude.value() / area.value()) {}
+
   constexpr StaticPressure(const Traction& traction) noexcept;
 
   constexpr bool operator==(const StaticPressure& static_pressure) const noexcept {
@@ -66,7 +68,7 @@ public:
   }
 
   constexpr ForceMagnitude operator*(const Area& area) const noexcept {
-    return {value_ * area.value_};
+    return {*this, area};
   }
 
   constexpr Traction operator*(const Direction& direction) const noexcept;
@@ -83,15 +85,19 @@ protected:
 };
 
 template <> constexpr bool sort(const StaticPressure& static_pressure_1, const StaticPressure& static_pressure_2) noexcept {
-  return static_pressure_1.value() < static_pressure_2.value();
+  return sort(static_pressure_1.value(), static_pressure_2.value());
 }
 
+constexpr Area::Area(const StaticPressure& static_pressure, const ForceMagnitude& force_magnitude) noexcept : Area(force_magnitude.value() / static_pressure.value()) {}
+
+constexpr ForceMagnitude::ForceMagnitude(const StaticPressure& static_pressure, const Area& area) noexcept : ForceMagnitude(static_pressure.value() * area.value()) {}
+
 constexpr ForceMagnitude Area::operator*(const StaticPressure& static_pressure) const noexcept {
-  return {value_ * static_pressure.value_};
+  return {static_pressure, *this};
 }
 
 constexpr StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
-  return {value_ / area.value_};
+  return {*this, area};
 }
 
 } // namespace PhQ

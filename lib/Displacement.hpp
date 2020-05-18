@@ -26,8 +26,14 @@ public:
 
   constexpr Displacement(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
+  constexpr Displacement(const Length& length, const Direction& direction) noexcept : Displacement({length.value() * direction.x(), length.value() * direction.y(), length.value() * direction.z()}) {}
+
+  constexpr Displacement(const Velocity& velocity, const Duration& duration) noexcept;
+
+  constexpr Displacement(const Velocity& velocity, const Frequency& frequency) noexcept;
+
   constexpr Length magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const Displacement& displacement) const noexcept {
@@ -83,16 +89,18 @@ template <> constexpr bool sort(const Displacement& displacement_1, const Displa
   return sort(displacement_1.value(), displacement_2.value());
 }
 
+constexpr Direction::Direction(const Displacement& displacement) : Direction(displacement.value()) {}
+
+constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : Angle(displacement_1.angle(displacement_2)) {}
+
+constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.value().magnitude()) {}
+
 constexpr Displacement Direction::operator*(const Length& length) const noexcept {
-  return {{x_y_z_[0] * length.value_, x_y_z_[1] * length.value_, x_y_z_[2] * length.value_}};
+  return {length, *this};
 }
 
-constexpr Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(displacement_1.angle(displacement_2)) {}
-
-constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.magnitude()) {}
-
 constexpr Displacement Length::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
 
 } // namespace PhQ

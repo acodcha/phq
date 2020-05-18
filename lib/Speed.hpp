@@ -25,7 +25,15 @@ public:
 
   constexpr Speed(double value, Unit::Speed unit) noexcept : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
+  constexpr Speed(const Length& length, const Duration& duration) noexcept : Speed(length.value() / duration.value()) {}
+
+  constexpr Speed(const Length& length, const Frequency& frequency) noexcept : Speed(length.value() * frequency.value()) {}
+
   constexpr Speed(const Velocity& velocity) noexcept;
+
+  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept;
+
+  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency) noexcept;
 
   constexpr bool operator==(const Speed& speed) const noexcept {
     return value_ == speed.value_;
@@ -68,22 +76,24 @@ public:
   }
 
   constexpr Length operator*(const Duration& duration) const noexcept {
-    return {value_ * duration.value_};
+    return {*this, duration};
   }
 
   constexpr AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
 
   constexpr Velocity operator*(const Direction& direction) const noexcept;
 
-  constexpr AccelerationMagnitude operator/(const Duration& duration) const noexcept;
-
   constexpr Length operator/(const Frequency& frequency) const noexcept {
-    return {value_ / frequency.value_};
+    return {*this, frequency};
   }
 
   constexpr Frequency operator/(const Length& length) const noexcept {
-    return {value_ / length.value_};
+    return {*this, length};
   }
+
+  constexpr AccelerationMagnitude operator/(const Duration& duration) const noexcept;
+
+  constexpr Duration operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
 protected:
 
@@ -99,19 +109,31 @@ protected:
 };
 
 template <> constexpr bool sort(const Speed& speed_1, const Speed& speed_2) noexcept {
-  return speed_1.value() < speed_2.value();
+  return sort(speed_1.value(), speed_2.value());
 }
 
+constexpr Length::Length(const Speed& speed, const Duration& duration) noexcept : Length(speed.value() * duration.value()) {}
+
+constexpr Length::Length(const Speed& speed, const Frequency& frequency) noexcept : Length(speed.value() / frequency.value()) {}
+
+constexpr Duration::Duration(const Speed& speed, const Length& length) noexcept : Duration(length.value() / speed.value()) {}
+
+constexpr Frequency::Frequency(const Speed& speed, const Length& length) noexcept : Frequency(speed.value() / length.value()) {}
+
 constexpr Speed Length::operator*(const Frequency& frequency) const noexcept {
-  return {value_ * frequency.value_};
+  return {*this, frequency};
+}
+
+constexpr Duration Length::operator/(const Speed& speed) const noexcept {
+  return {speed, *this};
 }
 
 constexpr Speed Frequency::operator*(const Length& length) const noexcept {
-  return {value_ * length.value_};
+  return {length, *this};
 }
 
 constexpr Speed Length::operator/(const Duration& duration) const noexcept {
-  return {value_ / duration.value_};
+  return {*this, duration};
 }
 
 } // namespace PhQ

@@ -66,7 +66,7 @@ protected:
 };
 
 template <> constexpr bool sort(const BulkDynamicViscosity& bulk_dynamic_viscosity_1, const BulkDynamicViscosity& bulk_dynamic_viscosity_2) noexcept {
-  return bulk_dynamic_viscosity_1.value() < bulk_dynamic_viscosity_2.value();
+  return sort(bulk_dynamic_viscosity_1.value(), bulk_dynamic_viscosity_2.value());
 }
 
 } // namespace PhQ

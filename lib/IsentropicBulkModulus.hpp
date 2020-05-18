@@ -66,7 +66,7 @@ protected:
 };
 
 template <> constexpr bool sort(const IsentropicBulkModulus& isentropic_bulk_modulus_1, const IsentropicBulkModulus& isentropic_bulk_modulus_2) noexcept {
-  return isentropic_bulk_modulus_1.value() < isentropic_bulk_modulus_2.value();
+  return sort(isentropic_bulk_modulus_1.value(), isentropic_bulk_modulus_2.value());
 }
 
 } // namespace PhQ

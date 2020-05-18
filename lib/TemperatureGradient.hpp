@@ -20,10 +20,10 @@ public:
 
   constexpr TemperatureGradient(const Value::Vector& value, Unit::TemperatureGradient unit) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(value, unit) {}
 
-  constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Direction& direction) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(temperature_gradient_magnitude * direction) {}
+  constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Direction& direction) noexcept : TemperatureGradient({temperature_gradient_magnitude.value() * direction.x(), temperature_gradient_magnitude.value() * direction.y(), temperature_gradient_magnitude.value() * direction.z()}) {}
 
   constexpr TemperatureGradientMagnitude magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const TemperatureGradient& temperature_gradient) const noexcept {
@@ -67,16 +67,18 @@ template <> constexpr bool sort(const TemperatureGradient& temperature_gradient_
   return sort(temperature_gradient_1.value(), temperature_gradient_2.value());
 }
 
+constexpr Direction::Direction(const TemperatureGradient& temperature_gradient) : Direction(temperature_gradient.value()) {}
+
+constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.angle(temperature_gradient_2)) {}
+
+constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.value().magnitude()) {}
+
 constexpr TemperatureGradient Direction::operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
-  return {{x_y_z_[0] * temperature_gradient_magnitude.value_, x_y_z_[1] * temperature_gradient_magnitude.value_, x_y_z_[2] * temperature_gradient_magnitude.value_}};
+  return {temperature_gradient_magnitude, *this};
 }
 
 constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
-
-constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(temperature_gradient_1.angle(temperature_gradient_2)) {}
-
-constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.magnitude()) {}
 
 } // namespace PhQ

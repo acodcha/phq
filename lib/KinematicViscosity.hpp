@@ -23,6 +23,8 @@ public:
 
   constexpr KinematicViscosity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
+  constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density) noexcept;
+
   constexpr bool operator==(const KinematicViscosity& kinematic_viscosity) const noexcept {
     return value_ == kinematic_viscosity.value_;
   }
@@ -75,7 +77,7 @@ protected:
 };
 
 template <> constexpr bool sort(const KinematicViscosity& kinematic_viscosity_1, const KinematicViscosity& kinematic_viscosity_2) noexcept {
-  return kinematic_viscosity_1.value() < kinematic_viscosity_2.value();
+  return sort(kinematic_viscosity_1.value(), kinematic_viscosity_2.value());
 }
 
 } // namespace PhQ

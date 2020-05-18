@@ -19,7 +19,7 @@ public:
   constexpr Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
   constexpr Length magnitude() const noexcept {
-    return {value_.magnitude()};
+    return {*this};
   }
 
   constexpr Angle angle(const Position& position) const noexcept {
@@ -79,7 +79,11 @@ template <> constexpr bool sort(const Position& position_1, const Position& posi
   return sort(position_1.value(), position_2.value());
 }
 
-constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : DimensionalScalarQuantity<Unit::Angle>(position_1.angle(position_2)) {}
+constexpr Direction::Direction(const Position& position) : Direction(position.value()) {}
+
+constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.angle(position_2)) {}
+
+constexpr Length::Length(const Position& position) noexcept : Length(position.value().magnitude()) {}
 
 constexpr Position Displacement::operator+(const Position& position) const noexcept {
   return {value_ + position.value_};

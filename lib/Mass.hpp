@@ -36,6 +36,22 @@ public:
 
   constexpr Mass(double value, Unit::Mass unit) noexcept : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
+  constexpr Mass(const MassDensity& mass_density, const Volume& volume) noexcept;
+
+  constexpr Mass(const MassRate& mass_rate, const Duration& duration) noexcept;
+
+  constexpr Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept;
+
+  constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy) noexcept;
+
+  constexpr Mass(const SpecificPower& specific_power, const Power& power) noexcept;
+
+  constexpr Mass(const SpecificGasConstant& specific_gas_constant, const GasConstant& gas_constant) noexcept;
+
+  constexpr Mass(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+
+  constexpr Mass(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+
   constexpr bool operator==(const Mass& mass) const noexcept {
     return value_ == mass.value_;
   }
@@ -92,6 +108,8 @@ public:
 
   constexpr MassRate operator/(const Duration& duration) const noexcept;
 
+  constexpr Duration operator/(const MassRate& mass_rate) const noexcept;
+
 protected:
 
   constexpr Mass(double value) noexcept : DimensionalScalarQuantity<Unit::Mass>(value) {}
@@ -115,7 +133,7 @@ protected:
 };
 
 template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept {
-  return mass_1.value() < mass_2.value();
+  return sort(mass_1.value(), mass_2.value());
 }
 
 } // namespace PhQ
