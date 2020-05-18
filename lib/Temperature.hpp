@@ -48,7 +48,7 @@ public:
   }
 
   constexpr Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ + temperature_difference.value_};
+    return {value_ + temperature_difference.value()};
   }
 
   constexpr void operator+=(const Temperature& temperature) noexcept {
@@ -56,7 +56,7 @@ public:
   }
 
   constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept {
-    value_ += temperature_difference.value_;
+    value_ += temperature_difference.value();
   }
 
   constexpr TemperatureDifference operator-(const Temperature& temperature) const noexcept {
@@ -64,7 +64,7 @@ public:
   }
 
   constexpr Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ - temperature_difference.value_};
+    return {value_ - temperature_difference.value()};
   }
 
   constexpr void operator-=(const Temperature& temperature) noexcept {
@@ -72,7 +72,7 @@ public:
   }
 
   constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
-    value_ -= temperature_difference.value_;
+    value_ -= temperature_difference.value();
   }
 
 protected:
@@ -84,15 +84,15 @@ protected:
 };
 
 template <> constexpr bool sort(const Temperature& temperature_1, const Temperature& temperature_2) noexcept {
-  return temperature_1.value() < temperature_2.value();
+  return sort(temperature_1.value(), temperature_2.value());
 }
 
 constexpr Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
-  return {value_ + temperature.value_};
+  return {value_ + temperature.value()};
 }
 
 constexpr Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
-  return {value_ - temperature.value_};
+  return {value_ - temperature.value()};
 }
 
 } // namespace PhQ

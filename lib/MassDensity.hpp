@@ -29,6 +29,8 @@ public:
 
   constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept : MassDensity(mass.value() / volume.value()) {}
 
+  constexpr MassDensity(const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity) noexcept;
+
   constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
   constexpr bool operator==(const MassDensity& mass_density) const noexcept {

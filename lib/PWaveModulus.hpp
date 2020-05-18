@@ -66,7 +66,7 @@ protected:
 };
 
 template <> constexpr bool sort(const PWaveModulus& p_wave_modulus_1, const PWaveModulus& p_wave_modulus_2) noexcept {
-  return p_wave_modulus_1.value() < p_wave_modulus_2.value();
+  return sort(p_wave_modulus_1.value(), p_wave_modulus_2.value());
 }
 
 } // namespace PhQ

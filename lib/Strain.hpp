@@ -24,6 +24,10 @@ public:
 
   constexpr Strain(const Value::SymmetricDyadic& value) noexcept : DimensionlessSymmetricDyadicQuantity(value) {}
 
+  constexpr Strain(const StrainRate& strain_rate, const Duration& duration) noexcept;
+
+  constexpr Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept;
+
   constexpr Strain(const DisplacementGradient& displacement_gradient) noexcept;
 
   constexpr bool operator==(const Strain& strain) const noexcept {

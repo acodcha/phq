@@ -74,11 +74,11 @@ constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const 
 constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.value().magnitude()) {}
 
 constexpr TemperatureGradient Direction::operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
-  return {{x_y_z_[0] * temperature_gradient_magnitude.value_, x_y_z_[1] * temperature_gradient_magnitude.value_, x_y_z_[2] * temperature_gradient_magnitude.value_}};
+  return {temperature_gradient_magnitude, *this};
 }
 
 constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(const Direction& direction) const noexcept {
-  return {{direction.x() * value_, direction.y() * value_, direction.z() * value_}};
+  return {*this, direction};
 }
 
 } // namespace PhQ

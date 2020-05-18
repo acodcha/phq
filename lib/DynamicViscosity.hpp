@@ -20,6 +20,8 @@ public:
 
   constexpr DynamicViscosity(double value, Unit::DynamicViscosity unit) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
+  constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity, const MassDensity& mass_density) noexcept : DynamicViscosity(kinematic_viscosity.value() * mass_density.value()) {}
+
   constexpr bool operator==(const DynamicViscosity& dynamic_viscosity) const noexcept {
     return value_ == dynamic_viscosity.value_;
   }
@@ -61,11 +63,11 @@ public:
   }
 
   constexpr KinematicViscosity operator/(const MassDensity& mass_density) const noexcept {
-    return {value_ / mass_density.value_};
+    return {*this, mass_density};
   }
 
   constexpr MassDensity operator/(const KinematicViscosity& kinematic_viscosity) const noexcept {
-    return {value_ / kinematic_viscosity.value_};
+    return {*this, kinematic_viscosity};
   }
 
 protected:
@@ -78,15 +80,19 @@ protected:
 };
 
 template <> constexpr bool sort(const DynamicViscosity& dynamic_viscosity_1, const DynamicViscosity& dynamic_viscosity_2) noexcept {
-  return dynamic_viscosity_1.value() < dynamic_viscosity_2.value();
+  return sort(dynamic_viscosity_1.value(), dynamic_viscosity_2.value());
 }
 
+constexpr MassDensity::MassDensity(const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity) noexcept : MassDensity(dynamic_viscosity.value() / kinematic_viscosity.value()) {}
+
+constexpr KinematicViscosity::KinematicViscosity(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density) noexcept : KinematicViscosity(dynamic_viscosity.value() / mass_density.value()) {}
+
 constexpr DynamicViscosity KinematicViscosity::operator*(const MassDensity& mass_density) const noexcept {
-  return {value_ * mass_density.value_};
+  return {*this, mass_density};
 }
 
 constexpr DynamicViscosity MassDensity::operator*(const KinematicViscosity& kinematic_viscosity) const noexcept {
-  return {value_ * kinematic_viscosity.value_};
+  return {kinematic_viscosity, *this};
 }
 
 } // namespace PhQ

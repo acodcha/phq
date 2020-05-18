@@ -47,7 +47,7 @@ public:
   }
 
   constexpr Time operator+(const Duration& duration) const noexcept {
-    return {value_ + duration.value_};
+    return {value_ + duration.value()};
   }
 
   constexpr void operator+=(const Time& time) noexcept {
@@ -55,7 +55,7 @@ public:
   }
 
   constexpr void operator+=(const Duration& duration) noexcept {
-    value_ += duration.value_;
+    value_ += duration.value();
   }
 
   constexpr Duration operator-(const Time& time) const noexcept {
@@ -63,7 +63,7 @@ public:
   }
 
   constexpr Time operator-(const Duration& duration) const noexcept {
-    return {value_ - duration.value_};
+    return {value_ - duration.value()};
   }
 
   constexpr void operator-=(const Time& time) noexcept {
@@ -71,7 +71,7 @@ public:
   }
 
   constexpr void operator-=(const Duration& duration) noexcept {
-    value_ -= duration.value_;
+    value_ -= duration.value();
   }
 
 protected:
@@ -87,11 +87,11 @@ template <> constexpr bool sort(const Time& time_1, const Time& time_2) noexcept
 }
 
 constexpr Time Duration::operator+(const Time& time) const noexcept {
-  return {value_ + time.value_};
+  return {value_ + time.value()};
 }
 
 constexpr Time Duration::operator-(const Time& time) const noexcept {
-  return {value_ - time.value_};
+  return {value_ - time.value()};
 }
 
 } // namespace PhQ
