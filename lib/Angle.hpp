@@ -32,13 +32,13 @@ public:
 
   constexpr Angle(double value, Unit::Angle unit) noexcept : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  constexpr Angle(const Direction& direction_1, const Direction& direction_2) noexcept : Angle(direction_1.angle(direction_2)) {}
+  constexpr Angle(const Direction& direction_1, const Direction& direction_2) noexcept : Angle(std::acos(direction_1.dot(direction_2))) {}
 
-  constexpr Angle(const Direction& direction, const Value::Vector& vector) noexcept : Angle(direction.angle(vector)) {}
+  constexpr Angle(const Direction& direction, const Value::Vector& vector) noexcept : Angle(std::acos(direction.dot(vector) / vector.magnitude())) {}
 
-  constexpr Angle(const Value::Vector& vector, const Direction& direction) noexcept : Angle(vector.angle(direction)) {}
+  constexpr Angle(const Value::Vector& vector, const Direction& direction) noexcept : Angle(std::acos(vector.dot(direction) / vector.magnitude())) {}
 
-  constexpr Angle(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept : Angle(vector_1.angle(vector_2)) {}
+  constexpr Angle(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept : Angle(std::acos(vector_1.dot(vector_2) / (vector_1.magnitude() * vector_2.magnitude()))) {}
 
   constexpr Angle(const AngularSpeed& angular_speed, const Duration& duration) noexcept;
 
@@ -46,7 +46,7 @@ public:
 
   constexpr Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept;
 
-  constexpr Angle(const AreaVector& vector_area_1, const AreaVector& vector_area_2) noexcept;
+  constexpr Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept;
 
   constexpr Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept;
 
@@ -110,11 +110,6 @@ protected:
 
   constexpr Angle(double value) noexcept : DimensionalScalarQuantity<Unit::Angle>(value) {}
 
-  friend Angle Direction::angle(const Direction& direction) const noexcept;
-  friend Angle Direction::angle(const Value::Vector& vector) const noexcept;
-  friend Angle Value::Vector::angle(const Direction& direction) const noexcept;
-  friend Angle Value::Vector::angle(const Value::Vector& vector) const noexcept;
-
 };
 
 template <> constexpr bool sort(const Angle& angle_1, const Angle& angle_2) noexcept {
@@ -122,19 +117,19 @@ template <> constexpr bool sort(const Angle& angle_1, const Angle& angle_2) noex
 }
 
 constexpr Angle Direction::angle(const Direction& direction) const noexcept {
-  return {std::acos(dot(direction))};
+  return {*this, direction};
 }
 
 constexpr Angle Direction::angle(const Value::Vector& vector) const noexcept {
-  return {std::acos(dot(vector) / vector.magnitude())};
+  return {*this, vector};
 }
 
 constexpr Angle Value::Vector::angle(const Direction& direction) const noexcept {
-  return {std::acos(dot(direction) / magnitude())};
+  return {*this, direction};
 }
 
 constexpr Angle Value::Vector::angle(const Value::Vector& vector) const noexcept {
-  return {std::acos(dot(vector) / (magnitude() * vector.magnitude()))};
+  return {*this, vector};
 }
 
 } // namespace PhQ

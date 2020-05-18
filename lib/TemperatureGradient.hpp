@@ -27,7 +27,7 @@ public:
   }
 
   constexpr Angle angle(const TemperatureGradient& temperature_gradient) const noexcept {
-    return value_.angle(temperature_gradient.value_);
+    return {*this, temperature_gradient};
   }
 
   constexpr bool operator==(const TemperatureGradient& temperature_gradient) const noexcept {
@@ -66,7 +66,7 @@ template <> constexpr bool sort(const TemperatureGradient& temperature_gradient_
 
 constexpr Direction::Direction(const TemperatureGradient& temperature_gradient) : Direction(temperature_gradient.value()) {}
 
-constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.angle(temperature_gradient_2)) {}
+constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.value(), temperature_gradient_2.value()) {}
 
 constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.value().magnitude()) {}
 

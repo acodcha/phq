@@ -73,7 +73,7 @@ template <> constexpr bool sort(const Force& force_1, const Force& force_2) noex
 
 constexpr Direction::Direction(const Force& force) : Direction(force.value()) {}
 
-constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.angle(force_2)) {}
+constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.value(), force_2.value()) {}
 
 constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.value().magnitude()) {}
 
