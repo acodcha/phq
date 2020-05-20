@@ -66,7 +66,11 @@ public:
     value_ += static_pressure.value_;
   }
 
-  constexpr StaticPressure operator-(const StaticPressure& static_pressure) const noexcept {
+  constexpr void operator+=(const PressureDifference& pressure_difference) noexcept {
+    value_ += pressure_difference.value();
+  }
+
+  constexpr PressureDifference operator-(const StaticPressure& static_pressure) const noexcept {
     return {value_ - static_pressure.value_};
   }
 
@@ -76,6 +80,10 @@ public:
 
   constexpr void operator-=(const StaticPressure& static_pressure) noexcept {
     value_ -= static_pressure.value_;
+  }
+
+  constexpr void operator-=(const PressureDifference& pressure_difference) noexcept {
+    value_ -= pressure_difference.value();
   }
 
   constexpr ForceMagnitude operator*(const Area& area) const noexcept {
