@@ -13,6 +13,7 @@ namespace PhQ {
 
 // Forward declaration.
 class Direction;
+class Stress;
 class Traction;
 
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
@@ -26,6 +27,8 @@ public:
   constexpr StaticPressure(const ForceMagnitude& force_magnitude, const Area& area) noexcept : StaticPressure(force_magnitude.value() / area.value()) {}
 
   constexpr StaticPressure(const Traction& traction) noexcept;
+
+  constexpr Stress stress() const noexcept;
 
   constexpr bool operator==(const StaticPressure& static_pressure) const noexcept {
     return value_ == static_pressure.value_;

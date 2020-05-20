@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Quantity/DimensionalSymmetricDyadic.hpp"
-#include "Unit/Pressure.hpp"
+#include "Traction.hpp"
 
 namespace PhQ {
 
@@ -18,6 +18,12 @@ public:
   constexpr Stress() noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>() {}
 
   constexpr Stress(const Value::SymmetricDyadic& value, Unit::Pressure unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>(value, unit) {}
+
+  constexpr Stress(const StaticPressure& static_pressure) noexcept : Stress({-1.0 * static_pressure.value(), 0.0, 0.0, -1.0 * static_pressure.value(), 0.0, -1.0 * static_pressure.value()}) {}
+
+  constexpr Traction traction(const Direction& direction) const noexcept {
+    return {*this, direction};
+  }
 
   constexpr bool operator==(const Stress& stress) const noexcept {
     return value_ == stress.value_;
@@ -51,6 +57,12 @@ protected:
 
 template <> constexpr bool sort(const Stress& stress_1, const Stress& stress_2) noexcept {
   return sort(stress_1.value(), stress_2.value());
+}
+
+constexpr Traction::Traction(const Stress& stress, const Direction& direction) noexcept : Traction({stress.value() * direction}) {}
+
+constexpr Stress StaticPressure::stress() const noexcept {
+  return {*this};
 }
 
 } // namespace PhQ
