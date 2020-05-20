@@ -19,9 +19,11 @@ public:
 
   constexpr Traction(const Value::Vector& value, Unit::Pressure unit) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr Traction(const StaticPressure& static_pressure, const Direction& direction) noexcept : Traction({static_pressure.value() * direction.x(), static_pressure.value() * direction.y(), static_pressure.value() * direction.z()}) {}
+  constexpr Traction(const StaticPressure& static_pressure, const Direction& direction) noexcept : Traction({-static_pressure.value() * direction.x(), -static_pressure.value() * direction.y(), -static_pressure.value() * direction.z()}) {}
 
   constexpr Traction(const Force& force, const Area& area) noexcept : Traction(force.value() / area.value()) {}
+
+  constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
 
   constexpr StaticPressure magnitude() const noexcept {
     return {*this};

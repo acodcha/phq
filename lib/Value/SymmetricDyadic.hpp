@@ -213,6 +213,14 @@ public:
     };
   }
 
+  constexpr Vector operator*(const Direction& direction) const noexcept {
+    return {
+      xx() * direction.x() + xy() * direction.y() + xz() * direction.z(),
+      yx() * direction.x() + yy() * direction.y() + yz() * direction.z(),
+      zx() * direction.x() + zy() * direction.y() + zz() * direction.z()
+    };
+  }
+
   constexpr Dyadic operator*(const SymmetricDyadic& symmetric_dyadic) const noexcept;
 
   constexpr Dyadic operator*(const Dyadic& dyadic) const noexcept;
