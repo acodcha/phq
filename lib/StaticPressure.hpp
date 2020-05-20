@@ -7,7 +7,7 @@
 #pragma once
 
 #include "ForceMagnitude.hpp"
-#include "Unit/Pressure.hpp"
+#include "PressureDifference.hpp"
 
 namespace PhQ {
 
@@ -58,12 +58,20 @@ public:
     return {value_ + static_pressure.value_};
   }
 
+  constexpr StaticPressure operator+(const PressureDifference& pressure_difference) const noexcept {
+    return {value_ + pressure_difference.value()};
+  }
+
   constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
     value_ += static_pressure.value_;
   }
 
   constexpr StaticPressure operator-(const StaticPressure& static_pressure) const noexcept {
     return {value_ - static_pressure.value_};
+  }
+
+  constexpr StaticPressure operator-(const PressureDifference& pressure_difference) const noexcept {
+    return {value_ - pressure_difference.value()};
   }
 
   constexpr void operator-=(const StaticPressure& static_pressure) noexcept {
@@ -79,6 +87,8 @@ public:
 protected:
 
   constexpr StaticPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+
+  friend class PressureDifference;
 
 };
 
@@ -96,6 +106,14 @@ constexpr ForceMagnitude Area::operator*(const StaticPressure& static_pressure) 
 
 constexpr StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
   return {*this, area};
+}
+
+constexpr StaticPressure PressureDifference::operator+(const StaticPressure& static_pressure) const noexcept {
+  return {value_ + static_pressure.value()};
+}
+
+constexpr StaticPressure PressureDifference::operator-(const StaticPressure& static_pressure) const noexcept {
+  return {value_ - static_pressure.value()};
 }
 
 } // namespace PhQ
