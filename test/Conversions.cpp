@@ -243,6 +243,10 @@ void test_mass_rate() noexcept {
 void test_memory() noexcept {
   test_conversions<PhQ::Unit::Memory>("Memory", 1.0, {
     PhQ::Unit::Memory::Bit,
+    PhQ::Unit::Memory::Kilobit,
+    PhQ::Unit::Memory::Megabit,
+    PhQ::Unit::Memory::Gigabit,
+    PhQ::Unit::Memory::Terabit,
     PhQ::Unit::Memory::Byte,
     PhQ::Unit::Memory::Kilobyte,
     PhQ::Unit::Memory::Megabyte,
@@ -254,6 +258,10 @@ void test_memory() noexcept {
 void test_memory_rate() noexcept {
   test_conversions<PhQ::Unit::MemoryRate>("Memory Rate", 1.0, {
     PhQ::Unit::MemoryRate::BitPerSecond,
+    PhQ::Unit::MemoryRate::KilobitPerSecond,
+    PhQ::Unit::MemoryRate::MegabitPerSecond,
+    PhQ::Unit::MemoryRate::GigabitPerSecond,
+    PhQ::Unit::MemoryRate::TerabitPerSecond,
     PhQ::Unit::MemoryRate::BytePerSecond,
     PhQ::Unit::MemoryRate::KilobytePerSecond,
     PhQ::Unit::MemoryRate::MegabytePerSecond,
