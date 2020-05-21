@@ -11,9 +11,11 @@
 
 namespace PhQ {
 
-// Forward declaration.
+// Forward declarations.
 class Direction;
+class DynamicPressure;
 class Stress;
+class TotalPressure;
 class Traction;
 
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
@@ -27,6 +29,8 @@ public:
   constexpr StaticPressure(const ForceMagnitude& force_magnitude, const Area& area) noexcept : StaticPressure(force_magnitude.value() / area.value()) {}
 
   constexpr StaticPressure(const Traction& traction) noexcept;
+
+  constexpr StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept;
 
   constexpr Stress stress() const noexcept;
 
@@ -61,6 +65,8 @@ public:
   constexpr StaticPressure operator+(const PressureDifference& pressure_difference) const noexcept {
     return {value_ + pressure_difference.value()};
   }
+
+  constexpr TotalPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept;
 
   constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
     value_ += static_pressure.value_;

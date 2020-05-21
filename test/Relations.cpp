@@ -21,6 +21,7 @@
 #include "../lib/SpecificPower.hpp"
 #include "../lib/TemperatureGradient.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
+#include "../lib/TotalPressure.hpp"
 #include "../lib/Traction.hpp"
 #include "../lib/VelocityGradient.hpp"
 #include "../lib/VolumeRate.hpp"
