@@ -15,6 +15,8 @@ namespace PhQ {
 // Forward declarations.
 class AccelerationMagnitude;
 class Direction;
+class DynamicPressure;
+class MassDensity;
 class Velocity;
 
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
@@ -34,6 +36,8 @@ public:
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept;
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency) noexcept;
+
+  constexpr Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept;
 
   constexpr bool operator==(const Speed& speed) const noexcept {
     return value_ == speed.value_;

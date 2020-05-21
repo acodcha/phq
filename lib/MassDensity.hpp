@@ -13,9 +13,11 @@
 namespace PhQ {
 
 // Forward declarations.
+class DynamicPressure;
 class DynamicViscosity;
 class KinematicViscosity;
 class SpecificIsobaricHeatCapacity;
+class Speed;
 class ThermalConductivity;
 class ThermalDiffusivity;
 
@@ -32,6 +34,8 @@ public:
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity) noexcept;
 
   constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
+
+  constexpr MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept;
 
   constexpr bool operator==(const MassDensity& mass_density) const noexcept {
     return value_ == mass_density.value_;
