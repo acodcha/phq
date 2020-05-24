@@ -25,7 +25,7 @@ Quantities are constructed from a value and a unit. Values can be scalars, vecto
 
 Unit conversions are done through the `PhQ::convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
 
-Unit conversions are handled automatically by quantities. Internally, quantities maintain their values in a consistent unit system: the metre-kilogram-second-Kelvin system. A quantity's value can be obtained in any unit through its `value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and returns its value as 4.535924 kg.
+Unit conversions are handled automatically by quantities. Internally, quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A quantity's value can be obtained in any unit through its `value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and returns its value as 4.535924 kg.
 
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example, a `PhQ::Velocity` divided by a `PhQ::Duration` returns a `PhQ::Acceleration`, while a `PhQ::Force` divided by a `PhQ::Area` returns a `PhQ::Traction`.
 
