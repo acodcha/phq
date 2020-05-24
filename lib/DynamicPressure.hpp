@@ -12,6 +12,9 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class DynamicKinematicPressure;
+
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 
 public:
@@ -23,6 +26,8 @@ public:
   constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed) noexcept : DynamicPressure(0.5 * mass_density.value() * std::pow(speed.value(), 2)) {}
 
   constexpr DynamicPressure(const TotalPressure& total_pressure, const StaticPressure& static_pressure) noexcept;
+
+  constexpr DynamicPressure(const DynamicKinematicPressure& dynamic_kinematic_pressure, const MassDensity& mass_density) noexcept;
 
   constexpr bool operator==(const DynamicPressure& dynamic_pressure) const noexcept {
     return value_ == dynamic_pressure.value_;

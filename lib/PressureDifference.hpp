@@ -11,7 +11,8 @@
 
 namespace PhQ {
 
-// Forward declaration.
+// Forward declarations.
+class KinematicPressureDifference;
 class StaticPressure;
 
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
@@ -21,6 +22,8 @@ public:
   constexpr PressureDifference() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   constexpr PressureDifference(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  constexpr PressureDifference(const KinematicPressureDifference& kinematic_pressure_difference, const MassDensity& mass_density) noexcept;
 
   constexpr bool operator==(const PressureDifference& pressure_difference) const noexcept {
     return value_ == pressure_difference.value_;
@@ -65,6 +68,8 @@ public:
   constexpr void operator-=(const PressureDifference& pressure_difference) noexcept {
     value_ -= pressure_difference.value_;
   }
+
+  constexpr KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
 
 protected:
 
