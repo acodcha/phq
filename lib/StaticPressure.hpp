@@ -14,6 +14,7 @@ namespace PhQ {
 // Forward declarations.
 class Direction;
 class DynamicPressure;
+class StaticKinematicPressure;
 class Stress;
 class TotalPressure;
 class Traction;
@@ -31,6 +32,8 @@ public:
   constexpr StaticPressure(const Traction& traction) noexcept;
 
   constexpr StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept;
+
+  constexpr StaticPressure(const StaticKinematicPressure& static_kinematic_pressure, const MassDensity& mass_density) noexcept;
 
   constexpr Stress stress() const noexcept;
 
@@ -97,6 +100,8 @@ public:
   }
 
   constexpr Traction operator*(const Direction& direction) const noexcept;
+
+  constexpr StaticKinematicPressure operator/(const MassDensity& mass_density) const noexcept;
 
 protected:
 

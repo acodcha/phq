@@ -20,6 +20,8 @@ public:
 
   constexpr TotalPressure(const DynamicPressure& dynamic_pressure, const StaticPressure& static_pressure) noexcept : TotalPressure(dynamic_pressure.value() + static_pressure.value()) {}
 
+  constexpr TotalPressure(const TotalKinematicPressure& total_kinematic_pressure, const MassDensity& mass_density) noexcept;
+
   constexpr bool operator==(const TotalPressure& total_pressure) const noexcept {
     return value_ == total_pressure.value_;
   }
