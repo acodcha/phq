@@ -21,7 +21,7 @@ You can generate documentation using Doxygen with `./docs/generate.sh`.
 ## Usage
 To use the library in one of your projects, add `find_package(PhQ REQUIRED)` to your project's `CMakeLists.txt` file, and include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`.
 
-Quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{{100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented in a Cartesian (x-y-z) coordinate system.
+Quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented in a Cartesian (x-y-z) coordinate system.
 
 Unit conversions are done through the `PhQ::convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
 
