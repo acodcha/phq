@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "StrainScalar.hpp"
 #include "Temperature.hpp"
 #include "Unit/ThermalExpansion.hpp"
 
@@ -59,8 +60,8 @@ public:
     value_ -= linear_thermal_expansion_coefficient.value_;
   }
 
-  constexpr double operator*(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ * temperature_difference.value();
+  constexpr StrainScalar operator*(const TemperatureDifference& temperature_difference) const noexcept {
+    return {*this, temperature_difference};
   }
 
 protected:
@@ -73,8 +74,10 @@ template <> constexpr bool sort(const LinearThermalExpansionCoefficient& linear_
   return sort(linear_thermal_expansion_coefficient_1.value(), linear_thermal_expansion_coefficient_2.value());
 }
 
-constexpr double TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-  return value_ * linear_thermal_expansion_coefficient.value();
+constexpr StrainScalar::StrainScalar(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient, const TemperatureDifference& temperature_difference) noexcept : StrainScalar(linear_thermal_expansion_coefficient.value() * temperature_difference.value()) {}
+
+constexpr StrainScalar TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
+  return {linear_thermal_expansion_coefficient, *this};
 }
 
 } // namespace PhQ

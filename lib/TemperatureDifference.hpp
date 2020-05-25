@@ -14,6 +14,7 @@ namespace PhQ {
 // Forward declarations.
 class Length;
 class LinearThermalExpansionCoefficient;
+class StrainScalar;
 class Temperature;
 class TemperatureGradientMagnitude;
 class VolumetricThermalExpansionCoefficient;
@@ -72,7 +73,7 @@ public:
     value_ -= temperature_difference.value_;
   }
 
-  constexpr double operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
+  constexpr StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
 
   constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
 

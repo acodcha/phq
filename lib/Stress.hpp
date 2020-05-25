@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Quantity/DimensionalSymmetricDyadic.hpp"
+#include "StressScalar.hpp"
 #include "Traction.hpp"
 
 namespace PhQ {
