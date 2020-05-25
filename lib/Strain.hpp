@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Quantity/DimensionlessSymmetricDyadic.hpp"
+#include "StrainScalar.hpp"
 
 namespace PhQ {
 
