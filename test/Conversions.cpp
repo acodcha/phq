@@ -290,6 +290,8 @@ void test_pressure() noexcept {
     PhQ::Unit::Pressure::Kilopascal,
     PhQ::Unit::Pressure::Megapascal,
     PhQ::Unit::Pressure::Gigapascal,
+    PhQ::Unit::Pressure::Bar,
+    PhQ::Unit::Pressure::Atmosphere,
     PhQ::Unit::Pressure::PoundPerSquareFoot,
     PhQ::Unit::Pressure::PoundPerSquareInch
   });
