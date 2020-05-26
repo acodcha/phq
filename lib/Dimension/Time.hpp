@@ -22,6 +22,10 @@ public:
     return "T";
   }
 
+  std::string label() const noexcept {
+    return "time";
+  }
+
 };
 
 } // namespace Dimension

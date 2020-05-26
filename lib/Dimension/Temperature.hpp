@@ -22,6 +22,10 @@ public:
     return "Θ";
   }
 
+  std::string label() const noexcept {
+    return "temperature";
+  }
+
 };
 
 } // namespace Dimension

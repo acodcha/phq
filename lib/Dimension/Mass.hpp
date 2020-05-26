@@ -22,6 +22,10 @@ public:
     return "M";
   }
 
+  std::string label() const noexcept {
+    return "mass";
+  }
+
 };
 
 } // namespace Dimension

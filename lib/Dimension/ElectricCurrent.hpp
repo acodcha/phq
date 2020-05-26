@@ -22,6 +22,10 @@ public:
     return "I";
   }
 
+  std::string label() const noexcept {
+    return "electric_current";
+  }
+
 };
 
 } // namespace Dimension

@@ -12,6 +12,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: build tests
       run: ./build/tests.sh
+    - name: run dimensions test
+      run: ./build/bin/dimensions
     - name: run conversions test
       run: ./build/bin/conversions
     - name: run relations test

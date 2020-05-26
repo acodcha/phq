@@ -22,6 +22,8 @@ public:
 
   virtual std::string abbreviation() const noexcept = 0;
 
+  virtual std::string label() const noexcept = 0;
+
   std::string print() const noexcept {
     if (value_ == 0) {
       return {};
