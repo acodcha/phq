@@ -73,39 +73,39 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
     {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}},
-    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 648000.0 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.0 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1800.0 / M_PI;});}}
+    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / pi;});}},
+    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / pi;});}},
+    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 648000.0 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.0 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1800.0 / pi;});}}
   }},
   {Unit::AngularSpeed::RadianPerMinute, {
     {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
-    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 120.0 * M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.0 / M_PI;});}}
+    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0 / pi;});}},
+    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / pi;});}},
+    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 120.0 * pi;});}},
+    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.0 / pi;});}}
   }},
   {Unit::AngularSpeed::RadianPerHour, {
     {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3600.0;});}},
     {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.05 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0 / M_PI;});}},
-    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 7200.0 * M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 120.0 * M_PI;});}},
-    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / M_PI;});}}
+    {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.05 / pi;});}},
+    {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0 / pi;});}},
+    {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / pi;});}},
+    {Unit::AngularSpeed::RevolutionPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 7200.0 * pi;});}},
+    {Unit::AngularSpeed::RevolutionPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 120.0 * pi;});}},
+    {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.5 / pi;});}}
   }},
   {Unit::AngularSpeed::DegreePerSecond, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 180.0;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 3.0;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 20.0 * M_PI;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 180.0;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 3.0;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 20.0 * pi;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}},
@@ -114,9 +114,9 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}}
   }},
   {Unit::AngularSpeed::DegreePerMinute, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 10800.0;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 180.0;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 3.0;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 10800.0;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 180.0;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 3.0;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
@@ -125,9 +125,9 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 6.0;});}}
   }},
   {Unit::AngularSpeed::DegreePerHour, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 648000.0;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 10800.0;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 180.0;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 648000.0;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 10800.0;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 180.0;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3600.0;});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
@@ -136,9 +136,9 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 360.0;});}}
   }},
   {Unit::AngularSpeed::RevolutionPerSecond, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * M_PI;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 120.0 * M_PI;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 7200.0 * M_PI;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * pi;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 120.0 * pi;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 7200.0 * pi;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 360.0;});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 21600.0;});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1296000.0;});}},
@@ -147,9 +147,9 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}}
   }},
   {Unit::AngularSpeed::RevolutionPerMinute, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 30.0;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * M_PI;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 120.0 * M_PI;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 30.0;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * pi;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 120.0 * pi;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 6.0;});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 360.0;});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 21600.0;});}},
@@ -158,9 +158,9 @@ template <size_t size> const std::map<Unit::AngularSpeed, std::map<Unit::Angular
     {Unit::AngularSpeed::RevolutionPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}}
   }},
   {Unit::AngularSpeed::RevolutionPerHour, {
-    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 1800.0;});}},
-    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= M_PI / 30.0;});}},
-    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * M_PI;});}},
+    {Unit::AngularSpeed::RadianPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 1800.0;});}},
+    {Unit::AngularSpeed::RadianPerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 30.0;});}},
+    {Unit::AngularSpeed::RadianPerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.0 * pi;});}},
     {Unit::AngularSpeed::DegreePerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
     {Unit::AngularSpeed::DegreePerMinute, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 6.0;});}},
     {Unit::AngularSpeed::DegreePerHour, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 360.0;});}},
