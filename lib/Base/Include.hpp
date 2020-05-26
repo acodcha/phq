@@ -31,7 +31,9 @@
 #include <unordered_map>
 #include <vector>
 
-// Define M_PI if it has not been defined by the compiler.
-#ifndef M_PI
-  #define M_PI (3.14159265358979323846)
-#endif
+namespace PhQ {
+
+  /// \brief The \f$ pi = 3.14... \f$ mathematical constant is not part of standard C++, and some compilers do not define it, so PhQ defines it within its namespace.
+  constexpr const double pi{3.14159265358979323846};
+
+} // namespace PhQ
