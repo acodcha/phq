@@ -22,6 +22,10 @@ public:
     return "J";
   }
 
+  std::string label() const noexcept {
+    return "luminous_intensity";
+  }
+
 };
 
 } // namespace Dimension

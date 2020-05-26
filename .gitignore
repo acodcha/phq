@@ -1,7 +1,6 @@
 .vscode/*
 build/files/*
-build/bin/conversions
-build/bin/relations
+build/bin/*
 docs/html/*
 docs/latex/*
 

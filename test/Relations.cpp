@@ -30,11 +30,6 @@
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 
-  PhQ::Dimension::Set dim{{1}, {-1}, {2}, {-2}, {3}, {-3}, {4}};
-  std::cout << dim << std::endl;
-  std::cout << dim.json() << std::endl;
-  std::cout << dim.xml() << std::endl;
-
   PhQ::Time time{10.0, PhQ::Unit::Time::Minute};
   time /= 2.0;
   std::cout << time << std::endl;

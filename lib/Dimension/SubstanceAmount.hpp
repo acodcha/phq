@@ -22,6 +22,10 @@ public:
     return "N";
   }
 
+  std::string label() const noexcept {
+    return "substance_amount";
+  }
+
 };
 
 } // namespace Dimension

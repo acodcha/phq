@@ -22,6 +22,10 @@ public:
     return "L";
   }
 
+  std::string label() const noexcept {
+    return "length";
+  }
+
 };
 
 } // namespace Dimension
