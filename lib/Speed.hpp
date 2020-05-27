@@ -17,7 +17,10 @@ class AccelerationMagnitude;
 class Direction;
 class DynamicKinematicPressure;
 class DynamicPressure;
+class DynamicViscosity;
+class KinematicViscosity;
 class MassDensity;
+class ReynoldsNumber;
 class Velocity;
 
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
@@ -41,6 +44,10 @@ public:
   constexpr Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept;
 
   constexpr Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
+
+  constexpr Speed(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density, const Length& length) noexcept;
+
+  constexpr Speed(const ReynoldsNumber& reynolds_number, const KinematicViscosity& kinematic_viscosity, const Length& length) noexcept;
 
   constexpr bool operator==(const Speed& speed) const noexcept {
     return value_ == speed.value_;

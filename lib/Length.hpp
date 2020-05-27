@@ -16,8 +16,12 @@ class Area;
 class Direction;
 class Displacement;
 class Duration;
+class DynamicViscosity;
 class Frequency;
+class KinematicViscosity;
+class MassDensity;
 class Position;
+class ReynoldsNumber;
 class Speed;
 class Volume;
 
@@ -40,6 +44,10 @@ public:
   constexpr Length(const Speed& speed, const Duration& duration) noexcept;
 
   constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
+
+  constexpr Length(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density, const Speed& speed) noexcept;
+
+  constexpr Length(const ReynoldsNumber& reynolds_number, const KinematicViscosity& kinematic_viscosity, const Speed& speed) noexcept;
 
   constexpr bool operator==(const Length& length) const noexcept {
     return value_ == length.value_;

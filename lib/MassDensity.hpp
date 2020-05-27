@@ -16,6 +16,7 @@ namespace PhQ {
 class DynamicPressure;
 class DynamicViscosity;
 class KinematicViscosity;
+class ReynoldsNumber;
 class SpecificIsobaricHeatCapacity;
 class Speed;
 class ThermalConductivity;
@@ -36,6 +37,8 @@ public:
   constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
   constexpr MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept;
+
+  constexpr MassDensity(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity, const Speed& speed, const Length& length) noexcept;
 
   constexpr bool operator==(const MassDensity& mass_density) const noexcept {
     return value_ == mass_density.value_;
