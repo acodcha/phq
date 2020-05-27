@@ -6,25 +6,20 @@
 
 #pragma once
 
-#include "Quantity/DimensionalScalar.hpp"
-#include "Unit/ThermalConductivity.hpp"
+#include "Quantity/DimensionalSymmetricDyadic.hpp"
+#include "ThermalConductivityScalar.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
-class MassDensity;
-class SpecificIsobaricHeatCapacity;
-class ThermalDiffusivity;
-
-class ThermalConductivity : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
+class ThermalConductivity : public DimensionalSymmetricDyadicQuantity<Unit::ThermalConductivity> {
 
 public:
 
-  constexpr ThermalConductivity() noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
+  constexpr ThermalConductivity() noexcept : DimensionalSymmetricDyadicQuantity<Unit::ThermalConductivity>() {}
 
-  constexpr ThermalConductivity(double value, Unit::ThermalConductivity unit) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
+  constexpr ThermalConductivity(const Value::SymmetricDyadic& value, Unit::ThermalConductivity unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::ThermalConductivity>(value, unit) {}
 
-  constexpr ThermalConductivity(const ThermalDiffusivity& thermal_diffusivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept;
+  constexpr ThermalConductivity(const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept : ThermalConductivity({thermal_conductivity_scalar.value(), 0.0, 0.0, thermal_conductivity_scalar.value(), 0.0, thermal_conductivity_scalar.value()}) {}
 
   constexpr bool operator==(const ThermalConductivity& thermal_conductivity) const noexcept {
     return value_ == thermal_conductivity.value_;
@@ -32,22 +27,6 @@ public:
 
   constexpr bool operator!=(const ThermalConductivity& thermal_conductivity) const noexcept {
     return value_ != thermal_conductivity.value_;
-  }
-
-  constexpr bool operator<(const ThermalConductivity& thermal_conductivity) const noexcept {
-    return value_ < thermal_conductivity.value_;
-  }
-
-  constexpr bool operator<=(const ThermalConductivity& thermal_conductivity) const noexcept {
-    return value_ <= thermal_conductivity.value_;
-  }
-
-  constexpr bool operator>(const ThermalConductivity& thermal_conductivity) const noexcept {
-    return value_ > thermal_conductivity.value_;
-  }
-
-  constexpr bool operator>=(const ThermalConductivity& thermal_conductivity) const noexcept {
-    return value_ >= thermal_conductivity.value_;
   }
 
   constexpr ThermalConductivity operator+(const ThermalConductivity& thermal_conductivity) const noexcept {
@@ -68,7 +47,7 @@ public:
 
 protected:
 
-  constexpr ThermalConductivity(double value) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
+  constexpr ThermalConductivity(const Value::SymmetricDyadic& value) noexcept : DimensionalSymmetricDyadicQuantity<Unit::ThermalConductivity>(value) {}
 
 };
 

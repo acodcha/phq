@@ -19,7 +19,7 @@ class KinematicViscosity;
 class ReynoldsNumber;
 class SpecificIsobaricHeatCapacity;
 class Speed;
-class ThermalConductivity;
+class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
@@ -34,7 +34,7 @@ public:
 
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity) noexcept;
 
-  constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivity& thermal_conductivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
+  constexpr MassDensity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivityScalar& thermal_conductivity_scalar, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
   constexpr MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept;
 
