@@ -12,6 +12,9 @@
 
 namespace PhQ {
 
+// Forward declarations.
+class ReynoldsNumber;
+
 class DynamicViscosity : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 
 public:
@@ -21,6 +24,8 @@ public:
   constexpr DynamicViscosity(double value, Unit::DynamicViscosity unit) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
   constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity, const MassDensity& mass_density) noexcept : DynamicViscosity(kinematic_viscosity.value() * mass_density.value()) {}
+
+  constexpr DynamicViscosity(const ReynoldsNumber& reynolds_number, const MassDensity& mass_density, const Speed& speed, const Length& length) noexcept;
 
   constexpr bool operator==(const DynamicViscosity& dynamic_viscosity) const noexcept {
     return value_ == dynamic_viscosity.value_;
