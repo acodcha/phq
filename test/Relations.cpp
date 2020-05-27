@@ -20,6 +20,7 @@
 #include "../lib/SpecificGasConstant.hpp"
 #include "../lib/SpecificPower.hpp"
 #include "../lib/TemperatureGradient.hpp"
+#include "../lib/ThermalConductivity.hpp"
 #include "../lib/ThermalDiffusivity.hpp"
 #include "../lib/TotalKinematicPressure.hpp"
 #include "../lib/Traction.hpp"
