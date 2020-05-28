@@ -12,7 +12,9 @@
 namespace PhQ {
 
 // Forward declarations.
+class DynamicViscosity;
 class MassDensity;
+class PrandtlNumber;
 class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
@@ -33,6 +35,8 @@ public:
   constexpr SpecificIsobaricHeatCapacity(const IsobaricHeatCapacity& isobaric_heat_capacity, const Mass& mass) noexcept : SpecificIsobaricHeatCapacity(isobaric_heat_capacity.value() / mass.value()) {}
 
   constexpr SpecificIsobaricHeatCapacity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density) noexcept;
+
+  constexpr SpecificIsobaricHeatCapacity(const PrandtlNumber& prandtl_number, const ThermalConductivityScalar& thermal_conductivity_scalar, const DynamicViscosity& dynamic_viscosity) noexcept;
 
   constexpr bool operator==(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
     return value_ == specific_isobaric_heat_capacity.value_;
