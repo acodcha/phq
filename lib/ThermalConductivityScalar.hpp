@@ -12,7 +12,9 @@
 namespace PhQ {
 
 // Forward declarations.
+class DynamicViscosity;
 class MassDensity;
+class PrandtlNumber;
 class SpecificIsobaricHeatCapacity;
 class ThermalDiffusivity;
 
@@ -25,6 +27,8 @@ public:
   constexpr ThermalConductivityScalar(double value, Unit::ThermalConductivity unit) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
   constexpr ThermalConductivityScalar(const ThermalDiffusivity& thermal_diffusivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept;
+
+  constexpr ThermalConductivityScalar(const PrandtlNumber& prandtl_number, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const DynamicViscosity& dynamic_viscosity) noexcept;
 
   constexpr bool operator==(const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
     return value_ == thermal_conductivity_scalar.value_;

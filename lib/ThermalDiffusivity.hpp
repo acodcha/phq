@@ -13,6 +13,9 @@
 
 namespace PhQ {
 
+// Forward declaration.
+class PrandtlNumber;
+
 class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 
 public:
@@ -22,6 +25,8 @@ public:
   constexpr ThermalDiffusivity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
   constexpr ThermalDiffusivity(const ThermalConductivityScalar& thermal_conductivity_scalar, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept : ThermalDiffusivity(thermal_conductivity_scalar.value() / (mass_density.value() * specific_isobaric_heat_capacity.value())) {}
+
+  constexpr ThermalDiffusivity(const PrandtlNumber& prandtl_number, const KinematicViscosity& kinematic_viscosity) noexcept;
 
   constexpr bool operator==(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return value_ == thermal_diffusivity.value_;
