@@ -56,15 +56,15 @@ public:
   }
 
   std::string json() const noexcept {
-    return "{ \"value\": " + value_.print() + ", \"unit\": " + abbreviation(standard_unit<Unit>) + "}";
+    return "{\"value\": " + value_.print() + ", \"unit\": \"" + abbreviation(standard_unit<Unit>) + "\"}";
   }
 
   std::string json(Unit unit) const noexcept {
-    return "{ \"value\": " + value(unit).print() + ", \"unit\": " + abbreviation(unit) + "}";
+    return "{\"value\": " + value(unit).print() + ", \"unit\": \"" + abbreviation(unit) + "\"}";
   }
 
   std::string json(System system) const noexcept {
-    return "{ \"value\": " + value(system).print() + ", \"unit\": " + abbreviation(unit<Unit>(system)) + "}";
+    return "{\"value\": " + value(system).print() + ", \"unit\": \"" + abbreviation(unit<Unit>(system)) + "\"}";
   }
 
   std::string xml() const noexcept {

@@ -117,11 +117,11 @@ public:
   std::string json() const noexcept {
     return
       "{\"xx\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[0]) +
-      ", \"xy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) +
-      ", \"xz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) +
-      ", \"yy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) +
-      ", \"yz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) +
-      ", \"zz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "}";
+      " , \"xy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[1]) +
+      " , \"xz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[2]) +
+      " , \"yy\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[3]) +
+      " , \"yz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[4]) +
+      " , \"zz\": " + PhQ::number_to_string(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
   std::string xml() const noexcept {

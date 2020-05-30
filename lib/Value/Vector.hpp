@@ -90,8 +90,8 @@ public:
   std::string json() const noexcept {
     return
       "{\"x\": " + PhQ::number_to_string(x_y_z_[0]) +
-      ", \"y\": " + PhQ::number_to_string(x_y_z_[1]) +
-      ", \"z\": " + PhQ::number_to_string(x_y_z_[2]) + "}";
+      " , \"y\": " + PhQ::number_to_string(x_y_z_[1]) +
+      " , \"z\": " + PhQ::number_to_string(x_y_z_[2]) + "}";
   }
 
   std::string xml() const noexcept {
