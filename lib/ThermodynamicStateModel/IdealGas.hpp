@@ -20,34 +20,34 @@ class IdealGas : public GenericThermodynamicStateModel<Type::IdealGas> {
 
 public:
 
-  constexpr IdealGas() noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(), specific_gas_constant_() {}
+  constexpr IdealGas() noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(), specific_isobaric_heat_capacity_() {}
 
-  constexpr IdealGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_heat_ratio * specific_isochoric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity_ - specific_isochoric_heat_capacity) {}
+  constexpr IdealGas(const SpecificGasConstant& specific_gas_constant, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_gas_constant), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
 
-  constexpr IdealGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity.value() * (1.0 - 1.0 / specific_heat_ratio.value()), standard_unit<Unit::SpecificHeatCapacity>) {}
+  constexpr IdealGas(const SpecificGasConstant& specific_gas_constant, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_gas_constant), specific_isobaric_heat_capacity_(specific_gas_constant, specific_isochoric_heat_capacity) {}
 
-  constexpr IdealGas(const SpecificHeatRatio& specific_heat_ratio, const SpecificGasConstant& specific_gas_constant) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_heat_ratio.value() * specific_gas_constant.value() / (specific_heat_ratio.value() - 1.0), standard_unit<Unit::SpecificHeatCapacity>), specific_gas_constant_(specific_gas_constant) {}
+  constexpr IdealGas(const SpecificGasConstant& specific_gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_gas_constant), specific_isobaric_heat_capacity_(specific_gas_constant, specific_heat_ratio) {}
 
-  constexpr IdealGas(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_isobaric_heat_capacity - specific_isochoric_heat_capacity) {}
+  constexpr IdealGas(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_isobaric_heat_capacity, specific_isochoric_heat_capacity), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
 
-  constexpr IdealGas(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const SpecificGasConstant& specific_gas_constant) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_isochoric_heat_capacity + specific_gas_constant), specific_gas_constant_(specific_gas_constant) {}
+  constexpr IdealGas(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_isobaric_heat_capacity, specific_heat_ratio), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
 
-  constexpr IdealGas(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const SpecificGasConstant& specific_gas_constant) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity), specific_gas_constant_(specific_gas_constant) {}
+  constexpr IdealGas(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_isochoric_heat_capacity, specific_heat_ratio), specific_isobaric_heat_capacity_(specific_isochoric_heat_capacity, specific_heat_ratio) {}
 
-  constexpr SpecificHeatRatio specific_heat_ratio() const noexcept {
-    return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity()};
-  }
-
-  constexpr SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
-    return {specific_isobaric_heat_capacity_ - specific_gas_constant_};
+  constexpr const SpecificGasConstant& specific_gas_constant() const noexcept {
+    return specific_gas_constant_;
   }
 
   constexpr const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity() const noexcept {
     return specific_isobaric_heat_capacity_;
   }
 
-  constexpr const SpecificGasConstant& specific_gas_constant() const noexcept {
-    return specific_gas_constant_;
+  constexpr SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
+    return {specific_isobaric_heat_capacity_ - specific_gas_constant_};
+  }
+
+  constexpr SpecificHeatRatio specific_heat_ratio() const noexcept {
+    return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity()};
   }
 
   constexpr MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const noexcept {
@@ -63,32 +63,32 @@ public:
   }
 
   std::string print() const noexcept {
-    return {"c_p = " + specific_isobaric_heat_capacity_.print() + ", R_gas = " + specific_gas_constant_.print()};
+    return {"R_gas = " + specific_gas_constant_.print() + ", c_p = " + specific_isobaric_heat_capacity_.print()};
   }
 
   std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"specific_isobaric_heat_capacity\": " + specific_isobaric_heat_capacity_.json()+ "\", \"specific_gas_constant\": " + specific_gas_constant_.json() + "}"};
+    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"specific_gas_constant\": " + specific_gas_constant_.json()+ "\", \"specific_isobaric_heat_capacity\": " + specific_isobaric_heat_capacity_.json() + "}"};
   }
 
   std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.xml() + "</specific_isobaric_heat_capacity><specific_gas_constant>" + specific_gas_constant_.xml() + "</specific_gas_constant>"};
+    return {"<type>" + lowercase(abbreviation(type())) + "</type><specific_gas_constant>" + specific_gas_constant_.xml() + "</specific_gas_constant><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.xml() + "</specific_isobaric_heat_capacity>"};
   }
 
 protected:
 
-  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
-
   SpecificGasConstant specific_gas_constant_;
+
+  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
 
 };
 
 } // namespace ThermodynamicStateModel
 
 constexpr bool sort(const ThermodynamicStateModel::IdealGas& model_1, const ThermodynamicStateModel::IdealGas& model_2) noexcept {
-  if (model_1.specific_isobaric_heat_capacity() == model_2.specific_isobaric_heat_capacity()) {
-    return model_1.specific_gas_constant() < model_2.specific_gas_constant();
-  } else {
+  if (model_1.specific_gas_constant() == model_2.specific_gas_constant()) {
     return model_1.specific_isobaric_heat_capacity() < model_2.specific_isobaric_heat_capacity();
+  } else {
+    return model_1.specific_gas_constant() < model_2.specific_gas_constant();
   }
 }
 

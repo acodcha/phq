@@ -14,6 +14,7 @@ namespace PhQ {
 namespace ThermodynamicStateModel {
 
 enum class Type : uint_least8_t {
+  IncompressibleFluid,
   IdealGas
 };
 
@@ -40,10 +41,15 @@ protected:
 } // namespace ThermodynamicStateModel
 
 template <> const std::map<ThermodynamicStateModel::Type, std::string> abbreviations<ThermodynamicStateModel::Type>{
+  {ThermodynamicStateModel::Type::IncompressibleFluid, "Incompressible Fluid"},
   {ThermodynamicStateModel::Type::IdealGas, "Ideal Gas"}
 };
 
 template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type> spellings<ThermodynamicStateModel::Type>{
+  {"Incompressible Fluid", ThermodynamicStateModel::Type::IncompressibleFluid},
+  {"IncompressibleFluid", ThermodynamicStateModel::Type::IncompressibleFluid},
+  {"incompressible fluid", ThermodynamicStateModel::Type::IncompressibleFluid},
+  {"incompressible_fluid", ThermodynamicStateModel::Type::IncompressibleFluid},
   {"Ideal Gas", ThermodynamicStateModel::Type::IdealGas},
   {"IdealGas", ThermodynamicStateModel::Type::IdealGas},
   {"ideal gas", ThermodynamicStateModel::Type::IdealGas},
