@@ -40,7 +40,7 @@ protected:
 } // namespace ThermodynamicStateModel
 
 template <> const std::map<ThermodynamicStateModel::Type, std::string> abbreviations<ThermodynamicStateModel::Type>{
-  {ThermodynamicStateModel::Type::IdealGas, "Perfect Gas"}
+  {ThermodynamicStateModel::Type::IdealGas, "Ideal Gas"}
 };
 
 template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type> spellings<ThermodynamicStateModel::Type>{
