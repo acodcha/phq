@@ -14,7 +14,7 @@ namespace PhQ {
 namespace ThermodynamicStateModel {
 
 enum class Type : uint_least8_t {
-  PerfectGas
+  IdealGas
 };
 
 template <Type ThermodynamicStateModelType> class GenericThermodynamicStateModel {
@@ -40,14 +40,14 @@ protected:
 } // namespace ThermodynamicStateModel
 
 template <> const std::map<ThermodynamicStateModel::Type, std::string> abbreviations<ThermodynamicStateModel::Type>{
-  {ThermodynamicStateModel::Type::PerfectGas, "Perfect Gas"}
+  {ThermodynamicStateModel::Type::IdealGas, "Perfect Gas"}
 };
 
 template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type> spellings<ThermodynamicStateModel::Type>{
-  {"Perfect Gas", ThermodynamicStateModel::Type::PerfectGas},
-  {"PerfectGas", ThermodynamicStateModel::Type::PerfectGas},
-  {"perfect gas", ThermodynamicStateModel::Type::PerfectGas},
-  {"perfect_gas", ThermodynamicStateModel::Type::PerfectGas}
+  {"Ideal Gas", ThermodynamicStateModel::Type::IdealGas},
+  {"IdealGas", ThermodynamicStateModel::Type::IdealGas},
+  {"ideal gas", ThermodynamicStateModel::Type::IdealGas},
+  {"ideal_gas", ThermodynamicStateModel::Type::IdealGas}
 };
 
 } // namespace PhQ
