@@ -19,6 +19,9 @@ target_link_libraries(conversions)
 add_executable(relations test/Relations.cpp)
 target_link_libraries(relations)
 
+add_executable(constitutive_models test/ConstitutiveModels.cpp)
+target_link_libraries(constitutive_models)
+
 add_executable(thermodynamic_state_models test/ThermodynamicStateModels.cpp)
 target_link_libraries(thermodynamic_state_models)
 

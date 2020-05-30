@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "../LameFirstModulus.hpp"
 #include "../IsentropicBulkModulus.hpp"
 #include "../IsothermalBulkModulus.hpp"
+#include "../LameFirstModulus.hpp"
 #include "../PoissonRatio.hpp"
 #include "../PWaveModulus.hpp"
 #include "../ShearModulus.hpp"

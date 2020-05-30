@@ -18,6 +18,8 @@ jobs:
       run: ./build/bin/conversions
     - name: run relations test
       run: ./build/bin/relations
+    - name: run constitutive models test
+      run: ./build/bin/constitutive_models
     - name: run thermodynamic state models test
       run: ./build/bin/thermodynamic_state_models
 
