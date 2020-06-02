@@ -26,7 +26,7 @@ public:
 
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-1.0 * thermal_conductivity.value() * temperature_gradient.value()) {}
 
-  constexpr HeatFlux magnitude() const noexcept {
+  constexpr HeatFluxMagnitude magnitude() const noexcept {
     return {*this};
   }
 
