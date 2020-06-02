@@ -19,6 +19,7 @@ class Displacement;
 class Duration;
 class Force;
 class Frequency;
+class HeatFlux;
 class Position;
 class TemperatureGradient;
 class Traction;
@@ -51,6 +52,8 @@ public:
   constexpr Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept;
 
   constexpr Angle(const Force& force_1, const Force& force_2) noexcept;
+
+  constexpr Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept;
 
   constexpr Angle(const Position& position_1, const Position& position_2) noexcept;
 

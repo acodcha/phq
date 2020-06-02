@@ -25,6 +25,8 @@ class Angle;
 class Displacement;
 class Force;
 class ForceMagnitude;
+class HeatFlux;
+class HeatFluxMagnitude;
 class Length;
 class Position;
 class Speed;
@@ -62,6 +64,8 @@ public:
   constexpr Direction(const Displacement& displacement);
 
   constexpr Direction(const Force& force);
+
+  constexpr Direction(const HeatFlux& heat_flux);
 
   constexpr Direction(const Position& position);
 
@@ -150,6 +154,8 @@ public:
   constexpr Displacement operator*(const Length& length) const noexcept;
 
   constexpr Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
+
+  constexpr HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
   constexpr Traction operator*(const StaticPressure& static_pressure) const noexcept;
 
