@@ -10,6 +10,7 @@
 #include "../lib/BulkDynamicViscosity.hpp"
 #include "../lib/DisplacementGradient.hpp"
 #include "../lib/DynamicViscosity.hpp"
+#include "../lib/HeatFlux.hpp"
 #include "../lib/IsentropicBulkModulus.hpp"
 #include "../lib/IsothermalBulkModulus.hpp"
 #include "../lib/LameFirstModulus.hpp"

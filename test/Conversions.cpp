@@ -12,6 +12,7 @@
 #include "../lib/Unit/Diffusivity.hpp"
 #include "../lib/Unit/DynamicViscosity.hpp"
 #include "../lib/Unit/Energy.hpp"
+#include "../lib/Unit/EnergyFlux.hpp"
 #include "../lib/Unit/Force.hpp"
 #include "../lib/Unit/Frequency.hpp"
 #include "../lib/Unit/HeatCapacity.hpp"
@@ -162,6 +163,15 @@ void test_energy() noexcept {
     PhQ::Unit::Energy::Gigajoule,
     PhQ::Unit::Energy::FootPound,
     PhQ::Unit::Energy::InchPound
+  });
+}
+
+void test_energy_flux() noexcept {
+  test_conversions<PhQ::Unit::EnergyFlux>("Energy Flux", 1.0, {
+    PhQ::Unit::EnergyFlux::WattPerSquareMetre,
+    PhQ::Unit::EnergyFlux::NanowattPerSquareMillimetre,
+    PhQ::Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
+    PhQ::Unit::EnergyFlux::InchPoundPerSquareInchPerSecond
   });
 }
 
@@ -444,6 +454,7 @@ int main(int argc, char *argv[]) {
   test_diffusivity();
   test_dynamic_viscosity();
   test_energy();
+  test_energy_flux();
   test_force();
   test_frequency();
   test_heat_capacity();
