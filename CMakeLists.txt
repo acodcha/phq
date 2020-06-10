@@ -32,7 +32,7 @@ include(GNUInstallDirs)
 
 option(PHQ_INSTALL "Install the PhQ library on the system." TRUE)
 option(PHQ_TEST "Build tests." FALSE)
-option(PHQ_DOCS "Generate documentation using Doxygen." TRUE)
+option(PHQ_DOCS "Generate documentation using Doxygen." FALSE)
 
 target_include_directories(
   ${PROJECT_NAME}

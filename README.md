@@ -5,7 +5,7 @@ C++17 header-only library of physical quantities, physical models, units of meas
 
 ## Dependencies
 - **C++17 Compiler (Required):** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
-- **CMake (Optional):** CMake can optionally be used to build unit tests. On Ubuntu, install with `sudo apt install cmake`.
+- **CMake (Required):** On Ubuntu, install with `sudo apt install cmake`.
 - **Doxygen (Optional):** Doxygen can optionally be used to generate documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive`.
 
 ## Configuration
@@ -18,7 +18,7 @@ cmake ..
 ```
 
 ## Installation
-This is a header-only library, so no compilation is needed. Once you have configured the library, the library can be installed from the `build` folder with:
+This is a header-only library, so no compilation is needed. Once you have configured the library, it can be installed from the `build` folder with:
 
 ```
 sudo make install
@@ -27,13 +27,14 @@ sudo make install
 On most systems, this installs the library to `/usr/local/include/PhQ`. You can uninstall the library by simply deleting this folder.
 
 ## Documentation
-Once you have configured the project, documentation can be generated from the `build` folder with:
+Documentation is disabled by default but can be enabled from the `build` folder with:
 
 ```
+cmake .. -DPHQ_DOCS=ON
 make docs
 ```
 
-This generates HTML documentation using Doxygen. The documentation is in `docs/html`.
+This generates HTML documentation using Doxygen. The documentation is located in `docs/html`.
 
 ## Testing
 Testing is disabled by default but can be enabled from the `build` folder with:
