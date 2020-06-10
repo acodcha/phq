@@ -1,22 +1,50 @@
 # Physical Quantities
 ![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=master)
 
-C++17 library of physical quantities, units of measure, and related concepts for scientific computation.
+C++17 header-only library of physical quantities, physical models, units of measure, and related concepts for scientific computation.
 
 ## Dependencies
 - **C++17 Compiler (Required):** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
 - **CMake (Optional):** CMake can optionally be used to build unit tests. On Ubuntu, install with `sudo apt install cmake`.
-- **Doxygen (Optional):** Doxygen can optionally be used to generate HTML and/or LaTeX documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive`.
+- **Doxygen (Optional):** Doxygen can optionally be used to generate documentation. On Ubuntu, install with `sudo apt install doxygen graphviz texlive`.
+
+## Configuration
+Configure the library with CMake:
+
+```
+mkdir build
+cd build
+cmake ..
+```
 
 ## Installation
-This is a header-only library, so no compilation is needed. Simply install the libray to `/usr/local/include/PhQ` with `sudo ./build/install.sh`.
+This is a header-only library, so no compilation is needed. Once you have configured the library, the library can be installed from the `build` folder with:
 
-You can uninstall the library with `sudo ./build/uninstall.sh`.
+```
+sudo make install
+```
 
-You can build unit tests using CMake with `./build/tests.sh`.
+On most systems, this installs the library to `/usr/local/include/PhQ`. You can uninstall the library by simply deleting this folder.
 
 ## Documentation
-You can generate documentation using Doxygen with `./docs/generate.sh`.
+Once you have configured the project, documentation can be generated from the `build` folder with:
+
+```
+make docs
+```
+
+This generates HTML documentation using Doxygen. The documentation is in `docs/html`.
+
+## Testing
+Testing is disabled by default but can be enabled from the `build` folder with:
+
+```
+cmake .. -DPHQ_TEST=ON
+make -j
+make test
+```
+
+This configures the library with testing enabled, builds the tests, and runs the tests.
 
 ## Usage
 To use the library in one of your projects, add `find_package(PhQ REQUIRED)` to your project's `CMakeLists.txt` file, and include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`.

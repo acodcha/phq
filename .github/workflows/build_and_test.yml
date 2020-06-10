@@ -10,16 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: build tests
-      run: ./build/tests.sh
-    - name: run dimensions test
-      run: ./build/bin/dimensions
-    - name: run conversions test
-      run: ./build/bin/conversions
-    - name: run relations test
-      run: ./build/bin/relations
-    - name: run constitutive models test
-      run: ./build/bin/constitutive_models
-    - name: run thermodynamic state models test
-      run: ./build/bin/thermodynamic_state_models
+    - name: configure
+      run: cmake .. -DPHQ_TEST=ON
+    - name: build
+      run: make -j
+    - name: test
+      run: make test
 
