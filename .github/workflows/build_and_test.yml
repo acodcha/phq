@@ -13,7 +13,7 @@ jobs:
     - name: create build directory
       run: mkdir -p build
     - name: configure
-      run: cd build && cmake .. -DPHQ_TEST=ON -DPHQ_DOCS=OFF
+      run: cd build && cmake .. -DPHQ_TEST=ON
     - name: build
       run: cd build && make -j
     - name: test
