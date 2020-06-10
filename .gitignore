@@ -1,6 +1,3 @@
 .vscode/*
-build/files/*
-build/bin/*
-docs/html/*
-docs/latex/*
+build/*
 
