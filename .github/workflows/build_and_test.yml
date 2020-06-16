@@ -10,12 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: create build directory
-      run: mkdir -p build
     - name: configure
-      run: cd build && cmake .. -DPHQ_TEST=ON
+      run: mkdir -p build && cd build && cmake .. -DBUILD_TESTING=ON
     - name: build
       run: cd build && make -j
     - name: test
       run: cd build && make test
-
+    - name: install
+      run: cd build && sudo make install

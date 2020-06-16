@@ -1,7 +1,7 @@
 # Physical Quantities
 ![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=master)
 
-C++17 header-only library of physical quantities, physical models, units of measure, and related concepts for scientific computation.
+C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
 
 ## Dependencies
 - **C++17 Compiler (Required):** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
@@ -24,13 +24,13 @@ This is a header-only library, so no compilation is needed. Once you have config
 sudo make install
 ```
 
-On most systems, this installs the library to `/usr/local/include/PhQ`. You can uninstall the library by simply deleting this folder.
+On most systems, this installs the library headers to `/usr/local/include/PhQ` and writes the CMake `find_package()` command configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these folders.
 
 ## Documentation
 Documentation is disabled by default but can be enabled from the `build` folder with:
 
 ```
-cmake .. -DPHQ_DOCS=ON
+cmake .. -DBUILD_DOCS=ON
 make docs
 ```
 
