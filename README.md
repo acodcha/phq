@@ -40,7 +40,7 @@ This generates HTML documentation using Doxygen. The documentation is located in
 Testing is disabled by default but can be enabled from the `build` folder with:
 
 ```
-cmake .. -DPHQ_TEST=ON
+cmake .. -DBUILD_TESTING=ON
 make -j
 make test
 ```
