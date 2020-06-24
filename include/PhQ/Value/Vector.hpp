@@ -16,32 +16,28 @@ class Vector {
 
 public:
 
-  constexpr Vector() noexcept : x_y_z_() {}
+  constexpr Vector() noexcept : x_(), y_(), z_() {}
 
-  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept : x_y_z_(x_y_z) {}
+  constexpr Vector(double x, double y, double z) noexcept : x_(x), y_(y), z_(z) {}
 
-  constexpr Vector(double x, double y, double z) noexcept : x_y_z_({x, y, z}) {}
+  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept : x_(x_y_z[0]), y_(x_y_z[1]), z_(x_y_z[2]) {}
 
-  constexpr Vector(double value, const Direction& direction) noexcept : x_y_z_({value * direction.x(), value * direction.y(), value * direction.z()}) {}
-
-  constexpr std::array<double, 3> x_y_z() const noexcept {
-    return x_y_z_;
-  }
+  constexpr Vector(double value, const Direction& direction) noexcept : x_(value * direction.x()), y_(value * direction.y()), z_(value * direction.z()) {}
 
   constexpr double x() const noexcept {
-    return x_y_z_[0];
+    return x_;
   }
 
   constexpr double y() const noexcept {
-    return x_y_z_[1];
+    return y_;
   }
 
   constexpr double z() const noexcept {
-    return x_y_z_[2];
+    return z_;
   }
 
   constexpr double magnitude() const noexcept {
-    return std::sqrt(std::pow(x_y_z_[0], 2) + std::pow(x_y_z_[1], 2) + std::pow(x_y_z_[2], 2));
+    return std::sqrt(std::pow(x_, 2) + std::pow(y_, 2) + std::pow(z_, 2));
   }
 
   constexpr Direction direction() const {
@@ -49,26 +45,26 @@ public:
   }
 
   constexpr double dot(const Direction& direction) const noexcept {
-    return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() + x_y_z_[2] * direction.z();
+    return x_ * direction.x() + y_ * direction.y() + z_ * direction.z();
   }
 
   constexpr double dot(const Vector& vector) const noexcept {
-    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] + x_y_z_[2] * vector.x_y_z_[2];
+    return x_ * vector.x_ + y_ * vector.y_ + z_ * vector.z_;
   }
 
   constexpr Vector cross(const Direction& direction) const noexcept {
     return {
-      x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
-      x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
-      x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()
+      y_ * direction.z() - z_ * direction.y(),
+      z_ * direction.x() - x_ * direction.z(),
+      x_ * direction.y() - y_ * direction.x()
     };
   }
 
   constexpr Vector cross(const Vector& vector) const noexcept {
     return {
-      x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
-      x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
-      x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]
+      y_ * vector.z_ - z_ * vector.y_,
+      z_ * vector.x_ - x_ * vector.z_,
+      x_ * vector.y_ - y_ * vector.x_
     };
   }
 
@@ -82,76 +78,80 @@ public:
 
   std::string print() const noexcept {
     return
-      "(" + PhQ::number_to_string(x_y_z_[0]) + ", " +
-      PhQ::number_to_string(x_y_z_[1]) + ", " +
-      PhQ::number_to_string(x_y_z_[2]) + ")";
+      "(" + PhQ::number_to_string(x_) + ", " +
+      PhQ::number_to_string(y_) + ", " +
+      PhQ::number_to_string(z_) + ")";
   }
 
   std::string json() const noexcept {
     return
-      "{\"x\": " + PhQ::number_to_string(x_y_z_[0]) +
-      " , \"y\": " + PhQ::number_to_string(x_y_z_[1]) +
-      " , \"z\": " + PhQ::number_to_string(x_y_z_[2]) + "}";
+      "{\"x\": " + PhQ::number_to_string(x_) +
+      " , \"y\": " + PhQ::number_to_string(y_) +
+      " , \"z\": " + PhQ::number_to_string(z_) + "}";
   }
 
   std::string xml() const noexcept {
     return
-      "<x>" + PhQ::number_to_string(x_y_z_[0]) +
-      "</x><y>" + PhQ::number_to_string(x_y_z_[1]) +
-      "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
+      "<x>" + PhQ::number_to_string(x_) +
+      "</x><y>" + PhQ::number_to_string(y_) +
+      "</y><z>" + PhQ::number_to_string(z_) + "</z>";
   }
 
   constexpr bool operator==(const Vector& vector) const noexcept {
-    return x_y_z_[0] == vector.x_y_z_[0] && x_y_z_[1] == vector.x_y_z_[1] && x_y_z_[2] == vector.x_y_z_[2];
+    return x_ == vector.x_ && y_ == vector.y_ && z_ == vector.z_;
   }
 
   constexpr bool operator!=(const Vector& vector) const noexcept {
-    return x_y_z_[0] != vector.x_y_z_[0] || x_y_z_[1] != vector.x_y_z_[1] || x_y_z_[2] != vector.x_y_z_[2];
+    return x_ != vector.x_ || y_ != vector.y_ || z_ != vector.z_;
   }
 
   constexpr Vector operator+(const Vector& vector) const noexcept {
-    return {x_y_z_[0] + vector.x_y_z_[0], x_y_z_[1] + vector.x_y_z_[1], x_y_z_[2] + vector.x_y_z_[2]};
+    return {x_ + vector.x_, y_ + vector.y_, z_ + vector.z_};
   }
 
   constexpr void operator+=(const Vector& vector) noexcept {
-    x_y_z_[0] += vector.x_y_z_[0];
-    x_y_z_[1] += vector.x_y_z_[1];
-    x_y_z_[2] += vector.x_y_z_[2];
+    x_ += vector.x_;
+    y_ += vector.y_;
+    z_ += vector.z_;
   }
 
   constexpr Vector operator-(const Vector& vector) const noexcept {
-    return {x_y_z_[0] - vector.x_y_z_[0], x_y_z_[1] - vector.x_y_z_[1], x_y_z_[2] - vector.x_y_z_[2]};
+    return {x_ - vector.x_, y_ - vector.y_, z_ - vector.z_};
   }
 
   constexpr void operator-=(const Vector& vector) noexcept {
-    x_y_z_[0] -= vector.x_y_z_[0];
-    x_y_z_[1] -= vector.x_y_z_[1];
-    x_y_z_[2] -= vector.x_y_z_[2];
+    x_ -= vector.x_;
+    y_ -= vector.y_;
+    z_ -= vector.z_;
   }
 
   constexpr Vector operator*(double real) const noexcept {
-    return {x_y_z_[0] * real, x_y_z_[1] * real, x_y_z_[2] * real};
+    return {x_ * real, y_ * real, z_ * real};
   }
 
   constexpr void operator*=(double real) noexcept {
-    x_y_z_[0] *= real;
-    x_y_z_[1] *= real;
-    x_y_z_[2] *= real;
+    x_ *= real;
+    y_ *= real;
+    z_ *= real;
   }
 
   constexpr Vector operator/(double real) const noexcept {
-    return {x_y_z_[0] / real, x_y_z_[1] / real, x_y_z_[2] / real};
+    return {x_ / real, y_ / real, z_ / real};
   }
 
   constexpr void operator/=(double real) noexcept {
-    x_y_z_[0] /= real;
-    x_y_z_[1] /= real;
-    x_y_z_[2] /= real;
+    x_ /= real;
+    y_ /= real;
+    z_ /= real;
   }
 
 protected:
 
-  std::array<double, 3> x_y_z_;
+  double x_;
+
+  double y_;
+
+  double z_;
 
 };
 
@@ -172,14 +172,14 @@ template <> constexpr bool sort(const Value::Vector& vector_1, const Value::Vect
 constexpr Direction::Direction(const Value::Vector& vector) : Direction(vector.x(), vector.y(), vector.z()) {}
 
 constexpr double Direction::dot(const Value::Vector& vector) const noexcept {
-  return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() + x_y_z_[2] * vector.z();
+  return x_ * vector.x() + y_ * vector.y() + z_ * vector.z();
 }
 
 constexpr Value::Vector Direction::cross(const Value::Vector& vector) const noexcept {
   return {
-    x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
-    x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),
-    x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()
+    y_ * vector.z() - z_ * vector.y(),
+    z_ * vector.x() - x_ * vector.z(),
+    x_ * vector.y() - y_ * vector.x()
   };
 }
 
