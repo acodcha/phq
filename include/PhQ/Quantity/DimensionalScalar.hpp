@@ -51,6 +51,18 @@ public:
     return number_to_string(value(system)) + " " + abbreviation(unit<Unit>(system));
   }
 
+  std::string yaml() const noexcept {
+    return "{value: " + number_to_string(value_) + " , unit: " + abbreviation(standard_unit<Unit>) + "}";
+  }
+
+  std::string yaml(Unit unit) const noexcept {
+    return "{value: " + number_to_string(value(unit)) + " , unit: " + abbreviation(unit) + "}";
+  }
+
+  std::string yaml(System system) const noexcept {
+    return "{value: " + number_to_string(value(system)) + " , unit: " + abbreviation(unit<Unit>(system)) + "}";
+  }
+
   std::string json() const noexcept {
     return "{\"value\": " + number_to_string(value_) + " , \"unit\": \"" + abbreviation(standard_unit<Unit>) + "\"}";
   }

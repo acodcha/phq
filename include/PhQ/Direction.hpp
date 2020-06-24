@@ -119,11 +119,18 @@ public:
       PhQ::number_to_string(z_) + ")";
   }
 
+  std::string yaml() const noexcept {
+    return
+      "{x:" + PhQ::number_to_string(x_) +
+      " , y:" + PhQ::number_to_string(y_) +
+      " , z:" + PhQ::number_to_string(z_) + "}";
+  }
+
   std::string json() const noexcept {
     return
       "{\"x\":" + PhQ::number_to_string(x_) +
-      ", \"y\":" + PhQ::number_to_string(y_) +
-      ", \"z\":" + PhQ::number_to_string(z_) + "}";
+      " , \"y\":" + PhQ::number_to_string(y_) +
+      " , \"z\":" + PhQ::number_to_string(z_) + "}";
   }
 
   std::string xml() const noexcept {

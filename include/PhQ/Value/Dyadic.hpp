@@ -118,6 +118,19 @@ public:
       PhQ::number_to_string(zz_) + ")";
   }
 
+  std::string yaml() const noexcept {
+    return
+      "{xx: " + PhQ::number_to_string(xx_) +
+      " , xy: " + PhQ::number_to_string(xy_) +
+      " , xz: " + PhQ::number_to_string(xz_) +
+      " , yx: " + PhQ::number_to_string(yx_) +
+      " , yy: " + PhQ::number_to_string(yy_) +
+      " , yz: " + PhQ::number_to_string(yz_) +
+      " , zx: " + PhQ::number_to_string(zx_) +
+      " , zy: " + PhQ::number_to_string(zy_) +
+      " , zz: " + PhQ::number_to_string(zz_) + "}";
+  }
+
   std::string json() const noexcept {
     return
       "{\"xx\": " + PhQ::number_to_string(xx_) +
