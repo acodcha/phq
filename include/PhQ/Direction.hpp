@@ -40,7 +40,7 @@ class Direction {
 
 public:
 
-  constexpr Direction() noexcept : x_(1.0), y_(0.0), z_(0.0) {}
+  constexpr Direction() noexcept : x_(), y_(), z_() {}
 
   constexpr Direction(double x, double y, double z) : x_(), y_(), z_() {
     const double magnitude{std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2))};
@@ -72,10 +72,6 @@ public:
   constexpr Direction(const Traction& traction);
 
   constexpr Direction(const Velocity& velocity);
-
-  constexpr std::array<double, 3> x_y_z() const noexcept {
-    return {x_, y_, z_};
-  }
 
   constexpr double x() const noexcept {
     return x_;
