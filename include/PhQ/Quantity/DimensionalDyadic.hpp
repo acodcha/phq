@@ -16,10 +16,6 @@ template <typename Unit> class DimensionalDyadicQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalDyadicQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalDyadicQuantity(const Value::Dyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr const Value::Dyadic& value() const noexcept {
     return value_;
   }
@@ -122,7 +118,11 @@ public:
 
 protected:
 
+  constexpr DimensionalDyadicQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalDyadicQuantity(const Value::Dyadic& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalDyadicQuantity(const Value::Dyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   Value::Dyadic value_;
 

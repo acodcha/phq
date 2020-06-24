@@ -15,10 +15,6 @@ template <typename Unit> class DimensionalScalarQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr double value() const noexcept {
     return value_;
   }
@@ -121,7 +117,11 @@ public:
 
 protected:
 
+  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   double value_;
 

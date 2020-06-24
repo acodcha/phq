@@ -15,10 +15,6 @@ class DimensionlessSymmetricDyadicQuantity : public DimensionlessQuantity {
 
 public:
 
-  constexpr DimensionlessSymmetricDyadicQuantity() noexcept : DimensionlessQuantity(), value_() {}
-
-  constexpr DimensionlessSymmetricDyadicQuantity(const Value::SymmetricDyadic& value) noexcept : DimensionlessQuantity(), value_(value) {}
-
   constexpr const Value::SymmetricDyadic& value() const noexcept {
     return value_;
   }
@@ -69,6 +65,10 @@ public:
 
 protected:
 
+  constexpr DimensionlessSymmetricDyadicQuantity() noexcept : DimensionlessQuantity(), value_() {}
+
+  constexpr DimensionlessSymmetricDyadicQuantity(const Value::SymmetricDyadic& value) noexcept : DimensionlessQuantity(), value_(value) {}
+
   Value::SymmetricDyadic value_;
 
 };
@@ -82,7 +82,3 @@ constexpr DimensionlessSymmetricDyadicQuantity DimensionlessScalarQuantity::oper
 }
 
 } // namespace PhQ
-
-constexpr PhQ::DimensionlessSymmetricDyadicQuantity operator*(double real, const PhQ::DimensionlessSymmetricDyadicQuantity& symmetric_dyadic) noexcept {
-  return {symmetric_dyadic * real};
-}

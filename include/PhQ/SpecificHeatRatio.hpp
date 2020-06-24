@@ -46,3 +46,19 @@ public:
 };
 
 } // namespace PhQ
+
+constexpr PhQ::SpecificHeatRatio operator+(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real + specific_heat_ratio.value()};
+}
+
+constexpr PhQ::SpecificHeatRatio operator-(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real - specific_heat_ratio.value()};
+}
+
+constexpr PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real * specific_heat_ratio.value()};
+}
+
+constexpr double operator/(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return real / specific_heat_ratio.value();
+}

@@ -62,3 +62,7 @@ public:
 };
 
 } // namespace PhQ
+
+constexpr PhQ::Strain operator*(double real, const PhQ::Strain& strain) noexcept {
+  return {real * strain.value()};
+}

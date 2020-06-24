@@ -70,3 +70,19 @@ constexpr KinematicViscosity::KinematicViscosity(const ReynoldsNumber& reynolds_
 constexpr DynamicViscosity::DynamicViscosity(const ReynoldsNumber& reynolds_number, const MassDensity& mass_density, const Speed& speed, const Length& length) noexcept : DynamicViscosity(mass_density.value() * speed.value() * length.value() / reynolds_number.value()) {}
 
 } // namespace PhQ
+
+constexpr PhQ::ReynoldsNumber operator+(double real, const PhQ::ReynoldsNumber& reynolds_number) noexcept {
+  return {real + reynolds_number.value()};
+}
+
+constexpr PhQ::ReynoldsNumber operator-(double real, const PhQ::ReynoldsNumber& reynolds_number) noexcept {
+  return {real - reynolds_number.value()};
+}
+
+constexpr PhQ::ReynoldsNumber operator*(double real, const PhQ::ReynoldsNumber& reynolds_number) noexcept {
+  return {real * reynolds_number.value()};
+}
+
+constexpr double operator/(double real, const PhQ::ReynoldsNumber& reynolds_number) noexcept {
+  return real / reynolds_number.value();
+}

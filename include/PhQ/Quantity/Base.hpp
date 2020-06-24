@@ -14,9 +14,11 @@ class Quantity {
 
 public:
 
-  constexpr Quantity() noexcept = default;
-
   virtual Dimension::Set dimension() const noexcept = 0;
+
+protected:
+
+  constexpr Quantity() noexcept = default;
 
 };
 

@@ -15,8 +15,6 @@ template <typename Unit> class DimensionalQuantity : public Quantity {
 
 public:
 
-  constexpr DimensionalQuantity() noexcept : Quantity() {}
-
   constexpr Dimension::Set dimension() const noexcept {
     return PhQ::dimension<Unit>;
   }
@@ -42,6 +40,10 @@ public:
   virtual std::string xml(Unit unit) const noexcept = 0;
 
   virtual std::string xml(System system) const noexcept = 0;
+
+protected:
+
+  constexpr DimensionalQuantity() noexcept : Quantity() {}
 
 };
 

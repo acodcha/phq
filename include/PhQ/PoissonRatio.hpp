@@ -21,3 +21,19 @@ public:
 };
 
 } // namespace PhQ
+
+constexpr PhQ::PoissonRatio operator+(double real, const PhQ::PoissonRatio& poisson_ratio) noexcept {
+  return {real + poisson_ratio.value()};
+}
+
+constexpr PhQ::PoissonRatio operator-(double real, const PhQ::PoissonRatio& poisson_ratio) noexcept {
+  return {real - poisson_ratio.value()};
+}
+
+constexpr PhQ::PoissonRatio operator*(double real, const PhQ::PoissonRatio& poisson_ratio) noexcept {
+  return {real * poisson_ratio.value()};
+}
+
+constexpr double operator/(double real, const PhQ::PoissonRatio& poisson_ratio) noexcept {
+  return real / poisson_ratio.value();
+}

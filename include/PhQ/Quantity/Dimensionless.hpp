@@ -14,8 +14,6 @@ class DimensionlessQuantity : public Quantity {
 
 public:
 
-  constexpr DimensionlessQuantity() noexcept : Quantity() {}
-
   constexpr Dimension::Set dimension() const noexcept {
     return {};
   }
@@ -25,6 +23,10 @@ public:
   virtual std::string json() const noexcept = 0;
 
   virtual std::string xml() const noexcept = 0;
+
+protected:
+
+  constexpr DimensionlessQuantity() noexcept : Quantity() {}
 
 };
 

@@ -16,10 +16,6 @@ template <typename Unit> class DimensionalSymmetricDyadicQuantity : public Dimen
 
 public:
 
-  constexpr DimensionalSymmetricDyadicQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr const Value::SymmetricDyadic& value() const noexcept {
     return value_;
   }
@@ -122,7 +118,11 @@ public:
 
 protected:
 
+  constexpr DimensionalSymmetricDyadicQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalSymmetricDyadicQuantity(const Value::SymmetricDyadic& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   Value::SymmetricDyadic value_;
 

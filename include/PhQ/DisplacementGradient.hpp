@@ -56,3 +56,7 @@ template <> constexpr bool sort(const DisplacementGradient& displacement_gradien
 constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 } // namespace PhQ
+
+constexpr PhQ::DisplacementGradient operator*(double real, const PhQ::DisplacementGradient& displacement_gradient) noexcept {
+  return {real * displacement_gradient.value()};
+}

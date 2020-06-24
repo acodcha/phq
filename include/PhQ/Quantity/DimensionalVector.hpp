@@ -15,10 +15,6 @@ template <typename Unit> class DimensionalVectorQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr const Value::Vector& value() const noexcept {
     return value_;
   }
@@ -125,7 +121,11 @@ public:
 
 protected:
 
+  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   Value::Vector value_;
 
