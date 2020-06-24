@@ -15,10 +15,6 @@ template <typename Unit> class DimensionalVectorQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr const Value::Vector& value() const noexcept {
     return value_;
   }
@@ -55,28 +51,40 @@ public:
     return value(system).print() + " " + abbreviation(unit<Unit>(system));
   }
 
+  std::string yaml() const noexcept {
+    return "{value: " + value_.yaml() + ", unit: " + abbreviation(standard_unit<Unit>) + "}";
+  }
+
+  std::string yaml(Unit unit) const noexcept {
+    return "{value: " + value(unit).yaml() + ", unit: " + abbreviation(unit) + "}";
+  }
+
+  std::string yaml(System system) const noexcept {
+    return "{value: " + value(system).yaml() + ", unit: " + abbreviation(unit<Unit>(system)) + "}";
+  }
+
   std::string json() const noexcept {
-    return "{\"value\": " + value_.print() + ", \"unit\": \"" + abbreviation(standard_unit<Unit>) + "\"}";
+    return "{\"value\": " + value_.json() + ", \"unit\": \"" + abbreviation(standard_unit<Unit>) + "\"}";
   }
 
   std::string json(Unit unit) const noexcept {
-    return "{\"value\": " + value(unit).print() + ", \"unit\": \"" + abbreviation(unit) + "\"}";
+    return "{\"value\": " + value(unit).json() + ", \"unit\": \"" + abbreviation(unit) + "\"}";
   }
 
   std::string json(System system) const noexcept {
-    return "{\"value\": " + value(system).print() + ", \"unit\": \"" + abbreviation(unit<Unit>(system)) + "\"}";
+    return "{\"value\": " + value(system).json() + ", \"unit\": \"" + abbreviation(unit<Unit>(system)) + "\"}";
   }
 
   std::string xml() const noexcept {
-    return "<value>" + value_.print() + "</value><unit>" + abbreviation(standard_unit<Unit>) + "</unit>";
+    return "<value>" + value_.xml() + "</value><unit>" + abbreviation(standard_unit<Unit>) + "</unit>";
   }
 
   std::string xml(Unit unit) const noexcept {
-    return "<value>" + value(unit).print() + "</value><unit>" + abbreviation(unit) + "</unit>";
+    return "<value>" + value(unit).xml() + "</value><unit>" + abbreviation(unit) + "</unit>";
   }
 
   std::string xml(System system) const noexcept {
-    return "<value>" + value(system).print() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
+    return "<value>" + value(system).xml() + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
   }
 
   constexpr DimensionalVectorQuantity<Unit> operator*(double real) const noexcept {
@@ -113,7 +121,11 @@ public:
 
 protected:
 
+  constexpr DimensionalVectorQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalVectorQuantity(const Value::Vector& value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   Value::Vector value_;
 

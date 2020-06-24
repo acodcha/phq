@@ -179,30 +179,30 @@ template <> constexpr const Unit::SpecificHeatCapacity standard_unit<Unit::Speci
 
 template <> constexpr const Dimension::Set dimension<Unit::SpecificHeatCapacity>{Dimension::Set{Dimension::Length{2}, Dimension::Mass{}, Dimension::Time{-2}, Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}};
 
-template <size_t size> const std::map<Unit::SpecificHeatCapacity, std::map<Unit::SpecificHeatCapacity, std::function<void(std::array<double, size>&)>>> conversions<Unit::SpecificHeatCapacity, size>{
+template <> const std::map<Unit::SpecificHeatCapacity, std::map<Unit::SpecificHeatCapacity, std::function<void(std::vector<double>&)>>> conversions<Unit::SpecificHeatCapacity>{
   {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, {
-    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
-    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2) * 1.8;});}}
+    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
+    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2) * 1.8;});}}
   }},
   {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, {
-    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
-    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2) * 1.8;});}}
+    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
+    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2) * 1.8;});}}
   }},
   {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, {
-    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}
+    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}
   }},
   {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, {
-    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2) * 1.8;});}},
-    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
-    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2) * 1.8;});}},
+    {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
+    {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
   }}
 };
 

@@ -56,41 +56,41 @@ template <> constexpr const Unit::MassRate standard_unit<Unit::MassRate>{Unit::M
 
 template <> constexpr const Dimension::Set dimension<Unit::MassRate>{Dimension::Set{Dimension::Length{0}, Dimension::Mass{1}, Dimension::Time{-1}}};
 
-template <size_t size> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::function<void(std::array<double, size>&)>>> conversions<Unit::MassRate, size>{
+template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::function<void(std::vector<double>&)>>> conversions<Unit::MassRate>{
   {Unit::MassRate::KilogramPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MassRate::GramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::MassRate::SlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / (0.45359237 * 9.80665);});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (0.45359237 * 9.80665);});}},
-    {Unit::MassRate::PoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.45359237;});}}
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / (0.45359237 * 9.80665);});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (0.45359237 * 9.80665);});}},
+    {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.45359237;});}}
   }},
   {Unit::MassRate::GramPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
-    {Unit::MassRate::GramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MassRate::SlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048 / (0.45359237 * 9.80665);});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254 / (0.45359237 * 9.80665);});}},
-    {Unit::MassRate::PoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 453.59237;});}}
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048 / (0.45359237 * 9.80665);});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254 / (0.45359237 * 9.80665);});}},
+    {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 453.59237;});}}
   }},
   {Unit::MassRate::SlugPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.3048;});}},
-    {Unit::MassRate::GramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.3048;});}},
-    {Unit::MassRate::SlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
-    {Unit::MassRate::PoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.3048;});}}
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.3048;});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.3048;});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
+    {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.3048;});}}
   }},
   {Unit::MassRate::SlinchPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.0254;});}},
-    {Unit::MassRate::GramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.0254;});}},
-    {Unit::MassRate::SlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::MassRate::PoundPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.0254;});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.0254;});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}
   }},
   {Unit::MassRate::PoundPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237;});}},
-    {Unit::MassRate::GramPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237;});}},
-    {Unit::MassRate::SlugPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / 9.80665;});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / 9.80665;});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237;});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237;});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / 9.80665;});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / 9.80665;});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
   }}
 };
 

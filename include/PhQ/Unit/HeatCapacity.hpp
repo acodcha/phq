@@ -82,30 +82,30 @@ template <> constexpr const Unit::HeatCapacity standard_unit<Unit::HeatCapacity>
 
 template <> constexpr const Dimension::Set dimension<Unit::HeatCapacity>{Dimension::Set{Dimension::Length{2}, Dimension::Mass{1}, Dimension::Time{-2}, Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}};
 
-template <size_t size> const std::map<Unit::HeatCapacity, std::map<Unit::HeatCapacity, std::function<void(std::array<double, size>&)>>> conversions<Unit::HeatCapacity, size>{
+template <> const std::map<Unit::HeatCapacity, std::map<Unit::HeatCapacity, std::function<void(std::vector<double>&)>>> conversions<Unit::HeatCapacity>{
   {Unit::HeatCapacity::JoulePerKelvin, {
-    {Unit::HeatCapacity::JoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
-    {Unit::HeatCapacity::FootPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::InchPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254 * 0.45359237 * 9.80665 * 1.8;});}}
+    {Unit::HeatCapacity::JoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
+    {Unit::HeatCapacity::FootPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::InchPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254 * 0.45359237 * 9.80665 * 1.8;});}}
   }},
   {Unit::HeatCapacity::NanojoulePerKelvin, {
-    {Unit::HeatCapacity::JoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
-    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::HeatCapacity::FootPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::InchPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665 * 1.8;});}}
+    {Unit::HeatCapacity::JoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
+    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::HeatCapacity::FootPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::InchPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e9 * 0.0254 * 0.45359237 * 9.80665 * 1.8;});}}
   }},
   {Unit::HeatCapacity::FootPoundPerRankine, {
-    {Unit::HeatCapacity::JoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::FootPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::HeatCapacity::InchPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
+    {Unit::HeatCapacity::JoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.3048 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::FootPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::HeatCapacity::InchPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
   }},
   {Unit::HeatCapacity::InchPoundPerRankine, {
-    {Unit::HeatCapacity::JoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665 * 1.8;});}},
-    {Unit::HeatCapacity::FootPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
-    {Unit::HeatCapacity::InchPoundPerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::HeatCapacity::JoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::NanojoulePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9 * 0.0254 * 0.45359237 * 9.80665 * 1.8;});}},
+    {Unit::HeatCapacity::FootPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
+    {Unit::HeatCapacity::InchPoundPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
   }}
 };
 

@@ -66,30 +66,30 @@ template <> constexpr const Unit::ThermalExpansion standard_unit<Unit::ThermalEx
 
 template <> constexpr const Dimension::Set dimension<Unit::ThermalExpansion>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{}, Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}};
 
-template <size_t size> const std::map<Unit::ThermalExpansion, std::map<Unit::ThermalExpansion, std::function<void(std::array<double, size>&)>>> conversions<Unit::ThermalExpansion, size>{
+template <> const std::map<Unit::ThermalExpansion, std::map<Unit::ThermalExpansion, std::function<void(std::vector<double>&)>>> conversions<Unit::ThermalExpansion>{
   {Unit::ThermalExpansion::PerKelvin, {
-    {Unit::ThermalExpansion::PerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerCelsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
-    {Unit::ThermalExpansion::PerFahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}}
+    {Unit::ThermalExpansion::PerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerCelsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
+    {Unit::ThermalExpansion::PerFahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}}
   }},
   {Unit::ThermalExpansion::PerCelsius, {
-    {Unit::ThermalExpansion::PerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerCelsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
-    {Unit::ThermalExpansion::PerFahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}}
+    {Unit::ThermalExpansion::PerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerCelsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
+    {Unit::ThermalExpansion::PerFahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}}
   }},
   {Unit::ThermalExpansion::PerRankine, {
-    {Unit::ThermalExpansion::PerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::ThermalExpansion::PerCelsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::ThermalExpansion::PerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerFahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::ThermalExpansion::PerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
+    {Unit::ThermalExpansion::PerCelsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
+    {Unit::ThermalExpansion::PerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerFahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
   }},
   {Unit::ThermalExpansion::PerFahrenheit, {
-    {Unit::ThermalExpansion::PerKelvin, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::ThermalExpansion::PerCelsius, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
-    {Unit::ThermalExpansion::PerRankine, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::ThermalExpansion::PerFahrenheit, [](std::array<double, size>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::ThermalExpansion::PerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
+    {Unit::ThermalExpansion::PerCelsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
+    {Unit::ThermalExpansion::PerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalExpansion::PerFahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
   }}
 };
 

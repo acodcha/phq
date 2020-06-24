@@ -15,10 +15,6 @@ template <typename Unit> class DimensionalScalarQuantity : public DimensionalQua
 
 public:
 
-  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
-
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
-
   constexpr double value() const noexcept {
     return value_;
   }
@@ -49,6 +45,18 @@ public:
 
   std::string print(System system) const noexcept {
     return number_to_string(value(system)) + " " + abbreviation(unit<Unit>(system));
+  }
+
+  std::string yaml() const noexcept {
+    return "{value: " + number_to_string(value_) + " , unit: " + abbreviation(standard_unit<Unit>) + "}";
+  }
+
+  std::string yaml(Unit unit) const noexcept {
+    return "{value: " + number_to_string(value(unit)) + " , unit: " + abbreviation(unit) + "}";
+  }
+
+  std::string yaml(System system) const noexcept {
+    return "{value: " + number_to_string(value(system)) + " , unit: " + abbreviation(unit<Unit>(system)) + "}";
   }
 
   std::string json() const noexcept {
@@ -109,7 +117,11 @@ public:
 
 protected:
 
+  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+
   constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+
+  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
 
   double value_;
 

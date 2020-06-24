@@ -16,13 +16,13 @@ template <typename Unit> constexpr const Unit standard_unit;
 
 template <typename Unit> constexpr const Dimension::Set dimension;
 
-template <typename Unit, size_t size> const std::map<Unit, std::map<Unit, std::function<void(std::array<double, size>&)>>> conversions;
+template <typename Unit> const std::map<Unit, std::map<Unit, std::function<void(std::vector<double>&)>>> conversions;
 
 template <typename Unit> double convert(double value, Unit old_unit, Unit new_unit) noexcept {
   if (old_unit != new_unit) {
-    std::array<double, 1> new_value{value};
-    conversions<Unit, 1>.find(old_unit)->second.find(new_unit)->second(new_value);
-    return new_value[0];
+    std::vector<double> value_vector{value};
+    conversions<Unit>.find(old_unit)->second.find(new_unit)->second(value_vector);
+    return value_vector[0];
   } else {
     return value;
   }
@@ -32,42 +32,45 @@ template <typename Unit> double convert(double value, Unit old_unit, System new_
   return convert<Unit>(value, old_unit, unit<Unit>(new_system));
 }
 
-template <typename Unit, size_t size> std::array<double, size> convert(const std::array<double, size>& values, Unit old_unit, Unit new_unit) noexcept {
+template <typename Unit> std::vector<double> convert(const std::vector<double>& values, Unit old_unit, Unit new_unit) noexcept {
   if (old_unit != new_unit) {
-    std::array<double, size> new_values{values};
-    conversions<Unit, size>.find(old_unit)->second.find(new_unit)->second(new_values);
+    std::vector<double> new_values{values};
+    conversions<Unit>.find(old_unit)->second.find(new_unit)->second(new_values);
     return new_values;
   } else {
     return values;
   }
 }
 
-template <typename Unit, size_t size> std::array<double, size> convert(const std::array<double, size>& values, Unit old_unit, System new_system) noexcept {
-  return convert<Unit, size>(values, old_unit, unit<Unit>(new_system));
+template <typename Unit> std::vector<double> convert(const std::vector<double>& values, Unit old_unit, System new_system) noexcept {
+  return convert<Unit>(values, old_unit, unit<Unit>(new_system));
 }
 
 template <typename Unit> Value::Vector convert(const Value::Vector& values, Unit old_unit, Unit new_unit) noexcept {
-  return {convert(values.x_y_z(), old_unit, new_unit)};
+  const std::vector<double> values_vector{convert(std::vector<double>{values.x(), values.y(), values.z()}, old_unit, new_unit)};
+  return {values_vector[0], values_vector[1], values_vector[2]};
 }
 
 template <typename Unit> Value::Vector convert(const Value::Vector& values, Unit old_unit, System new_system) noexcept {
-  return {convert(values.x_y_z(), old_unit, unit<Unit>(new_system))};
+  return convert(values, old_unit, unit<Unit>(new_system));
 }
 
 template <typename Unit> Value::SymmetricDyadic convert(const Value::SymmetricDyadic& values, Unit old_unit, Unit new_unit) noexcept {
-  return {convert(values.xx_xy_xz_yy_yz_zz(), old_unit, new_unit)};
+  const std::vector<double> values_vector{convert(std::vector<double>{values.xx(), values.xy(), values.xz(), values.yy(), values.yz(), values.zz()}, old_unit, new_unit)};
+  return {values_vector[0], values_vector[1], values_vector[2], values_vector[3], values_vector[4], values_vector[5]};
 }
 
 template <typename Unit> Value::SymmetricDyadic convert(const Value::SymmetricDyadic& values, Unit old_unit, System new_system) noexcept {
-  return {convert(values.xx_xy_xz_yy_yz_zz(), old_unit, unit<Unit>(new_system))};
+  return convert(values, old_unit, unit<Unit>(new_system));
 }
 
 template <typename Unit> Value::Dyadic convert(const Value::Dyadic& values, Unit old_unit, Unit new_unit) noexcept {
-  return {convert(values.xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit, new_unit)};
+  const std::vector<double> values_vector{convert(std::vector<double>{values.xx(), values.xy(), values.xz(), values.yx(), values.yy(), values.yz(), values.zx(), values.zy(), values.zz()}, old_unit, new_unit)};
+  return {values_vector[0], values_vector[1], values_vector[2], values_vector[3], values_vector[4], values_vector[5], values_vector[6], values_vector[7], values_vector[8]};
 }
 
 template <typename Unit> Value::Dyadic convert(const Value::Dyadic& values, Unit old_unit, System new_system) noexcept {
-  return {convert(values.xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit, unit<Unit>(new_system))};
+  return convert(values, old_unit, unit<Unit>(new_system));
 }
 
 } // namespace PhQ

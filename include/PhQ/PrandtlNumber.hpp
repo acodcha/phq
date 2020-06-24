@@ -57,3 +57,19 @@ constexpr DynamicViscosity::DynamicViscosity(const PrandtlNumber& prandtl_number
 constexpr KinematicViscosity::KinematicViscosity(const PrandtlNumber& prandtl_number, const ThermalDiffusivity& thermal_diffusivity) noexcept : KinematicViscosity(prandtl_number.value() * thermal_diffusivity.value()) {}
 
 } // namespace PhQ
+
+constexpr PhQ::PrandtlNumber operator+(double real, const PhQ::PrandtlNumber& prandtl_number) noexcept {
+  return {real + prandtl_number.value()};
+}
+
+constexpr PhQ::PrandtlNumber operator-(double real, const PhQ::PrandtlNumber& prandtl_number) noexcept {
+  return {real - prandtl_number.value()};
+}
+
+constexpr PhQ::PrandtlNumber operator*(double real, const PhQ::PrandtlNumber& prandtl_number) noexcept {
+  return {real * prandtl_number.value()};
+}
+
+constexpr double operator/(double real, const PhQ::PrandtlNumber& prandtl_number) noexcept {
+  return real / prandtl_number.value();
+}

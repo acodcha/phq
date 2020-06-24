@@ -27,3 +27,19 @@ public:
 };
 
 } // namespace PhQ
+
+constexpr PhQ::StrainScalar operator+(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+  return {real + strain_scalar.value()};
+}
+
+constexpr PhQ::StrainScalar operator-(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+  return {real - strain_scalar.value()};
+}
+
+constexpr PhQ::StrainScalar operator*(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+  return {real * strain_scalar.value()};
+}
+
+constexpr double operator/(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+  return real / strain_scalar.value();
+}

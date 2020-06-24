@@ -40,20 +40,18 @@ class Direction {
 
 public:
 
-  constexpr Direction() noexcept : x_y_z_({1.0, 0.0, 0.0}) {}
+  constexpr Direction() noexcept : x_(), y_(), z_() {}
 
-  constexpr Direction(const std::array<double, 3>& x_y_z) : x_y_z_() {
-    const double magnitude{std::sqrt(std::pow(x_y_z[0], 2) + std::pow(x_y_z[1], 2) + std::pow(x_y_z[2], 2))};
+  constexpr Direction(double x, double y, double z) : x_(), y_(), z_() {
+    const double magnitude{std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2))};
     if (magnitude > 0.0) {
-      x_y_z_[0] = x_y_z[0] / magnitude;
-      x_y_z_[1] = x_y_z[1] / magnitude;
-      x_y_z_[2] = x_y_z[2] / magnitude;
+      x_ = x / magnitude;
+      y_ = y / magnitude;
+      z_ = z / magnitude;
     } else {
       throw std::runtime_error{"Attempting to create a direction from (0, 0, 0)."};
     }
   }
-
-  constexpr Direction(double x, double y, double z) : Direction(std::array<double, 3>{x, y, z}) {}
 
   constexpr Direction(const Value::Vector& vector);
 
@@ -75,37 +73,33 @@ public:
 
   constexpr Direction(const Velocity& velocity);
 
-  constexpr std::array<double, 3> x_y_z() const noexcept {
-    return x_y_z_;
-  }
-
   constexpr double x() const noexcept {
-    return x_y_z_[0];
+    return x_;
   }
 
   constexpr double y() const noexcept {
-    return x_y_z_[1];
+    return y_;
   }
 
   constexpr double z() const noexcept {
-    return x_y_z_[2];
+    return z_;
   }
 
   constexpr double magnitude() const noexcept {
-    return std::sqrt(std::pow(x_y_z_[0], 2) + std::pow(x_y_z_[1], 2) + std::pow(x_y_z_[2], 2));
+    return std::sqrt(std::pow(x_, 2) + std::pow(y_, 2) + std::pow(z_, 2));
   }
 
   constexpr double dot(const Direction& direction) const noexcept {
-    return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] + x_y_z_[2] * direction.x_y_z_[2];
+    return x_ * direction.x_ + y_ * direction.y_ + z_ * direction.z_;
   }
 
   constexpr double dot(const Value::Vector& vector) const noexcept;
 
   constexpr Direction cross(const Direction& direction) const noexcept {
     return {
-      x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
-      x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
-      x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
+      y_ * direction.z_ - z_ * direction.y_,
+      z_ * direction.x_ - x_ * direction.z_,
+      x_ * direction.y_ - y_ * direction.x_};
   }
 
   constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
@@ -120,31 +114,38 @@ public:
 
   std::string print() const noexcept {
     return
-      "(" + PhQ::number_to_string(x_y_z_[0]) + ", " +
-      PhQ::number_to_string(x_y_z_[1]) + ", " +
-      PhQ::number_to_string(x_y_z_[2]) + ")";
+      "(" + PhQ::number_to_string(x_) + ", " +
+      PhQ::number_to_string(y_) + ", " +
+      PhQ::number_to_string(z_) + ")";
+  }
+
+  std::string yaml() const noexcept {
+    return
+      "{x:" + PhQ::number_to_string(x_) +
+      " , y:" + PhQ::number_to_string(y_) +
+      " , z:" + PhQ::number_to_string(z_) + "}";
   }
 
   std::string json() const noexcept {
     return
-      "{\"x\":" + PhQ::number_to_string(x_y_z_[0]) +
-      ", \"y\":" + PhQ::number_to_string(x_y_z_[1]) +
-      ", \"z\":" + PhQ::number_to_string(x_y_z_[2]) + "}";
+      "{\"x\":" + PhQ::number_to_string(x_) +
+      " , \"y\":" + PhQ::number_to_string(y_) +
+      " , \"z\":" + PhQ::number_to_string(z_) + "}";
   }
 
   std::string xml() const noexcept {
     return
-      "<x>" + PhQ::number_to_string(x_y_z_[0]) +
-      "</x><y>" + PhQ::number_to_string(x_y_z_[1]) +
-      "</y><z>" + PhQ::number_to_string(x_y_z_[2]) + "</z>";
+      "<x>" + PhQ::number_to_string(x_) +
+      "</x><y>" + PhQ::number_to_string(y_) +
+      "</y><z>" + PhQ::number_to_string(z_) + "</z>";
   }
 
   constexpr bool operator==(const Direction& direction) const noexcept {
-    return x_y_z_[0] == direction.x_y_z_[0] && x_y_z_[1] == direction.x_y_z_[1] && x_y_z_[2] == direction.x_y_z_[2];
+    return x_ == direction.x_ && y_ == direction.y_ && z_ == direction.z_;
   }
 
   constexpr bool operator!=(const Direction& direction) const noexcept {
-    return x_y_z_[0] != direction.x_y_z_[0] || x_y_z_[1] != direction.x_y_z_[1] || x_y_z_[2] != direction.x_y_z_[2];
+    return x_ != direction.x_ || y_ != direction.y_ || z_ != direction.z_;
   }
 
   constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
@@ -165,7 +166,11 @@ public:
 
 private:
 
-  std::array<double, 3> x_y_z_;
+  double x_;
+
+  double y_;
+
+  double z_;
 
 };
 

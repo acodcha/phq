@@ -22,10 +22,6 @@ class DimensionlessScalarQuantity : public DimensionlessQuantity {
 
 public:
 
-  constexpr DimensionlessScalarQuantity() noexcept : DimensionlessQuantity(), value_() {}
-
-  constexpr DimensionlessScalarQuantity(double value) noexcept : DimensionlessQuantity(), value_(value) {}
-
   constexpr double value() const noexcept {
     return value_;
   }
@@ -144,6 +140,10 @@ public:
 
 protected:
 
+  constexpr DimensionlessScalarQuantity() noexcept : DimensionlessQuantity(), value_() {}
+
+  constexpr DimensionlessScalarQuantity(double value) noexcept : DimensionlessQuantity(), value_(value) {}
+
   double value_;
 
 };
@@ -153,22 +153,6 @@ template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar_1, con
 }
 
 } // namespace PhQ
-
-constexpr PhQ::DimensionlessScalarQuantity operator+(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
-  return {scalar + real};
-}
-
-constexpr PhQ::DimensionlessScalarQuantity operator-(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
-  return {real - scalar.value()};
-}
-
-constexpr PhQ::DimensionlessScalarQuantity operator*(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
-  return {scalar * real};
-}
-
-constexpr double operator/(double real, const PhQ::DimensionlessScalarQuantity& scalar) noexcept {
-  return real / scalar.value();
-}
 
 namespace std {
 

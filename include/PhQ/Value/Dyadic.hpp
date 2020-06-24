@@ -16,83 +16,79 @@ class Dyadic {
 
 public:
 
-  constexpr Dyadic() noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
+  constexpr Dyadic() noexcept : xx_(), xy_(), xz_(), yx_(), yy_(), yz_(), zx_(), zy_(), zz_() {}
 
-  constexpr Dyadic(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+  constexpr Dyadic(double xx, double xy, double xz, double yx, double yy, double yz, double zx, double zy, double zz) noexcept : xx_(xx), xy_(xy), xz_(xz), yx_(yx), yy_(yy), yz_(yz), zx_(zx), zy_(zy), zz_(zz) {}
 
-  constexpr Dyadic(double xx, double xy, double xz, double yx, double yy, double yz, double zx, double zy, double zz) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
+  constexpr Dyadic(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept : xx_(xx_xy_xz_yx_yy_yz_zx_zy_zz[0]), xy_(xx_xy_xz_yx_yy_yz_zx_zy_zz[1]), xz_(xx_xy_xz_yx_yy_yz_zx_zy_zz[2]), yx_(xx_xy_xz_yx_yy_yz_zx_zy_zz[3]), yy_(xx_xy_xz_yx_yy_yz_zx_zy_zz[4]), yz_(xx_xy_xz_yx_yy_yz_zx_zy_zz[5]), zx_(xx_xy_xz_yx_yy_yz_zx_zy_zz[6]), zy_(xx_xy_xz_yx_yy_yz_zx_zy_zz[7]), zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz[8]) {}
 
-  constexpr Dyadic(const SymmetricDyadic& symmetric_dyadic) noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_({symmetric_dyadic.xx(), symmetric_dyadic.xy(), symmetric_dyadic.xz(), symmetric_dyadic.yx(), symmetric_dyadic.yy(), symmetric_dyadic.yz(), symmetric_dyadic.zx(), symmetric_dyadic.zy(), symmetric_dyadic.zz()}) {}
-
-  constexpr std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
-  }
+  constexpr Dyadic(const SymmetricDyadic& symmetric_dyadic) noexcept : xx_(symmetric_dyadic.xx()), xy_(symmetric_dyadic.xy()), xz_(symmetric_dyadic.xz()), yx_(symmetric_dyadic.yx()), yy_(symmetric_dyadic.yy()), yz_(symmetric_dyadic.yz()), zx_(symmetric_dyadic.zx()), zy_(symmetric_dyadic.zy()), zz_(symmetric_dyadic.zz()) {}
 
   constexpr double xx() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
+    return xx_;
   }
 
   constexpr double xy() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
+    return xy_;
   }
 
   constexpr double xz() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
+    return xz_;
   }
 
   constexpr double yx() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
+    return yx_;
   }
 
   constexpr double yy() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
+    return yy_;
   }
 
   constexpr double yz() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
+    return yz_;
   }
 
   constexpr double zx() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
+    return zx_;
   }
 
   constexpr double zy() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
+    return zy_;
   }
 
   constexpr double zz() const noexcept {
-    return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+    return zz_;
   }
 
   constexpr bool is_symmetric() const noexcept {
-    return xy() == yx() && xz() == zx() && yz() == zy();
+    return xy_ == yx_ && xz_ == zx_ && yz_ == zy_;
   }
 
   constexpr double trace() const noexcept {
-    return xx() + yy() + zz();
+    return xx_ + yy_ + zz_;
   }
 
   constexpr double determinant() const noexcept {
     return
-      xx() * (yy() * zz() - yz() * zy()) +
-      xy() * (yz() * zx() - yx() * zz()) +
-      xz() * (yx() * zy() - yy() * zx());
+      xx_ * (yy_ * zz_ - yz_ * zy_) +
+      xy_ * (yz_ * zx_ - yx_ * zz_) +
+      xz_ * (yx_ * zy_ - yy_ * zx_);
   }
 
   constexpr Dyadic transpose() const noexcept {
-    return {xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
+    return {xx_, yx_, zx_, xy_, yy_, zy_, xz_, yz_, zz_};
   }
 
   constexpr Dyadic cofactors() const noexcept {
-    const double cofactor_xx{yy() * zz() - yz() * zy()};
-    const double cofactor_xy{yz() * zx() - yx() * zz()};
-    const double cofactor_xz{yx() * zy() - yy() * zx()};
-    const double cofactor_yx{xz() * zy() - xy() * zz()};
-    const double cofactor_yy{xx() * zz() - xz() * zx()};
-    const double cofactor_yz{xy() * zx() - xx() * zy()};
-    const double cofactor_zx{xy() * yz() - xz() * yy()};
-    const double cofactor_zy{xz() * yx() - xx() * yz()};
-    const double cofactor_zz{xx() * yy() - xy() * yx()};
+    const double cofactor_xx{yy_ * zz_ - yz_ * zy_};
+    const double cofactor_xy{yz_ * zx_ - yx_ * zz_};
+    const double cofactor_xz{yx_ * zy_ - yy_ * zx_};
+    const double cofactor_yx{xz_ * zy_ - xy_ * zz_};
+    const double cofactor_yy{xx_ * zz_ - xz_ * zx_};
+    const double cofactor_yz{xy_ * zx_ - xx_ * zy_};
+    const double cofactor_zx{xy_ * yz_ - xz_ * yy_};
+    const double cofactor_zy{xz_ * yx_ - xx_ * yz_};
+    const double cofactor_zz{xx_ * yy_ - xy_ * yx_};
     return {cofactor_xx, cofactor_xy, cofactor_xz, cofactor_yx, cofactor_yy, cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
   }
 
@@ -111,248 +107,257 @@ public:
 
   std::string print() const noexcept {
     return
-      "(" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]) + "; " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]) + "; " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]) + ", " +
-      PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]) + ")";
+      "(" + PhQ::number_to_string(xx_) + ", " +
+      PhQ::number_to_string(xy_) + ", " +
+      PhQ::number_to_string(xz_) + "; " +
+      PhQ::number_to_string(yx_) + ", " +
+      PhQ::number_to_string(yy_) + ", " +
+      PhQ::number_to_string(yz_) + "; " +
+      PhQ::number_to_string(zx_) + ", " +
+      PhQ::number_to_string(zy_) + ", " +
+      PhQ::number_to_string(zz_) + ")";
+  }
+
+  std::string yaml() const noexcept {
+    return
+      "{xx: " + PhQ::number_to_string(xx_) +
+      " , xy: " + PhQ::number_to_string(xy_) +
+      " , xz: " + PhQ::number_to_string(xz_) +
+      " , yx: " + PhQ::number_to_string(yx_) +
+      " , yy: " + PhQ::number_to_string(yy_) +
+      " , yz: " + PhQ::number_to_string(yz_) +
+      " , zx: " + PhQ::number_to_string(zx_) +
+      " , zy: " + PhQ::number_to_string(zy_) +
+      " , zz: " + PhQ::number_to_string(zz_) + "}";
   }
 
   std::string json() const noexcept {
     return
-      "{\"xx\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]) +
-      " , \"xy\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]) +
-      " , \"xz\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]) +
-      " , \"yx\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]) +
-      " , \"yy\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]) +
-      " , \"yz\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]) +
-      " , \"zx\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]) +
-      " , \"zy\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]) +
-      " , \"zz\": " + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]) + "}";
+      "{\"xx\": " + PhQ::number_to_string(xx_) +
+      " , \"xy\": " + PhQ::number_to_string(xy_) +
+      " , \"xz\": " + PhQ::number_to_string(xz_) +
+      " , \"yx\": " + PhQ::number_to_string(yx_) +
+      " , \"yy\": " + PhQ::number_to_string(yy_) +
+      " , \"yz\": " + PhQ::number_to_string(yz_) +
+      " , \"zx\": " + PhQ::number_to_string(zx_) +
+      " , \"zy\": " + PhQ::number_to_string(zy_) +
+      " , \"zz\": " + PhQ::number_to_string(zz_) + "}";
   }
 
   std::string xml() const noexcept {
     return
-      "<xx>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]) +
-      "</xx><xy>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]) +
-      "</xy><xz>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]) +
-      "</xz><yx>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]) +
-      "</yx><yy>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]) +
-      "</yy><yz>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]) +
-      "</yz><zx>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]) +
-      "</zx><zy>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]) +
-      "</zy><zz>" + PhQ::number_to_string(xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]) + "</zz>";
+      "<xx>" + PhQ::number_to_string(xx_) +
+      "</xx><xy>" + PhQ::number_to_string(xy_) +
+      "</xy><xz>" + PhQ::number_to_string(xz_) +
+      "</xz><yx>" + PhQ::number_to_string(yx_) +
+      "</yx><yy>" + PhQ::number_to_string(yy_) +
+      "</yy><yz>" + PhQ::number_to_string(yz_) +
+      "</yz><zx>" + PhQ::number_to_string(zx_) +
+      "</zx><zy>" + PhQ::number_to_string(zy_) +
+      "</zy><zz>" + PhQ::number_to_string(zz_) + "</zz>";
   }
 
   constexpr bool operator==(const Dyadic& dyadic) const noexcept {
     return
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] &&
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] == dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+      xx_ == dyadic.xx_ &&
+      xy_ == dyadic.xy_ &&
+      xz_ == dyadic.xz_ &&
+      yx_ == dyadic.yx_ &&
+      yy_ == dyadic.yy_ &&
+      yz_ == dyadic.yz_ &&
+      zx_ == dyadic.zx_ &&
+      zy_ == dyadic.zy_ &&
+      zz_ == dyadic.zz_;
   }
 
   constexpr bool operator!=(const Dyadic& dyadic) const noexcept {
     return
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] ||
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] != dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+      xx_ != dyadic.xx_ ||
+      xy_ != dyadic.xy_ ||
+      xz_ != dyadic.xz_ ||
+      yx_ != dyadic.yx_ ||
+      yy_ != dyadic.yy_ ||
+      yz_ != dyadic.yz_ ||
+      zx_ != dyadic.zx_ ||
+      zy_ != dyadic.zy_ ||
+      zz_ != dyadic.zz_;
   }
 
   constexpr Dyadic operator+(const Dyadic& dyadic) const noexcept {
     return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] + dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
+      xx_ + dyadic.xx_,
+      xy_ + dyadic.xy_,
+      xz_ + dyadic.xz_,
+      yx_ + dyadic.yx_,
+      yy_ + dyadic.yy_,
+      yz_ + dyadic.yz_,
+      zx_ + dyadic.zx_,
+      zy_ + dyadic.zy_,
+      zz_ + dyadic.zz_
     };
   }
 
   constexpr void operator+=(const Dyadic& dyadic) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] += dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+    xx_ += dyadic.xx_;
+    xy_ += dyadic.xy_;
+    xz_ += dyadic.xz_;
+    yx_ += dyadic.yx_;
+    yy_ += dyadic.yy_;
+    yz_ += dyadic.yz_;
+    zx_ += dyadic.zx_;
+    zy_ += dyadic.zy_;
+    zz_ += dyadic.zz_;
   }
 
   constexpr Dyadic operator-(const Dyadic& dyadic) const noexcept {
     return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7],
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] - dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]
+      xx_ - dyadic.xx_,
+      xy_ - dyadic.xy_,
+      xz_ - dyadic.xz_,
+      yx_ - dyadic.yx_,
+      yy_ - dyadic.yy_,
+      yz_ - dyadic.yz_,
+      zx_ - dyadic.zx_,
+      zy_ - dyadic.zy_,
+      zz_ - dyadic.zz_
     };
   }
 
   constexpr void operator-=(const Dyadic& dyadic) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] -= dyadic.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
+    xx_ -= dyadic.xx_;
+    xy_ -= dyadic.xy_;
+    xz_ -= dyadic.xz_;
+    yx_ -= dyadic.yx_;
+    yy_ -= dyadic.yy_;
+    yz_ -= dyadic.yz_;
+    zx_ -= dyadic.zx_;
+    zy_ -= dyadic.zy_;
+    zz_ -= dyadic.zz_;
   }
 
   constexpr Dyadic operator*(double real) const noexcept {
-    return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] * real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] * real
-    };
+    return {xx_ * real, xy_ * real, xz_ * real, yx_ * real, yy_ * real, yz_ * real, zx_ * real, zy_ * real, zz_ * real};
   }
 
   constexpr Vector operator*(const Vector& vector) const noexcept {
     return {
-      xx() * vector.x() + xy() * vector.y() + xz() * vector.z(),
-      yx() * vector.x() + yy() * vector.y() + yz() * vector.z(),
-      zx() * vector.x() + zy() * vector.y() + zz() * vector.z()
+      xx_ * vector.x() + xy_ * vector.y() + xz_ * vector.z(),
+      yx_ * vector.x() + yy_ * vector.y() + yz_ * vector.z(),
+      zx_ * vector.x() + zy_ * vector.y() + zz_ * vector.z()
     };
   }
 
-  constexpr Dyadic operator*(const SymmetricDyadic& dyadic) const noexcept {
+  constexpr Dyadic operator*(const SymmetricDyadic& symmetric_dyadic) const noexcept {
     return {
-      xx() * dyadic.xx() + xy() * dyadic.yx() + xz() * dyadic.zx(),
-      xx() * dyadic.xy() + xy() * dyadic.yy() + xz() * dyadic.zy(),
-      xx() * dyadic.xz() + xy() * dyadic.yz() + xz() * dyadic.zz(),
-      yx() * dyadic.xx() + yy() * dyadic.yx() + yz() * dyadic.zx(),
-      yx() * dyadic.xy() + yy() * dyadic.yy() + yz() * dyadic.zy(),
-      yx() * dyadic.xz() + yy() * dyadic.yz() + yz() * dyadic.zz(),
-      zx() * dyadic.xx() + zy() * dyadic.yx() + zz() * dyadic.zx(),
-      zx() * dyadic.xy() + zy() * dyadic.yy() + zz() * dyadic.zy(),
-      zx() * dyadic.xz() + zy() * dyadic.yz() + zz() * dyadic.zz()
+      xx_ * symmetric_dyadic.xx() + xy_ * symmetric_dyadic.yx() + xz_ * symmetric_dyadic.zx(),
+      xx_ * symmetric_dyadic.xy() + xy_ * symmetric_dyadic.yy() + xz_ * symmetric_dyadic.zy(),
+      xx_ * symmetric_dyadic.xz() + xy_ * symmetric_dyadic.yz() + xz_ * symmetric_dyadic.zz(),
+      yx_ * symmetric_dyadic.xx() + yy_ * symmetric_dyadic.yx() + yz_ * symmetric_dyadic.zx(),
+      yx_ * symmetric_dyadic.xy() + yy_ * symmetric_dyadic.yy() + yz_ * symmetric_dyadic.zy(),
+      yx_ * symmetric_dyadic.xz() + yy_ * symmetric_dyadic.yz() + yz_ * symmetric_dyadic.zz(),
+      zx_ * symmetric_dyadic.xx() + zy_ * symmetric_dyadic.yx() + zz_ * symmetric_dyadic.zx(),
+      zx_ * symmetric_dyadic.xy() + zy_ * symmetric_dyadic.yy() + zz_ * symmetric_dyadic.zy(),
+      zx_ * symmetric_dyadic.xz() + zy_ * symmetric_dyadic.yz() + zz_ * symmetric_dyadic.zz()
     };
   }
 
   constexpr Dyadic operator*(const Dyadic& dyadic) const noexcept {
     return {
-      xx() * dyadic.xx() + xy() * dyadic.yx() + xz() * dyadic.zx(),
-      xx() * dyadic.xy() + xy() * dyadic.yy() + xz() * dyadic.zy(),
-      xx() * dyadic.xz() + xy() * dyadic.yz() + xz() * dyadic.zz(),
-      yx() * dyadic.xx() + yy() * dyadic.yx() + yz() * dyadic.zx(),
-      yx() * dyadic.xy() + yy() * dyadic.yy() + yz() * dyadic.zy(),
-      yx() * dyadic.xz() + yy() * dyadic.yz() + yz() * dyadic.zz(),
-      zx() * dyadic.xx() + zy() * dyadic.yx() + zz() * dyadic.zx(),
-      zx() * dyadic.xy() + zy() * dyadic.yy() + zz() * dyadic.zy(),
-      zx() * dyadic.xz() + zy() * dyadic.yz() + zz() * dyadic.zz()
+      xx_ * dyadic.xx_ + xy_ * dyadic.yx_ + xz_ * dyadic.zx_,
+      xx_ * dyadic.xy_ + xy_ * dyadic.yy_ + xz_ * dyadic.zy_,
+      xx_ * dyadic.xz_ + xy_ * dyadic.yz_ + xz_ * dyadic.zz_,
+      yx_ * dyadic.xx_ + yy_ * dyadic.yx_ + yz_ * dyadic.zx_,
+      yx_ * dyadic.xy_ + yy_ * dyadic.yy_ + yz_ * dyadic.zy_,
+      yx_ * dyadic.xz_ + yy_ * dyadic.yz_ + yz_ * dyadic.zz_,
+      zx_ * dyadic.xx_ + zy_ * dyadic.yx_ + zz_ * dyadic.zx_,
+      zx_ * dyadic.xy_ + zy_ * dyadic.yy_ + zz_ * dyadic.zy_,
+      zx_ * dyadic.xz_ + zy_ * dyadic.yz_ + zz_ * dyadic.zz_
     };
   }
 
   constexpr void operator*=(double real) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= real;
+    xx_ *= real;
+    xy_ *= real;
+    xz_ *= real;
+    yx_ *= real;
+    yy_ *= real;
+    yz_ *= real;
+    zx_ *= real;
+    zy_ *= real;
+    zz_ *= real;
   }
 
   constexpr Dyadic operator/(double real) const noexcept {
-    return {
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] / real,
-      xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] / real
-    };
+    return {xx_ / real, xy_ / real, xz_ / real, yx_ / real, yy_ / real, yz_ / real, zx_ / real, zy_ / real, zz_ / real};
   }
 
   constexpr void operator/=(double real) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= real;
+    xx_ /= real;
+    xy_ /= real;
+    xz_ /= real;
+    yx_ /= real;
+    yy_ /= real;
+    yz_ /= real;
+    zx_ /= real;
+    zy_ /= real;
+    zz_ /= real;
   }
 
 protected:
 
-  std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz_;
+  double xx_;
+
+  double xy_;
+
+  double xz_;
+
+  double yx_;
+
+  double yy_;
+
+  double yz_;
+
+  double zx_;
+
+  double zy_;
+
+  double zz_;
 
 };
 
 constexpr Dyadic Vector::dyadic(const Vector& vector) const noexcept {
   return {
-    x() * vector.x(), x() * vector.y(), x() * vector.z(),
-    y() * vector.x(), y() * vector.y(), y() * vector.z(),
-    z() * vector.x(), z() * vector.y(), z() * vector.z()
+    x_ * vector.x_, x_ * vector.y_, x_ * vector.z_,
+    y_ * vector.x_, y_ * vector.y_, y_ * vector.z_,
+    z_ * vector.x_, z_ * vector.y_, z_ * vector.z_
   };
 }
 
 constexpr Dyadic SymmetricDyadic::operator*(const SymmetricDyadic& symmetric_dyadic) const noexcept {
   return {
-    xx() * symmetric_dyadic.xx() + xy() * symmetric_dyadic.yx() + xz() * symmetric_dyadic.zx(),
-    xx() * symmetric_dyadic.xy() + xy() * symmetric_dyadic.yy() + xz() * symmetric_dyadic.zy(),
-    xx() * symmetric_dyadic.xz() + xy() * symmetric_dyadic.yz() + xz() * symmetric_dyadic.zz(),
-    yx() * symmetric_dyadic.xx() + yy() * symmetric_dyadic.yx() + yz() * symmetric_dyadic.zx(),
-    yx() * symmetric_dyadic.xy() + yy() * symmetric_dyadic.yy() + yz() * symmetric_dyadic.zy(),
-    yx() * symmetric_dyadic.xz() + yy() * symmetric_dyadic.yz() + yz() * symmetric_dyadic.zz(),
-    zx() * symmetric_dyadic.xx() + zy() * symmetric_dyadic.yx() + zz() * symmetric_dyadic.zx(),
-    zx() * symmetric_dyadic.xy() + zy() * symmetric_dyadic.yy() + zz() * symmetric_dyadic.zy(),
-    zx() * symmetric_dyadic.xz() + zy() * symmetric_dyadic.yz() + zz() * symmetric_dyadic.zz()
+    xx_ * symmetric_dyadic.xx_ + xy_ * symmetric_dyadic.xy_ + xz_ * symmetric_dyadic.xz_,
+    xx_ * symmetric_dyadic.xy_ + xy_ * symmetric_dyadic.yy_ + xz_ * symmetric_dyadic.yz_,
+    xx_ * symmetric_dyadic.xz_ + xy_ * symmetric_dyadic.yz_ + xz_ * symmetric_dyadic.zz_,
+    xy_ * symmetric_dyadic.xx_ + yy_ * symmetric_dyadic.xy_ + yz_ * symmetric_dyadic.xz_,
+    xy_ * symmetric_dyadic.xy_ + yy_ * symmetric_dyadic.yy_ + yz_ * symmetric_dyadic.yz_,
+    xy_ * symmetric_dyadic.xz_ + yy_ * symmetric_dyadic.yz_ + yz_ * symmetric_dyadic.zz_,
+    xz_ * symmetric_dyadic.xx_ + yz_ * symmetric_dyadic.xy_ + zz_ * symmetric_dyadic.xz_,
+    xz_ * symmetric_dyadic.xy_ + yz_ * symmetric_dyadic.yy_ + zz_ * symmetric_dyadic.yz_,
+    xz_ * symmetric_dyadic.xz_ + yz_ * symmetric_dyadic.yz_ + zz_ * symmetric_dyadic.zz_
   };
 }
 
 constexpr Dyadic SymmetricDyadic::operator*(const Dyadic& dyadic) const noexcept {
   return {
-    xx() * dyadic.xx() + xy() * dyadic.yx() + xz() * dyadic.zx(),
-    xx() * dyadic.xy() + xy() * dyadic.yy() + xz() * dyadic.zy(),
-    xx() * dyadic.xz() + xy() * dyadic.yz() + xz() * dyadic.zz(),
-    yx() * dyadic.xx() + yy() * dyadic.yx() + yz() * dyadic.zx(),
-    yx() * dyadic.xy() + yy() * dyadic.yy() + yz() * dyadic.zy(),
-    yx() * dyadic.xz() + yy() * dyadic.yz() + yz() * dyadic.zz(),
-    zx() * dyadic.xx() + zy() * dyadic.yx() + zz() * dyadic.zx(),
-    zx() * dyadic.xy() + zy() * dyadic.yy() + zz() * dyadic.zy(),
-    zx() * dyadic.xz() + zy() * dyadic.yz() + zz() * dyadic.zz()
+    xx_ * dyadic.xx() + xy_ * dyadic.yx() + xz_ * dyadic.zx(),
+    xx_ * dyadic.xy() + xy_ * dyadic.yy() + xz_ * dyadic.zy(),
+    xx_ * dyadic.xz() + xy_ * dyadic.yz() + xz_ * dyadic.zz(),
+    xy_ * dyadic.xx() + yy_ * dyadic.yx() + yz_ * dyadic.zx(),
+    xy_ * dyadic.xy() + yy_ * dyadic.yy() + yz_ * dyadic.zy(),
+    xy_ * dyadic.xz() + yy_ * dyadic.yz() + yz_ * dyadic.zz(),
+    xz_ * dyadic.xx() + yz_ * dyadic.yx() + zz_ * dyadic.zx(),
+    xz_ * dyadic.xy() + yz_ * dyadic.yy() + zz_ * dyadic.zy(),
+    xz_ * dyadic.xz() + yz_ * dyadic.yz() + zz_ * dyadic.zz()
   };
 }
 
@@ -360,25 +365,25 @@ constexpr Dyadic SymmetricDyadic::operator*(const Dyadic& dyadic) const noexcept
 
 constexpr Value::Dyadic Direction::dyadic(const Direction& direction) const noexcept {
   return {
-    x() * direction.x(), x() * direction.y(), x() * direction.z(),
-    y() * direction.x(), y() * direction.y(), y() * direction.z(),
-    z() * direction.x(), z() * direction.y(), z() * direction.z()
+    x_ * direction.x_, x_ * direction.y_, x_ * direction.z_,
+    y_ * direction.x_, y_ * direction.y_, y_ * direction.z_,
+    z_ * direction.x_, z_ * direction.y_, z_ * direction.z_
   };
 }
 
 constexpr Value::Dyadic Direction::dyadic(const Value::Vector& vector) const noexcept {
   return {
-    x() * vector.x(), x() * vector.y(), x() * vector.z(),
-    y() * vector.x(), y() * vector.y(), y() * vector.z(),
-    z() * vector.x(), z() * vector.y(), z() * vector.z()
+    x_ * vector.x(), x_ * vector.y(), x_ * vector.z(),
+    y_ * vector.x(), y_ * vector.y(), y_ * vector.z(),
+    z_ * vector.x(), z_ * vector.y(), z_ * vector.z()
   };
 }
 
 constexpr Value::Dyadic Value::Vector::dyadic(const Direction& direction) const noexcept {
   return {
-    x() * direction.x(), x() * direction.y(), x() * direction.z(),
-    y() * direction.x(), y() * direction.y(), y() * direction.z(),
-    z() * direction.x(), z() * direction.y(), z() * direction.z()
+    x_ * direction.x(), x_ * direction.y(), x_ * direction.z(),
+    y_ * direction.x(), y_ * direction.y(), y_ * direction.z(),
+    z_ * direction.x(), z_ * direction.y(), z_ * direction.z()
   };
 }
 
