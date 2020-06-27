@@ -1,4 +1,4 @@
-# Physical Quantities
+# Physical Quantities (PhQ)
 ![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=master)
 
 C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
@@ -48,20 +48,20 @@ make test
 This configures the library with testing enabled, builds the tests, and runs the tests.
 
 ## Usage
-To use the library in one of your projects, install it on your system (see Installation), and add the following to your project's `CMakeLists.txt` file:
+To use the library in one of your projects, install it on your system, and add the following to your project's `CMakeLists.txt` file:
 
 ```
 find_package(PhQ REQUIRED)
 target_link_libraries(${PROJECT_NAME} PhQ::PhQ)
 ```
 
-Once this is done, simply include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`.
+Once this is done, simply include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`. The `PhQ::` namespace encapsulates the library's contents.
 
 Quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented in a Cartesian (x-y-z) coordinate system.
 
-Unit conversions are done through the `PhQ::convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
-
 Unit conversions are handled automatically by quantities. Internally, quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A quantity's value can be obtained in any unit through its `value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and returns its value as 4.535924 kg.
+
+Unit conversions can also be done without the use of quantities through the `PhQ::convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
 
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example, a `PhQ::Velocity` divided by a `PhQ::Duration` returns a `PhQ::Acceleration`, while a `PhQ::Force` divided by a `PhQ::Area` returns a `PhQ::Traction`.
 
