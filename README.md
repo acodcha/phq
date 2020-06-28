@@ -5,7 +5,7 @@ C++17 header-only library of physical quantities, physical models, and units of 
 
 ## Configuration
 The following packages are required:
-- **C++17 Compiler:** On Ubuntu, install the GCC compiler with `sudo apt install g++` or the Clang compiler `sudo apt install clang`.
+- **C++17 Compiler:** Any C++17 compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
 - **CMake:** On Ubuntu, install with `sudo apt install cmake`.
 
 Configure the library with:
