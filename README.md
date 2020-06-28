@@ -3,12 +3,12 @@
 
 C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
 
-## Dependencies
-- **C++17 Compiler:** Either GCC or Clang are recommended. On Ubuntu, install with `sudo apt install g++` or `sudo apt install clang`.
+## Configuration
+The following packages are required:
+- **C++17 Compiler:** On Ubuntu, install the GCC compiler with `sudo apt install g++` or the Clang compiler `sudo apt install clang`.
 - **CMake:** On Ubuntu, install with `sudo apt install cmake`.
 
-## Configuration
-Configure the library with CMake:
+Configure the library with:
 
 ```
 mkdir build
@@ -17,7 +17,7 @@ cmake ..
 ```
 
 ## Installation
-This is a header-only library, so no compilation is needed. Once you have configured the library, it can be installed from the `build` folder with:
+This is a header-only library, so no compilation is needed. Once you have configured the library, install it from the `build` folder with:
 
 ```
 sudo make install
@@ -31,17 +31,17 @@ Building the documentation is optional and requires additional packages:
 - **Graphviz:** On Ubuntu, install with `sudo apt install graphviz`.
 - **TeX Live:** On Ubuntu, install with `sudo apt install texlive texlive-fonts-extra`.
 
-Documentation is disabled by default but can be enabled from the `build` folder with:
+Documentation is disabled by default but can be generated from the `build` folder with:
 
 ```
 cmake .. -DBUILD_DOCS=ON
 make docs
 ```
 
-This generates HTML documentation using Doxygen. The documentation is located in `docs/html`.
+This generates HTML documentation using Doxygen. The documentation is located in `docs/html`. Open the `docs/html/index.html` file in any web browser to view the documentation.
 
 ## Testing
-Testing is disabled by default but can be enabled from the `build` folder with:
+Testing is disabled by default but can be run from the `build` folder with:
 
 ```
 cmake .. -DBUILD_TESTING=ON
@@ -49,10 +49,10 @@ make -j
 make test
 ```
 
-This configures the library with testing enabled, builds the tests, and runs the tests.
+This builds and runs the tests.
 
 ## Usage
-To use the library in one of your projects, install it on your system, and add the following to your project's `CMakeLists.txt` file:
+To use the library in one of your projects, install it (see the Installation section) and add the following to your project's `CMakeLists.txt` file:
 
 ```
 find_package(PhQ REQUIRED)
