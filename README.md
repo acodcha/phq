@@ -79,5 +79,5 @@ Warning: As always, some operations can result in divisions by zero. C++ compile
 This work is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the [LICENSE](LICENSE) file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
 
 ## Maintainer
-- Alexandre Coderre-Chabot (<alexandre.coderre.chabot@gmail.com>)
+- Alexandre Coderre-Chabot (<https://github.com/acodcha>)
 
