@@ -33,7 +33,7 @@
 
 namespace PhQ {
 
-  /// \brief The \f$ pi = 3.14... \f$ mathematical constant is not part of standard C++, and some compilers do not define it, so PhQ defines it within its namespace.
-  constexpr const double pi{3.14159265358979323846};
+  /// \brief The \f$ pi = 3.14... \f$ mathematical constant is not part of standard C++. Some compilers do not define it, so PhQ defines it within its namespace.
+  constexpr const double Pi{3.14159265358979323846};
 
 } // namespace PhQ

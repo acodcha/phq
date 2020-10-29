@@ -63,24 +63,24 @@ template <> constexpr const Dimension::Set dimension<Unit::Angle>{Dimension::Set
 template <> const std::map<Unit::Angle, std::map<Unit::Angle, std::function<void(std::vector<double>&)>>> conversions<Unit::Angle>{
   {Unit::Angle::Radian, {
     {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::Angle::Degree, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / pi;});}},
-    {Unit::Angle::Arcminute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / pi;});}},
-    {Unit::Angle::Arcsecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 648000.0 / pi;});}}
+    {Unit::Angle::Degree, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 180.0 / Pi;});}},
+    {Unit::Angle::Arcminute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10800.0 / Pi;});}},
+    {Unit::Angle::Arcsecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 648000.0 / Pi;});}}
   }},
   {Unit::Angle::Degree, {
-    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 180.0;});}},
+    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= Pi / 180.0;});}},
     {Unit::Angle::Degree, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Angle::Arcminute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
     {Unit::Angle::Arcsecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}}
   }},
   {Unit::Angle::Arcminute, {
-    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 10800.0;});}},
+    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= Pi / 10800.0;});}},
     {Unit::Angle::Degree, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::Angle::Arcminute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
     {Unit::Angle::Arcsecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}}
   }},
   {Unit::Angle::Arcsecond, {
-    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= pi / 648000.0;});}},
+    {Unit::Angle::Radian, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= Pi / 648000.0;});}},
     {Unit::Angle::Degree, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3600.0;});}},
     {Unit::Angle::Arcminute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::Angle::Arcsecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
