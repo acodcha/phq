@@ -160,3 +160,13 @@ constexpr bool sort(const ConstitutiveModel::ElasticIsotropicSolid& model_1, con
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
+  size_t operator()(const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
+    return hash<PhQ::ShearModulus>()(model.shear_modulus()) ^ hash<PhQ::LameFirstModulus>()(model.lame_first_modulus());
+  }
+};
+
+} // namespace std

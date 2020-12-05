@@ -35,3 +35,13 @@ template <> constexpr bool sort(const Dimension::Temperature& temperature_1, con
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::Temperature> {
+  size_t operator()(const PhQ::Dimension::Temperature& temperature) const {
+    return hash<double>()(temperature.value());
+  }
+};
+
+} // namespace std

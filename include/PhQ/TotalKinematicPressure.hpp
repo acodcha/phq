@@ -96,3 +96,13 @@ constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(const Stati
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::TotalKinematicPressure> {
+  size_t operator()(const PhQ::TotalKinematicPressure& total_kinematic_pressure) const {
+    return hash<double>()(total_kinematic_pressure.value());
+  }
+};
+
+} // namespace std

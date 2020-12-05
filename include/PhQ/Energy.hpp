@@ -94,3 +94,13 @@ template <> constexpr bool sort(const Energy& energy_1, const Energy& energy_2) 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Energy> {
+  size_t operator()(const PhQ::Energy& energy) const {
+    return hash<double>()(energy.value());
+  }
+};
+
+} // namespace std

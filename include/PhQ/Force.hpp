@@ -86,3 +86,13 @@ constexpr Force ForceMagnitude::operator*(const Direction& direction) const noex
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Force> {
+  size_t operator()(const PhQ::Force& force) const {
+    return hash<PhQ::Value::Vector>()(force.value());
+  }
+};
+
+} // namespace std

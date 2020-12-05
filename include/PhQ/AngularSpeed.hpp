@@ -124,3 +124,13 @@ constexpr Duration Angle::operator/(const AngularSpeed& angular_speed) const noe
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::AngularSpeed> {
+  size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
+    return hash<double>()(angular_speed.value());
+  }
+};
+
+} // namespace std

@@ -93,3 +93,13 @@ constexpr bool sort(const ThermodynamicStateModel::IdealGas& model_1, const Ther
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ThermodynamicStateModel::IdealGas> {
+  size_t operator()(const PhQ::ThermodynamicStateModel::IdealGas& model) const {
+    return hash<PhQ::SpecificGasConstant>()(model.specific_gas_constant()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.specific_isobaric_heat_capacity());
+  }
+};
+
+} // namespace std

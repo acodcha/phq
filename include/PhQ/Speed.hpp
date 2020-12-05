@@ -144,3 +144,13 @@ constexpr Speed Length::operator/(const Duration& duration) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Speed> {
+  size_t operator()(const PhQ::Speed& speed) const {
+    return hash<double>()(speed.value());
+  }
+};
+
+} // namespace std

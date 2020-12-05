@@ -81,3 +81,13 @@ constexpr StrainScalar TemperatureDifference::operator*(const LinearThermalExpan
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::LinearThermalExpansionCoefficient> {
+  size_t operator()(const PhQ::LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const {
+    return hash<double>()(linear_thermal_expansion_coefficient.value());
+  }
+};
+
+} // namespace std

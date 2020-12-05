@@ -85,3 +85,13 @@ constexpr Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressur
 constexpr DynamicPressure::DynamicPressure(const DynamicKinematicPressure& dynamic_kinematic_pressure, const MassDensity& mass_density) noexcept : DynamicPressure(dynamic_kinematic_pressure.value() * mass_density.value()) {}
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::DynamicKinematicPressure> {
+  size_t operator()(const PhQ::DynamicKinematicPressure& dynamic_kinematic_pressure) const {
+    return hash<double>()(dynamic_kinematic_pressure.value());
+  }
+};
+
+} // namespace std

@@ -115,3 +115,13 @@ constexpr Duration Mass::operator/(const MassRate& mass_rate) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::MassRate> {
+  size_t operator()(const PhQ::MassRate& mass_rate) const {
+    return hash<double>()(mass_rate.value());
+  }
+};
+
+} // namespace std

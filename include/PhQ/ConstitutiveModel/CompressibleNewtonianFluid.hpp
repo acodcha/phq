@@ -74,3 +74,13 @@ constexpr bool sort(const ConstitutiveModel::CompressibleNewtonianFluid& model_1
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
+  size_t operator()(const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
+    return hash<PhQ::DynamicViscosity>()(model.dynamic_viscosity()) ^ hash<PhQ::BulkDynamicViscosity>()(model.bulk_dynamic_viscosity());
+  }
+};
+
+} // namespace std

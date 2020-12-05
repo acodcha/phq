@@ -92,3 +92,13 @@ template <> constexpr bool sort(const TemperatureDifference& temperature_differe
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::TemperatureDifference> {
+  size_t operator()(const PhQ::TemperatureDifference& temperature_difference) const {
+    return hash<double>()(temperature_difference.value());
+  }
+};
+
+} // namespace std

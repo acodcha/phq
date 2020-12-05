@@ -35,3 +35,13 @@ template <> constexpr bool sort(const Dimension::LuminousIntensity& luminous_int
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::LuminousIntensity> {
+  size_t operator()(const PhQ::Dimension::LuminousIntensity& luminous_intensity) const {
+    return hash<double>()(luminous_intensity.value());
+  }
+};
+
+} // namespace std

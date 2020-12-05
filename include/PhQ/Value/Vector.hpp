@@ -200,3 +200,13 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Vector& 
   output_stream << vector.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Value::Vector> {
+  size_t operator()(const PhQ::Value::Vector& vector) const {
+    return hash<double>()(vector.x()) ^ hash<double>()(vector.y()) ^ hash<double>()(vector.z());
+  }
+};
+
+} // namespace std

@@ -70,3 +70,13 @@ template <> constexpr bool sort(const PWaveModulus& p_wave_modulus_1, const PWav
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::PWaveModulus> {
+  size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
+    return hash<double>()(p_wave_modulus.value());
+  }
+};
+
+} // namespace std

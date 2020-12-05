@@ -83,3 +83,13 @@ template <> constexpr bool sort(const ForceMagnitude& force_magnitude_1, const F
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ForceMagnitude> {
+  size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
+    return hash<double>()(force_magnitude.value());
+  }
+};
+
+} // namespace std

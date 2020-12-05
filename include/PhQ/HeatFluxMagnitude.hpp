@@ -80,3 +80,13 @@ template <> constexpr bool sort(const HeatFluxMagnitude& heat_flux_magnitude_1, 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::HeatFluxMagnitude> {
+  size_t operator()(const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
+    return hash<double>()(heat_flux_magnitude.value());
+  }
+};
+
+} // namespace std

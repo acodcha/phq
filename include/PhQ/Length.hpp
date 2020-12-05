@@ -112,3 +112,13 @@ template <> constexpr bool sort(const Length& length_1, const Length& length_2) 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Length> {
+  size_t operator()(const PhQ::Length& length) const {
+    return hash<double>()(length.value());
+  }
+};
+
+} // namespace std

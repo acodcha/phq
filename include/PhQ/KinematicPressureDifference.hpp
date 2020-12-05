@@ -92,3 +92,13 @@ constexpr KinematicPressureDifference PressureDifference::operator/(const MassDe
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::KinematicPressureDifference> {
+  size_t operator()(const PhQ::KinematicPressureDifference& kinematic_pressure_difference) const {
+    return hash<double>()(kinematic_pressure_difference.value());
+  }
+};
+
+} // namespace std

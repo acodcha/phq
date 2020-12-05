@@ -70,3 +70,13 @@ template <> constexpr bool sort(const LameFirstModulus& lame_first_modulus_1, co
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::LameFirstModulus> {
+  size_t operator()(const PhQ::LameFirstModulus& lame_first_modulus) const {
+    return hash<double>()(lame_first_modulus.value());
+  }
+};
+
+} // namespace std

@@ -70,3 +70,13 @@ template <> constexpr bool sort(const StressScalar& stress_scalar_1, const Stres
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::StressScalar> {
+  size_t operator()(const PhQ::StressScalar& stress_scalar) const {
+    return hash<double>()(stress_scalar.value());
+  }
+};
+
+} // namespace std

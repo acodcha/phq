@@ -118,3 +118,13 @@ constexpr Duration Speed::operator/(const AccelerationMagnitude& acceleration_ma
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::AccelerationMagnitude> {
+  size_t operator()(const PhQ::AccelerationMagnitude& acceleration_magnitude) const {
+    return hash<double>()(acceleration_magnitude.value());
+  }
+};
+
+} // namespace std

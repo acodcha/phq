@@ -433,3 +433,22 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Dyadic& 
   output_stream << dyadic.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Value::Dyadic> {
+  size_t operator()(const PhQ::Value::Dyadic& dyadic) const {
+    return
+      hash<double>()(dyadic.xx())
+      ^ hash<double>()(dyadic.xy())
+      ^ hash<double>()(dyadic.xz())
+      ^ hash<double>()(dyadic.yx())
+      ^ hash<double>()(dyadic.yy())
+      ^ hash<double>()(dyadic.yz())
+      ^ hash<double>()(dyadic.zx())
+      ^ hash<double>()(dyadic.zy())
+      ^ hash<double>()(dyadic.zz());
+  }
+};
+
+} // namespace std

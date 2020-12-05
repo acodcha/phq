@@ -56,3 +56,13 @@ template <> constexpr bool sort(const ThermalConductivity& thermal_conductivity_
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ThermalConductivity> {
+  size_t operator()(const PhQ::ThermalConductivity& thermal_conductivity) const {
+    return hash<PhQ::Value::SymmetricDyadic>()(thermal_conductivity.value());
+  }
+};
+
+} // namespace std

@@ -185,3 +185,13 @@ double sqrt(const PhQ::DimensionlessScalarQuantity& scalar) {
 };
 
 } // namespace std
+
+namespace std {
+
+template <> struct hash<PhQ::DimensionlessScalarQuantity> {
+  size_t operator()(const PhQ::DimensionlessScalarQuantity& quantity) const {
+    return hash<double>()(quantity.value());
+  }
+};
+
+} // namespace std

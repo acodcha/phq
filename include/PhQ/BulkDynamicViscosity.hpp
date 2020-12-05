@@ -70,3 +70,13 @@ template <> constexpr bool sort(const BulkDynamicViscosity& bulk_dynamic_viscosi
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::BulkDynamicViscosity> {
+  size_t operator()(const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
+    return hash<double>()(bulk_dynamic_viscosity.value());
+  }
+};
+
+} // namespace std

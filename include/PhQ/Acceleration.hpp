@@ -102,3 +102,13 @@ constexpr Acceleration Velocity::operator/(const Duration& duration) const noexc
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Acceleration> {
+  size_t operator()(const PhQ::Acceleration& acceleration) const {
+    return hash<PhQ::Value::Vector>()(acceleration.value());
+  }
+};
+
+} // namespace std

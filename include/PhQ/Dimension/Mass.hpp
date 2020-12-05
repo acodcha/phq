@@ -35,3 +35,13 @@ template <> constexpr bool sort(const Dimension::Mass& mass_1, const Dimension::
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::Mass> {
+  size_t operator()(const PhQ::Dimension::Mass& mass) const {
+    return hash<double>()(mass.value());
+  }
+};
+
+} // namespace std

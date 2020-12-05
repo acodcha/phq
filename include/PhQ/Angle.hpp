@@ -136,3 +136,13 @@ constexpr Angle Value::Vector::angle(const Value::Vector& vector) const noexcept
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Angle> {
+  size_t operator()(const PhQ::Angle& angle) const {
+    return hash<double>()(angle.value());
+  }
+};
+
+} // namespace std

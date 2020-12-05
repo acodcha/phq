@@ -70,3 +70,13 @@ template <> constexpr bool sort(const IsentropicBulkModulus& isentropic_bulk_mod
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::IsentropicBulkModulus> {
+  size_t operator()(const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
+    return hash<double>()(isentropic_bulk_modulus.value());
+  }
+};
+
+} // namespace std

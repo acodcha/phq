@@ -85,3 +85,13 @@ template <> constexpr bool sort(const Memory& memory_1, const Memory& memory_2) 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Memory> {
+  size_t operator()(const PhQ::Memory& memory) const {
+    return hash<double>()(memory.value());
+  }
+};
+
+} // namespace std

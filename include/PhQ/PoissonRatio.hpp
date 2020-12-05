@@ -37,3 +37,13 @@ constexpr PhQ::PoissonRatio operator*(double real, const PhQ::PoissonRatio& pois
 constexpr double operator/(double real, const PhQ::PoissonRatio& poisson_ratio) noexcept {
   return real / poisson_ratio.value();
 }
+
+namespace std {
+
+template <> struct hash<PhQ::PoissonRatio> {
+  size_t operator()(const PhQ::PoissonRatio& poisson_ratio) const {
+    return hash<double>()(poisson_ratio.value());
+  }
+};
+
+} // namespace std

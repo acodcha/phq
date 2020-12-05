@@ -121,3 +121,13 @@ template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Mass> {
+  size_t operator()(const PhQ::Mass& mass) const {
+    return hash<double>()(mass.value());
+  }
+};
+
+} // namespace std

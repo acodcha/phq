@@ -93,3 +93,13 @@ constexpr StrainRate Frequency::operator*(const Strain& strain) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::StrainRate> {
+  size_t operator()(const PhQ::StrainRate& strain_rate) const {
+    return hash<PhQ::Value::SymmetricDyadic>()(strain_rate.value());
+  }
+};
+
+} // namespace std

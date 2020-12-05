@@ -92,3 +92,13 @@ constexpr Traction Force::operator/(const Area& area) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Traction> {
+  size_t operator()(const PhQ::Traction& traction) const {
+    return hash<PhQ::Value::Vector>()(traction.value());
+  }
+};
+
+} // namespace std

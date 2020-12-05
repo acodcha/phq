@@ -81,3 +81,13 @@ template <> constexpr bool sort(const ThermalConductivityScalar& thermal_conduct
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ThermalConductivityScalar> {
+  size_t operator()(const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar) const {
+    return hash<double>()(thermal_conductivity_scalar.value());
+  }
+};
+
+} // namespace std
