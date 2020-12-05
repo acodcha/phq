@@ -93,3 +93,13 @@ constexpr Position Displacement::operator-(const Position& position) const noexc
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Position> {
+  size_t operator()(const PhQ::Position& position) const {
+    return hash<PhQ::Value::Vector>()(position.value());
+  }
+};
+
+} // namespace std

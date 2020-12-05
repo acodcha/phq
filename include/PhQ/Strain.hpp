@@ -66,3 +66,13 @@ public:
 constexpr PhQ::Strain operator*(double real, const PhQ::Strain& strain) noexcept {
   return {real * strain.value()};
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Strain> {
+  size_t operator()(const PhQ::Strain& strain) const {
+    return hash<PhQ::Value::SymmetricDyadic>()(strain.value());
+  }
+};
+
+} // namespace std

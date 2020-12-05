@@ -78,3 +78,13 @@ constexpr double TemperatureDifference::operator*(const VolumetricThermalExpansi
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
+  size_t operator()(const PhQ::VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
+    return hash<double>()(volumetric_thermal_expansion_coefficient.value());
+  }
+};
+
+} // namespace std

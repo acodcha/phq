@@ -60,3 +60,13 @@ template <> constexpr bool sort(const VelocityGradient& velocity_gradient_1, con
 constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::VelocityGradient> {
+  size_t operator()(const PhQ::VelocityGradient& velocity_gradient) const {
+    return hash<PhQ::Value::Dyadic>()(velocity_gradient.value());
+  }
+};
+
+} // namespace std

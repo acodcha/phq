@@ -99,3 +99,13 @@ constexpr Displacement Length::operator*(const Direction& direction) const noexc
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Displacement> {
+  size_t operator()(const PhQ::Displacement& displacement) const {
+    return hash<PhQ::Value::Vector>()(displacement.value());
+  }
+};
+
+} // namespace std

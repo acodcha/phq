@@ -83,3 +83,13 @@ constexpr HeatFlux HeatFluxMagnitude::operator*(const Direction& direction) cons
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::HeatFlux> {
+  size_t operator()(const PhQ::HeatFlux& heat_flux) const {
+    return hash<PhQ::Value::Vector>()(heat_flux.value());
+  }
+};
+
+} // namespace std

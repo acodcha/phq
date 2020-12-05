@@ -91,3 +91,13 @@ constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(const Le
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::TemperatureGradientMagnitude> {
+  size_t operator()(const PhQ::TemperatureGradientMagnitude& temperature_gradient_magnitude) const {
+    return hash<double>()(temperature_gradient_magnitude.value());
+  }
+};
+
+} // namespace std

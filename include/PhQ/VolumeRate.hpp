@@ -115,3 +115,13 @@ constexpr VolumeRate Volume::operator/(const Duration& duration) const noexcept 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::VolumeRate> {
+  size_t operator()(const PhQ::VolumeRate& volume_rate) const {
+    return hash<double>()(volume_rate.value());
+  }
+};
+
+} // namespace std

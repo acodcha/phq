@@ -86,3 +86,13 @@ constexpr MassDensity::MassDensity(const DynamicPressure& dynamic_pressure, cons
 constexpr Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept : Speed(std::sqrt(2.0 * dynamic_pressure.value() / mass_density.value())) {}
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::DynamicPressure> {
+  size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
+    return hash<double>()(dynamic_pressure.value());
+  }
+};
+
+} // namespace std

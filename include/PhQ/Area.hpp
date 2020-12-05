@@ -102,3 +102,13 @@ constexpr Area Length::operator*(const Length& length) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Area> {
+  size_t operator()(const PhQ::Area& area) const {
+    return hash<double>()(area.value());
+  }
+};
+
+} // namespace std

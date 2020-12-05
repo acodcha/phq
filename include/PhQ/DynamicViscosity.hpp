@@ -102,3 +102,13 @@ constexpr DynamicViscosity MassDensity::operator*(const KinematicViscosity& kine
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::DynamicViscosity> {
+  size_t operator()(const PhQ::DynamicViscosity& dynamic_viscosity) const {
+    return hash<double>()(dynamic_viscosity.value());
+  }
+};
+
+} // namespace std

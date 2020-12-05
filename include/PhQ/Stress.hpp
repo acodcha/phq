@@ -67,3 +67,13 @@ constexpr Stress StaticPressure::stress() const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Stress> {
+  size_t operator()(const PhQ::Stress& stress) const {
+    return hash<PhQ::Value::SymmetricDyadic>()(stress.value());
+  }
+};
+
+} // namespace std

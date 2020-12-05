@@ -136,3 +136,13 @@ constexpr StaticPressure PressureDifference::operator-(const StaticPressure& sta
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::StaticPressure> {
+  size_t operator()(const PhQ::StaticPressure& static_pressure) const {
+    return hash<double>()(static_pressure.value());
+  }
+};
+
+} // namespace std

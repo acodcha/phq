@@ -82,3 +82,13 @@ constexpr DimensionlessDyadicQuantity DimensionlessScalarQuantity::operator*(con
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::DimensionlessDyadicQuantity> {
+  size_t operator()(const PhQ::DimensionlessDyadicQuantity& quantity) const {
+    return hash<PhQ::Value::Dyadic>()(quantity.value());
+  }
+};
+
+} // namespace std

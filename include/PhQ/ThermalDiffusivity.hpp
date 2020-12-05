@@ -85,3 +85,13 @@ constexpr MassDensity::MassDensity(const ThermalDiffusivity& thermal_diffusivity
 constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(const ThermalDiffusivity& thermal_diffusivity, const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density) noexcept : SpecificIsobaricHeatCapacity(thermal_conductivity_scalar.value() / (thermal_diffusivity.value() * mass_density.value())) {}
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ThermalDiffusivity> {
+  size_t operator()(const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
+    return hash<double>()(thermal_diffusivity.value());
+  }
+};
+
+} // namespace std

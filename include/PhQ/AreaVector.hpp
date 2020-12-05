@@ -80,3 +80,13 @@ constexpr AreaVector Area::operator*(const Direction& direction) const noexcept 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::AreaVector> {
+  size_t operator()(const PhQ::AreaVector& area_vector) const {
+    return hash<PhQ::Value::Vector>()(area_vector.value());
+  }
+};
+
+} // namespace std

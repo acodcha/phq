@@ -93,3 +93,13 @@ constexpr TotalPressure DynamicPressure::operator+(const StaticPressure& static_
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::TotalPressure> {
+  size_t operator()(const PhQ::TotalPressure& total_pressure) const {
+    return hash<double>()(total_pressure.value());
+  }
+};
+
+} // namespace std

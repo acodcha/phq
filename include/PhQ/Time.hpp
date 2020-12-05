@@ -95,3 +95,13 @@ constexpr Time Duration::operator-(const Time& time) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Time> {
+  size_t operator()(const PhQ::Time& time) const {
+    return hash<double>()(time.value());
+  }
+};
+
+} // namespace std

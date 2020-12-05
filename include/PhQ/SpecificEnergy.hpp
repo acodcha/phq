@@ -106,3 +106,13 @@ constexpr SpecificEnergy Energy::operator/(const Mass& mass) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::SpecificEnergy> {
+  size_t operator()(const PhQ::SpecificEnergy& specific_energy) const {
+    return hash<double>()(specific_energy.value());
+  }
+};
+
+} // namespace std

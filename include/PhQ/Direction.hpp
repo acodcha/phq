@@ -192,3 +192,13 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Direction& dire
   output_stream << direction.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Direction> {
+  size_t operator()(const PhQ::Direction& direction) const {
+    return hash<double>()(direction.x()) ^ hash<double>()(direction.y()) ^ hash<double>()(direction.z());
+  }
+};
+
+} // namespace std

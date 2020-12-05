@@ -70,3 +70,13 @@ template <> constexpr bool sort(const ShearModulus& shear_modulus_1, const Shear
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ShearModulus> {
+  size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
+    return hash<double>()(shear_modulus.value());
+  }
+};
+
+} // namespace std

@@ -60,3 +60,13 @@ constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noex
 constexpr PhQ::DisplacementGradient operator*(double real, const PhQ::DisplacementGradient& displacement_gradient) noexcept {
   return {real * displacement_gradient.value()};
 }
+
+namespace std {
+
+template <> struct hash<PhQ::DisplacementGradient> {
+  size_t operator()(const PhQ::DisplacementGradient& displacement_gradient) const {
+    return hash<PhQ::Value::Dyadic>()(displacement_gradient.value());
+  }
+};
+
+} // namespace std

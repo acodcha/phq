@@ -136,3 +136,13 @@ constexpr Duration SpecificEnergy::operator/(const SpecificPower& specific_power
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::SpecificPower> {
+  size_t operator()(const PhQ::SpecificPower& specific_power) const {
+    return hash<double>()(specific_power.value());
+  }
+};
+
+} // namespace std

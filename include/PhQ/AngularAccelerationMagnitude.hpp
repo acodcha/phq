@@ -110,3 +110,13 @@ constexpr Duration AngularSpeed::operator/(const AngularAccelerationMagnitude& a
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::AngularAccelerationMagnitude> {
+  size_t operator()(const PhQ::AngularAccelerationMagnitude& angular_acceleration_magnitude) const {
+    return hash<double>()(angular_acceleration_magnitude.value());
+  }
+};
+
+} // namespace std

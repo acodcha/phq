@@ -178,3 +178,20 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Dimension::Set&
   output_stream << set.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::Set> {
+  size_t operator()(const PhQ::Dimension::Set& set) const {
+    return
+      hash<PhQ::Dimension::Length>()(set.length())
+      ^ hash<PhQ::Dimension::Mass>()(set.mass())
+      ^ hash<PhQ::Dimension::Time>()(set.time())
+      ^ hash<PhQ::Dimension::ElectricCurrent>()(set.electric_current())
+      ^ hash<PhQ::Dimension::Temperature>()(set.temperature())
+      ^ hash<PhQ::Dimension::SubstanceAmount>()(set.substance_amount())
+      ^ hash<PhQ::Dimension::LuminousIntensity>()(set.luminous_intensity());
+  }
+};
+
+} // namespace std

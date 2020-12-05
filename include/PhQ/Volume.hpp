@@ -113,3 +113,13 @@ constexpr Volume Area::operator*(const Length& length) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Volume> {
+  size_t operator()(const PhQ::Volume& volume) const {
+    return hash<double>()(volume.value());
+  }
+};
+
+} // namespace std

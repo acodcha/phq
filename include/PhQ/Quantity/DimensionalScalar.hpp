@@ -141,3 +141,13 @@ template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, c
   output_stream << scalar.print();
   return output_stream;
 }
+
+namespace std {
+
+template <typename Unit> struct hash<PhQ::DimensionalScalarQuantity<Unit>> {
+  size_t operator()(const PhQ::DimensionalScalarQuantity<Unit>& quantity) const {
+    return hash<double>()(quantity.value());
+  }
+};
+
+} // namespace std

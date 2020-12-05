@@ -87,3 +87,13 @@ template <> constexpr bool sort(const KinematicViscosity& kinematic_viscosity_1,
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::KinematicViscosity> {
+  size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
+    return hash<double>()(kinematic_viscosity.value());
+  }
+};
+
+} // namespace std

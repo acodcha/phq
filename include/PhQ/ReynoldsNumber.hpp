@@ -86,3 +86,13 @@ constexpr PhQ::ReynoldsNumber operator*(double real, const PhQ::ReynoldsNumber& 
 constexpr double operator/(double real, const PhQ::ReynoldsNumber& reynolds_number) noexcept {
   return real / reynolds_number.value();
 }
+
+namespace std {
+
+template <> struct hash<PhQ::ReynoldsNumber> {
+  size_t operator()(const PhQ::ReynoldsNumber& reynolds_number) const {
+    return hash<double>()(reynolds_number.value());
+  }
+};
+
+} // namespace std

@@ -40,6 +40,9 @@
 int main(int argc, char *argv[]) {
   std::chrono::high_resolution_clock::time_point start{std::chrono::high_resolution_clock::now()};
 
+  std::cout << "Hash: " << std::hash<PhQ::Value::Vector>()(PhQ::Value::Vector{1.0, 2.0, 3.0}) << std::endl;
+  std::cout << "Hash: " << std::hash<PhQ::Displacement>()(PhQ::Displacement{{3.0, 2.0, 1.0}, PhQ::Unit::Length::Metre}) << std::endl;
+
   PhQ::Time time{10.0, PhQ::Unit::Time::Minute};
   time /= 2.0;
   std::cout << time << std::endl;

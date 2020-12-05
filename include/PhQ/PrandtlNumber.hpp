@@ -73,3 +73,13 @@ constexpr PhQ::PrandtlNumber operator*(double real, const PhQ::PrandtlNumber& pr
 constexpr double operator/(double real, const PhQ::PrandtlNumber& prandtl_number) noexcept {
   return real / prandtl_number.value();
 }
+
+namespace std {
+
+template <> struct hash<PhQ::PrandtlNumber> {
+  size_t operator()(const PhQ::PrandtlNumber& prandtl_number) const {
+    return hash<double>()(prandtl_number.value());
+  }
+};
+
+} // namespace std

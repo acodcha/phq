@@ -136,3 +136,13 @@ constexpr double Duration::operator*(const Frequency& frequency) const noexcept 
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Frequency> {
+  size_t operator()(const PhQ::Frequency& frequency) const {
+    return hash<double>()(frequency.value());
+  }
+};
+
+} // namespace std

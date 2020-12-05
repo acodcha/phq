@@ -35,3 +35,13 @@ template <> constexpr bool sort(const Dimension::ElectricCurrent& electric_curre
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::ElectricCurrent> {
+  size_t operator()(const PhQ::Dimension::ElectricCurrent& electric_current) const {
+    return hash<double>()(electric_current.value());
+  }
+};
+
+} // namespace std

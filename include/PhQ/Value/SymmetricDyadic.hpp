@@ -298,3 +298,19 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Symmetri
   output_stream << symmetric_dyadic.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Value::SymmetricDyadic> {
+  size_t operator()(const PhQ::Value::SymmetricDyadic& symmetric_dyadic) const {
+    return
+      hash<double>()(symmetric_dyadic.xx())
+      ^ hash<double>()(symmetric_dyadic.xy())
+      ^ hash<double>()(symmetric_dyadic.xz())
+      ^ hash<double>()(symmetric_dyadic.yy())
+      ^ hash<double>()(symmetric_dyadic.yz())
+      ^ hash<double>()(symmetric_dyadic.zz());
+  }
+};
+
+} // namespace std

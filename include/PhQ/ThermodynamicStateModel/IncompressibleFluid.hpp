@@ -61,3 +61,13 @@ constexpr bool sort(const ThermodynamicStateModel::IncompressibleFluid& model_1,
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::ThermodynamicStateModel::IncompressibleFluid> {
+  size_t operator()(const PhQ::ThermodynamicStateModel::IncompressibleFluid& model) const {
+    return hash<PhQ::MassDensity>()(model.mass_density()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.specific_isobaric_heat_capacity());
+  }
+};
+
+} // namespace std

@@ -43,3 +43,13 @@ constexpr PhQ::StrainScalar operator*(double real, const PhQ::StrainScalar& stra
 constexpr double operator/(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
   return real / strain_scalar.value();
 }
+
+namespace std {
+
+template <> struct hash<PhQ::StrainScalar> {
+  size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
+    return hash<double>()(strain_scalar.value());
+  }
+};
+
+} // namespace std

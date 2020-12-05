@@ -70,3 +70,13 @@ template <> constexpr bool sort(const YoungModulus& young_modulus_1, const Young
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::YoungModulus> {
+  size_t operator()(const PhQ::YoungModulus& young_modulus) const {
+    return hash<double>()(young_modulus.value());
+  }
+};
+
+} // namespace std

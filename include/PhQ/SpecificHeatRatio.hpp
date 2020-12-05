@@ -62,3 +62,13 @@ constexpr PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatR
 constexpr double operator/(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
   return real / specific_heat_ratio.value();
 }
+
+namespace std {
+
+template <> struct hash<PhQ::SpecificHeatRatio> {
+  size_t operator()(const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
+    return hash<double>()(specific_heat_ratio.value());
+  }
+};
+
+} // namespace std

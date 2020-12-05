@@ -111,3 +111,13 @@ constexpr Duration Memory::operator/(const MemoryRate& memory_rate) const noexce
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::MemoryRate> {
+  size_t operator()(const PhQ::MemoryRate& memory_rate) const {
+    return hash<double>()(memory_rate.value());
+  }
+};
+
+} // namespace std

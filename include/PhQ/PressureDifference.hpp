@@ -84,3 +84,13 @@ template <> constexpr bool sort(const PressureDifference& pressure_difference_1,
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::PressureDifference> {
+  size_t operator()(const PhQ::PressureDifference& pressure_difference) const {
+    return hash<double>()(pressure_difference.value());
+  }
+};
+
+} // namespace std

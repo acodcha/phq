@@ -76,3 +76,13 @@ std::ostream& operator<<(std::ostream& output_stream, const PhQ::Dimension::Base
   output_stream << base.print();
   return output_stream;
 }
+
+namespace std {
+
+template <> struct hash<PhQ::Dimension::Base> {
+  size_t operator()(const PhQ::Dimension::Base& base) const {
+    return hash<double>()(base.value());
+  }
+};
+
+} // namespace std

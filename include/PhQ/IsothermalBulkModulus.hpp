@@ -70,3 +70,13 @@ template <> constexpr bool sort(const IsothermalBulkModulus& isothermal_bulk_mod
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::IsothermalBulkModulus> {
+  size_t operator()(const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
+    return hash<double>()(isothermal_bulk_modulus.value());
+  }
+};
+
+} // namespace std

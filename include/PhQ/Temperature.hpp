@@ -96,3 +96,13 @@ constexpr Temperature TemperatureDifference::operator-(const Temperature& temper
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Temperature> {
+  size_t operator()(const PhQ::Temperature& temperature) const {
+    return hash<double>()(temperature.value());
+  }
+};
+
+} // namespace std

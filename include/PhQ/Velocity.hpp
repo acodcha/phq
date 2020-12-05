@@ -117,3 +117,13 @@ constexpr Velocity Displacement::operator/(const Duration& duration) const noexc
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Velocity> {
+  size_t operator()(const PhQ::Velocity& velocity) const {
+    return hash<PhQ::Value::Vector>()(velocity.value());
+  }
+};
+
+} // namespace std

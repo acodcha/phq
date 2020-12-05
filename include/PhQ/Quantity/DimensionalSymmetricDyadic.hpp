@@ -142,3 +142,13 @@ template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, c
   output_stream << symmetric_dyadic.print();
   return output_stream;
 }
+
+namespace std {
+
+template <typename Unit> struct hash<PhQ::DimensionalSymmetricDyadicQuantity<Unit>> {
+  size_t operator()(const PhQ::DimensionalSymmetricDyadicQuantity<Unit>& quantity) const {
+    return hash<PhQ::Value::SymmetricDyadic>()(quantity.value());
+  }
+};
+
+} // namespace std

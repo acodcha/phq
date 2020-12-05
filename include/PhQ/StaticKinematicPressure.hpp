@@ -116,3 +116,13 @@ constexpr StaticKinematicPressure KinematicPressureDifference::operator-(const S
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::StaticKinematicPressure> {
+  size_t operator()(const PhQ::StaticKinematicPressure& static_kinematic_pressure) const {
+    return hash<double>()(static_kinematic_pressure.value());
+  }
+};
+
+} // namespace std

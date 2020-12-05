@@ -121,3 +121,13 @@ constexpr Duration Energy::operator/(const Power& power) const noexcept {
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::Power> {
+  size_t operator()(const PhQ::Power& power) const {
+    return hash<double>()(power.value());
+  }
+};
+
+} // namespace std

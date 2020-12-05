@@ -87,3 +87,13 @@ template <> constexpr bool sort(const IsochoricHeatCapacity& isochoric_heat_capa
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::IsochoricHeatCapacity> {
+  size_t operator()(const PhQ::IsochoricHeatCapacity& isochoric_heat_capacity) const {
+    return hash<double>()(isochoric_heat_capacity.value());
+  }
+};
+
+} // namespace std

@@ -109,3 +109,13 @@ constexpr Mass Volume::operator*(const MassDensity& mass_density) const noexcept
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::MassDensity> {
+  size_t operator()(const PhQ::MassDensity& mass_density) const {
+    return hash<double>()(mass_density.value());
+  }
+};
+
+} // namespace std

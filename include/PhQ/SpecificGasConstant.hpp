@@ -126,3 +126,13 @@ constexpr SpecificIsochoricHeatCapacity SpecificIsobaricHeatCapacity::operator-(
 }
 
 } // namespace PhQ
+
+namespace std {
+
+template <> struct hash<PhQ::SpecificGasConstant> {
+  size_t operator()(const PhQ::SpecificGasConstant& specific_gas_constant) const {
+    return hash<double>()(specific_gas_constant.value());
+  }
+};
+
+} // namespace std
