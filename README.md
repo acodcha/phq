@@ -1,5 +1,5 @@
 # Physical Quantities (PhQ)
-![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=master)
+![build and test](https://github.com/acodcha/PhysicalQuantities/workflows/build%20and%20test/badge.svg?branch=main)
 
 C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
 

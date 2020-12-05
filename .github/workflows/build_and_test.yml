@@ -1,9 +1,9 @@
 name: build and test
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   build:
     name: build and run tests
