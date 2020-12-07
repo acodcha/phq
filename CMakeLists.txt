@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -ffast-math -O3 -Wall -Wno
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 project(
-  "PhQ" VERSION 0.1 LANGUAGES CXX
+  "PhQ" VERSION 1.0.1 LANGUAGES CXX
   DESCRIPTION "C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation."
   HOMEPAGE_URL "https://github.com/acodcha/PhysicalQuantities"
 )
