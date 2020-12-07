@@ -84,7 +84,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Energy>{Dimension::Se
 
 template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<void(std::vector<double>&)>>> conversions<Unit::Energy>{
   {Unit::Energy::Joule, {
-    {Unit::Energy::Joule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Joule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
@@ -96,7 +96,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
   }},
   {Unit::Energy::Millijoule, {
     {Unit::Energy::Joule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
@@ -108,7 +108,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
   {Unit::Energy::Microjoule, {
     {Unit::Energy::Joule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
@@ -120,7 +120,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Joule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
     {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
     {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-18;});}},
@@ -132,7 +132,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Millijoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
-    {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Energy::FootPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
@@ -144,7 +144,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Microjoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
-    {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Energy::FootPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::InchPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}
@@ -156,7 +156,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Nanojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e18;});}},
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
-    {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{}},
     {Unit::Energy::FootPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::InchPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}
   }},
@@ -168,7 +168,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Kilojoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Energy::FootPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Energy::FootPound, [](std::vector<double>& values)->void{}},
     {Unit::Energy::InchPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
   }},
   {Unit::Energy::InchPound, {
@@ -180,7 +180,7 @@ template <> const std::map<Unit::Energy, std::map<Unit::Energy, std::function<vo
     {Unit::Energy::Megajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::Gigajoule, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
     {Unit::Energy::FootPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
-    {Unit::Energy::InchPound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Energy::InchPound, [](std::vector<double>& values)->void{}}
   }}
 };
 

@@ -84,7 +84,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Power>{Dimension::Set
 
 template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void(std::vector<double>&)>>> conversions<Unit::Power>{
   {Unit::Power::Watt, {
-    {Unit::Power::Watt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Watt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
@@ -96,7 +96,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
   }},
   {Unit::Power::Milliwatt, {
     {Unit::Power::Watt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
@@ -108,7 +108,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
   {Unit::Power::Microwatt, {
     {Unit::Power::Watt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Microwatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
@@ -120,7 +120,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Watt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9;});}},
     {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
-    {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-12;});}},
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-15;});}},
     {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-18;});}},
@@ -132,7 +132,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Milliwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e9;});}},
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
-    {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
     {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
@@ -144,7 +144,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Microwatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e12;});}},
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e15;});}},
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
-    {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Megawatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3;});}},
     {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Power::InchPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}}
@@ -156,7 +156,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Nanowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e18;});}},
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e3;});}},
-    {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{}},
     {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Power::InchPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}}
   }},
@@ -168,7 +168,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Kilowatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-3 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.3048 * 0.45359237 * 9.80665;});}},
     {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.3048 * 0.45359237 * 9.80665;});}},
-    {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::Power::InchPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
   }},
   {Unit::Power::InchPoundPerSecond, {
@@ -180,7 +180,7 @@ template <> const std::map<Unit::Power, std::map<Unit::Power, std::function<void
     {Unit::Power::Megawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6 * 0.0254 * 0.45359237 * 9.80665;});}},
     {Unit::Power::Gigawatt, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-9 * 0.0254 * 0.45359237 * 9.80665;});}},
     {Unit::Power::FootPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
-    {Unit::Power::InchPoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Power::InchPoundPerSecond, [](std::vector<double>& values)->void{}}
   }}
 };
 

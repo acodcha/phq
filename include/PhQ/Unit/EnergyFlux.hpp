@@ -99,28 +99,28 @@ template <> constexpr const Dimension::Set dimension<Unit::EnergyFlux>{Dimension
 
 template <> const std::map<Unit::EnergyFlux, std::map<Unit::EnergyFlux, std::function<void(std::vector<double>&)>>> conversions<Unit::EnergyFlux>{
   {Unit::EnergyFlux::WattPerSquareMetre, {
-    {Unit::EnergyFlux::WattPerSquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::EnergyFlux::WattPerSquareMetre, [](std::vector<double>& values)->void{}},
     {Unit::EnergyFlux::NanowattPerSquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / (0.45359237 * 9.80665);});}},
     {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (0.45359237 * 9.80665);});}}
   }},
   {Unit::EnergyFlux::NanowattPerSquareMillimetre, {
     {Unit::EnergyFlux::WattPerSquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
-    {Unit::EnergyFlux::NanowattPerSquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::EnergyFlux::NanowattPerSquareMillimetre, [](std::vector<double>& values)->void{}},
     {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048 / (0.45359237 * 9.80665);});}},
     {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254 / (0.45359237 * 9.80665);});}}
   }},
   {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, {
     {Unit::EnergyFlux::WattPerSquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.3048;});}},
     {Unit::EnergyFlux::NanowattPerSquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.3048;});}},
-    {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}}
   }},
   {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, {
     {Unit::EnergyFlux::WattPerSquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.0254;});}},
     {Unit::EnergyFlux::NanowattPerSquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.0254;});}},
     {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
-    {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, [](std::vector<double>& values)->void{}}
   }}
 };
 

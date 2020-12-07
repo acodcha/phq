@@ -89,28 +89,28 @@ template <> constexpr const Dimension::Set dimension<Unit::SpecificEnergy>{Dimen
 
 template <> const std::map<Unit::SpecificEnergy, std::map<Unit::SpecificEnergy, std::function<void(std::vector<double>&)>>> conversions<Unit::SpecificEnergy>{
   {Unit::SpecificEnergy::JoulePerKilogram, {
-    {Unit::SpecificEnergy::JoulePerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificEnergy::JoulePerKilogram, [](std::vector<double>& values)->void{}},
     {Unit::SpecificEnergy::NanojoulePerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
     {Unit::SpecificEnergy::FootPoundPerSlug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2);});}},
     {Unit::SpecificEnergy::InchPoundPerSlinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}
   }},
   {Unit::SpecificEnergy::NanojoulePerGram, {
     {Unit::SpecificEnergy::JoulePerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
-    {Unit::SpecificEnergy::NanojoulePerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificEnergy::NanojoulePerGram, [](std::vector<double>& values)->void{}},
     {Unit::SpecificEnergy::FootPoundPerSlug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2);});}},
     {Unit::SpecificEnergy::InchPoundPerSlinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}}
   }},
   {Unit::SpecificEnergy::FootPoundPerSlug, {
     {Unit::SpecificEnergy::JoulePerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2);});}},
     {Unit::SpecificEnergy::NanojoulePerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2);});}},
-    {Unit::SpecificEnergy::FootPoundPerSlug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificEnergy::FootPoundPerSlug, [](std::vector<double>& values)->void{}},
     {Unit::SpecificEnergy::InchPoundPerSlinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}
   }},
   {Unit::SpecificEnergy::InchPoundPerSlinch, {
     {Unit::SpecificEnergy::JoulePerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
     {Unit::SpecificEnergy::NanojoulePerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
     {Unit::SpecificEnergy::FootPoundPerSlug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
-    {Unit::SpecificEnergy::InchPoundPerSlinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::SpecificEnergy::InchPoundPerSlinch, [](std::vector<double>& values)->void{}}
   }}
 };
 

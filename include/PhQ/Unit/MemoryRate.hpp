@@ -66,7 +66,7 @@ template <> constexpr const Dimension::Set dimension<Unit::MemoryRate>{Dimension
 
 template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::function<void(std::vector<double>&)>>> conversions<Unit::MemoryRate>{
   {Unit::MemoryRate::BitPerSecond, {
-    {Unit::MemoryRate::BitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::BitPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -79,7 +79,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
   }},
   {Unit::MemoryRate::KilobitPerSecond, {
     {Unit::MemoryRate::BitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -92,7 +92,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
   {Unit::MemoryRate::MegabitPerSecond, {
     {Unit::MemoryRate::BitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -105,7 +105,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::BitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -118,7 +118,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::KilobitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 4);});}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -131,7 +131,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::MegabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 4);});}},
-    {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -144,7 +144,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::GigabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::TerabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}}
@@ -157,7 +157,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::TerabitPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::MemoryRate::TerabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}}
   }},
@@ -170,7 +170,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::BytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MemoryRate::TerabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}}
   }},
   {Unit::MemoryRate::TerabytePerSecond, {
@@ -183,7 +183,7 @@ template <> const std::map<Unit::MemoryRate, std::map<Unit::MemoryRate, std::fun
     {Unit::MemoryRate::KilobytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::MemoryRate::MegabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::MemoryRate::GigabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::MemoryRate::TerabytePerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::MemoryRate::TerabytePerSecond, [](std::vector<double>& values)->void{}}
   }}
 };
 

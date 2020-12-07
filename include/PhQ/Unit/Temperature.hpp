@@ -56,28 +56,28 @@ template <> constexpr const Dimension::Set dimension<Unit::Temperature>{Dimensio
 
 template <> const std::map<Unit::Temperature, std::map<Unit::Temperature, std::function<void(std::vector<double>&)>>> conversions<Unit::Temperature>{
   {Unit::Temperature::Kelvin, {
-    {Unit::Temperature::Kelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Temperature::Kelvin, [](std::vector<double>& values)->void{}},
     {Unit::Temperature::Celsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value -= 273.15;});}},
     {Unit::Temperature::Rankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8;});}},
     {Unit::Temperature::Fahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value * 1.8) - 459.67;});}}
   }},
   {Unit::Temperature::Celsius, {
     {Unit::Temperature::Kelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value += 273.15;});}},
-    {Unit::Temperature::Celsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Temperature::Celsius, [](std::vector<double>& values)->void{}},
     {Unit::Temperature::Rankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value + 273.15) * 1.8;});}},
     {Unit::Temperature::Fahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value * 1.8) + 32.0;});}}
   }},
   {Unit::Temperature::Rankine, {
     {Unit::Temperature::Kelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8;});}},
     {Unit::Temperature::Celsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value - 491.67) / 1.8;});}},
-    {Unit::Temperature::Rankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Temperature::Rankine, [](std::vector<double>& values)->void{}},
     {Unit::Temperature::Fahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value -= 459.67;});}}
   }},
   {Unit::Temperature::Fahrenheit, {
     {Unit::Temperature::Kelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value + 459.67) / 1.8;});}},
     {Unit::Temperature::Celsius, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value = (value - 32.0) / 1.8;});}},
     {Unit::Temperature::Rankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value += 459.67;});}},
-    {Unit::Temperature::Fahrenheit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Temperature::Fahrenheit, [](std::vector<double>& values)->void{}}
   }}
 };
 

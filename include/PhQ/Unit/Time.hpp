@@ -55,19 +55,19 @@ template <> constexpr const Dimension::Set dimension<Unit::Time>{Dimension::Set{
 
 template <> const std::map<Unit::Time, std::map<Unit::Time, std::function<void(std::vector<double>&)>>> conversions<Unit::Time>{
   {Unit::Time::Second, {
-    {Unit::Time::Second, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Time::Second, [](std::vector<double>& values)->void{}},
     {Unit::Time::Minute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
     {Unit::Time::Hour, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3600.0;});}}
   }},
   {Unit::Time::Minute, {
     {Unit::Time::Second, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
-    {Unit::Time::Minute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Time::Minute, [](std::vector<double>& values)->void{}},
     {Unit::Time::Hour, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}}
   }},
   {Unit::Time::Hour, {
     {Unit::Time::Second, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}},
     {Unit::Time::Minute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
-    {Unit::Time::Hour, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Time::Hour, [](std::vector<double>& values)->void{}}
   }}
 };
 

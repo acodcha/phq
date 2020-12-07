@@ -103,7 +103,7 @@ template <> constexpr const Dimension::Set dimension<Unit::DynamicViscosity>{Dim
 
 template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosity, std::function<void(std::vector<double>&)>>> conversions<Unit::DynamicViscosity>{
   {Unit::DynamicViscosity::PascalSecond, {
-    {Unit::DynamicViscosity::PascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::DynamicViscosity::PascalSecond, [](std::vector<double>& values)->void{}},
     {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
     {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000000001;});}},
@@ -112,7 +112,7 @@ template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosi
   }},
   {Unit::DynamicViscosity::KilopascalSecond, {
     {Unit::DynamicViscosity::PascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{}},
     {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
     {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0 * std::pow(0.3048, 2) / (0.45359237 * 9.80665);});}},
@@ -121,7 +121,7 @@ template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosi
   {Unit::DynamicViscosity::MegapascalSecond, {
     {Unit::DynamicViscosity::PascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
     {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{}},
     {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.3048, 2) / (0.45359237 * 9.80665);});}},
     {Unit::DynamicViscosity::PoundSecondPerSquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0 * std::pow(0.0254, 2) / (0.45359237 * 9.80665);});}}
@@ -130,7 +130,7 @@ template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosi
     {Unit::DynamicViscosity::PascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000000.0;});}},
     {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
     {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{}},
     {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000000.0 * std::pow(0.3048, 2) / (0.45359237 * 9.80665);});}},
     {Unit::DynamicViscosity::PoundSecondPerSquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000000.0 * std::pow(0.0254, 2) / (0.45359237 * 9.80665);});}}
   }},
@@ -139,7 +139,7 @@ template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosi
     {Unit::DynamicViscosity::KilopascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001 * 0.45359237 * 9.80665 / std::pow(0.3048, 2);});}},
     {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001 * 0.45359237 * 9.80665 / std::pow(0.3048, 2);});}},
     {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000000001 * 0.45359237 * 9.80665 / std::pow(0.3048, 2);});}},
-    {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{}},
     {Unit::DynamicViscosity::PoundSecondPerSquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}}
   }},
   {Unit::DynamicViscosity::PoundSecondPerSquareInch, {
@@ -148,7 +148,7 @@ template <> const std::map<Unit::DynamicViscosity, std::map<Unit::DynamicViscosi
     {Unit::DynamicViscosity::MegapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001 * 0.45359237 * 9.80665 / std::pow(0.0254, 2);});}},
     {Unit::DynamicViscosity::GigapascalSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000000001 * 0.45359237 * 9.80665 / std::pow(0.0254, 2);});}},
     {Unit::DynamicViscosity::PoundSecondPerSquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}},
-    {Unit::DynamicViscosity::PoundSecondPerSquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::DynamicViscosity::PoundSecondPerSquareInch, [](std::vector<double>& values)->void{}}
   }}
 };
 
