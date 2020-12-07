@@ -26,7 +26,7 @@ Once you have configured the library, install it from the `build` directory with
 sudo make install
 ```
 
-On most systems, this installs the library headers to `/usr/local/include/PhQ` and writes the CMake `find_package()` command configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
+On most systems, this installs the library headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 
 ## Documentation
 Building the documentation is optional and requires additional packages:
@@ -55,14 +55,21 @@ make test
 This builds and runs the tests.
 
 ## Usage
-To use the library in one of your projects, install it to your system (see the Installation section) and add the following to your project's `CMakeLists.txt` file:
+To use the library in one of your projects, install it to your system (see the Installation section).
+
+In your project's `CMakeLists.txt` file, set your project's C++ standard to C++17 or higher:
 
 ```
-find_package(PhQ REQUIRED)
-target_link_libraries(${PROJECT_NAME} PhQ::PhQ)
+set(CMAKE_CXX_STANDARD 17)
 ```
 
-Once this is done, simply include the headers you need in your project's source or header files, such as `#include "PhQ/Position.hpp"`. The `PhQ::` namespace encapsulates the library's contents.
+Some environments automatically detect used libraries; in such cases, no further action is needed. Otherwise, explicitly add the library as a dependency in your project's `CMakeLists.txt` file:
+
+```
+target_link_libraries(${EXECUTABLE_NAME} [options] PhQ)
+```
+
+Once this is done, simply include the headers you need in your project's source or header files, such as `#include <PhQ/Position.hpp>`. The `PhQ::` namespace encapsulates the library's contents.
 
 ### Usage: Physical Quantities
 Physical quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented internally in a Cartesian (x-y-z) coordinate system.
