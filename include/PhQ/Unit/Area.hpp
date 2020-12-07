@@ -107,7 +107,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Area>{Dimension::Set{
 
 template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(std::vector<double>&)>>> conversions<Unit::Area>{
   {Unit::Area::SquareMile, {
-    {Unit::Area::SquareMile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareMile, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1.609344, 2);});}},
     {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1760.0, 2);});}},
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1609.344, 2);});}},
@@ -122,7 +122,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
   }},
   {Unit::Area::SquareKilometre, {
     {Unit::Area::SquareMile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1.609344, 2);});}},
-    {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0009144, 2);});}},
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0003048, 2);});}},
@@ -137,7 +137,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
   {Unit::Area::SquareYard, {
     {Unit::Area::SquareMile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1760.0, 2);});}},
     {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0009144, 2);});}},
-    {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareYard, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.9144, 2);});}},
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.0, 2);});}},
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(9.144, 2);});}},
@@ -152,7 +152,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareMile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1609.344, 2);});}},
     {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
     {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.9144, 2);});}},
-    {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2);});}},
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}},
@@ -167,7 +167,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareKilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0003048, 2);});}},
     {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.0, 2);});}},
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2);});}},
-    {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(3.048, 2);});}},
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}},
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(30.48, 2);});}},
@@ -182,7 +182,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareYard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(9.144, 2);});}},
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(3.048, 2);});}},
-    {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.254, 2);});}},
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(100.0, 2);});}},
@@ -197,7 +197,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.254, 2);});}},
-    {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareInch, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(2.54, 2);});}},
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
     {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
@@ -212,7 +212,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(30.48, 2);});}},
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(2.54, 2);});}},
-    {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10.0, 2);});}},
     {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.00254, 2);});}},
     {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(10000.0, 2);});}},
@@ -227,7 +227,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareDecimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.01, 2);});}},
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}},
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.1, 2);});}},
-    {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}},
     {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
     {Unit::Area::SquareMicroinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0000254, 2);});}}
@@ -242,7 +242,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.00254, 2);});}},
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
-    {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
     {Unit::Area::SquareMicroinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}}
   }},
@@ -257,7 +257,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareCentimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0001, 2);});}},
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
     {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}},
-    {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{}},
     {Unit::Area::SquareMicroinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}
   }},
   {Unit::Area::SquareMicroinch, {
@@ -272,7 +272,7 @@ template <> const std::map<Unit::Area, std::map<Unit::Area, std::function<void(s
     {Unit::Area::SquareMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0000254, 2);});}},
     {Unit::Area::SquareMilliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
     {Unit::Area::SquareMicrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
-    {Unit::Area::SquareMicroinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Area::SquareMicroinch, [](std::vector<double>& values)->void{}}
   }}
 };
 

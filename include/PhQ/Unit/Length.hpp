@@ -125,7 +125,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Length>{Dimension::Se
 
 template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::vector<double>&)>>> conversions<Unit::Length>{
   {Unit::Length::Mile, {
-    {Unit::Length::Mile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Mile, [](std::vector<double>& values)->void{}},
     {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.609344;});}},
     {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1760.0;});}},
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1609.344;});}},
@@ -140,7 +140,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
   }},
   {Unit::Length::Kilometre, {
     {Unit::Length::Mile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.609344;});}},
-    {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Kilometre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0009144;});}},
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0003048;});}},
@@ -155,7 +155,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
   {Unit::Length::Yard, {
     {Unit::Length::Mile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1760.0;});}},
     {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0009144;});}},
-    {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Yard, [](std::vector<double>& values)->void{}},
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.9144;});}},
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.0;});}},
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.144;});}},
@@ -170,7 +170,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Mile, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1609.344;});}},
     {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.9144;});}},
-    {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Metre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.3048;});}},
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}},
@@ -185,7 +185,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048;});}},
     {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3.0;});}},
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048;});}},
-    {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Foot, [](std::vector<double>& values)->void{}},
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3.048;});}},
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 30.48;});}},
@@ -200,7 +200,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Yard, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 9.144;});}},
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3.048;});}},
-    {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Decimetre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.254;});}},
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 100.0;});}},
@@ -215,7 +215,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Metre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.254;});}},
-    {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Inch, [](std::vector<double>& values)->void{}},
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 2.54;});}},
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 25.4;});}},
     {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
@@ -230,7 +230,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Foot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 30.48;});}},
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 2.54;});}},
-    {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Centimetre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10.0;});}},
     {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.00254;});}},
     {Unit::Length::Micrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 10000.0;});}},
@@ -245,7 +245,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Decimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.01;});}},
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 25.4;});}},
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.1;});}},
-    {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Millimetre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}},
     {Unit::Length::Micrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::Length::Microinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0000254;});}}
@@ -260,7 +260,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Inch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.00254;});}},
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
-    {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Milliinch, [](std::vector<double>& values)->void{}},
     {Unit::Length::Micrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 25.4;});}},
     {Unit::Length::Microinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}}
   }},
@@ -275,7 +275,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Centimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0001;});}},
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 25.4;});}},
-    {Unit::Length::Micrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Length::Micrometre, [](std::vector<double>& values)->void{}},
     {Unit::Length::Microinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.0254;});}}
   }},
   {Unit::Length::Microinch, {
@@ -290,7 +290,7 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
     {Unit::Length::Millimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254;});}},
     {Unit::Length::Milliinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::Length::Micrometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254;});}},
-    {Unit::Length::Microinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Length::Microinch, [](std::vector<double>& values)->void{}}
   }}
 };
 

@@ -52,7 +52,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Mass>{Dimension::Set{
 
 template <> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(std::vector<double>&)>>> conversions<Unit::Mass>{
   {Unit::Mass::Kilogram, {
-    {Unit::Mass::Kilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Mass::Kilogram, [](std::vector<double>& values)->void{}},
     {Unit::Mass::Gram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::Mass::Slug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / (0.45359237 * 9.80665);});}},
     {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (0.45359237 * 9.80665);});}},
@@ -60,7 +60,7 @@ template <> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(s
   }},
   {Unit::Mass::Gram, {
     {Unit::Mass::Kilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
-    {Unit::Mass::Gram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Mass::Gram, [](std::vector<double>& values)->void{}},
     {Unit::Mass::Slug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048 / (0.45359237 * 9.80665);});}},
     {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254 / (0.45359237 * 9.80665);});}},
     {Unit::Mass::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 453.59237;});}}
@@ -68,7 +68,7 @@ template <> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(s
   {Unit::Mass::Slug, {
     {Unit::Mass::Kilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.3048;});}},
     {Unit::Mass::Gram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.3048;});}},
-    {Unit::Mass::Slug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Mass::Slug, [](std::vector<double>& values)->void{}},
     {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
     {Unit::Mass::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.3048;});}}
   }},
@@ -76,7 +76,7 @@ template <> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(s
     {Unit::Mass::Kilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.0254;});}},
     {Unit::Mass::Gram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.0254;});}},
     {Unit::Mass::Slug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
-    {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Mass::Slinch, [](std::vector<double>& values)->void{}},
     {Unit::Mass::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}
   }},
   {Unit::Mass::Pound, {
@@ -84,7 +84,7 @@ template <> const std::map<Unit::Mass, std::map<Unit::Mass, std::function<void(s
     {Unit::Mass::Gram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237;});}},
     {Unit::Mass::Slug, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / 9.80665;});}},
     {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / 9.80665;});}},
-    {Unit::Mass::Slinch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Mass::Slinch, [](std::vector<double>& values)->void{}}
   }}
 };
 

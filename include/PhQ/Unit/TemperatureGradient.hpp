@@ -76,8 +76,8 @@ template <> constexpr const Dimension::Set dimension<Unit::TemperatureGradient>{
 
 template <> const std::map<Unit::TemperatureGradient, std::map<Unit::TemperatureGradient, std::function<void(std::vector<double>&)>>> conversions<Unit::TemperatureGradient>{
   {Unit::TemperatureGradient::KelvinPerMetre, {
-    {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 0.3048;});}},
@@ -86,8 +86,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
     {Unit::TemperatureGradient::FahrenheitPerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 0.0254;});}}
   }},
   {Unit::TemperatureGradient::CelsiusPerMetre, {
-    {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
     {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 0.3048;});}},
@@ -98,8 +98,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
   {Unit::TemperatureGradient::KelvinPerMillimetre, {
     {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 25.4;});}},
@@ -108,8 +108,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
   {Unit::TemperatureGradient::CelsiusPerMillimetre, {
     {Unit::TemperatureGradient::KelvinPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
-    {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.8 * 25.4;});}},
@@ -120,8 +120,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 0.3048;});}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 304.8;});}},
-    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
     {Unit::TemperatureGradient::FahrenheitPerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}}
   }},
@@ -130,8 +130,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 0.3048;});}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 304.8;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 304.8;});}},
-    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
     {Unit::TemperatureGradient::FahrenheitPerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}}
   }},
@@ -140,8 +140,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 0.0254;});}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 25.4;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 25.4;});}},
-    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
     {Unit::TemperatureGradient::FahrenheitPerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
   }},
@@ -150,8 +150,8 @@ template <> const std::map<Unit::TemperatureGradient, std::map<Unit::Temperature
     {Unit::TemperatureGradient::CelsiusPerMetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 0.0254;});}},
     {Unit::TemperatureGradient::KelvinPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 25.4;});}},
     {Unit::TemperatureGradient::CelsiusPerMillimetre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.8 * 25.4;});}},
-    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
-    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::TemperatureGradient::RankinePerFoot, [](std::vector<double>& values)->void{}},
+    {Unit::TemperatureGradient::FahrenheitPerFoot, [](std::vector<double>& values)->void{}},
     {Unit::TemperatureGradient::RankinePerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
     {Unit::TemperatureGradient::FahrenheitPerInch, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}}
   }}

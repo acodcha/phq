@@ -44,9 +44,7 @@ template <typename Unit> void test_conversions(const std::string& name, double v
   std::cout << name << ":" << std::endl;
   for (const Unit& unit1 : units) {
     for (const Unit& unit2 : units) {
-      if (unit1 != unit2) {
-        std::cout << PhQ::number_to_string(value) << " " << PhQ::abbreviation(unit1) << " = " << PhQ::number_to_string(PhQ::convert(value, unit1, unit2)) << " " << PhQ::abbreviation(unit2) << std::endl;
-      }
+      std::cout << PhQ::number_to_string(value) << " " << PhQ::abbreviation(unit1) << " = " << PhQ::number_to_string(PhQ::convert(value, unit1, unit2)) << " " << PhQ::abbreviation(unit2) << std::endl;
     }
   }
 }

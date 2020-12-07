@@ -86,7 +86,7 @@ template <> constexpr const Dimension::Set dimension<Unit::Memory>{Dimension::Se
 
 template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<void(std::vector<double>&)>>> conversions<Unit::Memory>{
   {Unit::Memory::Bit, {
-    {Unit::Memory::Bit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Bit, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -99,7 +99,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
   }},
   {Unit::Memory::Kilobit, {
     {Unit::Memory::Bit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -112,7 +112,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
   {Unit::Memory::Megabit, {
     {Unit::Memory::Bit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Megabit, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -125,7 +125,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Bit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 3);});}},
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -138,7 +138,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Kilobit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Terabit, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 4);});}},
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 3);});}},
     {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.125 * std::pow(1024.0, 2);});}},
@@ -151,7 +151,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Megabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 3);});}},
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 4);});}},
-    {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Byte, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}},
@@ -164,7 +164,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Gigabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 3);});}},
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}},
     {Unit::Memory::Terabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 3);});}}
@@ -177,7 +177,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Terabit, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 8.0 / std::pow(1024.0, 2);});}},
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}},
     {Unit::Memory::Terabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(1024.0, 2);});}}
   }},
@@ -190,7 +190,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Byte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{}},
     {Unit::Memory::Terabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1024.0;});}}
   }},
   {Unit::Memory::Terabyte, {
@@ -203,7 +203,7 @@ template <> const std::map<Unit::Memory, std::map<Unit::Memory, std::function<vo
     {Unit::Memory::Kilobyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 3);});}},
     {Unit::Memory::Megabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1024.0, 2);});}},
     {Unit::Memory::Gigabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1024.0;});}},
-    {Unit::Memory::Terabyte, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Memory::Terabyte, [](std::vector<double>& values)->void{}}
   }}
 };
 

@@ -173,19 +173,19 @@ template <> constexpr const Dimension::Set dimension<Unit::ThermalConductivity>{
 
 template <> const std::map<Unit::ThermalConductivity, std::map<Unit::ThermalConductivity, std::function<void(std::vector<double>&)>>> conversions<Unit::ThermalConductivity>{
   {Unit::ThermalConductivity::WattPerMetrePerKelvin, {
-    {Unit::ThermalConductivity::WattPerMetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalConductivity::WattPerMetrePerKelvin, [](std::vector<double>& values)->void{}},
     {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6;});}},
     {Unit::ThermalConductivity::PoundPerSecondPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.45359237 * 9.80665 * 9.0 / 5.0;});}}
   }},
   {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, {
     {Unit::ThermalConductivity::WattPerMetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e-6;});}},
-    {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, [](std::vector<double>& values)->void{}},
     {Unit::ThermalConductivity::PoundPerSecondPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 1.0e6 * 0.45359237 * 9.80665 * 9.0 / 5.0;});}}
   }},
   {Unit::ThermalConductivity::PoundPerSecondPerRankine, {
     {Unit::ThermalConductivity::WattPerMetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 * 9.0 / 5.0;});}},
     {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.0e6 * 0.45359237 * 9.80665 * 9.0 / 5.0;});}},
-    {Unit::ThermalConductivity::PoundPerSecondPerRankine, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::ThermalConductivity::PoundPerSecondPerRankine, [](std::vector<double>& values)->void{}}
   }}
 };
 

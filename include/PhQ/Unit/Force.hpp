@@ -51,19 +51,19 @@ template <> constexpr const Dimension::Set dimension<Unit::Force>{Dimension::Set
 
 template <> const std::map<Unit::Force, std::map<Unit::Force, std::function<void(std::vector<double>&)>>> conversions<Unit::Force>{
   {Unit::Force::Newton, {
-    {Unit::Force::Newton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Force::Newton, [](std::vector<double>& values)->void{}},
     {Unit::Force::Micronewton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000000.0;});}},
     {Unit::Force::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 0.45359237 * 9.80665;});}}
   }},
   {Unit::Force::Micronewton, {
     {Unit::Force::Newton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.000001;});}},
-    {Unit::Force::Micronewton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::Force::Micronewton, [](std::vector<double>& values)->void{}},
     {Unit::Force::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 453592.37 * 9.80665;});}}
   }},
   {Unit::Force::Pound, {
     {Unit::Force::Newton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665;});}},
     {Unit::Force::Micronewton, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453592.37 * 9.80665;});}},
-    {Unit::Force::Pound, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::Force::Pound, [](std::vector<double>& values)->void{}}
   }}
 };
 

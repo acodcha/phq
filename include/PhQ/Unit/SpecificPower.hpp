@@ -173,28 +173,28 @@ template <> constexpr const Dimension::Set dimension<Unit::SpecificPower>{Dimens
 
 template <> const std::map<Unit::SpecificPower, std::map<Unit::SpecificPower, std::function<void(std::vector<double>&)>>> conversions<Unit::SpecificPower>{
   {Unit::SpecificPower::WattPerKilogram, {
-    {Unit::SpecificPower::WattPerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificPower::WattPerKilogram, [](std::vector<double>& values)->void{}},
     {Unit::SpecificPower::NanowattPerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(1000.0, 2);});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.3048, 2);});}},
     {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(0.0254, 2);});}}
   }},
   {Unit::SpecificPower::NanowattPerGram, {
     {Unit::SpecificPower::WattPerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.001, 2);});}},
-    {Unit::SpecificPower::NanowattPerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificPower::NanowattPerGram, [](std::vector<double>& values)->void{}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(304.8, 2);});}},
     {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(25.4, 2);});}}
   }},
   {Unit::SpecificPower::FootPoundPerSlugPerSecond, {
     {Unit::SpecificPower::WattPerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.3048, 2);});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(304.8, 2);});}},
-    {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(12.0, 2);});}}
   }},
   {Unit::SpecificPower::InchPoundPerSlinchPerSecond, {
     {Unit::SpecificPower::WattPerKilogram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(0.0254, 2);});}},
     {Unit::SpecificPower::NanowattPerGram, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= std::pow(25.4, 2);});}},
     {Unit::SpecificPower::FootPoundPerSlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= std::pow(12.0, 2);});}},
-    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::SpecificPower::InchPoundPerSlinchPerSecond, [](std::vector<double>& values)->void{}}
   }}
 };
 

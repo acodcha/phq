@@ -58,7 +58,7 @@ template <> constexpr const Dimension::Set dimension<Unit::MassRate>{Dimension::
 
 template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::function<void(std::vector<double>&)>>> conversions<Unit::MassRate>{
   {Unit::MassRate::KilogramPerSecond, {
-    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1000.0;});}},
     {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / (0.45359237 * 9.80665);});}},
     {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / (0.45359237 * 9.80665);});}},
@@ -66,7 +66,7 @@ template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::functio
   }},
   {Unit::MassRate::GramPerSecond, {
     {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.001;});}},
-    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0003048 / (0.45359237 * 9.80665);});}},
     {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0000254 / (0.45359237 * 9.80665);});}},
     {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 453.59237;});}}
@@ -74,7 +74,7 @@ template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::functio
   {Unit::MassRate::SlugPerSecond, {
     {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.3048;});}},
     {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.3048;});}},
-    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 12.0;});}},
     {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.3048;});}}
   }},
@@ -82,7 +82,7 @@ template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::functio
     {Unit::MassRate::KilogramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.45359237 * 9.80665 / 0.0254;});}},
     {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237 * 9.80665 / 0.0254;});}},
     {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 12.0;});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}},
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{}},
     {Unit::MassRate::PoundPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 9.80665 / 0.0254;});}}
   }},
   {Unit::MassRate::PoundPerSecond, {
@@ -90,7 +90,7 @@ template <> const std::map<Unit::MassRate, std::map<Unit::MassRate, std::functio
     {Unit::MassRate::GramPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 453.59237;});}},
     {Unit::MassRate::SlugPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.3048 / 9.80665;});}},
     {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 0.0254 / 9.80665;});}},
-    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{});}}
+    {Unit::MassRate::SlinchPerSecond, [](std::vector<double>& values)->void{}}
   }}
 };
 
