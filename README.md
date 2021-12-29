@@ -1,16 +1,27 @@
-![build and test](https://github.com/acodcha/physical-quantities/workflows/build%20and%20test/badge.svg?branch=main)
+[![build and test](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yml)
 
 C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
 
 - [Setup](#setup)
-- [Documentation](#documentation)
-- [Usage](#setup)
+    - [Installation](#setup-installation)
+    - [Testing](#setup-testing)
+    - [Documentation](#setup-documentation)
+- [Usage](#usage)
+    - [Configuration](#usage-configuration)
     - [Physical Quantities](#usage-physical-quantities)
     - [Units of Measure](#usage-units-of-measure)
     - [Physical Models](#usage-physical-models)
 - [License](#license)
 
 # Setup
+
+- [Installation](#setup-installation)
+- [Testing](#setup-testing)
+- [Documentation](#setup-documentation)
+
+[(Back to Top)](#)
+
+## Setup: Installation
 
 The following packages are required:
 
@@ -27,7 +38,7 @@ cmake ..
 
 This is a header-only library, so no compilation is needed.
 
-You can optionally install the library from the `build` directory with:
+Install the library from the `build` directory with:
 
 ```
 sudo make install
@@ -35,7 +46,11 @@ sudo make install
 
 On most systems, this installs the library headers to `/usr/local/include/PhQ` and writes configuration files to `/usr/local/share/PhQ`. You can uninstall the library by simply deleting these directories.
 
-Testing is disabled by default but can be done from the `build` directory with:
+[(Back to Setup)](#setup)
+
+## Setup: Testing
+
+Testing is optional and disabled by default but can be done from the `build` directory with:
 
 ```
 cmake .. -DBUILD_TESTING=ON
@@ -43,19 +58,19 @@ make -j
 make test
 ```
 
-This builds and runs the tests.
+This builds and runs the unit tests.
 
-[(Back to Top)](#)
+[(Back to Setup)](#setup)
 
-# Documentation
+## Setup: Documentation
 
-Building the documentation is optional and requires additional packages:
+Building the documentation requires additional packages:
 
 - **Doxygen:** On Ubuntu, install with `sudo apt install doxygen`.
 - **Graphviz:** On Ubuntu, install with `sudo apt install graphviz`.
 - **TeX Live:** On Ubuntu, install with `sudo apt install texlive texlive-fonts-extra`.
 
-Documentation is disabled by default but can be generated from the `build` directory with:
+Documentation is optional and disabled by default but can be generated from the `build` directory with:
 
 ```
 cmake .. -DBUILD_DOCS=ON
@@ -64,11 +79,20 @@ make docs
 
 This generates HTML documentation using Doxygen. The documentation is located in `docs/html`. Open the `docs/html/index.html` file in any web browser to view the documentation.
 
-[(Back to Top)](#)
+[(Back to Setup)](#setup)
 
 # Usage
 
-To use the library in one of your projects, first install it to your system as described in the [Setup](#setup) section.
+- [Configuration](#usage-configuration)
+- [Physical Quantities](#usage-physical-quantities)
+- [Units of Measure](#usage-units-of-measure)
+- [Physical Models](#usage-physical-models)
+
+[(Back to Top)](#)
+
+## Usage: Configuration
+
+To use the library in one of your projects, first install it to your system as described in the Setup section.
 
 In your project's `CMakeLists.txt` file, set your project's C++ standard to C++17 or higher:
 
@@ -84,11 +108,7 @@ target_link_libraries(${EXECUTABLE_NAME} [other-options] PhQ)
 
 Once this is done, simply include the headers you need in your project's source files, such as `#include <PhQ/Position.hpp>`. The `PhQ::` namespace encapsulates the library's contents.
 
-- [Physical Quantities](#usage-physical-quantities)
-- [Units of Measure](#usage-units-of-measure)
-- [Physical Models](#usage-physical-models)
-
-[(Back to Top)](#)
+[(Back to Usage)](#usage)
 
 ## Usage: Physical Quantities
 
