@@ -4,17 +4,16 @@ cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
 # Project
 ################################################################################
 
-set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -ffast-math -O3 -Wall -Wno-return-type")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -O3 -Wall -Wno-return-type")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 project(
   "PhQ" VERSION 1.0.1 LANGUAGES CXX
   DESCRIPTION "C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation."
-  HOMEPAGE_URL "https://github.com/acodcha/PhysicalQuantities"
+  HOMEPAGE_URL "https://github.com/acodcha/physical-quantities"
 )
 
 option(BUILD_DOCS "Build documentation using Doxygen." OFF)
@@ -60,9 +59,9 @@ endif()
 if(BUILD_TESTING)
   enable_testing()
 
-  add_executable(constitutive_models test/ConstitutiveModels.cpp)
-  target_link_libraries(constitutive_models)
-  add_test(NAME ConstitutiveModels COMMAND bin/constitutive_models)
+  add_executable(constitutive-models test/ConstitutiveModels.cpp)
+  target_link_libraries(constitutive-models)
+  add_test(NAME ConstitutiveModels COMMAND bin/constitutive-models)
 
   add_executable(conversions test/Conversions.cpp)
   target_link_libraries(conversions)
@@ -76,9 +75,9 @@ if(BUILD_TESTING)
   target_link_libraries(relations)
   add_test(NAME Relations COMMAND bin/relations)
 
-  add_executable(thermodynamic_state_models test/ThermodynamicStateModels.cpp)
-  target_link_libraries(thermodynamic_state_models)
-  add_test(NAME ThermodynamicStateModels COMMAND bin/thermodynamic_state_models)
+  add_executable(thermodynamic-state-models test/ThermodynamicStateModels.cpp)
+  target_link_libraries(thermodynamic-state-models)
+  add_test(NAME ThermodynamicStateModels COMMAND bin/thermodynamic-state-models)
 
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()
@@ -131,4 +130,3 @@ install(
 )
 
 message(STATUS "Installation was configured. Install to ${CMAKE_INSTALL_INCLUDEDIR} and ${CMAKE_INSTALL_DATAROOTDIR} with \"sudo make install\".")
-
