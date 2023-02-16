@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 ################################################################################
 # Project
@@ -57,27 +57,60 @@ endif()
 ################################################################################
 
 if(BUILD_TESTING)
+  include(FetchContent)
+
+  FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        main
+  )
+
+  # Do not override the parent project's compiler and linker settings on Windows.
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+  FetchContent_MakeAvailable(googletest)
+
+  include(GoogleTest)
+
   enable_testing()
 
-  add_executable(constitutive-models test/ConstitutiveModels.cpp)
-  target_link_libraries(constitutive-models)
-  add_test(NAME ConstitutiveModels COMMAND bin/constitutive-models)
+  # With GoogleTest, use gtest_discover_tests(my_test) instead of add_test(NAME my_test COMMAND bin/my_test)
 
-  add_executable(conversions test/Conversions.cpp)
-  target_link_libraries(conversions)
-  add_test(NAME Conversions COMMAND bin/conversions)
+  add_executable(base_constant ${PROJECT_SOURCE_DIR}/test/Base/Constant.cpp)
+  target_link_libraries(base_constant GTest::gtest_main)
+  gtest_discover_tests(base_constant)
 
-  add_executable(dimensions ${PROJECT_SOURCE_DIR}/test/Dimensions.cpp)
-  target_link_libraries(dimensions)
-  add_test(NAME Dimensions COMMAND bin/dimensions)
+  add_executable(base_string ${PROJECT_SOURCE_DIR}/test/Base/String.cpp)
+  target_link_libraries(base_string GTest::gtest_main)
+  gtest_discover_tests(base_string)
 
-  add_executable(relations test/Relations.cpp)
-  target_link_libraries(relations)
-  add_test(NAME Relations COMMAND bin/relations)
+  add_executable(dimension_electric_current ${PROJECT_SOURCE_DIR}/test/Dimension/ElectricCurrent.cpp)
+  target_link_libraries(dimension_electric_current GTest::gtest_main)
+  gtest_discover_tests(dimension_electric_current)
 
-  add_executable(thermodynamic-state-models test/ThermodynamicStateModels.cpp)
-  target_link_libraries(thermodynamic-state-models)
-  add_test(NAME ThermodynamicStateModels COMMAND bin/thermodynamic-state-models)
+  add_executable(dimension_length ${PROJECT_SOURCE_DIR}/test/Dimension/Length.cpp)
+  target_link_libraries(dimension_length GTest::gtest_main)
+  gtest_discover_tests(dimension_length)
+
+  add_executable(dimension_luminous_intensity ${PROJECT_SOURCE_DIR}/test/Dimension/LuminousIntensity.cpp)
+  target_link_libraries(dimension_luminous_intensity GTest::gtest_main)
+  gtest_discover_tests(dimension_luminous_intensity)
+
+  add_executable(dimension_mass ${PROJECT_SOURCE_DIR}/test/Dimension/Mass.cpp)
+  target_link_libraries(dimension_mass GTest::gtest_main)
+  gtest_discover_tests(dimension_mass)
+
+  add_executable(dimension_substance_amount ${PROJECT_SOURCE_DIR}/test/Dimension/SubstanceAmount.cpp)
+  target_link_libraries(dimension_substance_amount GTest::gtest_main)
+  gtest_discover_tests(dimension_substance_amount)
+
+  add_executable(dimension_temperature ${PROJECT_SOURCE_DIR}/test/Dimension/Temperature.cpp)
+  target_link_libraries(dimension_temperature GTest::gtest_main)
+  gtest_discover_tests(dimension_temperature)
+
+  add_executable(dimension_time ${PROJECT_SOURCE_DIR}/test/Dimension/Time.cpp)
+  target_link_libraries(dimension_time GTest::gtest_main)
+  gtest_discover_tests(dimension_time)
 
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()

@@ -1,88 +1,46 @@
 // Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
+// This file is part of Physical Quantities (PhQ), a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 // Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 // You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_BASE_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_BASE_HPP
 
-#include "../Base/String.hpp"
+#include <string>
+#include <string_view>
 
-namespace PhQ {
-
-namespace Dimension {
+namespace PhQ::Dimension {
 
 class Base {
-
 public:
+  virtual ~Base() = default;
 
-  constexpr int_least8_t value() const noexcept {
+  inline constexpr int_least8_t value() const noexcept {
     return value_;
   }
 
-  virtual std::string abbreviation() const noexcept = 0;
-
-  virtual std::string label() const noexcept = 0;
-
-  std::string print() const noexcept {
-    if (value_ == 0) {
-      return {};
-    } else if (value_ == 1) {
-      return abbreviation();
-    } else if (value_ > 0) {
-      return abbreviation() + "^" + std::to_string(value_);
-    } else {
-      return abbreviation() + "^(" + std::to_string(value_) + ")";
-    }
-  }
-
-  constexpr bool operator==(const Base& base) const noexcept {
-    return value_ == base.value_;
-  }
-
-  constexpr bool operator!=(const Base& base) const noexcept {
-    return value_ != base.value_;
-  }
-
-  constexpr bool operator<(const Base& base) const noexcept {
-    return value_ < base.value_;
-  }
-
-  constexpr bool operator<=(const Base& base) const noexcept {
-    return value_ <= base.value_;
-  }
-
-  constexpr bool operator>(const Base& base) const noexcept {
-    return value_ > base.value_;
-  }
-
-  constexpr bool operator>=(const Base& base) const noexcept {
-    return value_ >= base.value_;
-  }
+  virtual std::string print() const noexcept = 0;
 
 protected:
+  explicit constexpr Base(const int_least8_t value = 0) noexcept : value_(value) {}
 
-  constexpr Base(int_least8_t value = 0) noexcept : value_(value) {}
+  std::string print(const std::string_view abbreviation) const noexcept {
+    if (value_ == 0) {
+      return {};
+    }
+    std::string text{abbreviation};
+    if (value_ > 1) {
+      text.append("^" + std::to_string(value_));
+    } else if (value_ < 0) {
+      text.append("^(" + std::to_string(value_) + ")");
+    }
+    return text;
+  }
 
   int_least8_t value_;
-
 };
 
-} // namespace Dimension
+}  // namespace PhQ::Dimension
 
-} // namespace PhQ
-
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Dimension::Base& base) noexcept {
-  output_stream << base.print();
-  return output_stream;
-}
-
-namespace std {
-
-template <> struct hash<PhQ::Dimension::Base> {
-  size_t operator()(const PhQ::Dimension::Base& base) const {
-    return hash<double>()(base.value());
-  }
-};
-
-} // namespace std
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_BASE_HPP
