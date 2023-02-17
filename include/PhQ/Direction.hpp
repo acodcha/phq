@@ -7,6 +7,8 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 
+#include <array>
+
 #include "Base/String.hpp"
 
 namespace PhQ {
@@ -51,25 +53,27 @@ public:
     }
   }
 
-  constexpr Direction(const Value::Vector& vector);
+  Direction(const std::array<double, 3>& x_y_z) : Direction(x_y_z[0], x_y_z[1], x_y_z[2]) {}
 
-  constexpr Direction(const Acceleration& acceleration);
+  Direction(const Value::Vector& vector);
 
-  constexpr Direction(const AreaVector& area_vector);
+  Direction(const Acceleration& acceleration);
 
-  constexpr Direction(const Displacement& displacement);
+  Direction(const AreaVector& area_vector);
 
-  constexpr Direction(const Force& force);
+  Direction(const Displacement& displacement);
 
-  constexpr Direction(const HeatFlux& heat_flux);
+  Direction(const Force& force);
 
-  constexpr Direction(const Position& position);
+  Direction(const HeatFlux& heat_flux);
 
-  constexpr Direction(const TemperatureGradient& temperature_gradient);
+  Direction(const Position& position);
 
-  constexpr Direction(const Traction& traction);
+  Direction(const TemperatureGradient& temperature_gradient);
 
-  constexpr Direction(const Velocity& velocity);
+  Direction(const Traction& traction);
+
+  Direction(const Velocity& velocity);
 
   constexpr double x() const noexcept {
     return x_;
@@ -83,8 +87,12 @@ public:
     return z_;
   }
 
-  constexpr double magnitude() const noexcept {
-    return std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
+  constexpr double magnitude_squared() const noexcept {
+    return x_ * x_ + y_ * y_ + z_ * z_;
+  }
+
+  double magnitude() const noexcept {
+    return std::sqrt(magnitude_squared());
   }
 
   constexpr double dot(const Direction& direction) const noexcept {

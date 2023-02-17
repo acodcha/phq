@@ -28,6 +28,7 @@ TEST(Direction, Comparison) {
 
 TEST(Direction, Constructor) {
   EXPECT_EQ(PhQ::Direction{}, PhQ::Direction(1.0, 0.0, 0.0));
+  EXPECT_EQ(PhQ::Direction(std::array<double, 3>{0.0, -10.0, 0.0}), PhQ::Direction(0.0, -1.0, 0.0));
 }
 
 TEST(Direction, Cross) {
@@ -64,6 +65,7 @@ TEST(Direction, Json) {
 
 TEST(Direction, Magnitude) {
   EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).magnitude(), 1.0);
+  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).magnitude_squared(), 1.0);
 }
 
 TEST(Direction, Print) {
