@@ -13,17 +13,17 @@
 namespace {
 
 TEST(Direction, Accessor) {
-  const PhQ::Direction object{0.0, 10.0, -10.0};
-  EXPECT_EQ(object.x(), 0.0);
-  EXPECT_DOUBLE_EQ(object.y(), 0.5 * std::sqrt(2.0));
-  EXPECT_DOUBLE_EQ(object.z(), -0.5 * std::sqrt(2.0));
+  const PhQ::Direction direction{0.0, 10.0, -10.0};
+  EXPECT_EQ(direction.x(), 0.0);
+  EXPECT_DOUBLE_EQ(direction.y(), 0.5 * std::sqrt(2.0));
+  EXPECT_DOUBLE_EQ(direction.z(), -0.5 * std::sqrt(2.0));
 }
 
 TEST(Direction, Comparison) {
-  const PhQ::Direction object0{1.11, 2.22, 3.33};
-  const PhQ::Direction object1{1.23, 4.56, 7.89};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
+  const PhQ::Direction direction0{1.11, 2.22, 3.33};
+  const PhQ::Direction direction1{1.23, 4.56, 7.89};
+  EXPECT_EQ(direction0, direction0);
+  EXPECT_NE(direction0, direction1);
 }
 
 TEST(Direction, Constructor) {
@@ -44,19 +44,19 @@ TEST(Direction, Dot) {
 }
 
 TEST(Direction, Hash) {
-  const PhQ::Direction object0{1.0, 0.0, 0.0};
-  const PhQ::Direction object1{0.0, 1.0, 0.0};
-  const PhQ::Direction object2{0.0, 0.0, 1.0};
-  const PhQ::Direction object3{-1.0, 0.0, 0.0};
-  const PhQ::Direction object4{1.11, 2.22, 3.33};
-  const PhQ::Direction object5{1.23, 4.56, 7.89};
+  const PhQ::Direction direction0{1.0, 0.0, 0.0};
+  const PhQ::Direction direction1{0.0, 1.0, 0.0};
+  const PhQ::Direction direction2{0.0, 0.0, 1.0};
+  const PhQ::Direction direction3{-1.0, 0.0, 0.0};
+  const PhQ::Direction direction4{1.11, 2.22, 3.33};
+  const PhQ::Direction direction5{1.23, 4.56, 7.89};
   const std::hash<PhQ::Direction> hasher;
-  EXPECT_NE(hasher(object0), hasher(object1));
-  EXPECT_NE(hasher(object0), hasher(object2));
-  EXPECT_NE(hasher(object0), hasher(object3));
-  EXPECT_NE(hasher(object0), hasher(object4));
-  EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Direction> unordered{object0, object1, object2, object3, object4, object5};
+  EXPECT_NE(hasher(direction0), hasher(direction1));
+  EXPECT_NE(hasher(direction0), hasher(direction2));
+  EXPECT_NE(hasher(direction0), hasher(direction3));
+  EXPECT_NE(hasher(direction0), hasher(direction4));
+  EXPECT_NE(hasher(direction0), hasher(direction5));
+  const std::unordered_set<PhQ::Direction> unordered{direction0, direction1, direction2, direction3, direction4, direction5};
 }
 
 TEST(Direction, Json) {
@@ -74,10 +74,10 @@ TEST(Direction, Print) {
 }
 
 TEST(Direction, Stream) {
-  const PhQ::Direction object{1.23, 4.56, 7.89};
+  const PhQ::Direction direction{1.23, 4.56, 7.89};
   std::ostringstream output_string_stream;
-  output_string_stream << object;
-  EXPECT_EQ(output_string_stream.str(), object.print());
+  output_string_stream << direction;
+  EXPECT_EQ(output_string_stream.str(), direction.print());
 }
 
 TEST(Direction, Xml) {
