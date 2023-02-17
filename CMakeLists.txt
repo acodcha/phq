@@ -116,6 +116,10 @@ if(BUILD_TESTING)
   target_link_libraries(dimension_time GTest::gtest_main)
   gtest_discover_tests(dimension_time)
 
+  add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
+  target_link_libraries(unit_system GTest::gtest_main)
+  gtest_discover_tests(unit_system)
+
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()
   message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_TESTING=ON\" to configure testing.")
