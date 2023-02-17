@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionMass, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::Mass::abbreviation(), "M");
+TEST(DimensionMass, Abbreviation) {
+  EXPECT_EQ(Mass::abbreviation(), "M");
 }
 
-TEST(DimensionMass, hash) {
-  const PhQ::Dimension::Mass object0{-2};
-  const PhQ::Dimension::Mass object1{-1};
-  const PhQ::Dimension::Mass object2{0};
-  const PhQ::Dimension::Mass object3{1};
-  const PhQ::Dimension::Mass object4{2};
-  const PhQ::Dimension::Mass object5{3};
-  const std::hash<PhQ::Dimension::Mass> hasher;
+TEST(DimensionMass, Hash) {
+  const Mass object0{-2};
+  const Mass object1{-1};
+  const Mass object2{0};
+  const Mass object3{1};
+  const Mass object4{2};
+  const Mass object5{3};
+  const std::hash<Mass> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::Mass> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<Mass> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionMass, label) {
-  EXPECT_EQ(PhQ::Dimension::Mass::label(), "Mass");
+TEST(DimensionMass, Label) {
+  EXPECT_EQ(Mass::label(), "Mass");
 }
 
-TEST(DimensionMass, operators) {
-  const PhQ::Dimension::Mass object0{-1};
-  const PhQ::Dimension::Mass object1{2};
+TEST(DimensionMass, Operators) {
+  const Mass object0{-1};
+  const Mass object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionMass, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::Mass> increasing{object0, object1};
+  const std::set<Mass> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::Mass, std::greater<PhQ::Dimension::Mass>> decreasing{object0, object1};
+  const std::set<Mass, std::greater<Mass>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionMass, print) {
-  EXPECT_EQ(PhQ::Dimension::Mass{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Mass{-2}.print(), "M^(-2)");
-  EXPECT_EQ(PhQ::Dimension::Mass{-1}.print(), "M^(-1)");
-  EXPECT_EQ(PhQ::Dimension::Mass{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Mass{1}.print(), "M");
-  EXPECT_EQ(PhQ::Dimension::Mass{2}.print(), "M^2");
-  EXPECT_EQ(PhQ::Dimension::Mass{3}.print(), "M^3");
+TEST(DimensionMass, Print) {
+  EXPECT_EQ(Mass{}.print(), "");
+  EXPECT_EQ(Mass{-2}.print(), "M^(-2)");
+  EXPECT_EQ(Mass{-1}.print(), "M^(-1)");
+  EXPECT_EQ(Mass{0}.print(), "");
+  EXPECT_EQ(Mass{1}.print(), "M");
+  EXPECT_EQ(Mass{2}.print(), "M^2");
+  EXPECT_EQ(Mass{3}.print(), "M^3");
 }
 
-TEST(DimensionMass, stream) {
-  const PhQ::Dimension::Mass object{3};
+TEST(DimensionMass, Stream) {
+  const Mass object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionMass, value) {
-  EXPECT_EQ(PhQ::Dimension::Mass{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Mass{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::Mass{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::Mass{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Mass{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::Mass{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::Mass{3}.value(), 3);
+TEST(DimensionMass, Value) {
+  EXPECT_EQ(Mass{}.value(), 0);
+  EXPECT_EQ(Mass{-2}.value(), -2);
+  EXPECT_EQ(Mass{-1}.value(), -1);
+  EXPECT_EQ(Mass{0}.value(), 0);
+  EXPECT_EQ(Mass{1}.value(), 1);
+  EXPECT_EQ(Mass{2}.value(), 2);
+  EXPECT_EQ(Mass{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

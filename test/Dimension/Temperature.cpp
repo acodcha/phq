@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionTemperature, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::Temperature::abbreviation(), "Θ");
+TEST(DimensionTemperature, Abbreviation) {
+  EXPECT_EQ(Temperature::abbreviation(), "Θ");
 }
 
-TEST(DimensionTemperature, hash) {
-  const PhQ::Dimension::Temperature object0{-2};
-  const PhQ::Dimension::Temperature object1{-1};
-  const PhQ::Dimension::Temperature object2{0};
-  const PhQ::Dimension::Temperature object3{1};
-  const PhQ::Dimension::Temperature object4{2};
-  const PhQ::Dimension::Temperature object5{3};
-  const std::hash<PhQ::Dimension::Temperature> hasher;
+TEST(DimensionTemperature, Hash) {
+  const Temperature object0{-2};
+  const Temperature object1{-1};
+  const Temperature object2{0};
+  const Temperature object3{1};
+  const Temperature object4{2};
+  const Temperature object5{3};
+  const std::hash<Temperature> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::Temperature> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<Temperature> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionTemperature, label) {
-  EXPECT_EQ(PhQ::Dimension::Temperature::label(), "Temperature");
+TEST(DimensionTemperature, Label) {
+  EXPECT_EQ(Temperature::label(), "Temperature");
 }
 
-TEST(DimensionTemperature, operators) {
-  const PhQ::Dimension::Temperature object0{-1};
-  const PhQ::Dimension::Temperature object1{2};
+TEST(DimensionTemperature, Operators) {
+  const Temperature object0{-1};
+  const Temperature object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionTemperature, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::Temperature> increasing{object0, object1};
+  const std::set<Temperature> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::Temperature, std::greater<PhQ::Dimension::Temperature>> decreasing{object0, object1};
+  const std::set<Temperature, std::greater<Temperature>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionTemperature, print) {
-  EXPECT_EQ(PhQ::Dimension::Temperature{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Temperature{-2}.print(), "Θ^(-2)");
-  EXPECT_EQ(PhQ::Dimension::Temperature{-1}.print(), "Θ^(-1)");
-  EXPECT_EQ(PhQ::Dimension::Temperature{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Temperature{1}.print(), "Θ");
-  EXPECT_EQ(PhQ::Dimension::Temperature{2}.print(), "Θ^2");
-  EXPECT_EQ(PhQ::Dimension::Temperature{3}.print(), "Θ^3");
+TEST(DimensionTemperature, Print) {
+  EXPECT_EQ(Temperature{}.print(), "");
+  EXPECT_EQ(Temperature{-2}.print(), "Θ^(-2)");
+  EXPECT_EQ(Temperature{-1}.print(), "Θ^(-1)");
+  EXPECT_EQ(Temperature{0}.print(), "");
+  EXPECT_EQ(Temperature{1}.print(), "Θ");
+  EXPECT_EQ(Temperature{2}.print(), "Θ^2");
+  EXPECT_EQ(Temperature{3}.print(), "Θ^3");
 }
 
-TEST(DimensionTemperature, stream) {
-  const PhQ::Dimension::Temperature object{3};
+TEST(DimensionTemperature, Stream) {
+  const Temperature object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionTemperature, value) {
-  EXPECT_EQ(PhQ::Dimension::Temperature{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Temperature{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::Temperature{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::Temperature{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Temperature{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::Temperature{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::Temperature{3}.value(), 3);
+TEST(DimensionTemperature, Value) {
+  EXPECT_EQ(Temperature{}.value(), 0);
+  EXPECT_EQ(Temperature{-2}.value(), -2);
+  EXPECT_EQ(Temperature{-1}.value(), -1);
+  EXPECT_EQ(Temperature{0}.value(), 0);
+  EXPECT_EQ(Temperature{1}.value(), 1);
+  EXPECT_EQ(Temperature{2}.value(), 2);
+  EXPECT_EQ(Temperature{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

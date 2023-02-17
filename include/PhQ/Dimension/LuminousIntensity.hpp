@@ -44,12 +44,12 @@ inline constexpr bool operator<(const LuminousIntensity& left, const LuminousInt
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const LuminousIntensity& left, const LuminousIntensity& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const LuminousIntensity& left, const LuminousIntensity& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const LuminousIntensity& left, const LuminousIntensity& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const LuminousIntensity& left, const LuminousIntensity& right) noexcept {

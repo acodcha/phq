@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionSubstanceAmount, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount::abbreviation(), "N");
+TEST(DimensionSubstanceAmount, Abbreviation) {
+  EXPECT_EQ(SubstanceAmount::abbreviation(), "N");
 }
 
-TEST(DimensionSubstanceAmount, hash) {
-  const PhQ::Dimension::SubstanceAmount object0{-2};
-  const PhQ::Dimension::SubstanceAmount object1{-1};
-  const PhQ::Dimension::SubstanceAmount object2{0};
-  const PhQ::Dimension::SubstanceAmount object3{1};
-  const PhQ::Dimension::SubstanceAmount object4{2};
-  const PhQ::Dimension::SubstanceAmount object5{3};
-  const std::hash<PhQ::Dimension::SubstanceAmount> hasher;
+TEST(DimensionSubstanceAmount, Hash) {
+  const SubstanceAmount object0{-2};
+  const SubstanceAmount object1{-1};
+  const SubstanceAmount object2{0};
+  const SubstanceAmount object3{1};
+  const SubstanceAmount object4{2};
+  const SubstanceAmount object5{3};
+  const std::hash<SubstanceAmount> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::SubstanceAmount> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<SubstanceAmount> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionSubstanceAmount, label) {
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount::label(), "Substance Amount");
+TEST(DimensionSubstanceAmount, Label) {
+  EXPECT_EQ(SubstanceAmount::label(), "Substance Amount");
 }
 
-TEST(DimensionSubstanceAmount, operators) {
-  const PhQ::Dimension::SubstanceAmount object0{-1};
-  const PhQ::Dimension::SubstanceAmount object1{2};
+TEST(DimensionSubstanceAmount, Operators) {
+  const SubstanceAmount object0{-1};
+  const SubstanceAmount object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionSubstanceAmount, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::SubstanceAmount> increasing{object0, object1};
+  const std::set<SubstanceAmount> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::SubstanceAmount, std::greater<PhQ::Dimension::SubstanceAmount>> decreasing{object0, object1};
+  const std::set<SubstanceAmount, std::greater<SubstanceAmount>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionSubstanceAmount, print) {
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{-2}.print(), "N^(-2)");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{-1}.print(), "N^(-1)");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{1}.print(), "N");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{2}.print(), "N^2");
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{3}.print(), "N^3");
+TEST(DimensionSubstanceAmount, Print) {
+  EXPECT_EQ(SubstanceAmount{}.print(), "");
+  EXPECT_EQ(SubstanceAmount{-2}.print(), "N^(-2)");
+  EXPECT_EQ(SubstanceAmount{-1}.print(), "N^(-1)");
+  EXPECT_EQ(SubstanceAmount{0}.print(), "");
+  EXPECT_EQ(SubstanceAmount{1}.print(), "N");
+  EXPECT_EQ(SubstanceAmount{2}.print(), "N^2");
+  EXPECT_EQ(SubstanceAmount{3}.print(), "N^3");
 }
 
-TEST(DimensionSubstanceAmount, stream) {
-  const PhQ::Dimension::SubstanceAmount object{3};
+TEST(DimensionSubstanceAmount, Stream) {
+  const SubstanceAmount object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionSubstanceAmount, value) {
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::SubstanceAmount{3}.value(), 3);
+TEST(DimensionSubstanceAmount, Value) {
+  EXPECT_EQ(SubstanceAmount{}.value(), 0);
+  EXPECT_EQ(SubstanceAmount{-2}.value(), -2);
+  EXPECT_EQ(SubstanceAmount{-1}.value(), -1);
+  EXPECT_EQ(SubstanceAmount{0}.value(), 0);
+  EXPECT_EQ(SubstanceAmount{1}.value(), 1);
+  EXPECT_EQ(SubstanceAmount{2}.value(), 2);
+  EXPECT_EQ(SubstanceAmount{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

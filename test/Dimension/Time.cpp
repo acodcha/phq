@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionTime, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::Time::abbreviation(), "T");
+TEST(DimensionTime, Abbreviation) {
+  EXPECT_EQ(Time::abbreviation(), "T");
 }
 
-TEST(DimensionTime, hash) {
-  const PhQ::Dimension::Time object0{-2};
-  const PhQ::Dimension::Time object1{-1};
-  const PhQ::Dimension::Time object2{0};
-  const PhQ::Dimension::Time object3{1};
-  const PhQ::Dimension::Time object4{2};
-  const PhQ::Dimension::Time object5{3};
-  const std::hash<PhQ::Dimension::Time> hasher;
+TEST(DimensionTime, Hash) {
+  const Time object0{-2};
+  const Time object1{-1};
+  const Time object2{0};
+  const Time object3{1};
+  const Time object4{2};
+  const Time object5{3};
+  const std::hash<Time> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::Time> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<Time> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionTime, label) {
-  EXPECT_EQ(PhQ::Dimension::Time::label(), "Time");
+TEST(DimensionTime, Label) {
+  EXPECT_EQ(Time::label(), "Time");
 }
 
-TEST(DimensionTime, operators) {
-  const PhQ::Dimension::Time object0{-1};
-  const PhQ::Dimension::Time object1{2};
+TEST(DimensionTime, Operators) {
+  const Time object0{-1};
+  const Time object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionTime, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::Time> increasing{object0, object1};
+  const std::set<Time> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::Time, std::greater<PhQ::Dimension::Time>> decreasing{object0, object1};
+  const std::set<Time, std::greater<Time>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionTime, print) {
-  EXPECT_EQ(PhQ::Dimension::Time{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Time{-2}.print(), "T^(-2)");
-  EXPECT_EQ(PhQ::Dimension::Time{-1}.print(), "T^(-1)");
-  EXPECT_EQ(PhQ::Dimension::Time{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Time{1}.print(), "T");
-  EXPECT_EQ(PhQ::Dimension::Time{2}.print(), "T^2");
-  EXPECT_EQ(PhQ::Dimension::Time{3}.print(), "T^3");
+TEST(DimensionTime, Print) {
+  EXPECT_EQ(Time{}.print(), "");
+  EXPECT_EQ(Time{-2}.print(), "T^(-2)");
+  EXPECT_EQ(Time{-1}.print(), "T^(-1)");
+  EXPECT_EQ(Time{0}.print(), "");
+  EXPECT_EQ(Time{1}.print(), "T");
+  EXPECT_EQ(Time{2}.print(), "T^2");
+  EXPECT_EQ(Time{3}.print(), "T^3");
 }
 
-TEST(DimensionTime, stream) {
-  const PhQ::Dimension::Time object{3};
+TEST(DimensionTime, Stream) {
+  const Time object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionTime, value) {
-  EXPECT_EQ(PhQ::Dimension::Time{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Time{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::Time{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::Time{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Time{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::Time{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::Time{3}.value(), 3);
+TEST(DimensionTime, Value) {
+  EXPECT_EQ(Time{}.value(), 0);
+  EXPECT_EQ(Time{-2}.value(), -2);
+  EXPECT_EQ(Time{-1}.value(), -1);
+  EXPECT_EQ(Time{0}.value(), 0);
+  EXPECT_EQ(Time{1}.value(), 1);
+  EXPECT_EQ(Time{2}.value(), 2);
+  EXPECT_EQ(Time{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

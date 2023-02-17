@@ -44,12 +44,12 @@ inline constexpr bool operator<(const Temperature& left, const Temperature& righ
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const Temperature& left, const Temperature& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const Temperature& left, const Temperature& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const Temperature& left, const Temperature& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const Temperature& left, const Temperature& right) noexcept {

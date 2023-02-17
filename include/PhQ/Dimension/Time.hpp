@@ -44,12 +44,12 @@ inline constexpr bool operator<(const Time& left, const Time& right) noexcept {
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const Time& left, const Time& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const Time& left, const Time& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const Time& left, const Time& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {

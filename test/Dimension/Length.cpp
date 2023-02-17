@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionLength, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::Length::abbreviation(), "L");
+TEST(DimensionLength, Abbreviation) {
+  EXPECT_EQ(Length::abbreviation(), "L");
 }
 
-TEST(DimensionLength, hash) {
-  const PhQ::Dimension::Length object0{-2};
-  const PhQ::Dimension::Length object1{-1};
-  const PhQ::Dimension::Length object2{0};
-  const PhQ::Dimension::Length object3{1};
-  const PhQ::Dimension::Length object4{2};
-  const PhQ::Dimension::Length object5{3};
-  const std::hash<PhQ::Dimension::Length> hasher;
+TEST(DimensionLength, Hash) {
+  const Length object0{-2};
+  const Length object1{-1};
+  const Length object2{0};
+  const Length object3{1};
+  const Length object4{2};
+  const Length object5{3};
+  const std::hash<Length> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::Length> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<Length> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionLength, label) {
-  EXPECT_EQ(PhQ::Dimension::Length::label(), "Length");
+TEST(DimensionLength, Label) {
+  EXPECT_EQ(Length::label(), "Length");
 }
 
-TEST(DimensionLength, operators) {
-  const PhQ::Dimension::Length object0{-1};
-  const PhQ::Dimension::Length object1{2};
+TEST(DimensionLength, Operators) {
+  const Length object0{-1};
+  const Length object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionLength, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::Length> increasing{object0, object1};
+  const std::set<Length> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::Length, std::greater<PhQ::Dimension::Length>> decreasing{object0, object1};
+  const std::set<Length, std::greater<Length>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionLength, print) {
-  EXPECT_EQ(PhQ::Dimension::Length{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Length{-2}.print(), "L^(-2)");
-  EXPECT_EQ(PhQ::Dimension::Length{-1}.print(), "L^(-1)");
-  EXPECT_EQ(PhQ::Dimension::Length{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::Length{1}.print(), "L");
-  EXPECT_EQ(PhQ::Dimension::Length{2}.print(), "L^2");
-  EXPECT_EQ(PhQ::Dimension::Length{3}.print(), "L^3");
+TEST(DimensionLength, Print) {
+  EXPECT_EQ(Length{}.print(), "");
+  EXPECT_EQ(Length{-2}.print(), "L^(-2)");
+  EXPECT_EQ(Length{-1}.print(), "L^(-1)");
+  EXPECT_EQ(Length{0}.print(), "");
+  EXPECT_EQ(Length{1}.print(), "L");
+  EXPECT_EQ(Length{2}.print(), "L^2");
+  EXPECT_EQ(Length{3}.print(), "L^3");
 }
 
-TEST(DimensionLength, stream) {
-  const PhQ::Dimension::Length object{3};
+TEST(DimensionLength, Stream) {
+  const Length object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionLength, value) {
-  EXPECT_EQ(PhQ::Dimension::Length{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Length{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::Length{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::Length{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::Length{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::Length{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::Length{3}.value(), 3);
+TEST(DimensionLength, Value) {
+  EXPECT_EQ(Length{}.value(), 0);
+  EXPECT_EQ(Length{-2}.value(), -2);
+  EXPECT_EQ(Length{-1}.value(), -1);
+  EXPECT_EQ(Length{0}.value(), 0);
+  EXPECT_EQ(Length{1}.value(), 1);
+  EXPECT_EQ(Length{2}.value(), 2);
+  EXPECT_EQ(Length{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

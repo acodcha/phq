@@ -44,12 +44,12 @@ inline constexpr bool operator<(const ElectricCurrent& left, const ElectricCurre
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const ElectricCurrent& left, const ElectricCurrent& right) noexcept {

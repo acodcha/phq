@@ -100,6 +100,10 @@ if(BUILD_TESTING)
   target_link_libraries(dimension_mass GTest::gtest_main)
   gtest_discover_tests(dimension_mass)
 
+  add_executable(dimension_set ${PROJECT_SOURCE_DIR}/test/Dimension/Set.cpp)
+  target_link_libraries(dimension_set GTest::gtest_main)
+  gtest_discover_tests(dimension_set)
+
   add_executable(dimension_substance_amount ${PROJECT_SOURCE_DIR}/test/Dimension/SubstanceAmount.cpp)
   target_link_libraries(dimension_substance_amount GTest::gtest_main)
   gtest_discover_tests(dimension_substance_amount)

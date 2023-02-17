@@ -44,12 +44,12 @@ inline constexpr bool operator<(const SubstanceAmount& left, const SubstanceAmou
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const SubstanceAmount& left, const SubstanceAmount& right) noexcept {

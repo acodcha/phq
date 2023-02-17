@@ -8,10 +8,14 @@
 
 #include <gtest/gtest.h>
 
+namespace PhQ {
+
 namespace {
 
-TEST(BaseConstant, Pi) {
-  EXPECT_EQ(PhQ::Pi, 3.14159265358979323846);
+TEST(BaseConstant, Constants) {
+  EXPECT_EQ(Pi, 3.14159265358979323846);
 }
 
 }  // namespace
+
+}  // namespace PhQ

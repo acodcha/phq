@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionLuminousIntensity, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity::abbreviation(), "J");
+TEST(DimensionLuminousIntensity, Abbreviation) {
+  EXPECT_EQ(LuminousIntensity::abbreviation(), "J");
 }
 
-TEST(DimensionLuminousIntensity, hash) {
-  const PhQ::Dimension::LuminousIntensity object0{-2};
-  const PhQ::Dimension::LuminousIntensity object1{-1};
-  const PhQ::Dimension::LuminousIntensity object2{0};
-  const PhQ::Dimension::LuminousIntensity object3{1};
-  const PhQ::Dimension::LuminousIntensity object4{2};
-  const PhQ::Dimension::LuminousIntensity object5{3};
-  const std::hash<PhQ::Dimension::LuminousIntensity> hasher;
+TEST(DimensionLuminousIntensity, Hash) {
+  const LuminousIntensity object0{-2};
+  const LuminousIntensity object1{-1};
+  const LuminousIntensity object2{0};
+  const LuminousIntensity object3{1};
+  const LuminousIntensity object4{2};
+  const LuminousIntensity object5{3};
+  const std::hash<LuminousIntensity> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::LuminousIntensity> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<LuminousIntensity> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionLuminousIntensity, label) {
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity::label(), "Luminous Intensity");
+TEST(DimensionLuminousIntensity, Label) {
+  EXPECT_EQ(LuminousIntensity::label(), "Luminous Intensity");
 }
 
-TEST(DimensionLuminousIntensity, operators) {
-  const PhQ::Dimension::LuminousIntensity object0{-1};
-  const PhQ::Dimension::LuminousIntensity object1{2};
+TEST(DimensionLuminousIntensity, Operators) {
+  const LuminousIntensity object0{-1};
+  const LuminousIntensity object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionLuminousIntensity, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::LuminousIntensity> increasing{object0, object1};
+  const std::set<LuminousIntensity> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::LuminousIntensity, std::greater<PhQ::Dimension::LuminousIntensity>> decreasing{object0, object1};
+  const std::set<LuminousIntensity, std::greater<LuminousIntensity>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionLuminousIntensity, print) {
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{-2}.print(), "J^(-2)");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{-1}.print(), "J^(-1)");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{1}.print(), "J");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{2}.print(), "J^2");
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{3}.print(), "J^3");
+TEST(DimensionLuminousIntensity, Print) {
+  EXPECT_EQ(LuminousIntensity{}.print(), "");
+  EXPECT_EQ(LuminousIntensity{-2}.print(), "J^(-2)");
+  EXPECT_EQ(LuminousIntensity{-1}.print(), "J^(-1)");
+  EXPECT_EQ(LuminousIntensity{0}.print(), "");
+  EXPECT_EQ(LuminousIntensity{1}.print(), "J");
+  EXPECT_EQ(LuminousIntensity{2}.print(), "J^2");
+  EXPECT_EQ(LuminousIntensity{3}.print(), "J^3");
 }
 
-TEST(DimensionLuminousIntensity, stream) {
-  const PhQ::Dimension::LuminousIntensity object{3};
+TEST(DimensionLuminousIntensity, Stream) {
+  const LuminousIntensity object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionLuminousIntensity, value) {
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::LuminousIntensity{3}.value(), 3);
+TEST(DimensionLuminousIntensity, Value) {
+  EXPECT_EQ(LuminousIntensity{}.value(), 0);
+  EXPECT_EQ(LuminousIntensity{-2}.value(), -2);
+  EXPECT_EQ(LuminousIntensity{-1}.value(), -1);
+  EXPECT_EQ(LuminousIntensity{0}.value(), 0);
+  EXPECT_EQ(LuminousIntensity{1}.value(), 1);
+  EXPECT_EQ(LuminousIntensity{2}.value(), 2);
+  EXPECT_EQ(LuminousIntensity{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension

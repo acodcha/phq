@@ -44,12 +44,12 @@ inline constexpr bool operator<(const Mass& left, const Mass& right) noexcept {
   return left.value() < right.value();
 }
 
-inline constexpr bool operator<=(const Mass& left, const Mass& right) noexcept {
-  return left.value() <= right.value();
-}
-
 inline constexpr bool operator>(const Mass& left, const Mass& right) noexcept {
   return left.value() > right.value();
+}
+
+inline constexpr bool operator<=(const Mass& left, const Mass& right) noexcept {
+  return left.value() <= right.value();
 }
 
 inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {

@@ -64,6 +64,24 @@ std::string number_to_string(const double value) noexcept {
   }
 }
 
+std::optional<int_least64_t> parse_integer(const std::string& text) noexcept {
+  char* end = 0;
+  const long long int value = std::strtoll(text.c_str(), &end, 10);
+  if (end != text.c_str() && *end == '\0' && value != LLONG_MAX) {
+    return {static_cast<int_least64_t>(value)};
+  }
+  return std::nullopt;
+}
+
+std::optional<double> parse_real(const std::string& text) noexcept {
+  char* end = 0;
+  const double value = strtod(text.c_str(), &end);
+  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL && value != -HUGE_VAL) {
+    return {value};
+  }
+  return std::nullopt;
+}
+
 void replace(std::string& text, const char from, const char to) noexcept {
   std::replace(text.begin(), text.end(), from, to);
 }
@@ -87,24 +105,6 @@ std::vector<std::string> split_by_whitespace(const std::string& text) noexcept {
   std::istringstream stream{text};
   std::vector<std::string> words{std::istream_iterator<std::string>{stream}, std::istream_iterator<std::string>{}};
   return words;
-}
-
-std::optional<int_least64_t> string_to_integer_number(const std::string& text) noexcept {
-  char* end = 0;
-  const long long int value = std::strtoll(text.c_str(), &end, 10);
-  if (end != text.c_str() && *end == '\0' && value != LLONG_MAX) {
-    return {static_cast<int_least64_t>(value)};
-  }
-  return std::nullopt;
-}
-
-std::optional<double> string_to_real_number(const std::string& text) noexcept {
-  char* end = 0;
-  const double value = strtod(text.c_str(), &end);
-  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL && value != -HUGE_VAL) {
-    return {value};
-  }
-  return std::nullopt;
 }
 
 void uppercase(std::string& text) noexcept {

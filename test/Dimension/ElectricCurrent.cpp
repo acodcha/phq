@@ -12,35 +12,37 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace PhQ::Dimension {
+
 namespace {
 
-TEST(DimensionElectricCurrent, abbreviation) {
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent::abbreviation(), "I");
+TEST(DimensionElectricCurrent, Abbreviation) {
+  EXPECT_EQ(ElectricCurrent::abbreviation(), "I");
 }
 
-TEST(DimensionElectricCurrent, hash) {
-  const PhQ::Dimension::ElectricCurrent object0{-2};
-  const PhQ::Dimension::ElectricCurrent object1{-1};
-  const PhQ::Dimension::ElectricCurrent object2{0};
-  const PhQ::Dimension::ElectricCurrent object3{1};
-  const PhQ::Dimension::ElectricCurrent object4{2};
-  const PhQ::Dimension::ElectricCurrent object5{3};
-  const std::hash<PhQ::Dimension::ElectricCurrent> hasher;
+TEST(DimensionElectricCurrent, Hash) {
+  const ElectricCurrent object0{-2};
+  const ElectricCurrent object1{-1};
+  const ElectricCurrent object2{0};
+  const ElectricCurrent object3{1};
+  const ElectricCurrent object4{2};
+  const ElectricCurrent object5{3};
+  const std::hash<ElectricCurrent> hasher;
   EXPECT_NE(hasher(object0), hasher(object1));
   EXPECT_NE(hasher(object0), hasher(object2));
   EXPECT_NE(hasher(object0), hasher(object3));
   EXPECT_NE(hasher(object0), hasher(object4));
   EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<PhQ::Dimension::ElectricCurrent> unordered_set{object0, object1, object2, object3, object4, object5};
+  const std::unordered_set<ElectricCurrent> unordered{object0, object1, object2, object3, object4, object5};
 }
 
-TEST(DimensionElectricCurrent, label) {
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent::label(), "Electric Current");
+TEST(DimensionElectricCurrent, Label) {
+  EXPECT_EQ(ElectricCurrent::label(), "Electric Current");
 }
 
-TEST(DimensionElectricCurrent, operators) {
-  const PhQ::Dimension::ElectricCurrent object0{-1};
-  const PhQ::Dimension::ElectricCurrent object1{2};
+TEST(DimensionElectricCurrent, Operators) {
+  const ElectricCurrent object0{-1};
+  const ElectricCurrent object1{2};
   EXPECT_EQ(object0, object0);
   EXPECT_NE(object0, object1);
   EXPECT_LT(object0, object1);
@@ -49,37 +51,39 @@ TEST(DimensionElectricCurrent, operators) {
   EXPECT_GT(object1, object0);
   EXPECT_GE(object1, object0);
   EXPECT_GE(object0, object0);
-  const std::set<PhQ::Dimension::ElectricCurrent> increasing{object0, object1};
+  const std::set<ElectricCurrent> increasing{object0, object1};
   EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<PhQ::Dimension::ElectricCurrent, std::greater<PhQ::Dimension::ElectricCurrent>> decreasing{object0, object1};
+  const std::set<ElectricCurrent, std::greater<ElectricCurrent>> decreasing{object0, object1};
   EXPECT_EQ(*decreasing.begin(), object1);
 }
 
-TEST(DimensionElectricCurrent, print) {
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{-2}.print(), "I^(-2)");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{-1}.print(), "I^(-1)");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{0}.print(), "");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{1}.print(), "I");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{2}.print(), "I^2");
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{3}.print(), "I^3");
+TEST(DimensionElectricCurrent, Print) {
+  EXPECT_EQ(ElectricCurrent{}.print(), "");
+  EXPECT_EQ(ElectricCurrent{-2}.print(), "I^(-2)");
+  EXPECT_EQ(ElectricCurrent{-1}.print(), "I^(-1)");
+  EXPECT_EQ(ElectricCurrent{0}.print(), "");
+  EXPECT_EQ(ElectricCurrent{1}.print(), "I");
+  EXPECT_EQ(ElectricCurrent{2}.print(), "I^2");
+  EXPECT_EQ(ElectricCurrent{3}.print(), "I^3");
 }
 
-TEST(DimensionElectricCurrent, stream) {
-  const PhQ::Dimension::ElectricCurrent object{3};
+TEST(DimensionElectricCurrent, Stream) {
+  const ElectricCurrent object{3};
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
 }
 
-TEST(DimensionElectricCurrent, value) {
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{-2}.value(), -2);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{-1}.value(), -1);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{0}.value(), 0);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{1}.value(), 1);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{2}.value(), 2);
-  EXPECT_EQ(PhQ::Dimension::ElectricCurrent{3}.value(), 3);
+TEST(DimensionElectricCurrent, Value) {
+  EXPECT_EQ(ElectricCurrent{}.value(), 0);
+  EXPECT_EQ(ElectricCurrent{-2}.value(), -2);
+  EXPECT_EQ(ElectricCurrent{-1}.value(), -1);
+  EXPECT_EQ(ElectricCurrent{0}.value(), 0);
+  EXPECT_EQ(ElectricCurrent{1}.value(), 1);
+  EXPECT_EQ(ElectricCurrent{2}.value(), 2);
+  EXPECT_EQ(ElectricCurrent{3}.value(), 3);
 }
 
 }  // namespace
+
+}  // namespace PhQ::Dimension
