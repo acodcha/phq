@@ -116,6 +116,10 @@ if(BUILD_TESTING)
   target_link_libraries(dimension_time GTest::gtest_main)
   gtest_discover_tests(dimension_time)
 
+  add_executable(direction ${PROJECT_SOURCE_DIR}/test/Direction.cpp)
+  target_link_libraries(direction GTest::gtest_main)
+  gtest_discover_tests(direction)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)

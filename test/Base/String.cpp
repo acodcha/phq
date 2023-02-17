@@ -26,70 +26,6 @@ TEST(BaseString, LowercaseCopy) {
   EXPECT_EQ(lowercase_copy("AbCd123!?^-_"), "abcd123!?^-_");
 }
 
-TEST(BaseString, NumberToString) {
-  EXPECT_EQ(number_to_string(-12345678.9), "-1.234568e+07");
-  EXPECT_EQ(number_to_string(-10000000.0), "-1.000000e+07");
-  EXPECT_EQ(number_to_string(-1234567.89), "-1.234568e+06");
-  EXPECT_EQ(number_to_string(-1000000.0), "-1.000000e+06");
-  EXPECT_EQ(number_to_string(-123456.789), "-1.234568e+05");
-  EXPECT_EQ(number_to_string(-100000.0), "-1.000000e+05");
-  EXPECT_EQ(number_to_string(-12345.6789), "-1.234568e+04");
-  EXPECT_EQ(number_to_string(-10000.0), "-1.000000e+04");
-  EXPECT_EQ(number_to_string(-1234.56789), "-1234.568");
-  EXPECT_EQ(number_to_string(-1000.0), "-1000.000");
-  EXPECT_EQ(number_to_string(-123.456789), "-123.4568");
-  EXPECT_EQ(number_to_string(-100.0), "-100.0000");
-  EXPECT_EQ(number_to_string(-12.3456789), "-12.34568");
-  EXPECT_EQ(number_to_string(-10.0), "-10.00000");
-  EXPECT_EQ(number_to_string(-1.23456789), "-1.234568");
-  EXPECT_EQ(number_to_string(-1.0), "-1.000000");
-  EXPECT_EQ(number_to_string(-0.123456789), "-0.1234568");
-  EXPECT_EQ(number_to_string(-0.1), "-0.1000000");
-  EXPECT_EQ(number_to_string(-0.0123456789), "-0.01234568");
-  EXPECT_EQ(number_to_string(-0.01), "-0.01000000");
-  EXPECT_EQ(number_to_string(-0.00123456789), "-0.001234568");
-  EXPECT_EQ(number_to_string(-0.001), "-0.001000000");
-  EXPECT_EQ(number_to_string(-0.000123456789), "-1.234568e-04");
-  EXPECT_EQ(number_to_string(-0.0001), "-1.000000e-04");
-  EXPECT_EQ(number_to_string(-0.0000123456789), "-1.234568e-05");
-  EXPECT_EQ(number_to_string(-0.00001), "-1.000000e-05");
-  EXPECT_EQ(number_to_string(-0.00000123456789), "-1.234568e-06");
-  EXPECT_EQ(number_to_string(-0.000001), "-1.000000e-06");
-  EXPECT_EQ(number_to_string(-0.000000123456789), "-1.234568e-07");
-  EXPECT_EQ(number_to_string(-0.0000001), "-1.000000e-07");
-  EXPECT_EQ(number_to_string(0.0), "0");
-  EXPECT_EQ(number_to_string(0.0000001), "1.000000e-07");
-  EXPECT_EQ(number_to_string(0.000000123456789), "1.234568e-07");
-  EXPECT_EQ(number_to_string(0.000001), "1.000000e-06");
-  EXPECT_EQ(number_to_string(0.00000123456789), "1.234568e-06");
-  EXPECT_EQ(number_to_string(0.00001), "1.000000e-05");
-  EXPECT_EQ(number_to_string(0.0000123456789), "1.234568e-05");
-  EXPECT_EQ(number_to_string(0.0001), "1.000000e-04");
-  EXPECT_EQ(number_to_string(0.000123456789), "1.234568e-04");
-  EXPECT_EQ(number_to_string(0.001), "0.001000000");
-  EXPECT_EQ(number_to_string(0.00123456789), "0.001234568");
-  EXPECT_EQ(number_to_string(0.01), "0.01000000");
-  EXPECT_EQ(number_to_string(0.0123456789), "0.01234568");
-  EXPECT_EQ(number_to_string(0.1), "0.1000000");
-  EXPECT_EQ(number_to_string(0.123456789), "0.1234568");
-  EXPECT_EQ(number_to_string(1.0), "1.000000");
-  EXPECT_EQ(number_to_string(1.23456789), "1.234568");
-  EXPECT_EQ(number_to_string(10.0), "10.00000");
-  EXPECT_EQ(number_to_string(12.3456789), "12.34568");
-  EXPECT_EQ(number_to_string(100.0), "100.0000");
-  EXPECT_EQ(number_to_string(123.456789), "123.4568");
-  EXPECT_EQ(number_to_string(1000.0), "1000.000");
-  EXPECT_EQ(number_to_string(1234.56789), "1234.568");
-  EXPECT_EQ(number_to_string(10000.0), "1.000000e+04");
-  EXPECT_EQ(number_to_string(12345.6789), "1.234568e+04");
-  EXPECT_EQ(number_to_string(100000.0), "1.000000e+05");
-  EXPECT_EQ(number_to_string(123456.789), "1.234568e+05");
-  EXPECT_EQ(number_to_string(1000000.0), "1.000000e+06");
-  EXPECT_EQ(number_to_string(1234567.89), "1.234568e+06");
-  EXPECT_EQ(number_to_string(10000000.0), "1.000000e+07");
-  EXPECT_EQ(number_to_string(12345678.9), "1.234568e+07");
-}
-
 TEST(BaseString, ParseInteger) {
   EXPECT_EQ(parse_integer(""), std::nullopt);
   EXPECT_EQ(parse_integer("-Inf"), std::nullopt);
@@ -111,6 +47,70 @@ TEST(BaseString, ParseReal) {
   EXPECT_EQ(parse_real("1.0e10000"), std::nullopt);
   EXPECT_EQ(parse_real("Inf"), std::nullopt);
   EXPECT_EQ(parse_real("NaN"), std::nullopt);
+}
+
+TEST(BaseString, Print) {
+  EXPECT_EQ(print(-12345678.9), "-1.234568e+07");
+  EXPECT_EQ(print(-10000000.0), "-1.000000e+07");
+  EXPECT_EQ(print(-1234567.89), "-1.234568e+06");
+  EXPECT_EQ(print(-1000000.0), "-1.000000e+06");
+  EXPECT_EQ(print(-123456.789), "-1.234568e+05");
+  EXPECT_EQ(print(-100000.0), "-1.000000e+05");
+  EXPECT_EQ(print(-12345.6789), "-1.234568e+04");
+  EXPECT_EQ(print(-10000.0), "-1.000000e+04");
+  EXPECT_EQ(print(-1234.56789), "-1234.568");
+  EXPECT_EQ(print(-1000.0), "-1000.000");
+  EXPECT_EQ(print(-123.456789), "-123.4568");
+  EXPECT_EQ(print(-100.0), "-100.0000");
+  EXPECT_EQ(print(-12.3456789), "-12.34568");
+  EXPECT_EQ(print(-10.0), "-10.00000");
+  EXPECT_EQ(print(-1.23456789), "-1.234568");
+  EXPECT_EQ(print(-1.0), "-1.000000");
+  EXPECT_EQ(print(-0.123456789), "-0.1234568");
+  EXPECT_EQ(print(-0.1), "-0.1000000");
+  EXPECT_EQ(print(-0.0123456789), "-0.01234568");
+  EXPECT_EQ(print(-0.01), "-0.01000000");
+  EXPECT_EQ(print(-0.00123456789), "-0.001234568");
+  EXPECT_EQ(print(-0.001), "-0.001000000");
+  EXPECT_EQ(print(-0.000123456789), "-1.234568e-04");
+  EXPECT_EQ(print(-0.0001), "-1.000000e-04");
+  EXPECT_EQ(print(-0.0000123456789), "-1.234568e-05");
+  EXPECT_EQ(print(-0.00001), "-1.000000e-05");
+  EXPECT_EQ(print(-0.00000123456789), "-1.234568e-06");
+  EXPECT_EQ(print(-0.000001), "-1.000000e-06");
+  EXPECT_EQ(print(-0.000000123456789), "-1.234568e-07");
+  EXPECT_EQ(print(-0.0000001), "-1.000000e-07");
+  EXPECT_EQ(print(0.0), "0");
+  EXPECT_EQ(print(0.0000001), "1.000000e-07");
+  EXPECT_EQ(print(0.000000123456789), "1.234568e-07");
+  EXPECT_EQ(print(0.000001), "1.000000e-06");
+  EXPECT_EQ(print(0.00000123456789), "1.234568e-06");
+  EXPECT_EQ(print(0.00001), "1.000000e-05");
+  EXPECT_EQ(print(0.0000123456789), "1.234568e-05");
+  EXPECT_EQ(print(0.0001), "1.000000e-04");
+  EXPECT_EQ(print(0.000123456789), "1.234568e-04");
+  EXPECT_EQ(print(0.001), "0.001000000");
+  EXPECT_EQ(print(0.00123456789), "0.001234568");
+  EXPECT_EQ(print(0.01), "0.01000000");
+  EXPECT_EQ(print(0.0123456789), "0.01234568");
+  EXPECT_EQ(print(0.1), "0.1000000");
+  EXPECT_EQ(print(0.123456789), "0.1234568");
+  EXPECT_EQ(print(1.0), "1.000000");
+  EXPECT_EQ(print(1.23456789), "1.234568");
+  EXPECT_EQ(print(10.0), "10.00000");
+  EXPECT_EQ(print(12.3456789), "12.34568");
+  EXPECT_EQ(print(100.0), "100.0000");
+  EXPECT_EQ(print(123.456789), "123.4568");
+  EXPECT_EQ(print(1000.0), "1000.000");
+  EXPECT_EQ(print(1234.56789), "1234.568");
+  EXPECT_EQ(print(10000.0), "1.000000e+04");
+  EXPECT_EQ(print(12345.6789), "1.234568e+04");
+  EXPECT_EQ(print(100000.0), "1.000000e+05");
+  EXPECT_EQ(print(123456.789), "1.234568e+05");
+  EXPECT_EQ(print(1000000.0), "1.000000e+06");
+  EXPECT_EQ(print(1234567.89), "1.234568e+06");
+  EXPECT_EQ(print(10000000.0), "1.000000e+07");
+  EXPECT_EQ(print(12345678.9), "1.234568e+07");
 }
 
 TEST(BaseString, Replace) {

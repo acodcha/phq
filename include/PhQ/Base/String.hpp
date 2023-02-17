@@ -30,7 +30,25 @@ std::string lowercase_copy(const std::string_view text) noexcept {
   return result;
 }
 
-std::string number_to_string(const double value) noexcept {
+std::optional<int_least64_t> parse_integer(const std::string& text) noexcept {
+  char* end = 0;
+  const long long int value = std::strtoll(text.c_str(), &end, 10);
+  if (end != text.c_str() && *end == '\0' && value != LLONG_MAX) {
+    return {static_cast<int_least64_t>(value)};
+  }
+  return std::nullopt;
+}
+
+std::optional<double> parse_real(const std::string& text) noexcept {
+  char* end = 0;
+  const double value = strtod(text.c_str(), &end);
+  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL && value != -HUGE_VAL) {
+    return {value};
+  }
+  return std::nullopt;
+}
+
+std::string print(const double value) noexcept {
   if (value == 0.0) {
     return {"0"};
   } else {
@@ -62,24 +80,6 @@ std::string number_to_string(const double value) noexcept {
       return stream.str();
     }
   }
-}
-
-std::optional<int_least64_t> parse_integer(const std::string& text) noexcept {
-  char* end = 0;
-  const long long int value = std::strtoll(text.c_str(), &end, 10);
-  if (end != text.c_str() && *end == '\0' && value != LLONG_MAX) {
-    return {static_cast<int_least64_t>(value)};
-  }
-  return std::nullopt;
-}
-
-std::optional<double> parse_real(const std::string& text) noexcept {
-  char* end = 0;
-  const double value = strtod(text.c_str(), &end);
-  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL && value != -HUGE_VAL) {
-    return {value};
-  }
-  return std::nullopt;
 }
 
 void replace(std::string& text, const char from, const char to) noexcept {
