@@ -193,6 +193,50 @@ public:
     return text;
   }
 
+  std::string yaml() const noexcept {
+    std::string text;
+    if (length_.value() != 0) {
+      text.append(snake_case_copy(length_.label()) + ":" + std::to_string(length_.value()));
+    }
+    if (mass_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(mass_.label()) + ":" + std::to_string(mass_.value()));
+    }
+    if (time_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(time_.label()) + ":" + std::to_string(time_.value()));
+    }
+    if (electric_current_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(electric_current_.label()) + ":" + std::to_string(electric_current_.value()));
+    }
+    if (temperature_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(temperature_.label()) + ":" + std::to_string(temperature_.value()));
+    }
+    if (substance_amount_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(substance_amount_.label()) + ":" + std::to_string(substance_amount_.value()));
+    }
+    if (luminous_intensity_.value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
+      text.append(snake_case_copy(luminous_intensity_.label()) + ":" + std::to_string(luminous_intensity_.value()));
+    }
+    return "{" + text + "}";
+  }
+
 private:
   Length length_;
 

@@ -91,6 +91,11 @@ TEST(DimensionSet, Xml) {
   EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{-1}).xml(), "<mass>1</mass><substance_amount>-1</substance_amount>");
 }
 
+TEST(DimensionSet, Yaml) {
+  EXPECT_EQ(Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1}).yaml(), "{length:2,mass:1,time:-2,temperature:-1}");
+  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{-1}).yaml(), "{mass:1,substance_amount:-1}");
+}
+
 }  // namespace
 
 }  // namespace PhQ::Dimension
