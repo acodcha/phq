@@ -20,6 +20,33 @@ TEST(DimensionMass, Abbreviation) {
   EXPECT_EQ(Mass::abbreviation(), "M");
 }
 
+TEST(DimensionMass, Accessor) {
+  EXPECT_EQ(Mass{}.value(), 0);
+  EXPECT_EQ(Mass{-2}.value(), -2);
+  EXPECT_EQ(Mass{-1}.value(), -1);
+  EXPECT_EQ(Mass{0}.value(), 0);
+  EXPECT_EQ(Mass{1}.value(), 1);
+  EXPECT_EQ(Mass{2}.value(), 2);
+  EXPECT_EQ(Mass{3}.value(), 3);
+}
+
+TEST(DimensionMass, Comparison) {
+  const Mass object0{-1};
+  const Mass object1{2};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<Mass> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<Mass, std::greater<Mass>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
+}
+
 TEST(DimensionMass, Hash) {
   const Mass object0{-2};
   const Mass object1{-1};
@@ -40,23 +67,6 @@ TEST(DimensionMass, Label) {
   EXPECT_EQ(Mass::label(), "Mass");
 }
 
-TEST(DimensionMass, Operators) {
-  const Mass object0{-1};
-  const Mass object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<Mass> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<Mass, std::greater<Mass>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
-}
-
 TEST(DimensionMass, Print) {
   EXPECT_EQ(Mass{}.print(), "");
   EXPECT_EQ(Mass{-2}.print(), "M^(-2)");
@@ -72,16 +82,6 @@ TEST(DimensionMass, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionMass, Value) {
-  EXPECT_EQ(Mass{}.value(), 0);
-  EXPECT_EQ(Mass{-2}.value(), -2);
-  EXPECT_EQ(Mass{-1}.value(), -1);
-  EXPECT_EQ(Mass{0}.value(), 0);
-  EXPECT_EQ(Mass{1}.value(), 1);
-  EXPECT_EQ(Mass{2}.value(), 2);
-  EXPECT_EQ(Mass{3}.value(), 3);
 }
 
 }  // namespace

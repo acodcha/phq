@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(BaseConstant, Constants) {
+TEST(BaseConstant, Value) {
   EXPECT_EQ(Pi, 3.14159265358979323846);
 }
 

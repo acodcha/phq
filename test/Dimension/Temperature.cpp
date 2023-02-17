@@ -20,6 +20,33 @@ TEST(DimensionTemperature, Abbreviation) {
   EXPECT_EQ(Temperature::abbreviation(), "Θ");
 }
 
+TEST(DimensionTemperature, Accessor) {
+  EXPECT_EQ(Temperature{}.value(), 0);
+  EXPECT_EQ(Temperature{-2}.value(), -2);
+  EXPECT_EQ(Temperature{-1}.value(), -1);
+  EXPECT_EQ(Temperature{0}.value(), 0);
+  EXPECT_EQ(Temperature{1}.value(), 1);
+  EXPECT_EQ(Temperature{2}.value(), 2);
+  EXPECT_EQ(Temperature{3}.value(), 3);
+}
+
+TEST(DimensionTemperature, Comparison) {
+  const Temperature object0{-1};
+  const Temperature object1{2};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<Temperature> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<Temperature, std::greater<Temperature>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
+}
+
 TEST(DimensionTemperature, Hash) {
   const Temperature object0{-2};
   const Temperature object1{-1};
@@ -40,23 +67,6 @@ TEST(DimensionTemperature, Label) {
   EXPECT_EQ(Temperature::label(), "Temperature");
 }
 
-TEST(DimensionTemperature, Operators) {
-  const Temperature object0{-1};
-  const Temperature object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<Temperature> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<Temperature, std::greater<Temperature>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
-}
-
 TEST(DimensionTemperature, Print) {
   EXPECT_EQ(Temperature{}.print(), "");
   EXPECT_EQ(Temperature{-2}.print(), "Θ^(-2)");
@@ -72,16 +82,6 @@ TEST(DimensionTemperature, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionTemperature, Value) {
-  EXPECT_EQ(Temperature{}.value(), 0);
-  EXPECT_EQ(Temperature{-2}.value(), -2);
-  EXPECT_EQ(Temperature{-1}.value(), -1);
-  EXPECT_EQ(Temperature{0}.value(), 0);
-  EXPECT_EQ(Temperature{1}.value(), 1);
-  EXPECT_EQ(Temperature{2}.value(), 2);
-  EXPECT_EQ(Temperature{3}.value(), 3);
 }
 
 }  // namespace

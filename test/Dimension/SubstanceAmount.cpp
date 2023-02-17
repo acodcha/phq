@@ -20,6 +20,33 @@ TEST(DimensionSubstanceAmount, Abbreviation) {
   EXPECT_EQ(SubstanceAmount::abbreviation(), "N");
 }
 
+TEST(DimensionSubstanceAmount, Accessor) {
+  EXPECT_EQ(SubstanceAmount{}.value(), 0);
+  EXPECT_EQ(SubstanceAmount{-2}.value(), -2);
+  EXPECT_EQ(SubstanceAmount{-1}.value(), -1);
+  EXPECT_EQ(SubstanceAmount{0}.value(), 0);
+  EXPECT_EQ(SubstanceAmount{1}.value(), 1);
+  EXPECT_EQ(SubstanceAmount{2}.value(), 2);
+  EXPECT_EQ(SubstanceAmount{3}.value(), 3);
+}
+
+TEST(DimensionSubstanceAmount, Comparison) {
+  const SubstanceAmount object0{-1};
+  const SubstanceAmount object1{2};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<SubstanceAmount> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<SubstanceAmount, std::greater<SubstanceAmount>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
+}
+
 TEST(DimensionSubstanceAmount, Hash) {
   const SubstanceAmount object0{-2};
   const SubstanceAmount object1{-1};
@@ -40,23 +67,6 @@ TEST(DimensionSubstanceAmount, Label) {
   EXPECT_EQ(SubstanceAmount::label(), "Substance Amount");
 }
 
-TEST(DimensionSubstanceAmount, Operators) {
-  const SubstanceAmount object0{-1};
-  const SubstanceAmount object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<SubstanceAmount> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<SubstanceAmount, std::greater<SubstanceAmount>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
-}
-
 TEST(DimensionSubstanceAmount, Print) {
   EXPECT_EQ(SubstanceAmount{}.print(), "");
   EXPECT_EQ(SubstanceAmount{-2}.print(), "N^(-2)");
@@ -72,16 +82,6 @@ TEST(DimensionSubstanceAmount, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionSubstanceAmount, Value) {
-  EXPECT_EQ(SubstanceAmount{}.value(), 0);
-  EXPECT_EQ(SubstanceAmount{-2}.value(), -2);
-  EXPECT_EQ(SubstanceAmount{-1}.value(), -1);
-  EXPECT_EQ(SubstanceAmount{0}.value(), 0);
-  EXPECT_EQ(SubstanceAmount{1}.value(), 1);
-  EXPECT_EQ(SubstanceAmount{2}.value(), 2);
-  EXPECT_EQ(SubstanceAmount{3}.value(), 3);
 }
 
 }  // namespace

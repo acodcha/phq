@@ -16,9 +16,32 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionSet, Json) {
-  EXPECT_EQ(Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1}).json(), "{\"length\":2,\"mass\":1,\"time\":-2,\"temperature\":-1}");
-  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{-1}).json(), "{\"mass\":1,\"substance_amount\":-1}");
+TEST(DimensionSet, Accessor) {
+  const Set object{Length{-3}, Mass{-2}, Time{-1}, ElectricCurrent{0}, Temperature{1}, SubstanceAmount{2}, LuminousIntensity{3}};
+  EXPECT_EQ(object.length(), Length{-3});
+  EXPECT_EQ(object.mass(), Mass{-2});
+  EXPECT_EQ(object.time(), Time{-1});
+  EXPECT_EQ(object.electric_current(), ElectricCurrent{0});
+  EXPECT_EQ(object.temperature(), Temperature{1});
+  EXPECT_EQ(object.substance_amount(), SubstanceAmount{2});
+  EXPECT_EQ(object.luminous_intensity(), LuminousIntensity{3});
+}
+
+TEST(DimensionSet, Comparison) {
+  const Set object0{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1}};
+  const Set object1{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{1}};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<Set> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<Set, std::greater<Set>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
 }
 
 TEST(DimensionSet, Hash) {
@@ -40,21 +63,9 @@ TEST(DimensionSet, Hash) {
   const std::unordered_set<Set> unordered{object0, object1, object2, object3, object4, object5, object6, object7};
 }
 
-TEST(DimensionSet, Operators) {
-  const Set object0{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1}};
-  const Set object1{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{1}};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<Set> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<Set, std::greater<Set>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
+TEST(DimensionSet, Json) {
+  EXPECT_EQ(Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1}).json(), "{\"length\":2,\"mass\":1,\"time\":-2,\"temperature\":-1}");
+  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0}, SubstanceAmount{-1}).json(), "{\"mass\":1,\"substance_amount\":-1}");
 }
 
 TEST(DimensionSet, Print) {
@@ -73,17 +84,6 @@ TEST(DimensionSet, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionSet, Value) {
-  const Set object{Length{-3}, Mass{-2}, Time{-1}, ElectricCurrent{0}, Temperature{1}, SubstanceAmount{2}, LuminousIntensity{3}};
-  EXPECT_EQ(object.length(), Length{-3});
-  EXPECT_EQ(object.mass(), Mass{-2});
-  EXPECT_EQ(object.time(), Time{-1});
-  EXPECT_EQ(object.electric_current(), ElectricCurrent{0});
-  EXPECT_EQ(object.temperature(), Temperature{1});
-  EXPECT_EQ(object.substance_amount(), SubstanceAmount{2});
-  EXPECT_EQ(object.luminous_intensity(), LuminousIntensity{3});
 }
 
 TEST(DimensionSet, Xml) {

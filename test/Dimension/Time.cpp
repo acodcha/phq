@@ -20,6 +20,33 @@ TEST(DimensionTime, Abbreviation) {
   EXPECT_EQ(Time::abbreviation(), "T");
 }
 
+TEST(DimensionTime, Accessor) {
+  EXPECT_EQ(Time{}.value(), 0);
+  EXPECT_EQ(Time{-2}.value(), -2);
+  EXPECT_EQ(Time{-1}.value(), -1);
+  EXPECT_EQ(Time{0}.value(), 0);
+  EXPECT_EQ(Time{1}.value(), 1);
+  EXPECT_EQ(Time{2}.value(), 2);
+  EXPECT_EQ(Time{3}.value(), 3);
+}
+
+TEST(DimensionTime, Comparison) {
+  const Time object0{-1};
+  const Time object1{2};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<Time> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<Time, std::greater<Time>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
+}
+
 TEST(DimensionTime, Hash) {
   const Time object0{-2};
   const Time object1{-1};
@@ -40,23 +67,6 @@ TEST(DimensionTime, Label) {
   EXPECT_EQ(Time::label(), "Time");
 }
 
-TEST(DimensionTime, Operators) {
-  const Time object0{-1};
-  const Time object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<Time> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<Time, std::greater<Time>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
-}
-
 TEST(DimensionTime, Print) {
   EXPECT_EQ(Time{}.print(), "");
   EXPECT_EQ(Time{-2}.print(), "T^(-2)");
@@ -72,16 +82,6 @@ TEST(DimensionTime, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionTime, Value) {
-  EXPECT_EQ(Time{}.value(), 0);
-  EXPECT_EQ(Time{-2}.value(), -2);
-  EXPECT_EQ(Time{-1}.value(), -1);
-  EXPECT_EQ(Time{0}.value(), 0);
-  EXPECT_EQ(Time{1}.value(), 1);
-  EXPECT_EQ(Time{2}.value(), 2);
-  EXPECT_EQ(Time{3}.value(), 3);
 }
 
 }  // namespace

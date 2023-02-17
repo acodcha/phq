@@ -20,6 +20,33 @@ TEST(DimensionElectricCurrent, Abbreviation) {
   EXPECT_EQ(ElectricCurrent::abbreviation(), "I");
 }
 
+TEST(DimensionElectricCurrent, Accessor) {
+  EXPECT_EQ(ElectricCurrent{}.value(), 0);
+  EXPECT_EQ(ElectricCurrent{-2}.value(), -2);
+  EXPECT_EQ(ElectricCurrent{-1}.value(), -1);
+  EXPECT_EQ(ElectricCurrent{0}.value(), 0);
+  EXPECT_EQ(ElectricCurrent{1}.value(), 1);
+  EXPECT_EQ(ElectricCurrent{2}.value(), 2);
+  EXPECT_EQ(ElectricCurrent{3}.value(), 3);
+}
+
+TEST(DimensionElectricCurrent, Comparison) {
+  const ElectricCurrent object0{-1};
+  const ElectricCurrent object1{2};
+  EXPECT_EQ(object0, object0);
+  EXPECT_NE(object0, object1);
+  EXPECT_LT(object0, object1);
+  EXPECT_LE(object0, object0);
+  EXPECT_LE(object0, object1);
+  EXPECT_GT(object1, object0);
+  EXPECT_GE(object1, object0);
+  EXPECT_GE(object0, object0);
+  const std::set<ElectricCurrent> increasing{object0, object1};
+  EXPECT_EQ(*increasing.begin(), object0);
+  const std::set<ElectricCurrent, std::greater<ElectricCurrent>> decreasing{object0, object1};
+  EXPECT_EQ(*decreasing.begin(), object1);
+}
+
 TEST(DimensionElectricCurrent, Hash) {
   const ElectricCurrent object0{-2};
   const ElectricCurrent object1{-1};
@@ -40,23 +67,6 @@ TEST(DimensionElectricCurrent, Label) {
   EXPECT_EQ(ElectricCurrent::label(), "Electric Current");
 }
 
-TEST(DimensionElectricCurrent, Operators) {
-  const ElectricCurrent object0{-1};
-  const ElectricCurrent object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<ElectricCurrent> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<ElectricCurrent, std::greater<ElectricCurrent>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
-}
-
 TEST(DimensionElectricCurrent, Print) {
   EXPECT_EQ(ElectricCurrent{}.print(), "");
   EXPECT_EQ(ElectricCurrent{-2}.print(), "I^(-2)");
@@ -72,16 +82,6 @@ TEST(DimensionElectricCurrent, Stream) {
   std::ostringstream output_string_stream;
   output_string_stream << object;
   EXPECT_EQ(output_string_stream.str(), object.print());
-}
-
-TEST(DimensionElectricCurrent, Value) {
-  EXPECT_EQ(ElectricCurrent{}.value(), 0);
-  EXPECT_EQ(ElectricCurrent{-2}.value(), -2);
-  EXPECT_EQ(ElectricCurrent{-1}.value(), -1);
-  EXPECT_EQ(ElectricCurrent{0}.value(), 0);
-  EXPECT_EQ(ElectricCurrent{1}.value(), 1);
-  EXPECT_EQ(ElectricCurrent{2}.value(), 2);
-  EXPECT_EQ(ElectricCurrent{3}.value(), 3);
 }
 
 }  // namespace
