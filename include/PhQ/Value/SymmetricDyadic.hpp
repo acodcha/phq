@@ -68,9 +68,10 @@ public:
   }
 
   constexpr double determinant() const noexcept {
-    return xx_ * (yy_ * zz_ - yz_ * yz_) +
-           xy_ * (xz_ * yz_ - xy_ * zz_) +
-           xz_ * (xy_ * yz_ - xz_ * yy_);
+    return (
+        xx_ * (yy_ * zz_ - yz_ * yz_) +
+        xy_ * (xz_ * yz_ - xy_ * zz_) +
+        xz_ * (xy_ * yz_ - xz_ * yy_));
   }
 
   constexpr SymmetricDyadic transpose() const noexcept {

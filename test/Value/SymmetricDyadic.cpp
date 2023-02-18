@@ -17,8 +17,11 @@ TEST(ValueSymmetricDyadic, Accessor) {
   EXPECT_EQ(value.xx(), 1.11);
   EXPECT_EQ(value.xy(), 2.22);
   EXPECT_EQ(value.xz(), 3.33);
+  EXPECT_EQ(value.yx(), 2.22);
   EXPECT_EQ(value.yy(), 4.44);
   EXPECT_EQ(value.yz(), 5.55);
+  EXPECT_EQ(value.zx(), 3.33);
+  EXPECT_EQ(value.zy(), 5.55);
   EXPECT_EQ(value.zz(), 6.66);
 }
 

@@ -124,6 +124,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
 
+  add_executable(value_dyadic ${PROJECT_SOURCE_DIR}/test/Value/Dyadic.cpp)
+  target_link_libraries(value_dyadic GTest::gtest_main)
+  gtest_discover_tests(value_dyadic)
+
   add_executable(value_symmetric_dyadic ${PROJECT_SOURCE_DIR}/test/Value/SymmetricDyadic.cpp)
   target_link_libraries(value_symmetric_dyadic GTest::gtest_main)
   gtest_discover_tests(value_symmetric_dyadic)
