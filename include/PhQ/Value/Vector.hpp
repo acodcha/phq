@@ -23,6 +23,10 @@ public:
 
   constexpr Vector(double value, const Direction& direction) noexcept : x_(value * direction.x()), y_(value * direction.y()), z_(value * direction.z()) {}
 
+  static constexpr Vector Zero() noexcept {
+    return {0.0, 0.0, 0.0};
+  }
+
   constexpr double x() const noexcept {
     return x_;
   }

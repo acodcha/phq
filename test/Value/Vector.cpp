@@ -120,4 +120,8 @@ TEST(ValueVector, Yaml) {
   EXPECT_EQ(PhQ::Value::Vector(1.0, -2.0, 0.0).yaml(), "{x:1.000000,y:-2.000000,z:0}");
 }
 
+TEST(ValueVector, Zero) {
+  EXPECT_EQ(PhQ::Value::Vector::Zero(), PhQ::Value::Vector(0.0, 0.0, 0.0));
+}
+
 }  // namespace
