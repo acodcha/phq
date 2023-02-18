@@ -13,16 +13,16 @@
 namespace {
 
 TEST(ValueSymmetricDyadic, Accessor) {
-  const PhQ::Value::SymmetricDyadic value{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  EXPECT_EQ(value.xx(), 1.11);
-  EXPECT_EQ(value.xy(), 2.22);
-  EXPECT_EQ(value.xz(), 3.33);
-  EXPECT_EQ(value.yx(), 2.22);
-  EXPECT_EQ(value.yy(), 4.44);
-  EXPECT_EQ(value.yz(), 5.55);
-  EXPECT_EQ(value.zx(), 3.33);
-  EXPECT_EQ(value.zy(), 5.55);
-  EXPECT_EQ(value.zz(), 6.66);
+  const PhQ::Value::SymmetricDyadic symmetric{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  EXPECT_EQ(symmetric.xx(), 1.11);
+  EXPECT_EQ(symmetric.xy(), 2.22);
+  EXPECT_EQ(symmetric.xz(), 3.33);
+  EXPECT_EQ(symmetric.yx(), 2.22);
+  EXPECT_EQ(symmetric.yy(), 4.44);
+  EXPECT_EQ(symmetric.yz(), 5.55);
+  EXPECT_EQ(symmetric.zx(), 3.33);
+  EXPECT_EQ(symmetric.zy(), 5.55);
+  EXPECT_EQ(symmetric.zz(), 6.66);
 }
 
 TEST(ValueSymmetricDyadic, Adjugate) {
@@ -30,30 +30,30 @@ TEST(ValueSymmetricDyadic, Adjugate) {
 }
 
 TEST(ValueSymmetricDyadic, Arithmetic) {
-  const PhQ::Value::SymmetricDyadic value0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(value0 + value0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(value0 - value0, PhQ::Value::SymmetricDyadic(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(value0 * 2.0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(2.0 * value0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(value0 * PhQ::Direction(0.0, -10.0, 0.0), PhQ::Value::Vector(-2.0, -8.0, -16.0));
-  EXPECT_EQ(value0 * PhQ::Value::Vector(1.0, 2.0, 3.0), PhQ::Value::Vector(17.0, 66.0, 132.0));
-  EXPECT_EQ(value0 / 2.0, PhQ::Value::SymmetricDyadic(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
+  const PhQ::Value::SymmetricDyadic symmetric0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  EXPECT_EQ(symmetric0 + symmetric0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  EXPECT_EQ(symmetric0 - symmetric0, PhQ::Value::SymmetricDyadic(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(symmetric0 * 2.0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  EXPECT_EQ(2.0 * symmetric0, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  EXPECT_EQ(symmetric0 * PhQ::Direction(0.0, -10.0, 0.0), PhQ::Value::Vector(-2.0, -8.0, -16.0));
+  EXPECT_EQ(symmetric0 * PhQ::Value::Vector(1.0, 2.0, 3.0), PhQ::Value::Vector(17.0, 66.0, 132.0));
+  EXPECT_EQ(symmetric0 / 2.0, PhQ::Value::SymmetricDyadic(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
 
-  PhQ::Value::SymmetricDyadic value1{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  value1 += PhQ::Value::SymmetricDyadic{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(value1, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  PhQ::Value::SymmetricDyadic symmetric1{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  symmetric1 += PhQ::Value::SymmetricDyadic{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  EXPECT_EQ(symmetric1, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
 
-  PhQ::Value::SymmetricDyadic value2{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  value2 -= PhQ::Value::SymmetricDyadic{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(value2, PhQ::Value::SymmetricDyadic(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  PhQ::Value::SymmetricDyadic symmetric2{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  symmetric2 -= PhQ::Value::SymmetricDyadic{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  EXPECT_EQ(symmetric2, PhQ::Value::SymmetricDyadic(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
-  PhQ::Value::SymmetricDyadic value3{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  value3 *= 2.0;
-  EXPECT_EQ(value3, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  PhQ::Value::SymmetricDyadic symmetric3{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  symmetric3 *= 2.0;
+  EXPECT_EQ(symmetric3, PhQ::Value::SymmetricDyadic(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
 
-  PhQ::Value::SymmetricDyadic value4{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  value4 /= 2.0;
-  EXPECT_EQ(value4, PhQ::Value::SymmetricDyadic(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
+  PhQ::Value::SymmetricDyadic symmetric4{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  symmetric4 /= 2.0;
+  EXPECT_EQ(symmetric4, PhQ::Value::SymmetricDyadic(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
 }
 
 TEST(ValueSymmetricDyadic, Cofactors) {
@@ -61,10 +61,10 @@ TEST(ValueSymmetricDyadic, Cofactors) {
 }
 
 TEST(ValueSymmetricDyadic, Comparison) {
-  const PhQ::Value::SymmetricDyadic value0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const PhQ::Value::SymmetricDyadic value1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
-  EXPECT_EQ(value0, value0);
-  EXPECT_NE(value0, value1);
+  const PhQ::Value::SymmetricDyadic symmetric0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  const PhQ::Value::SymmetricDyadic symmetric1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  EXPECT_EQ(symmetric0, symmetric0);
+  EXPECT_NE(symmetric0, symmetric1);
 }
 
 TEST(ValueSymmetricDyadic, Constructor) {
@@ -76,24 +76,24 @@ TEST(ValueSymmetricDyadic, Determinant) {
 }
 
 TEST(ValueSymmetricDyadic, Hash) {
-  const PhQ::Value::SymmetricDyadic value0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const PhQ::Value::SymmetricDyadic value1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
-  const PhQ::Value::SymmetricDyadic value2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0};
-  const PhQ::Value::SymmetricDyadic value3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const PhQ::Value::SymmetricDyadic value4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const PhQ::Value::SymmetricDyadic value5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  const PhQ::Value::SymmetricDyadic symmetric0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const PhQ::Value::SymmetricDyadic symmetric1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
+  const PhQ::Value::SymmetricDyadic symmetric2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0};
+  const PhQ::Value::SymmetricDyadic symmetric3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const PhQ::Value::SymmetricDyadic symmetric4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  const PhQ::Value::SymmetricDyadic symmetric5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
   const std::hash<PhQ::Value::SymmetricDyadic> hasher;
-  EXPECT_NE(hasher(value0), hasher(value1));
-  EXPECT_NE(hasher(value0), hasher(value2));
-  EXPECT_NE(hasher(value0), hasher(value3));
-  EXPECT_NE(hasher(value0), hasher(value4));
-  EXPECT_NE(hasher(value0), hasher(value5));
-  const std::unordered_set<PhQ::Value::SymmetricDyadic> unordered{value0, value1, value2, value3, value4, value5};
+  EXPECT_NE(hasher(symmetric0), hasher(symmetric1));
+  EXPECT_NE(hasher(symmetric0), hasher(symmetric2));
+  EXPECT_NE(hasher(symmetric0), hasher(symmetric3));
+  EXPECT_NE(hasher(symmetric0), hasher(symmetric4));
+  EXPECT_NE(hasher(symmetric0), hasher(symmetric5));
+  const std::unordered_set<PhQ::Value::SymmetricDyadic> unordered{symmetric0, symmetric1, symmetric2, symmetric3, symmetric4, symmetric5};
 }
 
 TEST(ValueSymmetricDyadic, Inverse) {
-  const PhQ::Value::SymmetricDyadic value{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
-  const PhQ::Value::SymmetricDyadic inverse{value.inverse()};
+  const PhQ::Value::SymmetricDyadic symmetric{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
+  const PhQ::Value::SymmetricDyadic inverse{symmetric.inverse()};
   EXPECT_DOUBLE_EQ(inverse.xx(), 496.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.xy(), -60.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.xz(), -8.0 / 3840.0);
@@ -115,10 +115,10 @@ TEST(ValueSymmetricDyadic, Print) {
 }
 
 TEST(ValueSymmetricDyadic, Stream) {
-  const PhQ::Value::SymmetricDyadic value{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  const PhQ::Value::SymmetricDyadic symmetric{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   std::ostringstream output_string_stream;
-  output_string_stream << value;
-  EXPECT_EQ(output_string_stream.str(), value.print());
+  output_string_stream << symmetric;
+  EXPECT_EQ(output_string_stream.str(), symmetric.print());
 }
 
 TEST(ValueSymmetricDyadic, Trace) {
@@ -126,8 +126,8 @@ TEST(ValueSymmetricDyadic, Trace) {
 }
 
 TEST(ValueSymmetricDyadic, Transpose) {
-  const PhQ::Value::SymmetricDyadic value{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  EXPECT_EQ(value.transpose(), value);
+  const PhQ::Value::SymmetricDyadic symmetric{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  EXPECT_EQ(symmetric.transpose(), symmetric);
 }
 
 TEST(ValueSymmetricDyadic, Xml) {
