@@ -8,16 +8,20 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_TIME_HPP
 
 #include <iostream>
-
-#include "Base.hpp"
+#include <string>
+#include <string_view>
 
 namespace PhQ::Dimension {
 
-class Time : public Base {
+class Time {
 public:
-  constexpr Time() noexcept : Base() {}
+  constexpr Time() noexcept : value_(0) {}
 
-  explicit constexpr Time(const int_least8_t value) noexcept : Base(value) {}
+  explicit constexpr Time(const int_least8_t value) noexcept : value_(value) {}
+
+  inline constexpr int_least8_t value() const noexcept {
+    return value_;
+  }
 
   static std::string_view abbreviation() noexcept {
     return "T";
@@ -27,9 +31,21 @@ public:
     return "Time";
   }
 
-  std::string print() const noexcept override {
-    return Base::print(abbreviation());
+  std::string print() const noexcept {
+    if (value_ == 0) {
+      return {};
+    }
+    std::string text{abbreviation()};
+    if (value_ >= 2) {
+      text.append("^" + std::to_string(value_));
+    } else if (value_ <= -1) {
+      text.append("^(" + std::to_string(value_) + ")");
+    }
+    return text;
   }
+
+private:
+  int_least8_t value_;
 };
 
 inline constexpr bool operator==(const Time& left, const Time& right) noexcept {

@@ -8,16 +8,20 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_TEMPERATURE_HPP
 
 #include <iostream>
-
-#include "Base.hpp"
+#include <string>
+#include <string_view>
 
 namespace PhQ::Dimension {
 
-class Temperature : public Base {
+class Temperature {
 public:
-  constexpr Temperature() noexcept : Base() {}
+  constexpr Temperature() noexcept : value_(0) {}
 
-  explicit constexpr Temperature(const int_least8_t value) noexcept : Base(value) {}
+  explicit constexpr Temperature(const int_least8_t value) noexcept : value_(value) {}
+
+  inline constexpr int_least8_t value() const noexcept {
+    return value_;
+  }
 
   static std::string_view abbreviation() noexcept {
     return "Θ";
@@ -27,9 +31,21 @@ public:
     return "Temperature";
   }
 
-  std::string print() const noexcept override {
-    return Base::print(abbreviation());
+  std::string print() const noexcept {
+    if (value_ == 0) {
+      return {};
+    }
+    std::string text{abbreviation()};
+    if (value_ >= 2) {
+      text.append("^" + std::to_string(value_));
+    } else if (value_ <= -1) {
+      text.append("^(" + std::to_string(value_) + ")");
+    }
+    return text;
   }
+
+private:
+  int_least8_t value_;
 };
 
 inline constexpr bool operator==(const Temperature& left, const Temperature& right) noexcept {
