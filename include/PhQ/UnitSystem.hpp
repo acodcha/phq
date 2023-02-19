@@ -160,9 +160,9 @@ template <typename Unit> const std::map<Unit, UnitSystem> RelatedUnitSystems;
 template <typename Unit> std::optional<UnitSystem> unit_system(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{RelatedUnitSystems<Unit>.find(unit)};
   if (system != RelatedUnitSystems<Unit>.cend()) {
-    return {system->second};
+    return system->second;
   } else {
-    return {};
+    return std::nullopt;
   }
 }
 

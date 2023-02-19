@@ -25,9 +25,9 @@ template <typename Enumeration> const std::unordered_map<std::string, Enumeratio
 template <typename Enumeration> std::optional<Enumeration> parse(const std::string& spelling) noexcept {
   const typename std::unordered_map<std::string, Enumeration>::const_iterator enumeration{Spellings<Enumeration>.find(spelling)};
   if (enumeration != Spellings<Enumeration>.cend()) {
-    return {enumeration->second};
+    return enumeration->second;
   } else {
-    return {};
+    return std::nullopt;
   }
 }
 

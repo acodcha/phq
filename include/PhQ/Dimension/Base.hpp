@@ -14,8 +14,6 @@ namespace PhQ::Dimension {
 
 class Base {
 public:
-  virtual ~Base() = default;
-
   inline constexpr int_least8_t value() const noexcept {
     return value_;
   }

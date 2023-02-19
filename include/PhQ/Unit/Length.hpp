@@ -1,10 +1,11 @@
 // Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
+// This file is part of Physical Quantities (PhQ), a C++ library of physical quantities, physical models, and units of measure for scientific computation.
 // Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 // You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_LENGTH_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_LENGTH_HPP
 
 #include "Base.hpp"
 
@@ -12,7 +13,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Length : uint_least8_t {
+enum class Length : int_least8_t {
   Mile,
   Kilometre,
   Yard,
@@ -29,7 +30,7 @@ enum class Length : uint_least8_t {
 
 } // namespace Unit
 
-template <> const std::map<Unit::Length, std::string> abbreviations<Unit::Length>{
+template <> const std::map<Unit::Length, std::string> Abbreviations<Unit::Length>{
   {Unit::Length::Mile, "mi"},
   {Unit::Length::Kilometre, "km"},
   {Unit::Length::Yard, "yd"},
@@ -44,7 +45,7 @@ template <> const std::map<Unit::Length, std::string> abbreviations<Unit::Length
   {Unit::Length::Microinch, "μin"}
 };
 
-template <> const std::unordered_map<std::string, Unit::Length> spellings<Unit::Length>{
+template <> const std::unordered_map<std::string, Unit::Length> Spellings<Unit::Length>{
   {"mi", Unit::Length::Mile},
   {"mile", Unit::Length::Mile},
   {"miles", Unit::Length::Mile},
@@ -105,25 +106,25 @@ template <> const std::unordered_map<std::string, Unit::Length> spellings<Unit::
   {"microinches", Unit::Length::Microinch}
 };
 
-template <> const std::map<System, Unit::Length> consistent_units<Unit::Length>{
-  {System::MetreKilogramSecondKelvin, Unit::Length::Metre},
-  {System::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
-  {System::FootPoundSecondRankine, Unit::Length::Foot},
-  {System::InchPoundSecondRankine, Unit::Length::Inch}
+template <> const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
+  {UnitSystem::MetreKilogramSecondKelvin, Unit::Length::Metre},
+  {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
+  {UnitSystem::FootPoundSecondRankine, Unit::Length::Foot},
+  {UnitSystem::InchPoundSecondRankine, Unit::Length::Inch}
 };
 
-template <> const std::map<Unit::Length, System> related_systems<Unit::Length>{
-  {Unit::Length::Metre, System::MetreKilogramSecondKelvin},
-  {Unit::Length::Millimetre, System::MillimetreGramSecondKelvin},
-  {Unit::Length::Foot, System::FootPoundSecondRankine},
-  {Unit::Length::Inch, System::InchPoundSecondRankine},
+template <> const std::map<Unit::Length, UnitSystem> RelatedUnitSystems<Unit::Length>{
+  {Unit::Length::Metre, UnitSystem::MetreKilogramSecondKelvin},
+  {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
+  {Unit::Length::Foot, UnitSystem::FootPoundSecondRankine},
+  {Unit::Length::Inch, UnitSystem::InchPoundSecondRankine},
 };
 
-template <> constexpr const Unit::Length standard_unit<Unit::Length>{Unit::Length::Metre};
+template <> constexpr const Unit::Length StandardUnit<Unit::Length>{Unit::Length::Metre};
 
-template <> constexpr const Dimension::Set dimension<Unit::Length>{Dimension::Set{Dimension::Length{1}}};
+template <> constexpr const Dimension::Set Dimensions<Unit::Length>{Dimension::Set{Dimension::Length{1}}};
 
-template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::vector<double>&)>>> conversions<Unit::Length>{
+template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::vector<double>&)>>> Conversions<Unit::Length>{
   {Unit::Length::Mile, {
     {Unit::Length::Mile, [](std::vector<double>& values)->void{}},
     {Unit::Length::Kilometre, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 1.609344;});}},
@@ -295,3 +296,5 @@ template <> const std::map<Unit::Length, std::map<Unit::Length, std::function<vo
 };
 
 } // namespace PhQ
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_LENGTH_HPP

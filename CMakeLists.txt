@@ -120,6 +120,10 @@ if(BUILD_TESTING)
   target_link_libraries(direction GTest::gtest_main)
   gtest_discover_tests(direction)
 
+  add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
+  target_link_libraries(unit_length GTest::gtest_main)
+  gtest_discover_tests(unit_length)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
