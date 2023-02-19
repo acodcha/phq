@@ -43,25 +43,25 @@ TEST(Direction, Constructor) {
 
 TEST(Direction, Cross) {
   EXPECT_EQ(
-      PhQ::Direction(10.0, 0.0, 0.0).cross(PhQ::Direction(0.0, 20.0, 0.0)),
+      PhQ::Direction(10.0, 0.0, 0.0).Cross(PhQ::Direction(0.0, 20.0, 0.0)),
       PhQ::Direction(0.0, 0.0, 30.0));
 }
 
 TEST(Direction, Dot) {
   EXPECT_EQ(
-      PhQ::Direction(1.23, 4.56, 7.89).dot(PhQ::Direction(1.23, 4.56, 7.89)),
+      PhQ::Direction(1.23, 4.56, 7.89).Dot(PhQ::Direction(1.23, 4.56, 7.89)),
       1.0);
   EXPECT_EQ(
-      PhQ::Direction(0.0, 10.0, -15.0).dot(PhQ::Direction(20.0, 0.0, 0.0)),
+      PhQ::Direction(0.0, 10.0, -15.0).Dot(PhQ::Direction(20.0, 0.0, 0.0)),
       0.0);
   EXPECT_EQ(
-      PhQ::Direction(1.23, 4.56, 7.89).dot(PhQ::Direction(-1.23, -4.56, -7.89)),
+      PhQ::Direction(1.23, 4.56, 7.89).Dot(PhQ::Direction(-1.23, -4.56, -7.89)),
       -1.0);
   EXPECT_LT(
-      PhQ::Direction(1.11, 2.22, 3.33).dot(PhQ::Direction(1.99, 2.88, 3.77)),
+      PhQ::Direction(1.11, 2.22, 3.33).Dot(PhQ::Direction(1.99, 2.88, 3.77)),
       1.0);
   EXPECT_GT(
-      PhQ::Direction(1.11, 2.22, 3.33).dot(PhQ::Direction(1.99, 2.88, 3.77)),
+      PhQ::Direction(1.11, 2.22, 3.33).Dot(PhQ::Direction(1.99, 2.88, 3.77)),
       0.0);
 }
 
@@ -83,34 +83,34 @@ TEST(Direction, Hash) {
 }
 
 TEST(Direction, Json) {
-  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).json(),
+  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).Json(),
             "{\"x\":0,\"y\":-1.000000,\"z\":0}");
 }
 
 TEST(Direction, Magnitude) {
-  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).magnitude(), 1.0);
-  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).magnitude_squared(), 1.0);
+  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).Magnitude(), 1.0);
+  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).MagnitudeSquared(), 1.0);
 }
 
 TEST(Direction, Print) {
-  EXPECT_EQ(PhQ::Direction{}.print(), "(1.000000, 0, 0)");
-  EXPECT_EQ(PhQ::Direction(0.0, 0.0, -10.0).print(), "(0, 0, -1.000000)");
+  EXPECT_EQ(PhQ::Direction{}.Print(), "(1.000000, 0, 0)");
+  EXPECT_EQ(PhQ::Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000)");
 }
 
 TEST(Direction, Stream) {
   const PhQ::Direction direction{1.23, 4.56, 7.89};
   std::ostringstream stream;
   stream << direction;
-  EXPECT_EQ(stream.str(), direction.print());
+  EXPECT_EQ(stream.str(), direction.Print());
 }
 
 TEST(Direction, Xml) {
-  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).xml(),
+  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).Xml(),
             "<x>0</x><y>-1.000000</y><z>0</z>");
 }
 
 TEST(Direction, Yaml) {
-  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).yaml(), "{x:0,y:-1.000000,z:0}");
+  EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).Yaml(), "{x:0,y:-1.000000,z:0}");
 }
 
 }  // namespace

@@ -25,16 +25,16 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionLength, Abbreviation) { EXPECT_EQ(Length::abbreviation(), "L"); }
+TEST(DimensionLength, Abbreviation) { EXPECT_EQ(Length::Abbreviation(), "L"); }
 
 TEST(DimensionLength, Accessor) {
-  EXPECT_EQ(Length{}.value(), 0);
-  EXPECT_EQ(Length{-2}.value(), -2);
-  EXPECT_EQ(Length{-1}.value(), -1);
-  EXPECT_EQ(Length{0}.value(), 0);
-  EXPECT_EQ(Length{1}.value(), 1);
-  EXPECT_EQ(Length{2}.value(), 2);
-  EXPECT_EQ(Length{3}.value(), 3);
+  EXPECT_EQ(Length{}.Value(), 0);
+  EXPECT_EQ(Length{-2}.Value(), -2);
+  EXPECT_EQ(Length{-1}.Value(), -1);
+  EXPECT_EQ(Length{0}.Value(), 0);
+  EXPECT_EQ(Length{1}.Value(), 1);
+  EXPECT_EQ(Length{2}.Value(), 2);
+  EXPECT_EQ(Length{3}.Value(), 3);
 }
 
 TEST(DimensionLength, Comparison) {
@@ -71,23 +71,23 @@ TEST(DimensionLength, Hash) {
                                              length3, length4, length5};
 }
 
-TEST(DimensionLength, Label) { EXPECT_EQ(Length::label(), "Length"); }
+TEST(DimensionLength, Label) { EXPECT_EQ(Length::Label(), "Length"); }
 
 TEST(DimensionLength, Print) {
-  EXPECT_EQ(Length{}.print(), "");
-  EXPECT_EQ(Length{-2}.print(), "L^(-2)");
-  EXPECT_EQ(Length{-1}.print(), "L^(-1)");
-  EXPECT_EQ(Length{0}.print(), "");
-  EXPECT_EQ(Length{1}.print(), "L");
-  EXPECT_EQ(Length{2}.print(), "L^2");
-  EXPECT_EQ(Length{3}.print(), "L^3");
+  EXPECT_EQ(Length{}.Print(), "");
+  EXPECT_EQ(Length{-2}.Print(), "L^(-2)");
+  EXPECT_EQ(Length{-1}.Print(), "L^(-1)");
+  EXPECT_EQ(Length{0}.Print(), "");
+  EXPECT_EQ(Length{1}.Print(), "L");
+  EXPECT_EQ(Length{2}.Print(), "L^2");
+  EXPECT_EQ(Length{3}.Print(), "L^3");
 }
 
 TEST(DimensionLength, Stream) {
   const Length length{3};
   std::ostringstream stream;
   stream << length;
-  EXPECT_EQ(stream.str(), length.print());
+  EXPECT_EQ(stream.str(), length.Print());
 }
 
 }  // namespace

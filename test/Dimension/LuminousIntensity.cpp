@@ -26,17 +26,17 @@ namespace PhQ::Dimension {
 namespace {
 
 TEST(DimensionLuminousIntensity, Abbreviation) {
-  EXPECT_EQ(LuminousIntensity::abbreviation(), "J");
+  EXPECT_EQ(LuminousIntensity::Abbreviation(), "J");
 }
 
 TEST(DimensionLuminousIntensity, Accessor) {
-  EXPECT_EQ(LuminousIntensity{}.value(), 0);
-  EXPECT_EQ(LuminousIntensity{-2}.value(), -2);
-  EXPECT_EQ(LuminousIntensity{-1}.value(), -1);
-  EXPECT_EQ(LuminousIntensity{0}.value(), 0);
-  EXPECT_EQ(LuminousIntensity{1}.value(), 1);
-  EXPECT_EQ(LuminousIntensity{2}.value(), 2);
-  EXPECT_EQ(LuminousIntensity{3}.value(), 3);
+  EXPECT_EQ(LuminousIntensity{}.Value(), 0);
+  EXPECT_EQ(LuminousIntensity{-2}.Value(), -2);
+  EXPECT_EQ(LuminousIntensity{-1}.Value(), -1);
+  EXPECT_EQ(LuminousIntensity{0}.Value(), 0);
+  EXPECT_EQ(LuminousIntensity{1}.Value(), 1);
+  EXPECT_EQ(LuminousIntensity{2}.Value(), 2);
+  EXPECT_EQ(LuminousIntensity{3}.Value(), 3);
 }
 
 TEST(DimensionLuminousIntensity, Comparison) {
@@ -75,24 +75,24 @@ TEST(DimensionLuminousIntensity, Hash) {
 }
 
 TEST(DimensionLuminousIntensity, Label) {
-  EXPECT_EQ(LuminousIntensity::label(), "Luminous Intensity");
+  EXPECT_EQ(LuminousIntensity::Label(), "Luminous Intensity");
 }
 
 TEST(DimensionLuminousIntensity, Print) {
-  EXPECT_EQ(LuminousIntensity{}.print(), "");
-  EXPECT_EQ(LuminousIntensity{-2}.print(), "J^(-2)");
-  EXPECT_EQ(LuminousIntensity{-1}.print(), "J^(-1)");
-  EXPECT_EQ(LuminousIntensity{0}.print(), "");
-  EXPECT_EQ(LuminousIntensity{1}.print(), "J");
-  EXPECT_EQ(LuminousIntensity{2}.print(), "J^2");
-  EXPECT_EQ(LuminousIntensity{3}.print(), "J^3");
+  EXPECT_EQ(LuminousIntensity{}.Print(), "");
+  EXPECT_EQ(LuminousIntensity{-2}.Print(), "J^(-2)");
+  EXPECT_EQ(LuminousIntensity{-1}.Print(), "J^(-1)");
+  EXPECT_EQ(LuminousIntensity{0}.Print(), "");
+  EXPECT_EQ(LuminousIntensity{1}.Print(), "J");
+  EXPECT_EQ(LuminousIntensity{2}.Print(), "J^2");
+  EXPECT_EQ(LuminousIntensity{3}.Print(), "J^3");
 }
 
 TEST(DimensionLuminousIntensity, Stream) {
   const LuminousIntensity intensity{3};
   std::ostringstream stream;
   stream << intensity;
-  EXPECT_EQ(stream.str(), intensity.print());
+  EXPECT_EQ(stream.str(), intensity.Print());
 }
 
 }  // namespace

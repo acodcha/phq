@@ -37,7 +37,7 @@ TEST(ValueSymmetricDyad, Accessor) {
 }
 
 TEST(ValueSymmetricDyad, Adjugate) {
-  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).adjugate(),
+  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Adjugate(),
             Value::SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
@@ -76,7 +76,7 @@ TEST(ValueSymmetricDyad, Arithmetic) {
 }
 
 TEST(ValueSymmetricDyad, Cofactors) {
-  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).cofactors(),
+  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Cofactors(),
             Value::SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
@@ -94,7 +94,7 @@ TEST(ValueSymmetricDyad, Constructor) {
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
-  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).determinant(),
+  EXPECT_EQ(Value::SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Determinant(),
             3840.0);
 }
 
@@ -117,7 +117,7 @@ TEST(ValueSymmetricDyad, Hash) {
 
 TEST(ValueSymmetricDyad, Inverse) {
   const Value::SymmetricDyad symdyad{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
-  const Value::SymmetricDyad inverse{symdyad.inverse()};
+  const Value::SymmetricDyad inverse{symdyad.Inverse()};
   EXPECT_DOUBLE_EQ(inverse.xx(), 496.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.xy(), -60.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.xz(), -8.0 / 3840.0);
@@ -128,17 +128,17 @@ TEST(ValueSymmetricDyad, Inverse) {
 
 TEST(ValueSymmetricDyad, IsSymmetric) {
   EXPECT_TRUE(
-      Value::SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66).is_symmetric());
+      Value::SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66).IsSymmetric());
 }
 
 TEST(ValueSymmetricDyad, Json) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).json(),
+  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Json(),
             "{\"xx\":1.000000,\"xy\":-2.000000,\"xz\":4.000000,\"yy\":0,\"yz\":"
             "-4.000000,\"zz\":0}");
 }
 
 TEST(ValueSymmetricDyad, Print) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).print(),
+  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(),
             "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
 }
 
@@ -146,26 +146,26 @@ TEST(ValueSymmetricDyad, Stream) {
   const Value::SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   std::ostringstream stream;
   stream << symdyad;
-  EXPECT_EQ(stream.str(), symdyad.print());
+  EXPECT_EQ(stream.str(), symdyad.Print());
 }
 
 TEST(ValueSymmetricDyad, Trace) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0).trace(), 41.0);
+  EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0).Trace(), 41.0);
 }
 
 TEST(ValueSymmetricDyad, Transpose) {
   const Value::SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  EXPECT_EQ(symdyad.transpose(), symdyad);
+  EXPECT_EQ(symdyad.Transpose(), symdyad);
 }
 
 TEST(ValueSymmetricDyad, Xml) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).xml(),
+  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Xml(),
             "<xx>1.000000</xx><xy>-2.000000</xy><xz>4.000000</xz><yy>0</"
             "yy><yz>-4.000000</yz><zz>0</zz>");
 }
 
 TEST(ValueSymmetricDyad, Yaml) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).yaml(),
+  EXPECT_EQ(Value::SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Yaml(),
             "{xx:1.000000,xy:-2.000000,xz:4.000000,yy:0,yz:-4.000000,zz:0}");
 }
 

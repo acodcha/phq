@@ -29,13 +29,13 @@ TEST(DimensionSet, Accessor) {
   const Set set{Length{-3},          Mass{-2},       Time{-1},
                 ElectricCurrent{0},  Temperature{1}, SubstanceAmount{2},
                 LuminousIntensity{3}};
-  EXPECT_EQ(set.length(), Length{-3});
-  EXPECT_EQ(set.mass(), Mass{-2});
-  EXPECT_EQ(set.time(), Time{-1});
-  EXPECT_EQ(set.electric_current(), ElectricCurrent{0});
-  EXPECT_EQ(set.temperature(), Temperature{1});
-  EXPECT_EQ(set.substance_amount(), SubstanceAmount{2});
-  EXPECT_EQ(set.luminous_intensity(), LuminousIntensity{3});
+  EXPECT_EQ(set.Length(), Length{-3});
+  EXPECT_EQ(set.Mass(), Mass{-2});
+  EXPECT_EQ(set.Time(), Time{-1});
+  EXPECT_EQ(set.ElectricCurrent(), ElectricCurrent{0});
+  EXPECT_EQ(set.Temperature(), Temperature{1});
+  EXPECT_EQ(set.SubstanceAmount(), SubstanceAmount{2});
+  EXPECT_EQ(set.LuminousIntensity(), LuminousIntensity{3});
 }
 
 TEST(DimensionSet, Comparison) {
@@ -84,32 +84,32 @@ TEST(DimensionSet, Hash) {
 TEST(DimensionSet, Json) {
   EXPECT_EQ(
       Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
-          .json(),
+          .Json(),
       "{\"length\":2,\"mass\":1,\"time\":-2,\"temperature\":-1}");
   EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .json(),
+                .Json(),
             "{\"mass\":1,\"substance_amount\":-1}");
 }
 
 TEST(DimensionSet, Print) {
-  EXPECT_EQ(Set{}.print(), "1");
-  EXPECT_EQ(Set{Length{2}}.print(), "L^2");
-  EXPECT_EQ(Set(Length{-3}, Mass{1}).print(), "L^(-3)·M");
-  EXPECT_EQ(Set(Length{3}, Mass{0}, Time{-1}).print(), "L^3·T^(-1)");
-  EXPECT_EQ(Set(Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}).print(),
+  EXPECT_EQ(Set{}.Print(), "1");
+  EXPECT_EQ(Set{Length{2}}.Print(), "L^2");
+  EXPECT_EQ(Set(Length{-3}, Mass{1}).Print(), "L^(-3)·M");
+  EXPECT_EQ(Set(Length{3}, Mass{0}, Time{-1}).Print(), "L^3·T^(-1)");
+  EXPECT_EQ(Set(Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}).Print(),
             "L^(-2)·M^(-1)·T^2·I");
   EXPECT_EQ(
       Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
-          .print(),
+          .Print(),
       "L^2·M·T^(-2)·Θ^(-1)");
   EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .print(),
+                .Print(),
             "M·N^(-1)");
   EXPECT_EQ(Set(Length{0}, Mass{0}, Time{0}, ElectricCurrent{0},
                 Temperature{-1}, SubstanceAmount{0}, LuminousIntensity{1})
-                .print(),
+                .Print(),
             "Θ^(-1)·J");
 }
 
@@ -117,29 +117,29 @@ TEST(DimensionSet, Stream) {
   const Set set{Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}};
   std::ostringstream stream;
   stream << set;
-  EXPECT_EQ(stream.str(), set.print());
+  EXPECT_EQ(stream.str(), set.Print());
 }
 
 TEST(DimensionSet, Xml) {
   EXPECT_EQ(
       Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
-          .xml(),
+          .Xml(),
       "<length>2</length><mass>1</mass><time>-2</time><temperature>-1</"
       "temperature>");
   EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .xml(),
+                .Xml(),
             "<mass>1</mass><substance_amount>-1</substance_amount>");
 }
 
 TEST(DimensionSet, Yaml) {
   EXPECT_EQ(
       Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
-          .yaml(),
+          .Yaml(),
       "{length:2,mass:1,time:-2,temperature:-1}");
   EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .yaml(),
+                .Yaml(),
             "{mass:1,substance_amount:-1}");
 }
 

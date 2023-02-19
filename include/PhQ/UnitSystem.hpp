@@ -160,23 +160,24 @@ const std::unordered_map<std::string, UnitSystem> Spellings<UnitSystem>{
 template <typename Unit>
 const std::map<UnitSystem, Unit> ConsistentUnits;
 
-/// \brief Obtain a unit of a given type from a unit system.
+/// \brief Returns the unit of a given type that corresponds to a given unit
+/// system.
 /// \details For example,
-/// PhQ::unit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin) returns
+/// PhQ::GetUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin) returns
 /// PhQ::Unit::Force::Newton.
 template <typename Unit>
-constexpr Unit unit(const UnitSystem& system) noexcept {
+constexpr Unit GetUnit(const UnitSystem& system) noexcept {
   return ConsistentUnits<Unit>.at(system);
 }
 
 template <typename Unit>
 const std::map<Unit, UnitSystem> RelatedUnitSystems;
 
-/// \brief Obtain a unit system, if one exists, from a unit.
-/// \details For example, PhQ::unit_system(PhQ::Unit::Length::Millimetre)
+/// \brief Returns the unit system, if any, that corresponds to a given unit.
+/// \details For example, PhQ::GetUnitSystem(PhQ::Unit::Length::Millimetre)
 /// returns PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template <typename Unit>
-std::optional<UnitSystem> unit_system(const Unit& unit) noexcept {
+std::optional<UnitSystem> GetUnitSystem(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
       RelatedUnitSystems<Unit>.find(unit)};
   if (system != RelatedUnitSystems<Unit>.cend()) {

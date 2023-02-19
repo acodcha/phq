@@ -26,17 +26,17 @@ namespace PhQ::Dimension {
 namespace {
 
 TEST(DimensionSubstanceAmount, Abbreviation) {
-  EXPECT_EQ(SubstanceAmount::abbreviation(), "N");
+  EXPECT_EQ(SubstanceAmount::Abbreviation(), "N");
 }
 
 TEST(DimensionSubstanceAmount, Accessor) {
-  EXPECT_EQ(SubstanceAmount{}.value(), 0);
-  EXPECT_EQ(SubstanceAmount{-2}.value(), -2);
-  EXPECT_EQ(SubstanceAmount{-1}.value(), -1);
-  EXPECT_EQ(SubstanceAmount{0}.value(), 0);
-  EXPECT_EQ(SubstanceAmount{1}.value(), 1);
-  EXPECT_EQ(SubstanceAmount{2}.value(), 2);
-  EXPECT_EQ(SubstanceAmount{3}.value(), 3);
+  EXPECT_EQ(SubstanceAmount{}.Value(), 0);
+  EXPECT_EQ(SubstanceAmount{-2}.Value(), -2);
+  EXPECT_EQ(SubstanceAmount{-1}.Value(), -1);
+  EXPECT_EQ(SubstanceAmount{0}.Value(), 0);
+  EXPECT_EQ(SubstanceAmount{1}.Value(), 1);
+  EXPECT_EQ(SubstanceAmount{2}.Value(), 2);
+  EXPECT_EQ(SubstanceAmount{3}.Value(), 3);
 }
 
 TEST(DimensionSubstanceAmount, Comparison) {
@@ -75,24 +75,24 @@ TEST(DimensionSubstanceAmount, Hash) {
 }
 
 TEST(DimensionSubstanceAmount, Label) {
-  EXPECT_EQ(SubstanceAmount::label(), "Substance Amount");
+  EXPECT_EQ(SubstanceAmount::Label(), "Substance Amount");
 }
 
 TEST(DimensionSubstanceAmount, Print) {
-  EXPECT_EQ(SubstanceAmount{}.print(), "");
-  EXPECT_EQ(SubstanceAmount{-2}.print(), "N^(-2)");
-  EXPECT_EQ(SubstanceAmount{-1}.print(), "N^(-1)");
-  EXPECT_EQ(SubstanceAmount{0}.print(), "");
-  EXPECT_EQ(SubstanceAmount{1}.print(), "N");
-  EXPECT_EQ(SubstanceAmount{2}.print(), "N^2");
-  EXPECT_EQ(SubstanceAmount{3}.print(), "N^3");
+  EXPECT_EQ(SubstanceAmount{}.Print(), "");
+  EXPECT_EQ(SubstanceAmount{-2}.Print(), "N^(-2)");
+  EXPECT_EQ(SubstanceAmount{-1}.Print(), "N^(-1)");
+  EXPECT_EQ(SubstanceAmount{0}.Print(), "");
+  EXPECT_EQ(SubstanceAmount{1}.Print(), "N");
+  EXPECT_EQ(SubstanceAmount{2}.Print(), "N^2");
+  EXPECT_EQ(SubstanceAmount{3}.Print(), "N^3");
 }
 
 TEST(DimensionSubstanceAmount, Stream) {
   const SubstanceAmount amount{3};
   std::ostringstream stream;
   stream << amount;
-  EXPECT_EQ(stream.str(), amount.print());
+  EXPECT_EQ(stream.str(), amount.Print());
 }
 
 }  // namespace

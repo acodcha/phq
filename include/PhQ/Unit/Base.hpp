@@ -33,64 +33,61 @@ const std::map<Unit, std::map<Unit, std::function<void(std::vector<double>&)>>>
     Conversions;
 
 template <typename Unit>
-double convert(const double value, const Unit old_unit,
+double Convert(const double value, const Unit old_unit,
                const Unit new_unit) noexcept {
-  if (old_unit != new_unit) {
-    std::vector<double> value_vector{value};
-    Conversions<Unit>.find(old_unit)->second.find(new_unit)->second(
-        value_vector);
-    return value_vector[0];
-  } else {
+  if (old_unit == new_unit) {
     return value;
   }
+  std::vector<double> value_vector{value};
+  Conversions<Unit>.find(old_unit)->second.find(new_unit)->second(value_vector);
+  return value_vector[0];
 }
 
 template <typename Unit>
-double convert(const double value, const Unit old_unit,
+double Convert(const double value, const Unit old_unit,
                const UnitSystem new_unit_system) noexcept {
-  return convert<Unit>(value, old_unit, unit<Unit>(new_unit_system));
+  return Convert<Unit>(value, old_unit, GetUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
-std::vector<double> convert(const std::vector<double>& values,
+std::vector<double> Convert(const std::vector<double>& values,
                             const Unit old_unit, const Unit new_unit) noexcept {
-  if (old_unit != new_unit) {
-    std::vector<double> new_values{values};
-    Conversions<Unit>.find(old_unit)->second.find(new_unit)->second(new_values);
-    return new_values;
-  } else {
+  if (old_unit == new_unit) {
     return values;
   }
+  std::vector<double> new_values{values};
+  Conversions<Unit>.find(old_unit)->second.find(new_unit)->second(new_values);
+  return new_values;
 }
 
 template <typename Unit>
-std::vector<double> convert(const std::vector<double>& values,
+std::vector<double> Convert(const std::vector<double>& values,
                             const Unit old_unit,
                             const UnitSystem new_unit_system) noexcept {
-  return convert<Unit>(values, old_unit, unit<Unit>(new_unit_system));
+  return Convert<Unit>(values, old_unit, GetUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
-Value::Vector convert(const Value::Vector& values, const Unit old_unit,
+Value::Vector Convert(const Value::Vector& values, const Unit old_unit,
                       const Unit new_unit) noexcept {
   const std::vector<double> values_vector{
-      convert(std::vector<double>{values.x(), values.y(), values.z()}, old_unit,
+      Convert(std::vector<double>{values.x(), values.y(), values.z()}, old_unit,
               new_unit)};
   return {values_vector[0], values_vector[1], values_vector[2]};
 }
 
 template <typename Unit>
-Value::Vector convert(const Value::Vector& values, const Unit old_unit,
+Value::Vector Convert(const Value::Vector& values, const Unit old_unit,
                       const UnitSystem new_unit_system) noexcept {
-  return convert(values, old_unit, unit<Unit>(new_unit_system));
+  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
-Value::SymmetricDyad convert(const Value::SymmetricDyad& values,
+Value::SymmetricDyad Convert(const Value::SymmetricDyad& values,
                              const Unit old_unit,
                              const Unit new_unit) noexcept {
   const std::vector<double> values_vector{
-      convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
+      Convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
                                   values.yy(), values.yz(), values.zz()},
               old_unit, new_unit)};
   return {values_vector[0], values_vector[1], values_vector[2],
@@ -98,17 +95,17 @@ Value::SymmetricDyad convert(const Value::SymmetricDyad& values,
 }
 
 template <typename Unit>
-Value::SymmetricDyad convert(const Value::SymmetricDyad& values,
+Value::SymmetricDyad Convert(const Value::SymmetricDyad& values,
                              const Unit old_unit,
                              const UnitSystem new_unit_system) noexcept {
-  return convert(values, old_unit, unit<Unit>(new_unit_system));
+  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
-Value::Dyad convert(const Value::Dyad& values, const Unit old_unit,
+Value::Dyad Convert(const Value::Dyad& values, const Unit old_unit,
                     const Unit new_unit) noexcept {
   const std::vector<double> values_vector{
-      convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
+      Convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
                                   values.yx(), values.yy(), values.yz(),
                                   values.zx(), values.zy(), values.zz()},
               old_unit, new_unit)};
@@ -118,9 +115,9 @@ Value::Dyad convert(const Value::Dyad& values, const Unit old_unit,
 }
 
 template <typename Unit>
-Value::Dyad convert(const Value::Dyad& values, const Unit old_unit,
+Value::Dyad Convert(const Value::Dyad& values, const Unit old_unit,
                     const UnitSystem new_unit_system) noexcept {
-  return convert(values, old_unit, unit<Unit>(new_unit_system));
+  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
 }
 
 }  // namespace PhQ

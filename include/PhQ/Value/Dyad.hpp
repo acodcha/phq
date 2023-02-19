@@ -85,22 +85,22 @@ public:
 
   inline constexpr double zz() const noexcept { return zz_; }
 
-  inline constexpr bool is_symmetric() const noexcept {
+  inline constexpr bool IsSymmetric() const noexcept {
     return xy_ == yx_ && xz_ == zx_ && yz_ == zy_;
   }
 
-  inline constexpr double trace() const noexcept { return xx_ + yy_ + zz_; }
+  inline constexpr double Trace() const noexcept { return xx_ + yy_ + zz_; }
 
-  inline constexpr double determinant() const noexcept {
+  inline constexpr double Determinant() const noexcept {
     return (xx_ * (yy_ * zz_ - yz_ * zy_) + xy_ * (yz_ * zx_ - yx_ * zz_) +
             xz_ * (yx_ * zy_ - yy_ * zx_));
   }
 
-  inline constexpr Dyad transpose() const noexcept {
+  inline constexpr Dyad Transpose() const noexcept {
     return {xx_, yx_, zx_, xy_, yy_, zy_, xz_, yz_, zz_};
   }
 
-  constexpr Dyad cofactors() const noexcept {
+  constexpr Dyad Cofactors() const noexcept {
     const double cofactor_xx{yy_ * zz_ - yz_ * zy_};
     const double cofactor_xy{yz_ * zx_ - yx_ * zz_};
     const double cofactor_xz{yx_ * zy_ - yy_ * zx_};
@@ -114,39 +114,39 @@ public:
             cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
   }
 
-  constexpr Dyad adjugate() const noexcept { return cofactors().transpose(); }
+  constexpr Dyad Adjugate() const noexcept { return Cofactors().Transpose(); }
 
-  Dyad inverse() const;
+  Dyad Inverse() const;
 
-  std::string print() const noexcept {
-    return {"(" + PhQ::print(xx_) + ", " + PhQ::print(xy_) + ", " +
-            PhQ::print(xz_) + "; " + PhQ::print(yx_) + ", " + PhQ::print(yy_) +
-            ", " + PhQ::print(yz_) + "; " + PhQ::print(zx_) + ", " +
-            PhQ::print(zy_) + ", " + PhQ::print(zz_) + ")"};
+  std::string Print() const noexcept {
+    return "(" + PhQ::Print(xx_) + ", " + PhQ::Print(xy_) + ", " +
+           PhQ::Print(xz_) + "; " + PhQ::Print(yx_) + ", " + PhQ::Print(yy_) +
+           ", " + PhQ::Print(yz_) + "; " + PhQ::Print(zx_) + ", " +
+           PhQ::Print(zy_) + ", " + PhQ::Print(zz_) + ")";
   }
 
-  std::string json() const noexcept {
-    return {"{\"xx\":" + PhQ::print(xx_) + ",\"xy\":" + PhQ::print(xy_) +
-            ",\"xz\":" + PhQ::print(xz_) + ",\"yx\":" + PhQ::print(yx_) +
-            ",\"yy\":" + PhQ::print(yy_) + ",\"yz\":" + PhQ::print(yz_) +
-            ",\"zx\":" + PhQ::print(zx_) + ",\"zy\":" + PhQ::print(zy_) +
-            ",\"zz\":" + PhQ::print(zz_) + "}"};
+  std::string Json() const noexcept {
+    return "{\"xx\":" + PhQ::Print(xx_) + ",\"xy\":" + PhQ::Print(xy_) +
+           ",\"xz\":" + PhQ::Print(xz_) + ",\"yx\":" + PhQ::Print(yx_) +
+           ",\"yy\":" + PhQ::Print(yy_) + ",\"yz\":" + PhQ::Print(yz_) +
+           ",\"zx\":" + PhQ::Print(zx_) + ",\"zy\":" + PhQ::Print(zy_) +
+           ",\"zz\":" + PhQ::Print(zz_) + "}";
   }
 
-  std::string xml() const noexcept {
-    return {"<xx>" + PhQ::print(xx_) + "</xx><xy>" + PhQ::print(xy_) +
-            "</xy><xz>" + PhQ::print(xz_) + "</xz><yx>" + PhQ::print(yx_) +
-            "</yx><yy>" + PhQ::print(yy_) + "</yy><yz>" + PhQ::print(yz_) +
-            "</yz><zx>" + PhQ::print(zx_) + "</zx><zy>" + PhQ::print(zy_) +
-            "</zy><zz>" + PhQ::print(zz_) + "</zz>"};
+  std::string Xml() const noexcept {
+    return "<xx>" + PhQ::Print(xx_) + "</xx><xy>" + PhQ::Print(xy_) +
+           "</xy><xz>" + PhQ::Print(xz_) + "</xz><yx>" + PhQ::Print(yx_) +
+           "</yx><yy>" + PhQ::Print(yy_) + "</yy><yz>" + PhQ::Print(yz_) +
+           "</yz><zx>" + PhQ::Print(zx_) + "</zx><zy>" + PhQ::Print(zy_) +
+           "</zy><zz>" + PhQ::Print(zz_) + "</zz>";
   }
 
-  std::string yaml() const noexcept {
-    return {"{xx:" + PhQ::print(xx_) + ",xy:" + PhQ::print(xy_) +
-            ",xz:" + PhQ::print(xz_) + ",yx:" + PhQ::print(yx_) +
-            ",yy:" + PhQ::print(yy_) + ",yz:" + PhQ::print(yz_) +
-            ",zx:" + PhQ::print(zx_) + ",zy:" + PhQ::print(zy_) +
-            ",zz:" + PhQ::print(zz_) + "}"};
+  std::string Yaml() const noexcept {
+    return "{xx:" + PhQ::Print(xx_) + ",xy:" + PhQ::Print(xy_) +
+           ",xz:" + PhQ::Print(xz_) + ",yx:" + PhQ::Print(yx_) +
+           ",yy:" + PhQ::Print(yy_) + ",yz:" + PhQ::Print(yz_) +
+           ",zx:" + PhQ::Print(zx_) + ",zy:" + PhQ::Print(zy_) +
+           ",zz:" + PhQ::Print(zz_) + "}";
   }
 
   constexpr void operator+=(const Dyad& dyad) noexcept {
@@ -217,7 +217,7 @@ protected:
   double zz_;
 };
 
-constexpr Dyad Vector::dyadic(const Vector& vector) const noexcept {
+constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
   return {x_ * vector.x_, x_ * vector.y_, x_ * vector.z_,
           y_ * vector.x_, y_ * vector.y_, y_ * vector.z_,
           z_ * vector.x_, z_ * vector.y_, z_ * vector.z_};
@@ -347,39 +347,39 @@ constexpr Dyad operator/(const Dyad& dyad, const double real) noexcept {
           dyad.zx() / real, dyad.zy() / real, dyad.zz() / real};
 }
 
-Dyad Dyad::inverse() const {
-  const double determinant_{determinant()};
+Dyad Dyad::Inverse() const {
+  const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
-    return adjugate() / determinant_;
+    return Adjugate() / determinant_;
   } else {
-    throw std::runtime_error{"Cannot compute the inverse of " + print() +
+    throw std::runtime_error{"Cannot compute the inverse of " + Print() +
                              " because its determinant is 0."};
   }
 }
 
 std::ostream& operator<<(std::ostream& stream, const Dyad& dyad) noexcept {
-  stream << dyad.print();
+  stream << dyad.Print();
   return stream;
 }
 
 }  // namespace Value
 
-constexpr Value::Dyad Direction::dyadic(
-    const Direction& direction) const noexcept {
+constexpr Value::Dyad Direction::Dyadic(
+    const PhQ::Direction& direction) const noexcept {
   return {x_ * direction.x_, x_ * direction.y_, x_ * direction.z_,
           y_ * direction.x_, y_ * direction.y_, y_ * direction.z_,
           z_ * direction.x_, z_ * direction.y_, z_ * direction.z_};
 }
 
-constexpr Value::Dyad Direction::dyadic(
+constexpr Value::Dyad Direction::Dyadic(
     const Value::Vector& vector) const noexcept {
   return {x_ * vector.x(), x_ * vector.y(), x_ * vector.z(),
           y_ * vector.x(), y_ * vector.y(), y_ * vector.z(),
           z_ * vector.x(), z_ * vector.y(), z_ * vector.z()};
 }
 
-constexpr Value::Dyad Value::Vector::dyadic(
-    const Direction& direction) const noexcept {
+constexpr Value::Dyad Value::Vector::Dyadic(
+    const PhQ::Direction& direction) const noexcept {
   return {x_ * direction.x(), x_ * direction.y(), x_ * direction.z(),
           y_ * direction.x(), y_ * direction.y(), y_ * direction.z(),
           z_ * direction.x(), z_ * direction.y(), z_ * direction.z()};

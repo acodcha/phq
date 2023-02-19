@@ -27,7 +27,7 @@ template <typename Enumeration>
 inline const std::map<Enumeration, std::string> Abbreviations;
 
 template <typename Enumeration>
-std::string abbreviation(const Enumeration enumeration) noexcept {
+std::string Abbreviation(const Enumeration enumeration) noexcept {
   return Abbreviations<Enumeration>.find(enumeration)->second;
 }
 
@@ -35,7 +35,7 @@ template <typename Enumeration>
 inline const std::unordered_map<std::string, Enumeration> Spellings;
 
 template <typename Enumeration>
-std::optional<Enumeration> parse(const std::string& spelling) noexcept {
+std::optional<Enumeration> Parse(const std::string& spelling) noexcept {
   const typename std::unordered_map<std::string, Enumeration>::const_iterator
       enumeration{Spellings<Enumeration>.find(spelling)};
   if (enumeration != Spellings<Enumeration>.cend()) {

@@ -20,50 +20,50 @@
 namespace {
 
 TEST(UnitSystem, Abbreviation) {
-  EXPECT_EQ(PhQ::abbreviation(PhQ::UnitSystem::MetreKilogramSecondKelvin),
+  EXPECT_EQ(PhQ::Abbreviation(PhQ::UnitSystem::MetreKilogramSecondKelvin),
             "m·kg·s·K");
-  EXPECT_EQ(PhQ::abbreviation(PhQ::UnitSystem::MillimetreGramSecondKelvin),
+  EXPECT_EQ(PhQ::Abbreviation(PhQ::UnitSystem::MillimetreGramSecondKelvin),
             "mm·g·s·K");
-  EXPECT_EQ(PhQ::abbreviation(PhQ::UnitSystem::FootPoundSecondRankine),
+  EXPECT_EQ(PhQ::Abbreviation(PhQ::UnitSystem::FootPoundSecondRankine),
             "ft·lbf·s·°R");
-  EXPECT_EQ(PhQ::abbreviation(PhQ::UnitSystem::InchPoundSecondRankine),
+  EXPECT_EQ(PhQ::Abbreviation(PhQ::UnitSystem::InchPoundSecondRankine),
             "in·lbf·s·°R");
 }
 
 TEST(UnitSystem, Parse) {
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>(""), std::nullopt);
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("Hello world!"), std::nullopt);
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("m·kg·s·K"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>(""), std::nullopt);
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("Hello world!"), std::nullopt);
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("m·kg·s·K"),
             std::optional{PhQ::UnitSystem::MetreKilogramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("m-kg-s-K"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("m-kg-s-K"),
             std::optional{PhQ::UnitSystem::MetreKilogramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("m, kg, s, K"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("m, kg, s, K"),
             std::optional{PhQ::UnitSystem::MetreKilogramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("m·kg·s"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("m·kg·s"),
             std::optional{PhQ::UnitSystem::MetreKilogramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("m·kg"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("m·kg"),
             std::optional{PhQ::UnitSystem::MetreKilogramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("mm·g·s·K"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("mm·g·s·K"),
             std::optional{PhQ::UnitSystem::MillimetreGramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("mm·g·s"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("mm·g·s"),
             std::optional{PhQ::UnitSystem::MillimetreGramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("mm·g"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("mm·g"),
             std::optional{PhQ::UnitSystem::MillimetreGramSecondKelvin});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("ft·lbf·s·°R"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("ft·lbf·s·°R"),
             std::optional{PhQ::UnitSystem::FootPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("ft·lbf·s·R"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("ft·lbf·s·R"),
             std::optional{PhQ::UnitSystem::FootPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("ft·lbf·s"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("ft·lbf·s"),
             std::optional{PhQ::UnitSystem::FootPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("ft·lbf"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("ft·lbf"),
             std::optional{PhQ::UnitSystem::FootPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("in·lbf·s·°R"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("in·lbf·s·°R"),
             std::optional{PhQ::UnitSystem::InchPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("in·lbf·s·R"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("in·lbf·s·R"),
             std::optional{PhQ::UnitSystem::InchPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("in·lbf·s"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("in·lbf·s"),
             std::optional{PhQ::UnitSystem::InchPoundSecondRankine});
-  EXPECT_EQ(PhQ::parse<PhQ::UnitSystem>("in·lbf"),
+  EXPECT_EQ(PhQ::Parse<PhQ::UnitSystem>("in·lbf"),
             std::optional{PhQ::UnitSystem::InchPoundSecondRankine});
 }
 

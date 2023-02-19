@@ -94,54 +94,54 @@ public:
 
   inline constexpr double z() const noexcept { return z_; }
 
-  inline constexpr double magnitude_squared() const noexcept {
+  inline constexpr double MagnitudeSquared() const noexcept {
     return x_ * x_ + y_ * y_ + z_ * z_;
   }
 
-  inline double magnitude() const noexcept {
-    return std::sqrt(magnitude_squared());
+  inline double Magnitude() const noexcept {
+    return std::sqrt(MagnitudeSquared());
   }
 
-  inline constexpr double dot(const Direction& direction) const noexcept {
+  inline constexpr double Dot(const Direction& direction) const noexcept {
     return x_ * direction.x_ + y_ * direction.y_ + z_ * direction.z_;
   }
 
-  constexpr double dot(const Value::Vector& vector) const noexcept;
+  constexpr double Dot(const Value::Vector& vector) const noexcept;
 
-  Direction cross(const Direction& direction) const noexcept {
+  Direction Cross(const Direction& direction) const noexcept {
     return {y_ * direction.z_ - z_ * direction.y_,
             z_ * direction.x_ - x_ * direction.z_,
             x_ * direction.y_ - y_ * direction.x_};
   }
 
-  constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
+  constexpr Value::Vector Cross(const Value::Vector& vector) const noexcept;
 
-  constexpr Value::Dyad dyadic(const Direction& direction) const noexcept;
+  constexpr Value::Dyad Dyadic(const Direction& direction) const noexcept;
 
-  constexpr Value::Dyad dyadic(const Value::Vector& vector) const noexcept;
+  constexpr Value::Dyad Dyadic(const Value::Vector& vector) const noexcept;
 
-  constexpr Angle angle(const Direction& direction) const noexcept;
+  constexpr PhQ::Angle Angle(const Direction& direction) const noexcept;
 
-  constexpr Angle angle(const Value::Vector& vector) const noexcept;
+  constexpr PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
 
-  std::string print() const noexcept {
-    return "(" + PhQ::print(x_) + ", " + PhQ::print(y_) + ", " +
-           PhQ::print(z_) + ")";
+  std::string Print() const noexcept {
+    return "(" + PhQ::Print(x_) + ", " + PhQ::Print(y_) + ", " +
+           PhQ::Print(z_) + ")";
   }
 
-  std::string json() const noexcept {
-    return "{\"x\":" + PhQ::print(x_) + ",\"y\":" + PhQ::print(y_) +
-           ",\"z\":" + PhQ::print(z_) + "}";
+  std::string Json() const noexcept {
+    return "{\"x\":" + PhQ::Print(x_) + ",\"y\":" + PhQ::Print(y_) +
+           ",\"z\":" + PhQ::Print(z_) + "}";
   }
 
-  std::string xml() const noexcept {
-    return "<x>" + PhQ::print(x_) + "</x><y>" + PhQ::print(y_) + "</y><z>" +
-           PhQ::print(z_) + "</z>";
+  std::string Xml() const noexcept {
+    return "<x>" + PhQ::Print(x_) + "</x><y>" + PhQ::Print(y_) + "</y><z>" +
+           PhQ::Print(z_) + "</z>";
   }
 
-  std::string yaml() const noexcept {
-    return "{x:" + PhQ::print(x_) + ",y:" + PhQ::print(y_) +
-           ",z:" + PhQ::print(z_) + "}";
+  std::string Yaml() const noexcept {
+    return "{x:" + PhQ::Print(x_) + ",y:" + PhQ::Print(y_) +
+           ",z:" + PhQ::Print(z_) + "}";
   }
 
   constexpr Acceleration operator*(
@@ -188,7 +188,7 @@ inline constexpr bool operator!=(const Direction& left,
 
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Direction& direction) noexcept {
-  stream << direction.print();
+  stream << direction.Print();
   return stream;
 }
 

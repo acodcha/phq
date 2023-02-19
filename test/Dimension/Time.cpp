@@ -25,16 +25,16 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionTime, Abbreviation) { EXPECT_EQ(Time::abbreviation(), "T"); }
+TEST(DimensionTime, Abbreviation) { EXPECT_EQ(Time::Abbreviation(), "T"); }
 
 TEST(DimensionTime, Accessor) {
-  EXPECT_EQ(Time{}.value(), 0);
-  EXPECT_EQ(Time{-2}.value(), -2);
-  EXPECT_EQ(Time{-1}.value(), -1);
-  EXPECT_EQ(Time{0}.value(), 0);
-  EXPECT_EQ(Time{1}.value(), 1);
-  EXPECT_EQ(Time{2}.value(), 2);
-  EXPECT_EQ(Time{3}.value(), 3);
+  EXPECT_EQ(Time{}.Value(), 0);
+  EXPECT_EQ(Time{-2}.Value(), -2);
+  EXPECT_EQ(Time{-1}.Value(), -1);
+  EXPECT_EQ(Time{0}.Value(), 0);
+  EXPECT_EQ(Time{1}.Value(), 1);
+  EXPECT_EQ(Time{2}.Value(), 2);
+  EXPECT_EQ(Time{3}.Value(), 3);
 }
 
 TEST(DimensionTime, Comparison) {
@@ -71,23 +71,23 @@ TEST(DimensionTime, Hash) {
                                            time3, time4, time5};
 }
 
-TEST(DimensionTime, Label) { EXPECT_EQ(Time::label(), "Time"); }
+TEST(DimensionTime, Label) { EXPECT_EQ(Time::Label(), "Time"); }
 
 TEST(DimensionTime, Print) {
-  EXPECT_EQ(Time{}.print(), "");
-  EXPECT_EQ(Time{-2}.print(), "T^(-2)");
-  EXPECT_EQ(Time{-1}.print(), "T^(-1)");
-  EXPECT_EQ(Time{0}.print(), "");
-  EXPECT_EQ(Time{1}.print(), "T");
-  EXPECT_EQ(Time{2}.print(), "T^2");
-  EXPECT_EQ(Time{3}.print(), "T^3");
+  EXPECT_EQ(Time{}.Print(), "");
+  EXPECT_EQ(Time{-2}.Print(), "T^(-2)");
+  EXPECT_EQ(Time{-1}.Print(), "T^(-1)");
+  EXPECT_EQ(Time{0}.Print(), "");
+  EXPECT_EQ(Time{1}.Print(), "T");
+  EXPECT_EQ(Time{2}.Print(), "T^2");
+  EXPECT_EQ(Time{3}.Print(), "T^3");
 }
 
 TEST(DimensionTime, Stream) {
   const Time time{3};
   std::ostringstream stream;
   stream << time;
-  EXPECT_EQ(stream.str(), time.print());
+  EXPECT_EQ(stream.str(), time.Print());
 }
 
 }  // namespace

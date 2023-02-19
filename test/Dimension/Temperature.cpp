@@ -26,17 +26,17 @@ namespace PhQ::Dimension {
 namespace {
 
 TEST(DimensionTemperature, Abbreviation) {
-  EXPECT_EQ(Temperature::abbreviation(), "Θ");
+  EXPECT_EQ(Temperature::Abbreviation(), "Θ");
 }
 
 TEST(DimensionTemperature, Accessor) {
-  EXPECT_EQ(Temperature{}.value(), 0);
-  EXPECT_EQ(Temperature{-2}.value(), -2);
-  EXPECT_EQ(Temperature{-1}.value(), -1);
-  EXPECT_EQ(Temperature{0}.value(), 0);
-  EXPECT_EQ(Temperature{1}.value(), 1);
-  EXPECT_EQ(Temperature{2}.value(), 2);
-  EXPECT_EQ(Temperature{3}.value(), 3);
+  EXPECT_EQ(Temperature{}.Value(), 0);
+  EXPECT_EQ(Temperature{-2}.Value(), -2);
+  EXPECT_EQ(Temperature{-1}.Value(), -1);
+  EXPECT_EQ(Temperature{0}.Value(), 0);
+  EXPECT_EQ(Temperature{1}.Value(), 1);
+  EXPECT_EQ(Temperature{2}.Value(), 2);
+  EXPECT_EQ(Temperature{3}.Value(), 3);
 }
 
 TEST(DimensionTemperature, Comparison) {
@@ -76,24 +76,24 @@ TEST(DimensionTemperature, Hash) {
 }
 
 TEST(DimensionTemperature, Label) {
-  EXPECT_EQ(Temperature::label(), "Temperature");
+  EXPECT_EQ(Temperature::Label(), "Temperature");
 }
 
 TEST(DimensionTemperature, Print) {
-  EXPECT_EQ(Temperature{}.print(), "");
-  EXPECT_EQ(Temperature{-2}.print(), "Θ^(-2)");
-  EXPECT_EQ(Temperature{-1}.print(), "Θ^(-1)");
-  EXPECT_EQ(Temperature{0}.print(), "");
-  EXPECT_EQ(Temperature{1}.print(), "Θ");
-  EXPECT_EQ(Temperature{2}.print(), "Θ^2");
-  EXPECT_EQ(Temperature{3}.print(), "Θ^3");
+  EXPECT_EQ(Temperature{}.Print(), "");
+  EXPECT_EQ(Temperature{-2}.Print(), "Θ^(-2)");
+  EXPECT_EQ(Temperature{-1}.Print(), "Θ^(-1)");
+  EXPECT_EQ(Temperature{0}.Print(), "");
+  EXPECT_EQ(Temperature{1}.Print(), "Θ");
+  EXPECT_EQ(Temperature{2}.Print(), "Θ^2");
+  EXPECT_EQ(Temperature{3}.Print(), "Θ^3");
 }
 
 TEST(DimensionTemperature, Stream) {
   const Temperature temperature{3};
   std::ostringstream stream;
   stream << temperature;
-  EXPECT_EQ(stream.str(), temperature.print());
+  EXPECT_EQ(stream.str(), temperature.Print());
 }
 
 }  // namespace

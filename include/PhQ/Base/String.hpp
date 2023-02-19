@@ -29,19 +29,19 @@
 
 namespace PhQ {
 
-void lowercase(std::string& text) noexcept {
+void LowerCase(std::string& text) noexcept {
   std::transform(text.begin(), text.end(), text.begin(),
                  [](int character) { return std::tolower(character); });
 }
 
-std::string lowercase_copy(const std::string_view text) noexcept {
+std::string LowerCaseCopy(const std::string_view text) noexcept {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(),
                  [](int character) { return std::tolower(character); });
   return result;
 }
 
-std::optional<int_least64_t> parse_integer(const std::string& text) noexcept {
+std::optional<int_least64_t> ParseToInteger(const std::string& text) noexcept {
   char* end = 0;
   const long long int value = std::strtoll(text.c_str(), &end, 10);
   if (end != text.c_str() && *end == '\0' && value != LLONG_MAX) {
@@ -50,7 +50,7 @@ std::optional<int_least64_t> parse_integer(const std::string& text) noexcept {
   return std::nullopt;
 }
 
-std::optional<double> parse_real(const std::string& text) noexcept {
+std::optional<double> ParseToDouble(const std::string& text) noexcept {
   char* end = 0;
   const double value = strtod(text.c_str(), &end);
   if (end != text.c_str() && *end == '\0' && value != HUGE_VAL &&
@@ -60,25 +60,25 @@ std::optional<double> parse_real(const std::string& text) noexcept {
   return std::nullopt;
 }
 
-std::string print(const double value) noexcept {
+std::string Print(const double value) noexcept {
   if (value == 0.0) {
     return "0";
   }
-  const double absolute_value{std::abs(value)};
+  const double absolute{std::abs(value)};
   std::ostringstream stream;
-  if (absolute_value >= 10000.0 || absolute_value < 0.001) {
+  if (absolute >= 10000.0 || absolute < 0.001) {
     stream << std::scientific << std::setprecision(6) << value;
-  } else if (absolute_value >= 1000.0) {
+  } else if (absolute >= 1000.0) {
     stream << std::fixed << std::setprecision(3) << value;
-  } else if (absolute_value >= 100.0) {
+  } else if (absolute >= 100.0) {
     stream << std::fixed << std::setprecision(4) << value;
-  } else if (absolute_value >= 10.0) {
+  } else if (absolute >= 10.0) {
     stream << std::fixed << std::setprecision(5) << value;
-  } else if (absolute_value >= 1.0) {
+  } else if (absolute >= 1.0) {
     stream << std::fixed << std::setprecision(6) << value;
-  } else if (absolute_value >= 0.1) {
+  } else if (absolute >= 0.1) {
     stream << std::fixed << std::setprecision(7) << value;
-  } else if (absolute_value >= 0.01) {
+  } else if (absolute >= 0.01) {
     stream << std::fixed << std::setprecision(8) << value;
   } else {
     stream << std::fixed << std::setprecision(9) << value;
@@ -86,39 +86,39 @@ std::string print(const double value) noexcept {
   return stream.str();
 }
 
-void replace(std::string& text, const char from, const char to) noexcept {
+void Replace(std::string& text, const char from, const char to) noexcept {
   std::replace(text.begin(), text.end(), from, to);
 }
 
-std::string replace_copy(const std::string_view text, const char from,
-                         const char to) noexcept {
+std::string ReplaceCopy(const std::string_view text, const char from,
+                        const char to) noexcept {
   std::string result{text};
   std::replace_copy(text.cbegin(), text.cend(), result.begin(), from, to);
   return result;
 }
 
-void snake_case(std::string& text) noexcept {
-  lowercase(text);
-  replace(text, ' ', '_');
+void SnakeCase(std::string& text) noexcept {
+  LowerCase(text);
+  Replace(text, ' ', '_');
 }
 
-std::string snake_case_copy(const std::string_view text) noexcept {
-  return lowercase_copy(replace_copy(text, ' ', '_'));
+std::string SnakeCaseCopy(const std::string_view text) noexcept {
+  return LowerCaseCopy(ReplaceCopy(text, ' ', '_'));
 }
 
-std::vector<std::string> split_by_whitespace(const std::string& text) noexcept {
+std::vector<std::string> SplitByWhitespace(const std::string& text) noexcept {
   std::istringstream stream{text};
   std::vector<std::string> words{std::istream_iterator<std::string>{stream},
                                  std::istream_iterator<std::string>{}};
   return words;
 }
 
-void uppercase(std::string& text) noexcept {
+void UpperCase(std::string& text) noexcept {
   std::transform(text.begin(), text.end(), text.begin(),
                  [](int character) { return std::toupper(character); });
 }
 
-std::string uppercase_copy(const std::string_view text) noexcept {
+std::string UpperCaseCopy(const std::string_view text) noexcept {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(),
                  [](int character) { return std::toupper(character); });

@@ -26,17 +26,17 @@ namespace PhQ::Dimension {
 namespace {
 
 TEST(DimensionElectricCurrent, Abbreviation) {
-  EXPECT_EQ(ElectricCurrent::abbreviation(), "I");
+  EXPECT_EQ(ElectricCurrent::Abbreviation(), "I");
 }
 
 TEST(DimensionElectricCurrent, Accessor) {
-  EXPECT_EQ(ElectricCurrent{}.value(), 0);
-  EXPECT_EQ(ElectricCurrent{-2}.value(), -2);
-  EXPECT_EQ(ElectricCurrent{-1}.value(), -1);
-  EXPECT_EQ(ElectricCurrent{0}.value(), 0);
-  EXPECT_EQ(ElectricCurrent{1}.value(), 1);
-  EXPECT_EQ(ElectricCurrent{2}.value(), 2);
-  EXPECT_EQ(ElectricCurrent{3}.value(), 3);
+  EXPECT_EQ(ElectricCurrent{}.Value(), 0);
+  EXPECT_EQ(ElectricCurrent{-2}.Value(), -2);
+  EXPECT_EQ(ElectricCurrent{-1}.Value(), -1);
+  EXPECT_EQ(ElectricCurrent{0}.Value(), 0);
+  EXPECT_EQ(ElectricCurrent{1}.Value(), 1);
+  EXPECT_EQ(ElectricCurrent{2}.Value(), 2);
+  EXPECT_EQ(ElectricCurrent{3}.Value(), 3);
 }
 
 TEST(DimensionElectricCurrent, Comparison) {
@@ -75,24 +75,24 @@ TEST(DimensionElectricCurrent, Hash) {
 }
 
 TEST(DimensionElectricCurrent, Label) {
-  EXPECT_EQ(ElectricCurrent::label(), "Electric Current");
+  EXPECT_EQ(ElectricCurrent::Label(), "Electric Current");
 }
 
 TEST(DimensionElectricCurrent, Print) {
-  EXPECT_EQ(ElectricCurrent{}.print(), "");
-  EXPECT_EQ(ElectricCurrent{-2}.print(), "I^(-2)");
-  EXPECT_EQ(ElectricCurrent{-1}.print(), "I^(-1)");
-  EXPECT_EQ(ElectricCurrent{0}.print(), "");
-  EXPECT_EQ(ElectricCurrent{1}.print(), "I");
-  EXPECT_EQ(ElectricCurrent{2}.print(), "I^2");
-  EXPECT_EQ(ElectricCurrent{3}.print(), "I^3");
+  EXPECT_EQ(ElectricCurrent{}.Print(), "");
+  EXPECT_EQ(ElectricCurrent{-2}.Print(), "I^(-2)");
+  EXPECT_EQ(ElectricCurrent{-1}.Print(), "I^(-1)");
+  EXPECT_EQ(ElectricCurrent{0}.Print(), "");
+  EXPECT_EQ(ElectricCurrent{1}.Print(), "I");
+  EXPECT_EQ(ElectricCurrent{2}.Print(), "I^2");
+  EXPECT_EQ(ElectricCurrent{3}.Print(), "I^3");
 }
 
 TEST(DimensionElectricCurrent, Stream) {
   const ElectricCurrent current{3};
   std::ostringstream stream;
   stream << current;
-  EXPECT_EQ(stream.str(), current.print());
+  EXPECT_EQ(stream.str(), current.Print());
 }
 
 }  // namespace

@@ -25,16 +25,16 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionMass, Abbreviation) { EXPECT_EQ(Mass::abbreviation(), "M"); }
+TEST(DimensionMass, Abbreviation) { EXPECT_EQ(Mass::Abbreviation(), "M"); }
 
 TEST(DimensionMass, Accessor) {
-  EXPECT_EQ(Mass{}.value(), 0);
-  EXPECT_EQ(Mass{-2}.value(), -2);
-  EXPECT_EQ(Mass{-1}.value(), -1);
-  EXPECT_EQ(Mass{0}.value(), 0);
-  EXPECT_EQ(Mass{1}.value(), 1);
-  EXPECT_EQ(Mass{2}.value(), 2);
-  EXPECT_EQ(Mass{3}.value(), 3);
+  EXPECT_EQ(Mass{}.Value(), 0);
+  EXPECT_EQ(Mass{-2}.Value(), -2);
+  EXPECT_EQ(Mass{-1}.Value(), -1);
+  EXPECT_EQ(Mass{0}.Value(), 0);
+  EXPECT_EQ(Mass{1}.Value(), 1);
+  EXPECT_EQ(Mass{2}.Value(), 2);
+  EXPECT_EQ(Mass{3}.Value(), 3);
 }
 
 TEST(DimensionMass, Comparison) {
@@ -71,23 +71,23 @@ TEST(DimensionMass, Hash) {
                                            mass3, mass4, mass5};
 }
 
-TEST(DimensionMass, Label) { EXPECT_EQ(Mass::label(), "Mass"); }
+TEST(DimensionMass, Label) { EXPECT_EQ(Mass::Label(), "Mass"); }
 
 TEST(DimensionMass, Print) {
-  EXPECT_EQ(Mass{}.print(), "");
-  EXPECT_EQ(Mass{-2}.print(), "M^(-2)");
-  EXPECT_EQ(Mass{-1}.print(), "M^(-1)");
-  EXPECT_EQ(Mass{0}.print(), "");
-  EXPECT_EQ(Mass{1}.print(), "M");
-  EXPECT_EQ(Mass{2}.print(), "M^2");
-  EXPECT_EQ(Mass{3}.print(), "M^3");
+  EXPECT_EQ(Mass{}.Print(), "");
+  EXPECT_EQ(Mass{-2}.Print(), "M^(-2)");
+  EXPECT_EQ(Mass{-1}.Print(), "M^(-1)");
+  EXPECT_EQ(Mass{0}.Print(), "");
+  EXPECT_EQ(Mass{1}.Print(), "M");
+  EXPECT_EQ(Mass{2}.Print(), "M^2");
+  EXPECT_EQ(Mass{3}.Print(), "M^3");
 }
 
 TEST(DimensionMass, Stream) {
   const Mass mass{3};
   std::ostringstream stream;
   stream << mass;
-  EXPECT_EQ(stream.str(), mass.print());
+  EXPECT_EQ(stream.str(), mass.Print());
 }
 
 }  // namespace

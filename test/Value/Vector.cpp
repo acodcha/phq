@@ -70,28 +70,28 @@ TEST(ValueVector, Constructor) {
 }
 
 TEST(ValueVector, Cross) {
-  EXPECT_EQ(Value::Vector(10.0, 0.0, 0.0).cross(Value::Vector(0.0, 20.0, 0.0)),
+  EXPECT_EQ(Value::Vector(10.0, 0.0, 0.0).Cross(Value::Vector(0.0, 20.0, 0.0)),
             Value::Vector(0.0, 0.0, 200.0));
-  EXPECT_EQ(Value::Vector(10.0, 0.0, 0.0).cross(Direction(0.0, 20.0, 0.0)),
+  EXPECT_EQ(Value::Vector(10.0, 0.0, 0.0).Cross(Direction(0.0, 20.0, 0.0)),
             Value::Vector(0.0, 0.0, 10.0));
-  EXPECT_EQ(Direction(10.0, 0.0, 0.0).cross(Value::Vector(0.0, 20.0, 0.0)),
+  EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Value::Vector(0.0, 20.0, 0.0)),
             Value::Vector(0.0, 0.0, 20.0));
 }
 
 TEST(ValueVector, Direction) {
   const Direction direction{1.23, 4.56, 7.89};
-  EXPECT_EQ(Value::Vector(5.5e10, direction).direction(), direction);
+  EXPECT_EQ(Value::Vector(5.5e10, direction).Direction(), direction);
 }
 
 TEST(ValueVector, Dot) {
   const Value::Vector vector0{1.23, 4.56, 7.89};
-  EXPECT_EQ(vector0.dot(vector0), vector0.magnitude_squared());
-  EXPECT_EQ(Value::Vector(0.0, 10.0, -15.0).dot(Value::Vector(20.0, 0.0, 0.0)),
+  EXPECT_EQ(vector0.Dot(vector0), vector0.MagnitudeSquared());
+  EXPECT_EQ(Value::Vector(0.0, 10.0, -15.0).Dot(Value::Vector(20.0, 0.0, 0.0)),
             0.0);
-  EXPECT_EQ(vector0.dot(Value::Vector(-1.23, -4.56, -7.89)),
-            -vector0.magnitude_squared());
-  EXPECT_EQ(vector0.dot(Direction(0.0, 1.0, 0.0)), 4.56);
-  EXPECT_EQ(Direction(0.0, 0.0, -1.0).dot(vector0), -7.89);
+  EXPECT_EQ(vector0.Dot(Value::Vector(-1.23, -4.56, -7.89)),
+            -vector0.MagnitudeSquared());
+  EXPECT_EQ(vector0.Dot(Direction(0.0, 1.0, 0.0)), 4.56);
+  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dot(vector0), -7.89);
 }
 
 TEST(ValueVector, Hash) {
@@ -112,33 +112,33 @@ TEST(ValueVector, Hash) {
 }
 
 TEST(ValueVector, Json) {
-  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).json(),
+  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).Json(),
             "{\"x\":1.000000,\"y\":-2.000000,\"z\":0}");
 }
 
 TEST(ValueVector, Magnitude) {
-  EXPECT_EQ(Value::Vector(0.0, 0.0, 5.5e10).magnitude(), 5.5e10);
-  EXPECT_EQ(Value::Vector(-1.0, 2.0, -3.0).magnitude_squared(), 14.0);
+  EXPECT_EQ(Value::Vector(0.0, 0.0, 5.5e10).Magnitude(), 5.5e10);
+  EXPECT_EQ(Value::Vector(-1.0, 2.0, -3.0).MagnitudeSquared(), 14.0);
 }
 
 TEST(ValueVector, Print) {
-  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).print(), "(1.000000, -2.000000, 0)");
+  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).Print(), "(1.000000, -2.000000, 0)");
 }
 
 TEST(ValueVector, Stream) {
   const Value::Vector vector{1.23, 4.56, 7.89};
   std::ostringstream stream;
   stream << vector;
-  EXPECT_EQ(stream.str(), vector.print());
+  EXPECT_EQ(stream.str(), vector.Print());
 }
 
 TEST(ValueVector, Xml) {
-  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).xml(),
+  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).Xml(),
             "<x>1.000000</x><y>-2.000000</y><z>0</z>");
 }
 
 TEST(ValueVector, Yaml) {
-  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).yaml(),
+  EXPECT_EQ(Value::Vector(1.0, -2.0, 0.0).Yaml(),
             "{x:1.000000,y:-2.000000,z:0}");
 }
 

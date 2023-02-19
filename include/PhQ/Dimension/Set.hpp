@@ -43,38 +43,46 @@ public:
         substance_amount_(substance_amount),
         luminous_intensity_(luminous_intensity) {}
 
-  inline constexpr const Length& length() const noexcept { return length_; }
+  inline constexpr const Dimension::Length& Length() const noexcept {
+    return length_;
+  }
 
-  inline constexpr const Mass& mass() const noexcept { return mass_; }
+  inline constexpr const Dimension::Mass& Mass() const noexcept {
+    return mass_;
+  }
 
-  inline constexpr const Time& time() const noexcept { return time_; }
+  inline constexpr const Dimension::Time& Time() const noexcept {
+    return time_;
+  }
 
-  inline constexpr const ElectricCurrent& electric_current() const noexcept {
+  inline constexpr const Dimension::ElectricCurrent& ElectricCurrent()
+      const noexcept {
     return electric_current_;
   }
 
-  inline constexpr const Temperature& temperature() const noexcept {
+  inline constexpr const Dimension::Temperature& Temperature() const noexcept {
     return temperature_;
   }
 
-  inline constexpr const SubstanceAmount& substance_amount() const noexcept {
+  inline constexpr const Dimension::SubstanceAmount& SubstanceAmount()
+      const noexcept {
     return substance_amount_;
   }
 
-  inline constexpr const LuminousIntensity& luminous_intensity()
+  inline constexpr const Dimension::LuminousIntensity& LuminousIntensity()
       const noexcept {
     return luminous_intensity_;
   }
 
-  std::string print() const noexcept {
+  std::string Print() const noexcept {
     std::string text;
-    const std::string length{length_.print()};
-    const std::string mass{mass_.print()};
-    const std::string time{time_.print()};
-    const std::string electric_current{electric_current_.print()};
-    const std::string temperature{temperature_.print()};
-    const std::string substance_amount{substance_amount_.print()};
-    const std::string luminous_intensity{luminous_intensity_.print()};
+    const std::string length{length_.Print()};
+    const std::string mass{mass_.Print()};
+    const std::string time{time_.Print()};
+    const std::string electric_current{electric_current_.Print()};
+    const std::string temperature{temperature_.Print()};
+    const std::string substance_amount{substance_amount_.Print()};
+    const std::string luminous_intensity{luminous_intensity_.Print()};
     text.append(length);
     if (!mass.empty()) {
       if (!text.empty()) {
@@ -118,238 +126,238 @@ public:
     return text;
   }
 
-  std::string json() const noexcept {
+  std::string Json() const noexcept {
     std::string text;
-    if (length_.value() != 0) {
-      text.append("\"" + snake_case_copy(length_.label()) +
-                  "\":" + std::to_string(length_.value()));
+    if (length_.Value() != 0) {
+      text.append("\"" + SnakeCaseCopy(length_.Label()) +
+                  "\":" + std::to_string(length_.Value()));
     }
-    if (mass_.value() != 0) {
+    if (mass_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(mass_.label()) +
-                  "\":" + std::to_string(mass_.value()));
+      text.append("\"" + SnakeCaseCopy(mass_.Label()) +
+                  "\":" + std::to_string(mass_.Value()));
     }
-    if (time_.value() != 0) {
+    if (time_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(time_.label()) +
-                  "\":" + std::to_string(time_.value()));
+      text.append("\"" + SnakeCaseCopy(time_.Label()) +
+                  "\":" + std::to_string(time_.Value()));
     }
-    if (electric_current_.value() != 0) {
+    if (electric_current_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(electric_current_.label()) +
-                  "\":" + std::to_string(electric_current_.value()));
+      text.append("\"" + SnakeCaseCopy(electric_current_.Label()) +
+                  "\":" + std::to_string(electric_current_.Value()));
     }
-    if (temperature_.value() != 0) {
+    if (temperature_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(temperature_.label()) +
-                  "\":" + std::to_string(temperature_.value()));
+      text.append("\"" + SnakeCaseCopy(temperature_.Label()) +
+                  "\":" + std::to_string(temperature_.Value()));
     }
-    if (substance_amount_.value() != 0) {
+    if (substance_amount_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(substance_amount_.label()) +
-                  "\":" + std::to_string(substance_amount_.value()));
+      text.append("\"" + SnakeCaseCopy(substance_amount_.Label()) +
+                  "\":" + std::to_string(substance_amount_.Value()));
     }
-    if (luminous_intensity_.value() != 0) {
+    if (luminous_intensity_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append("\"" + snake_case_copy(luminous_intensity_.label()) +
-                  "\":" + std::to_string(luminous_intensity_.value()));
+      text.append("\"" + SnakeCaseCopy(luminous_intensity_.Label()) +
+                  "\":" + std::to_string(luminous_intensity_.Value()));
     }
     return "{" + text + "}";
   }
 
-  std::string xml() const noexcept {
+  std::string Xml() const noexcept {
     std::string text;
-    if (length_.value() != 0) {
-      const std::string label{snake_case_copy(length_.label())};
-      text.append("<" + label + ">" + std::to_string(length_.value()) + "</" +
+    if (length_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(length_.Label())};
+      text.append("<" + label + ">" + std::to_string(length_.Value()) + "</" +
                   label + ">");
     }
-    if (mass_.value() != 0) {
-      const std::string label{snake_case_copy(mass_.label())};
-      text.append("<" + label + ">" + std::to_string(mass_.value()) + "</" +
+    if (mass_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(mass_.Label())};
+      text.append("<" + label + ">" + std::to_string(mass_.Value()) + "</" +
                   label + ">");
     }
-    if (time_.value() != 0) {
-      const std::string label{snake_case_copy(time_.label())};
-      text.append("<" + label + ">" + std::to_string(time_.value()) + "</" +
+    if (time_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(time_.Label())};
+      text.append("<" + label + ">" + std::to_string(time_.Value()) + "</" +
                   label + ">");
     }
-    if (electric_current_.value() != 0) {
-      const std::string label{snake_case_copy(electric_current_.label())};
+    if (electric_current_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(electric_current_.Label())};
       text.append("<" + label + ">" +
-                  std::to_string(electric_current_.value()) + "</" + label +
+                  std::to_string(electric_current_.Value()) + "</" + label +
                   ">");
     }
-    if (temperature_.value() != 0) {
-      const std::string label{snake_case_copy(temperature_.label())};
-      text.append("<" + label + ">" + std::to_string(temperature_.value()) +
+    if (temperature_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(temperature_.Label())};
+      text.append("<" + label + ">" + std::to_string(temperature_.Value()) +
                   "</" + label + ">");
     }
-    if (substance_amount_.value() != 0) {
-      const std::string label{snake_case_copy(substance_amount_.label())};
+    if (substance_amount_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(substance_amount_.Label())};
       text.append("<" + label + ">" +
-                  std::to_string(substance_amount_.value()) + "</" + label +
+                  std::to_string(substance_amount_.Value()) + "</" + label +
                   ">");
     }
-    if (luminous_intensity_.value() != 0) {
-      const std::string label{snake_case_copy(luminous_intensity_.label())};
+    if (luminous_intensity_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(luminous_intensity_.Label())};
       text.append("<" + label + ">" +
-                  std::to_string(luminous_intensity_.value()) + "</" + label +
+                  std::to_string(luminous_intensity_.Value()) + "</" + label +
                   ">");
     }
     return text;
   }
 
-  std::string yaml() const noexcept {
+  std::string Yaml() const noexcept {
     std::string text;
-    if (length_.value() != 0) {
-      text.append(snake_case_copy(length_.label()) + ":" +
-                  std::to_string(length_.value()));
+    if (length_.Value() != 0) {
+      text.append(SnakeCaseCopy(length_.Label()) + ":" +
+                  std::to_string(length_.Value()));
     }
-    if (mass_.value() != 0) {
+    if (mass_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(mass_.label()) + ":" +
-                  std::to_string(mass_.value()));
+      text.append(SnakeCaseCopy(mass_.Label()) + ":" +
+                  std::to_string(mass_.Value()));
     }
-    if (time_.value() != 0) {
+    if (time_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(time_.label()) + ":" +
-                  std::to_string(time_.value()));
+      text.append(SnakeCaseCopy(time_.Label()) + ":" +
+                  std::to_string(time_.Value()));
     }
-    if (electric_current_.value() != 0) {
+    if (electric_current_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(electric_current_.label()) + ":" +
-                  std::to_string(electric_current_.value()));
+      text.append(SnakeCaseCopy(electric_current_.Label()) + ":" +
+                  std::to_string(electric_current_.Value()));
     }
-    if (temperature_.value() != 0) {
+    if (temperature_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(temperature_.label()) + ":" +
-                  std::to_string(temperature_.value()));
+      text.append(SnakeCaseCopy(temperature_.Label()) + ":" +
+                  std::to_string(temperature_.Value()));
     }
-    if (substance_amount_.value() != 0) {
+    if (substance_amount_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(substance_amount_.label()) + ":" +
-                  std::to_string(substance_amount_.value()));
+      text.append(SnakeCaseCopy(substance_amount_.Label()) + ":" +
+                  std::to_string(substance_amount_.Value()));
     }
-    if (luminous_intensity_.value() != 0) {
+    if (luminous_intensity_.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(snake_case_copy(luminous_intensity_.label()) + ":" +
-                  std::to_string(luminous_intensity_.value()));
+      text.append(SnakeCaseCopy(luminous_intensity_.Label()) + ":" +
+                  std::to_string(luminous_intensity_.Value()));
     }
     return "{" + text + "}";
   }
 
 private:
-  Length length_;
+  Dimension::Length length_;
 
-  Mass mass_;
+  Dimension::Mass mass_;
 
-  Time time_;
+  Dimension::Time time_;
 
-  ElectricCurrent electric_current_;
+  Dimension::ElectricCurrent electric_current_;
 
-  Temperature temperature_;
+  Dimension::Temperature temperature_;
 
-  SubstanceAmount substance_amount_;
+  Dimension::SubstanceAmount substance_amount_;
 
-  LuminousIntensity luminous_intensity_;
+  Dimension::LuminousIntensity luminous_intensity_;
 };
 
 constexpr bool operator==(const Set& left, const Set& right) noexcept {
-  return left.length() == right.length() && left.mass() == right.mass() &&
-         left.time() == right.time() &&
-         left.electric_current() == right.electric_current() &&
-         left.temperature() == right.temperature() &&
-         left.substance_amount() == right.substance_amount() &&
-         left.luminous_intensity() == right.luminous_intensity();
+  return left.Length() == right.Length() && left.Mass() == right.Mass() &&
+         left.Time() == right.Time() &&
+         left.ElectricCurrent() == right.ElectricCurrent() &&
+         left.Temperature() == right.Temperature() &&
+         left.SubstanceAmount() == right.SubstanceAmount() &&
+         left.LuminousIntensity() == right.LuminousIntensity();
 }
 
 constexpr bool operator!=(const Set& left, const Set& right) noexcept {
-  return left.length() != right.length() || left.mass() != right.mass() ||
-         left.time() != right.time() ||
-         left.electric_current() != right.electric_current() ||
-         left.temperature() != right.temperature() ||
-         left.substance_amount() != right.substance_amount() ||
-         left.luminous_intensity() != right.luminous_intensity();
+  return left.Length() != right.Length() || left.Mass() != right.Mass() ||
+         left.Time() != right.Time() ||
+         left.ElectricCurrent() != right.ElectricCurrent() ||
+         left.Temperature() != right.Temperature() ||
+         left.SubstanceAmount() != right.SubstanceAmount() ||
+         left.LuminousIntensity() != right.LuminousIntensity();
 }
 
 constexpr bool operator<(const Set& left, const Set& right) noexcept {
-  if (left.length() == right.length()) {
-    if (left.mass() == right.mass()) {
-      if (left.time() == right.time()) {
-        if (left.electric_current() == right.electric_current()) {
-          if (left.temperature() == right.temperature()) {
-            if (left.substance_amount() == right.substance_amount()) {
-              return left.luminous_intensity() < right.luminous_intensity();
+  if (left.Length() == right.Length()) {
+    if (left.Mass() == right.Mass()) {
+      if (left.Time() == right.Time()) {
+        if (left.ElectricCurrent() == right.ElectricCurrent()) {
+          if (left.Temperature() == right.Temperature()) {
+            if (left.SubstanceAmount() == right.SubstanceAmount()) {
+              return left.LuminousIntensity() < right.LuminousIntensity();
             } else {
-              return left.substance_amount() < right.substance_amount();
+              return left.SubstanceAmount() < right.SubstanceAmount();
             }
           } else {
-            return left.temperature() < right.temperature();
+            return left.Temperature() < right.Temperature();
           }
         } else {
-          return left.electric_current() < right.electric_current();
+          return left.ElectricCurrent() < right.ElectricCurrent();
         }
       } else {
-        return left.time() < right.time();
+        return left.Time() < right.Time();
       }
     } else {
-      return left.mass() < right.mass();
+      return left.Mass() < right.Mass();
     }
   } else {
-    return left.length() < right.length();
+    return left.Length() < right.Length();
   }
 }
 
 constexpr bool operator>(const Set& left, const Set& right) noexcept {
-  if (left.length() == right.length()) {
-    if (left.mass() == right.mass()) {
-      if (left.time() == right.time()) {
-        if (left.electric_current() == right.electric_current()) {
-          if (left.temperature() == right.temperature()) {
-            if (left.substance_amount() == right.substance_amount()) {
-              return left.luminous_intensity() > right.luminous_intensity();
+  if (left.Length() == right.Length()) {
+    if (left.Mass() == right.Mass()) {
+      if (left.Time() == right.Time()) {
+        if (left.ElectricCurrent() == right.ElectricCurrent()) {
+          if (left.Temperature() == right.Temperature()) {
+            if (left.SubstanceAmount() == right.SubstanceAmount()) {
+              return left.LuminousIntensity() > right.LuminousIntensity();
             } else {
-              return left.substance_amount() > right.substance_amount();
+              return left.SubstanceAmount() > right.SubstanceAmount();
             }
           } else {
-            return left.temperature() > right.temperature();
+            return left.Temperature() > right.Temperature();
           }
         } else {
-          return left.electric_current() > right.electric_current();
+          return left.ElectricCurrent() > right.ElectricCurrent();
         }
       } else {
-        return left.time() > right.time();
+        return left.Time() > right.Time();
       }
     } else {
-      return left.mass() > right.mass();
+      return left.Mass() > right.Mass();
     }
   } else {
-    return left.length() > right.length();
+    return left.Length() > right.Length();
   }
 }
 
@@ -362,7 +370,7 @@ constexpr bool operator>=(const Set& left, const Set& right) noexcept {
 }
 
 inline std::ostream& operator<<(std::ostream& stream, const Set& set) {
-  stream << set.print();
+  stream << set.Print();
   return stream;
 }
 
@@ -374,13 +382,13 @@ template <>
 struct hash<PhQ::Dimension::Set> {
   size_t operator()(const PhQ::Dimension::Set& set) const {
     size_t result = 17;
-    result = 31 * result + set.length().value();
-    result = 31 * result + set.mass().value();
-    result = 31 * result + set.time().value();
-    result = 31 * result + set.electric_current().value();
-    result = 31 * result + set.temperature().value();
-    result = 31 * result + set.substance_amount().value();
-    result = 31 * result + set.luminous_intensity().value();
+    result = 31 * result + set.Length().Value();
+    result = 31 * result + set.Mass().Value();
+    result = 31 * result + set.Time().Value();
+    result = 31 * result + set.ElectricCurrent().Value();
+    result = 31 * result + set.Temperature().Value();
+    result = 31 * result + set.SubstanceAmount().Value();
+    result = 31 * result + set.LuminousIntensity().Value();
     return result;
   }
 };

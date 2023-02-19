@@ -29,17 +29,17 @@ public:
   explicit constexpr SubstanceAmount(const int_least8_t value) noexcept
       : value_(value) {}
 
-  inline constexpr int_least8_t value() const noexcept { return value_; }
+  inline constexpr int_least8_t Value() const noexcept { return value_; }
 
-  static std::string_view abbreviation() noexcept { return "N"; }
+  static std::string_view Abbreviation() noexcept { return "N"; }
 
-  static std::string_view label() noexcept { return "Substance Amount"; }
+  static std::string_view Label() noexcept { return "Substance Amount"; }
 
-  std::string print() const noexcept {
+  std::string Print() const noexcept {
     if (value_ == 0) {
       return {};
     }
-    std::string text{abbreviation()};
+    std::string text{Abbreviation()};
     if (value_ >= 2) {
       text.append("^" + std::to_string(value_));
     } else if (value_ <= -1) {
@@ -54,37 +54,37 @@ private:
 
 inline constexpr bool operator==(const SubstanceAmount& left,
                                  const SubstanceAmount& right) noexcept {
-  return left.value() == right.value();
+  return left.Value() == right.Value();
 }
 
 inline constexpr bool operator!=(const SubstanceAmount& left,
                                  const SubstanceAmount& right) noexcept {
-  return left.value() != right.value();
+  return left.Value() != right.Value();
 }
 
 inline constexpr bool operator<(const SubstanceAmount& left,
                                 const SubstanceAmount& right) noexcept {
-  return left.value() < right.value();
+  return left.Value() < right.Value();
 }
 
 inline constexpr bool operator>(const SubstanceAmount& left,
                                 const SubstanceAmount& right) noexcept {
-  return left.value() > right.value();
+  return left.Value() > right.Value();
 }
 
 inline constexpr bool operator<=(const SubstanceAmount& left,
                                  const SubstanceAmount& right) noexcept {
-  return left.value() <= right.value();
+  return left.Value() <= right.Value();
 }
 
 inline constexpr bool operator>=(const SubstanceAmount& left,
                                  const SubstanceAmount& right) noexcept {
-  return left.value() >= right.value();
+  return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(std::ostream& stream,
                                 const SubstanceAmount& amount) noexcept {
-  stream << amount.print();
+  stream << amount.Print();
   return stream;
 }
 
@@ -95,7 +95,7 @@ namespace std {
 template <>
 struct hash<PhQ::Dimension::SubstanceAmount> {
   size_t operator()(const PhQ::Dimension::SubstanceAmount& amount) const {
-    return hash<int_least8_t>()(amount.value());
+    return hash<int_least8_t>()(amount.Value());
   }
 };
 

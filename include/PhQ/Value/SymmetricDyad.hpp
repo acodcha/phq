@@ -61,18 +61,18 @@ public:
 
   inline constexpr double zz() const noexcept { return zz_; }
 
-  static bool is_symmetric() noexcept { return true; }
+  static bool IsSymmetric() noexcept { return true; }
 
-  inline constexpr double trace() const noexcept { return xx_ + yy_ + zz_; }
+  inline constexpr double Trace() const noexcept { return xx_ + yy_ + zz_; }
 
-  inline constexpr double determinant() const noexcept {
+  inline constexpr double Determinant() const noexcept {
     return (xx_ * (yy_ * zz_ - yz_ * yz_) + xy_ * (xz_ * yz_ - xy_ * zz_) +
             xz_ * (xy_ * yz_ - xz_ * yy_));
   }
 
-  inline constexpr SymmetricDyad transpose() const noexcept { return *this; }
+  inline constexpr SymmetricDyad Transpose() const noexcept { return *this; }
 
-  constexpr SymmetricDyad cofactors() const noexcept {
+  constexpr SymmetricDyad Cofactors() const noexcept {
     const double cofactor_xx{yy_ * zz_ - yz_ * yz_};
     const double cofactor_xy{xz_ * yz_ - xy_ * zz_};
     const double cofactor_xz{xy_ * yz_ - xz_ * yy_};
@@ -83,37 +83,37 @@ public:
             cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  constexpr SymmetricDyad adjugate() const noexcept {
+  constexpr SymmetricDyad Adjugate() const noexcept {
     // Normally, this would be cofactors().transpose(), but since this is a
     // symmetric dyad, the transpose is not needed.
-    return cofactors();
+    return Cofactors();
   }
 
-  constexpr SymmetricDyad inverse() const;
+  constexpr SymmetricDyad Inverse() const;
 
-  std::string print() const noexcept {
-    return "(" + PhQ::print(xx_) + ", " + PhQ::print(xy_) + ", " +
-           PhQ::print(xz_) + "; " + PhQ::print(yy_) + ", " + PhQ::print(yz_) +
-           "; " + PhQ::print(zz_) + ")";
+  std::string Print() const noexcept {
+    return "(" + PhQ::Print(xx_) + ", " + PhQ::Print(xy_) + ", " +
+           PhQ::Print(xz_) + "; " + PhQ::Print(yy_) + ", " + PhQ::Print(yz_) +
+           "; " + PhQ::Print(zz_) + ")";
   }
 
-  std::string json() const noexcept {
-    return "{\"xx\":" + PhQ::print(xx_) + ",\"xy\":" + PhQ::print(xy_) +
-           ",\"xz\":" + PhQ::print(xz_) + ",\"yy\":" + PhQ::print(yy_) +
-           ",\"yz\":" + PhQ::print(yz_) + ",\"zz\":" + PhQ::print(zz_) + "}";
+  std::string Json() const noexcept {
+    return "{\"xx\":" + PhQ::Print(xx_) + ",\"xy\":" + PhQ::Print(xy_) +
+           ",\"xz\":" + PhQ::Print(xz_) + ",\"yy\":" + PhQ::Print(yy_) +
+           ",\"yz\":" + PhQ::Print(yz_) + ",\"zz\":" + PhQ::Print(zz_) + "}";
   }
 
-  std::string xml() const noexcept {
-    return "<xx>" + PhQ::print(xx_) + "</xx><xy>" + PhQ::print(xy_) +
-           "</xy><xz>" + PhQ::print(xz_) + "</xz><yy>" + PhQ::print(yy_) +
-           "</yy><yz>" + PhQ::print(yz_) + "</yz><zz>" + PhQ::print(zz_) +
+  std::string Xml() const noexcept {
+    return "<xx>" + PhQ::Print(xx_) + "</xx><xy>" + PhQ::Print(xy_) +
+           "</xy><xz>" + PhQ::Print(xz_) + "</xz><yy>" + PhQ::Print(yy_) +
+           "</yy><yz>" + PhQ::Print(yz_) + "</yz><zz>" + PhQ::Print(zz_) +
            "</zz>";
   }
 
-  std::string yaml() const noexcept {
-    return "{xx:" + PhQ::print(xx_) + ",xy:" + PhQ::print(xy_) +
-           ",xz:" + PhQ::print(xz_) + ",yy:" + PhQ::print(yy_) +
-           ",yz:" + PhQ::print(yz_) + ",zz:" + PhQ::print(zz_) + "}";
+  std::string Yaml() const noexcept {
+    return "{xx:" + PhQ::Print(xx_) + ",xy:" + PhQ::Print(xy_) +
+           ",xz:" + PhQ::Print(xz_) + ",yy:" + PhQ::Print(yy_) +
+           ",yz:" + PhQ::Print(yz_) + ",zz:" + PhQ::Print(zz_) + "}";
   }
 
   constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
@@ -237,19 +237,19 @@ constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad,
           symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
 }
 
-constexpr SymmetricDyad SymmetricDyad::inverse() const {
-  const double determinant_{determinant()};
+constexpr SymmetricDyad SymmetricDyad::Inverse() const {
+  const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
-    return adjugate() / determinant_;
+    return Adjugate() / determinant_;
   } else {
-    throw std::runtime_error{"Cannot compute the inverse of " + print() +
+    throw std::runtime_error{"Cannot compute the inverse of " + Print() +
                              " because its determinant is 0."};
   }
 }
 
 std::ostream& operator<<(std::ostream& stream,
                          const SymmetricDyad& symmetric) noexcept {
-  stream << symmetric.print();
+  stream << symmetric.Print();
   return stream;
 }
 
