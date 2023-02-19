@@ -1,8 +1,17 @@
 // Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++ library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
@@ -49,11 +58,13 @@ public:
       y_ = y / magnitude;
       z_ = z / magnitude;
     } else {
-      throw std::runtime_error{"Attempting to create a direction from (0, 0, 0)."};
+      throw std::runtime_error{
+          "Attempting to create a direction from (0, 0, 0)."};
     }
   }
 
-  Direction(const std::array<double, 3>& x_y_z) : Direction(x_y_z[0], x_y_z[1], x_y_z[2]) {}
+  Direction(const std::array<double, 3>& x_y_z)
+      : Direction(x_y_z[0], x_y_z[1], x_y_z[2]) {}
 
   Direction(const Value::Vector& vector);
 
@@ -75,37 +86,30 @@ public:
 
   Direction(const Velocity& velocity);
 
-  constexpr double x() const noexcept {
-    return x_;
-  }
+  inline constexpr double x() const noexcept { return x_; }
 
-  constexpr double y() const noexcept {
-    return y_;
-  }
+  inline constexpr double y() const noexcept { return y_; }
 
-  constexpr double z() const noexcept {
-    return z_;
-  }
+  inline constexpr double z() const noexcept { return z_; }
 
-  constexpr double magnitude_squared() const noexcept {
+  inline constexpr double magnitude_squared() const noexcept {
     return x_ * x_ + y_ * y_ + z_ * z_;
   }
 
-  double magnitude() const noexcept {
+  inline double magnitude() const noexcept {
     return std::sqrt(magnitude_squared());
   }
 
-  constexpr double dot(const Direction& direction) const noexcept {
+  inline constexpr double dot(const Direction& direction) const noexcept {
     return x_ * direction.x_ + y_ * direction.y_ + z_ * direction.z_;
   }
 
   constexpr double dot(const Value::Vector& vector) const noexcept;
 
   Direction cross(const Direction& direction) const noexcept {
-    return {
-        y_ * direction.z_ - z_ * direction.y_,
-        z_ * direction.x_ - x_ * direction.z_,
-        x_ * direction.y_ - y_ * direction.x_};
+    return {y_ * direction.z_ - z_ * direction.y_,
+            z_ * direction.x_ - x_ * direction.z_,
+            x_ * direction.y_ - y_ * direction.x_};
   }
 
   constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
@@ -119,36 +123,46 @@ public:
   constexpr Angle angle(const Value::Vector& vector) const noexcept;
 
   std::string print() const noexcept {
-    return "(" + PhQ::print(x_) + ", " + PhQ::print(y_) + ", " + PhQ::print(z_) + ")";
+    return "(" + PhQ::print(x_) + ", " + PhQ::print(y_) + ", " +
+           PhQ::print(z_) + ")";
   }
 
   std::string json() const noexcept {
-    return "{\"x\":" + PhQ::print(x_) + ",\"y\":" + PhQ::print(y_) + ",\"z\":" + PhQ::print(z_) + "}";
+    return "{\"x\":" + PhQ::print(x_) + ",\"y\":" + PhQ::print(y_) +
+           ",\"z\":" + PhQ::print(z_) + "}";
   }
 
   std::string xml() const noexcept {
-    return "<x>" + PhQ::print(x_) + "</x><y>" + PhQ::print(y_) + "</y><z>" + PhQ::print(z_) + "</z>";
+    return "<x>" + PhQ::print(x_) + "</x><y>" + PhQ::print(y_) + "</y><z>" +
+           PhQ::print(z_) + "</z>";
   }
 
   std::string yaml() const noexcept {
-    return "{x:" + PhQ::print(x_) + ",y:" + PhQ::print(y_) + ",z:" + PhQ::print(z_) + "}";
+    return "{x:" + PhQ::print(x_) + ",y:" + PhQ::print(y_) +
+           ",z:" + PhQ::print(z_) + "}";
   }
 
-  constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+  constexpr Acceleration operator*(
+      const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
   constexpr AreaVector operator*(const Area& area) const noexcept;
 
   constexpr Displacement operator*(const Length& length) const noexcept;
 
-  constexpr Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
+  constexpr Force operator*(
+      const ForceMagnitude& force_magnitude) const noexcept;
 
-  constexpr HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
+  constexpr HeatFlux operator*(
+      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
-  constexpr Traction operator*(const StaticPressure& static_pressure) const noexcept;
+  constexpr Traction operator*(
+      const StaticPressure& static_pressure) const noexcept;
 
   constexpr Velocity operator*(const Speed& speed) const noexcept;
 
-  constexpr TemperatureGradient operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept;
+  constexpr TemperatureGradient operator*(
+      const TemperatureGradientMagnitude& temperature_gradient_magnitude)
+      const noexcept;
 
 private:
   double x_;
@@ -158,24 +172,30 @@ private:
   double z_;
 };
 
-constexpr bool operator==(const Direction& left, const Direction& right) noexcept {
-  return left.x() == right.x() && left.y() == right.y() && left.z() == right.z();
+inline constexpr bool operator==(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.x() == right.x() && left.y() == right.y() &&
+         left.z() == right.z();
 }
 
-constexpr bool operator!=(const Direction& left, const Direction& right) noexcept {
-  return left.x() != right.x() || left.y() != right.y() || left.z() != right.z();
+inline constexpr bool operator!=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.x() != right.x() || left.y() != right.y() ||
+         left.z() != right.z();
 }
 
-std::ostream& operator<<(std::ostream& output_stream, const Direction& direction) noexcept {
-  output_stream << direction.print();
-  return output_stream;
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Direction& direction) noexcept {
+  stream << direction.print();
+  return stream;
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Direction> {
+template <>
+struct hash<PhQ::Direction> {
   size_t operator()(const PhQ::Direction& direction) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(direction.x());

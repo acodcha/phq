@@ -1,8 +1,17 @@
 // Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++ library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
 #include "../../include/PhQ/Dimension/LuminousIntensity.hpp"
 
@@ -31,36 +40,38 @@ TEST(DimensionLuminousIntensity, Accessor) {
 }
 
 TEST(DimensionLuminousIntensity, Comparison) {
-  const LuminousIntensity object0{-1};
-  const LuminousIntensity object1{2};
-  EXPECT_EQ(object0, object0);
-  EXPECT_NE(object0, object1);
-  EXPECT_LT(object0, object1);
-  EXPECT_LE(object0, object0);
-  EXPECT_LE(object0, object1);
-  EXPECT_GT(object1, object0);
-  EXPECT_GE(object1, object0);
-  EXPECT_GE(object0, object0);
-  const std::set<LuminousIntensity> increasing{object0, object1};
-  EXPECT_EQ(*increasing.begin(), object0);
-  const std::set<LuminousIntensity, std::greater<LuminousIntensity>> decreasing{object0, object1};
-  EXPECT_EQ(*decreasing.begin(), object1);
+  const LuminousIntensity intensity0{-1};
+  const LuminousIntensity intensity1{2};
+  EXPECT_EQ(intensity0, intensity0);
+  EXPECT_NE(intensity0, intensity1);
+  EXPECT_LT(intensity0, intensity1);
+  EXPECT_LE(intensity0, intensity0);
+  EXPECT_LE(intensity0, intensity1);
+  EXPECT_GT(intensity1, intensity0);
+  EXPECT_GE(intensity1, intensity0);
+  EXPECT_GE(intensity0, intensity0);
+  const std::set<LuminousIntensity> increasing{intensity0, intensity1};
+  EXPECT_EQ(*increasing.begin(), intensity0);
+  const std::set<LuminousIntensity, std::greater<LuminousIntensity>> decreasing{
+      intensity0, intensity1};
+  EXPECT_EQ(*decreasing.begin(), intensity1);
 }
 
 TEST(DimensionLuminousIntensity, Hash) {
-  const LuminousIntensity object0{-2};
-  const LuminousIntensity object1{-1};
-  const LuminousIntensity object2{0};
-  const LuminousIntensity object3{1};
-  const LuminousIntensity object4{2};
-  const LuminousIntensity object5{3};
+  const LuminousIntensity intensity0{-2};
+  const LuminousIntensity intensity1{-1};
+  const LuminousIntensity intensity2{0};
+  const LuminousIntensity intensity3{1};
+  const LuminousIntensity intensity4{2};
+  const LuminousIntensity intensity5{3};
   const std::hash<LuminousIntensity> hasher;
-  EXPECT_NE(hasher(object0), hasher(object1));
-  EXPECT_NE(hasher(object0), hasher(object2));
-  EXPECT_NE(hasher(object0), hasher(object3));
-  EXPECT_NE(hasher(object0), hasher(object4));
-  EXPECT_NE(hasher(object0), hasher(object5));
-  const std::unordered_set<LuminousIntensity> unordered{object0, object1, object2, object3, object4, object5};
+  EXPECT_NE(hasher(intensity0), hasher(intensity1));
+  EXPECT_NE(hasher(intensity0), hasher(intensity2));
+  EXPECT_NE(hasher(intensity0), hasher(intensity3));
+  EXPECT_NE(hasher(intensity0), hasher(intensity4));
+  EXPECT_NE(hasher(intensity0), hasher(intensity5));
+  const std::unordered_set<LuminousIntensity> unordered{
+      intensity0, intensity1, intensity2, intensity3, intensity4, intensity5};
 }
 
 TEST(DimensionLuminousIntensity, Label) {
@@ -78,10 +89,10 @@ TEST(DimensionLuminousIntensity, Print) {
 }
 
 TEST(DimensionLuminousIntensity, Stream) {
-  const LuminousIntensity object{3};
-  std::ostringstream output_string_stream;
-  output_string_stream << object;
-  EXPECT_EQ(output_string_stream.str(), object.print());
+  const LuminousIntensity intensity{3};
+  std::ostringstream stream;
+  stream << intensity;
+  EXPECT_EQ(stream.str(), intensity.print());
 }
 
 }  // namespace
