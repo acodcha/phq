@@ -23,9 +23,11 @@
 namespace PhQ {
 
 namespace Value {
+
 class Vector;
-class SymmetricDyadic;
-class Dyadic;
+class SymmetricDyad;
+class Dyad;
+
 }  // namespace Value
 
 class Acceleration;
@@ -114,9 +116,9 @@ public:
 
   constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
 
-  constexpr Value::Dyadic dyadic(const Direction& direction) const noexcept;
+  constexpr Value::Dyad dyadic(const Direction& direction) const noexcept;
 
-  constexpr Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
+  constexpr Value::Dyad dyadic(const Value::Vector& vector) const noexcept;
 
   constexpr Angle angle(const Direction& direction) const noexcept;
 

@@ -117,16 +117,16 @@ TEST(UnitLength, ConversionVerification) {
   const std::array<double, 3> array{10.0, -20.0, 30.0};
   const std::vector<double> plain_vector{10.0, -20.0, 30.0};
   const Value::Vector vector_value{10.0, -20.0, 30.0};
-  const Value::SymmetricDyadic symmetric{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  const Value::Dyadic dyadic{10.0,  -20.0, 30.0,  -40.0, 50.0,
-                             -60.0, 70.0,  -80.0, 90.0};
+  const Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  const Value::Dyad dyadic{10.0,  -20.0, 30.0,  -40.0, 50.0,
+                           -60.0, 70.0,  -80.0, 90.0};
   for (const Unit::Length old_unit : LengthUnits) {
     for (const UnitSystem new_unit_system : UnitSystems) {
       convert(value, old_unit, new_unit_system);
       convert(array, old_unit, new_unit_system);
       convert(plain_vector, old_unit, new_unit_system);
       convert(vector_value, old_unit, new_unit_system);
-      convert(symmetric, old_unit, new_unit_system);
+      convert(symdyad, old_unit, new_unit_system);
       convert(dyadic, old_unit, new_unit_system);
     }
     for (const Unit::Length new_unit : LengthUnits) {
@@ -134,7 +134,7 @@ TEST(UnitLength, ConversionVerification) {
       convert(array, old_unit, new_unit);
       convert(plain_vector, old_unit, new_unit);
       convert(vector_value, old_unit, new_unit);
-      convert(symmetric, old_unit, new_unit);
+      convert(symdyad, old_unit, new_unit);
       convert(dyadic, old_unit, new_unit);
     }
   }

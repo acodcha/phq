@@ -13,24 +13,24 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYADIC_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYADIC_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP
 
 #include "Vector.hpp"
 
 namespace PhQ::Value {
 
-class SymmetricDyadic {
+class SymmetricDyad {
 public:
-  constexpr SymmetricDyadic() noexcept
+  constexpr SymmetricDyad() noexcept
       : xx_(), xy_(), xz_(), yy_(), yz_(), zz_() {}
 
-  constexpr SymmetricDyadic(const double xx, const double xy, const double xz,
-                            const double yy, const double yz,
-                            const double zz) noexcept
+  constexpr SymmetricDyad(const double xx, const double xy, const double xz,
+                          const double yy, const double yz,
+                          const double zz) noexcept
       : xx_(xx), xy_(xy), xz_(xz), yy_(yy), yz_(yz), zz_(zz) {}
 
-  constexpr SymmetricDyadic(
+  constexpr SymmetricDyad(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept
       : xx_(xx_xy_xz_yy_yz_zz[0]),
         xy_(xx_xy_xz_yy_yz_zz[1]),
@@ -39,7 +39,7 @@ public:
         yz_(xx_xy_xz_yy_yz_zz[4]),
         zz_(xx_xy_xz_yy_yz_zz[5]) {}
 
-  static constexpr SymmetricDyadic Zero() noexcept {
+  static constexpr SymmetricDyad Zero() noexcept {
     return {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   }
 
@@ -70,9 +70,9 @@ public:
             xz_ * (xy_ * yz_ - xz_ * yy_));
   }
 
-  inline constexpr SymmetricDyadic transpose() const noexcept { return *this; }
+  inline constexpr SymmetricDyad transpose() const noexcept { return *this; }
 
-  constexpr SymmetricDyadic cofactors() const noexcept {
+  constexpr SymmetricDyad cofactors() const noexcept {
     const double cofactor_xx{yy_ * zz_ - yz_ * yz_};
     const double cofactor_xy{xz_ * yz_ - xy_ * zz_};
     const double cofactor_xz{xy_ * yz_ - xz_ * yy_};
@@ -83,13 +83,13 @@ public:
             cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  constexpr SymmetricDyadic adjugate() const noexcept {
+  constexpr SymmetricDyad adjugate() const noexcept {
     // Normally, this would be cofactors().transpose(), but since this is a
-    // symmetric dyadic, the transpose is not needed.
+    // symmetric dyad, the transpose is not needed.
     return cofactors();
   }
 
-  constexpr SymmetricDyadic inverse() const;
+  constexpr SymmetricDyad inverse() const;
 
   std::string print() const noexcept {
     return "(" + PhQ::print(xx_) + ", " + PhQ::print(xy_) + ", " +
@@ -116,22 +116,22 @@ public:
            ",yz:" + PhQ::print(yz_) + ",zz:" + PhQ::print(zz_) + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyadic& symmetric_dyadic) noexcept {
-    xx_ += symmetric_dyadic.xx_;
-    xy_ += symmetric_dyadic.xy_;
-    xz_ += symmetric_dyadic.xz_;
-    yy_ += symmetric_dyadic.yy_;
-    yz_ += symmetric_dyadic.yz_;
-    zz_ += symmetric_dyadic.zz_;
+  constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
+    xx_ += symdyad.xx_;
+    xy_ += symdyad.xy_;
+    xz_ += symdyad.xz_;
+    yy_ += symdyad.yy_;
+    yz_ += symdyad.yz_;
+    zz_ += symdyad.zz_;
   }
 
-  constexpr void operator-=(const SymmetricDyadic& symmetric_dyadic) noexcept {
-    xx_ -= symmetric_dyadic.xx_;
-    xy_ -= symmetric_dyadic.xy_;
-    xz_ -= symmetric_dyadic.xz_;
-    yy_ -= symmetric_dyadic.yy_;
-    yz_ -= symmetric_dyadic.yz_;
-    zz_ -= symmetric_dyadic.zz_;
+  constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
+    xx_ -= symdyad.xx_;
+    xy_ -= symdyad.xy_;
+    xz_ -= symdyad.xz_;
+    yy_ -= symdyad.yy_;
+    yz_ -= symdyad.yz_;
+    zz_ -= symdyad.zz_;
   }
 
   constexpr void operator*=(const double real) noexcept {
@@ -166,84 +166,78 @@ protected:
   double zz_;
 };
 
-constexpr bool operator==(const SymmetricDyadic& left,
-                          const SymmetricDyadic& right) noexcept {
+constexpr bool operator==(const SymmetricDyad& left,
+                          const SymmetricDyad& right) noexcept {
   return (left.xx() == right.xx() && left.xy() == right.xy() &&
           left.xz() == right.xz() && left.yy() == right.yy() &&
           left.yz() == right.yz() && left.zz() == right.zz());
 }
 
-constexpr bool operator!=(const SymmetricDyadic& left,
-                          const SymmetricDyadic& right) noexcept {
+constexpr bool operator!=(const SymmetricDyad& left,
+                          const SymmetricDyad& right) noexcept {
   return (left.xx() != right.xx() || left.xy() != right.xy() ||
           left.xz() != right.xz() || left.yy() != right.yy() ||
           left.yz() != right.yz() || left.zz() != right.zz());
 }
 
-constexpr SymmetricDyadic operator+(const SymmetricDyadic& left,
-                                    const SymmetricDyadic& right) noexcept {
+constexpr SymmetricDyad operator+(const SymmetricDyad& left,
+                                  const SymmetricDyad& right) noexcept {
   return {left.xx() + right.xx(), left.xy() + right.xy(),
           left.xz() + right.xz(), left.yy() + right.yy(),
           left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
-constexpr SymmetricDyadic operator-(const SymmetricDyadic& left,
-                                    const SymmetricDyadic& right) noexcept {
+constexpr SymmetricDyad operator-(const SymmetricDyad& left,
+                                  const SymmetricDyad& right) noexcept {
   return {left.xx() - right.xx(), left.xy() - right.xy(),
           left.xz() - right.xz(), left.yy() - right.yy(),
           left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
-constexpr SymmetricDyadic operator*(const SymmetricDyadic& symmetric_dyadic,
-                                    const double real) noexcept {
-  return {symmetric_dyadic.xx() * real, symmetric_dyadic.xy() * real,
-          symmetric_dyadic.xz() * real, symmetric_dyadic.yy() * real,
-          symmetric_dyadic.yz() * real, symmetric_dyadic.zz() * real};
+constexpr SymmetricDyad operator*(const SymmetricDyad& symdyad,
+                                  const double real) noexcept {
+  return {symdyad.xx() * real, symdyad.xy() * real, symdyad.xz() * real,
+          symdyad.yy() * real, symdyad.yz() * real, symdyad.zz() * real};
 }
 
-constexpr SymmetricDyadic operator*(
-    const double real, const SymmetricDyadic& symmetric_dyadic) noexcept {
-  return {symmetric_dyadic * real};
+constexpr SymmetricDyad operator*(const double real,
+                                  const SymmetricDyad& symdyad) noexcept {
+  return {symdyad * real};
 }
 
-constexpr Vector operator*(const SymmetricDyadic& symmetric_dyadic,
+constexpr Vector operator*(const SymmetricDyad& symdyad,
                            const Direction& direction) noexcept {
-  return {symmetric_dyadic.xx() * direction.x() +
-              symmetric_dyadic.xy() * direction.y() +
-              symmetric_dyadic.xz() * direction.z(),
-          symmetric_dyadic.xy() * direction.x() +
-              symmetric_dyadic.yy() * direction.y() +
-              symmetric_dyadic.yz() * direction.z(),
-          symmetric_dyadic.xz() * direction.x() +
-              symmetric_dyadic.yz() * direction.y() +
-              symmetric_dyadic.zz() * direction.z()};
+  return {symdyad.xx() * direction.x() + symdyad.xy() * direction.y() +
+              symdyad.xz() * direction.z(),
+          symdyad.xy() * direction.x() + symdyad.yy() * direction.y() +
+              symdyad.yz() * direction.z(),
+          symdyad.xz() * direction.x() + symdyad.yz() * direction.y() +
+              symdyad.zz() * direction.z()};
 }
 
-constexpr Vector operator*(const SymmetricDyadic& symmetric_dyadic,
+constexpr Vector operator*(const SymmetricDyad& symdyad,
                            const Vector& vector) noexcept {
-  return {
-      symmetric_dyadic.xx() * vector.x() + symmetric_dyadic.xy() * vector.y() +
-          symmetric_dyadic.xz() * vector.z(),
-      symmetric_dyadic.xy() * vector.x() + symmetric_dyadic.yy() * vector.y() +
-          symmetric_dyadic.yz() * vector.z(),
-      symmetric_dyadic.xz() * vector.x() + symmetric_dyadic.yz() * vector.y() +
-          symmetric_dyadic.zz() * vector.z()};
+  return {symdyad.xx() * vector.x() + symdyad.xy() * vector.y() +
+              symdyad.xz() * vector.z(),
+          symdyad.xy() * vector.x() + symdyad.yy() * vector.y() +
+              symdyad.yz() * vector.z(),
+          symdyad.xz() * vector.x() + symdyad.yz() * vector.y() +
+              symdyad.zz() * vector.z()};
 }
 
-constexpr Dyadic operator*(const SymmetricDyadic& left,
-                           const SymmetricDyadic& right) noexcept;
+constexpr Dyad operator*(const SymmetricDyad& left,
+                         const SymmetricDyad& right) noexcept;
 
-constexpr Dyadic operator*(const SymmetricDyadic& symmetric_dyadic,
-                           const Dyadic& dyadic) noexcept;
+constexpr Dyad operator*(const SymmetricDyad& symdyad,
+                         const Dyad& dyad) noexcept;
 
-constexpr SymmetricDyadic operator/(const SymmetricDyadic& symmetric_dyadic,
-                                    const double real) noexcept {
-  return {symmetric_dyadic.xx() / real, symmetric_dyadic.xy() / real,
-          symmetric_dyadic.xz() / real, symmetric_dyadic.yy() / real,
-          symmetric_dyadic.yz() / real, symmetric_dyadic.zz() / real};
+constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad,
+                                  const double real) noexcept {
+  return {symdyad.xx() / real, symdyad.xy() / real, symdyad.xz() / real,
+          symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
 }
 
-constexpr SymmetricDyadic SymmetricDyadic::inverse() const {
+constexpr SymmetricDyad SymmetricDyad::inverse() const {
   const double determinant_{determinant()};
   if (determinant_ != 0.0) {
     return adjugate() / determinant_;
@@ -254,7 +248,7 @@ constexpr SymmetricDyadic SymmetricDyadic::inverse() const {
 }
 
 std::ostream& operator<<(std::ostream& stream,
-                         const SymmetricDyadic& symmetric) noexcept {
+                         const SymmetricDyad& symmetric) noexcept {
   stream << symmetric.print();
   return stream;
 }
@@ -264,8 +258,8 @@ std::ostream& operator<<(std::ostream& stream,
 namespace std {
 
 template <>
-struct hash<PhQ::Value::SymmetricDyadic> {
-  size_t operator()(const PhQ::Value::SymmetricDyadic& symmetric) const {
+struct hash<PhQ::Value::SymmetricDyad> {
+  size_t operator()(const PhQ::Value::SymmetricDyad& symmetric) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(symmetric.xx());
     result = 31 * result + hash<double>()(symmetric.xy());
@@ -279,4 +273,4 @@ struct hash<PhQ::Value::SymmetricDyadic> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYADIC_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP

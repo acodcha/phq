@@ -74,9 +74,9 @@ public:
             x_ * vector.y_ - y_ * vector.x_};
   }
 
-  constexpr Dyadic dyadic(const Direction& direction) const noexcept;
+  constexpr Dyad dyadic(const Direction& direction) const noexcept;
 
-  constexpr Dyadic dyadic(const Vector& vector) const noexcept;
+  constexpr Dyad dyadic(const Vector& vector) const noexcept;
 
   constexpr Angle angle(const Direction& direction) const noexcept;
 

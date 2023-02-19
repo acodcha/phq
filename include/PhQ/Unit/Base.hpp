@@ -18,7 +18,7 @@
 
 #include "../Dimension/Set.hpp"
 #include "../UnitSystem.hpp"
-#include "../Value/Dyadic.hpp"
+#include "../Value/Dyad.hpp"
 
 namespace PhQ {
 
@@ -86,9 +86,9 @@ Value::Vector convert(const Value::Vector& values, const Unit old_unit,
 }
 
 template <typename Unit>
-Value::SymmetricDyadic convert(const Value::SymmetricDyadic& values,
-                               const Unit old_unit,
-                               const Unit new_unit) noexcept {
+Value::SymmetricDyad convert(const Value::SymmetricDyad& values,
+                             const Unit old_unit,
+                             const Unit new_unit) noexcept {
   const std::vector<double> values_vector{
       convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
                                   values.yy(), values.yz(), values.zz()},
@@ -98,15 +98,15 @@ Value::SymmetricDyadic convert(const Value::SymmetricDyadic& values,
 }
 
 template <typename Unit>
-Value::SymmetricDyadic convert(const Value::SymmetricDyadic& values,
-                               const Unit old_unit,
-                               const UnitSystem new_unit_system) noexcept {
+Value::SymmetricDyad convert(const Value::SymmetricDyad& values,
+                             const Unit old_unit,
+                             const UnitSystem new_unit_system) noexcept {
   return convert(values, old_unit, unit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
-Value::Dyadic convert(const Value::Dyadic& values, const Unit old_unit,
-                      const Unit new_unit) noexcept {
+Value::Dyad convert(const Value::Dyad& values, const Unit old_unit,
+                    const Unit new_unit) noexcept {
   const std::vector<double> values_vector{
       convert(std::vector<double>{values.xx(), values.xy(), values.xz(),
                                   values.yx(), values.yy(), values.yz(),
@@ -118,8 +118,8 @@ Value::Dyadic convert(const Value::Dyadic& values, const Unit old_unit,
 }
 
 template <typename Unit>
-Value::Dyadic convert(const Value::Dyadic& values, const Unit old_unit,
-                      const UnitSystem new_unit_system) noexcept {
+Value::Dyad convert(const Value::Dyad& values, const Unit old_unit,
+                    const UnitSystem new_unit_system) noexcept {
   return convert(values, old_unit, unit<Unit>(new_unit_system));
 }
 
