@@ -152,7 +152,7 @@ public:
     zz_ /= real;
   }
 
-protected:
+private:
   double xx_;
 
   double xy_;
