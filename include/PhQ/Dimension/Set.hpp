@@ -287,7 +287,7 @@ private:
   Dimension::LuminousIntensity luminous_intensity_;
 };
 
-constexpr bool operator==(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator==(const Set& left, const Set& right) noexcept {
   return left.Length() == right.Length() && left.Mass() == right.Mass() &&
          left.Time() == right.Time() &&
          left.ElectricCurrent() == right.ElectricCurrent() &&
@@ -296,7 +296,7 @@ constexpr bool operator==(const Set& left, const Set& right) noexcept {
          left.LuminousIntensity() == right.LuminousIntensity();
 }
 
-constexpr bool operator!=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
   return left.Length() != right.Length() || left.Mass() != right.Mass() ||
          left.Time() != right.Time() ||
          left.ElectricCurrent() != right.ElectricCurrent() ||
