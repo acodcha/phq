@@ -24,7 +24,9 @@ namespace PhQ {
 namespace {
 
 TEST(ValueVector, Accessor) {
-  const Value::Vector vector{1.23, 4.56, 7.89};
+  const std::array<double, 3> value{1.23, 4.56, 7.89};
+  const Value::Vector vector{value};
+  EXPECT_EQ(vector.Value(), value);
   EXPECT_EQ(vector.x(), 1.23);
   EXPECT_EQ(vector.y(), 4.56);
   EXPECT_EQ(vector.z(), 7.89);

@@ -24,29 +24,36 @@ namespace Value {
 
 class Vector {
 public:
-  constexpr Vector() noexcept : x_(), y_(), z_() {}
+  constexpr Vector() noexcept : x_y_z_() {}
 
   constexpr Vector(const double x, const double y, const double z) noexcept
-      : x_(x), y_(y), z_(z) {}
+      : x_y_z_(std::array<double, 3>{x, y, z}) {}
 
   constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
-      : x_(x_y_z[0]), y_(x_y_z[1]), z_(x_y_z[2]) {}
+      : x_y_z_(x_y_z) {}
 
   constexpr Vector(double value, const Direction& direction) noexcept
-      : x_(value * direction.x()),
-        y_(value * direction.y()),
-        z_(value * direction.z()) {}
+      : x_y_z_(std::array<double, 3>{value * direction.x(),
+                                     value * direction.y(),
+                                     value * direction.z()}) {}
 
-  static constexpr Vector Zero() noexcept { return {0.0, 0.0, 0.0}; }
+  static constexpr Vector Zero() noexcept {
+    return std::array<double, 3>{0.0, 0.0, 0.0};
+  }
 
-  inline constexpr double x() const noexcept { return x_; }
+  inline constexpr const std::array<double, 3>& Value() const noexcept {
+    return x_y_z_;
+  }
 
-  inline constexpr double y() const noexcept { return y_; }
+  inline constexpr double x() const noexcept { return x_y_z_[0]; }
 
-  inline constexpr double z() const noexcept { return z_; }
+  inline constexpr double y() const noexcept { return x_y_z_[1]; }
+
+  inline constexpr double z() const noexcept { return x_y_z_[2]; }
 
   inline constexpr double MagnitudeSquared() const noexcept {
-    return x_ * x_ + y_ * y_ + z_ * z_;
+    return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] +
+           x_y_z_[2] * x_y_z_[2];
   }
 
   inline double Magnitude() const noexcept {
@@ -55,116 +62,126 @@ public:
 
   PhQ::Direction Direction() const { return {*this}; }
 
-  constexpr double Dot(const PhQ::Direction& direction) const noexcept {
-    return x_ * direction.x() + y_ * direction.y() + z_ * direction.z();
+  inline constexpr double Dot(const PhQ::Direction& direction) const noexcept {
+    return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() +
+           x_y_z_[2] * direction.z();
   }
 
-  constexpr double Dot(const Vector& vector) const noexcept {
-    return x_ * vector.x_ + y_ * vector.y_ + z_ * vector.z_;
+  inline constexpr double Dot(const Vector& vector) const noexcept {
+    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +
+           x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  constexpr Vector Cross(const PhQ::Direction& direction) const noexcept {
-    return {y_ * direction.z() - z_ * direction.y(),
-            z_ * direction.x() - x_ * direction.z(),
-            x_ * direction.y() - y_ * direction.x()};
+  inline constexpr Vector Cross(
+      const PhQ::Direction& direction) const noexcept {
+    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
+            x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
+            x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
   }
 
-  constexpr Vector Cross(const Vector& vector) const noexcept {
-    return {y_ * vector.z_ - z_ * vector.y_, z_ * vector.x_ - x_ * vector.z_,
-            x_ * vector.y_ - y_ * vector.x_};
+  inline constexpr Vector Cross(const Vector& vector) const noexcept {
+    return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
+            x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
+            x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
+  inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
 
-  constexpr Dyad Dyadic(const Vector& vector) const noexcept;
+  inline constexpr Dyad Dyadic(const Vector& vector) const noexcept;
 
-  constexpr PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
+  inline constexpr PhQ::Angle Angle(
+      const PhQ::Direction& direction) const noexcept;
 
-  constexpr PhQ::Angle Angle(const Vector& vector) const noexcept;
+  inline constexpr PhQ::Angle Angle(const Vector& vector) const noexcept;
 
-  std::string Print() const noexcept {
-    return "(" + PhQ::Print(x_) + ", " + PhQ::Print(y_) + ", " +
-           PhQ::Print(z_) + ")";
+  inline std::string Print() const noexcept {
+    return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +
+           PhQ::Print(x_y_z_[2]) + ")";
   }
 
-  std::string Json() const noexcept {
-    return "{\"x\":" + PhQ::Print(x_) + ",\"y\":" + PhQ::Print(y_) +
-           ",\"z\":" + PhQ::Print(z_) + "}";
+  inline std::string Json() const noexcept {
+    return "{\"x\":" + PhQ::Print(x_y_z_[0]) +
+           ",\"y\":" + PhQ::Print(x_y_z_[1]) +
+           ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  std::string Xml() const noexcept {
-    return "<x>" + PhQ::Print(x_) + "</x><y>" + PhQ::Print(y_) + "</y><z>" +
-           PhQ::Print(z_) + "</z>";
+  inline std::string Xml() const noexcept {
+    return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1]) +
+           "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
-  std::string Yaml() const noexcept {
-    return "{x:" + PhQ::Print(x_) + ",y:" + PhQ::Print(y_) +
-           ",z:" + PhQ::Print(z_) + "}";
+  inline std::string Yaml() const noexcept {
+    return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1]) +
+           ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  constexpr void operator+=(const Vector& vector) noexcept {
-    x_ += vector.x_;
-    y_ += vector.y_;
-    z_ += vector.z_;
+  inline constexpr void operator+=(const Vector& vector) noexcept {
+    x_y_z_[0] += vector.x_y_z_[0];
+    x_y_z_[1] += vector.x_y_z_[1];
+    x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  constexpr void operator-=(const Vector& vector) noexcept {
-    x_ -= vector.x_;
-    y_ -= vector.y_;
-    z_ -= vector.z_;
+  inline constexpr void operator-=(const Vector& vector) noexcept {
+    x_y_z_[0] -= vector.x_y_z_[0];
+    x_y_z_[1] -= vector.x_y_z_[1];
+    x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr void operator*=(const double real) noexcept {
-    x_ *= real;
-    y_ *= real;
-    z_ *= real;
+  inline constexpr void operator*=(const double real) noexcept {
+    x_y_z_[0] *= real;
+    x_y_z_[1] *= real;
+    x_y_z_[2] *= real;
   }
 
-  constexpr void operator/=(const double real) noexcept {
-    x_ /= real;
-    y_ /= real;
-    z_ /= real;
+  inline constexpr void operator/=(const double real) noexcept {
+    x_y_z_[0] /= real;
+    x_y_z_[1] /= real;
+    x_y_z_[2] /= real;
   }
 
 private:
-  double x_;
-
-  double y_;
-
-  double z_;
+  std::array<double, 3> x_y_z_;
 };
 
-constexpr bool operator==(const Vector& left, const Vector& right) noexcept {
+inline constexpr bool operator==(const Vector& left,
+                                 const Vector& right) noexcept {
   return left.x() == right.x() && left.y() == right.y() &&
          left.z() == right.z();
 }
 
-constexpr bool operator!=(const Vector& left, const Vector& right) noexcept {
+inline constexpr bool operator!=(const Vector& left,
+                                 const Vector& right) noexcept {
   return left.x() != right.x() || left.y() != right.y() ||
          left.z() != right.z();
 }
 
-constexpr Vector operator+(const Vector& left, const Vector& right) noexcept {
+inline constexpr Vector operator+(const Vector& left,
+                                  const Vector& right) noexcept {
   return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
-constexpr Vector operator-(const Vector& left, const Vector& right) noexcept {
+inline constexpr Vector operator-(const Vector& left,
+                                  const Vector& right) noexcept {
   return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
-constexpr Vector operator*(const Vector& vector, const double real) noexcept {
+inline constexpr Vector operator*(const Vector& vector,
+                                  const double real) noexcept {
   return {vector.x() * real, vector.y() * real, vector.z() * real};
 }
 
-constexpr Vector operator*(const double real, const Vector& vector) noexcept {
+inline constexpr Vector operator*(const double real,
+                                  const Vector& vector) noexcept {
   return {vector * real};
 }
 
-constexpr Vector operator/(const Vector& vector, const double real) noexcept {
+inline constexpr Vector operator/(const Vector& vector,
+                                  const double real) noexcept {
   return {vector.x() / real, vector.y() / real, vector.z() / real};
 }
 
-std::ostream& operator<<(std::ostream& stream, const Vector& vector) noexcept {
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Vector& vector) noexcept {
   stream << vector.Print();
   return stream;
 }
@@ -174,12 +191,13 @@ std::ostream& operator<<(std::ostream& stream, const Vector& vector) noexcept {
 Direction::Direction(const Value::Vector& vector)
     : Direction(vector.x(), vector.y(), vector.z()) {}
 
-constexpr double Direction::Dot(const Value::Vector& vector) const noexcept {
+inline constexpr double Direction::Dot(
+    const Value::Vector& vector) const noexcept {
   return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() +
          x_y_z_[2] * vector.z();
 }
 
-constexpr Value::Vector Direction::Cross(
+inline constexpr Value::Vector Direction::Cross(
     const Value::Vector& vector) const noexcept {
   return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
           x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),

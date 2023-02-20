@@ -98,22 +98,22 @@ public:
 
   Direction(const Velocity& velocity);
 
+  inline constexpr const std::array<double, 3>& Value() const noexcept {
+    return x_y_z_;
+  }
+
   inline constexpr double x() const noexcept { return x_y_z_[0]; }
 
   inline constexpr double y() const noexcept { return x_y_z_[1]; }
 
   inline constexpr double z() const noexcept { return x_y_z_[2]; }
 
-  inline constexpr const std::array<double, 3>& Value() const noexcept {
-    return x_y_z_;
-  }
-
   inline constexpr double Dot(const Direction& direction) const noexcept {
     return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] +
            x_y_z_[2] * direction.x_y_z_[2];
   }
 
-  constexpr double Dot(const Value::Vector& vector) const noexcept;
+  inline constexpr double Dot(const Value::Vector& vector) const noexcept;
 
   inline Direction Cross(const Direction& direction) const noexcept {
     return {x_y_z_[1] * direction.x_y_z_[2] - x_y_z_[2] * direction.x_y_z_[1],
@@ -121,15 +121,18 @@ public:
             x_y_z_[0] * direction.x_y_z_[1] - x_y_z_[1] * direction.x_y_z_[0]};
   }
 
-  constexpr Value::Vector Cross(const Value::Vector& vector) const noexcept;
+  inline constexpr Value::Vector Cross(
+      const Value::Vector& vector) const noexcept;
 
-  constexpr Value::Dyad Dyadic(const Direction& direction) const noexcept;
+  inline constexpr Value::Dyad Dyadic(
+      const Direction& direction) const noexcept;
 
-  constexpr Value::Dyad Dyadic(const Value::Vector& vector) const noexcept;
+  inline constexpr Value::Dyad Dyadic(
+      const Value::Vector& vector) const noexcept;
 
-  constexpr PhQ::Angle Angle(const Direction& direction) const noexcept;
+  inline constexpr PhQ::Angle Angle(const Direction& direction) const noexcept;
 
-  constexpr PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
+  inline constexpr PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +

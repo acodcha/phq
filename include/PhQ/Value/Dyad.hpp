@@ -217,12 +217,6 @@ private:
   double zz_;
 };
 
-constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
-  return {x_ * vector.x_, x_ * vector.y_, x_ * vector.z_,
-          y_ * vector.x_, y_ * vector.y_, y_ * vector.z_,
-          z_ * vector.x_, z_ * vector.y_, z_ * vector.z_};
-}
-
 constexpr bool operator==(const Dyad& left, const Dyad& right) noexcept {
   return (left.xx() == right.xx() && left.xy() == right.xy() &&
           left.xz() == right.xz() && left.yx() == right.yx() &&
@@ -362,9 +356,17 @@ std::ostream& operator<<(std::ostream& stream, const Dyad& dyad) noexcept {
   return stream;
 }
 
+inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
+  return {x_y_z_[0] * vector.x_y_z_[0], x_y_z_[0] * vector.x_y_z_[1],
+          x_y_z_[0] * vector.x_y_z_[2], x_y_z_[1] * vector.x_y_z_[0],
+          x_y_z_[1] * vector.x_y_z_[1], x_y_z_[1] * vector.x_y_z_[2],
+          x_y_z_[2] * vector.x_y_z_[0], x_y_z_[2] * vector.x_y_z_[1],
+          x_y_z_[2] * vector.x_y_z_[2]};
+}
+
 }  // namespace Value
 
-constexpr Value::Dyad Direction::Dyadic(
+inline constexpr Value::Dyad Direction::Dyadic(
     const PhQ::Direction& direction) const noexcept {
   return {x_y_z_[0] * direction.x_y_z_[0], x_y_z_[0] * direction.x_y_z_[1],
           x_y_z_[0] * direction.x_y_z_[2], x_y_z_[1] * direction.x_y_z_[0],
@@ -373,7 +375,7 @@ constexpr Value::Dyad Direction::Dyadic(
           x_y_z_[2] * direction.x_y_z_[2]};
 }
 
-constexpr Value::Dyad Direction::Dyadic(
+inline constexpr Value::Dyad Direction::Dyadic(
     const Value::Vector& vector) const noexcept {
   return {
       x_y_z_[0] * vector.x(), x_y_z_[0] * vector.y(), x_y_z_[0] * vector.z(),
@@ -381,11 +383,13 @@ constexpr Value::Dyad Direction::Dyadic(
       x_y_z_[2] * vector.x(), x_y_z_[2] * vector.y(), x_y_z_[2] * vector.z()};
 }
 
-constexpr Value::Dyad Value::Vector::Dyadic(
+inline constexpr Value::Dyad Value::Vector::Dyadic(
     const PhQ::Direction& direction) const noexcept {
-  return {x_ * direction.x(), x_ * direction.y(), x_ * direction.z(),
-          y_ * direction.x(), y_ * direction.y(), y_ * direction.z(),
-          z_ * direction.x(), z_ * direction.y(), z_ * direction.z()};
+  return {x_y_z_[0] * direction.x(), x_y_z_[0] * direction.y(),
+          x_y_z_[0] * direction.z(), x_y_z_[1] * direction.x(),
+          x_y_z_[1] * direction.y(), x_y_z_[1] * direction.z(),
+          x_y_z_[2] * direction.x(), x_y_z_[2] * direction.y(),
+          x_y_z_[2] * direction.z()};
 }
 
 }  // namespace PhQ
