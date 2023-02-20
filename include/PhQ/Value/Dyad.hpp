@@ -366,16 +366,19 @@ std::ostream& operator<<(std::ostream& stream, const Dyad& dyad) noexcept {
 
 constexpr Value::Dyad Direction::Dyadic(
     const PhQ::Direction& direction) const noexcept {
-  return {x_ * direction.x_, x_ * direction.y_, x_ * direction.z_,
-          y_ * direction.x_, y_ * direction.y_, y_ * direction.z_,
-          z_ * direction.x_, z_ * direction.y_, z_ * direction.z_};
+  return {x_y_z_[0] * direction.x_y_z_[0], x_y_z_[0] * direction.x_y_z_[1],
+          x_y_z_[0] * direction.x_y_z_[2], x_y_z_[1] * direction.x_y_z_[0],
+          x_y_z_[1] * direction.x_y_z_[1], x_y_z_[1] * direction.x_y_z_[2],
+          x_y_z_[2] * direction.x_y_z_[0], x_y_z_[2] * direction.x_y_z_[1],
+          x_y_z_[2] * direction.x_y_z_[2]};
 }
 
 constexpr Value::Dyad Direction::Dyadic(
     const Value::Vector& vector) const noexcept {
-  return {x_ * vector.x(), x_ * vector.y(), x_ * vector.z(),
-          y_ * vector.x(), y_ * vector.y(), y_ * vector.z(),
-          z_ * vector.x(), z_ * vector.y(), z_ * vector.z()};
+  return {
+      x_y_z_[0] * vector.x(), x_y_z_[0] * vector.y(), x_y_z_[0] * vector.z(),
+      x_y_z_[1] * vector.x(), x_y_z_[1] * vector.y(), x_y_z_[1] * vector.z(),
+      x_y_z_[2] * vector.x(), x_y_z_[2] * vector.y(), x_y_z_[2] * vector.z()};
 }
 
 constexpr Value::Dyad Value::Vector::Dyadic(

@@ -26,6 +26,12 @@ TEST(Direction, Accessor) {
   EXPECT_EQ(direction.x(), 0.0);
   EXPECT_DOUBLE_EQ(direction.y(), 0.5 * std::sqrt(2.0));
   EXPECT_DOUBLE_EQ(direction.z(), -0.5 * std::sqrt(2.0));
+  const std::array<double, 3> value{0.0, 0.5 * std::sqrt(2.0),
+                                    -0.5 * std::sqrt(2.0)};
+  EXPECT_EQ(direction.Value().size(), value.size());
+  EXPECT_EQ(direction.Value()[0], value[0]);
+  EXPECT_DOUBLE_EQ(direction.Value()[1], value[1]);
+  EXPECT_DOUBLE_EQ(direction.Value()[2], value[2]);
 }
 
 TEST(Direction, Comparison) {
@@ -85,11 +91,6 @@ TEST(Direction, Hash) {
 TEST(Direction, Json) {
   EXPECT_EQ(PhQ::Direction(0.0, -10.0, 0.0).Json(),
             "{\"x\":0,\"y\":-1.000000,\"z\":0}");
-}
-
-TEST(Direction, Magnitude) {
-  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).Magnitude(), 1.0);
-  EXPECT_EQ(PhQ::Direction(1.23, 4.56, 7.89).MagnitudeSquared(), 1.0);
 }
 
 TEST(Direction, Print) {

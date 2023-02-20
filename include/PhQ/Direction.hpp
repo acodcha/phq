@@ -51,22 +51,32 @@ class Velocity;
 
 class Direction {
 public:
-  constexpr Direction() noexcept : x_(1.0), y_(0.0), z_(0.0) {}
+  constexpr Direction() noexcept : x_y_z_({1.0, 0.0, 0.0}) {}
 
   Direction(const double x, const double y, const double z) {
     const double magnitude{std::sqrt(x * x + y * y + z * z)};
     if (magnitude > 0.0) {
-      x_ = x / magnitude;
-      y_ = y / magnitude;
-      z_ = z / magnitude;
+      x_y_z_[0] = x / magnitude;
+      x_y_z_[1] = y / magnitude;
+      x_y_z_[2] = z / magnitude;
     } else {
       throw std::runtime_error{
           "Attempting to create a direction from (0, 0, 0)."};
     }
   }
 
-  Direction(const std::array<double, 3>& x_y_z)
-      : Direction(x_y_z[0], x_y_z[1], x_y_z[2]) {}
+  Direction(const std::array<double, 3>& x_y_z) {
+    const double magnitude{std::sqrt(x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
+                                     x_y_z[2] * x_y_z[2])};
+    if (magnitude > 0.0) {
+      x_y_z_[0] = x_y_z[0] / magnitude;
+      x_y_z_[1] = x_y_z[1] / magnitude;
+      x_y_z_[2] = x_y_z[2] / magnitude;
+    } else {
+      throw std::runtime_error{
+          "Attempting to create a direction from (0, 0, 0)."};
+    }
+  }
 
   Direction(const Value::Vector& vector);
 
@@ -88,30 +98,27 @@ public:
 
   Direction(const Velocity& velocity);
 
-  inline constexpr double x() const noexcept { return x_; }
+  inline constexpr double x() const noexcept { return x_y_z_[0]; }
 
-  inline constexpr double y() const noexcept { return y_; }
+  inline constexpr double y() const noexcept { return x_y_z_[1]; }
 
-  inline constexpr double z() const noexcept { return z_; }
+  inline constexpr double z() const noexcept { return x_y_z_[2]; }
 
-  inline constexpr double MagnitudeSquared() const noexcept {
-    return x_ * x_ + y_ * y_ + z_ * z_;
-  }
-
-  inline double Magnitude() const noexcept {
-    return std::sqrt(MagnitudeSquared());
+  inline constexpr const std::array<double, 3>& Value() const noexcept {
+    return x_y_z_;
   }
 
   inline constexpr double Dot(const Direction& direction) const noexcept {
-    return x_ * direction.x_ + y_ * direction.y_ + z_ * direction.z_;
+    return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] +
+           x_y_z_[2] * direction.x_y_z_[2];
   }
 
   constexpr double Dot(const Value::Vector& vector) const noexcept;
 
-  Direction Cross(const Direction& direction) const noexcept {
-    return {y_ * direction.z_ - z_ * direction.y_,
-            z_ * direction.x_ - x_ * direction.z_,
-            x_ * direction.y_ - y_ * direction.x_};
+  inline Direction Cross(const Direction& direction) const noexcept {
+    return {x_y_z_[1] * direction.x_y_z_[2] - x_y_z_[2] * direction.x_y_z_[1],
+            x_y_z_[2] * direction.x_y_z_[0] - x_y_z_[0] * direction.x_y_z_[2],
+            x_y_z_[0] * direction.x_y_z_[1] - x_y_z_[1] * direction.x_y_z_[0]};
   }
 
   constexpr Value::Vector Cross(const Value::Vector& vector) const noexcept;
@@ -124,24 +131,25 @@ public:
 
   constexpr PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
 
-  std::string Print() const noexcept {
-    return "(" + PhQ::Print(x_) + ", " + PhQ::Print(y_) + ", " +
-           PhQ::Print(z_) + ")";
+  inline std::string Print() const noexcept {
+    return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +
+           PhQ::Print(x_y_z_[2]) + ")";
   }
 
-  std::string Json() const noexcept {
-    return "{\"x\":" + PhQ::Print(x_) + ",\"y\":" + PhQ::Print(y_) +
-           ",\"z\":" + PhQ::Print(z_) + "}";
+  inline std::string Json() const noexcept {
+    return "{\"x\":" + PhQ::Print(x_y_z_[0]) +
+           ",\"y\":" + PhQ::Print(x_y_z_[1]) +
+           ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  std::string Xml() const noexcept {
-    return "<x>" + PhQ::Print(x_) + "</x><y>" + PhQ::Print(y_) + "</y><z>" +
-           PhQ::Print(z_) + "</z>";
+  inline std::string Xml() const noexcept {
+    return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1]) +
+           "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
-  std::string Yaml() const noexcept {
-    return "{x:" + PhQ::Print(x_) + ",y:" + PhQ::Print(y_) +
-           ",z:" + PhQ::Print(z_) + "}";
+  inline std::string Yaml() const noexcept {
+    return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1]) +
+           ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
   constexpr Acceleration operator*(
@@ -167,11 +175,7 @@ public:
       const noexcept;
 
 private:
-  double x_;
-
-  double y_;
-
-  double z_;
+  std::array<double, 3> x_y_z_;
 };
 
 inline constexpr bool operator==(const Direction& left,

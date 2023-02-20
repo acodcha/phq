@@ -175,13 +175,15 @@ Direction::Direction(const Value::Vector& vector)
     : Direction(vector.x(), vector.y(), vector.z()) {}
 
 constexpr double Direction::Dot(const Value::Vector& vector) const noexcept {
-  return x_ * vector.x() + y_ * vector.y() + z_ * vector.z();
+  return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() +
+         x_y_z_[2] * vector.z();
 }
 
 constexpr Value::Vector Direction::Cross(
     const Value::Vector& vector) const noexcept {
-  return {y_ * vector.z() - z_ * vector.y(), z_ * vector.x() - x_ * vector.z(),
-          x_ * vector.y() - y_ * vector.x()};
+  return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
+          x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),
+          x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()};
 }
 
 }  // namespace PhQ
