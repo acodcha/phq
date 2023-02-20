@@ -46,7 +46,7 @@ double Convert(const double value, const Unit old_unit,
 template <typename Unit>
 double Convert(const double value, const Unit old_unit,
                const UnitSystem new_unit_system) noexcept {
-  return Convert<Unit>(value, old_unit, GetUnit<Unit>(new_unit_system));
+  return Convert<Unit>(value, old_unit, ConsistentUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
@@ -64,7 +64,7 @@ template <typename Unit>
 std::vector<double> Convert(const std::vector<double>& values,
                             const Unit old_unit,
                             const UnitSystem new_unit_system) noexcept {
-  return Convert<Unit>(values, old_unit, GetUnit<Unit>(new_unit_system));
+  return Convert<Unit>(values, old_unit, ConsistentUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
@@ -79,7 +79,7 @@ Value::Vector Convert(const Value::Vector& values, const Unit old_unit,
 template <typename Unit>
 Value::Vector Convert(const Value::Vector& values, const Unit old_unit,
                       const UnitSystem new_unit_system) noexcept {
-  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
+  return Convert(values, old_unit, ConsistentUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
@@ -98,7 +98,7 @@ template <typename Unit>
 Value::SymmetricDyad Convert(const Value::SymmetricDyad& values,
                              const Unit old_unit,
                              const UnitSystem new_unit_system) noexcept {
-  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
+  return Convert(values, old_unit, ConsistentUnit<Unit>(new_unit_system));
 }
 
 template <typename Unit>
@@ -117,7 +117,7 @@ Value::Dyad Convert(const Value::Dyad& values, const Unit old_unit,
 template <typename Unit>
 Value::Dyad Convert(const Value::Dyad& values, const Unit old_unit,
                     const UnitSystem new_unit_system) noexcept {
-  return Convert(values, old_unit, GetUnit<Unit>(new_unit_system));
+  return Convert(values, old_unit, ConsistentUnit<Unit>(new_unit_system));
 }
 
 }  // namespace PhQ

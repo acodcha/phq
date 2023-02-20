@@ -40,7 +40,7 @@ enum class Length : int_least8_t {
 } // namespace Unit
 
 template <>
-const std::map<Unit::Length, std::string> Abbreviations<Unit::Length>{
+const std::map<Unit::Length, std::string_view> Abbreviations<Unit::Length>{
   {Unit::Length::Mile, "mi"},
   {Unit::Length::Kilometre, "km"},
   {Unit::Length::Yard, "yd"},
@@ -56,7 +56,7 @@ const std::map<Unit::Length, std::string> Abbreviations<Unit::Length>{
 };
 
 template <>
-const std::unordered_map<std::string, Unit::Length> Spellings<Unit::Length>{
+const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::Length>{
   {"mi", Unit::Length::Mile},
   {"mile", Unit::Length::Mile},
   {"miles", Unit::Length::Mile},

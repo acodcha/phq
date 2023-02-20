@@ -18,28 +18,29 @@
 
 #include <map>
 #include <optional>
-#include <string>
+#include <string_view>
 #include <unordered_map>
 
 namespace PhQ {
 
 template <typename Enumeration>
-inline const std::map<Enumeration, std::string> Abbreviations;
+inline const std::map<Enumeration, std::string_view> Abbreviations;
 
 template <typename Enumeration>
-std::string Abbreviation(const Enumeration enumeration) noexcept {
+inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
   return Abbreviations<Enumeration>.find(enumeration)->second;
 }
 
 template <typename Enumeration>
-inline const std::unordered_map<std::string, Enumeration> Spellings;
+inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
 template <typename Enumeration>
-std::optional<Enumeration> Parse(const std::string& spelling) noexcept {
-  const typename std::unordered_map<std::string, Enumeration>::const_iterator
-      enumeration{Spellings<Enumeration>.find(spelling)};
-  if (enumeration != Spellings<Enumeration>.cend()) {
-    return enumeration->second;
+std::optional<Enumeration> Parse(const std::string_view& spelling) noexcept {
+  const typename std::unordered_map<std::string_view,
+                                    Enumeration>::const_iterator found{
+      Spellings<Enumeration>.find(spelling)};
+  if (found != Spellings<Enumeration>.cend()) {
+    return found->second;
   } else {
     return std::nullopt;
   }

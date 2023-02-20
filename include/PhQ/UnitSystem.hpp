@@ -31,14 +31,14 @@ inline constexpr UnitSystem StandardUnitSystem{
     UnitSystem::MetreKilogramSecondKelvin};
 
 template <>
-const std::map<UnitSystem, std::string> Abbreviations<UnitSystem>{
+const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
     {UnitSystem::MetreKilogramSecondKelvin, "m·kg·s·K"},
     {UnitSystem::MillimetreGramSecondKelvin, "mm·g·s·K"},
     {UnitSystem::FootPoundSecondRankine, "ft·lbf·s·°R"},
     {UnitSystem::InchPoundSecondRankine, "in·lbf·s·°R"}};
 
 template <>
-const std::unordered_map<std::string, UnitSystem> Spellings<UnitSystem>{
+const std::unordered_map<std::string_view, UnitSystem> Spellings<UnitSystem>{
     {"m·kg·s·K", UnitSystem::MetreKilogramSecondKelvin},
     {"m-kg-s-K", UnitSystem::MetreKilogramSecondKelvin},
     {"m*kg*s*K", UnitSystem::MetreKilogramSecondKelvin},
@@ -158,26 +158,26 @@ const std::unordered_map<std::string, UnitSystem> Spellings<UnitSystem>{
 };
 
 template <typename Unit>
-const std::map<UnitSystem, Unit> ConsistentUnits;
+inline const std::map<UnitSystem, Unit> ConsistentUnits;
 
 /// \brief Returns the unit of a given type that corresponds to a given unit
 /// system.
 /// \details For example,
-/// PhQ::GetUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin) returns
-/// PhQ::Unit::Force::Newton.
+/// PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin)
+/// returns PhQ::Unit::Force::Newton.
 template <typename Unit>
-constexpr Unit GetUnit(const UnitSystem& system) noexcept {
+inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
   return ConsistentUnits<Unit>.at(system);
 }
 
 template <typename Unit>
-const std::map<Unit, UnitSystem> RelatedUnitSystems;
+inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 
 /// \brief Returns the unit system, if any, that corresponds to a given unit.
-/// \details For example, PhQ::GetUnitSystem(PhQ::Unit::Length::Millimetre)
+/// \details For example, PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre)
 /// returns PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template <typename Unit>
-std::optional<UnitSystem> GetUnitSystem(const Unit& unit) noexcept {
+std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
       RelatedUnitSystems<Unit>.find(unit)};
   if (system != RelatedUnitSystems<Unit>.cend()) {
