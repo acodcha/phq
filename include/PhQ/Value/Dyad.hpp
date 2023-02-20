@@ -264,8 +264,8 @@ constexpr Vector operator*(const Dyad& dyad, const Vector& vector) noexcept {
       dyad.zx() * vector.x() + dyad.zy() * vector.y() + dyad.zz() * vector.z()};
 }
 
-constexpr Dyad operator*(const SymmetricDyad& left,
-                         const SymmetricDyad& right) noexcept {
+inline constexpr Dyad operator*(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept {
   return {
       left.xx() * right.xx() + left.xy() * right.xy() + left.xz() * right.xz(),
       left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.yz(),
@@ -278,8 +278,8 @@ constexpr Dyad operator*(const SymmetricDyad& left,
       left.xz() * right.xz() + left.yz() * right.yz() + left.zz() * right.zz()};
 }
 
-constexpr Dyad operator*(const SymmetricDyad& symdyad,
-                         const Dyad& dyad) noexcept {
+inline constexpr Dyad operator*(const SymmetricDyad& symdyad,
+                                const Dyad& dyad) noexcept {
   return {symdyad.xx() * dyad.xx() + symdyad.xy() * dyad.yx() +
               symdyad.xz() * dyad.zx(),
           symdyad.xx() * dyad.xy() + symdyad.xy() * dyad.yy() +
@@ -300,8 +300,8 @@ constexpr Dyad operator*(const SymmetricDyad& symdyad,
               symdyad.zz() * dyad.zz()};
 }
 
-constexpr Dyad operator*(const Dyad& dyad,
-                         const SymmetricDyad& symdyad) noexcept {
+inline constexpr Dyad operator*(const Dyad& dyad,
+                                const SymmetricDyad& symdyad) noexcept {
   return {dyad.xx() * symdyad.xx() + dyad.xy() * symdyad.yx() +
               dyad.xz() * symdyad.zx(),
           dyad.xx() * symdyad.xy() + dyad.xy() * symdyad.yy() +

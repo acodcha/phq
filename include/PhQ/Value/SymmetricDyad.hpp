@@ -22,191 +22,189 @@ namespace PhQ::Value {
 
 class SymmetricDyad {
 public:
-  constexpr SymmetricDyad() noexcept
-      : xx_(), xy_(), xz_(), yy_(), yz_(), zz_() {}
+  constexpr SymmetricDyad() noexcept : xx_xy_xz_yy_yz_zz_() {}
 
   constexpr SymmetricDyad(const double xx, const double xy, const double xz,
                           const double yy, const double yz,
                           const double zz) noexcept
-      : xx_(xx), xy_(xy), xz_(xz), yy_(yy), yz_(yz), zz_(zz) {}
+      : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
   constexpr SymmetricDyad(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept
-      : xx_(xx_xy_xz_yy_yz_zz[0]),
-        xy_(xx_xy_xz_yy_yz_zz[1]),
-        xz_(xx_xy_xz_yy_yz_zz[2]),
-        yy_(xx_xy_xz_yy_yz_zz[3]),
-        yz_(xx_xy_xz_yy_yz_zz[4]),
-        zz_(xx_xy_xz_yy_yz_zz[5]) {}
+      : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
   static constexpr SymmetricDyad Zero() noexcept {
-    return {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    return std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   }
 
-  inline constexpr double xx() const noexcept { return xx_; }
+  inline constexpr const std::array<double, 6>& Value() const noexcept {
+    return xx_xy_xz_yy_yz_zz_;
+  }
 
-  inline constexpr double xy() const noexcept { return xy_; }
+  inline constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
 
-  inline constexpr double xz() const noexcept { return xz_; }
+  inline constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr double yx() const noexcept { return xy_; }
+  inline constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr double yy() const noexcept { return yy_; }
+  inline constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr double yz() const noexcept { return yz_; }
+  inline constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
 
-  inline constexpr double zx() const noexcept { return xz_; }
+  inline constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  inline constexpr double zy() const noexcept { return yz_; }
+  inline constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr double zz() const noexcept { return zz_; }
+  inline constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  static bool IsSymmetric() noexcept { return true; }
+  inline constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
 
-  inline constexpr double Trace() const noexcept { return xx_ + yy_ + zz_; }
+  inline constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
 
   inline constexpr double Determinant() const noexcept {
-    return (xx_ * (yy_ * zz_ - yz_ * yz_) + xy_ * (xz_ * yz_ - xy_ * zz_) +
-            xz_ * (xy_ * yz_ - xz_ * yy_));
+    return (xx() * (yy() * zz() - yz() * zy()) +
+            xy() * (yz() * zx() - yx() * zz()) +
+            xz() * (yx() * zy() - yy() * zx()));
   }
 
   inline constexpr SymmetricDyad Transpose() const noexcept { return *this; }
 
-  constexpr SymmetricDyad Cofactors() const noexcept {
-    const double cofactor_xx{yy_ * zz_ - yz_ * yz_};
-    const double cofactor_xy{xz_ * yz_ - xy_ * zz_};
-    const double cofactor_xz{xy_ * yz_ - xz_ * yy_};
-    const double cofactor_yy{xx_ * zz_ - xz_ * xz_};
-    const double cofactor_yz{xy_ * xz_ - xx_ * yz_};
-    const double cofactor_zz{xx_ * yy_ - xy_ * xy_};
+  inline constexpr SymmetricDyad Cofactors() const noexcept {
+    const double cofactor_xx{yy() * zz() - yz() * yz()};
+    const double cofactor_xy{xz() * yz() - xy() * zz()};
+    const double cofactor_xz{xy() * yz() - xz() * yy()};
+    const double cofactor_yy{xx() * zz() - xz() * xz()};
+    const double cofactor_yz{xy() * xz() - xx() * yz()};
+    const double cofactor_zz{xx() * yy() - xy() * xy()};
     return {cofactor_xx, cofactor_xy, cofactor_xz,
             cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  constexpr SymmetricDyad Adjugate() const noexcept {
+  inline constexpr SymmetricDyad Adjugate() const noexcept {
     // Normally, this would be cofactors().transpose(), but since this is a
     // symmetric dyad, the transpose is not needed.
     return Cofactors();
   }
 
-  constexpr SymmetricDyad Inverse() const;
+  inline SymmetricDyad Inverse() const;
 
-  std::string Print() const noexcept {
-    return "(" + PhQ::Print(xx_) + ", " + PhQ::Print(xy_) + ", " +
-           PhQ::Print(xz_) + "; " + PhQ::Print(yy_) + ", " + PhQ::Print(yz_) +
-           "; " + PhQ::Print(zz_) + ")";
+  inline std::string Print() const noexcept {
+    return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ", " +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + ", " +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "; " +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[3]) + ", " +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) + "; " +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  std::string Json() const noexcept {
-    return "{\"xx\":" + PhQ::Print(xx_) + ",\"xy\":" + PhQ::Print(xy_) +
-           ",\"xz\":" + PhQ::Print(xz_) + ",\"yy\":" + PhQ::Print(yy_) +
-           ",\"yz\":" + PhQ::Print(yz_) + ",\"zz\":" + PhQ::Print(zz_) + "}";
+  inline std::string Json() const noexcept {
+    return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
+           ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
+           ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +
+           ",\"yy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[3]) +
+           ",\"yz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) +
+           ",\"zz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  std::string Xml() const noexcept {
-    return "<xx>" + PhQ::Print(xx_) + "</xx><xy>" + PhQ::Print(xy_) +
-           "</xy><xz>" + PhQ::Print(xz_) + "</xz><yy>" + PhQ::Print(yy_) +
-           "</yy><yz>" + PhQ::Print(yz_) + "</yz><zz>" + PhQ::Print(zz_) +
-           "</zz>";
+  inline std::string Xml() const noexcept {
+    return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>" +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>" +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[3]) + "</yy><yz>" +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) + "</yz><zz>" +
+           PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
-  std::string Yaml() const noexcept {
-    return "{xx:" + PhQ::Print(xx_) + ",xy:" + PhQ::Print(xy_) +
-           ",xz:" + PhQ::Print(xz_) + ",yy:" + PhQ::Print(yy_) +
-           ",yz:" + PhQ::Print(yz_) + ",zz:" + PhQ::Print(zz_) + "}";
+  inline std::string Yaml() const noexcept {
+    return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
+           ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
+           ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +
+           ",yy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[3]) +
+           ",yz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) +
+           ",zz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
-    xx_ += symdyad.xx_;
-    xy_ += symdyad.xy_;
-    xz_ += symdyad.xz_;
-    yy_ += symdyad.yy_;
-    yz_ += symdyad.yz_;
-    zz_ += symdyad.zz_;
+  inline constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] += symdyad.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] += symdyad.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] += symdyad.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] += symdyad.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] += symdyad.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] += symdyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
-    xx_ -= symdyad.xx_;
-    xy_ -= symdyad.xy_;
-    xz_ -= symdyad.xz_;
-    yy_ -= symdyad.yy_;
-    yz_ -= symdyad.yz_;
-    zz_ -= symdyad.zz_;
+  inline constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] -= symdyad.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] -= symdyad.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] -= symdyad.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] -= symdyad.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] -= symdyad.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] -= symdyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator*=(const double real) noexcept {
-    xx_ *= real;
-    xy_ *= real;
-    xz_ *= real;
-    yy_ *= real;
-    yz_ *= real;
-    zz_ *= real;
+  inline constexpr void operator*=(const double real) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] *= real;
+    xx_xy_xz_yy_yz_zz_[1] *= real;
+    xx_xy_xz_yy_yz_zz_[2] *= real;
+    xx_xy_xz_yy_yz_zz_[3] *= real;
+    xx_xy_xz_yy_yz_zz_[4] *= real;
+    xx_xy_xz_yy_yz_zz_[5] *= real;
   }
 
-  constexpr void operator/=(const double real) noexcept {
-    xx_ /= real;
-    xy_ /= real;
-    xz_ /= real;
-    yy_ /= real;
-    yz_ /= real;
-    zz_ /= real;
+  inline constexpr void operator/=(const double real) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] /= real;
+    xx_xy_xz_yy_yz_zz_[1] /= real;
+    xx_xy_xz_yy_yz_zz_[2] /= real;
+    xx_xy_xz_yy_yz_zz_[3] /= real;
+    xx_xy_xz_yy_yz_zz_[4] /= real;
+    xx_xy_xz_yy_yz_zz_[5] /= real;
   }
 
 private:
-  double xx_;
-
-  double xy_;
-
-  double xz_;
-
-  double yy_;
-
-  double yz_;
-
-  double zz_;
+  std::array<double, 6> xx_xy_xz_yy_yz_zz_;
 };
 
-constexpr bool operator==(const SymmetricDyad& left,
-                          const SymmetricDyad& right) noexcept {
+inline constexpr bool operator==(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
   return (left.xx() == right.xx() && left.xy() == right.xy() &&
           left.xz() == right.xz() && left.yy() == right.yy() &&
           left.yz() == right.yz() && left.zz() == right.zz());
 }
 
-constexpr bool operator!=(const SymmetricDyad& left,
-                          const SymmetricDyad& right) noexcept {
+inline constexpr bool operator!=(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
   return (left.xx() != right.xx() || left.xy() != right.xy() ||
           left.xz() != right.xz() || left.yy() != right.yy() ||
           left.yz() != right.yz() || left.zz() != right.zz());
 }
 
-constexpr SymmetricDyad operator+(const SymmetricDyad& left,
-                                  const SymmetricDyad& right) noexcept {
+inline constexpr SymmetricDyad operator+(const SymmetricDyad& left,
+                                         const SymmetricDyad& right) noexcept {
   return {left.xx() + right.xx(), left.xy() + right.xy(),
           left.xz() + right.xz(), left.yy() + right.yy(),
           left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
-constexpr SymmetricDyad operator-(const SymmetricDyad& left,
-                                  const SymmetricDyad& right) noexcept {
+inline constexpr SymmetricDyad operator-(const SymmetricDyad& left,
+                                         const SymmetricDyad& right) noexcept {
   return {left.xx() - right.xx(), left.xy() - right.xy(),
           left.xz() - right.xz(), left.yy() - right.yy(),
           left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
-constexpr SymmetricDyad operator*(const SymmetricDyad& symdyad,
-                                  const double real) noexcept {
+inline constexpr SymmetricDyad operator*(const SymmetricDyad& symdyad,
+                                         const double real) noexcept {
   return {symdyad.xx() * real, symdyad.xy() * real, symdyad.xz() * real,
           symdyad.yy() * real, symdyad.yz() * real, symdyad.zz() * real};
 }
 
-constexpr SymmetricDyad operator*(const double real,
-                                  const SymmetricDyad& symdyad) noexcept {
+inline constexpr SymmetricDyad operator*(
+    const double real, const SymmetricDyad& symdyad) noexcept {
   return {symdyad * real};
 }
 
-constexpr Vector operator*(const SymmetricDyad& symdyad,
-                           const Direction& direction) noexcept {
+inline constexpr Vector operator*(const SymmetricDyad& symdyad,
+                                  const Direction& direction) noexcept {
   return {symdyad.xx() * direction.x() + symdyad.xy() * direction.y() +
               symdyad.xz() * direction.z(),
           symdyad.xy() * direction.x() + symdyad.yy() * direction.y() +
@@ -215,8 +213,8 @@ constexpr Vector operator*(const SymmetricDyad& symdyad,
               symdyad.zz() * direction.z()};
 }
 
-constexpr Vector operator*(const SymmetricDyad& symdyad,
-                           const Vector& vector) noexcept {
+inline constexpr Vector operator*(const SymmetricDyad& symdyad,
+                                  const Vector& vector) noexcept {
   return {symdyad.xx() * vector.x() + symdyad.xy() * vector.y() +
               symdyad.xz() * vector.z(),
           symdyad.xy() * vector.x() + symdyad.yy() * vector.y() +
@@ -225,19 +223,19 @@ constexpr Vector operator*(const SymmetricDyad& symdyad,
               symdyad.zz() * vector.z()};
 }
 
-constexpr Dyad operator*(const SymmetricDyad& left,
-                         const SymmetricDyad& right) noexcept;
+inline constexpr Dyad operator*(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept;
 
-constexpr Dyad operator*(const SymmetricDyad& symdyad,
-                         const Dyad& dyad) noexcept;
+inline constexpr Dyad operator*(const SymmetricDyad& symdyad,
+                                const Dyad& dyad) noexcept;
 
-constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad,
-                                  const double real) noexcept {
+inline constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad,
+                                         const double real) noexcept {
   return {symdyad.xx() / real, symdyad.xy() / real, symdyad.xz() / real,
           symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
 }
 
-constexpr SymmetricDyad SymmetricDyad::Inverse() const {
+inline SymmetricDyad SymmetricDyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return Adjugate() / determinant_;
@@ -247,8 +245,8 @@ constexpr SymmetricDyad SymmetricDyad::Inverse() const {
   }
 }
 
-std::ostream& operator<<(std::ostream& stream,
-                         const SymmetricDyad& symmetric) noexcept {
+inline std::ostream& operator<<(std::ostream& stream,
+                                const SymmetricDyad& symmetric) noexcept {
   stream << symmetric.Print();
   return stream;
 }

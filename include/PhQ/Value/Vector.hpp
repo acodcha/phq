@@ -27,7 +27,7 @@ public:
   constexpr Vector() noexcept : x_y_z_() {}
 
   constexpr Vector(const double x, const double y, const double z) noexcept
-      : x_y_z_(std::array<double, 3>{x, y, z}) {}
+      : x_y_z_({x, y, z}) {}
 
   constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
       : x_y_z_(x_y_z) {}

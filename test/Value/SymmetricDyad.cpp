@@ -24,7 +24,9 @@ namespace PhQ {
 namespace {
 
 TEST(ValueSymmetricDyad, Accessor) {
-  const Value::SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  const std::array<double, 6> value{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  const Value::SymmetricDyad symdyad{value};
+  EXPECT_EQ(symdyad.Value(), value);
   EXPECT_EQ(symdyad.xx(), 1.11);
   EXPECT_EQ(symdyad.xy(), 2.22);
   EXPECT_EQ(symdyad.xz(), 3.33);
@@ -124,11 +126,6 @@ TEST(ValueSymmetricDyad, Inverse) {
   EXPECT_DOUBLE_EQ(inverse.yy(), 255.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.yz(), -30.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse.zz(), 124.0 / 3840.0);
-}
-
-TEST(ValueSymmetricDyad, IsSymmetric) {
-  EXPECT_TRUE(
-      Value::SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66).IsSymmetric());
 }
 
 TEST(ValueSymmetricDyad, Json) {
