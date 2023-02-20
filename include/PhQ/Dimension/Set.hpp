@@ -29,19 +29,23 @@ namespace PhQ::Dimension {
 
 class Set {
 public:
-  constexpr Set(const Length& length = {}, const Mass& mass = {},
-                const Time& time = {},
+  constexpr Set(const Time& time = {}, const Length& length = {},
+                const Mass& mass = {},
                 const ElectricCurrent& electric_current = {},
                 const Temperature& temperature = {},
                 const SubstanceAmount& substance_amount = {},
                 const LuminousIntensity& luminous_intensity = {}) noexcept
-      : length_(length),
+      : time_(time),
+        length_(length),
         mass_(mass),
-        time_(time),
         electric_current_(electric_current),
         temperature_(temperature),
         substance_amount_(substance_amount),
         luminous_intensity_(luminous_intensity) {}
+
+  inline constexpr const Dimension::Time& Time() const noexcept {
+    return time_;
+  }
 
   inline constexpr const Dimension::Length& Length() const noexcept {
     return length_;
@@ -49,10 +53,6 @@ public:
 
   inline constexpr const Dimension::Mass& Mass() const noexcept {
     return mass_;
-  }
-
-  inline constexpr const Dimension::Time& Time() const noexcept {
-    return time_;
   }
 
   inline constexpr const Dimension::ElectricCurrent& ElectricCurrent()
@@ -76,25 +76,25 @@ public:
 
   std::string Print() const noexcept {
     std::string text;
+    const std::string time{time_.Print()};
     const std::string length{length_.Print()};
     const std::string mass{mass_.Print()};
-    const std::string time{time_.Print()};
     const std::string electric_current{electric_current_.Print()};
     const std::string temperature{temperature_.Print()};
     const std::string substance_amount{substance_amount_.Print()};
     const std::string luminous_intensity{luminous_intensity_.Print()};
-    text.append(length);
+    text.append(time);
+    if (!length.empty()) {
+      if (!text.empty()) {
+        text.append("·");
+      }
+      text.append(length);
+    }
     if (!mass.empty()) {
       if (!text.empty()) {
         text.append("·");
       }
       text.append(mass);
-    }
-    if (!time.empty()) {
-      if (!text.empty()) {
-        text.append("·");
-      }
-      text.append(time);
     }
     if (!electric_current.empty()) {
       if (!text.empty()) {
@@ -128,7 +128,14 @@ public:
 
   std::string Json() const noexcept {
     std::string text;
+    if (time_.Value() != 0) {
+      text.append("\"" + SnakeCaseCopy(time_.Label()) +
+                  "\":" + std::to_string(time_.Value()));
+    }
     if (length_.Value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
       text.append("\"" + SnakeCaseCopy(length_.Label()) +
                   "\":" + std::to_string(length_.Value()));
     }
@@ -138,13 +145,6 @@ public:
       }
       text.append("\"" + SnakeCaseCopy(mass_.Label()) +
                   "\":" + std::to_string(mass_.Value()));
-    }
-    if (time_.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
-      }
-      text.append("\"" + SnakeCaseCopy(time_.Label()) +
-                  "\":" + std::to_string(time_.Value()));
     }
     if (electric_current_.Value() != 0) {
       if (!text.empty()) {
@@ -179,6 +179,11 @@ public:
 
   std::string Xml() const noexcept {
     std::string text;
+    if (time_.Value() != 0) {
+      const std::string label{SnakeCaseCopy(time_.Label())};
+      text.append("<" + label + ">" + std::to_string(time_.Value()) + "</" +
+                  label + ">");
+    }
     if (length_.Value() != 0) {
       const std::string label{SnakeCaseCopy(length_.Label())};
       text.append("<" + label + ">" + std::to_string(length_.Value()) + "</" +
@@ -187,11 +192,6 @@ public:
     if (mass_.Value() != 0) {
       const std::string label{SnakeCaseCopy(mass_.Label())};
       text.append("<" + label + ">" + std::to_string(mass_.Value()) + "</" +
-                  label + ">");
-    }
-    if (time_.Value() != 0) {
-      const std::string label{SnakeCaseCopy(time_.Label())};
-      text.append("<" + label + ">" + std::to_string(time_.Value()) + "</" +
                   label + ">");
     }
     if (electric_current_.Value() != 0) {
@@ -222,7 +222,14 @@ public:
 
   std::string Yaml() const noexcept {
     std::string text;
+    if (time_.Value() != 0) {
+      text.append(SnakeCaseCopy(time_.Label()) + ":" +
+                  std::to_string(time_.Value()));
+    }
     if (length_.Value() != 0) {
+      if (!text.empty()) {
+        text.append(",");
+      }
       text.append(SnakeCaseCopy(length_.Label()) + ":" +
                   std::to_string(length_.Value()));
     }
@@ -232,13 +239,6 @@ public:
       }
       text.append(SnakeCaseCopy(mass_.Label()) + ":" +
                   std::to_string(mass_.Value()));
-    }
-    if (time_.Value() != 0) {
-      if (!text.empty()) {
-        text.append(",");
-      }
-      text.append(SnakeCaseCopy(time_.Label()) + ":" +
-                  std::to_string(time_.Value()));
     }
     if (electric_current_.Value() != 0) {
       if (!text.empty()) {
@@ -272,11 +272,11 @@ public:
   }
 
 private:
+  Dimension::Time time_;
+
   Dimension::Length length_;
 
   Dimension::Mass mass_;
-
-  Dimension::Time time_;
 
   Dimension::ElectricCurrent electric_current_;
 
@@ -288,8 +288,8 @@ private:
 };
 
 inline constexpr bool operator==(const Set& left, const Set& right) noexcept {
-  return left.Length() == right.Length() && left.Mass() == right.Mass() &&
-         left.Time() == right.Time() &&
+  return left.Time() == right.Time() && left.Length() == right.Length() &&
+         left.Mass() == right.Mass() &&
          left.ElectricCurrent() == right.ElectricCurrent() &&
          left.Temperature() == right.Temperature() &&
          left.SubstanceAmount() == right.SubstanceAmount() &&
@@ -297,8 +297,8 @@ inline constexpr bool operator==(const Set& left, const Set& right) noexcept {
 }
 
 inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
-  return left.Length() != right.Length() || left.Mass() != right.Mass() ||
-         left.Time() != right.Time() ||
+  return left.Time() != right.Time() || left.Length() != right.Length() ||
+         left.Mass() != right.Mass() ||
          left.ElectricCurrent() != right.ElectricCurrent() ||
          left.Temperature() != right.Temperature() ||
          left.SubstanceAmount() != right.SubstanceAmount() ||
@@ -306,9 +306,9 @@ inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
 }
 
 constexpr bool operator<(const Set& left, const Set& right) noexcept {
-  if (left.Length() == right.Length()) {
-    if (left.Mass() == right.Mass()) {
-      if (left.Time() == right.Time()) {
+  if (left.Time() == right.Time()) {
+    if (left.Length() == right.Length()) {
+      if (left.Mass() == right.Mass()) {
         if (left.ElectricCurrent() == right.ElectricCurrent()) {
           if (left.Temperature() == right.Temperature()) {
             if (left.SubstanceAmount() == right.SubstanceAmount()) {
@@ -323,20 +323,20 @@ constexpr bool operator<(const Set& left, const Set& right) noexcept {
           return left.ElectricCurrent() < right.ElectricCurrent();
         }
       } else {
-        return left.Time() < right.Time();
+        return left.Mass() < right.Mass();
       }
     } else {
-      return left.Mass() < right.Mass();
+      return left.Length() < right.Length();
     }
   } else {
-    return left.Length() < right.Length();
+    return left.Time() < right.Time();
   }
 }
 
 constexpr bool operator>(const Set& left, const Set& right) noexcept {
-  if (left.Length() == right.Length()) {
-    if (left.Mass() == right.Mass()) {
-      if (left.Time() == right.Time()) {
+  if (left.Time() == right.Time()) {
+    if (left.Length() == right.Length()) {
+      if (left.Mass() == right.Mass()) {
         if (left.ElectricCurrent() == right.ElectricCurrent()) {
           if (left.Temperature() == right.Temperature()) {
             if (left.SubstanceAmount() == right.SubstanceAmount()) {
@@ -351,13 +351,13 @@ constexpr bool operator>(const Set& left, const Set& right) noexcept {
           return left.ElectricCurrent() > right.ElectricCurrent();
         }
       } else {
-        return left.Time() > right.Time();
+        return left.Mass() > right.Mass();
       }
     } else {
-      return left.Mass() > right.Mass();
+      return left.Length() > right.Length();
     }
   } else {
-    return left.Length() > right.Length();
+    return left.Time() > right.Time();
   }
 }
 
@@ -382,9 +382,9 @@ template <>
 struct hash<PhQ::Dimension::Set> {
   size_t operator()(const PhQ::Dimension::Set& set) const {
     size_t result = 17;
+    result = 31 * result + set.Time().Value();
     result = 31 * result + set.Length().Value();
     result = 31 * result + set.Mass().Value();
-    result = 31 * result + set.Time().Value();
     result = 31 * result + set.ElectricCurrent().Value();
     result = 31 * result + set.Temperature().Value();
     result = 31 * result + set.SubstanceAmount().Value();

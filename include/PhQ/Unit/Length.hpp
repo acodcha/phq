@@ -137,7 +137,8 @@ template <>
 constexpr const Unit::Length StandardUnit<Unit::Length>{Unit::Length::Metre};
 
 template <>
-constexpr const Dimension::Set Dimensions<Unit::Length>{Dimension::Set{Dimension::Length{1}}};
+constexpr const Dimension::Set Dimensions<Unit::Length>{
+    Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}};
 
 template <>
 const std::map<Unit::Length, std::map<Unit::Length, std::function<void(std::vector<double>&)>>> Conversions<Unit::Length>{

@@ -26,12 +26,16 @@ namespace PhQ::Dimension {
 namespace {
 
 TEST(DimensionSet, Accessor) {
-  const Set set{Length{-3},          Mass{-2},       Time{-1},
-                ElectricCurrent{0},  Temperature{1}, SubstanceAmount{2},
+  const Set set{Time{-3},
+                Length{-2},
+                Mass{-1},
+                ElectricCurrent{0},
+                Temperature{1},
+                SubstanceAmount{2},
                 LuminousIntensity{3}};
-  EXPECT_EQ(set.Length(), Length{-3});
-  EXPECT_EQ(set.Mass(), Mass{-2});
-  EXPECT_EQ(set.Time(), Time{-1});
+  EXPECT_EQ(set.Time(), Time{-3});
+  EXPECT_EQ(set.Length(), Length{-2});
+  EXPECT_EQ(set.Mass(), Mass{-1});
   EXPECT_EQ(set.ElectricCurrent(), ElectricCurrent{0});
   EXPECT_EQ(set.Temperature(), Temperature{1});
   EXPECT_EQ(set.SubstanceAmount(), SubstanceAmount{2});
@@ -39,9 +43,9 @@ TEST(DimensionSet, Accessor) {
 }
 
 TEST(DimensionSet, Comparison) {
-  const Set set0{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0},
+  const Set set0{Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0},
                  Temperature{-1}};
-  const Set set1{Length{2},          Mass{1},        Time{-2},
+  const Set set1{Time{-2},           Length{2},      Mass{1},
                  ElectricCurrent{0}, Temperature{0}, SubstanceAmount{1}};
   EXPECT_EQ(set0, set0);
   EXPECT_NE(set0, set1);
@@ -59,16 +63,21 @@ TEST(DimensionSet, Comparison) {
 
 TEST(DimensionSet, Hash) {
   const Set set0;
-  const Set set1{Length{2}};
-  const Set set2{Length{-3}, Mass{1}};
-  const Set set3{Length{3}, Mass{0}, Time{-1}};
-  const Set set4{Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}};
-  const Set set5{Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0},
+  const Set set1{Time{2}};
+  const Set set2{Time{-3}, Length{1}};
+  const Set set3{Time{3}, Length{0}, Mass{-1}};
+  const Set set4{Time{-2}, Length{-1}, Mass{2}, ElectricCurrent{1}};
+  const Set set5{Time{2}, Length{1}, Mass{-2}, ElectricCurrent{0},
                  Temperature{-1}};
-  const Set set6{Length{0},          Mass{1},        Time{0},
-                 ElectricCurrent{0}, Temperature{0}, SubstanceAmount{-1}};
-  const Set set7{Length{0},           Mass{0},         Time{0},
-                 ElectricCurrent{0},  Temperature{-1}, SubstanceAmount{0},
+  const Set set6{Time{0},        Length{1},
+                 Mass{0},        ElectricCurrent{0},
+                 Temperature{0}, SubstanceAmount{-1}};
+  const Set set7{Time{0},
+                 Length{0},
+                 Mass{0},
+                 ElectricCurrent{0},
+                 Temperature{-1},
+                 SubstanceAmount{0},
                  LuminousIntensity{1}};
   const std::hash<Set> hasher;
   EXPECT_NE(hasher(set0), hasher(set1));
@@ -83,10 +92,10 @@ TEST(DimensionSet, Hash) {
 
 TEST(DimensionSet, Json) {
   EXPECT_EQ(
-      Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
+      Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
           .Json(),
-      "{\"length\":2,\"mass\":1,\"time\":-2,\"temperature\":-1}");
-  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
+      "{\"time\":-2,\"length\":2,\"mass\":1,\"temperature\":-1}");
+  EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
                 .Json(),
             "{\"mass\":1,\"substance_amount\":-1}");
@@ -94,27 +103,27 @@ TEST(DimensionSet, Json) {
 
 TEST(DimensionSet, Print) {
   EXPECT_EQ(Set{}.Print(), "1");
-  EXPECT_EQ(Set{Length{2}}.Print(), "L^2");
-  EXPECT_EQ(Set(Length{-3}, Mass{1}).Print(), "L^(-3)·M");
-  EXPECT_EQ(Set(Length{3}, Mass{0}, Time{-1}).Print(), "L^3·T^(-1)");
-  EXPECT_EQ(Set(Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}).Print(),
-            "L^(-2)·M^(-1)·T^2·I");
+  EXPECT_EQ(Set{Time{2}}.Print(), "T^2");
+  EXPECT_EQ(Set(Time{1}, Length{-3}).Print(), "T·L^(-3)");
+  EXPECT_EQ(Set(Time{-1}, Length{3}, Mass{0}).Print(), "T^(-1)·L^3");
+  EXPECT_EQ(Set(Time{2}, Length{-2}, Mass{-1}, ElectricCurrent{1}).Print(),
+            "T^2·L^(-2)·M^(-1)·I");
   EXPECT_EQ(
-      Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
+      Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
           .Print(),
-      "L^2·M·T^(-2)·Θ^(-1)");
-  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
+      "T^(-2)·L^2·M·Θ^(-1)");
+  EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
                 .Print(),
             "M·N^(-1)");
-  EXPECT_EQ(Set(Length{0}, Mass{0}, Time{0}, ElectricCurrent{0},
+  EXPECT_EQ(Set(Time{0}, Length{0}, Mass{0}, ElectricCurrent{0},
                 Temperature{-1}, SubstanceAmount{0}, LuminousIntensity{1})
                 .Print(),
             "Θ^(-1)·J");
 }
 
 TEST(DimensionSet, Stream) {
-  const Set set{Length{-2}, Mass{-1}, Time{2}, ElectricCurrent{1}};
+  const Set set{Time{2}, Length{-2}, Mass{-1}, ElectricCurrent{1}};
   std::ostringstream stream;
   stream << set;
   EXPECT_EQ(stream.str(), set.Print());
@@ -122,11 +131,11 @@ TEST(DimensionSet, Stream) {
 
 TEST(DimensionSet, Xml) {
   EXPECT_EQ(
-      Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
+      Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
           .Xml(),
-      "<length>2</length><mass>1</mass><time>-2</time><temperature>-1</"
+      "<time>-2</time><length>2</length><mass>1</mass><temperature>-1</"
       "temperature>");
-  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
+  EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
                 .Xml(),
             "<mass>1</mass><substance_amount>-1</substance_amount>");
@@ -134,10 +143,10 @@ TEST(DimensionSet, Xml) {
 
 TEST(DimensionSet, Yaml) {
   EXPECT_EQ(
-      Set(Length{2}, Mass{1}, Time{-2}, ElectricCurrent{0}, Temperature{-1})
+      Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
           .Yaml(),
-      "{length:2,mass:1,time:-2,temperature:-1}");
-  EXPECT_EQ(Set(Length{0}, Mass{1}, Time{0}, ElectricCurrent{0}, Temperature{0},
+      "{time:-2,length:2,mass:1,temperature:-1}");
+  EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
                 .Yaml(),
             "{mass:1,substance_amount:-1}");

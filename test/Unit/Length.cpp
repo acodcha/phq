@@ -161,7 +161,8 @@ TEST(UnitLength, ConversionVerification) {
 }
 
 TEST(UnitLength, DimensionSet) {
-  EXPECT_EQ(Dimensions<Unit::Length>, Dimension::Set{Dimension::Length{1}});
+  EXPECT_EQ(Dimensions<Unit::Length>,
+            Dimension::Set(Dimension::Time{0}, Dimension::Length{1}));
 }
 
 TEST(UnitLength, Parse) {
