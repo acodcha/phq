@@ -27,7 +27,7 @@ TEST(ValueDyad, Accessor) {
   const std::array<double, 9> value{1.11, 2.22, 3.33, 4.44, 5.55,
                                     6.66, 7.77, 8.88, 9.99};
   const Value::Dyad dyad{value};
-  EXPECT_EQ(dyad.Value(), value);
+  EXPECT_EQ(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), value);
   EXPECT_EQ(dyad.xx(), 1.11);
   EXPECT_EQ(dyad.xy(), 2.22);
   EXPECT_EQ(dyad.xz(), 3.33);

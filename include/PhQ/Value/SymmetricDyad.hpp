@@ -18,7 +18,26 @@
 
 #include "Vector.hpp"
 
-namespace PhQ::Value {
+namespace PhQ {
+
+namespace Value {
+
+// Forward declaration for PhQ::Convert functions.
+class SymmetricDyad;
+
+}  // namespace Value
+
+// Forward declaration for PhQ::Value::SymmetricDyad class.
+template <typename Unit>
+void Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
+             const Unit new_unit) noexcept;
+
+// Forward declaration for PhQ::Value::SymmetricDyad class.
+template <typename Unit>
+void Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
+             const UnitSystem new_unit_system) noexcept;
+
+namespace Value {
 
 class SymmetricDyad {
 public:
@@ -37,7 +56,8 @@ public:
     return std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   }
 
-  inline constexpr const std::array<double, 6>& Value() const noexcept {
+  inline constexpr const std::array<double, 6>& xx_xy_xz_yy_yz_zz()
+      const noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
@@ -162,6 +182,14 @@ public:
 
 private:
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
+                           const Unit new_unit) noexcept;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
+                           const UnitSystem new_unit_system) noexcept;
 };
 
 inline constexpr bool operator==(const SymmetricDyad& left,
@@ -251,7 +279,9 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-}  // namespace PhQ::Value
+}  // namespace Value
+
+}  // namespace PhQ
 
 namespace std {
 

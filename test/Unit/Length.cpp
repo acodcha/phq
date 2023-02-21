@@ -17,193 +17,198 @@
 
 #include <gtest/gtest.h>
 
-namespace PhQ {
+#include "Base.hpp"
+
+namespace PhQ::Unit {
 
 namespace {
 
+/*
 const std::set<UnitSystem> UnitSystems = {
     UnitSystem::MetreKilogramSecondKelvin,
     UnitSystem::MillimetreGramSecondKelvin, UnitSystem::FootPoundSecondRankine,
     UnitSystem::InchPoundSecondRankine};
+*/
 
-const std::set<Unit::Length> LengthUnits = {
-    Unit::Length::Mile,      Unit::Length::Kilometre,  Unit::Length::Yard,
-    Unit::Length::Metre,     Unit::Length::Foot,       Unit::Length::Decimetre,
-    Unit::Length::Inch,      Unit::Length::Centimetre, Unit::Length::Millimetre,
-    Unit::Length::Milliinch, Unit::Length::Micrometre, Unit::Length::Microinch};
+const std::set<Length> LengthUnits = {
+    Length::Mile,      Length::Kilometre,  Length::Yard,
+    Length::Metre,     Length::Foot,       Length::Decimetre,
+    Length::Inch,      Length::Centimetre, Length::Millimetre,
+    Length::Milliinch, Length::Micrometre, Length::Microinch};
 
 TEST(UnitLength, Abbreviation) {
-  EXPECT_EQ(Abbreviation(Unit::Length::Mile), "mi");
-  EXPECT_EQ(Abbreviation(Unit::Length::Kilometre), "km");
-  EXPECT_EQ(Abbreviation(Unit::Length::Yard), "yd");
-  EXPECT_EQ(Abbreviation(Unit::Length::Metre), "m");
-  EXPECT_EQ(Abbreviation(Unit::Length::Foot), "ft");
-  EXPECT_EQ(Abbreviation(Unit::Length::Decimetre), "dm");
-  EXPECT_EQ(Abbreviation(Unit::Length::Inch), "in");
-  EXPECT_EQ(Abbreviation(Unit::Length::Centimetre), "cm");
-  EXPECT_EQ(Abbreviation(Unit::Length::Millimetre), "mm");
-  EXPECT_EQ(Abbreviation(Unit::Length::Milliinch), "thou");
-  EXPECT_EQ(Abbreviation(Unit::Length::Micrometre), "μm");
-  EXPECT_EQ(Abbreviation(Unit::Length::Microinch), "μin");
+  EXPECT_EQ(Abbreviation(Length::Mile), "mi");
+  EXPECT_EQ(Abbreviation(Length::Kilometre), "km");
+  EXPECT_EQ(Abbreviation(Length::Yard), "yd");
+  EXPECT_EQ(Abbreviation(Length::Metre), "m");
+  EXPECT_EQ(Abbreviation(Length::Foot), "ft");
+  EXPECT_EQ(Abbreviation(Length::Decimetre), "dm");
+  EXPECT_EQ(Abbreviation(Length::Inch), "in");
+  EXPECT_EQ(Abbreviation(Length::Centimetre), "cm");
+  EXPECT_EQ(Abbreviation(Length::Millimetre), "mm");
+  EXPECT_EQ(Abbreviation(Length::Milliinch), "thou");
+  EXPECT_EQ(Abbreviation(Length::Micrometre), "μm");
+  EXPECT_EQ(Abbreviation(Length::Microinch), "μin");
 }
 
 TEST(UnitLength, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Unit::Length>(UnitSystem::MetreKilogramSecondKelvin),
-            Unit::Length::Metre);
-  EXPECT_EQ(
-      ConsistentUnit<Unit::Length>(UnitSystem::MillimetreGramSecondKelvin),
-      Unit::Length::Millimetre);
-  EXPECT_EQ(ConsistentUnit<Unit::Length>(UnitSystem::FootPoundSecondRankine),
-            Unit::Length::Foot);
-  EXPECT_EQ(ConsistentUnit<Unit::Length>(UnitSystem::InchPoundSecondRankine),
-            Unit::Length::Inch);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MetreKilogramSecondKelvin),
+            Length::Metre);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MillimetreGramSecondKelvin),
+            Length::Millimetre);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::FootPoundSecondRankine),
+            Length::Foot);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::InchPoundSecondRankine),
+            Length::Inch);
 }
 
-TEST(UnitLength, ConversionValidation) {
-  constexpr double value{10.0};
-  // Convert from the standard unit to unit systems.
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre,
-                           UnitSystem::MetreKilogramSecondKelvin),
-                   value);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre,
-                           UnitSystem::MillimetreGramSecondKelvin),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Metre, UnitSystem::FootPoundSecondRankine),
-      value / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Metre, UnitSystem::InchPoundSecondRankine),
-      value / 0.0254);
-  // Convert from the standard unit to various units.
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Mile),
-                   value / 1609.344);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Kilometre),
-                   value / 1000.0);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Yard),
-                   value / 0.9144);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Metre),
-                   value);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Foot),
-                   value / 0.3048);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Decimetre),
-                   value * 10.0);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Inch),
-                   value / 0.0254);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Metre, Unit::Length::Centimetre),
-      value * 100.0);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Metre, Unit::Length::Millimetre),
-      value * 1000.0);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Milliinch),
-                   value / 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Metre, Unit::Length::Micrometre),
-      value * 1000000.0);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Microinch),
-                   value / 0.0000000254);
-  // Convert from various units to the standard unit.
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Mile, Unit::Length::Metre),
-                   value * 1609.344);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Kilometre, Unit::Length::Metre),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Yard, Unit::Length::Metre),
-                   value * 0.9144);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Metre, Unit::Length::Metre),
-                   value);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Foot, Unit::Length::Metre),
-                   value * 0.3048);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Decimetre, Unit::Length::Metre),
-                   value * 0.1);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Inch, Unit::Length::Metre),
-                   value * 0.0254);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Centimetre, Unit::Length::Metre),
-      value * 0.01);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Millimetre, Unit::Length::Metre),
-      value * 0.001);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Milliinch, Unit::Length::Metre),
-                   value * 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      Convert(value, Unit::Length::Micrometre, Unit::Length::Metre),
-      value * 0.000001);
-  EXPECT_DOUBLE_EQ(Convert(value, Unit::Length::Microinch, Unit::Length::Metre),
-                   value * 0.0000000254);
-}
-
-TEST(UnitLength, ConversionVerification) {
-  constexpr double value{10.0};
-  const std::array<double, 3> array{10.0, -20.0, 30.0};
-  const std::vector<double> plain_vector{10.0, -20.0, 30.0};
-  const Value::Vector vector_value{10.0, -20.0, 30.0};
-  const Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  const Value::Dyad dyad{10.0,  -20.0, 30.0,  -40.0, 50.0,
-                         -60.0, 70.0,  -80.0, 90.0};
-  for (const Unit::Length old_unit : LengthUnits) {
+TEST(UnitLength, ConvertVerification) {
+  double value{10.0};
+  std::array<double, 3> array{10.0, -20.0, 30.0};
+  Value::Vector vector{10.0, -20.0, 30.0};
+  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
+  for (const Length old_unit : LengthUnits) {
     for (const UnitSystem new_unit_system : UnitSystems) {
       Convert(value, old_unit, new_unit_system);
       Convert(array, old_unit, new_unit_system);
-      Convert(plain_vector, old_unit, new_unit_system);
-      Convert(vector_value, old_unit, new_unit_system);
+      Convert(vector, old_unit, new_unit_system);
       Convert(symdyad, old_unit, new_unit_system);
       Convert(dyad, old_unit, new_unit_system);
     }
-    for (const Unit::Length new_unit : LengthUnits) {
+    for (const Length new_unit : LengthUnits) {
       Convert(value, old_unit, new_unit);
       Convert(array, old_unit, new_unit);
-      Convert(plain_vector, old_unit, new_unit);
-      Convert(vector_value, old_unit, new_unit);
+      Convert(vector, old_unit, new_unit);
       Convert(symdyad, old_unit, new_unit);
       Convert(dyad, old_unit, new_unit);
     }
   }
 }
 
+TEST(UnitLength, ConvertAnyUnit) {
+  constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Microinch),
+                   value * 0.1 / 0.0000000254);
+}
+
+TEST(UnitLength, ConvertFromStandardUnit) {
+  constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Mile),
+                   value / 1609.344);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Kilometre),
+                   value * 0.001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Yard),
+                   value / 0.9144);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Foot),
+                   value / 0.3048);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Decimetre),
+                   value * 10.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Inch),
+                   value / 0.0254);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Centimetre),
+                   value * 100.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Millimetre),
+                   value * 1000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Milliinch),
+                   value / 0.0000254);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Micrometre),
+                   value * 1000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Microinch),
+                   value / 0.0000000254);
+}
+
+TEST(UnitLength, ConvertToStandardUnit) {
+  constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Mile, Length::Metre),
+                   value * 1609.344);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Kilometre, Length::Metre),
+                   value * 1000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Yard, Length::Metre),
+                   value * 0.9144);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Foot, Length::Metre),
+                   value * 0.3048);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Metre),
+                   value * 0.1);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Inch, Length::Metre),
+                   value * 0.0254);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Centimetre, Length::Metre),
+                   value * 0.01);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Millimetre, Length::Metre),
+                   value * 0.001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Milliinch, Length::Metre),
+                   value * 0.0000254);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Micrometre, Length::Metre),
+                   value * 0.000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Microinch, Length::Metre),
+                   value * 0.0000000254);
+}
+
+TEST(UnitLength, ConvertToUnitSystem) {
+  constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Length::Metre, UnitSystem::MetreKilogramSecondKelvin),
+      value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Length::Metre, UnitSystem::MillimetreGramSecondKelvin),
+      value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Length::Metre, UnitSystem::FootPoundSecondRankine),
+      value / 0.3048);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Length::Metre, UnitSystem::InchPoundSecondRankine),
+      value / 0.0254);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Length::Mile, UnitSystem::MillimetreGramSecondKelvin),
+      value * 1609.344 * 1000.0);
+}
+
 TEST(UnitLength, DimensionSet) {
-  EXPECT_EQ(Dimensions<Unit::Length>,
+  EXPECT_EQ(Dimensions<Length>,
             Dimension::Set(Dimension::Time{0}, Dimension::Length{1}));
 }
 
 TEST(UnitLength, Parse) {
-  EXPECT_EQ(Parse<Unit::Length>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<Unit::Length>("mi"), Unit::Length::Mile);
-  EXPECT_EQ(Parse<Unit::Length>("km"), Unit::Length::Kilometre);
-  EXPECT_EQ(Parse<Unit::Length>("yd"), Unit::Length::Yard);
-  EXPECT_EQ(Parse<Unit::Length>("m"), Unit::Length::Metre);
-  EXPECT_EQ(Parse<Unit::Length>("ft"), Unit::Length::Foot);
-  EXPECT_EQ(Parse<Unit::Length>("dm"), Unit::Length::Decimetre);
-  EXPECT_EQ(Parse<Unit::Length>("in"), Unit::Length::Inch);
-  EXPECT_EQ(Parse<Unit::Length>("cm"), Unit::Length::Centimetre);
-  EXPECT_EQ(Parse<Unit::Length>("mm"), Unit::Length::Millimetre);
-  EXPECT_EQ(Parse<Unit::Length>("thou"), Unit::Length::Milliinch);
-  EXPECT_EQ(Parse<Unit::Length>("μm"), Unit::Length::Micrometre);
-  EXPECT_EQ(Parse<Unit::Length>("μin"), Unit::Length::Microinch);
+  EXPECT_EQ(Parse<Length>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Length>("mi"), Length::Mile);
+  EXPECT_EQ(Parse<Length>("km"), Length::Kilometre);
+  EXPECT_EQ(Parse<Length>("yd"), Length::Yard);
+  EXPECT_EQ(Parse<Length>("m"), Length::Metre);
+  EXPECT_EQ(Parse<Length>("ft"), Length::Foot);
+  EXPECT_EQ(Parse<Length>("dm"), Length::Decimetre);
+  EXPECT_EQ(Parse<Length>("in"), Length::Inch);
+  EXPECT_EQ(Parse<Length>("cm"), Length::Centimetre);
+  EXPECT_EQ(Parse<Length>("mm"), Length::Millimetre);
+  EXPECT_EQ(Parse<Length>("thou"), Length::Milliinch);
+  EXPECT_EQ(Parse<Length>("μm"), Length::Micrometre);
+  EXPECT_EQ(Parse<Length>("μin"), Length::Microinch);
 }
 
 TEST(UnitLength, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Mile), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Kilometre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Yard), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Metre),
+  EXPECT_EQ(RelatedUnitSystem(Length::Mile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Kilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Yard), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Metre),
             UnitSystem::MetreKilogramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Foot),
+  EXPECT_EQ(RelatedUnitSystem(Length::Foot),
             UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Decimetre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Inch),
+  EXPECT_EQ(RelatedUnitSystem(Length::Decimetre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Inch),
             UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Centimetre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Millimetre),
+  EXPECT_EQ(RelatedUnitSystem(Length::Centimetre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Millimetre),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Milliinch), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Micrometre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Unit::Length::Microinch), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Milliinch), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Micrometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Length::Microinch), std::nullopt);
 }
 
 TEST(UnitLength, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Unit::Length>, Unit::Length::Metre);
+  EXPECT_EQ(StandardUnit<Length>, Length::Metre);
 }
 
 }  // namespace
 
-}  // namespace PhQ
+}  // namespace PhQ::Unit

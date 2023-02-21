@@ -22,6 +22,23 @@ namespace PhQ {
 
 namespace Value {
 
+// Forward declaration for PhQ::Convert functions.
+class Dyad;
+
+}  // namespace Value
+
+// Forward declaration for PhQ::Value::Dyad class.
+template <typename Unit>
+void Convert(Value::Dyad& dyad, const Unit old_unit,
+             const Unit new_unit) noexcept;
+
+// Forward declaration for PhQ::Value::Dyad class.
+template <typename Unit>
+void Convert(Value::Dyad& dyad, const Unit old_unit,
+             const UnitSystem new_unit_system) noexcept;
+
+namespace Value {
+
 class Dyad {
 public:
   constexpr Dyad() noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
@@ -45,7 +62,8 @@ public:
     return std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   }
 
-  inline constexpr const std::array<double, 9>& Value() const noexcept {
+  inline constexpr const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz()
+      const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
@@ -203,6 +221,14 @@ public:
 
 private:
   std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz_;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::Dyad& dyad, const Unit old_unit,
+                           const Unit new_unit) noexcept;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::Dyad& dyad, const Unit old_unit,
+                           const UnitSystem new_unit_system) noexcept;
 };
 
 inline constexpr bool operator==(const Dyad& left, const Dyad& right) noexcept {

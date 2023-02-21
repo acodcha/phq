@@ -26,7 +26,7 @@ namespace {
 TEST(ValueSymmetricDyad, Accessor) {
   const std::array<double, 6> value{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   const Value::SymmetricDyad symdyad{value};
-  EXPECT_EQ(symdyad.Value(), value);
+  EXPECT_EQ(symdyad.xx_xy_xz_yy_yz_zz(), value);
   EXPECT_EQ(symdyad.xx(), 1.11);
   EXPECT_EQ(symdyad.xy(), 2.22);
   EXPECT_EQ(symdyad.xz(), 3.33);

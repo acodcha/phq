@@ -17,8 +17,26 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 
 #include "../Direction.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
+
+namespace Value {
+
+// Forward declaration for PhQ::Convert functions.
+class Vector;
+
+}  // namespace Value
+
+// Forward declaration for PhQ::Value::Vector class.
+template <typename Unit>
+void Convert(Value::Vector& value, const Unit old_unit,
+             const Unit new_unit) noexcept;
+
+// Forward declaration for PhQ::Value::Vector class.
+template <typename Unit>
+void Convert(Value::Vector& value, const Unit old_unit,
+             const UnitSystem new_unit_system) noexcept;
 
 namespace Value {
 
@@ -41,7 +59,7 @@ public:
     return std::array<double, 3>{0.0, 0.0, 0.0};
   }
 
-  inline constexpr const std::array<double, 3>& Value() const noexcept {
+  inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
     return x_y_z_;
   }
 
@@ -141,6 +159,14 @@ public:
 
 private:
   std::array<double, 3> x_y_z_;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::Vector& value, const Unit old_unit,
+                           const Unit new_unit) noexcept;
+
+  template <typename Unit>
+  friend void PhQ::Convert(Value::Vector& value, const Unit old_unit,
+                           const UnitSystem new_unit_system) noexcept;
 };
 
 inline constexpr bool operator==(const Vector& left,
