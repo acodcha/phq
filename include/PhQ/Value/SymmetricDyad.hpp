@@ -22,20 +22,15 @@ namespace PhQ {
 
 namespace Value {
 
-// Forward declaration for PhQ::Convert functions.
+// Forward declaration for PhQ::Convert.
 class SymmetricDyad;
 
 }  // namespace Value
 
-// Forward declaration for PhQ::Value::SymmetricDyad class.
+// Forward declaration for PhQ::Value::SymmetricDyad.
 template <typename Unit>
 void Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
              const Unit new_unit) noexcept;
-
-// Forward declaration for PhQ::Value::SymmetricDyad class.
-template <typename Unit>
-void Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
-             const UnitSystem new_unit_system) noexcept;
 
 namespace Value {
 
@@ -186,10 +181,6 @@ private:
   template <typename Unit>
   friend void PhQ::Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
                            const Unit new_unit) noexcept;
-
-  template <typename Unit>
-  friend void PhQ::Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
-                           const UnitSystem new_unit_system) noexcept;
 };
 
 inline constexpr bool operator==(const SymmetricDyad& left,

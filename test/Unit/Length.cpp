@@ -62,38 +62,9 @@ TEST(UnitLength, ConsistentUnit) {
             Length::Inch);
 }
 
-TEST(UnitLength, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  Value::Vector vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Length old_unit : LengthUnits) {
-    for (const UnitSystem new_unit_system : UnitSystems) {
-      Convert(value, old_unit, new_unit_system);
-      Convert(array, old_unit, new_unit_system);
-      Convert(vector, old_unit, new_unit_system);
-      Convert(symdyad, old_unit, new_unit_system);
-      Convert(dyad, old_unit, new_unit_system);
-    }
-    for (const Length new_unit : LengthUnits) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
-}
-
-TEST(UnitLength, ConvertAnyUnit) {
+TEST(UnitLength, ConvertValidation) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Microinch),
-                   value * 0.1 / 0.0000000254);
-}
 
-TEST(UnitLength, ConvertFromStandardUnit) {
-  constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Mile),
                    value / 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Kilometre),
@@ -117,10 +88,7 @@ TEST(UnitLength, ConvertFromStandardUnit) {
                    value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Microinch),
                    value / 0.0000000254);
-}
 
-TEST(UnitLength, ConvertToStandardUnit) {
-  constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Mile, Length::Metre),
                    value * 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Kilometre, Length::Metre),
@@ -144,25 +112,28 @@ TEST(UnitLength, ConvertToStandardUnit) {
                    value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Microinch, Length::Metre),
                    value * 0.0000000254);
+
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Microinch),
+                   value * 0.1 / 0.0000000254);
 }
 
-TEST(UnitLength, ConvertToUnitSystem) {
-  constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, UnitSystem::MetreKilogramSecondKelvin),
-      value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, UnitSystem::MillimetreGramSecondKelvin),
-      value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, UnitSystem::FootPoundSecondRankine),
-      value / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, UnitSystem::InchPoundSecondRankine),
-      value / 0.0254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Mile, UnitSystem::MillimetreGramSecondKelvin),
-      value * 1609.344 * 1000.0);
+TEST(UnitLength, ConvertVerification) {
+  double value{10.0};
+  std::array<double, 3> array{10.0, -20.0, 30.0};
+  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
+  Value::Vector value_vector{10.0, -20.0, 30.0};
+  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
+  for (const Length old_unit : LengthUnits) {
+    for (const Length new_unit : LengthUnits) {
+      Convert(value, old_unit, new_unit);
+      Convert(array, old_unit, new_unit);
+      Convert(std_vector, old_unit, new_unit);
+      Convert(value_vector, old_unit, new_unit);
+      Convert(symdyad, old_unit, new_unit);
+      Convert(dyad, old_unit, new_unit);
+    }
+  }
 }
 
 TEST(UnitLength, DimensionSet) {

@@ -144,21 +144,21 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
     ConversionsFromStandard<Unit::Length>{
         {Unit::Length::Mile,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 1609.344;
            }
          }},
         {Unit::Length::Kilometre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.001;
            }
          }},
         {Unit::Length::Yard,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 0.9144;
            }
@@ -169,56 +169,56 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
          }},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 0.3048;
            }
          }},
         {Unit::Length::Decimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 10.0;
            }
          }},
         {Unit::Length::Inch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 0.0254;
            }
          }},
         {Unit::Length::Centimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 100.0;
            }
          }},
         {Unit::Length::Millimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 1000.0;
            }
          }},
         {Unit::Length::Milliinch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 0.0000254;
            }
          }},
         {Unit::Length::Micrometre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 1000000.0;
            }
          }},
         {Unit::Length::Microinch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values /= 0.0000000254;
            }
@@ -231,21 +231,21 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
     ConversionsToStandard<Unit::Length>{
         {Unit::Length::Mile,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 1609.344;
            }
          }},
         {Unit::Length::Kilometre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 1000.0;
            }
          }},
         {Unit::Length::Yard,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.9144;
            }
@@ -256,56 +256,56 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
          }},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.3048;
            }
          }},
         {Unit::Length::Decimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.1;
            }
          }},
         {Unit::Length::Inch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.0254;
            }
          }},
         {Unit::Length::Centimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.01;
            }
          }},
         {Unit::Length::Millimetre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.001;
            }
          }},
         {Unit::Length::Milliinch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.0000254;
            }
          }},
         {Unit::Length::Micrometre,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.000001;
            }
          }},
         {Unit::Length::Microinch,
          [](double* values, const std::size_t size) -> void {
-           const double* end = values + size;
+           const double* const end{values + size};
            for (; values < end; ++values) {
              *values *= 0.0000000254;
            }

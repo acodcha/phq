@@ -13,22 +13,9 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../include/PhQ/UnitSystem.hpp"
+#include "../../include/PhQ/Unit/Base.hpp"
 
 namespace PhQ {
-
-const std::set<UnitSystem> UnitSystems = {
-    UnitSystem::MetreKilogramSecondKelvin,
-    UnitSystem::MillimetreGramSecondKelvin, UnitSystem::FootPoundSecondRankine,
-    UnitSystem::InchPoundSecondRankine};
-
-template <typename Unit>
-double ConvertCopy(const double old_value, const Unit old_unit,
-                   const UnitSystem new_unit_system) {
-  double new_value{old_value};
-  Convert(new_value, old_unit, new_unit_system);
-  return new_value;
-}
 
 template <typename Unit>
 double ConvertCopy(const double old_value, const Unit old_unit,

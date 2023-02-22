@@ -23,20 +23,15 @@ namespace PhQ {
 
 namespace Value {
 
-// Forward declaration for PhQ::Convert functions.
+// Forward declaration for PhQ::Convert.
 class Vector;
 
 }  // namespace Value
 
-// Forward declaration for PhQ::Value::Vector class.
+// Forward declaration for PhQ::Value::Vector.
 template <typename Unit>
 void Convert(Value::Vector& value, const Unit old_unit,
              const Unit new_unit) noexcept;
-
-// Forward declaration for PhQ::Value::Vector class.
-template <typename Unit>
-void Convert(Value::Vector& value, const Unit old_unit,
-             const UnitSystem new_unit_system) noexcept;
 
 namespace Value {
 
@@ -163,10 +158,6 @@ private:
   template <typename Unit>
   friend void PhQ::Convert(Value::Vector& value, const Unit old_unit,
                            const Unit new_unit) noexcept;
-
-  template <typename Unit>
-  friend void PhQ::Convert(Value::Vector& value, const Unit old_unit,
-                           const UnitSystem new_unit_system) noexcept;
 };
 
 inline constexpr bool operator==(const Vector& left,
