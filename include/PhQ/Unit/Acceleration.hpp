@@ -44,8 +44,8 @@ constexpr const Unit::Acceleration StandardUnit<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};
 
 template <>
-constexpr const Dimension::Set Dimensions<Unit::Acceleration>{Dimension::Set{
-    Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{}}};
+constexpr const Dimension::Set Dimensions<Unit::Acceleration>{
+    Dimension::Set{Dimension::Time{-2}, Dimension::Length{1}}};
 
 template <>
 inline const std::map<UnitSystem, Unit::Acceleration>
