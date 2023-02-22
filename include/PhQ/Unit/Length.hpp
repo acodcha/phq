@@ -34,7 +34,7 @@ enum class Length : int_least8_t {
   Millimetre,
   Milliinch,
   Micrometre,
-  Microinch
+  Microinch,
 };
 
 }  // namespace Unit
