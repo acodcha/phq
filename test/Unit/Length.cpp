@@ -23,7 +23,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-const std::set<Length> Units = {
+constexpr std::array<Length, 12> Units = {
     Length::Mile,      Length::Kilometre,  Length::Yard,
     Length::Metre,     Length::Foot,       Length::Decimetre,
     Length::Inch,      Length::Centimetre, Length::Millimetre,
