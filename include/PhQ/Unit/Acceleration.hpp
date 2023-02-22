@@ -34,7 +34,7 @@ enum class Acceleration : int_least8_t {
   MillimetrePerSquareSecond,
   MilliinchPerSquareSecond,
   MicrometrePerSquareSecond,
-  MicroinchPerSquareSecond
+  MicroinchPerSquareSecond,
 };
 
 }  // namespace Unit
