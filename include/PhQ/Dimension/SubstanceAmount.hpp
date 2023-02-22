@@ -13,8 +13,8 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCEAMOUNT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCEAMOUNT_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP
 
 #include <iostream>
 #include <string>
@@ -101,4 +101,4 @@ struct hash<PhQ::Dimension::SubstanceAmount> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCEAMOUNT_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP
