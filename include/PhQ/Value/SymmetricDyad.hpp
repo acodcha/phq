@@ -13,8 +13,8 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRIC_DYAD_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRIC_DYAD_HPP
 
 #include "Vector.hpp"
 
@@ -292,4 +292,4 @@ struct hash<PhQ::Value::SymmetricDyad> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRICDYAD_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_SYMMETRIC_DYAD_HPP
