@@ -23,7 +23,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-const std::set<Acceleration> Units = {
+constexpr std::array<Acceleration, 12> Units = {
     Acceleration::MilePerSquareSecond,
     Acceleration::KilometrePerSquareSecond,
     Acceleration::YardPerSquareSecond,
