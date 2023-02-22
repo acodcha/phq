@@ -16,6 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_BASE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_BASE_HPP
 
+#include <functional>
 #include <vector>
 
 #include "../Dimension/Set.hpp"
