@@ -23,18 +23,12 @@ namespace PhQ::Unit {
 
 namespace {
 
-/*
-const std::set<UnitSystem> UnitSystems = {
-    UnitSystem::MetreKilogramSecondKelvin,
-    UnitSystem::MillimetreGramSecondKelvin, UnitSystem::FootPoundSecondRankine,
-    UnitSystem::InchPoundSecondRankine};
-*/
-
-const std::set<Length> LengthUnits = {
+const std::set<Length> Units = {
     Length::Mile,      Length::Kilometre,  Length::Yard,
     Length::Metre,     Length::Foot,       Length::Decimetre,
     Length::Inch,      Length::Centimetre, Length::Millimetre,
-    Length::Milliinch, Length::Micrometre, Length::Microinch};
+    Length::Milliinch, Length::Micrometre, Length::Microinch,
+};
 
 TEST(UnitLength, Abbreviation) {
   EXPECT_EQ(Abbreviation(Length::Mile), "mi");
@@ -46,7 +40,7 @@ TEST(UnitLength, Abbreviation) {
   EXPECT_EQ(Abbreviation(Length::Inch), "in");
   EXPECT_EQ(Abbreviation(Length::Centimetre), "cm");
   EXPECT_EQ(Abbreviation(Length::Millimetre), "mm");
-  EXPECT_EQ(Abbreviation(Length::Milliinch), "thou");
+  EXPECT_EQ(Abbreviation(Length::Milliinch), "mil");
   EXPECT_EQ(Abbreviation(Length::Micrometre), "μm");
   EXPECT_EQ(Abbreviation(Length::Microinch), "μin");
 }
@@ -123,8 +117,8 @@ TEST(UnitLength, ConvertVerification) {
   Value::Vector value_vector{10.0, -20.0, 30.0};
   Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
   Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Length old_unit : LengthUnits) {
-    for (const Length new_unit : LengthUnits) {
+  for (const Length old_unit : Units) {
+    for (const Length new_unit : Units) {
       Convert(value, old_unit, new_unit);
       Convert(array, old_unit, new_unit);
       Convert(std_vector, old_unit, new_unit);
@@ -151,7 +145,7 @@ TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Length>("in"), Length::Inch);
   EXPECT_EQ(Parse<Length>("cm"), Length::Centimetre);
   EXPECT_EQ(Parse<Length>("mm"), Length::Millimetre);
-  EXPECT_EQ(Parse<Length>("thou"), Length::Milliinch);
+  EXPECT_EQ(Parse<Length>("mil"), Length::Milliinch);
   EXPECT_EQ(Parse<Length>("μm"), Length::Micrometre);
   EXPECT_EQ(Parse<Length>("μin"), Length::Microinch);
 }

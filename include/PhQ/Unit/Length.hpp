@@ -40,13 +40,38 @@ enum class Length : int_least8_t {
 }  // namespace Unit
 
 template <>
+inline constexpr const Unit::Length StandardUnit<Unit::Length>{
+    Unit::Length::Metre};
+
+template <>
+inline constexpr const Dimension::Set Dimensions<Unit::Length>{
+    Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}};
+
+template <>
+inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
+    {UnitSystem::MetreKilogramSecondKelvin, Unit::Length::Metre},
+    {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
+    {UnitSystem::FootPoundSecondRankine, Unit::Length::Foot},
+    {UnitSystem::InchPoundSecondRankine, Unit::Length::Inch},
+};
+
+template <>
+inline const std::map<Unit::Length, UnitSystem>
+    RelatedUnitSystems<Unit::Length>{
+        {Unit::Length::Metre, UnitSystem::MetreKilogramSecondKelvin},
+        {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
+        {Unit::Length::Foot, UnitSystem::FootPoundSecondRankine},
+        {Unit::Length::Inch, UnitSystem::InchPoundSecondRankine},
+    };
+
+template <>
 inline const std::map<Unit::Length, std::string_view>
     Abbreviations<Unit::Length>{
         {Unit::Length::Mile, "mi"},       {Unit::Length::Kilometre, "km"},
         {Unit::Length::Yard, "yd"},       {Unit::Length::Metre, "m"},
         {Unit::Length::Foot, "ft"},       {Unit::Length::Decimetre, "dm"},
         {Unit::Length::Inch, "in"},       {Unit::Length::Centimetre, "cm"},
-        {Unit::Length::Millimetre, "mm"}, {Unit::Length::Milliinch, "thou"},
+        {Unit::Length::Millimetre, "mm"}, {Unit::Length::Milliinch, "mil"},
         {Unit::Length::Micrometre, "μm"}, {Unit::Length::Microinch, "μin"},
     };
 
@@ -93,12 +118,12 @@ inline const std::unordered_map<std::string_view, Unit::Length>
         {"milin", Unit::Length::Milliinch},
         {"milliinch", Unit::Length::Milliinch},
         {"milliinches", Unit::Length::Milliinch},
+        {"mil", Unit::Length::Milliinch},
+        {"mils", Unit::Length::Milliinch},
         {"thou", Unit::Length::Milliinch},
         {"thous", Unit::Length::Milliinch},
         {"thousandth", Unit::Length::Milliinch},
         {"thousandths", Unit::Length::Milliinch},
-        {"mil", Unit::Length::Milliinch},
-        {"mils", Unit::Length::Milliinch},
         {"μm", Unit::Length::Micrometre},
         {"um", Unit::Length::Micrometre},
         {"micrometer", Unit::Length::Micrometre},
@@ -112,31 +137,6 @@ inline const std::unordered_map<std::string_view, Unit::Length>
         {"microinch", Unit::Length::Microinch},
         {"microinches", Unit::Length::Microinch},
     };
-
-template <>
-inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
-    {UnitSystem::MetreKilogramSecondKelvin, Unit::Length::Metre},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
-    {UnitSystem::FootPoundSecondRankine, Unit::Length::Foot},
-    {UnitSystem::InchPoundSecondRankine, Unit::Length::Inch},
-};
-
-template <>
-inline const std::map<Unit::Length, UnitSystem>
-    RelatedUnitSystems<Unit::Length>{
-        {Unit::Length::Metre, UnitSystem::MetreKilogramSecondKelvin},
-        {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
-        {Unit::Length::Foot, UnitSystem::FootPoundSecondRankine},
-        {Unit::Length::Inch, UnitSystem::InchPoundSecondRankine},
-    };
-
-template <>
-inline constexpr const Unit::Length StandardUnit<Unit::Length>{
-    Unit::Length::Metre};
-
-template <>
-inline constexpr const Dimension::Set Dimensions<Unit::Length>{
-    Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}};
 
 template <>
 inline const std::map<Unit::Length, std::function<void(double* const values,
@@ -164,9 +164,7 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
            }
          }},
         {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {
-           // Trivial case.
-         }},
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -251,9 +249,7 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
            }
          }},
         {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {
-           // Trivial case.
-         }},
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
