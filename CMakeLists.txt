@@ -128,6 +128,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_angle GTest::gtest_main)
   gtest_discover_tests(unit_angle)
 
+  add_executable(unit_angular_acceleration ${PROJECT_SOURCE_DIR}/test/Unit/AngularAcceleration.cpp)
+  target_link_libraries(unit_angular_acceleration GTest::gtest_main)
+  gtest_discover_tests(unit_angular_acceleration)
+
   add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
