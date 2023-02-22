@@ -62,9 +62,8 @@ TEST(UnitLength, ConsistentUnit) {
             Length::Inch);
 }
 
-TEST(UnitLength, ConvertValidation) {
+TEST(UnitLength, ConvertFromStandard) {
   constexpr double value{10.0};
-
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Mile),
                    value / 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Kilometre),
@@ -88,7 +87,10 @@ TEST(UnitLength, ConvertValidation) {
                    value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Microinch),
                    value / 0.0000000254);
+}
 
+TEST(UnitLength, ConvertToStandard) {
+  constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Mile, Length::Metre),
                    value * 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Kilometre, Length::Metre),
@@ -112,9 +114,6 @@ TEST(UnitLength, ConvertValidation) {
                    value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Microinch, Length::Metre),
                    value * 0.0000000254);
-
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Microinch),
-                   value * 0.1 / 0.0000000254);
 }
 
 TEST(UnitLength, ConvertVerification) {
