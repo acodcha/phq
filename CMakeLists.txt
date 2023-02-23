@@ -180,6 +180,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_mass_density GTest::gtest_main)
   gtest_discover_tests(unit_mass_density)
 
+  add_executable(unit_mass_rate ${PROJECT_SOURCE_DIR}/test/Unit/MassRate.cpp)
+  target_link_libraries(unit_mass_rate GTest::gtest_main)
+  gtest_discover_tests(unit_mass_rate)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
