@@ -23,7 +23,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Force, 9> Units = {
+constexpr std::array<Force, 3> Units = {
     Force::Newton,
     Force::Micronewton,
     Force::Pound,
@@ -99,6 +99,7 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Force::Micronewton),
             UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Force::Pound), std::nullopt);
 }
 
 TEST(UnitEnergyFlux, StandardUnit) {
