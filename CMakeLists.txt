@@ -136,6 +136,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_angular_speed GTest::gtest_main)
   gtest_discover_tests(unit_angular_speed)
 
+  add_executable(unit_area ${PROJECT_SOURCE_DIR}/test/Unit/Area.cpp)
+  target_link_libraries(unit_area GTest::gtest_main)
+  gtest_discover_tests(unit_area)
+
   add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
