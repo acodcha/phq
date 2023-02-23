@@ -23,7 +23,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<EnergyFlux, 9> Units = {
+constexpr std::array<EnergyFlux, 4> Units = {
     EnergyFlux::WattPerSquareMetre,
     EnergyFlux::NanowattPerSquareMillimetre,
     EnergyFlux::FootPoundPerSquareFootPerSecond,
