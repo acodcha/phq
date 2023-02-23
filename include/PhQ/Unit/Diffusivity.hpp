@@ -59,7 +59,8 @@ inline const std::map<UnitSystem, Unit::Diffusivity>
         {UnitSystem::FootPoundSecondRankine,
          Unit::Diffusivity::SquareFootPerSecond},
         {UnitSystem::InchPoundSecondRankine,
-         Unit::Diffusivity::SquareInchPerSecond}};
+         Unit::Diffusivity::SquareInchPerSecond},
+    };
 
 template <>
 inline const std::map<Unit::Diffusivity, UnitSystem>
