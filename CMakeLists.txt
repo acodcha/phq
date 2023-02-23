@@ -148,6 +148,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(unit_dynamic_viscosity)
 
+  add_executable(unit_energy ${PROJECT_SOURCE_DIR}/test/Unit/Energy.cpp)
+  target_link_libraries(unit_energy GTest::gtest_main)
+  gtest_discover_tests(unit_energy)
+
   add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
