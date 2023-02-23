@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Time : uint_least8_t {
+enum class Time : int_least8_t {
   Second,
   Minute,
   Hour

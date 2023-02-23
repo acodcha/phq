@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Mass : uint_least8_t {
+enum class Mass : int_least8_t {
   Kilogram,
   Gram,
   Slug,

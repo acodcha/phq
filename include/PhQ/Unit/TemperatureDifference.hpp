@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class TemperatureDifference : uint_least8_t {
+enum class TemperatureDifference : int_least8_t {
   Kelvin,
   Celsius,
   Rankine,

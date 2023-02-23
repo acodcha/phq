@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class MemoryRate : uint_least8_t {
+enum class MemoryRate : int_least8_t {
   BitPerSecond,
   KilobitPerSecond,
   MegabitPerSecond,

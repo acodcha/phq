@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class ThermalExpansion : uint_least8_t {
+enum class ThermalExpansion : int_least8_t {
   PerKelvin,
   PerCelsius,
   PerRankine,

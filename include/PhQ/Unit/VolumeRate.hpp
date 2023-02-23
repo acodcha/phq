@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class VolumeRate : uint_least8_t {
+enum class VolumeRate : int_least8_t {
   CubicMilePerSecond,
   CubicKilometrePerSecond,
   CubicYardPerSecond,

@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class HeatCapacity : uint_least8_t {
+enum class HeatCapacity : int_least8_t {
   JoulePerKelvin,
   NanojoulePerKelvin,
   FootPoundPerRankine,

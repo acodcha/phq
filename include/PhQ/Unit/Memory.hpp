@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Memory : uint_least8_t {
+enum class Memory : int_least8_t {
   Bit,
   Kilobit,
   Megabit,

@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class MassRate : uint_least8_t {
+enum class MassRate : int_least8_t {
   KilogramPerSecond,
   GramPerSecond,
   SlugPerSecond,

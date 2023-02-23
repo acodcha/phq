@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class MassDensity : uint_least8_t {
+enum class MassDensity : int_least8_t {
   KilogramPerCubicMetre,
   GramPerCubicMillimetre,
   SlugPerCubicFoot,

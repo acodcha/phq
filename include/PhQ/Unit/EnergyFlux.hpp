@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class EnergyFlux : uint_least8_t {
+enum class EnergyFlux : int_least8_t {
   WattPerSquareMetre,
   NanowattPerSquareMillimetre,
   FootPoundPerSquareFootPerSecond,

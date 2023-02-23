@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Energy : uint_least8_t {
+enum class Energy : int_least8_t {
   Joule,
   Millijoule,
   Microjoule,

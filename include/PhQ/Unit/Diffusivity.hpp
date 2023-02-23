@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Diffusivity : uint_least8_t {
+enum class Diffusivity : int_least8_t {
   SquareMilePerSecond,
   SquareKilometrePerSecond,
   SquareYardPerSecond,

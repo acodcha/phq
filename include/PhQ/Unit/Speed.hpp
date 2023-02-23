@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Speed : uint_least8_t {
+enum class Speed : int_least8_t {
   MilePerSecond,
   KilometrePerSecond,
   YardPerSecond,

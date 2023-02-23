@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Pressure : uint_least8_t {
+enum class Pressure : int_least8_t {
   Pascal,
   Kilopascal,
   Megapascal,

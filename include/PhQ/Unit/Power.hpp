@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Power : uint_least8_t {
+enum class Power : int_least8_t {
   Watt,
   Milliwatt,
   Microwatt,

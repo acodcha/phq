@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class DynamicViscosity : uint_least8_t {
+enum class DynamicViscosity : int_least8_t {
   PascalSecond,
   KilopascalSecond,
   MegapascalSecond,

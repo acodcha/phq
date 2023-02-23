@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class SpecificPower : uint_least8_t {
+enum class SpecificPower : int_least8_t {
   WattPerKilogram,
   NanowattPerGram,
   FootPoundPerSlugPerSecond,

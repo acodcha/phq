@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class TemperatureGradient : uint_least8_t {
+enum class TemperatureGradient : int_least8_t {
   KelvinPerMetre,
   KelvinPerMillimetre,
   CelsiusPerMetre,

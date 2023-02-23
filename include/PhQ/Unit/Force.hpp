@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class Force : uint_least8_t {
+enum class Force : int_least8_t {
   Newton,
   Micronewton,
   Pound

@@ -12,7 +12,7 @@ namespace PhQ {
 
 namespace Unit {
 
-enum class SpecificEnergy : uint_least8_t {
+enum class SpecificEnergy : int_least8_t {
   JoulePerKilogram,
   NanojoulePerGram,
   FootPoundPerSlug,
