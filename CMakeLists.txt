@@ -160,6 +160,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_force GTest::gtest_main)
   gtest_discover_tests(unit_force)
 
+  add_executable(unit_frequency ${PROJECT_SOURCE_DIR}/test/Unit/Frequency.cpp)
+  target_link_libraries(unit_frequency GTest::gtest_main)
+  gtest_discover_tests(unit_frequency)
+
   add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
