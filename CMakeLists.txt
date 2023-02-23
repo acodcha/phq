@@ -172,6 +172,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
 
+  add_executable(unit_mass ${PROJECT_SOURCE_DIR}/test/Unit/Mass.cpp)
+  target_link_libraries(unit_mass GTest::gtest_main)
+  gtest_discover_tests(unit_mass)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
