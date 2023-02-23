@@ -164,6 +164,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_frequency GTest::gtest_main)
   gtest_discover_tests(unit_frequency)
 
+  add_executable(unit_heat_capacity ${PROJECT_SOURCE_DIR}/test/Unit/HeatCapacity.cpp)
+  target_link_libraries(unit_heat_capacity GTest::gtest_main)
+  gtest_discover_tests(unit_heat_capacity)
+
   add_executable(unit_length ${PROJECT_SOURCE_DIR}/test/Unit/Length.cpp)
   target_link_libraries(unit_length GTest::gtest_main)
   gtest_discover_tests(unit_length)
