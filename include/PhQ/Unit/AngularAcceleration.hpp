@@ -60,6 +60,10 @@ inline const std::map<UnitSystem, Unit::AngularAcceleration>
     };
 
 template <>
+inline const std::map<Unit::AngularAcceleration, UnitSystem>
+    RelatedUnitSystems<Unit::AngularAcceleration>{};
+
+template <>
 inline const std::map<Unit::AngularAcceleration, std::string_view>
     Abbreviations<Unit::AngularAcceleration>{
         {Unit::AngularAcceleration::RadianPerSquareSecond, "rad/s^2"},

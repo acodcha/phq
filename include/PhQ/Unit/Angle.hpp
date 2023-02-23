@@ -48,6 +48,10 @@ inline const std::map<UnitSystem, Unit::Angle> ConsistentUnits<Unit::Angle>{
 };
 
 template <>
+inline const std::map<Unit::Angle, UnitSystem>
+    RelatedUnitSystems<Unit::Angle>{};
+
+template <>
 inline const std::map<Unit::Angle, std::string_view> Abbreviations<Unit::Angle>{
     {Unit::Angle::Radian, "rad"},
     {Unit::Angle::Degree, "deg"},
