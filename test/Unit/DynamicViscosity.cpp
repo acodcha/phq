@@ -153,9 +153,9 @@ TEST(UnitDynamicViscosity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::GigapascalSecond),
             std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::PoundSecondPerSquareFoot),
-            std::nullopt);
+            UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::PoundSecondPerSquareInch),
-            std::nullopt);
+            UnitSystem::InchPoundSecondRankine);
 }
 
 TEST(UnitDynamicViscosity, StandardUnit) {

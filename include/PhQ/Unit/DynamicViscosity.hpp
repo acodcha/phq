@@ -56,6 +56,15 @@ inline const std::map<UnitSystem, Unit::DynamicViscosity>
     };
 
 template <>
+inline const std::map<Unit::DynamicViscosity, UnitSystem>
+    RelatedUnitSystems<Unit::DynamicViscosity>{
+        {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
+         UnitSystem::FootPoundSecondRankine},
+        {Unit::DynamicViscosity::PoundSecondPerSquareInch,
+         UnitSystem::InchPoundSecondRankine},
+    };
+
+template <>
 inline const std::map<Unit::DynamicViscosity, std::string_view>
     Abbreviations<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond, "Pa·s"},
