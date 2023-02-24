@@ -208,6 +208,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_specific_heat_capacity GTest::gtest_main)
   gtest_discover_tests(unit_specific_heat_capacity)
 
+  add_executable(unit_specific_power ${PROJECT_SOURCE_DIR}/test/Unit/SpecificPower.cpp)
+  target_link_libraries(unit_specific_power GTest::gtest_main)
+  gtest_discover_tests(unit_specific_power)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
