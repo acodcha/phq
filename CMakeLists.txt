@@ -192,6 +192,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_memory_rate GTest::gtest_main)
   gtest_discover_tests(unit_memory_rate)
 
+  add_executable(unit_power ${PROJECT_SOURCE_DIR}/test/Unit/Power.cpp)
+  target_link_libraries(unit_power GTest::gtest_main)
+  gtest_discover_tests(unit_power)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
