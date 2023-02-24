@@ -29,13 +29,13 @@ constexpr std::array<Force, 3> Units = {
     Force::Pound,
 };
 
-TEST(UnitEnergyFlux, Abbreviation) {
+TEST(UnitForce, Abbreviation) {
   EXPECT_EQ(Abbreviation(Force::Newton), "N");
   EXPECT_EQ(Abbreviation(Force::Micronewton), "μN");
   EXPECT_EQ(Abbreviation(Force::Pound), "lbf");
 }
 
-TEST(UnitEnergyFlux, ConsistentUnit) {
+TEST(UnitForce, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::MetreKilogramSecondKelvin),
             Force::Newton);
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::MillimetreGramSecondKelvin),
@@ -44,7 +44,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             Force::Pound);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitForce, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Micronewton),
@@ -53,7 +53,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
                    value / (0.45359237 * 9.80665));
 }
 
-TEST(UnitEnergyFlux, ConvertToStandard) {
+TEST(UnitForce, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Micronewton, Force::Newton),
@@ -62,7 +62,7 @@ TEST(UnitEnergyFlux, ConvertToStandard) {
                    value * 0.45359237 * 9.80665);
 }
 
-TEST(UnitEnergyFlux, ConvertVerification) {
+TEST(UnitForce, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -81,20 +81,20 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
+TEST(UnitForce, DimensionSet) {
   EXPECT_EQ(Dimensions<Force>,
             Dimension::Set(Dimension::Time{-2}, Dimension::Length{1},
                            Dimension::Mass{1}));
 }
 
-TEST(UnitEnergyFlux, Parse) {
+TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Force>("N"), Force::Newton);
   EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
   EXPECT_EQ(Parse<Force>("lbf"), Force::Pound);
 }
 
-TEST(UnitEnergyFlux, RelatedUnitSystem) {
+TEST(UnitForce, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Force::Newton),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Force::Micronewton),
@@ -102,9 +102,7 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Force::Pound), std::nullopt);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Force>, Force::Newton);
-}
+TEST(UnitForce, StandardUnit) { EXPECT_EQ(StandardUnit<Force>, Force::Newton); }
 
 }  // namespace
 
