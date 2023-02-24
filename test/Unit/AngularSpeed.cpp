@@ -31,7 +31,7 @@ constexpr std::array<AngularSpeed, 9> Units = {
     AngularSpeed::RevolutionPerHour,
 };
 
-TEST(UnitLength, Abbreviation) {
+TEST(UnitAngularSpeed, Abbreviation) {
   EXPECT_EQ(Abbreviation(AngularSpeed::RadianPerSecond), "rad/s");
   EXPECT_EQ(Abbreviation(AngularSpeed::RadianPerMinute), "rad/min");
   EXPECT_EQ(Abbreviation(AngularSpeed::RadianPerHour), "rad/hr");
@@ -43,7 +43,7 @@ TEST(UnitLength, Abbreviation) {
   EXPECT_EQ(Abbreviation(AngularSpeed::RevolutionPerHour), "rev/hr");
 }
 
-TEST(UnitLength, ConsistentUnit) {
+TEST(UnitAngularSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<AngularSpeed>(UnitSystem::MetreKilogramSecondKelvin),
             AngularSpeed::RadianPerSecond);
   EXPECT_EQ(
@@ -55,7 +55,7 @@ TEST(UnitLength, ConsistentUnit) {
             AngularSpeed::RadianPerSecond);
 }
 
-TEST(UnitLength, ConvertFromStandard) {
+TEST(UnitAngularSpeed, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
                                AngularSpeed::RadianPerSecond),
@@ -86,7 +86,7 @@ TEST(UnitLength, ConvertFromStandard) {
                    value * 1800.0 / Pi);
 }
 
-TEST(UnitLength, ConvertToStandard) {
+TEST(UnitAngularSpeed, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
                                AngularSpeed::RadianPerSecond),
@@ -117,7 +117,7 @@ TEST(UnitLength, ConvertToStandard) {
                    value * Pi / 1800.0);
 }
 
-TEST(UnitLength, ConvertVerification) {
+TEST(UnitAngularSpeed, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -136,11 +136,11 @@ TEST(UnitLength, ConvertVerification) {
   }
 }
 
-TEST(UnitLength, Dimensions) {
+TEST(UnitAngularSpeed, Dimensions) {
   EXPECT_EQ(Dimensions<AngularSpeed>, Dimension::Set{Dimension::Time{-1}});
 }
 
-TEST(UnitLength, Parse) {
+TEST(UnitAngularSpeed, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<AngularSpeed>("rad/s"), AngularSpeed::RadianPerSecond);
   EXPECT_EQ(Parse<AngularSpeed>("rad/min"), AngularSpeed::RadianPerMinute);
@@ -153,7 +153,7 @@ TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("rev/hr"), AngularSpeed::RevolutionPerHour);
 }
 
-TEST(UnitLength, RelatedUnitSystem) {
+TEST(UnitAngularSpeed, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RadianPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RadianPerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RadianPerHour), std::nullopt);
@@ -165,7 +165,7 @@ TEST(UnitLength, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RevolutionPerHour), std::nullopt);
 }
 
-TEST(UnitLength, StandardUnit) {
+TEST(UnitAngularSpeed, StandardUnit) {
   EXPECT_EQ(StandardUnit<AngularSpeed>, AngularSpeed::RadianPerSecond);
 }
 
