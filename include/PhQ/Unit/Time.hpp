@@ -1,10 +1,20 @@
 // Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TIME_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TIME_HPP
 
 #include "Base.hpp"
 
@@ -15,60 +25,92 @@ namespace Unit {
 enum class Time : int_least8_t {
   Second,
   Minute,
-  Hour
+  Hour,
 };
 
-} // namespace Unit
+}  // namespace Unit
 
-template <> const std::map<Unit::Time, std::string> abbreviations<Unit::Time>{
-  {Unit::Time::Second, "s"},
-  {Unit::Time::Minute, "min"},
-  {Unit::Time::Hour, "hr"}
+template <>
+inline constexpr const Unit::Time StandardUnit<Unit::Time>{Unit::Time::Second};
+
+template <>
+inline constexpr const Dimension::Set Dimensions<Unit::Time>{
+    Dimension::Set{Dimension::Time{1}}};
+
+template <>
+inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
+    {UnitSystem::MetreKilogramSecondKelvin, Unit::Time::Second},
+    {UnitSystem::MillimetreGramSecondKelvin, Unit::Time::Second},
+    {UnitSystem::FootPoundSecondRankine, Unit::Time::Second},
+    {UnitSystem::InchPoundSecondRankine, Unit::Time::Second},
 };
 
-template <> const std::unordered_map<std::string, Unit::Time> spellings<Unit::Time>{
-  {"s", Unit::Time::Second},
-  {"sec", Unit::Time::Second},
-  {"secs", Unit::Time::Second},
-  {"second", Unit::Time::Second},
-  {"seconds", Unit::Time::Second},
-  {"min", Unit::Time::Minute},
-  {"mins", Unit::Time::Minute},
-  {"minute", Unit::Time::Minute},
-  {"minutes", Unit::Time::Minute},
-  {"hr", Unit::Time::Hour},
-  {"hrs", Unit::Time::Hour},
-  {"hour", Unit::Time::Hour},
-  {"hours", Unit::Time::Hour}
+template <>
+inline const std::map<Unit::Time, UnitSystem> RelatedUnitSystems<Unit::Time>{};
+
+template <>
+inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
+    {Unit::Time::Second, "s"},
+    {Unit::Time::Minute, "min"},
+    {Unit::Time::Hour, "hr"},
 };
 
-template <> const std::map<System, Unit::Time> consistent_units<Unit::Time>{
-  {System::MetreKilogramSecondKelvin, Unit::Time::Second},
-  {System::MillimetreGramSecondKelvin, Unit::Time::Second},
-  {System::FootPoundSecondRankine, Unit::Time::Second},
-  {System::InchPoundSecondRankine, Unit::Time::Second}
-};
+template <>
+inline const std::unordered_map<std::string_view, Unit::Time>
+    Spellings<Unit::Time>{
+        {"s", Unit::Time::Second},       {"sec", Unit::Time::Second},
+        {"secs", Unit::Time::Second},    {"second", Unit::Time::Second},
+        {"seconds", Unit::Time::Second}, {"min", Unit::Time::Minute},
+        {"mins", Unit::Time::Minute},    {"minute", Unit::Time::Minute},
+        {"minutes", Unit::Time::Minute}, {"hr", Unit::Time::Hour},
+        {"hrs", Unit::Time::Hour},       {"hour", Unit::Time::Hour},
+        {"hours", Unit::Time::Hour},
+    };
 
-template <> constexpr const Unit::Time standard_unit<Unit::Time>{Unit::Time::Second};
+template <>
+inline const std::map<Unit::Time, std::function<void(double* const values,
+                                                     const std::size_t size)>>
+    ConversionsFromStandard<Unit::Time>{
+        {Unit::Time::Second,
+         [](double* values, const std::size_t size) -> void {}},
+        {Unit::Time::Minute,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values /= 60.0;
+           }
+         }},
+        {Unit::Time::Hour,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values /= 3600.0;
+           }
+         }},
+    };
 
-template <> constexpr const Dimension::Set dimension<Unit::Time>{Dimension::Set{Dimension::Length{}, Dimension::Mass{}, Dimension::Time{1}}};
+template <>
+inline const std::map<Unit::Time, std::function<void(double* const values,
+                                                     const std::size_t size)>>
+    ConversionsToStandard<Unit::Time>{
+        {Unit::Time::Second,
+         [](double* values, const std::size_t size) -> void {}},
+        {Unit::Time::Minute,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 60.0;
+           }
+         }},
+        {Unit::Time::Hour,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 3600.0;
+           }
+         }},
+    };
 
-template <> const std::map<Unit::Time, std::map<Unit::Time, std::function<void(std::vector<double>&)>>> conversions<Unit::Time>{
-  {Unit::Time::Second, {
-    {Unit::Time::Second, [](std::vector<double>& values)->void{}},
-    {Unit::Time::Minute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}},
-    {Unit::Time::Hour, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 3600.0;});}}
-  }},
-  {Unit::Time::Minute, {
-    {Unit::Time::Second, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
-    {Unit::Time::Minute, [](std::vector<double>& values)->void{}},
-    {Unit::Time::Hour, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value /= 60.0;});}}
-  }},
-  {Unit::Time::Hour, {
-    {Unit::Time::Second, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 3600.0;});}},
-    {Unit::Time::Minute, [](std::vector<double>& values)->void{std::for_each(values.begin(), values.end(), [](double& value)->void{value *= 60.0;});}},
-    {Unit::Time::Hour, [](std::vector<double>& values)->void{}}
-  }}
-};
+}  // namespace PhQ
 
-} // namespace PhQ
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TIME_HPP
