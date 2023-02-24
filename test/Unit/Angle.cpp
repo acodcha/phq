@@ -30,14 +30,14 @@ constexpr std::array<Angle, 4> Units = {
     Angle::Arcsecond,
 };
 
-TEST(UnitLength, Abbreviation) {
+TEST(UnitAngle, Abbreviation) {
   EXPECT_EQ(Abbreviation(Angle::Radian), "rad");
   EXPECT_EQ(Abbreviation(Angle::Degree), "deg");
   EXPECT_EQ(Abbreviation(Angle::Arcminute), "arcmin");
   EXPECT_EQ(Abbreviation(Angle::Arcsecond), "arcsec");
 }
 
-TEST(UnitLength, ConsistentUnit) {
+TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::MetreKilogramSecondKelvin),
             Angle::Radian);
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::MillimetreGramSecondKelvin),
@@ -48,7 +48,7 @@ TEST(UnitLength, ConsistentUnit) {
             Angle::Radian);
 }
 
-TEST(UnitLength, ConvertFromStandard) {
+TEST(UnitAngle, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Degree),
@@ -59,7 +59,7 @@ TEST(UnitLength, ConvertFromStandard) {
                    value * 648000.0 / Pi);
 }
 
-TEST(UnitLength, ConvertToStandard) {
+TEST(UnitAngle, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Degree, Angle::Radian),
@@ -70,7 +70,7 @@ TEST(UnitLength, ConvertToStandard) {
                    value * Pi / 648000.0);
 }
 
-TEST(UnitLength, ConvertVerification) {
+TEST(UnitAngle, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -89,11 +89,11 @@ TEST(UnitLength, ConvertVerification) {
   }
 }
 
-TEST(UnitLength, DimensionSet) {
+TEST(UnitAngle, DimensionSet) {
   EXPECT_EQ(Dimensions<Angle>, Dimension::Set{});
 }
 
-TEST(UnitLength, Parse) {
+TEST(UnitAngle, Parse) {
   EXPECT_EQ(Parse<Angle>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Angle>("rad"), Angle::Radian);
   EXPECT_EQ(Parse<Angle>("deg"), Angle::Degree);
@@ -101,16 +101,14 @@ TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Angle>("arcsec"), Angle::Arcsecond);
 }
 
-TEST(UnitLength, RelatedUnitSystem) {
+TEST(UnitAngle, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Angle::Radian), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Angle::Degree), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Angle::Arcminute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Angle::Arcsecond), std::nullopt);
 }
 
-TEST(UnitLength, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Angle>, Angle::Radian);
-}
+TEST(UnitAngle, StandardUnit) { EXPECT_EQ(StandardUnit<Angle>, Angle::Radian); }
 
 }  // namespace
 
