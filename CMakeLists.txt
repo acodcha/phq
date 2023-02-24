@@ -220,6 +220,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
 
+  add_executable(unit_temperature ${PROJECT_SOURCE_DIR}/test/Unit/Temperature.cpp)
+  target_link_libraries(unit_temperature GTest::gtest_main)
+  gtest_discover_tests(unit_temperature)
+
   add_executable(unit_time ${PROJECT_SOURCE_DIR}/test/Unit/Time.cpp)
   target_link_libraries(unit_time GTest::gtest_main)
   gtest_discover_tests(unit_time)
