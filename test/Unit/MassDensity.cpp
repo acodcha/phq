@@ -29,7 +29,7 @@ constexpr std::array<MassDensity, 6> Units = {
     MassDensity::PoundPerCubicFoot,     MassDensity::PoundPerCubicInch,
 };
 
-TEST(UnitEnergyFlux, Abbreviation) {
+TEST(UnitMassDensity, Abbreviation) {
   EXPECT_EQ(Abbreviation(MassDensity::KilogramPerCubicMetre), "kg/m^3");
   EXPECT_EQ(Abbreviation(MassDensity::GramPerCubicMillimetre), "g/mm^3");
   EXPECT_EQ(Abbreviation(MassDensity::SlugPerCubicFoot), "slug/ft^3");
@@ -38,7 +38,7 @@ TEST(UnitEnergyFlux, Abbreviation) {
   EXPECT_EQ(Abbreviation(MassDensity::PoundPerCubicInch), "lbm/in^3");
 }
 
-TEST(UnitEnergyFlux, ConsistentUnit) {
+TEST(UnitMassDensity, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<MassDensity>(UnitSystem::MetreKilogramSecondKelvin),
             MassDensity::KilogramPerCubicMetre);
   EXPECT_EQ(ConsistentUnit<MassDensity>(UnitSystem::MillimetreGramSecondKelvin),
@@ -49,7 +49,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             MassDensity::SlinchPerCubicInch);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitMassDensity, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
                                MassDensity::KilogramPerCubicMetre),
@@ -71,7 +71,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
                    value * std::pow(0.0254, 3) / 0.45359237);
 }
 
-TEST(UnitEnergyFlux, ConvertToStandard) {
+TEST(UnitMassDensity, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
                                MassDensity::KilogramPerCubicMetre),
@@ -93,7 +93,7 @@ TEST(UnitEnergyFlux, ConvertToStandard) {
                    value * 0.45359237 / std::pow(0.0254, 3));
 }
 
-TEST(UnitEnergyFlux, ConvertVerification) {
+TEST(UnitMassDensity, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -112,13 +112,13 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
+TEST(UnitMassDensity, DimensionSet) {
   EXPECT_EQ(Dimensions<MassDensity>,
             Dimension::Set(Dimension::Time{}, Dimension::Length{-3},
                            Dimension::Mass{1}));
 }
 
-TEST(UnitEnergyFlux, Parse) {
+TEST(UnitMassDensity, Parse) {
   EXPECT_EQ(Parse<MassDensity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
   EXPECT_EQ(Parse<MassDensity>("g/mm^3"), MassDensity::GramPerCubicMillimetre);
@@ -128,7 +128,7 @@ TEST(UnitEnergyFlux, Parse) {
   EXPECT_EQ(Parse<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
 }
 
-TEST(UnitEnergyFlux, RelatedUnitSystem) {
+TEST(UnitMassDensity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassDensity::KilogramPerCubicMetre),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(MassDensity::GramPerCubicMillimetre),
@@ -141,7 +141,7 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassDensity::PoundPerCubicInch), std::nullopt);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
+TEST(UnitMassDensity, StandardUnit) {
   EXPECT_EQ(StandardUnit<MassDensity>, MassDensity::KilogramPerCubicMetre);
 }
 
