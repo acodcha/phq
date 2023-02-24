@@ -24,12 +24,44 @@ namespace PhQ {
 namespace {
 
 TEST(ValueVector, Accessor) {
-  const std::array<double, 3> value{1.23, 4.56, 7.89};
-  const Value::Vector vector{value};
-  EXPECT_EQ(vector.x_y_z(), value);
-  EXPECT_EQ(vector.x(), 1.23);
-  EXPECT_EQ(vector.y(), 4.56);
-  EXPECT_EQ(vector.z(), 7.89);
+  const std::array<double, 3> value0{1.23, 4.56, 7.89};
+  const Value::Vector vector0{value0};
+  EXPECT_EQ(vector0.x_y_z(), value0);
+  EXPECT_EQ(vector0.x(), 1.23);
+  EXPECT_EQ(vector0.y(), 4.56);
+  EXPECT_EQ(vector0.z(), 7.89);
+
+  Value::Vector vector1{1.23, 4.56, 7.89};
+  std::array<double, 3>& value1{vector1.Mutable_x_y_z()};
+  value1 = {0.11, 0.22, 0.33};
+  EXPECT_EQ(vector1.x(), 0.11);
+  EXPECT_EQ(vector1.y(), 0.22);
+  EXPECT_EQ(vector1.z(), 0.33);
+
+  Value::Vector vector2{1.23, 4.56, 7.89};
+  double& x{vector2.Mutable_x()};
+  x = 0.11;
+  double& y{vector2.Mutable_y()};
+  y = 0.22;
+  double& z{vector2.Mutable_z()};
+  z = 0.33;
+  EXPECT_EQ(vector2.x(), 0.11);
+  EXPECT_EQ(vector2.y(), 0.22);
+  EXPECT_EQ(vector2.z(), 0.33);
+
+  Value::Vector vector3{1.23, 4.56, 7.89};
+  vector3.Set_x_y_z({0.11, 0.22, 0.33});
+  EXPECT_EQ(vector3.x(), 0.11);
+  EXPECT_EQ(vector3.y(), 0.22);
+  EXPECT_EQ(vector3.z(), 0.33);
+
+  Value::Vector vector4{1.23, 4.56, 7.89};
+  vector4.Set_x(0.11);
+  vector4.Set_y(0.22);
+  vector4.Set_z(0.33);
+  EXPECT_EQ(vector4.x(), 0.11);
+  EXPECT_EQ(vector4.y(), 0.22);
+  EXPECT_EQ(vector4.z(), 0.33);
 }
 
 TEST(ValueVector, Arithmetic) {

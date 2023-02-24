@@ -82,7 +82,7 @@ void Convert(std::vector<double>& values, const Unit old_unit,
 template <typename Unit>
 void Convert(Value::Vector& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 3>(value.x_y_z_, old_unit, new_unit);
+  Convert<Unit, 3>(value.Mutable_x_y_z(), old_unit, new_unit);
 }
 
 template <typename Unit>

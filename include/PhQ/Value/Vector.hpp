@@ -23,18 +23,6 @@ namespace PhQ {
 
 namespace Value {
 
-// Forward declaration for PhQ::Convert.
-class Vector;
-
-}  // namespace Value
-
-// Forward declaration for PhQ::Value::Vector.
-template <typename Unit>
-void Convert(Value::Vector& value, const Unit old_unit,
-             const Unit new_unit) noexcept;
-
-namespace Value {
-
 class Vector {
 public:
   constexpr Vector() noexcept : x_y_z_() {}
@@ -58,11 +46,31 @@ public:
     return x_y_z_;
   }
 
+  inline constexpr std::array<double, 3>& Mutable_x_y_z() noexcept {
+    return x_y_z_;
+  }
+
+  inline constexpr void Set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
+    x_y_z_ = x_y_z;
+  }
+
   inline constexpr double x() const noexcept { return x_y_z_[0]; }
+
+  inline constexpr double& Mutable_x() noexcept { return x_y_z_[0]; }
+
+  inline constexpr void Set_x(const double x) noexcept { x_y_z_[0] = x; }
 
   inline constexpr double y() const noexcept { return x_y_z_[1]; }
 
+  inline constexpr double& Mutable_y() noexcept { return x_y_z_[1]; }
+
+  inline constexpr void Set_y(const double y) noexcept { x_y_z_[1] = y; }
+
   inline constexpr double z() const noexcept { return x_y_z_[2]; }
+
+  inline constexpr double& Mutable_z() noexcept { return x_y_z_[2]; }
+
+  inline constexpr void Set_z(const double z) noexcept { x_y_z_[2] = z; }
 
   inline constexpr double MagnitudeSquared() const noexcept {
     return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] +
@@ -154,10 +162,6 @@ public:
 
 private:
   std::array<double, 3> x_y_z_;
-
-  template <typename Unit>
-  friend void PhQ::Convert(Value::Vector& value, const Unit old_unit,
-                           const Unit new_unit) noexcept;
 };
 
 inline constexpr bool operator==(const Vector& left,
