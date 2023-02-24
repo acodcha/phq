@@ -88,7 +88,7 @@ void Convert(Value::Vector& value, const Unit old_unit,
 template <typename Unit>
 void Convert(Value::SymmetricDyad& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 6>(value.xx_xy_xz_yy_yz_zz_, old_unit, new_unit);
+  Convert<Unit, 6>(value.Mutable_xx_xy_xz_yy_yz_zz(), old_unit, new_unit);
 }
 
 template <typename Unit>

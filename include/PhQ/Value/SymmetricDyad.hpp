@@ -18,21 +18,7 @@
 
 #include "Vector.hpp"
 
-namespace PhQ {
-
-namespace Value {
-
-// Forward declaration for PhQ::Convert.
-class SymmetricDyad;
-
-}  // namespace Value
-
-// Forward declaration for PhQ::Value::SymmetricDyad.
-template <typename Unit>
-void Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
-             const Unit new_unit) noexcept;
-
-namespace Value {
+namespace PhQ::Value {
 
 class SymmetricDyad {
 public:
@@ -56,23 +42,104 @@ public:
     return xx_xy_xz_yy_yz_zz_;
   }
 
+  inline constexpr std::array<double, 6>& Mutable_xx_xy_xz_yy_yz_zz() noexcept {
+    return xx_xy_xz_yy_yz_zz_;
+  }
+
+  inline constexpr void Set_xx_xy_xz_yy_yz_zz(
+      const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept {
+    xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
+  }
+
   inline constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+
+  inline constexpr double& Mutable_xx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[0];
+  }
+
+  inline constexpr void Set_xx(const double xx) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] = xx;
+  }
 
   inline constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
+  inline constexpr double& Mutable_xy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
+
+  inline constexpr void Set_xy(const double xy) noexcept {
+    xx_xy_xz_yy_yz_zz_[1] = xy;
+  }
+
   inline constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  inline constexpr double& Mutable_xz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
+
+  inline constexpr void Set_xz(const double xz) noexcept {
+    xx_xy_xz_yy_yz_zz_[2] = xz;
+  }
 
   inline constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
+  inline constexpr double& Mutable_yx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
+
+  inline constexpr void Set_yx(const double yx) noexcept {
+    xx_xy_xz_yy_yz_zz_[1] = yx;
+  }
+
   inline constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+
+  inline constexpr double& Mutable_yy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[3];
+  }
+
+  inline constexpr void Set_yy(const double yy) noexcept {
+    xx_xy_xz_yy_yz_zz_[3] = yy;
+  }
 
   inline constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
+  inline constexpr double& Mutable_yz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
+
+  inline constexpr void Set_yz(const double yz) noexcept {
+    xx_xy_xz_yy_yz_zz_[4] = yz;
+  }
+
   inline constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  inline constexpr double& Mutable_zx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
+
+  inline constexpr void Set_zx(const double zx) noexcept {
+    xx_xy_xz_yy_yz_zz_[2] = zx;
+  }
 
   inline constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
+  inline constexpr double& Mutable_zy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
+
+  inline constexpr void Set_zy(const double zy) noexcept {
+    xx_xy_xz_yy_yz_zz_[4] = zy;
+  }
+
   inline constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
+
+  inline constexpr double& Mutable_zz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[5];
+  }
+
+  inline constexpr void Set_zz(const double zz) noexcept {
+    xx_xy_xz_yy_yz_zz_[5] = zz;
+  }
 
   inline constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
 
@@ -177,10 +244,6 @@ public:
 
 private:
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
-
-  template <typename Unit>
-  friend void PhQ::Convert(Value::SymmetricDyad& symdyad, const Unit old_unit,
-                           const Unit new_unit) noexcept;
 };
 
 inline constexpr bool operator==(const SymmetricDyad& left,
@@ -270,9 +333,7 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-}  // namespace Value
-
-}  // namespace PhQ
+}  // namespace PhQ::Value
 
 namespace std {
 
