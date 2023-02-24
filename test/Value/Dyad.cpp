@@ -24,19 +24,94 @@ namespace PhQ {
 namespace {
 
 TEST(ValueDyad, Accessor) {
-  const std::array<double, 9> value{1.11, 2.22, 3.33, 4.44, 5.55,
-                                    6.66, 7.77, 8.88, 9.99};
-  const Value::Dyad dyad{value};
-  EXPECT_EQ(dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz(), value);
-  EXPECT_EQ(dyad.xx(), 1.11);
-  EXPECT_EQ(dyad.xy(), 2.22);
-  EXPECT_EQ(dyad.xz(), 3.33);
-  EXPECT_EQ(dyad.yx(), 4.44);
-  EXPECT_EQ(dyad.yy(), 5.55);
-  EXPECT_EQ(dyad.yz(), 6.66);
-  EXPECT_EQ(dyad.zx(), 7.77);
-  EXPECT_EQ(dyad.zy(), 8.88);
-  EXPECT_EQ(dyad.zz(), 9.99);
+  const std::array<double, 9> value0{1.11, 2.22, 3.33, 4.44, 5.55,
+                                     6.66, 7.77, 8.88, 9.99};
+  const Value::Dyad dyad0{value0};
+  EXPECT_EQ(dyad0.xx_xy_xz_yx_yy_yz_zx_zy_zz(), value0);
+  EXPECT_EQ(dyad0.xx(), 1.11);
+  EXPECT_EQ(dyad0.xy(), 2.22);
+  EXPECT_EQ(dyad0.xz(), 3.33);
+  EXPECT_EQ(dyad0.yx(), 4.44);
+  EXPECT_EQ(dyad0.yy(), 5.55);
+  EXPECT_EQ(dyad0.yz(), 6.66);
+  EXPECT_EQ(dyad0.zx(), 7.77);
+  EXPECT_EQ(dyad0.zy(), 8.88);
+  EXPECT_EQ(dyad0.zz(), 9.99);
+
+  Value::Dyad dyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  std::array<double, 9>& value1{dyad1.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz()};
+  value1 = {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99};
+  EXPECT_EQ(dyad1.xx(), 0.11);
+  EXPECT_EQ(dyad1.xy(), 0.22);
+  EXPECT_EQ(dyad1.xz(), 0.33);
+  EXPECT_EQ(dyad1.yx(), 0.44);
+  EXPECT_EQ(dyad1.yy(), 0.55);
+  EXPECT_EQ(dyad1.yz(), 0.66);
+  EXPECT_EQ(dyad1.zx(), 0.77);
+  EXPECT_EQ(dyad1.zy(), 0.88);
+  EXPECT_EQ(dyad1.zz(), 0.99);
+
+  Value::Dyad dyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  double& xx{dyad2.Mutable_xx()};
+  xx = 0.11;
+  double& xy{dyad2.Mutable_xy()};
+  xy = 0.22;
+  double& xz{dyad2.Mutable_xz()};
+  xz = 0.33;
+  double& yx{dyad2.Mutable_yx()};
+  yx = 0.44;
+  double& yy{dyad2.Mutable_yy()};
+  yy = 0.55;
+  double& yz{dyad2.Mutable_yz()};
+  yz = 0.66;
+  double& zx{dyad2.Mutable_zx()};
+  zx = 0.77;
+  double& zy{dyad2.Mutable_zy()};
+  zy = 0.88;
+  double& zz{dyad2.Mutable_zz()};
+  zz = 0.99;
+  EXPECT_EQ(dyad2.xx(), 0.11);
+  EXPECT_EQ(dyad2.xy(), 0.22);
+  EXPECT_EQ(dyad2.xz(), 0.33);
+  EXPECT_EQ(dyad2.yx(), 0.44);
+  EXPECT_EQ(dyad2.yy(), 0.55);
+  EXPECT_EQ(dyad2.yz(), 0.66);
+  EXPECT_EQ(dyad2.zx(), 0.77);
+  EXPECT_EQ(dyad2.zy(), 0.88);
+  EXPECT_EQ(dyad2.zz(), 0.99);
+
+  Value::Dyad dyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  dyad3.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
+      {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99});
+  EXPECT_EQ(dyad3.xx(), 0.11);
+  EXPECT_EQ(dyad3.xy(), 0.22);
+  EXPECT_EQ(dyad3.xz(), 0.33);
+  EXPECT_EQ(dyad3.yx(), 0.44);
+  EXPECT_EQ(dyad3.yy(), 0.55);
+  EXPECT_EQ(dyad3.yz(), 0.66);
+  EXPECT_EQ(dyad3.zx(), 0.77);
+  EXPECT_EQ(dyad3.zy(), 0.88);
+  EXPECT_EQ(dyad3.zz(), 0.99);
+
+  Value::Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  dyad4.Set_xx(0.11);
+  dyad4.Set_xy(0.22);
+  dyad4.Set_xz(0.33);
+  dyad4.Set_yx(0.44);
+  dyad4.Set_yy(0.55);
+  dyad4.Set_yz(0.66);
+  dyad4.Set_zx(0.77);
+  dyad4.Set_zy(0.88);
+  dyad4.Set_zz(0.99);
+  EXPECT_EQ(dyad4.xx(), 0.11);
+  EXPECT_EQ(dyad4.xy(), 0.22);
+  EXPECT_EQ(dyad4.xz(), 0.33);
+  EXPECT_EQ(dyad4.yx(), 0.44);
+  EXPECT_EQ(dyad4.yy(), 0.55);
+  EXPECT_EQ(dyad4.yz(), 0.66);
+  EXPECT_EQ(dyad4.zx(), 0.77);
+  EXPECT_EQ(dyad4.zy(), 0.88);
+  EXPECT_EQ(dyad4.zz(), 0.99);
 }
 
 TEST(ValueDyad, Adjugate) {

@@ -94,7 +94,8 @@ void Convert(Value::SymmetricDyad& value, const Unit old_unit,
 template <typename Unit>
 void Convert(Value::Dyad& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 9>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz_, old_unit, new_unit);
+  Convert<Unit, 9>(value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit,
+                   new_unit);
 }
 
 }  // namespace PhQ
