@@ -35,7 +35,7 @@ constexpr std::array<AngularAcceleration, 9> Units = {
     AngularAcceleration::RevolutionPerSquareHour,
 };
 
-TEST(UnitLength, Abbreviation) {
+TEST(UnitAngularAcceleration, Abbreviation) {
   EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareSecond),
             "rad/s^2");
   EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareMinute),
@@ -54,7 +54,7 @@ TEST(UnitLength, Abbreviation) {
             "rev/hr^2");
 }
 
-TEST(UnitLength, ConsistentUnit) {
+TEST(UnitAngularAcceleration, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<AngularAcceleration>(
                 UnitSystem::MetreKilogramSecondKelvin),
             AngularAcceleration::RadianPerSquareSecond);
@@ -69,7 +69,7 @@ TEST(UnitLength, ConsistentUnit) {
       AngularAcceleration::RadianPerSquareSecond);
 }
 
-TEST(UnitLength, ConvertFromStandard) {
+TEST(UnitAngularAcceleration, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, AngularAcceleration::RadianPerSquareSecond,
@@ -109,7 +109,7 @@ TEST(UnitLength, ConvertFromStandard) {
       value * 6480000.0 / Pi);
 }
 
-TEST(UnitLength, ConvertToStandard) {
+TEST(UnitAngularAcceleration, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, AngularAcceleration::RadianPerSquareSecond,
@@ -147,7 +147,7 @@ TEST(UnitLength, ConvertToStandard) {
       value * Pi / 6480000.0);
 }
 
-TEST(UnitLength, ConvertVerification) {
+TEST(UnitAngularAcceleration, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -166,12 +166,12 @@ TEST(UnitLength, ConvertVerification) {
   }
 }
 
-TEST(UnitLength, Dimensions) {
+TEST(UnitAngularAcceleration, Dimensions) {
   EXPECT_EQ(Dimensions<AngularAcceleration>,
             Dimension::Set{Dimension::Time{-2}});
 }
 
-TEST(UnitLength, Parse) {
+TEST(UnitAngularAcceleration, Parse) {
   EXPECT_EQ(Parse<AngularAcceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<AngularAcceleration>("rad/s^2"),
             AngularAcceleration::RadianPerSquareSecond);
@@ -193,7 +193,7 @@ TEST(UnitLength, Parse) {
             AngularAcceleration::RevolutionPerSquareHour);
 }
 
-TEST(UnitLength, RelatedUnitSystem) {
+TEST(UnitAngularAcceleration, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(AngularAcceleration::RadianPerSquareSecond),
             std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularAcceleration::RadianPerSquareMinute),
@@ -214,7 +214,7 @@ TEST(UnitLength, RelatedUnitSystem) {
             std::nullopt);
 }
 
-TEST(UnitLength, StandardUnit) {
+TEST(UnitAngularAcceleration, StandardUnit) {
   EXPECT_EQ(StandardUnit<AngularAcceleration>,
             AngularAcceleration::RadianPerSquareSecond);
 }
