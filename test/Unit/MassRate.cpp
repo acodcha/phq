@@ -29,7 +29,7 @@ constexpr std::array<MassRate, 5> Units = {
     MassRate::PoundPerSecond,
 };
 
-TEST(UnitEnergyFlux, Abbreviation) {
+TEST(UnitMassRate, Abbreviation) {
   EXPECT_EQ(Abbreviation(MassRate::KilogramPerSecond), "kg/s");
   EXPECT_EQ(Abbreviation(MassRate::GramPerSecond), "g/s");
   EXPECT_EQ(Abbreviation(MassRate::SlugPerSecond), "slug/s");
@@ -37,7 +37,7 @@ TEST(UnitEnergyFlux, Abbreviation) {
   EXPECT_EQ(Abbreviation(MassRate::PoundPerSecond), "lbm/s");
 }
 
-TEST(UnitEnergyFlux, ConsistentUnit) {
+TEST(UnitMassRate, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<MassRate>(UnitSystem::MetreKilogramSecondKelvin),
             MassRate::KilogramPerSecond);
   EXPECT_EQ(ConsistentUnit<MassRate>(UnitSystem::MillimetreGramSecondKelvin),
@@ -48,7 +48,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             MassRate::SlinchPerSecond);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitMassRate, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MassRate::KilogramPerSecond,
                                MassRate::KilogramPerSecond),
@@ -67,7 +67,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
       value / 0.45359237);
 }
 
-TEST(UnitEnergyFlux, ConvertToStandard) {
+TEST(UnitMassRate, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MassRate::KilogramPerSecond,
                                MassRate::KilogramPerSecond),
@@ -86,7 +86,7 @@ TEST(UnitEnergyFlux, ConvertToStandard) {
       value * 0.45359237);
 }
 
-TEST(UnitEnergyFlux, ConvertVerification) {
+TEST(UnitMassRate, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -105,13 +105,13 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
+TEST(UnitMassRate, DimensionSet) {
   EXPECT_EQ(Dimensions<MassRate>,
             Dimension::Set(Dimension::Time{-1}, Dimension::Length{0},
                            Dimension::Mass{1}));
 }
 
-TEST(UnitEnergyFlux, Parse) {
+TEST(UnitMassRate, Parse) {
   EXPECT_EQ(Parse<MassRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<MassRate>("kg/s"), MassRate::KilogramPerSecond);
   EXPECT_EQ(Parse<MassRate>("g/s"), MassRate::GramPerSecond);
@@ -120,7 +120,7 @@ TEST(UnitEnergyFlux, Parse) {
   EXPECT_EQ(Parse<MassRate>("lbm/s"), MassRate::PoundPerSecond);
 }
 
-TEST(UnitEnergyFlux, RelatedUnitSystem) {
+TEST(UnitMassRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassRate::KilogramPerSecond),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(MassRate::GramPerSecond),
@@ -132,7 +132,7 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassRate::PoundPerSecond), std::nullopt);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
+TEST(UnitMassRate, StandardUnit) {
   EXPECT_EQ(StandardUnit<MassRate>, MassRate::KilogramPerSecond);
 }
 
