@@ -196,6 +196,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_power GTest::gtest_main)
   gtest_discover_tests(unit_power)
 
+  add_executable(unit_pressure ${PROJECT_SOURCE_DIR}/test/Unit/Pressure.cpp)
+  target_link_libraries(unit_pressure GTest::gtest_main)
+  gtest_discover_tests(unit_pressure)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
