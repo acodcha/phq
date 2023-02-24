@@ -25,8 +25,8 @@ namespace Unit {
 enum class Length : int_least8_t {
   Mile,
   Kilometre,
-  Yard,
   Metre,
+  Yard,
   Foot,
   Decimetre,
   Inch,
@@ -68,7 +68,7 @@ template <>
 inline const std::map<Unit::Length, std::string_view>
     Abbreviations<Unit::Length>{
         {Unit::Length::Mile, "mi"},       {Unit::Length::Kilometre, "km"},
-        {Unit::Length::Yard, "yd"},       {Unit::Length::Metre, "m"},
+        {Unit::Length::Metre, "m"},       {Unit::Length::Yard, "yd"},
         {Unit::Length::Foot, "ft"},       {Unit::Length::Decimetre, "dm"},
         {Unit::Length::Inch, "in"},       {Unit::Length::Centimetre, "cm"},
         {Unit::Length::Millimetre, "mm"}, {Unit::Length::Milliinch, "mil"},
@@ -86,14 +86,14 @@ inline const std::unordered_map<std::string_view, Unit::Length>
         {"kilometers", Unit::Length::Kilometre},
         {"kilometre", Unit::Length::Kilometre},
         {"kilometres", Unit::Length::Kilometre},
-        {"yd", Unit::Length::Yard},
-        {"yard", Unit::Length::Yard},
-        {"yards", Unit::Length::Yard},
         {"m", Unit::Length::Metre},
         {"meter", Unit::Length::Metre},
         {"meters", Unit::Length::Metre},
         {"metre", Unit::Length::Metre},
         {"metres", Unit::Length::Metre},
+        {"yd", Unit::Length::Yard},
+        {"yard", Unit::Length::Yard},
+        {"yards", Unit::Length::Yard},
         {"ft", Unit::Length::Foot},
         {"foot", Unit::Length::Foot},
         {"feet", Unit::Length::Foot},
@@ -156,6 +156,8 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
              *values *= 0.001;
            }
          }},
+        {Unit::Length::Metre,
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Yard,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -163,8 +165,6 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
              *values /= 0.9144;
            }
          }},
-        {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -241,6 +241,8 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
              *values *= 1000.0;
            }
          }},
+        {Unit::Length::Metre,
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Yard,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -248,8 +250,6 @@ inline const std::map<Unit::Length, std::function<void(double* const values,
              *values *= 0.9144;
            }
          }},
-        {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {}},
         {Unit::Length::Foot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};

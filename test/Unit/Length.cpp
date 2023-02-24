@@ -24,8 +24,8 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Length, 12> Units = {
-    Length::Mile,      Length::Kilometre,  Length::Yard,
-    Length::Metre,     Length::Foot,       Length::Decimetre,
+    Length::Mile,      Length::Kilometre,  Length::Metre,
+    Length::Yard,      Length::Foot,       Length::Decimetre,
     Length::Inch,      Length::Centimetre, Length::Millimetre,
     Length::Milliinch, Length::Micrometre, Length::Microinch,
 };
@@ -33,8 +33,8 @@ constexpr std::array<Length, 12> Units = {
 TEST(UnitLength, Abbreviation) {
   EXPECT_EQ(Abbreviation(Length::Mile), "mi");
   EXPECT_EQ(Abbreviation(Length::Kilometre), "km");
-  EXPECT_EQ(Abbreviation(Length::Yard), "yd");
   EXPECT_EQ(Abbreviation(Length::Metre), "m");
+  EXPECT_EQ(Abbreviation(Length::Yard), "yd");
   EXPECT_EQ(Abbreviation(Length::Foot), "ft");
   EXPECT_EQ(Abbreviation(Length::Decimetre), "dm");
   EXPECT_EQ(Abbreviation(Length::Inch), "in");
@@ -62,9 +62,9 @@ TEST(UnitLength, ConvertFromStandard) {
                    value / 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Kilometre),
                    value * 0.001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Yard),
                    value / 0.9144);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Foot),
                    value / 0.3048);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Decimetre),
@@ -89,9 +89,9 @@ TEST(UnitLength, ConvertToStandard) {
                    value * 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Kilometre, Length::Metre),
                    value * 1000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Yard, Length::Metre),
                    value * 0.9144);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Foot, Length::Metre),
                    value * 0.3048);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Decimetre, Length::Metre),
@@ -138,8 +138,8 @@ TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Length>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Length>("mi"), Length::Mile);
   EXPECT_EQ(Parse<Length>("km"), Length::Kilometre);
-  EXPECT_EQ(Parse<Length>("yd"), Length::Yard);
   EXPECT_EQ(Parse<Length>("m"), Length::Metre);
+  EXPECT_EQ(Parse<Length>("yd"), Length::Yard);
   EXPECT_EQ(Parse<Length>("ft"), Length::Foot);
   EXPECT_EQ(Parse<Length>("dm"), Length::Decimetre);
   EXPECT_EQ(Parse<Length>("in"), Length::Inch);
@@ -153,9 +153,9 @@ TEST(UnitLength, Parse) {
 TEST(UnitLength, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Length::Mile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Kilometre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Length::Yard), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Metre),
             UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Length::Yard), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Foot),
             UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Length::Decimetre), std::nullopt);
