@@ -27,8 +27,8 @@ enum class Area : int_least8_t {
   SquareKilometre,
   Hectare,
   Acre,
-  SquareYard,
   SquareMetre,
+  SquareYard,
   SquareFoot,
   SquareDecimetre,
   SquareInch,
@@ -71,8 +71,8 @@ inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
     {Unit::Area::SquareKilometre, "km^2"},
     {Unit::Area::Hectare, "ha"},
     {Unit::Area::Acre, "ac"},
-    {Unit::Area::SquareYard, "yd^2"},
     {Unit::Area::SquareMetre, "m^2"},
+    {Unit::Area::SquareYard, "yd^2"},
     {Unit::Area::SquareFoot, "ft^2"},
     {Unit::Area::SquareDecimetre, "dm^2"},
     {Unit::Area::SquareInch, "in^2"},
@@ -92,10 +92,10 @@ inline const std::unordered_map<std::string_view, Unit::Area>
         {"km2", Unit::Area::SquareKilometre},
         {"ha", Unit::Area::Hectare},
         {"ac", Unit::Area::Acre},
-        {"yd^2", Unit::Area::SquareYard},
-        {"yd2", Unit::Area::SquareYard},
         {"m^2", Unit::Area::SquareMetre},
         {"m2", Unit::Area::SquareMetre},
+        {"yd^2", Unit::Area::SquareYard},
+        {"yd2", Unit::Area::SquareYard},
         {"ft^2", Unit::Area::SquareFoot},
         {"ft2", Unit::Area::SquareFoot},
         {"dm^2", Unit::Area::SquareDecimetre},
@@ -156,6 +156,8 @@ inline const std::map<Unit::Area, std::function<void(double* const values,
              *values *= 640.0 / std::pow(1609.344, 2);
            }
          }},
+        {Unit::Area::SquareMetre,
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Area::SquareYard,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -163,8 +165,6 @@ inline const std::map<Unit::Area, std::function<void(double* const values,
              *values /= std::pow(0.9144, 2);
            }
          }},
-        {Unit::Area::SquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
         {Unit::Area::SquareFoot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -255,6 +255,8 @@ inline const std::map<Unit::Area, std::function<void(double* const values,
              *values *= std::pow(1609.344, 2) / 640.0;
            }
          }},
+        {Unit::Area::SquareMetre,
+         [](double* values, const std::size_t size) -> void {}},
         {Unit::Area::SquareYard,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -262,8 +264,6 @@ inline const std::map<Unit::Area, std::function<void(double* const values,
              *values *= std::pow(0.9144, 2);
            }
          }},
-        {Unit::Area::SquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
         {Unit::Area::SquareFoot,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
