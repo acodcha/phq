@@ -212,6 +212,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_specific_power GTest::gtest_main)
   gtest_discover_tests(unit_specific_power)
 
+  add_executable(unit_speed ${PROJECT_SOURCE_DIR}/test/Unit/Speed.cpp)
+  target_link_libraries(unit_speed GTest::gtest_main)
+  gtest_discover_tests(unit_speed)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
