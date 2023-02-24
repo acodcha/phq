@@ -38,7 +38,7 @@ constexpr std::array<Acceleration, 12> Units = {
     Acceleration::MicroinchPerSquareSecond,
 };
 
-TEST(UnitLength, Abbreviation) {
+TEST(UnitAcceleration, Abbreviation) {
   EXPECT_EQ(Abbreviation(Acceleration::MilePerSquareSecond), "mi/s^2");
   EXPECT_EQ(Abbreviation(Acceleration::KilometrePerSquareSecond), "km/s^2");
   EXPECT_EQ(Abbreviation(Acceleration::YardPerSquareSecond), "yd/s^2");
@@ -53,7 +53,7 @@ TEST(UnitLength, Abbreviation) {
   EXPECT_EQ(Abbreviation(Acceleration::MicroinchPerSquareSecond), "μin/s^2");
 }
 
-TEST(UnitLength, ConsistentUnit) {
+TEST(UnitAcceleration, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Acceleration>(UnitSystem::MetreKilogramSecondKelvin),
             Acceleration::MetrePerSquareSecond);
   EXPECT_EQ(
@@ -65,7 +65,7 @@ TEST(UnitLength, ConsistentUnit) {
             Acceleration::InchPerSquareSecond);
 }
 
-TEST(UnitLength, ConvertFromStandard) {
+TEST(UnitAcceleration, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
                                Acceleration::MilePerSquareSecond),
@@ -105,7 +105,7 @@ TEST(UnitLength, ConvertFromStandard) {
                    value / 0.0000000254);
 }
 
-TEST(UnitLength, ConvertToStandard) {
+TEST(UnitAcceleration, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilePerSquareSecond,
                                Acceleration::MetrePerSquareSecond),
@@ -145,7 +145,7 @@ TEST(UnitLength, ConvertToStandard) {
                    value * 0.0000000254);
 }
 
-TEST(UnitLength, ConvertVerification) {
+TEST(UnitAcceleration, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -164,12 +164,12 @@ TEST(UnitLength, ConvertVerification) {
   }
 }
 
-TEST(UnitLength, DimensionSet) {
+TEST(UnitAcceleration, DimensionSet) {
   EXPECT_EQ(Dimensions<Acceleration>,
             Dimension::Set(Dimension::Time{-2}, Dimension::Length{1}));
 }
 
-TEST(UnitLength, Parse) {
+TEST(UnitAcceleration, Parse) {
   EXPECT_EQ(Parse<Acceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Acceleration>("mi/s^2"), Acceleration::MilePerSquareSecond);
   EXPECT_EQ(Parse<Acceleration>("km/s^2"),
@@ -192,7 +192,7 @@ TEST(UnitLength, Parse) {
             Acceleration::MicroinchPerSquareSecond);
 }
 
-TEST(UnitLength, RelatedUnitSystem) {
+TEST(UnitAcceleration, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Acceleration::MilePerSquareSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::KilometrePerSquareSecond),
             std::nullopt);
@@ -217,7 +217,7 @@ TEST(UnitLength, RelatedUnitSystem) {
             std::nullopt);
 }
 
-TEST(UnitLength, StandardUnit) {
+TEST(UnitAcceleration, StandardUnit) {
   EXPECT_EQ(StandardUnit<Acceleration>, Acceleration::MetrePerSquareSecond);
 }
 
