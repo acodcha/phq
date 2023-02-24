@@ -30,14 +30,14 @@ constexpr std::array<Frequency, 4> Units = {
     Frequency::Gigahertz,
 };
 
-TEST(UnitEnergyFlux, Abbreviation) {
+TEST(UnitFrequency, Abbreviation) {
   EXPECT_EQ(Abbreviation(Frequency::Hertz), "Hz");
   EXPECT_EQ(Abbreviation(Frequency::Kilohertz), "kHz");
   EXPECT_EQ(Abbreviation(Frequency::Megahertz), "MHz");
   EXPECT_EQ(Abbreviation(Frequency::Gigahertz), "GHz");
 }
 
-TEST(UnitEnergyFlux, ConsistentUnit) {
+TEST(UnitFrequency, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Frequency>(UnitSystem::MetreKilogramSecondKelvin),
             Frequency::Hertz);
   EXPECT_EQ(ConsistentUnit<Frequency>(UnitSystem::MillimetreGramSecondKelvin),
@@ -48,7 +48,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             Frequency::Hertz);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitFrequency, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Hertz),
                    value);
@@ -60,7 +60,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
                    value * 0.000000001);
 }
 
-TEST(UnitEnergyFlux, ConvertToStandard) {
+TEST(UnitFrequency, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Hertz),
                    value);
@@ -72,7 +72,7 @@ TEST(UnitEnergyFlux, ConvertToStandard) {
                    value * 1000000000.0);
 }
 
-TEST(UnitEnergyFlux, ConvertVerification) {
+TEST(UnitFrequency, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -91,11 +91,11 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
+TEST(UnitFrequency, DimensionSet) {
   EXPECT_EQ(Dimensions<Frequency>, Dimension::Set(Dimension::Time{-1}));
 }
 
-TEST(UnitEnergyFlux, Parse) {
+TEST(UnitFrequency, Parse) {
   EXPECT_EQ(Parse<Frequency>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Frequency>("Hz"), Frequency::Hertz);
   EXPECT_EQ(Parse<Frequency>("kHz"), Frequency::Kilohertz);
@@ -103,14 +103,14 @@ TEST(UnitEnergyFlux, Parse) {
   EXPECT_EQ(Parse<Frequency>("GHz"), Frequency::Gigahertz);
 }
 
-TEST(UnitEnergyFlux, RelatedUnitSystem) {
+TEST(UnitFrequency, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Frequency::Hertz), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Frequency::Kilohertz), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Frequency::Megahertz), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Frequency::Gigahertz), std::nullopt);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
+TEST(UnitFrequency, StandardUnit) {
   EXPECT_EQ(StandardUnit<Frequency>, Frequency::Hertz);
 }
 
