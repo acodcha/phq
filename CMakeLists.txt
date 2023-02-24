@@ -208,6 +208,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_volume GTest::gtest_main)
   gtest_discover_tests(unit_volume)
 
+  add_executable(unit_volume_rate ${PROJECT_SOURCE_DIR}/test/Unit/VolumeRate.cpp)
+  target_link_libraries(unit_volume_rate GTest::gtest_main)
+  gtest_discover_tests(unit_volume_rate)
+
   add_executable(value_dyad ${PROJECT_SOURCE_DIR}/test/Value/Dyad.cpp)
   target_link_libraries(value_dyad GTest::gtest_main)
   gtest_discover_tests(value_dyad)
