@@ -30,14 +30,14 @@ constexpr std::array<HeatCapacity, 4> Units = {
     HeatCapacity::InchPoundPerRankine,
 };
 
-TEST(UnitEnergyFlux, Abbreviation) {
+TEST(UnitHeatCapacity, Abbreviation) {
   EXPECT_EQ(Abbreviation(HeatCapacity::JoulePerKelvin), "J/K");
   EXPECT_EQ(Abbreviation(HeatCapacity::NanojoulePerKelvin), "nJ/K");
   EXPECT_EQ(Abbreviation(HeatCapacity::FootPoundPerRankine), "ft·lbf/°R");
   EXPECT_EQ(Abbreviation(HeatCapacity::InchPoundPerRankine), "in·lbf/°R");
 }
 
-TEST(UnitEnergyFlux, ConsistentUnit) {
+TEST(UnitHeatCapacity, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<HeatCapacity>(UnitSystem::MetreKilogramSecondKelvin),
             HeatCapacity::JoulePerKelvin);
   EXPECT_EQ(
@@ -49,7 +49,7 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             HeatCapacity::InchPoundPerRankine);
 }
 
-TEST(UnitEnergyFlux, ConvertFromStandard) {
+TEST(UnitHeatCapacity, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
                                HeatCapacity::JoulePerKelvin),
@@ -65,7 +65,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
                    value / (0.0254 * 0.45359237 * 9.80665 * 1.8));
 }
 
-TEST(UnitEnergyFlux, ConvertToStandard) {
+TEST(UnitHeatCapacity, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
                                HeatCapacity::JoulePerKelvin),
@@ -81,7 +81,7 @@ TEST(UnitEnergyFlux, ConvertToStandard) {
                    value * 0.0254 * 0.45359237 * 9.80665 * 1.8);
 }
 
-TEST(UnitEnergyFlux, ConvertVerification) {
+TEST(UnitHeatCapacity, ConvertVerification) {
   double value{10.0};
   std::array<double, 3> array{10.0, -20.0, 30.0};
   std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
@@ -100,14 +100,14 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
+TEST(UnitHeatCapacity, DimensionSet) {
   EXPECT_EQ(Dimensions<HeatCapacity>,
             Dimension::Set(Dimension::Time{-2}, Dimension::Length{2},
                            Dimension::Mass{1}, Dimension::ElectricCurrent{},
                            Dimension::Temperature{-1}));
 }
 
-TEST(UnitEnergyFlux, Parse) {
+TEST(UnitHeatCapacity, Parse) {
   EXPECT_EQ(Parse<HeatCapacity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<HeatCapacity>("J/K"), HeatCapacity::JoulePerKelvin);
   EXPECT_EQ(Parse<HeatCapacity>("nJ/K"), HeatCapacity::NanojoulePerKelvin);
@@ -117,7 +117,7 @@ TEST(UnitEnergyFlux, Parse) {
             HeatCapacity::InchPoundPerRankine);
 }
 
-TEST(UnitEnergyFlux, RelatedUnitSystem) {
+TEST(UnitHeatCapacity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(HeatCapacity::JoulePerKelvin),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(HeatCapacity::NanojoulePerKelvin),
@@ -128,7 +128,7 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
+TEST(UnitHeatCapacity, StandardUnit) {
   EXPECT_EQ(StandardUnit<HeatCapacity>, HeatCapacity::JoulePerKelvin);
 }
 
