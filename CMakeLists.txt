@@ -228,6 +228,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_temperature_difference GTest::gtest_main)
   gtest_discover_tests(unit_temperature_difference)
 
+  add_executable(unit_temperature_gradient ${PROJECT_SOURCE_DIR}/test/Unit/TemperatureGradient.cpp)
+  target_link_libraries(unit_temperature_gradient GTest::gtest_main)
+  gtest_discover_tests(unit_temperature_gradient)
+
   add_executable(unit_time ${PROJECT_SOURCE_DIR}/test/Unit/Time.cpp)
   target_link_libraries(unit_time GTest::gtest_main)
   gtest_discover_tests(unit_time)
