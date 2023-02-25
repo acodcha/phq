@@ -232,6 +232,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_temperature_gradient GTest::gtest_main)
   gtest_discover_tests(unit_temperature_gradient)
 
+  add_executable(unit_thermal_conductivity ${PROJECT_SOURCE_DIR}/test/Unit/ThermalConductivity.cpp)
+  target_link_libraries(unit_thermal_conductivity GTest::gtest_main)
+  gtest_discover_tests(unit_thermal_conductivity)
+
   add_executable(unit_time ${PROJECT_SOURCE_DIR}/test/Unit/Time.cpp)
   target_link_libraries(unit_time GTest::gtest_main)
   gtest_discover_tests(unit_time)
