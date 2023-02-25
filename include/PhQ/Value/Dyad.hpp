@@ -202,7 +202,7 @@ public:
     return Cofactors().Transpose();
   }
 
-  inline Dyad Inverse() const;
+  inline std::optional<Dyad> Inverse() const;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", " +
@@ -419,13 +419,12 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Dyad Dyad::Inverse() const {
+inline std::optional<Dyad> Dyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return Adjugate() / determinant_;
   } else {
-    throw std::runtime_error{"Cannot compute the inverse of " + Print() +
-                             " because its determinant is 0."};
+    return std::nullopt;
   }
 }
 

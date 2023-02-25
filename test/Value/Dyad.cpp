@@ -223,17 +223,22 @@ TEST(ValueDyad, Hash) {
 }
 
 TEST(ValueDyad, Inverse) {
-  const Value::Dyad dyad{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
-  const Value::Dyad inverse{dyad.Inverse()};
-  EXPECT_DOUBLE_EQ(inverse.xx(), 32512.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.xy(), -992.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.xz(), -96.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.yx(), -4080.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.yy(), 16382.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.yz(), -496.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.zx(), 256.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.zy(), -2040.0 / 2064704.0);
-  EXPECT_DOUBLE_EQ(inverse.zz(), 8128.0 / 2064704.0);
+  const Value::Dyad dyad0{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
+  const std::optional<Value::Dyad> inverse0{dyad0.Inverse()};
+  EXPECT_TRUE(inverse0.has_value());
+  EXPECT_DOUBLE_EQ(inverse0.value().xx(), 32512.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().xy(), -992.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().xz(), -96.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().yx(), -4080.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().yy(), 16382.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().yz(), -496.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().zx(), 256.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().zy(), -2040.0 / 2064704.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().zz(), 8128.0 / 2064704.0);
+
+  const Value::Dyad dyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const std::optional<Value::Dyad> inverse1{dyad1.Inverse()};
+  EXPECT_FALSE(inverse1.has_value());
 }
 
 TEST(ValueDyad, IsSymmetric) {
