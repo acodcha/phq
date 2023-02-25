@@ -22,16 +22,23 @@
 namespace {
 
 TEST(Direction, Accessor) {
-  const PhQ::Direction direction{0.0, 10.0, -10.0};
-  EXPECT_EQ(direction.x(), 0.0);
-  EXPECT_DOUBLE_EQ(direction.y(), 0.5 * std::sqrt(2.0));
-  EXPECT_DOUBLE_EQ(direction.z(), -0.5 * std::sqrt(2.0));
   const std::array<double, 3> value{0.0, 0.5 * std::sqrt(2.0),
                                     -0.5 * std::sqrt(2.0)};
-  EXPECT_EQ(direction.Value().size(), value.size());
-  EXPECT_EQ(direction.Value()[0], value[0]);
-  EXPECT_DOUBLE_EQ(direction.Value()[1], value[1]);
-  EXPECT_DOUBLE_EQ(direction.Value()[2], value[2]);
+
+  const PhQ::Direction direction0{0.0, 10.0, -10.0};
+  EXPECT_DOUBLE_EQ(direction0.x(), 0.0);
+  EXPECT_DOUBLE_EQ(direction0.y(), 0.5 * std::sqrt(2.0));
+  EXPECT_DOUBLE_EQ(direction0.z(), -0.5 * std::sqrt(2.0));
+  EXPECT_EQ(direction0.x_y_z().size(), value.size());
+  EXPECT_DOUBLE_EQ(direction0.x_y_z()[0], value[0]);
+  EXPECT_DOUBLE_EQ(direction0.x_y_z()[1], value[1]);
+  EXPECT_DOUBLE_EQ(direction0.x_y_z()[2], value[2]);
+
+  PhQ::Direction direction1{1.0, 0.0, 0.0};
+  direction1.Set_x_y_z({0.0, 10.0, -10.0});
+  EXPECT_DOUBLE_EQ(direction1.x_y_z()[0], value[0]);
+  EXPECT_DOUBLE_EQ(direction1.x_y_z()[1], value[1]);
+  EXPECT_DOUBLE_EQ(direction1.x_y_z()[2], value[2]);
 }
 
 TEST(Direction, Comparison) {

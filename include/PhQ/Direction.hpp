@@ -98,8 +98,21 @@ public:
 
   Direction(const Velocity& velocity);
 
-  inline constexpr const std::array<double, 3>& Value() const noexcept {
+  inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
     return x_y_z_;
+  }
+
+  void Set_x_y_z(const std::array<double, 3>& x_y_z) {
+    const double magnitude{std::sqrt(x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
+                                     x_y_z[2] * x_y_z[2])};
+    if (magnitude > 0.0) {
+      x_y_z_[0] = x_y_z[0] / magnitude;
+      x_y_z_[1] = x_y_z[1] / magnitude;
+      x_y_z_[2] = x_y_z[2] / magnitude;
+    } else {
+      throw std::runtime_error{
+          "Attempting to set a direction to (0, 0, 0)."};
+    }
   }
 
   inline constexpr double x() const noexcept { return x_y_z_[0]; }
