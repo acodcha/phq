@@ -190,14 +190,19 @@ TEST(ValueSymmetricDyad, Hash) {
 }
 
 TEST(ValueSymmetricDyad, Inverse) {
-  const Value::SymmetricDyad symdyad{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
-  const Value::SymmetricDyad inverse{symdyad.Inverse()};
-  EXPECT_DOUBLE_EQ(inverse.xx(), 496.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse.xy(), -60.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse.xz(), -8.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse.yy(), 255.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse.yz(), -30.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse.zz(), 124.0 / 3840.0);
+  const Value::SymmetricDyad symdyad0{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
+  const std::optional<Value::SymmetricDyad> inverse0{symdyad0.Inverse()};
+  EXPECT_TRUE(inverse0.has_value());
+  EXPECT_DOUBLE_EQ(inverse0.value().xx(), 496.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().xy(), -60.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().xz(), -8.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().yy(), 255.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().yz(), -30.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(inverse0.value().zz(), 124.0 / 3840.0);
+
+  const Value::SymmetricDyad symdyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const std::optional<Value::SymmetricDyad> inverse1{symdyad1.Inverse()};
+  EXPECT_FALSE(inverse1.has_value());
 }
 
 TEST(ValueSymmetricDyad, Json) {

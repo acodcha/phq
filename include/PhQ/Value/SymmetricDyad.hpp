@@ -168,7 +168,7 @@ public:
     return Cofactors();
   }
 
-  inline SymmetricDyad Inverse() const;
+  inline std::optional<SymmetricDyad> Inverse() const;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ", " +
@@ -317,13 +317,12 @@ inline constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad,
           symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
 }
 
-inline SymmetricDyad SymmetricDyad::Inverse() const {
+inline std::optional<SymmetricDyad> SymmetricDyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return Adjugate() / determinant_;
   } else {
-    throw std::runtime_error{"Cannot compute the inverse of " + Print() +
-                             " because its determinant is 0."};
+    return std::nullopt;
   }
 }
 
