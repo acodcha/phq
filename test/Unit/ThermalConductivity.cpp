@@ -23,7 +23,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<ThermalConductivity, 4> Units = {
+constexpr std::array<ThermalConductivity, 3> Units = {
     ThermalConductivity::WattPerMetrePerKelvin,
     ThermalConductivity::NanowattPerMillimetrePerKelvin,
     ThermalConductivity::PoundPerSecondPerRankine,
