@@ -36,9 +36,15 @@ TEST(Direction, Accessor) {
 
   PhQ::Direction direction1{1.0, 0.0, 0.0};
   direction1.Set_x_y_z({0.0, 10.0, -10.0});
-  EXPECT_DOUBLE_EQ(direction1.x_y_z()[0], value[0]);
-  EXPECT_DOUBLE_EQ(direction1.x_y_z()[1], value[1]);
-  EXPECT_DOUBLE_EQ(direction1.x_y_z()[2], value[2]);
+  EXPECT_DOUBLE_EQ(direction1.x(), value[0]);
+  EXPECT_DOUBLE_EQ(direction1.y(), value[1]);
+  EXPECT_DOUBLE_EQ(direction1.z(), value[2]);
+
+  PhQ::Direction direction2{-1.0, 2.0, -3.0};
+  direction2.Set_x_y_z({0.0, 0.0, 0.0});
+  EXPECT_EQ(direction2.x(), 0.0);
+  EXPECT_EQ(direction2.y(), 0.0);
+  EXPECT_EQ(direction2.z(), 0.0);
 }
 
 TEST(Direction, Comparison) {
@@ -52,6 +58,8 @@ TEST(Direction, Constructor) {
   EXPECT_EQ(PhQ::Direction{}, PhQ::Direction(1.0, 0.0, 0.0));
   EXPECT_EQ(PhQ::Direction(std::array<double, 3>{0.0, -10.0, 0.0}),
             PhQ::Direction(0.0, -1.0, 0.0));
+  EXPECT_EQ(PhQ::Direction(std::array<double, 3>{0.0, 0.0, 0.0}),
+            PhQ::Direction(0.0, 0.0, 0.0));
 }
 
 TEST(Direction, Cross) {
@@ -110,6 +118,11 @@ TEST(Direction, Stream) {
   std::ostringstream stream;
   stream << direction;
   EXPECT_EQ(stream.str(), direction.Print());
+}
+
+TEST(Direction, Valid) {
+  EXPECT_TRUE(PhQ::Direction(10.0, -20.0, 30.0).Valid());
+  EXPECT_FALSE(PhQ::Direction(0.0, 0.0, 0.0).Valid());
 }
 
 TEST(Direction, Xml) {

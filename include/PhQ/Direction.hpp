@@ -60,8 +60,9 @@ public:
       x_y_z_[1] = y / magnitude;
       x_y_z_[2] = z / magnitude;
     } else {
-      throw std::runtime_error{
-          "Attempting to create a direction from (0, 0, 0)."};
+      x_y_z_[0] = 0.0;
+      x_y_z_[1] = 0.0;
+      x_y_z_[2] = 0.0;
     }
   }
 
@@ -73,8 +74,9 @@ public:
       x_y_z_[1] = x_y_z[1] / magnitude;
       x_y_z_[2] = x_y_z[2] / magnitude;
     } else {
-      throw std::runtime_error{
-          "Attempting to create a direction from (0, 0, 0)."};
+      x_y_z_[0] = 0.0;
+      x_y_z_[1] = 0.0;
+      x_y_z_[2] = 0.0;
     }
   }
 
@@ -110,8 +112,9 @@ public:
       x_y_z_[1] = x_y_z[1] / magnitude;
       x_y_z_[2] = x_y_z[2] / magnitude;
     } else {
-      throw std::runtime_error{
-          "Attempting to set a direction to (0, 0, 0)."};
+      x_y_z_[0] = 0.0;
+      x_y_z_[1] = 0.0;
+      x_y_z_[2] = 0.0;
     }
   }
 
@@ -120,6 +123,10 @@ public:
   inline constexpr double y() const noexcept { return x_y_z_[1]; }
 
   inline constexpr double z() const noexcept { return x_y_z_[2]; }
+
+  inline constexpr bool Valid() const noexcept {
+    return x_y_z_[0] != 0.0 || x_y_z_[1] != 0.0 || x_y_z_[2] != 0.0;
+  }
 
   inline constexpr double Dot(const Direction& direction) const noexcept {
     return x_y_z_[0] * direction.x_y_z_[0] + x_y_z_[1] * direction.x_y_z_[1] +
