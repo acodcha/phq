@@ -144,6 +144,10 @@ if(BUILD_TESTING)
   target_link_libraries(unit_diffusivity GTest::gtest_main)
   gtest_discover_tests(unit_diffusivity)
 
+  add_executable(unit_dimensionless ${PROJECT_SOURCE_DIR}/test/Unit/Dimensionless.cpp)
+  target_link_libraries(unit_dimensionless GTest::gtest_main)
+  gtest_discover_tests(unit_dimensionless)
+
   add_executable(unit_dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/Unit/DynamicViscosity.cpp)
   target_link_libraries(unit_dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(unit_dynamic_viscosity)
