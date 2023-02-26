@@ -19,14 +19,14 @@
 
 #include <unordered_set>
 
-namespace PhQ {
+namespace PhQ::Value {
 
 namespace {
 
 TEST(ValueDyad, Accessor) {
   const std::array<double, 9> value0{1.11, 2.22, 3.33, 4.44, 5.55,
                                      6.66, 7.77, 8.88, 9.99};
-  const Value::Dyad dyad0{value0};
+  const Dyad dyad0{value0};
   EXPECT_EQ(dyad0.xx_xy_xz_yx_yy_yz_zx_zy_zz(), value0);
   EXPECT_EQ(dyad0.xx(), 1.11);
   EXPECT_EQ(dyad0.xy(), 2.22);
@@ -38,7 +38,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad0.zy(), 8.88);
   EXPECT_EQ(dyad0.zz(), 9.99);
 
-  Value::Dyad dyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad dyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   std::array<double, 9>& value1{dyad1.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz()};
   value1 = {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99};
   EXPECT_EQ(dyad1.xx(), 0.11);
@@ -51,7 +51,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad1.zy(), 0.88);
   EXPECT_EQ(dyad1.zz(), 0.99);
 
-  Value::Dyad dyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad dyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   double& xx{dyad2.Mutable_xx()};
   xx = 0.11;
   double& xy{dyad2.Mutable_xy()};
@@ -80,7 +80,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad2.zy(), 0.88);
   EXPECT_EQ(dyad2.zz(), 0.99);
 
-  Value::Dyad dyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad dyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   dyad3.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99});
   EXPECT_EQ(dyad3.xx(), 0.11);
@@ -93,7 +93,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad3.zy(), 0.88);
   EXPECT_EQ(dyad3.zz(), 0.99);
 
-  Value::Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   dyad4.Set_xx(0.11);
   dyad4.Set_xy(0.22);
   dyad4.Set_xz(0.33);
@@ -115,116 +115,110 @@ TEST(ValueDyad, Accessor) {
 }
 
 TEST(ValueDyad, Adjugate) {
-  EXPECT_EQ(Value::Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0)
-                .Adjugate(),
-            Value::Dyad(32512.0, -992.0, -96.0, -4080.0, 16382.0, -496.0, 256.0,
-                        -2040.0, 8128.0));
+  EXPECT_EQ(Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Adjugate(),
+            Dyad(32512.0, -992.0, -96.0, -4080.0, 16382.0, -496.0, 256.0,
+                 -2040.0, 8128.0));
 }
 
 TEST(ValueDyad, Arithmetic) {
-  const Value::Vector vector{1.0, 2.0, 4.0};
-  const Value::SymmetricDyad symdyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  const Value::Dyad dyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  const Vector vector{1.0, 2.0, 4.0};
+  const SymmetricDyad symdyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  const Dyad dyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
   EXPECT_EQ(dyad0 + dyad0,
-            Value::Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
-  EXPECT_EQ(dyad0 - dyad0,
-            Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+            Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
+  EXPECT_EQ(dyad0 - dyad0, Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
   EXPECT_EQ(dyad0 * 2.0,
-            Value::Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
+            Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
   EXPECT_EQ(2.0 * dyad0,
-            Value::Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
-  EXPECT_EQ(dyad0 * vector, Value::Vector(21.0, 168.0, 1344.0));
-  EXPECT_EQ(symdyad * symdyad, Value::Dyad(21.0, 82.0, 164.0, 82.0, 324.0,
-                                           648.0, 164.0, 648.0, 1296.0));
-  EXPECT_EQ(dyad0 * symdyad, Value::Dyad(21.0, 82.0, 164.0, 168.0, 656.0,
-                                         1312.0, 1344.0, 5248.0, 10496.0));
-  EXPECT_EQ(symdyad * dyad0, Value::Dyad(273.0, 546.0, 1092.0, 1090.0, 2180.0,
-                                         4360.0, 2180.0, 4360.0, 8720.0));
-  EXPECT_EQ(dyad0 * dyad0, Value::Dyad(273.0, 546.0, 1092.0, 2184.0, 4368.0,
-                                       8736.0, 17472.0, 34944.0, 69888.0));
+            Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
+  EXPECT_EQ(dyad0 * vector, Vector(21.0, 168.0, 1344.0));
+  EXPECT_EQ(symdyad * symdyad,
+            Dyad(21.0, 82.0, 164.0, 82.0, 324.0, 648.0, 164.0, 648.0, 1296.0));
+  EXPECT_EQ(dyad0 * symdyad, Dyad(21.0, 82.0, 164.0, 168.0, 656.0, 1312.0,
+                                  1344.0, 5248.0, 10496.0));
+  EXPECT_EQ(symdyad * dyad0, Dyad(273.0, 546.0, 1092.0, 1090.0, 2180.0, 4360.0,
+                                  2180.0, 4360.0, 8720.0));
+  EXPECT_EQ(dyad0 * dyad0, Dyad(273.0, 546.0, 1092.0, 2184.0, 4368.0, 8736.0,
+                                17472.0, 34944.0, 69888.0));
   EXPECT_EQ(dyad0 / 2.0,
-            Value::Dyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0));
+            Dyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0));
 
-  Value::Dyad dyad1{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
-  dyad1 += Value::Dyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
-  EXPECT_EQ(dyad1,
-            Value::Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
+  Dyad dyad1{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  dyad1 += Dyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  EXPECT_EQ(dyad1, Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
 
-  Value::Dyad dyad2{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
-  dyad2 -= Value::Dyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
-  EXPECT_EQ(dyad2, Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  Dyad dyad2{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  dyad2 -= Dyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  EXPECT_EQ(dyad2, Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
-  Value::Dyad dyad3{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  Dyad dyad3{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
   dyad3 *= 2.0;
-  EXPECT_EQ(dyad3,
-            Value::Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
+  EXPECT_EQ(dyad3, Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
 
-  Value::Dyad dyad4{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  Dyad dyad4{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
   dyad4 /= 2.0;
-  EXPECT_EQ(dyad4,
-            Value::Dyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0));
+  EXPECT_EQ(dyad4, Dyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0));
 }
 
 TEST(ValueDyad, Cofactors) {
-  EXPECT_EQ(Value::Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0)
-                .Cofactors(),
-            Value::Dyad(32512.0, -4080.0, 256.0, -992.0, 16382.0, -2040.0,
-                        -96.0, -496.0, 8128.0));
+  EXPECT_EQ(
+      Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Cofactors(),
+      Dyad(32512.0, -4080.0, 256.0, -992.0, 16382.0, -2040.0, -96.0, -496.0,
+           8128.0));
 }
 
 TEST(ValueDyad, Comparison) {
-  const Value::Dyad dyad0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  const Value::Dyad dyad1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
+  const Dyad dyad0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  const Dyad dyad1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
   EXPECT_EQ(dyad0, dyad0);
   EXPECT_NE(dyad0, dyad1);
 }
 
 TEST(ValueDyad, Constructor) {
-  EXPECT_EQ(Value::Dyad(std::array<double, 9>{1.11, 2.22, 3.33, 4.44, 5.55,
-                                              6.66, 7.77, 8.88, 9.99}),
-            Value::Dyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99));
-  EXPECT_EQ(
-      Value::Dyad(Value::SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66)),
-      Value::Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
+  EXPECT_EQ(Dyad(std::array<double, 9>{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77,
+                                       8.88, 9.99}),
+            Dyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99));
+  EXPECT_EQ(Dyad(SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66)),
+            Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
 }
 
 TEST(ValueDyad, Determinant) {
-  EXPECT_EQ(Value::Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0)
-                .Determinant(),
-            2064704.0);
+  EXPECT_EQ(
+      Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Determinant(),
+      2064704.0);
 }
 
 TEST(ValueDyad, DyadicProduct) {
   EXPECT_EQ(Direction(1.0, 0.0, 0.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Value::Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Value::Vector(1.0, 2.0, 4.0)),
-            Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
-  EXPECT_EQ(Value::Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Value::Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
-  EXPECT_EQ(Value::Vector(1.0, 2.0, 4.0).Dyadic(Value::Vector(8.0, 16.0, 32.0)),
-            Value::Dyad(8.0, 16.0, 32.0, 16.0, 32.0, 64.0, 32.0, 64.0, 128.0));
+            Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Vector(1.0, 2.0, 4.0)),
+            Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
+  EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
+            Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
+  EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Vector(8.0, 16.0, 32.0)),
+            Dyad(8.0, 16.0, 32.0, 16.0, 32.0, 64.0, 32.0, 64.0, 128.0));
 }
 
 TEST(ValueDyad, Hash) {
-  const Value::Dyad dyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Value::Dyad dyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Value::Dyad dyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Value::Dyad dyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Value::Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  const Value::Dyad dyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
-  const std::hash<Value::Dyad> hasher;
+  const Dyad dyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const Dyad dyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const Dyad dyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const Dyad dyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  const Dyad dyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
+  const std::hash<Dyad> hasher;
   EXPECT_NE(hasher(dyad0), hasher(dyad1));
   EXPECT_NE(hasher(dyad0), hasher(dyad2));
   EXPECT_NE(hasher(dyad0), hasher(dyad3));
   EXPECT_NE(hasher(dyad0), hasher(dyad4));
   EXPECT_NE(hasher(dyad0), hasher(dyad5));
-  const std::unordered_set<Value::Dyad> unordered{dyad0, dyad1, dyad2,
-                                                  dyad3, dyad4, dyad5};
+  const std::unordered_set<Dyad> unordered{dyad0, dyad1, dyad2,
+                                           dyad3, dyad4, dyad5};
 }
 
 TEST(ValueDyad, Inverse) {
-  const Value::Dyad dyad0{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
-  const std::optional<Value::Dyad> inverse0{dyad0.Inverse()};
+  const Dyad dyad0{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
+  const std::optional<Dyad> inverse0{dyad0.Inverse()};
   EXPECT_TRUE(inverse0.has_value());
   EXPECT_DOUBLE_EQ(inverse0.value().xx(), 32512.0 / 2064704.0);
   EXPECT_DOUBLE_EQ(inverse0.value().xy(), -992.0 / 2064704.0);
@@ -236,68 +230,66 @@ TEST(ValueDyad, Inverse) {
   EXPECT_DOUBLE_EQ(inverse0.value().zy(), -2040.0 / 2064704.0);
   EXPECT_DOUBLE_EQ(inverse0.value().zz(), 8128.0 / 2064704.0);
 
-  const Value::Dyad dyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const std::optional<Value::Dyad> inverse1{dyad1.Inverse()};
+  const Dyad dyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const std::optional<Dyad> inverse1{dyad1.Inverse()};
   EXPECT_FALSE(inverse1.has_value());
 }
 
 TEST(ValueDyad, IsSymmetric) {
-  EXPECT_FALSE(Value::Dyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99)
-                   .IsSymmetric());
-  EXPECT_TRUE(Value::Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66)
-                  .IsSymmetric());
+  EXPECT_FALSE(
+      Dyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99).IsSymmetric());
+  EXPECT_TRUE(
+      Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66).IsSymmetric());
 }
 
 TEST(ValueDyad, Json) {
   EXPECT_EQ(
-      Value::Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Json(),
+      Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Json(),
       "{\"xx\":1.000000,\"xy\":-2.000000,\"xz\":0,\"yx\":2.000000,\"yy\":-4."
       "000000,\"yz\":0,\"zx\":4.000000,\"zy\":-8.000000,\"zz\":0}");
 }
 
 TEST(ValueDyad, Print) {
-  EXPECT_EQ(Value::Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Print(),
+  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Print(),
             "(1.000000, -2.000000, 0; 2.000000, -4.000000, 0; 4.000000, "
             "-8.000000, 0)");
 }
 
 TEST(ValueDyad, Stream) {
-  const Value::Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  const Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   std::ostringstream stream;
   stream << dyad;
   EXPECT_EQ(stream.str(), dyad.Print());
 }
 
 TEST(ValueDyad, Trace) {
-  EXPECT_EQ(
-      Value::Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Trace(),
-      448.0);
+  EXPECT_EQ(Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Trace(),
+            448.0);
 }
 
 TEST(ValueDyad, Transpose) {
-  EXPECT_EQ(Value::Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0)
-                .Transpose(),
-            Value::Dyad(64.0, 16.0, 2.0, 4.0, 128.0, 32.0, 1.0, 8.0, 256.0));
+  EXPECT_EQ(
+      Dyad(64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0).Transpose(),
+      Dyad(64.0, 16.0, 2.0, 4.0, 128.0, 32.0, 1.0, 8.0, 256.0));
 }
 
 TEST(ValueDyad, Xml) {
-  EXPECT_EQ(Value::Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Xml(),
+  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Xml(),
             "<xx>1.000000</xx><xy>-2.000000</xy><xz>0</xz><yx>2.000000</"
             "yx><yy>-4.000000</yy><yz>0</yz><zx>4.000000</zx><zy>-8.000000</"
             "zy><zz>0</zz>");
 }
 
 TEST(ValueDyad, Yaml) {
-  EXPECT_EQ(Value::Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Yaml(),
+  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Yaml(),
             "{xx:1.000000,xy:-2.000000,xz:0,yx:2.000000,yy:-4.000000,yz:0,zx:4."
             "000000,zy:-8.000000,zz:0}");
 }
 
 TEST(ValueDyad, Zero) {
-  EXPECT_EQ(Value::Dyad::Zero(),
-            Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Dyad::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 }
 
 }  // namespace
 
-}  // namespace PhQ
+}  // namespace PhQ::Value

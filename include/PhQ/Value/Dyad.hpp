@@ -18,9 +18,7 @@
 
 #include "SymmetricDyad.hpp"
 
-namespace PhQ {
-
-namespace Value {
+namespace PhQ::Value {
 
 class Dyad {
 public:
@@ -436,10 +434,8 @@ inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
           x_y_z_[2] * vector.x_y_z_[2]};
 }
 
-}  // namespace Value
-
-inline constexpr Value::Dyad Direction::Dyadic(
-    const PhQ::Direction& direction) const noexcept {
+inline constexpr Dyad Direction::Dyadic(
+    const Direction& direction) const noexcept {
   return {x_y_z_[0] * direction.x_y_z_[0], x_y_z_[0] * direction.x_y_z_[1],
           x_y_z_[0] * direction.x_y_z_[2], x_y_z_[1] * direction.x_y_z_[0],
           x_y_z_[1] * direction.x_y_z_[1], x_y_z_[1] * direction.x_y_z_[2],
@@ -447,16 +443,15 @@ inline constexpr Value::Dyad Direction::Dyadic(
           x_y_z_[2] * direction.x_y_z_[2]};
 }
 
-inline constexpr Value::Dyad Direction::Dyadic(
-    const Value::Vector& vector) const noexcept {
+inline constexpr Dyad Direction::Dyadic(const Vector& vector) const noexcept {
   return {
       x_y_z_[0] * vector.x(), x_y_z_[0] * vector.y(), x_y_z_[0] * vector.z(),
       x_y_z_[1] * vector.x(), x_y_z_[1] * vector.y(), x_y_z_[1] * vector.z(),
       x_y_z_[2] * vector.x(), x_y_z_[2] * vector.y(), x_y_z_[2] * vector.z()};
 }
 
-inline constexpr Value::Dyad Value::Vector::Dyadic(
-    const PhQ::Direction& direction) const noexcept {
+inline constexpr Dyad Vector::Dyadic(
+    const Value::Direction& direction) const noexcept {
   return {x_y_z_[0] * direction.x(), x_y_z_[0] * direction.y(),
           x_y_z_[0] * direction.z(), x_y_z_[1] * direction.x(),
           x_y_z_[1] * direction.y(), x_y_z_[1] * direction.z(),
@@ -464,7 +459,7 @@ inline constexpr Value::Dyad Value::Vector::Dyadic(
           x_y_z_[2] * direction.z()};
 }
 
-}  // namespace PhQ
+}  // namespace PhQ::Value
 
 namespace std {
 

@@ -16,12 +16,9 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 
-#include "../Direction.hpp"
-#include "../UnitSystem.hpp"
+#include "Direction.hpp"
 
-namespace PhQ {
-
-namespace Value {
+namespace PhQ::Value {
 
 class Vector {
 public:
@@ -81,9 +78,10 @@ public:
     return std::sqrt(MagnitudeSquared());
   }
 
-  PhQ::Direction Direction() const { return {*this}; }
+  Value::Direction Direction() const { return {*this}; }
 
-  inline constexpr double Dot(const PhQ::Direction& direction) const noexcept {
+  inline constexpr double Dot(
+      const Value::Direction& direction) const noexcept {
     return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() +
            x_y_z_[2] * direction.z();
   }
@@ -94,7 +92,7 @@ public:
   }
 
   inline constexpr Vector Cross(
-      const PhQ::Direction& direction) const noexcept {
+      const Value::Direction& direction) const noexcept {
     return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
             x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
             x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
@@ -106,12 +104,13 @@ public:
             x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
+  inline constexpr Dyad Dyadic(
+      const Value::Direction& direction) const noexcept;
 
   inline constexpr Dyad Dyadic(const Vector& vector) const noexcept;
 
   inline constexpr PhQ::Angle Angle(
-      const PhQ::Direction& direction) const noexcept;
+      const Value::Direction& direction) const noexcept;
 
   inline constexpr PhQ::Angle Angle(const Vector& vector) const noexcept;
 
@@ -207,25 +206,21 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-}  // namespace Value
-
-Direction::Direction(const Value::Vector& vector)
+Direction::Direction(const Vector& vector)
     : Direction(vector.x(), vector.y(), vector.z()) {}
 
-inline constexpr double Direction::Dot(
-    const Value::Vector& vector) const noexcept {
+inline constexpr double Direction::Dot(const Vector& vector) const noexcept {
   return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() +
          x_y_z_[2] * vector.z();
 }
 
-inline constexpr Value::Vector Direction::Cross(
-    const Value::Vector& vector) const noexcept {
+inline constexpr Vector Direction::Cross(const Vector& vector) const noexcept {
   return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
           x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),
           x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()};
 }
 
-}  // namespace PhQ
+}  // namespace PhQ::Value
 
 namespace std {
 

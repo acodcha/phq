@@ -13,41 +13,22 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DIRECTION_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DIRECTION_HPP
 
 #include <array>
 
-#include "Base/String.hpp"
+#include "../Base/String.hpp"
 
 namespace PhQ {
+
+class Angle;
 
 namespace Value {
 
 class Vector;
 class SymmetricDyad;
 class Dyad;
-
-}  // namespace Value
-
-class Acceleration;
-class AccelerationMagnitude;
-class Area;
-class AreaVector;
-class Angle;
-class Displacement;
-class Force;
-class ForceMagnitude;
-class HeatFlux;
-class HeatFluxMagnitude;
-class Length;
-class Position;
-class Speed;
-class StaticPressure;
-class TemperatureGradient;
-class TemperatureGradientMagnitude;
-class Traction;
-class Velocity;
 
 class Direction {
 public:
@@ -81,24 +62,6 @@ public:
   }
 
   Direction(const Value::Vector& vector);
-
-  Direction(const Acceleration& acceleration);
-
-  Direction(const AreaVector& area_vector);
-
-  Direction(const Displacement& displacement);
-
-  Direction(const Force& force);
-
-  Direction(const HeatFlux& heat_flux);
-
-  Direction(const Position& position);
-
-  Direction(const TemperatureGradient& temperature_gradient);
-
-  Direction(const Traction& traction);
-
-  Direction(const Velocity& velocity);
 
   inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
     return x_y_z_;
@@ -175,28 +138,6 @@ public:
            ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  constexpr Acceleration operator*(
-      const AccelerationMagnitude& acceleration_magnitude) const noexcept;
-
-  constexpr AreaVector operator*(const Area& area) const noexcept;
-
-  constexpr Displacement operator*(const Length& length) const noexcept;
-
-  constexpr Force operator*(
-      const ForceMagnitude& force_magnitude) const noexcept;
-
-  constexpr HeatFlux operator*(
-      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
-
-  constexpr Traction operator*(
-      const StaticPressure& static_pressure) const noexcept;
-
-  constexpr Velocity operator*(const Speed& speed) const noexcept;
-
-  constexpr TemperatureGradient operator*(
-      const TemperatureGradientMagnitude& temperature_gradient_magnitude)
-      const noexcept;
-
 private:
   std::array<double, 3> x_y_z_;
 };
@@ -219,13 +160,15 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
+}  // namespace Value
+
 }  // namespace PhQ
 
 namespace std {
 
 template <>
-struct hash<PhQ::Direction> {
-  size_t operator()(const PhQ::Direction& direction) const {
+struct hash<PhQ::Value::Direction> {
+  size_t operator()(const PhQ::Value::Direction& direction) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(direction.x());
     result = 31 * result + hash<double>()(direction.y());
@@ -236,4 +179,4 @@ struct hash<PhQ::Direction> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DIRECTION_HPP
