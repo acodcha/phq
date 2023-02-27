@@ -13,85 +13,101 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_DYAD_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_DYAD_HPP
 
-#include "../Base/String.hpp"
+#include <utility>
+
+#include "../Value/Dyad.hpp"
 #include "Dimensional.hpp"
 
 namespace PhQ {
 
 template <typename Unit>
-class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
+class DimensionalDyadQuantity : public DimensionalQuantity<Unit> {
 public:
-  virtual ~DimensionalScalarQuantity() noexcept = default;
+  virtual ~DimensionalDyadQuantity() noexcept = default;
 
-  constexpr double Value() const noexcept { return value_; }
+  constexpr const Value::Dyad& Value() const noexcept { return value_; }
 
-  double Value(const Unit unit) const noexcept {
-    double result{value_};
+  Value::Dyad Value(const Unit unit) const noexcept {
+    Value::Dyad result{value_};
     Convert(result, StandardUnit<Unit>, unit);
     return result;
   }
 
   std::string Print() const noexcept override {
-    return PhQ::Print(value_) + " " + Abbreviation(StandardUnit<Unit>);
+    return value_.Print() + " " + Abbreviation(StandardUnit<Unit>);
   }
 
   std::string Print(const Unit unit) const noexcept override {
-    return PhQ::Print(Value(unit)) + " " + Abbreviation(unit);
+    return Value(unit).Print() + " " + Abbreviation(unit);
   }
 
   std::string Json() const noexcept override {
-    return "{\"value\":" + PhQ::Print(value_) + ",\"unit\":\"" +
+    return "{\"value\":" + value_.Json() + ",\"unit\":\"" +
            Abbreviation(StandardUnit<Unit>) + "\"}";
   }
 
   std::string Json(const Unit unit) const noexcept override {
-    return "{\"value\":" + PhQ::Print(Value(unit)) + ",\"unit\":\"" +
+    return "{\"value\":" + Value(unit).Json() + ",\"unit\":\"" +
            Abbreviation(unit) + "\"}";
   }
 
   std::string Xml() const noexcept override {
-    return "<value>" + PhQ::Print(value_) + "</value><unit>" +
+    return "<value>" + value_.Xml() + "</value><unit>" +
            Abbreviation(StandardUnit<Unit>) + "</unit>";
   }
 
   std::string Xml(const Unit unit) const noexcept override {
-    return "<value>" + PhQ::Print(Value(unit)) + "</value><unit>" +
+    return "<value>" + Value(unit).Xml() + "</value><unit>" +
            Abbreviation(unit) + "</unit>";
   }
 
   std::string Yaml() const noexcept override {
-    return "{value:" + PhQ::Print(value_) +
+    return "{value:" + value_.Yaml() +
            ",unit:" + Abbreviation(StandardUnit<Unit>) + "}";
   }
 
   std::string Yaml(const Unit unit) const noexcept override {
-    return "{value:" + PhQ::Print(Value(unit)) + ",unit:" + Abbreviation(unit) +
-           "}";
+    return "{value:" + Value(unit).Yaml() + ",unit:" + Abbreviation(unit) + "}";
   }
 
 protected:
-  constexpr DimensionalScalarQuantity() noexcept
+  constexpr DimensionalDyadQuantity() noexcept
       : DimensionalQuantity<Unit>(), value_() {}
 
-  constexpr DimensionalScalarQuantity(const double value) noexcept
+  constexpr DimensionalDyadQuantity(const Value::Dyad& value) noexcept
       : DimensionalQuantity<Unit>(), value_(value) {}
 
-  DimensionalScalarQuantity(const double value, const Unit unit) noexcept
+  constexpr DimensionalDyadQuantity(Value::Dyad&& value) noexcept
+      : DimensionalQuantity<Unit>(), value_(std::move(value)) {}
+
+  DimensionalDyadQuantity(const Value::Dyad& value, const Unit unit) noexcept
       : DimensionalQuantity<Unit>(), value_(value) {
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  void operator=(const double value) noexcept { value_ = value; }
+  DimensionalDyadQuantity(Value::Dyad&& value, const Unit unit) noexcept
+      : DimensionalQuantity<Unit>(), value_(std::move(value)) {
+    Convert(value_, unit, StandardUnit<Unit>);
+  }
 
-  void operator=(const double value, const Unit unit) noexcept {
+  void operator=(const Value::Dyad& value) noexcept { value_ = value; }
+
+  void operator=(Value::Dyad&& value) noexcept { value_ = std::move(value); }
+
+  void operator=(const Value::Dyad& value, const Unit unit) noexcept {
     value_ = value;
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  double value_;
+  void operator=(Value::Dyad&& value, const Unit unit) noexcept {
+    value_ = std::move(value);
+    Convert(value_, unit, StandardUnit<Unit>);
+  }
+
+  Value::Dyad value_;
 };
 
 }  // namespace PhQ
@@ -99,13 +115,12 @@ protected:
 namespace std {
 
 template <typename Unit>
-struct hash<PhQ::DimensionalScalarQuantity<Unit>> {
-  size_t operator()(
-      const PhQ::DimensionalScalarQuantity<Unit>& quantity) const {
-    return hash<double>()(quantity.Value());
+struct hash<PhQ::DimensionalDyadQuantity<Unit>> {
+  size_t operator()(const PhQ::DimensionalDyadQuantity<Unit>& quantity) const {
+    return hash<PhQ::Value::Dyad>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_DYAD_HPP

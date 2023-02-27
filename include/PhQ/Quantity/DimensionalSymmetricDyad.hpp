@@ -13,25 +13,27 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
 
 #include <utility>
 
-#include "../Value/Vector.hpp"
+#include "../Value/SymmetricDyad.hpp"
 #include "Dimensional.hpp"
 
 namespace PhQ {
 
 template <typename Unit>
-class DimensionalVectorQuantity : public DimensionalQuantity<Unit> {
+class DimensionalSymmetricDyadQuantity : public DimensionalQuantity<Unit> {
 public:
-  virtual ~DimensionalVectorQuantity() noexcept = default;
+  virtual ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
-  constexpr const Value::Vector& Value() const noexcept { return value_; }
+  constexpr const Value::SymmetricDyad& Value() const noexcept {
+    return value_;
+  }
 
-  Value::Vector Value(const Unit unit) const noexcept {
-    Value::Vector result{value_};
+  Value::SymmetricDyad Value(const Unit unit) const noexcept {
+    Value::SymmetricDyad result{value_};
     Convert(result, StandardUnit<Unit>, unit);
     return result;
   }
@@ -74,41 +76,46 @@ public:
   }
 
 protected:
-  constexpr DimensionalVectorQuantity() noexcept
+  constexpr DimensionalSymmetricDyadQuantity() noexcept
       : DimensionalQuantity<Unit>(), value_() {}
 
-  constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept
+  constexpr DimensionalSymmetricDyadQuantity(
+      const Value::SymmetricDyad& value) noexcept
       : DimensionalQuantity<Unit>(), value_(value) {}
 
-  constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
+  constexpr DimensionalSymmetricDyadQuantity(
+      Value::SymmetricDyad&& value) noexcept
       : DimensionalQuantity<Unit>(), value_(std::move(value)) {}
 
-  DimensionalVectorQuantity(const Value::Vector& value,
-                            const Unit unit) noexcept
+  DimensionalSymmetricDyadQuantity(const Value::SymmetricDyad& value,
+                                   const Unit unit) noexcept
       : DimensionalQuantity<Unit>(), value_(value) {
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  DimensionalVectorQuantity(Value::Vector&& value, const Unit unit) noexcept
+  DimensionalSymmetricDyadQuantity(Value::SymmetricDyad&& value,
+                                   const Unit unit) noexcept
       : DimensionalQuantity<Unit>(), value_(std::move(value)) {
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  void operator=(const Value::Vector& value) noexcept { value_ = value; }
+  void operator=(const Value::SymmetricDyad& value) noexcept { value_ = value; }
 
-  void operator=(Value::Vector&& value) noexcept { value_ = std::move(value); }
+  void operator=(Value::SymmetricDyad&& value) noexcept {
+    value_ = std::move(value);
+  }
 
-  void operator=(const Value::Vector& value, const Unit unit) noexcept {
+  void operator=(const Value::SymmetricDyad& value, const Unit unit) noexcept {
     value_ = value;
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  void operator=(Value::Vector&& value, const Unit unit) noexcept {
+  void operator=(Value::SymmetricDyad&& value, const Unit unit) noexcept {
     value_ = std::move(value);
     Convert(value_, unit, StandardUnit<Unit>);
   }
 
-  Value::Vector value_;
+  Value::SymmetricDyad value_;
 };
 
 }  // namespace PhQ
@@ -116,13 +123,13 @@ protected:
 namespace std {
 
 template <typename Unit>
-struct hash<PhQ::DimensionalVectorQuantity<Unit>> {
+struct hash<PhQ::DimensionalSymmetricDyadQuantity<Unit>> {
   size_t operator()(
-      const PhQ::DimensionalVectorQuantity<Unit>& quantity) const {
-    return hash<PhQ::Value::Vector>()(quantity.Value());
+      const PhQ::DimensionalSymmetricDyadQuantity<Unit>& quantity) const {
+    return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
