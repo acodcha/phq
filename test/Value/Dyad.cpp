@@ -189,12 +189,6 @@ TEST(ValueDyad, Determinant) {
 }
 
 TEST(ValueDyad, DyadicProduct) {
-  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Vector(1.0, 2.0, 4.0)),
-            Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
-  EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
   EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Vector(8.0, 16.0, 32.0)),
             Dyad(8.0, 16.0, 32.0, 16.0, 32.0, 64.0, 32.0, 64.0, 128.0));
 }

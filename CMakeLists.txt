@@ -116,6 +116,10 @@ if(BUILD_TESTING)
   target_link_libraries(dimension_time GTest::gtest_main)
   gtest_discover_tests(dimension_time)
 
+  add_executable(direction ${PROJECT_SOURCE_DIR}/test/Direction.cpp)
+  target_link_libraries(direction GTest::gtest_main)
+  gtest_discover_tests(direction)
+
   add_executable(unit_acceleration ${PROJECT_SOURCE_DIR}/test/Unit/Acceleration.cpp)
   target_link_libraries(unit_acceleration GTest::gtest_main)
   gtest_discover_tests(unit_acceleration)
@@ -251,10 +255,6 @@ if(BUILD_TESTING)
   add_executable(unit_volume_rate ${PROJECT_SOURCE_DIR}/test/Unit/VolumeRate.cpp)
   target_link_libraries(unit_volume_rate GTest::gtest_main)
   gtest_discover_tests(unit_volume_rate)
-
-  add_executable(value_direction ${PROJECT_SOURCE_DIR}/test/Value/Direction.cpp)
-  target_link_libraries(value_direction GTest::gtest_main)
-  gtest_discover_tests(value_direction)
 
   add_executable(value_dyad ${PROJECT_SOURCE_DIR}/test/Value/Dyad.cpp)
   target_link_libraries(value_dyad GTest::gtest_main)

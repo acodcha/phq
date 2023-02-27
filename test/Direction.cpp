@@ -13,13 +13,13 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../include/PhQ/Value/Direction.hpp"
+#include "../include/PhQ/Direction.hpp"
 
 #include <gtest/gtest.h>
 
 #include <unordered_set>
 
-namespace PhQ::Value {
+namespace PhQ {
 
 namespace {
 
@@ -28,25 +28,27 @@ TEST(Direction, Accessor) {
                                     -0.5 * std::sqrt(2.0)};
 
   const Direction direction0{0.0, 10.0, -10.0};
-  EXPECT_DOUBLE_EQ(direction0.x(), 0.0);
-  EXPECT_DOUBLE_EQ(direction0.y(), 0.5 * std::sqrt(2.0));
-  EXPECT_DOUBLE_EQ(direction0.z(), -0.5 * std::sqrt(2.0));
-  EXPECT_EQ(direction0.x_y_z().size(), value.size());
-  EXPECT_DOUBLE_EQ(direction0.x_y_z()[0], value[0]);
-  EXPECT_DOUBLE_EQ(direction0.x_y_z()[1], value[1]);
-  EXPECT_DOUBLE_EQ(direction0.x_y_z()[2], value[2]);
+  EXPECT_DOUBLE_EQ(direction0.Value().x(), 0.0);
+  EXPECT_DOUBLE_EQ(direction0.Value().y(), 0.5 * std::sqrt(2.0));
+  EXPECT_DOUBLE_EQ(direction0.Value().z(), -0.5 * std::sqrt(2.0));
 
   Direction direction1{1.0, 0.0, 0.0};
-  direction1.Set_x_y_z({0.0, 10.0, -10.0});
-  EXPECT_DOUBLE_EQ(direction1.x(), value[0]);
-  EXPECT_DOUBLE_EQ(direction1.y(), value[1]);
-  EXPECT_DOUBLE_EQ(direction1.z(), value[2]);
+  direction1.SetValue(Value::Vector{0.0, 10.0, -10.0});
+  EXPECT_DOUBLE_EQ(direction1.Value().x(), value[0]);
+  EXPECT_DOUBLE_EQ(direction1.Value().y(), value[1]);
+  EXPECT_DOUBLE_EQ(direction1.Value().z(), value[2]);
 
-  Direction direction2{-1.0, 2.0, -3.0};
-  direction2.Set_x_y_z({0.0, 0.0, 0.0});
-  EXPECT_EQ(direction2.x(), 0.0);
-  EXPECT_EQ(direction2.y(), 0.0);
-  EXPECT_EQ(direction2.z(), 0.0);
+  Direction direction2{1.0, 0.0, 0.0};
+  direction2.SetValue(std::array<double, 3>{0.0, 10.0, -10.0});
+  EXPECT_DOUBLE_EQ(direction2.Value().x(), value[0]);
+  EXPECT_DOUBLE_EQ(direction2.Value().y(), value[1]);
+  EXPECT_DOUBLE_EQ(direction2.Value().z(), value[2]);
+
+  Direction direction3{-1.0, 2.0, -3.0};
+  direction3.SetValue(0.0, 0.0, 0.0);
+  EXPECT_EQ(direction3.Value().x(), 0.0);
+  EXPECT_EQ(direction3.Value().y(), 0.0);
+  EXPECT_EQ(direction3.Value().z(), 0.0);
 }
 
 TEST(Direction, Comparison) {
@@ -60,13 +62,17 @@ TEST(Direction, Constructor) {
   EXPECT_EQ(Direction{}, Direction(1.0, 0.0, 0.0));
   EXPECT_EQ(Direction(std::array<double, 3>{0.0, -10.0, 0.0}),
             Direction(0.0, -1.0, 0.0));
-  EXPECT_EQ(Direction(std::array<double, 3>{0.0, 0.0, 0.0}),
-            Direction(0.0, 0.0, 0.0));
+  EXPECT_EQ(Direction(Value::Vector{-10.0, 20.0, -30.0}),
+            Direction(-10.0, 20.0, -30.0));
 }
 
 TEST(Direction, Cross) {
   EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Direction(0.0, 20.0, 0.0)),
             Direction(0.0, 0.0, 30.0));
+  EXPECT_EQ(Value::Vector(10.0, 0.0, 0.0).Cross(Direction(0.0, 20.0, 0.0)),
+            Value::Vector(0.0, 0.0, 10.0));
+  EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Value::Vector(0.0, 20.0, 0.0)),
+            Value::Vector(0.0, 0.0, 20.0));
 }
 
 TEST(Direction, Dot) {
@@ -76,6 +82,18 @@ TEST(Direction, Dot) {
             -1.0);
   EXPECT_LT(Direction(1.11, 2.22, 3.33).Dot(Direction(1.99, 2.88, 3.77)), 1.0);
   EXPECT_GT(Direction(1.11, 2.22, 3.33).Dot(Direction(1.99, 2.88, 3.77)), 0.0);
+  const Value::Vector vector0{1.23, 4.56, 7.89};
+  EXPECT_EQ(vector0.Dot(Direction(0.0, 1.0, 0.0)), 4.56);
+  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dot(vector0), -7.89);
+}
+
+TEST(Direction, Dyadic) {
+  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Dyadic(Direction(0.0, -1.0, 0.0)),
+            Value::Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Value::Vector(1.0, 2.0, 4.0)),
+            Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
+  EXPECT_EQ(Value::Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
+            Value::Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
 }
 
 TEST(Direction, Hash) {
@@ -117,6 +135,28 @@ TEST(Direction, Valid) {
   EXPECT_FALSE(Direction(0.0, 0.0, 0.0).Valid());
 }
 
+TEST(Direction, ValueDyad) {
+  const Value::Dyad dyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  EXPECT_EQ(dyad0 * Direction(0.0, -10.0, 0.0),
+            Value::Vector(-2.0, -16.0, -128.0));
+}
+
+TEST(Direction, ValueSymmetricDyad) {
+  const Value::SymmetricDyad symdyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  EXPECT_EQ(symdyad0 * Direction(0.0, -10.0, 0.0),
+            Value::Vector(-2.0, -8.0, -16.0));
+}
+
+TEST(Direction, ValueVector) {
+  const Direction direction0{1.23, 4.56, 7.89};
+  const Value::Vector vector0{5.5e10, direction0};
+  EXPECT_EQ(vector0.Direction(), direction0);
+
+  const Direction direction1{0.0, -1.0, 0.0};
+  const Value::Vector vector1{20.0, direction1};
+  EXPECT_EQ(vector1, Value::Vector(0.0, -20.0, 0.0));
+}
+
 TEST(Direction, Xml) {
   EXPECT_EQ(Direction(0.0, -10.0, 0.0).Xml(),
             "<x>0</x><y>-1.000000</y><z>0</z>");
@@ -128,4 +168,4 @@ TEST(Direction, Yaml) {
 
 }  // namespace
 
-}  // namespace PhQ::Value
+}  // namespace PhQ

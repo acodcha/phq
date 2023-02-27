@@ -99,22 +99,11 @@ TEST(ValueVector, Comparison) {
 TEST(ValueVector, Constructor) {
   EXPECT_EQ(Vector(std::array<double, 3>{1.23, 4.56, 7.89}),
             Vector(1.23, 4.56, 7.89));
-  EXPECT_EQ(Vector(-5.5e10, Direction(0.0, -1.0, 0.0)),
-            Vector(0.0, 5.5e10, 0.0));
 }
 
 TEST(ValueVector, Cross) {
   EXPECT_EQ(Vector(10.0, 0.0, 0.0).Cross(Vector(0.0, 20.0, 0.0)),
             Vector(0.0, 0.0, 200.0));
-  EXPECT_EQ(Vector(10.0, 0.0, 0.0).Cross(Direction(0.0, 20.0, 0.0)),
-            Vector(0.0, 0.0, 10.0));
-  EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Vector(0.0, 20.0, 0.0)),
-            Vector(0.0, 0.0, 20.0));
-}
-
-TEST(ValueVector, Direction) {
-  const Direction direction{1.23, 4.56, 7.89};
-  EXPECT_EQ(Vector(5.5e10, direction).Direction(), direction);
 }
 
 TEST(ValueVector, Dot) {
@@ -123,8 +112,6 @@ TEST(ValueVector, Dot) {
   EXPECT_EQ(Vector(0.0, 10.0, -15.0).Dot(Vector(20.0, 0.0, 0.0)), 0.0);
   EXPECT_EQ(vector0.Dot(Vector(-1.23, -4.56, -7.89)),
             -vector0.MagnitudeSquared());
-  EXPECT_EQ(vector0.Dot(Direction(0.0, 1.0, 0.0)), 4.56);
-  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dot(vector0), -7.89);
 }
 
 TEST(ValueVector, Hash) {

@@ -16,9 +16,22 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 
-#include "Direction.hpp"
+#include <array>
 
-namespace PhQ::Value {
+#include "../Base/String.hpp"
+
+namespace PhQ {
+
+// Forward declaration for class Vector.
+class Angle;
+
+// Forward declaration for class Vector.
+class Direction;
+
+namespace Value {
+
+// Forward declaration for class Vector.
+class Dyad;
 
 class Vector {
 public:
@@ -30,10 +43,7 @@ public:
   constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
       : x_y_z_(x_y_z) {}
 
-  constexpr Vector(double value, const Direction& direction) noexcept
-      : x_y_z_(std::array<double, 3>{value * direction.x(),
-                                     value * direction.y(),
-                                     value * direction.z()}) {}
+  constexpr Vector(const double value, const Direction& direction) noexcept;
 
   static constexpr Vector Zero() noexcept {
     return std::array<double, 3>{0.0, 0.0, 0.0};
@@ -78,25 +88,14 @@ public:
     return std::sqrt(MagnitudeSquared());
   }
 
-  Value::Direction Direction() const { return {*this}; }
-
-  inline constexpr double Dot(
-      const Value::Direction& direction) const noexcept {
-    return x_y_z_[0] * direction.x() + x_y_z_[1] * direction.y() +
-           x_y_z_[2] * direction.z();
-  }
+  inline PhQ::Direction Direction() const noexcept;
 
   inline constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +
            x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  inline constexpr Vector Cross(
-      const Value::Direction& direction) const noexcept {
-    return {x_y_z_[1] * direction.z() - x_y_z_[2] * direction.y(),
-            x_y_z_[2] * direction.x() - x_y_z_[0] * direction.z(),
-            x_y_z_[0] * direction.y() - x_y_z_[1] * direction.x()};
-  }
+  inline constexpr double Dot(const PhQ::Direction& direction) const noexcept;
 
   inline constexpr Vector Cross(const Vector& vector) const noexcept {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
@@ -104,15 +103,16 @@ public:
             x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  inline constexpr Dyad Dyadic(
-      const Value::Direction& direction) const noexcept;
+  inline constexpr Vector Cross(const PhQ::Direction& direction) const noexcept;
 
   inline constexpr Dyad Dyadic(const Vector& vector) const noexcept;
 
-  inline constexpr PhQ::Angle Angle(
-      const Value::Direction& direction) const noexcept;
+  inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
 
   inline constexpr PhQ::Angle Angle(const Vector& vector) const noexcept;
+
+  inline constexpr PhQ::Angle Angle(
+      const PhQ::Direction& direction) const noexcept;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +
@@ -206,21 +206,9 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-Direction::Direction(const Vector& vector)
-    : Direction(vector.x(), vector.y(), vector.z()) {}
+}  // namespace Value
 
-inline constexpr double Direction::Dot(const Vector& vector) const noexcept {
-  return x_y_z_[0] * vector.x() + x_y_z_[1] * vector.y() +
-         x_y_z_[2] * vector.z();
-}
-
-inline constexpr Vector Direction::Cross(const Vector& vector) const noexcept {
-  return {x_y_z_[1] * vector.z() - x_y_z_[2] * vector.y(),
-          x_y_z_[2] * vector.x() - x_y_z_[0] * vector.z(),
-          x_y_z_[0] * vector.y() - x_y_z_[1] * vector.x()};
-}
-
-}  // namespace PhQ::Value
+}  // namespace PhQ
 
 namespace std {
 

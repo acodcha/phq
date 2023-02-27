@@ -286,16 +286,6 @@ inline constexpr SymmetricDyad operator*(
 }
 
 inline constexpr Vector operator*(const SymmetricDyad& symdyad,
-                                  const Direction& direction) noexcept {
-  return {symdyad.xx() * direction.x() + symdyad.xy() * direction.y() +
-              symdyad.xz() * direction.z(),
-          symdyad.xy() * direction.x() + symdyad.yy() * direction.y() +
-              symdyad.yz() * direction.z(),
-          symdyad.xz() * direction.x() + symdyad.yz() * direction.y() +
-              symdyad.zz() * direction.z()};
-}
-
-inline constexpr Vector operator*(const SymmetricDyad& symdyad,
                                   const Vector& vector) noexcept {
   return {symdyad.xx() * vector.x() + symdyad.xy() * vector.y() +
               symdyad.xz() * vector.z(),

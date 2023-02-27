@@ -122,7 +122,6 @@ TEST(ValueSymmetricDyad, Arithmetic) {
   EXPECT_EQ(symdyad0 - symdyad0, SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
   EXPECT_EQ(symdyad0 * 2.0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
   EXPECT_EQ(2.0 * symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(symdyad0 * Direction(0.0, -10.0, 0.0), Vector(-2.0, -8.0, -16.0));
   EXPECT_EQ(symdyad0 * Vector(1.0, 2.0, 3.0), Vector(17.0, 66.0, 132.0));
   EXPECT_EQ(symdyad0 / 2.0, SymmetricDyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
 
