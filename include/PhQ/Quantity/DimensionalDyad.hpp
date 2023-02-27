@@ -37,40 +37,59 @@ public:
   }
 
   std::string Print() const noexcept override {
-    return value_.Print() + " " + Abbreviation(StandardUnit<Unit>);
+    return value_.Print().append(" ").append(Abbreviation(StandardUnit<Unit>));
   }
 
   std::string Print(const Unit unit) const noexcept override {
-    return Value(unit).Print() + " " + Abbreviation(unit);
+    return Value(unit).Print().append(" ").append(Abbreviation(unit));
   }
 
   std::string Json() const noexcept override {
-    return "{\"value\":" + value_.Json() + ",\"unit\":\"" +
-           Abbreviation(StandardUnit<Unit>) + "\"}";
+    return std::string{"{\"value\":"}
+        .append(value_.Json())
+        .append(",\"unit\":\"")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("\"}");
   }
 
   std::string Json(const Unit unit) const noexcept override {
-    return "{\"value\":" + Value(unit).Json() + ",\"unit\":\"" +
-           Abbreviation(unit) + "\"}";
+    return std::string{"{\"value\":"}
+        .append(Value(unit).Json())
+        .append(",\"unit\":\"")
+        .append(Abbreviation(unit))
+        .append("\"}");
   }
 
   std::string Xml() const noexcept override {
-    return "<value>" + value_.Xml() + "</value><unit>" +
-           Abbreviation(StandardUnit<Unit>) + "</unit>";
+    return std::string{"<value>"}
+        .append(value_.Xml())
+        .append("</value><unit>")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("</unit>");
   }
 
   std::string Xml(const Unit unit) const noexcept override {
-    return "<value>" + Value(unit).Xml() + "</value><unit>" +
-           Abbreviation(unit) + "</unit>";
+    return std::string{"<value>"}
+        .append(Value(unit).Xml())
+        .append("</value><unit>")
+        .append(Abbreviation(unit))
+        .append("</unit>");
   }
 
   std::string Yaml() const noexcept override {
-    return "{value:" + value_.Yaml() +
-           ",unit:" + Abbreviation(StandardUnit<Unit>) + "}";
+    return std::string{"{value:"}
+        .append(value_.Yaml())
+        .append(",unit:")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("}");
   }
 
   std::string Yaml(const Unit unit) const noexcept override {
-    return "{value:" + Value(unit).Yaml() + ",unit:" + Abbreviation(unit) + "}";
+    return std::string{"{value:"}
+        .append(Value(unit).Yaml())
+        .append(",unit:")
+        .append(Abbreviation(unit))
+        .append("}");
   }
 
 protected:
@@ -96,16 +115,6 @@ protected:
   void operator=(const Value::Dyad& value) noexcept { value_ = value; }
 
   void operator=(Value::Dyad&& value) noexcept { value_ = std::move(value); }
-
-  void operator=(const Value::Dyad& value, const Unit unit) noexcept {
-    value_ = value;
-    Convert(value_, unit, StandardUnit<Unit>);
-  }
-
-  void operator=(Value::Dyad&& value, const Unit unit) noexcept {
-    value_ = std::move(value);
-    Convert(value_, unit, StandardUnit<Unit>);
-  }
 
   Value::Dyad value_;
 };

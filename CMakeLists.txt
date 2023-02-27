@@ -76,6 +76,10 @@ if(BUILD_TESTING)
 
   # With GoogleTest, use gtest_discover_tests(my_test) instead of add_test(NAME my_test COMMAND bin/my_test)
 
+  add_executable(angle ${PROJECT_SOURCE_DIR}/test/Angle.cpp)
+  target_link_libraries(angle GTest::gtest_main)
+  gtest_discover_tests(angle)
+
   add_executable(base_constant ${PROJECT_SOURCE_DIR}/test/Base/Constant.cpp)
   target_link_libraries(base_constant GTest::gtest_main)
   gtest_discover_tests(base_constant)

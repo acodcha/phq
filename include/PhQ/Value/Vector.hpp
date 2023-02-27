@@ -113,10 +113,9 @@ public:
 
   inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
 
-  inline constexpr PhQ::Angle Angle(const Vector& vector) const noexcept;
+  inline PhQ::Angle Angle(const Vector& vector) const noexcept;
 
-  inline constexpr PhQ::Angle Angle(
-      const PhQ::Direction& direction) const noexcept;
+  inline PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +

@@ -35,41 +35,60 @@ public:
   }
 
   std::string Print() const noexcept override {
-    return PhQ::Print(value_) + " " + Abbreviation(StandardUnit<Unit>);
+    return PhQ::Print(value_).append(" ").append(
+        Abbreviation(StandardUnit<Unit>));
   }
 
   std::string Print(const Unit unit) const noexcept override {
-    return PhQ::Print(Value(unit)) + " " + Abbreviation(unit);
+    return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
   std::string Json() const noexcept override {
-    return "{\"value\":" + PhQ::Print(value_) + ",\"unit\":\"" +
-           Abbreviation(StandardUnit<Unit>) + "\"}";
+    return std::string{"{\"value\":"}
+        .append(PhQ::Print(value_))
+        .append(",\"unit\":\"")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("\"}");
   }
 
   std::string Json(const Unit unit) const noexcept override {
-    return "{\"value\":" + PhQ::Print(Value(unit)) + ",\"unit\":\"" +
-           Abbreviation(unit) + "\"}";
+    return std::string{"{\"value\":"}
+        .append(PhQ::Print(Value(unit)))
+        .append(",\"unit\":\"")
+        .append(Abbreviation(unit))
+        .append("\"}");
   }
 
   std::string Xml() const noexcept override {
-    return "<value>" + PhQ::Print(value_) + "</value><unit>" +
-           Abbreviation(StandardUnit<Unit>) + "</unit>";
+    return std::string{"<value>"}
+        .append(PhQ::Print(value_))
+        .append("</value><unit>")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("</unit>");
   }
 
   std::string Xml(const Unit unit) const noexcept override {
-    return "<value>" + PhQ::Print(Value(unit)) + "</value><unit>" +
-           Abbreviation(unit) + "</unit>";
+    return std::string{"<value>"}
+        .append(PhQ::Print(Value(unit)))
+        .append("</value><unit>")
+        .append(Abbreviation(unit))
+        .append("</unit>");
   }
 
   std::string Yaml() const noexcept override {
-    return "{value:" + PhQ::Print(value_) +
-           ",unit:" + Abbreviation(StandardUnit<Unit>) + "}";
+    return std::string{"{value:"}
+        .append(PhQ::Print(value_))
+        .append(",unit:")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("}");
   }
 
   std::string Yaml(const Unit unit) const noexcept override {
-    return "{value:" + PhQ::Print(Value(unit)) + ",unit:" + Abbreviation(unit) +
-           "}";
+    return std::string{"{value:"}
+        .append(PhQ::Print(Value(unit)))
+        .append(",unit:")
+        .append(Abbreviation(unit))
+        .append("}");
   }
 
 protected:
@@ -85,11 +104,6 @@ protected:
   }
 
   void operator=(const double value) noexcept { value_ = value; }
-
-  void operator=(const double value, const Unit unit) noexcept {
-    value_ = value;
-    Convert(value_, unit, StandardUnit<Unit>);
-  }
 
   double value_;
 };

@@ -21,40 +21,40 @@
 
 namespace PhQ {
 
-template <typename Unit>
+template <typename U>
 class DimensionalQuantity : public Quantity {
 public:
   virtual ~DimensionalQuantity() noexcept = default;
 
-  static constexpr const Dimension::Set& Dimension() const noexcept {
-    return Dimensions<Unit>;
+  static constexpr const Dimension::Set& Dimension() noexcept {
+    return Dimensions<U>;
   }
 
-  static constexpr Unit Unit() const noexcept { return StandardUnit<Unit>; }
+  static constexpr U Unit() noexcept { return StandardUnit<U>; }
 
   virtual std::string Print() const noexcept = 0;
 
-  virtual std::string Print(const Unit unit) const noexcept = 0;
+  virtual std::string Print(const U unit) const noexcept = 0;
 
   virtual std::string Json() const noexcept = 0;
 
-  virtual std::string Json(const Unit unit) const noexcept = 0;
+  virtual std::string Json(const U unit) const noexcept = 0;
 
   virtual std::string Xml() const noexcept = 0;
 
-  virtual std::string Xml(const Unit unit) const noexcept = 0;
+  virtual std::string Xml(const U unit) const noexcept = 0;
 
   virtual std::string Yaml() const noexcept = 0;
 
-  virtual std::string Yaml(const Unit unit) const noexcept = 0;
+  virtual std::string Yaml(const U unit) const noexcept = 0;
 
 protected:
   constexpr DimensionalQuantity() noexcept : Quantity() {}
 };
 
-template <typename Unit>
+template <typename U>
 std::ostream& operator<<(std::ostream& stream,
-                         const DimensionalQuantity<Unit>& quantity) noexcept {
+                         const DimensionalQuantity<U>& quantity) noexcept {
   stream << quantity.Print();
   return stream;
 }

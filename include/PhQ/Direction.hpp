@@ -94,9 +94,9 @@ public:
     return value_.Dyadic(direction.value_);
   }
 
-  inline constexpr PhQ::Angle Angle(const Direction& direction) const noexcept;
+  inline PhQ::Angle Angle(const Direction& direction) const noexcept;
 
-  inline constexpr PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
+  inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
 };
 
 inline constexpr bool operator==(const Direction& left,
