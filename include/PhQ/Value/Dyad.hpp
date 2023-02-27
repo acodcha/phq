@@ -29,18 +29,23 @@ public:
                  const double zx, const double zy, const double zz) noexcept
       : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
 
-  constexpr Dyad(
+  explicit constexpr Dyad(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
       : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
-  constexpr Dyad(const SymmetricDyad& symdyad) noexcept
+  explicit constexpr Dyad(
+      std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
+      : xx_xy_xz_yx_yy_yz_zx_zy_zz_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
+
+  explicit constexpr Dyad(const SymmetricDyad& symdyad) noexcept
       : xx_xy_xz_yx_yy_yz_zx_zy_zz_({symdyad.xx(), symdyad.xy(), symdyad.xz(),
                                      symdyad.yx(), symdyad.yy(), symdyad.yz(),
                                      symdyad.zx(), symdyad.zy(),
                                      symdyad.zz()}) {}
 
   static constexpr Dyad Zero() noexcept {
-    return std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    return Dyad{
+        std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
   }
 
   inline constexpr const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz()

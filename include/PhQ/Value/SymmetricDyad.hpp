@@ -29,12 +29,16 @@ public:
                           const double zz) noexcept
       : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
-  constexpr SymmetricDyad(
+  explicit constexpr SymmetricDyad(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept
       : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
+  explicit constexpr SymmetricDyad(
+      std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
+      : xx_xy_xz_yy_yz_zz_(std::move(xx_xy_xz_yy_yz_zz)) {}
+
   static constexpr SymmetricDyad Zero() noexcept {
-    return std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    return SymmetricDyad{std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
   }
 
   inline constexpr const std::array<double, 6>& xx_xy_xz_yy_yz_zz()

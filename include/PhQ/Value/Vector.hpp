@@ -17,6 +17,7 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 
 #include <array>
+#include <utility>
 
 #include "../Base/String.hpp"
 
@@ -40,13 +41,16 @@ public:
   constexpr Vector(const double x, const double y, const double z) noexcept
       : x_y_z_({x, y, z}) {}
 
-  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
+  explicit constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
       : x_y_z_(x_y_z) {}
+
+  explicit constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
+      : x_y_z_(std::move(x_y_z)) {}
 
   constexpr Vector(const double value, const Direction& direction) noexcept;
 
   static constexpr Vector Zero() noexcept {
-    return std::array<double, 3>{0.0, 0.0, 0.0};
+    return Vector{std::array<double, 3>{0.0, 0.0, 0.0}};
   }
 
   inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
