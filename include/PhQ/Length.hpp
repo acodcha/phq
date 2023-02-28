@@ -108,6 +108,7 @@ private:
       : DimensionalScalarQuantity<Unit::Length>(value) {}
 
   friend class Area;
+  friend class Volume;
 };
 
 inline constexpr bool operator==(const Length& left,

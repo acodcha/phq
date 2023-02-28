@@ -304,6 +304,10 @@ if(BUILD_TESTING)
   target_link_libraries(value_vector GTest::gtest_main)
   gtest_discover_tests(value_vector)
 
+  add_executable(volume ${PROJECT_SOURCE_DIR}/test/Volume.cpp)
+  target_link_libraries(volume GTest::gtest_main)
+  gtest_discover_tests(volume)
+
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()
   message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_TESTING=ON\" to configure testing.")

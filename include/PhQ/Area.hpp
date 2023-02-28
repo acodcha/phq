@@ -36,9 +36,6 @@ public:
   Area(const double value, const Unit::Area unit) noexcept
       : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  constexpr Area(const Length& length_1, const Length& length_2) noexcept
-      : Area(length_1.Value() * length_2.Value()) {}
-
   constexpr Area(const AreaVector& area_vector) noexcept;
 
   constexpr Area(const StaticPressure& static_pressure,
@@ -90,6 +87,9 @@ public:
 private:
   explicit constexpr Area(const double value) noexcept
       : DimensionalScalarQuantity<Unit::Area>(value) {}
+
+  friend class Length;
+  friend class Volume;
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {
@@ -127,7 +127,7 @@ inline Area operator*(const double number, const Area& area) noexcept {
 }
 
 inline Area Length::operator*(const Length& length) const noexcept {
-  return {*this, length};
+  return Area{value_ * length.Value()};
 }
 
 }  // namespace PhQ
