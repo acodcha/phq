@@ -1,204 +1,189 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 
-#include "Base/String.hpp"
-#include "Base/Type.hpp"
+#include "Angle.hpp"
+#include "Quantity/DimensionlessVector.hpp"
+#include "Value/Dyad.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
-namespace Value {
-class Vector;
-class SymmetricDyadic;
-class Dyadic;
-} // namespace Value
-class Acceleration;
-class AccelerationMagnitude;
-class Area;
-class AreaVector;
-class Angle;
-class Displacement;
-class Force;
-class ForceMagnitude;
-class HeatFlux;
-class HeatFluxMagnitude;
-class Length;
-class Position;
-class Speed;
-class StaticPressure;
-class TemperatureGradient;
-class TemperatureGradientMagnitude;
-class Traction;
-class Velocity;
-
-class Direction {
-
+class Direction : public DimensionlessVectorQuantity {
 public:
+  constexpr Direction() noexcept
+      : DimensionlessVectorQuantity({1.0, 0.0, 0.0}) {}
 
-  constexpr Direction() noexcept : x_(), y_(), z_() {}
+  Direction(const double x, const double y, const double z) noexcept {
+    SetValue(x, y, z);
+  }
 
-  constexpr Direction(double x, double y, double z) : x_(), y_(), z_() {
-    const double magnitude{std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2))};
-    if (magnitude > 0.0) {
-      x_ = x / magnitude;
-      y_ = y / magnitude;
-      z_ = z / magnitude;
+  explicit Direction(const std::array<double, 3>& x_y_z) noexcept {
+    SetValue(x_y_z);
+  }
+
+  explicit Direction(const Value::Vector& value) noexcept { SetValue(value); }
+
+  inline void SetValue(const double x, const double y,
+                       const double z) noexcept {
+    const double magnitude_squared{x * x + y * y + z * z};
+    if (magnitude_squared > 0.0) {
+      const double magnitude{std::sqrt(magnitude_squared)};
+      value_ = {x / magnitude, y / magnitude, z / magnitude};
     } else {
-      throw std::runtime_error{"Attempting to create a direction from (0, 0, 0)."};
+      value_ = {0.0, 0.0, 0.0};
     }
   }
 
-  constexpr Direction(const Value::Vector& vector);
-
-  constexpr Direction(const Acceleration& acceleration);
-
-  constexpr Direction(const AreaVector& area_vector);
-
-  constexpr Direction(const Displacement& displacement);
-
-  constexpr Direction(const Force& force);
-
-  constexpr Direction(const HeatFlux& heat_flux);
-
-  constexpr Direction(const Position& position);
-
-  constexpr Direction(const TemperatureGradient& temperature_gradient);
-
-  constexpr Direction(const Traction& traction);
-
-  constexpr Direction(const Velocity& velocity);
-
-  constexpr double x() const noexcept {
-    return x_;
+  inline void SetValue(const std::array<double, 3>& x_y_z) noexcept {
+    const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
+                                   x_y_z[2] * x_y_z[2]};
+    if (magnitude_squared > 0.0) {
+      const double magnitude{std::sqrt(magnitude_squared)};
+      value_ = {x_y_z[0] / magnitude, x_y_z[1] / magnitude,
+                x_y_z[2] / magnitude};
+    } else {
+      value_ = {0.0, 0.0, 0.0};
+    }
   }
 
-  constexpr double y() const noexcept {
-    return y_;
+  inline void SetValue(const Value::Vector& value) noexcept {
+    SetValue(value.x_y_z());
   }
 
-  constexpr double z() const noexcept {
-    return z_;
+  inline constexpr bool Valid() const noexcept {
+    return value_.x() != 0.0 || value_.y() != 0.0 || value_.z() != 0.0;
   }
 
-  constexpr double magnitude() const noexcept {
-    return std::sqrt(std::pow(x_, 2) + std::pow(y_, 2) + std::pow(z_, 2));
+  inline constexpr double Dot(const Value::Vector& vector) const noexcept {
+    return value_.Dot(vector);
   }
 
-  constexpr double dot(const Direction& direction) const noexcept {
-    return x_ * direction.x_ + y_ * direction.y_ + z_ * direction.z_;
+  inline constexpr double Dot(const Direction& direction) const noexcept {
+    return value_.Dot(direction.value_);
   }
 
-  constexpr double dot(const Value::Vector& vector) const noexcept;
-
-  constexpr Direction cross(const Direction& direction) const noexcept {
-    return {
-      y_ * direction.z_ - z_ * direction.y_,
-      z_ * direction.x_ - x_ * direction.z_,
-      x_ * direction.y_ - y_ * direction.x_};
+  inline constexpr Value::Vector Cross(
+      const Value::Vector& vector) const noexcept {
+    return value_.Cross(vector);
   }
 
-  constexpr Value::Vector cross(const Value::Vector& vector) const noexcept;
-
-  constexpr Value::Dyadic dyadic(const Direction& direction) const noexcept;
-
-  constexpr Value::Dyadic dyadic(const Value::Vector& vector) const noexcept;
-
-  constexpr Angle angle(const Direction& direction) const noexcept;
-
-  constexpr Angle angle(const Value::Vector& vector) const noexcept;
-
-  std::string print() const noexcept {
-    return
-      "(" + PhQ::number_to_string(x_) + ", " +
-      PhQ::number_to_string(y_) + ", " +
-      PhQ::number_to_string(z_) + ")";
+  inline Direction Cross(const Direction& direction) const noexcept {
+    return Direction{value_.Cross(direction.value_)};
   }
 
-  std::string yaml() const noexcept {
-    return
-      "{x:" + PhQ::number_to_string(x_) +
-      " , y:" + PhQ::number_to_string(y_) +
-      " , z:" + PhQ::number_to_string(z_) + "}";
+  inline constexpr Value::Dyad Dyadic(
+      const Value::Vector& vector) const noexcept {
+    return value_.Dyadic(vector);
   }
 
-  std::string json() const noexcept {
-    return
-      "{\"x\":" + PhQ::number_to_string(x_) +
-      " , \"y\":" + PhQ::number_to_string(y_) +
-      " , \"z\":" + PhQ::number_to_string(z_) + "}";
+  inline constexpr Value::Dyad Dyadic(
+      const Direction& direction) const noexcept {
+    return value_.Dyadic(direction.value_);
   }
 
-  std::string xml() const noexcept {
-    return
-      "<x>" + PhQ::number_to_string(x_) +
-      "</x><y>" + PhQ::number_to_string(y_) +
-      "</y><z>" + PhQ::number_to_string(z_) + "</z>";
+  inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept {
+    return PhQ::Angle{*this, vector};
   }
 
-  constexpr bool operator==(const Direction& direction) const noexcept {
-    return x_ == direction.x_ && y_ == direction.y_ && z_ == direction.z_;
+  inline PhQ::Angle Angle(const Direction& direction) const noexcept {
+    return PhQ::Angle{*this, direction};
   }
-
-  constexpr bool operator!=(const Direction& direction) const noexcept {
-    return x_ != direction.x_ || y_ != direction.y_ || z_ != direction.z_;
-  }
-
-  constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
-
-  constexpr AreaVector operator*(const Area& area) const noexcept;
-
-  constexpr Displacement operator*(const Length& length) const noexcept;
-
-  constexpr Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
-
-  constexpr HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
-
-  constexpr Traction operator*(const StaticPressure& static_pressure) const noexcept;
-
-  constexpr Velocity operator*(const Speed& speed) const noexcept;
-
-  constexpr TemperatureGradient operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept;
-
-private:
-
-  double x_;
-
-  double y_;
-
-  double z_;
-
 };
 
-template <> constexpr bool sort(const Direction& direction_1, const Direction& direction_2) noexcept {
-  if (direction_1.x() == direction_2.x()) {
-    if (direction_1.y() == direction_2.y()) {
-      return direction_1.z() < direction_2.z();
-    } else {
-      return direction_1.y() < direction_2.y();
-    }
-  } else {
-    return direction_1.x() < direction_2.x();
-  }
+inline constexpr bool operator==(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() == right.Value();
 }
 
-} // namespace PhQ
-
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Direction& direction) noexcept {
-  output_stream << direction.print();
-  return output_stream;
+inline constexpr bool operator!=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() != right.Value();
 }
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Direction& direction) noexcept {
+  stream << direction.Print();
+  return stream;
+}
+
+constexpr Value::Vector::Vector(const double magnitude,
+                                const PhQ::Direction& direction) noexcept
+    : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
+
+inline PhQ::Direction Value::Vector::Direction() const noexcept {
+  return PhQ::Direction{*this};
+}
+
+inline constexpr double Value::Vector::Dot(
+    const PhQ::Direction& direction) const noexcept {
+  return Dot(direction.Value());
+}
+
+inline constexpr Value::Vector Value::Vector::Cross(
+    const PhQ::Direction& direction) const noexcept {
+  return Cross(direction.Value());
+}
+
+inline constexpr Value::Dyad Value::Vector::Dyadic(
+    const PhQ::Direction& direction) const noexcept {
+  return Dyadic(direction.Value());
+}
+
+inline constexpr Value::Vector operator*(const Value::SymmetricDyad& symdyad,
+                                         const Direction& direction) noexcept {
+  return symdyad * direction.Value();
+}
+
+inline constexpr Value::Vector operator*(const Value::Dyad& dyad,
+                                         const Direction& direction) noexcept {
+  return dyad * direction.Value();
+}
+
+inline PhQ::Angle Value::Vector::Angle(
+    const PhQ::Direction& direction) const noexcept {
+  return PhQ::Angle{*this, direction};
+}
+
+inline Angle::Angle(const Value::Vector& vector,
+                    const Direction& direction) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(vector.Dot(direction) / vector.Magnitude())) {}
+
+inline Angle::Angle(const Direction& direction,
+                    const Value::Vector& vector) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(direction.Dot(vector) / vector.Magnitude())) {}
+
+inline Angle::Angle(const Direction& direction1,
+                    const Direction& direction2) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(direction1.Dot(direction2))) {}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Direction> {
+template <>
+struct hash<PhQ::Direction> {
   size_t operator()(const PhQ::Direction& direction) const {
-    return hash<double>()(direction.x()) ^ hash<double>()(direction.y()) ^ hash<double>()(direction.z());
+    return hash<PhQ::Value::Vector>()(direction.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP

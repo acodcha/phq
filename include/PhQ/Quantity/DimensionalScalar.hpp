@@ -1,153 +1,125 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
 
+#include "../Base/String.hpp"
 #include "Dimensional.hpp"
-#include "DimensionlessScalar.hpp"
 
 namespace PhQ {
 
-template <typename Unit> class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
-
+template <typename Unit>
+class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
 public:
+  virtual ~DimensionalScalarQuantity() noexcept = default;
 
-  constexpr double value() const noexcept {
-    return value_;
+  constexpr double Value() const noexcept { return value_; }
+
+  double Value(const Unit unit) const noexcept {
+    double result{value_};
+    Convert(result, StandardUnit<Unit>, unit);
+    return result;
   }
 
-  double value(const Unit unit) const noexcept {
-    if (unit == standard_unit<Unit>) {
-      return value_;
-    } else {
-      return convert(value_, standard_unit<Unit>, unit);
-    }
+  std::string Print() const noexcept override {
+    return PhQ::Print(value_).append(" ").append(
+        Abbreviation(StandardUnit<Unit>));
   }
 
-  double value(const System system) const noexcept {
-    if (system == standard_system) {
-      return value_;
-    } else {
-      return convert(value_, standard_unit<Unit>, system);
-    }
+  std::string Print(const Unit unit) const noexcept override {
+    return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
-  std::string print() const noexcept {
-    return number_to_string(value_) + " " + abbreviation(standard_unit<Unit>);
+  std::string Json() const noexcept override {
+    return std::string{"{\"value\":"}
+        .append(PhQ::Print(value_))
+        .append(",\"unit\":\"")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("\"}");
   }
 
-  std::string print(Unit unit) const noexcept {
-    return number_to_string(value(unit)) + " " + abbreviation(unit);
+  std::string Json(const Unit unit) const noexcept override {
+    return std::string{"{\"value\":"}
+        .append(PhQ::Print(Value(unit)))
+        .append(",\"unit\":\"")
+        .append(Abbreviation(unit))
+        .append("\"}");
   }
 
-  std::string print(System system) const noexcept {
-    return number_to_string(value(system)) + " " + abbreviation(unit<Unit>(system));
+  std::string Xml() const noexcept override {
+    return std::string{"<value>"}
+        .append(PhQ::Print(value_))
+        .append("</value><unit>")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("</unit>");
   }
 
-  std::string yaml() const noexcept {
-    return "{value: " + number_to_string(value_) + " , unit: " + abbreviation(standard_unit<Unit>) + "}";
+  std::string Xml(const Unit unit) const noexcept override {
+    return std::string{"<value>"}
+        .append(PhQ::Print(Value(unit)))
+        .append("</value><unit>")
+        .append(Abbreviation(unit))
+        .append("</unit>");
   }
 
-  std::string yaml(Unit unit) const noexcept {
-    return "{value: " + number_to_string(value(unit)) + " , unit: " + abbreviation(unit) + "}";
+  std::string Yaml() const noexcept override {
+    return std::string{"{value:"}
+        .append(PhQ::Print(value_))
+        .append(",unit:\"")
+        .append(Abbreviation(StandardUnit<Unit>))
+        .append("\"}");
   }
 
-  std::string yaml(System system) const noexcept {
-    return "{value: " + number_to_string(value(system)) + " , unit: " + abbreviation(unit<Unit>(system)) + "}";
-  }
-
-  std::string json() const noexcept {
-    return "{\"value\": " + number_to_string(value_) + " , \"unit\": \"" + abbreviation(standard_unit<Unit>) + "\"}";
-  }
-
-  std::string json(Unit unit) const noexcept {
-    return "{\"value\": " + number_to_string(value(unit)) + " , \"unit\": \"" + abbreviation(unit) + "\"}";
-  }
-
-  std::string json(System system) const noexcept {
-    return "{\"value\": " + number_to_string(value(system)) + " , \"unit\": \"" + abbreviation(unit<Unit>(system)) + "\"}";
-  }
-
-  std::string xml() const noexcept {
-    return "<value>" + number_to_string(value_) + "</value><unit>" + abbreviation(standard_unit<Unit>) + "</unit>";
-  }
-
-  std::string xml(Unit unit) const noexcept {
-    return "<value>" + number_to_string(value(unit)) + "</value><unit>" + abbreviation(unit) + "</unit>";
-  }
-
-  std::string xml(System system) const noexcept {
-    return "<value>" + number_to_string(value(system)) + "</value><unit>" + abbreviation(unit<Unit>(system)) + "</unit>";
-  }
-
-  constexpr DimensionalScalarQuantity<Unit> operator*(double real) const noexcept {
-    return {value_ * real};
-  }
-
-  constexpr DimensionalScalarQuantity<Unit> operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return {value_ * scalar.value()};
-  }
-
-  constexpr void operator*=(double real) noexcept {
-    value_ *= real;
-  }
-
-  constexpr void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ *= scalar.value();
-  }
-
-  constexpr DimensionalScalarQuantity<Unit> operator/(double real) const noexcept {
-    return {value_ / real};
-  }
-
-  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return {value_ / scalar.value()};
-  }
-
-  constexpr void operator/=(double real) noexcept {
-    value_ /= real;
-  }
-
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ /= scalar.value();
+  std::string Yaml(const Unit unit) const noexcept override {
+    return std::string{"{value:"}
+        .append(PhQ::Print(Value(unit)))
+        .append(",unit:\"")
+        .append(Abbreviation(unit))
+        .append("\"}");
   }
 
 protected:
+  constexpr DimensionalScalarQuantity() noexcept
+      : DimensionalQuantity<Unit>(), value_() {}
 
-  constexpr DimensionalScalarQuantity() noexcept : DimensionalQuantity<Unit>(), value_() {}
+  constexpr DimensionalScalarQuantity(const double value) noexcept
+      : DimensionalQuantity<Unit>(), value_(value) {}
 
-  constexpr DimensionalScalarQuantity(double value) noexcept : DimensionalQuantity<Unit>(), value_(value) {}
+  DimensionalScalarQuantity(const double value, const Unit unit) noexcept
+      : DimensionalQuantity<Unit>(), value_(value) {
+    Convert(value_, unit, StandardUnit<Unit>);
+  }
 
-  constexpr DimensionalScalarQuantity(double value, Unit unit) noexcept : DimensionalQuantity<Unit>(), value_(convert(value, unit, standard_unit<Unit>)) {}
+  void operator=(const double value) noexcept { value_ = value; }
 
   double value_;
-
 };
 
-template <typename Unit> constexpr DimensionalScalarQuantity<Unit> DimensionlessScalarQuantity::operator*(const DimensionalScalarQuantity<Unit>& dimensional_scalar) noexcept {
-  return {dimensional_scalar * value_};
-}
-
-} // namespace PhQ
-
-template <typename Unit> constexpr PhQ::DimensionalScalarQuantity<Unit> operator*(double real, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
-  return {scalar * real};
-}
-
-template <typename Unit> std::ostream& operator<<(std::ostream& output_stream, const PhQ::DimensionalScalarQuantity<Unit>& scalar) noexcept {
-  output_stream << scalar.print();
-  return output_stream;
-}
+}  // namespace PhQ
 
 namespace std {
 
-template <typename Unit> struct hash<PhQ::DimensionalScalarQuantity<Unit>> {
-  size_t operator()(const PhQ::DimensionalScalarQuantity<Unit>& quantity) const {
-    return hash<double>()(quantity.value());
+template <typename Unit>
+struct hash<PhQ::DimensionalScalarQuantity<Unit>> {
+  size_t operator()(
+      const PhQ::DimensionalScalarQuantity<Unit>& quantity) const {
+    return hash<double>()(quantity.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP

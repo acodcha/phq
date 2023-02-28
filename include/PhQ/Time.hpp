@@ -1,107 +1,140 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_TIME_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_TIME_HPP
 
 #include "Duration.hpp"
 
 namespace PhQ {
 
 class Time : public DimensionalScalarQuantity<Unit::Time> {
-
 public:
-
   constexpr Time() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
 
-  constexpr Time(double value, Unit::Time unit) noexcept : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
+  Time(const double value, const Unit::Time unit) noexcept
+      : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
-  constexpr bool operator==(const Time& time) const noexcept {
-    return value_ == time.value_;
+  inline Time operator+(const Time& time) const noexcept {
+    return Time{value_ + time.value_};
   }
 
-  constexpr bool operator!=(const Time& time) const noexcept {
-    return value_ != time.value_;
+  inline Time operator+(const Duration& duration) const noexcept {
+    return Time{value_ + duration.Value()};
   }
 
-  constexpr bool operator<(const Time& time) const noexcept {
-    return value_ < time.value_;
+  inline Duration operator-(const Time& time) const noexcept {
+    return Duration{value_ - time.value_};
   }
 
-  constexpr bool operator<=(const Time& time) const noexcept {
-    return value_ <= time.value_;
+  inline Time operator-(const Duration& duration) const noexcept {
+    return Time{value_ - duration.Value()};
   }
 
-  constexpr bool operator>(const Time& time) const noexcept {
-    return value_ > time.value_;
+  inline Time operator*(const double number) const noexcept {
+    return Time{value_ * number};
   }
 
-  constexpr bool operator>=(const Time& time) const noexcept {
-    return value_ >= time.value_;
+  inline Time operator/(const double number) const noexcept {
+    return Time{value_ / number};
   }
 
-  constexpr Time operator+(const Time& time) const noexcept {
-    return {value_ + time.value_};
-  }
-
-  constexpr Time operator+(const Duration& duration) const noexcept {
-    return {value_ + duration.value()};
-  }
-
-  constexpr void operator+=(const Time& time) noexcept {
+  inline constexpr void operator+=(const Time& time) noexcept {
     value_ += time.value_;
   }
 
-  constexpr void operator+=(const Duration& duration) noexcept {
-    value_ += duration.value();
+  inline constexpr void operator+=(const Duration& duration) noexcept {
+    value_ += duration.Value();
   }
 
-  constexpr Duration operator-(const Time& time) const noexcept {
-    return {value_ - time.value_};
-  }
-
-  constexpr Time operator-(const Duration& duration) const noexcept {
-    return {value_ - duration.value()};
-  }
-
-  constexpr void operator-=(const Time& time) noexcept {
+  inline constexpr void operator-=(const Time& time) noexcept {
     value_ -= time.value_;
   }
 
-  constexpr void operator-=(const Duration& duration) noexcept {
-    value_ -= duration.value();
+  inline constexpr void operator-=(const Duration& duration) noexcept {
+    value_ -= duration.Value();
   }
 
-protected:
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr Time(double value) noexcept : DimensionalScalarQuantity<Unit::Time>(value) {}
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
+
+private:
+  explicit constexpr Time(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::Time>(value) {}
 
   friend class Duration;
-
 };
 
-template <> constexpr bool sort(const Time& time_1, const Time& time_2) noexcept {
-  return sort(time_1.value(), time_2.value());
+inline constexpr bool operator==(const Time& left, const Time& right) noexcept {
+  return left.Value() == right.Value();
 }
 
-constexpr Time Duration::operator+(const Time& time) const noexcept {
-  return {value_ + time.value()};
+inline constexpr bool operator!=(const Time& left, const Time& right) noexcept {
+  return left.Value() != right.Value();
 }
 
-constexpr Time Duration::operator-(const Time& time) const noexcept {
-  return {value_ - time.value()};
+inline constexpr bool operator<(const Time& left, const Time& right) noexcept {
+  return left.Value() < right.Value();
 }
 
-} // namespace PhQ
+inline constexpr bool operator>(const Time& left, const Time& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Time& left, const Time& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Time& time) noexcept {
+  stream << time.Print();
+  return stream;
+}
+
+inline Time operator*(const double number, const Time& time) noexcept {
+  return time * number;
+}
+
+inline Time Duration::operator+(const Time& time) const noexcept {
+  return Time{value_ + time.Value()};
+}
+
+inline Time Duration::operator-(const Time& time) const noexcept {
+  return Time{value_ - time.Value()};
+}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Time> {
+template <>
+struct hash<PhQ::Time> {
   size_t operator()(const PhQ::Time& time) const {
-    return hash<double>()(time.value());
+    return hash<double>()(time.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_TIME_HPP

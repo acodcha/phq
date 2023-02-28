@@ -1,27 +1,29 @@
+# Physical Quantities
+
 [![build and test](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yml/badge.svg?branch=main)](https://github.com/acodcha/physical-quantities/actions/workflows/build_and_test.yml)
 
-C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
+C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
 - [Setup](#setup)
-    - [Installation](#setup-installation)
-    - [Testing](#setup-testing)
-    - [Documentation](#setup-documentation)
+  - [Installation](#setup-installation)
+  - [Testing](#setup-testing)
+  - [Documentation](#setup-documentation)
 - [Usage](#usage)
-    - [Configuration](#usage-configuration)
-    - [Physical Quantities](#usage-physical-quantities)
-    - [Units of Measure](#usage-units-of-measure)
-    - [Physical Models](#usage-physical-models)
+  - [Configuration](#usage-configuration)
+  - [Physical Quantities](#usage-physical-quantities)
+  - [Units of Measure](#usage-units-of-measure)
+  - [Physical Models](#usage-physical-models)
 - [License](#license)
 
-# Setup
+## Setup
 
 - [Installation](#setup-installation)
 - [Testing](#setup-testing)
 - [Documentation](#setup-documentation)
 
-[(Back to Top)](#)
+[(Back to Top)](#physical-quantities)
 
-## Setup: Installation
+### Setup: Installation
 
 The following packages are required:
 
@@ -30,7 +32,7 @@ The following packages are required:
 
 Configure the library with:
 
-```
+```lang-bash
 mkdir build
 cd build
 cmake ..
@@ -40,7 +42,7 @@ This is a header-only library, so no compilation is needed.
 
 Install the library from the `build` directory with:
 
-```
+```lang-bash
 sudo make install
 ```
 
@@ -48,21 +50,21 @@ On most systems, this installs the library headers to `/usr/local/include/PhQ` a
 
 [(Back to Setup)](#setup)
 
-## Setup: Testing
+### Setup: Testing
 
 Testing is optional and disabled by default but can be done from the `build` directory with:
 
-```
+```lang-bash
 cmake .. -DBUILD_TESTING=ON
 make -j
 make test
 ```
 
-This builds and runs the unit tests.
+This builds and runs the unit tests. The GoogleTest library (<https://github.com/google/googletest>) is used for testing. When testing is enabled, the GoogleTest library is downloaded, compiled, and linked with the source code of this library.
 
 [(Back to Setup)](#setup)
 
-## Setup: Documentation
+### Setup: Documentation
 
 Building the documentation requires additional packages:
 
@@ -72,7 +74,7 @@ Building the documentation requires additional packages:
 
 Documentation is optional and disabled by default but can be generated from the `build` directory with:
 
-```
+```lang-bash
 cmake .. -DBUILD_DOCS=ON
 make docs
 ```
@@ -81,28 +83,28 @@ This generates HTML documentation using Doxygen. The documentation is located in
 
 [(Back to Setup)](#setup)
 
-# Usage
+## Usage
 
 - [Configuration](#usage-configuration)
 - [Physical Quantities](#usage-physical-quantities)
 - [Units of Measure](#usage-units-of-measure)
 - [Physical Models](#usage-physical-models)
 
-[(Back to Top)](#)
+[(Back to Top)](#physical-quantities)
 
-## Usage: Configuration
+### Usage: Configuration
 
 To use the library in one of your projects, first install it to your system as described in the Setup section.
 
 In your project's `CMakeLists.txt` file, set your project's C++ standard to C++17 or higher:
 
-```
+```cmake
 set(CMAKE_CXX_STANDARD 17)
 ```
 
 Some environments automatically detect used libraries; in such cases, no further action is needed. Otherwise, explicitly add the library as a dependency in your project's `CMakeLists.txt` file:
 
-```
+```cmake
 target_link_libraries(${EXECUTABLE_NAME} [other-options] PhQ)
 ```
 
@@ -110,7 +112,7 @@ Once this is done, simply include the headers you need in your project's source 
 
 [(Back to Usage)](#usage)
 
-## Usage: Physical Quantities
+### Usage: Physical Quantities
 
 Physical quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented internally in a Cartesian (x-y-z) coordinate system.
 
@@ -122,7 +124,7 @@ Warning: As always, some operations can result in divisions by zero. C++ compile
 
 [(Back to Usage)](#usage)
 
-## Usage: Units of Measure
+### Usage: Units of Measure
 
 Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A physical quantity's value can be obtained in any unit through its `value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and prints its value as 4.535924 kg.
 
@@ -130,14 +132,14 @@ Unit conversions can also be done without the use of physical quantities through
 
 [(Back to Usage)](#usage)
 
-## Usage: Physical Models
+### Usage: Physical Models
 
 Some physical models and related operations are also supported. For example, a `PhQ::ConstitutiveModel::ElasticIsotropicSolid` can be constructed from a `PhQ::YoungModulus` and a `PhQ::PoissonRatio`, and has a `stress()` method that returns a `PhQ::Stress` given a `PhQ::Strain`.
 
 [(Back to Usage)](#usage)
 
-# License
+## License
 
 This work is maintained by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the `LICENSE` file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
 
-[(Back to Top)](#)
+[(Back to Top)](#physical-quantities)

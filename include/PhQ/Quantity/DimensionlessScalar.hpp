@@ -1,197 +1,105 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP
 
+#include "../Base/String.hpp"
 #include "Dimensionless.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
-class DimensionlessDyadicQuantity;
-class DimensionlessSymmetricDyadicQuantity;
-template <typename Unit> class DimensionalDyadicQuantity;
-template <typename Unit> class DimensionalScalarQuantity;
-template <typename Unit> class DimensionalSymmetricDyadicQuantity;
-template <typename Unit> class DimensionalVectorQuantity;
-
 class DimensionlessScalarQuantity : public DimensionlessQuantity {
-
 public:
+  virtual ~DimensionlessScalarQuantity() noexcept = default;
 
-  constexpr double value() const noexcept {
-    return value_;
-  }
+  constexpr double Value() const noexcept { return value_; }
 
-  std::string print() const noexcept {
-    return number_to_string(value_);
-  }
+  constexpr double& MutableValue() noexcept { return value_; }
 
-  std::string json() const noexcept {
-    return number_to_string(value_);
-  }
+  constexpr void SetValue(const double value) noexcept { value_ = value; }
 
-  std::string xml() const noexcept {
-    return number_to_string(value_);
-  }
+  std::string Print() const noexcept override { return PhQ::Print(value_); }
 
-  constexpr bool operator==(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ == scalar.value_;
-  }
+  std::string Json() const noexcept override { return PhQ::Print(value_); }
 
-  constexpr bool operator!=(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ != scalar.value_;
-  }
+  std::string Xml() const noexcept override { return PhQ::Print(value_); }
 
-  constexpr bool operator<(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ < scalar.value_;
-  }
-
-  constexpr bool operator<=(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ <= scalar.value_;
-  }
-
-  constexpr bool operator>(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ > scalar.value_;
-  }
-
-  constexpr bool operator>=(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ >= scalar.value_;
-  }
-
-  constexpr DimensionlessScalarQuantity operator+(double real) const noexcept {
-    return {value_ + real};
-  }
-
-  constexpr DimensionlessScalarQuantity operator+(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return {value_ + scalar.value_};
-  }
-
-  constexpr void operator+=(double real) noexcept {
-    value_ += real;
-  }
-
-  constexpr void operator+=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ += scalar.value_;
-  }
-
-  constexpr DimensionlessScalarQuantity operator-(double real) const noexcept {
-    return {value_ - real};
-  }
-
-  constexpr DimensionlessScalarQuantity operator-(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return {value_ - scalar.value_};
-  }
-
-  constexpr void operator-=(double real) noexcept {
-    value_ -= real;
-  }
-
-  constexpr void operator-=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ -= scalar.value_;
-  }
-
-  constexpr DimensionlessScalarQuantity operator*(double real) const noexcept {
-    return {value_ * real};
-  }
-
-  constexpr double operator*(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ * scalar.value_;
-  }
-
-  constexpr DimensionlessSymmetricDyadicQuantity operator*(const DimensionlessSymmetricDyadicQuantity& symmetric_dyadic) const noexcept;
-
-  constexpr DimensionlessDyadicQuantity operator*(const DimensionlessDyadicQuantity& dyadic) const noexcept;
-
-  template <typename Unit> constexpr DimensionalScalarQuantity<Unit> operator*(const DimensionalScalarQuantity<Unit>& dimensional_scalar) noexcept;
-
-  template <typename Unit> constexpr DimensionalVectorQuantity<Unit> operator*(const DimensionalVectorQuantity<Unit>& dimensional_vector) noexcept;
-
-  template <typename Unit> constexpr DimensionalSymmetricDyadicQuantity<Unit> operator*(const DimensionalSymmetricDyadicQuantity<Unit>& dimensional_symmetric_dyadic) noexcept;
-
-  template <typename Unit> constexpr DimensionalDyadicQuantity<Unit> operator*(const DimensionalDyadicQuantity<Unit>& dimensional_dyadic) noexcept;
-
-  constexpr void operator*=(double real) noexcept {
-    value_ *= real;
-  }
-
-  constexpr void operator*=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ *= scalar.value_;
-  }
-
-  constexpr DimensionlessScalarQuantity operator/(double real) const noexcept {
-    return {value_ / real};
-  }
-
-  constexpr double operator/(const DimensionlessScalarQuantity& scalar) const noexcept {
-    return value_ / scalar.value_;
-  }
-
-  constexpr void operator/=(double real) noexcept {
-    value_ /= real;
-  }
-
-  constexpr void operator/=(const DimensionlessScalarQuantity& scalar) noexcept {
-    value_ /= scalar.value_;
-  }
+  std::string Yaml() const noexcept override { return PhQ::Print(value_); }
 
 protected:
+  constexpr DimensionlessScalarQuantity() noexcept
+      : DimensionlessQuantity(), value_() {}
 
-  constexpr DimensionlessScalarQuantity() noexcept : DimensionlessQuantity(), value_() {}
+  constexpr DimensionlessScalarQuantity(const double value) noexcept
+      : DimensionlessQuantity(), value_(value) {}
 
-  constexpr DimensionlessScalarQuantity(double value) noexcept : DimensionlessQuantity(), value_(value) {}
+  void operator=(const double value) noexcept { value_ = value; }
 
   double value_;
-
 };
 
-template <> constexpr bool sort(const DimensionlessScalarQuantity& scalar_1, const DimensionlessScalarQuantity& scalar_2) noexcept {
-  return scalar_1.value() < scalar_2.value();
+}  // namespace PhQ
+
+namespace std {
+
+constexpr double abs(const PhQ::DimensionlessScalarQuantity& quantity) {
+  return abs(quantity.Value());
 }
 
-} // namespace PhQ
-
-namespace std {
-
-double cbrt(const PhQ::DimensionlessScalarQuantity& scalar) {
-  return cbrt(scalar.value());
+double cbrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return cbrt(quantity.Value());
 };
 
-double exp(const PhQ::DimensionlessScalarQuantity& scalar) {
-  return exp(scalar.value());
+double exp(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return exp(quantity.Value());
 };
 
-double log(const PhQ::DimensionlessScalarQuantity& scalar) {
-  return log(scalar.value());
+double log(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return log(quantity.Value());
 };
 
-double log10(const PhQ::DimensionlessScalarQuantity& scalar) {
-  return log10(scalar.value());
+double log2(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return log2(quantity.Value());
 };
 
-double pow(const PhQ::DimensionlessScalarQuantity& scalar, int_least64_t exponent) {
-  return pow(scalar.value(), exponent);
+double log10(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return log10(quantity.Value());
 };
 
-double pow(const PhQ::DimensionlessScalarQuantity& scalar, double exponent) {
-  return pow(scalar.value(), exponent);
+constexpr double pow(const PhQ::DimensionlessScalarQuantity& quantity,
+                     const int_least64_t exponent) {
+  return pow(quantity.Value(), exponent);
 };
 
-double sqrt(const PhQ::DimensionlessScalarQuantity& scalar) {
-  return sqrt(scalar.value());
+double pow(const PhQ::DimensionlessScalarQuantity& quantity,
+           const double exponent) noexcept {
+  return pow(quantity.Value(), exponent);
 };
 
-} // namespace std
+double sqrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+  return sqrt(quantity.Value());
+};
 
-namespace std {
-
-template <> struct hash<PhQ::DimensionlessScalarQuantity> {
+template <>
+struct hash<PhQ::DimensionlessScalarQuantity> {
   size_t operator()(const PhQ::DimensionlessScalarQuantity& quantity) const {
-    return hash<double>()(quantity.value());
+    return hash<double>()(quantity.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP

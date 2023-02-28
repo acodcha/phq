@@ -1,17 +1,27 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
 
 #include "Area.hpp"
 #include "Unit/Volume.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class Volume.
 class Duration;
 class Frequency;
 class Mass;
@@ -19,107 +29,135 @@ class MassDensity;
 class VolumeRate;
 
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
-
 public:
-
   constexpr Volume() noexcept : DimensionalScalarQuantity<Unit::Volume>() {}
 
-  constexpr Volume(double value, Unit::Volume unit) noexcept : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
+  Volume(const double value, const Unit::Volume unit) noexcept
+      : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
-  constexpr Volume(const Area& area, const Length& length) noexcept : Volume(area.value() * length.value()) {}
+  constexpr Volume(const VolumeRate& volume_rate,
+                   const Duration& duration) noexcept;
 
-  constexpr Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept;
-
-  constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept;
+  constexpr Volume(const VolumeRate& volume_rate,
+                   const Frequency& frequency) noexcept;
 
   constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
 
-  constexpr bool operator==(const Volume& volume) const noexcept {
-    return value_ == volume.value_;
+  inline Volume operator+(const Volume& volume) const noexcept {
+    return Volume{value_ + volume.value_};
   }
 
-  constexpr bool operator!=(const Volume& volume) const noexcept {
-    return value_ != volume.value_;
+  inline Volume operator-(const Volume& volume) const noexcept {
+    return Volume{value_ - volume.value_};
   }
 
-  constexpr bool operator<(const Volume& volume) const noexcept {
-    return value_ < volume.value_;
+  inline Volume operator*(const double number) const noexcept {
+    return Volume{value_ * number};
   }
 
-  constexpr bool operator<=(const Volume& volume) const noexcept {
-    return value_ <= volume.value_;
+  inline Mass operator*(const MassDensity& mass_density) const noexcept;
+
+  inline VolumeRate operator*(const Frequency& frequency) const noexcept;
+
+  inline Volume operator/(const double number) const noexcept {
+    return Volume{value_ / number};
   }
 
-  constexpr bool operator>(const Volume& volume) const noexcept {
-    return value_ > volume.value_;
+  inline Area operator/(const Length& length) const noexcept {
+    return Area{value_ / length.Value()};
   }
 
-  constexpr bool operator>=(const Volume& volume) const noexcept {
-    return value_ >= volume.value_;
+  inline Length operator/(const Area& area) const noexcept {
+    return Length{value_ / area.Value()};
   }
 
-  constexpr Volume operator+(const Volume& volume) const noexcept {
-    return {value_ + volume.value_};
-  }
+  inline VolumeRate operator/(const Duration& duration) const noexcept;
 
-  constexpr void operator+=(const Volume& volume) noexcept {
+  inline Duration operator/(const VolumeRate& volume_rate) const noexcept;
+
+  inline constexpr void operator+=(const Volume& volume) noexcept {
     value_ += volume.value_;
   }
 
-  constexpr Volume operator-(const Volume& volume) const noexcept {
-    return {value_ - volume.value_};
-  }
-
-  constexpr void operator-=(const Volume& volume) noexcept {
+  inline constexpr void operator-=(const Volume& volume) noexcept {
     value_ -= volume.value_;
   }
 
-  constexpr Mass operator*(const MassDensity& mass_density) const noexcept;
-
-  constexpr VolumeRate operator*(const Frequency& frequency) const noexcept;
-
-  constexpr Area operator/(const Length& length) const noexcept {
-    return {*this, length};
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
   }
 
-  constexpr Length operator/(const Area& area) const noexcept {
-    return {*this, area};
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
   }
 
-  constexpr VolumeRate operator/(const Duration& duration) const noexcept;
+private:
+  explicit constexpr Volume(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::Volume>(value) {}
 
-  constexpr Duration operator/(const VolumeRate& volume_rate) const noexcept;
-
-protected:
-
-  constexpr Volume(double value) noexcept : DimensionalScalarQuantity<Unit::Volume>(value) {}
-
+  friend class Length;
+  friend class Area;
 };
 
-template <> constexpr bool sort(const Volume& volume_1, const Volume& volume_2) noexcept {
-  return sort(volume_1.value(), volume_2.value());
+inline constexpr bool operator==(const Volume& left,
+                                 const Volume& right) noexcept {
+  return left.Value() == right.Value();
 }
 
-constexpr Length::Length(const Volume& volume, const Area& area) noexcept : Length(volume.value() / area.value()) {}
-
-constexpr Area::Area(const Volume& volume, const Length& length) noexcept : Area(volume.value() / length.value()) {}
-
-constexpr Volume Length::operator*(const Area& area) const noexcept {
-  return {area, *this};
+inline constexpr bool operator!=(const Volume& left,
+                                 const Volume& right) noexcept {
+  return left.Value() != right.Value();
 }
 
-constexpr Volume Area::operator*(const Length& length) const noexcept {
-  return {*this, length};
+inline constexpr bool operator<(const Volume& left,
+                                const Volume& right) noexcept {
+  return left.Value() < right.Value();
 }
 
-} // namespace PhQ
+inline constexpr bool operator>(const Volume& left,
+                                const Volume& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Volume& left,
+                                 const Volume& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Volume& left,
+                                 const Volume& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Volume& volume) noexcept {
+  stream << volume.Print();
+  return stream;
+}
+
+inline Volume operator*(const double number, const Volume& volume) noexcept {
+  return volume * number;
+}
+
+inline Volume Length::operator*(const Area& area) const noexcept {
+  return Volume{value_ * area.Value()};
+}
+
+inline Volume Area::operator*(const Length& length) const noexcept {
+  return Volume{value_ * length.Value()};
+}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Volume> {
+template <>
+struct hash<PhQ::Volume> {
   size_t operator()(const PhQ::Volume& volume) const {
-    return hash<double>()(volume.value());
+    return hash<double>()(volume.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP

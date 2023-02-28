@@ -1,55 +1,64 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_HPP
 
 #include "../Unit/Base.hpp"
 #include "Base.hpp"
 
 namespace PhQ {
 
-template <typename Unit> class DimensionalQuantity : public Quantity {
-
+template <typename U>
+class DimensionalQuantity : public Quantity {
 public:
+  virtual ~DimensionalQuantity() noexcept = default;
 
-  constexpr Dimension::Set dimension() const noexcept {
-    return PhQ::dimension<Unit>;
+  static constexpr const Dimension::Set& Dimension() noexcept {
+    return Dimensions<U>;
   }
 
-  constexpr Unit unit() const noexcept {
-    return standard_unit<Unit>;
-  }
+  static constexpr U Unit() noexcept { return StandardUnit<U>; }
 
-  virtual std::string print() const noexcept = 0;
+  virtual std::string Print() const noexcept = 0;
 
-  virtual std::string print(Unit unit) const noexcept = 0;
+  virtual std::string Print(const U unit) const noexcept = 0;
 
-  virtual std::string print(System system) const noexcept = 0;
+  virtual std::string Json() const noexcept = 0;
 
-  virtual std::string json() const noexcept = 0;
+  virtual std::string Json(const U unit) const noexcept = 0;
 
-  virtual std::string json(Unit unit) const noexcept = 0;
+  virtual std::string Xml() const noexcept = 0;
 
-  virtual std::string json(System system) const noexcept = 0;
+  virtual std::string Xml(const U unit) const noexcept = 0;
 
-  virtual std::string xml() const noexcept = 0;
+  virtual std::string Yaml() const noexcept = 0;
 
-  virtual std::string xml(Unit unit) const noexcept = 0;
-
-  virtual std::string xml(System system) const noexcept = 0;
+  virtual std::string Yaml(const U unit) const noexcept = 0;
 
 protected:
-
   constexpr DimensionalQuantity() noexcept : Quantity() {}
-
 };
 
-template <typename Unit> std::ostream& operator<<(std::ostream& stream, const DimensionalQuantity<Unit>& quantity) noexcept {
-  stream << quantity.print();
+template <typename U>
+std::ostream& operator<<(std::ostream& stream,
+                         const DimensionalQuantity<U>& quantity) noexcept {
+  stream << quantity.Print();
   return stream;
 }
 
-} // namespace PhQ
+}  // namespace PhQ
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_HPP

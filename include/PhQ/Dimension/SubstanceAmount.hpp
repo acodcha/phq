@@ -1,47 +1,104 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP
 
-#include "Base.hpp"
+#include <iostream>
+#include <string>
+#include <string_view>
 
-namespace PhQ {
+namespace PhQ::Dimension {
 
-namespace Dimension {
-
-class SubstanceAmount : public Base {
-
+class SubstanceAmount {
 public:
+  constexpr SubstanceAmount() noexcept : value_(0) {}
 
-  constexpr SubstanceAmount(int_least8_t value = 0) noexcept : Base(value) {}
+  explicit constexpr SubstanceAmount(const int_least8_t value) noexcept
+      : value_(value) {}
 
-  std::string abbreviation() const noexcept {
-    return "N";
+  inline constexpr int_least8_t Value() const noexcept { return value_; }
+
+  static std::string_view Abbreviation() noexcept { return "N"; }
+
+  static std::string_view Label() noexcept { return "Substance Amount"; }
+
+  std::string Print() const noexcept {
+    if (value_ == 0) {
+      return {};
+    }
+    std::string text{Abbreviation()};
+    if (value_ >= 2) {
+      text.append("^" + std::to_string(value_));
+    } else if (value_ <= -1) {
+      text.append("^(" + std::to_string(value_) + ")");
+    }
+    return text;
   }
 
-  std::string label() const noexcept {
-    return "substance_amount";
-  }
-
+private:
+  int_least8_t value_;
 };
 
-} // namespace Dimension
-
-template <> constexpr bool sort(const Dimension::SubstanceAmount& substance_amount_1, const Dimension::SubstanceAmount& substance_amount_2) noexcept {
-  return substance_amount_1 < substance_amount_2;
+inline constexpr bool operator==(const SubstanceAmount& left,
+                                 const SubstanceAmount& right) noexcept {
+  return left.Value() == right.Value();
 }
 
-} // namespace PhQ
+inline constexpr bool operator!=(const SubstanceAmount& left,
+                                 const SubstanceAmount& right) noexcept {
+  return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(const SubstanceAmount& left,
+                                const SubstanceAmount& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const SubstanceAmount& left,
+                                const SubstanceAmount& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const SubstanceAmount& left,
+                                 const SubstanceAmount& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const SubstanceAmount& left,
+                                 const SubstanceAmount& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const SubstanceAmount& amount) noexcept {
+  stream << amount.Print();
+  return stream;
+}
+
+}  // namespace PhQ::Dimension
 
 namespace std {
 
-template <> struct hash<PhQ::Dimension::SubstanceAmount> {
-  size_t operator()(const PhQ::Dimension::SubstanceAmount& substance_amount) const {
-    return hash<double>()(substance_amount.value());
+template <>
+struct hash<PhQ::Dimension::SubstanceAmount> {
+  size_t operator()(const PhQ::Dimension::SubstanceAmount& amount) const {
+    return hash<int_least8_t>()(amount.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SUBSTANCE_AMOUNT_HPP

@@ -1,212 +1,231 @@
-// Copyright 2020 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+// Copyright 2020-2023 Alexandre Coderre-Chabot
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
 
-#include "../Direction.hpp"
+#include <array>
+#include <utility>
+
+#include "../Base/String.hpp"
 
 namespace PhQ {
 
+// Forward declaration for class Vector.
+class Angle;
+
+// Forward declaration for class Vector.
+class Direction;
+
 namespace Value {
 
+// Forward declaration for class Vector.
+class Dyad;
+
 class Vector {
-
 public:
+  constexpr Vector() noexcept : x_y_z_() {}
 
-  constexpr Vector() noexcept : x_(), y_(), z_() {}
+  constexpr Vector(const double x, const double y, const double z) noexcept
+      : x_y_z_({x, y, z}) {}
 
-  constexpr Vector(double x, double y, double z) noexcept : x_(x), y_(y), z_(z) {}
+  explicit constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
+      : x_y_z_(x_y_z) {}
 
-  constexpr Vector(const std::array<double, 3>& x_y_z) noexcept : x_(x_y_z[0]), y_(x_y_z[1]), z_(x_y_z[2]) {}
+  explicit constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
+      : x_y_z_(std::move(x_y_z)) {}
 
-  constexpr Vector(double value, const Direction& direction) noexcept : x_(value * direction.x()), y_(value * direction.y()), z_(value * direction.z()) {}
+  constexpr Vector(const double value, const Direction& direction) noexcept;
 
-  constexpr double x() const noexcept {
-    return x_;
+  static constexpr Vector Zero() noexcept {
+    return Vector{std::array<double, 3>{0.0, 0.0, 0.0}};
   }
 
-  constexpr double y() const noexcept {
-    return y_;
+  inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
+    return x_y_z_;
   }
 
-  constexpr double z() const noexcept {
-    return z_;
+  inline constexpr std::array<double, 3>& Mutable_x_y_z() noexcept {
+    return x_y_z_;
   }
 
-  constexpr double magnitude() const noexcept {
-    return std::sqrt(std::pow(x_, 2) + std::pow(y_, 2) + std::pow(z_, 2));
+  inline constexpr void Set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
+    x_y_z_ = x_y_z;
   }
 
-  constexpr Direction direction() const {
-    return {*this};
+  inline constexpr double x() const noexcept { return x_y_z_[0]; }
+
+  inline constexpr double& Mutable_x() noexcept { return x_y_z_[0]; }
+
+  inline constexpr void Set_x(const double x) noexcept { x_y_z_[0] = x; }
+
+  inline constexpr double y() const noexcept { return x_y_z_[1]; }
+
+  inline constexpr double& Mutable_y() noexcept { return x_y_z_[1]; }
+
+  inline constexpr void Set_y(const double y) noexcept { x_y_z_[1] = y; }
+
+  inline constexpr double z() const noexcept { return x_y_z_[2]; }
+
+  inline constexpr double& Mutable_z() noexcept { return x_y_z_[2]; }
+
+  inline constexpr void Set_z(const double z) noexcept { x_y_z_[2] = z; }
+
+  inline constexpr double MagnitudeSquared() const noexcept {
+    return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] +
+           x_y_z_[2] * x_y_z_[2];
   }
 
-  constexpr double dot(const Direction& direction) const noexcept {
-    return x_ * direction.x() + y_ * direction.y() + z_ * direction.z();
+  inline double Magnitude() const noexcept {
+    return std::sqrt(MagnitudeSquared());
   }
 
-  constexpr double dot(const Vector& vector) const noexcept {
-    return x_ * vector.x_ + y_ * vector.y_ + z_ * vector.z_;
+  inline PhQ::Direction Direction() const noexcept;
+
+  inline constexpr double Dot(const Vector& vector) const noexcept {
+    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +
+           x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  constexpr Vector cross(const Direction& direction) const noexcept {
-    return {
-      y_ * direction.z() - z_ * direction.y(),
-      z_ * direction.x() - x_ * direction.z(),
-      x_ * direction.y() - y_ * direction.x()
-    };
+  inline constexpr double Dot(const PhQ::Direction& direction) const noexcept;
+
+  inline constexpr Vector Cross(const Vector& vector) const noexcept {
+    return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
+            x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
+            x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  constexpr Vector cross(const Vector& vector) const noexcept {
-    return {
-      y_ * vector.z_ - z_ * vector.y_,
-      z_ * vector.x_ - x_ * vector.z_,
-      x_ * vector.y_ - y_ * vector.x_
-    };
+  inline constexpr Vector Cross(const PhQ::Direction& direction) const noexcept;
+
+  inline constexpr Dyad Dyadic(const Vector& vector) const noexcept;
+
+  inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
+
+  inline PhQ::Angle Angle(const Vector& vector) const noexcept;
+
+  inline PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
+
+  inline std::string Print() const noexcept {
+    return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +
+           PhQ::Print(x_y_z_[2]) + ")";
   }
 
-  constexpr Dyadic dyadic(const Direction& direction) const noexcept;
-
-  constexpr Dyadic dyadic(const Vector& vector) const noexcept;
-
-  constexpr Angle angle(const Direction& direction) const noexcept;
-
-  constexpr Angle angle(const Vector& vector) const noexcept;
-
-  std::string print() const noexcept {
-    return
-      "(" + PhQ::number_to_string(x_) + ", " +
-      PhQ::number_to_string(y_) + ", " +
-      PhQ::number_to_string(z_) + ")";
+  inline std::string Json() const noexcept {
+    return "{\"x\":" + PhQ::Print(x_y_z_[0]) +
+           ",\"y\":" + PhQ::Print(x_y_z_[1]) +
+           ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  std::string yaml() const noexcept {
-    return
-      "{x:" + PhQ::number_to_string(x_) +
-      " , y:" + PhQ::number_to_string(y_) +
-      " , z:" + PhQ::number_to_string(z_) + "}";
+  inline std::string Xml() const noexcept {
+    return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1]) +
+           "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
-  std::string json() const noexcept {
-    return
-      "{\"x\": " + PhQ::number_to_string(x_) +
-      " , \"y\": " + PhQ::number_to_string(y_) +
-      " , \"z\": " + PhQ::number_to_string(z_) + "}";
+  inline std::string Yaml() const noexcept {
+    return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1]) +
+           ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  std::string xml() const noexcept {
-    return
-      "<x>" + PhQ::number_to_string(x_) +
-      "</x><y>" + PhQ::number_to_string(y_) +
-      "</y><z>" + PhQ::number_to_string(z_) + "</z>";
+  inline constexpr void operator+=(const Vector& vector) noexcept {
+    x_y_z_[0] += vector.x_y_z_[0];
+    x_y_z_[1] += vector.x_y_z_[1];
+    x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  constexpr bool operator==(const Vector& vector) const noexcept {
-    return x_ == vector.x_ && y_ == vector.y_ && z_ == vector.z_;
+  inline constexpr void operator-=(const Vector& vector) noexcept {
+    x_y_z_[0] -= vector.x_y_z_[0];
+    x_y_z_[1] -= vector.x_y_z_[1];
+    x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr bool operator!=(const Vector& vector) const noexcept {
-    return x_ != vector.x_ || y_ != vector.y_ || z_ != vector.z_;
+  inline constexpr void operator*=(const double real) noexcept {
+    x_y_z_[0] *= real;
+    x_y_z_[1] *= real;
+    x_y_z_[2] *= real;
   }
 
-  constexpr Vector operator+(const Vector& vector) const noexcept {
-    return {x_ + vector.x_, y_ + vector.y_, z_ + vector.z_};
+  inline constexpr void operator/=(const double real) noexcept {
+    x_y_z_[0] /= real;
+    x_y_z_[1] /= real;
+    x_y_z_[2] /= real;
   }
 
-  constexpr void operator+=(const Vector& vector) noexcept {
-    x_ += vector.x_;
-    y_ += vector.y_;
-    z_ += vector.z_;
-  }
-
-  constexpr Vector operator-(const Vector& vector) const noexcept {
-    return {x_ - vector.x_, y_ - vector.y_, z_ - vector.z_};
-  }
-
-  constexpr void operator-=(const Vector& vector) noexcept {
-    x_ -= vector.x_;
-    y_ -= vector.y_;
-    z_ -= vector.z_;
-  }
-
-  constexpr Vector operator*(double real) const noexcept {
-    return {x_ * real, y_ * real, z_ * real};
-  }
-
-  constexpr void operator*=(double real) noexcept {
-    x_ *= real;
-    y_ *= real;
-    z_ *= real;
-  }
-
-  constexpr Vector operator/(double real) const noexcept {
-    return {x_ / real, y_ / real, z_ / real};
-  }
-
-  constexpr void operator/=(double real) noexcept {
-    x_ /= real;
-    y_ /= real;
-    z_ /= real;
-  }
-
-protected:
-
-  double x_;
-
-  double y_;
-
-  double z_;
-
+private:
+  std::array<double, 3> x_y_z_;
 };
 
-} // namespace Value
-
-template <> constexpr bool sort(const Value::Vector& vector_1, const Value::Vector& vector_2) noexcept {
-  if (vector_1.x() == vector_2.x()) {
-    if (vector_1.y() == vector_2.y()) {
-      return vector_1.z() < vector_2.z();
-    } else {
-      return vector_1.y() < vector_2.y();
-    }
-  } else {
-    return vector_1.x() < vector_2.x();
-  }
+inline constexpr bool operator==(const Vector& left,
+                                 const Vector& right) noexcept {
+  return left.x() == right.x() && left.y() == right.y() &&
+         left.z() == right.z();
 }
 
-constexpr Direction::Direction(const Value::Vector& vector) : Direction(vector.x(), vector.y(), vector.z()) {}
-
-constexpr double Direction::dot(const Value::Vector& vector) const noexcept {
-  return x_ * vector.x() + y_ * vector.y() + z_ * vector.z();
+inline constexpr bool operator!=(const Vector& left,
+                                 const Vector& right) noexcept {
+  return left.x() != right.x() || left.y() != right.y() ||
+         left.z() != right.z();
 }
 
-constexpr Value::Vector Direction::cross(const Value::Vector& vector) const noexcept {
-  return {
-    y_ * vector.z() - z_ * vector.y(),
-    z_ * vector.x() - x_ * vector.z(),
-    x_ * vector.y() - y_ * vector.x()
-  };
+inline constexpr Vector operator+(const Vector& left,
+                                  const Vector& right) noexcept {
+  return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
-} // namespace PhQ
+inline constexpr Vector operator-(const Vector& left,
+                                  const Vector& right) noexcept {
+  return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
+}
 
-constexpr PhQ::Value::Vector operator*(double real, const PhQ::Value::Vector& vector) noexcept {
+inline constexpr Vector operator*(const Vector& vector,
+                                  const double real) noexcept {
+  return {vector.x() * real, vector.y() * real, vector.z() * real};
+}
+
+inline constexpr Vector operator*(const double real,
+                                  const Vector& vector) noexcept {
   return {vector * real};
 }
 
-std::ostream& operator<<(std::ostream& output_stream, const PhQ::Value::Vector& vector) noexcept {
-  output_stream << vector.print();
-  return output_stream;
+inline constexpr Vector operator/(const Vector& vector,
+                                  const double real) noexcept {
+  return {vector.x() / real, vector.y() / real, vector.z() / real};
 }
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Vector& vector) noexcept {
+  stream << vector.Print();
+  return stream;
+}
+
+}  // namespace Value
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Value::Vector> {
+template <>
+struct hash<PhQ::Value::Vector> {
   size_t operator()(const PhQ::Value::Vector& vector) const {
-    return hash<double>()(vector.x()) ^ hash<double>()(vector.y()) ^ hash<double>()(vector.z());
+    size_t result = 17;
+    result = 31 * result + hash<double>()(vector.x());
+    result = 31 * result + hash<double>()(vector.y());
+    result = 31 * result + hash<double>()(vector.z());
+    return result;
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_VECTOR_HPP
