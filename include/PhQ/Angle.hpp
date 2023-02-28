@@ -99,9 +99,15 @@ public:
     return PhQ::Angle{value_ * number};
   }
 
+  inline AngularSpeed operator*(const Frequency& frequency) const noexcept;
+
   inline Angle operator/(const double number) const noexcept {
     return PhQ::Angle{value_ / number};
   }
+
+  inline AngularSpeed operator/(const Duration& duration) const noexcept;
+
+  inline Duration operator/(const AngularSpeed& angular_speed) const noexcept;
 
   inline constexpr void operator+=(const Angle& angle) noexcept {
     value_ += angle.value_;
@@ -118,15 +124,6 @@ public:
   inline constexpr void operator/=(const double number) noexcept {
     value_ /= number;
   }
-
-  inline constexpr AngularSpeed operator*(
-      const Frequency& frequency) const noexcept;
-
-  inline constexpr AngularSpeed operator/(
-      const Duration& duration) const noexcept;
-
-  inline constexpr Duration operator/(
-      const AngularSpeed& angular_speed) const noexcept;
 
 private:
   explicit constexpr Angle(const double value) noexcept
@@ -173,6 +170,11 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 inline Angle operator*(const double number, const Angle& angle) noexcept {
   return angle * number;
+}
+
+inline PhQ::Angle Value::Vector::Angle(
+    const Value::Vector& vector) const noexcept {
+  return PhQ::Angle{*this, vector};
 }
 
 }  // namespace PhQ

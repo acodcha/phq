@@ -158,11 +158,6 @@ inline PhQ::Angle Value::Vector::Angle(
   return PhQ::Angle{*this, direction};
 }
 
-inline PhQ::Angle Value::Vector::Angle(
-    const Value::Vector& vector) const noexcept {
-  return PhQ::Angle{*this, vector};
-}
-
 inline Angle::Angle(const Value::Vector& vector,
                     const Direction& direction) noexcept
     : DimensionalScalarQuantity<Unit::Angle>(

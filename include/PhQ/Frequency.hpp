@@ -85,31 +85,29 @@ public:
     return value_ * duration.Value();
   }
 
-  inline constexpr Speed operator*(const Length& length) const noexcept;
+  inline Speed operator*(const Length& length) const noexcept;
 
-  inline constexpr AngularSpeed operator*(const Angle& angle) const noexcept;
+  inline AngularSpeed operator*(const Angle& angle) const noexcept;
 
-  inline constexpr Velocity operator*(
-      const Displacement& displacement) const noexcept;
+  inline Velocity operator*(const Displacement& displacement) const noexcept;
 
-  inline constexpr MemoryRate operator*(const Memory& memory) const noexcept;
+  inline MemoryRate operator*(const Memory& memory) const noexcept;
 
-  inline constexpr AccelerationMagnitude operator*(
-      const Speed& speed) const noexcept;
+  inline AccelerationMagnitude operator*(const Speed& speed) const noexcept;
 
-  inline constexpr AngularAccelerationMagnitude operator*(
+  inline AngularAccelerationMagnitude operator*(
       const AngularSpeed& angular_speed) const noexcept;
 
-  inline constexpr MassRate operator*(const Mass& mass) const noexcept;
+  inline MassRate operator*(const Mass& mass) const noexcept;
 
-  inline constexpr VolumeRate operator*(const Volume& volume) const noexcept;
+  inline VolumeRate operator*(const Volume& volume) const noexcept;
 
-  inline constexpr Power operator*(const Energy& energy) const noexcept;
+  inline Power operator*(const Energy& energy) const noexcept;
 
-  inline constexpr SpecificPower operator*(
+  inline SpecificPower operator*(
       const SpecificEnergy& specific_energy) const noexcept;
 
-  inline constexpr StrainRate operator*(const Strain& strain) const noexcept;
+  inline StrainRate operator*(const Strain& strain) const noexcept;
 
   inline constexpr void operator+=(const Frequency& frequency) noexcept {
     value_ += frequency.value_;

@@ -80,6 +80,10 @@ if(BUILD_TESTING)
   target_link_libraries(angle GTest::gtest_main)
   gtest_discover_tests(angle)
 
+  add_executable(angular_speed ${PROJECT_SOURCE_DIR}/test/AngularSpeed.cpp)
+  target_link_libraries(angular_speed GTest::gtest_main)
+  gtest_discover_tests(angular_speed)
+
   add_executable(base_constant ${PROJECT_SOURCE_DIR}/test/Base/Constant.cpp)
   target_link_libraries(base_constant GTest::gtest_main)
   gtest_discover_tests(base_constant)
