@@ -80,6 +80,10 @@ if(BUILD_TESTING)
   target_link_libraries(angle GTest::gtest_main)
   gtest_discover_tests(angle)
 
+  add_executable(angular_acceleration_magnitude ${PROJECT_SOURCE_DIR}/test/AngularAccelerationMagnitude.cpp)
+  target_link_libraries(angular_acceleration_magnitude GTest::gtest_main)
+  gtest_discover_tests(angular_acceleration_magnitude)
+
   add_executable(angular_speed ${PROJECT_SOURCE_DIR}/test/AngularSpeed.cpp)
   target_link_libraries(angular_speed GTest::gtest_main)
   gtest_discover_tests(angular_speed)
