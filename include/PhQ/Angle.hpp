@@ -104,6 +104,7 @@ public:
   inline Angle operator*(const double number) const noexcept {
     return PhQ::Angle{value_ * number};
   }
+
   inline Angle operator/(const double number) const noexcept {
     return PhQ::Angle{value_ / number};
   }
@@ -172,6 +173,10 @@ inline std::ostream& operator<<(std::ostream& stream,
                                 const Angle& angle) noexcept {
   stream << angle.Print();
   return stream;
+}
+
+inline Angle operator*(const double number, const Angle& angle) noexcept {
+  return angle * number;
 }
 
 inline PhQ::Angle Direction::Angle(const Direction& direction) const noexcept {

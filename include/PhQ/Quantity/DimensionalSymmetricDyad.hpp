@@ -81,17 +81,17 @@ public:
   std::string Yaml() const noexcept override {
     return std::string{"{value:"}
         .append(value_.Yaml())
-        .append(",unit:")
+        .append(",unit:\"")
         .append(Abbreviation(StandardUnit<Unit>))
-        .append("}");
+        .append("\"}");
   }
 
   std::string Yaml(const Unit unit) const noexcept override {
     return std::string{"{value:"}
         .append(Value(unit).Yaml())
-        .append(",unit:")
+        .append(",unit:\"")
         .append(Abbreviation(unit))
-        .append("}");
+        .append("\"}");
   }
 
 protected:
