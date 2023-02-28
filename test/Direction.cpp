@@ -51,6 +51,24 @@ TEST(Direction, Accessor) {
   EXPECT_EQ(direction3.Value().z(), 0.0);
 }
 
+TEST(Direction, Angle) {
+  const Angle angle{90.0, Unit::Angle::Degree};
+  const Direction direction0{0.0, 1.0, 0.0};
+  const Direction direction1{0.0, 0.0, 1.0};
+  EXPECT_DOUBLE_EQ(Angle(direction0, direction1).Value(), angle.Value());
+  EXPECT_DOUBLE_EQ(Angle(direction0.Value(), direction1).Value(),
+                   angle.Value());
+  EXPECT_DOUBLE_EQ(Angle(direction0, direction1.Value()).Value(),
+                   angle.Value());
+  EXPECT_DOUBLE_EQ(Angle(direction0.Value(), direction1.Value()).Value(),
+                   angle.Value());
+  EXPECT_DOUBLE_EQ(direction0.Angle(direction1).Value(), angle.Value());
+  EXPECT_DOUBLE_EQ(direction0.Angle(direction1.Value()).Value(), angle.Value());
+  EXPECT_DOUBLE_EQ(direction0.Value().Angle(direction1).Value(), angle.Value());
+  EXPECT_DOUBLE_EQ(direction0.Value().Angle(direction1.Value()).Value(),
+                   angle.Value());
+}
+
 TEST(Direction, Comparison) {
   const Direction direction0{1.11, 2.22, 3.33};
   const Direction direction1{1.23, 4.56, 7.89};

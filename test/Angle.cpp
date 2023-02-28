@@ -68,24 +68,8 @@ TEST(Angle, Comparison) {
 }
 
 TEST(Angle, Constructor) {
-  const Direction direction0{0.0, 1.0, 0.0};
-  const Direction direction1{0.0, 0.0, 1.0};
   const Angle angle0;
   const Angle angle1{90.0, Unit::Angle::Degree};
-  EXPECT_DOUBLE_EQ(Angle(direction0, direction1).Value(), angle1.Value());
-  EXPECT_DOUBLE_EQ(Angle(direction0.Value(), direction1).Value(),
-                   angle1.Value());
-  EXPECT_DOUBLE_EQ(Angle(direction0, direction1.Value()).Value(),
-                   angle1.Value());
-  EXPECT_DOUBLE_EQ(Angle(direction0.Value(), direction1.Value()).Value(),
-                   angle1.Value());
-  EXPECT_DOUBLE_EQ(direction0.Angle(direction1).Value(), angle1.Value());
-  EXPECT_DOUBLE_EQ(direction0.Angle(direction1.Value()).Value(),
-                   angle1.Value());
-  EXPECT_DOUBLE_EQ(direction0.Value().Angle(direction1).Value(),
-                   angle1.Value());
-  EXPECT_DOUBLE_EQ(direction0.Value().Angle(direction1.Value()).Value(),
-                   angle1.Value());
 }
 
 TEST(Angle, Hash) {

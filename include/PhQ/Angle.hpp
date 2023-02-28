@@ -16,9 +16,9 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 
-#include "Direction.hpp"
 #include "Quantity/DimensionalScalar.hpp"
 #include "Unit/Angle.hpp"
+#include "Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -26,6 +26,7 @@ namespace PhQ {
 class Acceleration;
 class AngularSpeed;
 class AreaVector;
+class Direction;
 class Displacement;
 class Duration;
 class Force;
@@ -43,23 +44,16 @@ public:
   Angle(const double value, const Unit::Angle unit) noexcept
       : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  constexpr Angle(const Direction& direction1,
-                  const Direction& direction2) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(
-            std::acos(direction1.Dot(direction2))) {}
-
-  Angle(const Direction& direction, const Value::Vector& vector) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(
-            std::acos(direction.Dot(vector) / vector.Magnitude())) {}
-
-  Angle(const Value::Vector& vector, const Direction& direction) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(
-            std::acos(vector.Dot(direction) / vector.Magnitude())) {}
-
   Angle(const Value::Vector& vector1, const Value::Vector& vector2) noexcept
       : DimensionalScalarQuantity<Unit::Angle>(
             std::acos(vector1.Dot(vector2) /
                       (vector1.Magnitude() * vector2.Magnitude()))) {}
+
+  Angle(const Value::Vector& vector, const Direction& direction) noexcept;
+
+  Angle(const Direction& direction, const Value::Vector& vector) noexcept;
+
+  Angle(const Direction& direction1, const Direction& direction2) noexcept;
 
   constexpr Angle(const AngularSpeed& angular_speed,
                   const Duration& duration) noexcept;
@@ -137,6 +131,8 @@ public:
 private:
   explicit constexpr Angle(const double value) noexcept
       : DimensionalScalarQuantity<Unit::Angle>(value) {}
+
+  friend class Direction;
 };
 
 inline constexpr bool operator==(const Angle& left,
@@ -177,24 +173,6 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 inline Angle operator*(const double number, const Angle& angle) noexcept {
   return angle * number;
-}
-
-inline PhQ::Angle Direction::Angle(const Direction& direction) const noexcept {
-  return PhQ::Angle{*this, direction};
-}
-
-inline PhQ::Angle Direction::Angle(const Value::Vector& vector) const noexcept {
-  return PhQ::Angle{*this, vector};
-}
-
-inline PhQ::Angle Value::Vector::Angle(
-    const PhQ::Direction& direction) const noexcept {
-  return PhQ::Angle{*this, direction};
-}
-
-inline PhQ::Angle Value::Vector::Angle(
-    const Value::Vector& vector) const noexcept {
-  return PhQ::Angle{*this, vector};
 }
 
 }  // namespace PhQ

@@ -16,6 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 
+#include "Angle.hpp"
 #include "Quantity/DimensionlessVector.hpp"
 #include "Value/Dyad.hpp"
 
@@ -94,9 +95,13 @@ public:
     return value_.Dyadic(direction.value_);
   }
 
-  inline PhQ::Angle Angle(const Direction& direction) const noexcept;
+  inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept {
+    return PhQ::Angle{*this, vector};
+  }
 
-  inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept;
+  inline PhQ::Angle Angle(const Direction& direction) const noexcept {
+    return PhQ::Angle{*this, direction};
+  }
 };
 
 inline constexpr bool operator==(const Direction& left,
@@ -147,6 +152,31 @@ inline constexpr Value::Vector operator*(const Value::Dyad& dyad,
                                          const Direction& direction) noexcept {
   return dyad * direction.Value();
 }
+
+inline PhQ::Angle Value::Vector::Angle(
+    const PhQ::Direction& direction) const noexcept {
+  return PhQ::Angle{*this, direction};
+}
+
+inline PhQ::Angle Value::Vector::Angle(
+    const Value::Vector& vector) const noexcept {
+  return PhQ::Angle{*this, vector};
+}
+
+inline Angle::Angle(const Value::Vector& vector,
+                    const Direction& direction) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(vector.Dot(direction) / vector.Magnitude())) {}
+
+inline Angle::Angle(const Direction& direction,
+                    const Value::Vector& vector) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(direction.Dot(vector) / vector.Magnitude())) {}
+
+inline Angle::Angle(const Direction& direction1,
+                    const Direction& direction2) noexcept
+    : DimensionalScalarQuantity<Unit::Angle>(
+          std::acos(direction1.Dot(direction2))) {}
 
 }  // namespace PhQ
 
