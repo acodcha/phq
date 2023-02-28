@@ -24,7 +24,7 @@ class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
   constexpr Time() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
 
-  Time(const double value, Unit::Time unit) noexcept
+  Time(const double value, const Unit::Time unit) noexcept
       : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
   inline Time operator+(const Time& time) const noexcept {
