@@ -1,17 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
 
 #include "Quantity/DimensionalScalar.hpp"
 #include "Unit/Mass.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class Mass.
 class Duration;
 class Energy;
 class Frequency;
@@ -29,105 +39,142 @@ class SpecificPower;
 class Volume;
 
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
-
 public:
-
   constexpr Mass() noexcept : DimensionalScalarQuantity<Unit::Mass>() {}
 
-  constexpr Mass(double value, Unit::Mass unit) noexcept : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
+  Mass(const double value, const Unit::Mass unit) noexcept
+      : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
-  constexpr Mass(const MassDensity& mass_density, const Volume& volume) noexcept;
+  constexpr Mass(const MassDensity& mass_density,
+                 const Volume& volume) noexcept;
 
   constexpr Mass(const MassRate& mass_rate, const Duration& duration) noexcept;
 
-  constexpr Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept;
+  constexpr Mass(const MassRate& mass_rate,
+                 const Frequency& frequency) noexcept;
 
-  constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy) noexcept;
+  constexpr Mass(const SpecificEnergy& specific_energy,
+                 const Energy& energy) noexcept;
 
-  constexpr Mass(const SpecificPower& specific_power, const Power& power) noexcept;
+  constexpr Mass(const SpecificPower& specific_power,
+                 const Power& power) noexcept;
 
-  constexpr Mass(const SpecificGasConstant& specific_gas_constant, const GasConstant& gas_constant) noexcept;
+  constexpr Mass(const SpecificGasConstant& specific_gas_constant,
+                 const GasConstant& gas_constant) noexcept;
 
-  constexpr Mass(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+  constexpr Mass(
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
+      const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
 
-  constexpr Mass(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+  constexpr Mass(
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
+      const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
-  constexpr bool operator==(const Mass& mass) const noexcept {
-    return value_ == mass.value_;
+  inline Mass operator+(const Mass& mass) const noexcept {
+    return Mass{value_ + mass.value_};
   }
 
-  constexpr bool operator!=(const Mass& mass) const noexcept {
-    return value_ != mass.value_;
+  inline Mass operator-(const Mass& mass) const noexcept {
+    return Mass{value_ - mass.value_};
   }
 
-  constexpr bool operator<(const Mass& mass) const noexcept {
-    return value_ < mass.value_;
+  inline Mass operator*(const double number) const noexcept {
+    return Mass{value_ * number};
   }
 
-  constexpr bool operator<=(const Mass& mass) const noexcept {
-    return value_ <= mass.value_;
+  inline MassRate operator*(const Frequency& frequency) const noexcept;
+
+  inline Energy operator*(const SpecificEnergy& specific_energy) const noexcept;
+
+  inline Power operator*(const SpecificPower& specific_power) const noexcept;
+
+  inline IsobaricHeatCapacity operator*(
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
+      const noexcept;
+
+  inline IsochoricHeatCapacity operator*(
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
+      const noexcept;
+
+  inline GasConstant operator*(
+      const SpecificGasConstant& specific_gas_constant) const noexcept;
+
+  inline Mass operator/(const double number) const noexcept {
+    return Mass{value_ / number};
   }
 
-  constexpr bool operator>(const Mass& mass) const noexcept {
-    return value_ > mass.value_;
-  }
+  inline MassDensity operator/(const Volume& volume) const noexcept;
 
-  constexpr bool operator>=(const Mass& mass) const noexcept {
-    return value_ >= mass.value_;
-  }
+  inline MassRate operator/(const Duration& duration) const noexcept;
 
-  constexpr Mass operator+(const Mass& mass) const noexcept {
-    return {value_ + mass.value_};
-  }
+  inline Duration operator/(const MassRate& mass_rate) const noexcept;
 
-  constexpr void operator+=(const Mass& mass) noexcept {
+  inline constexpr void operator+=(const Mass& mass) noexcept {
     value_ += mass.value_;
   }
 
-  constexpr Mass operator-(const Mass& mass) const noexcept {
-    return {value_ - mass.value_};
-  }
-
-  constexpr void operator-=(const Mass& mass) noexcept {
+  inline constexpr void operator-=(const Mass& mass) noexcept {
     value_ -= mass.value_;
   }
 
-  constexpr MassRate operator*(const Frequency& frequency) const noexcept;
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr Energy operator*(const SpecificEnergy& specific_energy) const noexcept;
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
-  constexpr Power operator*(const SpecificPower& specific_power) const noexcept;
-
-  constexpr IsobaricHeatCapacity operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept;
-
-  constexpr IsochoricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
-
-  constexpr GasConstant operator*(const SpecificGasConstant& specific_gas_constant) const noexcept;
-
-  constexpr MassDensity operator/(const Volume& volume) const noexcept;
-
-  constexpr MassRate operator/(const Duration& duration) const noexcept;
-
-  constexpr Duration operator/(const MassRate& mass_rate) const noexcept;
-
-protected:
-
-  constexpr Mass(double value) noexcept : DimensionalScalarQuantity<Unit::Mass>(value) {}
-
+private:
+  explicit constexpr Mass(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::Mass>(value) {}
 };
 
-template <> constexpr bool sort(const Mass& mass_1, const Mass& mass_2) noexcept {
-  return sort(mass_1.value(), mass_2.value());
+inline constexpr bool operator==(const Mass& left, const Mass& right) noexcept {
+  return left.Value() == right.Value();
 }
 
-} // namespace PhQ
+inline constexpr bool operator!=(const Mass& left, const Mass& right) noexcept {
+  return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(const Mass& left, const Mass& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Mass& left, const Mass& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Mass& left, const Mass& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Mass& mass) noexcept {
+  stream << mass.Print();
+  return stream;
+}
+
+inline Mass operator*(const double number, const Mass& mass) noexcept {
+  return mass * number;
+}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Mass> {
+template <>
+struct hash<PhQ::Mass> {
   size_t operator()(const PhQ::Mass& mass) const {
-    return hash<double>()(mass.value());
+    return hash<double>()(mass.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP

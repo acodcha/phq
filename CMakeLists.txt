@@ -144,6 +144,10 @@ if(BUILD_TESTING)
   target_link_libraries(length GTest::gtest_main)
   gtest_discover_tests(length)
 
+  add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
+  target_link_libraries(mass GTest::gtest_main)
+  gtest_discover_tests(mass)
+
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
