@@ -46,10 +46,6 @@ public:
 
   constexpr Length(const Position& position) noexcept;
 
-  constexpr Length(const Area& area, const Length& length) noexcept;
-
-  constexpr Length(const Volume& volume, const Area& area) noexcept;
-
   constexpr Length(const Speed& speed, const Duration& duration) noexcept;
 
   constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
@@ -110,6 +106,8 @@ public:
 private:
   explicit constexpr Length(const double value) noexcept
       : DimensionalScalarQuantity<Unit::Length>(value) {}
+
+  friend class Area;
 };
 
 inline constexpr bool operator==(const Length& left,

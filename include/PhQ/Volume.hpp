@@ -100,10 +100,6 @@ template <> constexpr bool sort(const Volume& volume_1, const Volume& volume_2) 
   return sort(volume_1.value(), volume_2.value());
 }
 
-constexpr Length::Length(const Volume& volume, const Area& area) noexcept : Length(volume.value() / area.value()) {}
-
-constexpr Area::Area(const Volume& volume, const Length& length) noexcept : Area(volume.value() / length.value()) {}
-
 constexpr Volume Length::operator*(const Area& area) const noexcept {
   return {area, *this};
 }
