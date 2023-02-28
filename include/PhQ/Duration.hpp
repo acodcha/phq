@@ -21,7 +21,7 @@
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class Duration.
 class AccelerationMagnitude;
 class Angle;
 class AngularAccelerationMagnitude;
@@ -77,7 +77,7 @@ public:
   constexpr Duration(const VolumeRate& volume_rate,
                      const Volume& volume) noexcept;
 
-  constexpr PhQ::Frequency Frequency() const noexcept;
+  inline PhQ::Frequency Frequency() const noexcept;
 
   inline Time operator+(const Time& time) const noexcept;
 

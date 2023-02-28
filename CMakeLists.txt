@@ -128,6 +128,10 @@ if(BUILD_TESTING)
   target_link_libraries(duration GTest::gtest_main)
   gtest_discover_tests(duration)
 
+  add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
+  target_link_libraries(frequency GTest::gtest_main)
+  gtest_discover_tests(frequency)
+
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
