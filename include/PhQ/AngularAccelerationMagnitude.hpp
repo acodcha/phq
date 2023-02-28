@@ -28,7 +28,7 @@ public:
       : DimensionalScalarQuantity<Unit::AngularAcceleration>() {}
 
   AngularAccelerationMagnitude(const double value,
-                               Unit::AngularAcceleration unit) noexcept
+                               const Unit::AngularAcceleration unit) noexcept
       : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
 
   constexpr AngularAccelerationMagnitude(const AngularSpeed& angular_speed,
