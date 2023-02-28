@@ -32,7 +32,7 @@ public:
   constexpr Frequency() noexcept
       : DimensionalScalarQuantity<Unit::Frequency>() {}
 
-  Frequency(const double value, Unit::Frequency unit) noexcept
+  Frequency(const double value, const Unit::Frequency unit) noexcept
       : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
   constexpr Frequency(const Duration& duration) noexcept
