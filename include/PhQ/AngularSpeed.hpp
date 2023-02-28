@@ -30,7 +30,7 @@ public:
   constexpr AngularSpeed() noexcept
       : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
 
-  AngularSpeed(const double value, Unit::AngularSpeed unit) noexcept
+  AngularSpeed(const double value, const Unit::AngularSpeed unit) noexcept
       : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
   constexpr AngularSpeed(const Angle& angle, const Duration& duration) noexcept
