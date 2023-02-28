@@ -128,6 +128,10 @@ if(BUILD_TESTING)
   target_link_libraries(duration GTest::gtest_main)
   gtest_discover_tests(duration)
 
+  add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
+  target_link_libraries(time GTest::gtest_main)
+  gtest_discover_tests(time)
+
   add_executable(unit_acceleration ${PROJECT_SOURCE_DIR}/test/Unit/Acceleration.cpp)
   target_link_libraries(unit_acceleration GTest::gtest_main)
   gtest_discover_tests(unit_acceleration)
