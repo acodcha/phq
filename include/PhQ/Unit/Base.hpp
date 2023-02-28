@@ -44,41 +44,36 @@ inline const std::map<
 
 template <typename Unit>
 void Convert(double& value, const Unit old_unit, const Unit new_unit) noexcept {
-  if (old_unit == new_unit) {
-    return;
+  if (old_unit != StandardUnit<Unit>) {
+    ConversionsToStandard<Unit>.find(old_unit)->second(&value, 1);
   }
-  ConversionsToStandard<Unit>.find(old_unit)->second(&value, 1);
-  if (new_unit == StandardUnit<Unit>) {
-    return;
+  if (new_unit != StandardUnit<Unit>) {
+    ConversionsFromStandard<Unit>.find(new_unit)->second(&value, 1);
   }
-  ConversionsFromStandard<Unit>.find(new_unit)->second(&value, 1);
 }
 
 template <typename Unit, std::size_t Size>
 void Convert(std::array<double, Size>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
-  if (old_unit == new_unit) {
-    return;
+  if (old_unit != StandardUnit<Unit>) {
+    ConversionsToStandard<Unit>.find(old_unit)->second(&values[0], Size);
   }
-  ConversionsToStandard<Unit>.find(old_unit)->second(&values[0], Size);
-  if (new_unit == StandardUnit<Unit>) {
-    return;
+  if (new_unit != StandardUnit<Unit>) {
+    ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0], Size);
   }
-  ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0], Size);
 }
 
 template <typename Unit>
 void Convert(std::vector<double>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
-  if (old_unit == new_unit) {
-    return;
-  }
-  ConversionsToStandard<Unit>.find(old_unit)->second(&values[0], values.size());
-  if (new_unit == StandardUnit<Unit>) {
-    return;
-  }
-  ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0],
+  if (old_unit != StandardUnit<Unit>) {
+    ConversionsToStandard<Unit>.find(old_unit)->second(&values[0],
                                                        values.size());
+  }
+  if (new_unit != StandardUnit<Unit>) {
+    ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0],
+                                                         values.size());
+  }
 }
 
 template <typename Unit>
