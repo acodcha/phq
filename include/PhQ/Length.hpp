@@ -39,7 +39,7 @@ class Length : public DimensionalScalarQuantity<Unit::Length> {
 public:
   constexpr Length() noexcept : DimensionalScalarQuantity<Unit::Length>() {}
 
-  Length(const double value, Unit::Length unit) noexcept
+  Length(const double value, const Unit::Length unit) noexcept
       : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
   constexpr Length(const Displacement& displacement) noexcept;
