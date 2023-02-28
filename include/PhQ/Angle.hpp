@@ -88,21 +88,21 @@ public:
                   const Velocity& velocity_2) noexcept;
 
   inline Angle operator+(const Angle& other) const noexcept {
-    return PhQ::Angle{value_ + other.value_};
+    return Angle{value_ + other.value_};
   }
 
   inline Angle operator-(const Angle& other) const noexcept {
-    return PhQ::Angle{value_ - other.value_};
+    return Angle{value_ - other.value_};
   }
 
   inline Angle operator*(const double number) const noexcept {
-    return PhQ::Angle{value_ * number};
+    return Angle{value_ * number};
   }
 
   inline AngularSpeed operator*(const Frequency& frequency) const noexcept;
 
   inline Angle operator/(const double number) const noexcept {
-    return PhQ::Angle{value_ / number};
+    return Angle{value_ / number};
   }
 
   inline AngularSpeed operator/(const Duration& duration) const noexcept;
