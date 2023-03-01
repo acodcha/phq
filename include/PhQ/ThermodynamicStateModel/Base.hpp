@@ -6,31 +6,31 @@
 
 #pragma once
 
+#include "../Base/Enumeration.hpp"
 #include "../Base/String.hpp"
-#include "../Base/Type.hpp"
 
 namespace PhQ {
 
 namespace ThermodynamicStateModel {
 
-enum class Type : uint_least8_t {
+enum class Type : int_least8_t {
   IncompressibleFluid,
-  IdealGas
+  IdealGas,
 };
 
 template <Type ThermodynamicStateModelType> class GenericThermodynamicStateModel {
 
 public:
 
-  constexpr Type type() const noexcept {
+  constexpr Type Type() const noexcept {
     return ThermodynamicStateModelType;
   }
 
-  virtual std::string print() const noexcept = 0;
+  virtual std::string Print() const noexcept = 0;
 
-  virtual std::string json() const noexcept = 0;
+  virtual std::string Json() const noexcept = 0;
 
-  virtual std::string xml() const noexcept = 0;
+  virtual std::string Xml() const noexcept = 0;
 
 protected:
 
@@ -40,12 +40,12 @@ protected:
 
 } // namespace ThermodynamicStateModel
 
-template <> const std::map<ThermodynamicStateModel::Type, std::string> abbreviations<ThermodynamicStateModel::Type>{
+template <> inline const std::map<ThermodynamicStateModel::Type, std::string_view> Abbreviations<ThermodynamicStateModel::Type>{
   {ThermodynamicStateModel::Type::IncompressibleFluid, "Incompressible Fluid"},
-  {ThermodynamicStateModel::Type::IdealGas, "Ideal Gas"}
+  {ThermodynamicStateModel::Type::IdealGas, "Ideal Gas"},
 };
 
-template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type> spellings<ThermodynamicStateModel::Type>{
+template <> inline const std::unordered_map<std::string_view, ThermodynamicStateModel::Type> Spellings<ThermodynamicStateModel::Type>{
   {"Incompressible Fluid", ThermodynamicStateModel::Type::IncompressibleFluid},
   {"IncompressibleFluid", ThermodynamicStateModel::Type::IncompressibleFluid},
   {"incompressible fluid", ThermodynamicStateModel::Type::IncompressibleFluid},
@@ -53,12 +53,12 @@ template <> const std::unordered_map<std::string, ThermodynamicStateModel::Type>
   {"Ideal Gas", ThermodynamicStateModel::Type::IdealGas},
   {"IdealGas", ThermodynamicStateModel::Type::IdealGas},
   {"ideal gas", ThermodynamicStateModel::Type::IdealGas},
-  {"ideal_gas", ThermodynamicStateModel::Type::IdealGas}
+  {"ideal_gas", ThermodynamicStateModel::Type::IdealGas},
 };
 
 } // namespace PhQ
 
-template <PhQ::ThermodynamicStateModel::Type ThermodynamicStateModelType> std::ostream& operator<<(std::ostream& output_stream, const PhQ::ThermodynamicStateModel::GenericThermodynamicStateModel<ThermodynamicStateModelType>& thermodynamic_state_model) noexcept {
-  output_stream << thermodynamic_state_model.print();
-  return output_stream;
+template <PhQ::ThermodynamicStateModel::Type ThermodynamicStateModelType> std::ostream& operator<<(std::ostream& stream, const PhQ::ThermodynamicStateModel::GenericThermodynamicStateModel<ThermodynamicStateModelType>& model) noexcept {
+  stream << model.print();
+  return stream;
 }

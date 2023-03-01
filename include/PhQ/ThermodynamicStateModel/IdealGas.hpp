@@ -42,36 +42,36 @@ public:
     return specific_isobaric_heat_capacity_;
   }
 
-  constexpr SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
+  SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
     return {specific_isobaric_heat_capacity_ - specific_gas_constant_};
   }
 
-  constexpr SpecificHeatRatio specific_heat_ratio() const noexcept {
+  SpecificHeatRatio specific_heat_ratio() const noexcept {
     return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity()};
   }
 
-  constexpr MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const noexcept {
-    return {static_pressure.value() / (temperature.value() * specific_gas_constant_.value()), standard_unit<Unit::MassDensity>};
+  MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const noexcept {
+    return {static_pressure.Value() / (temperature.Value() * specific_gas_constant_.Value()), StandardUnit<Unit::MassDensity>};
   }
 
-  constexpr StaticPressure static_pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
-    return {mass_density.value() * temperature.value() * specific_gas_constant_.value(), standard_unit<Unit::Pressure>};
+  StaticPressure static_pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
+    return {mass_density.Value() * temperature.Value() * specific_gas_constant_.Value(), StandardUnit<Unit::Pressure>};
   }
 
-  constexpr Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const noexcept {
-    return {static_pressure.value() / (mass_density.value() * specific_gas_constant_.value()), standard_unit<Unit::Temperature>};
+  Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const noexcept {
+    return {static_pressure.Value() / (mass_density.Value() * specific_gas_constant_.Value()), StandardUnit<Unit::Temperature>};
   }
 
-  std::string print() const noexcept {
-    return {"R_gas = " + specific_gas_constant_.print() + ", c_p = " + specific_isobaric_heat_capacity_.print()};
+  std::string Print() const noexcept override {
+    return {"Specific Gas Constant = " + specific_gas_constant_.Print() + ", Specific Isobaric Heat Capacity = " + specific_isobaric_heat_capacity_.Print()};
   }
 
-  std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"specific_gas_constant\": " + specific_gas_constant_.json()+ "\", \"specific_isobaric_heat_capacity\": " + specific_isobaric_heat_capacity_.json() + "}"};
+  std::string Json() const noexcept override {
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) + "\", \"specific_gas_constant\": " + specific_gas_constant_.Json()+ "\", \"specific_isobaric_heat_capacity\": " + specific_isobaric_heat_capacity_.Json() + "}"};
   }
 
-  std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><specific_gas_constant>" + specific_gas_constant_.xml() + "</specific_gas_constant><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.xml() + "</specific_isobaric_heat_capacity>"};
+  std::string Xml() const noexcept override {
+    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><specific_gas_constant>" + specific_gas_constant_.Xml() + "</specific_gas_constant><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.Xml() + "</specific_isobaric_heat_capacity>"};
   }
 
 protected:
@@ -83,14 +83,6 @@ protected:
 };
 
 } // namespace ThermodynamicStateModel
-
-constexpr bool sort(const ThermodynamicStateModel::IdealGas& model_1, const ThermodynamicStateModel::IdealGas& model_2) noexcept {
-  if (model_1.specific_gas_constant() == model_2.specific_gas_constant()) {
-    return model_1.specific_isobaric_heat_capacity() < model_2.specific_isobaric_heat_capacity();
-  } else {
-    return model_1.specific_gas_constant() < model_2.specific_gas_constant();
-  }
-}
 
 } // namespace PhQ
 

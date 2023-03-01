@@ -27,26 +27,26 @@ public:
     return dynamic_viscosity_;
   }
 
-  constexpr Stress stress(const StrainRate& strain_rate) const noexcept {
+  Stress stress(const StrainRate& strain_rate) const noexcept {
     // stress = 2 * dynamic_viscosity * strain_rate
-    return {{2.0 * dynamic_viscosity_.value() * strain_rate.value()}, standard_unit<Unit::Pressure>};
+    return {{2.0 * dynamic_viscosity_.Value() * strain_rate.Value()}, StandardUnit<Unit::Pressure>};
   }
 
-  constexpr StrainRate strain_rate(const Stress& stress) const noexcept {
+  StrainRate strain_rate(const Stress& stress) const noexcept {
     // strain_rate = stress / (2 * dynamic_viscosity)
-    return {{stress.value() / (2.0 * dynamic_viscosity_.value())}, standard_unit<Unit::Frequency>};
+    return {{stress.Value() / (2.0 * dynamic_viscosity_.Value())}, StandardUnit<Unit::Frequency>};
   }
 
-  std::string print() const noexcept {
-    return {"μ = " + dynamic_viscosity_.print()};
+  std::string Print() const noexcept override {
+    return {"μ = " + dynamic_viscosity_.Print()};
   }
 
-  std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.json()+ "}"};
+  std::string Json() const noexcept override {
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.Json()+ "}"};
   }
 
-  std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><dynamic_viscosity>" + dynamic_viscosity_.xml() + "</dynamic_viscosity>"};
+  std::string Xml() const noexcept override {
+    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() + "</dynamic_viscosity>"};
   }
 
 protected:
@@ -56,10 +56,6 @@ protected:
 };
 
 } // namespace ConstitutiveModel
-
-constexpr bool sort(const ConstitutiveModel::IncompressibleNewtonianFluid& model_1, const ConstitutiveModel::IncompressibleNewtonianFluid& model_2) noexcept {
-  return sort(model_1.dynamic_viscosity(), model_2.dynamic_viscosity());
-}
 
 } // namespace PhQ
 
