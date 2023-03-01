@@ -22,9 +22,9 @@ public:
 
   constexpr ForceMagnitude() noexcept : DimensionalScalarQuantity<Unit::Force>() {}
 
-  constexpr ForceMagnitude(double value, Unit::Force unit) noexcept : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
+  ForceMagnitude(double value, Unit::Force unit) noexcept : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
-  constexpr ForceMagnitude(const Force& force) noexcept;
+  ForceMagnitude(const Force& force) noexcept;
 
   constexpr ForceMagnitude(const StaticPressure& static_pressure, const Area& area) noexcept;
 
@@ -52,7 +52,7 @@ public:
     return value_ >= force_magnitude.value_;
   }
 
-  constexpr ForceMagnitude operator+(const ForceMagnitude& force_magnitude) const noexcept {
+  ForceMagnitude operator+(const ForceMagnitude& force_magnitude) const noexcept {
     return {value_ + force_magnitude.value_};
   }
 
@@ -60,7 +60,7 @@ public:
     value_ += force_magnitude.value_;
   }
 
-  constexpr ForceMagnitude operator-(const ForceMagnitude& force_magnitude) const noexcept {
+  ForceMagnitude operator-(const ForceMagnitude& force_magnitude) const noexcept {
     return {value_ - force_magnitude.value_};
   }
 
@@ -68,9 +68,9 @@ public:
     value_ -= force_magnitude.value_;
   }
 
-  constexpr Force operator*(const Direction& direction) const noexcept;
+  Force operator*(const Direction& direction) const noexcept;
 
-  constexpr StaticPressure operator/(const Area& area) const noexcept;
+  StaticPressure operator/(const Area& area) const noexcept;
 
 protected:
 
@@ -78,17 +78,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const ForceMagnitude& force_magnitude_1, const ForceMagnitude& force_magnitude_2) noexcept {
-  return sort(force_magnitude_1.value(), force_magnitude_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::ForceMagnitude> {
   size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
-    return hash<double>()(force_magnitude.value());
+    return hash<double>()(force_magnitude.Value());
   }
 };
 

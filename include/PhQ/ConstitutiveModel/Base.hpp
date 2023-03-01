@@ -6,32 +6,32 @@
 
 #pragma once
 
+#include "../Base/Enumeration.hpp"
 #include "../Base/String.hpp"
-#include "../Base/Type.hpp"
 
 namespace PhQ {
 
 namespace ConstitutiveModel {
 
-enum class Type : uint_least8_t {
+enum class Type : int_least8_t {
   ElasticIsotropicSolid,
   IncompressibleNewtonianFluid,
-  CompressibleNewtonianFluid
+  CompressibleNewtonianFluid,
 };
 
 template <Type ConstitutiveModelType> class GenericConstitutiveModel {
 
 public:
 
-  constexpr Type type() const noexcept {
+  constexpr ConstitutiveModel::Type Type() const noexcept {
     return ConstitutiveModelType;
   }
 
-  virtual std::string print() const noexcept = 0;
+  virtual std::string Print() const noexcept = 0;
 
-  virtual std::string json() const noexcept = 0;
+  virtual std::string Json() const noexcept = 0;
 
-  virtual std::string xml() const noexcept = 0;
+  virtual std::string Xml() const noexcept = 0;
 
 protected:
 
@@ -41,13 +41,13 @@ protected:
 
 } // namespace ConstitutiveModel
 
-template <> const std::map<ConstitutiveModel::Type, std::string> abbreviations<ConstitutiveModel::Type>{
+template <> inline const std::map<ConstitutiveModel::Type, std::string_view> Abbreviations<ConstitutiveModel::Type>{
   {ConstitutiveModel::Type::ElasticIsotropicSolid, "Elastic Isotropic Solid"},
   {ConstitutiveModel::Type::IncompressibleNewtonianFluid, "Incompressible Newtonian Fluid"},
-  {ConstitutiveModel::Type::CompressibleNewtonianFluid, "Compressible Newtonian Fluid"}
+  {ConstitutiveModel::Type::CompressibleNewtonianFluid, "Compressible Newtonian Fluid"},
 };
 
-template <> const std::unordered_map<std::string, ConstitutiveModel::Type> spellings<ConstitutiveModel::Type>{
+template <> inline const std::unordered_map<std::string_view, ConstitutiveModel::Type> Spellings<ConstitutiveModel::Type>{
   {"Elastic Isotropic Solid", ConstitutiveModel::Type::ElasticIsotropicSolid},
   {"ElasticIsotropicSolid", ConstitutiveModel::Type::ElasticIsotropicSolid},
   {"elastic isotropic solid", ConstitutiveModel::Type::ElasticIsotropicSolid},
@@ -59,12 +59,12 @@ template <> const std::unordered_map<std::string, ConstitutiveModel::Type> spell
   {"Compressible Newtonian Fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
   {"CompressibleNewtonianFluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
   {"compressible newtonian fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
-  {"compressible_newtonian_fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid}
+  {"compressible_newtonian_fluid", ConstitutiveModel::Type::CompressibleNewtonianFluid},
 };
 
 } // namespace PhQ
 
-template <PhQ::ConstitutiveModel::Type ConstitutiveModelType> std::ostream& operator<<(std::ostream& output_stream, const PhQ::ConstitutiveModel::GenericConstitutiveModel<ConstitutiveModelType>& constitutive_model) noexcept {
-  output_stream << constitutive_model.print();
-  return output_stream;
+template <PhQ::ConstitutiveModel::Type ConstitutiveModelType> std::ostream& operator<<(std::ostream& stream, const PhQ::ConstitutiveModel::GenericConstitutiveModel<ConstitutiveModelType>& model) noexcept {
+  stream << model.print();
+  return stream;
 }

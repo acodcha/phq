@@ -6,20 +6,20 @@
 
 #pragma once
 
-#include "Quantity/DimensionlessDyadic.hpp"
+#include "Quantity/DimensionlessDyad.hpp"
 #include "Strain.hpp"
 
 namespace PhQ {
 
-class DisplacementGradient : public DimensionlessDyadicQuantity {
+class DisplacementGradient : public DimensionlessDyadQuantity {
 
 public:
 
-  constexpr DisplacementGradient() noexcept : DimensionlessDyadicQuantity() {}
+  constexpr DisplacementGradient() noexcept : DimensionlessDyadQuantity() {}
 
-  constexpr DisplacementGradient(const Value::Dyadic& value) noexcept : DimensionlessDyadicQuantity(value) {}
+  constexpr DisplacementGradient(const Value::Dyad& value) noexcept : DimensionlessDyadQuantity(value) {}
 
-  constexpr Strain strain() const noexcept {
+  Strain strain() const noexcept {
     return {*this};
   }
 
@@ -31,7 +31,7 @@ public:
     return value_ != displacement_gradient.value_;
   }
 
-  constexpr DisplacementGradient operator+(const DisplacementGradient& displacement_gradient) const noexcept {
+  DisplacementGradient operator+(const DisplacementGradient& displacement_gradient) const noexcept {
     return {value_ + displacement_gradient.value_};
   }
 
@@ -39,7 +39,7 @@ public:
     value_ += displacement_gradient.value_;
   }
 
-  constexpr DisplacementGradient operator-(const DisplacementGradient& displacement_gradient) const noexcept {
+  DisplacementGradient operator-(const DisplacementGradient& displacement_gradient) const noexcept {
     return {value_ - displacement_gradient.value_};
   }
 
@@ -49,23 +49,19 @@ public:
 
 };
 
-template <> constexpr bool sort(const DisplacementGradient& displacement_gradient_1, const DisplacementGradient& displacement_gradient_2) noexcept {
-  return sort(displacement_gradient_1.value(), displacement_gradient_2.value());
-}
-
 constexpr Strain::Strain(const DisplacementGradient& displacement_gradient) noexcept : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 } // namespace PhQ
 
-constexpr PhQ::DisplacementGradient operator*(double real, const PhQ::DisplacementGradient& displacement_gradient) noexcept {
-  return {real * displacement_gradient.value()};
+PhQ::DisplacementGradient operator*(double real, const PhQ::DisplacementGradient& displacement_gradient) noexcept {
+  return {real * displacement_gradient.Value()};
 }
 
 namespace std {
 
 template <> struct hash<PhQ::DisplacementGradient> {
   size_t operator()(const PhQ::DisplacementGradient& displacement_gradient) const {
-    return hash<PhQ::Value::Dyadic>()(displacement_gradient.value());
+    return hash<PhQ::Value::Dyad>()(displacement_gradient.Value());
   }
 };
 

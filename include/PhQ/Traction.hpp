@@ -17,19 +17,19 @@ public:
 
   constexpr Traction() noexcept : DimensionalVectorQuantity<Unit::Pressure>() {}
 
-  constexpr Traction(const Value::Vector& value, Unit::Pressure unit) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
+  Traction(const Value::Vector& value, Unit::Pressure unit) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr Traction(const StaticPressure& static_pressure, const Direction& direction) noexcept : Traction({-static_pressure.value() * direction.x(), -static_pressure.value() * direction.y(), -static_pressure.value() * direction.z()}) {}
+  constexpr Traction(const StaticPressure& static_pressure, const Direction& direction) noexcept : Traction(-static_pressure.Value() * direction.Value()) {}
 
-  constexpr Traction(const Force& force, const Area& area) noexcept : Traction(force.value() / area.value()) {}
+  constexpr Traction(const Force& force, const Area& area) noexcept : Traction(force.Value() / area.Value()) {}
 
   constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
 
-  constexpr StaticPressure magnitude() const noexcept {
+  StaticPressure magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const Traction& traction) const noexcept {
+  Angle angle(const Traction& traction) const noexcept {
     return {*this, traction};
   }
 
@@ -41,7 +41,7 @@ public:
     return value_ != traction.value_;
   }
 
-  constexpr Traction operator+(const Traction& traction) const noexcept {
+  Traction operator+(const Traction& traction) const noexcept {
     return {value_ + traction.value_};
   }
 
@@ -49,7 +49,7 @@ public:
     value_ += traction.value_;
   }
 
-  constexpr Traction operator-(const Traction& traction) const noexcept {
+  Traction operator-(const Traction& traction) const noexcept {
     return {value_ - traction.value_};
   }
 
@@ -57,7 +57,7 @@ public:
     value_ -= traction.value_;
   }
 
-  constexpr Force operator*(const Area& area) const noexcept {
+  Force operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
@@ -67,27 +67,23 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Traction& traction_1, const Traction& traction_2) noexcept {
-  return sort(traction_1.value(), traction_2.value());
-}
+Direction::Direction(const Traction& traction) noexcept : Direction(traction.Value()) {}
 
-constexpr Direction::Direction(const Traction& traction) : Direction(traction.value()) {}
+Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : Angle(traction_1.Value(), traction_2.Value()) {}
 
-constexpr Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : Angle(traction_1.value(), traction_2.value()) {}
+StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.Value().Magnitude()) {}
 
-constexpr StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.value().magnitude()) {}
+constexpr Force::Force(const Traction& traction, const Area& area) noexcept : Force(traction.Value() * area.Value()) {}
 
-constexpr Force::Force(const Traction& traction, const Area& area) noexcept : Force(traction.value() * area.value()) {}
-
-constexpr Traction Direction::operator*(const StaticPressure& static_pressure) const noexcept {
+Traction Direction::operator*(const StaticPressure& static_pressure) const noexcept {
   return {static_pressure, *this};
 }
 
-constexpr Traction StaticPressure::operator*(const Direction& direction) const noexcept {
+Traction StaticPressure::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-constexpr Traction Force::operator/(const Area& area) const noexcept {
+Traction Force::operator/(const Area& area) const noexcept {
   return {*this, area};
 }
 
@@ -97,7 +93,7 @@ namespace std {
 
 template <> struct hash<PhQ::Traction> {
   size_t operator()(const PhQ::Traction& traction) const {
-    return hash<PhQ::Value::Vector>()(traction.value());
+    return hash<PhQ::Value::Vector>()(traction.Value());
   }
 };
 

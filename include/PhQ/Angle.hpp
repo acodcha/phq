@@ -61,31 +61,27 @@ public:
   constexpr Angle(const AngularSpeed& angular_speed,
                   const Frequency& frequency) noexcept;
 
-  constexpr Angle(const Acceleration& acceleration_1,
-                  const Acceleration& acceleration_2) noexcept;
+  Angle(const Acceleration& acceleration_1,
+        const Acceleration& acceleration_2) noexcept;
 
-  constexpr Angle(const AreaVector& area_vector_1,
-                  const AreaVector& area_vector_2) noexcept;
+  Angle(const AreaVector& area_vector_1,
+        const AreaVector& area_vector_2) noexcept;
 
-  constexpr Angle(const Displacement& displacement_1,
-                  const Displacement& displacement_2) noexcept;
+  Angle(const Displacement& displacement_1,
+        const Displacement& displacement_2) noexcept;
 
-  constexpr Angle(const Force& force_1, const Force& force_2) noexcept;
+  Angle(const Force& force_1, const Force& force_2) noexcept;
 
-  constexpr Angle(const HeatFlux& heat_flux_1,
-                  const HeatFlux& heat_flux_2) noexcept;
+  Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept;
 
-  constexpr Angle(const Position& position_1,
-                  const Position& position_2) noexcept;
+  Angle(const Position& position_1, const Position& position_2) noexcept;
 
-  constexpr Angle(const TemperatureGradient& temperature_gradient_1,
-                  const TemperatureGradient& temperature_gradient_2) noexcept;
+  Angle(const TemperatureGradient& temperature_gradient_1,
+        const TemperatureGradient& temperature_gradient_2) noexcept;
 
-  constexpr Angle(const Traction& traction_1,
-                  const Traction& traction_2) noexcept;
+  Angle(const Traction& traction_1, const Traction& traction_2) noexcept;
 
-  constexpr Angle(const Velocity& velocity_1,
-                  const Velocity& velocity_2) noexcept;
+  Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept;
 
   inline Angle operator+(const Angle& other) const noexcept {
     return Angle{value_ + other.value_};

@@ -16,13 +16,13 @@ public:
 
   constexpr Position() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
 
-  constexpr Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
+  Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  constexpr Length magnitude() const noexcept {
+  Length magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const Position& position) const noexcept {
+  Angle angle(const Position& position) const noexcept {
     return {*this, position};
   }
 
@@ -34,12 +34,12 @@ public:
     return value_ != position.value_;
   }
 
-  constexpr Position operator+(const Position& position) const noexcept {
+  Position operator+(const Position& position) const noexcept {
     return {value_ + position.value_};
   }
 
-  constexpr Position operator+(const Displacement& displacement) const noexcept {
-    return {value_ + displacement.value()};
+  Position operator+(const Displacement& displacement) const noexcept {
+    return {value_ + displacement.Value()};
   }
 
   constexpr void operator+=(const Position& position) noexcept {
@@ -47,15 +47,15 @@ public:
   }
 
   constexpr void operator+=(const Displacement& displacement) noexcept {
-    value_ += displacement.value();
+    value_ += displacement.Value();
   }
 
-  constexpr Displacement operator-(const Position& position) const noexcept {
+  Displacement operator-(const Position& position) const noexcept {
     return {value_ - position.value_};
   }
 
-  constexpr Position operator-(const Displacement& displacement) const noexcept {
-    return {value_ - displacement.value()};
+  Position operator-(const Displacement& displacement) const noexcept {
+    return {value_ - displacement.Value()};
   }
 
   constexpr void operator-=(const Position& position) noexcept {
@@ -63,7 +63,7 @@ public:
   }
 
   constexpr void operator-=(const Displacement& displacement) noexcept {
-    value_ -= displacement.value();
+    value_ -= displacement.Value();
   }
 
 protected:
@@ -74,22 +74,18 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Position& position_1, const Position& position_2) noexcept {
-  return sort(position_1.value(), position_2.value());
+Direction::Direction(const Position& position) noexcept : Direction(position.Value()) {}
+
+Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.Value(), position_2.Value()) {}
+
+Length::Length(const Position& position) noexcept : Length(position.Value().Magnitude()) {}
+
+Position Displacement::operator+(const Position& position) const noexcept {
+  return {value_ + position.Value()};
 }
 
-constexpr Direction::Direction(const Position& position) : Direction(position.value()) {}
-
-constexpr Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.value(), position_2.value()) {}
-
-constexpr Length::Length(const Position& position) noexcept : Length(position.value().magnitude()) {}
-
-constexpr Position Displacement::operator+(const Position& position) const noexcept {
-  return {value_ + position.value()};
-}
-
-constexpr Position Displacement::operator-(const Position& position) const noexcept {
-  return {value_ - position.value()};
+Position Displacement::operator-(const Position& position) const noexcept {
+  return {value_ - position.Value()};
 }
 
 } // namespace PhQ
@@ -98,7 +94,7 @@ namespace std {
 
 template <> struct hash<PhQ::Position> {
   size_t operator()(const PhQ::Position& position) const {
-    return hash<PhQ::Value::Vector>()(position.value());
+    return hash<PhQ::Value::Vector>()(position.Value());
   }
 };
 

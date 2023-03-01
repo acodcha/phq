@@ -26,7 +26,7 @@ public:
 
   constexpr KinematicViscosity() noexcept : DimensionalScalarQuantity<Unit::Diffusivity>() {}
 
-  constexpr KinematicViscosity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
+  KinematicViscosity(double value, Unit::Diffusivity unit) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
   constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density) noexcept;
 
@@ -58,7 +58,7 @@ public:
     return value_ >= kinematic_viscosity.value_;
   }
 
-  constexpr KinematicViscosity operator+(const KinematicViscosity& kinematic_viscosity) const noexcept {
+  KinematicViscosity operator+(const KinematicViscosity& kinematic_viscosity) const noexcept {
     return {value_ + kinematic_viscosity.value_};
   }
 
@@ -66,7 +66,7 @@ public:
     value_ += kinematic_viscosity.value_;
   }
 
-  constexpr KinematicViscosity operator-(const KinematicViscosity& kinematic_viscosity) const noexcept {
+  KinematicViscosity operator-(const KinematicViscosity& kinematic_viscosity) const noexcept {
     return {value_ - kinematic_viscosity.value_};
   }
 
@@ -74,7 +74,7 @@ public:
     value_ -= kinematic_viscosity.value_;
   }
 
-  constexpr DynamicViscosity operator*(const MassDensity& mass_density) const noexcept;
+  DynamicViscosity operator*(const MassDensity& mass_density) const noexcept;
 
 protected:
 
@@ -82,17 +82,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const KinematicViscosity& kinematic_viscosity_1, const KinematicViscosity& kinematic_viscosity_2) noexcept {
-  return sort(kinematic_viscosity_1.value(), kinematic_viscosity_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::KinematicViscosity> {
   size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
-    return hash<double>()(kinematic_viscosity.value());
+    return hash<double>()(kinematic_viscosity.Value());
   }
 };
 

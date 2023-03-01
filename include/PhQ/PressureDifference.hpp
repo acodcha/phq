@@ -13,6 +13,7 @@ namespace PhQ {
 
 // Forward declarations.
 class KinematicPressureDifference;
+class MassDensity;
 class StaticPressure;
 
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
@@ -21,7 +22,7 @@ public:
 
   constexpr PressureDifference() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr PressureDifference(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  PressureDifference(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr PressureDifference(const KinematicPressureDifference& kinematic_pressure_difference, const MassDensity& mass_density) noexcept;
 
@@ -49,9 +50,9 @@ public:
     return value_ >= pressure_difference.value_;
   }
 
-  constexpr StaticPressure operator+(const StaticPressure& static_pressure) const noexcept;
+  StaticPressure operator+(const StaticPressure& static_pressure) const noexcept;
 
-  constexpr PressureDifference operator+(const PressureDifference& pressure_difference) const noexcept {
+  PressureDifference operator+(const PressureDifference& pressure_difference) const noexcept {
     return {value_ + pressure_difference.value_};
   }
 
@@ -59,9 +60,9 @@ public:
     value_ += pressure_difference.value_;
   }
 
-  constexpr StaticPressure operator-(const StaticPressure& static_pressure) const noexcept;
+  StaticPressure operator-(const StaticPressure& static_pressure) const noexcept;
 
-  constexpr PressureDifference operator-(const PressureDifference& pressure_difference) const noexcept {
+  PressureDifference operator-(const PressureDifference& pressure_difference) const noexcept {
     return {value_ - pressure_difference.value_};
   }
 
@@ -69,7 +70,7 @@ public:
     value_ -= pressure_difference.value_;
   }
 
-  constexpr KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
+  KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
 
 protected:
 
@@ -79,17 +80,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const PressureDifference& pressure_difference_1, const PressureDifference& pressure_difference_2) noexcept {
-  return sort(pressure_difference_1.value(), pressure_difference_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::PressureDifference> {
   size_t operator()(const PhQ::PressureDifference& pressure_difference) const {
-    return hash<double>()(pressure_difference.value());
+    return hash<double>()(pressure_difference.Value());
   }
 };
 

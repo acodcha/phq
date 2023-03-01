@@ -25,7 +25,7 @@ public:
 
   constexpr TemperatureDifference() noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
 
-  constexpr TemperatureDifference(double value, Unit::TemperatureDifference unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
+  TemperatureDifference(double value, Unit::TemperatureDifference unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
   constexpr TemperatureDifference(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length) noexcept;
 
@@ -53,9 +53,9 @@ public:
     return value_ >= temperature_difference.value_;
   }
 
-  constexpr Temperature operator+(const Temperature& temperature) const noexcept;
+  Temperature operator+(const Temperature& temperature) const noexcept;
 
-  constexpr TemperatureDifference operator+(const TemperatureDifference& temperature_difference) const noexcept {
+  TemperatureDifference operator+(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ + temperature_difference.value_};
   }
 
@@ -63,9 +63,9 @@ public:
     value_ += temperature_difference.value_;
   }
 
-  constexpr Temperature operator-(const Temperature& temperature) const noexcept;
+  Temperature operator-(const Temperature& temperature) const noexcept;
 
-  constexpr TemperatureDifference operator-(const TemperatureDifference& temperature_difference) const noexcept {
+  TemperatureDifference operator-(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ - temperature_difference.value_};
   }
 
@@ -73,11 +73,11 @@ public:
     value_ -= temperature_difference.value_;
   }
 
-  constexpr StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
+  StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
 
   constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
 
-  constexpr TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
+  TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
 
 protected:
 
@@ -87,17 +87,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const TemperatureDifference& temperature_difference_1, const TemperatureDifference& temperature_difference_2) noexcept {
-  return sort(temperature_difference_1.value(), temperature_difference_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::TemperatureDifference> {
   size_t operator()(const PhQ::TemperatureDifference& temperature_difference) const {
-    return hash<double>()(temperature_difference.value());
+    return hash<double>()(temperature_difference.Value());
   }
 };
 

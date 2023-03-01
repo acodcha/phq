@@ -22,7 +22,7 @@ public:
 
   constexpr CompressibleNewtonianFluid() noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
 
-  constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity), bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.value(), standard_unit<Unit::DynamicViscosity>}) {}
+  CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity), bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(), StandardUnit<Unit::DynamicViscosity>}) {}
 
   constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity, const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity), bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
@@ -34,25 +34,25 @@ public:
     return bulk_dynamic_viscosity_;
   }
 
-  constexpr Stress stress(const StrainRate& strain_rate) const noexcept {
+  Stress stress(const StrainRate& strain_rate) const noexcept {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
-    const double temporary_1{2.0 * dynamic_viscosity_.value()};
-    const double temporary_2{bulk_dynamic_viscosity_.value() * strain_rate.value().trace()};
-    return {Value::SymmetricDyadic{temporary_1 * strain_rate.value()} + Value::SymmetricDyadic{temporary_2, 0.0, 0.0, temporary_2, 0.0, temporary_2}, standard_unit<Unit::Pressure>};
+    const double temporary_1{2.0 * dynamic_viscosity_.Value()};
+    const double temporary_2{bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace()};
+    return {Value::SymmetricDyad{temporary_1 * strain_rate.Value()} + Value::SymmetricDyad{temporary_2, 0.0, 0.0, temporary_2, 0.0, temporary_2}, StandardUnit<Unit::Pressure>};
   }
 
-  std::string print() const noexcept {
-    return {"μ = " + dynamic_viscosity_.print() + ", μ_B = " + bulk_dynamic_viscosity_.print()};
+  std::string Print() const noexcept override {
+    return {"μ = " + dynamic_viscosity_.Print() + ", μ_B = " + bulk_dynamic_viscosity_.Print()};
   }
 
-  std::string json() const noexcept {
-    return {"{\"type\": \"" + lowercase(abbreviation(type())) + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.json()+ "\", \"bulk_dynamic_viscosity\": " + bulk_dynamic_viscosity_.json() + "}"};
+  std::string Json() const noexcept override {
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.Json()+ "\", \"bulk_dynamic_viscosity\": " + bulk_dynamic_viscosity_.Json() + "}"};
   }
 
-  std::string xml() const noexcept {
-    return {"<type>" + lowercase(abbreviation(type())) + "</type><dynamic_viscosity>" + dynamic_viscosity_.xml() + "</dynamic_viscosity><bulk_dynamic_viscosity>" + bulk_dynamic_viscosity_.xml() + "</bulk_dynamic_viscosity>"};
+  std::string Xml() const noexcept override {
+    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() + "</dynamic_viscosity><bulk_dynamic_viscosity>" + bulk_dynamic_viscosity_.Xml() + "</bulk_dynamic_viscosity>"};
   }
 
 protected:
@@ -64,14 +64,6 @@ protected:
 };
 
 } // namespace ConstitutiveModel
-
-constexpr bool sort(const ConstitutiveModel::CompressibleNewtonianFluid& model_1, const ConstitutiveModel::CompressibleNewtonianFluid& model_2) noexcept {
-  if (model_1.dynamic_viscosity() == model_2.dynamic_viscosity()) {
-    return model_1.bulk_dynamic_viscosity() < model_2.bulk_dynamic_viscosity();
-  } else {
-    return model_1.dynamic_viscosity() < model_2.dynamic_viscosity();
-  }
-}
 
 } // namespace PhQ
 

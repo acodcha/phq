@@ -39,35 +39,35 @@ public:
 
   constexpr SpecificHeatRatio(const IsobaricHeatCapacity& isobaric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
-  constexpr IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+  IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
-  constexpr SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
+  SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
 
 };
 
+SpecificHeatRatio operator+(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real + specific_heat_ratio.Value()};
+}
+
+SpecificHeatRatio operator-(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real - specific_heat_ratio.Value()};
+}
+
+SpecificHeatRatio operator*(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real * specific_heat_ratio.Value()};
+}
+
+constexpr double operator/(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return real / specific_heat_ratio.Value();
+}
+
 } // namespace PhQ
-
-constexpr PhQ::SpecificHeatRatio operator+(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real + specific_heat_ratio.value()};
-}
-
-constexpr PhQ::SpecificHeatRatio operator-(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real - specific_heat_ratio.value()};
-}
-
-constexpr PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real * specific_heat_ratio.value()};
-}
-
-constexpr double operator/(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return real / specific_heat_ratio.value();
-}
 
 namespace std {
 
 template <> struct hash<PhQ::SpecificHeatRatio> {
   size_t operator()(const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
-    return hash<double>()(specific_heat_ratio.value());
+    return hash<double>()(specific_heat_ratio.Value());
   }
 };
 

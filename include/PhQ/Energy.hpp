@@ -25,7 +25,7 @@ public:
 
   constexpr Energy() noexcept : DimensionalScalarQuantity<Unit::Energy>() {}
 
-  constexpr Energy(double value, Unit::Energy unit) noexcept : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
+  Energy(double value, Unit::Energy unit) noexcept : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
   constexpr Energy(const Power& power, const Duration& duration) noexcept;
 
@@ -57,7 +57,7 @@ public:
     return value_ >= energy.value_;
   }
 
-  constexpr Energy operator+(const Energy& energy) const noexcept {
+  Energy operator+(const Energy& energy) const noexcept {
     return {value_ + energy.value_};
   }
 
@@ -65,7 +65,7 @@ public:
     value_ += energy.value_;
   }
 
-  constexpr Energy operator-(const Energy& energy) const noexcept {
+  Energy operator-(const Energy& energy) const noexcept {
     return {value_ - energy.value_};
   }
 
@@ -73,15 +73,15 @@ public:
     value_ -= energy.value_;
   }
 
-  constexpr Power operator*(const Frequency& frequency) const noexcept;
+  Power operator*(const Frequency& frequency) const noexcept;
 
-  constexpr Power operator/(const Duration& duration) const noexcept;
+  Power operator/(const Duration& duration) const noexcept;
 
-  constexpr Duration operator/(const Power& power) const noexcept;
+  Duration operator/(const Power& power) const noexcept;
 
-  constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
+  SpecificEnergy operator/(const Mass& mass) const noexcept;
 
-  constexpr Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
+  Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
 
 protected:
 
@@ -89,17 +89,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Energy& energy_1, const Energy& energy_2) noexcept {
-  return sort(energy_1.value(), energy_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::Energy> {
   size_t operator()(const PhQ::Energy& energy) const {
-    return hash<double>()(energy.value());
+    return hash<double>()(energy.Value());
   }
 };
 

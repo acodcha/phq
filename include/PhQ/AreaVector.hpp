@@ -19,15 +19,15 @@ public:
 
   constexpr AreaVector() noexcept : DimensionalVectorQuantity<Unit::Area>() {}
 
-  constexpr AreaVector(const Value::Vector& value, Unit::Area unit) noexcept : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
+  AreaVector(const Value::Vector& value, Unit::Area unit) noexcept : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
-  constexpr AreaVector(const Area& area, const Direction& direction) noexcept : AreaVector({area.value() * direction.x(), area.value() * direction.y(), area.value() * direction.z()}) {}
+  constexpr AreaVector(const Area& area, const Direction& direction) noexcept : AreaVector(area.Value() * direction.Value()) {}
 
-  constexpr Area magnitude() const noexcept {
+  Area magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const AreaVector& area_vector) const noexcept {
+  Angle angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
   }
 
@@ -39,7 +39,7 @@ public:
     return value_ != area_vector.value_;
   }
 
-  constexpr AreaVector operator+(const AreaVector& area_vector) const noexcept {
+  AreaVector operator+(const AreaVector& area_vector) const noexcept {
     return {value_ + area_vector.value_};
   }
 
@@ -47,7 +47,7 @@ public:
     value_ += area_vector.value_;
   }
 
-  constexpr AreaVector operator-(const AreaVector& area_vector) const noexcept {
+  AreaVector operator-(const AreaVector& area_vector) const noexcept {
     return {value_ - area_vector.value_};
   }
 
@@ -61,21 +61,17 @@ protected:
 
 };
 
-template <> constexpr bool sort(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept {
-  return sort(area_vector_1.value(), area_vector_2.value());
-}
+Direction::Direction(const AreaVector& area_vector) noexcept : Direction(area_vector.Value()) {}
 
-constexpr Direction::Direction(const AreaVector& area_vector) : Direction(area_vector.value()) {}
+Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
-constexpr Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.value(), area_vector_2.value()) {}
+Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.Value().Magnitude()) {}
 
-constexpr Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.value().magnitude()) {}
-
-constexpr AreaVector Direction::operator*(const Area& area) const noexcept {
+AreaVector Direction::operator*(const Area& area) const noexcept {
   return {area, *this};
 }
 
-constexpr AreaVector Area::operator*(const Direction& direction) const noexcept {
+AreaVector Area::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
@@ -85,7 +81,7 @@ namespace std {
 
 template <> struct hash<PhQ::AreaVector> {
   size_t operator()(const PhQ::AreaVector& area_vector) const {
-    return hash<PhQ::Value::Vector>()(area_vector.value());
+    return hash<PhQ::Value::Vector>()(area_vector.Value());
   }
 };
 

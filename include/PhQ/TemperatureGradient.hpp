@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Angle.hpp"
+#include "Direction.hpp"
 #include "Quantity/DimensionalVector.hpp"
 #include "TemperatureGradientMagnitude.hpp"
 
@@ -18,15 +19,15 @@ public:
 
   constexpr TemperatureGradient() noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>() {}
 
-  constexpr TemperatureGradient(const Value::Vector& value, Unit::TemperatureGradient unit) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(value, unit) {}
+  TemperatureGradient(const Value::Vector& value, Unit::TemperatureGradient unit) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(value, unit) {}
 
-  constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Direction& direction) noexcept : TemperatureGradient({temperature_gradient_magnitude.value() * direction.x(), temperature_gradient_magnitude.value() * direction.y(), temperature_gradient_magnitude.value() * direction.z()}) {}
+  constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Direction& direction) noexcept : TemperatureGradient(temperature_gradient_magnitude.Value() * direction.Value()) {}
 
-  constexpr TemperatureGradientMagnitude magnitude() const noexcept {
+  TemperatureGradientMagnitude magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const TemperatureGradient& temperature_gradient) const noexcept {
+  Angle angle(const TemperatureGradient& temperature_gradient) const noexcept {
     return {*this, temperature_gradient};
   }
 
@@ -38,7 +39,7 @@ public:
     return value_ != temperature_gradient.value_;
   }
 
-  constexpr TemperatureGradient operator+(const TemperatureGradient& temperature_gradient) const noexcept {
+  TemperatureGradient operator+(const TemperatureGradient& temperature_gradient) const noexcept {
     return {value_ + temperature_gradient.value_};
   }
 
@@ -46,7 +47,7 @@ public:
     value_ += temperature_gradient.value_;
   }
 
-  constexpr TemperatureGradient operator-(const TemperatureGradient& temperature_gradient) const noexcept {
+  TemperatureGradient operator-(const TemperatureGradient& temperature_gradient) const noexcept {
     return {value_ - temperature_gradient.value_};
   }
 
@@ -60,21 +61,17 @@ protected:
 
 };
 
-template <> constexpr bool sort(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept {
-  return sort(temperature_gradient_1.value(), temperature_gradient_2.value());
-}
+Direction::Direction(const TemperatureGradient& temperature_gradient) noexcept : Direction(temperature_gradient.Value()) {}
 
-constexpr Direction::Direction(const TemperatureGradient& temperature_gradient) : Direction(temperature_gradient.value()) {}
+Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
-constexpr Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.value(), temperature_gradient_2.value()) {}
+TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.Value().Magnitude()) {}
 
-constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept : TemperatureGradientMagnitude(temperature_gradient.value().magnitude()) {}
-
-constexpr TemperatureGradient Direction::operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
+TemperatureGradient Direction::operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
   return {temperature_gradient_magnitude, *this};
 }
 
-constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(const Direction& direction) const noexcept {
+TemperatureGradient TemperatureGradientMagnitude::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
@@ -84,7 +81,7 @@ namespace std {
 
 template <> struct hash<PhQ::TemperatureGradient> {
   size_t operator()(const PhQ::TemperatureGradient& temperature_gradient) const {
-    return hash<PhQ::Value::Vector>()(temperature_gradient.value());
+    return hash<PhQ::Value::Vector>()(temperature_gradient.Value());
   }
 };
 

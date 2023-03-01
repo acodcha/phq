@@ -16,9 +16,9 @@ public:
 
   constexpr TotalPressure() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr TotalPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  TotalPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr TotalPressure(const DynamicPressure& dynamic_pressure, const StaticPressure& static_pressure) noexcept : TotalPressure(dynamic_pressure.value() + static_pressure.value()) {}
+  constexpr TotalPressure(const DynamicPressure& dynamic_pressure, const StaticPressure& static_pressure) noexcept : TotalPressure(dynamic_pressure.Value() + static_pressure.Value()) {}
 
   constexpr TotalPressure(const TotalKinematicPressure& total_kinematic_pressure, const MassDensity& mass_density) noexcept;
 
@@ -46,7 +46,7 @@ public:
     return value_ >= total_pressure.value_;
   }
 
-  constexpr TotalPressure operator+(const TotalPressure& total_pressure) const noexcept {
+  TotalPressure operator+(const TotalPressure& total_pressure) const noexcept {
     return {value_ + total_pressure.value_};
   }
 
@@ -54,15 +54,15 @@ public:
     value_ += total_pressure.value_;
   }
 
-  constexpr TotalPressure operator-(const TotalPressure& total_pressure) const noexcept {
+  TotalPressure operator-(const TotalPressure& total_pressure) const noexcept {
     return {value_ - total_pressure.value_};
   }
 
-  constexpr DynamicPressure operator-(const StaticPressure& static_pressure) const noexcept {
+  DynamicPressure operator-(const StaticPressure& static_pressure) const noexcept {
     return {*this, static_pressure};
   }
 
-  constexpr StaticPressure operator-(const DynamicPressure& dynamic_pressure) const noexcept {
+  StaticPressure operator-(const DynamicPressure& dynamic_pressure) const noexcept {
     return {*this, dynamic_pressure};
   }
 
@@ -76,19 +76,15 @@ protected:
 
 };
 
-template <> constexpr bool sort(const TotalPressure& total_pressure_1, const TotalPressure& total_pressure_2) noexcept {
-  return sort(total_pressure_1.value(), total_pressure_2.value());
-}
+constexpr StaticPressure::StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept : StaticPressure(total_pressure.Value() - dynamic_pressure.Value()) {}
 
-constexpr StaticPressure::StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept : StaticPressure(total_pressure.value() - dynamic_pressure.value()) {}
+constexpr DynamicPressure::DynamicPressure(const TotalPressure& total_pressure, const StaticPressure& static_pressure) noexcept : DynamicPressure(total_pressure.Value() - static_pressure.Value()) {}
 
-constexpr DynamicPressure::DynamicPressure(const TotalPressure& total_pressure, const StaticPressure& static_pressure) noexcept : DynamicPressure(total_pressure.value() - static_pressure.value()) {}
-
-constexpr TotalPressure StaticPressure::operator+(const DynamicPressure& dynamic_pressure) const noexcept {
+TotalPressure StaticPressure::operator+(const DynamicPressure& dynamic_pressure) const noexcept {
   return {dynamic_pressure, *this};
 }
 
-constexpr TotalPressure DynamicPressure::operator+(const StaticPressure& static_pressure) const noexcept {
+TotalPressure DynamicPressure::operator+(const StaticPressure& static_pressure) const noexcept {
   return {*this, static_pressure};
 }
 
@@ -98,7 +94,7 @@ namespace std {
 
 template <> struct hash<PhQ::TotalPressure> {
   size_t operator()(const PhQ::TotalPressure& total_pressure) const {
-    return hash<double>()(total_pressure.value());
+    return hash<double>()(total_pressure.Value());
   }
 };
 

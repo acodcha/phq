@@ -26,29 +26,29 @@ public:
 
 };
 
+StrainScalar operator+(double real, const StrainScalar& strain_scalar) noexcept {
+  return {real + strain_scalar.Value()};
+}
+
+StrainScalar operator-(double real, const StrainScalar& strain_scalar) noexcept {
+  return {real - strain_scalar.Value()};
+}
+
+StrainScalar operator*(double real, const StrainScalar& strain_scalar) noexcept {
+  return {real * strain_scalar.Value()};
+}
+
+constexpr double operator/(double real, const StrainScalar& strain_scalar) noexcept {
+  return real / strain_scalar.Value();
+}
+
 } // namespace PhQ
-
-constexpr PhQ::StrainScalar operator+(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
-  return {real + strain_scalar.value()};
-}
-
-constexpr PhQ::StrainScalar operator-(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
-  return {real - strain_scalar.value()};
-}
-
-constexpr PhQ::StrainScalar operator*(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
-  return {real * strain_scalar.value()};
-}
-
-constexpr double operator/(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
-  return real / strain_scalar.value();
-}
 
 namespace std {
 
 template <> struct hash<PhQ::StrainScalar> {
   size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
-    return hash<double>()(strain_scalar.value());
+    return hash<double>()(strain_scalar.Value());
   }
 };
 

@@ -28,9 +28,9 @@ public:
 
   constexpr MassDensity() noexcept : DimensionalScalarQuantity<Unit::MassDensity>() {}
 
-  constexpr MassDensity(double value, Unit::MassDensity unit) noexcept : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
+  MassDensity(double value, Unit::MassDensity unit) noexcept : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
 
-  constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept : MassDensity(mass.value() / volume.value()) {}
+  constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept : MassDensity(mass.Value() / volume.Value()) {}
 
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity) noexcept;
 
@@ -64,7 +64,7 @@ public:
     return value_ >= mass_density.value_;
   }
 
-  constexpr MassDensity operator+(const MassDensity& mass_density) const noexcept {
+  MassDensity operator+(const MassDensity& mass_density) const noexcept {
     return {value_ + mass_density.value_};
   }
 
@@ -72,7 +72,7 @@ public:
     value_ += mass_density.value_;
   }
 
-  constexpr MassDensity operator-(const MassDensity& mass_density) const noexcept {
+  MassDensity operator-(const MassDensity& mass_density) const noexcept {
     return {value_ - mass_density.value_};
   }
 
@@ -80,11 +80,11 @@ public:
     value_ -= mass_density.value_;
   }
 
-  constexpr Mass operator*(const Volume& volume) const noexcept {
+  Mass operator*(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
-  constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
+  DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
 
 protected:
 
@@ -92,19 +92,15 @@ protected:
 
 };
 
-template <> constexpr bool sort(const MassDensity& mass_density_1, const MassDensity& mass_density_2) noexcept {
-  return sort(mass_density_1.value(), mass_density_2.value());
-}
+constexpr Volume::Volume(const MassDensity& mass_density, const Mass& mass) noexcept : Volume(mass.Value() / mass_density.Value()) {}
 
-constexpr Volume::Volume(const MassDensity& mass_density, const Mass& mass) noexcept : Volume(mass.value() / mass_density.value()) {}
+constexpr Mass::Mass(const MassDensity& mass_density, const Volume& volume) noexcept : Mass(mass_density.Value() * volume.Value()) {}
 
-constexpr Mass::Mass(const MassDensity& mass_density, const Volume& volume) noexcept : Mass(mass_density.value() * volume.value()) {}
-
-constexpr MassDensity Mass::operator/(const Volume& volume) const noexcept {
+MassDensity Mass::operator/(const Volume& volume) const noexcept {
   return {*this, volume};
 }
 
-constexpr Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
+Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
   return {mass_density, *this};
 }
 
@@ -114,7 +110,7 @@ namespace std {
 
 template <> struct hash<PhQ::MassDensity> {
   size_t operator()(const PhQ::MassDensity& mass_density) const {
-    return hash<double>()(mass_density.value());
+    return hash<double>()(mass_density.Value());
   }
 };
 

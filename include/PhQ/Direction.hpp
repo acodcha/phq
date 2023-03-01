@@ -22,6 +22,25 @@
 
 namespace PhQ {
 
+// Forward declarations for class Direction.
+class Acceleration;
+class AccelerationMagnitude;
+class Area;
+class AreaVector;
+class Displacement;
+class Force;
+class ForceMagnitude;
+class HeatFlux;
+class HeatFluxMagnitude;
+class Length;
+class Position;
+class Speed;
+class StaticPressure;
+class TemperatureGradient;
+class TemperatureGradientMagnitude;
+class Traction;
+class Velocity;
+
 class Direction : public DimensionlessVectorQuantity {
 public:
   constexpr Direction() noexcept
@@ -36,6 +55,24 @@ public:
   }
 
   explicit Direction(const Value::Vector& value) noexcept { SetValue(value); }
+
+  explicit Direction(const Acceleration& acceleration) noexcept;
+
+  explicit Direction(const AreaVector& area_vector) noexcept;
+
+  explicit Direction(const Displacement& displacement) noexcept;
+
+  explicit Direction(const Force& force) noexcept;
+
+  explicit Direction(const HeatFlux& heat_flux) noexcept;
+
+  explicit Direction(const Position& position) noexcept;
+
+  explicit Direction(const TemperatureGradient& temperature_gradient) noexcept;
+
+  explicit Direction(const Traction& traction) noexcept;
+
+  explicit Direction(const Velocity& velocity) noexcept;
 
   inline void SetValue(const double x, const double y,
                        const double z) noexcept {
@@ -102,6 +139,25 @@ public:
   inline PhQ::Angle Angle(const Direction& direction) const noexcept {
     return PhQ::Angle{*this, direction};
   }
+
+  inline Acceleration operator*(
+      const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+
+  inline AreaVector operator*(const Area& area) const noexcept;
+
+  inline Displacement operator*(const Length& length) const noexcept;
+
+  inline Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
+
+  inline HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
+
+  inline TemperatureGradient operator*(
+      const TemperatureGradientMagnitude& temperature_gradient_magnitude)
+      const noexcept;
+
+  inline Traction operator*(const StaticPressure& static_pressure) const noexcept;
+
+  inline Velocity operator*(const Speed& speed) const noexcept;
 };
 
 inline constexpr bool operator==(const Direction& left,

@@ -22,11 +22,11 @@ public:
 
   constexpr TemperatureGradientMagnitude() noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>() {}
 
-  constexpr TemperatureGradientMagnitude(double value, Unit::TemperatureGradient unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
+  TemperatureGradientMagnitude(double value, Unit::TemperatureGradient unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
 
-  constexpr TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept;
+  TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient) noexcept;
 
-  constexpr TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference.value() / length.value()) {}
+  constexpr TemperatureGradientMagnitude(const TemperatureDifference& temperature_difference, const Length& length) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(temperature_difference.Value() / length.Value()) {}
 
   constexpr bool operator==(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
     return value_ == temperature_gradient_magnitude.value_;
@@ -52,7 +52,7 @@ public:
     return value_ >= temperature_gradient_magnitude.value_;
   }
 
-  constexpr TemperatureGradientMagnitude operator+(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
+  TemperatureGradientMagnitude operator+(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
     return {value_ + temperature_gradient_magnitude.value_};
   }
 
@@ -60,7 +60,7 @@ public:
     value_ += temperature_gradient_magnitude.value_;
   }
 
-  constexpr TemperatureGradientMagnitude operator-(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
+  TemperatureGradientMagnitude operator-(const TemperatureGradientMagnitude& temperature_gradient_magnitude) const noexcept {
     return {value_ - temperature_gradient_magnitude.value_};
   }
 
@@ -68,11 +68,11 @@ public:
     value_ -= temperature_gradient_magnitude.value_;
   }
 
-  constexpr TemperatureDifference operator*(const Length& length) const noexcept {
+  TemperatureDifference operator*(const Length& length) const noexcept {
     return {*this, length};
   }
 
-  constexpr TemperatureGradient operator*(const Direction& direction) const noexcept;
+  TemperatureGradient operator*(const Direction& direction) const noexcept;
 
 protected:
 
@@ -80,13 +80,9 @@ protected:
 
 };
 
-template <> constexpr bool sort(const TemperatureGradientMagnitude& temperature_gradient_magnitude_1, const TemperatureGradientMagnitude& temperature_gradient_magnitude_2) noexcept {
-  return sort(temperature_gradient_magnitude_1.value(), temperature_gradient_magnitude_2.value());
-}
+constexpr TemperatureDifference::TemperatureDifference(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length) noexcept : TemperatureDifference(temperature_gradient_magnitude.Value() * length.Value()) {}
 
-constexpr TemperatureDifference::TemperatureDifference(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length) noexcept : TemperatureDifference(temperature_gradient_magnitude.value() * length.value()) {}
-
-constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(const Length& length) const noexcept {
+TemperatureGradientMagnitude TemperatureDifference::operator/(const Length& length) const noexcept {
   return {*this, length};
 }
 
@@ -96,7 +92,7 @@ namespace std {
 
 template <> struct hash<PhQ::TemperatureGradientMagnitude> {
   size_t operator()(const PhQ::TemperatureGradientMagnitude& temperature_gradient_magnitude) const {
-    return hash<double>()(temperature_gradient_magnitude.value());
+    return hash<double>()(temperature_gradient_magnitude.Value());
   }
 };
 

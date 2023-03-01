@@ -18,11 +18,11 @@ public:
 
   constexpr VolumeRate() noexcept : DimensionalScalarQuantity<Unit::VolumeRate>() {}
 
-  constexpr VolumeRate(double value, Unit::VolumeRate unit) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
+  VolumeRate(double value, Unit::VolumeRate unit) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
-  constexpr VolumeRate(const Volume& volume, const Duration& duration) noexcept : VolumeRate(volume.value() / duration.value()) {}
+  constexpr VolumeRate(const Volume& volume, const Duration& duration) noexcept : VolumeRate(volume.Value() / duration.Value()) {}
 
-  constexpr VolumeRate(const Volume& volume, const Frequency& frequency) noexcept : VolumeRate(volume.value() * frequency.value()) {}
+  constexpr VolumeRate(const Volume& volume, const Frequency& frequency) noexcept : VolumeRate(volume.Value() * frequency.Value()) {}
 
   constexpr bool operator==(const VolumeRate& volume_rate) const noexcept {
     return value_ == volume_rate.value_;
@@ -48,7 +48,7 @@ public:
     return value_ >= volume_rate.value_;
   }
 
-  constexpr VolumeRate operator+(const VolumeRate& volume_rate) const noexcept {
+  VolumeRate operator+(const VolumeRate& volume_rate) const noexcept {
     return {value_ + volume_rate.value_};
   }
 
@@ -56,7 +56,7 @@ public:
     value_ += volume_rate.value_;
   }
 
-  constexpr VolumeRate operator-(const VolumeRate& volume_rate) const noexcept {
+  VolumeRate operator-(const VolumeRate& volume_rate) const noexcept {
     return {value_ - volume_rate.value_};
   }
 
@@ -64,15 +64,15 @@ public:
     value_ -= volume_rate.value_;
   }
 
-  constexpr Volume operator*(const Duration& duration) const noexcept {
+  Volume operator*(const Duration& duration) const noexcept {
     return {*this, duration};
   }
 
-  constexpr Volume operator/(const Frequency& frequency) const noexcept {
+  Volume operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Volume& volume) const noexcept {
+  Frequency operator/(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
@@ -82,35 +82,31 @@ protected:
 
 };
 
-template <> constexpr bool sort(const VolumeRate& volume_rate_1, const VolumeRate& volume_rate_2) noexcept {
-  return sort(volume_rate_1.value(), volume_rate_2.value());
-}
+constexpr Volume::Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept : Volume(volume_rate.Value() * duration.Value()) {}
 
-constexpr Volume::Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept : Volume(volume_rate.value() * duration.value()) {}
+constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept : Volume(volume_rate.Value() / frequency.Value()) {}
 
-constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept : Volume(volume_rate.value() / frequency.value()) {}
+constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept : Duration(volume.Value() / volume_rate.Value()) {}
 
-constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept : Duration(volume.value() / volume_rate.value()) {}
+constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept : Frequency(volume_rate.Value() / volume.Value()) {}
 
-constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept : Frequency(volume_rate.value() / volume.value()) {}
-
-constexpr Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
+Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-constexpr VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
+VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
+Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-constexpr VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
+VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
   return {volume, *this};
 }
 
-constexpr VolumeRate Volume::operator/(const Duration& duration) const noexcept {
+VolumeRate Volume::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 
@@ -120,7 +116,7 @@ namespace std {
 
 template <> struct hash<PhQ::VolumeRate> {
   size_t operator()(const PhQ::VolumeRate& volume_rate) const {
-    return hash<double>()(volume_rate.value());
+    return hash<double>()(volume_rate.Value());
   }
 };
 

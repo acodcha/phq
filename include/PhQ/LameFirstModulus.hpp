@@ -17,7 +17,7 @@ public:
 
   constexpr LameFirstModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr LameFirstModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  LameFirstModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const LameFirstModulus& lame_first_modulus) const noexcept {
     return value_ == lame_first_modulus.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= lame_first_modulus.value_;
   }
 
-  constexpr LameFirstModulus operator+(const LameFirstModulus& lame_first_modulus) const noexcept {
+  LameFirstModulus operator+(const LameFirstModulus& lame_first_modulus) const noexcept {
     return {value_ + lame_first_modulus.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += lame_first_modulus.value_;
   }
 
-  constexpr LameFirstModulus operator-(const LameFirstModulus& lame_first_modulus) const noexcept {
+  LameFirstModulus operator-(const LameFirstModulus& lame_first_modulus) const noexcept {
     return {value_ - lame_first_modulus.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const LameFirstModulus& lame_first_modulus_1, const LameFirstModulus& lame_first_modulus_2) noexcept {
-  return sort(lame_first_modulus_1.value(), lame_first_modulus_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::LameFirstModulus> {
   size_t operator()(const PhQ::LameFirstModulus& lame_first_modulus) const {
-    return hash<double>()(lame_first_modulus.value());
+    return hash<double>()(lame_first_modulus.Value());
   }
 };
 
