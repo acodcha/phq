@@ -17,7 +17,7 @@ public:
 
   constexpr VolumetricThermalExpansionCoefficient() noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
-  constexpr VolumetricThermalExpansionCoefficient(double value, Unit::ThermalExpansion unit) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
+  VolumetricThermalExpansionCoefficient(double value, Unit::ThermalExpansion unit) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
   constexpr bool operator==(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
     return value_ == volumetric_thermal_expansion_coefficient.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= volumetric_thermal_expansion_coefficient.value_;
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator+(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
+  VolumetricThermalExpansionCoefficient operator+(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
     return {value_ + volumetric_thermal_expansion_coefficient.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += volumetric_thermal_expansion_coefficient.value_;
   }
 
-  constexpr VolumetricThermalExpansionCoefficient operator-(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
+  VolumetricThermalExpansionCoefficient operator-(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
     return {value_ - volumetric_thermal_expansion_coefficient.value_};
   }
 
@@ -60,7 +60,7 @@ public:
   }
 
   constexpr double operator*(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ * temperature_difference.value();
+    return value_ * temperature_difference.Value();
   }
 
 protected:
@@ -69,12 +69,8 @@ protected:
 
 };
 
-template <> constexpr bool sort(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient_1, const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient_2) noexcept {
-  return sort(volumetric_thermal_expansion_coefficient_1.value(), volumetric_thermal_expansion_coefficient_2.value());
-}
-
 constexpr double TemperatureDifference::operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept {
-  return value_ * volumetric_thermal_expansion_coefficient.value();
+  return value_ * volumetric_thermal_expansion_coefficient.Value();
 }
 
 } // namespace PhQ
@@ -83,7 +79,7 @@ namespace std {
 
 template <> struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
   size_t operator()(const PhQ::VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
-    return hash<double>()(volumetric_thermal_expansion_coefficient.value());
+    return hash<double>()(volumetric_thermal_expansion_coefficient.Value());
   }
 };
 

@@ -17,7 +17,7 @@ public:
 
   constexpr IsentropicBulkModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr IsentropicBulkModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  IsentropicBulkModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return value_ == isentropic_bulk_modulus.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= isentropic_bulk_modulus.value_;
   }
 
-  constexpr IsentropicBulkModulus operator+(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+  IsentropicBulkModulus operator+(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return {value_ + isentropic_bulk_modulus.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += isentropic_bulk_modulus.value_;
   }
 
-  constexpr IsentropicBulkModulus operator-(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+  IsentropicBulkModulus operator-(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return {value_ - isentropic_bulk_modulus.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const IsentropicBulkModulus& isentropic_bulk_modulus_1, const IsentropicBulkModulus& isentropic_bulk_modulus_2) noexcept {
-  return sort(isentropic_bulk_modulus_1.value(), isentropic_bulk_modulus_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::IsentropicBulkModulus> {
   size_t operator()(const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
-    return hash<double>()(isentropic_bulk_modulus.value());
+    return hash<double>()(isentropic_bulk_modulus.Value());
   }
 };
 

@@ -21,9 +21,9 @@ public:
 
   constexpr HeatFluxMagnitude() noexcept : DimensionalScalarQuantity<Unit::EnergyFlux>() {}
 
-  constexpr HeatFluxMagnitude(double value, Unit::EnergyFlux unit) noexcept : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
+  HeatFluxMagnitude(double value, Unit::EnergyFlux unit) noexcept : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
 
-  constexpr HeatFluxMagnitude(const ThermalConductivityScalar& thermal_conductivity_scalar, const TemperatureGradientMagnitude& temperature_gradient_magnitude) noexcept : HeatFluxMagnitude(-thermal_conductivity_scalar.value() * temperature_gradient_magnitude.value()) {}
+  constexpr HeatFluxMagnitude(const ThermalConductivityScalar& thermal_conductivity_scalar, const TemperatureGradientMagnitude& temperature_gradient_magnitude) noexcept : HeatFluxMagnitude(-thermal_conductivity_scalar.Value() * temperature_gradient_magnitude.Value()) {}
 
   constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
 
@@ -51,7 +51,7 @@ public:
     return value_ >= heat_flux_magnitude.value_;
   }
 
-  constexpr HeatFluxMagnitude operator+(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+  HeatFluxMagnitude operator+(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return {value_ + heat_flux_magnitude.value_};
   }
 
@@ -59,7 +59,7 @@ public:
     value_ += heat_flux_magnitude.value_;
   }
 
-  constexpr HeatFluxMagnitude operator-(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+  HeatFluxMagnitude operator-(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return {value_ - heat_flux_magnitude.value_};
   }
 
@@ -75,17 +75,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const HeatFluxMagnitude& heat_flux_magnitude_1, const HeatFluxMagnitude& heat_flux_magnitude_2) noexcept {
-  return sort(heat_flux_magnitude_1.value(), heat_flux_magnitude_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::HeatFluxMagnitude> {
   size_t operator()(const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
-    return hash<double>()(heat_flux_magnitude.value());
+    return hash<double>()(heat_flux_magnitude.Value());
   }
 };
 

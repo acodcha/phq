@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Frequency.hpp"
-#include "Quantity/DimensionalSymmetricDyadic.hpp"
+#include "Quantity/DimensionalSymmetricDyad.hpp"
 #include "Strain.hpp"
 #include "Unit/Frequency.hpp"
 
@@ -16,17 +16,17 @@ namespace PhQ {
 // Forward declaration.
 class VelocityGradient;
 
-class StrainRate : public DimensionalSymmetricDyadicQuantity<Unit::Frequency> {
+class StrainRate : public DimensionalSymmetricDyadQuantity<Unit::Frequency> {
 
 public:
 
-  constexpr StrainRate() noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>() {}
+  constexpr StrainRate() noexcept : DimensionalSymmetricDyadQuantity<Unit::Frequency>() {}
 
-  constexpr StrainRate(const Value::SymmetricDyadic& value, Unit::Frequency unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>(value, unit) {}
+  StrainRate(const Value::SymmetricDyad& value, Unit::Frequency unit) noexcept : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  constexpr StrainRate(const Strain& strain, const Duration& duration) noexcept : StrainRate(strain.value() / duration.value()) {}
+  constexpr StrainRate(const Strain& strain, const Duration& duration) noexcept : StrainRate(strain.Value() / duration.Value()) {}
 
-  constexpr StrainRate(const Strain& strain, const Frequency& frequency) noexcept : StrainRate(strain.value() * frequency.value()) {}
+  constexpr StrainRate(const Strain& strain, const Frequency& frequency) noexcept : StrainRate(strain.Value() * frequency.Value()) {}
 
   constexpr StrainRate(const VelocityGradient& velocity_gradient) noexcept;
 
@@ -38,7 +38,7 @@ public:
     return value_ != strain_rate.value_;
   }
 
-  constexpr StrainRate operator+(const StrainRate& strain_rate) const noexcept {
+  StrainRate operator+(const StrainRate& strain_rate) const noexcept {
     return {value_ + strain_rate.value_};
   }
 
@@ -46,7 +46,7 @@ public:
     value_ += strain_rate.value_;
   }
 
-  constexpr StrainRate operator-(const StrainRate& strain_rate) const noexcept {
+  StrainRate operator-(const StrainRate& strain_rate) const noexcept {
     return {value_ - strain_rate.value_};
   }
 
@@ -54,27 +54,23 @@ public:
     value_ -= strain_rate.value_;
   }
 
-  constexpr Strain operator*(const Duration& duration) const noexcept {
+  Strain operator*(const Duration& duration) const noexcept {
     return {*this, duration};
   }
 
-  constexpr Strain operator/(const Frequency& frequency) const noexcept {
+  Strain operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
 protected:
 
-  constexpr StrainRate(const Value::SymmetricDyadic& value) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Frequency>(value) {}
+  constexpr StrainRate(const Value::SymmetricDyad& value) noexcept : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
 
 };
 
-template <> constexpr bool sort(const StrainRate& strain_rate_1, const StrainRate& strain_rate_2) noexcept {
-  return sort(strain_rate_1.value(), strain_rate_2.value());
-}
+constexpr Strain::Strain(const StrainRate& strain_rate, const Duration& duration) noexcept : Strain(strain_rate.Value() * duration.Value()) {}
 
-constexpr Strain::Strain(const StrainRate& strain_rate, const Duration& duration) noexcept : Strain(strain_rate.value() * duration.value()) {}
-
-constexpr Strain::Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept : Strain(strain_rate.value() / frequency.value()) {}
+constexpr Strain::Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept : Strain(strain_rate.Value() / frequency.Value()) {}
 
 constexpr StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
@@ -98,7 +94,7 @@ namespace std {
 
 template <> struct hash<PhQ::StrainRate> {
   size_t operator()(const PhQ::StrainRate& strain_rate) const {
-    return hash<PhQ::Value::SymmetricDyadic>()(strain_rate.value());
+    return hash<PhQ::Value::SymmetricDyad>()(strain_rate.Value());
   }
 };
 

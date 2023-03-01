@@ -17,7 +17,7 @@ public:
 
   constexpr StressScalar() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr StressScalar(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  StressScalar(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const StressScalar& stress_scalar) const noexcept {
     return value_ == stress_scalar.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= stress_scalar.value_;
   }
 
-  constexpr StressScalar operator+(const StressScalar& stress_scalar) const noexcept {
+  StressScalar operator+(const StressScalar& stress_scalar) const noexcept {
     return {value_ + stress_scalar.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += stress_scalar.value_;
   }
 
-  constexpr StressScalar operator-(const StressScalar& stress_scalar) const noexcept {
+  StressScalar operator-(const StressScalar& stress_scalar) const noexcept {
     return {value_ - stress_scalar.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const StressScalar& stress_scalar_1, const StressScalar& stress_scalar_2) noexcept {
-  return sort(stress_scalar_1.value(), stress_scalar_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::StressScalar> {
   size_t operator()(const PhQ::StressScalar& stress_scalar) const {
-    return hash<double>()(stress_scalar.value());
+    return hash<double>()(stress_scalar.Value());
   }
 };
 

@@ -6,23 +6,23 @@
 
 #pragma once
 
-#include "Quantity/DimensionalSymmetricDyadic.hpp"
+#include "Quantity/DimensionalSymmetricDyad.hpp"
 #include "StressScalar.hpp"
 #include "Traction.hpp"
 
 namespace PhQ {
 
-class Stress : public DimensionalSymmetricDyadicQuantity<Unit::Pressure> {
+class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
 
 public:
 
-  constexpr Stress() noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>() {}
+  constexpr Stress() noexcept : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
 
-  constexpr Stress(const Value::SymmetricDyadic& value, Unit::Pressure unit) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>(value, unit) {}
+  Stress(const Value::SymmetricDyad& value, Unit::Pressure unit) noexcept : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr Stress(const StaticPressure& static_pressure) noexcept : Stress({-1.0 * static_pressure.value(), 0.0, 0.0, -1.0 * static_pressure.value(), 0.0, -1.0 * static_pressure.value()}) {}
+  constexpr Stress(const StaticPressure& static_pressure) noexcept : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0, -1.0 * static_pressure.Value(), 0.0, -1.0 * static_pressure.Value()}) {}
 
-  constexpr Traction traction(const Direction& direction) const noexcept {
+  Traction traction(const Direction& direction) const noexcept {
     return {*this, direction};
   }
 
@@ -34,7 +34,7 @@ public:
     return value_ != stress.value_;
   }
 
-  constexpr Stress operator+(const Stress& stress) const noexcept {
+  Stress operator+(const Stress& stress) const noexcept {
     return {value_ + stress.value_};
   }
 
@@ -42,7 +42,7 @@ public:
     value_ += stress.value_;
   }
 
-  constexpr Stress operator-(const Stress& stress) const noexcept {
+  Stress operator-(const Stress& stress) const noexcept {
     return {value_ - stress.value_};
   }
 
@@ -52,15 +52,11 @@ public:
 
 protected:
 
-  constexpr Stress(const Value::SymmetricDyadic& value) noexcept : DimensionalSymmetricDyadicQuantity<Unit::Pressure>(value) {}
+  constexpr Stress(const Value::SymmetricDyad& value) noexcept : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
 
 };
 
-template <> constexpr bool sort(const Stress& stress_1, const Stress& stress_2) noexcept {
-  return sort(stress_1.value(), stress_2.value());
-}
-
-constexpr Traction::Traction(const Stress& stress, const Direction& direction) noexcept : Traction({stress.value() * direction}) {}
+constexpr Traction::Traction(const Stress& stress, const Direction& direction) noexcept : Traction({stress.Value() * direction}) {}
 
 constexpr Stress StaticPressure::stress() const noexcept {
   return {*this};
@@ -72,7 +68,7 @@ namespace std {
 
 template <> struct hash<PhQ::Stress> {
   size_t operator()(const PhQ::Stress& stress) const {
-    return hash<PhQ::Value::SymmetricDyadic>()(stress.value());
+    return hash<PhQ::Value::SymmetricDyad>()(stress.Value());
   }
 };
 

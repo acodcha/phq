@@ -21,9 +21,9 @@ public:
 
   constexpr DynamicPressure() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr DynamicPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  DynamicPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed) noexcept : DynamicPressure(0.5 * mass_density.value() * std::pow(speed.value(), 2)) {}
+  constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed) noexcept : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {}
 
   constexpr DynamicPressure(const TotalPressure& total_pressure, const StaticPressure& static_pressure) noexcept;
 
@@ -53,7 +53,7 @@ public:
     return value_ >= dynamic_pressure.value_;
   }
 
-  constexpr DynamicPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept {
+  DynamicPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept {
     return {value_ + dynamic_pressure.value_};
   }
 
@@ -63,7 +63,7 @@ public:
     value_ += dynamic_pressure.value_;
   }
 
-  constexpr DynamicPressure operator-(const DynamicPressure& dynamic_pressure) const noexcept {
+  DynamicPressure operator-(const DynamicPressure& dynamic_pressure) const noexcept {
     return {value_ - dynamic_pressure.value_};
   }
 
@@ -77,13 +77,9 @@ protected:
 
 };
 
-template <> constexpr bool sort(const DynamicPressure& dynamic_pressure_1, const DynamicPressure& dynamic_pressure_2) noexcept {
-  return sort(dynamic_pressure_1.value(), dynamic_pressure_2.value());
-}
+constexpr MassDensity::MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept : MassDensity(2.0 * dynamic_pressure.Value() / std::pow(speed.Value(), 2)) {}
 
-constexpr MassDensity::MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept : MassDensity(2.0 * dynamic_pressure.value() / std::pow(speed.value(), 2)) {}
-
-constexpr Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept : Speed(std::sqrt(2.0 * dynamic_pressure.value() / mass_density.value())) {}
+constexpr Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 
 } // namespace PhQ
 
@@ -91,7 +87,7 @@ namespace std {
 
 template <> struct hash<PhQ::DynamicPressure> {
   size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
-    return hash<double>()(dynamic_pressure.value());
+    return hash<double>()(dynamic_pressure.Value());
   }
 };
 

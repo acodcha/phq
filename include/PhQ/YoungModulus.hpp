@@ -17,7 +17,7 @@ public:
 
   constexpr YoungModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr YoungModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  YoungModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const YoungModulus& young_modulus) const noexcept {
     return value_ == young_modulus.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= young_modulus.value_;
   }
 
-  constexpr YoungModulus operator+(const YoungModulus& young_modulus) const noexcept {
+  YoungModulus operator+(const YoungModulus& young_modulus) const noexcept {
     return {value_ + young_modulus.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += young_modulus.value_;
   }
 
-  constexpr YoungModulus operator-(const YoungModulus& young_modulus) const noexcept {
+  YoungModulus operator-(const YoungModulus& young_modulus) const noexcept {
     return {value_ - young_modulus.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const YoungModulus& young_modulus_1, const YoungModulus& young_modulus_2) noexcept {
-  return sort(young_modulus_1.value(), young_modulus_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::YoungModulus> {
   size_t operator()(const PhQ::YoungModulus& young_modulus) const {
-    return hash<double>()(young_modulus.value());
+    return hash<double>()(young_modulus.Value());
   }
 };
 

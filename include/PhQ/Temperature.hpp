@@ -17,7 +17,7 @@ public:
 
   constexpr Temperature() noexcept : DimensionalScalarQuantity<Unit::Temperature>() {}
 
-  constexpr Temperature(double value, Unit::Temperature unit) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+  Temperature(double value, Unit::Temperature unit) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
   constexpr bool operator==(const Temperature& temperature) const noexcept {
     return value_ == temperature.value_;
@@ -43,12 +43,12 @@ public:
     return value_ >= temperature.value_;
   }
 
-  constexpr Temperature operator+(const Temperature& temperature) const noexcept {
+  Temperature operator+(const Temperature& temperature) const noexcept {
     return {value_ + temperature.value_};
   }
 
-  constexpr Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ + temperature_difference.value()};
+  Temperature operator+(const TemperatureDifference& temperature_difference) const noexcept {
+    return {value_ + temperature_difference.Value()};
   }
 
   constexpr void operator+=(const Temperature& temperature) noexcept {
@@ -56,15 +56,15 @@ public:
   }
 
   constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept {
-    value_ += temperature_difference.value();
+    value_ += temperature_difference.Value();
   }
 
-  constexpr TemperatureDifference operator-(const Temperature& temperature) const noexcept {
+  TemperatureDifference operator-(const Temperature& temperature) const noexcept {
     return {value_ - temperature.value_};
   }
 
-  constexpr Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ - temperature_difference.value()};
+  Temperature operator-(const TemperatureDifference& temperature_difference) const noexcept {
+    return {value_ - temperature_difference.Value()};
   }
 
   constexpr void operator-=(const Temperature& temperature) noexcept {
@@ -72,7 +72,7 @@ public:
   }
 
   constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
-    value_ -= temperature_difference.value();
+    value_ -= temperature_difference.Value();
   }
 
 protected:
@@ -83,16 +83,12 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Temperature& temperature_1, const Temperature& temperature_2) noexcept {
-  return sort(temperature_1.value(), temperature_2.value());
+Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
+  return {value_ + temperature.Value()};
 }
 
-constexpr Temperature TemperatureDifference::operator+(const Temperature& temperature) const noexcept {
-  return {value_ + temperature.value()};
-}
-
-constexpr Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
-  return {value_ - temperature.value()};
+Temperature TemperatureDifference::operator-(const Temperature& temperature) const noexcept {
+  return {value_ - temperature.Value()};
 }
 
 } // namespace PhQ
@@ -101,7 +97,7 @@ namespace std {
 
 template <> struct hash<PhQ::Temperature> {
   size_t operator()(const PhQ::Temperature& temperature) const {
-    return hash<double>()(temperature.value());
+    return hash<double>()(temperature.Value());
   }
 };
 

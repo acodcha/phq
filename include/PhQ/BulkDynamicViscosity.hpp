@@ -17,7 +17,7 @@ public:
 
   constexpr BulkDynamicViscosity() noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  constexpr BulkDynamicViscosity(double value, Unit::DynamicViscosity unit) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+  BulkDynamicViscosity(double value, Unit::DynamicViscosity unit) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
   constexpr bool operator==(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return value_ == bulk_dynamic_viscosity.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= bulk_dynamic_viscosity.value_;
   }
 
-  constexpr BulkDynamicViscosity operator+(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+  BulkDynamicViscosity operator+(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return {value_ + bulk_dynamic_viscosity.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += bulk_dynamic_viscosity.value_;
   }
 
-  constexpr BulkDynamicViscosity operator-(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+  BulkDynamicViscosity operator-(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return {value_ - bulk_dynamic_viscosity.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const BulkDynamicViscosity& bulk_dynamic_viscosity_1, const BulkDynamicViscosity& bulk_dynamic_viscosity_2) noexcept {
-  return sort(bulk_dynamic_viscosity_1.value(), bulk_dynamic_viscosity_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::BulkDynamicViscosity> {
   size_t operator()(const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
-    return hash<double>()(bulk_dynamic_viscosity.value());
+    return hash<double>()(bulk_dynamic_viscosity.Value());
   }
 };
 

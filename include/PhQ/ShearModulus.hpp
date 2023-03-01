@@ -17,7 +17,7 @@ public:
 
   constexpr ShearModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr ShearModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  ShearModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const ShearModulus& shear_modulus) const noexcept {
     return value_ == shear_modulus.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= shear_modulus.value_;
   }
 
-  constexpr ShearModulus operator+(const ShearModulus& shear_modulus) const noexcept {
+  ShearModulus operator+(const ShearModulus& shear_modulus) const noexcept {
     return {value_ + shear_modulus.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += shear_modulus.value_;
   }
 
-  constexpr ShearModulus operator-(const ShearModulus& shear_modulus) const noexcept {
+  ShearModulus operator-(const ShearModulus& shear_modulus) const noexcept {
     return {value_ - shear_modulus.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const ShearModulus& shear_modulus_1, const ShearModulus& shear_modulus_2) noexcept {
-  return sort(shear_modulus_1.value(), shear_modulus_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::ShearModulus> {
   size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
-    return hash<double>()(shear_modulus.value());
+    return hash<double>()(shear_modulus.Value());
   }
 };
 

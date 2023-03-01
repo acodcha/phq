@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Quantity/DimensionlessSymmetricDyadic.hpp"
+#include "Quantity/DimensionlessSymmetricDyad.hpp"
 #include "StrainScalar.hpp"
 
 namespace PhQ {
@@ -17,13 +17,13 @@ class Duration;
 class Frequency;
 class StrainRate;
 
-class Strain : public DimensionlessSymmetricDyadicQuantity {
+class Strain : public DimensionlessSymmetricDyadQuantity {
 
 public:
 
-  constexpr Strain() noexcept : DimensionlessSymmetricDyadicQuantity() {}
+  constexpr Strain() noexcept : DimensionlessSymmetricDyadQuantity() {}
 
-  constexpr Strain(const Value::SymmetricDyadic& value) noexcept : DimensionlessSymmetricDyadicQuantity(value) {}
+  constexpr Strain(const Value::SymmetricDyad& value) noexcept : DimensionlessSymmetricDyadQuantity(value) {}
 
   constexpr Strain(const StrainRate& strain_rate, const Duration& duration) noexcept;
 
@@ -39,7 +39,7 @@ public:
     return value_ != strain.value_;
   }
 
-  constexpr Strain operator+(const Strain& strain) const noexcept {
+  Strain operator+(const Strain& strain) const noexcept {
     return {value_ + strain.value_};
   }
 
@@ -47,7 +47,7 @@ public:
     value_ += strain.value_;
   }
 
-  constexpr Strain operator-(const Strain& strain) const noexcept {
+  Strain operator-(const Strain& strain) const noexcept {
     return {value_ - strain.value_};
   }
 
@@ -63,15 +63,15 @@ public:
 
 } // namespace PhQ
 
-constexpr PhQ::Strain operator*(double real, const PhQ::Strain& strain) noexcept {
-  return {real * strain.value()};
+PhQ::Strain operator*(double real, const PhQ::Strain& strain) noexcept {
+  return {real * strain.Value()};
 }
 
 namespace std {
 
 template <> struct hash<PhQ::Strain> {
   size_t operator()(const PhQ::Strain& strain) const {
-    return hash<PhQ::Value::SymmetricDyadic>()(strain.value());
+    return hash<PhQ::Value::SymmetricDyad>()(strain.Value());
   }
 };
 

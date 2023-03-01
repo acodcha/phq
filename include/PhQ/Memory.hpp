@@ -22,7 +22,7 @@ public:
 
   constexpr Memory() noexcept : DimensionalScalarQuantity<Unit::Memory>() {}
 
-  constexpr Memory(double value, Unit::Memory unit) noexcept : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
+  Memory(double value, Unit::Memory unit) noexcept : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
   constexpr Memory(const MemoryRate& memory_rate, const Duration& duration) noexcept;
 
@@ -52,7 +52,7 @@ public:
     return value_ >= memory.value_;
   }
 
-  constexpr Memory operator+(const Memory& memory) const noexcept {
+  Memory operator+(const Memory& memory) const noexcept {
     return {value_ + memory.value_};
   }
 
@@ -60,7 +60,7 @@ public:
     value_ += memory.value_;
   }
 
-  constexpr Memory operator-(const Memory& memory) const noexcept {
+  Memory operator-(const Memory& memory) const noexcept {
     return {value_ - memory.value_};
   }
 
@@ -68,11 +68,11 @@ public:
     value_ -= memory.value_;
   }
 
-  constexpr MemoryRate operator*(const Frequency& frequency) const noexcept;
+  MemoryRate operator*(const Frequency& frequency) const noexcept;
 
-  constexpr MemoryRate operator/(const Duration& duration) const noexcept;
+  MemoryRate operator/(const Duration& duration) const noexcept;
 
-  constexpr Duration operator/(const MemoryRate& memory_rate) const noexcept;
+  Duration operator/(const MemoryRate& memory_rate) const noexcept;
 
 protected:
 
@@ -80,17 +80,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Memory& memory_1, const Memory& memory_2) noexcept {
-  return sort(memory_1.value(), memory_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::Memory> {
   size_t operator()(const PhQ::Memory& memory) const {
-    return hash<double>()(memory.value());
+    return hash<double>()(memory.Value());
   }
 };
 

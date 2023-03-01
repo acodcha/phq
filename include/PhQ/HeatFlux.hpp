@@ -18,19 +18,19 @@ public:
 
   constexpr HeatFlux() noexcept : DimensionalVectorQuantity<Unit::EnergyFlux>() {}
 
-  constexpr HeatFlux(const Value::Vector& value, Unit::EnergyFlux unit) noexcept : DimensionalVectorQuantity<Unit::EnergyFlux>(value, unit) {}
+  HeatFlux(const Value::Vector& value, Unit::EnergyFlux unit) noexcept : DimensionalVectorQuantity<Unit::EnergyFlux>(value, unit) {}
 
-  constexpr HeatFlux(const HeatFluxMagnitude& heat_flux_magnitude, const Direction& direction) noexcept : HeatFlux({heat_flux_magnitude.value() * direction.x(), heat_flux_magnitude.value() * direction.y(), heat_flux_magnitude.value() * direction.z()}) {}
+  constexpr HeatFlux(const HeatFluxMagnitude& heat_flux_magnitude, const Direction& direction) noexcept : HeatFlux(heat_flux_magnitude.Value() * direction.Value()) {}
 
-  constexpr HeatFlux(const ThermalConductivityScalar& thermal_conductivity_scalar, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-thermal_conductivity_scalar.value() * temperature_gradient.value()) {}
+  constexpr HeatFlux(const ThermalConductivityScalar& thermal_conductivity_scalar, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-thermal_conductivity_scalar.Value() * temperature_gradient.Value()) {}
 
-  constexpr HeatFlux(const ThermalConductivity& thermal_conductivity, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-1.0 * thermal_conductivity.value() * temperature_gradient.value()) {}
+  constexpr HeatFlux(const ThermalConductivity& thermal_conductivity, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
 
-  constexpr HeatFluxMagnitude magnitude() const noexcept {
+  HeatFluxMagnitude magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const HeatFlux& heat_flux) const noexcept {
+  Angle angle(const HeatFlux& heat_flux) const noexcept {
     return {*this, heat_flux};
   }
 
@@ -42,7 +42,7 @@ public:
     return value_ != heat_flux.value_;
   }
 
-  constexpr HeatFlux operator+(const HeatFlux& heat_flux) const noexcept {
+  HeatFlux operator+(const HeatFlux& heat_flux) const noexcept {
     return {value_ + heat_flux.value_};
   }
 
@@ -50,7 +50,7 @@ public:
     value_ += heat_flux.value_;
   }
 
-  constexpr HeatFlux operator-(const HeatFlux& heat_flux) const noexcept {
+  HeatFlux operator-(const HeatFlux& heat_flux) const noexcept {
     return {value_ - heat_flux.value_};
   }
 
@@ -64,17 +64,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept {
-  return sort(heat_flux_1.value(), heat_flux_2.value());
-}
+constexpr Direction::Direction(const HeatFlux& heat_flux) : Direction(heat_flux.Value()) {}
 
-constexpr Direction::Direction(const HeatFlux& heat_flux) : Direction(heat_flux.value()) {}
+Angle::Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
 
-constexpr Angle::Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept : Angle(heat_flux_1.value(), heat_flux_2.value()) {}
+constexpr HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
 
-constexpr HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept : HeatFluxMagnitude(heat_flux.value().magnitude()) {}
-
-constexpr HeatFlux Direction::operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+HeatFlux Direction::operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
   return {heat_flux_magnitude, *this};
 }
 
@@ -88,7 +84,7 @@ namespace std {
 
 template <> struct hash<PhQ::HeatFlux> {
   size_t operator()(const PhQ::HeatFlux& heat_flux) const {
-    return hash<PhQ::Value::Vector>()(heat_flux.value());
+    return hash<PhQ::Value::Vector>()(heat_flux.Value());
   }
 };
 

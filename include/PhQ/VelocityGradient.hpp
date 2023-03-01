@@ -6,18 +6,18 @@
 
 #pragma once
 
-#include "Quantity/DimensionalDyadic.hpp"
+#include "Quantity/DimensionalDyad.hpp"
 #include "StrainRate.hpp"
 
 namespace PhQ {
 
-class VelocityGradient : public DimensionalDyadicQuantity<Unit::Frequency> {
+class VelocityGradient : public DimensionalDyadQuantity<Unit::Frequency> {
 
 public:
 
-  constexpr VelocityGradient() noexcept : DimensionalDyadicQuantity<Unit::Frequency>() {}
+  constexpr VelocityGradient() noexcept : DimensionalDyadQuantity<Unit::Frequency>() {}
 
-  constexpr VelocityGradient(const Value::Dyadic& value, const Unit::Frequency& unit) noexcept : DimensionalDyadicQuantity<Unit::Frequency>(value, unit) {}
+  VelocityGradient(const Value::Dyad& value, const Unit::Frequency& unit) noexcept : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
   constexpr StrainRate strain_rate() const noexcept {
     return {*this};
@@ -31,7 +31,7 @@ public:
     return value_ != velocity_gradient.value_;
   }
 
-  constexpr VelocityGradient operator+(const VelocityGradient& velocity_gradient) const noexcept {
+  VelocityGradient operator+(const VelocityGradient& velocity_gradient) const noexcept {
     return {value_ + velocity_gradient.value_};
   }
 
@@ -39,7 +39,7 @@ public:
     value_ += velocity_gradient.value_;
   }
 
-  constexpr VelocityGradient operator-(const VelocityGradient& velocity_gradient) const noexcept {
+  VelocityGradient operator-(const VelocityGradient& velocity_gradient) const noexcept {
     return {value_ - velocity_gradient.value_};
   }
 
@@ -49,13 +49,9 @@ public:
 
 protected:
 
-  constexpr VelocityGradient(const Value::Dyadic& value) noexcept : DimensionalDyadicQuantity<Unit::Frequency>(value) {}
+  constexpr VelocityGradient(const Value::Dyad& value) noexcept : DimensionalDyadQuantity<Unit::Frequency>(value) {}
 
 };
-
-template <> constexpr bool sort(const VelocityGradient& velocity_gradient_1, const VelocityGradient& velocity_gradient_2) noexcept {
-  return sort(velocity_gradient_1.value(), velocity_gradient_2.value());
-}
 
 constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradient) noexcept : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()), 0.5 * (value_.xz() + value_.zx()), value_.yy(), 0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
@@ -65,7 +61,7 @@ namespace std {
 
 template <> struct hash<PhQ::VelocityGradient> {
   size_t operator()(const PhQ::VelocityGradient& velocity_gradient) const {
-    return hash<PhQ::Value::Dyadic>()(velocity_gradient.value());
+    return hash<PhQ::Value::Dyad>()(velocity_gradient.Value());
   }
 };
 

@@ -18,11 +18,11 @@ public:
 
   constexpr MassRate() noexcept : DimensionalScalarQuantity<Unit::MassRate>() {}
 
-  constexpr MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
+  MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
-  constexpr MassRate(const Mass& mass, const Duration& duration) noexcept : MassRate(mass.value() / duration.value()) {}
+  constexpr MassRate(const Mass& mass, const Duration& duration) noexcept : MassRate(mass.Value() / duration.Value()) {}
 
-  constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept : MassRate(mass.value() * frequency.value()) {}
+  constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept : MassRate(mass.Value() * frequency.Value()) {}
 
   constexpr bool operator==(const MassRate& mass_rate) const noexcept {
     return value_ == mass_rate.value_;
@@ -48,7 +48,7 @@ public:
     return value_ >= mass_rate.value_;
   }
 
-  constexpr MassRate operator+(const MassRate& mass_rate) const noexcept {
+  MassRate operator+(const MassRate& mass_rate) const noexcept {
     return {value_ + mass_rate.value_};
   }
 
@@ -56,7 +56,7 @@ public:
     value_ += mass_rate.value_;
   }
 
-  constexpr MassRate operator-(const MassRate& mass_rate) const noexcept {
+  MassRate operator-(const MassRate& mass_rate) const noexcept {
     return {value_ - mass_rate.value_};
   }
 
@@ -64,15 +64,15 @@ public:
     value_ -= mass_rate.value_;
   }
 
-  constexpr Frequency operator/(const Mass& mass) const noexcept {
+  Frequency operator/(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  constexpr Mass operator*(const Duration& duration) const noexcept {
+  Mass operator*(const Duration& duration) const noexcept {
     return {*this, duration};
   }
 
-  constexpr Mass operator/(const Frequency& frequency) const noexcept {
+  Mass operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
@@ -82,17 +82,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const MassRate& mass_rate_1, const MassRate& mass_rate_2) noexcept {
-  return sort(mass_rate_1.value(), mass_rate_2.value());
-}
+constexpr Duration::Duration(const MassRate& mass_rate, const Mass& mass) noexcept : Duration(mass.Value() / mass_rate.Value()) {}
 
-constexpr Duration::Duration(const MassRate& mass_rate, const Mass& mass) noexcept : Duration(mass.value() / mass_rate.value()) {}
+constexpr Frequency::Frequency(const MassRate& mass_rate, const Mass& mass) noexcept : Frequency(mass_rate.Value() / mass.Value()) {}
 
-constexpr Frequency::Frequency(const MassRate& mass_rate, const Mass& mass) noexcept : Frequency(mass_rate.value() / mass.value()) {}
+constexpr Mass::Mass(const MassRate& mass_rate, const Duration& duration) noexcept : Mass(mass_rate.Value() * duration.Value()) {}
 
-constexpr Mass::Mass(const MassRate& mass_rate, const Duration& duration) noexcept : Mass(mass_rate.value() * duration.value()) {}
-
-constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept : Mass(mass_rate.value() / frequency.value()) {}
+constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept : Mass(mass_rate.Value() / frequency.Value()) {}
 
 constexpr Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
@@ -120,7 +116,7 @@ namespace std {
 
 template <> struct hash<PhQ::MassRate> {
   size_t operator()(const PhQ::MassRate& mass_rate) const {
-    return hash<double>()(mass_rate.value());
+    return hash<double>()(mass_rate.Value());
   }
 };
 

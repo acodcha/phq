@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Angle.hpp"
+#include "Direction.hpp"
 #include "ForceMagnitude.hpp"
 #include "Quantity/DimensionalVector.hpp"
 
@@ -21,17 +22,17 @@ public:
 
   constexpr Force() noexcept : DimensionalVectorQuantity<Unit::Force>() {}
 
-  constexpr Force(const Value::Vector& value, Unit::Force unit) noexcept : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
+  Force(const Value::Vector& value, Unit::Force unit) noexcept : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
 
-  constexpr Force(const ForceMagnitude& force_magnitude, const Direction& direction) noexcept : Force({force_magnitude.value() * direction.x(), force_magnitude.value() * direction.y(), force_magnitude.value() * direction.z()}) {}
+  constexpr Force(const ForceMagnitude& force_magnitude, const Direction& direction) noexcept : Force(force_magnitude.Value() * direction.Value()) {}
 
   constexpr Force(const Traction& traction, const Area& area) noexcept;
 
-  constexpr ForceMagnitude magnitude() const noexcept {
+  ForceMagnitude magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const Force& force) const noexcept {
+  Angle angle(const Force& force) const noexcept {
     return {*this, force};
   }
 
@@ -43,7 +44,7 @@ public:
     return value_ != force.value_;
   }
 
-  constexpr Force operator+(const Force& force) const noexcept {
+  Force operator+(const Force& force) const noexcept {
     return {value_ + force.value_};
   }
 
@@ -51,7 +52,7 @@ public:
     value_ += force.value_;
   }
 
-  constexpr Force operator-(const Force& force) const noexcept {
+  Force operator-(const Force& force) const noexcept {
     return {value_ - force.value_};
   }
 
@@ -67,17 +68,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const Force& force_1, const Force& force_2) noexcept {
-  return sort(force_1.value(), force_2.value());
-}
+Direction::Direction(const Force& force) : Direction(force.Value()) {}
 
-constexpr Direction::Direction(const Force& force) : Direction(force.value()) {}
+constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.Value(), force_2.Value()) {}
 
-constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.value(), force_2.value()) {}
+constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.Value().Magnitude()) {}
 
-constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.value().magnitude()) {}
-
-constexpr Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
+Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
   return {force_magnitude, *this};
 }
 
@@ -91,7 +88,7 @@ namespace std {
 
 template <> struct hash<PhQ::Force> {
   size_t operator()(const PhQ::Force& force) const {
-    return hash<PhQ::Value::Vector>()(force.value());
+    return hash<PhQ::Value::Vector>()(force.Value());
   }
 };
 

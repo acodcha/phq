@@ -47,27 +47,27 @@ public:
 
 } // namespace PhQ
 
-constexpr PhQ::SpecificHeatRatio operator+(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real + specific_heat_ratio.value()};
+PhQ::SpecificHeatRatio operator+(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real + specific_heat_ratio.Value()};
 }
 
-constexpr PhQ::SpecificHeatRatio operator-(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real - specific_heat_ratio.value()};
+PhQ::SpecificHeatRatio operator-(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real - specific_heat_ratio.Value()};
 }
 
-constexpr PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return {real * specific_heat_ratio.value()};
+PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+  return {real * specific_heat_ratio.Value()};
 }
 
 constexpr double operator/(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
-  return real / specific_heat_ratio.value();
+  return real / specific_heat_ratio.Value();
 }
 
 namespace std {
 
 template <> struct hash<PhQ::SpecificHeatRatio> {
   size_t operator()(const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
-    return hash<double>()(specific_heat_ratio.value());
+    return hash<double>()(specific_heat_ratio.Value());
   }
 };
 

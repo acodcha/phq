@@ -17,7 +17,7 @@ public:
 
   constexpr PWaveModulus() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr PWaveModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+  PWaveModulus(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr bool operator==(const PWaveModulus& p_wave_modulus) const noexcept {
     return value_ == p_wave_modulus.value_;
@@ -43,7 +43,7 @@ public:
     return value_ >= p_wave_modulus.value_;
   }
 
-  constexpr PWaveModulus operator+(const PWaveModulus& p_wave_modulus) const noexcept {
+  PWaveModulus operator+(const PWaveModulus& p_wave_modulus) const noexcept {
     return {value_ + p_wave_modulus.value_};
   }
 
@@ -51,7 +51,7 @@ public:
     value_ += p_wave_modulus.value_;
   }
 
-  constexpr PWaveModulus operator-(const PWaveModulus& p_wave_modulus) const noexcept {
+  PWaveModulus operator-(const PWaveModulus& p_wave_modulus) const noexcept {
     return {value_ - p_wave_modulus.value_};
   }
 
@@ -65,17 +65,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const PWaveModulus& p_wave_modulus_1, const PWaveModulus& p_wave_modulus_2) noexcept {
-  return sort(p_wave_modulus_1.value(), p_wave_modulus_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::PWaveModulus> {
   size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
-    return hash<double>()(p_wave_modulus.value());
+    return hash<double>()(p_wave_modulus.Value());
   }
 };
 

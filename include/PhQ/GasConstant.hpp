@@ -19,13 +19,13 @@ public:
 
   constexpr GasConstant() noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
 
-  constexpr GasConstant(double value, Unit::HeatCapacity unit) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
+  GasConstant(double value, Unit::HeatCapacity unit) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
-  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : GasConstant(isobaric_heat_capacity.value() - isochoric_heat_capacity.value()) {}
+  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : GasConstant(isobaric_heat_capacity.Value() - isochoric_heat_capacity.Value()) {}
 
-  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GasConstant(isobaric_heat_capacity.value() * (1.0 - 1.0 / specific_heat_ratio.value())) {}
+  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GasConstant(isobaric_heat_capacity.Value() * (1.0 - 1.0 / specific_heat_ratio.Value())) {}
 
-  constexpr GasConstant(const IsochoricHeatCapacity& isochoric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GasConstant(isochoric_heat_capacity.value() * (specific_heat_ratio.value() - 1.0)) {}
+  constexpr GasConstant(const IsochoricHeatCapacity& isochoric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GasConstant(isochoric_heat_capacity.Value() * (specific_heat_ratio.Value() - 1.0)) {}
 
   constexpr GasConstant(const SpecificGasConstant& specific_gas_constant, const Mass& mass) noexcept;
 
@@ -53,11 +53,11 @@ public:
     return value_ >= gas_constant.value_;
   }
 
-  constexpr GasConstant operator+(const GasConstant& gas_constant) const noexcept {
+  GasConstant operator+(const GasConstant& gas_constant) const noexcept {
     return {value_ + gas_constant.value_};
   }
 
-  constexpr IsobaricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+  IsobaricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {*this, isochoric_heat_capacity};
   }
 
@@ -65,7 +65,7 @@ public:
     value_ += gas_constant.value_;
   }
 
-  constexpr GasConstant operator-(const GasConstant& gas_constant) const noexcept {
+  GasConstant operator-(const GasConstant& gas_constant) const noexcept {
     return {value_ - gas_constant.value_};
   }
 
@@ -83,21 +83,17 @@ protected:
 
 };
 
-template <> constexpr bool sort(const GasConstant& gas_constant_1, const GasConstant& gas_constant_2) noexcept {
-  return sort(gas_constant_1.value(), gas_constant_2.value());
-}
+constexpr SpecificHeatRatio::SpecificHeatRatio(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept : SpecificHeatRatio(isobaric_heat_capacity.Value() / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
 
-constexpr SpecificHeatRatio::SpecificHeatRatio(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept : SpecificHeatRatio(isobaric_heat_capacity.value() / (isobaric_heat_capacity.value() - gas_constant.value())) {}
+constexpr SpecificHeatRatio::SpecificHeatRatio(const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : SpecificHeatRatio(gas_constant.Value() / isochoric_heat_capacity.Value() + 1.0) {}
 
-constexpr SpecificHeatRatio::SpecificHeatRatio(const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : SpecificHeatRatio(gas_constant.value() / isochoric_heat_capacity.value() + 1.0) {}
+constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept : IsochoricHeatCapacity(isobaric_heat_capacity.Value() - gas_constant.Value()) {}
 
-constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept : IsochoricHeatCapacity(isobaric_heat_capacity.value() - gas_constant.value()) {}
+constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(const GasConstant& gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : IsochoricHeatCapacity(gas_constant.Value() / (specific_heat_ratio.Value() - 1.0)) {}
 
-constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(const GasConstant& gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : IsochoricHeatCapacity(gas_constant.value() / (specific_heat_ratio.value() - 1.0)) {}
+constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : IsobaricHeatCapacity(gas_constant.Value() + isochoric_heat_capacity.Value()) {}
 
-constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept : IsobaricHeatCapacity(gas_constant.value() + isochoric_heat_capacity.value()) {}
-
-constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(const GasConstant& gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : IsobaricHeatCapacity(gas_constant.value() * specific_heat_ratio.value() / (specific_heat_ratio.value() - 1.0)) {}
+constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(const GasConstant& gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : IsobaricHeatCapacity(gas_constant.Value() * specific_heat_ratio.Value() / (specific_heat_ratio.Value() - 1.0)) {}
 
 constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator+(const GasConstant& gas_constant) const noexcept {
   return {gas_constant, *this};
@@ -117,7 +113,7 @@ namespace std {
 
 template <> struct hash<PhQ::GasConstant> {
   size_t operator()(const PhQ::GasConstant& gas_constant) const {
-    return hash<double>()(gas_constant.value());
+    return hash<double>()(gas_constant.Value());
   }
 };
 

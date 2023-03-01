@@ -18,7 +18,7 @@ public:
 
   constexpr IsochoricHeatCapacity() noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
 
-  constexpr IsochoricHeatCapacity(double value, Unit::HeatCapacity unit) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
+  IsochoricHeatCapacity(double value, Unit::HeatCapacity unit) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
   constexpr IsochoricHeatCapacity(const GasConstant& gas_constant, const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
 
@@ -52,7 +52,7 @@ public:
     return value_ >= isochoric_heat_capacity.value_;
   }
 
-  constexpr IsochoricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+  IsochoricHeatCapacity operator+(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {value_ + isochoric_heat_capacity.value_};
   }
 
@@ -62,7 +62,7 @@ public:
     value_ += isochoric_heat_capacity.value_;
   }
 
-  constexpr IsochoricHeatCapacity operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+  IsochoricHeatCapacity operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {value_ - isochoric_heat_capacity.value_};
   }
 
@@ -82,17 +82,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const IsochoricHeatCapacity& isochoric_heat_capacity_1, const IsochoricHeatCapacity& isochoric_heat_capacity_2) noexcept {
-  return sort(isochoric_heat_capacity_1.value(), isochoric_heat_capacity_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::IsochoricHeatCapacity> {
   size_t operator()(const PhQ::IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    return hash<double>()(isochoric_heat_capacity.value());
+    return hash<double>()(isochoric_heat_capacity.Value());
   }
 };
 

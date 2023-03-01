@@ -24,7 +24,7 @@ public:
 
   constexpr ThermalConductivityScalar() noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
 
-  constexpr ThermalConductivityScalar(double value, Unit::ThermalConductivity unit) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
+  ThermalConductivityScalar(double value, Unit::ThermalConductivity unit) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
   constexpr ThermalConductivityScalar(const ThermalDiffusivity& thermal_diffusivity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const MassDensity& mass_density) noexcept;
 
@@ -54,7 +54,7 @@ public:
     return value_ >= thermal_conductivity_scalar.value_;
   }
 
-  constexpr ThermalConductivityScalar operator+(const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
+  ThermalConductivityScalar operator+(const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
     return {value_ + thermal_conductivity_scalar.value_};
   }
 
@@ -62,7 +62,7 @@ public:
     value_ += thermal_conductivity_scalar.value_;
   }
 
-  constexpr ThermalConductivityScalar operator-(const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
+  ThermalConductivityScalar operator-(const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
     return {value_ - thermal_conductivity_scalar.value_};
   }
 
@@ -76,17 +76,13 @@ protected:
 
 };
 
-template <> constexpr bool sort(const ThermalConductivityScalar& thermal_conductivity_scalar_1, const ThermalConductivityScalar& thermal_conductivity_scalar_2) noexcept {
-  return sort(thermal_conductivity_scalar_1.value(), thermal_conductivity_scalar_2.value());
-}
-
 } // namespace PhQ
 
 namespace std {
 
 template <> struct hash<PhQ::ThermalConductivityScalar> {
   size_t operator()(const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar) const {
-    return hash<double>()(thermal_conductivity_scalar.value());
+    return hash<double>()(thermal_conductivity_scalar.Value());
   }
 };
 
