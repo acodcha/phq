@@ -23,11 +23,11 @@ public:
 
   constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Direction& direction) noexcept : TemperatureGradient(temperature_gradient_magnitude.Value() * direction.Value()) {}
 
-  TemperatureGradientMagnitude magnitude() const noexcept {
+  TemperatureGradientMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const TemperatureGradient& temperature_gradient) const noexcept {
+  PhQ::Angle Angle(const TemperatureGradient& temperature_gradient) const noexcept {
     return {*this, temperature_gradient};
   }
 

@@ -28,11 +28,11 @@ public:
 
   constexpr Force(const Traction& traction, const Area& area) noexcept;
 
-  ForceMagnitude magnitude() const noexcept {
+  ForceMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Force& force) const noexcept {
+  PhQ::Angle Angle(const Force& force) const noexcept {
     return {*this, force};
   }
 

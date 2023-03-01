@@ -26,11 +26,11 @@ public:
 
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity, const TemperatureGradient& temperature_gradient) noexcept : HeatFlux(-1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
 
-  HeatFluxMagnitude magnitude() const noexcept {
+  HeatFluxMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const HeatFlux& heat_flux) const noexcept {
+  PhQ::Angle Angle(const HeatFlux& heat_flux) const noexcept {
     return {*this, heat_flux};
   }
 

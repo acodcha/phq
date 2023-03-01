@@ -19,7 +19,7 @@ public:
 
   constexpr DisplacementGradient(const Value::Dyad& value) noexcept : DimensionlessDyadQuantity(value) {}
 
-  Strain strain() const noexcept {
+  Strain Strain() const noexcept {
     return {*this};
   }
 

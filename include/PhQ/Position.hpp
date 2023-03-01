@@ -18,11 +18,11 @@ public:
 
   Position(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  Length magnitude() const noexcept {
+  Length Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Position& position) const noexcept {
+  PhQ::Angle Angle(const Position& position) const noexcept {
     return {*this, position};
   }
 

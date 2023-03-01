@@ -22,7 +22,7 @@ public:
 
   constexpr Stress(const StaticPressure& static_pressure) noexcept : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0, -1.0 * static_pressure.Value(), 0.0, -1.0 * static_pressure.Value()}) {}
 
-  Traction traction(const Direction& direction) const noexcept {
+  PhQ::Traction Traction(const Direction& direction) const noexcept {
     return {*this, direction};
   }
 
@@ -58,7 +58,7 @@ protected:
 
 constexpr Traction::Traction(const Stress& stress, const Direction& direction) noexcept : Traction({stress.Value() * direction}) {}
 
-Stress StaticPressure::stress() const noexcept {
+Stress StaticPressure::Stress() const noexcept {
   return {*this};
 }
 
