@@ -114,27 +114,27 @@ Once this is done, simply include the headers you need in your project's source 
 
 ### Usage: Physical Quantities
 
-Physical quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadics. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vector and dyadic quantities are represented internally in a Cartesian (x-y-z) coordinate system.
+Physical quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadic tensors. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vectors and dyadic tensors are represented internally in a Cartesian (x-y-z) coordinate system.
 
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example, a `PhQ::Velocity` divided by a `PhQ::Duration` returns a `PhQ::Acceleration`, while a `PhQ::Force` divided by a `PhQ::Area` returns a `PhQ::Traction`.
 
-Similarly, other meaningful mathematical operations are supported via member methods. For example, `PhQ::Displacement` has a `magnitude()` method that returns a `PhQ::Length` and a `direction()` method that returns a `PhQ::Direction`.
+Similarly, other meaningful mathematical operations are supported via member methods. For example, `PhQ::Displacement` has a `Magnitude()` method that returns a `PhQ::Length` and a `Direction()` method that returns a `PhQ::Direction`.
 
-Warning: As always, some operations can result in divisions by zero. C++ compilers support floating-point divisions by zero, for example with `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. This library makes no attempt to detect, report, or avoid divisions by zero. Instead, it is the implementer's responsibility to determine whether such cases warrant special consideration, for example through the use of conditional statements, try-catch blocks, or standard C++ utilities such as `isfinite()`.
+As always, some operations can result in divisions by zero. C++ supports floating-point divisions by zero, for example with `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. This library makes no attempt to detect, report, or avoid divisions by zero. Instead, it is the implementer's responsibility to determine whether such cases warrant special consideration, for example through the use of conditional statements, try-catch blocks, or standard C++ utilities such as `isfinite()`.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Units of Measure
 
-Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A physical quantity's value can be obtained in any unit through its `value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and prints its value as 4.535924 kg.
+Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A physical quantity's value can be obtained in any unit through its `Value()` method, which takes as argument either a unit or a unit system. For example, `PhQ::Mass{10.0, PhQ::Unit::Mass::Pound}.Value(PhQ::Unit::Mass::Kilogram);` creates a 10 lbm mass and returns its value as 4.535924 kg.
 
-Unit conversions can also be done without the use of physical quantities through the `PhQ::convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
+Unit conversions can also be done explicitly without the use of physical quantities through the `PhQ::Convert()` method, which takes a value, an old unit, and a new unit. For example, `PhQ::Convert(10.0, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)` converts 10 J to 7.375621 ft·lbf.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Physical Models
 
-Some physical models and related operations are also supported. For example, a `PhQ::ConstitutiveModel::ElasticIsotropicSolid` can be constructed from a `PhQ::YoungModulus` and a `PhQ::PoissonRatio`, and has a `stress()` method that returns a `PhQ::Stress` given a `PhQ::Strain`.
+Some physical models and related operations are also supported. For example, a `PhQ::ConstitutiveModel::ElasticIsotropicSolid` can be constructed from a `PhQ::YoungModulus` and a `PhQ::PoissonRatio`, and has a `Stress()` method that returns a `PhQ::Stress` given a `PhQ::Strain`. Similarly, a `PhQ::ThermodynamicStateModel::IdealGas` can be constructed from a `PhQ::SpecificGasConstant` and a `PhQ::SpecificHeatRatio`, and has methods for computing thermodynamic state quantities such as `PhQ::MassDensity`, `PhQ::StaticPressure`, and `PhQ::Temperature` given other thermodynamic state quantities.
 
 [(Back to Usage)](#usage)
 
