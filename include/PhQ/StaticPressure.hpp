@@ -35,7 +35,7 @@ public:
 
   constexpr StaticPressure(const StaticKinematicPressure& static_kinematic_pressure, const MassDensity& mass_density) noexcept;
 
-  Stress stress() const noexcept;
+  PhQ::Stress Stress() const noexcept;
 
   constexpr bool operator==(const StaticPressure& static_pressure) const noexcept {
     return value_ == static_pressure.value_;

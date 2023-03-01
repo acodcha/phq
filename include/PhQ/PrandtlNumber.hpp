@@ -24,23 +24,23 @@ public:
 
   constexpr PrandtlNumber(const DynamicViscosity& dynamic_viscosity, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept : PrandtlNumber(dynamic_viscosity.Value() * specific_isobaric_heat_capacity.Value() / thermal_conductivity_scalar.Value()) {}
 
-  ThermalDiffusivity thermal_diffusivity(const KinematicViscosity& kinematic_viscosity) const noexcept {
+  PhQ::ThermalDiffusivity ThermalDiffusivity(const PhQ::KinematicViscosity& kinematic_viscosity) const noexcept {
     return {*this, kinematic_viscosity};
   }
 
-  ThermalConductivityScalar thermal_conductivity_scalar(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const DynamicViscosity& dynamic_viscosity) const noexcept {
+  PhQ::ThermalConductivityScalar ThermalConductivityScalar(const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity, const PhQ::DynamicViscosity& dynamic_viscosity) const noexcept {
     return {*this, specific_isobaric_heat_capacity, dynamic_viscosity};
   }
 
-  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity(const ThermalConductivityScalar& thermal_conductivity_scalar, const DynamicViscosity& dynamic_viscosity) const noexcept {
+  PhQ::SpecificIsobaricHeatCapacity SpecificIsobaricHeatCapacity(const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar, const PhQ::DynamicViscosity& dynamic_viscosity) const noexcept {
     return {*this, thermal_conductivity_scalar, dynamic_viscosity};
   }
 
-  DynamicViscosity dynamic_viscosity(const ThermalConductivityScalar& thermal_conductivity_scalar, SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
+  PhQ::DynamicViscosity DynamicViscosity(const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar, PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
     return {*this, thermal_conductivity_scalar, specific_isobaric_heat_capacity};
   }
 
-  KinematicViscosity kinematic_viscosity(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
+  PhQ::KinematicViscosity KinematicViscosity(const PhQ::ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return {*this, thermal_diffusivity};
   }
 

@@ -25,11 +25,11 @@ public:
 
   constexpr Acceleration(const Velocity& velocity, const Frequency& frequency) noexcept : Acceleration(velocity.Value() * frequency.Value()) {}
 
-  AccelerationMagnitude magnitude() const noexcept {
+  AccelerationMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Acceleration& acceleration) const noexcept {
+  PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {
     return {*this, acceleration};
   }
 

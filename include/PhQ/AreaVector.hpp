@@ -23,11 +23,11 @@ public:
 
   constexpr AreaVector(const Area& area, const Direction& direction) noexcept : AreaVector(area.Value() * direction.Value()) {}
 
-  Area magnitude() const noexcept {
+  Area Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const AreaVector& area_vector) const noexcept {
+  PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
   }
 

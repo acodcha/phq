@@ -24,40 +24,39 @@ namespace PhQ {
 namespace {
 
 TEST(OldConstitutiveModels, Simple) {
-  PhQ::YoungModulus aluminum_young_modulus{68.9,
-                                           PhQ::Unit::Pressure::Gigapascal};
-  PhQ::PoissonRatio aluminum_poisson_ratio{0.33};
-  PhQ::ConstitutiveModel::ElasticIsotropicSolid aluminum{
-      aluminum_young_modulus, aluminum_poisson_ratio};
+  YoungModulus aluminum_young_modulus{68.9, Unit::Pressure::Gigapascal};
+  PoissonRatio aluminum_poisson_ratio{0.33};
+  ConstitutiveModel::ElasticIsotropicSolid aluminum{aluminum_young_modulus,
+                                                    aluminum_poisson_ratio};
   std::cout << "Aluminum: " << aluminum.Print() << std::endl;
-  std::cout << "- E = " << aluminum.young_modulus() << std::endl;
-  std::cout << "- K = " << aluminum.isentropic_bulk_modulus() << std::endl;
-  std::cout << "- M = " << aluminum.p_wave_modulus() << std::endl;
-  std::cout << "- ν = " << aluminum.poisson_ratio() << std::endl;
-  PhQ::Strain strain{{0.010, -0.002, -0.003, 0.008, -0.004, -0.006}};
+  std::cout << "- E = " << aluminum.YoungModulus() << std::endl;
+  std::cout << "- K = " << aluminum.IsentropicBulkModulus() << std::endl;
+  std::cout << "- M = " << aluminum.PWaveModulus() << std::endl;
+  std::cout << "- ν = " << aluminum.PoissonRatio() << std::endl;
+  Strain strain{{0.010, -0.002, -0.003, 0.008, -0.004, -0.006}};
   std::cout << "- Strain: " << strain << std::endl;
-  std::cout << "- Stress: " << aluminum.stress(strain) << std::endl;
-  std::cout << "- Strain: " << aluminum.strain(aluminum.stress(strain))
+  std::cout << "- Stress: " << aluminum.Stress(strain) << std::endl;
+  std::cout << "- Strain: " << aluminum.Strain(aluminum.Stress(strain))
             << std::endl;
 
-  PhQ::DynamicViscosity air_dynamic_viscosity{
-      1.8e-5, PhQ::Unit::DynamicViscosity::PascalSecond};
-  PhQ::StrainRate strain_rate{{0.010, -0.002, -0.003, 0.008, -0.004, -0.006},
-                              PhQ::Unit::Frequency::Hertz};
+  DynamicViscosity air_dynamic_viscosity{1.8e-5,
+                                         Unit::DynamicViscosity::PascalSecond};
+  StrainRate strain_rate{{0.010, -0.002, -0.003, 0.008, -0.004, -0.006},
+                         Unit::Frequency::Hertz};
 
-  PhQ::ConstitutiveModel::IncompressibleNewtonianFluid air_incompressible{
+  ConstitutiveModel::IncompressibleNewtonianFluid air_incompressible{
       air_dynamic_viscosity};
   std::cout << "Air (Incompressible): " << air_incompressible.Print()
             << std::endl;
   std::cout << "- Strain Rate: " << strain_rate << std::endl;
-  std::cout << "- Stress: " << air_incompressible.stress(strain_rate)
+  std::cout << "- Stress: " << air_incompressible.Stress(strain_rate)
             << std::endl;
 
-  PhQ::ConstitutiveModel::CompressibleNewtonianFluid air_compressible{
+  ConstitutiveModel::CompressibleNewtonianFluid air_compressible{
       air_dynamic_viscosity};
   std::cout << "Air (Compressible): " << air_compressible.Print() << std::endl;
   std::cout << "- Strain Rate: " << strain_rate << std::endl;
-  std::cout << "- Stress: " << air_compressible.stress(strain_rate)
+  std::cout << "- Stress: " << air_compressible.Stress(strain_rate)
             << std::endl;
 }
 

@@ -23,23 +23,22 @@ namespace PhQ {
 namespace {
 
 TEST(OldThermodynamicStateModels, Simple) {
-  PhQ::MassDensity mass_density_1{
-      999.0, PhQ::Unit::MassDensity::KilogramPerCubicMetre};
-  PhQ::SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_1{
-      4190.0, PhQ::Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  PhQ::ThermodynamicStateModel::IncompressibleFluid model_1{
+  MassDensity mass_density_1{999.0, Unit::MassDensity::KilogramPerCubicMetre};
+  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_1{
+      4190.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  ThermodynamicStateModel::IncompressibleFluid model_1{
       mass_density_1, specific_isobaric_heat_capacity_1};
   std::cout << "Thermodynamic State Model 1:" << std::endl;
   std::cout << "- Print: " << model_1.Print() << std::endl;
   std::cout << "- JSON: " << model_1.Json() << std::endl;
   std::cout << "- XML: " << model_1.Xml() << std::endl;
 
-  PhQ::SpecificGasConstant specific_gas_constant_2{
-      287.0, PhQ::Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  PhQ::SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_2{
-      1006.0, PhQ::Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  PhQ::ThermodynamicStateModel::IdealGas model_2{
-      specific_gas_constant_2, specific_isobaric_heat_capacity_2};
+  SpecificGasConstant specific_gas_constant_2{
+      287.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_2{
+      1006.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  ThermodynamicStateModel::IdealGas model_2{specific_gas_constant_2,
+                                            specific_isobaric_heat_capacity_2};
   std::cout << "Thermodynamic State Model 2:" << std::endl;
   std::cout << "- Print: " << model_2.Print() << std::endl;
   std::cout << "- JSON: " << model_2.Json() << std::endl;

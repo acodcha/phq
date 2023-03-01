@@ -26,15 +26,15 @@ public:
 
   constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity, const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(), dynamic_viscosity_(dynamic_viscosity), bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
-  constexpr const DynamicViscosity& dynamic_viscosity() const noexcept {
+  constexpr const PhQ::DynamicViscosity& DynamicViscosity() const noexcept {
     return dynamic_viscosity_;
   }
 
-  constexpr const BulkDynamicViscosity& bulk_dynamic_viscosity() const noexcept {
+  constexpr const PhQ::BulkDynamicViscosity& BulkDynamicViscosity() const noexcept {
     return bulk_dynamic_viscosity_;
   }
 
-  Stress stress(const StrainRate& strain_rate) const noexcept {
+  PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const noexcept {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
@@ -57,9 +57,9 @@ public:
 
 protected:
 
-  DynamicViscosity dynamic_viscosity_;
+  PhQ::DynamicViscosity dynamic_viscosity_;
 
-  BulkDynamicViscosity bulk_dynamic_viscosity_;
+  PhQ::BulkDynamicViscosity bulk_dynamic_viscosity_;
 
 };
 
@@ -71,7 +71,7 @@ namespace std {
 
 template <> struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
   size_t operator()(const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
-    return hash<PhQ::DynamicViscosity>()(model.dynamic_viscosity()) ^ hash<PhQ::BulkDynamicViscosity>()(model.bulk_dynamic_viscosity());
+    return hash<PhQ::DynamicViscosity>()(model.DynamicViscosity()) ^ hash<PhQ::BulkDynamicViscosity>()(model.BulkDynamicViscosity());
   }
 };
 

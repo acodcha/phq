@@ -33,11 +33,11 @@ public:
 
   constexpr Displacement(const Velocity& velocity, const Frequency& frequency) noexcept;
 
-  Length magnitude() const noexcept {
+  Length Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Displacement& displacement) const noexcept {
+  PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
   }
 

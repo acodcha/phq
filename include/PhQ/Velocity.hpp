@@ -32,11 +32,11 @@ public:
 
   constexpr Velocity(const Acceleration& acceleration, const Frequency& frequency) noexcept;
 
-  Speed magnitude() const noexcept {
+  Speed Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Velocity& velocity) const noexcept {
+  PhQ::Angle Angle(const Velocity& velocity) const noexcept {
     return {*this, velocity};
   }
 

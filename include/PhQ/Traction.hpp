@@ -25,11 +25,11 @@ public:
 
   constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
 
-  StaticPressure magnitude() const noexcept {
+  StaticPressure Magnitude() const noexcept {
     return {*this};
   }
 
-  Angle angle(const Traction& traction) const noexcept {
+  PhQ::Angle Angle(const Traction& traction) const noexcept {
     return {*this, traction};
   }
 

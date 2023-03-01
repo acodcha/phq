@@ -25,31 +25,31 @@ public:
 
   constexpr ReynoldsNumber(const KinematicViscosity& kinematic_viscosity, const Speed& speed, const Length& length) noexcept : ReynoldsNumber(speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
 
-  DynamicViscosity dynamic_viscosity(const MassDensity& mass_density, const Speed& speed, const Length& length) const noexcept {
+  PhQ::DynamicViscosity DynamicViscosity(const PhQ::MassDensity& mass_density, const PhQ::Speed& speed, const PhQ::Length& length) const noexcept {
     return {*this, mass_density, speed, length};
   }
 
-  KinematicViscosity kinematic_viscosity(const Speed& speed, const Length& length) const noexcept {
+  PhQ::KinematicViscosity KinematicViscosity(const PhQ::Speed& speed, const PhQ::Length& length) const noexcept {
     return {*this, speed, length};
   }
 
-  MassDensity mass_density(const DynamicViscosity& dynamic_viscosity, const Speed& speed, const Length& length) const noexcept {
+  PhQ::MassDensity MassDensity(const PhQ::DynamicViscosity& dynamic_viscosity, const PhQ::Speed& speed, const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, speed, length};
   }
 
-  Speed speed(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density, const Length& length) const noexcept {
+  PhQ::Speed Speed(const PhQ::DynamicViscosity& dynamic_viscosity, const PhQ::MassDensity& mass_density, const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, mass_density, length};
   }
 
-  Speed speed(const KinematicViscosity& kinematic_viscosity, const Length& length) const noexcept {
+  PhQ::Speed Speed(const PhQ::KinematicViscosity& kinematic_viscosity, const PhQ::Length& length) const noexcept {
     return {*this, kinematic_viscosity, length};
   }
 
-  Length length(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density, const Speed& speed) const noexcept {
+  PhQ::Length Length(const PhQ::DynamicViscosity& dynamic_viscosity, const PhQ::MassDensity& mass_density, const PhQ::Speed& speed) const noexcept {
     return {*this, dynamic_viscosity, mass_density, speed};
   }
 
-  Length length(const KinematicViscosity& kinematic_viscosity, const Speed& speed) const noexcept {
+  PhQ::Length Length(const PhQ::KinematicViscosity& kinematic_viscosity, const PhQ::Speed& speed) const noexcept {
     return {*this, kinematic_viscosity, speed};
   }
 
