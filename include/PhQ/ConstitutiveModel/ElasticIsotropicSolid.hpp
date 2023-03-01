@@ -78,39 +78,39 @@ public:
 
   ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus, const PWaveModulus& p_wave_modulus) noexcept : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(), shear_modulus_(0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value()), StandardUnit<Unit::Pressure>), lame_first_modulus_(lame_first_modulus) {}
 
-  constexpr const ShearModulus& shear_modulus() const noexcept {
+  constexpr const PhQ::ShearModulus& ShearModulus() const noexcept {
     return shear_modulus_;
   }
 
-  constexpr const LameFirstModulus& lame_first_modulus() const noexcept {
+  constexpr const PhQ::LameFirstModulus& LameFirstModulus() const noexcept {
     return lame_first_modulus_;
   }
 
-  YoungModulus young_modulus() const noexcept {
+  PhQ::YoungModulus YoungModulus() const noexcept {
     const double numerator{shear_modulus_.Value() * ( 3.0 * lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value())};
     const double denominator{shear_modulus_.Value() + lame_first_modulus_.Value()};
     return {numerator / denominator, StandardUnit<Unit::Pressure>};
   }
 
-  IsentropicBulkModulus isentropic_bulk_modulus() const noexcept {
+  PhQ::IsentropicBulkModulus IsentropicBulkModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(), StandardUnit<Unit::Pressure>};
   }
 
-  IsothermalBulkModulus isothermal_bulk_modulus() const noexcept {
+  PhQ::IsothermalBulkModulus IsothermalBulkModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(), StandardUnit<Unit::Pressure>};
   }
 
-  PWaveModulus p_wave_modulus() const noexcept {
+  PhQ::PWaveModulus PWaveModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value(), StandardUnit<Unit::Pressure>};
   }
 
-  PoissonRatio poisson_ratio() const noexcept {
+  PhQ::PoissonRatio PoissonRatio() const noexcept {
     const double numerator{0.5 * lame_first_modulus_.Value()};
     const double denominator{shear_modulus_.Value() + lame_first_modulus_.Value()};
     return {numerator / denominator};
   }
 
-  Stress stress(const Strain& strain) const noexcept {
+  PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept {
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
     // b = lame_first_modulus
@@ -118,7 +118,7 @@ public:
     return {2.0 * shear_modulus_.Value() * strain.Value() + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}, StandardUnit<Unit::Pressure>};
   }
 
-  Strain strain(const Stress& stress) const noexcept {
+  PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept {
     // strain = a * stress - b * trace(stress) * identity_matrix
     // a = 1 / (2 * shear_modulus)
     // b = lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3 * lame_first_modulus))
@@ -143,9 +143,9 @@ public:
 
 protected:
 
-  ShearModulus shear_modulus_;
+  PhQ::ShearModulus shear_modulus_;
 
-  LameFirstModulus lame_first_modulus_;
+  PhQ::LameFirstModulus lame_first_modulus_;
 
 };
 
@@ -157,7 +157,7 @@ namespace std {
 
 template <> struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
   size_t operator()(const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
-    return hash<PhQ::ShearModulus>()(model.shear_modulus()) ^ hash<PhQ::LameFirstModulus>()(model.lame_first_modulus());
+    return hash<PhQ::ShearModulus>()(model.ShearModulus()) ^ hash<PhQ::LameFirstModulus>()(model.LameFirstModulus());
   }
 };
 
