@@ -72,19 +72,19 @@ constexpr Strain::Strain(const StrainRate& strain_rate, const Duration& duration
 
 constexpr Strain::Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept : Strain(strain_rate.Value() / frequency.Value()) {}
 
-constexpr StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
+StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr StrainRate Strain::operator/(const Duration& duration) const noexcept {
+StrainRate Strain::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 
-constexpr Strain Duration::operator*(const StrainRate& strain_rate) const noexcept {
+Strain Duration::operator*(const StrainRate& strain_rate) const noexcept {
   return {strain_rate, *this};
 }
 
-constexpr StrainRate Frequency::operator*(const Strain& strain) const noexcept {
+StrainRate Frequency::operator*(const Strain& strain) const noexcept {
   return {strain, *this};
 }
 

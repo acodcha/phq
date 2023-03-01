@@ -57,7 +57,7 @@ public:
     return {value_ + dynamic_pressure.value_};
   }
 
-  constexpr TotalPressure operator+(const StaticPressure& static_pressure) const noexcept;
+  TotalPressure operator+(const StaticPressure& static_pressure) const noexcept;
 
   constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
     value_ += dynamic_pressure.value_;

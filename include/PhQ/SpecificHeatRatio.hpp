@@ -39,29 +39,29 @@ public:
 
   constexpr SpecificHeatRatio(const IsobaricHeatCapacity& isobaric_heat_capacity, const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
-  constexpr IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+  IsobaricHeatCapacity operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
-  constexpr SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
+  SpecificIsobaricHeatCapacity operator*(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
 
 };
 
-} // namespace PhQ
-
-PhQ::SpecificHeatRatio operator+(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+SpecificHeatRatio operator+(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
   return {real + specific_heat_ratio.Value()};
 }
 
-PhQ::SpecificHeatRatio operator-(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+SpecificHeatRatio operator-(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
   return {real - specific_heat_ratio.Value()};
 }
 
-PhQ::SpecificHeatRatio operator*(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+SpecificHeatRatio operator*(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
   return {real * specific_heat_ratio.Value()};
 }
 
-constexpr double operator/(double real, const PhQ::SpecificHeatRatio& specific_heat_ratio) noexcept {
+constexpr double operator/(double real, const SpecificHeatRatio& specific_heat_ratio) noexcept {
   return real / specific_heat_ratio.Value();
 }
+
+} // namespace PhQ
 
 namespace std {
 

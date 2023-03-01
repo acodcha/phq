@@ -29,13 +29,13 @@ public:
 
   constexpr StaticPressure(const ForceMagnitude& force_magnitude, const Area& area) noexcept : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
-  constexpr StaticPressure(const Traction& traction) noexcept;
+  StaticPressure(const Traction& traction) noexcept;
 
   constexpr StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept;
 
   constexpr StaticPressure(const StaticKinematicPressure& static_kinematic_pressure, const MassDensity& mass_density) noexcept;
 
-  constexpr Stress stress() const noexcept;
+  Stress stress() const noexcept;
 
   constexpr bool operator==(const StaticPressure& static_pressure) const noexcept {
     return value_ == static_pressure.value_;
@@ -69,7 +69,7 @@ public:
     return {value_ + pressure_difference.Value()};
   }
 
-  constexpr TotalPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept;
+  TotalPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept;
 
   constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
     value_ += static_pressure.value_;
@@ -99,9 +99,9 @@ public:
     return {*this, area};
   }
 
-  constexpr Traction operator*(const Direction& direction) const noexcept;
+  Traction operator*(const Direction& direction) const noexcept;
 
-  constexpr StaticKinematicPressure operator/(const MassDensity& mass_density) const noexcept;
+  StaticKinematicPressure operator/(const MassDensity& mass_density) const noexcept;
 
 protected:
 
@@ -115,19 +115,19 @@ constexpr Area::Area(const StaticPressure& static_pressure, const ForceMagnitude
 
 constexpr ForceMagnitude::ForceMagnitude(const StaticPressure& static_pressure, const Area& area) noexcept : ForceMagnitude(static_pressure.Value() * area.Value()) {}
 
-constexpr ForceMagnitude Area::operator*(const StaticPressure& static_pressure) const noexcept {
+ForceMagnitude Area::operator*(const StaticPressure& static_pressure) const noexcept {
   return {static_pressure, *this};
 }
 
-constexpr StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
+StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
   return {*this, area};
 }
 
-constexpr StaticPressure PressureDifference::operator+(const StaticPressure& static_pressure) const noexcept {
+StaticPressure PressureDifference::operator+(const StaticPressure& static_pressure) const noexcept {
   return {value_ + static_pressure.Value()};
 }
 
-constexpr StaticPressure PressureDifference::operator-(const StaticPressure& static_pressure) const noexcept {
+StaticPressure PressureDifference::operator-(const StaticPressure& static_pressure) const noexcept {
   return {value_ - static_pressure.Value()};
 }
 

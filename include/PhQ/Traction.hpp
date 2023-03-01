@@ -67,11 +67,11 @@ protected:
 
 };
 
-constexpr Direction::Direction(const Traction& traction) : Direction(traction.Value()) {}
+Direction::Direction(const Traction& traction) noexcept : Direction(traction.Value()) {}
 
 Angle::Angle(const Traction& traction_1, const Traction& traction_2) noexcept : Angle(traction_1.Value(), traction_2.Value()) {}
 
-constexpr StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.Value().Magnitude()) {}
+StaticPressure::StaticPressure(const Traction& traction) noexcept : StaticPressure(traction.Value().Magnitude()) {}
 
 constexpr Force::Force(const Traction& traction, const Area& area) noexcept : Force(traction.Value() * area.Value()) {}
 
@@ -79,11 +79,11 @@ Traction Direction::operator*(const StaticPressure& static_pressure) const noexc
   return {static_pressure, *this};
 }
 
-constexpr Traction StaticPressure::operator*(const Direction& direction) const noexcept {
+Traction StaticPressure::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-constexpr Traction Force::operator/(const Area& area) const noexcept {
+Traction Force::operator/(const Area& area) const noexcept {
   return {*this, area};
 }
 

@@ -60,7 +60,7 @@ public:
     value_ -= force.value_;
   }
 
-  constexpr Traction operator/(const Area& area) const noexcept;
+  Traction operator/(const Area& area) const noexcept;
 
 protected:
 
@@ -68,17 +68,17 @@ protected:
 
 };
 
-Direction::Direction(const Force& force) : Direction(force.Value()) {}
+Direction::Direction(const Force& force) noexcept : Direction(force.Value()) {}
 
-constexpr Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.Value(), force_2.Value()) {}
+Angle::Angle(const Force& force_1, const Force& force_2) noexcept : Angle(force_1.Value(), force_2.Value()) {}
 
-constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.Value().Magnitude()) {}
+ForceMagnitude::ForceMagnitude(const Force& force) noexcept : ForceMagnitude(force.Value().Magnitude()) {}
 
 Force Direction::operator*(const ForceMagnitude& force_magnitude) const noexcept {
   return {force_magnitude, *this};
 }
 
-constexpr Force ForceMagnitude::operator*(const Direction& direction) const noexcept {
+Force ForceMagnitude::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 

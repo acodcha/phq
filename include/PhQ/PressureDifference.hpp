@@ -50,7 +50,7 @@ public:
     return value_ >= pressure_difference.value_;
   }
 
-  constexpr StaticPressure operator+(const StaticPressure& static_pressure) const noexcept;
+  StaticPressure operator+(const StaticPressure& static_pressure) const noexcept;
 
   PressureDifference operator+(const PressureDifference& pressure_difference) const noexcept {
     return {value_ + pressure_difference.value_};
@@ -60,7 +60,7 @@ public:
     value_ += pressure_difference.value_;
   }
 
-  constexpr StaticPressure operator-(const StaticPressure& static_pressure) const noexcept;
+  StaticPressure operator-(const StaticPressure& static_pressure) const noexcept;
 
   PressureDifference operator-(const PressureDifference& pressure_difference) const noexcept {
     return {value_ - pressure_difference.value_};
@@ -70,7 +70,7 @@ public:
     value_ -= pressure_difference.value_;
   }
 
-  constexpr KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
+  KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
 
 protected:
 

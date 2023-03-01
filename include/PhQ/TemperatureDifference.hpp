@@ -53,7 +53,7 @@ public:
     return value_ >= temperature_difference.value_;
   }
 
-  constexpr Temperature operator+(const Temperature& temperature) const noexcept;
+  Temperature operator+(const Temperature& temperature) const noexcept;
 
   TemperatureDifference operator+(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ + temperature_difference.value_};
@@ -63,7 +63,7 @@ public:
     value_ += temperature_difference.value_;
   }
 
-  constexpr Temperature operator-(const Temperature& temperature) const noexcept;
+  Temperature operator-(const Temperature& temperature) const noexcept;
 
   TemperatureDifference operator-(const TemperatureDifference& temperature_difference) const noexcept {
     return {value_ - temperature_difference.value_};
@@ -73,11 +73,11 @@ public:
     value_ -= temperature_difference.value_;
   }
 
-  constexpr StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
+  StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
 
   constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
 
-  constexpr TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
+  TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
 
 protected:
 

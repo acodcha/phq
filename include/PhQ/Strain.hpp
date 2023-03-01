@@ -55,17 +55,17 @@ public:
     value_ -= strain.value_;
   }
 
-  constexpr StrainRate operator*(const Frequency& frequency) const noexcept;
+  StrainRate operator*(const Frequency& frequency) const noexcept;
 
-  constexpr StrainRate operator/(const Duration& duration) const noexcept;
+  StrainRate operator/(const Duration& duration) const noexcept;
 
 };
 
-} // namespace PhQ
-
-PhQ::Strain operator*(double real, const PhQ::Strain& strain) noexcept {
+Strain operator*(double real, const Strain& strain) noexcept {
   return {real * strain.Value()};
 }
+
+} // namespace PhQ
 
 namespace std {
 

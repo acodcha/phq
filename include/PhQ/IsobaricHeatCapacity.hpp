@@ -62,17 +62,17 @@ public:
     return {value_ - isobaric_heat_capacity.value_};
   }
 
-  constexpr GasConstant operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+  GasConstant operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
-  constexpr IsochoricHeatCapacity operator-(const GasConstant& gas_constant) const noexcept;
+  IsochoricHeatCapacity operator-(const GasConstant& gas_constant) const noexcept;
 
   constexpr void operator-=(const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
     value_ -= isobaric_heat_capacity.value_;
   }
 
-  constexpr SpecificIsobaricHeatCapacity operator/(const Mass& mass) const noexcept;
+  SpecificIsobaricHeatCapacity operator/(const Mass& mass) const noexcept;
 
-  constexpr Mass operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept;
+  Mass operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept;
 
   SpecificHeatRatio operator/(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {*this, isochoric_heat_capacity};
@@ -92,11 +92,11 @@ constexpr SpecificHeatRatio::SpecificHeatRatio(const IsobaricHeatCapacity& isoba
 
 constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(const IsobaricHeatCapacity& isobaric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : IsochoricHeatCapacity(isobaric_heat_capacity.Value() / specific_heat_ratio.Value()) {}
 
-constexpr IsobaricHeatCapacity SpecificHeatRatio::operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+IsobaricHeatCapacity SpecificHeatRatio::operator*(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
   return {isochoric_heat_capacity, *this};
 }
 
-constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+IsobaricHeatCapacity IsochoricHeatCapacity::operator*(const SpecificHeatRatio& specific_heat_ratio) const noexcept {
   return {*this, specific_heat_ratio};
 }
 

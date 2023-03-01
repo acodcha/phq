@@ -22,7 +22,7 @@ template <Type ThermodynamicStateModelType> class GenericThermodynamicStateModel
 
 public:
 
-  constexpr Type Type() const noexcept {
+  constexpr ThermodynamicStateModel::Type Type() const noexcept {
     return ThermodynamicStateModelType;
   }
 

@@ -84,7 +84,7 @@ public:
     return {*this, volume};
   }
 
-  constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
+  DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const noexcept;
 
 protected:
 
@@ -96,11 +96,11 @@ constexpr Volume::Volume(const MassDensity& mass_density, const Mass& mass) noex
 
 constexpr Mass::Mass(const MassDensity& mass_density, const Volume& volume) noexcept : Mass(mass_density.Value() * volume.Value()) {}
 
-constexpr MassDensity Mass::operator/(const Volume& volume) const noexcept {
+MassDensity Mass::operator/(const Volume& volume) const noexcept {
   return {*this, volume};
 }
 
-constexpr Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
+Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
   return {mass_density, *this};
 }
 

@@ -26,23 +26,23 @@ public:
 
 };
 
-} // namespace PhQ
-
-PhQ::StrainScalar operator+(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+StrainScalar operator+(double real, const StrainScalar& strain_scalar) noexcept {
   return {real + strain_scalar.Value()};
 }
 
-PhQ::StrainScalar operator-(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+StrainScalar operator-(double real, const StrainScalar& strain_scalar) noexcept {
   return {real - strain_scalar.Value()};
 }
 
-PhQ::StrainScalar operator*(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+StrainScalar operator*(double real, const StrainScalar& strain_scalar) noexcept {
   return {real * strain_scalar.Value()};
 }
 
-constexpr double operator/(double real, const PhQ::StrainScalar& strain_scalar) noexcept {
+constexpr double operator/(double real, const StrainScalar& strain_scalar) noexcept {
   return real / strain_scalar.Value();
 }
+
+} // namespace PhQ
 
 namespace std {
 

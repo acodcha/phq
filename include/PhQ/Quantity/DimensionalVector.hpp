@@ -117,11 +117,6 @@ protected:
 
   void operator=(Value::Vector&& value) noexcept { value_ = std::move(value); }
 
-  void operator=(const Value::Vector& value, const Unit unit) noexcept {
-    value_ = value;
-    Convert(value_, unit, StandardUnit<Unit>);
-  }
-
   Value::Vector value_;
 };
 

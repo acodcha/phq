@@ -74,7 +74,7 @@ public:
     value_ -= kinematic_viscosity.value_;
   }
 
-  constexpr DynamicViscosity operator*(const MassDensity& mass_density) const noexcept;
+  DynamicViscosity operator*(const MassDensity& mass_density) const noexcept;
 
 protected:
 

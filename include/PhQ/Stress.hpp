@@ -58,7 +58,7 @@ protected:
 
 constexpr Traction::Traction(const Stress& stress, const Direction& direction) noexcept : Traction({stress.Value() * direction}) {}
 
-constexpr Stress StaticPressure::stress() const noexcept {
+Stress StaticPressure::stress() const noexcept {
   return {*this};
 }
 

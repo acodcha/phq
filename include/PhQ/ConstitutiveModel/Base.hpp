@@ -23,7 +23,7 @@ template <Type ConstitutiveModelType> class GenericConstitutiveModel {
 
 public:
 
-  constexpr Type Type() const noexcept {
+  constexpr ConstitutiveModel::Type Type() const noexcept {
     return ConstitutiveModelType;
   }
 

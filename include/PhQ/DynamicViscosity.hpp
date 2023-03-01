@@ -89,11 +89,11 @@ constexpr MassDensity::MassDensity(const DynamicViscosity& dynamic_viscosity, co
 
 constexpr KinematicViscosity::KinematicViscosity(const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density) noexcept : KinematicViscosity(dynamic_viscosity.Value() / mass_density.Value()) {}
 
-constexpr DynamicViscosity KinematicViscosity::operator*(const MassDensity& mass_density) const noexcept {
+DynamicViscosity KinematicViscosity::operator*(const MassDensity& mass_density) const noexcept {
   return {*this, mass_density};
 }
 
-constexpr DynamicViscosity MassDensity::operator*(const KinematicViscosity& kinematic_viscosity) const noexcept {
+DynamicViscosity MassDensity::operator*(const KinematicViscosity& kinematic_viscosity) const noexcept {
   return {kinematic_viscosity, *this};
 }
 

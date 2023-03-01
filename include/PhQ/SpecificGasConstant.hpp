@@ -97,27 +97,27 @@ constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(const Speci
 
 constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(const SpecificGasConstant& specific_gas_constant, const SpecificHeatRatio& specific_heat_ratio) noexcept : SpecificIsobaricHeatCapacity(specific_gas_constant.Value() * specific_heat_ratio.Value() / (specific_heat_ratio.Value() - 1.0)) {}
 
-constexpr GasConstant Mass::operator*(const SpecificGasConstant& specific_gas_constant) const noexcept {
+GasConstant Mass::operator*(const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-constexpr SpecificGasConstant GasConstant::operator/(const Mass& mass) const noexcept {
+SpecificGasConstant GasConstant::operator/(const Mass& mass) const noexcept {
   return {*this, mass};
 }
 
-constexpr Mass GasConstant::operator/(const SpecificGasConstant& specific_gas_constant) const noexcept {
+Mass GasConstant::operator/(const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-constexpr SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator+(const SpecificGasConstant& specific_gas_constant) const noexcept {
+SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator+(const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-constexpr SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
+SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
   return {*this, specific_isochoric_heat_capacity};
 }
 
-constexpr SpecificIsochoricHeatCapacity SpecificIsobaricHeatCapacity::operator-(const SpecificGasConstant& specific_gas_constant) const noexcept {
+SpecificIsochoricHeatCapacity SpecificIsobaricHeatCapacity::operator-(const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
