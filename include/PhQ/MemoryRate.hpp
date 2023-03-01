@@ -90,19 +90,19 @@ constexpr Memory::Memory(const MemoryRate& memory_rate, const Duration& duration
 
 constexpr Memory::Memory(const MemoryRate& memory_rate, const Frequency& frequency) noexcept : Memory(memory_rate.Value() / frequency.Value()) {}
 
-constexpr MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
+MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
   return {memory, *this};
 }
 
-constexpr MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
+MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr MemoryRate Memory::operator/(const Duration& duration) const noexcept {
+MemoryRate Memory::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 
-constexpr Duration Memory::operator/(const MemoryRate& memory_rate) const noexcept {
+Duration Memory::operator/(const MemoryRate& memory_rate) const noexcept {
   return {memory_rate, *this};
 }
 

@@ -77,7 +77,7 @@ protected:
 
 };
 
-constexpr MassDensity::MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept : MassDensity(2.0 * dynamic_pressure.Value() / std::pow(speed.Value(), 2)) {}
+constexpr MassDensity::MassDensity(const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept : MassDensity(2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
 
 constexpr Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 

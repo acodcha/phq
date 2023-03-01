@@ -59,7 +59,7 @@ public:
     return {value_ + kinematic_pressure_difference.Value()};
   }
 
-  constexpr TotalKinematicPressure operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept;
+  TotalKinematicPressure operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept;
 
   constexpr void operator+=(const StaticKinematicPressure& static_kinematic_pressure) noexcept {
     value_ += static_kinematic_pressure.value_;
@@ -99,15 +99,15 @@ protected:
 
 constexpr StaticPressure::StaticPressure(const StaticKinematicPressure& static_kinematic_pressure, const MassDensity& mass_density) noexcept : StaticPressure(static_kinematic_pressure.Value() * mass_density.Value()) {}
 
-constexpr StaticKinematicPressure StaticPressure::operator/(const MassDensity& mass_density) const noexcept {
+StaticKinematicPressure StaticPressure::operator/(const MassDensity& mass_density) const noexcept {
   return {*this, mass_density};
 }
 
-constexpr StaticKinematicPressure KinematicPressureDifference::operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
+StaticKinematicPressure KinematicPressureDifference::operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return {value_ + static_kinematic_pressure.Value()};
 }
 
-constexpr StaticKinematicPressure KinematicPressureDifference::operator-(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
+StaticKinematicPressure KinematicPressureDifference::operator-(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return {value_ - static_kinematic_pressure.Value()};
 }
 

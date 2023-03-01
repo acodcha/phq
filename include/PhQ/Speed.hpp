@@ -35,7 +35,7 @@ public:
 
   constexpr Speed(const Length& length, const Frequency& frequency) noexcept : Speed(length.Value() * frequency.Value()) {}
 
-  constexpr Speed(const Velocity& velocity) noexcept;
+  Speed(const Velocity& velocity) noexcept;
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept;
 
@@ -43,7 +43,7 @@ public:
 
   constexpr Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density) noexcept;
 
-  constexpr Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
+  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
 
   constexpr Speed(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density, const Length& length) noexcept;
 
@@ -93,9 +93,9 @@ public:
     return {*this, duration};
   }
 
-  constexpr AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
+  AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
 
-  constexpr Velocity operator*(const Direction& direction) const noexcept;
+  Velocity operator*(const Direction& direction) const noexcept;
 
   Length operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
@@ -105,9 +105,9 @@ public:
     return {*this, length};
   }
 
-  constexpr AccelerationMagnitude operator/(const Duration& duration) const noexcept;
+  AccelerationMagnitude operator/(const Duration& duration) const noexcept;
 
-  constexpr Duration operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+  Duration operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
 protected:
 
@@ -123,19 +123,19 @@ constexpr Duration::Duration(const Speed& speed, const Length& length) noexcept 
 
 constexpr Frequency::Frequency(const Speed& speed, const Length& length) noexcept : Frequency(speed.Value() / length.Value()) {}
 
-constexpr Speed Length::operator*(const Frequency& frequency) const noexcept {
+Speed Length::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr Duration Length::operator/(const Speed& speed) const noexcept {
+Duration Length::operator/(const Speed& speed) const noexcept {
   return {speed, *this};
 }
 
-constexpr Speed Frequency::operator*(const Length& length) const noexcept {
+Speed Frequency::operator*(const Length& length) const noexcept {
   return {length, *this};
 }
 
-constexpr Speed Length::operator/(const Duration& duration) const noexcept {
+Speed Length::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 

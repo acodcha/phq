@@ -90,23 +90,23 @@ constexpr Mass::Mass(const MassRate& mass_rate, const Duration& duration) noexce
 
 constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept : Mass(mass_rate.Value() / frequency.Value()) {}
 
-constexpr Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
+Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 
-constexpr MassRate Mass::operator*(const Frequency& frequency) const noexcept {
+MassRate Mass::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr MassRate Frequency::operator*(const Mass& mass) const noexcept {
+MassRate Frequency::operator*(const Mass& mass) const noexcept {
   return {mass, *this};
 }
 
-constexpr MassRate Mass::operator/(const Duration& duration) const noexcept {
+MassRate Mass::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 
-constexpr Duration Mass::operator/(const MassRate& mass_rate) const noexcept {
+Duration Mass::operator/(const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 

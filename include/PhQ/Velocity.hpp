@@ -82,33 +82,33 @@ protected:
 
 };
 
-constexpr Direction::Direction(const Velocity& velocity) : Direction(velocity.Value()) {}
+Direction::Direction(const Velocity& velocity) noexcept : Direction(velocity.Value()) {}
 
-constexpr Angle::Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept : Angle(velocity_1.Value(), velocity_2.Value()) {}
+Angle::Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept : Angle(velocity_1.Value(), velocity_2.Value()) {}
 
 constexpr Displacement::Displacement(const Velocity& velocity, const Duration& duration) noexcept : Displacement(velocity.Value() * duration.Value()) {}
 
 constexpr Displacement::Displacement(const Velocity& velocity, const Frequency& frequency) noexcept : Displacement(velocity.Value() / frequency.Value()) {}
 
-constexpr Speed::Speed(const Velocity& velocity) noexcept : Speed(velocity.Value().Magnitude()) {}
+Speed::Speed(const Velocity& velocity) noexcept : Speed(velocity.Value().Magnitude()) {}
 
-constexpr Velocity Direction::operator*(const Speed& speed) const noexcept {
+Velocity Direction::operator*(const Speed& speed) const noexcept {
   return {speed, *this};
 }
 
-constexpr Velocity Speed::operator*(const Direction& direction) const noexcept {
+Velocity Speed::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-constexpr Velocity Frequency::operator*(const Displacement& displacement) const noexcept {
+Velocity Frequency::operator*(const Displacement& displacement) const noexcept {
   return {displacement, *this};
 }
 
-constexpr Velocity Displacement::operator*(const Frequency& frequency) const noexcept {
+Velocity Displacement::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr Velocity Displacement::operator/(const Duration& duration) const noexcept {
+Velocity Displacement::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 

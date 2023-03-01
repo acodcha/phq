@@ -90,23 +90,23 @@ constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume
 
 constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept : Frequency(volume_rate.Value() / volume.Value()) {}
 
-constexpr Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
+Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-constexpr VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
+VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
+Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-constexpr VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
+VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
   return {volume, *this};
 }
 
-constexpr VolumeRate Volume::operator/(const Duration& duration) const noexcept {
+VolumeRate Volume::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 

@@ -74,7 +74,7 @@ protected:
 
 };
 
-Direction::Direction(const Position& position) : Direction(position.Value()) {}
+Direction::Direction(const Position& position) noexcept : Direction(position.Value()) {}
 
 Angle::Angle(const Position& position_1, const Position& position_2) noexcept : Angle(position_1.Value(), position_2.Value()) {}
 

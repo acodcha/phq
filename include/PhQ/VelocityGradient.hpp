@@ -19,7 +19,7 @@ public:
 
   VelocityGradient(const Value::Dyad& value, const Unit::Frequency& unit) noexcept : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  constexpr StrainRate strain_rate() const noexcept {
+  PhQ::StrainRate StrainRate() const noexcept {
     return {*this};
   }
 

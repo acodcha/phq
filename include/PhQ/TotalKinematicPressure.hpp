@@ -83,11 +83,11 @@ constexpr StaticKinematicPressure::StaticKinematicPressure(const TotalKinematicP
 
 constexpr DynamicKinematicPressure::DynamicKinematicPressure(const TotalKinematicPressure& total_kinematic_pressure, const StaticKinematicPressure& static_kinematic_pressure) noexcept : DynamicKinematicPressure(total_kinematic_pressure.Value() - static_kinematic_pressure.Value()) {}
 
-constexpr TotalKinematicPressure StaticKinematicPressure::operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept {
+TotalKinematicPressure StaticKinematicPressure::operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept {
   return {dynamic_kinematic_pressure, *this};
 }
 
-constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
+TotalKinematicPressure DynamicKinematicPressure::operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return {*this, static_kinematic_pressure};
 }
 

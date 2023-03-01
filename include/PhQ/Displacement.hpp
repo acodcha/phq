@@ -49,7 +49,7 @@ public:
     return value_ != displacement.value_;
   }
 
-  constexpr Position operator+(const Position& position) const noexcept;
+  Position operator+(const Position& position) const noexcept;
 
   Displacement operator+(const Displacement& displacement) const noexcept {
     return {value_ + displacement.value_};
@@ -59,7 +59,7 @@ public:
     value_ += displacement.value_;
   }
 
-  constexpr Position operator-(const Position& position) const noexcept;
+  Position operator-(const Position& position) const noexcept;
 
   Displacement operator-(const Displacement& displacement) const noexcept {
     return {value_ - displacement.value_};
@@ -69,9 +69,9 @@ public:
     value_ -= displacement.value_;
   }
 
-  constexpr Velocity operator*(const Frequency& frequency) const noexcept;
+  Velocity operator*(const Frequency& frequency) const noexcept;
 
-  constexpr Velocity operator/(const Duration& duration) const noexcept;
+  Velocity operator/(const Duration& duration) const noexcept;
 
 protected:
 
@@ -81,17 +81,17 @@ protected:
 
 };
 
-Direction::Direction(const Displacement& displacement) : Direction(displacement.Value()) {}
+Direction::Direction(const Displacement& displacement) noexcept : Direction(displacement.Value()) {}
 
 Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : Angle(displacement_1.Value(), displacement_2.Value()) {}
 
-constexpr Length::Length(const Displacement& displacement) noexcept : Length(displacement.Value().Magnitude()) {}
+Length::Length(const Displacement& displacement) noexcept : Length(displacement.Value().Magnitude()) {}
 
 Displacement Direction::operator*(const Length& length) const noexcept {
   return {length, *this};
 }
 
-constexpr Displacement Length::operator*(const Direction& direction) const noexcept {
+Displacement Length::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 

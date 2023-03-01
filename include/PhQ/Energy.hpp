@@ -73,15 +73,15 @@ public:
     value_ -= energy.value_;
   }
 
-  constexpr Power operator*(const Frequency& frequency) const noexcept;
+  Power operator*(const Frequency& frequency) const noexcept;
 
-  constexpr Power operator/(const Duration& duration) const noexcept;
+  Power operator/(const Duration& duration) const noexcept;
 
-  constexpr Duration operator/(const Power& power) const noexcept;
+  Duration operator/(const Power& power) const noexcept;
 
-  constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
+  SpecificEnergy operator/(const Mass& mass) const noexcept;
 
-  constexpr Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
+  Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
 
 protected:
 

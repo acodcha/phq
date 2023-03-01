@@ -71,29 +71,29 @@ protected:
 
 };
 
-constexpr Direction::Direction(const Acceleration& acceleration) : Direction(acceleration.Value()) {}
+Direction::Direction(const Acceleration& acceleration) noexcept : Direction(acceleration.Value()) {}
 
-constexpr Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
+Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2) noexcept : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
-constexpr AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
+AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 
 constexpr Velocity::Velocity(const Acceleration& acceleration, const Duration& duration) noexcept : Velocity(acceleration.Value() * duration.Value()) {}
 
 constexpr Velocity::Velocity(const Acceleration& acceleration, const Frequency& frequency) noexcept : Velocity(acceleration.Value() / frequency.Value()) {}
 
-constexpr Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magnitude) const noexcept {
   return {acceleration_magnitude, *this};
 }
 
-constexpr Acceleration AccelerationMagnitude::operator*(const Direction& direction) const noexcept {
+Acceleration AccelerationMagnitude::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-constexpr Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
+Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-constexpr Acceleration Velocity::operator/(const Duration& duration) const noexcept {
+Acceleration Velocity::operator/(const Duration& duration) const noexcept {
   return {*this, duration};
 }
 

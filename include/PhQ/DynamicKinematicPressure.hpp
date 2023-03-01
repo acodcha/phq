@@ -56,7 +56,7 @@ public:
     return {value_ + dynamic_kinematic_pressure.value_};
   }
 
-  constexpr TotalKinematicPressure operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept;
+  TotalKinematicPressure operator+(const StaticKinematicPressure& static_kinematic_pressure) const noexcept;
 
   constexpr void operator+=(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
     value_ += dynamic_kinematic_pressure.value_;
@@ -76,7 +76,7 @@ protected:
 
 };
 
-constexpr Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
+Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 constexpr DynamicPressure::DynamicPressure(const DynamicKinematicPressure& dynamic_kinematic_pressure, const MassDensity& mass_density) noexcept : DynamicPressure(dynamic_kinematic_pressure.Value() * mass_density.Value()) {}
 

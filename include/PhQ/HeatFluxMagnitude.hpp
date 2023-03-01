@@ -25,7 +25,7 @@ public:
 
   constexpr HeatFluxMagnitude(const ThermalConductivityScalar& thermal_conductivity_scalar, const TemperatureGradientMagnitude& temperature_gradient_magnitude) noexcept : HeatFluxMagnitude(-thermal_conductivity_scalar.Value() * temperature_gradient_magnitude.Value()) {}
 
-  constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
+  HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
 
   constexpr bool operator==(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return value_ == heat_flux_magnitude.value_;
@@ -67,7 +67,7 @@ public:
     value_ -= heat_flux_magnitude.value_;
   }
 
-  constexpr HeatFlux operator*(const Direction& direction) const noexcept;
+  HeatFlux operator*(const Direction& direction) const noexcept;
 
 protected:
 

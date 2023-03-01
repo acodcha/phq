@@ -23,11 +23,11 @@ public:
 
   constexpr AreaVector(const Area& area, const Direction& direction) noexcept : AreaVector(area.Value() * direction.Value()) {}
 
-  constexpr Area magnitude() const noexcept {
+  Area magnitude() const noexcept {
     return {*this};
   }
 
-  constexpr Angle angle(const AreaVector& area_vector) const noexcept {
+  Angle angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
   }
 
@@ -61,11 +61,11 @@ protected:
 
 };
 
-Direction::Direction(const AreaVector& area_vector) : Direction(area_vector.Value()) {}
+Direction::Direction(const AreaVector& area_vector) noexcept : Direction(area_vector.Value()) {}
 
 Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
-Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.Value().magnitude()) {}
+Area::Area(const AreaVector& area_vector) noexcept : Area(area_vector.Value().Magnitude()) {}
 
 AreaVector Direction::operator*(const Area& area) const noexcept {
   return {area, *this};

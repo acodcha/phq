@@ -72,7 +72,7 @@ protected:
 
 constexpr StrainScalar::StrainScalar(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient, const TemperatureDifference& temperature_difference) noexcept : StrainScalar(linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
 
-constexpr StrainScalar TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
+StrainScalar TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
   return {linear_thermal_expansion_coefficient, *this};
 }
 

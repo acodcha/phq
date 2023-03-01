@@ -61,7 +61,7 @@ protected:
 
 };
 
-Direction::Direction(const TemperatureGradient& temperature_gradient) : Direction(temperature_gradient.Value()) {}
+Direction::Direction(const TemperatureGradient& temperature_gradient) noexcept : Direction(temperature_gradient.Value()) {}
 
 Angle::Angle(const TemperatureGradient& temperature_gradient_1, const TemperatureGradient& temperature_gradient_2) noexcept : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 

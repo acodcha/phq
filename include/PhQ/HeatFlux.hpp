@@ -64,17 +64,17 @@ protected:
 
 };
 
-constexpr Direction::Direction(const HeatFlux& heat_flux) : Direction(heat_flux.Value()) {}
+Direction::Direction(const HeatFlux& heat_flux) noexcept : Direction(heat_flux.Value()) {}
 
 Angle::Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
 
-constexpr HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
+HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
 
 HeatFlux Direction::operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
   return {heat_flux_magnitude, *this};
 }
 
-constexpr HeatFlux HeatFluxMagnitude::operator*(const Direction& direction) const noexcept {
+HeatFlux HeatFluxMagnitude::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }
 

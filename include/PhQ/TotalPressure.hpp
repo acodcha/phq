@@ -80,11 +80,11 @@ constexpr StaticPressure::StaticPressure(const TotalPressure& total_pressure, co
 
 constexpr DynamicPressure::DynamicPressure(const TotalPressure& total_pressure, const StaticPressure& static_pressure) noexcept : DynamicPressure(total_pressure.Value() - static_pressure.Value()) {}
 
-constexpr TotalPressure StaticPressure::operator+(const DynamicPressure& dynamic_pressure) const noexcept {
+TotalPressure StaticPressure::operator+(const DynamicPressure& dynamic_pressure) const noexcept {
   return {dynamic_pressure, *this};
 }
 
-constexpr TotalPressure DynamicPressure::operator+(const StaticPressure& static_pressure) const noexcept {
+TotalPressure DynamicPressure::operator+(const StaticPressure& static_pressure) const noexcept {
   return {*this, static_pressure};
 }
 
