@@ -80,10 +80,6 @@ if(BUILD_TESTING)
   target_link_libraries(old_constitutive_models GTest::gtest_main)
   gtest_discover_tests(old_constitutive_models)
 
-  add_executable(old_quantities ${PROJECT_SOURCE_DIR}/test/OldQuantities.cpp)
-  target_link_libraries(old_quantities GTest::gtest_main)
-  gtest_discover_tests(old_quantities)
-
   add_executable(old_thermodynamic_state_models ${PROJECT_SOURCE_DIR}/test/OldThermodynamicStateModels.cpp)
   target_link_libraries(old_thermodynamic_state_models GTest::gtest_main)
   gtest_discover_tests(old_thermodynamic_state_models)
