@@ -22,11 +22,11 @@ public:
 
   constexpr IncompressibleFluid(const MassDensity& mass_density, const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept : GenericThermodynamicStateModel<Type::IncompressibleFluid>(), mass_density_(mass_density), specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
 
-  MassDensity mass_density() const noexcept {
+  PhQ::MassDensity MassDensity() const noexcept {
     return mass_density_;
   }
 
-  constexpr const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity() const noexcept {
+  constexpr const PhQ::SpecificIsobaricHeatCapacity& SpecificIsobaricHeatCapacity() const noexcept {
     return specific_isobaric_heat_capacity_;
   }
 
@@ -44,9 +44,9 @@ public:
 
 protected:
 
-  MassDensity mass_density_;
+  PhQ::MassDensity mass_density_;
 
-  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
+  PhQ::SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
 
 };
 
@@ -58,7 +58,7 @@ namespace std {
 
 template <> struct hash<PhQ::ThermodynamicStateModel::IncompressibleFluid> {
   size_t operator()(const PhQ::ThermodynamicStateModel::IncompressibleFluid& model) const {
-    return hash<PhQ::MassDensity>()(model.mass_density()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.specific_isobaric_heat_capacity());
+    return hash<PhQ::MassDensity>()(model.MassDensity()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.SpecificIsobaricHeatCapacity());
   }
 };
 

@@ -34,31 +34,31 @@ public:
 
   constexpr IdealGas(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity, const SpecificHeatRatio& specific_heat_ratio) noexcept : GenericThermodynamicStateModel<Type::IdealGas>(), specific_gas_constant_(specific_isochoric_heat_capacity, specific_heat_ratio), specific_isobaric_heat_capacity_(specific_isochoric_heat_capacity, specific_heat_ratio) {}
 
-  constexpr const SpecificGasConstant& specific_gas_constant() const noexcept {
+  constexpr const PhQ::SpecificGasConstant& SpecificGasConstant() const noexcept {
     return specific_gas_constant_;
   }
 
-  constexpr const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity() const noexcept {
+  constexpr const PhQ::SpecificIsobaricHeatCapacity& SpecificIsobaricHeatCapacity() const noexcept {
     return specific_isobaric_heat_capacity_;
   }
 
-  SpecificIsochoricHeatCapacity specific_isochoric_heat_capacity() const noexcept {
+  PhQ::SpecificIsochoricHeatCapacity SpecificIsochoricHeatCapacity() const noexcept {
     return {specific_isobaric_heat_capacity_ - specific_gas_constant_};
   }
 
-  SpecificHeatRatio specific_heat_ratio() const noexcept {
-    return {specific_isobaric_heat_capacity_ / specific_isochoric_heat_capacity()};
+  PhQ::SpecificHeatRatio SpecificHeatRatio() const noexcept {
+    return {specific_isobaric_heat_capacity_ / SpecificIsochoricHeatCapacity()};
   }
 
-  MassDensity mass_density(const StaticPressure& static_pressure, const Temperature& temperature) const noexcept {
+  PhQ::MassDensity MassDensity(const PhQ::StaticPressure& static_pressure, const PhQ::Temperature& temperature) const noexcept {
     return {static_pressure.Value() / (temperature.Value() * specific_gas_constant_.Value()), StandardUnit<Unit::MassDensity>};
   }
 
-  StaticPressure static_pressure(const MassDensity& mass_density, const Temperature& temperature) const noexcept {
+  PhQ::StaticPressure StaticPressure(const PhQ::MassDensity& mass_density, const PhQ::Temperature& temperature) const noexcept {
     return {mass_density.Value() * temperature.Value() * specific_gas_constant_.Value(), StandardUnit<Unit::Pressure>};
   }
 
-  Temperature temperature(const MassDensity& mass_density, const StaticPressure& static_pressure) const noexcept {
+  PhQ::Temperature Temperature(const PhQ::MassDensity& mass_density, const PhQ::StaticPressure& static_pressure) const noexcept {
     return {static_pressure.Value() / (mass_density.Value() * specific_gas_constant_.Value()), StandardUnit<Unit::Temperature>};
   }
 
@@ -76,9 +76,9 @@ public:
 
 protected:
 
-  SpecificGasConstant specific_gas_constant_;
+  PhQ::SpecificGasConstant specific_gas_constant_;
 
-  SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
+  PhQ::SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_;
 
 };
 
@@ -90,7 +90,7 @@ namespace std {
 
 template <> struct hash<PhQ::ThermodynamicStateModel::IdealGas> {
   size_t operator()(const PhQ::ThermodynamicStateModel::IdealGas& model) const {
-    return hash<PhQ::SpecificGasConstant>()(model.specific_gas_constant()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.specific_isobaric_heat_capacity());
+    return hash<PhQ::SpecificGasConstant>()(model.SpecificGasConstant()) ^ hash<PhQ::SpecificIsobaricHeatCapacity>()(model.SpecificIsobaricHeatCapacity());
   }
 };
 
