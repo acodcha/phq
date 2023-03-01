@@ -12,7 +12,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 project(
   "PhQ" VERSION 1.0.1 LANGUAGES CXX
-  DESCRIPTION "C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation."
+  DESCRIPTION "C++ library of physical quantities, physical models, and units of measure for scientific computation."
   HOMEPAGE_URL "https://github.com/acodcha/physical-quantities"
 )
 
