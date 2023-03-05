@@ -73,7 +73,7 @@ public:
 
   Velocity operator/(const Time& time) const noexcept;
 
-protected:
+private:
 
   constexpr Displacement(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 

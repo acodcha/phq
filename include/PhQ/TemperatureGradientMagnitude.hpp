@@ -74,7 +74,7 @@ public:
 
   TemperatureGradient operator*(const Direction& direction) const noexcept;
 
-protected:
+private:
 
   constexpr TemperatureGradientMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureGradient>(value) {}
 

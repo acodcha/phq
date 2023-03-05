@@ -79,7 +79,7 @@ public:
 
   Time operator/(const SpecificPower& specific_power) const noexcept;
 
-protected:
+private:
 
   constexpr SpecificEnergy(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 

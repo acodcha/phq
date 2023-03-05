@@ -70,7 +70,7 @@ public:
     value_ -= total_pressure.value_;
   }
 
-protected:
+private:
 
   constexpr TotalPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

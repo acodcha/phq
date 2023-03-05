@@ -58,7 +58,7 @@ public:
     value_ -= heat_flux.value_;
   }
 
-protected:
+private:
 
   constexpr HeatFlux(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::EnergyFlux>(value) {}
 

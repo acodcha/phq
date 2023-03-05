@@ -82,7 +82,7 @@ public:
 
   Mass operator/(const SpecificPower& specific_power) const noexcept;
 
-protected:
+private:
 
   constexpr Power(double value) noexcept : DimensionalScalarQuantity<Unit::Power>(value) {}
 

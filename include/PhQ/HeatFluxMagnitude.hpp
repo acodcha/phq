@@ -69,7 +69,7 @@ public:
 
   HeatFlux operator*(const Direction& direction) const noexcept;
 
-protected:
+private:
 
   constexpr HeatFluxMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
 

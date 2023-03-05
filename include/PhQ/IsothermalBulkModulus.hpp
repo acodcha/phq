@@ -59,7 +59,7 @@ public:
     value_ -= isothermal_bulk_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr IsothermalBulkModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

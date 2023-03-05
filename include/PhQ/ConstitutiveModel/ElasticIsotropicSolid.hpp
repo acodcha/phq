@@ -141,7 +141,7 @@ public:
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><shear_modulus>" + shear_modulus_.Xml() + "</shear_modulus><lamé_first_modulus>" + lame_first_modulus_.Xml() + "</lamé_first_modulus>"};
   }
 
-protected:
+private:
 
   PhQ::ShearModulus shear_modulus_;
 

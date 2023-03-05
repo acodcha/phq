@@ -47,7 +47,7 @@ public:
     value_ -= velocity_gradient.value_;
   }
 
-protected:
+private:
 
   constexpr VelocityGradient(const Value::Dyad& value) noexcept : DimensionalDyadQuantity<Unit::Frequency>(value) {}
 

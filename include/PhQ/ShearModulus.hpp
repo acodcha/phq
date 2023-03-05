@@ -59,7 +59,7 @@ public:
     value_ -= shear_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr ShearModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

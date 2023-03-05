@@ -50,7 +50,7 @@ public:
     value_ -= stress.value_;
   }
 
-protected:
+private:
 
   constexpr Stress(const Value::SymmetricDyad& value) noexcept : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
 

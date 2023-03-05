@@ -59,7 +59,7 @@ public:
     value_ -= lame_first_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr LameFirstModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

@@ -55,7 +55,7 @@ public:
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() + "</dynamic_viscosity><bulk_dynamic_viscosity>" + bulk_dynamic_viscosity_.Xml() + "</bulk_dynamic_viscosity>"};
   }
 
-protected:
+private:
 
   PhQ::DynamicViscosity dynamic_viscosity_;
 

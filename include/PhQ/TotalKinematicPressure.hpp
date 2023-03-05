@@ -71,7 +71,7 @@ public:
     value_ -= total_kinematic_pressure.value_;
   }
 
-protected:
+private:
 
   constexpr TotalKinematicPressure(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 

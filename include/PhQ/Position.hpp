@@ -66,7 +66,7 @@ public:
     value_ -= displacement.Value();
   }
 
-protected:
+private:
 
   constexpr Position(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
 

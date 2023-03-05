@@ -76,7 +76,7 @@ public:
 
   DynamicViscosity operator*(const MassDensity& mass_density) const noexcept;
 
-protected:
+private:
 
   constexpr KinematicViscosity(double value) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 

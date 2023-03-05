@@ -76,7 +76,7 @@ public:
     return {*this, frequency};
   }
 
-protected:
+private:
 
   constexpr Velocity(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Speed>(value) {}
 

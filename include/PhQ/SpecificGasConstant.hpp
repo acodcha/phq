@@ -75,7 +75,7 @@ public:
     return {*this, mass};
   }
 
-protected:
+private:
 
   constexpr SpecificGasConstant(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 

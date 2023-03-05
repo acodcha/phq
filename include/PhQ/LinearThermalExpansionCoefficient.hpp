@@ -64,7 +64,7 @@ public:
     return {*this, temperature_difference};
   }
 
-protected:
+private:
 
   constexpr LinearThermalExpansionCoefficient(double value) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 

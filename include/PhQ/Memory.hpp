@@ -74,7 +74,7 @@ public:
 
   Time operator/(const MemoryRate& memory_rate) const noexcept;
 
-protected:
+private:
 
   constexpr Memory(double value) noexcept : DimensionalScalarQuantity<Unit::Memory>(value) {}
 

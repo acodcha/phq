@@ -103,7 +103,7 @@ public:
 
   StaticKinematicPressure operator/(const MassDensity& mass_density) const noexcept;
 
-protected:
+private:
 
   constexpr StaticPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

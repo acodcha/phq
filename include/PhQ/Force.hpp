@@ -62,7 +62,7 @@ public:
 
   Traction operator/(const Area& area) const noexcept;
 
-protected:
+private:
 
   constexpr Force(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Force>(value) {}
 

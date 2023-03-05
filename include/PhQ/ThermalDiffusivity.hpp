@@ -68,7 +68,7 @@ public:
     value_ -= thermal_diffusivity.value_;
   }
 
-protected:
+private:
 
   constexpr ThermalDiffusivity(double value) noexcept : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 
