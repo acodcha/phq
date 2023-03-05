@@ -46,6 +46,8 @@ public:
   constexpr Displacement(const Velocity& velocity,
                          const Frequency& frequency) noexcept;
 
+  explicit constexpr Displacement(const Position& position) noexcept;
+
   inline Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {

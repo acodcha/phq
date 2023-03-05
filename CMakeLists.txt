@@ -156,6 +156,10 @@ if(BUILD_TESTING)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
 
+  add_executable(position ${PROJECT_SOURCE_DIR}/test/Position.cpp)
+  target_link_libraries(position GTest::gtest_main)
+  gtest_discover_tests(position)
+
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)
