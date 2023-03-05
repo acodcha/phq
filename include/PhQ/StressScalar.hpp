@@ -59,7 +59,7 @@ public:
     value_ -= stress_scalar.value_;
   }
 
-protected:
+private:
 
   constexpr StressScalar(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

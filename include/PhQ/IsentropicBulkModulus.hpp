@@ -59,7 +59,7 @@ public:
     value_ -= isentropic_bulk_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr IsentropicBulkModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

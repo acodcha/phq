@@ -61,7 +61,7 @@ public:
     return {*this, area};
   }
 
-protected:
+private:
 
   constexpr Traction(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Pressure>(value) {}
 

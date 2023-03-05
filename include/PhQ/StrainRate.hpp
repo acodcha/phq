@@ -62,7 +62,7 @@ public:
     return {*this, frequency};
   }
 
-protected:
+private:
 
   constexpr StrainRate(const Value::SymmetricDyad& value) noexcept : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
 

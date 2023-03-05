@@ -79,7 +79,7 @@ public:
     return {*this, kinematic_viscosity};
   }
 
-protected:
+private:
 
   constexpr DynamicViscosity(double value) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 

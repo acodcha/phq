@@ -1,10 +1,20 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_HPP
 
 #include "Angle.hpp"
 #include "Direction.hpp"
@@ -20,89 +30,130 @@ class Position;
 class Velocity;
 
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
-
 public:
+  constexpr Displacement() noexcept
+      : DimensionalVectorQuantity<Unit::Length>() {}
 
-  constexpr Displacement() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
+  Displacement(const Value::Vector& value, const Unit::Length unit) noexcept
+      : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  Displacement(const Value::Vector& value, Unit::Length unit) noexcept : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
-
-  constexpr Displacement(const Length& length, const Direction& direction) noexcept : Displacement(length.Value() * direction.Value()) {}
+  constexpr Displacement(const Length& length,
+                         const Direction& direction) noexcept
+      : Displacement(length.Value() * direction.Value()) {}
 
   constexpr Displacement(const Velocity& velocity, const Time& time) noexcept;
 
-  constexpr Displacement(const Velocity& velocity, const Frequency& frequency) noexcept;
+  constexpr Displacement(const Velocity& velocity,
+                         const Frequency& frequency) noexcept;
 
-  Length Magnitude() const noexcept {
-    return {*this};
-  }
+  explicit constexpr Displacement(const Position& position) noexcept;
 
-  PhQ::Angle Angle(const Displacement& displacement) const noexcept {
+  inline Length Magnitude() const noexcept { return {*this}; }
+
+  inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
   }
 
-  constexpr bool operator==(const Displacement& displacement) const noexcept {
-    return value_ == displacement.value_;
+  inline Position operator+(const Position& position) const noexcept;
+
+  inline Displacement operator+(
+      const Displacement& displacement) const noexcept {
+    return Displacement{value_ + displacement.value_};
   }
 
-  constexpr bool operator!=(const Displacement& displacement) const noexcept {
-    return value_ != displacement.value_;
+  inline Position operator-(const Position& position) const noexcept;
+
+  inline Displacement operator-(
+      const Displacement& displacement) const noexcept {
+    return Displacement{value_ - displacement.value_};
   }
 
-  Position operator+(const Position& position) const noexcept;
-
-  Displacement operator+(const Displacement& displacement) const noexcept {
-    return {value_ + displacement.value_};
+  inline Displacement operator*(const double number) const noexcept {
+    return Displacement{value_ * number};
   }
 
-  constexpr void operator+=(const Displacement& displacement) noexcept {
+  inline Velocity operator*(const Frequency& frequency) const noexcept;
+
+  inline Displacement operator/(const double number) const noexcept {
+    return Displacement{value_ / number};
+  }
+
+  inline Velocity operator/(const Time& time) const noexcept;
+
+  inline constexpr void operator+=(const Displacement& displacement) noexcept {
     value_ += displacement.value_;
   }
 
-  Position operator-(const Position& position) const noexcept;
-
-  Displacement operator-(const Displacement& displacement) const noexcept {
-    return {value_ - displacement.value_};
-  }
-
-  constexpr void operator-=(const Displacement& displacement) noexcept {
+  inline constexpr void operator-=(const Displacement& displacement) noexcept {
     value_ -= displacement.value_;
   }
 
-  Velocity operator*(const Frequency& frequency) const noexcept;
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  Velocity operator/(const Time& time) const noexcept;
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
-protected:
-
-  constexpr Displacement(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Length>(value) {}
+private:
+  explicit constexpr Displacement(const Value::Vector& value) noexcept
+      : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Position;
-
 };
 
-Direction::Direction(const Displacement& displacement) noexcept : Direction(displacement.Value()) {}
+inline constexpr bool operator==(const Displacement& left,
+                                 const Displacement& right) noexcept {
+  return left.Value() == right.Value();
+}
 
-Angle::Angle(const Displacement& displacement_1, const Displacement& displacement_2) noexcept : Angle(displacement_1.Value(), displacement_2.Value()) {}
+inline constexpr bool operator!=(const Displacement& left,
+                                 const Displacement& right) noexcept {
+  return left.Value() != right.Value();
+}
 
-Length::Length(const Displacement& displacement) noexcept : Length(displacement.Value().Magnitude()) {}
+inline std::ostream& operator<<(std::ostream& stream,
+                                const Displacement& displacement) noexcept {
+  stream << displacement.Print();
+  return stream;
+}
 
-Displacement Direction::operator*(const Length& length) const noexcept {
+inline Displacement operator*(const double number,
+                              const Displacement& displacement) noexcept {
+  return displacement * number;
+}
+
+inline Direction::Direction(const Displacement& displacement) noexcept
+    : Direction(displacement.Value()) {}
+
+inline Angle::Angle(const Displacement& displacement1,
+                    const Displacement& displacement2) noexcept
+    : Angle(displacement1.Value(), displacement2.Value()) {}
+
+inline Length::Length(const Displacement& displacement) noexcept
+    : Length(displacement.Value().Magnitude()) {}
+
+inline Displacement Direction::operator*(const Length& length) const noexcept {
   return {length, *this};
 }
 
-Displacement Length::operator*(const Direction& direction) const noexcept {
+inline Displacement Length::operator*(
+    const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-} // namespace PhQ
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::Displacement> {
+template <>
+struct hash<PhQ::Displacement> {
   size_t operator()(const PhQ::Displacement& displacement) const {
     return hash<PhQ::Value::Vector>()(displacement.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_HPP

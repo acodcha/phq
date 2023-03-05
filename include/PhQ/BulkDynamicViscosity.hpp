@@ -59,7 +59,7 @@ public:
     value_ -= bulk_dynamic_viscosity.value_;
   }
 
-protected:
+private:
 
   constexpr BulkDynamicViscosity(double value) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 

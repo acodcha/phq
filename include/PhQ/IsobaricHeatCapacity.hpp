@@ -82,7 +82,7 @@ public:
     return {*this, specific_heat_ratio};
   }
 
-protected:
+private:
 
   constexpr IsobaricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 

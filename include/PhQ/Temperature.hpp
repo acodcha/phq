@@ -75,7 +75,7 @@ public:
     value_ -= temperature_difference.Value();
   }
 
-protected:
+private:
 
   constexpr Temperature(double value) noexcept : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 

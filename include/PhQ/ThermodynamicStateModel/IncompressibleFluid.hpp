@@ -42,7 +42,7 @@ public:
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><mass_density>" + specific_isobaric_heat_capacity_.Xml() + "</mass_density><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.Xml() + "</specific_isobaric_heat_capacity>"};
   }
 
-protected:
+private:
 
   PhQ::MassDensity mass_density_;
 

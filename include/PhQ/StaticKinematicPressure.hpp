@@ -89,7 +89,7 @@ public:
     return {*this, mass_density};
   }
 
-protected:
+private:
 
   constexpr StaticKinematicPressure(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 

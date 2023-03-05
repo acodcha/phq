@@ -76,7 +76,7 @@ public:
 
   Mass operator/(const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept;
 
-protected:
+private:
 
   constexpr IsochoricHeatCapacity(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 

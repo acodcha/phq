@@ -72,7 +72,7 @@ public:
 
   StaticPressure operator/(const Area& area) const noexcept;
 
-protected:
+private:
 
   constexpr ForceMagnitude(double value) noexcept : DimensionalScalarQuantity<Unit::Force>(value) {}
 

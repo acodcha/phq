@@ -76,7 +76,7 @@ public:
     return {*this, volume};
   }
 
-protected:
+private:
 
   constexpr VolumeRate(double value) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
 

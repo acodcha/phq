@@ -55,7 +55,7 @@ public:
     value_ -= area_vector.value_;
   }
 
-protected:
+private:
 
   constexpr AreaVector(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::Area>(value) {}
 

@@ -83,7 +83,7 @@ public:
 
   Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
 
-protected:
+private:
 
   constexpr Energy(double value) noexcept : DimensionalScalarQuantity<Unit::Energy>(value) {}
 

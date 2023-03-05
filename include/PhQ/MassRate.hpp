@@ -76,7 +76,7 @@ public:
     return {*this, frequency};
   }
 
-protected:
+private:
 
   constexpr MassRate(double value) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value) {}
 

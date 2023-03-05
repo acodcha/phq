@@ -59,7 +59,7 @@ public:
     value_ -= p_wave_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr PWaveModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

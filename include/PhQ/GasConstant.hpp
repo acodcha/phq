@@ -77,7 +77,7 @@ public:
 
   Mass operator/(const SpecificGasConstant& specific_gas_constant) const noexcept;
 
-protected:
+private:
 
   constexpr GasConstant(double value) noexcept : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 

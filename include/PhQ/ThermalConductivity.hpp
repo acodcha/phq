@@ -45,7 +45,7 @@ public:
     value_ -= thermal_conductivity.value_;
   }
 
-protected:
+private:
 
   constexpr ThermalConductivity(const Value::SymmetricDyad& value) noexcept : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value) {}
 

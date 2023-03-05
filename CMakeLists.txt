@@ -140,6 +140,10 @@ if(BUILD_TESTING)
   target_link_libraries(direction GTest::gtest_main)
   gtest_discover_tests(direction)
 
+  add_executable(displacement ${PROJECT_SOURCE_DIR}/test/Displacement.cpp)
+  target_link_libraries(displacement GTest::gtest_main)
+  gtest_discover_tests(displacement)
+
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
@@ -151,6 +155,10 @@ if(BUILD_TESTING)
   add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
+
+  add_executable(position ${PROJECT_SOURCE_DIR}/test/Position.cpp)
+  target_link_libraries(position GTest::gtest_main)
+  gtest_discover_tests(position)
 
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)

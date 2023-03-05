@@ -76,7 +76,7 @@ public:
     return {*this, memory};
   }
 
-protected:
+private:
 
   constexpr MemoryRate(double value) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}
 

@@ -55,7 +55,7 @@ public:
     value_ -= temperature_gradient.value_;
   }
 
-protected:
+private:
 
   constexpr TemperatureGradient(const Value::Vector& value) noexcept : DimensionalVectorQuantity<Unit::TemperatureGradient>(value) {}
 

@@ -63,7 +63,7 @@ public:
     return value_ * temperature_difference.Value();
   }
 
-protected:
+private:
 
   constexpr VolumetricThermalExpansionCoefficient(double value) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 

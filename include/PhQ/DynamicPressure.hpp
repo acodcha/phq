@@ -71,7 +71,7 @@ public:
     value_ -= dynamic_pressure.value_;
   }
 
-protected:
+private:
 
   constexpr DynamicPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

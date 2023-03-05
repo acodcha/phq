@@ -70,7 +70,7 @@ public:
     value_ -= thermal_conductivity_scalar.value_;
   }
 
-protected:
+private:
 
   constexpr ThermalConductivityScalar(double value) noexcept : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
 

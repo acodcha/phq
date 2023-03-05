@@ -59,7 +59,7 @@ public:
     value_ -= young_modulus.value_;
   }
 
-protected:
+private:
 
   constexpr YoungModulus(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

@@ -81,7 +81,7 @@ public:
     return {*this, specific_energy};
   }
 
-protected:
+private:
 
   constexpr SpecificPower(double value) noexcept : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
 

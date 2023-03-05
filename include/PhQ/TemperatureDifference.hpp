@@ -79,7 +79,7 @@ public:
 
   TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
 
-protected:
+private:
 
   constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 

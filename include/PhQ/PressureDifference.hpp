@@ -72,7 +72,7 @@ public:
 
   KinematicPressureDifference operator/(const MassDensity& mass_density) const noexcept;
 
-protected:
+private:
 
   constexpr PressureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

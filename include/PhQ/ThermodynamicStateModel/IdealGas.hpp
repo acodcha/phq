@@ -74,7 +74,7 @@ public:
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) + "</type><specific_gas_constant>" + specific_gas_constant_.Xml() + "</specific_gas_constant><specific_isobaric_heat_capacity>" + specific_isobaric_heat_capacity_.Xml() + "</specific_isobaric_heat_capacity>"};
   }
 
-protected:
+private:
 
   PhQ::SpecificGasConstant specific_gas_constant_;
 
