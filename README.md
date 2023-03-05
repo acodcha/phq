@@ -116,7 +116,7 @@ Once this is done, simply include the headers you need in your project's source 
 
 Physical quantities are constructed from a value and a unit. Values can be scalars, vectors, or dyadic tensors. For example, `PhQ::Temperature{15.0, PhQ::Unit::Temperature::Celsius}` creates a temperature quantity of 15 °C, while `PhQ::Force{ {100.0, 200.0, 300.0}, PhQ::Unit::Force::Pound}` creates a force quantity of (100, 200, 300) lbf. Vectors and dyadic tensors are represented internally in a Cartesian (x-y-z) coordinate system.
 
-Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example, a `PhQ::Velocity` divided by a `PhQ::Duration` returns a `PhQ::Acceleration`, while a `PhQ::Force` divided by a `PhQ::Area` returns a `PhQ::Traction`.
+Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example, a `PhQ::Velocity` divided by a `PhQ::Time` returns a `PhQ::Acceleration`, while a `PhQ::Force` divided by a `PhQ::Area` returns a `PhQ::Traction`.
 
 Similarly, other meaningful mathematical operations are supported via member methods. For example, `PhQ::Displacement` has a `Magnitude()` method that returns a `PhQ::Length` and a `Direction()` method that returns a `PhQ::Direction`.
 
