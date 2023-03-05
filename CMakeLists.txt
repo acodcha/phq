@@ -84,6 +84,10 @@ if(BUILD_TESTING)
   target_link_libraries(old_thermodynamic_state_models GTest::gtest_main)
   gtest_discover_tests(old_thermodynamic_state_models)
 
+  add_executable(acceleration_magnitude ${PROJECT_SOURCE_DIR}/test/AccelerationMagnitude.cpp)
+  target_link_libraries(acceleration_magnitude GTest::gtest_main)
+  gtest_discover_tests(acceleration_magnitude)
+
   add_executable(angle ${PROJECT_SOURCE_DIR}/test/Angle.cpp)
   target_link_libraries(angle GTest::gtest_main)
   gtest_discover_tests(angle)
@@ -144,10 +148,6 @@ if(BUILD_TESTING)
   target_link_libraries(direction GTest::gtest_main)
   gtest_discover_tests(direction)
 
-  add_executable(duration ${PROJECT_SOURCE_DIR}/test/Duration.cpp)
-  target_link_libraries(duration GTest::gtest_main)
-  gtest_discover_tests(duration)
-
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
@@ -159,6 +159,10 @@ if(BUILD_TESTING)
   add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
+
+  add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
+  target_link_libraries(speed GTest::gtest_main)
+  gtest_discover_tests(speed)
 
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)

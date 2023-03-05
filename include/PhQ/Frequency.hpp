@@ -35,8 +35,8 @@ public:
   Frequency(const double value, const Unit::Frequency unit) noexcept
       : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
-  constexpr Frequency(const Duration& duration) noexcept
-      : Frequency(1.0 / duration.Value()) {}
+  constexpr Frequency(const Time& time) noexcept
+      : Frequency(1.0 / time.Value()) {}
 
   constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude,
                       const Speed& speed) noexcept;
@@ -63,7 +63,7 @@ public:
   constexpr Frequency(const VolumeRate& volume_rate,
                       const Volume& volume) noexcept;
 
-  inline Duration Period() const noexcept { return {*this}; }
+  inline Time Period() const noexcept { return {*this}; }
 
   inline Frequency operator+(const Frequency& frequency) const noexcept {
     return Frequency{value_ + frequency.value_};
@@ -81,8 +81,8 @@ public:
     return Frequency{value_ / number};
   }
 
-  inline constexpr double operator*(const Duration& duration) const noexcept {
-    return value_ * duration.Value();
+  inline constexpr double operator*(const Time& time) const noexcept {
+    return value_ * time.Value();
   }
 
   inline Speed operator*(const Length& length) const noexcept;
@@ -171,12 +171,12 @@ inline Frequency operator*(const double number,
   return frequency * number;
 }
 
-constexpr Duration::Duration(const PhQ::Frequency& frequency) noexcept
-    : Duration(1.0 / frequency.Value()) {}
+constexpr Time::Time(const PhQ::Frequency& frequency) noexcept
+    : Time(1.0 / frequency.Value()) {}
 
-inline PhQ::Frequency Duration::Frequency() const noexcept { return {*this}; }
+inline PhQ::Frequency Time::Frequency() const noexcept { return {*this}; }
 
-inline constexpr double Duration::operator*(
+inline constexpr double Time::operator*(
     const PhQ::Frequency& frequency) const noexcept {
   return value_ * frequency.Value();
 }

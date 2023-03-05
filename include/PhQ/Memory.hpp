@@ -12,7 +12,7 @@
 namespace PhQ {
 
 // Forward declaration.
-class Duration;
+class Time;
 class Frequency;
 class MemoryRate;
 
@@ -24,7 +24,7 @@ public:
 
   Memory(double value, Unit::Memory unit) noexcept : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
-  constexpr Memory(const MemoryRate& memory_rate, const Duration& duration) noexcept;
+  constexpr Memory(const MemoryRate& memory_rate, const Time& time) noexcept;
 
   constexpr Memory(const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
 
@@ -70,9 +70,9 @@ public:
 
   MemoryRate operator*(const Frequency& frequency) const noexcept;
 
-  MemoryRate operator/(const Duration& duration) const noexcept;
+  MemoryRate operator/(const Time& time) const noexcept;
 
-  Duration operator/(const MemoryRate& memory_rate) const noexcept;
+  Time operator/(const MemoryRate& memory_rate) const noexcept;
 
 protected:
 

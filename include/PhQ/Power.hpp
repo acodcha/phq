@@ -20,7 +20,7 @@ public:
 
   Power(double value, Unit::Power unit) noexcept : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
 
-  constexpr Power(const Energy& energy, const Duration& duration) noexcept : Power(energy.Value() / duration.Value()) {}
+  constexpr Power(const Energy& energy, const Time& time) noexcept : Power(energy.Value() / time.Value()) {}
 
   constexpr Power(const Energy& energy, const Frequency& frequency) noexcept : Power(energy.Value() * frequency.Value()) {}
 
@@ -66,8 +66,8 @@ public:
     value_ -= power.value_;
   }
 
-  Energy operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Energy operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Energy operator/(const Frequency& frequency) const noexcept {
@@ -88,15 +88,15 @@ protected:
 
 };
 
-constexpr Duration::Duration(const Power& power, const Energy& energy) noexcept : Duration(energy.Value() / power.Value()) {}
+constexpr Time::Time(const Power& power, const Energy& energy) noexcept : Time(energy.Value() / power.Value()) {}
 
 constexpr Frequency::Frequency(const Power& power, const Energy& energy) noexcept : Frequency(power.Value() / energy.Value()) {}
 
-constexpr Energy::Energy(const Power& power, const Duration& duration) noexcept : Energy(power.Value() * duration.Value()) {}
+constexpr Energy::Energy(const Power& power, const Time& time) noexcept : Energy(power.Value() * time.Value()) {}
 
 constexpr Energy::Energy(const Power& power, const Frequency& frequency) noexcept : Energy(power.Value() / frequency.Value()) {}
 
-Energy Duration::operator*(const Power& power) const noexcept {
+Energy Time::operator*(const Power& power) const noexcept {
   return {power, *this};
 }
 
@@ -108,11 +108,11 @@ Power Energy::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-Power Energy::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+Power Energy::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-Duration Energy::operator/(const Power& power) const noexcept {
+Time Energy::operator/(const Power& power) const noexcept {
   return {power, *this};
 }
 

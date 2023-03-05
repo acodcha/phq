@@ -32,9 +32,8 @@ public:
       : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
 
   constexpr AngularAccelerationMagnitude(const AngularSpeed& angular_speed,
-                                         const Duration& duration) noexcept
-      : AngularAccelerationMagnitude(angular_speed.Value() / duration.Value()) {
-  }
+                                         const Time& time) noexcept
+      : AngularAccelerationMagnitude(angular_speed.Value() / time.Value()) {}
 
   constexpr AngularAccelerationMagnitude(const AngularSpeed& angular_speed,
                                          const Frequency& frequency) noexcept
@@ -60,8 +59,8 @@ public:
     return AngularAccelerationMagnitude{value_ * number};
   }
 
-  inline AngularSpeed operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  inline AngularSpeed operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   inline AngularAccelerationMagnitude operator/(
@@ -151,11 +150,10 @@ inline AngularAccelerationMagnitude operator*(
   return angular_acceleration_magnitude * number;
 }
 
-inline constexpr Duration::Duration(
+inline constexpr Time::Time(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
     const AngularSpeed& angular_speed) noexcept
-    : Duration(angular_speed.Value() / angular_acceleration_magnitude.Value()) {
-}
+    : Time(angular_speed.Value() / angular_acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
@@ -165,8 +163,8 @@ inline constexpr Frequency::Frequency(
 
 inline constexpr AngularSpeed::AngularSpeed(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-    const Duration& duration) noexcept
-    : AngularSpeed(angular_acceleration_magnitude.Value() * duration.Value()) {}
+    const Time& time) noexcept
+    : AngularSpeed(angular_acceleration_magnitude.Value() * time.Value()) {}
 
 inline constexpr AngularSpeed::AngularSpeed(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
@@ -185,11 +183,11 @@ inline AngularAccelerationMagnitude AngularSpeed::operator*(
 }
 
 inline AngularAccelerationMagnitude AngularSpeed::operator/(
-    const Duration& duration) const noexcept {
-  return {*this, duration};
+    const Time& time) const noexcept {
+  return {*this, time};
 }
 
-inline Duration AngularSpeed::operator/(
+inline Time AngularSpeed::operator/(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude)
     const noexcept {
   return {angular_acceleration_magnitude, *this};

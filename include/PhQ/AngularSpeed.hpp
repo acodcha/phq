@@ -33,8 +33,8 @@ public:
   AngularSpeed(const double value, const Unit::AngularSpeed unit) noexcept
       : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
-  constexpr AngularSpeed(const Angle& angle, const Duration& duration) noexcept
-      : AngularSpeed(angle.Value() / duration.Value()) {}
+  constexpr AngularSpeed(const Angle& angle, const Time& time) noexcept
+      : AngularSpeed(angle.Value() / time.Value()) {}
 
   constexpr AngularSpeed(const Angle& angle,
                          const Frequency& frequency) noexcept
@@ -42,7 +42,7 @@ public:
 
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const Duration& duration) noexcept;
+      const Time& time) noexcept;
 
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
@@ -62,8 +62,8 @@ public:
     return AngularSpeed{value_ * number};
   }
 
-  inline Angle operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  inline Angle operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   inline AngularAccelerationMagnitude operator*(
@@ -82,10 +82,10 @@ public:
   }
 
   inline AngularAccelerationMagnitude operator/(
-      const Duration& duration) const noexcept;
+      const Time& time) const noexcept;
 
-  inline Duration operator/(const AngularAccelerationMagnitude&
-                                angular_acceleration_magnitude) const noexcept;
+  inline Time operator/(const AngularAccelerationMagnitude&
+                            angular_acceleration_magnitude) const noexcept;
 
   inline constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
     value_ += angular_speed.value_;
@@ -150,16 +150,16 @@ inline AngularSpeed operator*(const double number,
 }
 
 inline constexpr Angle::Angle(const AngularSpeed& angular_speed,
-                              const Duration& duration) noexcept
-    : Angle(angular_speed.Value() * duration.Value()) {}
+                              const Time& time) noexcept
+    : Angle(angular_speed.Value() * time.Value()) {}
 
 inline constexpr Angle::Angle(const AngularSpeed& angular_speed,
                               const Frequency& frequency) noexcept
     : Angle(angular_speed.Value() / frequency.Value()) {}
 
-inline constexpr Duration::Duration(const AngularSpeed& angular_speed,
-                                    const Angle& angle) noexcept
-    : Duration(angle.Value() / angular_speed.Value()) {}
+inline constexpr Time::Time(const AngularSpeed& angular_speed,
+                            const Angle& angle) noexcept
+    : Time(angle.Value() / angular_speed.Value()) {}
 
 inline constexpr Frequency::Frequency(const AngularSpeed& angular_speed,
                                       const Angle& angle) noexcept
@@ -174,12 +174,11 @@ inline AngularSpeed Frequency::operator*(const Angle& angle) const noexcept {
   return {angle, *this};
 }
 
-inline AngularSpeed Angle::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+inline AngularSpeed Angle::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-inline Duration Angle::operator/(
-    const AngularSpeed& angular_speed) const noexcept {
+inline Time Angle::operator/(const AngularSpeed& angular_speed) const noexcept {
   return {angular_speed, *this};
 }
 

@@ -32,7 +32,7 @@ TEST(AngularSpeed, Accessor) {
 
 TEST(AngularSpeed, Arithmetic) {
   const Angle angle{0.5, Unit::Angle::Radian};
-  const Duration duration{0.5, Unit::Time::Second};
+  const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
   const AngularSpeed speed0{1.0, Unit::AngularSpeed::RadianPerSecond};
   EXPECT_EQ(speed0 + speed0,
@@ -49,8 +49,8 @@ TEST(AngularSpeed, Arithmetic) {
             AngularSpeed(0.5, Unit::AngularSpeed::RadianPerSecond));
   EXPECT_EQ(speed0 / angle, frequency);
   EXPECT_EQ(speed0 / frequency, angle);
-  EXPECT_EQ(angle / duration, speed0);
-  EXPECT_EQ(angle / speed0, duration);
+  EXPECT_EQ(angle / time, speed0);
+  EXPECT_EQ(angle / speed0, time);
 
   AngularSpeed speed1{1.0, Unit::AngularSpeed::RadianPerSecond};
   speed1 += AngularSpeed{1.0, Unit::AngularSpeed::RadianPerSecond};
@@ -84,16 +84,16 @@ TEST(AngularSpeed, Comparison) {
 
 TEST(AngularSpeed, Constructor) {
   const Angle angle{8.0, Unit::Angle::Radian};
-  const Duration duration{2.0, Unit::Time::Second};
+  const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
   const AngularSpeed speed0;
   const AngularSpeed speed1{90.0, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed speed2{4.0, Unit::AngularSpeed::RadianPerSecond};
-  EXPECT_EQ(AngularSpeed(angle, duration), speed2);
+  EXPECT_EQ(AngularSpeed(angle, time), speed2);
   EXPECT_EQ(AngularSpeed(angle, frequency), speed2);
-  EXPECT_EQ(Angle(speed2, duration), angle);
+  EXPECT_EQ(Angle(speed2, time), angle);
   EXPECT_EQ(Angle(speed2, frequency), angle);
-  EXPECT_EQ(Duration(speed2, angle), duration);
+  EXPECT_EQ(Time(speed2, angle), time);
   EXPECT_EQ(Frequency(speed2, angle), frequency);
 }
 

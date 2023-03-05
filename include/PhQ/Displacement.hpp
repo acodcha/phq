@@ -14,7 +14,7 @@
 namespace PhQ {
 
 // Forward declarations.
-class Duration;
+class Time;
 class Frequency;
 class Position;
 class Velocity;
@@ -29,7 +29,7 @@ public:
 
   constexpr Displacement(const Length& length, const Direction& direction) noexcept : Displacement(length.Value() * direction.Value()) {}
 
-  constexpr Displacement(const Velocity& velocity, const Duration& duration) noexcept;
+  constexpr Displacement(const Velocity& velocity, const Time& time) noexcept;
 
   constexpr Displacement(const Velocity& velocity, const Frequency& frequency) noexcept;
 
@@ -71,7 +71,7 @@ public:
 
   Velocity operator*(const Frequency& frequency) const noexcept;
 
-  Velocity operator/(const Duration& duration) const noexcept;
+  Velocity operator/(const Time& time) const noexcept;
 
 protected:
 
