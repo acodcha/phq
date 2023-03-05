@@ -13,7 +13,7 @@ namespace PhQ {
 
 // Forward declarations.
 class DisplacementGradient;
-class Duration;
+class Time;
 class Frequency;
 class StrainRate;
 
@@ -25,7 +25,7 @@ public:
 
   constexpr Strain(const Value::SymmetricDyad& value) noexcept : DimensionlessSymmetricDyadQuantity(value) {}
 
-  constexpr Strain(const StrainRate& strain_rate, const Duration& duration) noexcept;
+  constexpr Strain(const StrainRate& strain_rate, const Time& time) noexcept;
 
   constexpr Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept;
 
@@ -57,7 +57,7 @@ public:
 
   StrainRate operator*(const Frequency& frequency) const noexcept;
 
-  StrainRate operator/(const Duration& duration) const noexcept;
+  StrainRate operator/(const Time& time) const noexcept;
 
 };
 

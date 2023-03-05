@@ -24,11 +24,11 @@ public:
 
   constexpr Velocity(const Speed& speed, const Direction& direction) noexcept : Velocity(speed.Value() * direction.Value()) {}
 
-  constexpr Velocity(const Displacement& displacement, const Duration& duration) noexcept : Velocity(displacement.Value() / duration.Value()) {}
+  constexpr Velocity(const Displacement& displacement, const Time& time) noexcept : Velocity(displacement.Value() / time.Value()) {}
 
   constexpr Velocity(const Displacement& displacement, const Frequency& frequency) noexcept : Velocity(displacement.Value() * frequency.Value()) {}
 
-  constexpr Velocity(const Acceleration& acceleration, const Duration& duration) noexcept;
+  constexpr Velocity(const Acceleration& acceleration, const Time& time) noexcept;
 
   constexpr Velocity(const Acceleration& acceleration, const Frequency& frequency) noexcept;
 
@@ -64,13 +64,13 @@ public:
     value_ -= velocity.value_;
   }
 
-  Displacement operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Displacement operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Acceleration operator*(const Frequency& frequency) const noexcept;
 
-  Acceleration operator/(const Duration& duration) const noexcept;
+  Acceleration operator/(const Time& time) const noexcept;
 
   Displacement operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
@@ -86,7 +86,7 @@ Direction::Direction(const Velocity& velocity) noexcept : Direction(velocity.Val
 
 Angle::Angle(const Velocity& velocity_1, const Velocity& velocity_2) noexcept : Angle(velocity_1.Value(), velocity_2.Value()) {}
 
-constexpr Displacement::Displacement(const Velocity& velocity, const Duration& duration) noexcept : Displacement(velocity.Value() * duration.Value()) {}
+constexpr Displacement::Displacement(const Velocity& velocity, const Time& time) noexcept : Displacement(velocity.Value() * time.Value()) {}
 
 constexpr Displacement::Displacement(const Velocity& velocity, const Frequency& frequency) noexcept : Displacement(velocity.Value() / frequency.Value()) {}
 
@@ -108,8 +108,8 @@ Velocity Displacement::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-Velocity Displacement::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+Velocity Displacement::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
 } // namespace PhQ

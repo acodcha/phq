@@ -22,7 +22,7 @@
 namespace PhQ {
 
 // Forward declarations for class Volume.
-class Duration;
+class Time;
 class Frequency;
 class Mass;
 class MassDensity;
@@ -35,8 +35,7 @@ public:
   Volume(const double value, const Unit::Volume unit) noexcept
       : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
-  constexpr Volume(const VolumeRate& volume_rate,
-                   const Duration& duration) noexcept;
+  constexpr Volume(const VolumeRate& volume_rate, const Time& time) noexcept;
 
   constexpr Volume(const VolumeRate& volume_rate,
                    const Frequency& frequency) noexcept;
@@ -71,9 +70,9 @@ public:
     return Length{value_ / area.Value()};
   }
 
-  inline VolumeRate operator/(const Duration& duration) const noexcept;
+  inline VolumeRate operator/(const Time& time) const noexcept;
 
-  inline Duration operator/(const VolumeRate& volume_rate) const noexcept;
+  inline Time operator/(const VolumeRate& volume_rate) const noexcept;
 
   inline constexpr void operator+=(const Volume& volume) noexcept {
     value_ += volume.value_;

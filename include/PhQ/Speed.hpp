@@ -31,13 +31,13 @@ public:
 
   Speed(double value, Unit::Speed unit) noexcept : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
-  constexpr Speed(const Length& length, const Duration& duration) noexcept : Speed(length.Value() / duration.Value()) {}
+  constexpr Speed(const Length& length, const Time& time) noexcept : Speed(length.Value() / time.Value()) {}
 
   constexpr Speed(const Length& length, const Frequency& frequency) noexcept : Speed(length.Value() * frequency.Value()) {}
 
   Speed(const Velocity& velocity) noexcept;
 
-  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Duration& duration) noexcept;
+  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Time& time) noexcept;
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency) noexcept;
 
@@ -89,8 +89,8 @@ public:
     value_ -= speed.value_;
   }
 
-  Length operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Length operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   AccelerationMagnitude operator*(const Frequency& frequency) const noexcept;
@@ -105,9 +105,9 @@ public:
     return {*this, length};
   }
 
-  AccelerationMagnitude operator/(const Duration& duration) const noexcept;
+  AccelerationMagnitude operator/(const Time& time) const noexcept;
 
-  Duration operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+  Time operator/(const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
 protected:
 
@@ -115,11 +115,11 @@ protected:
 
 };
 
-constexpr Length::Length(const Speed& speed, const Duration& duration) noexcept : Length(speed.Value() * duration.Value()) {}
+constexpr Length::Length(const Speed& speed, const Time& time) noexcept : Length(speed.Value() * time.Value()) {}
 
 constexpr Length::Length(const Speed& speed, const Frequency& frequency) noexcept : Length(speed.Value() / frequency.Value()) {}
 
-constexpr Duration::Duration(const Speed& speed, const Length& length) noexcept : Duration(length.Value() / speed.Value()) {}
+constexpr Time::Time(const Speed& speed, const Length& length) noexcept : Time(length.Value() / speed.Value()) {}
 
 constexpr Frequency::Frequency(const Speed& speed, const Length& length) noexcept : Frequency(speed.Value() / length.Value()) {}
 
@@ -127,7 +127,7 @@ Speed Length::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-Duration Length::operator/(const Speed& speed) const noexcept {
+Time Length::operator/(const Speed& speed) const noexcept {
   return {speed, *this};
 }
 
@@ -135,8 +135,8 @@ Speed Frequency::operator*(const Length& length) const noexcept {
   return {length, *this};
 }
 
-Speed Length::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+Speed Length::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
 } // namespace PhQ

@@ -20,7 +20,7 @@ public:
 
   MemoryRate(double value, Unit::MemoryRate unit) noexcept : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
 
-  constexpr MemoryRate(const Memory& memory, const Duration& duration) noexcept : MemoryRate(memory.Value() / duration.Value()) {}
+  constexpr MemoryRate(const Memory& memory, const Time& time) noexcept : MemoryRate(memory.Value() / time.Value()) {}
 
   constexpr MemoryRate(const Memory& memory, const Frequency& frequency) noexcept : MemoryRate(memory.Value() * frequency.Value()) {}
 
@@ -64,8 +64,8 @@ public:
     value_ -= memory_rate.value_;
   }
 
-  Memory operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Memory operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Memory operator/(const Frequency& frequency) const noexcept {
@@ -82,11 +82,11 @@ protected:
 
 };
 
-constexpr Duration::Duration(const MemoryRate& memory_rate, const Memory& memory) noexcept : Duration(memory.Value() / memory_rate.Value()) {}
+constexpr Time::Time(const MemoryRate& memory_rate, const Memory& memory) noexcept : Time(memory.Value() / memory_rate.Value()) {}
 
 constexpr Frequency::Frequency(const MemoryRate& memory_rate, const Memory& memory) noexcept : Frequency(memory_rate.Value() / memory.Value()) {}
 
-constexpr Memory::Memory(const MemoryRate& memory_rate, const Duration& duration) noexcept : Memory(memory_rate.Value() * duration.Value()) {}
+constexpr Memory::Memory(const MemoryRate& memory_rate, const Time& time) noexcept : Memory(memory_rate.Value() * time.Value()) {}
 
 constexpr Memory::Memory(const MemoryRate& memory_rate, const Frequency& frequency) noexcept : Memory(memory_rate.Value() / frequency.Value()) {}
 
@@ -98,11 +98,11 @@ MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-MemoryRate Memory::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+MemoryRate Memory::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-Duration Memory::operator/(const MemoryRate& memory_rate) const noexcept {
+Time Memory::operator/(const MemoryRate& memory_rate) const noexcept {
   return {memory_rate, *this};
 }
 

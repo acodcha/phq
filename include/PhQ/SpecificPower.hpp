@@ -19,7 +19,7 @@ public:
 
   SpecificPower(double value, Unit::SpecificPower unit) noexcept : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
 
-  constexpr SpecificPower(const SpecificEnergy& specific_energy, const Duration& duration) noexcept : SpecificPower(specific_energy.Value() / duration.Value()) {}
+  constexpr SpecificPower(const SpecificEnergy& specific_energy, const Time& time) noexcept : SpecificPower(specific_energy.Value() / time.Value()) {}
 
   constexpr SpecificPower(const SpecificEnergy& specific_energy, const Frequency& frequency) noexcept : SpecificPower(specific_energy.Value() * frequency.Value()) {}
 
@@ -65,8 +65,8 @@ public:
     value_ -= specific_power.value_;
   }
 
-  SpecificEnergy operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  SpecificEnergy operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Power operator*(const Mass& mass) const noexcept {
@@ -87,7 +87,7 @@ protected:
 
 };
 
-constexpr Duration::Duration(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept : Duration(specific_energy.Value() / specific_power.Value()) {}
+constexpr Time::Time(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept : Time(specific_energy.Value() / specific_power.Value()) {}
 
 constexpr Frequency::Frequency(const SpecificPower& specific_power, const SpecificEnergy& specific_energy) noexcept : Frequency(specific_power.Value() / specific_energy.Value()) {}
 
@@ -95,7 +95,7 @@ constexpr Mass::Mass(const SpecificPower& specific_power, const Power& power) no
 
 constexpr Power::Power(const SpecificPower& specific_power, const Mass& mass) noexcept : Power(specific_power.Value() * mass.Value()) {}
 
-constexpr SpecificEnergy::SpecificEnergy(const SpecificPower& specific_power, const Duration& duration) noexcept : SpecificEnergy(specific_power.Value() * duration.Value()) {}
+constexpr SpecificEnergy::SpecificEnergy(const SpecificPower& specific_power, const Time& time) noexcept : SpecificEnergy(specific_power.Value() * time.Value()) {}
 
 constexpr SpecificEnergy::SpecificEnergy(const SpecificPower& specific_power, const Frequency& frequency) noexcept : SpecificEnergy(specific_power.Value() / frequency.Value()) {}
 
@@ -107,7 +107,7 @@ Mass Power::operator/(const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 
-SpecificEnergy Duration::operator*(const SpecificPower& specific_power) const noexcept {
+SpecificEnergy Time::operator*(const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 
@@ -123,11 +123,11 @@ SpecificPower SpecificEnergy::operator*(const Frequency& frequency) const noexce
   return {*this, frequency};
 }
 
-SpecificPower SpecificEnergy::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+SpecificPower SpecificEnergy::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-Duration SpecificEnergy::operator/(const SpecificPower& specific_power) const noexcept {
+Time SpecificEnergy::operator/(const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 

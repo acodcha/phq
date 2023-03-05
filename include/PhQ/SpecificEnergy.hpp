@@ -25,7 +25,7 @@ public:
 
   constexpr SpecificEnergy(const Energy& energy, const Mass& mass) noexcept : SpecificEnergy(energy.Value() / mass.Value()) {}
 
-  constexpr SpecificEnergy(const SpecificPower& specific_power, const Duration& duration) noexcept;
+  constexpr SpecificEnergy(const SpecificPower& specific_power, const Time& time) noexcept;
 
   constexpr SpecificEnergy(const SpecificPower& specific_power, const Frequency& frequency) noexcept;
 
@@ -75,9 +75,9 @@ public:
 
   SpecificPower operator*(const Frequency& frequency) const noexcept;
 
-  SpecificPower operator/(const Duration& duration) const noexcept;
+  SpecificPower operator/(const Time& time) const noexcept;
 
-  Duration operator/(const SpecificPower& specific_power) const noexcept;
+  Time operator/(const SpecificPower& specific_power) const noexcept;
 
 protected:
 

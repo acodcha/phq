@@ -34,7 +34,7 @@ TEST(AngularAccelerationMagnitude, Accessor) {
 
 TEST(AngularAccelerationMagnitude, Arithmetic) {
   const AngularSpeed speed{0.5, Unit::AngularSpeed::RadianPerSecond};
-  const Duration duration{0.5, Unit::Time::Second};
+  const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
   const AngularAccelerationMagnitude acceleration0{
       1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
@@ -57,8 +57,8 @@ TEST(AngularAccelerationMagnitude, Arithmetic) {
                 0.5, Unit::AngularAcceleration::RadianPerSquareSecond));
   EXPECT_EQ(acceleration0 / speed, frequency);
   EXPECT_EQ(acceleration0 / frequency, speed);
-  EXPECT_EQ(speed / duration, acceleration0);
-  EXPECT_EQ(speed / acceleration0, duration);
+  EXPECT_EQ(speed / time, acceleration0);
+  EXPECT_EQ(speed / acceleration0, time);
 
   AngularAccelerationMagnitude acceleration1{
       1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
@@ -108,18 +108,18 @@ TEST(AngularAccelerationMagnitude, Comparison) {
 
 TEST(AngularAccelerationMagnitude, Constructor) {
   const AngularSpeed speed{8.0, Unit::AngularSpeed::RadianPerSecond};
-  const Duration duration{2.0, Unit::Time::Second};
+  const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
   const AngularAccelerationMagnitude acceleration0;
   const AngularAccelerationMagnitude acceleration1{
       90.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const AngularAccelerationMagnitude acceleration2{
       4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  EXPECT_EQ(AngularAccelerationMagnitude(speed, duration), acceleration2);
+  EXPECT_EQ(AngularAccelerationMagnitude(speed, time), acceleration2);
   EXPECT_EQ(AngularAccelerationMagnitude(speed, frequency), acceleration2);
-  EXPECT_EQ(AngularSpeed(acceleration2, duration), speed);
+  EXPECT_EQ(AngularSpeed(acceleration2, time), speed);
   EXPECT_EQ(AngularSpeed(acceleration2, frequency), speed);
-  EXPECT_EQ(Duration(acceleration2, speed), duration);
+  EXPECT_EQ(Time(acceleration2, speed), time);
   EXPECT_EQ(Frequency(acceleration2, speed), frequency);
 }
 

@@ -25,7 +25,7 @@ namespace PhQ {
 class Area;
 class Direction;
 class Displacement;
-class Duration;
+class Time;
 class DynamicViscosity;
 class Frequency;
 class KinematicViscosity;
@@ -46,7 +46,7 @@ public:
 
   Length(const Position& position) noexcept;
 
-  constexpr Length(const Speed& speed, const Duration& duration) noexcept;
+  constexpr Length(const Speed& speed, const Time& time) noexcept;
 
   constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
 
@@ -83,9 +83,9 @@ public:
     return Length{value_ / number};
   }
 
-  inline Speed operator/(const Duration& duration) const noexcept;
+  inline Speed operator/(const Time& time) const noexcept;
 
-  inline Duration operator/(const Speed& speed) const noexcept;
+  inline Time operator/(const Speed& speed) const noexcept;
 
   inline constexpr void operator+=(const Length& length) noexcept {
     value_ += length.value_;

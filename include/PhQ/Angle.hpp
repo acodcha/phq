@@ -28,7 +28,7 @@ class AngularSpeed;
 class AreaVector;
 class Direction;
 class Displacement;
-class Duration;
+class Time;
 class Force;
 class Frequency;
 class HeatFlux;
@@ -55,8 +55,7 @@ public:
 
   Angle(const Direction& direction1, const Direction& direction2) noexcept;
 
-  constexpr Angle(const AngularSpeed& angular_speed,
-                  const Duration& duration) noexcept;
+  constexpr Angle(const AngularSpeed& angular_speed, const Time& time) noexcept;
 
   constexpr Angle(const AngularSpeed& angular_speed,
                   const Frequency& frequency) noexcept;
@@ -101,9 +100,9 @@ public:
     return Angle{value_ / number};
   }
 
-  inline AngularSpeed operator/(const Duration& duration) const noexcept;
+  inline AngularSpeed operator/(const Time& time) const noexcept;
 
-  inline Duration operator/(const AngularSpeed& angular_speed) const noexcept;
+  inline Time operator/(const AngularSpeed& angular_speed) const noexcept;
 
   inline constexpr void operator+=(const Angle& angle) noexcept {
     value_ += angle.value_;

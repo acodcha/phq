@@ -20,7 +20,7 @@ public:
 
   VolumeRate(double value, Unit::VolumeRate unit) noexcept : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
-  constexpr VolumeRate(const Volume& volume, const Duration& duration) noexcept : VolumeRate(volume.Value() / duration.Value()) {}
+  constexpr VolumeRate(const Volume& volume, const Time& time) noexcept : VolumeRate(volume.Value() / time.Value()) {}
 
   constexpr VolumeRate(const Volume& volume, const Frequency& frequency) noexcept : VolumeRate(volume.Value() * frequency.Value()) {}
 
@@ -64,8 +64,8 @@ public:
     value_ -= volume_rate.value_;
   }
 
-  Volume operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Volume operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Volume operator/(const Frequency& frequency) const noexcept {
@@ -82,15 +82,15 @@ protected:
 
 };
 
-constexpr Volume::Volume(const VolumeRate& volume_rate, const Duration& duration) noexcept : Volume(volume_rate.Value() * duration.Value()) {}
+constexpr Volume::Volume(const VolumeRate& volume_rate, const Time& time) noexcept : Volume(volume_rate.Value() * time.Value()) {}
 
 constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency) noexcept : Volume(volume_rate.Value() / frequency.Value()) {}
 
-constexpr Duration::Duration(const VolumeRate& volume_rate, const Volume& volume) noexcept : Duration(volume.Value() / volume_rate.Value()) {}
+constexpr Time::Time(const VolumeRate& volume_rate, const Volume& volume) noexcept : Time(volume.Value() / volume_rate.Value()) {}
 
 constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume) noexcept : Frequency(volume_rate.Value() / volume.Value()) {}
 
-Volume Duration::operator*(const VolumeRate& volume_rate) const noexcept {
+Volume Time::operator*(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
@@ -98,7 +98,7 @@ VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-Duration Volume::operator/(const VolumeRate& volume_rate) const noexcept {
+Time Volume::operator/(const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
@@ -106,8 +106,8 @@ VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
   return {volume, *this};
 }
 
-VolumeRate Volume::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+VolumeRate Volume::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
 } // namespace PhQ

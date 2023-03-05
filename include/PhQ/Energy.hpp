@@ -12,7 +12,7 @@
 namespace PhQ {
 
 // Forward declarations.
-class Duration;
+class Time;
 class Frequency;
 class Mass;
 class Power;
@@ -27,7 +27,7 @@ public:
 
   Energy(double value, Unit::Energy unit) noexcept : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
-  constexpr Energy(const Power& power, const Duration& duration) noexcept;
+  constexpr Energy(const Power& power, const Time& time) noexcept;
 
   constexpr Energy(const Power& power, const Frequency& frequency) noexcept;
 
@@ -75,9 +75,9 @@ public:
 
   Power operator*(const Frequency& frequency) const noexcept;
 
-  Power operator/(const Duration& duration) const noexcept;
+  Power operator/(const Time& time) const noexcept;
 
-  Duration operator/(const Power& power) const noexcept;
+  Time operator/(const Power& power) const noexcept;
 
   SpecificEnergy operator/(const Mass& mass) const noexcept;
 

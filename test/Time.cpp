@@ -30,14 +30,9 @@ TEST(Time, Accessor) {
 }
 
 TEST(Time, Arithmetic) {
-  const Duration duration{1.0, Unit::Time::Second};
   const Time time0{1.0, Unit::Time::Second};
   EXPECT_EQ(time0 + time0, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(time0 + duration, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(duration + time0, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(time0 - time0, Duration(0.0, Unit::Time::Second));
-  EXPECT_EQ(time0 - duration, Time(0.0, Unit::Time::Second));
-  EXPECT_EQ(duration - time0, Time(0.0, Unit::Time::Second));
+  EXPECT_EQ(time0 - time0, Time(0.0, Unit::Time::Second));
   EXPECT_EQ(time0 * 2.0, Time(2.0, Unit::Time::Second));
   EXPECT_EQ(2.0 * time0, Time(2.0, Unit::Time::Second));
   EXPECT_EQ(time0 / 2.0, Time(0.5, Unit::Time::Second));
@@ -45,14 +40,10 @@ TEST(Time, Arithmetic) {
   Time time1{1.0, Unit::Time::Second};
   time1 += Time{1.0, Unit::Time::Second};
   EXPECT_EQ(time1, Time(2.0, Unit::Time::Second));
-  time1 += Duration{2.0, Unit::Time::Second};
-  EXPECT_EQ(time1, Time(4.0, Unit::Time::Second));
 
   Time time2{2.0, Unit::Time::Second};
   time2 -= Time{1.0, Unit::Time::Second};
   EXPECT_EQ(time2, Time(1.0, Unit::Time::Second));
-  time2 -= Duration{1.0, Unit::Time::Second};
-  EXPECT_EQ(time2, Time(0.0, Unit::Time::Second));
 
   Time time3{1.0, Unit::Time::Second};
   time3 *= 2.0;

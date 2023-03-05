@@ -30,14 +30,14 @@ TEST(Frequency, Accessor) {
 }
 
 TEST(Frequency, Arithmetic) {
-  const Duration duration{2.0, Unit::Time::Second};
+  const Time time{2.0, Unit::Time::Second};
   const Frequency frequency0{1.0, Unit::Frequency::Hertz};
   EXPECT_EQ(frequency0 + frequency0, Frequency(2.0, Unit::Frequency::Hertz));
   EXPECT_EQ(frequency0 - frequency0, Frequency(0.0, Unit::Frequency::Hertz));
   EXPECT_EQ(frequency0 * 2.0, Frequency(2.0, Unit::Frequency::Hertz));
   EXPECT_EQ(2.0 * frequency0, Frequency(2.0, Unit::Frequency::Hertz));
-  EXPECT_EQ(frequency0 * duration, 2.0);
-  EXPECT_EQ(duration * frequency0, 2.0);
+  EXPECT_EQ(frequency0 * time, 2.0);
+  EXPECT_EQ(time * frequency0, 2.0);
   EXPECT_EQ(frequency0 / 2.0, Frequency(0.5, Unit::Frequency::Hertz));
 
   Frequency frequency1{1.0, Unit::Frequency::Hertz};
@@ -73,7 +73,7 @@ TEST(Frequency, Comparison) {
 TEST(Frequency, Constructor) {
   const Frequency frequency0;
   const Frequency frequency1{4.0, Unit::Frequency::Kilohertz};
-  EXPECT_EQ(Frequency(Duration(2.0, Unit::Time::Second)),
+  EXPECT_EQ(Frequency(Time(2.0, Unit::Time::Second)),
             Frequency(0.5, Unit::Frequency::Hertz));
 }
 
@@ -103,11 +103,11 @@ TEST(Frequency, Json) {
 }
 
 TEST(Frequency, Period) {
-  const Duration duration{0.5, Unit::Time::Second};
+  const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  EXPECT_EQ(frequency.Period(), duration);
-  EXPECT_EQ(Duration(frequency), duration);
-  EXPECT_EQ(duration.Frequency(), frequency);
+  EXPECT_EQ(frequency.Period(), time);
+  EXPECT_EQ(Time(frequency), time);
+  EXPECT_EQ(time.Frequency(), frequency);
 }
 
 TEST(Frequency, Print) {

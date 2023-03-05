@@ -22,7 +22,7 @@
 namespace PhQ {
 
 // Forward declarations for class Mass.
-class Duration;
+class Time;
 class Energy;
 class Frequency;
 class GasConstant;
@@ -48,7 +48,7 @@ public:
   constexpr Mass(const MassDensity& mass_density,
                  const Volume& volume) noexcept;
 
-  constexpr Mass(const MassRate& mass_rate, const Duration& duration) noexcept;
+  constexpr Mass(const MassRate& mass_rate, const Time& time) noexcept;
 
   constexpr Mass(const MassRate& mass_rate,
                  const Frequency& frequency) noexcept;
@@ -105,9 +105,9 @@ public:
 
   inline MassDensity operator/(const Volume& volume) const noexcept;
 
-  inline MassRate operator/(const Duration& duration) const noexcept;
+  inline MassRate operator/(const Time& time) const noexcept;
 
-  inline Duration operator/(const MassRate& mass_rate) const noexcept;
+  inline Time operator/(const MassRate& mass_rate) const noexcept;
 
   inline constexpr void operator+=(const Mass& mass) noexcept {
     value_ += mass.value_;

@@ -24,7 +24,7 @@ public:
 
   StrainRate(const Value::SymmetricDyad& value, Unit::Frequency unit) noexcept : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  constexpr StrainRate(const Strain& strain, const Duration& duration) noexcept : StrainRate(strain.Value() / duration.Value()) {}
+  constexpr StrainRate(const Strain& strain, const Time& time) noexcept : StrainRate(strain.Value() / time.Value()) {}
 
   constexpr StrainRate(const Strain& strain, const Frequency& frequency) noexcept : StrainRate(strain.Value() * frequency.Value()) {}
 
@@ -54,8 +54,8 @@ public:
     value_ -= strain_rate.value_;
   }
 
-  Strain operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Strain operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Strain operator/(const Frequency& frequency) const noexcept {
@@ -68,7 +68,7 @@ protected:
 
 };
 
-constexpr Strain::Strain(const StrainRate& strain_rate, const Duration& duration) noexcept : Strain(strain_rate.Value() * duration.Value()) {}
+constexpr Strain::Strain(const StrainRate& strain_rate, const Time& time) noexcept : Strain(strain_rate.Value() * time.Value()) {}
 
 constexpr Strain::Strain(const StrainRate& strain_rate, const Frequency& frequency) noexcept : Strain(strain_rate.Value() / frequency.Value()) {}
 
@@ -76,11 +76,11 @@ StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-StrainRate Strain::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+StrainRate Strain::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-Strain Duration::operator*(const StrainRate& strain_rate) const noexcept {
+Strain Time::operator*(const StrainRate& strain_rate) const noexcept {
   return {strain_rate, *this};
 }
 

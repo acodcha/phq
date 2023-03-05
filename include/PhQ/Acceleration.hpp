@@ -21,7 +21,7 @@ public:
 
   constexpr Acceleration(const AccelerationMagnitude& acceleration_magnitude, const Direction& direction) noexcept : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
 
-  constexpr Acceleration(const Velocity& velocity, const Duration& duration) noexcept : Acceleration(velocity.Value() / duration.Value()) {}
+  constexpr Acceleration(const Velocity& velocity, const Time& time) noexcept : Acceleration(velocity.Value() / time.Value()) {}
 
   constexpr Acceleration(const Velocity& velocity, const Frequency& frequency) noexcept : Acceleration(velocity.Value() * frequency.Value()) {}
 
@@ -57,8 +57,8 @@ public:
     value_ -= acceleration.value_;
   }
 
-  Velocity operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Velocity operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Velocity operator/(const Frequency& frequency) const noexcept {
@@ -77,7 +77,7 @@ Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleratio
 
 AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration) noexcept : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 
-constexpr Velocity::Velocity(const Acceleration& acceleration, const Duration& duration) noexcept : Velocity(acceleration.Value() * duration.Value()) {}
+constexpr Velocity::Velocity(const Acceleration& acceleration, const Time& time) noexcept : Velocity(acceleration.Value() * time.Value()) {}
 
 constexpr Velocity::Velocity(const Acceleration& acceleration, const Frequency& frequency) noexcept : Velocity(acceleration.Value() / frequency.Value()) {}
 
@@ -93,8 +93,8 @@ Acceleration Velocity::operator*(const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-Acceleration Velocity::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+Acceleration Velocity::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
 } // namespace PhQ

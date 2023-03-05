@@ -20,7 +20,7 @@ public:
 
   MassRate(double value, Unit::MassRate unit) noexcept : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
-  constexpr MassRate(const Mass& mass, const Duration& duration) noexcept : MassRate(mass.Value() / duration.Value()) {}
+  constexpr MassRate(const Mass& mass, const Time& time) noexcept : MassRate(mass.Value() / time.Value()) {}
 
   constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept : MassRate(mass.Value() * frequency.Value()) {}
 
@@ -68,8 +68,8 @@ public:
     return {*this, mass};
   }
 
-  Mass operator*(const Duration& duration) const noexcept {
-    return {*this, duration};
+  Mass operator*(const Time& time) const noexcept {
+    return {*this, time};
   }
 
   Mass operator/(const Frequency& frequency) const noexcept {
@@ -82,15 +82,15 @@ protected:
 
 };
 
-constexpr Duration::Duration(const MassRate& mass_rate, const Mass& mass) noexcept : Duration(mass.Value() / mass_rate.Value()) {}
+constexpr Time::Time(const MassRate& mass_rate, const Mass& mass) noexcept : Time(mass.Value() / mass_rate.Value()) {}
 
 constexpr Frequency::Frequency(const MassRate& mass_rate, const Mass& mass) noexcept : Frequency(mass_rate.Value() / mass.Value()) {}
 
-constexpr Mass::Mass(const MassRate& mass_rate, const Duration& duration) noexcept : Mass(mass_rate.Value() * duration.Value()) {}
+constexpr Mass::Mass(const MassRate& mass_rate, const Time& time) noexcept : Mass(mass_rate.Value() * time.Value()) {}
 
 constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency) noexcept : Mass(mass_rate.Value() / frequency.Value()) {}
 
-Mass Duration::operator*(const MassRate& mass_rate) const noexcept {
+Mass Time::operator*(const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 
@@ -102,11 +102,11 @@ MassRate Frequency::operator*(const Mass& mass) const noexcept {
   return {mass, *this};
 }
 
-MassRate Mass::operator/(const Duration& duration) const noexcept {
-  return {*this, duration};
+MassRate Mass::operator/(const Time& time) const noexcept {
+  return {*this, time};
 }
 
-Duration Mass::operator/(const MassRate& mass_rate) const noexcept {
+Time Mass::operator/(const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 
