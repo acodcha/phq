@@ -84,6 +84,10 @@ if(BUILD_TESTING)
   target_link_libraries(old_thermodynamic_state_models GTest::gtest_main)
   gtest_discover_tests(old_thermodynamic_state_models)
 
+  add_executable(acceleration_magnitude ${PROJECT_SOURCE_DIR}/test/AccelerationMagnitude.cpp)
+  target_link_libraries(acceleration_magnitude GTest::gtest_main)
+  gtest_discover_tests(acceleration_magnitude)
+
   add_executable(angle ${PROJECT_SOURCE_DIR}/test/Angle.cpp)
   target_link_libraries(angle GTest::gtest_main)
   gtest_discover_tests(angle)
