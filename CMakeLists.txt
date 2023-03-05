@@ -140,6 +140,10 @@ if(BUILD_TESTING)
   target_link_libraries(direction GTest::gtest_main)
   gtest_discover_tests(direction)
 
+  add_executable(displacement ${PROJECT_SOURCE_DIR}/test/Displacement.cpp)
+  target_link_libraries(displacement GTest::gtest_main)
+  gtest_discover_tests(displacement)
+
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
