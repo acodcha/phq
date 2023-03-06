@@ -85,6 +85,10 @@ Acceleration Direction::operator*(const AccelerationMagnitude& acceleration_magn
   return {acceleration_magnitude, *this};
 }
 
+inline Velocity Time::operator*(const Acceleration& acceleration) const noexcept {
+  return {acceleration, *this};
+}
+
 Acceleration AccelerationMagnitude::operator*(const Direction& direction) const noexcept {
   return {*this, direction};
 }

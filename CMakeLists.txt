@@ -316,6 +316,10 @@ if(BUILD_TESTING)
   target_link_libraries(value_vector GTest::gtest_main)
   gtest_discover_tests(value_vector)
 
+  add_executable(velocity ${PROJECT_SOURCE_DIR}/test/Velocity.cpp)
+  target_link_libraries(velocity GTest::gtest_main)
+  gtest_discover_tests(velocity)
+
   add_executable(volume ${PROJECT_SOURCE_DIR}/test/Volume.cpp)
   target_link_libraries(volume GTest::gtest_main)
   gtest_discover_tests(volume)
