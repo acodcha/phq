@@ -76,6 +76,10 @@ if(BUILD_TESTING)
 
   # With GoogleTest, use gtest_discover_tests(my_test) instead of add_test(NAME my_test COMMAND bin/my_test)
 
+  add_executable(acceleration ${PROJECT_SOURCE_DIR}/test/Acceleration.cpp)
+  target_link_libraries(acceleration GTest::gtest_main)
+  gtest_discover_tests(acceleration)
+
   add_executable(acceleration_magnitude ${PROJECT_SOURCE_DIR}/test/AccelerationMagnitude.cpp)
   target_link_libraries(acceleration_magnitude GTest::gtest_main)
   gtest_discover_tests(acceleration_magnitude)
