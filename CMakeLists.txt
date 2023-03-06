@@ -164,6 +164,10 @@ if(BUILD_TESTING)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
 
+  add_executable(mass_density ${PROJECT_SOURCE_DIR}/test/MassDensity.cpp)
+  target_link_libraries(mass_density GTest::gtest_main)
+  gtest_discover_tests(mass_density)
+
   add_executable(mass_rate ${PROJECT_SOURCE_DIR}/test/MassRate.cpp)
   target_link_libraries(mass_rate GTest::gtest_main)
   gtest_discover_tests(mass_rate)
