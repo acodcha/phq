@@ -332,6 +332,10 @@ if(BUILD_TESTING)
   target_link_libraries(volume GTest::gtest_main)
   gtest_discover_tests(volume)
 
+  add_executable(volume_rate ${PROJECT_SOURCE_DIR}/test/VolumeRate.cpp)
+  target_link_libraries(volume_rate GTest::gtest_main)
+  gtest_discover_tests(volume_rate)
+
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()
   message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_TESTING=ON\" to configure testing.")
