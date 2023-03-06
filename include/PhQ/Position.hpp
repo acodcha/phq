@@ -27,6 +27,9 @@ public:
   Position(const Value::Vector& value, const Unit::Length unit) noexcept
       : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
+  constexpr Position(const Length& length, const Direction& direction) noexcept
+      : Position(length.Value() * direction.Value()) {}
+
   explicit constexpr Position(const Displacement& displacement) noexcept
       : Position(displacement.Value()) {}
 
@@ -133,6 +136,14 @@ inline Position Displacement::operator+(
 inline Position Displacement::operator-(
     const Position& position) const noexcept {
   return Position{value_ - position.Value()};
+}
+
+inline Position Direction::operator*(const Length& length) const noexcept {
+  return {length, *this};
+}
+
+inline Position Length::operator*(const Direction& direction) const noexcept {
+  return {*this, direction};
 }
 
 }  // namespace PhQ

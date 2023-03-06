@@ -77,7 +77,7 @@ public:
 
   inline Speed operator*(const Frequency& frequency) const noexcept;
 
-  inline Displacement operator*(const Direction& direction) const noexcept;
+  inline Position operator*(const Direction& direction) const noexcept;
 
   inline Length operator/(const double number) const noexcept {
     return Length{value_ / number};

@@ -134,15 +134,6 @@ inline Angle::Angle(const Displacement& displacement1,
 inline Length::Length(const Displacement& displacement) noexcept
     : Length(displacement.Value().Magnitude()) {}
 
-inline Displacement Direction::operator*(const Length& length) const noexcept {
-  return {length, *this};
-}
-
-inline Displacement Length::operator*(
-    const Direction& direction) const noexcept {
-  return {*this, direction};
-}
-
 }  // namespace PhQ
 
 namespace std {
