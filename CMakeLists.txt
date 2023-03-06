@@ -112,6 +112,10 @@ if(BUILD_TESTING)
   target_link_libraries(base_string GTest::gtest_main)
   gtest_discover_tests(base_string)
 
+  add_executable(bulk_dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/BulkDynamicViscosity.cpp)
+  target_link_libraries(bulk_dynamic_viscosity GTest::gtest_main)
+  gtest_discover_tests(bulk_dynamic_viscosity)
+
   add_executable(dimension_electric_current ${PROJECT_SOURCE_DIR}/test/Dimension/ElectricCurrent.cpp)
   target_link_libraries(dimension_electric_current GTest::gtest_main)
   gtest_discover_tests(dimension_electric_current)
@@ -163,6 +167,14 @@ if(BUILD_TESTING)
   add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
+
+  add_executable(mass_density ${PROJECT_SOURCE_DIR}/test/MassDensity.cpp)
+  target_link_libraries(mass_density GTest::gtest_main)
+  gtest_discover_tests(mass_density)
+
+  add_executable(mass_rate ${PROJECT_SOURCE_DIR}/test/MassRate.cpp)
+  target_link_libraries(mass_rate GTest::gtest_main)
+  gtest_discover_tests(mass_rate)
 
   add_executable(position ${PROJECT_SOURCE_DIR}/test/Position.cpp)
   target_link_libraries(position GTest::gtest_main)

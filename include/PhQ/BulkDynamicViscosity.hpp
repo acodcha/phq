@@ -1,78 +1,130 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BULK_DYNAMIC_VISCOSITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BULK_DYNAMIC_VISCOSITY_HPP
 
 #include "Quantity/DimensionalScalar.hpp"
 #include "Unit/DynamicViscosity.hpp"
 
 namespace PhQ {
 
-class BulkDynamicViscosity : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
-
+class BulkDynamicViscosity
+    : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
+  constexpr BulkDynamicViscosity() noexcept
+      : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  constexpr BulkDynamicViscosity() noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
+  BulkDynamicViscosity(const double value,
+                       const Unit::DynamicViscosity unit) noexcept
+      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
-  BulkDynamicViscosity(double value, Unit::DynamicViscosity unit) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
-
-  constexpr bool operator==(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ == bulk_dynamic_viscosity.value_;
+  inline BulkDynamicViscosity operator+(
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+    return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};
   }
 
-  constexpr bool operator!=(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ != bulk_dynamic_viscosity.value_;
+  inline BulkDynamicViscosity operator-(
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+    return BulkDynamicViscosity{value_ - bulk_dynamic_viscosity.value_};
   }
 
-  constexpr bool operator<(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ < bulk_dynamic_viscosity.value_;
+  inline BulkDynamicViscosity operator*(const double number) const noexcept {
+    return BulkDynamicViscosity{value_ * number};
   }
 
-  constexpr bool operator<=(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ <= bulk_dynamic_viscosity.value_;
+  inline BulkDynamicViscosity operator/(const double number) const noexcept {
+    return BulkDynamicViscosity{value_ / number};
   }
 
-  constexpr bool operator>(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ > bulk_dynamic_viscosity.value_;
-  }
-
-  constexpr bool operator>=(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ >= bulk_dynamic_viscosity.value_;
-  }
-
-  BulkDynamicViscosity operator+(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return {value_ + bulk_dynamic_viscosity.value_};
-  }
-
-  constexpr void operator+=(const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
+  inline constexpr void operator+=(
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
     value_ += bulk_dynamic_viscosity.value_;
   }
 
-  BulkDynamicViscosity operator-(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return {value_ - bulk_dynamic_viscosity.value_};
-  }
-
-  constexpr void operator-=(const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
+  inline constexpr void operator-=(
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
     value_ -= bulk_dynamic_viscosity.value_;
   }
 
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
+
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
+
 private:
-
-  constexpr BulkDynamicViscosity(double value) noexcept : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
-
+  explicit constexpr BulkDynamicViscosity(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };
 
-} // namespace PhQ
+inline constexpr bool operator==(const BulkDynamicViscosity& left,
+                                 const BulkDynamicViscosity& right) noexcept {
+  return left.Value() == right.Value();
+}
+
+inline constexpr bool operator!=(const BulkDynamicViscosity& left,
+                                 const BulkDynamicViscosity& right) noexcept {
+  return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(const BulkDynamicViscosity& left,
+                                const BulkDynamicViscosity& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const BulkDynamicViscosity& left,
+                                const BulkDynamicViscosity& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const BulkDynamicViscosity& left,
+                                 const BulkDynamicViscosity& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const BulkDynamicViscosity& left,
+                                 const BulkDynamicViscosity& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(
+    std::ostream& stream, const BulkDynamicViscosity& mass_density) noexcept {
+  stream << mass_density.Print();
+  return stream;
+}
+
+inline BulkDynamicViscosity operator*(
+    const double number, const BulkDynamicViscosity& mass_density) noexcept {
+  return mass_density * number;
+}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::BulkDynamicViscosity> {
-  size_t operator()(const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
+template <>
+struct hash<PhQ::BulkDynamicViscosity> {
+  size_t operator()(
+      const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return hash<double>()(bulk_dynamic_viscosity.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BULK_DYNAMIC_VISCOSITY_HPP
