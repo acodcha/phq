@@ -58,10 +58,6 @@ TEST(Displacement, Arithmetic) {
             Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
   EXPECT_EQ(displacement0 / 2.0,
             Displacement({0.5, 1.0, 2.0}, Unit::Length::Metre));
-  EXPECT_EQ(direction * length,
-            Displacement({0.0, -2.0, 0.0}, Unit::Length::Metre));
-  EXPECT_EQ(length * direction,
-            Displacement({0.0, -2.0, 0.0}, Unit::Length::Metre));
 
   Displacement displacement1{{1.0, 2.0, 4.0}, Unit::Length::Metre};
   displacement1 += Displacement{{1.0, 2.0, 4.0}, Unit::Length::Metre};

@@ -59,6 +59,10 @@ TEST(Position, Arithmetic) {
             Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
   EXPECT_EQ(position0 * 2.0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
   EXPECT_EQ(2.0 * position0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
+  EXPECT_EQ(direction * length,
+            Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(length * direction,
+            Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
   EXPECT_EQ(position0 / 2.0, Position({0.5, 1.0, 2.0}, Unit::Length::Metre));
 
   Position position1{{1.0, 2.0, 4.0}, Unit::Length::Metre};

@@ -145,7 +145,7 @@ public:
 
   inline AreaVector operator*(const Area& area) const noexcept;
 
-  inline Displacement operator*(const Length& length) const noexcept;
+  inline Position operator*(const Length& length) const noexcept;
 
   inline Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
 

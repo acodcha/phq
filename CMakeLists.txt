@@ -76,6 +76,10 @@ if(BUILD_TESTING)
 
   # With GoogleTest, use gtest_discover_tests(my_test) instead of add_test(NAME my_test COMMAND bin/my_test)
 
+  add_executable(acceleration ${PROJECT_SOURCE_DIR}/test/Acceleration.cpp)
+  target_link_libraries(acceleration GTest::gtest_main)
+  gtest_discover_tests(acceleration)
+
   add_executable(acceleration_magnitude ${PROJECT_SOURCE_DIR}/test/AccelerationMagnitude.cpp)
   target_link_libraries(acceleration_magnitude GTest::gtest_main)
   gtest_discover_tests(acceleration_magnitude)
@@ -95,6 +99,10 @@ if(BUILD_TESTING)
   add_executable(area ${PROJECT_SOURCE_DIR}/test/Area.cpp)
   target_link_libraries(area GTest::gtest_main)
   gtest_discover_tests(area)
+
+  add_executable(area_vector ${PROJECT_SOURCE_DIR}/test/AreaVector.cpp)
+  target_link_libraries(area_vector GTest::gtest_main)
+  gtest_discover_tests(area_vector)
 
   add_executable(base_constant ${PROJECT_SOURCE_DIR}/test/Base/Constant.cpp)
   target_link_libraries(base_constant GTest::gtest_main)
@@ -316,9 +324,17 @@ if(BUILD_TESTING)
   target_link_libraries(value_vector GTest::gtest_main)
   gtest_discover_tests(value_vector)
 
+  add_executable(velocity ${PROJECT_SOURCE_DIR}/test/Velocity.cpp)
+  target_link_libraries(velocity GTest::gtest_main)
+  gtest_discover_tests(velocity)
+
   add_executable(volume ${PROJECT_SOURCE_DIR}/test/Volume.cpp)
   target_link_libraries(volume GTest::gtest_main)
   gtest_discover_tests(volume)
+
+  add_executable(volume_rate ${PROJECT_SOURCE_DIR}/test/VolumeRate.cpp)
+  target_link_libraries(volume_rate GTest::gtest_main)
+  gtest_discover_tests(volume_rate)
 
   message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
 else()

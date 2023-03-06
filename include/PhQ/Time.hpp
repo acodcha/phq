@@ -22,10 +22,12 @@
 namespace PhQ {
 
 // Forward declarations for class Time.
+class Acceleration;
 class AccelerationMagnitude;
 class Angle;
 class AngularAccelerationMagnitude;
 class AngularSpeed;
+class Displacement;
 class Energy;
 class Frequency;
 class Length;
@@ -39,6 +41,7 @@ class SpecificPower;
 class Speed;
 class Strain;
 class StrainRate;
+class Velocity;
 class Volume;
 class VolumeRate;
 
@@ -101,6 +104,10 @@ public:
       const SpecificPower& specific_power) const noexcept;
 
   inline Strain operator*(const StrainRate& strain_rate) const noexcept;
+
+  inline Displacement operator*(const Velocity& velocity) const noexcept;
+
+  inline Velocity operator*(const Acceleration& acceleration) const noexcept;
 
   inline Time operator/(const double number) const noexcept {
     return Time{value_ / number};
