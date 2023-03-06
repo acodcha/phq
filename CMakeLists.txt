@@ -100,6 +100,10 @@ if(BUILD_TESTING)
   target_link_libraries(area GTest::gtest_main)
   gtest_discover_tests(area)
 
+  add_executable(area_vector ${PROJECT_SOURCE_DIR}/test/AreaVector.cpp)
+  target_link_libraries(area_vector GTest::gtest_main)
+  gtest_discover_tests(area_vector)
+
   add_executable(base_constant ${PROJECT_SOURCE_DIR}/test/Base/Constant.cpp)
   target_link_libraries(base_constant GTest::gtest_main)
   gtest_discover_tests(base_constant)
