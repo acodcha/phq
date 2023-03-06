@@ -112,6 +112,10 @@ if(BUILD_TESTING)
   target_link_libraries(base_string GTest::gtest_main)
   gtest_discover_tests(base_string)
 
+  add_executable(bulk_dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/BulkDynamicViscosity.cpp)
+  target_link_libraries(bulk_dynamic_viscosity GTest::gtest_main)
+  gtest_discover_tests(bulk_dynamic_viscosity)
+
   add_executable(dimension_electric_current ${PROJECT_SOURCE_DIR}/test/Dimension/ElectricCurrent.cpp)
   target_link_libraries(dimension_electric_current GTest::gtest_main)
   gtest_discover_tests(dimension_electric_current)
