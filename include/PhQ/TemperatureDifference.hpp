@@ -1,17 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_TEMPERATURE_DIFFERENCE_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_TEMPERATURE_DIFFERENCE_HPP
 
 #include "Quantity/DimensionalScalar.hpp"
 #include "Unit/TemperatureDifference.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class TemperatureDifference.
 class Length;
 class LinearThermalExpansionCoefficient;
 class StrainScalar;
@@ -19,82 +29,133 @@ class Temperature;
 class TemperatureGradientMagnitude;
 class VolumetricThermalExpansionCoefficient;
 
-class TemperatureDifference : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
-
+class TemperatureDifference
+    : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 public:
+  constexpr TemperatureDifference() noexcept
+      : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
 
-  constexpr TemperatureDifference() noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
+  TemperatureDifference(const double value,
+                        const Unit::TemperatureDifference unit) noexcept
+      : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
-  TemperatureDifference(double value, Unit::TemperatureDifference unit) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
+  constexpr TemperatureDifference(
+      const TemperatureGradientMagnitude& temperature_gradient_magnitude,
+      const Length& length) noexcept;
 
-  constexpr TemperatureDifference(const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length) noexcept;
+  inline Temperature operator+(const Temperature& temperature) const noexcept;
 
-  constexpr bool operator==(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ == temperature_difference.value_;
+  inline TemperatureDifference operator+(
+      const TemperatureDifference& temperature_difference) const noexcept {
+    return TemperatureDifference{value_ + temperature_difference.value_};
   }
 
-  constexpr bool operator!=(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ != temperature_difference.value_;
+  inline Temperature operator-(const Temperature& temperature) const noexcept;
+
+  inline TemperatureDifference operator-(
+      const TemperatureDifference& temperature_difference) const noexcept {
+    return TemperatureDifference{value_ - temperature_difference.value_};
   }
 
-  constexpr bool operator<(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ < temperature_difference.value_;
+  inline TemperatureDifference operator*(const double number) const noexcept {
+    return TemperatureDifference{value_ * number};
   }
 
-  constexpr bool operator<=(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ <= temperature_difference.value_;
+  inline StrainScalar operator*(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) const noexcept;
+
+  inline constexpr double operator*(
+      const VolumetricThermalExpansionCoefficient&
+          volumetric_thermal_expansion_coefficient) const noexcept;
+
+  inline TemperatureDifference operator/(const double number) const noexcept {
+    return TemperatureDifference{value_ / number};
   }
 
-  constexpr bool operator>(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ > temperature_difference.value_;
-  }
+  inline TemperatureGradientMagnitude operator/(
+      const Length& length) const noexcept;
 
-  constexpr bool operator>=(const TemperatureDifference& temperature_difference) const noexcept {
-    return value_ >= temperature_difference.value_;
-  }
-
-  Temperature operator+(const Temperature& temperature) const noexcept;
-
-  TemperatureDifference operator+(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ + temperature_difference.value_};
-  }
-
-  constexpr void operator+=(const TemperatureDifference& temperature_difference) noexcept {
+  inline constexpr void operator+=(
+      const TemperatureDifference& temperature_difference) noexcept {
     value_ += temperature_difference.value_;
   }
 
-  Temperature operator-(const Temperature& temperature) const noexcept;
-
-  TemperatureDifference operator-(const TemperatureDifference& temperature_difference) const noexcept {
-    return {value_ - temperature_difference.value_};
-  }
-
-  constexpr void operator-=(const TemperatureDifference& temperature_difference) noexcept {
+  inline constexpr void operator-=(
+      const TemperatureDifference& temperature_difference) noexcept {
     value_ -= temperature_difference.value_;
   }
 
-  StrainScalar operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept;
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr double operator*(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const noexcept;
-
-  TemperatureGradientMagnitude operator/(const Length& length) const noexcept;
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
-
-  constexpr TemperatureDifference(double value) noexcept : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
+  explicit constexpr TemperatureDifference(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
-
 };
 
-} // namespace PhQ
+inline constexpr bool operator==(const TemperatureDifference& left,
+                                 const TemperatureDifference& right) noexcept {
+  return left.Value() == right.Value();
+}
+
+inline constexpr bool operator!=(const TemperatureDifference& left,
+                                 const TemperatureDifference& right) noexcept {
+  return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(const TemperatureDifference& left,
+                                const TemperatureDifference& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const TemperatureDifference& left,
+                                const TemperatureDifference& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const TemperatureDifference& left,
+                                 const TemperatureDifference& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const TemperatureDifference& left,
+                                 const TemperatureDifference& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(
+    std::ostream& stream,
+    const TemperatureDifference& temperature_difference) noexcept {
+  stream << temperature_difference.Print();
+  return stream;
+}
+
+inline TemperatureDifference operator*(
+    const double number,
+    const TemperatureDifference& temperature_difference) noexcept {
+  return temperature_difference * number;
+}
+
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::TemperatureDifference> {
-  size_t operator()(const PhQ::TemperatureDifference& temperature_difference) const {
+template <>
+struct hash<PhQ::TemperatureDifference> {
+  size_t operator()(
+      const PhQ::TemperatureDifference& temperature_difference) const {
     return hash<double>()(temperature_difference.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_TEMPERATURE_DIFFERENCE_HPP

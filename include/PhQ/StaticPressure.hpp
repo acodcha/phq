@@ -1,17 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STATIC_PRESSURE_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STATIC_PRESSURE_HPP
 
 #include "ForceMagnitude.hpp"
 #include "PressureDifference.hpp"
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class StaticPressure.
 class Direction;
 class DynamicPressure;
 class StaticKinematicPressure;
@@ -20,125 +30,183 @@ class TotalPressure;
 class Traction;
 
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
-
 public:
+  constexpr StaticPressure() noexcept
+      : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  constexpr StaticPressure() noexcept : DimensionalScalarQuantity<Unit::Pressure>() {}
+  StaticPressure(const double value, const Unit::Pressure unit) noexcept
+      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  StaticPressure(double value, Unit::Pressure unit) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
-
-  constexpr StaticPressure(const ForceMagnitude& force_magnitude, const Area& area) noexcept : StaticPressure(force_magnitude.Value() / area.Value()) {}
+  constexpr StaticPressure(const ForceMagnitude& force_magnitude,
+                           const Area& area) noexcept
+      : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
   StaticPressure(const Traction& traction) noexcept;
 
-  constexpr StaticPressure(const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure) noexcept;
+  constexpr StaticPressure(const TotalPressure& total_pressure,
+                           const DynamicPressure& dynamic_pressure) noexcept;
 
-  constexpr StaticPressure(const StaticKinematicPressure& static_kinematic_pressure, const MassDensity& mass_density) noexcept;
+  constexpr StaticPressure(
+      const StaticKinematicPressure& static_kinematic_pressure,
+      const MassDensity& mass_density) noexcept;
 
-  PhQ::Stress Stress() const noexcept;
+  inline PhQ::Stress Stress() const noexcept;
 
-  constexpr bool operator==(const StaticPressure& static_pressure) const noexcept {
-    return value_ == static_pressure.value_;
+  inline StaticPressure operator+(
+      const StaticPressure& static_pressure) const noexcept {
+    return StaticPressure{value_ + static_pressure.value_};
   }
 
-  constexpr bool operator!=(const StaticPressure& static_pressure) const noexcept {
-    return value_ != static_pressure.value_;
+  inline StaticPressure operator+(
+      const PressureDifference& pressure_difference) const noexcept {
+    return StaticPressure{value_ + pressure_difference.Value()};
   }
 
-  constexpr bool operator<(const StaticPressure& static_pressure) const noexcept {
-    return value_ < static_pressure.value_;
+  inline TotalPressure operator+(
+      const DynamicPressure& dynamic_pressure) const noexcept;
+
+  inline PressureDifference operator-(
+      const StaticPressure& static_pressure) const noexcept {
+    return PressureDifference{value_ - static_pressure.value_};
   }
 
-  constexpr bool operator<=(const StaticPressure& static_pressure) const noexcept {
-    return value_ <= static_pressure.value_;
+  inline StaticPressure operator-(
+      const PressureDifference& pressure_difference) const noexcept {
+    return StaticPressure{value_ - pressure_difference.Value()};
   }
 
-  constexpr bool operator>(const StaticPressure& static_pressure) const noexcept {
-    return value_ > static_pressure.value_;
+  inline StaticPressure operator*(const double number) const noexcept {
+    return StaticPressure{value_ * number};
   }
 
-  constexpr bool operator>=(const StaticPressure& static_pressure) const noexcept {
-    return value_ >= static_pressure.value_;
-  }
-
-  StaticPressure operator+(const StaticPressure& static_pressure) const noexcept {
-    return {value_ + static_pressure.value_};
-  }
-
-  StaticPressure operator+(const PressureDifference& pressure_difference) const noexcept {
-    return {value_ + pressure_difference.Value()};
-  }
-
-  TotalPressure operator+(const DynamicPressure& dynamic_pressure) const noexcept;
-
-  constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
-    value_ += static_pressure.value_;
-  }
-
-  constexpr void operator+=(const PressureDifference& pressure_difference) noexcept {
-    value_ += pressure_difference.Value();
-  }
-
-  PressureDifference operator-(const StaticPressure& static_pressure) const noexcept {
-    return {value_ - static_pressure.value_};
-  }
-
-  StaticPressure operator-(const PressureDifference& pressure_difference) const noexcept {
-    return {value_ - pressure_difference.Value()};
-  }
-
-  constexpr void operator-=(const StaticPressure& static_pressure) noexcept {
-    value_ -= static_pressure.value_;
-  }
-
-  constexpr void operator-=(const PressureDifference& pressure_difference) noexcept {
-    value_ -= pressure_difference.Value();
-  }
-
-  ForceMagnitude operator*(const Area& area) const noexcept {
+  inline ForceMagnitude operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
-  Traction operator*(const Direction& direction) const noexcept;
+  inline Traction operator*(const Direction& direction) const noexcept;
 
-  StaticKinematicPressure operator/(const MassDensity& mass_density) const noexcept;
+  inline StaticPressure operator/(const double number) const noexcept {
+    return StaticPressure{value_ / number};
+  }
+
+  inline StaticKinematicPressure operator/(
+      const MassDensity& mass_density) const noexcept;
+
+  inline constexpr void operator+=(
+      const StaticPressure& static_pressure) noexcept {
+    value_ += static_pressure.value_;
+  }
+
+  inline constexpr void operator+=(
+      const PressureDifference& pressure_difference) noexcept {
+    value_ += pressure_difference.Value();
+  }
+
+  inline constexpr void operator-=(
+      const StaticPressure& static_pressure) noexcept {
+    value_ -= static_pressure.value_;
+  }
+
+  inline constexpr void operator-=(
+      const PressureDifference& pressure_difference) noexcept {
+    value_ -= pressure_difference.Value();
+  }
+
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
+
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
-
-  constexpr StaticPressure(double value) noexcept : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr StaticPressure(const double value) noexcept
+      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class PressureDifference;
-
 };
 
-constexpr Area::Area(const StaticPressure& static_pressure, const ForceMagnitude& force_magnitude) noexcept : Area(force_magnitude.Value() / static_pressure.Value()) {}
+inline constexpr bool operator==(const StaticPressure& left,
+                                 const StaticPressure& right) noexcept {
+  return left.Value() == right.Value();
+}
 
-constexpr ForceMagnitude::ForceMagnitude(const StaticPressure& static_pressure, const Area& area) noexcept : ForceMagnitude(static_pressure.Value() * area.Value()) {}
+inline constexpr bool operator!=(const StaticPressure& left,
+                                 const StaticPressure& right) noexcept {
+  return left.Value() != right.Value();
+}
 
-ForceMagnitude Area::operator*(const StaticPressure& static_pressure) const noexcept {
+inline constexpr bool operator<(const StaticPressure& left,
+                                const StaticPressure& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const StaticPressure& left,
+                                const StaticPressure& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const StaticPressure& left,
+                                 const StaticPressure& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const StaticPressure& left,
+                                 const StaticPressure& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(
+    std::ostream& stream, const StaticPressure& static_pressure) noexcept {
+  stream << static_pressure.Print();
+  return stream;
+}
+
+inline StaticPressure operator*(
+    const double number, const StaticPressure& static_pressure) noexcept {
+  return static_pressure * number;
+}
+
+inline constexpr Area::Area(const StaticPressure& static_pressure,
+                            const ForceMagnitude& force_magnitude) noexcept
+    : Area(force_magnitude.Value() / static_pressure.Value()) {}
+
+inline constexpr ForceMagnitude::ForceMagnitude(
+    const StaticPressure& static_pressure, const Area& area) noexcept
+    : ForceMagnitude(static_pressure.Value() * area.Value()) {}
+
+inline ForceMagnitude Area::operator*(
+    const StaticPressure& static_pressure) const noexcept {
   return {static_pressure, *this};
 }
 
-StaticPressure ForceMagnitude::operator/(const Area& area) const noexcept {
+inline StaticPressure ForceMagnitude::operator/(
+    const Area& area) const noexcept {
   return {*this, area};
 }
 
-StaticPressure PressureDifference::operator+(const StaticPressure& static_pressure) const noexcept {
-  return {value_ + static_pressure.Value()};
+inline StaticPressure PressureDifference::operator+(
+    const StaticPressure& static_pressure) const noexcept {
+  return StaticPressure{value_ + static_pressure.Value()};
 }
 
-StaticPressure PressureDifference::operator-(const StaticPressure& static_pressure) const noexcept {
-  return {value_ - static_pressure.Value()};
+inline StaticPressure PressureDifference::operator-(
+    const StaticPressure& static_pressure) const noexcept {
+  return StaticPressure{value_ - static_pressure.Value()};
 }
 
-} // namespace PhQ
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::StaticPressure> {
+template <>
+struct hash<PhQ::StaticPressure> {
   size_t operator()(const PhQ::StaticPressure& static_pressure) const {
     return hash<double>()(static_pressure.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_STATIC_PRESSURE_HPP

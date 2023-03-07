@@ -30,7 +30,9 @@ public:
                    const Unit::Frequency& unit) noexcept
       : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  inline PhQ::StrainRate StrainRate() const noexcept { return {*this}; }
+  inline PhQ::StrainRate StrainRate() const noexcept {
+    return PhQ::StrainRate{*this};
+  }
 
   inline VelocityGradient operator+(
       const VelocityGradient& velocity_gradient) const noexcept {

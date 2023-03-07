@@ -28,7 +28,7 @@ public:
   explicit constexpr DisplacementGradient(const Value::Dyad& value) noexcept
       : DimensionlessDyadQuantity(value) {}
 
-  inline Strain Strain() const noexcept { return {*this}; }
+  inline PhQ::Strain Strain() const noexcept { return PhQ::Strain{*this}; }
 
   inline DisplacementGradient operator+(
       const DisplacementGradient& displacement_gradient) const noexcept {
