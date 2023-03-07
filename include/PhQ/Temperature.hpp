@@ -40,7 +40,7 @@ public:
 
   inline TemperatureDifference operator-(
       const Temperature& temperature) const noexcept {
-    return {value_ - temperature.value_};
+    return TemperatureDifference{value_ - temperature.value_};
   }
 
   inline Temperature operator-(
