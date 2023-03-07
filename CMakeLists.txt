@@ -160,6 +160,10 @@ if(BUILD_TESTING)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
 
+  add_executable(kinematic_viscosity ${PROJECT_SOURCE_DIR}/test/KinematicViscosity.cpp)
+  target_link_libraries(kinematic_viscosity GTest::gtest_main)
+  gtest_discover_tests(kinematic_viscosity)
+
   add_executable(length ${PROJECT_SOURCE_DIR}/test/Length.cpp)
   target_link_libraries(length GTest::gtest_main)
   gtest_discover_tests(length)
