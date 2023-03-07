@@ -1,10 +1,20 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
-// This file is part of Physical Quantities (PhQ), a C++17 header-only library of physical quantities, physical models, and units of measure for scientific computation.
-// Physical Quantities is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// Physical Quantities is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-// You should have received a copy of the GNU Lesser General Public License along with Physical Quantities. If not, see <https://www.gnu.org/licenses/>.
+//
+// This file is part of Physical Quantities (PhQ), a C++ library of physical
+// quantities, physical models, and units of measure for scientific computation.
+//
+// Physical Quantities is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or (at your
+// option) any later version. Physical Quantities is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details. You should have received a
+// copy of the GNU Lesser General Public License along with Physical Quantities.
+// If not, see <https://www.gnu.org/licenses/>.
 
-#pragma once
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_LINEAR_THERMAL_EXPANSION_COEFFICIENT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_LINEAR_THERMAL_EXPANSION_COEFFICIENT_HPP
 
 #include "StrainScalar.hpp"
 #include "Temperature.hpp"
@@ -12,78 +22,145 @@
 
 namespace PhQ {
 
-class LinearThermalExpansionCoefficient : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
-
+class LinearThermalExpansionCoefficient
+    : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
+  constexpr LinearThermalExpansionCoefficient() noexcept
+      : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
-  constexpr LinearThermalExpansionCoefficient() noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
+  LinearThermalExpansionCoefficient(const double value,
+                                    const Unit::ThermalExpansion unit) noexcept
+      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
-  LinearThermalExpansionCoefficient(double value, Unit::ThermalExpansion unit) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
-
-  constexpr bool operator==(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ == linear_thermal_expansion_coefficient.value_;
+  inline LinearThermalExpansionCoefficient operator+(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) const noexcept {
+    return LinearThermalExpansionCoefficient{
+        value_ + linear_thermal_expansion_coefficient.value_};
   }
 
-  constexpr bool operator!=(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ != linear_thermal_expansion_coefficient.value_;
+  inline LinearThermalExpansionCoefficient operator-(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) const noexcept {
+    return LinearThermalExpansionCoefficient{
+        value_ - linear_thermal_expansion_coefficient.value_};
   }
 
-  constexpr bool operator<(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ < linear_thermal_expansion_coefficient.value_;
+  inline LinearThermalExpansionCoefficient operator*(
+      const double number) const noexcept {
+    return LinearThermalExpansionCoefficient{value_ * number};
   }
 
-  constexpr bool operator<=(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ <= linear_thermal_expansion_coefficient.value_;
-  }
-
-  constexpr bool operator>(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ > linear_thermal_expansion_coefficient.value_;
-  }
-
-  constexpr bool operator>=(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return value_ >= linear_thermal_expansion_coefficient.value_;
-  }
-
-  LinearThermalExpansionCoefficient operator+(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return {value_ + linear_thermal_expansion_coefficient.value_};
-  }
-
-  constexpr void operator+=(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) noexcept {
-    value_ += linear_thermal_expansion_coefficient.value_;
-  }
-
-  LinearThermalExpansionCoefficient operator-(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
-    return {value_ - linear_thermal_expansion_coefficient.value_};
-  }
-
-  constexpr void operator-=(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) noexcept {
-    value_ -= linear_thermal_expansion_coefficient.value_;
-  }
-
-  StrainScalar operator*(const TemperatureDifference& temperature_difference) const noexcept {
+  inline StrainScalar operator*(
+      const TemperatureDifference& temperature_difference) const noexcept {
     return {*this, temperature_difference};
   }
 
+  inline LinearThermalExpansionCoefficient operator/(
+      const double number) const noexcept {
+    return LinearThermalExpansionCoefficient{value_ / number};
+  }
+
+  inline constexpr void operator+=(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) noexcept {
+    value_ += linear_thermal_expansion_coefficient.value_;
+  }
+
+  inline constexpr void operator-=(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) noexcept {
+    value_ -= linear_thermal_expansion_coefficient.value_;
+  }
+
+  inline constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
+
+  inline constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
+
 private:
-
-  constexpr LinearThermalExpansionCoefficient(double value) noexcept : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
-
+  explicit constexpr LinearThermalExpansionCoefficient(
+      const double value) noexcept
+      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };
 
-constexpr StrainScalar::StrainScalar(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient, const TemperatureDifference& temperature_difference) noexcept : StrainScalar(linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
+inline constexpr bool operator==(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() == right.Value();
+}
 
-StrainScalar TemperatureDifference::operator*(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const noexcept {
+inline constexpr bool operator!=(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(
+    const LinearThermalExpansionCoefficient& left,
+    const LinearThermalExpansionCoefficient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
+inline std::ostream& operator<<(
+    std::ostream& stream, const LinearThermalExpansionCoefficient&
+                              linear_thermal_expansion_coefficient) noexcept {
+  stream << linear_thermal_expansion_coefficient.Print();
+  return stream;
+}
+
+inline LinearThermalExpansionCoefficient operator*(
+    const double number, const LinearThermalExpansionCoefficient&
+                             linear_thermal_expansion_coefficient) noexcept {
+  return linear_thermal_expansion_coefficient * number;
+}
+
+inline constexpr StrainScalar::StrainScalar(
+    const LinearThermalExpansionCoefficient&
+        linear_thermal_expansion_coefficient,
+    const TemperatureDifference& temperature_difference) noexcept
+    : StrainScalar(linear_thermal_expansion_coefficient.Value() *
+                   temperature_difference.Value()) {}
+
+inline StrainScalar TemperatureDifference::operator*(
+    const LinearThermalExpansionCoefficient&
+        linear_thermal_expansion_coefficient) const noexcept {
   return {linear_thermal_expansion_coefficient, *this};
 }
 
-} // namespace PhQ
+}  // namespace PhQ
 
 namespace std {
 
-template <> struct hash<PhQ::LinearThermalExpansionCoefficient> {
-  size_t operator()(const PhQ::LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const {
+template <>
+struct hash<PhQ::LinearThermalExpansionCoefficient> {
+  size_t operator()(const PhQ::LinearThermalExpansionCoefficient&
+                        linear_thermal_expansion_coefficient) const {
     return hash<double>()(linear_thermal_expansion_coefficient.Value());
   }
 };
 
-} // namespace std
+}  // namespace std
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_LINEAR_THERMAL_EXPANSION_COEFFICIENT_HPP
