@@ -62,7 +62,7 @@ TEST(OldQuantities, Simple) {
   PhQ::Position position1{{10.0, 20.0, 30.0}, PhQ::Unit::Length::Inch};
   std::cout << "Position = " << position1.Print() << " = "
             << position1.Print(PhQ::Unit::Length::Inch)
-            << ". Magnitude = " << position1.magnitude() << "." << std::endl;
+            << ". Magnitude = " << position1.Magnitude() << "." << std::endl;
 
   PhQ::Mass mass1{10.0, PhQ::Unit::Mass::Pound};
   std::cout << mass1.Print() << std::endl;
