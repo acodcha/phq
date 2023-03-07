@@ -143,6 +143,13 @@ public:
             "</specific_isobaric_heat_capacity>"};
   }
 
+  inline std::string Yaml() const noexcept override {
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
+            "\", specific_gas_constant: " + specific_gas_constant_.Json() +
+            "\", specific_isobaric_heat_capacity: " +
+            specific_isobaric_heat_capacity_.Json() + "}"};
+  }
+
 private:
   PhQ::SpecificGasConstant specific_gas_constant_;
 
@@ -175,9 +182,10 @@ template <>
 struct hash<PhQ::ThermodynamicStateModel::IdealGas> {
   size_t operator()(const PhQ::ThermodynamicStateModel::IdealGas& model) const {
     size_t result = 17;
-    result = 31 * result + hash<double>()(model.SpecificGasConstant().Value());
     result = 31 * result +
-             hash<double>()(model.SpecificIsobaricHeatCapacity().Value());
+             hash<PhQ::SpecificGasConstant>()(model.SpecificGasConstant());
+    result = 31 * result + hash<PhQ::SpecificIsobaricHeatCapacity>()(
+                               model.SpecificIsobaricHeatCapacity());
     return result;
   }
 };

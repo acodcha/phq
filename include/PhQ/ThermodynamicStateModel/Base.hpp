@@ -41,6 +41,8 @@ public:
 
   virtual inline std::string Xml() const noexcept = 0;
 
+  virtual inline std::string Yaml() const noexcept = 0;
+
 protected:
   constexpr GenericThermodynamicStateModel() noexcept = default;
 

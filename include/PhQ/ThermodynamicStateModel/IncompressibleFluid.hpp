@@ -65,6 +65,13 @@ public:
             "</specific_isobaric_heat_capacity>"};
   }
 
+  inline std::string Yaml() const noexcept override {
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
+            "\", mass_density: " + mass_density_.Json() +
+            "\", specific_isobaric_heat_capacity: " +
+            specific_isobaric_heat_capacity_.Json() + "}"};
+  }
+
 private:
   PhQ::MassDensity mass_density_;
 
@@ -100,9 +107,9 @@ struct hash<PhQ::ThermodynamicStateModel::IncompressibleFluid> {
   size_t operator()(
       const PhQ::ThermodynamicStateModel::IncompressibleFluid& model) const {
     size_t result = 17;
-    result = 31 * result + hash<double>()(model.MassDensity().Value());
-    result = 31 * result +
-             hash<double>()(model.SpecificIsobaricHeatCapacity().Value());
+    result = 31 * result + hash<PhQ::MassDensity>()(model.MassDensity());
+    result = 31 * result + hash<PhQ::SpecificIsobaricHeatCapacity>()(
+                               model.SpecificIsobaricHeatCapacity());
     return result;
   }
 };
