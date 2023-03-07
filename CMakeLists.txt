@@ -156,6 +156,10 @@ if(BUILD_TESTING)
   target_link_libraries(displacement GTest::gtest_main)
   gtest_discover_tests(displacement)
 
+  add_executable(dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/DynamicViscosity.cpp)
+  target_link_libraries(dynamic_viscosity GTest::gtest_main)
+  gtest_discover_tests(dynamic_viscosity)
+
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
