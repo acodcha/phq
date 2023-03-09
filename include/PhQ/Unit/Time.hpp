@@ -23,6 +23,9 @@ namespace PhQ {
 namespace Unit {
 
 enum class Time : int_least8_t {
+  Nanosecond,
+  Microsecond,
+  Millisecond,
   Second,
   Minute,
   Hour,
@@ -50,20 +53,36 @@ inline const std::map<Unit::Time, UnitSystem> RelatedUnitSystems<Unit::Time>{};
 
 template <>
 inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
-    {Unit::Time::Second, "s"},
-    {Unit::Time::Minute, "min"},
-    {Unit::Time::Hour, "hr"},
+    {Unit::Time::Nanosecond, "ns"},  {Unit::Time::Microsecond, "μs"},
+    {Unit::Time::Millisecond, "ms"}, {Unit::Time::Second, "s"},
+    {Unit::Time::Minute, "min"},     {Unit::Time::Hour, "hr"},
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Time>
     Spellings<Unit::Time>{
-        {"s", Unit::Time::Second},       {"sec", Unit::Time::Second},
-        {"secs", Unit::Time::Second},    {"second", Unit::Time::Second},
-        {"seconds", Unit::Time::Second}, {"min", Unit::Time::Minute},
-        {"mins", Unit::Time::Minute},    {"minute", Unit::Time::Minute},
-        {"minutes", Unit::Time::Minute}, {"hr", Unit::Time::Hour},
-        {"hrs", Unit::Time::Hour},       {"hour", Unit::Time::Hour},
+        {"ns", Unit::Time::Nanosecond},
+        {"nanosecond", Unit::Time::Nanosecond},
+        {"nanoseconds", Unit::Time::Nanosecond},
+        {"μs", Unit::Time::Microsecond},
+        {"us", Unit::Time::Microsecond},
+        {"microsecond", Unit::Time::Microsecond},
+        {"microseconds", Unit::Time::Microsecond},
+        {"ms", Unit::Time::Millisecond},
+        {"millisecond", Unit::Time::Millisecond},
+        {"milliseconds", Unit::Time::Millisecond},
+        {"s", Unit::Time::Second},
+        {"sec", Unit::Time::Second},
+        {"secs", Unit::Time::Second},
+        {"second", Unit::Time::Second},
+        {"seconds", Unit::Time::Second},
+        {"min", Unit::Time::Minute},
+        {"mins", Unit::Time::Minute},
+        {"minute", Unit::Time::Minute},
+        {"minutes", Unit::Time::Minute},
+        {"hr", Unit::Time::Hour},
+        {"hrs", Unit::Time::Hour},
+        {"hour", Unit::Time::Hour},
         {"hours", Unit::Time::Hour},
     };
 
@@ -71,6 +90,27 @@ template <>
 inline const std::map<Unit::Time, std::function<void(double* const values,
                                                      const std::size_t size)>>
     ConversionsFromStandard<Unit::Time>{
+        {Unit::Time::Nanosecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 1000000000.0;
+           }
+         }},
+        {Unit::Time::Microsecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 1000000.0;
+           }
+         }},
+        {Unit::Time::Millisecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 1000.0;
+           }
+         }},
         {Unit::Time::Second,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Time::Minute,
@@ -93,6 +133,27 @@ template <>
 inline const std::map<Unit::Time, std::function<void(double* const values,
                                                      const std::size_t size)>>
     ConversionsToStandard<Unit::Time>{
+        {Unit::Time::Nanosecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 0.000000001;
+           }
+         }},
+        {Unit::Time::Microsecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 0.000001;
+           }
+         }},
+        {Unit::Time::Millisecond,
+         [](double* values, const std::size_t size) -> void {
+           const double* const end{values + size};
+           for (; values < end; ++values) {
+             *values *= 0.001;
+           }
+         }},
         {Unit::Time::Second,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Time::Minute,

@@ -23,13 +23,15 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Time, 3> Units = {
-    Time::Second,
-    Time::Minute,
-    Time::Hour,
+constexpr std::array<Time, 6> Units = {
+    Time::Nanosecond, Time::Microsecond, Time::Millisecond,
+    Time::Second,     Time::Minute,      Time::Hour,
 };
 
 TEST(UnitTime, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Time::Nanosecond), "ns");
+  EXPECT_EQ(Abbreviation(Time::Microsecond), "μs");
+  EXPECT_EQ(Abbreviation(Time::Millisecond), "ms");
   EXPECT_EQ(Abbreviation(Time::Second), "s");
   EXPECT_EQ(Abbreviation(Time::Minute), "min");
   EXPECT_EQ(Abbreviation(Time::Hour), "hr");
@@ -48,6 +50,12 @@ TEST(UnitTime, ConsistentUnit) {
 
 TEST(UnitTime, ConvertFromStandard) {
   constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Nanosecond),
+                   value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Microsecond),
+                   value * 1000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Millisecond),
+                   value * 1000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Second), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Minute),
                    value / 60.0);
@@ -57,6 +65,12 @@ TEST(UnitTime, ConvertFromStandard) {
 
 TEST(UnitTime, ConvertToStandard) {
   constexpr double value{10.0};
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Nanosecond, Time::Second),
+                   value * 0.000000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Microsecond, Time::Second),
+                   value * 0.000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Millisecond, Time::Second),
+                   value * 0.001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Second), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Minute, Time::Second),
                    value * 60.0);
@@ -89,12 +103,18 @@ TEST(UnitTime, DimensionSet) {
 
 TEST(UnitTime, Parse) {
   EXPECT_EQ(Parse<Time>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Time>("ns"), Time::Nanosecond);
+  EXPECT_EQ(Parse<Time>("μs"), Time::Microsecond);
+  EXPECT_EQ(Parse<Time>("ms"), Time::Millisecond);
   EXPECT_EQ(Parse<Time>("s"), Time::Second);
   EXPECT_EQ(Parse<Time>("min"), Time::Minute);
   EXPECT_EQ(Parse<Time>("hr"), Time::Hour);
 }
 
 TEST(UnitTime, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(Time::Nanosecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Time::Microsecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Time::Millisecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Time::Second), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Time::Minute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Time::Hour), std::nullopt);
