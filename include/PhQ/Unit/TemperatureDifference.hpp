@@ -84,55 +84,95 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
         {"degF", Unit::TemperatureDifference::Fahrenheit},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
+    double& value) noexcept {
+  value *= 1.8;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
+    double& value) noexcept {
+  value *= 1.8;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::TemperatureDifference,
+                                           Unit::TemperatureDifference::Kelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
 template <>
 inline const std::map<
     Unit::TemperatureDifference,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::TemperatureDifference>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::TemperatureDifference>{
         {Unit::TemperatureDifference::Kelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::TemperatureDifference,
+                                 Unit::TemperatureDifference::Kelvin>},
         {Unit::TemperatureDifference::Celsius,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::TemperatureDifference,
+                                 Unit::TemperatureDifference::Celsius>},
         {Unit::TemperatureDifference::Rankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureDifference,
+                                 Unit::TemperatureDifference::Rankine>},
         {Unit::TemperatureDifference::Fahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureDifference,
+                                 Unit::TemperatureDifference::Fahrenheit>},
     };
 
 template <>
 inline const std::map<
     Unit::TemperatureDifference,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::TemperatureDifference>{
+    MapOfConversionsToStandard<Unit::TemperatureDifference>{
         {Unit::TemperatureDifference::Kelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::TemperatureDifference,
+                               Unit::TemperatureDifference::Kelvin>},
         {Unit::TemperatureDifference::Celsius,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::TemperatureDifference,
+                               Unit::TemperatureDifference::Celsius>},
         {Unit::TemperatureDifference::Rankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureDifference,
+                               Unit::TemperatureDifference::Rankine>},
         {Unit::TemperatureDifference::Fahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureDifference,
+                               Unit::TemperatureDifference::Fahrenheit>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

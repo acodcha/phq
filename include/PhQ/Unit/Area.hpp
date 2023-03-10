@@ -127,7 +127,7 @@ inline const std::unordered_map<std::string_view, Unit::Area>
 template <>
 inline const std::map<Unit::Area, std::function<void(double* const values,
                                                      const std::size_t size)>>
-    ConversionsFromStandard<Unit::Area>{
+    Internal::MapOfConversionsFromStandard<Unit::Area>{
         {Unit::Area::SquareMile,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -226,7 +226,7 @@ inline const std::map<Unit::Area, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Area, std::function<void(double* const values,
                                                      const std::size_t size)>>
-    ConversionsToStandard<Unit::Area>{
+    Internal::MapOfConversionsToStandard<Unit::Area>{
         {Unit::Area::SquareMile,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};

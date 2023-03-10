@@ -109,7 +109,7 @@ inline const std::unordered_map<std::string_view, Unit::Energy>
 template <>
 inline const std::map<Unit::Energy, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsFromStandard<Unit::Energy>{
+    Internal::MapOfConversionsFromStandard<Unit::Energy>{
         {Unit::Energy::Joule,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Energy::Millijoule,
@@ -173,7 +173,7 @@ inline const std::map<Unit::Energy, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Energy, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsToStandard<Unit::Energy>{
+    Internal::MapOfConversionsToStandard<Unit::Energy>{
         {Unit::Energy::Joule,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Energy::Millijoule,

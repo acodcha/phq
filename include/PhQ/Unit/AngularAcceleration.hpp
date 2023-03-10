@@ -134,7 +134,7 @@ template <>
 inline const std::map<
     Unit::AngularAcceleration,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::AngularAcceleration>{
+    Internal::MapOfConversionsFromStandard<Unit::AngularAcceleration>{
         {Unit::AngularAcceleration::RadianPerSquareSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::AngularAcceleration::RadianPerSquareMinute,
@@ -199,7 +199,7 @@ template <>
 inline const std::map<
     Unit::AngularAcceleration,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::AngularAcceleration>{
+    Internal::MapOfConversionsToStandard<Unit::AngularAcceleration>{
         {Unit::AngularAcceleration::RadianPerSquareSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::AngularAcceleration::RadianPerSquareMinute,

@@ -121,7 +121,7 @@ inline const std::unordered_map<std::string_view, Unit::Speed>
 template <>
 inline const std::map<Unit::Speed, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Speed>{
+    Internal::MapOfConversionsFromStandard<Unit::Speed>{
         {Unit::Speed::MilePerSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -206,7 +206,7 @@ inline const std::map<Unit::Speed, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Speed, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Speed>{
+    Internal::MapOfConversionsToStandard<Unit::Speed>{
         {Unit::Speed::MilePerSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};

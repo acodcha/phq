@@ -91,7 +91,7 @@ template <>
 inline const std::map<
     Unit::MassRate,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::MassRate>{
+    Internal::MapOfConversionsFromStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MassRate::GramPerSecond,
@@ -128,7 +128,7 @@ template <>
 inline const std::map<
     Unit::MassRate,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::MassRate>{
+    Internal::MapOfConversionsToStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MassRate::GramPerSecond,

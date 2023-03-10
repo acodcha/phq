@@ -74,7 +74,7 @@ inline const std::unordered_map<std::string_view, Unit::Mass>
 template <>
 inline const std::map<Unit::Mass, std::function<void(double* const values,
                                                      const std::size_t size)>>
-    ConversionsFromStandard<Unit::Mass>{
+    Internal::MapOfConversionsFromStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Mass::Gram,
@@ -110,7 +110,7 @@ inline const std::map<Unit::Mass, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Mass, std::function<void(double* const values,
                                                      const std::size_t size)>>
-    ConversionsToStandard<Unit::Mass>{
+    Internal::MapOfConversionsToStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Mass::Gram,

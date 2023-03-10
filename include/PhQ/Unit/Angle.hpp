@@ -85,7 +85,7 @@ inline const std::unordered_map<std::string_view, Unit::Angle>
 template <>
 inline const std::map<Unit::Angle, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Angle>{
+    Internal::MapOfConversionsFromStandard<Unit::Angle>{
         {Unit::Angle::Radian,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Angle::Degree,
@@ -114,7 +114,7 @@ inline const std::map<Unit::Angle, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Angle, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Angle>{
+    Internal::MapOfConversionsToStandard<Unit::Angle>{
         {Unit::Angle::Radian,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Angle::Degree,

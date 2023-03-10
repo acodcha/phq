@@ -120,7 +120,7 @@ template <>
 inline const std::map<
     Unit::Pressure,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Pressure>{
+    Internal::MapOfConversionsFromStandard<Unit::Pressure>{
         {Unit::Pressure::Pascal,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Pressure::Kilopascal,
@@ -178,7 +178,7 @@ template <>
 inline const std::map<
     Unit::Pressure,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Pressure>{
+    Internal::MapOfConversionsToStandard<Unit::Pressure>{
         {Unit::Pressure::Pascal,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Pressure::Kilopascal,

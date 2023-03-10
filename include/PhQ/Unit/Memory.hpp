@@ -159,7 +159,7 @@ inline const std::unordered_map<std::string_view, Unit::Memory>
 template <>
 inline const std::map<Unit::Memory, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsFromStandard<Unit::Memory>{
+    Internal::MapOfConversionsFromStandard<Unit::Memory>{
         {Unit::Memory::Bit,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Memory::Byte,
@@ -314,7 +314,7 @@ inline const std::map<Unit::Memory, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Memory, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsToStandard<Unit::Memory>{
+    Internal::MapOfConversionsToStandard<Unit::Memory>{
         {Unit::Memory::Bit,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Memory::Byte,

@@ -125,7 +125,7 @@ template <>
 inline const std::map<
     Unit::HeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::HeatCapacity>{
+    Internal::MapOfConversionsFromStandard<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::HeatCapacity::NanojoulePerKelvin,
@@ -155,7 +155,7 @@ template <>
 inline const std::map<
     Unit::HeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::HeatCapacity>{
+    Internal::MapOfConversionsToStandard<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::HeatCapacity::NanojoulePerKelvin,

@@ -201,7 +201,7 @@ template <>
 inline const std::map<
     Unit::Acceleration,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Acceleration>{
+    Internal::MapOfConversionsFromStandard<Unit::Acceleration>{
         {Unit::Acceleration::MilePerSquareSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -287,7 +287,7 @@ template <>
 inline const std::map<
     Unit::Acceleration,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Acceleration>{
+    Internal::MapOfConversionsToStandard<Unit::Acceleration>{
         {Unit::Acceleration::MilePerSquareSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};

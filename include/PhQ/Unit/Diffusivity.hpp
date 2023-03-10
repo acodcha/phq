@@ -175,7 +175,7 @@ template <>
 inline const std::map<
     Unit::Diffusivity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Diffusivity>{
+    Internal::MapOfConversionsFromStandard<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};
@@ -275,7 +275,7 @@ template <>
 inline const std::map<
     Unit::Diffusivity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Diffusivity>{
+    Internal::MapOfConversionsToStandard<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,
          [](double* values, const std::size_t size) -> void {
            const double* const end{values + size};

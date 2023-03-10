@@ -139,7 +139,7 @@ template <>
 inline const std::map<
     Unit::EnergyFlux,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::EnergyFlux>{
+    Internal::MapOfConversionsFromStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,
@@ -169,7 +169,7 @@ template <>
 inline const std::map<
     Unit::EnergyFlux,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::EnergyFlux>{
+    Internal::MapOfConversionsToStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,

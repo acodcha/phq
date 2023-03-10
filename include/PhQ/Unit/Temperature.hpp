@@ -79,65 +79,95 @@ inline const std::unordered_map<std::string_view, Unit::Temperature>
         {"degF", Unit::Temperature::Fahrenheit},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Temperature, Unit::Temperature::Celsius>(
+    double& value) noexcept {
+  value -= 273.15;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Temperature, Unit::Temperature::Rankine>(
+    double& value) noexcept {
+  value *= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
+    double& value) noexcept {
+  value = (value * 1.8) - 459.67;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(
+    double& value) noexcept {
+  value += 273.15;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Temperature, Unit::Temperature::Rankine>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
+    double& value) noexcept {
+  value = (value + 459.67) / 1.8;
+}
+
 template <>
 inline const std::map<
     Unit::Temperature,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Temperature>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Temperature>{
         {Unit::Temperature::Kelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>},
         {Unit::Temperature::Celsius,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values -= 273.15;
-           }
-         }},
+         ConversionsFromStandard<Unit::Temperature,
+                                 Unit::Temperature::Celsius>},
         {Unit::Temperature::Rankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::Temperature,
+                                 Unit::Temperature::Rankine>},
         {Unit::Temperature::Fahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values = (*values * 1.8) - 459.67;
-           }
-         }},
+         ConversionsFromStandard<Unit::Temperature,
+                                 Unit::Temperature::Fahrenheit>},
     };
 
 template <>
 inline const std::map<
     Unit::Temperature,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Temperature>{
+    MapOfConversionsToStandard<Unit::Temperature>{
         {Unit::Temperature::Kelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Kelvin>},
         {Unit::Temperature::Celsius,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values += 273.15;
-           }
-         }},
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Celsius>},
         {Unit::Temperature::Rankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Rankine>},
         {Unit::Temperature::Fahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values = (*values + 459.67) / 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::Temperature,
+                               Unit::Temperature::Fahrenheit>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

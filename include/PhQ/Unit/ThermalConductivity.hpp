@@ -236,51 +236,91 @@ inline const std::unordered_map<std::string_view, Unit::ThermalConductivity>
         {"lb/(s*degF)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::ThermalConductivity,
+                       Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::ThermalConductivity,
+    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::ThermalConductivity,
+                       Unit::ThermalConductivity::PoundPerSecondPerRankine>(
+    double& value) noexcept {
+  value /= 0.45359237 * 9.80665 * 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalConductivity,
+                     Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalConductivity,
+                     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalConductivity,
+                     Unit::ThermalConductivity::PoundPerSecondPerRankine>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 * 1.8;
+}
+
 template <>
 inline const std::map<
     Unit::ThermalConductivity,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::ThermalConductivity>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::ThermalConductivity>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::WattPerMetrePerKelvin>},
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::PoundPerSecondPerRankine>},
     };
 
 template <>
 inline const std::map<
     Unit::ThermalConductivity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::ThermalConductivity>{
+    MapOfConversionsToStandard<Unit::ThermalConductivity>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::WattPerMetrePerKelvin>},
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsToStandard<
+             Unit::ThermalConductivity,
+             Unit::ThermalConductivity::PoundPerSecondPerRankine>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

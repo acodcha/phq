@@ -110,7 +110,7 @@ inline const std::unordered_map<std::string_view, Unit::Power>
 template <>
 inline const std::map<Unit::Power, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Power>{
+    Internal::MapOfConversionsFromStandard<Unit::Power>{
         {Unit::Power::Watt,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Power::Milliwatt,
@@ -174,7 +174,7 @@ inline const std::map<Unit::Power, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Power, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Power>{
+    Internal::MapOfConversionsToStandard<Unit::Power>{
         {Unit::Power::Watt,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Power::Milliwatt,

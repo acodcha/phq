@@ -139,7 +139,7 @@ template <>
 inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::DynamicViscosity>{
+    Internal::MapOfConversionsFromStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::DynamicViscosity::KilopascalSecond,
@@ -183,7 +183,7 @@ template <>
 inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::DynamicViscosity>{
+    Internal::MapOfConversionsToStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::DynamicViscosity::KilopascalSecond,

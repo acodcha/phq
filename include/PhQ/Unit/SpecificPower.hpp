@@ -206,7 +206,7 @@ template <>
 inline const std::map<
     Unit::SpecificPower,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::SpecificPower>{
+    Internal::MapOfConversionsFromStandard<Unit::SpecificPower>{
         {Unit::SpecificPower::WattPerKilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificPower::NanowattPerGram,
@@ -236,7 +236,7 @@ template <>
 inline const std::map<
     Unit::SpecificPower,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::SpecificPower>{
+    Internal::MapOfConversionsToStandard<Unit::SpecificPower>{
         {Unit::SpecificPower::WattPerKilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificPower::NanowattPerGram,

@@ -32,47 +32,53 @@ inline constexpr Unit StandardUnit;
 template <typename Unit>
 inline constexpr Dimension::Set Dimensions;
 
-template <typename Unit, Unit NewUnit>
-inline constexpr void ConvertValueFromStandard(double& value) noexcept;
-
-template <typename Unit, Unit OldUnit>
-inline constexpr void ConvertValueToStandard(double& value) noexcept;
+namespace Internal {
 
 template <typename Unit, Unit NewUnit>
-inline constexpr void ConvertValuesFromStandard(
-    double* values, const std::size_t size) noexcept {
-  const double* const end{values + size};
-  for (; values < end; ++values) {
-    ConvertValueFromStandard<Unit, NewUnit>(*values);
-  }
-}
+inline constexpr void ConversionFromStandard(double& value) noexcept;
 
 template <typename Unit, Unit OldUnit>
-inline constexpr void ConvertValuesToStandard(double* values,
+inline constexpr void ConversionToStandard(double& value) noexcept;
+
+template <typename Unit, Unit NewUnit>
+inline constexpr void ConversionsFromStandard(double* values,
                                               const std::size_t size) noexcept {
   const double* const end{values + size};
   for (; values < end; ++values) {
-    ConvertValueToStandard<Unit, OldUnit>(*values);
+    ConversionFromStandard<Unit, NewUnit>(*values);
+  }
+}
+
+template <typename Unit, Unit OldUnit>
+inline constexpr void ConversionsToStandard(double* values,
+                                            const std::size_t size) noexcept {
+  const double* const end{values + size};
+  for (; values < end; ++values) {
+    ConversionToStandard<Unit, OldUnit>(*values);
   }
 }
 
 template <typename Unit>
 inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
-    ConversionsFromStandard;
+    MapOfConversionsFromStandard;
 
 template <typename Unit>
 inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
-    ConversionsToStandard;
+    MapOfConversionsToStandard;
+
+}  // namespace Internal
 
 template <typename Unit>
 void Convert(double& value, const Unit old_unit, const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&value, 1);
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(&value,
+                                                                      1);
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&value, 1);
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(&value,
+                                                                        1);
   }
 }
 
@@ -80,10 +86,12 @@ template <typename Unit, std::size_t Size>
 void Convert(std::array<double, Size>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&values[0], Size);
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
+        &values[0], Size);
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0], Size);
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
+        &values[0], Size);
   }
 }
 
@@ -91,12 +99,12 @@ template <typename Unit>
 void Convert(std::vector<double>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&values[0],
-                                                       values.size());
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
+        &values[0], values.size());
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&values[0],
-                                                         values.size());
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
+        &values[0], values.size());
   }
 }
 
@@ -124,10 +132,12 @@ double ConvertCopy(const double value, const Unit old_unit,
                    const Unit new_unit) noexcept {
   double result{value};
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&result, 1);
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(&result,
+                                                                      1);
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&result, 1);
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(&result,
+                                                                        1);
   }
   return result;
 }
@@ -138,10 +148,12 @@ std::array<double, Size> ConvertCopy(const std::array<double, Size>& values,
                                      const Unit new_unit) noexcept {
   std::array<double, Size> result{values};
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&result[0], Size);
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
+        &result[0], Size);
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&result[0], Size);
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
+        &result[0], Size);
   }
   return result;
 }
@@ -152,12 +164,12 @@ std::vector<double> ConvertCopy(const std::vector<double>& values,
                                 const Unit new_unit) noexcept {
   std::vector<double> result{values};
   if (old_unit != StandardUnit<Unit>) {
-    ConversionsToStandard<Unit>.find(old_unit)->second(&result[0],
-                                                       result.size());
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
+        &result[0], result.size());
   }
   if (new_unit != StandardUnit<Unit>) {
-    ConversionsFromStandard<Unit>.find(new_unit)->second(&result[0],
-                                                         result.size());
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
+        &result[0], result.size());
   }
   return result;
 }
@@ -187,10 +199,10 @@ template <typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr double StaticConvertCopy(const double value) noexcept {
   double result{value};
   if (OldUnit != StandardUnit<Unit>) {
-    ConvertValueToStandard<Unit, OldUnit>(result);
+    Internal::ConversionToStandard<Unit, OldUnit>(result);
   }
   if (NewUnit != StandardUnit<Unit>) {
-    ConvertValueFromStandard<Unit, NewUnit>(result);
+    Internal::ConversionFromStandard<Unit, NewUnit>(result);
   }
   return result;
 }
@@ -200,10 +212,10 @@ inline constexpr std::array<double, Size> StaticConvertCopy(
     const std::array<double, Size>& values) noexcept {
   std::array<double, Size> result{values};
   if (OldUnit != StandardUnit<Unit>) {
-    ConvertValuesToStandard<Unit, OldUnit>(&result[0], Size);
+    Internal::ConversionsToStandard<Unit, OldUnit>(&result[0], Size);
   }
   if (NewUnit != StandardUnit<Unit>) {
-    ConvertValuesFromStandard<Unit, NewUnit>(&result[0], Size);
+    Internal::ConversionsFromStandard<Unit, NewUnit>(&result[0], Size);
   }
   return result;
 }

@@ -76,7 +76,7 @@ template <>
 inline const std::map<
     Unit::Frequency,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Frequency>{
+    Internal::MapOfConversionsFromStandard<Unit::Frequency>{
         {Unit::Frequency::Hertz,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Frequency::Kilohertz,
@@ -106,7 +106,7 @@ template <>
 inline const std::map<
     Unit::Frequency,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Frequency>{
+    Internal::MapOfConversionsToStandard<Unit::Frequency>{
         {Unit::Frequency::Hertz,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Frequency::Kilohertz,

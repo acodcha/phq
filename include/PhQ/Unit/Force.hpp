@@ -76,7 +76,7 @@ inline const std::unordered_map<std::string_view, Unit::Force>
 template <>
 inline const std::map<Unit::Force, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Force>{
+    Internal::MapOfConversionsFromStandard<Unit::Force>{
         {Unit::Force::Newton,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Force::Micronewton,
@@ -98,7 +98,7 @@ inline const std::map<Unit::Force, std::function<void(double* const values,
 template <>
 inline const std::map<Unit::Force, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Force>{
+    Internal::MapOfConversionsToStandard<Unit::Force>{
         {Unit::Force::Newton,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::Force::Micronewton,

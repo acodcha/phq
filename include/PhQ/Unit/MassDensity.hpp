@@ -112,7 +112,7 @@ template <>
 inline const std::map<
     Unit::MassDensity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::MassDensity>{
+    Internal::MapOfConversionsFromStandard<Unit::MassDensity>{
         {Unit::MassDensity::KilogramPerCubicMetre,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MassDensity::GramPerCubicMillimetre,
@@ -156,7 +156,7 @@ template <>
 inline const std::map<
     Unit::MassDensity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::MassDensity>{
+    Internal::MapOfConversionsToStandard<Unit::MassDensity>{
         {Unit::MassDensity::KilogramPerCubicMetre,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MassDensity::GramPerCubicMillimetre,

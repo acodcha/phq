@@ -121,7 +121,7 @@ template <>
 inline const std::map<
     Unit::SpecificEnergy,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::SpecificEnergy>{
+    Internal::MapOfConversionsFromStandard<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificEnergy::NanojoulePerGram,
@@ -151,7 +151,7 @@ template <>
 inline const std::map<
     Unit::SpecificEnergy,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::SpecificEnergy>{
+    Internal::MapOfConversionsToStandard<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificEnergy::NanojoulePerGram,

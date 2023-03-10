@@ -126,203 +126,267 @@ inline const std::unordered_map<std::string_view, Unit::Volume>
         {"uin3", Unit::Volume::CubicMicroinch},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Volume, std::function<void(double* const values,
-                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Volume>{
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(
+    double& value) noexcept {
+  value /= std::pow(1609.344, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicYard>(
+    double& value) noexcept {
+  value /= std::pow(0.9144, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicFoot>(
+    double& value) noexcept {
+  value /= std::pow(0.3048, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
+    double& value) noexcept {
+  value *= std::pow(10.0, 3);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::Litre>(
+    double& value) noexcept {
+  value *= std::pow(10.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicInch>(
+    double& value) noexcept {
+  value /= std::pow(0.0254, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
+    double& value) noexcept {
+  value *= std::pow(100.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::Millilitre>(
+    double& value) noexcept {
+  value *= std::pow(100.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
+    double& value) noexcept {
+  value /= std::pow(0.0000254, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
+    double& value) noexcept {
+  value *= std::pow(1000000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
+    double& value) noexcept {
+  value /= std::pow(0.0000000254, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMile>(
+    double& value) noexcept {
+  value *= std::pow(1609.344, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicYard>(
+    double& value) noexcept {
+  value *= std::pow(0.9144, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.1, 3);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::Litre>(
+    double& value) noexcept {
+  value *= std::pow(0.1, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.01, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::Millilitre>(
+    double& value) noexcept {
+  value *= std::pow(0.01, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
+    double& value) noexcept {
+  value *= std::pow(0.0000254, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
+    double& value) noexcept {
+  value *= std::pow(0.000001, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
+    double& value) noexcept {
+  value *= std::pow(0.0000000254, 3);
+}
+
+template <>
+inline const std::map<
+    Unit::Volume, std::function<void(double* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Volume>{
         {Unit::Volume::CubicMile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1609.344, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMile>},
         {Unit::Volume::CubicKilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>},
         {Unit::Volume::CubicMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMetre>},
         {Unit::Volume::CubicYard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.9144, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicYard>},
         {Unit::Volume::CubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.3048, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicFoot>},
         {Unit::Volume::CubicDecimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(10.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicDecimetre>},
         {Unit::Volume::Litre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(10.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::Litre>},
         {Unit::Volume::CubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0254, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicInch>},
         {Unit::Volume::CubicCentimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(100.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicCentimetre>},
         {Unit::Volume::Millilitre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(100.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::Millilitre>},
         {Unit::Volume::CubicMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMillimetre>},
         {Unit::Volume::CubicMilliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000254, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>},
         {Unit::Volume::CubicMicrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMicrometre>},
         {Unit::Volume::CubicMicroinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000000254, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>},
     };
 
 template <>
-inline const std::map<Unit::Volume, std::function<void(double* const values,
-                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Volume>{
+inline const std::map<
+    Unit::Volume, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Volume>{
         {Unit::Volume::CubicMile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1609.344, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMile>},
         {Unit::Volume::CubicKilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicKilometre>},
         {Unit::Volume::CubicMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMetre>},
         {Unit::Volume::CubicYard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.9144, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicYard>},
         {Unit::Volume::CubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicFoot>},
         {Unit::Volume::CubicDecimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.1, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicDecimetre>},
         {Unit::Volume::Litre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.1, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::Litre>},
         {Unit::Volume::CubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicInch>},
         {Unit::Volume::CubicCentimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.01, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicCentimetre>},
         {Unit::Volume::Millilitre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.01, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::Millilitre>},
         {Unit::Volume::CubicMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMillimetre>},
         {Unit::Volume::CubicMilliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000254, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMilliinch>},
         {Unit::Volume::CubicMicrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.000001, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMicrometre>},
         {Unit::Volume::CubicMicroinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000000254, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMicroinch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

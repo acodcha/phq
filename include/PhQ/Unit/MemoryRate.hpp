@@ -129,7 +129,7 @@ template <>
 inline const std::map<
     Unit::MemoryRate,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::MemoryRate>{
+    Internal::MapOfConversionsFromStandard<Unit::MemoryRate>{
         {Unit::MemoryRate::BitPerSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MemoryRate::BytePerSecond,
@@ -285,7 +285,7 @@ template <>
 inline const std::map<
     Unit::MemoryRate,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::MemoryRate>{
+    Internal::MapOfConversionsToStandard<Unit::MemoryRate>{
         {Unit::MemoryRate::BitPerSecond,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::MemoryRate::BytePerSecond,

@@ -547,7 +547,7 @@ template <>
 inline const std::map<
     Unit::SpecificHeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::SpecificHeatCapacity>{
+    Internal::MapOfConversionsFromStandard<Unit::SpecificHeatCapacity>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
@@ -577,7 +577,7 @@ template <>
 inline const std::map<
     Unit::SpecificHeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::SpecificHeatCapacity>{
+    Internal::MapOfConversionsToStandard<Unit::SpecificHeatCapacity>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
          [](double* values, const std::size_t size) -> void {}},
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
