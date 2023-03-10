@@ -16,7 +16,7 @@
 #include "../../include/PhQ/Unit/Base.hpp"
 
 namespace PhQ {
-
+/*
 template <typename Unit>
 double ConvertCopy(const double old_value, const Unit old_unit,
                    const Unit new_unit) {
@@ -24,5 +24,5 @@ double ConvertCopy(const double old_value, const Unit old_unit,
   Convert(new_value, old_unit, new_unit);
   return new_value;
 }
-
+*/
 }  // namespace PhQ

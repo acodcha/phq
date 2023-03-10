@@ -17,8 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include "Base.hpp"
-
 namespace PhQ::Unit {
 
 namespace {
@@ -46,6 +44,45 @@ TEST(UnitTime, ConsistentUnit) {
             Time::Second);
   EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine),
             Time::Second);
+}
+
+TEST(UnitTime, Convert) {
+  double value{10.0};
+  std::array<double, 3> array{10.0, -20.0, 30.0};
+  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
+  Value::Vector value_vector{10.0, -20.0, 30.0};
+  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
+  for (const Time old_unit : Units) {
+    for (const Time new_unit : Units) {
+      Convert(value, old_unit, new_unit);
+      Convert(array, old_unit, new_unit);
+      Convert(std_vector, old_unit, new_unit);
+      Convert(value_vector, old_unit, new_unit);
+      Convert(symdyad, old_unit, new_unit);
+      Convert(dyad, old_unit, new_unit);
+    }
+  }
+}
+
+TEST(UnitTime, ConvertCopy) {
+  constexpr double value{10.0};
+  constexpr std::array<double, 3> array{10.0, -20.0, 30.0};
+  const std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
+  constexpr Value::Vector value_vector{10.0, -20.0, 30.0};
+  constexpr Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  constexpr Value::Dyad dyad{10.0,  -20.0, 30.0,  -40.0, 50.0,
+                             -60.0, 70.0,  -80.0, 90.0};
+  for (const Time old_unit : Units) {
+    for (const Time new_unit : Units) {
+      ConvertCopy(value, old_unit, new_unit);
+      ConvertCopy(array, old_unit, new_unit);
+      ConvertCopy(std_vector, old_unit, new_unit);
+      ConvertCopy(value_vector, old_unit, new_unit);
+      ConvertCopy(symdyad, old_unit, new_unit);
+      ConvertCopy(dyad, old_unit, new_unit);
+    }
+  }
 }
 
 TEST(UnitTime, ConvertFromStandard) {
@@ -78,25 +115,6 @@ TEST(UnitTime, ConvertToStandard) {
                    value * 3600.0);
 }
 
-TEST(UnitTime, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Time old_unit : Units) {
-    for (const Time new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
-}
-
 TEST(UnitTime, DimensionSet) {
   EXPECT_EQ(Dimensions<Time>, Dimension::Set(Dimension::Time{1}));
 }
@@ -121,6 +139,20 @@ TEST(UnitTime, RelatedUnitSystem) {
 }
 
 TEST(UnitTime, StandardUnit) { EXPECT_EQ(StandardUnit<Time>, Time::Second); }
+
+TEST(UnitTime, StaticConvertCopy) {
+  constexpr double value{10.0};
+  StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(value);
+  constexpr std::array<double, 3> array{10.0, -20.0, 30.0};
+  StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(array);
+  constexpr Value::Vector vector{10.0, -20.0, 30.0};
+  StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(vector);
+  constexpr Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(symdyad);
+  constexpr Value::Dyad dyad{10.0,  -20.0, 30.0,  -40.0, 50.0,
+                             -60.0, 70.0,  -80.0, 90.0};
+  StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(dyad);
+}
 
 }  // namespace
 
