@@ -202,65 +202,102 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower>
         {"in2/s3", Unit::SpecificPower::InchPoundPerSlinchPerSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2);
+}
+
 template <>
 inline const std::map<
     Unit::SpecificPower,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::SpecificPower>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SpecificPower>{
         {Unit::SpecificPower::WattPerKilogram,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::SpecificPower,
+                                 Unit::SpecificPower::WattPerKilogram>},
         {Unit::SpecificPower::NanowattPerGram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::SpecificPower,
+                                 Unit::SpecificPower::NanowattPerGram>},
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::SpecificPower,
+             Unit::SpecificPower::FootPoundPerSlugPerSecond>},
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::SpecificPower,
+             Unit::SpecificPower::InchPoundPerSlinchPerSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::SpecificPower,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::SpecificPower>{
+    MapOfConversionsToStandard<Unit::SpecificPower>{
         {Unit::SpecificPower::WattPerKilogram,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::SpecificPower,
+                               Unit::SpecificPower::WattPerKilogram>},
         {Unit::SpecificPower::NanowattPerGram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::SpecificPower,
+                               Unit::SpecificPower::NanowattPerGram>},
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::SpecificPower,
+                               Unit::SpecificPower::FootPoundPerSlugPerSecond>},
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<
+             Unit::SpecificPower,
+             Unit::SpecificPower::InchPoundPerSlinchPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
