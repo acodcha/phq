@@ -82,63 +82,83 @@ inline const std::unordered_map<std::string_view, Unit::Angle>
         {"arcseconds", Unit::Angle::Arcsecond},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Angle, std::function<void(double* const values,
-                                                      const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Angle>{
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(
+    double& value) noexcept {
+  value *= 180.0 / Pi;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Angle, Unit::Angle::Arcminute>(
+    double& value) noexcept {
+  value *= 10800.0 / Pi;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Angle, Unit::Angle::Arcsecond>(
+    double& value) noexcept {
+  value *= 648000.0 / Pi;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Degree>(
+    double& value) noexcept {
+  value *= Pi / 180.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcminute>(
+    double& value) noexcept {
+  value *= Pi / 10800.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcsecond>(
+    double& value) noexcept {
+  value *= Pi / 648000.0;
+}
+
+template <>
+inline const std::map<
+    Unit::Angle, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Angle>{
         {Unit::Angle::Radian,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Angle, Unit::Angle::Radian>},
         {Unit::Angle::Degree,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 180.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::Angle, Unit::Angle::Degree>},
         {Unit::Angle::Arcminute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10800.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::Angle, Unit::Angle::Arcminute>},
         {Unit::Angle::Arcsecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 648000.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::Angle, Unit::Angle::Arcsecond>},
     };
 
 template <>
 inline const std::map<Unit::Angle, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Angle>{
+    MapOfConversionsToStandard<Unit::Angle>{
         {Unit::Angle::Radian,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Angle, Unit::Angle::Radian>},
         {Unit::Angle::Degree,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 180.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Angle, Unit::Angle::Degree>},
         {Unit::Angle::Arcminute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 10800.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Angle, Unit::Angle::Arcminute>},
         {Unit::Angle::Arcsecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 648000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Angle, Unit::Angle::Arcsecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
