@@ -131,14 +131,7 @@ template <typename Unit>
 double ConvertCopy(const double value, const Unit old_unit,
                    const Unit new_unit) noexcept {
   double result{value};
-  if (old_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(&result,
-                                                                      1);
-  }
-  if (new_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(&result,
-                                                                        1);
-  }
+  Convert<Unit>(result, old_unit, new_unit);
   return result;
 }
 
@@ -147,14 +140,7 @@ std::array<double, Size> ConvertCopy(const std::array<double, Size>& values,
                                      const Unit old_unit,
                                      const Unit new_unit) noexcept {
   std::array<double, Size> result{values};
-  if (old_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
-        &result[0], Size);
-  }
-  if (new_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
-        &result[0], Size);
-  }
+  Convert<Unit, Size>(result, old_unit, new_unit);
   return result;
 }
 
@@ -163,14 +149,7 @@ std::vector<double> ConvertCopy(const std::vector<double>& values,
                                 const Unit old_unit,
                                 const Unit new_unit) noexcept {
   std::vector<double> result{values};
-  if (old_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
-        &result[0], result.size());
-  }
-  if (new_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
-        &result[0], result.size());
-  }
+  Convert<Unit>(result, old_unit, new_unit);
   return result;
 }
 
