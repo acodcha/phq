@@ -118,175 +118,236 @@ inline const std::unordered_map<std::string_view, Unit::Speed>
         {"uin/sec", Unit::Speed::MicroinchPerSecond},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Speed, std::function<void(double* const values,
-                                                      const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Speed>{
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>(
+    double& value) noexcept {
+  value /= 1609.344;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::YardPerSecond>(
+    double& value) noexcept {
+  value /= 0.9144;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::FootPerSecond>(
+    double& value) noexcept {
+  value /= 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>(
+    double& value) noexcept {
+  value *= 10.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::InchPerSecond>(
+    double& value) noexcept {
+  value /= 0.0254;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>(
+    double& value) noexcept {
+  value *= 100.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>(
+    double& value) noexcept {
+  value /= 0.0000254;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>(
+    double& value) noexcept {
+  value /= 0.0000000254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MilePerSecond>(
+    double& value) noexcept {
+  value *= 1609.344;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::YardPerSecond>(
+    double& value) noexcept {
+  value *= 0.9144;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::FootPerSecond>(
+    double& value) noexcept {
+  value *= 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>(
+    double& value) noexcept {
+  value *= 0.1;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::InchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>(
+    double& value) noexcept {
+  value *= 0.01;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0000254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0000000254;
+}
+
+template <>
+inline const std::map<
+    Unit::Speed, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Speed>{
         {Unit::Speed::MilePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1609.344;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>},
         {Unit::Speed::KilometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>},
         {Unit::Speed::MetrePerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>},
         {Unit::Speed::YardPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.9144;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerSecond>},
         {Unit::Speed::FootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerSecond>},
         {Unit::Speed::DecimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>},
         {Unit::Speed::InchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerSecond>},
         {Unit::Speed::CentimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 100.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed,
+                                 Unit::Speed::CentimetrePerSecond>},
         {Unit::Speed::MillimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed,
+                                 Unit::Speed::MillimetrePerSecond>},
         {Unit::Speed::MilliinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>},
         {Unit::Speed::MicrometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed,
+                                 Unit::Speed::MicrometrePerSecond>},
         {Unit::Speed::MicroinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>},
     };
 
 template <>
 inline const std::map<Unit::Speed, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Speed>{
+    MapOfConversionsToStandard<Unit::Speed>{
         {Unit::Speed::MilePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1609.344;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MilePerSecond>},
         {Unit::Speed::KilometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>},
         {Unit::Speed::MetrePerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MetrePerSecond>},
         {Unit::Speed::YardPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.9144;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::YardPerSecond>},
         {Unit::Speed::FootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::FootPerSecond>},
         {Unit::Speed::DecimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.1;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>},
         {Unit::Speed::InchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::InchPerSecond>},
         {Unit::Speed::CentimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.01;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>},
         {Unit::Speed::MillimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>},
         {Unit::Speed::MilliinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>},
         {Unit::Speed::MicrometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>},
         {Unit::Speed::MicroinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
