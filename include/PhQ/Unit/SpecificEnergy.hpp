@@ -117,65 +117,99 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy>
         {"in2/s2", Unit::SpecificEnergy::InchPoundPerSlinch},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>(
+    double& value) noexcept {
+  value /= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>(
+    double& value) noexcept {
+  value /= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2);
+}
+
 template <>
 inline const std::map<
     Unit::SpecificEnergy,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::SpecificEnergy>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::SpecificEnergy,
+                                 Unit::SpecificEnergy::JoulePerKilogram>},
         {Unit::SpecificEnergy::NanojoulePerGram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::SpecificEnergy,
+                                 Unit::SpecificEnergy::NanojoulePerGram>},
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::SpecificEnergy,
+                                 Unit::SpecificEnergy::FootPoundPerSlug>},
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::SpecificEnergy,
+                                 Unit::SpecificEnergy::InchPoundPerSlinch>},
     };
 
 template <>
 inline const std::map<
     Unit::SpecificEnergy,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::SpecificEnergy>{
+    MapOfConversionsToStandard<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::SpecificEnergy,
+                               Unit::SpecificEnergy::JoulePerKilogram>},
         {Unit::SpecificEnergy::NanojoulePerGram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::SpecificEnergy,
+                               Unit::SpecificEnergy::NanojoulePerGram>},
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::SpecificEnergy,
+                               Unit::SpecificEnergy::FootPoundPerSlug>},
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::SpecificEnergy,
+                               Unit::SpecificEnergy::InchPoundPerSlinch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
