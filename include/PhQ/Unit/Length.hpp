@@ -138,175 +138,223 @@ inline const std::unordered_map<std::string_view, Unit::Length>
         {"microinches", Unit::Length::Microinch},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Length, std::function<void(double* const values,
-                                                       const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Length>{
+inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Mile>(
+    double& value) noexcept {
+  value /= 1609.344;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Kilometre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Metre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Yard>(
+    double& value) noexcept {
+  value /= 0.9144;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Foot>(
+    double& value) noexcept {
+  value /= 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Decimetre>(
+    double& value) noexcept {
+  value *= 10.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Inch>(
+    double& value) noexcept {
+  value /= 0.0254;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Centimetre>(
+    double& value) noexcept {
+  value *= 100.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Millimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Milliinch>(
+    double& value) noexcept {
+  value /= 0.0000254;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Micrometre>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Microinch>(
+    double& value) noexcept {
+  value /= 0.0000000254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Mile>(
+    double& value) noexcept {
+  value *= 1609.344;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Kilometre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Metre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Yard>(
+    double& value) noexcept {
+  value *= 0.9144;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Foot>(
+    double& value) noexcept {
+  value *= 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Decimetre>(
+    double& value) noexcept {
+  value *= 0.1;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Inch>(
+    double& value) noexcept {
+  value *= 0.0254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Centimetre>(
+    double& value) noexcept {
+  value *= 0.01;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Millimetre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Milliinch>(
+    double& value) noexcept {
+  value *= 0.0000254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Micrometre>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Microinch>(
+    double& value) noexcept {
+  value *= 0.0000000254;
+}
+
+template <>
+inline const std::map<
+    Unit::Length, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Length>{
         {Unit::Length::Mile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1609.344;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Mile>},
         {Unit::Length::Kilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Kilometre>},
         {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Metre>},
         {Unit::Length::Yard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.9144;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Yard>},
         {Unit::Length::Foot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Foot>},
         {Unit::Length::Decimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Decimetre>},
         {Unit::Length::Inch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Inch>},
         {Unit::Length::Centimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 100.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Centimetre>},
         {Unit::Length::Millimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Millimetre>},
         {Unit::Length::Milliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Milliinch>},
         {Unit::Length::Micrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Micrometre>},
         {Unit::Length::Microinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Length, Unit::Length::Microinch>},
     };
 
 template <>
 inline const std::map<Unit::Length, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Length>{
+    MapOfConversionsToStandard<Unit::Length>{
         {Unit::Length::Mile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1609.344;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Mile>},
         {Unit::Length::Kilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Kilometre>},
         {Unit::Length::Metre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Length, Unit::Length::Metre>},
         {Unit::Length::Yard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.9144;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Yard>},
         {Unit::Length::Foot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Foot>},
         {Unit::Length::Decimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.1;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Decimetre>},
         {Unit::Length::Inch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Inch>},
         {Unit::Length::Centimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.01;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Centimetre>},
         {Unit::Length::Millimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Millimetre>},
         {Unit::Length::Milliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Milliinch>},
         {Unit::Length::Micrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Micrometre>},
         {Unit::Length::Microinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Length, Unit::Length::Microinch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
