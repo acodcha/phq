@@ -197,177 +197,262 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration>
         {"uin/sec/sec", Unit::Acceleration::MicroinchPerSquareSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>(
+    double& value) noexcept {
+  value /= 1609.344;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>(
+    double& value) noexcept {
+  value /= 0.9144;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>(
+    double& value) noexcept {
+  value /= 0.3048;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 10.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>(
+    double& value) noexcept {
+  value /= 0.0254;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 100.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>(
+    double& value) noexcept {
+  value /= 0.0000254;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>(
+    double& value) noexcept {
+  value /= 0.0000000254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>(
+    double& value) noexcept {
+  value *= 1609.344;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.9144;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.3048;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.1;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.0254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.01;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.0000254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>(
+    double& value) noexcept {
+  value *= 0.0000000254;
+}
+
 template <>
 inline const std::map<
     Unit::Acceleration,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Acceleration>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Acceleration>{
         {Unit::Acceleration::MilePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1609.344;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::MilePerSquareSecond>},
         {Unit::Acceleration::KilometrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
-        {Unit::Acceleration::YardPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.9144;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::KilometrePerSquareSecond>},
         {Unit::Acceleration::MetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::MetrePerSquareSecond>},
+        {Unit::Acceleration::YardPerSquareSecond,
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::YardPerSquareSecond>},
         {Unit::Acceleration::FootPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::FootPerSquareSecond>},
         {Unit::Acceleration::DecimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::DecimetrePerSquareSecond>},
         {Unit::Acceleration::InchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::InchPerSquareSecond>},
         {Unit::Acceleration::CentimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 100.0;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::Acceleration,
+             Unit::Acceleration::CentimetrePerSquareSecond>},
         {Unit::Acceleration::MillimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::Acceleration,
+             Unit::Acceleration::MillimetrePerSquareSecond>},
         {Unit::Acceleration::MilliinchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::MilliinchPerSquareSecond>},
         {Unit::Acceleration::MicrometrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::Acceleration,
+             Unit::Acceleration::MicrometrePerSquareSecond>},
         {Unit::Acceleration::MicroinchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0000000254;
-           }
-         }},
+         ConversionsFromStandard<Unit::Acceleration,
+                                 Unit::Acceleration::MicroinchPerSquareSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::Acceleration,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Acceleration>{
+    MapOfConversionsToStandard<Unit::Acceleration>{
         {Unit::Acceleration::MilePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1609.344;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MilePerSquareSecond>},
         {Unit::Acceleration::KilometrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
-        {Unit::Acceleration::YardPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.9144;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::KilometrePerSquareSecond>},
         {Unit::Acceleration::MetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MetrePerSquareSecond>},
+        {Unit::Acceleration::YardPerSquareSecond,
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::YardPerSquareSecond>},
         {Unit::Acceleration::FootPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::FootPerSquareSecond>},
         {Unit::Acceleration::DecimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.1;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::DecimetrePerSquareSecond>},
         {Unit::Acceleration::InchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::InchPerSquareSecond>},
         {Unit::Acceleration::CentimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.01;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::CentimetrePerSquareSecond>},
         {Unit::Acceleration::MillimetrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MillimetrePerSquareSecond>},
         {Unit::Acceleration::MilliinchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MilliinchPerSquareSecond>},
         {Unit::Acceleration::MicrometrePerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MicrometrePerSquareSecond>},
         {Unit::Acceleration::MicroinchPerSquareSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0000000254;
-           }
-         }},
+         ConversionsToStandard<Unit::Acceleration,
+                               Unit::Acceleration::MicroinchPerSquareSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
