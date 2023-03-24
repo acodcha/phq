@@ -71,77 +71,95 @@ inline const std::unordered_map<std::string_view, Unit::Mass>
         {"lbm", Unit::Mass::Pound},   {"lb", Unit::Mass::Pound},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Mass, std::function<void(double* const values,
-                                                     const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Mass>{
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Gram>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slug>(
+    double& value) noexcept {
+  value *= 0.3048 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(
+    double& value) noexcept {
+  value *= 0.0254 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
+    double& value) noexcept {
+  value /= 0.45359237;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slug>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.3048;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slinch>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.0254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Pound>(
+    double& value) noexcept {
+  value *= 0.45359237;
+}
+
+template <>
+inline const std::map<
+    Unit::Mass, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Kilogram>},
         {Unit::Mass::Gram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Gram>},
         {Unit::Mass::Slug,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slug>},
         {Unit::Mass::Slinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slinch>},
         {Unit::Mass::Pound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.45359237;
-           }
-         }},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Pound>},
     };
 
 template <>
 inline const std::map<Unit::Mass, std::function<void(double* const values,
                                                      const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Mass>{
+    MapOfConversionsToStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
-         [](double* values, const std::size_t size) -> void {}},
-        {Unit::Mass::Gram,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
-        {Unit::Mass::Slug,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::Mass, Unit::Mass::Kilogram>},
+        {Unit::Mass::Gram, ConversionsToStandard<Unit::Mass, Unit::Mass::Gram>},
+        {Unit::Mass::Slug, ConversionsToStandard<Unit::Mass, Unit::Mass::Slug>},
         {Unit::Mass::Slinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::Mass, Unit::Mass::Slinch>},
         {Unit::Mass::Pound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237;
-           }
-         }},
+         ConversionsToStandard<Unit::Mass, Unit::Mass::Pound>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
