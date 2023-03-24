@@ -87,79 +87,115 @@ inline const std::unordered_map<std::string_view, Unit::MassRate>
         {"lb/sec", Unit::MassRate::PoundPerSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
+    double& value) noexcept {
+  value *= 0.3048 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0254 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
+    double& value) noexcept {
+  value /= 0.45359237;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.0254;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
+    double& value) noexcept {
+  value *= 0.45359237;
+}
+
 template <>
 inline const std::map<
-    Unit::MassRate,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::MassRate>{
+    Unit::MassRate, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::MassRate,
+                                 Unit::MassRate::KilogramPerSecond>},
         {Unit::MassRate::GramPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MassRate,
+                                 Unit::MassRate::GramPerSecond>},
         {Unit::MassRate::SlugPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::MassRate,
+                                 Unit::MassRate::SlugPerSecond>},
         {Unit::MassRate::SlinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::MassRate,
+                                 Unit::MassRate::SlinchPerSecond>},
         {Unit::MassRate::PoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.45359237;
-           }
-         }},
+         ConversionsFromStandard<Unit::MassRate,
+                                 Unit::MassRate::PoundPerSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::MassRate,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::MassRate>{
+    MapOfConversionsToStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::MassRate,
+                               Unit::MassRate::KilogramPerSecond>},
         {Unit::MassRate::GramPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>},
         {Unit::MassRate::SlugPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>},
         {Unit::MassRate::SlinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::MassRate,
+                               Unit::MassRate::SlinchPerSecond>},
         {Unit::MassRate::PoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237;
-           }
-         }},
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
