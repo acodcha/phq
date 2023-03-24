@@ -135,93 +135,143 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
         {"psi*s", Unit::DynamicViscosity::PoundSecondPerSquareInch},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
+}
+
 template <>
 inline const std::map<
     Unit::DynamicViscosity,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::DynamicViscosity>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::DynamicViscosity,
+                                 Unit::DynamicViscosity::PascalSecond>},
         {Unit::DynamicViscosity::KilopascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::DynamicViscosity,
+                                 Unit::DynamicViscosity::KilopascalSecond>},
         {Unit::DynamicViscosity::MegapascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::DynamicViscosity,
+                                 Unit::DynamicViscosity::MegapascalSecond>},
         {Unit::DynamicViscosity::GigapascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::DynamicViscosity,
+                                 Unit::DynamicViscosity::GigapascalSecond>},
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::DynamicViscosity,
+             Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::DynamicViscosity,
+             Unit::DynamicViscosity::PoundSecondPerSquareInch>},
     };
 
 template <>
 inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::DynamicViscosity>{
+    MapOfConversionsToStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::DynamicViscosity,
+                               Unit::DynamicViscosity::PascalSecond>},
         {Unit::DynamicViscosity::KilopascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::DynamicViscosity,
+                               Unit::DynamicViscosity::KilopascalSecond>},
         {Unit::DynamicViscosity::MegapascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::DynamicViscosity,
+                               Unit::DynamicViscosity::MegapascalSecond>},
         {Unit::DynamicViscosity::GigapascalSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::DynamicViscosity,
+                               Unit::DynamicViscosity::GigapascalSecond>},
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<
+             Unit::DynamicViscosity,
+             Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<
+             Unit::DynamicViscosity,
+             Unit::DynamicViscosity::PoundSecondPerSquareInch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
