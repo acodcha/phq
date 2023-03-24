@@ -130,9 +130,7 @@ inline constexpr void ConversionFromStandard<
 template <>
 inline constexpr void ConversionFromStandard<
     Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
-    double& value) noexcept {
-  value;
-}
+    double& value) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<
@@ -184,9 +182,7 @@ inline constexpr void ConversionToStandard<
 template <>
 inline constexpr void ConversionToStandard<
     Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
-    double& value) noexcept {
-  value;
-}
+    double& value) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<
