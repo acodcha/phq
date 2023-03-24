@@ -47,7 +47,7 @@ public:
   explicit constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
       : x_y_z_(std::move(x_y_z)) {}
 
-  constexpr Vector(const double value, const Direction& direction) noexcept;
+  constexpr Vector(const double magnitude, const Direction& direction) noexcept;
 
   static constexpr Vector Zero() noexcept {
     return Vector{std::array<double, 3>{0.0, 0.0, 0.0}};
@@ -57,31 +57,31 @@ public:
     return x_y_z_;
   }
 
-  inline constexpr std::array<double, 3>& Mutable_x_y_z() noexcept {
+  inline constexpr std::array<double, 3>& mutable_x_y_z() noexcept {
     return x_y_z_;
   }
 
-  inline constexpr void Set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
+  inline constexpr void set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
     x_y_z_ = x_y_z;
   }
 
   inline constexpr double x() const noexcept { return x_y_z_[0]; }
 
-  inline constexpr double& Mutable_x() noexcept { return x_y_z_[0]; }
+  inline constexpr double& mutable_x() noexcept { return x_y_z_[0]; }
 
-  inline constexpr void Set_x(const double x) noexcept { x_y_z_[0] = x; }
+  inline constexpr void set_x(const double x) noexcept { x_y_z_[0] = x; }
 
   inline constexpr double y() const noexcept { return x_y_z_[1]; }
 
-  inline constexpr double& Mutable_y() noexcept { return x_y_z_[1]; }
+  inline constexpr double& mutable_y() noexcept { return x_y_z_[1]; }
 
-  inline constexpr void Set_y(const double y) noexcept { x_y_z_[1] = y; }
+  inline constexpr void set_y(const double y) noexcept { x_y_z_[1] = y; }
 
   inline constexpr double z() const noexcept { return x_y_z_[2]; }
 
-  inline constexpr double& Mutable_z() noexcept { return x_y_z_[2]; }
+  inline constexpr double& mutable_z() noexcept { return x_y_z_[2]; }
 
-  inline constexpr void Set_z(const double z) noexcept { x_y_z_[2] = z; }
+  inline constexpr void set_z(const double z) noexcept { x_y_z_[2] = z; }
 
   inline constexpr double MagnitudeSquared() const noexcept {
     return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] +

@@ -54,11 +54,11 @@ public:
   }
 
   inline constexpr std::array<double, 9>&
-  Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
+  mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
-  inline constexpr void Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
+  inline constexpr void set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
   }
@@ -67,11 +67,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  inline constexpr double& Mutable_xx() noexcept {
+  inline constexpr double& mutable_xx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  inline constexpr void Set_xx(const double xx) noexcept {
+  inline constexpr void set_xx(const double xx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = xx;
   }
 
@@ -79,11 +79,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  inline constexpr double& Mutable_xy() noexcept {
+  inline constexpr double& mutable_xy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  inline constexpr void Set_xy(const double xy) noexcept {
+  inline constexpr void set_xy(const double xy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = xy;
   }
 
@@ -91,11 +91,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  inline constexpr double& Mutable_xz() noexcept {
+  inline constexpr double& mutable_xz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  inline constexpr void Set_xz(const double xz) noexcept {
+  inline constexpr void set_xz(const double xz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = xz;
   }
 
@@ -103,11 +103,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  inline constexpr double& Mutable_yx() noexcept {
+  inline constexpr double& mutable_yx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  inline constexpr void Set_yx(const double yx) noexcept {
+  inline constexpr void set_yx(const double yx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = yx;
   }
 
@@ -115,11 +115,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  inline constexpr double& Mutable_yy() noexcept {
+  inline constexpr double& mutable_yy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  inline constexpr void Set_yy(const double yy) noexcept {
+  inline constexpr void set_yy(const double yy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = yy;
   }
 
@@ -127,11 +127,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  inline constexpr double& Mutable_yz() noexcept {
+  inline constexpr double& mutable_yz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  inline constexpr void Set_yz(const double yz) noexcept {
+  inline constexpr void set_yz(const double yz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = yz;
   }
 
@@ -139,11 +139,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  inline constexpr double& Mutable_zx() noexcept {
+  inline constexpr double& mutable_zx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  inline constexpr void Set_zx(const double zx) noexcept {
+  inline constexpr void set_zx(const double zx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = zx;
   }
 
@@ -151,11 +151,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  inline constexpr double& Mutable_zy() noexcept {
+  inline constexpr double& mutable_zy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  inline constexpr void Set_zy(const double zy) noexcept {
+  inline constexpr void set_zy(const double zy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = zy;
   }
 
@@ -163,11 +163,11 @@ public:
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr double& Mutable_zz() noexcept {
+  inline constexpr double& mutable_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr void Set_zz(const double zz) noexcept {
+  inline constexpr void set_zz(const double zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = zz;
   }
 

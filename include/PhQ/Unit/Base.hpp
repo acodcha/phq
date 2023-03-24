@@ -111,19 +111,19 @@ void Convert(std::vector<double>& values, const Unit old_unit,
 template <typename Unit>
 void Convert(Value::Vector& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 3>(value.Mutable_x_y_z(), old_unit, new_unit);
+  Convert<Unit, 3>(value.mutable_x_y_z(), old_unit, new_unit);
 }
 
 template <typename Unit>
 void Convert(Value::SymmetricDyad& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 6>(value.Mutable_xx_xy_xz_yy_yz_zz(), old_unit, new_unit);
+  Convert<Unit, 6>(value.mutable_xx_xy_xz_yy_yz_zz(), old_unit, new_unit);
 }
 
 template <typename Unit>
 void Convert(Value::Dyad& value, const Unit old_unit,
              const Unit new_unit) noexcept {
-  Convert<Unit, 9>(value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit,
+  Convert<Unit, 9>(value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit,
                    new_unit);
 }
 
