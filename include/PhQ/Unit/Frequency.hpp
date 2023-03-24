@@ -72,65 +72,91 @@ inline const std::unordered_map<std::string_view, Unit::Frequency>
         {"GHz", Unit::Frequency::Gigahertz},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
 template <>
 inline const std::map<
     Unit::Frequency,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Frequency>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Frequency>{
         {Unit::Frequency::Hertz,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Hertz>},
         {Unit::Frequency::Kilohertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz>},
         {Unit::Frequency::Megahertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>},
         {Unit::Frequency::Gigahertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>},
     };
 
 template <>
 inline const std::map<
     Unit::Frequency,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Frequency>{
+    MapOfConversionsToStandard<Unit::Frequency>{
         {Unit::Frequency::Hertz,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Hertz>},
         {Unit::Frequency::Kilohertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Kilohertz>},
         {Unit::Frequency::Megahertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Megahertz>},
         {Unit::Frequency::Gigahertz,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
