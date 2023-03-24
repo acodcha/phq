@@ -106,133 +106,177 @@ inline const std::unordered_map<std::string_view, Unit::Energy>
         {"in*lb", Unit::Energy::InchPound},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Energy, std::function<void(double* const values,
-                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Energy>{
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Millijoule>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Microjoule>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Nanojoule>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Kilojoule>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Megajoule>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Gigajoule>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::FootPound>(
+    double& value) noexcept {
+  value /= 0.3048 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::InchPound>(
+    double& value) noexcept {
+  value /= 0.0254 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Joule>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Millijoule>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Microjoule>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Nanojoule>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Kilojoule>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Megajoule>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Gigajoule>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::FootPound>(
+    double& value) noexcept {
+  value *= 0.3048 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::InchPound>(
+    double& value) noexcept {
+  value *= 0.0254 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline const std::map<
+    Unit::Energy, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Energy>{
         {Unit::Energy::Joule,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Joule>},
         {Unit::Energy::Millijoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Millijoule>},
         {Unit::Energy::Microjoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Microjoule>},
         {Unit::Energy::Nanojoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Nanojoule>},
         {Unit::Energy::Kilojoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Kilojoule>},
         {Unit::Energy::Megajoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Megajoule>},
         {Unit::Energy::Gigajoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::Gigajoule>},
         {Unit::Energy::FootPound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::FootPound>},
         {Unit::Energy::InchPound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsFromStandard<Unit::Energy, Unit::Energy::InchPound>},
     };
 
 template <>
 inline const std::map<Unit::Energy, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsToStandard<Unit::Energy>{
+    MapOfConversionsToStandard<Unit::Energy>{
         {Unit::Energy::Joule,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Joule>},
         {Unit::Energy::Millijoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Millijoule>},
         {Unit::Energy::Microjoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Microjoule>},
         {Unit::Energy::Nanojoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Nanojoule>},
         {Unit::Energy::Kilojoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Kilojoule>},
         {Unit::Energy::Megajoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Megajoule>},
         {Unit::Energy::Gigajoule,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::Gigajoule>},
         {Unit::Energy::FootPound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::FootPound>},
         {Unit::Energy::InchPound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsToStandard<Unit::Energy, Unit::Energy::InchPound>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

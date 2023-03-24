@@ -116,121 +116,165 @@ inline const std::unordered_map<std::string_view, Unit::Pressure>
         {"psi", Unit::Pressure::PoundPerSquareInch},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Bar>(
+    double& value) noexcept {
+  value *= 0.00001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
+    double& value) noexcept {
+  value /= 101325.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(
+    double& value) noexcept {
+  value *= 100000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
+    double& value) noexcept {
+  value *= 101325.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
+}
+
 template <>
 inline const std::map<
-    Unit::Pressure,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Pressure>{
+    Unit::Pressure, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Pressure>{
         {Unit::Pressure::Pascal,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Pascal>},
         {Unit::Pressure::Kilopascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>},
         {Unit::Pressure::Megapascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>},
         {Unit::Pressure::Gigapascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>},
         {Unit::Pressure::Bar,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.00001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Bar>},
         {Unit::Pressure::Atmosphere,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 101325.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>},
         {Unit::Pressure::PoundPerSquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure,
+                                 Unit::Pressure::PoundPerSquareFoot>},
         {Unit::Pressure::PoundPerSquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::Pressure,
+                                 Unit::Pressure::PoundPerSquareInch>},
     };
 
 template <>
 inline const std::map<
     Unit::Pressure,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Pressure>{
+    MapOfConversionsToStandard<Unit::Pressure>{
         {Unit::Pressure::Pascal,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Pascal>},
         {Unit::Pressure::Kilopascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>},
         {Unit::Pressure::Megapascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Megapascal>},
         {Unit::Pressure::Gigapascal,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>},
         {Unit::Pressure::Bar,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 100000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Bar>},
         {Unit::Pressure::Atmosphere,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 101325.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>},
         {Unit::Pressure::PoundPerSquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure,
+                               Unit::Pressure::PoundPerSquareFoot>},
         {Unit::Pressure::PoundPerSquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Pressure,
+                               Unit::Pressure::PoundPerSquareInch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

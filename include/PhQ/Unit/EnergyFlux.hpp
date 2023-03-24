@@ -135,65 +135,103 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux>
         {"slinch/s3", Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
+    double& value) noexcept {
+  value *= 0.3048 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0254 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.3048;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.0254;
+}
+
 template <>
 inline const std::map<
     Unit::EnergyFlux,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::EnergyFlux>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::EnergyFlux,
+                                 Unit::EnergyFlux::WattPerSquareMetre>},
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>},
         {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::EnergyFlux,
+             Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>},
         {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::EnergyFlux,
+             Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::EnergyFlux,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::EnergyFlux>{
+    MapOfConversionsToStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::EnergyFlux,
+                               Unit::EnergyFlux::WattPerSquareMetre>},
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::EnergyFlux,
+                               Unit::EnergyFlux::NanowattPerSquareMillimetre>},
         {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.3048;
-           }
-         }},
+         ConversionsToStandard<
+             Unit::EnergyFlux,
+             Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>},
         {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / 0.0254;
-           }
-         }},
+         ConversionsToStandard<
+             Unit::EnergyFlux,
+             Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

@@ -88,55 +88,95 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
         {"/F", Unit::ThermalExpansion::PerFahrenheit},
         {"/degF", Unit::ThermalExpansion::PerFahrenheit}};
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::ThermalExpansion,
+                                             Unit::ThermalExpansion::PerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
+                                           Unit::ThermalExpansion::PerCelsius>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
+                                           Unit::ThermalExpansion::PerRankine>(
+    double& value) noexcept {
+  value *= 1.8;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
+    double& value) noexcept {
+  value *= 1.8;
+}
+
 template <>
 inline const std::map<
     Unit::ThermalExpansion,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::ThermalExpansion>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::ThermalExpansion>{
         {Unit::ThermalExpansion::PerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::ThermalExpansion,
+                                 Unit::ThermalExpansion::PerKelvin>},
         {Unit::ThermalExpansion::PerCelsius,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::ThermalExpansion,
+                                 Unit::ThermalExpansion::PerCelsius>},
         {Unit::ThermalExpansion::PerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::ThermalExpansion,
+                                 Unit::ThermalExpansion::PerRankine>},
         {Unit::ThermalExpansion::PerFahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::ThermalExpansion,
+                                 Unit::ThermalExpansion::PerFahrenheit>},
     };
 
 template <>
 inline const std::map<
     Unit::ThermalExpansion,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::ThermalExpansion>{
+    MapOfConversionsToStandard<Unit::ThermalExpansion>{
         {Unit::ThermalExpansion::PerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::ThermalExpansion,
+                               Unit::ThermalExpansion::PerKelvin>},
         {Unit::ThermalExpansion::PerCelsius,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::ThermalExpansion,
+                               Unit::ThermalExpansion::PerCelsius>},
         {Unit::ThermalExpansion::PerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::ThermalExpansion,
+                               Unit::ThermalExpansion::PerRankine>},
         {Unit::ThermalExpansion::PerFahrenheit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::ThermalExpansion,
+                               Unit::ThermalExpansion::PerFahrenheit>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

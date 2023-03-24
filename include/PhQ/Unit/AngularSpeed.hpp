@@ -97,135 +97,200 @@ inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
         {"rev/hr", Unit::AngularSpeed::RevolutionPerHour},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
+    double& value) noexcept {
+  value *= 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
+    double& value) noexcept {
+  value *= 3600.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
+    double& value) noexcept {
+  value *= 180.0 / Pi;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
+    double& value) noexcept {
+  value *= 10800.0 / Pi;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
+    double& value) noexcept {
+  value *= 648000.0 / Pi;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
+    double& value) noexcept {
+  value *= 0.5 / Pi;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
+    double& value) noexcept {
+  value *= 30.0 / Pi;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
+    double& value) noexcept {
+  value *= 1800.0 / Pi;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
+    double& value) noexcept {
+  value /= 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
+    double& value) noexcept {
+  value /= 3600.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
+    double& value) noexcept {
+  value *= Pi / 180.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
+    double& value) noexcept {
+  value *= Pi / 10800.0;
+  ;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
+    double& value) noexcept {
+  value *= Pi / 648000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
+    double& value) noexcept {
+  value *= 2.0 * Pi;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
+    double& value) noexcept {
+  value *= Pi / 30.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
+    double& value) noexcept {
+  value *= Pi / 1800.0;
+}
+
 template <>
 inline const std::map<
     Unit::AngularSpeed,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::AngularSpeed>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::AngularSpeed>{
         {Unit::AngularSpeed::RadianPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RadianPerSecond>},
         {Unit::AngularSpeed::RadianPerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 60.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RadianPerMinute>},
         {Unit::AngularSpeed::RadianPerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 3600.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RadianPerHour>},
         {Unit::AngularSpeed::DegreePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 180.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::DegreePerSecond>},
         {Unit::AngularSpeed::DegreePerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10800.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::DegreePerMinute>},
         {Unit::AngularSpeed::DegreePerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 648000.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::DegreePerHour>},
         {Unit::AngularSpeed::RevolutionPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.5 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RevolutionPerSecond>},
         {Unit::AngularSpeed::RevolutionPerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 30.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RevolutionPerMinute>},
         {Unit::AngularSpeed::RevolutionPerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1800.0 / Pi;
-           }
-         }},
+         ConversionsFromStandard<Unit::AngularSpeed,
+                                 Unit::AngularSpeed::RevolutionPerHour>},
     };
 
 template <>
 inline const std::map<
     Unit::AngularSpeed,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::AngularSpeed>{
+    MapOfConversionsToStandard<Unit::AngularSpeed>{
         {Unit::AngularSpeed::RadianPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RadianPerSecond>},
         {Unit::AngularSpeed::RadianPerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 60.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RadianPerMinute>},
         {Unit::AngularSpeed::RadianPerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 3600.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RadianPerHour>},
         {Unit::AngularSpeed::DegreePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 180.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::DegreePerSecond>},
         {Unit::AngularSpeed::DegreePerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 10800.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::DegreePerMinute>},
         {Unit::AngularSpeed::DegreePerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 648000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::DegreePerHour>},
         {Unit::AngularSpeed::RevolutionPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 2.0 * Pi;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RevolutionPerSecond>},
         {Unit::AngularSpeed::RevolutionPerMinute,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 30.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RevolutionPerMinute>},
         {Unit::AngularSpeed::RevolutionPerHour,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= Pi / 1800.0;
-           }
-         }},
+         ConversionsToStandard<Unit::AngularSpeed,
+                               Unit::AngularSpeed::RevolutionPerHour>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

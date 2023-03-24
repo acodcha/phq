@@ -113,111 +113,178 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureGradient>
         {"degF/in", Unit::TemperatureGradient::FahrenheitPerInch},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
+    double& value) noexcept {
+  value *= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
+    double& value) noexcept {
+  value *= 1.8 * 0.0254;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
+    double& value) noexcept {
+  value *= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
+    double& value) noexcept {
+  value *= 1.8 * 0.0254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
+    double& value) noexcept {
+  value /= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
+    double& value) noexcept {
+  value /= 1.8 * 0.0254;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
+    double& value) noexcept {
+  value /= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
+    double& value) noexcept {
+  value /= 1.8 * 0.0254;
+}
+
 template <>
 inline const std::map<
     Unit::TemperatureGradient,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::TemperatureGradient>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::TemperatureGradient>{
         {Unit::TemperatureGradient::KelvinPerMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::KelvinPerMetre>},
         {Unit::TemperatureGradient::KelvinPerMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::TemperatureGradient,
+             Unit::TemperatureGradient::KelvinPerMillimetre>},
         {Unit::TemperatureGradient::CelsiusPerMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::CelsiusPerMetre>},
         {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<
+             Unit::TemperatureGradient,
+             Unit::TemperatureGradient::CelsiusPerMillimetre>},
         {Unit::TemperatureGradient::RankinePerFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8 * 0.3048;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::RankinePerFoot>},
         {Unit::TemperatureGradient::RankinePerInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8 * 0.0254;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::RankinePerInch>},
         {Unit::TemperatureGradient::FahrenheitPerFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8 * 0.3048;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::FahrenheitPerFoot>},
         {Unit::TemperatureGradient::FahrenheitPerInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1.8 * 0.0254;
-           }
-         }},
+         ConversionsFromStandard<Unit::TemperatureGradient,
+                                 Unit::TemperatureGradient::FahrenheitPerInch>},
     };
 
 template <>
 inline const std::map<
     Unit::TemperatureGradient,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::TemperatureGradient>{
+    MapOfConversionsToStandard<Unit::TemperatureGradient>{
         {Unit::TemperatureGradient::KelvinPerMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::KelvinPerMetre>},
         {Unit::TemperatureGradient::KelvinPerMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::KelvinPerMillimetre>},
         {Unit::TemperatureGradient::CelsiusPerMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::CelsiusPerMetre>},
         {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<
+             Unit::TemperatureGradient,
+             Unit::TemperatureGradient::CelsiusPerMillimetre>},
         {Unit::TemperatureGradient::RankinePerFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8 * 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::RankinePerFoot>},
         {Unit::TemperatureGradient::RankinePerInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8 * 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::RankinePerInch>},
         {Unit::TemperatureGradient::FahrenheitPerFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8 * 0.3048;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::FahrenheitPerFoot>},
         {Unit::TemperatureGradient::FahrenheitPerInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1.8 * 0.0254;
-           }
-         }},
+         ConversionsToStandard<Unit::TemperatureGradient,
+                               Unit::TemperatureGradient::FahrenheitPerInch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

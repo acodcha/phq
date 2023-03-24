@@ -124,203 +124,259 @@ inline const std::unordered_map<std::string_view, Unit::Area>
         {"uin2", Unit::Area::SquareMicroinch},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Area, std::function<void(double* const values,
-                                                     const std::size_t size)>>
-    ConversionsFromStandard<Unit::Area>{
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(
+    double& value) noexcept {
+  value /= std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareKilometre>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Hectare>(
+    double& value) noexcept {
+  value *= 0.0001;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Acre>(
+    double& value) noexcept {
+  value *= 640.0 / std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareYard>(
+    double& value) noexcept {
+  value /= std::pow(0.9144, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareFoot>(
+    double& value) noexcept {
+  value /= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareDecimetre>(
+    double& value) noexcept {
+  value *= std::pow(10.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareInch>(
+    double& value) noexcept {
+  value /= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareCentimetre>(
+    double& value) noexcept {
+  value *= std::pow(100.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMillimetre>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMilliinch>(
+    double& value) noexcept {
+  value /= std::pow(0.0000254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMicrometre>(
+    double& value) noexcept {
+  value *= std::pow(1000000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMicroinch>(
+    double& value) noexcept {
+  value /= std::pow(0.0000000254, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMile>(
+    double& value) noexcept {
+  value *= std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareKilometre>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::Hectare>(
+    double& value) noexcept {
+  value *= 10000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::Acre>(
+    double& value) noexcept {
+  value *= std::pow(1609.344, 2) / 640.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(
+    double& value) noexcept {
+  value *= std::pow(0.9144, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareDecimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.1, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareCentimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.01, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMillimetre>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMilliinch>(
+    double& value) noexcept {
+  value *= std::pow(0.0000254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMicrometre>(
+    double& value) noexcept {
+  value *= std::pow(0.000001, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMicroinch>(
+    double& value) noexcept {
+  value *= std::pow(0.0000000254, 2);
+}
+
+template <>
+inline const std::map<
+    Unit::Area, std::function<void(double* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Area>{
         {Unit::Area::SquareMile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1609.344, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMile>},
         {Unit::Area::SquareKilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareKilometre>},
         {Unit::Area::Hectare,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::Hectare>},
         {Unit::Area::Acre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 640.0 / std::pow(1609.344, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::Acre>},
         {Unit::Area::SquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMetre>},
         {Unit::Area::SquareYard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.9144, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareYard>},
         {Unit::Area::SquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareFoot>},
         {Unit::Area::SquareDecimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(10.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareDecimetre>},
         {Unit::Area::SquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareInch>},
         {Unit::Area::SquareCentimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(100.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareCentimetre>},
         {Unit::Area::SquareMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMillimetre>},
         {Unit::Area::SquareMilliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMilliinch>},
         {Unit::Area::SquareMicrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicrometre>},
         {Unit::Area::SquareMicroinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000000254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicroinch>},
     };
 
 template <>
-inline const std::map<Unit::Area, std::function<void(double* const values,
-                                                     const std::size_t size)>>
-    ConversionsToStandard<Unit::Area>{
+inline const std::map<
+    Unit::Area, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Area>{
         {Unit::Area::SquareMile,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1609.344, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMile>},
         {Unit::Area::SquareKilometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareKilometre>},
         {Unit::Area::Hectare,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10000.0;
-           }
-         }},
-        {Unit::Area::Acre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1609.344, 2) / 640.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::Hectare>},
+        {Unit::Area::Acre, ConversionsToStandard<Unit::Area, Unit::Area::Acre>},
         {Unit::Area::SquareMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMetre>},
         {Unit::Area::SquareYard,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.9144, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareYard>},
         {Unit::Area::SquareFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareFoot>},
         {Unit::Area::SquareDecimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.1, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareDecimetre>},
         {Unit::Area::SquareInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareInch>},
         {Unit::Area::SquareCentimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.01, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareCentimetre>},
         {Unit::Area::SquareMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMillimetre>},
         {Unit::Area::SquareMilliinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMilliinch>},
         {Unit::Area::SquareMicrometre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.000001, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMicrometre>},
         {Unit::Area::SquareMicroinch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000000254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Area, Unit::Area::SquareMicroinch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

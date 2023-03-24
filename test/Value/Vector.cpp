@@ -32,33 +32,33 @@ TEST(ValueVector, Accessor) {
   EXPECT_EQ(vector0.z(), 7.89);
 
   Vector vector1{1.23, 4.56, 7.89};
-  std::array<double, 3>& value1{vector1.Mutable_x_y_z()};
+  std::array<double, 3>& value1{vector1.mutable_x_y_z()};
   value1 = {0.11, 0.22, 0.33};
   EXPECT_EQ(vector1.x(), 0.11);
   EXPECT_EQ(vector1.y(), 0.22);
   EXPECT_EQ(vector1.z(), 0.33);
 
   Vector vector2{1.23, 4.56, 7.89};
-  double& x{vector2.Mutable_x()};
+  double& x{vector2.mutable_x()};
   x = 0.11;
-  double& y{vector2.Mutable_y()};
+  double& y{vector2.mutable_y()};
   y = 0.22;
-  double& z{vector2.Mutable_z()};
+  double& z{vector2.mutable_z()};
   z = 0.33;
   EXPECT_EQ(vector2.x(), 0.11);
   EXPECT_EQ(vector2.y(), 0.22);
   EXPECT_EQ(vector2.z(), 0.33);
 
   Vector vector3{1.23, 4.56, 7.89};
-  vector3.Set_x_y_z({0.11, 0.22, 0.33});
+  vector3.set_x_y_z({0.11, 0.22, 0.33});
   EXPECT_EQ(vector3.x(), 0.11);
   EXPECT_EQ(vector3.y(), 0.22);
   EXPECT_EQ(vector3.z(), 0.33);
 
   Vector vector4{1.23, 4.56, 7.89};
-  vector4.Set_x(0.11);
-  vector4.Set_y(0.22);
-  vector4.Set_z(0.33);
+  vector4.set_x(0.11);
+  vector4.set_y(0.22);
+  vector4.set_z(0.33);
   EXPECT_EQ(vector4.x(), 0.11);
   EXPECT_EQ(vector4.y(), 0.22);
   EXPECT_EQ(vector4.z(), 0.33);

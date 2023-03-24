@@ -125,317 +125,459 @@ inline const std::unordered_map<std::string_view, Unit::MemoryRate>
         {"PiB/s", Unit::MemoryRate::PebibytePerSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>(
+    double& value) noexcept {
+  value /= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>(
+    double& value) noexcept {
+  value /= 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>(
+    double& value) noexcept {
+  value *= 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 5);
+}
+
 template <>
 inline const std::map<
     Unit::MemoryRate,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::MemoryRate>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::MemoryRate>{
         {Unit::MemoryRate::BitPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::BitPerSecond>},
         {Unit::MemoryRate::BytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::BytePerSecond>},
         {Unit::MemoryRate::KilobitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::KilobitPerSecond>},
         {Unit::MemoryRate::KibibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1024.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::KibibitPerSecond>},
         {Unit::MemoryRate::KilobytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::KilobytePerSecond>},
         {Unit::MemoryRate::KibibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * 1024.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::KibibytePerSecond>},
         {Unit::MemoryRate::MegabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::MegabitPerSecond>},
         {Unit::MemoryRate::MebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::MebibitPerSecond>},
         {Unit::MemoryRate::MegabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::MegabytePerSecond>},
         {Unit::MemoryRate::MebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::MebibytePerSecond>},
         {Unit::MemoryRate::GigabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::GigabitPerSecond>},
         {Unit::MemoryRate::GibibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::GibibitPerSecond>},
         {Unit::MemoryRate::GigabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::GigabytePerSecond>},
         {Unit::MemoryRate::GibibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::GibibytePerSecond>},
         {Unit::MemoryRate::TerabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::TerabitPerSecond>},
         {Unit::MemoryRate::TebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::TebibitPerSecond>},
         {Unit::MemoryRate::TerabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::TerabytePerSecond>},
         {Unit::MemoryRate::TebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::TebibytePerSecond>},
         {Unit::MemoryRate::PetabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::PetabitPerSecond>},
         {Unit::MemoryRate::PebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::PebibitPerSecond>},
         {Unit::MemoryRate::PetabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::PetabytePerSecond>},
         {Unit::MemoryRate::PebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::MemoryRate,
+                                 Unit::MemoryRate::PebibytePerSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::MemoryRate,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::MemoryRate>{
+    MapOfConversionsToStandard<Unit::MemoryRate>{
         {Unit::MemoryRate::BitPerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::BitPerSecond>},
         {Unit::MemoryRate::BytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::BytePerSecond>},
         {Unit::MemoryRate::KilobitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::KilobitPerSecond>},
         {Unit::MemoryRate::KibibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1024.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::KibibitPerSecond>},
         {Unit::MemoryRate::KilobytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::KilobytePerSecond>},
         {Unit::MemoryRate::KibibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * 1024.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::KibibytePerSecond>},
         {Unit::MemoryRate::MegabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::MegabitPerSecond>},
         {Unit::MemoryRate::MebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::MebibitPerSecond>},
         {Unit::MemoryRate::MegabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::MegabytePerSecond>},
         {Unit::MemoryRate::MebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::MebibytePerSecond>},
         {Unit::MemoryRate::GigabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::GigabitPerSecond>},
         {Unit::MemoryRate::GibibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::GibibitPerSecond>},
         {Unit::MemoryRate::GigabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::GigabytePerSecond>},
         {Unit::MemoryRate::GibibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::GibibytePerSecond>},
         {Unit::MemoryRate::TerabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::TerabitPerSecond>},
         {Unit::MemoryRate::TebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::TebibitPerSecond>},
         {Unit::MemoryRate::TerabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::TerabytePerSecond>},
         {Unit::MemoryRate::TebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::TebibytePerSecond>},
         {Unit::MemoryRate::PetabitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::PetabitPerSecond>},
         {Unit::MemoryRate::PebibitPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::PebibitPerSecond>},
         {Unit::MemoryRate::PetabytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::PetabytePerSecond>},
         {Unit::MemoryRate::PebibytePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::MemoryRate,
+                               Unit::MemoryRate::PebibytePerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

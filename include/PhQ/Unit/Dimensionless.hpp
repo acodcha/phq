@@ -62,23 +62,39 @@ inline const std::unordered_map<std::string_view, Unit::Dimensionless>
         {"", Unit::Dimensionless::Dimensionless},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Dimensionless, Unit::Dimensionless::Dimensionless>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Dimensionless, Unit::Dimensionless::Dimensionless>(
+    double& value) noexcept {}
+
 template <>
 inline const std::map<
     Unit::Dimensionless,
-    std::function<void(double* const values, const std::size_t size)>>
-    ConversionsFromStandard<Unit::Dimensionless>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Dimensionless>{
         {Unit::Dimensionless::Dimensionless,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Dimensionless,
+                                 Unit::Dimensionless::Dimensionless>},
     };
 
 template <>
 inline const std::map<
     Unit::Dimensionless,
     std::function<void(double* const values, const std::size_t size)>>
-    ConversionsToStandard<Unit::Dimensionless>{
+    MapOfConversionsToStandard<Unit::Dimensionless>{
         {Unit::Dimensionless::Dimensionless,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Dimensionless,
+                               Unit::Dimensionless::Dimensionless>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

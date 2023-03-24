@@ -17,8 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include "Base.hpp"
-
 namespace PhQ::Unit {
 
 namespace {

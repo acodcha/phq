@@ -73,49 +73,67 @@ inline const std::unordered_map<std::string_view, Unit::Force>
         {"lb", Unit::Force::Pound},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Force, std::function<void(double* const values,
-                                                      const std::size_t size)>>
-    ConversionsFromStandard<Unit::Force>{
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Pound>(
+    double& value) noexcept {
+  value /= 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Newton>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Pound>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665;
+}
+
+template <>
+inline const std::map<
+    Unit::Force, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Force>{
         {Unit::Force::Newton,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Force, Unit::Force::Newton>},
         {Unit::Force::Micronewton,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>},
         {Unit::Force::Pound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsFromStandard<Unit::Force, Unit::Force::Pound>},
     };
 
 template <>
 inline const std::map<Unit::Force, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Force>{
+    MapOfConversionsToStandard<Unit::Force>{
         {Unit::Force::Newton,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Force, Unit::Force::Newton>},
         {Unit::Force::Micronewton,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>},
         {Unit::Force::Pound,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsToStandard<Unit::Force, Unit::Force::Pound>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

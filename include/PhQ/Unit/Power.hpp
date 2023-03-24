@@ -107,133 +107,171 @@ inline const std::unordered_map<std::string_view, Unit::Power>
         {"in*lb/s", Unit::Power::InchPoundPerSecond},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Power, std::function<void(double* const values,
-                                                      const std::size_t size)>>
-    ConversionsFromStandard<Unit::Power>{
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
+    double& value) noexcept {
+  value /= 0.3048 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
+    double& value) noexcept {
+  value /= 0.0254 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Watt>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
+    double& value) noexcept {
+  value *= 0.3048 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
+    double& value) noexcept {
+  value *= 0.0254 * 0.45359237 * 9.80665;
+}
+
+template <>
+inline const std::map<
+    Unit::Power, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Power>{
         {Unit::Power::Watt,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Watt>},
         {Unit::Power::Milliwatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Milliwatt>},
         {Unit::Power::Microwatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Microwatt>},
         {Unit::Power::Nanowatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Nanowatt>},
         {Unit::Power::Kilowatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Kilowatt>},
         {Unit::Power::Megawatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Megawatt>},
         {Unit::Power::Gigawatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::Gigawatt>},
         {Unit::Power::FootPoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>},
         {Unit::Power::InchPoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>},
     };
 
 template <>
 inline const std::map<Unit::Power, std::function<void(double* const values,
                                                       const std::size_t size)>>
-    ConversionsToStandard<Unit::Power>{
+    MapOfConversionsToStandard<Unit::Power>{
         {Unit::Power::Watt,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Power, Unit::Power::Watt>},
         {Unit::Power::Milliwatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.001;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Milliwatt>},
         {Unit::Power::Microwatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Microwatt>},
         {Unit::Power::Nanowatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt>},
         {Unit::Power::Kilowatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt>},
         {Unit::Power::Megawatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Megawatt>},
         {Unit::Power::Gigawatt,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt>},
         {Unit::Power::FootPoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>},
         {Unit::Power::InchPoundPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 * 0.45359237 * 9.80665;
-           }
-         }},
+         ConversionsToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 

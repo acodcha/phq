@@ -39,7 +39,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad0.zz(), 9.99);
 
   Dyad dyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  std::array<double, 9>& value1{dyad1.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz()};
+  std::array<double, 9>& value1{dyad1.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz()};
   value1 = {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99};
   EXPECT_EQ(dyad1.xx(), 0.11);
   EXPECT_EQ(dyad1.xy(), 0.22);
@@ -52,23 +52,23 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad1.zz(), 0.99);
 
   Dyad dyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  double& xx{dyad2.Mutable_xx()};
+  double& xx{dyad2.mutable_xx()};
   xx = 0.11;
-  double& xy{dyad2.Mutable_xy()};
+  double& xy{dyad2.mutable_xy()};
   xy = 0.22;
-  double& xz{dyad2.Mutable_xz()};
+  double& xz{dyad2.mutable_xz()};
   xz = 0.33;
-  double& yx{dyad2.Mutable_yx()};
+  double& yx{dyad2.mutable_yx()};
   yx = 0.44;
-  double& yy{dyad2.Mutable_yy()};
+  double& yy{dyad2.mutable_yy()};
   yy = 0.55;
-  double& yz{dyad2.Mutable_yz()};
+  double& yz{dyad2.mutable_yz()};
   yz = 0.66;
-  double& zx{dyad2.Mutable_zx()};
+  double& zx{dyad2.mutable_zx()};
   zx = 0.77;
-  double& zy{dyad2.Mutable_zy()};
+  double& zy{dyad2.mutable_zy()};
   zy = 0.88;
-  double& zz{dyad2.Mutable_zz()};
+  double& zz{dyad2.mutable_zz()};
   zz = 0.99;
   EXPECT_EQ(dyad2.xx(), 0.11);
   EXPECT_EQ(dyad2.xy(), 0.22);
@@ -81,7 +81,7 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad2.zz(), 0.99);
 
   Dyad dyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  dyad3.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
+  dyad3.set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       {0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 0.99});
   EXPECT_EQ(dyad3.xx(), 0.11);
   EXPECT_EQ(dyad3.xy(), 0.22);
@@ -94,15 +94,15 @@ TEST(ValueDyad, Accessor) {
   EXPECT_EQ(dyad3.zz(), 0.99);
 
   Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  dyad4.Set_xx(0.11);
-  dyad4.Set_xy(0.22);
-  dyad4.Set_xz(0.33);
-  dyad4.Set_yx(0.44);
-  dyad4.Set_yy(0.55);
-  dyad4.Set_yz(0.66);
-  dyad4.Set_zx(0.77);
-  dyad4.Set_zy(0.88);
-  dyad4.Set_zz(0.99);
+  dyad4.set_xx(0.11);
+  dyad4.set_xy(0.22);
+  dyad4.set_xz(0.33);
+  dyad4.set_yx(0.44);
+  dyad4.set_yy(0.55);
+  dyad4.set_yz(0.66);
+  dyad4.set_zx(0.77);
+  dyad4.set_zy(0.88);
+  dyad4.set_zz(0.99);
   EXPECT_EQ(dyad4.xx(), 0.11);
   EXPECT_EQ(dyad4.xy(), 0.22);
   EXPECT_EQ(dyad4.xz(), 0.33);

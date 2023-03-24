@@ -156,315 +156,399 @@ inline const std::unordered_map<std::string_view, Unit::Memory>
         {"pebibytes", Unit::Memory::Pebibyte},
     };
 
+namespace Internal {
+
 template <>
-inline const std::map<Unit::Memory, std::function<void(double* const values,
-                                                       const std::size_t size)>>
-    ConversionsFromStandard<Unit::Memory>{
+inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Byte>(
+    double& value) noexcept {
+  value /= 8.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobit>(
+    double& value) noexcept {
+  value /= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibit>(
+    double& value) noexcept {
+  value /= 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobyte>(
+    double& value) noexcept {
+  value /= 8.0 * 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibyte>(
+    double& value) noexcept {
+  value /= 8.0 * 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Megabit>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibit>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Megabyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabit>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibit>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Terabit>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibit>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Terabyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Petabit>(
+    double& value) noexcept {
+  value /= std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibit>(
+    double& value) noexcept {
+  value /= std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Petabyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibyte>(
+    double& value) noexcept {
+  value /= 8.0 * std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Bit>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Byte>(
+    double& value) noexcept {
+  value *= 8.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Kilobit>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Kibibit>(
+    double& value) noexcept {
+  value *= 1024.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Kilobyte>(
+    double& value) noexcept {
+  value *= 8.0 * 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Kibibyte>(
+    double& value) noexcept {
+  value *= 8.0 * 1024.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Megabit>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Mebibit>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Megabyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Mebibyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gigabit>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gibibit>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Gigabyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Gibibyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 3);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Terabit>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Tebibit>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Terabyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Tebibyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 4);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Petabit>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Pebibit>(
+    double& value) noexcept {
+  value *= std::pow(1024.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Petabyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1000.0, 5);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Memory, Unit::Memory::Pebibyte>(
+    double& value) noexcept {
+  value *= 8.0 * std::pow(1024.0, 5);
+}
+
+template <>
+inline const std::map<
+    Unit::Memory, std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Memory>{
         {Unit::Memory::Bit,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Bit>},
         {Unit::Memory::Byte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Byte>},
         {Unit::Memory::Kilobit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Kilobit>},
         {Unit::Memory::Kibibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 1024.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Kibibit>},
         {Unit::Memory::Kilobyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * 1000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Kilobyte>},
         {Unit::Memory::Kibibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * 1024.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Kibibyte>},
         {Unit::Memory::Megabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Megabit>},
         {Unit::Memory::Mebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Mebibit>},
         {Unit::Memory::Megabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Megabyte>},
         {Unit::Memory::Mebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Mebibyte>},
         {Unit::Memory::Gigabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Gigabit>},
         {Unit::Memory::Gibibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Gibibit>},
         {Unit::Memory::Gigabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Gigabyte>},
         {Unit::Memory::Gibibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Gibibyte>},
         {Unit::Memory::Terabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Terabit>},
         {Unit::Memory::Tebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Tebibit>},
         {Unit::Memory::Terabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Terabyte>},
         {Unit::Memory::Tebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Tebibyte>},
         {Unit::Memory::Petabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Petabit>},
         {Unit::Memory::Pebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Pebibit>},
         {Unit::Memory::Petabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Petabyte>},
         {Unit::Memory::Pebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 8.0 * std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsFromStandard<Unit::Memory, Unit::Memory::Pebibyte>},
     };
 
 template <>
 inline const std::map<Unit::Memory, std::function<void(double* const values,
                                                        const std::size_t size)>>
-    ConversionsToStandard<Unit::Memory>{
+    MapOfConversionsToStandard<Unit::Memory>{
         {Unit::Memory::Bit,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Bit>},
         {Unit::Memory::Byte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Byte>},
         {Unit::Memory::Kilobit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Kilobit>},
         {Unit::Memory::Kibibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1024.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Kibibit>},
         {Unit::Memory::Kilobyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * 1000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Kilobyte>},
         {Unit::Memory::Kibibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * 1024.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Kibibyte>},
         {Unit::Memory::Megabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Megabit>},
         {Unit::Memory::Mebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Mebibit>},
         {Unit::Memory::Megabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Megabyte>},
         {Unit::Memory::Mebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Mebibyte>},
         {Unit::Memory::Gigabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Gigabit>},
         {Unit::Memory::Gibibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Gibibit>},
         {Unit::Memory::Gigabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Gigabyte>},
         {Unit::Memory::Gibibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Gibibyte>},
         {Unit::Memory::Terabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Terabit>},
         {Unit::Memory::Tebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Tebibit>},
         {Unit::Memory::Terabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Terabyte>},
         {Unit::Memory::Tebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Tebibyte>},
         {Unit::Memory::Petabit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Petabit>},
         {Unit::Memory::Pebibit,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Pebibit>},
         {Unit::Memory::Petabyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1000.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Petabyte>},
         {Unit::Memory::Pebibyte,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 8.0 * std::pow(1024.0, 5);
-           }
-         }},
+         ConversionsToStandard<Unit::Memory, Unit::Memory::Pebibyte>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
