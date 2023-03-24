@@ -121,65 +121,99 @@ inline const std::unordered_map<std::string_view, Unit::HeatCapacity>
         {"in*lb/R", Unit::HeatCapacity::InchPoundPerRankine},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
+    double& value) noexcept {
+  value /= 0.3048 * 0.45359237 * 9.80665 * 1.8;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
+    double& value) noexcept {
+  value /= 0.0254 * 0.45359237 * 9.80665 * 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
+    double& value) noexcept {
+  value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
+    double& value) noexcept {
+  value *= 0.0254 * 0.45359237 * 9.80665 * 1.8;
+}
+
 template <>
 inline const std::map<
     Unit::HeatCapacity,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::HeatCapacity>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::HeatCapacity,
+                                 Unit::HeatCapacity::JoulePerKelvin>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000000.0;
-           }
-         }},
+         ConversionsFromStandard<Unit::HeatCapacity,
+                                 Unit::HeatCapacity::NanojoulePerKelvin>},
         {Unit::HeatCapacity::FootPoundPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.3048 * 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::HeatCapacity,
+                                 Unit::HeatCapacity::FootPoundPerRankine>},
         {Unit::HeatCapacity::InchPoundPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= 0.0254 * 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsFromStandard<Unit::HeatCapacity,
+                                 Unit::HeatCapacity::InchPoundPerRankine>},
     };
 
 template <>
 inline const std::map<
     Unit::HeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::HeatCapacity>{
+    MapOfConversionsToStandard<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::HeatCapacity,
+                               Unit::HeatCapacity::JoulePerKelvin>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000000001;
-           }
-         }},
+         ConversionsToStandard<Unit::HeatCapacity,
+                               Unit::HeatCapacity::NanojoulePerKelvin>},
         {Unit::HeatCapacity::FootPoundPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.3048 * 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::HeatCapacity,
+                               Unit::HeatCapacity::FootPoundPerRankine>},
         {Unit::HeatCapacity::InchPoundPerRankine,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0254 * 0.45359237 * 9.80665 * 1.8;
-           }
-         }},
+         ConversionsToStandard<Unit::HeatCapacity,
+                               Unit::HeatCapacity::InchPoundPerRankine>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
