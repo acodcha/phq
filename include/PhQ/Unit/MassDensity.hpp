@@ -108,93 +108,139 @@ inline const std::unordered_map<std::string_view, Unit::MassDensity>
         {"lb/in/in/in", Unit::MassDensity::PoundPerCubicInch},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 4) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 4) / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 3) / 0.45359237;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 3) / 0.45359237;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 / std::pow(0.3048, 3);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
+    double& value) noexcept {
+  value *= 0.45359237 / std::pow(0.0254, 3);
+}
+
 template <>
 inline const std::map<
     Unit::MassDensity,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::MassDensity>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::MassDensity>{
         {Unit::MassDensity::KilogramPerCubicMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::KilogramPerCubicMetre>},
         {Unit::MassDensity::GramPerCubicMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.000001;
-           }
-         }},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::GramPerCubicMillimetre>},
         {Unit::MassDensity::SlugPerCubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 4) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::SlugPerCubicFoot>},
         {Unit::MassDensity::SlinchPerCubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 4) / (0.45359237 * 9.80665);
-           }
-         }},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::SlinchPerCubicInch>},
         {Unit::MassDensity::PoundPerCubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 3) / 0.45359237;
-           }
-         }},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::PoundPerCubicFoot>},
         {Unit::MassDensity::PoundPerCubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 3) / 0.45359237;
-           }
-         }},
+         ConversionsFromStandard<Unit::MassDensity,
+                                 Unit::MassDensity::PoundPerCubicInch>},
     };
 
 template <>
 inline const std::map<
     Unit::MassDensity,
     std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::MassDensity>{
+    MapOfConversionsToStandard<Unit::MassDensity>{
         {Unit::MassDensity::KilogramPerCubicMetre,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::KilogramPerCubicMetre>},
         {Unit::MassDensity::GramPerCubicMillimetre,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 1000000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::GramPerCubicMillimetre>},
         {Unit::MassDensity::SlugPerCubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::SlugPerCubicFoot>},
         {Unit::MassDensity::SlinchPerCubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);
-           }
-         }},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::SlinchPerCubicInch>},
         {Unit::MassDensity::PoundPerCubicFoot,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 / std::pow(0.3048, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::PoundPerCubicFoot>},
         {Unit::MassDensity::PoundPerCubicInch,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.45359237 / std::pow(0.0254, 3);
-           }
-         }},
+         ConversionsToStandard<Unit::MassDensity,
+                               Unit::MassDensity::PoundPerCubicInch>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
