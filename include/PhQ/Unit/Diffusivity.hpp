@@ -171,205 +171,299 @@ inline const std::unordered_map<std::string_view, Unit::Diffusivity>
         {"uin2/sec", Unit::Diffusivity::SquareMicroinchPerSecond},
     };
 
+namespace Internal {
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
+    double& value) noexcept {
+  value /= std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 2);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
+    double& value) noexcept {
+  value *= 0.0001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
+    double& value) noexcept {
+  value *= 640.0 / std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.9144, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(10.0, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(100.0, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.0000254, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000000.0, 2);
+}
+
+template <>
+inline constexpr void ConversionFromStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>(
+    double& value) noexcept {
+  value /= std::pow(0.0000000254, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1609.344, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1000.0, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
+    double& value) noexcept {
+  value *= 10000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(1609.344, 2) / 640.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>(
+    double& value) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.9144, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.3048, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.1, 2);
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.0254, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.01, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.001, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.0000254, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.000001, 2);
+}
+
+template <>
+inline constexpr void ConversionToStandard<
+    Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>(
+    double& value) noexcept {
+  value *= std::pow(0.0000000254, 2);
+}
+
 template <>
 inline const std::map<
     Unit::Diffusivity,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsFromStandard<Unit::Diffusivity>{
+    std::function<void(double* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(1609.344, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMilePerSecond>},
         {Unit::Diffusivity::SquareKilometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareKilometrePerSecond>},
         {Unit::Diffusivity::HectarePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 0.0001;
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::HectarePerSecond>},
         {Unit::Diffusivity::AcrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 640.0 / std::pow(1609.344, 2);
-           }
-         }},
-        {Unit::Diffusivity::SquareYardPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.9144, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::AcrePerSecond>},
         {Unit::Diffusivity::SquareMetrePerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMetrePerSecond>},
+        {Unit::Diffusivity::SquareYardPerSecond,
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareYardPerSecond>},
         {Unit::Diffusivity::SquareFootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareFootPerSecond>},
         {Unit::Diffusivity::SquareDecimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(10.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareDecimetrePerSecond>},
         {Unit::Diffusivity::SquareInchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareInchPerSecond>},
         {Unit::Diffusivity::SquareCentimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(100.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareCentimetrePerSecond>},
         {Unit::Diffusivity::SquareMillimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMillimetrePerSecond>},
         {Unit::Diffusivity::SquareMilliinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMilliinchPerSecond>},
         {Unit::Diffusivity::SquareMicrometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000000.0, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMicrometrePerSecond>},
         {Unit::Diffusivity::SquareMicroinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values /= std::pow(0.0000000254, 2);
-           }
-         }},
+         ConversionsFromStandard<Unit::Diffusivity,
+                                 Unit::Diffusivity::SquareMicroinchPerSecond>},
     };
 
 template <>
 inline const std::map<
     Unit::Diffusivity,
-    std::function<void(double* const values, const std::size_t size)>>
-    Internal::MapOfConversionsToStandard<Unit::Diffusivity>{
+    std::function<void(double* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1609.344, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMilePerSecond>},
         {Unit::Diffusivity::SquareKilometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1000.0, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareKilometrePerSecond>},
         {Unit::Diffusivity::HectarePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= 10000.0;
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::HectarePerSecond>},
         {Unit::Diffusivity::AcrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(1609.344, 2) / 640.0;
-           }
-         }},
-        {Unit::Diffusivity::SquareYardPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.9144, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::AcrePerSecond>},
         {Unit::Diffusivity::SquareMetrePerSecond,
-         [](double* values, const std::size_t size) -> void {}},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMetrePerSecond>},
+        {Unit::Diffusivity::SquareYardPerSecond,
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareYardPerSecond>},
         {Unit::Diffusivity::SquareFootPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.3048, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareFootPerSecond>},
         {Unit::Diffusivity::SquareDecimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.1, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareDecimetrePerSecond>},
         {Unit::Diffusivity::SquareInchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareInchPerSecond>},
         {Unit::Diffusivity::SquareCentimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.01, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareCentimetrePerSecond>},
         {Unit::Diffusivity::SquareMillimetrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.001, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMillimetrePerSecond>},
         {Unit::Diffusivity::SquareMilliinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMilliinchPerSecond>},
         {Unit::Diffusivity::SquareMicrometrePerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.000001, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMicrometrePerSecond>},
         {Unit::Diffusivity::SquareMicroinchPerSecond,
-         [](double* values, const std::size_t size) -> void {
-           const double* const end{values + size};
-           for (; values < end; ++values) {
-             *values *= std::pow(0.0000000254, 2);
-           }
-         }},
+         ConversionsToStandard<Unit::Diffusivity,
+                               Unit::Diffusivity::SquareMicroinchPerSecond>},
     };
+
+}  // namespace Internal
 
 }  // namespace PhQ
 
