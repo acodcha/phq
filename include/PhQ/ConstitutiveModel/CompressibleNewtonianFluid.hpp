@@ -18,22 +18,17 @@
 
 #include "../BulkDynamicViscosity.hpp"
 #include "../DynamicViscosity.hpp"
-#include "../StrainRate.hpp"
-#include "../Stress.hpp"
 #include "Base.hpp"
 
-namespace PhQ::ConstitutiveModel {
+namespace PhQ {
 
-class CompressibleNewtonianFluid
-    : public GenericConstitutiveModel<Type::CompressibleNewtonianFluid> {
+class CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr CompressibleNewtonianFluid() noexcept
-      : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(),
-        dynamic_viscosity_(),
-        bulk_dynamic_viscosity_() {}
+      : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
 
   CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept
-      : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(),
+      : ConstitutiveModel(),
         dynamic_viscosity_(dynamic_viscosity),
         bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
                                  StandardUnit<Unit::DynamicViscosity>}) {}
@@ -41,7 +36,7 @@ public:
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity,
       const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept
-      : GenericConstitutiveModel<Type::CompressibleNewtonianFluid>(),
+      : ConstitutiveModel(),
         dynamic_viscosity_(dynamic_viscosity),
         bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
@@ -55,40 +50,47 @@ public:
     return bulk_dynamic_viscosity_;
   }
 
-  inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const noexcept {
+  inline Type GetType() const noexcept override {
+    return Type::CompressibleNewtonianFluid;
+  }
+
+  inline PhQ::Stress Stress(
+      const PhQ::Strain& strain,
+      const PhQ::StrainRate& strain_rate) const noexcept override {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
-    const double temporary_1{2.0 * dynamic_viscosity_.Value()};
-    const double temporary_2{bulk_dynamic_viscosity_.Value() *
-                             strain_rate.Value().Trace()};
-    return {Value::SymmetricDyad{temporary_1 * strain_rate.Value()} +
-                Value::SymmetricDyad{temporary_2, 0.0, 0.0, temporary_2, 0.0,
-                                     temporary_2},
+    const double temporary1{2.0 * dynamic_viscosity_.Value()};
+    const double temporary2{bulk_dynamic_viscosity_.Value() *
+                            strain_rate.Value().Trace()};
+    return {Value::SymmetricDyad{temporary1 * strain_rate.Value()} +
+                Value::SymmetricDyad{temporary2, 0.0, 0.0, temporary2, 0.0,
+                                     temporary2},
             StandardUnit<Unit::Pressure>};
   }
 
   inline std::string Print() const noexcept override {
-    return {"Dynamic Viscosity = " + dynamic_viscosity_.Print() +
+    return {"Type = " + LowerCaseCopy(Abbreviation(GetType())) +
+            ", Dynamic Viscosity = " + dynamic_viscosity_.Print() +
             ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
   }
 
   inline std::string Json() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", \"dynamic_viscosity\": " + dynamic_viscosity_.Json() +
             "\", \"bulk_dynamic_viscosity\": " +
             bulk_dynamic_viscosity_.Json() + "}"};
   }
 
   inline std::string Xml() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
             "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() +
             "</dynamic_viscosity><bulk_dynamic_viscosity>" +
             bulk_dynamic_viscosity_.Xml() + "</bulk_dynamic_viscosity>"};
   }
 
   inline std::string Yaml() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", dynamic_viscosity: " + dynamic_viscosity_.Json() +
             "\", bulk_dynamic_viscosity: " + bulk_dynamic_viscosity_.Json() +
             "}"};
@@ -118,14 +120,13 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-}  // namespace PhQ::ConstitutiveModel
+}  // namespace PhQ
 
 namespace std {
 
 template <>
-struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
-  size_t operator()(
-      const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
+struct hash<PhQ::CompressibleNewtonianFluid> {
+  size_t operator()(const PhQ::CompressibleNewtonianFluid& model) const {
     size_t result = 17;
     result =
         31 * result + hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
