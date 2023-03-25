@@ -17,30 +17,31 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_INCOMPRESSIBLE_NEWTONIAN_FLUID_HPP
 
 #include "../DynamicViscosity.hpp"
-#include "../StrainRate.hpp"
-#include "../Stress.hpp"
 #include "Base.hpp"
 
-namespace PhQ::ConstitutiveModel {
+namespace PhQ {
 
-class IncompressibleNewtonianFluid
-    : public GenericConstitutiveModel<Type::IncompressibleNewtonianFluid> {
+class IncompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr IncompressibleNewtonianFluid() noexcept
-      : GenericConstitutiveModel<Type::IncompressibleNewtonianFluid>(),
-        dynamic_viscosity_() {}
+      : ConstitutiveModel(), dynamic_viscosity_() {}
 
   constexpr IncompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity) noexcept
-      : GenericConstitutiveModel<Type::IncompressibleNewtonianFluid>(),
-        dynamic_viscosity_(dynamic_viscosity) {}
+      : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity) {}
 
   inline constexpr const PhQ::DynamicViscosity& DynamicViscosity()
       const noexcept {
     return dynamic_viscosity_;
   }
 
-  inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const noexcept {
+  inline Type GetType() const noexcept override {
+    return Type::IncompressibleNewtonianFluid;
+  }
+
+  inline PhQ::Stress Stress(
+      const PhQ::Strain& strain,
+      const PhQ::StrainRate& strain_rate) const noexcept override {
     // stress = 2 * dynamic_viscosity * strain_rate
     return {{2.0 * dynamic_viscosity_.Value() * strain_rate.Value()},
             StandardUnit<Unit::Pressure>};
@@ -53,22 +54,23 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Dynamic Viscosity = " + dynamic_viscosity_.Print()};
+    return {"Type = " + LowerCaseCopy(Abbreviation(GetType())) +
+            ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
   }
 
   inline std::string Json() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", \"dynamic_viscosity\": " + dynamic_viscosity_.Json() + "}"};
   }
 
   inline std::string Xml() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
             "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() +
             "</dynamic_viscosity>"};
   }
 
   inline std::string Yaml() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", dynamic_viscosity: " + dynamic_viscosity_.Json() + "}"};
   }
 
@@ -92,14 +94,13 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-}  // namespace PhQ::ConstitutiveModel
+}  // namespace PhQ
 
 namespace std {
 
 template <>
-struct hash<PhQ::ConstitutiveModel::IncompressibleNewtonianFluid> {
-  size_t operator()(
-      const PhQ::ConstitutiveModel::IncompressibleNewtonianFluid& model) const {
+struct hash<PhQ::IncompressibleNewtonianFluid> {
+  size_t operator()(const PhQ::IncompressibleNewtonianFluid& model) const {
     return hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
   }
 };

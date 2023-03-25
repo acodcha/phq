@@ -16,25 +16,27 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_BASE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_BASE_HPP
 
-#include "../Base/Enumeration.hpp"
-#include "../Base/String.hpp"
+#include "../Strain.hpp"
+#include "../StrainRate.hpp"
+#include "../Stress.hpp"
 
 namespace PhQ {
 
-namespace ConstitutiveModel {
-
-enum class Type : int_least8_t {
-  ElasticIsotropicSolid,
-  IncompressibleNewtonianFluid,
-  CompressibleNewtonianFluid,
-};
-
-template <Type ConstitutiveModelType>
-class GenericConstitutiveModel {
+class ConstitutiveModel {
 public:
-  constexpr ConstitutiveModel::Type Type() const noexcept {
-    return ConstitutiveModelType;
-  }
+  enum class Type : int_least8_t {
+    ElasticIsotropicSolid,
+    IncompressibleNewtonianFluid,
+    CompressibleNewtonianFluid,
+  };
+
+  virtual ~ConstitutiveModel() noexcept = default;
+
+  virtual inline Type GetType() const noexcept = 0;
+
+  virtual inline PhQ::Stress Stress(
+      const PhQ::Strain& strain,
+      const PhQ::StrainRate& strain_rate) const noexcept = 0;
 
   virtual inline std::string Print() const noexcept = 0;
 
@@ -45,12 +47,8 @@ public:
   virtual inline std::string Yaml() const noexcept = 0;
 
 protected:
-  constexpr GenericConstitutiveModel() noexcept = default;
-
-  ~GenericConstitutiveModel() noexcept = default;
+  constexpr ConstitutiveModel() noexcept = default;
 };
-
-}  // namespace ConstitutiveModel
 
 template <>
 inline const std::map<ConstitutiveModel::Type, std::string_view>

@@ -22,40 +22,32 @@
 #include "../PWaveModulus.hpp"
 #include "../PoissonRatio.hpp"
 #include "../ShearModulus.hpp"
-#include "../Strain.hpp"
-#include "../Stress.hpp"
 #include "../YoungModulus.hpp"
 #include "Base.hpp"
 
-namespace PhQ::ConstitutiveModel {
+namespace PhQ {
 
-class ElasticIsotropicSolid
-    : public GenericConstitutiveModel<Type::ElasticIsotropicSolid> {
+class ElasticIsotropicSolid : public ConstitutiveModel {
 public:
   constexpr ElasticIsotropicSolid() noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
-        shear_modulus_(),
-        lame_first_modulus_() {}
+      : ConstitutiveModel(), shear_modulus_(), lame_first_modulus_() {}
 
   constexpr ElasticIsotropicSolid(const YoungModulus& young_modulus,
                                   const PoissonRatio& poisson_ratio) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
-        shear_modulus_(),
-        lame_first_modulus_() {
-    const double numerator_1{young_modulus.Value()};
-    const double numerator_2{young_modulus.Value() * poisson_ratio.Value()};
-    const double denominator_1{2.0 * (1.0 + poisson_ratio.Value())};
-    const double denominator_2{(1.0 + poisson_ratio.Value()) *
-                               (1.0 - 2.0 * poisson_ratio.Value())};
-    shear_modulus_ = {numerator_1 / denominator_1,
-                      StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {numerator_2 / denominator_2,
+      : ConstitutiveModel(), shear_modulus_(), lame_first_modulus_() {
+    const double numerator1{young_modulus.Value()};
+    const double numerator2{young_modulus.Value() * poisson_ratio.Value()};
+    const double denominator1{2.0 * (1.0 + poisson_ratio.Value())};
+    const double denominator2{(1.0 + poisson_ratio.Value()) *
+                              (1.0 - 2.0 * poisson_ratio.Value())};
+    shear_modulus_ = {numerator1 / denominator1, StandardUnit<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator2,
                            StandardUnit<Unit::Pressure>};
   }
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
                         const ShearModulus& shear_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(
             (shear_modulus.Value() *
@@ -66,42 +58,38 @@ public:
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus,
       const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
-        shear_modulus_(),
-        lame_first_modulus_() {
-    const double numerator_1{3.0 * young_modulus.Value() *
-                             isentropic_bulk_modulus.Value()};
-    const double numerator_2{
+      : ConstitutiveModel(), shear_modulus_(), lame_first_modulus_() {
+    const double numerator1{3.0 * young_modulus.Value() *
+                            isentropic_bulk_modulus.Value()};
+    const double numerator2{
         3.0 * isentropic_bulk_modulus.Value() *
         (3.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())};
     const double denominator{9.0 * isentropic_bulk_modulus.Value() -
                              young_modulus.Value()};
-    shear_modulus_ = {numerator_1 / denominator, StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {numerator_2 / denominator,
+    shear_modulus_ = {numerator1 / denominator, StandardUnit<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator,
                            StandardUnit<Unit::Pressure>};
   }
 
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus,
       const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
-        shear_modulus_(),
-        lame_first_modulus_() {
-    const double numerator_1{3.0 * young_modulus.Value() *
-                             isothermal_bulk_modulus.Value()};
-    const double numerator_2{
+      : ConstitutiveModel(), shear_modulus_(), lame_first_modulus_() {
+    const double numerator1{3.0 * young_modulus.Value() *
+                            isothermal_bulk_modulus.Value()};
+    const double numerator2{
         3.0 * isothermal_bulk_modulus.Value() *
         (3.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())};
     const double denominator{9.0 * isothermal_bulk_modulus.Value() -
                              young_modulus.Value()};
-    shear_modulus_ = {numerator_1 / denominator, StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {numerator_2 / denominator,
+    shear_modulus_ = {numerator1 / denominator, StandardUnit<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator,
                            StandardUnit<Unit::Pressure>};
   }
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(
             0.25 * (young_modulus.Value() - 3.0 * lame_first_modulus.Value() +
                     std::sqrt(std::pow(young_modulus.Value(), 2) +
@@ -113,7 +101,7 @@ public:
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(
             0.125 * (3.0 * p_wave_modulus.Value() + young_modulus.Value() -
                      std::sqrt(std::pow(young_modulus.Value(), 2) +
@@ -131,7 +119,7 @@ public:
 
   ElasticIsotropicSolid(const ShearModulus& shear_modulus,
                         const PoissonRatio& poisson_ratio) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(
             (2.0 * shear_modulus.Value() * poisson_ratio.Value()) /
@@ -141,7 +129,7 @@ public:
   ElasticIsotropicSolid(
       const ShearModulus& shear_modulus,
       const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(
             isentropic_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value(),
@@ -150,7 +138,7 @@ public:
   ElasticIsotropicSolid(
       const ShearModulus& shear_modulus,
       const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(
             isothermal_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value(),
@@ -158,13 +146,13 @@ public:
 
   ElasticIsotropicSolid(const ShearModulus& shear_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const ShearModulus& shear_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(shear_modulus),
         lame_first_modulus_(
             p_wave_modulus.Value() - 2.0 * shear_modulus.Value(),
@@ -172,7 +160,7 @@ public:
 
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(1.5 * (isentropic_bulk_modulus.Value() -
                               lame_first_modulus.Value()),
                        StandardUnit<Unit::Pressure>),
@@ -180,7 +168,7 @@ public:
 
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(
             0.75 * (p_wave_modulus.Value() - isentropic_bulk_modulus.Value()),
             StandardUnit<Unit::Pressure>),
@@ -190,7 +178,7 @@ public:
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(1.5 * (isothermal_bulk_modulus.Value() -
                               lame_first_modulus.Value()),
                        StandardUnit<Unit::Pressure>),
@@ -198,7 +186,7 @@ public:
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(
             0.75 * (p_wave_modulus.Value() - isothermal_bulk_modulus.Value()),
             StandardUnit<Unit::Pressure>),
@@ -208,7 +196,7 @@ public:
 
   ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
-      : GenericConstitutiveModel<Type::ElasticIsotropicSolid>(),
+      : ConstitutiveModel(),
         shear_modulus_(
             0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value()),
             StandardUnit<Unit::Pressure>),
@@ -254,7 +242,13 @@ public:
     return PhQ::PoissonRatio{numerator / denominator};
   }
 
-  inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept {
+  inline Type GetType() const noexcept override {
+    return Type::ElasticIsotropicSolid;
+  }
+
+  inline PhQ::Stress Stress(
+      const PhQ::Strain& strain,
+      const PhQ::StrainRate& strain_rate) const noexcept override {
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
     // b = lame_first_modulus
@@ -271,38 +265,38 @@ public:
     // a = 1 / (2 * shear_modulus)
     // b = lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3 *
     // lame_first_modulus))
-    const double denominator_1{2.0 * shear_modulus_.Value()};
-    const double numerator_2{-lame_first_modulus_.Value()};
-    const double denominator_2{
+    const double denominator1{2.0 * shear_modulus_.Value()};
+    const double numerator2{-lame_first_modulus_.Value()};
+    const double denominator2{
         2.0 * shear_modulus_.Value() *
         (2.0 * shear_modulus_.Value() + 3.0 * lame_first_modulus_.Value())};
-    const double temporary{numerator_2 / denominator_2 *
-                           stress.Value().Trace()};
+    const double temporary{numerator2 / denominator2 * stress.Value().Trace()};
     return PhQ::Strain{
-        stress.Value() / denominator_1 +
+        stress.Value() / denominator1 +
         Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}};
   }
 
   inline std::string Print() const noexcept override {
-    return {"Shear Modulus = " + shear_modulus_.Print() +
+    return {"Type = " + LowerCaseCopy(Abbreviation(GetType())) +
+            ", Shear Modulus = " + shear_modulus_.Print() +
             ", Lamé's First Modulus = " + lame_first_modulus_.Print()};
   }
 
   inline std::string Json() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", \"shear_modulus\": " + shear_modulus_.Json() +
             ", \"lame_first_modulus\": " + lame_first_modulus_.Json() + "}"};
   }
 
   inline std::string Xml() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
             "</type><shear_modulus>" + shear_modulus_.Xml() +
             "</shear_modulus><lame_first_modulus>" + lame_first_modulus_.Xml() +
             "</lame_first_modulus>"};
   }
 
   inline std::string Yaml() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
             "\", shear_modulus: " + shear_modulus_.Json() +
             ", lame_first_modulus: " + lame_first_modulus_.Json() + "}"};
   }
@@ -331,14 +325,13 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-}  // namespace PhQ::ConstitutiveModel
+}  // namespace PhQ
 
 namespace std {
 
 template <>
-struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
-  size_t operator()(
-      const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
+struct hash<PhQ::ElasticIsotropicSolid> {
+  size_t operator()(const PhQ::ElasticIsotropicSolid& model) const {
     size_t result = 17;
     result = 31 * result + hash<PhQ::ShearModulus>()(model.ShearModulus());
     result =
