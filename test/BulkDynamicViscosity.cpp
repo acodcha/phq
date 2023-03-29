@@ -77,11 +77,14 @@ TEST(BulkDynamicViscosity, Comparison) {
 }
 
 TEST(BulkDynamicViscosity, Constructor) {
-  const BulkDynamicViscosity viscosity0{1.0,
+  constexpr BulkDynamicViscosity viscosity0;
+  const BulkDynamicViscosity viscosity1{1.0,
                                         Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity viscosity1;
   const BulkDynamicViscosity viscosity2{
       100.0, Unit::DynamicViscosity::KilopascalSecond};
+  constexpr BulkDynamicViscosity viscosity3{
+      BulkDynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(
+          100.0)};
 }
 
 TEST(BulkDynamicViscosity, Hash) {

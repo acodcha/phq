@@ -45,6 +45,14 @@ public:
       : DimensionalScalarQuantity<Unit::TemperatureGradient>(
             temperature_difference.Value() / length.Value()) {}
 
+  template <Unit::TemperatureGradient Unit>
+  static constexpr TemperatureGradientMagnitude Create(
+      const double value) noexcept {
+    return TemperatureGradientMagnitude{
+        StaticConvertCopy<Unit::TemperatureGradient, Unit,
+                          StandardUnit<Unit::TemperatureGradient>>(value)};
+  }
+
   inline TemperatureGradientMagnitude operator+(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const noexcept {

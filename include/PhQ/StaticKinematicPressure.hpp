@@ -44,6 +44,13 @@ public:
       : StaticKinematicPressure(static_pressure.Value() /
                                 mass_density.Value()) {}
 
+  template <Unit::SpecificEnergy Unit>
+  static constexpr StaticKinematicPressure Create(const double value) noexcept {
+    return StaticKinematicPressure{
+        StaticConvertCopy<Unit::SpecificEnergy, Unit,
+                          StandardUnit<Unit::SpecificEnergy>>(value)};
+  }
+
   inline StaticKinematicPressure operator+(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return StaticKinematicPressure{value_ + static_kinematic_pressure.value_};

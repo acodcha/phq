@@ -54,6 +54,13 @@ public:
                                 const Mass& mass) noexcept
       : SpecificGasConstant(gas_constant.Value() / mass.Value()) {}
 
+  template <Unit::SpecificHeatCapacity Unit>
+  static constexpr SpecificGasConstant Create(const double value) noexcept {
+    return SpecificGasConstant{
+        StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
+                          StandardUnit<Unit::SpecificHeatCapacity>>(value)};
+  }
+
   inline SpecificGasConstant operator+(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return SpecificGasConstant{value_ + specific_gas_constant.value_};

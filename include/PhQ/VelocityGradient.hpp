@@ -30,6 +30,13 @@ public:
                    const Unit::Frequency& unit) noexcept
       : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
+  template <Unit::Frequency Unit>
+  static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {
+    return VelocityGradient{
+        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+            value)};
+  }
+
   inline PhQ::StrainRate StrainRate() const noexcept {
     return PhQ::StrainRate{*this};
   }

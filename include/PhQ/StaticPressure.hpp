@@ -50,6 +50,13 @@ public:
       const StaticKinematicPressure& static_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
+  template <Unit::Pressure Unit>
+  static constexpr StaticPressure Create(const double value) noexcept {
+    return StaticPressure{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline PhQ::Stress Stress() const noexcept;
 
   inline StaticPressure operator+(

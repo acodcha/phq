@@ -31,6 +31,14 @@ public:
       const double value, const Unit::ThermalExpansion unit) noexcept
       : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
+  template <Unit::ThermalExpansion Unit>
+  static constexpr VolumetricThermalExpansionCoefficient Create(
+      const double value) noexcept {
+    return VolumetricThermalExpansionCoefficient{
+        StaticConvertCopy<Unit::ThermalExpansion, Unit,
+                          StandardUnit<Unit::ThermalExpansion>>(value)};
+  }
+
   inline VolumetricThermalExpansionCoefficient operator+(
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) const noexcept {

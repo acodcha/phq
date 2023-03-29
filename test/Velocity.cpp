@@ -90,9 +90,11 @@ TEST(Velocity, Comparison) {
 }
 
 TEST(Velocity, Constructor) {
-  const Velocity velocity0;
+  constexpr Velocity velocity0;
   const Velocity velocity1{{1.0, 2.0, 4.0}, Unit::Speed::FootPerSecond};
   const Velocity velocity2{{-1.0, -2.0, -4.0}, Unit::Speed::FootPerSecond};
+  constexpr Velocity velocity3{
+      Velocity::Create<Unit::Speed::FootPerSecond>({-1.0, -2.0, -4.0})};
   const Direction direction{velocity1};
   const Angle angle{velocity1, velocity2};
   const Speed speed{velocity1};

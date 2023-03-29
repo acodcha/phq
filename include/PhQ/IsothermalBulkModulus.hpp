@@ -29,6 +29,13 @@ public:
   IsothermalBulkModulus(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr IsothermalBulkModulus Create(const double value) noexcept {
+    return IsothermalBulkModulus{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline IsothermalBulkModulus operator+(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return {value_ + isothermal_bulk_modulus.value_};

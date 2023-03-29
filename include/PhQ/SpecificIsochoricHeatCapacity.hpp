@@ -51,6 +51,14 @@ public:
       : SpecificIsochoricHeatCapacity(isochoric_heat_capacity.Value() /
                                       mass.Value()) {}
 
+  template <Unit::SpecificHeatCapacity Unit>
+  static constexpr SpecificIsochoricHeatCapacity Create(
+      const double value) noexcept {
+    return SpecificIsochoricHeatCapacity{
+        StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
+                          StandardUnit<Unit::SpecificHeatCapacity>>(value)};
+  }
+
   inline SpecificIsochoricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept {

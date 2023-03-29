@@ -44,6 +44,14 @@ public:
   explicit constexpr StrainRate(
       const VelocityGradient& velocity_gradient) noexcept;
 
+  template <Unit::Frequency Unit>
+  static constexpr StrainRate Create(
+      const Value::SymmetricDyad& value) noexcept {
+    return StrainRate{
+        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+            value)};
+  }
+
   inline StrainRate operator+(const StrainRate& strain_rate) const noexcept {
     return {value_ + strain_rate.value_};
   }

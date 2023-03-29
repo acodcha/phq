@@ -86,9 +86,11 @@ TEST(AngularSpeed, Constructor) {
   const Angle angle{8.0, Unit::Angle::Radian};
   const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
-  const AngularSpeed speed0;
+  constexpr AngularSpeed speed0;
   const AngularSpeed speed1{90.0, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed speed2{4.0, Unit::AngularSpeed::RadianPerSecond};
+  constexpr AngularSpeed speed3{
+      AngularSpeed::Create<Unit::AngularSpeed::DegreePerSecond>(90.0)};
   EXPECT_EQ(AngularSpeed(angle, time), speed2);
   EXPECT_EQ(AngularSpeed(angle, frequency), speed2);
   EXPECT_EQ(Angle(speed2, time), angle);

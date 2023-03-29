@@ -77,6 +77,12 @@ public:
 
   constexpr Time(const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
+  template <Unit::Time Unit>
+  static constexpr Time Create(const double value) noexcept {
+    return Time{
+        StaticConvertCopy<Unit::Time, Unit, StandardUnit<Unit::Time>>(value)};
+  }
+
   inline PhQ::Frequency Frequency() const noexcept;
 
   inline Time operator+(const Time& time) const noexcept {

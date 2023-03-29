@@ -48,6 +48,13 @@ public:
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const Mass& mass) noexcept;
 
+  template <Unit::HeatCapacity Unit>
+  static constexpr IsobaricHeatCapacity Create(const double value) noexcept {
+    return IsobaricHeatCapacity{
+        StaticConvertCopy<Unit::HeatCapacity, Unit,
+                          StandardUnit<Unit::HeatCapacity>>(value)};
+  }
+
   inline IsobaricHeatCapacity operator+(
       const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
     return IsobaricHeatCapacity{value_ + isobaric_heat_capacity.value_};

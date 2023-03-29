@@ -29,6 +29,13 @@ public:
   PWaveModulus(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr PWaveModulus Create(const double value) noexcept {
+    return PWaveModulus{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline PWaveModulus operator+(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return PWaveModulus{value_ + p_wave_modulus.value_};

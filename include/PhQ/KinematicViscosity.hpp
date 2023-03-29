@@ -49,6 +49,13 @@ public:
       const PrandtlNumber& prandtl_number,
       const ThermalDiffusivity& thermal_diffusivity) noexcept;
 
+  template <Unit::Diffusivity Unit>
+  static constexpr KinematicViscosity Create(const double value) noexcept {
+    return KinematicViscosity{
+        StaticConvertCopy<Unit::Diffusivity, Unit,
+                          StandardUnit<Unit::Diffusivity>>(value)};
+  }
+
   inline KinematicViscosity operator+(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return KinematicViscosity{value_ + kinematic_viscosity.value_};

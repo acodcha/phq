@@ -78,10 +78,12 @@ TEST(MassDensity, Comparison) {
 TEST(MassDensity, Constructor) {
   const Mass mass0{2.0, Unit::Mass::Kilogram};
   const Volume volume0{2.0, Unit::Volume::CubicMetre};
-  const MassDensity density0{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  const MassDensity density1;
+  constexpr MassDensity density0;
+  const MassDensity density1{1.0, Unit::MassDensity::KilogramPerCubicMetre};
   const MassDensity density2{100.0, Unit::MassDensity::GramPerCubicMillimetre};
-  const MassDensity density3{mass0, volume0};
+  constexpr MassDensity density3{
+      MassDensity::Create<Unit::MassDensity::GramPerCubicMillimetre>(100.0)};
+  const MassDensity density4{mass0, volume0};
   const Mass mass1{density0, volume0};
   const Volume volume1{density0, mass0};
 }

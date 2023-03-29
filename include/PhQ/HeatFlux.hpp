@@ -45,6 +45,12 @@ public:
       : HeatFlux(-1.0 * thermal_conductivity.Value() *
                  temperature_gradient.Value()) {}
 
+  template <Unit::EnergyFlux Unit>
+  static constexpr HeatFlux Create(const Value::Vector& value) noexcept {
+    return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit,
+                                      StandardUnit<Unit::EnergyFlux>>(value)};
+  }
+
   inline HeatFluxMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const HeatFlux& heat_flux) const noexcept {

@@ -41,6 +41,13 @@ public:
                          const Frequency& frequency) noexcept
       : Acceleration(velocity.Value() * frequency.Value()) {}
 
+  template <Unit::Acceleration Unit>
+  static constexpr Acceleration Create(const Value::Vector& value) noexcept {
+    return Acceleration{
+        StaticConvertCopy<Unit::Acceleration, Unit,
+                          StandardUnit<Unit::Acceleration>>(value)};
+  }
+
   inline AccelerationMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {

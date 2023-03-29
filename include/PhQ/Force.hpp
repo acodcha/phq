@@ -39,6 +39,12 @@ public:
 
   constexpr Force(const Traction& traction, const Area& area) noexcept;
 
+  template <Unit::Force Unit>
+  static constexpr Force Create(const Value::Vector& value) noexcept {
+    return Force{
+        StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
+  }
+
   inline ForceMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Force& force) const noexcept {

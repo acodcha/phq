@@ -63,6 +63,13 @@ public:
   constexpr Frequency(const VolumeRate& volume_rate,
                       const Volume& volume) noexcept;
 
+  template <Unit::Frequency Unit>
+  static constexpr Frequency Create(const double value) noexcept {
+    return Frequency{
+        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+            value)};
+  }
+
   inline Time Period() const noexcept { return {*this}; }
 
   inline Frequency operator+(const Frequency& frequency) const noexcept {

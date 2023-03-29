@@ -68,8 +68,9 @@ TEST(Angle, Comparison) {
 }
 
 TEST(Angle, Constructor) {
-  const Angle angle0;
+  constexpr Angle angle0;
   const Angle angle1{90.0, Unit::Angle::Degree};
+  constexpr Angle angle2{Angle::Create<Unit::Angle::Degree>(90.0)};
   const Value::Vector vector0{1.0, 0.0, 0.0};
   const Value::Vector vector1{0.0, 0.0, -1.0};
   EXPECT_DOUBLE_EQ(vector0.Angle(vector1).Value(), angle1.Value());

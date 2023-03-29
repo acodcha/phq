@@ -29,6 +29,13 @@ public:
   StressScalar(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr StressScalar Create(const double value) noexcept {
+    return StressScalar{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline StressScalar operator+(
       const StressScalar& stress_scalar) const noexcept {
     return StressScalar{value_ + stress_scalar.value_};

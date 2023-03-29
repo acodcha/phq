@@ -84,9 +84,12 @@ TEST(DynamicViscosity, Constructor) {
   const DynamicViscosity dynamic0{kinematic0, density0};
   const KinematicViscosity kinematic1{dynamic0, density0};
   const MassDensity density1{dynamic0, kinematic1};
-  const DynamicViscosity dynamic1;
+  constexpr DynamicViscosity dynamic1;
   const DynamicViscosity dynamic2{100.0,
                                   Unit::DynamicViscosity::KilopascalSecond};
+  constexpr DynamicViscosity dynamic3{
+      DynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(
+          100.0)};
 }
 
 TEST(DynamicViscosity, Hash) {

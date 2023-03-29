@@ -43,6 +43,13 @@ public:
   constexpr Energy(const SpecificEnergy& specific_energy,
                    const Mass& mass) noexcept;
 
+  template <Unit::Energy Unit>
+  static constexpr Energy Create(const double value) noexcept {
+    return Energy{
+        StaticConvertCopy<Unit::Energy, Unit, StandardUnit<Unit::Energy>>(
+            value)};
+  }
+
   inline Energy operator+(const Energy& energy) const noexcept {
     return Energy{value_ + energy.value_};
   }

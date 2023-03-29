@@ -45,6 +45,13 @@ public:
       const DynamicKinematicPressure& dynamic_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
+  template <Unit::Pressure Unit>
+  static constexpr DynamicPressure Create(const double value) noexcept {
+    return DynamicPressure{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline DynamicPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ + dynamic_pressure.value_};

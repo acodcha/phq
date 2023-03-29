@@ -75,8 +75,10 @@ TEST(Volume, Comparison) {
 }
 
 TEST(Volume, Constructor) {
-  const Volume volume0;
+  constexpr Volume volume0;
   const Volume volume1{100.0, Unit::Volume::CubicMillimetre};
+  constexpr Volume volume2{
+      Volume::Create<Unit::Volume::CubicMillimetre>(100.0)};
 }
 
 TEST(Volume, Hash) {

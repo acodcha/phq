@@ -38,6 +38,13 @@ public:
       const KinematicPressureDifference& kinematic_pressure_difference,
       const MassDensity& mass_density) noexcept;
 
+  template <Unit::Pressure Unit>
+  static constexpr PressureDifference Create(const double value) noexcept {
+    return PressureDifference{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline StaticPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 

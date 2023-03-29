@@ -82,6 +82,12 @@ public:
 
   Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
 
+  template <Unit::Angle Unit>
+  static constexpr Angle Create(const double value) noexcept {
+    return Angle{
+        StaticConvertCopy<Unit::Angle, Unit, StandardUnit<Unit::Angle>>(value)};
+  }
+
   inline Angle operator+(const Angle& other) const noexcept {
     return Angle{value_ + other.value_};
   }

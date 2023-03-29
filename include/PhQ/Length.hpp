@@ -59,6 +59,13 @@ public:
                    const KinematicViscosity& kinematic_viscosity,
                    const Speed& speed) noexcept;
 
+  template <Unit::Length Unit>
+  static constexpr Length Create(const double value) noexcept {
+    return Length{
+        StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
+            value)};
+  }
+
   inline Length operator+(const Length& length) const noexcept {
     return Length{value_ + length.value_};
   }

@@ -83,8 +83,10 @@ TEST(VolumeRate, Constructor) {
   const Time time0{0.5, Unit::Time::Second};
   const Frequency frequency0{2.0, Unit::Frequency::Hertz};
   const Volume volume0{0.5, Unit::Volume::CubicMetre};
-  const VolumeRate rate0;
+  constexpr VolumeRate rate0;
   const VolumeRate rate1{100.0, Unit::VolumeRate::CubicFootPerSecond};
+  constexpr VolumeRate rate2{
+      VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(100.0)};
   const Volume volume1{rate1, time0};
   const Volume volume2{rate1, frequency0};
   const Time time1{rate1, volume0};

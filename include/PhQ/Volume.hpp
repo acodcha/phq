@@ -42,6 +42,13 @@ public:
 
   constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
 
+  template <Unit::Volume Unit>
+  static constexpr Volume Create(const double value) noexcept {
+    return Volume{
+        StaticConvertCopy<Unit::Volume, Unit, StandardUnit<Unit::Volume>>(
+            value)};
+  }
+
   inline Volume operator+(const Volume& volume) const noexcept {
     return Volume{value_ + volume.value_};
   }

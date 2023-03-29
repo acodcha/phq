@@ -42,6 +42,13 @@ public:
   constexpr SpecificEnergy(const SpecificPower& specific_power,
                            const Frequency& frequency) noexcept;
 
+  template <Unit::SpecificEnergy Unit>
+  static constexpr SpecificEnergy Create(const double value) noexcept {
+    return SpecificEnergy{
+        StaticConvertCopy<Unit::SpecificEnergy, Unit,
+                          StandardUnit<Unit::SpecificEnergy>>(value)};
+  }
+
   inline SpecificEnergy operator+(
       const SpecificEnergy& specific_energy) const noexcept {
     return SpecificEnergy{value_ + specific_energy.value_};

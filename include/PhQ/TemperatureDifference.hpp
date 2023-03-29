@@ -43,6 +43,13 @@ public:
       const TemperatureGradientMagnitude& temperature_gradient_magnitude,
       const Length& length) noexcept;
 
+  template <Unit::TemperatureDifference Unit>
+  static constexpr TemperatureDifference Create(const double value) noexcept {
+    return TemperatureDifference{
+        StaticConvertCopy<Unit::TemperatureDifference, Unit,
+                          StandardUnit<Unit::TemperatureDifference>>(value)};
+  }
+
   inline Temperature operator+(const Temperature& temperature) const noexcept;
 
   inline TemperatureDifference operator+(
