@@ -90,10 +90,21 @@ TEST(ValueVector, Arithmetic) {
 }
 
 TEST(ValueVector, Comparison) {
-  const Vector vector0{1.11, 2.22, 3.33};
-  const Vector vector1{1.23, 4.56, 7.89};
+  constexpr Vector vector0{1.1, 2.2, 3.3};
+  constexpr Vector vector1{1.1, 2.3, 3.3};
+  constexpr Vector vector2{1.1, 2.3, 3.4};
   EXPECT_EQ(vector0, vector0);
   EXPECT_NE(vector0, vector1);
+  EXPECT_LT(vector0, vector1);
+  EXPECT_LT(vector1, vector2);
+  EXPECT_GT(vector1, vector0);
+  EXPECT_GT(vector2, vector1);
+  EXPECT_LE(vector0, vector0);
+  EXPECT_LE(vector0, vector1);
+  EXPECT_LE(vector1, vector2);
+  EXPECT_GE(vector0, vector0);
+  EXPECT_GE(vector1, vector0);
+  EXPECT_GE(vector2, vector1);
 }
 
 TEST(ValueVector, Constructor) {

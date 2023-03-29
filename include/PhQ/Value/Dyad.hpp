@@ -307,6 +307,70 @@ inline constexpr bool operator!=(const Dyad& left, const Dyad& right) noexcept {
           left.zz() != right.zz());
 }
 
+inline constexpr bool operator<(const Dyad& left, const Dyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() < right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() < right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() < right.xz();
+  }
+  if (left.yx() != right.yx()) {
+    return left.yx() < right.yx();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() < right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() < right.yz();
+  }
+  if (left.zx() != right.zx()) {
+    return left.zx() < right.zx();
+  }
+  if (left.zy() != right.zy()) {
+    return left.zy() < right.zy();
+  }
+  return left.zz() < right.zz();
+}
+
+inline constexpr bool operator>(const Dyad& left, const Dyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() > right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() > right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() > right.xz();
+  }
+  if (left.yx() != right.yx()) {
+    return left.yx() > right.yx();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() > right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() > right.yz();
+  }
+  if (left.zx() != right.zx()) {
+    return left.zx() > right.zx();
+  }
+  if (left.zy() != right.zy()) {
+    return left.zy() > right.zy();
+  }
+  return left.zz() > right.zz();
+}
+
+inline constexpr bool operator<=(const Dyad& left, const Dyad& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const Dyad& left, const Dyad& right) noexcept {
+  return !(left < right);
+}
+
 inline constexpr Dyad operator+(const Dyad& left, const Dyad& right) noexcept {
   return {
       left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),

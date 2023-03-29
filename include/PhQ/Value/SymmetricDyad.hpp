@@ -264,6 +264,56 @@ inline constexpr bool operator!=(const SymmetricDyad& left,
           left.yz() != right.yz() || left.zz() != right.zz());
 }
 
+inline constexpr bool operator<(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() < right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() < right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() < right.xz();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() < right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() < right.yz();
+  }
+  return left.zz() < right.zz();
+}
+
+inline constexpr bool operator>(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() > right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() > right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() > right.xz();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() > right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() > right.yz();
+  }
+  return left.zz() > right.zz();
+}
+
+inline constexpr bool operator<=(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
+  return !(left < right);
+}
+
 inline constexpr SymmetricDyad operator+(const SymmetricDyad& left,
                                          const SymmetricDyad& right) noexcept {
   return {left.xx() + right.xx(), left.xy() + right.xy(),

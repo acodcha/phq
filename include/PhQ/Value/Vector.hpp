@@ -178,6 +178,38 @@ inline constexpr bool operator!=(const Vector& left,
          left.z() != right.z();
 }
 
+inline constexpr bool operator<(const Vector& left,
+                                const Vector& right) noexcept {
+  if (left.x() != right.x()) {
+    return left.x() < right.x();
+  }
+  if (left.y() != right.y()) {
+    return left.y() < right.y();
+  }
+  return left.z() < right.z();
+}
+
+inline constexpr bool operator>(const Vector& left,
+                                const Vector& right) noexcept {
+  if (left.x() != right.x()) {
+    return left.x() > right.x();
+  }
+  if (left.y() != right.y()) {
+    return left.y() > right.y();
+  }
+  return left.z() > right.z();
+}
+
+inline constexpr bool operator<=(const Vector& left,
+                                 const Vector& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const Vector& left,
+                                 const Vector& right) noexcept {
+  return !(left < right);
+}
+
 inline constexpr Vector operator+(const Vector& left,
                                   const Vector& right) noexcept {
   return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};

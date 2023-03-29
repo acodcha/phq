@@ -168,10 +168,21 @@ TEST(ValueDyad, Cofactors) {
 }
 
 TEST(ValueDyad, Comparison) {
-  const Dyad dyad0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  const Dyad dyad1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
+  constexpr Dyad dyad0{1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9};
+  constexpr Dyad dyad1{1.1, 2.2, 3.3, 4.4, 5.6, 6.6, 7.7, 8.8, 9.9};
+  constexpr Dyad dyad2{1.1, 2.2, 3.3, 4.4, 5.6, 6.6, 7.7, 8.8, 9.99};
   EXPECT_EQ(dyad0, dyad0);
   EXPECT_NE(dyad0, dyad1);
+  EXPECT_LT(dyad0, dyad1);
+  EXPECT_LT(dyad1, dyad2);
+  EXPECT_GT(dyad1, dyad0);
+  EXPECT_GT(dyad2, dyad1);
+  EXPECT_LE(dyad0, dyad0);
+  EXPECT_LE(dyad0, dyad1);
+  EXPECT_LE(dyad1, dyad2);
+  EXPECT_GE(dyad0, dyad0);
+  EXPECT_GE(dyad1, dyad0);
+  EXPECT_GE(dyad2, dyad1);
 }
 
 TEST(ValueDyad, Constructor) {

@@ -148,10 +148,21 @@ TEST(ValueSymmetricDyad, Cofactors) {
 }
 
 TEST(ValueSymmetricDyad, Comparison) {
-  const SymmetricDyad symdyad0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const SymmetricDyad symdyad1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  constexpr SymmetricDyad symdyad0{1.1, 2.2, 3.3, 4.4, 5.5, 6.6};
+  constexpr SymmetricDyad symdyad1{1.1, 2.2, 3.4, 4.4, 5.5, 6.6};
+  constexpr SymmetricDyad symdyad2{1.1, 2.2, 3.4, 4.4, 5.5, 6.7};
   EXPECT_EQ(symdyad0, symdyad0);
   EXPECT_NE(symdyad0, symdyad1);
+  EXPECT_LT(symdyad0, symdyad1);
+  EXPECT_LT(symdyad1, symdyad2);
+  EXPECT_GT(symdyad1, symdyad0);
+  EXPECT_GT(symdyad2, symdyad1);
+  EXPECT_LE(symdyad0, symdyad0);
+  EXPECT_LE(symdyad0, symdyad1);
+  EXPECT_LE(symdyad1, symdyad2);
+  EXPECT_GE(symdyad0, symdyad0);
+  EXPECT_GE(symdyad1, symdyad0);
+  EXPECT_GE(symdyad2, symdyad1);
 }
 
 TEST(ValueSymmetricDyad, Constructor) {
