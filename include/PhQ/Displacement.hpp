@@ -48,6 +48,13 @@ public:
 
   explicit constexpr Displacement(const Position& position) noexcept;
 
+  template <Unit::Length Unit>
+  static constexpr Displacement Create(const Value::Vector& value) noexcept {
+    return Displacement{
+        StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
+            value)};
+  }
+
   inline Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {

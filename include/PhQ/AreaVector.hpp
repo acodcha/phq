@@ -33,6 +33,12 @@ public:
   constexpr AreaVector(const Area& area, const Direction& direction) noexcept
       : AreaVector(area.Value() * direction.Value()) {}
 
+  template <Unit::Area Unit>
+  static constexpr AreaVector Create(const Value::Vector& value) noexcept {
+    return AreaVector{
+        StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
+  }
+
   inline Area Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {

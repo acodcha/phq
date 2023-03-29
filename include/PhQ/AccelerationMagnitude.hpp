@@ -44,6 +44,13 @@ public:
 
   AccelerationMagnitude(const Acceleration& acceleration) noexcept;
 
+  template <Unit::Acceleration Unit>
+  static constexpr AccelerationMagnitude Create(const double value) noexcept {
+    return AccelerationMagnitude{
+        StaticConvertCopy<Unit::Acceleration, Unit,
+                          StandardUnit<Unit::Acceleration>>(value)};
+  }
+
   inline AccelerationMagnitude operator+(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return AccelerationMagnitude{value_ + acceleration_magnitude.value_};

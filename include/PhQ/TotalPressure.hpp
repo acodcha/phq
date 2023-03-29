@@ -36,6 +36,13 @@ public:
       const TotalKinematicPressure& total_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
+  template <Unit::Pressure Unit>
+  static constexpr TotalPressure Create(const double value) noexcept {
+    return TotalPressure{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline TotalPressure operator+(
       const TotalPressure& total_pressure) const noexcept {
     return TotalPressure{value_ + total_pressure.value_};

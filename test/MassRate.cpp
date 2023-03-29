@@ -82,8 +82,10 @@ TEST(MassRate, Constructor) {
   const Time time0{0.5, Unit::Time::Second};
   const Frequency frequency0{2.0, Unit::Frequency::Hertz};
   const Mass mass0{0.5, Unit::Mass::Kilogram};
-  const MassRate rate0;
+  constexpr MassRate rate0;
   const MassRate rate1{100.0, Unit::MassRate::GramPerSecond};
+  constexpr MassRate rate2{
+      MassRate::Create<Unit::MassRate::GramPerSecond>(100.0)};
   const Mass mass1{rate1, time0};
   const Mass mass2{rate1, frequency0};
   const Time time1{rate1, mass0};

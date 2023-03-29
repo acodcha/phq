@@ -98,9 +98,11 @@ TEST(Position, Comparison) {
 }
 
 TEST(Position, Constructor) {
-  const Position position0;
+  constexpr Position position0;
   const Position position1{{1.0, 2.0, 4.0}, Unit::Length::Millimetre};
   const Position position2{{-1.0, -2.0, -4.0}, Unit::Length::Millimetre};
+  constexpr Position position3{
+      Position::Create<Unit::Length::Millimetre>({-1.0, -2.0, -4.0})};
   const Direction direction{position1};
   const Angle angle{position1, position2};
   const Length length{position1};

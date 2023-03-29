@@ -86,18 +86,21 @@ TEST(AccelerationMagnitude, Comparison) {
 }
 
 TEST(AccelerationMagnitude, Constructor) {
-  const Time time0p5{0.5, Unit::Time::Second};
-  const Frequency frequency2{2.0, Unit::Frequency::Hertz};
-  const Speed speed2{2.0, Unit::Speed::MetrePerSecond};
-  const AccelerationMagnitude acceleration4{
+  const Time time{0.5, Unit::Time::Second};
+  const Frequency frequency{2.0, Unit::Frequency::Hertz};
+  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
+  constexpr AccelerationMagnitude acceleration0;
+  const AccelerationMagnitude acceleration1{
       4.0, Unit::Acceleration::MetrePerSquareSecond};
-  const AccelerationMagnitude default_acceleration;
-  EXPECT_EQ(AccelerationMagnitude(speed2, time0p5), acceleration4);
-  EXPECT_EQ(AccelerationMagnitude(speed2, frequency2), acceleration4);
-  EXPECT_EQ(Speed(acceleration4, time0p5), speed2);
-  EXPECT_EQ(Speed(acceleration4, frequency2), speed2);
-  EXPECT_EQ(Time(acceleration4, speed2), time0p5);
-  EXPECT_EQ(Frequency(acceleration4, speed2), frequency2);
+  constexpr AccelerationMagnitude acceleration2{
+      AccelerationMagnitude::Create<Unit::Acceleration::MetrePerSquareSecond>(
+          4.0)};
+  EXPECT_EQ(AccelerationMagnitude(speed, time), acceleration1);
+  EXPECT_EQ(AccelerationMagnitude(speed, frequency), acceleration1);
+  EXPECT_EQ(Speed(acceleration1, time), speed);
+  EXPECT_EQ(Speed(acceleration1, frequency), speed);
+  EXPECT_EQ(Time(acceleration1, speed), time);
+  EXPECT_EQ(Frequency(acceleration1, speed), frequency);
 }
 
 TEST(AccelerationMagnitude, Hash) {

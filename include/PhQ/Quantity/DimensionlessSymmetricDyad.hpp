@@ -25,8 +25,6 @@ namespace PhQ {
 
 class DimensionlessSymmetricDyadQuantity : public DimensionlessQuantity {
 public:
-  virtual ~DimensionlessSymmetricDyadQuantity() noexcept = default;
-
   constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
   }
@@ -50,6 +48,8 @@ protected:
   constexpr DimensionlessSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
       : DimensionlessQuantity(), value_(std::move(value)) {}
+
+  ~DimensionlessSymmetricDyadQuantity() noexcept = default;
 
   void operator=(const Value::SymmetricDyad& value) noexcept { value_ = value; }
 

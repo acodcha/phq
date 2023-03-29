@@ -38,6 +38,14 @@ public:
                              thermal_conductivity_scalar.Value(), 0.0,
                              thermal_conductivity_scalar.Value()}) {}
 
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity Create(
+      const Value::SymmetricDyad& value) noexcept {
+    return ThermalConductivity{
+        StaticConvertCopy<Unit::ThermalConductivity, Unit,
+                          StandardUnit<Unit::ThermalConductivity>>(value)};
+  }
+
   inline ThermalConductivity operator+(
       const ThermalConductivity& thermal_conductivity) const noexcept {
     return ThermalConductivity{value_ + thermal_conductivity.value_};

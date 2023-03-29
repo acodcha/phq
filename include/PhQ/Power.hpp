@@ -38,6 +38,12 @@ public:
   constexpr Power(const SpecificPower& specific_power,
                   const Mass& mass) noexcept;
 
+  template <Unit::Power Unit>
+  static constexpr Power Create(const double value) noexcept {
+    return Power{
+        StaticConvertCopy<Unit::Power, Unit, StandardUnit<Unit::Power>>(value)};
+  }
+
   inline Power operator+(const Power& power) const noexcept {
     return Power{value_ + power.value_};
   }

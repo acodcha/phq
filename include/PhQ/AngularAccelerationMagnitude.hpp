@@ -40,6 +40,14 @@ public:
       : AngularAccelerationMagnitude(angular_speed.Value() *
                                      frequency.Value()) {}
 
+  template <Unit::AngularAcceleration Unit>
+  static constexpr AngularAccelerationMagnitude Create(
+      const double value) noexcept {
+    return AngularAccelerationMagnitude{
+        StaticConvertCopy<Unit::AngularAcceleration, Unit,
+                          StandardUnit<Unit::AngularAcceleration>>(value)};
+  }
+
   inline AngularAccelerationMagnitude operator+(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept {

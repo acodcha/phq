@@ -110,11 +110,14 @@ TEST(AngularAccelerationMagnitude, Constructor) {
   const AngularSpeed speed{8.0, Unit::AngularSpeed::RadianPerSecond};
   const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
-  const AngularAccelerationMagnitude acceleration0;
+  constexpr AngularAccelerationMagnitude acceleration0;
   const AngularAccelerationMagnitude acceleration1{
       90.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const AngularAccelerationMagnitude acceleration2{
       4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  constexpr AngularAccelerationMagnitude acceleration3{
+      AngularAccelerationMagnitude::Create<
+          Unit::AngularAcceleration::DegreePerSquareSecond>(90.0)};
   EXPECT_EQ(AngularAccelerationMagnitude(speed, time), acceleration2);
   EXPECT_EQ(AngularAccelerationMagnitude(speed, frequency), acceleration2);
   EXPECT_EQ(AngularSpeed(acceleration2, time), speed);

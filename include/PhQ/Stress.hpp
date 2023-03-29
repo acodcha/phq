@@ -35,6 +35,13 @@ public:
                 -1.0 * static_pressure.Value(), 0.0,
                 -1.0 * static_pressure.Value()}) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {
+    return Stress{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline PhQ::Traction Traction(const Direction& direction) const noexcept {
     return {*this, direction};
   }

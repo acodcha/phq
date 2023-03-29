@@ -77,11 +77,13 @@ TEST(KinematicViscosity, Comparison) {
 }
 
 TEST(KinematicViscosity, Constructor) {
-  const KinematicViscosity viscosity0{1.0,
+  constexpr KinematicViscosity viscosity0;
+  const KinematicViscosity viscosity1{1.0,
                                       Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity1;
   const KinematicViscosity viscosity2{100.0,
                                       Unit::Diffusivity::SquareFootPerSecond};
+  constexpr KinematicViscosity viscosity3{
+      KinematicViscosity::Create<Unit::Diffusivity::SquareFootPerSecond>(4.0)};
 }
 
 TEST(KinematicViscosity, Hash) {

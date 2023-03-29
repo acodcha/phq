@@ -33,6 +33,13 @@ public:
   explicit constexpr Position(const Displacement& displacement) noexcept
       : Position(displacement.Value()) {}
 
+  template <Unit::Length Unit>
+  static constexpr Position Create(const Value::Vector& value) noexcept {
+    return Position{
+        StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
+            value)};
+  }
+
   inline Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Position& position) const noexcept {

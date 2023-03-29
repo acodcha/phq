@@ -29,6 +29,13 @@ public:
   YoungModulus(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr YoungModulus Create(const double value) noexcept {
+    return YoungModulus{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline YoungModulus operator+(
       const YoungModulus& young_modulus) const noexcept {
     return YoungModulus{value_ + young_modulus.value_};

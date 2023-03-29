@@ -25,8 +25,6 @@ namespace PhQ {
 
 class DimensionlessVectorQuantity : public DimensionlessQuantity {
 public:
-  virtual ~DimensionlessVectorQuantity() noexcept = default;
-
   constexpr const Value::Vector& Value() const noexcept { return value_; }
 
   std::string Print() const noexcept override { return value_.Print(); }
@@ -46,6 +44,8 @@ protected:
 
   constexpr DimensionlessVectorQuantity(Value::Vector&& value) noexcept
       : DimensionlessQuantity(), value_(std::move(value)) {}
+
+  ~DimensionlessVectorQuantity() noexcept = default;
 
   void operator=(const Value::Vector& value) noexcept { value_ = value; }
 

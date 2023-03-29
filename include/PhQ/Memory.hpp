@@ -38,6 +38,13 @@ public:
   constexpr Memory(const MemoryRate& memory_rate,
                    const Frequency& frequency) noexcept;
 
+  template <Unit::Memory Unit>
+  static constexpr Memory Create(const double value) noexcept {
+    return Memory{
+        StaticConvertCopy<Unit::Memory, Unit, StandardUnit<Unit::Memory>>(
+            value)};
+  }
+
   inline Memory operator+(const Memory& memory) const noexcept {
     return Memory{value_ + memory.value_};
   }

@@ -29,6 +29,13 @@ public:
   ShearModulus(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr ShearModulus Create(const double value) noexcept {
+    return ShearModulus{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline ShearModulus operator+(
       const ShearModulus& shear_modulus) const noexcept {
     return ShearModulus{value_ + shear_modulus.value_};

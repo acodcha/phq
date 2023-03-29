@@ -23,8 +23,6 @@ namespace PhQ {
 
 class DimensionlessScalarQuantity : public DimensionlessQuantity {
 public:
-  virtual ~DimensionlessScalarQuantity() noexcept = default;
-
   constexpr double Value() const noexcept { return value_; }
 
   constexpr double& MutableValue() noexcept { return value_; }
@@ -45,6 +43,8 @@ protected:
 
   constexpr DimensionlessScalarQuantity(const double value) noexcept
       : DimensionlessQuantity(), value_(value) {}
+
+  ~DimensionlessScalarQuantity() noexcept = default;
 
   void operator=(const double value) noexcept { value_ = value; }
 

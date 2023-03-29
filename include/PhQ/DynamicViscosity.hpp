@@ -50,6 +50,13 @@ public:
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
+  template <Unit::DynamicViscosity Unit>
+  static constexpr DynamicViscosity Create(const double value) noexcept {
+    return DynamicViscosity{
+        StaticConvertCopy<Unit::DynamicViscosity, Unit,
+                          StandardUnit<Unit::DynamicViscosity>>(value)};
+  }
+
   inline DynamicViscosity operator+(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return DynamicViscosity{value_ + dynamic_viscosity.value_};

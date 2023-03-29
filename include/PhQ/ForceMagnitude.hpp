@@ -39,6 +39,12 @@ public:
   inline constexpr ForceMagnitude(const StaticPressure& static_pressure,
                                   const Area& area) noexcept;
 
+  template <Unit::Force Unit>
+  static constexpr ForceMagnitude Create(const double value) noexcept {
+    return ForceMagnitude{
+        StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
+  }
+
   inline ForceMagnitude operator+(
       const ForceMagnitude& force_magnitude) const noexcept {
     return ForceMagnitude{value_ + force_magnitude.value_};

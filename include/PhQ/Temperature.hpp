@@ -29,6 +29,13 @@ public:
   Temperature(const double value, const Unit::Temperature unit) noexcept
       : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
+  template <Unit::Temperature Unit>
+  static constexpr Temperature Create(const double value) noexcept {
+    return Temperature{
+        StaticConvertCopy<Unit::Temperature, Unit,
+                          StandardUnit<Unit::Temperature>>(value)};
+  }
+
   inline Temperature operator+(const Temperature& temperature) const noexcept {
     return Temperature{value_ + temperature.value_};
   }

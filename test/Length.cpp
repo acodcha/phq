@@ -68,8 +68,9 @@ TEST(Length, Comparison) {
 }
 
 TEST(Length, Constructor) {
-  const Length length0;
+  constexpr Length length0;
   const Length length1{100.0, Unit::Length::Millimetre};
+  constexpr Length length2{Length::Create<Unit::Length::Millimetre>(100.0)};
 }
 
 TEST(Length, Hash) {

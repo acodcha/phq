@@ -59,6 +59,13 @@ public:
                         const DynamicViscosity& dynamic_viscosity,
                         const Speed& speed, const Length& length) noexcept;
 
+  template <Unit::MassDensity Unit>
+  static constexpr MassDensity Create(const double value) noexcept {
+    return MassDensity{
+        StaticConvertCopy<Unit::MassDensity, Unit,
+                          StandardUnit<Unit::MassDensity>>(value)};
+  }
+
   inline MassDensity operator+(const MassDensity& mass_density) const noexcept {
     return MassDensity{value_ + mass_density.value_};
   }

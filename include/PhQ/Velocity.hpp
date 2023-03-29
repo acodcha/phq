@@ -48,6 +48,12 @@ public:
   constexpr Velocity(const Acceleration& acceleration,
                      const Frequency& frequency) noexcept;
 
+  template <Unit::Speed Unit>
+  static constexpr Velocity Create(const Value::Vector& value) noexcept {
+    return Velocity{
+        StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
+  }
+
   inline Speed Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Velocity& velocity) const noexcept {

@@ -24,32 +24,24 @@ namespace PhQ {
 template <typename U>
 class DimensionalQuantity : public Quantity {
 public:
-  virtual ~DimensionalQuantity() noexcept = default;
-
   static constexpr const Dimension::Set& Dimension() noexcept {
     return Dimensions<U>;
   }
 
   static constexpr U Unit() noexcept { return StandardUnit<U>; }
 
-  virtual std::string Print() const noexcept = 0;
-
   virtual std::string Print(const U unit) const noexcept = 0;
-
-  virtual std::string Json() const noexcept = 0;
 
   virtual std::string Json(const U unit) const noexcept = 0;
 
-  virtual std::string Xml() const noexcept = 0;
-
   virtual std::string Xml(const U unit) const noexcept = 0;
-
-  virtual std::string Yaml() const noexcept = 0;
 
   virtual std::string Yaml(const U unit) const noexcept = 0;
 
 protected:
   constexpr DimensionalQuantity() noexcept : Quantity() {}
+
+  ~DimensionalQuantity() noexcept = default;
 };
 
 template <typename U>

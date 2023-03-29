@@ -37,6 +37,13 @@ public:
 
   constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
 
+  template <Unit::Pressure Unit>
+  static constexpr Traction Create(const Value::Vector& value) noexcept {
+    return Traction{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline StaticPressure Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Traction& traction) const noexcept {

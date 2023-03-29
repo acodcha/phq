@@ -40,6 +40,13 @@ public:
   constexpr SpecificPower(const Power& power, const Mass& mass) noexcept
       : SpecificPower(power.Value() / mass.Value()) {}
 
+  template <Unit::SpecificPower Unit>
+  static constexpr SpecificPower Create(const double value) noexcept {
+    return SpecificPower{
+        StaticConvertCopy<Unit::SpecificPower, Unit,
+                          StandardUnit<Unit::SpecificPower>>(value)};
+  }
+
   inline SpecificPower operator+(
       const SpecificPower& specific_power) const noexcept {
     return SpecificPower{value_ + specific_power.value_};

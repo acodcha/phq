@@ -39,6 +39,14 @@ public:
       : TemperatureGradient(temperature_gradient_magnitude.Value() *
                             direction.Value()) {}
 
+  template <Unit::TemperatureGradient Unit>
+  static constexpr TemperatureGradient Create(
+      const Value::Vector& value) noexcept {
+    return TemperatureGradient{
+        StaticConvertCopy<Unit::TemperatureGradient, Unit,
+                          StandardUnit<Unit::TemperatureGradient>>(value)};
+  }
+
   inline TemperatureGradientMagnitude Magnitude() const noexcept {
     return {*this};
   }

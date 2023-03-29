@@ -70,6 +70,12 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
+  template <Unit::Mass Unit>
+  static constexpr Mass Create(const double value) noexcept {
+    return Mass{
+        StaticConvertCopy<Unit::Mass, Unit, StandardUnit<Unit::Mass>>(value)};
+  }
+
   inline Mass operator+(const Mass& mass) const noexcept {
     return Mass{value_ + mass.value_};
   }

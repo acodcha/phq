@@ -37,6 +37,12 @@ public:
                        const Frequency& frequency) noexcept
       : MemoryRate(memory.Value() * frequency.Value()) {}
 
+  template <Unit::MemoryRate Unit>
+  static constexpr MemoryRate Create(const double value) noexcept {
+    return MemoryRate{StaticConvertCopy<Unit::MemoryRate, Unit,
+                                        StandardUnit<Unit::MemoryRate>>(value)};
+  }
+
   inline MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
     return MemoryRate{value_ + memory_rate.value_};
   }

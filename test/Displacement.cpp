@@ -84,10 +84,12 @@ TEST(Displacement, Comparison) {
 }
 
 TEST(Displacement, Constructor) {
-  const Displacement displacement0;
+  constexpr Displacement displacement0;
   const Displacement displacement1{{1.0, 2.0, 4.0}, Unit::Length::Millimetre};
   const Displacement displacement2{{-1.0, -2.0, -4.0},
                                    Unit::Length::Millimetre};
+  constexpr Displacement displacement3{
+      Displacement::Create<Unit::Length::Millimetre>({-1.0, -2.0, -4.0})};
   const Direction direction{displacement1};
   const Angle angle{displacement1, displacement2};
   const Length length{displacement1};

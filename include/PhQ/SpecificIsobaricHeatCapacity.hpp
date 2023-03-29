@@ -69,6 +69,14 @@ public:
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const DynamicViscosity& dynamic_viscosity) noexcept;
 
+  template <Unit::SpecificHeatCapacity Unit>
+  static constexpr SpecificIsobaricHeatCapacity Create(
+      const double value) noexcept {
+    return SpecificIsobaricHeatCapacity{
+        StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
+                          StandardUnit<Unit::SpecificHeatCapacity>>(value)};
+  }
+
   inline SpecificIsobaricHeatCapacity operator+(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const noexcept {

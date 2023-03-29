@@ -35,6 +35,13 @@ public:
   constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept
       : MassRate(mass.Value() * frequency.Value()) {}
 
+  template <Unit::MassRate Unit>
+  static constexpr MassRate Create(const double value) noexcept {
+    return MassRate{
+        StaticConvertCopy<Unit::MassRate, Unit, StandardUnit<Unit::MassRate>>(
+            value)};
+  }
+
   inline MassRate operator+(const MassRate& mass_rate) const noexcept {
     return MassRate{value_ + mass_rate.value_};
   }

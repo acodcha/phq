@@ -48,6 +48,13 @@ public:
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Frequency& frequency) noexcept;
 
+  template <Unit::AngularSpeed Unit>
+  static constexpr AngularSpeed Create(const double value) noexcept {
+    return AngularSpeed{
+        StaticConvertCopy<Unit::AngularSpeed, Unit,
+                          StandardUnit<Unit::AngularSpeed>>(value)};
+  }
+
   inline AngularSpeed operator+(
       const AngularSpeed& angular_speed) const noexcept {
     return AngularSpeed{value_ + angular_speed.value_};

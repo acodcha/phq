@@ -41,6 +41,12 @@ public:
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;
 
+  template <Unit::Area Unit>
+  static constexpr Area Create(const double value) noexcept {
+    return Area{
+        StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
+  }
+
   inline Area operator+(const Area& area) const noexcept {
     return Area{value_ + area.value_};
   }

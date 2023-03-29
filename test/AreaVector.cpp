@@ -84,9 +84,11 @@ TEST(AreaVector, Comparison) {
 }
 
 TEST(AreaVector, Constructor) {
-  const AreaVector area0;
+  constexpr AreaVector area0;
   const AreaVector area1{{1.0, 2.0, 4.0}, Unit::Area::SquareFoot};
   const AreaVector area2{{-1.0, -2.0, -4.0}, Unit::Area::SquareFoot};
+  constexpr AreaVector area3{
+      AreaVector::Create<Unit::Area::SquareFoot>({-1.0, -2.0, -4.0})};
   const Direction direction{area1};
   const Angle angle{area1, area2};
   const Area magnitude{area1};

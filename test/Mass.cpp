@@ -68,8 +68,9 @@ TEST(Mass, Comparison) {
 }
 
 TEST(Mass, Constructor) {
-  const Mass mass0;
+  constexpr Mass mass0;
   const Mass mass1{100.0, Unit::Mass::Gram};
+  constexpr Mass mass2{Mass::Create<Unit::Mass::Gram>(100.0)};
 }
 
 TEST(Mass, Hash) {

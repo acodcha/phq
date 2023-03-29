@@ -31,6 +31,13 @@ public:
                        const Unit::DynamicViscosity unit) noexcept
       : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
+  template <Unit::DynamicViscosity Unit>
+  static constexpr BulkDynamicViscosity Create(const double value) noexcept {
+    return BulkDynamicViscosity{
+        StaticConvertCopy<Unit::DynamicViscosity, Unit,
+                          StandardUnit<Unit::DynamicViscosity>>(value)};
+  }
+
   inline BulkDynamicViscosity operator+(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};

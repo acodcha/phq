@@ -29,6 +29,13 @@ public:
   LameFirstModulus(const double value, const Unit::Pressure unit) noexcept
       : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  template <Unit::Pressure Unit>
+  static constexpr LameFirstModulus Create(const double value) noexcept {
+    return LameFirstModulus{
+        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+            value)};
+  }
+
   inline LameFirstModulus operator+(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return LameFirstModulus{value_ + lame_first_modulus.value_};

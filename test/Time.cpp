@@ -68,8 +68,9 @@ TEST(Time, Comparison) {
 }
 
 TEST(Time, Constructor) {
-  const Time time0;
+  constexpr Time time0;
   const Time time1{4.0, Unit::Time::Minute};
+  constexpr Time time2{Time::Create<Unit::Time::Minute>(4.0)};
 }
 
 TEST(Time, Hash) {

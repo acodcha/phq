@@ -107,11 +107,14 @@ TEST(Acceleration, Comparison) {
 }
 
 TEST(Acceleration, Constructor) {
-  const Acceleration acceleration0;
+  constexpr Acceleration acceleration0;
   const Acceleration acceleration1{{1.0, 2.0, 4.0},
                                    Unit::Acceleration::FootPerSquareSecond};
   const Acceleration acceleration2{{-1.0, -2.0, -4.0},
                                    Unit::Acceleration::FootPerSquareSecond};
+  constexpr Acceleration acceleration3{
+      Acceleration::Create<Unit::Acceleration::FootPerSquareSecond>(
+          {-1.0, -2.0, -4.0})};
   const Direction direction{acceleration1};
   const Angle angle{acceleration1, acceleration2};
   const AccelerationMagnitude magnitude{acceleration1};

@@ -37,6 +37,12 @@ public:
                        const Frequency& frequency) noexcept
       : VolumeRate(volume.Value() * frequency.Value()) {}
 
+  template <Unit::VolumeRate Unit>
+  static constexpr VolumeRate Create(const double value) noexcept {
+    return VolumeRate{StaticConvertCopy<Unit::VolumeRate, Unit,
+                                        StandardUnit<Unit::VolumeRate>>(value)};
+  }
+
   inline VolumeRate operator+(const VolumeRate& volume_rate) const noexcept {
     return VolumeRate{value_ + volume_rate.value_};
   }
