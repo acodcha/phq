@@ -140,6 +140,19 @@ TEST(UnitTime, RelatedUnitSystem) {
 
 TEST(UnitTime, StandardUnit) { EXPECT_EQ(StandardUnit<Time>, Time::Second); }
 
+TEST(UnitTime, StaticConvert) {
+  double value{10.0};
+  StaticConvert<Time, Time::Minute, Time::Millisecond>(value);
+  std::array<double, 3> array{10.0, -20.0, 30.0};
+  StaticConvert<Time, Time::Minute, Time::Millisecond>(array);
+  Value::Vector vector{10.0, -20.0, 30.0};
+  StaticConvert<Time, Time::Minute, Time::Millisecond>(vector);
+  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
+  StaticConvert<Time, Time::Minute, Time::Millisecond>(symdyad);
+  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
+  StaticConvert<Time, Time::Minute, Time::Millisecond>(dyad);
+}
+
 TEST(UnitTime, StaticConvertCopy) {
   constexpr double value{10.0};
   StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(value);

@@ -175,14 +175,38 @@ Value::Dyad ConvertCopy(const Value::Dyad& value, const Unit old_unit,
 }
 
 template <typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr void StaticConvert(double& value) noexcept {
+  Internal::ConversionToStandard<Unit, OldUnit>(value);
+  Internal::ConversionFromStandard<Unit, NewUnit>(value);
+}
+
+template <typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
+inline constexpr void StaticConvert(std::array<double, Size>& values) noexcept {
+  Internal::ConversionsToStandard<Unit, OldUnit>(&values[0], Size);
+  Internal::ConversionsFromStandard<Unit, NewUnit>(&values[0], Size);
+}
+
+template <typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr void StaticConvert(Value::Vector& value) noexcept {
+  StaticConvert<Unit, OldUnit, NewUnit, 3>(value.mutable_x_y_z());
+}
+
+template <typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
+  StaticConvert<Unit, OldUnit, NewUnit, 6>(value.mutable_xx_xy_xz_yy_yz_zz());
+}
+
+template <typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr void StaticConvert(Value::Dyad& value) noexcept {
+  StaticConvert<Unit, OldUnit, NewUnit, 9>(
+      value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
+}
+
+template <typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr double StaticConvertCopy(const double value) noexcept {
   double result{value};
-  if (OldUnit != StandardUnit<Unit>) {
-    Internal::ConversionToStandard<Unit, OldUnit>(result);
-  }
-  if (NewUnit != StandardUnit<Unit>) {
-    Internal::ConversionFromStandard<Unit, NewUnit>(result);
-  }
+  Internal::ConversionToStandard<Unit, OldUnit>(result);
+  Internal::ConversionFromStandard<Unit, NewUnit>(result);
   return result;
 }
 
@@ -190,12 +214,8 @@ template <typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
 inline constexpr std::array<double, Size> StaticConvertCopy(
     const std::array<double, Size>& values) noexcept {
   std::array<double, Size> result{values};
-  if (OldUnit != StandardUnit<Unit>) {
-    Internal::ConversionsToStandard<Unit, OldUnit>(&result[0], Size);
-  }
-  if (NewUnit != StandardUnit<Unit>) {
-    Internal::ConversionsFromStandard<Unit, NewUnit>(&result[0], Size);
-  }
+  Internal::ConversionsToStandard<Unit, OldUnit>(&result[0], Size);
+  Internal::ConversionsFromStandard<Unit, NewUnit>(&result[0], Size);
   return result;
 }
 
