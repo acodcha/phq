@@ -92,6 +92,26 @@ inline constexpr bool operator!=(const AreaVector& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const AreaVector& left,
+                                const AreaVector& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const AreaVector& left,
+                                const AreaVector& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const AreaVector& left,
+                                 const AreaVector& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const AreaVector& left,
+                                 const AreaVector& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const AreaVector& area_vector) noexcept {
   stream << area_vector.Print();

@@ -84,9 +84,15 @@ TEST(Velocity, Arithmetic) {
 
 TEST(Velocity, Comparison) {
   const Velocity velocity0{{1.0, 2.0, 4.0}, Unit::Speed::MetrePerSecond};
-  const Velocity velocity1{{1.0, 2.0, -4.0}, Unit::Speed::MetrePerSecond};
+  const Velocity velocity1{{1.0, 2.0, 8.0}, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(velocity0, velocity0);
   EXPECT_NE(velocity0, velocity1);
+  EXPECT_LT(velocity0, velocity1);
+  EXPECT_GT(velocity1, velocity0);
+  EXPECT_LE(velocity0, velocity0);
+  EXPECT_LE(velocity0, velocity1);
+  EXPECT_GE(velocity0, velocity0);
+  EXPECT_GE(velocity1, velocity0);
 }
 
 TEST(Velocity, Constructor) {

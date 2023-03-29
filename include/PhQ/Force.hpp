@@ -100,6 +100,26 @@ inline constexpr bool operator!=(const Force& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Force& left,
+                                const Force& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Force& left,
+                                const Force& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Force& left,
+                                 const Force& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Force& left,
+                                 const Force& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Force& force) noexcept {
   stream << force.Print();

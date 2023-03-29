@@ -119,6 +119,26 @@ inline constexpr bool operator!=(const Velocity& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Velocity& left,
+                                const Velocity& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Velocity& left,
+                                const Velocity& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Velocity& left,
+                                 const Velocity& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Velocity& left,
+                                 const Velocity& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Velocity& velocity) noexcept {
   stream << velocity.Print();

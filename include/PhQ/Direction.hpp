@@ -149,13 +149,15 @@ public:
 
   inline Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
 
-  inline HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
+  inline HeatFlux operator*(
+      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
   inline TemperatureGradient operator*(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const noexcept;
 
-  inline Traction operator*(const StaticPressure& static_pressure) const noexcept;
+  inline Traction operator*(
+      const StaticPressure& static_pressure) const noexcept;
 
   inline Velocity operator*(const Speed& speed) const noexcept;
 };
@@ -168,6 +170,26 @@ inline constexpr bool operator==(const Direction& left,
 inline constexpr bool operator!=(const Direction& left,
                                  const Direction& right) noexcept {
   return left.Value() != right.Value();
+}
+
+inline constexpr bool operator<(const Direction& left,
+                                const Direction& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Direction& left,
+                                const Direction& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(std::ostream& stream,

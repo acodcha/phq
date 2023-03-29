@@ -77,6 +77,26 @@ inline constexpr bool operator!=(const DisplacementGradient& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const DisplacementGradient& left,
+                                const DisplacementGradient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const DisplacementGradient& left,
+                                const DisplacementGradient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const DisplacementGradient& left,
+                                 const DisplacementGradient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const DisplacementGradient& left,
+                                 const DisplacementGradient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream,
     const DisplacementGradient& displacement_gradient) noexcept {

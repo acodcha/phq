@@ -100,10 +100,16 @@ TEST(Acceleration, Arithmetic) {
 TEST(Acceleration, Comparison) {
   const Acceleration acceleration0{{1.0, 2.0, 4.0},
                                    Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration1{{1.0, 2.0, -4.0},
+  const Acceleration acceleration1{{1.0, 2.0, 8.0},
                                    Unit::Acceleration::MetrePerSquareSecond};
   EXPECT_EQ(acceleration0, acceleration0);
   EXPECT_NE(acceleration0, acceleration1);
+  EXPECT_LT(acceleration0, acceleration1);
+  EXPECT_GT(acceleration1, acceleration0);
+  EXPECT_LE(acceleration0, acceleration0);
+  EXPECT_LE(acceleration0, acceleration1);
+  EXPECT_GE(acceleration0, acceleration0);
+  EXPECT_GE(acceleration1, acceleration0);
 }
 
 TEST(Acceleration, Constructor) {

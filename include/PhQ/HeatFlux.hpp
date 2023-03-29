@@ -104,6 +104,26 @@ inline constexpr bool operator!=(const HeatFlux& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const HeatFlux& left,
+                                const HeatFlux& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const HeatFlux& left,
+                                const HeatFlux& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const HeatFlux& left,
+                                 const HeatFlux& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const HeatFlux& left,
+                                 const HeatFlux& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const HeatFlux& heat_flux) noexcept {
   stream << heat_flux.Print();

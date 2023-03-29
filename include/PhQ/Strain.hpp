@@ -89,6 +89,26 @@ inline constexpr bool operator!=(const Strain& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Strain& left,
+                                const Strain& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Strain& left,
+                                const Strain& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Strain& left,
+                                 const Strain& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Strain& left,
+                                 const Strain& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Strain& strain) noexcept {
   stream << strain.Print();

@@ -78,9 +78,15 @@ TEST(Displacement, Arithmetic) {
 
 TEST(Displacement, Comparison) {
   const Displacement displacement0{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  const Displacement displacement1{{1.0, 2.0, -4.0}, Unit::Length::Metre};
+  const Displacement displacement1{{1.0, 2.0, 8.0}, Unit::Length::Metre};
   EXPECT_EQ(displacement0, displacement0);
   EXPECT_NE(displacement0, displacement1);
+  EXPECT_LT(displacement0, displacement1);
+  EXPECT_GT(displacement1, displacement0);
+  EXPECT_LE(displacement0, displacement0);
+  EXPECT_LE(displacement0, displacement1);
+  EXPECT_GE(displacement0, displacement0);
+  EXPECT_GE(displacement1, displacement0);
 }
 
 TEST(Displacement, Constructor) {

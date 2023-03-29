@@ -101,6 +101,26 @@ inline constexpr bool operator!=(const Traction& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Traction& left,
+                                const Traction& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Traction& left,
+                                const Traction& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Traction& left,
+                                 const Traction& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Traction& left,
+                                 const Traction& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Traction& traction) noexcept {
   stream << traction.Print();

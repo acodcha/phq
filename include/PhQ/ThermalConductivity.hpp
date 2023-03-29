@@ -98,6 +98,26 @@ inline constexpr bool operator!=(const ThermalConductivity& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const ThermalConductivity& left,
+                                const ThermalConductivity& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const ThermalConductivity& left,
+                                const ThermalConductivity& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const ThermalConductivity& left,
+                                 const ThermalConductivity& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const ThermalConductivity& left,
+                                 const ThermalConductivity& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream,
     const ThermalConductivity& thermal_conductivity) noexcept {

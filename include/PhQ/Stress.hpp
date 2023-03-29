@@ -93,6 +93,26 @@ inline constexpr bool operator!=(const Stress& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Stress& left,
+                                const Stress& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Stress& left,
+                                const Stress& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Stress& left,
+                                 const Stress& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Stress& left,
+                                 const Stress& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Stress& stress) noexcept {
   stream << stress.Print();

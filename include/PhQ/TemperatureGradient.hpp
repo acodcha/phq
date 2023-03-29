@@ -107,6 +107,26 @@ inline constexpr bool operator!=(const TemperatureGradient& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const TemperatureGradient& left,
+                                const TemperatureGradient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const TemperatureGradient& left,
+                                const TemperatureGradient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const TemperatureGradient& left,
+                                 const TemperatureGradient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const TemperatureGradient& left,
+                                 const TemperatureGradient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream,
     const TemperatureGradient& temperature_gradient) noexcept {

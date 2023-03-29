@@ -120,6 +120,26 @@ inline constexpr bool operator!=(const Displacement& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Displacement& left,
+                                const Displacement& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Displacement& left,
+                                const Displacement& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Displacement& left,
+                                 const Displacement& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Displacement& left,
+                                 const Displacement& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Displacement& displacement) noexcept {
   stream << displacement.Print();

@@ -92,9 +92,15 @@ TEST(Position, Arithmetic) {
 
 TEST(Position, Comparison) {
   const Position position0{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  const Position position1{{1.0, 2.0, -4.0}, Unit::Length::Metre};
+  const Position position1{{1.0, 2.0, 8.0}, Unit::Length::Metre};
   EXPECT_EQ(position0, position0);
   EXPECT_NE(position0, position1);
+  EXPECT_LT(position0, position1);
+  EXPECT_GT(position1, position0);
+  EXPECT_LE(position0, position0);
+  EXPECT_LE(position0, position1);
+  EXPECT_GE(position0, position0);
+  EXPECT_GE(position1, position0);
 }
 
 TEST(Position, Constructor) {

@@ -78,9 +78,15 @@ TEST(AreaVector, Arithmetic) {
 
 TEST(AreaVector, Comparison) {
   const AreaVector area0{{1.0, 2.0, 4.0}, Unit::Area::SquareMetre};
-  const AreaVector area1{{1.0, 2.0, -4.0}, Unit::Area::SquareMetre};
+  const AreaVector area1{{1.0, 2.0, 8.0}, Unit::Area::SquareMetre};
   EXPECT_EQ(area0, area0);
   EXPECT_NE(area0, area1);
+  EXPECT_LT(area0, area1);
+  EXPECT_GT(area1, area0);
+  EXPECT_LE(area0, area0);
+  EXPECT_LE(area0, area1);
+  EXPECT_GE(area0, area0);
+  EXPECT_GE(area1, area0);
 }
 
 TEST(AreaVector, Constructor) {

@@ -111,6 +111,26 @@ inline constexpr bool operator!=(const Position& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Position& left,
+                                const Position& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Position& left,
+                                const Position& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Position& left,
+                                 const Position& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Position& left,
+                                 const Position& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Position& position) noexcept {
   stream << position.Print();

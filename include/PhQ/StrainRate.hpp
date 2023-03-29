@@ -107,6 +107,26 @@ inline constexpr bool operator!=(const StrainRate& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const StrainRate& left,
+                                const StrainRate& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const StrainRate& left,
+                                const StrainRate& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const StrainRate& left,
+                                 const StrainRate& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const StrainRate& left,
+                                 const StrainRate& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const StrainRate& strain_rate) noexcept {
   stream << strain_rate.Print();

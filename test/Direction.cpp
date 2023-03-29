@@ -70,10 +70,16 @@ TEST(Direction, Angle) {
 }
 
 TEST(Direction, Comparison) {
-  const Direction direction0{1.11, 2.22, 3.33};
-  const Direction direction1{1.23, 4.56, 7.89};
+  const Direction direction0{0.0, 0.0, 1.0};
+  const Direction direction1{1.0, 1.0, 1.0};
   EXPECT_EQ(direction0, direction0);
   EXPECT_NE(direction0, direction1);
+  EXPECT_LT(direction0, direction1);
+  EXPECT_GT(direction1, direction0);
+  EXPECT_LE(direction0, direction0);
+  EXPECT_LE(direction0, direction1);
+  EXPECT_GE(direction0, direction0);
+  EXPECT_GE(direction1, direction0);
 }
 
 TEST(Direction, Constructor) {

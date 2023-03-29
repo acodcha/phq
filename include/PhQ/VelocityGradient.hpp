@@ -92,6 +92,26 @@ inline constexpr bool operator!=(const VelocityGradient& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const VelocityGradient& left,
+                                const VelocityGradient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const VelocityGradient& left,
+                                const VelocityGradient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const VelocityGradient& left,
+                                 const VelocityGradient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const VelocityGradient& left,
+                                 const VelocityGradient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream, const VelocityGradient& velocity_gradient) noexcept {
   stream << velocity_gradient.Print();
