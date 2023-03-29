@@ -21,25 +21,27 @@
 
 namespace PhQ {
 
-template <typename Unit>
-class DimensionalScalarQuantity : public DimensionalQuantity<Unit> {
+template <typename U>
+class DimensionalScalarQuantity : public DimensionalQuantity<U> {
 public:
-  virtual ~DimensionalScalarQuantity() noexcept = default;
-
   constexpr double Value() const noexcept { return value_; }
 
-  double Value(const Unit unit) const noexcept {
+  double Value(const U unit) const noexcept {
     double result{value_};
-    Convert(result, StandardUnit<Unit>, unit);
+    Convert(result, StandardUnit<U>, unit);
     return result;
   }
 
-  std::string Print() const noexcept override {
-    return PhQ::Print(value_).append(" ").append(
-        Abbreviation(StandardUnit<Unit>));
+  template <U NewUnit>
+  constexpr double StaticValue() const noexcept {
+    return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
   }
 
-  std::string Print(const Unit unit) const noexcept override {
+  std::string Print() const noexcept override {
+    return PhQ::Print(value_).append(" ").append(Abbreviation(StandardUnit<U>));
+  }
+
+  std::string Print(const U unit) const noexcept override {
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
@@ -47,11 +49,11 @@ public:
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
-        .append(Abbreviation(StandardUnit<Unit>))
+        .append(Abbreviation(StandardUnit<U>))
         .append("\"}");
   }
 
-  std::string Json(const Unit unit) const noexcept override {
+  std::string Json(const U unit) const noexcept override {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(Value(unit)))
         .append(",\"unit\":\"")
@@ -63,11 +65,11 @@ public:
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
-        .append(Abbreviation(StandardUnit<Unit>))
+        .append(Abbreviation(StandardUnit<U>))
         .append("</unit>");
   }
 
-  std::string Xml(const Unit unit) const noexcept override {
+  std::string Xml(const U unit) const noexcept override {
     return std::string{"<value>"}
         .append(PhQ::Print(Value(unit)))
         .append("</value><unit>")
@@ -79,11 +81,11 @@ public:
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")
-        .append(Abbreviation(StandardUnit<Unit>))
+        .append(Abbreviation(StandardUnit<U>))
         .append("\"}");
   }
 
-  std::string Yaml(const Unit unit) const noexcept override {
+  std::string Yaml(const U unit) const noexcept override {
     return std::string{"{value:"}
         .append(PhQ::Print(Value(unit)))
         .append(",unit:\"")
@@ -93,15 +95,17 @@ public:
 
 protected:
   constexpr DimensionalScalarQuantity() noexcept
-      : DimensionalQuantity<Unit>(), value_() {}
+      : DimensionalQuantity<U>(), value_() {}
 
   constexpr DimensionalScalarQuantity(const double value) noexcept
-      : DimensionalQuantity<Unit>(), value_(value) {}
+      : DimensionalQuantity<U>(), value_(value) {}
 
-  DimensionalScalarQuantity(const double value, const Unit unit) noexcept
-      : DimensionalQuantity<Unit>(), value_(value) {
-    Convert(value_, unit, StandardUnit<Unit>);
+  DimensionalScalarQuantity(const double value, const U unit) noexcept
+      : DimensionalQuantity<U>(), value_(value) {
+    Convert(value_, unit, StandardUnit<U>);
   }
+
+  ~DimensionalScalarQuantity() noexcept = default;
 
   void operator=(const double value) noexcept { value_ = value; }
 
@@ -112,10 +116,9 @@ protected:
 
 namespace std {
 
-template <typename Unit>
-struct hash<PhQ::DimensionalScalarQuantity<Unit>> {
-  size_t operator()(
-      const PhQ::DimensionalScalarQuantity<Unit>& quantity) const {
+template <typename U>
+struct hash<PhQ::DimensionalScalarQuantity<U>> {
+  size_t operator()(const PhQ::DimensionalScalarQuantity<U>& quantity) const {
     return hash<double>()(quantity.Value());
   }
 };

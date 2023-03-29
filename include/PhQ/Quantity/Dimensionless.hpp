@@ -24,19 +24,10 @@
 namespace PhQ {
 
 class DimensionlessQuantity : public Quantity {
-public:
-  virtual ~DimensionlessQuantity() noexcept = default;
-
-  virtual std::string Print() const noexcept = 0;
-
-  virtual std::string Json() const noexcept = 0;
-
-  virtual std::string Xml() const noexcept = 0;
-
-  virtual std::string Yaml() const noexcept = 0;
-
 protected:
   constexpr DimensionlessQuantity() noexcept : Quantity() {}
+
+  ~DimensionlessQuantity() noexcept = default;
 };
 
 std::ostream& operator<<(std::ostream& stream,

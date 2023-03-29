@@ -20,10 +20,18 @@ namespace PhQ {
 
 class Quantity {
 public:
-  virtual ~Quantity() noexcept = default;
+  virtual std::string Print() const noexcept = 0;
+
+  virtual std::string Json() const noexcept = 0;
+
+  virtual std::string Xml() const noexcept = 0;
+
+  virtual std::string Yaml() const noexcept = 0;
 
 protected:
   constexpr Quantity() noexcept = default;
+
+  ~Quantity() noexcept = default;
 };
 
 }  // namespace PhQ
