@@ -78,7 +78,7 @@ public:
                        const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
+      const double magnitude{SquareRoot(magnitude_squared)};
       value_ = {x / magnitude, y / magnitude, z / magnitude};
     } else {
       value_ = {0.0, 0.0, 0.0};
@@ -89,7 +89,7 @@ public:
     const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
                                    x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
+      const double magnitude{SquareRoot(magnitude_squared)};
       value_ = {x_y_z[0] / magnitude, x_y_z[1] / magnitude,
                 x_y_z[2] / magnitude};
     } else {

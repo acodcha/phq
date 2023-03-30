@@ -19,6 +19,7 @@
 #include <array>
 #include <utility>
 
+#include "../Base/Math.hpp"
 #include "../Base/String.hpp"
 
 namespace PhQ {
@@ -88,8 +89,8 @@ public:
            x_y_z_[2] * x_y_z_[2];
   }
 
-  inline double Magnitude() const noexcept {
-    return std::sqrt(MagnitudeSquared());
+  inline constexpr double Magnitude() const noexcept {
+    return SquareRoot(MagnitudeSquared());
   }
 
   inline PhQ::Direction Direction() const noexcept;

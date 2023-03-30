@@ -23,34 +23,6 @@ namespace {
 
 TEST(BaseMath, Pi) { EXPECT_EQ(Pi, 3.14159265358979323846); }
 
-TEST(BaseMath, Power2) {
-  EXPECT_EQ(Power2(-1.2345e50), std::pow(-1.2345e50, 2));
-  EXPECT_EQ(Power2(-123.45), std::pow(-123.45, 2));
-  EXPECT_EQ(Power2(-1.0), std::pow(-1.0, 2));
-  EXPECT_EQ(Power2(-0.12345), std::pow(-0.12345, 2));
-  EXPECT_EQ(Power2(-1.2345e-50), std::pow(-1.2345e-50, 2));
-  EXPECT_EQ(Power2(0.0), std::pow(0.0, 2));
-  EXPECT_EQ(Power2(1.2345e-50), std::pow(1.2345e-50, 2));
-  EXPECT_EQ(Power2(0.12345), std::pow(0.12345, 2));
-  EXPECT_EQ(Power2(1.0), std::pow(1.0, 2));
-  EXPECT_EQ(Power2(123.45), std::pow(123.45, 2));
-  EXPECT_EQ(Power2(1.2345e50), std::pow(1.2345e50, 2));
-}
-
-TEST(BaseMath, Power3) {
-  EXPECT_EQ(Power3(-1.2345e50), std::pow(-1.2345e50, 3));
-  EXPECT_EQ(Power3(-123.45), std::pow(-123.45, 3));
-  EXPECT_EQ(Power3(-1.0), std::pow(-1.0, 3));
-  EXPECT_EQ(Power3(-0.12345), std::pow(-0.12345, 3));
-  EXPECT_EQ(Power3(-1.2345e-50), std::pow(-1.2345e-50, 3));
-  EXPECT_EQ(Power3(0.0), std::pow(0.0, 3));
-  EXPECT_EQ(Power3(1.2345e-50), std::pow(1.2345e-50, 3));
-  EXPECT_EQ(Power3(0.12345), std::pow(0.12345, 3));
-  EXPECT_EQ(Power3(1.0), std::pow(1.0, 3));
-  EXPECT_EQ(Power3(123.45), std::pow(123.45, 3));
-  EXPECT_EQ(Power3(1.2345e50), std::pow(1.2345e50, 3));
-}
-
 TEST(BaseMath, SquareRoot) {
   EXPECT_TRUE(std::isnan(SquareRoot(-1.2345e50)));
   EXPECT_TRUE(std::isnan(SquareRoot(-123.45)));

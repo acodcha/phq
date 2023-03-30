@@ -24,40 +24,20 @@ namespace PhQ {
 /// \brief The mathematical constant \f$ \pi = 3.14... \f$.
 inline constexpr double Pi{3.14159265358979323846};
 
-/// \brief Returns the square of a number. Equivalent to std::pow(number, 2).
-inline constexpr double Power2(const double number) noexcept {
-  return number * number;
-}
-
-/// \brief Returns the cube of a number. Equivalent to std::pow(number, 3).
-inline constexpr double Power3(const double number) noexcept {
-  return number * number * number;
-}
-
-namespace Internal {
-
-/// \brief Returns the square root of a number using Newton's method. Typically,
-/// only a few recursions are needed.
-inline constexpr double SquareRoot(const double number,
-                                   const double current_square_root,
-                                   const double previous_square_root) noexcept {
-  if (current_square_root == previous_square_root) {
-    return current_square_root;
-  }
-  return Internal::SquareRoot(
-      number, 0.5 * (current_square_root + number / current_square_root),
-      current_square_root);
-}
-
-}  // namespace Internal
-
-/// \brief Returns the square root of a number. Equivalent to std::sqrt(number).
-/// However, this implementation is a constant expression, unlike std::sqrt().
+/// \brief Returns the square root of a number. This implementation is a
+/// constant expression, unlike std::sqrt().
 inline constexpr double SquareRoot(const double number) noexcept {
-  if (number >= 0.0 && std::isfinite(number)) {
-    return Internal::SquareRoot(number, number, 0.0);
+  if (number < 0.0 || !std::isfinite(number)) {
+    return std::numeric_limits<double>::quiet_NaN();
   }
-  return std::numeric_limits<double>::quiet_NaN();
+  double current_square_root = number;
+  double previous_square_root = 0.0;
+  while (current_square_root != previous_square_root) {
+    previous_square_root = current_square_root;
+    current_square_root =
+        0.5 * (current_square_root + number / current_square_root);
+  }
+  return current_square_root;
 }
 
 }  // namespace PhQ

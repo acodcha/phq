@@ -16,6 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 
+#include "Base/Math.hpp"
 #include "MassDensity.hpp"
 #include "Speed.hpp"
 #include "StaticPressure.hpp"
@@ -144,7 +145,8 @@ inline constexpr MassDensity::MassDensity(
 
 inline constexpr Speed::Speed(const DynamicPressure& dynamic_pressure,
                               const MassDensity& mass_density) noexcept
-    : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
+    : Speed(SquareRoot(2.0 * dynamic_pressure.Value() / mass_density.Value())) {
+}
 
 }  // namespace PhQ
 
