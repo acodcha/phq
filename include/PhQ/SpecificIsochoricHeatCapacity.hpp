@@ -59,36 +59,37 @@ public:
                           StandardUnit<Unit::SpecificHeatCapacity>>(value)};
   }
 
-  inline SpecificIsochoricHeatCapacity operator+(
+  inline constexpr SpecificIsochoricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept {
     return SpecificIsochoricHeatCapacity{
         value_ + specific_isochoric_heat_capacity.value_};
   }
 
-  inline SpecificIsobaricHeatCapacity operator+(
+  inline constexpr SpecificIsobaricHeatCapacity operator+(
       const SpecificGasConstant& specific_gas_constant) const noexcept;
 
-  inline SpecificIsochoricHeatCapacity operator-(
+  inline constexpr SpecificIsochoricHeatCapacity operator-(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept {
     return SpecificIsochoricHeatCapacity{
         value_ - specific_isochoric_heat_capacity.value_};
   }
 
-  inline SpecificIsochoricHeatCapacity operator*(
+  inline constexpr SpecificIsochoricHeatCapacity operator*(
       const double number) const noexcept {
     return SpecificIsochoricHeatCapacity{value_ * number};
   }
 
-  inline IsochoricHeatCapacity operator*(const Mass& mass) const noexcept {
+  inline constexpr IsochoricHeatCapacity operator*(
+      const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline SpecificIsobaricHeatCapacity operator*(
+  inline constexpr SpecificIsobaricHeatCapacity operator*(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept;
 
-  inline SpecificIsochoricHeatCapacity operator/(
+  inline constexpr SpecificIsochoricHeatCapacity operator/(
       const double number) const noexcept {
     return SpecificIsochoricHeatCapacity{value_ / number};
   }
@@ -161,7 +162,7 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline SpecificIsochoricHeatCapacity operator*(
+inline constexpr SpecificIsochoricHeatCapacity operator*(
     const double number, const SpecificIsochoricHeatCapacity&
                              specific_isochoric_heat_capacity) noexcept {
   return specific_isochoric_heat_capacity * number;
@@ -179,18 +180,18 @@ inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     : IsochoricHeatCapacity(specific_isochoric_heat_capacity.Value() *
                             mass.Value()) {}
 
-inline IsochoricHeatCapacity Mass::operator*(
+inline constexpr IsochoricHeatCapacity Mass::operator*(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const noexcept {
   return {specific_isochoric_heat_capacity, *this};
 }
 
-inline SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(
+inline constexpr SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(
     const Mass& mass) const noexcept {
   return {*this, mass};
 }
 
-inline Mass IsochoricHeatCapacity::operator/(
+inline constexpr Mass IsochoricHeatCapacity::operator/(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const noexcept {
   return {specific_isochoric_heat_capacity, *this};

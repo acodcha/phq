@@ -36,21 +36,23 @@ public:
             value)};
   }
 
-  inline IsothermalBulkModulus operator+(
+  inline constexpr IsothermalBulkModulus operator+(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return {value_ + isothermal_bulk_modulus.value_};
   }
 
-  inline IsothermalBulkModulus operator-(
+  inline constexpr IsothermalBulkModulus operator-(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return {value_ - isothermal_bulk_modulus.value_};
   }
 
-  inline IsothermalBulkModulus operator*(const double number) const noexcept {
+  inline constexpr IsothermalBulkModulus operator*(
+      const double number) const noexcept {
     return IsothermalBulkModulus{value_ * number};
   }
 
-  inline IsothermalBulkModulus operator/(const double number) const noexcept {
+  inline constexpr IsothermalBulkModulus operator/(
+      const double number) const noexcept {
     return IsothermalBulkModulus{value_ / number};
   }
 
@@ -114,7 +116,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline IsothermalBulkModulus operator*(
+inline constexpr IsothermalBulkModulus operator*(
     const double number,
     const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
   return isothermal_bulk_modulus * number;

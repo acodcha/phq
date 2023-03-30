@@ -57,30 +57,32 @@ public:
                           StandardUnit<Unit::DynamicViscosity>>(value)};
   }
 
-  inline DynamicViscosity operator+(
+  inline constexpr DynamicViscosity operator+(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return DynamicViscosity{value_ + dynamic_viscosity.value_};
   }
 
-  inline DynamicViscosity operator-(
+  inline constexpr DynamicViscosity operator-(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return DynamicViscosity{value_ - dynamic_viscosity.value_};
   }
 
-  inline DynamicViscosity operator*(const double number) const noexcept {
+  inline constexpr DynamicViscosity operator*(
+      const double number) const noexcept {
     return DynamicViscosity{value_ * number};
   }
 
-  inline DynamicViscosity operator/(const double number) const noexcept {
+  inline constexpr DynamicViscosity operator/(
+      const double number) const noexcept {
     return DynamicViscosity{value_ / number};
   }
 
-  inline KinematicViscosity operator/(
+  inline constexpr KinematicViscosity operator/(
       const MassDensity& mass_density) const noexcept {
     return {*this, mass_density};
   }
 
-  inline MassDensity operator/(
+  inline constexpr MassDensity operator/(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return {*this, kinematic_viscosity};
   }
@@ -144,7 +146,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline DynamicViscosity operator*(
+inline constexpr DynamicViscosity operator*(
     const double number, const DynamicViscosity& dynamic_viscosity) noexcept {
   return dynamic_viscosity * number;
 }
@@ -159,12 +161,12 @@ inline constexpr KinematicViscosity::KinematicViscosity(
     const MassDensity& mass_density) noexcept
     : KinematicViscosity(dynamic_viscosity.Value() / mass_density.Value()) {}
 
-inline DynamicViscosity KinematicViscosity::operator*(
+inline constexpr DynamicViscosity KinematicViscosity::operator*(
     const MassDensity& mass_density) const noexcept {
   return {*this, mass_density};
 }
 
-inline DynamicViscosity MassDensity::operator*(
+inline constexpr DynamicViscosity MassDensity::operator*(
     const KinematicViscosity& kinematic_viscosity) const noexcept {
   return {kinematic_viscosity, *this};
 }

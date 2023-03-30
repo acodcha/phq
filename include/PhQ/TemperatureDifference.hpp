@@ -50,25 +50,28 @@ public:
                           StandardUnit<Unit::TemperatureDifference>>(value)};
   }
 
-  inline Temperature operator+(const Temperature& temperature) const noexcept;
+  inline constexpr Temperature operator+(
+      const Temperature& temperature) const noexcept;
 
-  inline TemperatureDifference operator+(
+  inline constexpr TemperatureDifference operator+(
       const TemperatureDifference& temperature_difference) const noexcept {
     return TemperatureDifference{value_ + temperature_difference.value_};
   }
 
-  inline Temperature operator-(const Temperature& temperature) const noexcept;
+  inline constexpr Temperature operator-(
+      const Temperature& temperature) const noexcept;
 
-  inline TemperatureDifference operator-(
+  inline constexpr TemperatureDifference operator-(
       const TemperatureDifference& temperature_difference) const noexcept {
     return TemperatureDifference{value_ - temperature_difference.value_};
   }
 
-  inline TemperatureDifference operator*(const double number) const noexcept {
+  inline constexpr TemperatureDifference operator*(
+      const double number) const noexcept {
     return TemperatureDifference{value_ * number};
   }
 
-  inline StrainScalar operator*(
+  inline constexpr StrainScalar operator*(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept;
 
@@ -76,11 +79,12 @@ public:
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) const noexcept;
 
-  inline TemperatureDifference operator/(const double number) const noexcept {
+  inline constexpr TemperatureDifference operator/(
+      const double number) const noexcept {
     return TemperatureDifference{value_ / number};
   }
 
-  inline TemperatureGradientMagnitude operator/(
+  inline constexpr TemperatureGradientMagnitude operator/(
       const Length& length) const noexcept;
 
   inline constexpr void operator+=(
@@ -145,7 +149,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline TemperatureDifference operator*(
+inline constexpr TemperatureDifference operator*(
     const double number,
     const TemperatureDifference& temperature_difference) noexcept {
   return temperature_difference * number;

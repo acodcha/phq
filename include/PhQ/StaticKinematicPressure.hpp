@@ -51,45 +51,47 @@ public:
                           StandardUnit<Unit::SpecificEnergy>>(value)};
   }
 
-  inline StaticKinematicPressure operator+(
+  inline constexpr StaticKinematicPressure operator+(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return StaticKinematicPressure{value_ + static_kinematic_pressure.value_};
   }
 
-  inline StaticKinematicPressure operator+(
+  inline constexpr StaticKinematicPressure operator+(
       const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return StaticKinematicPressure{value_ +
                                    kinematic_pressure_difference.Value()};
   }
 
-  inline TotalKinematicPressure operator+(
+  inline constexpr TotalKinematicPressure operator+(
       const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept;
 
-  inline KinematicPressureDifference operator-(
+  inline constexpr KinematicPressureDifference operator-(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return KinematicPressureDifference{value_ -
                                        static_kinematic_pressure.value_};
   }
 
-  inline StaticKinematicPressure operator-(
+  inline constexpr StaticKinematicPressure operator-(
       const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return StaticKinematicPressure{value_ -
                                    kinematic_pressure_difference.Value()};
   }
 
-  inline StaticKinematicPressure operator*(const double number) const noexcept {
+  inline constexpr StaticKinematicPressure operator*(
+      const double number) const noexcept {
     return StaticKinematicPressure{value_ * number};
   }
 
-  inline StaticPressure operator*(
+  inline constexpr StaticPressure operator*(
       const MassDensity& mass_density) const noexcept {
     return {*this, mass_density};
   }
 
-  inline StaticKinematicPressure operator/(const double number) const noexcept {
+  inline constexpr StaticKinematicPressure operator/(
+      const double number) const noexcept {
     return StaticKinematicPressure{value_ / number};
   }
 
@@ -169,7 +171,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline StaticKinematicPressure operator*(
+inline constexpr StaticKinematicPressure operator*(
     const double number,
     const StaticKinematicPressure& static_kinematic_pressure) noexcept {
   return static_kinematic_pressure * number;
@@ -181,17 +183,17 @@ inline constexpr StaticPressure::StaticPressure(
     : StaticPressure(static_kinematic_pressure.Value() * mass_density.Value()) {
 }
 
-inline StaticKinematicPressure StaticPressure::operator/(
+inline constexpr StaticKinematicPressure StaticPressure::operator/(
     const MassDensity& mass_density) const noexcept {
   return {*this, mass_density};
 }
 
-inline StaticKinematicPressure KinematicPressureDifference::operator+(
+inline constexpr StaticKinematicPressure KinematicPressureDifference::operator+(
     const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return StaticKinematicPressure{value_ + static_kinematic_pressure.Value()};
 }
 
-inline StaticKinematicPressure KinematicPressureDifference::operator-(
+inline constexpr StaticKinematicPressure KinematicPressureDifference::operator-(
     const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return StaticKinematicPressure{value_ - static_kinematic_pressure.Value()};
 }

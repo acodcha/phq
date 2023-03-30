@@ -40,31 +40,31 @@ public:
                           StandardUnit<Unit::ThermalExpansion>>(value)};
   }
 
-  inline LinearThermalExpansionCoefficient operator+(
+  inline constexpr LinearThermalExpansionCoefficient operator+(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept {
     return LinearThermalExpansionCoefficient{
         value_ + linear_thermal_expansion_coefficient.value_};
   }
 
-  inline LinearThermalExpansionCoefficient operator-(
+  inline constexpr LinearThermalExpansionCoefficient operator-(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept {
     return LinearThermalExpansionCoefficient{
         value_ - linear_thermal_expansion_coefficient.value_};
   }
 
-  inline LinearThermalExpansionCoefficient operator*(
+  inline constexpr LinearThermalExpansionCoefficient operator*(
       const double number) const noexcept {
     return LinearThermalExpansionCoefficient{value_ * number};
   }
 
-  inline StrainScalar operator*(
+  inline constexpr StrainScalar operator*(
       const TemperatureDifference& temperature_difference) const noexcept {
     return {*this, temperature_difference};
   }
 
-  inline LinearThermalExpansionCoefficient operator/(
+  inline constexpr LinearThermalExpansionCoefficient operator/(
       const double number) const noexcept {
     return LinearThermalExpansionCoefficient{value_ / number};
   }
@@ -138,7 +138,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline LinearThermalExpansionCoefficient operator*(
+inline constexpr LinearThermalExpansionCoefficient operator*(
     const double number, const LinearThermalExpansionCoefficient&
                              linear_thermal_expansion_coefficient) noexcept {
   return linear_thermal_expansion_coefficient * number;
@@ -151,7 +151,7 @@ inline constexpr StrainScalar::StrainScalar(
     : StrainScalar(linear_thermal_expansion_coefficient.Value() *
                    temperature_difference.Value()) {}
 
-inline StrainScalar TemperatureDifference::operator*(
+inline constexpr StrainScalar TemperatureDifference::operator*(
     const LinearThermalExpansionCoefficient&
         linear_thermal_expansion_coefficient) const noexcept {
   return {linear_thermal_expansion_coefficient, *this};

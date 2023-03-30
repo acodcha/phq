@@ -205,7 +205,7 @@ public:
     return Cofactors().Transpose();
   }
 
-  inline std::optional<Dyad> Inverse() const;
+  inline constexpr std::optional<Dyad> Inverse() const;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", " +
@@ -486,7 +486,7 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline std::optional<Dyad> Dyad::Inverse() const {
+inline constexpr std::optional<Dyad> Dyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return Adjugate() / determinant_;

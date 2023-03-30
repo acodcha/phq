@@ -46,7 +46,7 @@ public:
   constexpr Speed(const Length& length, const Frequency& frequency) noexcept
       : Speed(length.Value() * frequency.Value()) {}
 
-  Speed(const Velocity& velocity) noexcept;
+  constexpr Speed(const Velocity& velocity) noexcept;
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
                   const Time& time) noexcept;
@@ -57,7 +57,8 @@ public:
   constexpr Speed(const DynamicPressure& dynamic_pressure,
                   const MassDensity& mass_density) noexcept;
 
-  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
+  constexpr Speed(
+      const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
 
   constexpr Speed(const ReynoldsNumber& reynolds_number,
                   const DynamicViscosity& dynamic_viscosity,
@@ -74,42 +75,44 @@ public:
         StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
   }
 
-  inline Speed operator+(const Speed& speed) const noexcept {
+  inline constexpr Speed operator+(const Speed& speed) const noexcept {
     return Speed{value_ + speed.value_};
   }
 
-  inline Speed operator-(const Speed& speed) const noexcept {
+  inline constexpr Speed operator-(const Speed& speed) const noexcept {
     return Speed{value_ - speed.value_};
   }
 
-  inline Speed operator*(const double number) const noexcept {
+  inline constexpr Speed operator*(const double number) const noexcept {
     return Speed{value_ * number};
   }
 
-  inline Length operator*(const Time& time) const noexcept {
+  inline constexpr Length operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline AccelerationMagnitude operator*(
+  inline constexpr AccelerationMagnitude operator*(
       const Frequency& frequency) const noexcept;
 
-  inline Velocity operator*(const Direction& direction) const noexcept;
+  inline constexpr Velocity operator*(
+      const Direction& direction) const noexcept;
 
-  inline Speed operator/(const double number) const noexcept {
+  inline constexpr Speed operator/(const double number) const noexcept {
     return Speed{value_ / number};
   }
 
-  inline Length operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Length operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const Length& length) const noexcept {
+  inline constexpr Frequency operator/(const Length& length) const noexcept {
     return {*this, length};
   }
 
-  inline AccelerationMagnitude operator/(const Time& time) const noexcept;
+  inline constexpr AccelerationMagnitude operator/(
+      const Time& time) const noexcept;
 
-  inline Time operator/(
+  inline constexpr Time operator/(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
   inline constexpr void operator+=(const Speed& speed) noexcept {
@@ -169,7 +172,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Speed operator*(const double number, const Speed& speed) noexcept {
+inline constexpr Speed operator*(const double number,
+                                 const Speed& speed) noexcept {
   return speed * number;
 }
 
@@ -187,19 +191,21 @@ inline constexpr Frequency::Frequency(const Speed& speed,
                                       const Length& length) noexcept
     : Frequency(speed.Value() / length.Value()) {}
 
-inline Speed Length::operator*(const Frequency& frequency) const noexcept {
+inline constexpr Speed Length::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline Time Length::operator/(const Speed& speed) const noexcept {
+inline constexpr Time Length::operator/(const Speed& speed) const noexcept {
   return {speed, *this};
 }
 
-inline Speed Length::operator/(const Time& time) const noexcept {
+inline constexpr Speed Length::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Speed Frequency::operator*(const Length& length) const noexcept {
+inline constexpr Speed Frequency::operator*(
+    const Length& length) const noexcept {
   return {length, *this};
 }
 

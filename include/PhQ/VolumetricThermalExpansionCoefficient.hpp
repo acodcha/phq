@@ -39,21 +39,21 @@ public:
                           StandardUnit<Unit::ThermalExpansion>>(value)};
   }
 
-  inline VolumetricThermalExpansionCoefficient operator+(
+  inline constexpr VolumetricThermalExpansionCoefficient operator+(
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) const noexcept {
     return VolumetricThermalExpansionCoefficient{
         value_ + volumetric_thermal_expansion_coefficient.value_};
   }
 
-  inline VolumetricThermalExpansionCoefficient operator-(
+  inline constexpr VolumetricThermalExpansionCoefficient operator-(
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) const noexcept {
     return VolumetricThermalExpansionCoefficient{
         value_ - volumetric_thermal_expansion_coefficient.value_};
   }
 
-  inline VolumetricThermalExpansionCoefficient operator*(
+  inline constexpr VolumetricThermalExpansionCoefficient operator*(
       const double number) const noexcept {
     return VolumetricThermalExpansionCoefficient{value_ * number};
   }
@@ -63,7 +63,7 @@ public:
     return value_ * temperature_difference.Value();
   }
 
-  inline VolumetricThermalExpansionCoefficient operator/(
+  inline constexpr VolumetricThermalExpansionCoefficient operator/(
       const double number) const noexcept {
     return VolumetricThermalExpansionCoefficient{value_ / number};
   }
@@ -144,7 +144,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline VolumetricThermalExpansionCoefficient operator*(
+inline constexpr VolumetricThermalExpansionCoefficient operator*(
     const double number,
     const VolumetricThermalExpansionCoefficient&
         volumetric_thermal_expansion_coefficient) noexcept {

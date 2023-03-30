@@ -47,7 +47,7 @@ public:
                           StandardUnit<Unit::TemperatureGradient>>(value)};
   }
 
-  inline TemperatureGradientMagnitude Magnitude() const noexcept {
+  inline constexpr TemperatureGradientMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
@@ -56,21 +56,23 @@ public:
     return {*this, temperature_gradient};
   }
 
-  inline TemperatureGradient operator+(
+  inline constexpr TemperatureGradient operator+(
       const TemperatureGradient& temperature_gradient) const noexcept {
     return TemperatureGradient{value_ + temperature_gradient.value_};
   }
 
-  inline TemperatureGradient operator-(
+  inline constexpr TemperatureGradient operator-(
       const TemperatureGradient& temperature_gradient) const noexcept {
     return TemperatureGradient{value_ - temperature_gradient.value_};
   }
 
-  inline TemperatureGradient operator*(const double number) const noexcept {
+  inline constexpr TemperatureGradient operator*(
+      const double number) const noexcept {
     return TemperatureGradient{value_ * number};
   }
 
-  inline TemperatureGradient operator/(const double number) const noexcept {
+  inline constexpr TemperatureGradient operator/(
+      const double number) const noexcept {
     return TemperatureGradient{value_ / number};
   }
 
@@ -134,13 +136,13 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline TemperatureGradient operator*(
+inline constexpr TemperatureGradient operator*(
     const double number,
     const TemperatureGradient& temperature_gradient) noexcept {
   return temperature_gradient * number;
 }
 
-inline Direction::Direction(
+inline constexpr Direction::Direction(
     const TemperatureGradient& temperature_gradient) noexcept
     : Direction(temperature_gradient.Value()) {}
 
@@ -148,17 +150,17 @@ inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
                     const TemperatureGradient& temperature_gradient_2) noexcept
     : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
-inline TemperatureGradientMagnitude::TemperatureGradientMagnitude(
+inline constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(
     const TemperatureGradient& temperature_gradient) noexcept
     : TemperatureGradientMagnitude(temperature_gradient.Value().Magnitude()) {}
 
-inline TemperatureGradient Direction::operator*(
+inline constexpr TemperatureGradient Direction::operator*(
     const TemperatureGradientMagnitude& temperature_gradient_magnitude)
     const noexcept {
   return {temperature_gradient_magnitude, *this};
 }
 
-inline TemperatureGradient TemperatureGradientMagnitude::operator*(
+inline constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(
     const Direction& direction) const noexcept {
   return {*this, direction};
 }

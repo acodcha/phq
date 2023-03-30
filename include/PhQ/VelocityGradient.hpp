@@ -37,25 +37,27 @@ public:
             value)};
   }
 
-  inline PhQ::StrainRate StrainRate() const noexcept {
+  inline constexpr PhQ::StrainRate StrainRate() const noexcept {
     return PhQ::StrainRate{*this};
   }
 
-  inline VelocityGradient operator+(
+  inline constexpr VelocityGradient operator+(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ + velocity_gradient.value_};
   }
 
-  inline VelocityGradient operator-(
+  inline constexpr VelocityGradient operator-(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ - velocity_gradient.value_};
   }
 
-  inline VelocityGradient operator*(const double number) const noexcept {
+  inline constexpr VelocityGradient operator*(
+      const double number) const noexcept {
     return VelocityGradient{value_ * number};
   }
 
-  inline VelocityGradient operator/(const double number) const noexcept {
+  inline constexpr VelocityGradient operator/(
+      const double number) const noexcept {
     return VelocityGradient{value_ / number};
   }
 
@@ -118,7 +120,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline VelocityGradient operator*(
+inline constexpr VelocityGradient operator*(
     const double number, const VelocityGradient& velocity_gradient) noexcept {
   return velocity_gradient * number;
 }

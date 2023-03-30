@@ -36,7 +36,7 @@ public:
   Area(const double value, const Unit::Area unit) noexcept
       : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  Area(const AreaVector& area_vector) noexcept;
+  constexpr Area(const AreaVector& area_vector) noexcept;
 
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;
@@ -47,30 +47,31 @@ public:
         StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
   }
 
-  inline Area operator+(const Area& area) const noexcept {
+  inline constexpr Area operator+(const Area& area) const noexcept {
     return Area{value_ + area.value_};
   }
 
-  inline Area operator-(const Area& area) const noexcept {
+  inline constexpr Area operator-(const Area& area) const noexcept {
     return Area{value_ - area.value_};
   }
 
-  inline Area operator*(const double number) const noexcept {
+  inline constexpr Area operator*(const double number) const noexcept {
     return Area{value_ * number};
   }
 
-  inline Volume operator*(const Length& length) const noexcept;
+  inline constexpr Volume operator*(const Length& length) const noexcept;
 
-  inline ForceMagnitude operator*(
+  inline constexpr ForceMagnitude operator*(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline AreaVector operator*(const Direction& direction) const noexcept;
+  inline constexpr AreaVector operator*(
+      const Direction& direction) const noexcept;
 
-  inline Area operator/(const double number) const noexcept {
+  inline constexpr Area operator/(const double number) const noexcept {
     return Area{value_ / number};
   }
 
-  inline Length operator/(const Length& length) const noexcept {
+  inline constexpr Length operator/(const Length& length) const noexcept {
     return Length{value_ / length.Value()};
   }
 
@@ -128,11 +129,12 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Area operator*(const double number, const Area& area) noexcept {
+inline constexpr Area operator*(const double number,
+                                const Area& area) noexcept {
   return area * number;
 }
 
-inline Area Length::operator*(const Length& length) const noexcept {
+inline constexpr Area Length::operator*(const Length& length) const noexcept {
   return Area{value_ * length.Value()};
 }
 

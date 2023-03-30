@@ -55,37 +55,38 @@ public:
             value)};
   }
 
-  inline Length Magnitude() const noexcept { return {*this}; }
+  inline constexpr Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
   }
 
-  inline Position operator+(const Position& position) const noexcept;
+  inline constexpr Position operator+(const Position& position) const noexcept;
 
-  inline Displacement operator+(
+  inline constexpr Displacement operator+(
       const Displacement& displacement) const noexcept {
     return Displacement{value_ + displacement.value_};
   }
 
-  inline Position operator-(const Position& position) const noexcept;
+  inline constexpr Position operator-(const Position& position) const noexcept;
 
-  inline Displacement operator-(
+  inline constexpr Displacement operator-(
       const Displacement& displacement) const noexcept {
     return Displacement{value_ - displacement.value_};
   }
 
-  inline Displacement operator*(const double number) const noexcept {
+  inline constexpr Displacement operator*(const double number) const noexcept {
     return Displacement{value_ * number};
   }
 
-  inline Velocity operator*(const Frequency& frequency) const noexcept;
+  inline constexpr Velocity operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline Displacement operator/(const double number) const noexcept {
+  inline constexpr Displacement operator/(const double number) const noexcept {
     return Displacement{value_ / number};
   }
 
-  inline Velocity operator/(const Time& time) const noexcept;
+  inline constexpr Velocity operator/(const Time& time) const noexcept;
 
   inline constexpr void operator+=(const Displacement& displacement) noexcept {
     value_ += displacement.value_;
@@ -146,19 +147,19 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Displacement operator*(const double number,
-                              const Displacement& displacement) noexcept {
+inline constexpr Displacement operator*(
+    const double number, const Displacement& displacement) noexcept {
   return displacement * number;
 }
 
-inline Direction::Direction(const Displacement& displacement) noexcept
+inline constexpr Direction::Direction(const Displacement& displacement) noexcept
     : Direction(displacement.Value()) {}
 
 inline Angle::Angle(const Displacement& displacement1,
                     const Displacement& displacement2) noexcept
     : Angle(displacement1.Value(), displacement2.Value()) {}
 
-inline Length::Length(const Displacement& displacement) noexcept
+inline constexpr Length::Length(const Displacement& displacement) noexcept
     : Length(displacement.Value().Magnitude()) {}
 
 }  // namespace PhQ

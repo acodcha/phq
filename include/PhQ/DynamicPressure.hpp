@@ -53,24 +53,26 @@ public:
             value)};
   }
 
-  inline DynamicPressure operator+(
+  inline constexpr DynamicPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ + dynamic_pressure.value_};
   }
 
-  inline TotalPressure operator+(
+  inline constexpr TotalPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline DynamicPressure operator-(
+  inline constexpr DynamicPressure operator-(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ - dynamic_pressure.value_};
   }
 
-  inline DynamicPressure operator*(const double number) const noexcept {
+  inline constexpr DynamicPressure operator*(
+      const double number) const noexcept {
     return DynamicPressure{value_ * number};
   }
 
-  inline DynamicPressure operator/(const double number) const noexcept {
+  inline constexpr DynamicPressure operator/(
+      const double number) const noexcept {
     return DynamicPressure{value_ / number};
   }
 
@@ -133,7 +135,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline DynamicPressure operator*(
+inline constexpr DynamicPressure operator*(
     const double number, const DynamicPressure& dynamic_pressure) noexcept {
   return dynamic_pressure * number;
 }

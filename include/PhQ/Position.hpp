@@ -40,33 +40,36 @@ public:
             value)};
   }
 
-  inline Length Magnitude() const noexcept { return {*this}; }
+  inline constexpr Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Position& position) const noexcept {
     return {*this, position};
   }
 
-  inline Position operator+(const Position& position) const noexcept {
+  inline constexpr Position operator+(const Position& position) const noexcept {
     return Position{value_ + position.value_};
   }
 
-  inline Position operator+(const Displacement& displacement) const noexcept {
+  inline constexpr Position operator+(
+      const Displacement& displacement) const noexcept {
     return Position{value_ + displacement.Value()};
   }
 
-  inline Displacement operator-(const Position& position) const noexcept {
+  inline constexpr Displacement operator-(
+      const Position& position) const noexcept {
     return Displacement{value_ - position.value_};
   }
 
-  inline Position operator-(const Displacement& displacement) const noexcept {
+  inline constexpr Position operator-(
+      const Displacement& displacement) const noexcept {
     return Position{value_ - displacement.Value()};
   }
 
-  inline Position operator*(const double number) const noexcept {
+  inline constexpr Position operator*(const double number) const noexcept {
     return Position{value_ * number};
   }
 
-  inline Position operator/(const double number) const noexcept {
+  inline constexpr Position operator/(const double number) const noexcept {
     return Position{value_ / number};
   }
 
@@ -137,39 +140,41 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Position operator*(const double number,
-                          const Position& position) noexcept {
+inline constexpr Position operator*(const double number,
+                                    const Position& position) noexcept {
   return position * number;
 }
 
-inline Direction::Direction(const Position& position) noexcept
+inline constexpr Direction::Direction(const Position& position) noexcept
     : Direction(position.Value()) {}
 
 inline Angle::Angle(const Position& position_1,
                     const Position& position_2) noexcept
     : Angle(position_1.Value(), position_2.Value()) {}
 
-inline Length::Length(const Position& position) noexcept
+inline constexpr Length::Length(const Position& position) noexcept
     : Length(position.Value().Magnitude()) {}
 
 inline constexpr Displacement::Displacement(const Position& position) noexcept
     : Displacement(position.Value()) {}
 
-inline Position Displacement::operator+(
+inline constexpr Position Displacement::operator+(
     const Position& position) const noexcept {
   return Position{value_ + position.Value()};
 }
 
-inline Position Displacement::operator-(
+inline constexpr Position Displacement::operator-(
     const Position& position) const noexcept {
   return Position{value_ - position.Value()};
 }
 
-inline Position Direction::operator*(const Length& length) const noexcept {
+inline constexpr Position Direction::operator*(
+    const Length& length) const noexcept {
   return {length, *this};
 }
 
-inline Position Length::operator*(const Direction& direction) const noexcept {
+inline constexpr Position Length::operator*(
+    const Direction& direction) const noexcept {
   return {*this, direction};
 }
 

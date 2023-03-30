@@ -36,21 +36,23 @@ public:
             value)};
   }
 
-  inline LameFirstModulus operator+(
+  inline constexpr LameFirstModulus operator+(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return LameFirstModulus{value_ + lame_first_modulus.value_};
   }
 
-  inline LameFirstModulus operator-(
+  inline constexpr LameFirstModulus operator-(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return LameFirstModulus{value_ - lame_first_modulus.value_};
   }
 
-  inline LameFirstModulus operator*(const double number) const noexcept {
+  inline constexpr LameFirstModulus operator*(
+      const double number) const noexcept {
     return LameFirstModulus{value_ * number};
   }
 
-  inline LameFirstModulus operator/(const double number) const noexcept {
+  inline constexpr LameFirstModulus operator/(
+      const double number) const noexcept {
     return LameFirstModulus{value_ / number};
   }
 
@@ -113,7 +115,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline LameFirstModulus operator*(
+inline constexpr LameFirstModulus operator*(
     const double number, const LameFirstModulus& lame_first_modulus) noexcept {
   return lame_first_modulus * number;
 }

@@ -93,7 +93,7 @@ public:
     return SquareRoot(MagnitudeSquared());
   }
 
-  inline PhQ::Direction Direction() const noexcept;
+  inline constexpr PhQ::Direction Direction() const noexcept;
 
   inline constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +

@@ -107,7 +107,7 @@ protected:
 
   ~DimensionalScalarQuantity() noexcept = default;
 
-  void operator=(const double value) noexcept { value_ = value; }
+  constexpr void operator=(const double value) noexcept { value_ = value; }
 
   double value_;
 };

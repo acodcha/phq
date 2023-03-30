@@ -57,30 +57,33 @@ public:
                           StandardUnit<Unit::HeatCapacity>>(value)};
   }
 
-  inline GasConstant operator+(const GasConstant& gas_constant) const noexcept {
+  inline constexpr GasConstant operator+(
+      const GasConstant& gas_constant) const noexcept {
     return GasConstant{value_ + gas_constant.value_};
   }
 
-  inline IsobaricHeatCapacity operator+(
+  inline constexpr IsobaricHeatCapacity operator+(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return {*this, isochoric_heat_capacity};
   }
 
-  inline GasConstant operator-(const GasConstant& gas_constant) const noexcept {
+  inline constexpr GasConstant operator-(
+      const GasConstant& gas_constant) const noexcept {
     return GasConstant{value_ - gas_constant.value_};
   }
 
-  inline GasConstant operator*(const double number) const noexcept {
+  inline constexpr GasConstant operator*(const double number) const noexcept {
     return GasConstant{value_ * number};
   }
 
-  inline GasConstant operator/(const double number) const noexcept {
+  inline constexpr GasConstant operator/(const double number) const noexcept {
     return GasConstant{value_ / number};
   }
 
-  inline SpecificGasConstant operator/(const Mass& mass) const noexcept;
+  inline constexpr SpecificGasConstant operator/(
+      const Mass& mass) const noexcept;
 
-  inline Mass operator/(
+  inline constexpr Mass operator/(
       const SpecificGasConstant& specific_gas_constant) const noexcept;
 
   inline constexpr void operator+=(const GasConstant& gas_constant) noexcept {
@@ -140,8 +143,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline GasConstant operator*(const double number,
-                             const GasConstant& gas_constant) noexcept {
+inline constexpr GasConstant operator*(
+    const double number, const GasConstant& gas_constant) noexcept {
   return gas_constant * number;
 }
 
@@ -182,17 +185,17 @@ inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
     : IsobaricHeatCapacity(gas_constant.Value() * specific_heat_ratio.Value() /
                            (specific_heat_ratio.Value() - 1.0)) {}
 
-inline IsobaricHeatCapacity IsochoricHeatCapacity::operator+(
+inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator+(
     const GasConstant& gas_constant) const noexcept {
   return {gas_constant, *this};
 }
 
-inline GasConstant IsobaricHeatCapacity::operator-(
+inline constexpr GasConstant IsobaricHeatCapacity::operator-(
     const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
   return {*this, isochoric_heat_capacity};
 }
 
-inline IsochoricHeatCapacity IsobaricHeatCapacity::operator-(
+inline constexpr IsochoricHeatCapacity IsobaricHeatCapacity::operator-(
     const GasConstant& gas_constant) const noexcept {
   return {gas_constant, *this};
 }

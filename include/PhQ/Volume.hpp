@@ -49,37 +49,39 @@ public:
             value)};
   }
 
-  inline Volume operator+(const Volume& volume) const noexcept {
+  inline constexpr Volume operator+(const Volume& volume) const noexcept {
     return Volume{value_ + volume.value_};
   }
 
-  inline Volume operator-(const Volume& volume) const noexcept {
+  inline constexpr Volume operator-(const Volume& volume) const noexcept {
     return Volume{value_ - volume.value_};
   }
 
-  inline Volume operator*(const double number) const noexcept {
+  inline constexpr Volume operator*(const double number) const noexcept {
     return Volume{value_ * number};
   }
 
-  inline Mass operator*(const MassDensity& mass_density) const noexcept;
+  inline constexpr Mass operator*(
+      const MassDensity& mass_density) const noexcept;
 
-  inline VolumeRate operator*(const Frequency& frequency) const noexcept;
+  inline constexpr VolumeRate operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline Volume operator/(const double number) const noexcept {
+  inline constexpr Volume operator/(const double number) const noexcept {
     return Volume{value_ / number};
   }
 
-  inline Area operator/(const Length& length) const noexcept {
+  inline constexpr Area operator/(const Length& length) const noexcept {
     return Area{value_ / length.Value()};
   }
 
-  inline Length operator/(const Area& area) const noexcept {
+  inline constexpr Length operator/(const Area& area) const noexcept {
     return Length{value_ / area.Value()};
   }
 
-  inline VolumeRate operator/(const Time& time) const noexcept;
+  inline constexpr VolumeRate operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const VolumeRate& volume_rate) const noexcept;
+  inline constexpr Time operator/(const VolumeRate& volume_rate) const noexcept;
 
   inline constexpr void operator+=(const Volume& volume) noexcept {
     value_ += volume.value_;
@@ -141,15 +143,16 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Volume operator*(const double number, const Volume& volume) noexcept {
+inline constexpr Volume operator*(const double number,
+                                  const Volume& volume) noexcept {
   return volume * number;
 }
 
-inline Volume Length::operator*(const Area& area) const noexcept {
+inline constexpr Volume Length::operator*(const Area& area) const noexcept {
   return Volume{value_ * area.Value()};
 }
 
-inline Volume Area::operator*(const Length& length) const noexcept {
+inline constexpr Volume Area::operator*(const Length& length) const noexcept {
   return Volume{value_ * length.Value()};
 }
 

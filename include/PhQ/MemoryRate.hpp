@@ -43,31 +43,33 @@ public:
                                         StandardUnit<Unit::MemoryRate>>(value)};
   }
 
-  inline MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
+  inline constexpr MemoryRate operator+(
+      const MemoryRate& memory_rate) const noexcept {
     return MemoryRate{value_ + memory_rate.value_};
   }
 
-  inline MemoryRate operator-(const MemoryRate& memory_rate) const noexcept {
+  inline constexpr MemoryRate operator-(
+      const MemoryRate& memory_rate) const noexcept {
     return MemoryRate{value_ - memory_rate.value_};
   }
 
-  inline MemoryRate operator*(const double number) const noexcept {
+  inline constexpr MemoryRate operator*(const double number) const noexcept {
     return MemoryRate{value_ * number};
   }
 
-  inline Memory operator*(const Time& time) const noexcept {
+  inline constexpr Memory operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline MemoryRate operator/(const double number) const noexcept {
+  inline constexpr MemoryRate operator/(const double number) const noexcept {
     return MemoryRate{value_ / number};
   }
 
-  inline Memory operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Memory operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const Memory& memory) const noexcept {
+  inline constexpr Frequency operator/(const Memory& memory) const noexcept {
     return {*this, memory};
   }
 
@@ -128,8 +130,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline MemoryRate operator*(const double number,
-                            const MemoryRate& memory_rate) noexcept {
+inline constexpr MemoryRate operator*(const double number,
+                                      const MemoryRate& memory_rate) noexcept {
   return memory_rate * number;
 }
 
@@ -149,19 +151,22 @@ inline constexpr Memory::Memory(const MemoryRate& memory_rate,
                                 const Frequency& frequency) noexcept
     : Memory(memory_rate.Value() / frequency.Value()) {}
 
-inline MemoryRate Frequency::operator*(const Memory& memory) const noexcept {
+inline constexpr MemoryRate Frequency::operator*(
+    const Memory& memory) const noexcept {
   return {memory, *this};
 }
 
-inline MemoryRate Memory::operator*(const Frequency& frequency) const noexcept {
+inline constexpr MemoryRate Memory::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline MemoryRate Memory::operator/(const Time& time) const noexcept {
+inline constexpr MemoryRate Memory::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time Memory::operator/(const MemoryRate& memory_rate) const noexcept {
+inline constexpr Time Memory::operator/(
+    const MemoryRate& memory_rate) const noexcept {
   return {memory_rate, *this};
 }
 

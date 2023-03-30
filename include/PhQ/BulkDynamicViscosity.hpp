@@ -38,21 +38,23 @@ public:
                           StandardUnit<Unit::DynamicViscosity>>(value)};
   }
 
-  inline BulkDynamicViscosity operator+(
+  inline constexpr BulkDynamicViscosity operator+(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};
   }
 
-  inline BulkDynamicViscosity operator-(
+  inline constexpr BulkDynamicViscosity operator-(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return BulkDynamicViscosity{value_ - bulk_dynamic_viscosity.value_};
   }
 
-  inline BulkDynamicViscosity operator*(const double number) const noexcept {
+  inline constexpr BulkDynamicViscosity operator*(
+      const double number) const noexcept {
     return BulkDynamicViscosity{value_ * number};
   }
 
-  inline BulkDynamicViscosity operator/(const double number) const noexcept {
+  inline constexpr BulkDynamicViscosity operator/(
+      const double number) const noexcept {
     return BulkDynamicViscosity{value_ / number};
   }
 
@@ -115,7 +117,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline BulkDynamicViscosity operator*(
+inline constexpr BulkDynamicViscosity operator*(
     const double number, const BulkDynamicViscosity& mass_density) noexcept {
   return mass_density * number;
 }

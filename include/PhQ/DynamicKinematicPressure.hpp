@@ -55,27 +55,27 @@ public:
                           StandardUnit<Unit::SpecificEnergy>>(value)};
   }
 
-  inline DynamicKinematicPressure operator+(
+  inline constexpr DynamicKinematicPressure operator+(
       const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return DynamicKinematicPressure{value_ + dynamic_kinematic_pressure.value_};
   }
 
-  inline TotalKinematicPressure operator+(
+  inline constexpr TotalKinematicPressure operator+(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept;
 
-  inline DynamicKinematicPressure operator-(
+  inline constexpr DynamicKinematicPressure operator-(
       const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return DynamicKinematicPressure{value_ - dynamic_kinematic_pressure.value_};
   }
 
-  inline DynamicKinematicPressure operator*(
+  inline constexpr DynamicKinematicPressure operator*(
       const double number) const noexcept {
     return DynamicKinematicPressure{value_ * number};
   }
 
-  inline DynamicKinematicPressure operator/(
+  inline constexpr DynamicKinematicPressure operator/(
       const double number) const noexcept {
     return DynamicKinematicPressure{value_ / number};
   }
@@ -146,13 +146,13 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline DynamicKinematicPressure operator*(
+inline constexpr DynamicKinematicPressure operator*(
     const double number,
     const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
   return dynamic_kinematic_pressure * number;
 }
 
-inline Speed::Speed(
+inline constexpr Speed::Speed(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept
     : Speed(SquareRoot(2.0 * dynamic_kinematic_pressure.Value())) {}
 

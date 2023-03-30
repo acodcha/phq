@@ -36,21 +36,21 @@ public:
             value)};
   }
 
-  inline YoungModulus operator+(
+  inline constexpr YoungModulus operator+(
       const YoungModulus& young_modulus) const noexcept {
     return YoungModulus{value_ + young_modulus.value_};
   }
 
-  inline YoungModulus operator-(
+  inline constexpr YoungModulus operator-(
       const YoungModulus& young_modulus) const noexcept {
     return YoungModulus{value_ - young_modulus.value_};
   }
 
-  inline YoungModulus operator*(const double number) const noexcept {
+  inline constexpr YoungModulus operator*(const double number) const noexcept {
     return YoungModulus{value_ * number};
   }
 
-  inline YoungModulus operator/(const double number) const noexcept {
+  inline constexpr YoungModulus operator/(const double number) const noexcept {
     return YoungModulus{value_ / number};
   }
 
@@ -111,8 +111,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline YoungModulus operator*(const double number,
-                              const YoungModulus& young_modulus) noexcept {
+inline constexpr YoungModulus operator*(
+    const double number, const YoungModulus& young_modulus) noexcept {
   return young_modulus * number;
 }
 

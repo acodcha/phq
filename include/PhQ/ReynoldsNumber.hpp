@@ -41,60 +41,66 @@ public:
       : ReynoldsNumber(speed.Value() * length.Value() /
                        kinematic_viscosity.Value()) {}
 
-  inline PhQ::DynamicViscosity DynamicViscosity(
+  inline constexpr PhQ::DynamicViscosity DynamicViscosity(
       const PhQ::MassDensity& mass_density, const PhQ::Speed& speed,
       const PhQ::Length& length) const noexcept {
     return {*this, mass_density, speed, length};
   }
 
-  inline PhQ::KinematicViscosity KinematicViscosity(
+  inline constexpr PhQ::KinematicViscosity KinematicViscosity(
       const PhQ::Speed& speed, const PhQ::Length& length) const noexcept {
     return {*this, speed, length};
   }
 
-  inline PhQ::MassDensity MassDensity(
+  inline constexpr PhQ::MassDensity MassDensity(
       const PhQ::DynamicViscosity& dynamic_viscosity, const PhQ::Speed& speed,
       const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, speed, length};
   }
 
-  inline PhQ::Speed Speed(const PhQ::DynamicViscosity& dynamic_viscosity,
-                          const PhQ::MassDensity& mass_density,
-                          const PhQ::Length& length) const noexcept {
+  inline constexpr PhQ::Speed Speed(
+      const PhQ::DynamicViscosity& dynamic_viscosity,
+      const PhQ::MassDensity& mass_density,
+      const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, mass_density, length};
   }
 
-  inline PhQ::Speed Speed(const PhQ::KinematicViscosity& kinematic_viscosity,
-                          const PhQ::Length& length) const noexcept {
+  inline constexpr PhQ::Speed Speed(
+      const PhQ::KinematicViscosity& kinematic_viscosity,
+      const PhQ::Length& length) const noexcept {
     return {*this, kinematic_viscosity, length};
   }
 
-  inline PhQ::Length Length(const PhQ::DynamicViscosity& dynamic_viscosity,
-                            const PhQ::MassDensity& mass_density,
-                            const PhQ::Speed& speed) const noexcept {
+  inline constexpr PhQ::Length Length(
+      const PhQ::DynamicViscosity& dynamic_viscosity,
+      const PhQ::MassDensity& mass_density,
+      const PhQ::Speed& speed) const noexcept {
     return {*this, dynamic_viscosity, mass_density, speed};
   }
 
-  inline PhQ::Length Length(const PhQ::KinematicViscosity& kinematic_viscosity,
-                            const PhQ::Speed& speed) const noexcept {
+  inline constexpr PhQ::Length Length(
+      const PhQ::KinematicViscosity& kinematic_viscosity,
+      const PhQ::Speed& speed) const noexcept {
     return {*this, kinematic_viscosity, speed};
   }
 
-  inline ReynoldsNumber operator+(
+  inline constexpr ReynoldsNumber operator+(
       const ReynoldsNumber& reynolds_number) const noexcept {
     return ReynoldsNumber{value_ + reynolds_number.value_};
   }
 
-  inline ReynoldsNumber operator-(
+  inline constexpr ReynoldsNumber operator-(
       const ReynoldsNumber& reynolds_number) const noexcept {
     return ReynoldsNumber{value_ - reynolds_number.value_};
   }
 
-  inline ReynoldsNumber operator*(const double number) const noexcept {
+  inline constexpr ReynoldsNumber operator*(
+      const double number) const noexcept {
     return ReynoldsNumber{value_ * number};
   }
 
-  inline ReynoldsNumber operator/(const double number) const noexcept {
+  inline constexpr ReynoldsNumber operator/(
+      const double number) const noexcept {
     return ReynoldsNumber{value_ / number};
   }
 
@@ -153,17 +159,17 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline ReynoldsNumber operator+(
+inline constexpr ReynoldsNumber operator+(
     const double number, const ReynoldsNumber& reynolds_number) noexcept {
   return ReynoldsNumber{number + reynolds_number.Value()};
 }
 
-inline ReynoldsNumber operator-(
+inline constexpr ReynoldsNumber operator-(
     const double number, const ReynoldsNumber& reynolds_number) noexcept {
   return ReynoldsNumber{number - reynolds_number.Value()};
 }
 
-inline ReynoldsNumber operator*(
+inline constexpr ReynoldsNumber operator*(
     const double number, const ReynoldsNumber& reynolds_number) noexcept {
   return ReynoldsNumber{number * reynolds_number.Value()};
 }

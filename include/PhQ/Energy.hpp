@@ -50,31 +50,32 @@ public:
             value)};
   }
 
-  inline Energy operator+(const Energy& energy) const noexcept {
+  inline constexpr Energy operator+(const Energy& energy) const noexcept {
     return Energy{value_ + energy.value_};
   }
 
-  inline Energy operator-(const Energy& energy) const noexcept {
+  inline constexpr Energy operator-(const Energy& energy) const noexcept {
     return Energy{value_ - energy.value_};
   }
 
-  inline Energy operator*(const double number) const noexcept {
+  inline constexpr Energy operator*(const double number) const noexcept {
     return Energy{value_ * number};
   }
 
-  inline Power operator*(const Frequency& frequency) const noexcept;
+  inline constexpr Power operator*(const Frequency& frequency) const noexcept;
 
-  inline Energy operator/(const double number) const noexcept {
+  inline constexpr Energy operator/(const double number) const noexcept {
     return Energy{value_ / number};
   }
 
-  inline Power operator/(const Time& time) const noexcept;
+  inline constexpr Power operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const Power& power) const noexcept;
+  inline constexpr Time operator/(const Power& power) const noexcept;
 
-  inline SpecificEnergy operator/(const Mass& mass) const noexcept;
+  inline constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
 
-  inline Mass operator/(const SpecificEnergy& specific_energy) const noexcept;
+  inline constexpr Mass operator/(
+      const SpecificEnergy& specific_energy) const noexcept;
 
   inline constexpr void operator+=(const Energy& energy) noexcept {
     value_ += energy.value_;
@@ -133,7 +134,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Energy operator*(const double number, const Energy& energy) noexcept {
+inline constexpr Energy operator*(const double number,
+                                  const Energy& energy) noexcept {
   return energy * number;
 }
 

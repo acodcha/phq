@@ -53,21 +53,23 @@ public:
                           StandardUnit<Unit::Diffusivity>>(value)};
   }
 
-  inline ThermalDiffusivity operator+(
+  inline constexpr ThermalDiffusivity operator+(
       const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return ThermalDiffusivity{value_ + thermal_diffusivity.value_};
   }
 
-  inline ThermalDiffusivity operator-(
+  inline constexpr ThermalDiffusivity operator-(
       const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return ThermalDiffusivity{value_ - thermal_diffusivity.value_};
   }
 
-  inline ThermalDiffusivity operator*(const double number) const noexcept {
+  inline constexpr ThermalDiffusivity operator*(
+      const double number) const noexcept {
     return ThermalDiffusivity{value_ * number};
   }
 
-  inline ThermalDiffusivity operator/(const double number) const noexcept {
+  inline constexpr ThermalDiffusivity operator/(
+      const double number) const noexcept {
     return ThermalDiffusivity{value_ / number};
   }
 
@@ -131,7 +133,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline ThermalDiffusivity operator*(
+inline constexpr ThermalDiffusivity operator*(
     const double number,
     const ThermalDiffusivity& thermal_diffusivity) noexcept {
   return thermal_diffusivity * number;

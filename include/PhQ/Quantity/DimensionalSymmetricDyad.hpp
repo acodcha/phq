@@ -123,9 +123,11 @@ protected:
 
   ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
-  void operator=(const Value::SymmetricDyad& value) noexcept { value_ = value; }
+  constexpr void operator=(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
+  }
 
-  void operator=(Value::SymmetricDyad&& value) noexcept {
+  constexpr void operator=(Value::SymmetricDyad&& value) noexcept {
     value_ = std::move(value);
   }
 

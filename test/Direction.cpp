@@ -171,13 +171,13 @@ TEST(Direction, ValueSymmetricDyad) {
 }
 
 TEST(Direction, ValueVector) {
-  const Direction direction0{1.23, 4.56, 7.89};
-  const Value::Vector vector0{5.5e10, direction0};
+  constexpr Direction direction0{1.0, 2.0, 4.0};
+  constexpr Value::Vector vector0{4.0, direction0};
   EXPECT_EQ(vector0.Direction(), direction0);
 
-  const Direction direction1{0.0, -1.0, 0.0};
-  const Value::Vector vector1{20.0, direction1};
-  EXPECT_EQ(vector1, Value::Vector(0.0, -20.0, 0.0));
+  constexpr Direction direction1{0.0, 1.0, 0.0};
+  constexpr Value::Vector vector1{4.0, direction1};
+  EXPECT_EQ(vector1, Value::Vector(0.0, 4.0, 0.0));
 }
 
 TEST(Direction, XML) {

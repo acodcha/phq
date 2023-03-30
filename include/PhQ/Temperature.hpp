@@ -36,30 +36,31 @@ public:
                           StandardUnit<Unit::Temperature>>(value)};
   }
 
-  inline Temperature operator+(const Temperature& temperature) const noexcept {
+  inline constexpr Temperature operator+(
+      const Temperature& temperature) const noexcept {
     return Temperature{value_ + temperature.value_};
   }
 
-  inline Temperature operator+(
+  inline constexpr Temperature operator+(
       const TemperatureDifference& temperature_difference) const noexcept {
     return Temperature{value_ + temperature_difference.Value()};
   }
 
-  inline TemperatureDifference operator-(
+  inline constexpr TemperatureDifference operator-(
       const Temperature& temperature) const noexcept {
     return TemperatureDifference{value_ - temperature.value_};
   }
 
-  inline Temperature operator-(
+  inline constexpr Temperature operator-(
       const TemperatureDifference& temperature_difference) const noexcept {
     return Temperature{value_ - temperature_difference.Value()};
   }
 
-  inline Temperature operator*(const double number) const noexcept {
+  inline constexpr Temperature operator*(const double number) const noexcept {
     return Temperature{value_ * number};
   }
 
-  inline Temperature operator/(const double number) const noexcept {
+  inline constexpr Temperature operator/(const double number) const noexcept {
     return Temperature{value_ / number};
   }
 
@@ -132,17 +133,17 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Temperature operator*(const double number,
-                             const Temperature& temperature) noexcept {
+inline constexpr Temperature operator*(
+    const double number, const Temperature& temperature) noexcept {
   return temperature * number;
 }
 
-inline Temperature TemperatureDifference::operator+(
+inline constexpr Temperature TemperatureDifference::operator+(
     const Temperature& temperature) const noexcept {
   return Temperature{value_ + temperature.Value()};
 }
 
-inline Temperature TemperatureDifference::operator-(
+inline constexpr Temperature TemperatureDifference::operator-(
     const Temperature& temperature) const noexcept {
   return Temperature{value_ - temperature.Value()};
 }

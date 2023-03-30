@@ -49,33 +49,37 @@ public:
                           StandardUnit<Unit::SpecificEnergy>>(value)};
   }
 
-  inline SpecificEnergy operator+(
+  inline constexpr SpecificEnergy operator+(
       const SpecificEnergy& specific_energy) const noexcept {
     return SpecificEnergy{value_ + specific_energy.value_};
   }
 
-  inline SpecificEnergy operator-(
+  inline constexpr SpecificEnergy operator-(
       const SpecificEnergy& specific_energy) const noexcept {
     return SpecificEnergy{value_ - specific_energy.value_};
   }
 
-  inline SpecificEnergy operator*(const double number) const noexcept {
+  inline constexpr SpecificEnergy operator*(
+      const double number) const noexcept {
     return SpecificEnergy{value_ * number};
   }
 
-  inline Energy operator*(const Mass& mass) const noexcept {
+  inline constexpr Energy operator*(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline SpecificPower operator*(const Frequency& frequency) const noexcept;
+  inline constexpr SpecificPower operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline SpecificEnergy operator/(const double number) const noexcept {
+  inline constexpr SpecificEnergy operator/(
+      const double number) const noexcept {
     return SpecificEnergy{value_ / number};
   }
 
-  inline SpecificPower operator/(const Time& time) const noexcept;
+  inline constexpr SpecificPower operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const SpecificPower& specific_power) const noexcept;
+  inline constexpr Time operator/(
+      const SpecificPower& specific_power) const noexcept;
 
   inline constexpr void operator+=(
       const SpecificEnergy& specific_energy) noexcept {
@@ -136,7 +140,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline SpecificEnergy operator*(
+inline constexpr SpecificEnergy operator*(
     const double number, const SpecificEnergy& specific_energy) noexcept {
   return specific_energy * number;
 }
@@ -149,17 +153,18 @@ inline constexpr Energy::Energy(const SpecificEnergy& specific_energy,
                                 const Mass& mass) noexcept
     : Energy(specific_energy.Value() * mass.Value()) {}
 
-inline Energy Mass::operator*(
+inline constexpr Energy Mass::operator*(
     const SpecificEnergy& specific_energy) const noexcept {
   return {specific_energy, *this};
 }
 
-inline Mass Energy::operator/(
+inline constexpr Mass Energy::operator/(
     const SpecificEnergy& specific_energy) const noexcept {
   return {specific_energy, *this};
 }
 
-inline SpecificEnergy Energy::operator/(const Mass& mass) const noexcept {
+inline constexpr SpecificEnergy Energy::operator/(
+    const Mass& mass) const noexcept {
   return {*this, mass};
 }
 

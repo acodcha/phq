@@ -40,7 +40,7 @@ public:
       : HeatFluxMagnitude(-thermal_conductivity_scalar.Value() *
                           temperature_gradient_magnitude.Value()) {}
 
-  HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
+  constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
 
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) noexcept {
@@ -49,23 +49,26 @@ public:
                           StandardUnit<Unit::EnergyFlux>>(value)};
   }
 
-  inline HeatFluxMagnitude operator+(
+  inline constexpr HeatFluxMagnitude operator+(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return HeatFluxMagnitude{value_ + heat_flux_magnitude.value_};
   }
 
-  inline HeatFluxMagnitude operator-(
+  inline constexpr HeatFluxMagnitude operator-(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return HeatFluxMagnitude{value_ - heat_flux_magnitude.value_};
   }
 
-  inline HeatFluxMagnitude operator*(const double number) const noexcept {
+  inline constexpr HeatFluxMagnitude operator*(
+      const double number) const noexcept {
     return HeatFluxMagnitude{value_ * number};
   }
 
-  inline HeatFlux operator*(const Direction& direction) const noexcept;
+  inline constexpr HeatFlux operator*(
+      const Direction& direction) const noexcept;
 
-  inline HeatFluxMagnitude operator/(const double number) const noexcept {
+  inline constexpr HeatFluxMagnitude operator/(
+      const double number) const noexcept {
     return HeatFluxMagnitude{value_ / number};
   }
 
@@ -129,7 +132,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline HeatFluxMagnitude operator*(
+inline constexpr HeatFluxMagnitude operator*(
     const double number,
     const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
   return heat_flux_magnitude * number;

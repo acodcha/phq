@@ -42,25 +42,26 @@ public:
   explicit constexpr Strain(
       const DisplacementGradient& displacement_gradient) noexcept;
 
-  inline Strain operator+(const Strain& strain) const noexcept {
+  inline constexpr Strain operator+(const Strain& strain) const noexcept {
     return Strain{value_ + strain.value_};
   }
 
-  inline Strain operator-(const Strain& strain) const noexcept {
+  inline constexpr Strain operator-(const Strain& strain) const noexcept {
     return Strain{value_ - strain.value_};
   }
 
-  inline Strain operator*(const double number) const noexcept {
+  inline constexpr Strain operator*(const double number) const noexcept {
     return Strain{value_ * number};
   }
 
-  inline StrainRate operator*(const Frequency& frequency) const noexcept;
+  inline constexpr StrainRate operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline Strain operator/(const double number) const noexcept {
+  inline constexpr Strain operator/(const double number) const noexcept {
     return Strain{value_ / number};
   }
 
-  inline StrainRate operator/(const Time& time) const noexcept;
+  inline constexpr StrainRate operator/(const Time& time) const noexcept;
 
   inline constexpr void operator+=(const Strain& strain) noexcept {
     value_ += strain.value_;
@@ -115,7 +116,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Strain operator*(const double number, const Strain& strain) noexcept {
+inline constexpr Strain operator*(const double number,
+                                  const Strain& strain) noexcept {
   return strain * number;
 }
 

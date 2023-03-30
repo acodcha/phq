@@ -45,29 +45,29 @@ public:
         StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
   }
 
-  inline ForceMagnitude Magnitude() const noexcept { return {*this}; }
+  inline constexpr ForceMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Force& force) const noexcept {
     return {*this, force};
   }
 
-  inline Force operator+(const Force& force) const noexcept {
+  inline constexpr Force operator+(const Force& force) const noexcept {
     return Force{value_ + force.value_};
   }
 
-  inline Force operator-(const Force& force) const noexcept {
+  inline constexpr Force operator-(const Force& force) const noexcept {
     return Force{value_ - force.value_};
   }
 
-  inline Force operator*(const double number) const noexcept {
+  inline constexpr Force operator*(const double number) const noexcept {
     return Force{value_ * number};
   }
 
-  inline Force operator/(const double number) const noexcept {
+  inline constexpr Force operator/(const double number) const noexcept {
     return Force{value_ / number};
   }
 
-  inline Traction operator/(const Area& area) const noexcept;
+  inline constexpr Traction operator/(const Area& area) const noexcept;
 
   inline constexpr void operator+=(const Force& force) noexcept {
     value_ += force.value_;
@@ -126,25 +126,26 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Force operator*(const double number, const Force& force) noexcept {
+inline constexpr Force operator*(const double number,
+                                 const Force& force) noexcept {
   return force * number;
 }
 
-inline Direction::Direction(const Force& force) noexcept
+inline constexpr Direction::Direction(const Force& force) noexcept
     : Direction(force.Value()) {}
 
 inline Angle::Angle(const Force& force1, const Force& force2) noexcept
     : Angle(force1.Value(), force2.Value()) {}
 
-inline ForceMagnitude::ForceMagnitude(const Force& force) noexcept
+inline constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept
     : ForceMagnitude(force.Value().Magnitude()) {}
 
-inline Force Direction::operator*(
+inline constexpr Force Direction::operator*(
     const ForceMagnitude& force_magnitude) const noexcept {
   return {force_magnitude, *this};
 }
 
-inline Force ForceMagnitude::operator*(
+inline constexpr Force ForceMagnitude::operator*(
     const Direction& direction) const noexcept {
   return {*this, direction};
 }

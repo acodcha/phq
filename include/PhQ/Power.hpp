@@ -44,37 +44,38 @@ public:
         StaticConvertCopy<Unit::Power, Unit, StandardUnit<Unit::Power>>(value)};
   }
 
-  inline Power operator+(const Power& power) const noexcept {
+  inline constexpr Power operator+(const Power& power) const noexcept {
     return Power{value_ + power.value_};
   }
 
-  inline Power operator-(const Power& power) const noexcept {
+  inline constexpr Power operator-(const Power& power) const noexcept {
     return Power{value_ - power.value_};
   }
 
-  inline Power operator*(const double number) const noexcept {
+  inline constexpr Power operator*(const double number) const noexcept {
     return Power{value_ * number};
   }
 
-  inline Energy operator*(const Time& time) const noexcept {
+  inline constexpr Energy operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline Power operator/(const double number) const noexcept {
+  inline constexpr Power operator/(const double number) const noexcept {
     return Power{value_ / number};
   }
 
-  inline Energy operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Energy operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const Energy& energy) const noexcept {
+  inline constexpr Frequency operator/(const Energy& energy) const noexcept {
     return {*this, energy};
   }
 
-  inline SpecificPower operator/(const Mass& mass) const noexcept;
+  inline constexpr SpecificPower operator/(const Mass& mass) const noexcept;
 
-  inline Mass operator/(const SpecificPower& specific_power) const noexcept;
+  inline constexpr Mass operator/(
+      const SpecificPower& specific_power) const noexcept;
 
   inline constexpr void operator+=(const Power& power) noexcept {
     value_ += power.value_;
@@ -133,7 +134,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Power operator*(const double number, const Power& power) noexcept {
+inline constexpr Power operator*(const double number,
+                                 const Power& power) noexcept {
   return power * number;
 }
 
@@ -151,23 +153,25 @@ inline constexpr Energy::Energy(const Power& power,
                                 const Frequency& frequency) noexcept
     : Energy(power.Value() / frequency.Value()) {}
 
-inline Energy Time::operator*(const Power& power) const noexcept {
+inline constexpr Energy Time::operator*(const Power& power) const noexcept {
   return {power, *this};
 }
 
-inline Power Frequency::operator*(const Energy& energy) const noexcept {
+inline constexpr Power Frequency::operator*(
+    const Energy& energy) const noexcept {
   return {energy, *this};
 }
 
-inline Power Energy::operator*(const Frequency& frequency) const noexcept {
+inline constexpr Power Energy::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline Power Energy::operator/(const Time& time) const noexcept {
+inline constexpr Power Energy::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time Energy::operator/(const Power& power) const noexcept {
+inline constexpr Time Energy::operator/(const Power& power) const noexcept {
   return {power, *this};
 }
 

@@ -52,27 +52,29 @@ public:
             value)};
   }
 
-  inline StrainRate operator+(const StrainRate& strain_rate) const noexcept {
+  inline constexpr StrainRate operator+(
+      const StrainRate& strain_rate) const noexcept {
     return {value_ + strain_rate.value_};
   }
 
-  inline StrainRate operator-(const StrainRate& strain_rate) const noexcept {
+  inline constexpr StrainRate operator-(
+      const StrainRate& strain_rate) const noexcept {
     return {value_ - strain_rate.value_};
   }
 
-  inline StrainRate operator*(const double number) const noexcept {
+  inline constexpr StrainRate operator*(const double number) const noexcept {
     return StrainRate{value_ * number};
   }
 
-  inline Strain operator*(const Time& time) const noexcept {
+  inline constexpr Strain operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline StrainRate operator/(const double number) const noexcept {
+  inline constexpr StrainRate operator/(const double number) const noexcept {
     return StrainRate{value_ / number};
   }
 
-  inline Strain operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Strain operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
@@ -133,8 +135,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline StrainRate operator*(const double number,
-                            const StrainRate& strain_rate) noexcept {
+inline constexpr StrainRate operator*(const double number,
+                                      const StrainRate& strain_rate) noexcept {
   return strain_rate * number;
 }
 
@@ -146,19 +148,22 @@ inline constexpr Strain::Strain(const StrainRate& strain_rate,
                                 const Frequency& frequency) noexcept
     : Strain(strain_rate.Value() / frequency.Value()) {}
 
-inline StrainRate Strain::operator*(const Frequency& frequency) const noexcept {
+inline constexpr StrainRate Strain::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline StrainRate Strain::operator/(const Time& time) const noexcept {
+inline constexpr StrainRate Strain::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Strain Time::operator*(const StrainRate& strain_rate) const noexcept {
+inline constexpr Strain Time::operator*(
+    const StrainRate& strain_rate) const noexcept {
   return {strain_rate, *this};
 }
 
-inline StrainRate Frequency::operator*(const Strain& strain) const noexcept {
+inline constexpr StrainRate Frequency::operator*(
+    const Strain& strain) const noexcept {
   return {strain, *this};
 }
 

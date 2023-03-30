@@ -42,9 +42,9 @@ public:
   Length(const double value, const Unit::Length unit) noexcept
       : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
-  Length(const Displacement& displacement) noexcept;
+  constexpr Length(const Displacement& displacement) noexcept;
 
-  Length(const Position& position) noexcept;
+  constexpr Length(const Position& position) noexcept;
 
   constexpr Length(const Speed& speed, const Time& time) noexcept;
 
@@ -66,33 +66,34 @@ public:
             value)};
   }
 
-  inline Length operator+(const Length& length) const noexcept {
+  inline constexpr Length operator+(const Length& length) const noexcept {
     return Length{value_ + length.value_};
   }
 
-  inline Length operator-(const Length& length) const noexcept {
+  inline constexpr Length operator-(const Length& length) const noexcept {
     return Length{value_ - length.value_};
   }
 
-  inline Length operator*(const double number) const noexcept {
+  inline constexpr Length operator*(const double number) const noexcept {
     return Length{value_ * number};
   }
 
-  inline Area operator*(const Length& length) const noexcept;
+  inline constexpr Area operator*(const Length& length) const noexcept;
 
-  inline Volume operator*(const Area& area) const noexcept;
+  inline constexpr Volume operator*(const Area& area) const noexcept;
 
-  inline Speed operator*(const Frequency& frequency) const noexcept;
+  inline constexpr Speed operator*(const Frequency& frequency) const noexcept;
 
-  inline Position operator*(const Direction& direction) const noexcept;
+  inline constexpr Position operator*(
+      const Direction& direction) const noexcept;
 
-  inline Length operator/(const double number) const noexcept {
+  inline constexpr Length operator/(const double number) const noexcept {
     return Length{value_ / number};
   }
 
-  inline Speed operator/(const Time& time) const noexcept;
+  inline constexpr Speed operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const Speed& speed) const noexcept;
+  inline constexpr Time operator/(const Speed& speed) const noexcept;
 
   inline constexpr void operator+=(const Length& length) noexcept {
     value_ += length.value_;
@@ -154,7 +155,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Length operator*(const double number, const Length& length) noexcept {
+inline constexpr Length operator*(const double number,
+                                  const Length& length) noexcept {
   return length * number;
 }
 

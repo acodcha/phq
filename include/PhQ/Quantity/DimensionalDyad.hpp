@@ -117,9 +117,13 @@ protected:
 
   virtual ~DimensionalDyadQuantity() noexcept = default;
 
-  void operator=(const Value::Dyad& value) noexcept { value_ = value; }
+  constexpr void operator=(const Value::Dyad& value) noexcept {
+    value_ = value;
+  }
 
-  void operator=(Value::Dyad&& value) noexcept { value_ = std::move(value); }
+  constexpr void operator=(Value::Dyad&& value) noexcept {
+    value_ = std::move(value);
+  }
 
   Value::Dyad value_;
 };

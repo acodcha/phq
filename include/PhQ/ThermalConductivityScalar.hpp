@@ -56,26 +56,26 @@ public:
                           StandardUnit<Unit::ThermalConductivity>>(value)};
   }
 
-  inline ThermalConductivityScalar operator+(
+  inline constexpr ThermalConductivityScalar operator+(
       const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
     return ThermalConductivityScalar{value_ +
                                      thermal_conductivity_scalar.value_};
   }
 
-  inline ThermalConductivityScalar operator-(
+  inline constexpr ThermalConductivityScalar operator-(
       const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
     return ThermalConductivityScalar{value_ -
                                      thermal_conductivity_scalar.value_};
   }
 
-  inline ThermalConductivityScalar operator*(
+  inline constexpr ThermalConductivityScalar operator*(
       const double number) const noexcept {
     return ThermalConductivityScalar{value_ * number};
   }
 
-  inline ThermalConductivityScalar operator/(
+  inline constexpr ThermalConductivityScalar operator/(
       const double number) const noexcept {
     return ThermalConductivityScalar{value_ / number};
   }
@@ -146,7 +146,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline ThermalConductivityScalar operator*(
+inline constexpr ThermalConductivityScalar operator*(
     const double number,
     const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
   return thermal_conductivity_scalar * number;

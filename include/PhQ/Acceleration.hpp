@@ -48,35 +48,38 @@ public:
                           StandardUnit<Unit::Acceleration>>(value)};
   }
 
-  inline AccelerationMagnitude Magnitude() const noexcept { return {*this}; }
+  inline constexpr AccelerationMagnitude Magnitude() const noexcept {
+    return {*this};
+  }
 
   inline PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {
     return {*this, acceleration};
   }
 
-  inline Acceleration operator+(
+  inline constexpr Acceleration operator+(
       const Acceleration& acceleration) const noexcept {
     return Acceleration{value_ + acceleration.value_};
   }
 
-  inline Acceleration operator-(
+  inline constexpr Acceleration operator-(
       const Acceleration& acceleration) const noexcept {
     return Acceleration{value_ - acceleration.value_};
   }
 
-  inline Acceleration operator*(const double number) const noexcept {
+  inline constexpr Acceleration operator*(const double number) const noexcept {
     return Acceleration{value_ * number};
   }
 
-  inline Velocity operator*(const Time& time) const noexcept {
+  inline constexpr Velocity operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline Acceleration operator/(const double number) const noexcept {
+  inline constexpr Acceleration operator/(const double number) const noexcept {
     return Acceleration{value_ / number};
   }
 
-  inline Velocity operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Velocity operator/(
+      const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
@@ -137,19 +140,19 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Acceleration operator*(const double number,
-                              const Acceleration& acceleration) noexcept {
+inline constexpr Acceleration operator*(
+    const double number, const Acceleration& acceleration) noexcept {
   return acceleration * number;
 }
 
-inline Direction::Direction(const Acceleration& acceleration) noexcept
+inline constexpr Direction::Direction(const Acceleration& acceleration) noexcept
     : Direction(acceleration.Value()) {}
 
 inline Angle::Angle(const Acceleration& acceleration_1,
                     const Acceleration& acceleration_2) noexcept
     : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
-inline AccelerationMagnitude::AccelerationMagnitude(
+inline constexpr AccelerationMagnitude::AccelerationMagnitude(
     const Acceleration& acceleration) noexcept
     : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 
@@ -161,27 +164,28 @@ inline constexpr Velocity::Velocity(const Acceleration& acceleration,
                                     const Frequency& frequency) noexcept
     : Velocity(acceleration.Value() / frequency.Value()) {}
 
-inline Acceleration Direction::operator*(
+inline constexpr Acceleration Direction::operator*(
     const AccelerationMagnitude& acceleration_magnitude) const noexcept {
   return {acceleration_magnitude, *this};
 }
 
-inline Velocity Time::operator*(
+inline constexpr Velocity Time::operator*(
     const Acceleration& acceleration) const noexcept {
   return {acceleration, *this};
 }
 
-inline Acceleration AccelerationMagnitude::operator*(
+inline constexpr Acceleration AccelerationMagnitude::operator*(
     const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-inline Acceleration Velocity::operator*(
+inline constexpr Acceleration Velocity::operator*(
     const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline Acceleration Velocity::operator/(const Time& time) const noexcept {
+inline constexpr Acceleration Velocity::operator/(
+    const Time& time) const noexcept {
   return {*this, time};
 }
 
