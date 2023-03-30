@@ -28,23 +28,27 @@ public:
   explicit constexpr DisplacementGradient(const Value::Dyad& value) noexcept
       : DimensionlessDyadQuantity(value) {}
 
-  inline PhQ::Strain Strain() const noexcept { return PhQ::Strain{*this}; }
+  inline constexpr PhQ::Strain Strain() const noexcept {
+    return PhQ::Strain{*this};
+  }
 
-  inline DisplacementGradient operator+(
+  inline constexpr DisplacementGradient operator+(
       const DisplacementGradient& displacement_gradient) const noexcept {
     return DisplacementGradient{value_ + displacement_gradient.value_};
   }
 
-  inline DisplacementGradient operator-(
+  inline constexpr DisplacementGradient operator-(
       const DisplacementGradient& displacement_gradient) const noexcept {
     return DisplacementGradient{value_ - displacement_gradient.value_};
   }
 
-  inline DisplacementGradient operator*(const double number) const noexcept {
+  inline constexpr DisplacementGradient operator*(
+      const double number) const noexcept {
     return DisplacementGradient{value_ * number};
   }
 
-  inline DisplacementGradient operator/(const double number) const noexcept {
+  inline constexpr DisplacementGradient operator/(
+      const double number) const noexcept {
     return DisplacementGradient{value_ / number};
   }
 
@@ -77,6 +81,26 @@ inline constexpr bool operator!=(const DisplacementGradient& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const DisplacementGradient& left,
+                                const DisplacementGradient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const DisplacementGradient& left,
+                                const DisplacementGradient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const DisplacementGradient& left,
+                                 const DisplacementGradient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const DisplacementGradient& left,
+                                 const DisplacementGradient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream,
     const DisplacementGradient& displacement_gradient) noexcept {
@@ -84,7 +108,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline DisplacementGradient operator*(
+inline constexpr DisplacementGradient operator*(
     const double number,
     const DisplacementGradient& displacement_gradient) noexcept {
   return displacement_gradient * number;

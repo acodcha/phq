@@ -84,9 +84,15 @@ TEST(Velocity, Arithmetic) {
 
 TEST(Velocity, Comparison) {
   const Velocity velocity0{{1.0, 2.0, 4.0}, Unit::Speed::MetrePerSecond};
-  const Velocity velocity1{{1.0, 2.0, -4.0}, Unit::Speed::MetrePerSecond};
+  const Velocity velocity1{{1.0, 2.0, 8.0}, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(velocity0, velocity0);
   EXPECT_NE(velocity0, velocity1);
+  EXPECT_LT(velocity0, velocity1);
+  EXPECT_GT(velocity1, velocity0);
+  EXPECT_LE(velocity0, velocity0);
+  EXPECT_LE(velocity0, velocity1);
+  EXPECT_GE(velocity0, velocity0);
+  EXPECT_GE(velocity1, velocity0);
 }
 
 TEST(Velocity, Constructor) {
@@ -122,12 +128,12 @@ TEST(Velocity, Hash) {
                                                velocity3, velocity4, velocity5};
 }
 
-TEST(Velocity, Json) {
-  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).Json(),
+TEST(Velocity, JSON) {
+  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).JSON(),
             "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
             "\"unit\":\"m/s\"}");
   EXPECT_EQ(Velocity({0.0, -5.0, 0.0}, Unit::Speed::FootPerSecond)
-                .Json(Unit::Speed::FootPerSecond),
+                .JSON(Unit::Speed::FootPerSecond),
             "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"ft/s\"}");
 }
 
@@ -146,20 +152,20 @@ TEST(Velocity, Stream) {
   EXPECT_EQ(stream.str(), velocity.Print());
 }
 
-TEST(Velocity, Xml) {
-  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).Xml(),
+TEST(Velocity, XML) {
+  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).XML(),
             "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
             "value><unit>m/s</unit>");
   EXPECT_EQ(Velocity({0.0, -5.0, 0.0}, Unit::Speed::FootPerSecond)
-                .Xml(Unit::Speed::FootPerSecond),
+                .XML(Unit::Speed::FootPerSecond),
             "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>ft/s</unit>");
 }
 
-TEST(Velocity, Yaml) {
-  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).Yaml(),
+TEST(Velocity, YAML) {
+  EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).YAML(),
             "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m/s\"}");
   EXPECT_EQ(Velocity({0.0, -5.0, 0.0}, Unit::Speed::FootPerSecond)
-                .Yaml(Unit::Speed::FootPerSecond),
+                .YAML(Unit::Speed::FootPerSecond),
             "{value:{x:0,y:-5.000000,z:0},unit:\"ft/s\"}");
 }
 

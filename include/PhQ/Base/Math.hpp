@@ -13,16 +13,33 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../include/PhQ/Base/Constant.hpp"
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
 
-#include <gtest/gtest.h>
+#include <cmath>
+#include <limits>
 
 namespace PhQ {
 
-namespace {
+/// \brief The mathematical constant \f$ \pi = 3.14... \f$.
+inline constexpr double Pi{3.14159265358979323846};
 
-TEST(BaseConstant, Value) { EXPECT_EQ(Pi, 3.14159265358979323846); }
-
-}  // namespace
+/// \brief Returns the square root of a number. This implementation is a
+/// constant expression, unlike std::sqrt().
+inline constexpr double SquareRoot(const double number) noexcept {
+  if (number < 0.0 || !std::isfinite(number)) {
+    return std::numeric_limits<double>::quiet_NaN();
+  }
+  double current_square_root = number;
+  double previous_square_root = 0.0;
+  while (current_square_root != previous_square_root) {
+    previous_square_root = current_square_root;
+    current_square_root =
+        0.5 * (current_square_root + number / current_square_root);
+  }
+  return current_square_root;
+}
 
 }  // namespace PhQ
+
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP

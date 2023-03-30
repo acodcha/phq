@@ -42,7 +42,7 @@ public:
                                   const Frequency& frequency) noexcept
       : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
-  AccelerationMagnitude(const Acceleration& acceleration) noexcept;
+  constexpr AccelerationMagnitude(const Acceleration& acceleration) noexcept;
 
   template <Unit::Acceleration Unit>
   static constexpr AccelerationMagnitude Create(const double value) noexcept {
@@ -51,35 +51,38 @@ public:
                           StandardUnit<Unit::Acceleration>>(value)};
   }
 
-  inline AccelerationMagnitude operator+(
+  inline constexpr AccelerationMagnitude operator+(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return AccelerationMagnitude{value_ + acceleration_magnitude.value_};
   }
 
-  inline AccelerationMagnitude operator-(
+  inline constexpr AccelerationMagnitude operator-(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return AccelerationMagnitude{value_ - acceleration_magnitude.value_};
   }
 
-  inline AccelerationMagnitude operator*(const double number) const noexcept {
+  inline constexpr AccelerationMagnitude operator*(
+      const double number) const noexcept {
     return AccelerationMagnitude{value_ * number};
   }
 
-  inline Speed operator*(const Time& time) const noexcept {
+  inline constexpr Speed operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline Acceleration operator*(const Direction& direction) const noexcept;
+  inline constexpr Acceleration operator*(
+      const Direction& direction) const noexcept;
 
-  inline AccelerationMagnitude operator/(const double number) const noexcept {
+  inline constexpr AccelerationMagnitude operator/(
+      const double number) const noexcept {
     return AccelerationMagnitude{value_ / number};
   }
 
-  inline Speed operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Speed operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const Speed& speed) const noexcept {
+  inline constexpr Frequency operator/(const Speed& speed) const noexcept {
     return {*this, speed};
   }
 
@@ -143,7 +146,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline AccelerationMagnitude operator*(
+inline constexpr AccelerationMagnitude operator*(
     const double number,
     const AccelerationMagnitude& acceleration_magnitude) noexcept {
   return acceleration_magnitude * number;
@@ -168,21 +171,22 @@ inline constexpr Speed::Speed(
     const Frequency& frequency) noexcept
     : Speed(acceleration_magnitude.Value() / frequency.Value()) {}
 
-inline AccelerationMagnitude Frequency::operator*(
+inline constexpr AccelerationMagnitude Frequency::operator*(
     const Speed& speed) const noexcept {
   return {speed, *this};
 }
 
-inline AccelerationMagnitude Speed::operator*(
+inline constexpr AccelerationMagnitude Speed::operator*(
     const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline AccelerationMagnitude Speed::operator/(const Time& time) const noexcept {
+inline constexpr AccelerationMagnitude Speed::operator/(
+    const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time Speed::operator/(
+inline constexpr Time Speed::operator/(
     const AccelerationMagnitude& acceleration_magnitude) const noexcept {
   return {acceleration_magnitude, *this};
 }

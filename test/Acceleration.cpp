@@ -100,10 +100,16 @@ TEST(Acceleration, Arithmetic) {
 TEST(Acceleration, Comparison) {
   const Acceleration acceleration0{{1.0, 2.0, 4.0},
                                    Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration1{{1.0, 2.0, -4.0},
+  const Acceleration acceleration1{{1.0, 2.0, 8.0},
                                    Unit::Acceleration::MetrePerSquareSecond};
   EXPECT_EQ(acceleration0, acceleration0);
   EXPECT_NE(acceleration0, acceleration1);
+  EXPECT_LT(acceleration0, acceleration1);
+  EXPECT_GT(acceleration1, acceleration0);
+  EXPECT_LE(acceleration0, acceleration0);
+  EXPECT_LE(acceleration0, acceleration1);
+  EXPECT_GE(acceleration0, acceleration0);
+  EXPECT_GE(acceleration1, acceleration0);
 }
 
 TEST(Acceleration, Constructor) {
@@ -148,15 +154,15 @@ TEST(Acceleration, Hash) {
       acceleration3, acceleration4, acceleration5};
 }
 
-TEST(Acceleration, Json) {
+TEST(Acceleration, JSON) {
   EXPECT_EQ(
       Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .Json(),
+          .JSON(),
       "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
       "\"unit\":\"m/s^2\"}");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Json(Unit::Acceleration::FootPerSquareSecond),
+          .JSON(Unit::Acceleration::FootPerSquareSecond),
       "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"ft/s^2\"}");
 }
 
@@ -179,26 +185,26 @@ TEST(Acceleration, Stream) {
   EXPECT_EQ(stream.str(), acceleration.Print());
 }
 
-TEST(Acceleration, Xml) {
+TEST(Acceleration, XML) {
   EXPECT_EQ(
       Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .Xml(),
+          .XML(),
       "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
       "value><unit>m/s^2</unit>");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Xml(Unit::Acceleration::FootPerSquareSecond),
+          .XML(Unit::Acceleration::FootPerSquareSecond),
       "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>ft/s^2</unit>");
 }
 
-TEST(Acceleration, Yaml) {
+TEST(Acceleration, YAML) {
   EXPECT_EQ(
       Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .Yaml(),
+          .YAML(),
       "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m/s^2\"}");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Yaml(Unit::Acceleration::FootPerSquareSecond),
+          .YAML(Unit::Acceleration::FootPerSquareSecond),
       "{value:{x:0,y:-5.000000,z:0},unit:\"ft/s^2\"}");
 }
 

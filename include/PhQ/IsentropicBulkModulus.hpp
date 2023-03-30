@@ -36,21 +36,23 @@ public:
             value)};
   }
 
-  inline IsentropicBulkModulus operator+(
+  inline constexpr IsentropicBulkModulus operator+(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return IsentropicBulkModulus{value_ + isentropic_bulk_modulus.value_};
   }
 
-  inline IsentropicBulkModulus operator-(
+  inline constexpr IsentropicBulkModulus operator-(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return IsentropicBulkModulus{value_ - isentropic_bulk_modulus.value_};
   }
 
-  inline IsentropicBulkModulus operator*(const double number) const noexcept {
+  inline constexpr IsentropicBulkModulus operator*(
+      const double number) const noexcept {
     return IsentropicBulkModulus{value_ * number};
   }
 
-  inline IsentropicBulkModulus operator/(const double number) const noexcept {
+  inline constexpr IsentropicBulkModulus operator/(
+      const double number) const noexcept {
     return IsentropicBulkModulus{value_ / number};
   }
 
@@ -114,7 +116,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline IsentropicBulkModulus operator*(
+inline constexpr IsentropicBulkModulus operator*(
     const double number,
     const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
   return isentropic_bulk_modulus * number;

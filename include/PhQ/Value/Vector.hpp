@@ -19,6 +19,7 @@
 #include <array>
 #include <utility>
 
+#include "../Base/Math.hpp"
 #include "../Base/String.hpp"
 
 namespace PhQ {
@@ -88,11 +89,11 @@ public:
            x_y_z_[2] * x_y_z_[2];
   }
 
-  inline double Magnitude() const noexcept {
-    return std::sqrt(MagnitudeSquared());
+  inline constexpr double Magnitude() const noexcept {
+    return SquareRoot(MagnitudeSquared());
   }
 
-  inline PhQ::Direction Direction() const noexcept;
+  inline constexpr PhQ::Direction Direction() const noexcept;
 
   inline constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +
@@ -122,18 +123,18 @@ public:
            PhQ::Print(x_y_z_[2]) + ")";
   }
 
-  inline std::string Json() const noexcept {
+  inline std::string JSON() const noexcept {
     return "{\"x\":" + PhQ::Print(x_y_z_[0]) +
            ",\"y\":" + PhQ::Print(x_y_z_[1]) +
            ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  inline std::string Xml() const noexcept {
+  inline std::string XML() const noexcept {
     return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1]) +
            "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
-  inline std::string Yaml() const noexcept {
+  inline std::string YAML() const noexcept {
     return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1]) +
            ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
@@ -176,6 +177,38 @@ inline constexpr bool operator!=(const Vector& left,
                                  const Vector& right) noexcept {
   return left.x() != right.x() || left.y() != right.y() ||
          left.z() != right.z();
+}
+
+inline constexpr bool operator<(const Vector& left,
+                                const Vector& right) noexcept {
+  if (left.x() != right.x()) {
+    return left.x() < right.x();
+  }
+  if (left.y() != right.y()) {
+    return left.y() < right.y();
+  }
+  return left.z() < right.z();
+}
+
+inline constexpr bool operator>(const Vector& left,
+                                const Vector& right) noexcept {
+  if (left.x() != right.x()) {
+    return left.x() > right.x();
+  }
+  if (left.y() != right.y()) {
+    return left.y() > right.y();
+  }
+  return left.z() > right.z();
+}
+
+inline constexpr bool operator<=(const Vector& left,
+                                 const Vector& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const Vector& left,
+                                 const Vector& right) noexcept {
+  return !(left < right);
 }
 
 inline constexpr Vector operator+(const Vector& left,

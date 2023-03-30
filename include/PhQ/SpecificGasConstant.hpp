@@ -61,31 +61,33 @@ public:
                           StandardUnit<Unit::SpecificHeatCapacity>>(value)};
   }
 
-  inline SpecificGasConstant operator+(
+  inline constexpr SpecificGasConstant operator+(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return SpecificGasConstant{value_ + specific_gas_constant.value_};
   }
 
-  inline SpecificIsobaricHeatCapacity operator+(
+  inline constexpr SpecificIsobaricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept {
     return {*this, specific_isochoric_heat_capacity};
   }
 
-  inline SpecificGasConstant operator-(
+  inline constexpr SpecificGasConstant operator-(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return SpecificGasConstant{value_ - specific_gas_constant.value_};
   }
 
-  inline SpecificGasConstant operator*(const double number) const noexcept {
+  inline constexpr SpecificGasConstant operator*(
+      const double number) const noexcept {
     return SpecificGasConstant{value_ * number};
   }
 
-  inline GasConstant operator*(const Mass& mass) const noexcept {
+  inline constexpr GasConstant operator*(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline SpecificGasConstant operator/(const double number) const noexcept {
+  inline constexpr SpecificGasConstant operator/(
+      const double number) const noexcept {
     return SpecificGasConstant{value_ / number};
   }
 
@@ -149,7 +151,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline SpecificGasConstant operator*(
+inline constexpr SpecificGasConstant operator*(
     const double number,
     const SpecificGasConstant& specific_gas_constant) noexcept {
   return specific_gas_constant * number;
@@ -206,33 +208,35 @@ inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
                                    specific_heat_ratio.Value() /
                                    (specific_heat_ratio.Value() - 1.0)) {}
 
-inline GasConstant Mass::operator*(
+inline constexpr GasConstant Mass::operator*(
     const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-inline SpecificGasConstant GasConstant::operator/(
+inline constexpr SpecificGasConstant GasConstant::operator/(
     const Mass& mass) const noexcept {
   return {*this, mass};
 }
 
-inline Mass GasConstant::operator/(
+inline constexpr Mass GasConstant::operator/(
     const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-inline SpecificIsobaricHeatCapacity SpecificIsochoricHeatCapacity::operator+(
+inline constexpr SpecificIsobaricHeatCapacity
+SpecificIsochoricHeatCapacity::operator+(
     const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }
 
-inline SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(
+inline constexpr SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const noexcept {
   return {*this, specific_isochoric_heat_capacity};
 }
 
-inline SpecificIsochoricHeatCapacity SpecificIsobaricHeatCapacity::operator-(
+inline constexpr SpecificIsochoricHeatCapacity
+SpecificIsobaricHeatCapacity::operator-(
     const SpecificGasConstant& specific_gas_constant) const noexcept {
   return {specific_gas_constant, *this};
 }

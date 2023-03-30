@@ -37,25 +37,27 @@ public:
             value)};
   }
 
-  inline PhQ::StrainRate StrainRate() const noexcept {
+  inline constexpr PhQ::StrainRate StrainRate() const noexcept {
     return PhQ::StrainRate{*this};
   }
 
-  inline VelocityGradient operator+(
+  inline constexpr VelocityGradient operator+(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ + velocity_gradient.value_};
   }
 
-  inline VelocityGradient operator-(
+  inline constexpr VelocityGradient operator-(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ - velocity_gradient.value_};
   }
 
-  inline VelocityGradient operator*(const double number) const noexcept {
+  inline constexpr VelocityGradient operator*(
+      const double number) const noexcept {
     return VelocityGradient{value_ * number};
   }
 
-  inline VelocityGradient operator/(const double number) const noexcept {
+  inline constexpr VelocityGradient operator/(
+      const double number) const noexcept {
     return VelocityGradient{value_ / number};
   }
 
@@ -92,13 +94,33 @@ inline constexpr bool operator!=(const VelocityGradient& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const VelocityGradient& left,
+                                const VelocityGradient& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const VelocityGradient& left,
+                                const VelocityGradient& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const VelocityGradient& left,
+                                 const VelocityGradient& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const VelocityGradient& left,
+                                 const VelocityGradient& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream, const VelocityGradient& velocity_gradient) noexcept {
   stream << velocity_gradient.Print();
   return stream;
 }
 
-inline VelocityGradient operator*(
+inline constexpr VelocityGradient operator*(
     const double number, const VelocityGradient& velocity_gradient) noexcept {
   return velocity_gradient * number;
 }

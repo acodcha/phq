@@ -109,11 +109,11 @@ TEST(MassRate, Hash) {
                                                rate3, rate4, rate5};
 }
 
-TEST(MassRate, Json) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Json(),
+TEST(MassRate, JSON) {
+  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).JSON(),
             "{\"value\":1.110000,\"unit\":\"kg/s\"}");
   EXPECT_EQ(MassRate(-5.0, Unit::MassRate::GramPerSecond)
-                .Json(Unit::MassRate::GramPerSecond),
+                .JSON(Unit::MassRate::GramPerSecond),
             "{\"value\":-5.000000,\"unit\":\"g/s\"}");
 }
 
@@ -132,19 +132,19 @@ TEST(MassRate, Stream) {
   EXPECT_EQ(stream.str(), rate.Print());
 }
 
-TEST(MassRate, Xml) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Xml(),
+TEST(MassRate, XML) {
+  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).XML(),
             "<value>1.110000</value><unit>kg/s</unit>");
   EXPECT_EQ(MassRate(-5.0, Unit::MassRate::GramPerSecond)
-                .Xml(Unit::MassRate::GramPerSecond),
+                .XML(Unit::MassRate::GramPerSecond),
             "<value>-5.000000</value><unit>g/s</unit>");
 }
 
-TEST(MassRate, Yaml) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Yaml(),
+TEST(MassRate, YAML) {
+  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).YAML(),
             "{value:1.110000,unit:\"kg/s\"}");
   EXPECT_EQ(MassRate(-5.0, Unit::MassRate::GramPerSecond)
-                .Yaml(Unit::MassRate::GramPerSecond),
+                .YAML(Unit::MassRate::GramPerSecond),
             "{value:-5.000000,unit:\"g/s\"}");
 }
 

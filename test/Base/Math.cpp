@@ -13,13 +13,30 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
+#include "../../include/PhQ/Base/Math.hpp"
+
+#include <gtest/gtest.h>
 
 namespace PhQ {
 
-inline constexpr double Pi{3.14159265358979323846};
+namespace {
+
+TEST(BaseMath, Pi) { EXPECT_EQ(Pi, 3.14159265358979323846); }
+
+TEST(BaseMath, SquareRoot) {
+  EXPECT_TRUE(std::isnan(SquareRoot(-1.2345e50)));
+  EXPECT_TRUE(std::isnan(SquareRoot(-123.45)));
+  EXPECT_TRUE(std::isnan(SquareRoot(-1.0)));
+  EXPECT_TRUE(std::isnan(SquareRoot(-0.12345)));
+  EXPECT_TRUE(std::isnan(SquareRoot(-1.2345e-50)));
+  EXPECT_EQ(SquareRoot(0.0), std::sqrt(0.0));
+  EXPECT_EQ(SquareRoot(1.2345e-50), std::sqrt(1.2345e-50));
+  EXPECT_EQ(SquareRoot(0.12345), std::sqrt(0.12345));
+  EXPECT_EQ(SquareRoot(1.0), std::sqrt(1.0));
+  EXPECT_EQ(SquareRoot(123.45), std::sqrt(123.45));
+  EXPECT_EQ(SquareRoot(1.2345e50), std::sqrt(1.2345e50));
+}
+
+}  // namespace
 
 }  // namespace PhQ
-
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP

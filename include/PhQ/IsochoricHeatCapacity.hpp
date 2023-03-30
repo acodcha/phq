@@ -55,35 +55,38 @@ public:
                           StandardUnit<Unit::HeatCapacity>>(value)};
   }
 
-  inline IsochoricHeatCapacity operator+(
+  inline constexpr IsochoricHeatCapacity operator+(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return IsochoricHeatCapacity{value_ + isochoric_heat_capacity.value_};
   }
 
-  inline IsobaricHeatCapacity operator+(
+  inline constexpr IsobaricHeatCapacity operator+(
       const GasConstant& gas_constant) const noexcept;
 
-  inline IsochoricHeatCapacity operator-(
+  inline constexpr IsochoricHeatCapacity operator-(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
     return IsochoricHeatCapacity{value_ - isochoric_heat_capacity.value_};
   }
 
-  inline IsochoricHeatCapacity operator*(const double number) const noexcept {
+  inline constexpr IsochoricHeatCapacity operator*(
+      const double number) const noexcept {
     return IsochoricHeatCapacity{value_ * number};
   }
 
-  inline IsobaricHeatCapacity operator*(
+  inline constexpr IsobaricHeatCapacity operator*(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept;
 
-  inline IsochoricHeatCapacity operator/(const double number) const noexcept {
+  inline constexpr IsochoricHeatCapacity operator/(
+      const double number) const noexcept {
     return IsochoricHeatCapacity{value_ / number};
   }
 
-  inline SpecificIsochoricHeatCapacity operator/(
+  inline constexpr SpecificIsochoricHeatCapacity operator/(
       const Mass& mass) const noexcept;
 
-  inline Mass operator/(const SpecificIsochoricHeatCapacity&
-                            specific_isochoric_heat_capacity) const noexcept;
+  inline constexpr Mass operator/(
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
+      const noexcept;
 
   inline constexpr void operator+=(
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
@@ -145,7 +148,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline IsochoricHeatCapacity operator*(
+inline constexpr IsochoricHeatCapacity operator*(
     const double number,
     const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
   return isochoric_heat_capacity * number;

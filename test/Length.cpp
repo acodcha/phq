@@ -90,11 +90,11 @@ TEST(Length, Hash) {
                                              length3, length4, length5};
 }
 
-TEST(Length, Json) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).Json(),
+TEST(Length, JSON) {
+  EXPECT_EQ(Length(1.11, Unit::Length::Metre).JSON(),
             "{\"value\":1.110000,\"unit\":\"m\"}");
   EXPECT_EQ(
-      Length(-5.0, Unit::Length::Millimetre).Json(Unit::Length::Millimetre),
+      Length(-5.0, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
       "{\"value\":-5.000000,\"unit\":\"mm\"}");
 }
 
@@ -112,19 +112,19 @@ TEST(Length, Stream) {
   EXPECT_EQ(stream.str(), length.Print());
 }
 
-TEST(Length, Xml) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).Xml(),
+TEST(Length, XML) {
+  EXPECT_EQ(Length(1.11, Unit::Length::Metre).XML(),
             "<value>1.110000</value><unit>m</unit>");
   EXPECT_EQ(
-      Length(-5.0, Unit::Length::Millimetre).Xml(Unit::Length::Millimetre),
+      Length(-5.0, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
       "<value>-5.000000</value><unit>mm</unit>");
 }
 
-TEST(Length, Yaml) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).Yaml(),
+TEST(Length, YAML) {
+  EXPECT_EQ(Length(1.11, Unit::Length::Metre).YAML(),
             "{value:1.110000,unit:\"m\"}");
   EXPECT_EQ(
-      Length(-5.0, Unit::Length::Millimetre).Yaml(Unit::Length::Millimetre),
+      Length(-5.0, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
       "{value:-5.000000,unit:\"mm\"}");
 }
 

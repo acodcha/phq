@@ -36,21 +36,21 @@ public:
             value)};
   }
 
-  inline StressScalar operator+(
+  inline constexpr StressScalar operator+(
       const StressScalar& stress_scalar) const noexcept {
     return StressScalar{value_ + stress_scalar.value_};
   }
 
-  inline StressScalar operator-(
+  inline constexpr StressScalar operator-(
       const StressScalar& stress_scalar) const noexcept {
     return StressScalar{value_ - stress_scalar.value_};
   }
 
-  inline StressScalar operator*(const double number) const noexcept {
+  inline constexpr StressScalar operator*(const double number) const noexcept {
     return StressScalar{value_ * number};
   }
 
-  inline StressScalar operator/(const double number) const noexcept {
+  inline constexpr StressScalar operator/(const double number) const noexcept {
     return StressScalar{value_ / number};
   }
 
@@ -111,8 +111,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline StressScalar operator*(const double number,
-                              const StressScalar& stress_scalar) noexcept {
+inline constexpr StressScalar operator*(
+    const double number, const StressScalar& stress_scalar) noexcept {
   return stress_scalar * number;
 }
 

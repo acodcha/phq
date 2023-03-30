@@ -31,11 +31,11 @@ public:
 
   std::string Print() const noexcept override { return PhQ::Print(value_); }
 
-  std::string Json() const noexcept override { return PhQ::Print(value_); }
+  std::string JSON() const noexcept override { return PhQ::Print(value_); }
 
-  std::string Xml() const noexcept override { return PhQ::Print(value_); }
+  std::string XML() const noexcept override { return PhQ::Print(value_); }
 
-  std::string Yaml() const noexcept override { return PhQ::Print(value_); }
+  std::string YAML() const noexcept override { return PhQ::Print(value_); }
 
 protected:
   constexpr DimensionlessScalarQuantity() noexcept

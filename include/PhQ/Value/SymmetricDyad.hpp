@@ -183,7 +183,7 @@ public:
            PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  inline std::string Json() const noexcept {
+  inline std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
            ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
            ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +
@@ -192,7 +192,7 @@ public:
            ",\"zz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  inline std::string Xml() const noexcept {
+  inline std::string XML() const noexcept {
     return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>" +
            PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" +
            PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>" +
@@ -201,7 +201,7 @@ public:
            PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
-  inline std::string Yaml() const noexcept {
+  inline std::string YAML() const noexcept {
     return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
            ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
            ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +
@@ -262,6 +262,56 @@ inline constexpr bool operator!=(const SymmetricDyad& left,
   return (left.xx() != right.xx() || left.xy() != right.xy() ||
           left.xz() != right.xz() || left.yy() != right.yy() ||
           left.yz() != right.yz() || left.zz() != right.zz());
+}
+
+inline constexpr bool operator<(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() < right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() < right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() < right.xz();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() < right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() < right.yz();
+  }
+  return left.zz() < right.zz();
+}
+
+inline constexpr bool operator>(const SymmetricDyad& left,
+                                const SymmetricDyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() > right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() > right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() > right.xz();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() > right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() > right.yz();
+  }
+  return left.zz() > right.zz();
+}
+
+inline constexpr bool operator<=(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const SymmetricDyad& left,
+                                 const SymmetricDyad& right) noexcept {
+  return !(left < right);
 }
 
 inline constexpr SymmetricDyad operator+(const SymmetricDyad& left,

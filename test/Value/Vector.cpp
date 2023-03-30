@@ -90,10 +90,21 @@ TEST(ValueVector, Arithmetic) {
 }
 
 TEST(ValueVector, Comparison) {
-  const Vector vector0{1.11, 2.22, 3.33};
-  const Vector vector1{1.23, 4.56, 7.89};
+  constexpr Vector vector0{1.1, 2.2, 3.3};
+  constexpr Vector vector1{1.1, 2.3, 3.3};
+  constexpr Vector vector2{1.1, 2.3, 3.4};
   EXPECT_EQ(vector0, vector0);
   EXPECT_NE(vector0, vector1);
+  EXPECT_LT(vector0, vector1);
+  EXPECT_LT(vector1, vector2);
+  EXPECT_GT(vector1, vector0);
+  EXPECT_GT(vector2, vector1);
+  EXPECT_LE(vector0, vector0);
+  EXPECT_LE(vector0, vector1);
+  EXPECT_LE(vector1, vector2);
+  EXPECT_GE(vector0, vector0);
+  EXPECT_GE(vector1, vector0);
+  EXPECT_GE(vector2, vector1);
 }
 
 TEST(ValueVector, Constructor) {
@@ -131,8 +142,8 @@ TEST(ValueVector, Hash) {
                                              vector3, vector4, vector5};
 }
 
-TEST(ValueVector, Json) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Json(),
+TEST(ValueVector, JSON) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).JSON(),
             "{\"x\":1.000000,\"y\":-2.000000,\"z\":0}");
 }
 
@@ -152,13 +163,13 @@ TEST(ValueVector, Stream) {
   EXPECT_EQ(stream.str(), vector.Print());
 }
 
-TEST(ValueVector, Xml) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Xml(),
+TEST(ValueVector, XML) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).XML(),
             "<x>1.000000</x><y>-2.000000</y><z>0</z>");
 }
 
-TEST(ValueVector, Yaml) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Yaml(), "{x:1.000000,y:-2.000000,z:0}");
+TEST(ValueVector, YAML) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).YAML(), "{x:1.000000,y:-2.000000,z:0}");
 }
 
 TEST(ValueVector, Zero) { EXPECT_EQ(Vector::Zero(), Vector(0.0, 0.0, 0.0)); }

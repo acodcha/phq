@@ -46,21 +46,23 @@ public:
                           StandardUnit<Unit::ThermalConductivity>>(value)};
   }
 
-  inline ThermalConductivity operator+(
+  inline constexpr ThermalConductivity operator+(
       const ThermalConductivity& thermal_conductivity) const noexcept {
     return ThermalConductivity{value_ + thermal_conductivity.value_};
   }
 
-  inline ThermalConductivity operator-(
+  inline constexpr ThermalConductivity operator-(
       const ThermalConductivity& thermal_conductivity) const noexcept {
     return ThermalConductivity{value_ - thermal_conductivity.value_};
   }
 
-  inline ThermalConductivity operator*(const double number) const noexcept {
+  inline constexpr ThermalConductivity operator*(
+      const double number) const noexcept {
     return ThermalConductivity{value_ * number};
   }
 
-  inline ThermalConductivity operator/(const double number) const noexcept {
+  inline constexpr ThermalConductivity operator/(
+      const double number) const noexcept {
     return ThermalConductivity{value_ / number};
   }
 
@@ -98,6 +100,26 @@ inline constexpr bool operator!=(const ThermalConductivity& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const ThermalConductivity& left,
+                                const ThermalConductivity& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const ThermalConductivity& left,
+                                const ThermalConductivity& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const ThermalConductivity& left,
+                                 const ThermalConductivity& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const ThermalConductivity& left,
+                                 const ThermalConductivity& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(
     std::ostream& stream,
     const ThermalConductivity& thermal_conductivity) noexcept {
@@ -105,7 +127,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline ThermalConductivity operator*(
+inline constexpr ThermalConductivity operator*(
     const double number,
     const ThermalConductivity& thermal_conductivity) noexcept {
   return thermal_conductivity * number;

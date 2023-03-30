@@ -36,21 +36,21 @@ public:
             value)};
   }
 
-  inline PWaveModulus operator+(
+  inline constexpr PWaveModulus operator+(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return PWaveModulus{value_ + p_wave_modulus.value_};
   }
 
-  inline PWaveModulus operator-(
+  inline constexpr PWaveModulus operator-(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return PWaveModulus{value_ - p_wave_modulus.value_};
   }
 
-  inline PWaveModulus operator*(const double number) const noexcept {
+  inline constexpr PWaveModulus operator*(const double number) const noexcept {
     return PWaveModulus{value_ * number};
   }
 
-  inline PWaveModulus operator/(const double number) const noexcept {
+  inline constexpr PWaveModulus operator/(const double number) const noexcept {
     return PWaveModulus{value_ / number};
   }
 
@@ -113,8 +113,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline PWaveModulus operator*(const double number,
-                              const PWaveModulus& p_wave_modulus) noexcept {
+inline constexpr PWaveModulus operator*(
+    const double number, const PWaveModulus& p_wave_modulus) noexcept {
   return p_wave_modulus * number;
 }
 

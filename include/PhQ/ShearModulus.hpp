@@ -36,21 +36,21 @@ public:
             value)};
   }
 
-  inline ShearModulus operator+(
+  inline constexpr ShearModulus operator+(
       const ShearModulus& shear_modulus) const noexcept {
     return ShearModulus{value_ + shear_modulus.value_};
   }
 
-  inline ShearModulus operator-(
+  inline constexpr ShearModulus operator-(
       const ShearModulus& shear_modulus) const noexcept {
     return ShearModulus{value_ - shear_modulus.value_};
   }
 
-  inline ShearModulus operator*(const double number) const noexcept {
+  inline constexpr ShearModulus operator*(const double number) const noexcept {
     return ShearModulus{value_ * number};
   }
 
-  inline ShearModulus operator/(const double number) const noexcept {
+  inline constexpr ShearModulus operator/(const double number) const noexcept {
     return ShearModulus{value_ / number};
   }
 
@@ -111,8 +111,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline ShearModulus operator*(const double number,
-                              const ShearModulus& shear_modulus) noexcept {
+inline constexpr ShearModulus operator*(
+    const double number, const ShearModulus& shear_modulus) noexcept {
   return shear_modulus * number;
 }
 

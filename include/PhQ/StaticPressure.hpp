@@ -41,7 +41,7 @@ public:
                            const Area& area) noexcept
       : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
-  StaticPressure(const Traction& traction) noexcept;
+  constexpr StaticPressure(const Traction& traction) noexcept;
 
   constexpr StaticPressure(const TotalPressure& total_pressure,
                            const DynamicPressure& dynamic_pressure) noexcept;
@@ -57,46 +57,49 @@ public:
             value)};
   }
 
-  inline PhQ::Stress Stress() const noexcept;
+  inline constexpr PhQ::Stress Stress() const noexcept;
 
-  inline StaticPressure operator+(
+  inline constexpr StaticPressure operator+(
       const StaticPressure& static_pressure) const noexcept {
     return StaticPressure{value_ + static_pressure.value_};
   }
 
-  inline StaticPressure operator+(
+  inline constexpr StaticPressure operator+(
       const PressureDifference& pressure_difference) const noexcept {
     return StaticPressure{value_ + pressure_difference.Value()};
   }
 
-  inline TotalPressure operator+(
+  inline constexpr TotalPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept;
 
-  inline PressureDifference operator-(
+  inline constexpr PressureDifference operator-(
       const StaticPressure& static_pressure) const noexcept {
     return PressureDifference{value_ - static_pressure.value_};
   }
 
-  inline StaticPressure operator-(
+  inline constexpr StaticPressure operator-(
       const PressureDifference& pressure_difference) const noexcept {
     return StaticPressure{value_ - pressure_difference.Value()};
   }
 
-  inline StaticPressure operator*(const double number) const noexcept {
+  inline constexpr StaticPressure operator*(
+      const double number) const noexcept {
     return StaticPressure{value_ * number};
   }
 
-  inline ForceMagnitude operator*(const Area& area) const noexcept {
+  inline constexpr ForceMagnitude operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
-  inline Traction operator*(const Direction& direction) const noexcept;
+  inline constexpr Traction operator*(
+      const Direction& direction) const noexcept;
 
-  inline StaticPressure operator/(const double number) const noexcept {
+  inline constexpr StaticPressure operator/(
+      const double number) const noexcept {
     return StaticPressure{value_ / number};
   }
 
-  inline StaticKinematicPressure operator/(
+  inline constexpr StaticKinematicPressure operator/(
       const MassDensity& mass_density) const noexcept;
 
   inline constexpr void operator+=(
@@ -170,7 +173,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline StaticPressure operator*(
+inline constexpr StaticPressure operator*(
     const double number, const StaticPressure& static_pressure) noexcept {
   return static_pressure * number;
 }
@@ -183,22 +186,22 @@ inline constexpr ForceMagnitude::ForceMagnitude(
     const StaticPressure& static_pressure, const Area& area) noexcept
     : ForceMagnitude(static_pressure.Value() * area.Value()) {}
 
-inline ForceMagnitude Area::operator*(
+inline constexpr ForceMagnitude Area::operator*(
     const StaticPressure& static_pressure) const noexcept {
   return {static_pressure, *this};
 }
 
-inline StaticPressure ForceMagnitude::operator/(
+inline constexpr StaticPressure ForceMagnitude::operator/(
     const Area& area) const noexcept {
   return {*this, area};
 }
 
-inline StaticPressure PressureDifference::operator+(
+inline constexpr StaticPressure PressureDifference::operator+(
     const StaticPressure& static_pressure) const noexcept {
   return StaticPressure{value_ + static_pressure.Value()};
 }
 
-inline StaticPressure PressureDifference::operator-(
+inline constexpr StaticPressure PressureDifference::operator-(
     const StaticPressure& static_pressure) const noexcept {
   return StaticPressure{value_ - static_pressure.Value()};
 }

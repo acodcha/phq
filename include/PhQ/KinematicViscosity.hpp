@@ -56,24 +56,26 @@ public:
                           StandardUnit<Unit::Diffusivity>>(value)};
   }
 
-  inline KinematicViscosity operator+(
+  inline constexpr KinematicViscosity operator+(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return KinematicViscosity{value_ + kinematic_viscosity.value_};
   }
 
-  inline KinematicViscosity operator-(
+  inline constexpr KinematicViscosity operator-(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return KinematicViscosity{value_ - kinematic_viscosity.value_};
   }
 
-  inline KinematicViscosity operator*(const double number) const noexcept {
+  inline constexpr KinematicViscosity operator*(
+      const double number) const noexcept {
     return KinematicViscosity{value_ * number};
   }
 
-  inline DynamicViscosity operator*(
+  inline constexpr DynamicViscosity operator*(
       const MassDensity& mass_density) const noexcept;
 
-  inline KinematicViscosity operator/(const double number) const noexcept {
+  inline constexpr KinematicViscosity operator/(
+      const double number) const noexcept {
     return KinematicViscosity{value_ / number};
   }
 
@@ -137,7 +139,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline KinematicViscosity operator*(
+inline constexpr KinematicViscosity operator*(
     const double number,
     const KinematicViscosity& kinematic_viscosity) noexcept {
   return kinematic_viscosity * number;

@@ -83,39 +83,43 @@ public:
         StaticConvertCopy<Unit::Time, Unit, StandardUnit<Unit::Time>>(value)};
   }
 
-  inline PhQ::Frequency Frequency() const noexcept;
+  inline constexpr PhQ::Frequency Frequency() const noexcept;
 
-  inline Time operator+(const Time& time) const noexcept {
+  inline constexpr Time operator+(const Time& time) const noexcept {
     return Time{value_ + time.value_};
   }
 
-  inline Time operator-(const Time& time) const noexcept {
+  inline constexpr Time operator-(const Time& time) const noexcept {
     return Time{value_ - time.value_};
   }
 
-  inline Time operator*(const double number) const noexcept {
+  inline constexpr Time operator*(const double number) const noexcept {
     return Time{value_ * number};
   }
 
   inline constexpr double operator*(
       const PhQ::Frequency& frequency) const noexcept;
 
-  inline Mass operator*(const MassRate& mass_rate) const noexcept;
+  inline constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
 
-  inline Volume operator*(const VolumeRate& volume_rate) const noexcept;
+  inline constexpr Volume operator*(
+      const VolumeRate& volume_rate) const noexcept;
 
-  inline Energy operator*(const Power& power) const noexcept;
+  inline constexpr Energy operator*(const Power& power) const noexcept;
 
-  inline SpecificEnergy operator*(
+  inline constexpr SpecificEnergy operator*(
       const SpecificPower& specific_power) const noexcept;
 
-  inline Strain operator*(const StrainRate& strain_rate) const noexcept;
+  inline constexpr Strain operator*(
+      const StrainRate& strain_rate) const noexcept;
 
-  inline Displacement operator*(const Velocity& velocity) const noexcept;
+  inline constexpr Displacement operator*(
+      const Velocity& velocity) const noexcept;
 
-  inline Velocity operator*(const Acceleration& acceleration) const noexcept;
+  inline constexpr Velocity operator*(
+      const Acceleration& acceleration) const noexcept;
 
-  inline Time operator/(const double number) const noexcept {
+  inline constexpr Time operator/(const double number) const noexcept {
     return Time{value_ / number};
   }
 
@@ -170,7 +174,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Time operator*(const double number, const Time& time) noexcept {
+inline constexpr Time operator*(const double number,
+                                const Time& time) noexcept {
   return time * number;
 }
 

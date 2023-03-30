@@ -205,7 +205,7 @@ public:
     return Cofactors().Transpose();
   }
 
-  inline std::optional<Dyad> Inverse() const;
+  inline constexpr std::optional<Dyad> Inverse() const;
 
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", " +
@@ -215,7 +215,7 @@ public:
            PhQ::Print(zz()) + ")";
   }
 
-  inline std::string Json() const noexcept {
+  inline std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy()) +
            ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx()) +
            ",\"yy\":" + PhQ::Print(yy()) + ",\"yz\":" + PhQ::Print(yz()) +
@@ -223,7 +223,7 @@ public:
            ",\"zz\":" + PhQ::Print(zz()) + "}";
   }
 
-  inline std::string Xml() const noexcept {
+  inline std::string XML() const noexcept {
     return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy()) +
            "</xy><xz>" + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx()) +
            "</yx><yy>" + PhQ::Print(yy()) + "</yy><yz>" + PhQ::Print(yz()) +
@@ -231,7 +231,7 @@ public:
            "</zy><zz>" + PhQ::Print(zz()) + "</zz>";
   }
 
-  inline std::string Yaml() const noexcept {
+  inline std::string YAML() const noexcept {
     return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy()) +
            ",xz:" + PhQ::Print(xz()) + ",yx:" + PhQ::Print(yx()) +
            ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz()) +
@@ -305,6 +305,70 @@ inline constexpr bool operator!=(const Dyad& left, const Dyad& right) noexcept {
           left.yy() != right.yy() || left.yz() != right.yz() ||
           left.zx() != right.zx() || left.zy() != right.zy() ||
           left.zz() != right.zz());
+}
+
+inline constexpr bool operator<(const Dyad& left, const Dyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() < right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() < right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() < right.xz();
+  }
+  if (left.yx() != right.yx()) {
+    return left.yx() < right.yx();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() < right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() < right.yz();
+  }
+  if (left.zx() != right.zx()) {
+    return left.zx() < right.zx();
+  }
+  if (left.zy() != right.zy()) {
+    return left.zy() < right.zy();
+  }
+  return left.zz() < right.zz();
+}
+
+inline constexpr bool operator>(const Dyad& left, const Dyad& right) noexcept {
+  if (left.xx() != right.xx()) {
+    return left.xx() > right.xx();
+  }
+  if (left.xy() != right.xy()) {
+    return left.xy() > right.xy();
+  }
+  if (left.xz() != right.xz()) {
+    return left.xz() > right.xz();
+  }
+  if (left.yx() != right.yx()) {
+    return left.yx() > right.yx();
+  }
+  if (left.yy() != right.yy()) {
+    return left.yy() > right.yy();
+  }
+  if (left.yz() != right.yz()) {
+    return left.yz() > right.yz();
+  }
+  if (left.zx() != right.zx()) {
+    return left.zx() > right.zx();
+  }
+  if (left.zy() != right.zy()) {
+    return left.zy() > right.zy();
+  }
+  return left.zz() > right.zz();
+}
+
+inline constexpr bool operator<=(const Dyad& left, const Dyad& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const Dyad& left, const Dyad& right) noexcept {
+  return !(left < right);
 }
 
 inline constexpr Dyad operator+(const Dyad& left, const Dyad& right) noexcept {
@@ -422,7 +486,7 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline std::optional<Dyad> Dyad::Inverse() const {
+inline constexpr std::optional<Dyad> Dyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
     return Adjugate() / determinant_;

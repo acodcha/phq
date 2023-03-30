@@ -45,7 +45,7 @@ public:
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
-  std::string Json() const noexcept override {
+  std::string JSON() const noexcept override {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
@@ -53,7 +53,7 @@ public:
         .append("\"}");
   }
 
-  std::string Json(const U unit) const noexcept override {
+  std::string JSON(const U unit) const noexcept override {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(Value(unit)))
         .append(",\"unit\":\"")
@@ -61,7 +61,7 @@ public:
         .append("\"}");
   }
 
-  std::string Xml() const noexcept override {
+  std::string XML() const noexcept override {
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
@@ -69,7 +69,7 @@ public:
         .append("</unit>");
   }
 
-  std::string Xml(const U unit) const noexcept override {
+  std::string XML(const U unit) const noexcept override {
     return std::string{"<value>"}
         .append(PhQ::Print(Value(unit)))
         .append("</value><unit>")
@@ -77,7 +77,7 @@ public:
         .append("</unit>");
   }
 
-  std::string Yaml() const noexcept override {
+  std::string YAML() const noexcept override {
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")
@@ -85,7 +85,7 @@ public:
         .append("\"}");
   }
 
-  std::string Yaml(const U unit) const noexcept override {
+  std::string YAML(const U unit) const noexcept override {
     return std::string{"{value:"}
         .append(PhQ::Print(Value(unit)))
         .append(",unit:\"")
@@ -107,7 +107,7 @@ protected:
 
   ~DimensionalScalarQuantity() noexcept = default;
 
-  void operator=(const double value) noexcept { value_ = value; }
+  constexpr void operator=(const double value) noexcept { value_ = value; }
 
   double value_;
 };

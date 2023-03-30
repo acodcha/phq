@@ -24,13 +24,13 @@ namespace PhQ {
 namespace {
 
 TEST(Direction, Accessor) {
-  const std::array<double, 3> value{0.0, 0.5 * std::sqrt(2.0),
-                                    -0.5 * std::sqrt(2.0)};
+  const std::array<double, 3> value{0.0, 0.5 * SquareRoot(2.0),
+                                    -0.5 * SquareRoot(2.0)};
 
   const Direction direction0{0.0, 10.0, -10.0};
   EXPECT_DOUBLE_EQ(direction0.Value().x(), 0.0);
-  EXPECT_DOUBLE_EQ(direction0.Value().y(), 0.5 * std::sqrt(2.0));
-  EXPECT_DOUBLE_EQ(direction0.Value().z(), -0.5 * std::sqrt(2.0));
+  EXPECT_DOUBLE_EQ(direction0.Value().y(), 0.5 * SquareRoot(2.0));
+  EXPECT_DOUBLE_EQ(direction0.Value().z(), -0.5 * SquareRoot(2.0));
 
   Direction direction1{1.0, 0.0, 0.0};
   direction1.SetValue(Value::Vector{0.0, 10.0, -10.0});
@@ -70,10 +70,16 @@ TEST(Direction, Angle) {
 }
 
 TEST(Direction, Comparison) {
-  const Direction direction0{1.11, 2.22, 3.33};
-  const Direction direction1{1.23, 4.56, 7.89};
+  const Direction direction0{0.0, 0.0, 1.0};
+  const Direction direction1{1.0, 1.0, 1.0};
   EXPECT_EQ(direction0, direction0);
   EXPECT_NE(direction0, direction1);
+  EXPECT_LT(direction0, direction1);
+  EXPECT_GT(direction1, direction0);
+  EXPECT_LE(direction0, direction0);
+  EXPECT_LE(direction0, direction1);
+  EXPECT_GE(direction0, direction0);
+  EXPECT_GE(direction1, direction0);
 }
 
 TEST(Direction, Constructor) {
@@ -94,10 +100,9 @@ TEST(Direction, Cross) {
 }
 
 TEST(Direction, Dot) {
-  EXPECT_EQ(Direction(1.23, 4.56, 7.89).Dot(Direction(1.23, 4.56, 7.89)), 1.0);
+  EXPECT_EQ(Direction(1.0, 2.0, 4.0).Dot(Direction(1.0, 2.0, 4.0)), 1.0);
   EXPECT_EQ(Direction(0.0, 10.0, -15.0).Dot(Direction(20.0, 0.0, 0.0)), 0.0);
-  EXPECT_EQ(Direction(1.23, 4.56, 7.89).Dot(Direction(-1.23, -4.56, -7.89)),
-            -1.0);
+  EXPECT_EQ(Direction(1.0, 2.0, 4.0).Dot(Direction(-1.0, -2.0, -4.0)), -1.0);
   EXPECT_LT(Direction(1.11, 2.22, 3.33).Dot(Direction(1.99, 2.88, 3.77)), 1.0);
   EXPECT_GT(Direction(1.11, 2.22, 3.33).Dot(Direction(1.99, 2.88, 3.77)), 0.0);
   const Value::Vector vector0{1.23, 4.56, 7.89};
@@ -131,8 +136,8 @@ TEST(Direction, Hash) {
       direction0, direction1, direction2, direction3, direction4, direction5};
 }
 
-TEST(Direction, Json) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Json(),
+TEST(Direction, JSON) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).JSON(),
             "{\"x\":0,\"y\":-1.000000,\"z\":0}");
 }
 
@@ -166,22 +171,22 @@ TEST(Direction, ValueSymmetricDyad) {
 }
 
 TEST(Direction, ValueVector) {
-  const Direction direction0{1.23, 4.56, 7.89};
-  const Value::Vector vector0{5.5e10, direction0};
+  constexpr Direction direction0{1.0, 2.0, 4.0};
+  constexpr Value::Vector vector0{4.0, direction0};
   EXPECT_EQ(vector0.Direction(), direction0);
 
-  const Direction direction1{0.0, -1.0, 0.0};
-  const Value::Vector vector1{20.0, direction1};
-  EXPECT_EQ(vector1, Value::Vector(0.0, -20.0, 0.0));
+  constexpr Direction direction1{0.0, 1.0, 0.0};
+  constexpr Value::Vector vector1{4.0, direction1};
+  EXPECT_EQ(vector1, Value::Vector(0.0, 4.0, 0.0));
 }
 
-TEST(Direction, Xml) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Xml(),
+TEST(Direction, XML) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).XML(),
             "<x>0</x><y>-1.000000</y><z>0</z>");
 }
 
-TEST(Direction, Yaml) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Yaml(), "{x:0,y:-1.000000,z:0}");
+TEST(Direction, YAML) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).YAML(), "{x:0,y:-1.000000,z:0}");
 }
 
 }  // namespace

@@ -44,29 +44,29 @@ public:
             value)};
   }
 
-  inline StaticPressure Magnitude() const noexcept { return {*this}; }
+  inline constexpr StaticPressure Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Traction& traction) const noexcept {
     return {*this, traction};
   }
 
-  inline Traction operator+(const Traction& traction) const noexcept {
+  inline constexpr Traction operator+(const Traction& traction) const noexcept {
     return Traction{value_ + traction.value_};
   }
 
-  inline Traction operator-(const Traction& traction) const noexcept {
+  inline constexpr Traction operator-(const Traction& traction) const noexcept {
     return Traction{value_ - traction.value_};
   }
 
-  inline Traction operator*(const double number) const noexcept {
+  inline constexpr Traction operator*(const double number) const noexcept {
     return Traction{value_ * number};
   }
 
-  inline Force operator*(const Area& area) const noexcept {
+  inline constexpr Force operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
-  inline Traction operator/(const double number) const noexcept {
+  inline constexpr Traction operator/(const double number) const noexcept {
     return Traction{value_ / number};
   }
 
@@ -101,42 +101,63 @@ inline constexpr bool operator!=(const Traction& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Traction& left,
+                                const Traction& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Traction& left,
+                                const Traction& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Traction& left,
+                                 const Traction& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Traction& left,
+                                 const Traction& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Traction& traction) noexcept {
   stream << traction.Print();
   return stream;
 }
 
-inline Traction operator*(const double number,
-                          const Traction& traction) noexcept {
+inline constexpr Traction operator*(const double number,
+                                    const Traction& traction) noexcept {
   return traction * number;
 }
 
-inline Direction::Direction(const Traction& traction) noexcept
+inline constexpr Direction::Direction(const Traction& traction) noexcept
     : Direction(traction.Value()) {}
 
 inline Angle::Angle(const Traction& traction_1,
                     const Traction& traction_2) noexcept
     : Angle(traction_1.Value(), traction_2.Value()) {}
 
-inline StaticPressure::StaticPressure(const Traction& traction) noexcept
+inline constexpr StaticPressure::StaticPressure(
+    const Traction& traction) noexcept
     : StaticPressure(traction.Value().Magnitude()) {}
 
 inline constexpr Force::Force(const Traction& traction,
                               const Area& area) noexcept
     : Force(traction.Value() * area.Value()) {}
 
-inline Traction Direction::operator*(
+inline constexpr Traction Direction::operator*(
     const StaticPressure& static_pressure) const noexcept {
   return {static_pressure, *this};
 }
 
-inline Traction StaticPressure::operator*(
+inline constexpr Traction StaticPressure::operator*(
     const Direction& direction) const noexcept {
   return {*this, direction};
 }
 
-inline Traction Force::operator/(const Area& area) const noexcept {
+inline constexpr Traction Force::operator/(const Area& area) const noexcept {
   return {*this, area};
 }
 

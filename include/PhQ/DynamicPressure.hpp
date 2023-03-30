@@ -16,6 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 
+#include "Base/Math.hpp"
 #include "MassDensity.hpp"
 #include "Speed.hpp"
 #include "StaticPressure.hpp"
@@ -52,24 +53,26 @@ public:
             value)};
   }
 
-  inline DynamicPressure operator+(
+  inline constexpr DynamicPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ + dynamic_pressure.value_};
   }
 
-  inline TotalPressure operator+(
+  inline constexpr TotalPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline DynamicPressure operator-(
+  inline constexpr DynamicPressure operator-(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ - dynamic_pressure.value_};
   }
 
-  inline DynamicPressure operator*(const double number) const noexcept {
+  inline constexpr DynamicPressure operator*(
+      const double number) const noexcept {
     return DynamicPressure{value_ * number};
   }
 
-  inline DynamicPressure operator/(const double number) const noexcept {
+  inline constexpr DynamicPressure operator/(
+      const double number) const noexcept {
     return DynamicPressure{value_ / number};
   }
 
@@ -132,7 +135,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline DynamicPressure operator*(
+inline constexpr DynamicPressure operator*(
     const double number, const DynamicPressure& dynamic_pressure) noexcept {
   return dynamic_pressure * number;
 }
@@ -144,7 +147,8 @@ inline constexpr MassDensity::MassDensity(
 
 inline constexpr Speed::Speed(const DynamicPressure& dynamic_pressure,
                               const MassDensity& mass_density) noexcept
-    : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
+    : Speed(SquareRoot(2.0 * dynamic_pressure.Value() / mass_density.Value())) {
+}
 
 }  // namespace PhQ
 

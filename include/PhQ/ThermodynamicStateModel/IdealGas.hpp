@@ -128,26 +128,26 @@ public:
             specific_isobaric_heat_capacity_.Print()};
   }
 
-  inline std::string Json() const noexcept override {
+  inline std::string JSON() const noexcept override {
     return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", \"specific_gas_constant\": " + specific_gas_constant_.Json() +
+            "\", \"specific_gas_constant\": " + specific_gas_constant_.JSON() +
             "\", \"specific_isobaric_heat_capacity\": " +
-            specific_isobaric_heat_capacity_.Json() + "}"};
+            specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
-  inline std::string Xml() const noexcept override {
+  inline std::string XML() const noexcept override {
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
-            "</type><specific_gas_constant>" + specific_gas_constant_.Xml() +
+            "</type><specific_gas_constant>" + specific_gas_constant_.XML() +
             "</specific_gas_constant><specific_isobaric_heat_capacity>" +
-            specific_isobaric_heat_capacity_.Xml() +
+            specific_isobaric_heat_capacity_.XML() +
             "</specific_isobaric_heat_capacity>"};
   }
 
-  inline std::string Yaml() const noexcept override {
+  inline std::string YAML() const noexcept override {
     return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", specific_gas_constant: " + specific_gas_constant_.Json() +
+            "\", specific_gas_constant: " + specific_gas_constant_.JSON() +
             "\", specific_isobaric_heat_capacity: " +
-            specific_isobaric_heat_capacity_.Json() + "}"};
+            specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
 private:

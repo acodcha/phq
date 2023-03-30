@@ -49,49 +49,49 @@ public:
     return Value(unit).Print().append(" ").append(Abbreviation(unit));
   }
 
-  std::string Json() const noexcept override {
+  std::string JSON() const noexcept override {
     return std::string{"{\"value\":"}
-        .append(value_.Json())
+        .append(value_.JSON())
         .append(",\"unit\":\"")
         .append(Abbreviation(StandardUnit<U>))
         .append("\"}");
   }
 
-  std::string Json(const U unit) const noexcept override {
+  std::string JSON(const U unit) const noexcept override {
     return std::string{"{\"value\":"}
-        .append(Value(unit).Json())
+        .append(Value(unit).JSON())
         .append(",\"unit\":\"")
         .append(Abbreviation(unit))
         .append("\"}");
   }
 
-  std::string Xml() const noexcept override {
+  std::string XML() const noexcept override {
     return std::string{"<value>"}
-        .append(value_.Xml())
+        .append(value_.XML())
         .append("</value><unit>")
         .append(Abbreviation(StandardUnit<U>))
         .append("</unit>");
   }
 
-  std::string Xml(const U unit) const noexcept override {
+  std::string XML(const U unit) const noexcept override {
     return std::string{"<value>"}
-        .append(Value(unit).Xml())
+        .append(Value(unit).XML())
         .append("</value><unit>")
         .append(Abbreviation(unit))
         .append("</unit>");
   }
 
-  std::string Yaml() const noexcept override {
+  std::string YAML() const noexcept override {
     return std::string{"{value:"}
-        .append(value_.Yaml())
+        .append(value_.YAML())
         .append(",unit:\"")
         .append(Abbreviation(StandardUnit<U>))
         .append("\"}");
   }
 
-  std::string Yaml(const U unit) const noexcept override {
+  std::string YAML(const U unit) const noexcept override {
     return std::string{"{value:"}
-        .append(Value(unit).Yaml())
+        .append(Value(unit).YAML())
         .append(",unit:\"")
         .append(Abbreviation(unit))
         .append("\"}");
@@ -123,9 +123,11 @@ protected:
 
   ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
-  void operator=(const Value::SymmetricDyad& value) noexcept { value_ = value; }
+  constexpr void operator=(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
+  }
 
-  void operator=(Value::SymmetricDyad&& value) noexcept {
+  constexpr void operator=(Value::SymmetricDyad&& value) noexcept {
     value_ = std::move(value);
   }
 

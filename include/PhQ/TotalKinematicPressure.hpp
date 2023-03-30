@@ -48,32 +48,34 @@ public:
                           StandardUnit<Unit::SpecificEnergy>>(value)};
   }
 
-  inline TotalKinematicPressure operator+(
+  inline constexpr TotalKinematicPressure operator+(
       const TotalKinematicPressure& total_kinematic_pressure) const noexcept {
     return TotalKinematicPressure{value_ + total_kinematic_pressure.value_};
   }
 
-  inline TotalKinematicPressure operator-(
+  inline constexpr TotalKinematicPressure operator-(
       const TotalKinematicPressure& total_kinematic_pressure) const noexcept {
     return TotalKinematicPressure{value_ - total_kinematic_pressure.value_};
   }
 
-  inline DynamicKinematicPressure operator-(
+  inline constexpr DynamicKinematicPressure operator-(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return {*this, static_kinematic_pressure};
   }
 
-  inline StaticKinematicPressure operator-(
+  inline constexpr StaticKinematicPressure operator-(
       const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return {*this, dynamic_kinematic_pressure};
   }
 
-  inline TotalKinematicPressure operator*(const double number) const noexcept {
+  inline constexpr TotalKinematicPressure operator*(
+      const double number) const noexcept {
     return TotalKinematicPressure{value_ * number};
   }
 
-  inline TotalKinematicPressure operator/(const double number) const noexcept {
+  inline constexpr TotalKinematicPressure operator/(
+      const double number) const noexcept {
     return TotalKinematicPressure{value_ / number};
   }
 
@@ -137,7 +139,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline TotalKinematicPressure operator*(
+inline constexpr TotalKinematicPressure operator*(
     const double number,
     const TotalKinematicPressure& total_kinematic_pressure) noexcept {
   return total_kinematic_pressure * number;
@@ -160,12 +162,12 @@ inline constexpr DynamicKinematicPressure::DynamicKinematicPressure(
     : DynamicKinematicPressure(total_kinematic_pressure.Value() -
                                static_kinematic_pressure.Value()) {}
 
-inline TotalKinematicPressure StaticKinematicPressure::operator+(
+inline constexpr TotalKinematicPressure StaticKinematicPressure::operator+(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept {
   return {dynamic_kinematic_pressure, *this};
 }
 
-inline TotalKinematicPressure DynamicKinematicPressure::operator+(
+inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
     const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
   return {*this, static_kinematic_pressure};
 }

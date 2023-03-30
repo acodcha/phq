@@ -36,21 +36,21 @@ public:
           linear_thermal_expansion_coefficient,
       const TemperatureDifference& temperature_difference) noexcept;
 
-  inline StrainScalar operator+(
+  inline constexpr StrainScalar operator+(
       const StrainScalar& strain_scalar) const noexcept {
     return StrainScalar{value_ + strain_scalar.value_};
   }
 
-  inline StrainScalar operator-(
+  inline constexpr StrainScalar operator-(
       const StrainScalar& strain_scalar) const noexcept {
     return StrainScalar{value_ - strain_scalar.value_};
   }
 
-  inline StrainScalar operator*(const double number) const noexcept {
+  inline constexpr StrainScalar operator*(const double number) const noexcept {
     return StrainScalar{value_ * number};
   }
 
-  inline StrainScalar operator/(const double number) const noexcept {
+  inline constexpr StrainScalar operator/(const double number) const noexcept {
     return StrainScalar{value_ / number};
   }
 
@@ -107,18 +107,18 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline StrainScalar operator+(const double number,
-                              const StrainScalar& strain_scalar) noexcept {
+inline constexpr StrainScalar operator+(
+    const double number, const StrainScalar& strain_scalar) noexcept {
   return StrainScalar{number + strain_scalar.Value()};
 }
 
-inline StrainScalar operator-(const double number,
-                              const StrainScalar& strain_scalar) noexcept {
+inline constexpr StrainScalar operator-(
+    const double number, const StrainScalar& strain_scalar) noexcept {
   return StrainScalar{number - strain_scalar.Value()};
 }
 
-inline StrainScalar operator*(const double number,
-                              const StrainScalar& strain_scalar) noexcept {
+inline constexpr StrainScalar operator*(
+    const double number, const StrainScalar& strain_scalar) noexcept {
   return StrainScalar{number * strain_scalar.Value()};
 }
 

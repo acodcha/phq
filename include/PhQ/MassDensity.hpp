@@ -66,26 +66,28 @@ public:
                           StandardUnit<Unit::MassDensity>>(value)};
   }
 
-  inline MassDensity operator+(const MassDensity& mass_density) const noexcept {
+  inline constexpr MassDensity operator+(
+      const MassDensity& mass_density) const noexcept {
     return MassDensity{value_ + mass_density.value_};
   }
 
-  inline MassDensity operator-(const MassDensity& mass_density) const noexcept {
+  inline constexpr MassDensity operator-(
+      const MassDensity& mass_density) const noexcept {
     return MassDensity{value_ - mass_density.value_};
   }
 
-  inline MassDensity operator*(const double number) const noexcept {
+  inline constexpr MassDensity operator*(const double number) const noexcept {
     return MassDensity{value_ * number};
   }
 
-  inline Mass operator*(const Volume& volume) const noexcept {
+  inline constexpr Mass operator*(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
-  inline DynamicViscosity operator*(
+  inline constexpr DynamicViscosity operator*(
       const KinematicViscosity& kinematic_viscosity) const noexcept;
 
-  inline MassDensity operator/(const double number) const noexcept {
+  inline constexpr MassDensity operator/(const double number) const noexcept {
     return MassDensity{value_ / number};
   }
 
@@ -146,8 +148,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline MassDensity operator*(const double number,
-                             const MassDensity& mass_density) noexcept {
+inline constexpr MassDensity operator*(
+    const double number, const MassDensity& mass_density) noexcept {
   return mass_density * number;
 }
 
@@ -159,11 +161,13 @@ inline constexpr Mass::Mass(const MassDensity& mass_density,
                             const Volume& volume) noexcept
     : Mass(mass_density.Value() * volume.Value()) {}
 
-inline MassDensity Mass::operator/(const Volume& volume) const noexcept {
+inline constexpr MassDensity Mass::operator/(
+    const Volume& volume) const noexcept {
   return {*this, volume};
 }
 
-inline Mass Volume::operator*(const MassDensity& mass_density) const noexcept {
+inline constexpr Mass Volume::operator*(
+    const MassDensity& mass_density) const noexcept {
   return {mass_density, *this};
 }
 

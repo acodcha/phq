@@ -45,31 +45,33 @@ public:
             value)};
   }
 
-  inline StaticPressure operator+(
+  inline constexpr StaticPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline PressureDifference operator+(
+  inline constexpr PressureDifference operator+(
       const PressureDifference& pressure_difference) const noexcept {
     return PressureDifference{value_ + pressure_difference.value_};
   }
 
-  inline StaticPressure operator-(
+  inline constexpr StaticPressure operator-(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline PressureDifference operator-(
+  inline constexpr PressureDifference operator-(
       const PressureDifference& pressure_difference) const noexcept {
     return PressureDifference{value_ - pressure_difference.value_};
   }
 
-  inline PressureDifference operator*(const double number) const noexcept {
+  inline constexpr PressureDifference operator*(
+      const double number) const noexcept {
     return PressureDifference{value_ * number};
   }
 
-  inline PressureDifference operator/(const double number) const noexcept {
+  inline constexpr PressureDifference operator/(
+      const double number) const noexcept {
     return PressureDifference{value_ / number};
   }
 
-  inline KinematicPressureDifference operator/(
+  inline constexpr KinematicPressureDifference operator/(
       const MassDensity& mass_density) const noexcept;
 
   inline constexpr void operator+=(
@@ -134,7 +136,7 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline PressureDifference operator*(
+inline constexpr PressureDifference operator*(
     const double number,
     const PressureDifference& pressure_difference) noexcept {
   return pressure_difference * number;

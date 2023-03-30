@@ -46,50 +46,53 @@ public:
   constexpr Direction() noexcept
       : DimensionlessVectorQuantity({1.0, 0.0, 0.0}) {}
 
-  Direction(const double x, const double y, const double z) noexcept {
+  constexpr Direction(const double x, const double y, const double z) noexcept {
     SetValue(x, y, z);
   }
 
-  explicit Direction(const std::array<double, 3>& x_y_z) noexcept {
+  explicit constexpr Direction(const std::array<double, 3>& x_y_z) noexcept {
     SetValue(x_y_z);
   }
 
-  explicit Direction(const Value::Vector& value) noexcept { SetValue(value); }
+  explicit constexpr Direction(const Value::Vector& value) noexcept {
+    SetValue(value);
+  }
 
-  explicit Direction(const Acceleration& acceleration) noexcept;
+  explicit constexpr Direction(const Acceleration& acceleration) noexcept;
 
-  explicit Direction(const AreaVector& area_vector) noexcept;
+  explicit constexpr Direction(const AreaVector& area_vector) noexcept;
 
-  explicit Direction(const Displacement& displacement) noexcept;
+  explicit constexpr Direction(const Displacement& displacement) noexcept;
 
-  explicit Direction(const Force& force) noexcept;
+  explicit constexpr Direction(const Force& force) noexcept;
 
-  explicit Direction(const HeatFlux& heat_flux) noexcept;
+  explicit constexpr Direction(const HeatFlux& heat_flux) noexcept;
 
-  explicit Direction(const Position& position) noexcept;
+  explicit constexpr Direction(const Position& position) noexcept;
 
-  explicit Direction(const TemperatureGradient& temperature_gradient) noexcept;
+  explicit constexpr Direction(
+      const TemperatureGradient& temperature_gradient) noexcept;
 
-  explicit Direction(const Traction& traction) noexcept;
+  explicit constexpr Direction(const Traction& traction) noexcept;
 
-  explicit Direction(const Velocity& velocity) noexcept;
+  explicit constexpr Direction(const Velocity& velocity) noexcept;
 
-  inline void SetValue(const double x, const double y,
-                       const double z) noexcept {
+  inline constexpr void SetValue(const double x, const double y,
+                                 const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
+      const double magnitude{SquareRoot(magnitude_squared)};
       value_ = {x / magnitude, y / magnitude, z / magnitude};
     } else {
       value_ = {0.0, 0.0, 0.0};
     }
   }
 
-  inline void SetValue(const std::array<double, 3>& x_y_z) noexcept {
+  inline constexpr void SetValue(const std::array<double, 3>& x_y_z) noexcept {
     const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
                                    x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
-      const double magnitude{std::sqrt(magnitude_squared)};
+      const double magnitude{SquareRoot(magnitude_squared)};
       value_ = {x_y_z[0] / magnitude, x_y_z[1] / magnitude,
                 x_y_z[2] / magnitude};
     } else {
@@ -97,7 +100,7 @@ public:
     }
   }
 
-  inline void SetValue(const Value::Vector& value) noexcept {
+  inline constexpr void SetValue(const Value::Vector& value) noexcept {
     SetValue(value.x_y_z());
   }
 
@@ -118,7 +121,7 @@ public:
     return value_.Cross(vector);
   }
 
-  inline Direction Cross(const Direction& direction) const noexcept {
+  inline constexpr Direction Cross(const Direction& direction) const noexcept {
     return Direction{value_.Cross(direction.value_)};
   }
 
@@ -140,24 +143,27 @@ public:
     return PhQ::Angle{*this, direction};
   }
 
-  inline Acceleration operator*(
+  inline constexpr Acceleration operator*(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
-  inline AreaVector operator*(const Area& area) const noexcept;
+  inline constexpr AreaVector operator*(const Area& area) const noexcept;
 
-  inline Position operator*(const Length& length) const noexcept;
+  inline constexpr Position operator*(const Length& length) const noexcept;
 
-  inline Force operator*(const ForceMagnitude& force_magnitude) const noexcept;
+  inline constexpr Force operator*(
+      const ForceMagnitude& force_magnitude) const noexcept;
 
-  inline HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
+  inline constexpr HeatFlux operator*(
+      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
-  inline TemperatureGradient operator*(
+  inline constexpr TemperatureGradient operator*(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const noexcept;
 
-  inline Traction operator*(const StaticPressure& static_pressure) const noexcept;
+  inline constexpr Traction operator*(
+      const StaticPressure& static_pressure) const noexcept;
 
-  inline Velocity operator*(const Speed& speed) const noexcept;
+  inline constexpr Velocity operator*(const Speed& speed) const noexcept;
 };
 
 inline constexpr bool operator==(const Direction& left,
@@ -170,17 +176,37 @@ inline constexpr bool operator!=(const Direction& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Direction& left,
+                                const Direction& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Direction& left,
+                                const Direction& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Direction& left,
+                                 const Direction& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Direction& direction) noexcept {
   stream << direction.Print();
   return stream;
 }
 
-constexpr Value::Vector::Vector(const double magnitude,
-                                const PhQ::Direction& direction) noexcept
+inline constexpr Value::Vector::Vector(const double magnitude,
+                                       const PhQ::Direction& direction) noexcept
     : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
-inline PhQ::Direction Value::Vector::Direction() const noexcept {
+inline constexpr PhQ::Direction Value::Vector::Direction() const noexcept {
   return PhQ::Direction{*this};
 }
 
@@ -209,7 +235,7 @@ inline constexpr Value::Vector operator*(const Value::Dyad& dyad,
   return dyad * direction.Value();
 }
 
-inline PhQ::Angle Value::Vector::Angle(
+inline Angle Value::Vector::Angle(
     const PhQ::Direction& direction) const noexcept {
   return PhQ::Angle{*this, direction};
 }

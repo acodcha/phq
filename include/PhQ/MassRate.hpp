@@ -42,31 +42,33 @@ public:
             value)};
   }
 
-  inline MassRate operator+(const MassRate& mass_rate) const noexcept {
+  inline constexpr MassRate operator+(
+      const MassRate& mass_rate) const noexcept {
     return MassRate{value_ + mass_rate.value_};
   }
 
-  inline MassRate operator-(const MassRate& mass_rate) const noexcept {
+  inline constexpr MassRate operator-(
+      const MassRate& mass_rate) const noexcept {
     return MassRate{value_ - mass_rate.value_};
   }
 
-  inline MassRate operator*(const double number) const noexcept {
+  inline constexpr MassRate operator*(const double number) const noexcept {
     return MassRate{value_ * number};
   }
 
-  inline Mass operator*(const Time& time) const noexcept {
+  inline constexpr Mass operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline MassRate operator/(const double number) const noexcept {
+  inline constexpr MassRate operator/(const double number) const noexcept {
     return MassRate{value_ / number};
   }
 
-  inline Frequency operator/(const Mass& mass) const noexcept {
+  inline constexpr Frequency operator/(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline Mass operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Mass operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
@@ -127,8 +129,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline MassRate operator*(const double number,
-                          const MassRate& mass_rate) noexcept {
+inline constexpr MassRate operator*(const double number,
+                                    const MassRate& mass_rate) noexcept {
   return mass_rate * number;
 }
 
@@ -148,23 +150,27 @@ inline constexpr Mass::Mass(const MassRate& mass_rate,
                             const Frequency& frequency) noexcept
     : Mass(mass_rate.Value() / frequency.Value()) {}
 
-inline Mass Time::operator*(const MassRate& mass_rate) const noexcept {
+inline constexpr Mass Time::operator*(
+    const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 
-inline MassRate Mass::operator*(const Frequency& frequency) const noexcept {
+inline constexpr MassRate Mass::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline MassRate Frequency::operator*(const Mass& mass) const noexcept {
+inline constexpr MassRate Frequency::operator*(
+    const Mass& mass) const noexcept {
   return {mass, *this};
 }
 
-inline MassRate Mass::operator/(const Time& time) const noexcept {
+inline constexpr MassRate Mass::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time Mass::operator/(const MassRate& mass_rate) const noexcept {
+inline constexpr Time Mass::operator/(
+    const MassRate& mass_rate) const noexcept {
   return {mass_rate, *this};
 }
 

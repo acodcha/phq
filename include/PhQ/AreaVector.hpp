@@ -39,25 +39,27 @@ public:
         StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
   }
 
-  inline Area Magnitude() const noexcept { return {*this}; }
+  inline constexpr Area Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
   }
 
-  inline AreaVector operator+(const AreaVector& area_vector) const noexcept {
+  inline constexpr AreaVector operator+(
+      const AreaVector& area_vector) const noexcept {
     return AreaVector{value_ + area_vector.value_};
   }
 
-  inline AreaVector operator-(const AreaVector& area_vector) const noexcept {
+  inline constexpr AreaVector operator-(
+      const AreaVector& area_vector) const noexcept {
     return AreaVector{value_ - area_vector.value_};
   }
 
-  inline AreaVector operator*(const double number) const noexcept {
+  inline constexpr AreaVector operator*(const double number) const noexcept {
     return AreaVector{value_ * number};
   }
 
-  inline AreaVector operator/(const double number) const noexcept {
+  inline constexpr AreaVector operator/(const double number) const noexcept {
     return AreaVector{value_ / number};
   }
 
@@ -92,32 +94,54 @@ inline constexpr bool operator!=(const AreaVector& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const AreaVector& left,
+                                const AreaVector& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const AreaVector& left,
+                                const AreaVector& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const AreaVector& left,
+                                 const AreaVector& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const AreaVector& left,
+                                 const AreaVector& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const AreaVector& area_vector) noexcept {
   stream << area_vector.Print();
   return stream;
 }
 
-inline AreaVector operator*(const double number,
-                            const AreaVector& area_vector) noexcept {
+inline constexpr AreaVector operator*(const double number,
+                                      const AreaVector& area_vector) noexcept {
   return area_vector * number;
 }
 
-inline Direction::Direction(const AreaVector& area_vector) noexcept
+inline constexpr Direction::Direction(const AreaVector& area_vector) noexcept
     : Direction(area_vector.Value()) {}
 
 inline Angle::Angle(const AreaVector& area_vector_1,
                     const AreaVector& area_vector_2) noexcept
     : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
-inline Area::Area(const AreaVector& area_vector) noexcept
+inline constexpr Area::Area(const AreaVector& area_vector) noexcept
     : Area(area_vector.Value().Magnitude()) {}
 
-inline AreaVector Direction::operator*(const Area& area) const noexcept {
+inline constexpr AreaVector Direction::operator*(
+    const Area& area) const noexcept {
   return {area, *this};
 }
 
-inline AreaVector Area::operator*(const Direction& direction) const noexcept {
+inline constexpr AreaVector Area::operator*(
+    const Direction& direction) const noexcept {
   return {*this, direction};
 }
 

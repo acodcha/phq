@@ -47,37 +47,38 @@ public:
                           StandardUnit<Unit::SpecificPower>>(value)};
   }
 
-  inline SpecificPower operator+(
+  inline constexpr SpecificPower operator+(
       const SpecificPower& specific_power) const noexcept {
     return SpecificPower{value_ + specific_power.value_};
   }
 
-  inline SpecificPower operator-(
+  inline constexpr SpecificPower operator-(
       const SpecificPower& specific_power) const noexcept {
     return SpecificPower{value_ - specific_power.value_};
   }
 
-  inline SpecificPower operator*(const double number) const noexcept {
+  inline constexpr SpecificPower operator*(const double number) const noexcept {
     return SpecificPower{value_ * number};
   }
 
-  inline SpecificEnergy operator*(const Time& time) const noexcept {
+  inline constexpr SpecificEnergy operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline Power operator*(const Mass& mass) const noexcept {
+  inline constexpr Power operator*(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline SpecificPower operator/(const double number) const noexcept {
+  inline constexpr SpecificPower operator/(const double number) const noexcept {
     return SpecificPower{value_ / number};
   }
 
-  inline SpecificEnergy operator/(const Frequency& frequency) const noexcept {
+  inline constexpr SpecificEnergy operator/(
+      const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(
+  inline constexpr Frequency operator/(
       const SpecificEnergy& specific_energy) const noexcept {
     return {*this, specific_energy};
   }
@@ -141,8 +142,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline SpecificPower operator*(const double number,
-                               const SpecificPower& specific_power) noexcept {
+inline constexpr SpecificPower operator*(
+    const double number, const SpecificPower& specific_power) noexcept {
   return specific_power * number;
 }
 
@@ -171,41 +172,42 @@ inline constexpr SpecificEnergy::SpecificEnergy(
     const SpecificPower& specific_power, const Frequency& frequency) noexcept
     : SpecificEnergy(specific_power.Value() / frequency.Value()) {}
 
-inline Power Mass::operator*(
+inline constexpr Power Mass::operator*(
     const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 
-inline Mass Power::operator/(
+inline constexpr Mass Power::operator/(
     const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 
-inline SpecificEnergy Time::operator*(
+inline constexpr SpecificEnergy Time::operator*(
     const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }
 
-inline SpecificPower Frequency::operator*(
+inline constexpr SpecificPower Frequency::operator*(
     const SpecificEnergy& specific_energy) const noexcept {
   return {specific_energy, *this};
 }
 
-inline SpecificPower Power::operator/(const Mass& mass) const noexcept {
+inline constexpr SpecificPower Power::operator/(
+    const Mass& mass) const noexcept {
   return {*this, mass};
 }
 
-inline SpecificPower SpecificEnergy::operator*(
+inline constexpr SpecificPower SpecificEnergy::operator*(
     const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline SpecificPower SpecificEnergy::operator/(
+inline constexpr SpecificPower SpecificEnergy::operator/(
     const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time SpecificEnergy::operator/(
+inline constexpr Time SpecificEnergy::operator/(
     const SpecificPower& specific_power) const noexcept {
   return {specific_power, *this};
 }

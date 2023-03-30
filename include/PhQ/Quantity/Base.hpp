@@ -16,17 +16,19 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
 
+#include <string>
+
 namespace PhQ {
 
 class Quantity {
 public:
   virtual std::string Print() const noexcept = 0;
 
-  virtual std::string Json() const noexcept = 0;
+  virtual std::string JSON() const noexcept = 0;
 
-  virtual std::string Xml() const noexcept = 0;
+  virtual std::string XML() const noexcept = 0;
 
-  virtual std::string Yaml() const noexcept = 0;
+  virtual std::string YAML() const noexcept = 0;
 
 protected:
   constexpr Quantity() noexcept = default;

@@ -48,39 +48,41 @@ public:
                           StandardUnit<Unit::AngularAcceleration>>(value)};
   }
 
-  inline AngularAccelerationMagnitude operator+(
+  inline constexpr AngularAccelerationMagnitude operator+(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept {
     return AngularAccelerationMagnitude{value_ +
                                         angular_acceleration_magnitude.value_};
   }
 
-  inline AngularAccelerationMagnitude operator-(
+  inline constexpr AngularAccelerationMagnitude operator-(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept {
     return AngularAccelerationMagnitude{value_ -
                                         angular_acceleration_magnitude.value_};
   }
 
-  inline AngularAccelerationMagnitude operator*(
+  inline constexpr AngularAccelerationMagnitude operator*(
       const double number) const noexcept {
     return AngularAccelerationMagnitude{value_ * number};
   }
 
-  inline AngularSpeed operator*(const Time& time) const noexcept {
+  inline constexpr AngularSpeed operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline AngularAccelerationMagnitude operator/(
+  inline constexpr AngularAccelerationMagnitude operator/(
       const double number) const noexcept {
     return AngularAccelerationMagnitude{value_ / number};
   }
 
-  inline AngularSpeed operator/(const Frequency& frequency) const noexcept {
+  inline constexpr AngularSpeed operator/(
+      const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const AngularSpeed& angular_speed) const noexcept {
+  inline constexpr Frequency operator/(
+      const AngularSpeed& angular_speed) const noexcept {
     return {*this, angular_speed};
   }
 
@@ -152,7 +154,7 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline AngularAccelerationMagnitude operator*(
+inline constexpr AngularAccelerationMagnitude operator*(
     const double number, const AngularAccelerationMagnitude&
                              angular_acceleration_magnitude) noexcept {
   return angular_acceleration_magnitude * number;
@@ -180,22 +182,22 @@ inline constexpr AngularSpeed::AngularSpeed(
     : AngularSpeed(angular_acceleration_magnitude.Value() / frequency.Value()) {
 }
 
-inline AngularAccelerationMagnitude Frequency::operator*(
+inline constexpr AngularAccelerationMagnitude Frequency::operator*(
     const AngularSpeed& angular_speed) const noexcept {
   return {angular_speed, *this};
 }
 
-inline AngularAccelerationMagnitude AngularSpeed::operator*(
+inline constexpr AngularAccelerationMagnitude AngularSpeed::operator*(
     const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline AngularAccelerationMagnitude AngularSpeed::operator/(
+inline constexpr AngularAccelerationMagnitude AngularSpeed::operator/(
     const Time& time) const noexcept {
   return {*this, time};
 }
 
-inline Time AngularSpeed::operator/(
+inline constexpr Time AngularSpeed::operator/(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude)
     const noexcept {
   return {angular_acceleration_magnitude, *this};

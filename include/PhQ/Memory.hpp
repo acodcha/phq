@@ -45,27 +45,28 @@ public:
             value)};
   }
 
-  inline Memory operator+(const Memory& memory) const noexcept {
+  inline constexpr Memory operator+(const Memory& memory) const noexcept {
     return Memory{value_ + memory.value_};
   }
 
-  inline Memory operator-(const Memory& memory) const noexcept {
+  inline constexpr Memory operator-(const Memory& memory) const noexcept {
     return Memory{value_ - memory.value_};
   }
 
-  inline Memory operator*(const double number) const noexcept {
+  inline constexpr Memory operator*(const double number) const noexcept {
     return Memory{value_ * number};
   }
 
-  inline MemoryRate operator*(const Frequency& frequency) const noexcept;
+  inline constexpr MemoryRate operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline Memory operator/(const double number) const noexcept {
+  inline constexpr Memory operator/(const double number) const noexcept {
     return Memory{value_ / number};
   }
 
-  inline MemoryRate operator/(const Time& time) const noexcept;
+  inline constexpr MemoryRate operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const MemoryRate& memory_rate) const noexcept;
+  inline constexpr Time operator/(const MemoryRate& memory_rate) const noexcept;
 
   inline constexpr void operator+=(const Memory& memory) noexcept {
     value_ += memory.value_;
@@ -124,7 +125,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Memory operator*(const double number, const Memory& memory) noexcept {
+inline constexpr Memory operator*(const double number,
+                                  const Memory& memory) noexcept {
   return memory * number;
 }
 

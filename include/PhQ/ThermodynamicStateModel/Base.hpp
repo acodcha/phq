@@ -37,11 +37,11 @@ public:
 
   virtual inline std::string Print() const noexcept = 0;
 
-  virtual inline std::string Json() const noexcept = 0;
+  virtual inline std::string JSON() const noexcept = 0;
 
-  virtual inline std::string Xml() const noexcept = 0;
+  virtual inline std::string XML() const noexcept = 0;
 
-  virtual inline std::string Yaml() const noexcept = 0;
+  virtual inline std::string YAML() const noexcept = 0;
 
 protected:
   constexpr GenericThermodynamicStateModel() noexcept = default;

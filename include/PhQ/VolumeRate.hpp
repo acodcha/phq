@@ -43,31 +43,33 @@ public:
                                         StandardUnit<Unit::VolumeRate>>(value)};
   }
 
-  inline VolumeRate operator+(const VolumeRate& volume_rate) const noexcept {
+  inline constexpr VolumeRate operator+(
+      const VolumeRate& volume_rate) const noexcept {
     return VolumeRate{value_ + volume_rate.value_};
   }
 
-  inline VolumeRate operator-(const VolumeRate& volume_rate) const noexcept {
+  inline constexpr VolumeRate operator-(
+      const VolumeRate& volume_rate) const noexcept {
     return VolumeRate{value_ - volume_rate.value_};
   }
 
-  inline VolumeRate operator*(const double number) const noexcept {
+  inline constexpr VolumeRate operator*(const double number) const noexcept {
     return VolumeRate{value_ * number};
   }
 
-  inline Volume operator*(const Time& time) const noexcept {
+  inline constexpr Volume operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline VolumeRate operator/(const double number) const noexcept {
+  inline constexpr VolumeRate operator/(const double number) const noexcept {
     return VolumeRate{value_ / number};
   }
 
-  inline Volume operator/(const Frequency& frequency) const noexcept {
+  inline constexpr Volume operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline Frequency operator/(const Volume& volume) const noexcept {
+  inline constexpr Frequency operator/(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
@@ -128,8 +130,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline VolumeRate operator*(const double number,
-                            const VolumeRate& volume_rate) noexcept {
+inline constexpr VolumeRate operator*(const double number,
+                                      const VolumeRate& volume_rate) noexcept {
   return volume_rate * number;
 }
 
@@ -149,23 +151,27 @@ inline constexpr Frequency::Frequency(const VolumeRate& volume_rate,
                                       const Volume& volume) noexcept
     : Frequency(volume_rate.Value() / volume.Value()) {}
 
-inline Volume Time::operator*(const VolumeRate& volume_rate) const noexcept {
+inline constexpr Volume Time::operator*(
+    const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-inline VolumeRate Volume::operator*(const Frequency& frequency) const noexcept {
+inline constexpr VolumeRate Volume::operator*(
+    const Frequency& frequency) const noexcept {
   return {*this, frequency};
 }
 
-inline Time Volume::operator/(const VolumeRate& volume_rate) const noexcept {
+inline constexpr Time Volume::operator/(
+    const VolumeRate& volume_rate) const noexcept {
   return {volume_rate, *this};
 }
 
-inline VolumeRate Frequency::operator*(const Volume& volume) const noexcept {
+inline constexpr VolumeRate Frequency::operator*(
+    const Volume& volume) const noexcept {
   return {volume, *this};
 }
 
-inline VolumeRate Volume::operator/(const Time& time) const noexcept {
+inline constexpr VolumeRate Volume::operator/(const Time& time) const noexcept {
   return {*this, time};
 }
 

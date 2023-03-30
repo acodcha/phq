@@ -88,27 +88,29 @@ public:
         StaticConvertCopy<Unit::Angle, Unit, StandardUnit<Unit::Angle>>(value)};
   }
 
-  inline Angle operator+(const Angle& other) const noexcept {
+  inline constexpr Angle operator+(const Angle& other) const noexcept {
     return Angle{value_ + other.value_};
   }
 
-  inline Angle operator-(const Angle& other) const noexcept {
+  inline constexpr Angle operator-(const Angle& other) const noexcept {
     return Angle{value_ - other.value_};
   }
 
-  inline Angle operator*(const double number) const noexcept {
+  inline constexpr Angle operator*(const double number) const noexcept {
     return Angle{value_ * number};
   }
 
-  inline AngularSpeed operator*(const Frequency& frequency) const noexcept;
+  inline constexpr AngularSpeed operator*(
+      const Frequency& frequency) const noexcept;
 
-  inline Angle operator/(const double number) const noexcept {
+  inline constexpr Angle operator/(const double number) const noexcept {
     return Angle{value_ / number};
   }
 
-  inline AngularSpeed operator/(const Time& time) const noexcept;
+  inline constexpr AngularSpeed operator/(const Time& time) const noexcept;
 
-  inline Time operator/(const AngularSpeed& angular_speed) const noexcept;
+  inline constexpr Time operator/(
+      const AngularSpeed& angular_speed) const noexcept;
 
   inline constexpr void operator+=(const Angle& angle) noexcept {
     value_ += angle.value_;
@@ -169,7 +171,8 @@ inline std::ostream& operator<<(std::ostream& stream,
   return stream;
 }
 
-inline Angle operator*(const double number, const Angle& angle) noexcept {
+inline constexpr Angle operator*(const double number,
+                                 const Angle& angle) noexcept {
   return angle * number;
 }
 

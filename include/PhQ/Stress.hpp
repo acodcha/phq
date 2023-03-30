@@ -42,23 +42,24 @@ public:
             value)};
   }
 
-  inline PhQ::Traction Traction(const Direction& direction) const noexcept {
+  inline constexpr PhQ::Traction Traction(
+      const Direction& direction) const noexcept {
     return {*this, direction};
   }
 
-  inline Stress operator+(const Stress& stress) const noexcept {
+  inline constexpr Stress operator+(const Stress& stress) const noexcept {
     return Stress{value_ + stress.value_};
   }
 
-  inline Stress operator-(const Stress& stress) const noexcept {
+  inline constexpr Stress operator-(const Stress& stress) const noexcept {
     return Stress{value_ - stress.value_};
   }
 
-  inline Stress operator*(const double number) const noexcept {
+  inline constexpr Stress operator*(const double number) const noexcept {
     return Stress{value_ * number};
   }
 
-  inline Stress operator/(const double number) const noexcept {
+  inline constexpr Stress operator/(const double number) const noexcept {
     return Stress{value_ / number};
   }
 
@@ -93,13 +94,34 @@ inline constexpr bool operator!=(const Stress& left,
   return left.Value() != right.Value();
 }
 
+inline constexpr bool operator<(const Stress& left,
+                                const Stress& right) noexcept {
+  return left.Value() < right.Value();
+}
+
+inline constexpr bool operator>(const Stress& left,
+                                const Stress& right) noexcept {
+  return left.Value() > right.Value();
+}
+
+inline constexpr bool operator<=(const Stress& left,
+                                 const Stress& right) noexcept {
+  return left.Value() <= right.Value();
+}
+
+inline constexpr bool operator>=(const Stress& left,
+                                 const Stress& right) noexcept {
+  return left.Value() >= right.Value();
+}
+
 inline std::ostream& operator<<(std::ostream& stream,
                                 const Stress& stress) noexcept {
   stream << stress.Print();
   return stream;
 }
 
-inline Stress operator*(const double number, const Stress& stress) noexcept {
+inline constexpr Stress operator*(const double number,
+                                  const Stress& stress) noexcept {
   return stress * number;
 }
 
@@ -107,7 +129,9 @@ inline constexpr Traction::Traction(const Stress& stress,
                                     const Direction& direction) noexcept
     : Traction({stress.Value() * direction}) {}
 
-inline Stress StaticPressure::Stress() const noexcept { return {*this}; }
+inline constexpr Stress StaticPressure::Stress() const noexcept {
+  return {*this};
+}
 
 }  // namespace PhQ
 

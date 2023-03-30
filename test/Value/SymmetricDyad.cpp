@@ -148,10 +148,21 @@ TEST(ValueSymmetricDyad, Cofactors) {
 }
 
 TEST(ValueSymmetricDyad, Comparison) {
-  const SymmetricDyad symdyad0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const SymmetricDyad symdyad1{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  constexpr SymmetricDyad symdyad0{1.1, 2.2, 3.3, 4.4, 5.5, 6.6};
+  constexpr SymmetricDyad symdyad1{1.1, 2.2, 3.4, 4.4, 5.5, 6.6};
+  constexpr SymmetricDyad symdyad2{1.1, 2.2, 3.4, 4.4, 5.5, 6.7};
   EXPECT_EQ(symdyad0, symdyad0);
   EXPECT_NE(symdyad0, symdyad1);
+  EXPECT_LT(symdyad0, symdyad1);
+  EXPECT_LT(symdyad1, symdyad2);
+  EXPECT_GT(symdyad1, symdyad0);
+  EXPECT_GT(symdyad2, symdyad1);
+  EXPECT_LE(symdyad0, symdyad0);
+  EXPECT_LE(symdyad0, symdyad1);
+  EXPECT_LE(symdyad1, symdyad2);
+  EXPECT_GE(symdyad0, symdyad0);
+  EXPECT_GE(symdyad1, symdyad0);
+  EXPECT_GE(symdyad2, symdyad1);
 }
 
 TEST(ValueSymmetricDyad, Constructor) {
@@ -198,8 +209,8 @@ TEST(ValueSymmetricDyad, Inverse) {
   EXPECT_FALSE(inverse1.has_value());
 }
 
-TEST(ValueSymmetricDyad, Json) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Json(),
+TEST(ValueSymmetricDyad, JSON) {
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).JSON(),
             "{\"xx\":1.000000,\"xy\":-2.000000,\"xz\":4.000000,\"yy\":0,\"yz\":"
             "-4.000000,\"zz\":0}");
 }
@@ -225,14 +236,14 @@ TEST(ValueSymmetricDyad, Transpose) {
   EXPECT_EQ(symdyad.Transpose(), symdyad);
 }
 
-TEST(ValueSymmetricDyad, Xml) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Xml(),
+TEST(ValueSymmetricDyad, XML) {
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).XML(),
             "<xx>1.000000</xx><xy>-2.000000</xy><xz>4.000000</xz><yy>0</"
             "yy><yz>-4.000000</yz><zz>0</zz>");
 }
 
-TEST(ValueSymmetricDyad, Yaml) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Yaml(),
+TEST(ValueSymmetricDyad, YAML) {
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).YAML(),
             "{xx:1.000000,xy:-2.000000,xz:4.000000,yy:0,yz:-4.000000,zz:0}");
 }
 

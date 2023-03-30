@@ -92,9 +92,15 @@ TEST(Position, Arithmetic) {
 
 TEST(Position, Comparison) {
   const Position position0{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  const Position position1{{1.0, 2.0, -4.0}, Unit::Length::Metre};
+  const Position position1{{1.0, 2.0, 8.0}, Unit::Length::Metre};
   EXPECT_EQ(position0, position0);
   EXPECT_NE(position0, position1);
+  EXPECT_LT(position0, position1);
+  EXPECT_GT(position1, position0);
+  EXPECT_LE(position0, position0);
+  EXPECT_LE(position0, position1);
+  EXPECT_GE(position0, position0);
+  EXPECT_GE(position1, position0);
 }
 
 TEST(Position, Constructor) {
@@ -127,12 +133,12 @@ TEST(Position, Hash) {
                                                position3, position4, position5};
 }
 
-TEST(Position, Json) {
-  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).Json(),
+TEST(Position, JSON) {
+  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).JSON(),
             "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
             "\"unit\":\"m\"}");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Json(Unit::Length::Millimetre),
+                .JSON(Unit::Length::Millimetre),
             "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"mm\"}");
 }
 
@@ -151,20 +157,20 @@ TEST(Position, Stream) {
   EXPECT_EQ(stream.str(), position.Print());
 }
 
-TEST(Position, Xml) {
-  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).Xml(),
+TEST(Position, XML) {
+  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).XML(),
             "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
             "value><unit>m</unit>");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Xml(Unit::Length::Millimetre),
+                .XML(Unit::Length::Millimetre),
             "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>mm</unit>");
 }
 
-TEST(Position, Yaml) {
-  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).Yaml(),
+TEST(Position, YAML) {
+  EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).YAML(),
             "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m\"}");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Yaml(Unit::Length::Millimetre),
+                .YAML(Unit::Length::Millimetre),
             "{value:{x:0,y:-5.000000,z:0},unit:\"mm\"}");
 }
 
