@@ -16,6 +16,8 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
 
+#include <string>
+
 namespace PhQ {
 
 class Quantity {
