@@ -115,7 +115,7 @@ TEST(BulkDynamicViscosity, JSON) {
       BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).JSON(),
       "{\"value\":1.110000,\"unit\":\"Pa·s\"}");
   EXPECT_EQ(BulkDynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
-                .Json(Unit::DynamicViscosity::KilopascalSecond),
+                .JSON(Unit::DynamicViscosity::KilopascalSecond),
             "{\"value\":-5.000000,\"unit\":\"kPa·s\"}");
 }
 
@@ -141,7 +141,7 @@ TEST(BulkDynamicViscosity, XML) {
       BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).XML(),
       "<value>1.110000</value><unit>Pa·s</unit>");
   EXPECT_EQ(BulkDynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
-                .Xml(Unit::DynamicViscosity::KilopascalSecond),
+                .XML(Unit::DynamicViscosity::KilopascalSecond),
             "<value>-5.000000</value><unit>kPa·s</unit>");
 }
 
@@ -150,7 +150,7 @@ TEST(BulkDynamicViscosity, YAML) {
       BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).YAML(),
       "{value:1.110000,unit:\"Pa·s\"}");
   EXPECT_EQ(BulkDynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
-                .Yaml(Unit::DynamicViscosity::KilopascalSecond),
+                .YAML(Unit::DynamicViscosity::KilopascalSecond),
             "{value:-5.000000,unit:\"kPa·s\"}");
 }
 

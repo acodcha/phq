@@ -96,7 +96,7 @@ TEST(Angle, Hash) {
 TEST(Angle, JSON) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).JSON(),
             "{\"value\":1.110000,\"unit\":\"rad\"}");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).Json(Unit::Angle::Degree),
+  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).JSON(Unit::Angle::Degree),
             "{\"value\":-5.000000,\"unit\":\"deg\"}");
 }
 
@@ -116,14 +116,14 @@ TEST(Angle, Stream) {
 TEST(Angle, XML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).XML(),
             "<value>1.110000</value><unit>rad</unit>");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).Xml(Unit::Angle::Degree),
+  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).XML(Unit::Angle::Degree),
             "<value>-5.000000</value><unit>deg</unit>");
 }
 
 TEST(Angle, YAML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).YAML(),
             "{value:1.110000,unit:\"rad\"}");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).Yaml(Unit::Angle::Degree),
+  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).YAML(Unit::Angle::Degree),
             "{value:-5.000000,unit:\"deg\"}");
 }
 

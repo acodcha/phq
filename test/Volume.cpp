@@ -102,7 +102,7 @@ TEST(Volume, JSON) {
   EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).JSON(),
             "{\"value\":1.110000,\"unit\":\"m^3\"}");
   EXPECT_EQ(Volume(-5.0, Unit::Volume::CubicMillimetre)
-                .Json(Unit::Volume::CubicMillimetre),
+                .JSON(Unit::Volume::CubicMillimetre),
             "{\"value\":-5.000000,\"unit\":\"mm^3\"}");
 }
 
@@ -124,7 +124,7 @@ TEST(Volume, XML) {
   EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).XML(),
             "<value>1.110000</value><unit>m^3</unit>");
   EXPECT_EQ(Volume(-5.0, Unit::Volume::CubicMillimetre)
-                .Xml(Unit::Volume::CubicMillimetre),
+                .XML(Unit::Volume::CubicMillimetre),
             "<value>-5.000000</value><unit>mm^3</unit>");
 }
 
@@ -132,7 +132,7 @@ TEST(Volume, YAML) {
   EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).YAML(),
             "{value:1.110000,unit:\"m^3\"}");
   EXPECT_EQ(Volume(-5.0, Unit::Volume::CubicMillimetre)
-                .Yaml(Unit::Volume::CubicMillimetre),
+                .YAML(Unit::Volume::CubicMillimetre),
             "{value:-5.000000,unit:\"mm^3\"}");
 }
 

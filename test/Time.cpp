@@ -93,7 +93,7 @@ TEST(Time, Hash) {
 TEST(Time, JSON) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).JSON(),
             "{\"value\":1.110000,\"unit\":\"s\"}");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).Json(Unit::Time::Minute),
+  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).JSON(Unit::Time::Minute),
             "{\"value\":-5.000000,\"unit\":\"min\"}");
 }
 
@@ -113,14 +113,14 @@ TEST(Time, Stream) {
 TEST(Time, XML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(),
             "<value>1.110000</value><unit>s</unit>");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).Xml(Unit::Time::Minute),
+  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).XML(Unit::Time::Minute),
             "<value>-5.000000</value><unit>min</unit>");
 }
 
 TEST(Time, YAML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).YAML(),
             "{value:1.110000,unit:\"s\"}");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).Yaml(Unit::Time::Minute),
+  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).YAML(Unit::Time::Minute),
             "{value:-5.000000,unit:\"min\"}");
 }
 

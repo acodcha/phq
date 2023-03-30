@@ -97,7 +97,7 @@ TEST(Area, JSON) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).JSON(),
             "{\"value\":1.110000,\"unit\":\"m^2\"}");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
-                .Json(Unit::Area::SquareMillimetre),
+                .JSON(Unit::Area::SquareMillimetre),
             "{\"value\":-5.000000,\"unit\":\"mm^2\"}");
 }
 
@@ -119,7 +119,7 @@ TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
             "<value>1.110000</value><unit>m^2</unit>");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
-                .Xml(Unit::Area::SquareMillimetre),
+                .XML(Unit::Area::SquareMillimetre),
             "<value>-5.000000</value><unit>mm^2</unit>");
 }
 
@@ -127,7 +127,7 @@ TEST(Area, YAML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).YAML(),
             "{value:1.110000,unit:\"m^2\"}");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
-                .Yaml(Unit::Area::SquareMillimetre),
+                .YAML(Unit::Area::SquareMillimetre),
             "{value:-5.000000,unit:\"mm^2\"}");
 }
 

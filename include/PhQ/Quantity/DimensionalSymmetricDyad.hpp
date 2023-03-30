@@ -57,7 +57,7 @@ public:
         .append("\"}");
   }
 
-  std::string Json(const U unit) const noexcept override {
+  std::string JSON(const U unit) const noexcept override {
     return std::string{"{\"value\":"}
         .append(Value(unit).JSON())
         .append(",\"unit\":\"")
@@ -73,7 +73,7 @@ public:
         .append("</unit>");
   }
 
-  std::string Xml(const U unit) const noexcept override {
+  std::string XML(const U unit) const noexcept override {
     return std::string{"<value>"}
         .append(Value(unit).XML())
         .append("</value><unit>")
@@ -89,7 +89,7 @@ public:
         .append("\"}");
   }
 
-  std::string Yaml(const U unit) const noexcept override {
+  std::string YAML(const U unit) const noexcept override {
     return std::string{"{value:"}
         .append(Value(unit).YAML())
         .append(",unit:\"")

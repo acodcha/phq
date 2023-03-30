@@ -32,11 +32,11 @@ public:
 
   virtual std::string Print(const U unit) const noexcept = 0;
 
-  virtual std::string Json(const U unit) const noexcept = 0;
+  virtual std::string JSON(const U unit) const noexcept = 0;
 
-  virtual std::string Xml(const U unit) const noexcept = 0;
+  virtual std::string XML(const U unit) const noexcept = 0;
 
-  virtual std::string Yaml(const U unit) const noexcept = 0;
+  virtual std::string YAML(const U unit) const noexcept = 0;
 
 protected:
   constexpr DimensionalQuantity() noexcept : Quantity() {}

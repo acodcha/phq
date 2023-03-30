@@ -123,7 +123,7 @@ TEST(AreaVector, JSON) {
             "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
             "\"unit\":\"m^2\"}");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
-                .Json(Unit::Area::SquareFoot),
+                .JSON(Unit::Area::SquareFoot),
             "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"ft^2\"}");
 }
 
@@ -147,7 +147,7 @@ TEST(AreaVector, XML) {
             "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
             "value><unit>m^2</unit>");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
-                .Xml(Unit::Area::SquareFoot),
+                .XML(Unit::Area::SquareFoot),
             "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>ft^2</unit>");
 }
 
@@ -155,7 +155,7 @@ TEST(AreaVector, YAML) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).YAML(),
             "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m^2\"}");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
-                .Yaml(Unit::Area::SquareFoot),
+                .YAML(Unit::Area::SquareFoot),
             "{value:{x:0,y:-5.000000,z:0},unit:\"ft^2\"}");
 }
 

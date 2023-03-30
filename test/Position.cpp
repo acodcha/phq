@@ -138,7 +138,7 @@ TEST(Position, JSON) {
             "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
             "\"unit\":\"m\"}");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Json(Unit::Length::Millimetre),
+                .JSON(Unit::Length::Millimetre),
             "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"mm\"}");
 }
 
@@ -162,7 +162,7 @@ TEST(Position, XML) {
             "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
             "value><unit>m</unit>");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Xml(Unit::Length::Millimetre),
+                .XML(Unit::Length::Millimetre),
             "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>mm</unit>");
 }
 
@@ -170,7 +170,7 @@ TEST(Position, YAML) {
   EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).YAML(),
             "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m\"}");
   EXPECT_EQ(Position({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
-                .Yaml(Unit::Length::Millimetre),
+                .YAML(Unit::Length::Millimetre),
             "{value:{x:0,y:-5.000000,z:0},unit:\"mm\"}");
 }
 

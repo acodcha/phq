@@ -162,7 +162,7 @@ TEST(Acceleration, JSON) {
       "\"unit\":\"m/s^2\"}");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Json(Unit::Acceleration::FootPerSquareSecond),
+          .JSON(Unit::Acceleration::FootPerSquareSecond),
       "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"ft/s^2\"}");
 }
 
@@ -193,7 +193,7 @@ TEST(Acceleration, XML) {
       "value><unit>m/s^2</unit>");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Xml(Unit::Acceleration::FootPerSquareSecond),
+          .XML(Unit::Acceleration::FootPerSquareSecond),
       "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>ft/s^2</unit>");
 }
 
@@ -204,7 +204,7 @@ TEST(Acceleration, YAML) {
       "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m/s^2\"}");
   EXPECT_EQ(
       Acceleration({0.0, -5.0, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Yaml(Unit::Acceleration::FootPerSquareSecond),
+          .YAML(Unit::Acceleration::FootPerSquareSecond),
       "{value:{x:0,y:-5.000000,z:0},unit:\"ft/s^2\"}");
 }
 

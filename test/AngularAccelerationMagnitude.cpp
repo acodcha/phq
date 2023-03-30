@@ -157,7 +157,7 @@ TEST(AngularAccelerationMagnitude, JSON) {
             "{\"value\":1.110000,\"unit\":\"rad/s^2\"}");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)
-                .Json(Unit::AngularAcceleration::DegreePerSquareSecond),
+                .JSON(Unit::AngularAcceleration::DegreePerSquareSecond),
             "{\"value\":-5.000000,\"unit\":\"deg/s^2\"}");
 }
 
@@ -187,7 +187,7 @@ TEST(AngularAccelerationMagnitude, XML) {
             "<value>1.110000</value><unit>rad/s^2</unit>");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)
-                .Xml(Unit::AngularAcceleration::DegreePerSquareSecond),
+                .XML(Unit::AngularAcceleration::DegreePerSquareSecond),
             "<value>-5.000000</value><unit>deg/s^2</unit>");
 }
 
@@ -198,7 +198,7 @@ TEST(AngularAccelerationMagnitude, YAML) {
             "{value:1.110000,unit:\"rad/s^2\"}");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)
-                .Yaml(Unit::AngularAcceleration::DegreePerSquareSecond),
+                .YAML(Unit::AngularAcceleration::DegreePerSquareSecond),
             "{value:-5.000000,unit:\"deg/s^2\"}");
 }
 

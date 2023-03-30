@@ -100,7 +100,7 @@ TEST(Frequency, JSON) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).JSON(),
             "{\"value\":1.110000,\"unit\":\"Hz\"}");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
-                .Json(Unit::Frequency::Kilohertz),
+                .JSON(Unit::Frequency::Kilohertz),
             "{\"value\":-5.000000,\"unit\":\"kHz\"}");
 }
 
@@ -130,7 +130,7 @@ TEST(Frequency, XML) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).XML(),
             "<value>1.110000</value><unit>Hz</unit>");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
-                .Xml(Unit::Frequency::Kilohertz),
+                .XML(Unit::Frequency::Kilohertz),
             "<value>-5.000000</value><unit>kHz</unit>");
 }
 
@@ -138,7 +138,7 @@ TEST(Frequency, YAML) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).YAML(),
             "{value:1.110000,unit:\"Hz\"}");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
-                .Yaml(Unit::Frequency::Kilohertz),
+                .YAML(Unit::Frequency::Kilohertz),
             "{value:-5.000000,unit:\"kHz\"}");
 }
 
