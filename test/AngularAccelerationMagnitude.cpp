@@ -150,10 +150,10 @@ TEST(AngularAccelerationMagnitude, Hash) {
       acceleration3, acceleration4, acceleration5};
 }
 
-TEST(AngularAccelerationMagnitude, Json) {
+TEST(AngularAccelerationMagnitude, JSON) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 1.11, Unit::AngularAcceleration::RadianPerSquareSecond)
-                .Json(),
+                .JSON(),
             "{\"value\":1.110000,\"unit\":\"rad/s^2\"}");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)
@@ -180,10 +180,10 @@ TEST(AngularAccelerationMagnitude, Stream) {
   EXPECT_EQ(stream.str(), acceleration.Print());
 }
 
-TEST(AngularAccelerationMagnitude, Xml) {
+TEST(AngularAccelerationMagnitude, XML) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 1.11, Unit::AngularAcceleration::RadianPerSquareSecond)
-                .Xml(),
+                .XML(),
             "<value>1.110000</value><unit>rad/s^2</unit>");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)
@@ -191,10 +191,10 @@ TEST(AngularAccelerationMagnitude, Xml) {
             "<value>-5.000000</value><unit>deg/s^2</unit>");
 }
 
-TEST(AngularAccelerationMagnitude, Yaml) {
+TEST(AngularAccelerationMagnitude, YAML) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 1.11, Unit::AngularAcceleration::RadianPerSquareSecond)
-                .Yaml(),
+                .YAML(),
             "{value:1.110000,unit:\"rad/s^2\"}");
   EXPECT_EQ(AngularAccelerationMagnitude(
                 -5.0, Unit::AngularAcceleration::DegreePerSquareSecond)

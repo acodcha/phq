@@ -29,11 +29,11 @@ public:
 
   std::string Print() const noexcept override { return value_.Print(); }
 
-  std::string Json() const noexcept override { return value_.Json(); }
+  std::string JSON() const noexcept override { return value_.JSON(); }
 
-  std::string Xml() const noexcept override { return value_.Xml(); }
+  std::string XML() const noexcept override { return value_.XML(); }
 
-  std::string Yaml() const noexcept override { return value_.Yaml(); }
+  std::string YAML() const noexcept override { return value_.YAML(); }
 
 protected:
   constexpr DimensionlessVectorQuantity() noexcept

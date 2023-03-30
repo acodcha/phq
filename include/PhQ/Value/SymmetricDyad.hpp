@@ -183,7 +183,7 @@ public:
            PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  inline std::string Json() const noexcept {
+  inline std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
            ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
            ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +
@@ -192,7 +192,7 @@ public:
            ",\"zz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  inline std::string Xml() const noexcept {
+  inline std::string XML() const noexcept {
     return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>" +
            PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>" +
            PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>" +
@@ -201,7 +201,7 @@ public:
            PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
-  inline std::string Yaml() const noexcept {
+  inline std::string YAML() const noexcept {
     return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) +
            ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) +
            ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) +

@@ -108,8 +108,8 @@ TEST(MassDensity, Hash) {
                                                   density3, density4, density5};
 }
 
-TEST(MassDensity, Json) {
-  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Json(),
+TEST(MassDensity, JSON) {
+  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).JSON(),
             "{\"value\":1.110000,\"unit\":\"kg/m^3\"}");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .Json(Unit::MassDensity::GramPerCubicMillimetre),
@@ -131,16 +131,16 @@ TEST(MassDensity, Stream) {
   EXPECT_EQ(stream.str(), density.Print());
 }
 
-TEST(MassDensity, Xml) {
-  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Xml(),
+TEST(MassDensity, XML) {
+  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).XML(),
             "<value>1.110000</value><unit>kg/m^3</unit>");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .Xml(Unit::MassDensity::GramPerCubicMillimetre),
             "<value>-5.000000</value><unit>g/mm^3</unit>");
 }
 
-TEST(MassDensity, Yaml) {
-  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Yaml(),
+TEST(MassDensity, YAML) {
+  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).YAML(),
             "{value:1.110000,unit:\"kg/m^3\"}");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .Yaml(Unit::MassDensity::GramPerCubicMillimetre),

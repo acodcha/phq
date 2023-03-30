@@ -126,7 +126,7 @@ public:
     return text;
   }
 
-  std::string Json() const noexcept {
+  std::string JSON() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
       text.append("\"" + SnakeCaseCopy(time_.Label()) +
@@ -177,7 +177,7 @@ public:
     return "{" + text + "}";
   }
 
-  std::string Xml() const noexcept {
+  std::string XML() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
       const std::string label{SnakeCaseCopy(time_.Label())};
@@ -220,7 +220,7 @@ public:
     return text;
   }
 
-  std::string Yaml() const noexcept {
+  std::string YAML() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
       text.append(SnakeCaseCopy(time_.Label()) + ":" +

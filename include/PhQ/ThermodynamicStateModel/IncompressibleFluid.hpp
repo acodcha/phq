@@ -50,26 +50,26 @@ public:
             specific_isobaric_heat_capacity_.Print()};
   }
 
-  inline std::string Json() const noexcept override {
+  inline std::string JSON() const noexcept override {
     return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", \"mass_density\": " + mass_density_.Json() +
+            "\", \"mass_density\": " + mass_density_.JSON() +
             "\", \"specific_isobaric_heat_capacity\": " +
-            specific_isobaric_heat_capacity_.Json() + "}"};
+            specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
-  inline std::string Xml() const noexcept override {
+  inline std::string XML() const noexcept override {
     return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
-            "</type><mass_density>" + specific_isobaric_heat_capacity_.Xml() +
+            "</type><mass_density>" + specific_isobaric_heat_capacity_.XML() +
             "</mass_density><specific_isobaric_heat_capacity>" +
-            specific_isobaric_heat_capacity_.Xml() +
+            specific_isobaric_heat_capacity_.XML() +
             "</specific_isobaric_heat_capacity>"};
   }
 
-  inline std::string Yaml() const noexcept override {
+  inline std::string YAML() const noexcept override {
     return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", mass_density: " + mass_density_.Json() +
+            "\", mass_density: " + mass_density_.JSON() +
             "\", specific_isobaric_heat_capacity: " +
-            specific_isobaric_heat_capacity_.Json() + "}"};
+            specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
 private:

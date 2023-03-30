@@ -137,8 +137,8 @@ TEST(Direction, Hash) {
       direction0, direction1, direction2, direction3, direction4, direction5};
 }
 
-TEST(Direction, Json) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Json(),
+TEST(Direction, JSON) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).JSON(),
             "{\"x\":0,\"y\":-1.000000,\"z\":0}");
 }
 
@@ -181,13 +181,13 @@ TEST(Direction, ValueVector) {
   EXPECT_EQ(vector1, Value::Vector(0.0, -20.0, 0.0));
 }
 
-TEST(Direction, Xml) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Xml(),
+TEST(Direction, XML) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).XML(),
             "<x>0</x><y>-1.000000</y><z>0</z>");
 }
 
-TEST(Direction, Yaml) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).Yaml(), "{x:0,y:-1.000000,z:0}");
+TEST(Direction, YAML) {
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).YAML(), "{x:0,y:-1.000000,z:0}");
 }
 
 }  // namespace

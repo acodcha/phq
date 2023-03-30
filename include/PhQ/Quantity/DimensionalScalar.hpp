@@ -45,7 +45,7 @@ public:
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
-  std::string Json() const noexcept override {
+  std::string JSON() const noexcept override {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
@@ -61,7 +61,7 @@ public:
         .append("\"}");
   }
 
-  std::string Xml() const noexcept override {
+  std::string XML() const noexcept override {
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
@@ -77,7 +77,7 @@ public:
         .append("</unit>");
   }
 
-  std::string Yaml() const noexcept override {
+  std::string YAML() const noexcept override {
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")

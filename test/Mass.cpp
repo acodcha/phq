@@ -90,8 +90,8 @@ TEST(Mass, Hash) {
                                            mass3, mass4, mass5};
 }
 
-TEST(Mass, Json) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Json(),
+TEST(Mass, JSON) {
+  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).JSON(),
             "{\"value\":1.110000,\"unit\":\"kg\"}");
   EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Json(Unit::Mass::Gram),
             "{\"value\":-5.000000,\"unit\":\"g\"}");
@@ -110,15 +110,15 @@ TEST(Mass, Stream) {
   EXPECT_EQ(stream.str(), mass.Print());
 }
 
-TEST(Mass, Xml) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Xml(),
+TEST(Mass, XML) {
+  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).XML(),
             "<value>1.110000</value><unit>kg</unit>");
   EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Xml(Unit::Mass::Gram),
             "<value>-5.000000</value><unit>g</unit>");
 }
 
-TEST(Mass, Yaml) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Yaml(),
+TEST(Mass, YAML) {
+  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).YAML(),
             "{value:1.110000,unit:\"kg\"}");
   EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Yaml(Unit::Mass::Gram),
             "{value:-5.000000,unit:\"g\"}");

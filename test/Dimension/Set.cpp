@@ -90,14 +90,14 @@ TEST(DimensionSet, Hash) {
                                           set4, set5, set6, set7};
 }
 
-TEST(DimensionSet, Json) {
+TEST(DimensionSet, JSON) {
   EXPECT_EQ(
       Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
-          .Json(),
+          .JSON(),
       "{\"time\":-2,\"length\":2,\"mass\":1,\"temperature\":-1}");
   EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .Json(),
+                .JSON(),
             "{\"mass\":1,\"substance_amount\":-1}");
 }
 
@@ -129,26 +129,26 @@ TEST(DimensionSet, Stream) {
   EXPECT_EQ(stream.str(), set.Print());
 }
 
-TEST(DimensionSet, Xml) {
+TEST(DimensionSet, XML) {
   EXPECT_EQ(
       Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
-          .Xml(),
+          .XML(),
       "<time>-2</time><length>2</length><mass>1</mass><temperature>-1</"
       "temperature>");
   EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .Xml(),
+                .XML(),
             "<mass>1</mass><substance_amount>-1</substance_amount>");
 }
 
-TEST(DimensionSet, Yaml) {
+TEST(DimensionSet, YAML) {
   EXPECT_EQ(
       Set(Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1})
-          .Yaml(),
+          .YAML(),
       "{time:-2,length:2,mass:1,temperature:-1}");
   EXPECT_EQ(Set(Time{0}, Length{0}, Mass{1}, ElectricCurrent{0}, Temperature{0},
                 SubstanceAmount{-1})
-                .Yaml(),
+                .YAML(),
             "{mass:1,substance_amount:-1}");
 }
 

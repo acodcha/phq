@@ -109,9 +109,9 @@ TEST(KinematicViscosity, Hash) {
       viscosity0, viscosity1, viscosity2, viscosity3, viscosity4, viscosity5};
 }
 
-TEST(KinematicViscosity, Json) {
+TEST(KinematicViscosity, JSON) {
   EXPECT_EQ(
-      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Json(),
+      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).JSON(),
       "{\"value\":1.110000,\"unit\":\"m^2/s\"}");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .Json(Unit::Diffusivity::SquareFootPerSecond),
@@ -135,18 +135,18 @@ TEST(KinematicViscosity, Stream) {
   EXPECT_EQ(stream.str(), viscosity.Print());
 }
 
-TEST(KinematicViscosity, Xml) {
+TEST(KinematicViscosity, XML) {
   EXPECT_EQ(
-      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Xml(),
+      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).XML(),
       "<value>1.110000</value><unit>m^2/s</unit>");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .Xml(Unit::Diffusivity::SquareFootPerSecond),
             "<value>-5.000000</value><unit>ft^2/s</unit>");
 }
 
-TEST(KinematicViscosity, Yaml) {
+TEST(KinematicViscosity, YAML) {
   EXPECT_EQ(
-      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Yaml(),
+      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).YAML(),
       "{value:1.110000,unit:\"m^2/s\"}");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .Yaml(Unit::Diffusivity::SquareFootPerSecond),

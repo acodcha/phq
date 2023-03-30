@@ -116,8 +116,8 @@ TEST(AngularSpeed, Hash) {
                                                    speed3, speed4, speed5};
 }
 
-TEST(AngularSpeed, Json) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Json(),
+TEST(AngularSpeed, JSON) {
+  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).JSON(),
             "{\"value\":1.110000,\"unit\":\"rad/s\"}");
   EXPECT_EQ(AngularSpeed(-5.0, Unit::AngularSpeed::DegreePerSecond)
                 .Json(Unit::AngularSpeed::DegreePerSecond),
@@ -139,16 +139,16 @@ TEST(AngularSpeed, Stream) {
   EXPECT_EQ(stream.str(), speed.Print());
 }
 
-TEST(AngularSpeed, Xml) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Xml(),
+TEST(AngularSpeed, XML) {
+  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).XML(),
             "<value>1.110000</value><unit>rad/s</unit>");
   EXPECT_EQ(AngularSpeed(-5.0, Unit::AngularSpeed::DegreePerSecond)
                 .Xml(Unit::AngularSpeed::DegreePerSecond),
             "<value>-5.000000</value><unit>deg/s</unit>");
 }
 
-TEST(AngularSpeed, Yaml) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Yaml(),
+TEST(AngularSpeed, YAML) {
+  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).YAML(),
             "{value:1.110000,unit:\"rad/s\"}");
   EXPECT_EQ(AngularSpeed(-5.0, Unit::AngularSpeed::DegreePerSecond)
                 .Yaml(Unit::AngularSpeed::DegreePerSecond),

@@ -282,23 +282,23 @@ public:
             ", Lamé's First Modulus = " + lame_first_modulus_.Print()};
   }
 
-  inline std::string Json() const noexcept override {
+  inline std::string JSON() const noexcept override {
     return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", \"shear_modulus\": " + shear_modulus_.Json() +
-            ", \"lame_first_modulus\": " + lame_first_modulus_.Json() + "}"};
+            "\", \"shear_modulus\": " + shear_modulus_.JSON() +
+            ", \"lame_first_modulus\": " + lame_first_modulus_.JSON() + "}"};
   }
 
-  inline std::string Xml() const noexcept override {
+  inline std::string XML() const noexcept override {
     return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
-            "</type><shear_modulus>" + shear_modulus_.Xml() +
-            "</shear_modulus><lame_first_modulus>" + lame_first_modulus_.Xml() +
+            "</type><shear_modulus>" + shear_modulus_.XML() +
+            "</shear_modulus><lame_first_modulus>" + lame_first_modulus_.XML() +
             "</lame_first_modulus>"};
   }
 
-  inline std::string Yaml() const noexcept override {
+  inline std::string YAML() const noexcept override {
     return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", shear_modulus: " + shear_modulus_.Json() +
-            ", lame_first_modulus: " + lame_first_modulus_.Json() + "}"};
+            "\", shear_modulus: " + shear_modulus_.JSON() +
+            ", lame_first_modulus: " + lame_first_modulus_.JSON() + "}"};
   }
 
 private:

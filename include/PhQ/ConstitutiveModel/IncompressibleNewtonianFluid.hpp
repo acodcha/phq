@@ -58,20 +58,20 @@ public:
             ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
   }
 
-  inline std::string Json() const noexcept override {
+  inline std::string JSON() const noexcept override {
     return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", \"dynamic_viscosity\": " + dynamic_viscosity_.Json() + "}"};
+            "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON() + "}"};
   }
 
-  inline std::string Xml() const noexcept override {
+  inline std::string XML() const noexcept override {
     return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
-            "</type><dynamic_viscosity>" + dynamic_viscosity_.Xml() +
+            "</type><dynamic_viscosity>" + dynamic_viscosity_.XML() +
             "</dynamic_viscosity>"};
   }
 
-  inline std::string Yaml() const noexcept override {
+  inline std::string YAML() const noexcept override {
     return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", dynamic_viscosity: " + dynamic_viscosity_.Json() + "}"};
+            "\", dynamic_viscosity: " + dynamic_viscosity_.JSON() + "}"};
   }
 
 private:
