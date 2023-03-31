@@ -26,19 +26,27 @@ namespace PhQ {
 template <typename U>
 class DimensionalSymmetricDyadQuantity : public DimensionalQuantity<U> {
 public:
-  constexpr const Value::SymmetricDyad& Value() const noexcept {
+  inline constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
   }
 
-  Value::SymmetricDyad Value(const U unit) const noexcept {
+  inline Value::SymmetricDyad Value(const U unit) const noexcept {
     Value::SymmetricDyad result{value_};
     Convert(result, StandardUnit<U>, unit);
     return result;
   }
 
   template <U NewUnit>
-  constexpr Value::SymmetricDyad StaticValue() const noexcept {
+  inline constexpr Value::SymmetricDyad StaticValue() const noexcept {
     return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
+  }
+
+  inline constexpr Value::SymmetricDyad& MutableValue() noexcept {
+    return value_;
+  }
+
+  inline constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
   }
 
   std::string Print() const noexcept override {

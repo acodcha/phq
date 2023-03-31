@@ -25,7 +25,13 @@ namespace PhQ {
 
 class DimensionlessDyadQuantity : public DimensionlessQuantity {
 public:
-  constexpr const Value::Dyad& Value() const noexcept { return value_; }
+  inline constexpr const Value::Dyad& Value() const noexcept { return value_; }
+
+  inline constexpr Value::Dyad& MutableValue() noexcept { return value_; }
+
+  inline constexpr void SetValue(const Value::Dyad& value) noexcept {
+    value_ = value;
+  }
 
   std::string Print() const noexcept override { return value_.Print(); }
 

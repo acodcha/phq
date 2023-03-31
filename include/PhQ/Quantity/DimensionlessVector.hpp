@@ -25,7 +25,15 @@ namespace PhQ {
 
 class DimensionlessVectorQuantity : public DimensionlessQuantity {
 public:
-  constexpr const Value::Vector& Value() const noexcept { return value_; }
+  inline constexpr const Value::Vector& Value() const noexcept {
+    return value_;
+  }
+
+  inline constexpr Value::Vector& MutableValue() noexcept { return value_; }
+
+  inline constexpr void SetValue(const Value::Vector& value) noexcept {
+    value_ = value;
+  }
 
   std::string Print() const noexcept override { return value_.Print(); }
 
