@@ -25,8 +25,16 @@ namespace PhQ {
 
 class DimensionlessSymmetricDyadQuantity : public DimensionlessQuantity {
 public:
-  constexpr const Value::SymmetricDyad& Value() const noexcept {
+  inline constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
+  }
+
+  inline constexpr Value::SymmetricDyad& MutableValue() noexcept {
+    return value_;
+  }
+
+  inline constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
   }
 
   std::string Print() const noexcept override { return value_.Print(); }

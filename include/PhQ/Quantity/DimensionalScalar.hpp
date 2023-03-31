@@ -24,17 +24,23 @@ namespace PhQ {
 template <typename U>
 class DimensionalScalarQuantity : public DimensionalQuantity<U> {
 public:
-  constexpr double Value() const noexcept { return value_; }
+  inline constexpr double Value() const noexcept { return value_; }
 
-  double Value(const U unit) const noexcept {
+  inline double Value(const U unit) const noexcept {
     double result{value_};
     Convert(result, StandardUnit<U>, unit);
     return result;
   }
 
   template <U NewUnit>
-  constexpr double StaticValue() const noexcept {
+  inline constexpr double StaticValue() const noexcept {
     return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
+  }
+
+  inline constexpr double& MutableValue() noexcept { return value_; }
+
+  inline constexpr void SetValue(const double value) noexcept {
+    value_ = value;
   }
 
   std::string Print() const noexcept override {

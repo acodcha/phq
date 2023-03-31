@@ -26,17 +26,25 @@ namespace PhQ {
 template <typename U>
 class DimensionalVectorQuantity : public DimensionalQuantity<U> {
 public:
-  constexpr const Value::Vector& Value() const noexcept { return value_; }
+  inline constexpr const Value::Vector& Value() const noexcept {
+    return value_;
+  }
 
-  Value::Vector Value(const U unit) const noexcept {
+  inline Value::Vector Value(const U unit) const noexcept {
     Value::Vector result{value_};
     Convert(result, StandardUnit<U>, unit);
     return result;
   }
 
   template <U NewUnit>
-  constexpr Value::Vector StaticValue() const noexcept {
+  inline constexpr Value::Vector StaticValue() const noexcept {
     return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
+  }
+
+  inline constexpr Value::Vector& MutableValue() noexcept { return value_; }
+
+  inline constexpr void SetValue(const Value::Vector& value) noexcept {
+    value_ = value;
   }
 
   std::string Print() const noexcept override {

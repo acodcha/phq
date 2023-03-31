@@ -23,11 +23,13 @@ namespace PhQ {
 
 class DimensionlessScalarQuantity : public DimensionlessQuantity {
 public:
-  constexpr double Value() const noexcept { return value_; }
+  inline constexpr double Value() const noexcept { return value_; }
 
-  constexpr double& MutableValue() noexcept { return value_; }
+  inline constexpr double& MutableValue() noexcept { return value_; }
 
-  constexpr void SetValue(const double value) noexcept { value_ = value; }
+  inline constexpr void SetValue(const double value) noexcept {
+    value_ = value;
+  }
 
   std::string Print() const noexcept override { return PhQ::Print(value_); }
 
