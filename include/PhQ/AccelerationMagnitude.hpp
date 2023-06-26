@@ -21,30 +21,30 @@
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class AccelerationMagnitude.
 class Acceleration;
 class Direction;
 
 class AccelerationMagnitude
-    : public DimensionalScalarQuantity<Unit::Acceleration> {
+  : public DimensionalScalarQuantity<Unit::Acceleration> {
 public:
   constexpr AccelerationMagnitude() noexcept
-      : DimensionalScalarQuantity<Unit::Acceleration>() {}
+    : DimensionalScalarQuantity<Unit::Acceleration>() {}
 
-  AccelerationMagnitude(const double value,
-                        const Unit::Acceleration unit) noexcept
-      : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
+  AccelerationMagnitude(
+      const double value, const Unit::Acceleration unit) noexcept
+    : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
 
   constexpr AccelerationMagnitude(const Speed& speed, const Time& time) noexcept
-      : AccelerationMagnitude(speed.Value() / time.Value()) {}
+    : AccelerationMagnitude(speed.Value() / time.Value()) {}
 
-  constexpr AccelerationMagnitude(const Speed& speed,
-                                  const Frequency& frequency) noexcept
-      : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
+  constexpr AccelerationMagnitude(
+      const Speed& speed, const Frequency& frequency) noexcept
+    : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
   constexpr AccelerationMagnitude(const Acceleration& acceleration) noexcept;
 
-  template <Unit::Acceleration Unit>
+  template<Unit::Acceleration Unit>
   static constexpr AccelerationMagnitude Create(const double value) noexcept {
     return AccelerationMagnitude{
         StaticConvertCopy<Unit::Acceleration, Unit,
@@ -106,7 +106,7 @@ public:
 
 private:
   explicit constexpr AccelerationMagnitude(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
+    : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
 };
 
 inline constexpr bool operator==(const AccelerationMagnitude& left,
@@ -154,22 +154,22 @@ inline constexpr AccelerationMagnitude operator*(
 
 inline constexpr Time::Time(const AccelerationMagnitude& acceleration_magnitude,
                             const Speed& speed) noexcept
-    : Time(speed.Value() / acceleration_magnitude.Value()) {}
+  : Time(speed.Value() / acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
     const AccelerationMagnitude& acceleration_magnitude,
     const Speed& speed) noexcept
-    : Frequency(acceleration_magnitude.Value() / speed.Value()) {}
+  : Frequency(acceleration_magnitude.Value() / speed.Value()) {}
 
 inline constexpr Speed::Speed(
     const AccelerationMagnitude& acceleration_magnitude,
     const Time& time) noexcept
-    : Speed(acceleration_magnitude.Value() * time.Value()) {}
+  : Speed(acceleration_magnitude.Value() * time.Value()) {}
 
 inline constexpr Speed::Speed(
     const AccelerationMagnitude& acceleration_magnitude,
     const Frequency& frequency) noexcept
-    : Speed(acceleration_magnitude.Value() / frequency.Value()) {}
+  : Speed(acceleration_magnitude.Value() / frequency.Value()) {}
 
 inline constexpr AccelerationMagnitude Frequency::operator*(
     const Speed& speed) const noexcept {
@@ -195,8 +195,7 @@ inline constexpr Time Speed::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::AccelerationMagnitude> {
+template<> struct hash<PhQ::AccelerationMagnitude> {
   size_t operator()(
       const PhQ::AccelerationMagnitude& acceleration_magnitude) const {
     return hash<double>()(acceleration_magnitude.Value());

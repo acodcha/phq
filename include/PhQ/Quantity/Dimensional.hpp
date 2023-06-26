@@ -21,8 +21,7 @@
 
 namespace PhQ {
 
-template <typename U>
-class DimensionalQuantity : public Quantity {
+template<typename U> class DimensionalQuantity : public Quantity {
 public:
   static constexpr const Dimension::Set& Dimension() noexcept {
     return Dimensions<U>;
@@ -44,9 +43,8 @@ protected:
   ~DimensionalQuantity() noexcept = default;
 };
 
-template <typename U>
-std::ostream& operator<<(std::ostream& stream,
-                         const DimensionalQuantity<U>& quantity) noexcept {
+template<typename U> std::ostream& operator<<(
+    std::ostream& stream, const DimensionalQuantity<U>& quantity) noexcept {
   stream << quantity.Print();
   return stream;
 }

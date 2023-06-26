@@ -22,26 +22,26 @@
 namespace PhQ {
 
 class TotalKinematicPressure
-    : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
+  : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
   constexpr TotalKinematicPressure() noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
 
-  TotalKinematicPressure(const double value,
-                         const Unit::SpecificEnergy unit) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
+  TotalKinematicPressure(
+      const double value, const Unit::SpecificEnergy unit) noexcept
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
   constexpr TotalKinematicPressure(
       const DynamicKinematicPressure& dynamic_kinematic_pressure,
       const StaticKinematicPressure& static_kinematic_pressure) noexcept
-      : TotalKinematicPressure(dynamic_kinematic_pressure.Value() +
-                               static_kinematic_pressure.Value()) {}
+    : TotalKinematicPressure(dynamic_kinematic_pressure.Value()
+                             + static_kinematic_pressure.Value()) {}
 
   constexpr TotalKinematicPressure(const TotalPressure& total_pressure,
                                    const MassDensity& mass_density) noexcept
-      : TotalKinematicPressure(total_pressure.Value() / mass_density.Value()) {}
+    : TotalKinematicPressure(total_pressure.Value() / mass_density.Value()) {}
 
-  template <Unit::SpecificEnergy Unit>
+  template<Unit::SpecificEnergy Unit>
   static constexpr TotalKinematicPressure Create(const double value) noexcept {
     return TotalKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
@@ -63,8 +63,8 @@ public:
     return {*this, static_kinematic_pressure};
   }
 
-  inline constexpr StaticKinematicPressure operator-(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure)
+  inline constexpr StaticKinematicPressure
+  operator-(const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return {*this, dynamic_kinematic_pressure};
   }
@@ -99,7 +99,7 @@ public:
 
 private:
   explicit constexpr TotalKinematicPressure(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };
 
 inline constexpr bool operator==(const TotalKinematicPressure& left,
@@ -148,19 +148,19 @@ inline constexpr TotalKinematicPressure operator*(
 inline constexpr TotalPressure::TotalPressure(
     const TotalKinematicPressure& total_kinematic_pressure,
     const MassDensity& mass_density) noexcept
-    : TotalPressure(total_kinematic_pressure.Value() * mass_density.Value()) {}
+  : TotalPressure(total_kinematic_pressure.Value() * mass_density.Value()) {}
 
 inline constexpr StaticKinematicPressure::StaticKinematicPressure(
     const TotalKinematicPressure& total_kinematic_pressure,
     const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept
-    : StaticKinematicPressure(total_kinematic_pressure.Value() -
-                              dynamic_kinematic_pressure.Value()) {}
+  : StaticKinematicPressure(
+      total_kinematic_pressure.Value() - dynamic_kinematic_pressure.Value()) {}
 
 inline constexpr DynamicKinematicPressure::DynamicKinematicPressure(
     const TotalKinematicPressure& total_kinematic_pressure,
     const StaticKinematicPressure& static_kinematic_pressure) noexcept
-    : DynamicKinematicPressure(total_kinematic_pressure.Value() -
-                               static_kinematic_pressure.Value()) {}
+  : DynamicKinematicPressure(
+      total_kinematic_pressure.Value() - static_kinematic_pressure.Value()) {}
 
 inline constexpr TotalKinematicPressure StaticKinematicPressure::operator+(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept {
@@ -176,8 +176,7 @@ inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
 
 namespace std {
 
-template <>
-struct hash<PhQ::TotalKinematicPressure> {
+template<> struct hash<PhQ::TotalKinematicPressure> {
   size_t operator()(
       const PhQ::TotalKinematicPressure& total_kinematic_pressure) const {
     return hash<double>()(total_kinematic_pressure.Value());

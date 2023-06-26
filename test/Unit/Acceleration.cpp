@@ -170,49 +170,49 @@ TEST(UnitAcceleration, DimensionSet) {
 TEST(UnitAcceleration, Parse) {
   EXPECT_EQ(Parse<Acceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Acceleration>("mi/s^2"), Acceleration::MilePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("km/s^2"),
-            Acceleration::KilometrePerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("km/s^2"), Acceleration::KilometrePerSquareSecond);
   EXPECT_EQ(Parse<Acceleration>("yd/s^2"), Acceleration::YardPerSquareSecond);
   EXPECT_EQ(Parse<Acceleration>("m/s^2"), Acceleration::MetrePerSquareSecond);
   EXPECT_EQ(Parse<Acceleration>("ft/s^2"), Acceleration::FootPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("dm/s^2"),
-            Acceleration::DecimetrePerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("dm/s^2"), Acceleration::DecimetrePerSquareSecond);
   EXPECT_EQ(Parse<Acceleration>("in/s^2"), Acceleration::InchPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("cm/s^2"),
-            Acceleration::CentimetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("mm/s^2"),
-            Acceleration::MillimetrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("mil/s^2"),
-            Acceleration::MilliinchPerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("μm/s^2"),
-            Acceleration::MicrometrePerSquareSecond);
-  EXPECT_EQ(Parse<Acceleration>("μin/s^2"),
-            Acceleration::MicroinchPerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("cm/s^2"), Acceleration::CentimetrePerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("mm/s^2"), Acceleration::MillimetrePerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("mil/s^2"), Acceleration::MilliinchPerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("μm/s^2"), Acceleration::MicrometrePerSquareSecond);
+  EXPECT_EQ(
+      Parse<Acceleration>("μin/s^2"), Acceleration::MicroinchPerSquareSecond);
 }
 
 TEST(UnitAcceleration, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Acceleration::MilePerSquareSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::KilometrePerSquareSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::KilometrePerSquareSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::YardPerSquareSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::MetrePerSquareSecond),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::FootPerSquareSecond),
             UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::DecimetrePerSquareSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::DecimetrePerSquareSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::InchPerSquareSecond),
             UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::CentimetrePerSquareSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::CentimetrePerSquareSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Acceleration::MillimetrePerSquareSecond),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::MilliinchPerSquareSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::MicrometrePerSquareSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Acceleration::MicroinchPerSquareSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::MilliinchPerSquareSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::MicrometrePerSquareSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Acceleration::MicroinchPerSquareSecond), std::nullopt);
 }
 
 TEST(UnitAcceleration, StandardUnit) {

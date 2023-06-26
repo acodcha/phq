@@ -30,20 +30,20 @@ class TemperatureGradientMagnitude;
 class VolumetricThermalExpansionCoefficient;
 
 class TemperatureDifference
-    : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
+  : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 public:
   constexpr TemperatureDifference() noexcept
-      : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
+    : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
 
-  TemperatureDifference(const double value,
-                        const Unit::TemperatureDifference unit) noexcept
-      : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
+  TemperatureDifference(
+      const double value, const Unit::TemperatureDifference unit) noexcept
+    : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
   constexpr TemperatureDifference(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude,
       const Length& length) noexcept;
 
-  template <Unit::TemperatureDifference Unit>
+  template<Unit::TemperatureDifference Unit>
   static constexpr TemperatureDifference Create(const double value) noexcept {
     return TemperatureDifference{
         StaticConvertCopy<Unit::TemperatureDifference, Unit,
@@ -107,7 +107,7 @@ public:
 
 private:
   explicit constexpr TemperatureDifference(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
+    : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
 };
@@ -159,8 +159,7 @@ inline constexpr TemperatureDifference operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::TemperatureDifference> {
+template<> struct hash<PhQ::TemperatureDifference> {
   size_t operator()(
       const PhQ::TemperatureDifference& temperature_difference) const {
     return hash<double>()(temperature_difference.Value());

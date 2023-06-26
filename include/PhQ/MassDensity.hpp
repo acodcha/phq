@@ -35,13 +35,13 @@ class ThermalDiffusivity;
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 public:
   constexpr MassDensity() noexcept
-      : DimensionalScalarQuantity<Unit::MassDensity>() {}
+    : DimensionalScalarQuantity<Unit::MassDensity>() {}
 
   MassDensity(const double value, const Unit::MassDensity unit) noexcept
-      : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
 
   constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept
-      : MassDensity(mass.Value() / volume.Value()) {}
+    : MassDensity(mass.Value() / volume.Value()) {}
 
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity,
                         const KinematicViscosity& kinematic_viscosity) noexcept;
@@ -52,14 +52,14 @@ public:
       const SpecificIsobaricHeatCapacity&
           specific_isobaric_heat_capacity) noexcept;
 
-  constexpr MassDensity(const DynamicPressure& dynamic_pressure,
-                        const Speed& speed) noexcept;
+  constexpr MassDensity(
+      const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept;
 
   constexpr MassDensity(const ReynoldsNumber& reynolds_number,
                         const DynamicViscosity& dynamic_viscosity,
                         const Speed& speed, const Length& length) noexcept;
 
-  template <Unit::MassDensity Unit>
+  template<Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) noexcept {
     return MassDensity{
         StaticConvertCopy<Unit::MassDensity, Unit,
@@ -109,41 +109,41 @@ public:
 
 private:
   explicit constexpr MassDensity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
+    : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
 };
 
-inline constexpr bool operator==(const MassDensity& left,
-                                 const MassDensity& right) noexcept {
+inline constexpr bool operator==(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MassDensity& left,
-                                 const MassDensity& right) noexcept {
+inline constexpr bool operator!=(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MassDensity& left,
-                                const MassDensity& right) noexcept {
+inline constexpr bool operator<(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MassDensity& left,
-                                const MassDensity& right) noexcept {
+inline constexpr bool operator>(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MassDensity& left,
-                                 const MassDensity& right) noexcept {
+inline constexpr bool operator<=(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MassDensity& left,
-                                 const MassDensity& right) noexcept {
+inline constexpr bool operator>=(
+    const MassDensity& left, const MassDensity& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const MassDensity& mass_density) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const MassDensity& mass_density) noexcept {
   stream << mass_density.Print();
   return stream;
 }
@@ -153,13 +153,13 @@ inline constexpr MassDensity operator*(
   return mass_density * number;
 }
 
-inline constexpr Volume::Volume(const MassDensity& mass_density,
-                                const Mass& mass) noexcept
-    : Volume(mass.Value() / mass_density.Value()) {}
+inline constexpr Volume::Volume(
+    const MassDensity& mass_density, const Mass& mass) noexcept
+  : Volume(mass.Value() / mass_density.Value()) {}
 
-inline constexpr Mass::Mass(const MassDensity& mass_density,
-                            const Volume& volume) noexcept
-    : Mass(mass_density.Value() * volume.Value()) {}
+inline constexpr Mass::Mass(
+    const MassDensity& mass_density, const Volume& volume) noexcept
+  : Mass(mass_density.Value() * volume.Value()) {}
 
 inline constexpr MassDensity Mass::operator/(
     const Volume& volume) const noexcept {
@@ -175,8 +175,7 @@ inline constexpr Mass Volume::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::MassDensity> {
+template<> struct hash<PhQ::MassDensity> {
   size_t operator()(const PhQ::MassDensity& mass_density) const {
     return hash<double>()(mass_density.Value());
   }

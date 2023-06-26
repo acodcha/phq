@@ -22,25 +22,24 @@
 namespace PhQ {
 
 class ThermalConductivity
-    : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
+  : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
 public:
   constexpr ThermalConductivity() noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>() {}
+    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>() {}
 
   ThermalConductivity(const Value::SymmetricDyad& value,
                       const Unit::ThermalConductivity unit) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value,
-                                                                    unit) {}
+    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value, unit) {
+  }
 
   constexpr ThermalConductivity(
       const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept
-      : ThermalConductivity({thermal_conductivity_scalar.Value(), 0.0, 0.0,
-                             thermal_conductivity_scalar.Value(), 0.0,
-                             thermal_conductivity_scalar.Value()}) {}
+    : ThermalConductivity({thermal_conductivity_scalar.Value(), 0.0, 0.0,
+                           thermal_conductivity_scalar.Value(), 0.0,
+                           thermal_conductivity_scalar.Value()}) {}
 
-  template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity Create(
-      const Value::SymmetricDyad& value) noexcept {
+  template<Unit::ThermalConductivity Unit> static constexpr ThermalConductivity
+  Create(const Value::SymmetricDyad& value) noexcept {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit,
                           StandardUnit<Unit::ThermalConductivity>>(value)};
@@ -87,7 +86,7 @@ public:
 private:
   explicit constexpr ThermalConductivity(
       const Value::SymmetricDyad& value) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value) {}
+    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value) {}
 };
 
 inline constexpr bool operator==(const ThermalConductivity& left,
@@ -137,8 +136,7 @@ inline constexpr ThermalConductivity operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ThermalConductivity> {
+template<> struct hash<PhQ::ThermalConductivity> {
   size_t operator()(
       const PhQ::ThermalConductivity& thermal_conductivity) const {
     return hash<PhQ::Value::SymmetricDyad>()(thermal_conductivity.Value());

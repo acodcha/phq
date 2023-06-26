@@ -56,16 +56,16 @@ TEST(UnitPressure, ConsistentUnit) {
 
 TEST(UnitPressure, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Pascal),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Pressure::Pascal, Pressure::Pascal), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Kilopascal),
                    value * 0.001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Megapascal),
                    value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Gigapascal),
                    value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Bar),
-                   value * 0.00001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Pressure::Pascal, Pressure::Bar), value * 0.00001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Atmosphere),
                    value / 101325.0);
   EXPECT_DOUBLE_EQ(
@@ -78,16 +78,16 @@ TEST(UnitPressure, ConvertFromStandard) {
 
 TEST(UnitPressure, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Pascal, Pressure::Pascal),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Pressure::Pascal, Pressure::Pascal), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Kilopascal, Pressure::Pascal),
                    value * 1000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Megapascal, Pressure::Pascal),
                    value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Gigapascal, Pressure::Pascal),
                    value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Bar, Pressure::Pascal),
-                   value * 100000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Pressure::Bar, Pressure::Pascal), value * 100000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Pressure::Atmosphere, Pressure::Pascal),
                    value * 101325.0);
   EXPECT_DOUBLE_EQ(

@@ -108,8 +108,8 @@ TEST(UnitSpecificEnergy, Parse) {
   EXPECT_EQ(Parse<SpecificEnergy>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<SpecificEnergy>("J/kg"), SpecificEnergy::JoulePerKilogram);
   EXPECT_EQ(Parse<SpecificEnergy>("nJ/g"), SpecificEnergy::NanojoulePerGram);
-  EXPECT_EQ(Parse<SpecificEnergy>("ft·lbf/slug"),
-            SpecificEnergy::FootPoundPerSlug);
+  EXPECT_EQ(
+      Parse<SpecificEnergy>("ft·lbf/slug"), SpecificEnergy::FootPoundPerSlug);
   EXPECT_EQ(Parse<SpecificEnergy>("in·lbf/slinch"),
             SpecificEnergy::InchPoundPerSlinch);
 }

@@ -32,23 +32,23 @@ class Velocity;
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 public:
   constexpr Displacement() noexcept
-      : DimensionalVectorQuantity<Unit::Length>() {}
+    : DimensionalVectorQuantity<Unit::Length>() {}
 
   Displacement(const Value::Vector& value, const Unit::Length unit) noexcept
-      : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  constexpr Displacement(const Length& length,
-                         const Direction& direction) noexcept
-      : Displacement(length.Value() * direction.Value()) {}
+  constexpr Displacement(
+      const Length& length, const Direction& direction) noexcept
+    : Displacement(length.Value() * direction.Value()) {}
 
   constexpr Displacement(const Velocity& velocity, const Time& time) noexcept;
 
-  constexpr Displacement(const Velocity& velocity,
-                         const Frequency& frequency) noexcept;
+  constexpr Displacement(
+      const Velocity& velocity, const Frequency& frequency) noexcept;
 
   explicit constexpr Displacement(const Position& position) noexcept;
 
-  template <Unit::Length Unit>
+  template<Unit::Length Unit>
   static constexpr Displacement Create(const Value::Vector& value) noexcept {
     return Displacement{
         StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
@@ -106,43 +106,43 @@ public:
 
 private:
   explicit constexpr Displacement(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Length>(value) {}
+    : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Position;
 };
 
-inline constexpr bool operator==(const Displacement& left,
-                                 const Displacement& right) noexcept {
+inline constexpr bool operator==(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Displacement& left,
-                                 const Displacement& right) noexcept {
+inline constexpr bool operator!=(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Displacement& left,
-                                const Displacement& right) noexcept {
+inline constexpr bool operator<(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Displacement& left,
-                                const Displacement& right) noexcept {
+inline constexpr bool operator>(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Displacement& left,
-                                 const Displacement& right) noexcept {
+inline constexpr bool operator<=(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Displacement& left,
-                                 const Displacement& right) noexcept {
+inline constexpr bool operator>=(
+    const Displacement& left, const Displacement& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Displacement& displacement) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Displacement& displacement) noexcept {
   stream << displacement.Print();
   return stream;
 }
@@ -153,21 +153,20 @@ inline constexpr Displacement operator*(
 }
 
 inline constexpr Direction::Direction(const Displacement& displacement) noexcept
-    : Direction(displacement.Value()) {}
+  : Direction(displacement.Value()) {}
 
 inline Angle::Angle(const Displacement& displacement1,
                     const Displacement& displacement2) noexcept
-    : Angle(displacement1.Value(), displacement2.Value()) {}
+  : Angle(displacement1.Value(), displacement2.Value()) {}
 
 inline constexpr Length::Length(const Displacement& displacement) noexcept
-    : Length(displacement.Value().Magnitude()) {}
+  : Length(displacement.Value().Magnitude()) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Displacement> {
+template<> struct hash<PhQ::Displacement> {
   size_t operator()(const PhQ::Displacement& displacement) const {
     return hash<PhQ::Value::Vector>()(displacement.Value());
   }

@@ -31,15 +31,15 @@ public:
   constexpr Force() noexcept : DimensionalVectorQuantity<Unit::Force>() {}
 
   Force(const Value::Vector& value, const Unit::Force unit) noexcept
-      : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
 
   constexpr Force(const ForceMagnitude& force_magnitude,
                   const Direction& direction) noexcept
-      : Force(force_magnitude.Value() * direction.Value()) {}
+    : Force(force_magnitude.Value() * direction.Value()) {}
 
   constexpr Force(const Traction& traction, const Area& area) noexcept;
 
-  template <Unit::Force Unit>
+  template<Unit::Force Unit>
   static constexpr Force Create(const Value::Vector& value) noexcept {
     return Force{
         StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
@@ -87,58 +87,58 @@ public:
 
 private:
   explicit constexpr Force(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Force>(value) {}
+    : DimensionalVectorQuantity<Unit::Force>(value) {}
 };
 
-inline constexpr bool operator==(const Force& left,
-                                 const Force& right) noexcept {
+inline constexpr bool operator==(
+    const Force& left, const Force& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Force& left,
-                                 const Force& right) noexcept {
+inline constexpr bool operator!=(
+    const Force& left, const Force& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Force& left,
-                                const Force& right) noexcept {
+inline constexpr bool operator<(
+    const Force& left, const Force& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Force& left,
-                                const Force& right) noexcept {
+inline constexpr bool operator>(
+    const Force& left, const Force& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Force& left,
-                                 const Force& right) noexcept {
+inline constexpr bool operator<=(
+    const Force& left, const Force& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Force& left,
-                                 const Force& right) noexcept {
+inline constexpr bool operator>=(
+    const Force& left, const Force& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Force& force) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Force& force) noexcept {
   stream << force.Print();
   return stream;
 }
 
-inline constexpr Force operator*(const double number,
-                                 const Force& force) noexcept {
+inline constexpr Force operator*(
+    const double number, const Force& force) noexcept {
   return force * number;
 }
 
 inline constexpr Direction::Direction(const Force& force) noexcept
-    : Direction(force.Value()) {}
+  : Direction(force.Value()) {}
 
 inline Angle::Angle(const Force& force1, const Force& force2) noexcept
-    : Angle(force1.Value(), force2.Value()) {}
+  : Angle(force1.Value(), force2.Value()) {}
 
 inline constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept
-    : ForceMagnitude(force.Value().Magnitude()) {}
+  : ForceMagnitude(force.Value().Magnitude()) {}
 
 inline constexpr Force Direction::operator*(
     const ForceMagnitude& force_magnitude) const noexcept {
@@ -154,8 +154,7 @@ inline constexpr Force ForceMagnitude::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Force> {
+template<> struct hash<PhQ::Force> {
   size_t operator()(const PhQ::Force& force) const {
     return hash<PhQ::Value::Vector>()(force.Value());
   }

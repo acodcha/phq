@@ -24,7 +24,10 @@ namespace PhQ {
 namespace {
 
 TEST(Position, Accessor) {
-  const Position position{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  const Position position{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_DOUBLE_EQ(position.Value().x(), 1.0);
   EXPECT_DOUBLE_EQ(position.Value().y(), 2.0);
   EXPECT_DOUBLE_EQ(position.Value().z(), 4.0);
@@ -34,8 +37,14 @@ TEST(Position, Accessor) {
 }
 
 TEST(Position, AngleAndMagnitude) {
-  const Position position0{{0.0, 2.0, 0.0}, Unit::Length::Metre};
-  const Position position1{{0.0, 0.0, 4.0}, Unit::Length::Metre};
+  const Position position0{
+      {0.0, 2.0, 0.0},
+      Unit::Length::Metre
+  };
+  const Position position1{
+      {0.0, 0.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_DOUBLE_EQ(position0.Angle(position1).Value(Unit::Angle::Degree), 90.0);
   EXPECT_DOUBLE_EQ(position0.Magnitude().Value(), 2.0);
 }
@@ -43,56 +52,98 @@ TEST(Position, AngleAndMagnitude) {
 TEST(Position, Arithmetic) {
   const Length length{2.0, Unit::Length::Metre};
   const Direction direction{0.0, -1.0, 0.0};
-  const Position position0{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  const Displacement displacement{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  EXPECT_EQ(position0 + position0,
-            Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(position0 + displacement,
-            Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(displacement + position0,
-            Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
+  const Position position0{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
+  const Displacement displacement{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
+  EXPECT_EQ(
+      position0 + position0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      position0 + displacement, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      displacement + position0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
   EXPECT_EQ(position0 - position0,
             Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
-  EXPECT_EQ(position0 - displacement,
-            Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
-  EXPECT_EQ(displacement - position0,
-            Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      position0 - displacement, Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      displacement - position0, Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
   EXPECT_EQ(position0 * 2.0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
   EXPECT_EQ(2.0 * position0, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(direction * length,
-            Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
-  EXPECT_EQ(length * direction,
-            Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      direction * length, Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(
+      length * direction, Position({0.0, -2.0, 0.0}, Unit::Length::Metre));
   EXPECT_EQ(position0 / 2.0, Position({0.5, 1.0, 2.0}, Unit::Length::Metre));
 
-  Position position1{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  position1 += Position{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  Position position1{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
+  position1 += Position{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_EQ(position1, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
 
-  Position position2{{2.0, 4.0, 8.0}, Unit::Length::Metre};
-  position2 -= Position{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  Position position2{
+      {2.0, 4.0, 8.0},
+      Unit::Length::Metre
+  };
+  position2 -= Position{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_EQ(position2, Position({1.0, 2.0, 4.0}, Unit::Length::Metre));
 
-  Position position3{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  Position position3{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   position3 *= 2.0;
   EXPECT_EQ(position3, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
 
-  Position position4{{2.0, 4.0, 8.0}, Unit::Length::Metre};
+  Position position4{
+      {2.0, 4.0, 8.0},
+      Unit::Length::Metre
+  };
   position4 /= 2.0;
   EXPECT_EQ(position4, Position({1.0, 2.0, 4.0}, Unit::Length::Metre));
 
-  Position position5{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  position5 += Displacement{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  Position position5{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
+  position5 += Displacement{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_EQ(position5, Position({2.0, 4.0, 8.0}, Unit::Length::Metre));
 
-  Position position6{{2.0, 4.0, 8.0}, Unit::Length::Metre};
-  position6 -= Displacement{{1.0, 2.0, 4.0}, Unit::Length::Metre};
+  Position position6{
+      {2.0, 4.0, 8.0},
+      Unit::Length::Metre
+  };
+  position6 -= Displacement{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
   EXPECT_EQ(position6, Position({1.0, 2.0, 4.0}, Unit::Length::Metre));
 }
 
 TEST(Position, Comparison) {
-  const Position position0{{1.0, 2.0, 4.0}, Unit::Length::Metre};
-  const Position position1{{1.0, 2.0, 8.0}, Unit::Length::Metre};
+  const Position position0{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Metre
+  };
+  const Position position1{
+      {1.0, 2.0, 8.0},
+      Unit::Length::Metre
+  };
   EXPECT_EQ(position0, position0);
   EXPECT_NE(position0, position1);
   EXPECT_LT(position0, position1);
@@ -105,8 +156,14 @@ TEST(Position, Comparison) {
 
 TEST(Position, Constructor) {
   constexpr Position position0;
-  const Position position1{{1.0, 2.0, 4.0}, Unit::Length::Millimetre};
-  const Position position2{{-1.0, -2.0, -4.0}, Unit::Length::Millimetre};
+  const Position position1{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Millimetre
+  };
+  const Position position2{
+      {-1.0, -2.0, -4.0},
+      Unit::Length::Millimetre
+  };
   constexpr Position position3{
       Position::Create<Unit::Length::Millimetre>({-1.0, -2.0, -4.0})};
   const Direction direction{position1};
@@ -116,21 +173,38 @@ TEST(Position, Constructor) {
 }
 
 TEST(Position, Hash) {
-  const Position position0{{1.0, 2.0, 4.0}, Unit::Length::Millimetre};
-  const Position position1{{1.0, 2.000001, 4.0}, Unit::Length::Millimetre};
-  const Position position2{{1.0, 2.0, 5.0}, Unit::Length::Millimetre};
-  const Position position3{{1.0, 2.0, -4.0}, Unit::Length::Millimetre};
-  const Position position4{{1000000.0, 2000000.0, 4000000.0},
-                           Unit::Length::Millimetre};
-  const Position position5{{-1.0, -2.0, -4.0}, Unit::Length::Millimetre};
+  const Position position0{
+      {1.0, 2.0, 4.0},
+      Unit::Length::Millimetre
+  };
+  const Position position1{
+      {1.0, 2.000001, 4.0},
+      Unit::Length::Millimetre
+  };
+  const Position position2{
+      {1.0, 2.0, 5.0},
+      Unit::Length::Millimetre
+  };
+  const Position position3{
+      {1.0, 2.0, -4.0},
+      Unit::Length::Millimetre
+  };
+  const Position position4{
+      {1000000.0, 2000000.0, 4000000.0},
+      Unit::Length::Millimetre
+  };
+  const Position position5{
+      {-1.0, -2.0, -4.0},
+      Unit::Length::Millimetre
+  };
   const std::hash<Position> hasher;
   EXPECT_NE(hasher(position0), hasher(position1));
   EXPECT_NE(hasher(position0), hasher(position2));
   EXPECT_NE(hasher(position0), hasher(position3));
   EXPECT_NE(hasher(position0), hasher(position4));
   EXPECT_NE(hasher(position0), hasher(position5));
-  const std::unordered_set<Position> unordered{position0, position1, position2,
-                                               position3, position4, position5};
+  const std::unordered_set<Position> unordered{
+      position0, position1, position2, position3, position4, position5};
 }
 
 TEST(Position, JSON) {
@@ -151,7 +225,10 @@ TEST(Position, Print) {
 }
 
 TEST(Position, Stream) {
-  const Position position{{1.11, 2.22, 4.44}, Unit::Length::Metre};
+  const Position position{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
   std::ostringstream stream;
   stream << position;
   EXPECT_EQ(stream.str(), position.Print());

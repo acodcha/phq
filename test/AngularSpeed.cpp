@@ -26,8 +26,8 @@ namespace {
 TEST(AngularSpeed, Accessor) {
   const AngularSpeed speed{0.1, Unit::AngularSpeed::RadianPerSecond};
   EXPECT_DOUBLE_EQ(speed.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(speed.Value(Unit::AngularSpeed::DegreePerSecond),
-                   0.1 * 180.0 / Pi);
+  EXPECT_DOUBLE_EQ(
+      speed.Value(Unit::AngularSpeed::DegreePerSecond), 0.1 * 180.0 / Pi);
 }
 
 TEST(AngularSpeed, Arithmetic) {
@@ -35,18 +35,18 @@ TEST(AngularSpeed, Arithmetic) {
   const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
   const AngularSpeed speed0{1.0, Unit::AngularSpeed::RadianPerSecond};
-  EXPECT_EQ(speed0 + speed0,
-            AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
-  EXPECT_EQ(speed0 - speed0,
-            AngularSpeed(0.0, Unit::AngularSpeed::RadianPerSecond));
-  EXPECT_EQ(speed0 * 2.0,
-            AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
-  EXPECT_EQ(2.0 * speed0,
-            AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(
+      speed0 + speed0, AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(
+      speed0 - speed0, AngularSpeed(0.0, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(
+      speed0 * 2.0, AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(
+      2.0 * speed0, AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
   EXPECT_EQ(angle * frequency, speed0);
   EXPECT_EQ(frequency * angle, speed0);
-  EXPECT_EQ(speed0 / 2.0,
-            AngularSpeed(0.5, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(
+      speed0 / 2.0, AngularSpeed(0.5, Unit::AngularSpeed::RadianPerSecond));
   EXPECT_EQ(speed0 / angle, frequency);
   EXPECT_EQ(speed0 / frequency, angle);
   EXPECT_EQ(angle / time, speed0);
@@ -112,8 +112,8 @@ TEST(AngularSpeed, Hash) {
   EXPECT_NE(hasher(speed0), hasher(speed3));
   EXPECT_NE(hasher(speed0), hasher(speed4));
   EXPECT_NE(hasher(speed0), hasher(speed5));
-  const std::unordered_set<AngularSpeed> unordered{speed0, speed1, speed2,
-                                                   speed3, speed4, speed5};
+  const std::unordered_set<AngularSpeed> unordered{
+      speed0, speed1, speed2, speed3, speed4, speed5};
 }
 
 TEST(AngularSpeed, JSON) {

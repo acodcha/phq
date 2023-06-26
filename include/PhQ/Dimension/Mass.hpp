@@ -75,8 +75,8 @@ inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Mass& mass) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Mass& mass) noexcept {
   stream << mass.Print();
   return stream;
 }
@@ -85,8 +85,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::Mass> {
+template<> struct hash<PhQ::Dimension::Mass> {
   size_t operator()(const PhQ::Dimension::Mass& mass) const {
     return hash<int_least8_t>()(mass.Value());
   }

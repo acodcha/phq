@@ -24,20 +24,20 @@ namespace PhQ {
 namespace {
 
 TEST(KinematicViscosity, Accessor) {
-  const KinematicViscosity viscosity{0.1,
-                                     Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity{
+      0.1, Unit::Diffusivity::SquareMetrePerSecond};
   EXPECT_DOUBLE_EQ(viscosity.Value(), 0.1);
   EXPECT_DOUBLE_EQ(viscosity.Value(Unit::Diffusivity::SquareFootPerSecond),
                    0.1 / (0.3048 * 0.3048));
 }
 
 TEST(KinematicViscosity, Arithmetic) {
-  const KinematicViscosity viscosity0{0.0,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity1{1.0,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity2{2.0,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity0{
+      0.0, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity1{
+      1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity2{
+      2.0, Unit::Diffusivity::SquareMetrePerSecond};
   EXPECT_EQ(viscosity1 + viscosity1, viscosity2);
   EXPECT_EQ(viscosity1 - viscosity1, viscosity0);
   EXPECT_EQ(viscosity1 * 2.0, viscosity2);
@@ -62,10 +62,10 @@ TEST(KinematicViscosity, Arithmetic) {
 }
 
 TEST(KinematicViscosity, Comparison) {
-  const KinematicViscosity viscosity0{0.1,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity1{0.2,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity0{
+      0.1, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity1{
+      0.2, Unit::Diffusivity::SquareMetrePerSecond};
   EXPECT_EQ(viscosity0, viscosity0);
   EXPECT_NE(viscosity0, viscosity1);
   EXPECT_LT(viscosity0, viscosity1);
@@ -78,27 +78,27 @@ TEST(KinematicViscosity, Comparison) {
 
 TEST(KinematicViscosity, Constructor) {
   constexpr KinematicViscosity viscosity0;
-  const KinematicViscosity viscosity1{1.0,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity2{100.0,
-                                      Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity1{
+      1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity2{
+      100.0, Unit::Diffusivity::SquareFootPerSecond};
   constexpr KinematicViscosity viscosity3{
       KinematicViscosity::Create<Unit::Diffusivity::SquareFootPerSecond>(4.0)};
 }
 
 TEST(KinematicViscosity, Hash) {
-  const KinematicViscosity viscosity0{10.0,
-                                      Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity1{10.000001,
-                                      Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity2{11.0,
-                                      Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity3{-10.0,
-                                      Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity4{20000.0,
-                                      Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity5{-123.456,
-                                      Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity0{
+      10.0, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity1{
+      10.000001, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity2{
+      11.0, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity3{
+      -10.0, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity4{
+      20000.0, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity viscosity5{
+      -123.456, Unit::Diffusivity::SquareFootPerSecond};
   const std::hash<KinematicViscosity> hasher;
   EXPECT_NE(hasher(viscosity0), hasher(viscosity1));
   EXPECT_NE(hasher(viscosity0), hasher(viscosity2));
@@ -128,8 +128,8 @@ TEST(KinematicViscosity, Print) {
 }
 
 TEST(KinematicViscosity, Stream) {
-  const KinematicViscosity viscosity{1.11,
-                                     Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity viscosity{
+      1.11, Unit::Diffusivity::SquareMetrePerSecond};
   std::ostringstream stream;
   stream << viscosity;
   EXPECT_EQ(stream.str(), viscosity.Print());

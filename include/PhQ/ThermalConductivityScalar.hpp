@@ -29,14 +29,14 @@ class SpecificIsobaricHeatCapacity;
 class ThermalDiffusivity;
 
 class ThermalConductivityScalar
-    : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
+  : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 public:
   constexpr ThermalConductivityScalar() noexcept
-      : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
+    : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
 
-  ThermalConductivityScalar(const double value,
-                            const Unit::ThermalConductivity unit) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
+  ThermalConductivityScalar(
+      const double value, const Unit::ThermalConductivity unit) noexcept
+    : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
   constexpr ThermalConductivityScalar(
       const ThermalDiffusivity& thermal_diffusivity,
@@ -48,26 +48,26 @@ public:
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const DynamicViscosity& dynamic_viscosity) noexcept;
 
-  template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivityScalar Create(
-      const double value) noexcept {
+  template<Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivityScalar
+  Create(const double value) noexcept {
     return ThermalConductivityScalar{
         StaticConvertCopy<Unit::ThermalConductivity, Unit,
                           StandardUnit<Unit::ThermalConductivity>>(value)};
   }
 
-  inline constexpr ThermalConductivityScalar operator+(
-      const ThermalConductivityScalar& thermal_conductivity_scalar)
+  inline constexpr ThermalConductivityScalar
+  operator+(const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
-    return ThermalConductivityScalar{value_ +
-                                     thermal_conductivity_scalar.value_};
+    return ThermalConductivityScalar{
+        value_ + thermal_conductivity_scalar.value_};
   }
 
-  inline constexpr ThermalConductivityScalar operator-(
-      const ThermalConductivityScalar& thermal_conductivity_scalar)
+  inline constexpr ThermalConductivityScalar
+  operator-(const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
-    return ThermalConductivityScalar{value_ -
-                                     thermal_conductivity_scalar.value_};
+    return ThermalConductivityScalar{
+        value_ - thermal_conductivity_scalar.value_};
   }
 
   inline constexpr ThermalConductivityScalar operator*(
@@ -100,7 +100,7 @@ public:
 
 private:
   explicit constexpr ThermalConductivityScalar(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
+    : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -156,8 +156,7 @@ inline constexpr ThermalConductivityScalar operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ThermalConductivityScalar> {
+template<> struct hash<PhQ::ThermalConductivityScalar> {
   size_t operator()(
       const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar) const {
     return hash<double>()(thermal_conductivity_scalar.Value());

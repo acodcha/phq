@@ -34,14 +34,14 @@ public:
   constexpr Area() noexcept : DimensionalScalarQuantity<Unit::Area>() {}
 
   Area(const double value, const Unit::Area unit) noexcept
-      : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
   constexpr Area(const AreaVector& area_vector) noexcept;
 
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;
 
-  template <Unit::Area Unit>
+  template<Unit::Area Unit>
   static constexpr Area Create(const double value) noexcept {
     return Area{
         StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
@@ -93,7 +93,7 @@ public:
 
 private:
   explicit constexpr Area(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Area>(value) {}
+    : DimensionalScalarQuantity<Unit::Area>(value) {}
 
   friend class Length;
   friend class Volume;
@@ -123,14 +123,14 @@ inline constexpr bool operator>=(const Area& left, const Area& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Area& area) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Area& area) noexcept {
   stream << area.Print();
   return stream;
 }
 
-inline constexpr Area operator*(const double number,
-                                const Area& area) noexcept {
+inline constexpr Area operator*(
+    const double number, const Area& area) noexcept {
   return area * number;
 }
 
@@ -142,8 +142,7 @@ inline constexpr Area Length::operator*(const Length& length) const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Area> {
+template<> struct hash<PhQ::Area> {
   size_t operator()(const PhQ::Area& area) const {
     return hash<double>()(area.Value());
   }

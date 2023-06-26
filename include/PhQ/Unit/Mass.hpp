@@ -32,132 +32,127 @@ enum class Mass : int_least8_t {
 
 }  // namespace Unit
 
-template <>
-inline constexpr const Unit::Mass StandardUnit<Unit::Mass>{
+template<> inline constexpr const Unit::Mass StandardUnit<Unit::Mass>{
     Unit::Mass::Kilogram};
 
-template <>
-inline constexpr const Dimension::Set Dimensions<Unit::Mass>{Dimension::Set{
-    Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}};
+template<> inline constexpr const Dimension::Set Dimensions<Unit::Mass>{
+    Dimension::Set{
+                   Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}
+};
 
-template <>
+template<>
 inline const std::map<UnitSystem, Unit::Mass> ConsistentUnits<Unit::Mass>{
-    {UnitSystem::MetreKilogramSecondKelvin, Unit::Mass::Kilogram},
-    {UnitSystem::MillimetreGramSecondKelvin, Unit::Mass::Gram},
-    {UnitSystem::FootPoundSecondRankine, Unit::Mass::Slug},
-    {UnitSystem::InchPoundSecondRankine, Unit::Mass::Slinch},
+    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Mass::Kilogram},
+    {UnitSystem::MillimetreGramSecondKelvin, Unit::Mass::Gram    },
+    {UnitSystem::FootPoundSecondRankine,     Unit::Mass::Slug    },
+    {UnitSystem::InchPoundSecondRankine,     Unit::Mass::Slinch  },
 };
 
-template <>
+template<>
 inline const std::map<Unit::Mass, UnitSystem> RelatedUnitSystems<Unit::Mass>{
-    {Unit::Mass::Kilogram, UnitSystem::MetreKilogramSecondKelvin},
-    {Unit::Mass::Gram, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Mass::Slug, UnitSystem::FootPoundSecondRankine},
-    {Unit::Mass::Slinch, UnitSystem::InchPoundSecondRankine},
+    {Unit::Mass::Kilogram, UnitSystem::MetreKilogramSecondKelvin },
+    {Unit::Mass::Gram,     UnitSystem::MillimetreGramSecondKelvin},
+    {Unit::Mass::Slug,     UnitSystem::FootPoundSecondRankine    },
+    {Unit::Mass::Slinch,   UnitSystem::InchPoundSecondRankine    },
 };
 
-template <>
+template<>
 inline const std::map<Unit::Mass, std::string_view> Abbreviations<Unit::Mass>{
-    {Unit::Mass::Kilogram, "kg"}, {Unit::Mass::Gram, "g"},
-    {Unit::Mass::Slug, "slug"},   {Unit::Mass::Slinch, "slinch"},
-    {Unit::Mass::Pound, "lbm"},
+    {Unit::Mass::Kilogram, "kg"    },
+    {Unit::Mass::Gram,     "g"     },
+    {Unit::Mass::Slug,     "slug"  },
+    {Unit::Mass::Slinch,   "slinch"},
+    {Unit::Mass::Pound,    "lbm"   },
 };
 
-template <>
-inline const std::unordered_map<std::string_view, Unit::Mass>
+template<> inline const std::unordered_map<std::string_view, Unit::Mass>
     Spellings<Unit::Mass>{
-        {"kg", Unit::Mass::Kilogram}, {"g", Unit::Mass::Gram},
-        {"slug", Unit::Mass::Slug},   {"slinch", Unit::Mass::Slinch},
-        {"lbm", Unit::Mass::Pound},   {"lb", Unit::Mass::Pound},
-    };
+        {"kg",     Unit::Mass::Kilogram},
+        {"g",      Unit::Mass::Gram    },
+        {"slug",   Unit::Mass::Slug    },
+        {"slinch", Unit::Mass::Slinch  },
+        {"lbm",    Unit::Mass::Pound   },
+        {"lb",     Unit::Mass::Pound   },
+};
 
 namespace Internal {
 
-template <>
+template<>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Gram>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionFromStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
   value *= 1000.0;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slug>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionFromStandard<Unit::Mass, Unit::Mass::Slug>(double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
 }
 
-template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
-template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(double& value) noexcept {
   value /= 0.45359237;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
-    double& value) noexcept {}
+template<> inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(double& value) noexcept {
+}
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
   value *= 0.001;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slug>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Slug>(double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slinch>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Slinch>(double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Pound>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Pound>(double& value) noexcept {
   value *= 0.45359237;
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Mass, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
          ConversionsFromStandard<Unit::Mass, Unit::Mass::Kilogram>},
         {Unit::Mass::Gram,
-         ConversionsFromStandard<Unit::Mass, Unit::Mass::Gram>},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Gram>    },
         {Unit::Mass::Slug,
-         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slug>},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slug>    },
         {Unit::Mass::Slinch,
-         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slinch>},
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Slinch>  },
         {Unit::Mass::Pound,
-         ConversionsFromStandard<Unit::Mass, Unit::Mass::Pound>},
-    };
+         ConversionsFromStandard<Unit::Mass, Unit::Mass::Pound>   },
+};
 
-template <>
+template<>
 inline const std::map<Unit::Mass, std::function<void(double* const values,
                                                      const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Mass>{
         {Unit::Mass::Kilogram,
-         ConversionsToStandard<Unit::Mass, Unit::Mass::Kilogram>},
-        {Unit::Mass::Gram, ConversionsToStandard<Unit::Mass, Unit::Mass::Gram>},
-        {Unit::Mass::Slug, ConversionsToStandard<Unit::Mass, Unit::Mass::Slug>},
+         ConversionsToStandard<Unit::Mass,                       Unit::Mass::Kilogram>},
+        {Unit::Mass::Gram,     ConversionsToStandard<Unit::Mass, Unit::Mass::Gram>    },
+        {Unit::Mass::Slug,     ConversionsToStandard<Unit::Mass, Unit::Mass::Slug>    },
         {Unit::Mass::Slinch,
-         ConversionsToStandard<Unit::Mass, Unit::Mass::Slinch>},
+         ConversionsToStandard<Unit::Mass,                       Unit::Mass::Slinch>  },
         {Unit::Mass::Pound,
-         ConversionsToStandard<Unit::Mass, Unit::Mass::Pound>},
-    };
+         ConversionsToStandard<Unit::Mass,                       Unit::Mass::Pound>   },
+};
 
 }  // namespace Internal
 

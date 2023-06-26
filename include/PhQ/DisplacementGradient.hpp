@@ -26,7 +26,7 @@ public:
   constexpr DisplacementGradient() noexcept : DimensionlessDyadQuantity() {}
 
   explicit constexpr DisplacementGradient(const Value::Dyad& value) noexcept
-      : DimensionlessDyadQuantity(value) {}
+    : DimensionlessDyadQuantity(value) {}
 
   inline constexpr PhQ::Strain Strain() const noexcept {
     return PhQ::Strain{*this};
@@ -116,16 +116,15 @@ inline constexpr DisplacementGradient operator*(
 
 inline constexpr Strain::Strain(
     const DisplacementGradient& displacement_gradient) noexcept
-    : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
-              0.5 * (value_.xz() + value_.zx()), value_.yy(),
-              0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
+  : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
+            0.5 * (value_.xz() + value_.zx()), value_.yy(),
+            0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DisplacementGradient> {
+template<> struct hash<PhQ::DisplacementGradient> {
   size_t operator()(
       const PhQ::DisplacementGradient& displacement_gradient) const {
     return hash<PhQ::Value::Dyad>()(displacement_gradient.Value());

@@ -24,20 +24,20 @@ namespace PhQ {
 namespace {
 
 TEST(BulkDynamicViscosity, Accessor) {
-  const BulkDynamicViscosity viscosity{0.1,
-                                       Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity{
+      0.1, Unit::DynamicViscosity::PascalSecond};
   EXPECT_DOUBLE_EQ(viscosity.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(viscosity.Value(Unit::DynamicViscosity::KilopascalSecond),
-                   0.1 * 0.001);
+  EXPECT_DOUBLE_EQ(
+      viscosity.Value(Unit::DynamicViscosity::KilopascalSecond), 0.1 * 0.001);
 }
 
 TEST(BulkDynamicViscosity, Arithmetic) {
-  const BulkDynamicViscosity viscosity0{0.0,
-                                        Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity viscosity1{1.0,
-                                        Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity viscosity2{2.0,
-                                        Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity0{
+      0.0, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity1{
+      1.0, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity2{
+      2.0, Unit::DynamicViscosity::PascalSecond};
   EXPECT_EQ(viscosity1 + viscosity1, viscosity2);
   EXPECT_EQ(viscosity1 - viscosity1, viscosity0);
   EXPECT_EQ(viscosity1 * 2.0, viscosity2);
@@ -62,10 +62,10 @@ TEST(BulkDynamicViscosity, Arithmetic) {
 }
 
 TEST(BulkDynamicViscosity, Comparison) {
-  const BulkDynamicViscosity viscosity0{0.1,
-                                        Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity viscosity1{0.2,
-                                        Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity0{
+      0.1, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity1{
+      0.2, Unit::DynamicViscosity::PascalSecond};
   EXPECT_EQ(viscosity0, viscosity0);
   EXPECT_NE(viscosity0, viscosity1);
   EXPECT_LT(viscosity0, viscosity1);
@@ -78,8 +78,8 @@ TEST(BulkDynamicViscosity, Comparison) {
 
 TEST(BulkDynamicViscosity, Constructor) {
   constexpr BulkDynamicViscosity viscosity0;
-  const BulkDynamicViscosity viscosity1{1.0,
-                                        Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity1{
+      1.0, Unit::DynamicViscosity::PascalSecond};
   const BulkDynamicViscosity viscosity2{
       100.0, Unit::DynamicViscosity::KilopascalSecond};
   constexpr BulkDynamicViscosity viscosity3{
@@ -129,8 +129,8 @@ TEST(BulkDynamicViscosity, Print) {
 }
 
 TEST(BulkDynamicViscosity, Stream) {
-  const BulkDynamicViscosity viscosity{1.11,
-                                       Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity viscosity{
+      1.11, Unit::DynamicViscosity::PascalSecond};
   std::ostringstream stream;
   stream << viscosity;
   EXPECT_EQ(stream.str(), viscosity.Print());

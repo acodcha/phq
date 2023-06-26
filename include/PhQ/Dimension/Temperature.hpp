@@ -27,7 +27,7 @@ public:
   constexpr Temperature() noexcept : value_(0) {}
 
   explicit constexpr Temperature(const int_least8_t value) noexcept
-      : value_(value) {}
+    : value_(value) {}
 
   inline constexpr int_least8_t Value() const noexcept { return value_; }
 
@@ -52,38 +52,38 @@ private:
   int_least8_t value_;
 };
 
-inline constexpr bool operator==(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator==(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator!=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Temperature& left,
-                                const Temperature& right) noexcept {
+inline constexpr bool operator<(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Temperature& left,
-                                const Temperature& right) noexcept {
+inline constexpr bool operator>(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator<=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator>=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Temperature& temperature) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Temperature& temperature) noexcept {
   stream << temperature.Print();
   return stream;
 }
@@ -92,8 +92,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::Temperature> {
+template<> struct hash<PhQ::Dimension::Temperature> {
   size_t operator()(const PhQ::Dimension::Temperature& temperature) const {
     return hash<int_least8_t>()(temperature.Value());
   }

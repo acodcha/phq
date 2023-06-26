@@ -27,7 +27,7 @@ public:
   constexpr SubstanceAmount() noexcept : value_(0) {}
 
   explicit constexpr SubstanceAmount(const int_least8_t value) noexcept
-      : value_(value) {}
+    : value_(value) {}
 
   inline constexpr int_least8_t Value() const noexcept { return value_; }
 
@@ -52,38 +52,38 @@ private:
   int_least8_t value_;
 };
 
-inline constexpr bool operator==(const SubstanceAmount& left,
-                                 const SubstanceAmount& right) noexcept {
+inline constexpr bool operator==(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const SubstanceAmount& left,
-                                 const SubstanceAmount& right) noexcept {
+inline constexpr bool operator!=(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const SubstanceAmount& left,
-                                const SubstanceAmount& right) noexcept {
+inline constexpr bool operator<(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const SubstanceAmount& left,
-                                const SubstanceAmount& right) noexcept {
+inline constexpr bool operator>(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const SubstanceAmount& left,
-                                 const SubstanceAmount& right) noexcept {
+inline constexpr bool operator<=(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const SubstanceAmount& left,
-                                 const SubstanceAmount& right) noexcept {
+inline constexpr bool operator>=(
+    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const SubstanceAmount& amount) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const SubstanceAmount& amount) noexcept {
   stream << amount.Print();
   return stream;
 }
@@ -92,8 +92,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::SubstanceAmount> {
+template<> struct hash<PhQ::Dimension::SubstanceAmount> {
   size_t operator()(const PhQ::Dimension::SubstanceAmount& amount) const {
     return hash<int_least8_t>()(amount.Value());
   }

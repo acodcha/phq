@@ -41,10 +41,10 @@ public:
 
 protected:
   constexpr DimensionlessScalarQuantity() noexcept
-      : DimensionlessQuantity(), value_() {}
+    : DimensionlessQuantity(), value_() {}
 
   constexpr DimensionlessScalarQuantity(const double value) noexcept
-      : DimensionlessQuantity(), value_(value) {}
+    : DimensionlessQuantity(), value_(value) {}
 
   ~DimensionlessScalarQuantity() noexcept = default;
 
@@ -95,8 +95,7 @@ double sqrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
   return sqrt(quantity.Value());
 };
 
-template <>
-struct hash<PhQ::DimensionlessScalarQuantity> {
+template<> struct hash<PhQ::DimensionlessScalarQuantity> {
   size_t operator()(const PhQ::DimensionlessScalarQuantity& quantity) const {
     return hash<double>()(quantity.Value());
   }

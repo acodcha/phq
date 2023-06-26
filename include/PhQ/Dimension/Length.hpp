@@ -27,7 +27,7 @@ public:
   constexpr Length() noexcept : value_(0) {}
 
   explicit constexpr Length(const int_least8_t value) noexcept
-      : value_(value) {}
+    : value_(value) {}
 
   inline constexpr int_least8_t Value() const noexcept { return value_; }
 
@@ -52,38 +52,38 @@ private:
   int_least8_t value_;
 };
 
-inline constexpr bool operator==(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator==(
+    const Length& left, const Length& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator!=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Length& left,
-                                const Length& right) noexcept {
+inline constexpr bool operator<(
+    const Length& left, const Length& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Length& left,
-                                const Length& right) noexcept {
+inline constexpr bool operator>(
+    const Length& left, const Length& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator<=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator>=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Length& length) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Length& length) noexcept {
   stream << length.Print();
   return stream;
 }
@@ -92,8 +92,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::Length> {
+template<> struct hash<PhQ::Dimension::Length> {
   size_t operator()(const PhQ::Dimension::Length& length) const {
     return hash<int_least8_t>()(length.Value());
   }

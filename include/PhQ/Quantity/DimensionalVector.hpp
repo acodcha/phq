@@ -23,8 +23,8 @@
 
 namespace PhQ {
 
-template <typename U>
-class DimensionalVectorQuantity : public DimensionalQuantity<U> {
+template<typename U> class DimensionalVectorQuantity
+  : public DimensionalQuantity<U> {
 public:
   inline constexpr const Value::Vector& Value() const noexcept {
     return value_;
@@ -36,7 +36,7 @@ public:
     return result;
   }
 
-  template <U NewUnit>
+  template<U NewUnit>
   inline constexpr Value::Vector StaticValue() const noexcept {
     return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
   }
@@ -105,21 +105,21 @@ public:
 
 protected:
   constexpr DimensionalVectorQuantity() noexcept
-      : DimensionalQuantity<U>(), value_() {}
+    : DimensionalQuantity<U>(), value_() {}
 
   constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept
-      : DimensionalQuantity<U>(), value_(value) {}
+    : DimensionalQuantity<U>(), value_(value) {}
 
   constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
-      : DimensionalQuantity<U>(), value_(std::move(value)) {}
+    : DimensionalQuantity<U>(), value_(std::move(value)) {}
 
   DimensionalVectorQuantity(const Value::Vector& value, const U unit) noexcept
-      : DimensionalQuantity<U>(), value_(value) {
+    : DimensionalQuantity<U>(), value_(value) {
     Convert(value_, unit, StandardUnit<U>);
   }
 
   DimensionalVectorQuantity(Value::Vector&& value, const U unit) noexcept
-      : DimensionalQuantity<U>(), value_(std::move(value)) {
+    : DimensionalQuantity<U>(), value_(std::move(value)) {
     Convert(value_, unit, StandardUnit<U>);
   }
 
@@ -140,8 +140,7 @@ protected:
 
 namespace std {
 
-template <typename U>
-struct hash<PhQ::DimensionalVectorQuantity<U>> {
+template<typename U> struct hash<PhQ::DimensionalVectorQuantity<U>> {
   size_t operator()(const PhQ::DimensionalVectorQuantity<U>& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());
   }

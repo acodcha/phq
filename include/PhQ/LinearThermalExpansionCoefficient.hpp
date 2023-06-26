@@ -23,18 +23,18 @@
 namespace PhQ {
 
 class LinearThermalExpansionCoefficient
-    : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
+  : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
   constexpr LinearThermalExpansionCoefficient() noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
-  LinearThermalExpansionCoefficient(const double value,
-                                    const Unit::ThermalExpansion unit) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
+  LinearThermalExpansionCoefficient(
+      const double value, const Unit::ThermalExpansion unit) noexcept
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
-  template <Unit::ThermalExpansion Unit>
-  static constexpr LinearThermalExpansionCoefficient Create(
-      const double value) noexcept {
+  template<Unit::ThermalExpansion Unit>
+  static constexpr LinearThermalExpansionCoefficient
+  Create(const double value) noexcept {
     return LinearThermalExpansionCoefficient{
         StaticConvertCopy<Unit::ThermalExpansion, Unit,
                           StandardUnit<Unit::ThermalExpansion>>(value)};
@@ -92,7 +92,7 @@ public:
 private:
   explicit constexpr LinearThermalExpansionCoefficient(
       const double value) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -148,8 +148,8 @@ inline constexpr StrainScalar::StrainScalar(
     const LinearThermalExpansionCoefficient&
         linear_thermal_expansion_coefficient,
     const TemperatureDifference& temperature_difference) noexcept
-    : StrainScalar(linear_thermal_expansion_coefficient.Value() *
-                   temperature_difference.Value()) {}
+  : StrainScalar(linear_thermal_expansion_coefficient.Value()
+                 * temperature_difference.Value()) {}
 
 inline constexpr StrainScalar TemperatureDifference::operator*(
     const LinearThermalExpansionCoefficient&
@@ -161,8 +161,7 @@ inline constexpr StrainScalar TemperatureDifference::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::LinearThermalExpansionCoefficient> {
+template<> struct hash<PhQ::LinearThermalExpansionCoefficient> {
   size_t operator()(const PhQ::LinearThermalExpansionCoefficient&
                         linear_thermal_expansion_coefficient) const {
     return hash<double>()(linear_thermal_expansion_coefficient.Value());

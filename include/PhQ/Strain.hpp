@@ -32,12 +32,12 @@ public:
   constexpr Strain() noexcept : DimensionlessSymmetricDyadQuantity() {}
 
   explicit constexpr Strain(const Value::SymmetricDyad& value) noexcept
-      : DimensionlessSymmetricDyadQuantity(value) {}
+    : DimensionlessSymmetricDyadQuantity(value) {}
 
   constexpr Strain(const StrainRate& strain_rate, const Time& time) noexcept;
 
-  constexpr Strain(const StrainRate& strain_rate,
-                   const Frequency& frequency) noexcept;
+  constexpr Strain(
+      const StrainRate& strain_rate, const Frequency& frequency) noexcept;
 
   explicit constexpr Strain(
       const DisplacementGradient& displacement_gradient) noexcept;
@@ -80,44 +80,44 @@ public:
   }
 };
 
-inline constexpr bool operator==(const Strain& left,
-                                 const Strain& right) noexcept {
+inline constexpr bool operator==(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Strain& left,
-                                 const Strain& right) noexcept {
+inline constexpr bool operator!=(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Strain& left,
-                                const Strain& right) noexcept {
+inline constexpr bool operator<(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Strain& left,
-                                const Strain& right) noexcept {
+inline constexpr bool operator>(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Strain& left,
-                                 const Strain& right) noexcept {
+inline constexpr bool operator<=(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Strain& left,
-                                 const Strain& right) noexcept {
+inline constexpr bool operator>=(
+    const Strain& left, const Strain& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Strain& strain) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Strain& strain) noexcept {
   stream << strain.Print();
   return stream;
 }
 
-inline constexpr Strain operator*(const double number,
-                                  const Strain& strain) noexcept {
+inline constexpr Strain operator*(
+    const double number, const Strain& strain) noexcept {
   return strain * number;
 }
 
@@ -125,8 +125,7 @@ inline constexpr Strain operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Strain> {
+template<> struct hash<PhQ::Strain> {
   size_t operator()(const PhQ::Strain& strain) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain.Value());
   }

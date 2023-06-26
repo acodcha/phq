@@ -40,18 +40,20 @@ public:
   constexpr Vector() noexcept : x_y_z_() {}
 
   constexpr Vector(const double x, const double y, const double z) noexcept
-      : x_y_z_({x, y, z}) {}
+    : x_y_z_({x, y, z}) {}
 
   explicit constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
-      : x_y_z_(x_y_z) {}
+    : x_y_z_(x_y_z) {}
 
   explicit constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
-      : x_y_z_(std::move(x_y_z)) {}
+    : x_y_z_(std::move(x_y_z)) {}
 
   constexpr Vector(const double magnitude, const Direction& direction) noexcept;
 
   static constexpr Vector Zero() noexcept {
-    return Vector{std::array<double, 3>{0.0, 0.0, 0.0}};
+    return Vector{
+        std::array<double, 3>{0.0, 0.0, 0.0}
+    };
   }
 
   inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
@@ -85,8 +87,8 @@ public:
   inline constexpr void set_z(const double z) noexcept { x_y_z_[2] = z; }
 
   inline constexpr double MagnitudeSquared() const noexcept {
-    return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] +
-           x_y_z_[2] * x_y_z_[2];
+    return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1]
+           + x_y_z_[2] * x_y_z_[2];
   }
 
   inline constexpr double Magnitude() const noexcept {
@@ -96,8 +98,8 @@ public:
   inline constexpr PhQ::Direction Direction() const noexcept;
 
   inline constexpr double Dot(const Vector& vector) const noexcept {
-    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1] +
-           x_y_z_[2] * vector.x_y_z_[2];
+    return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
+           + x_y_z_[2] * vector.x_y_z_[2];
   }
 
   inline constexpr double Dot(const PhQ::Direction& direction) const noexcept;
@@ -119,24 +121,23 @@ public:
   inline PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
 
   inline std::string Print() const noexcept {
-    return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " +
-           PhQ::Print(x_y_z_[2]) + ")";
+    return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", "
+           + PhQ::Print(x_y_z_[2]) + ")";
   }
 
   inline std::string JSON() const noexcept {
-    return "{\"x\":" + PhQ::Print(x_y_z_[0]) +
-           ",\"y\":" + PhQ::Print(x_y_z_[1]) +
-           ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
+    return "{\"x\":" + PhQ::Print(x_y_z_[0]) + ",\"y\":" + PhQ::Print(x_y_z_[1])
+           + ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
   inline std::string XML() const noexcept {
-    return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1]) +
-           "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
+    return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1])
+           + "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
   inline std::string YAML() const noexcept {
-    return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1]) +
-           ",z:" + PhQ::Print(x_y_z_[2]) + "}";
+    return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1])
+           + ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
   inline constexpr void operator+=(const Vector& vector) noexcept {
@@ -167,20 +168,20 @@ private:
   std::array<double, 3> x_y_z_;
 };
 
-inline constexpr bool operator==(const Vector& left,
-                                 const Vector& right) noexcept {
-  return left.x() == right.x() && left.y() == right.y() &&
-         left.z() == right.z();
+inline constexpr bool operator==(
+    const Vector& left, const Vector& right) noexcept {
+  return left.x() == right.x() && left.y() == right.y()
+         && left.z() == right.z();
 }
 
-inline constexpr bool operator!=(const Vector& left,
-                                 const Vector& right) noexcept {
-  return left.x() != right.x() || left.y() != right.y() ||
-         left.z() != right.z();
+inline constexpr bool operator!=(
+    const Vector& left, const Vector& right) noexcept {
+  return left.x() != right.x() || left.y() != right.y()
+         || left.z() != right.z();
 }
 
-inline constexpr bool operator<(const Vector& left,
-                                const Vector& right) noexcept {
+inline constexpr bool operator<(
+    const Vector& left, const Vector& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() < right.x();
   }
@@ -190,8 +191,8 @@ inline constexpr bool operator<(const Vector& left,
   return left.z() < right.z();
 }
 
-inline constexpr bool operator>(const Vector& left,
-                                const Vector& right) noexcept {
+inline constexpr bool operator>(
+    const Vector& left, const Vector& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() > right.x();
   }
@@ -201,43 +202,43 @@ inline constexpr bool operator>(const Vector& left,
   return left.z() > right.z();
 }
 
-inline constexpr bool operator<=(const Vector& left,
-                                 const Vector& right) noexcept {
+inline constexpr bool operator<=(
+    const Vector& left, const Vector& right) noexcept {
   return !(left > right);
 }
 
-inline constexpr bool operator>=(const Vector& left,
-                                 const Vector& right) noexcept {
+inline constexpr bool operator>=(
+    const Vector& left, const Vector& right) noexcept {
   return !(left < right);
 }
 
-inline constexpr Vector operator+(const Vector& left,
-                                  const Vector& right) noexcept {
+inline constexpr Vector operator+(
+    const Vector& left, const Vector& right) noexcept {
   return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
-inline constexpr Vector operator-(const Vector& left,
-                                  const Vector& right) noexcept {
+inline constexpr Vector operator-(
+    const Vector& left, const Vector& right) noexcept {
   return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
-inline constexpr Vector operator*(const Vector& vector,
-                                  const double real) noexcept {
+inline constexpr Vector operator*(
+    const Vector& vector, const double real) noexcept {
   return {vector.x() * real, vector.y() * real, vector.z() * real};
 }
 
-inline constexpr Vector operator*(const double real,
-                                  const Vector& vector) noexcept {
+inline constexpr Vector operator*(
+    const double real, const Vector& vector) noexcept {
   return {vector * real};
 }
 
-inline constexpr Vector operator/(const Vector& vector,
-                                  const double real) noexcept {
+inline constexpr Vector operator/(
+    const Vector& vector, const double real) noexcept {
   return {vector.x() / real, vector.y() / real, vector.z() / real};
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Vector& vector) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Vector& vector) noexcept {
   stream << vector.Print();
   return stream;
 }
@@ -248,8 +249,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Value::Vector> {
+template<> struct hash<PhQ::Value::Vector> {
   size_t operator()(const PhQ::Value::Vector& vector) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(vector.x());

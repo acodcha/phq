@@ -32,14 +32,14 @@ class Traction;
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr StaticPressure() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   StaticPressure(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr StaticPressure(const ForceMagnitude& force_magnitude,
-                           const Area& area) noexcept
-      : StaticPressure(force_magnitude.Value() / area.Value()) {}
+  constexpr StaticPressure(
+      const ForceMagnitude& force_magnitude, const Area& area) noexcept
+    : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
   constexpr StaticPressure(const Traction& traction) noexcept;
 
@@ -50,7 +50,7 @@ public:
       const StaticKinematicPressure& static_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr StaticPressure Create(const double value) noexcept {
     return StaticPressure{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -132,38 +132,38 @@ public:
 
 private:
   explicit constexpr StaticPressure(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class PressureDifference;
 };
 
-inline constexpr bool operator==(const StaticPressure& left,
-                                 const StaticPressure& right) noexcept {
+inline constexpr bool operator==(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const StaticPressure& left,
-                                 const StaticPressure& right) noexcept {
+inline constexpr bool operator!=(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const StaticPressure& left,
-                                const StaticPressure& right) noexcept {
+inline constexpr bool operator<(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const StaticPressure& left,
-                                const StaticPressure& right) noexcept {
+inline constexpr bool operator>(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const StaticPressure& left,
-                                 const StaticPressure& right) noexcept {
+inline constexpr bool operator<=(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const StaticPressure& left,
-                                 const StaticPressure& right) noexcept {
+inline constexpr bool operator>=(
+    const StaticPressure& left, const StaticPressure& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -180,11 +180,11 @@ inline constexpr StaticPressure operator*(
 
 inline constexpr Area::Area(const StaticPressure& static_pressure,
                             const ForceMagnitude& force_magnitude) noexcept
-    : Area(force_magnitude.Value() / static_pressure.Value()) {}
+  : Area(force_magnitude.Value() / static_pressure.Value()) {}
 
 inline constexpr ForceMagnitude::ForceMagnitude(
     const StaticPressure& static_pressure, const Area& area) noexcept
-    : ForceMagnitude(static_pressure.Value() * area.Value()) {}
+  : ForceMagnitude(static_pressure.Value() * area.Value()) {}
 
 inline constexpr ForceMagnitude Area::operator*(
     const StaticPressure& static_pressure) const noexcept {
@@ -210,8 +210,7 @@ inline constexpr StaticPressure PressureDifference::operator-(
 
 namespace std {
 
-template <>
-struct hash<PhQ::StaticPressure> {
+template<> struct hash<PhQ::StaticPressure> {
   size_t operator()(const PhQ::StaticPressure& static_pressure) const {
     return hash<double>()(static_pressure.Value());
   }

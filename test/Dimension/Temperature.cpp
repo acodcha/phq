@@ -70,9 +70,9 @@ TEST(DimensionTemperature, Hash) {
   EXPECT_NE(hasher(temperature0), hasher(temperature3));
   EXPECT_NE(hasher(temperature0), hasher(temperature4));
   EXPECT_NE(hasher(temperature0), hasher(temperature5));
-  const std::unordered_set<Temperature> unordered{temperature0, temperature1,
-                                                  temperature2, temperature3,
-                                                  temperature4, temperature5};
+  const std::unordered_set<Temperature> unordered{
+      temperature0, temperature1, temperature2,
+      temperature3, temperature4, temperature5};
 }
 
 TEST(DimensionTemperature, Label) {

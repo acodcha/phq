@@ -31,146 +31,140 @@ enum class TemperatureDifference : int_least8_t {
 
 }  // namespace Unit
 
-template <>
-inline constexpr const Unit::TemperatureDifference
+template<> inline constexpr const Unit::TemperatureDifference
     StandardUnit<Unit::TemperatureDifference>{
         Unit::TemperatureDifference::Kelvin};
 
-template <>
+template<>
 inline constexpr const Dimension::Set Dimensions<Unit::TemperatureDifference>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}};
+                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+};
 
-template <>
-inline const std::map<UnitSystem, Unit::TemperatureDifference>
-    ConsistentUnits<Unit::TemperatureDifference>{
-        {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::TemperatureDifference::Kelvin},
-        {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::TemperatureDifference::Kelvin},
-        {UnitSystem::FootPoundSecondRankine,
-         Unit::TemperatureDifference::Rankine},
-        {UnitSystem::InchPoundSecondRankine,
-         Unit::TemperatureDifference::Rankine},
-    };
+template<>
+inline const std::map<UnitSystem, Unit::TemperatureDifference> ConsistentUnits<
+    Unit::TemperatureDifference>{
+    {UnitSystem::MetreKilogramSecondKelvin,
+     Unit::TemperatureDifference::Kelvin                                         },
+    {UnitSystem::MillimetreGramSecondKelvin,
+     Unit::TemperatureDifference::Kelvin                                         },
+    {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
+    {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
+};
 
-template <>
-inline const std::map<Unit::TemperatureDifference, UnitSystem>
+template<> inline const std::map<Unit::TemperatureDifference, UnitSystem>
     RelatedUnitSystems<Unit::TemperatureDifference>{};
 
-template <>
-inline const std::map<Unit::TemperatureDifference, std::string_view>
+template<> inline const std::map<Unit::TemperatureDifference, std::string_view>
     Abbreviations<Unit::TemperatureDifference>{
-        {Unit::TemperatureDifference::Kelvin, "K"},
-        {Unit::TemperatureDifference::Celsius, "°C"},
-        {Unit::TemperatureDifference::Rankine, "°R"},
+        {Unit::TemperatureDifference::Kelvin,     "K" },
+        {Unit::TemperatureDifference::Celsius,    "°C"},
+        {Unit::TemperatureDifference::Rankine,    "°R"},
         {Unit::TemperatureDifference::Fahrenheit, "°F"},
-    };
+};
 
-template <>
+template<>
 inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
     Spellings<Unit::TemperatureDifference>{
-        {"K", Unit::TemperatureDifference::Kelvin},
-        {"°K", Unit::TemperatureDifference::Kelvin},
-        {"degK", Unit::TemperatureDifference::Kelvin},
-        {"°C", Unit::TemperatureDifference::Celsius},
-        {"C", Unit::TemperatureDifference::Celsius},
-        {"degC", Unit::TemperatureDifference::Celsius},
-        {"°R", Unit::TemperatureDifference::Rankine},
-        {"R", Unit::TemperatureDifference::Rankine},
-        {"degR", Unit::TemperatureDifference::Rankine},
-        {"°F", Unit::TemperatureDifference::Fahrenheit},
-        {"F", Unit::TemperatureDifference::Fahrenheit},
+        {"K",    Unit::TemperatureDifference::Kelvin    },
+        {"°K",   Unit::TemperatureDifference::Kelvin    },
+        {"degK", Unit::TemperatureDifference::Kelvin    },
+        {"°C",   Unit::TemperatureDifference::Celsius   },
+        {"C",    Unit::TemperatureDifference::Celsius   },
+        {"degC", Unit::TemperatureDifference::Celsius   },
+        {"°R",   Unit::TemperatureDifference::Rankine   },
+        {"R",    Unit::TemperatureDifference::Rankine   },
+        {"degR", Unit::TemperatureDifference::Rankine   },
+        {"°F",   Unit::TemperatureDifference::Fahrenheit},
+        {"F",    Unit::TemperatureDifference::Fahrenheit},
         {"degF", Unit::TemperatureDifference::Fahrenheit},
-    };
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::TemperatureDifference,
+                       Unit::TemperatureDifference::Kelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::TemperatureDifference,
+                       Unit::TemperatureDifference::Celsius>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::TemperatureDifference,
+                       Unit::TemperatureDifference::Rankine>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::TemperatureDifference,
+                       Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::TemperatureDifference,
-                                           Unit::TemperatureDifference::Kelvin>(
+template<> inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference,
+                     Unit::TemperatureDifference::Kelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
+template<> inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference,
+                     Unit::TemperatureDifference::Celsius>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
+template<> inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference,
+                     Unit::TemperatureDifference::Rankine>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
+template<> inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference,
+                     Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::TemperatureDifference,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TemperatureDifference>{
         {Unit::TemperatureDifference::Kelvin,
          ConversionsFromStandard<Unit::TemperatureDifference,
-                                 Unit::TemperatureDifference::Kelvin>},
+         Unit::TemperatureDifference::Kelvin>    },
         {Unit::TemperatureDifference::Celsius,
          ConversionsFromStandard<Unit::TemperatureDifference,
-                                 Unit::TemperatureDifference::Celsius>},
+         Unit::TemperatureDifference::Celsius>   },
         {Unit::TemperatureDifference::Rankine,
          ConversionsFromStandard<Unit::TemperatureDifference,
-                                 Unit::TemperatureDifference::Rankine>},
+         Unit::TemperatureDifference::Rankine>   },
         {Unit::TemperatureDifference::Fahrenheit,
          ConversionsFromStandard<Unit::TemperatureDifference,
-                                 Unit::TemperatureDifference::Fahrenheit>},
-    };
+         Unit::TemperatureDifference::Fahrenheit>},
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::TemperatureDifference,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TemperatureDifference>{
         {Unit::TemperatureDifference::Kelvin,
          ConversionsToStandard<Unit::TemperatureDifference,
-                               Unit::TemperatureDifference::Kelvin>},
+         Unit::TemperatureDifference::Kelvin>    },
         {Unit::TemperatureDifference::Celsius,
          ConversionsToStandard<Unit::TemperatureDifference,
-                               Unit::TemperatureDifference::Celsius>},
+         Unit::TemperatureDifference::Celsius>   },
         {Unit::TemperatureDifference::Rankine,
          ConversionsToStandard<Unit::TemperatureDifference,
-                               Unit::TemperatureDifference::Rankine>},
+         Unit::TemperatureDifference::Rankine>   },
         {Unit::TemperatureDifference::Fahrenheit,
          ConversionsToStandard<Unit::TemperatureDifference,
-                               Unit::TemperatureDifference::Fahrenheit>},
-    };
+         Unit::TemperatureDifference::Fahrenheit>},
+};
 
 }  // namespace Internal
 

@@ -75,8 +75,8 @@ inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Time& time) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Time& time) noexcept {
   stream << time.Print();
   return stream;
 }
@@ -85,8 +85,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::Time> {
+template<> struct hash<PhQ::Dimension::Time> {
   size_t operator()(const PhQ::Dimension::Time& time) const {
     return hash<int_least8_t>()(time.Value());
   }

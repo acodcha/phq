@@ -29,16 +29,16 @@ class StaticPressure;
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr PressureDifference() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   PressureDifference(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr PressureDifference(
       const KinematicPressureDifference& kinematic_pressure_difference,
       const MassDensity& mass_density) noexcept;
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr PressureDifference Create(const double value) noexcept {
     return PressureDifference{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -94,38 +94,38 @@ public:
 
 private:
   explicit constexpr PressureDifference(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class StaticPressure;
 };
 
-inline constexpr bool operator==(const PressureDifference& left,
-                                 const PressureDifference& right) noexcept {
+inline constexpr bool operator==(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const PressureDifference& left,
-                                 const PressureDifference& right) noexcept {
+inline constexpr bool operator!=(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const PressureDifference& left,
-                                const PressureDifference& right) noexcept {
+inline constexpr bool operator<(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const PressureDifference& left,
-                                const PressureDifference& right) noexcept {
+inline constexpr bool operator>(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const PressureDifference& left,
-                                 const PressureDifference& right) noexcept {
+inline constexpr bool operator<=(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const PressureDifference& left,
-                                 const PressureDifference& right) noexcept {
+inline constexpr bool operator>=(
+    const PressureDifference& left, const PressureDifference& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -146,8 +146,7 @@ inline constexpr PressureDifference operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::PressureDifference> {
+template<> struct hash<PhQ::PressureDifference> {
   size_t operator()(const PhQ::PressureDifference& pressure_difference) const {
     return hash<double>()(pressure_difference.Value());
   }

@@ -33,23 +33,23 @@ class ThermalDiffusivity;
 class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
   constexpr KinematicViscosity() noexcept
-      : DimensionalScalarQuantity<Unit::Diffusivity>() {}
+    : DimensionalScalarQuantity<Unit::Diffusivity>() {}
 
   KinematicViscosity(const double value, const Unit::Diffusivity unit) noexcept
-      : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
   constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity,
                                const MassDensity& mass_density) noexcept;
 
-  constexpr KinematicViscosity(const ReynoldsNumber& reynolds_number,
-                               const Speed& speed,
-                               const Length& length) noexcept;
+  constexpr KinematicViscosity(
+      const ReynoldsNumber& reynolds_number, const Speed& speed,
+      const Length& length) noexcept;
 
   constexpr KinematicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalDiffusivity& thermal_diffusivity) noexcept;
 
-  template <Unit::Diffusivity Unit>
+  template<Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) noexcept {
     return KinematicViscosity{
         StaticConvertCopy<Unit::Diffusivity, Unit,
@@ -99,36 +99,36 @@ public:
 
 private:
   explicit constexpr KinematicViscosity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
+    : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 };
 
-inline constexpr bool operator==(const KinematicViscosity& left,
-                                 const KinematicViscosity& right) noexcept {
+inline constexpr bool operator==(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const KinematicViscosity& left,
-                                 const KinematicViscosity& right) noexcept {
+inline constexpr bool operator!=(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const KinematicViscosity& left,
-                                const KinematicViscosity& right) noexcept {
+inline constexpr bool operator<(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const KinematicViscosity& left,
-                                const KinematicViscosity& right) noexcept {
+inline constexpr bool operator>(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const KinematicViscosity& left,
-                                 const KinematicViscosity& right) noexcept {
+inline constexpr bool operator<=(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const KinematicViscosity& left,
-                                 const KinematicViscosity& right) noexcept {
+inline constexpr bool operator>=(
+    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -149,8 +149,7 @@ inline constexpr KinematicViscosity operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::KinematicViscosity> {
+template<> struct hash<PhQ::KinematicViscosity> {
   size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
     return hash<double>()(kinematic_viscosity.Value());
   }

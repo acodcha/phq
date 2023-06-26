@@ -105,8 +105,8 @@ TEST(MassRate, Hash) {
   EXPECT_NE(hasher(rate0), hasher(rate3));
   EXPECT_NE(hasher(rate0), hasher(rate4));
   EXPECT_NE(hasher(rate0), hasher(rate5));
-  const std::unordered_set<MassRate> unordered{rate0, rate1, rate2,
-                                               rate3, rate4, rate5};
+  const std::unordered_set<MassRate> unordered{
+      rate0, rate1, rate2, rate3, rate4, rate5};
 }
 
 TEST(MassRate, JSON) {

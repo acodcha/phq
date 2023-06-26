@@ -28,12 +28,12 @@ public:
   constexpr AreaVector() noexcept : DimensionalVectorQuantity<Unit::Area>() {}
 
   AreaVector(const Value::Vector& value, const Unit::Area unit) noexcept
-      : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
   constexpr AreaVector(const Area& area, const Direction& direction) noexcept
-      : AreaVector(area.Value() * direction.Value()) {}
+    : AreaVector(area.Value() * direction.Value()) {}
 
-  template <Unit::Area Unit>
+  template<Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) noexcept {
     return AreaVector{
         StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
@@ -81,59 +81,59 @@ public:
 
 private:
   explicit constexpr AreaVector(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Area>(value) {}
+    : DimensionalVectorQuantity<Unit::Area>(value) {}
 };
 
-inline constexpr bool operator==(const AreaVector& left,
-                                 const AreaVector& right) noexcept {
+inline constexpr bool operator==(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const AreaVector& left,
-                                 const AreaVector& right) noexcept {
+inline constexpr bool operator!=(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const AreaVector& left,
-                                const AreaVector& right) noexcept {
+inline constexpr bool operator<(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const AreaVector& left,
-                                const AreaVector& right) noexcept {
+inline constexpr bool operator>(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const AreaVector& left,
-                                 const AreaVector& right) noexcept {
+inline constexpr bool operator<=(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const AreaVector& left,
-                                 const AreaVector& right) noexcept {
+inline constexpr bool operator>=(
+    const AreaVector& left, const AreaVector& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const AreaVector& area_vector) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const AreaVector& area_vector) noexcept {
   stream << area_vector.Print();
   return stream;
 }
 
-inline constexpr AreaVector operator*(const double number,
-                                      const AreaVector& area_vector) noexcept {
+inline constexpr AreaVector operator*(
+    const double number, const AreaVector& area_vector) noexcept {
   return area_vector * number;
 }
 
 inline constexpr Direction::Direction(const AreaVector& area_vector) noexcept
-    : Direction(area_vector.Value()) {}
+  : Direction(area_vector.Value()) {}
 
-inline Angle::Angle(const AreaVector& area_vector_1,
-                    const AreaVector& area_vector_2) noexcept
-    : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
+inline Angle::Angle(
+    const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept
+  : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
 inline constexpr Area::Area(const AreaVector& area_vector) noexcept
-    : Area(area_vector.Value().Magnitude()) {}
+  : Area(area_vector.Value().Magnitude()) {}
 
 inline constexpr AreaVector Direction::operator*(
     const Area& area) const noexcept {
@@ -149,8 +149,7 @@ inline constexpr AreaVector Area::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::AreaVector> {
+template<> struct hash<PhQ::AreaVector> {
   size_t operator()(const PhQ::AreaVector& area_vector) const {
     return hash<PhQ::Value::Vector>()(area_vector.Value());
   }

@@ -26,63 +26,57 @@
 
 namespace PhQ {
 
-template <typename Unit>
-inline constexpr Unit StandardUnit;
+template<typename Unit> inline constexpr Unit StandardUnit;
 
-template <typename Unit>
-inline constexpr Dimension::Set Dimensions;
+template<typename Unit> inline constexpr Dimension::Set Dimensions;
 
 namespace Internal {
 
-template <typename Unit, Unit NewUnit>
+template<typename Unit, Unit NewUnit>
 inline constexpr void ConversionFromStandard(double& value) noexcept;
 
-template <typename Unit, Unit OldUnit>
+template<typename Unit, Unit OldUnit>
 inline constexpr void ConversionToStandard(double& value) noexcept;
 
-template <typename Unit, Unit NewUnit>
-inline constexpr void ConversionsFromStandard(double* values,
-                                              const std::size_t size) noexcept {
+template<typename Unit, Unit NewUnit> inline constexpr void
+ConversionsFromStandard(double* values, const std::size_t size) noexcept {
   const double* const end{values + size};
   for (; values < end; ++values) {
     ConversionFromStandard<Unit, NewUnit>(*values);
   }
 }
 
-template <typename Unit, Unit OldUnit>
-inline constexpr void ConversionsToStandard(double* values,
-                                            const std::size_t size) noexcept {
+template<typename Unit, Unit OldUnit> inline constexpr void
+ConversionsToStandard(double* values, const std::size_t size) noexcept {
   const double* const end{values + size};
   for (; values < end; ++values) {
     ConversionToStandard<Unit, OldUnit>(*values);
   }
 }
 
-template <typename Unit>
-inline const std::map<
+template<typename Unit> inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard;
 
-template <typename Unit>
-inline const std::map<
+template<typename Unit> inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard;
 
 }  // namespace Internal
 
-template <typename Unit>
+template<typename Unit>
 void Convert(double& value, const Unit old_unit, const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(&value,
-                                                                      1);
+    Internal::MapOfConversionsToStandard<Unit>.find(old_unit)->second(
+        &value, 1);
   }
   if (new_unit != StandardUnit<Unit>) {
-    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(&value,
-                                                                        1);
+    Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
+        &value, 1);
   }
 }
 
-template <typename Unit, std::size_t Size>
+template<typename Unit, std::size_t Size>
 void Convert(std::array<double, Size>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
@@ -95,7 +89,7 @@ void Convert(std::array<double, Size>& values, const Unit old_unit,
   }
 }
 
-template <typename Unit>
+template<typename Unit>
 void Convert(std::vector<double>& values, const Unit old_unit,
              const Unit new_unit) noexcept {
   if (old_unit != StandardUnit<Unit>) {
@@ -108,101 +102,95 @@ void Convert(std::vector<double>& values, const Unit old_unit,
   }
 }
 
-template <typename Unit>
-void Convert(Value::Vector& value, const Unit old_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit> void Convert(
+    Value::Vector& value, const Unit old_unit, const Unit new_unit) noexcept {
   Convert<Unit, 3>(value.mutable_x_y_z(), old_unit, new_unit);
 }
 
-template <typename Unit>
+template<typename Unit>
 void Convert(Value::SymmetricDyad& value, const Unit old_unit,
              const Unit new_unit) noexcept {
   Convert<Unit, 6>(value.mutable_xx_xy_xz_yy_yz_zz(), old_unit, new_unit);
 }
 
-template <typename Unit>
-void Convert(Value::Dyad& value, const Unit old_unit,
-             const Unit new_unit) noexcept {
-  Convert<Unit, 9>(value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit,
-                   new_unit);
+template<typename Unit> void Convert(
+    Value::Dyad& value, const Unit old_unit, const Unit new_unit) noexcept {
+  Convert<Unit, 9>(
+      value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit, new_unit);
 }
 
-template <typename Unit>
-double ConvertCopy(const double value, const Unit old_unit,
-                   const Unit new_unit) noexcept {
+template<typename Unit> double ConvertCopy(
+    const double value, const Unit old_unit, const Unit new_unit) noexcept {
   double result{value};
   Convert<Unit>(result, old_unit, new_unit);
   return result;
 }
 
-template <typename Unit, std::size_t Size>
-std::array<double, Size> ConvertCopy(const std::array<double, Size>& values,
-                                     const Unit old_unit,
-                                     const Unit new_unit) noexcept {
+template<typename Unit, std::size_t Size> std::array<double, Size> ConvertCopy(
+    const std::array<double, Size>& values, const Unit old_unit,
+    const Unit new_unit) noexcept {
   std::array<double, Size> result{values};
   Convert<Unit, Size>(result, old_unit, new_unit);
   return result;
 }
 
-template <typename Unit>
-std::vector<double> ConvertCopy(const std::vector<double>& values,
-                                const Unit old_unit,
-                                const Unit new_unit) noexcept {
+template<typename Unit> std::vector<double> ConvertCopy(
+    const std::vector<double>& values, const Unit old_unit,
+    const Unit new_unit) noexcept {
   std::vector<double> result{values};
   Convert<Unit>(result, old_unit, new_unit);
   return result;
 }
 
-template <typename Unit>
-Value::Vector ConvertCopy(const Value::Vector& value, const Unit old_unit,
-                          const Unit new_unit) noexcept {
+template<typename Unit> Value::Vector ConvertCopy(
+    const Value::Vector& value, const Unit old_unit,
+    const Unit new_unit) noexcept {
   return Value::Vector{ConvertCopy<Unit, 3>(value.x_y_z(), old_unit, new_unit)};
 }
 
-template <typename Unit>
-Value::SymmetricDyad ConvertCopy(const Value::SymmetricDyad& value,
-                                 const Unit old_unit,
-                                 const Unit new_unit) noexcept {
+template<typename Unit> Value::SymmetricDyad ConvertCopy(
+    const Value::SymmetricDyad& value, const Unit old_unit,
+    const Unit new_unit) noexcept {
   return Value::SymmetricDyad{
       ConvertCopy<Unit, 6>(value.xx_xy_xz_yy_yz_zz(), old_unit, new_unit)};
 }
 
-template <typename Unit>
-Value::Dyad ConvertCopy(const Value::Dyad& value, const Unit old_unit,
-                        const Unit new_unit) noexcept {
-  return Value::Dyad{ConvertCopy<Unit, 9>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz(),
-                                          old_unit, new_unit)};
+template<typename Unit> Value::Dyad ConvertCopy(
+    const Value::Dyad& value, const Unit old_unit,
+    const Unit new_unit) noexcept {
+  return Value::Dyad{ConvertCopy<Unit, 9>(
+      value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), old_unit, new_unit)};
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
+template<typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr void StaticConvert(double& value) noexcept {
   Internal::ConversionToStandard<Unit, OldUnit>(value);
   Internal::ConversionFromStandard<Unit, NewUnit>(value);
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
+template<typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
 inline constexpr void StaticConvert(std::array<double, Size>& values) noexcept {
   Internal::ConversionsToStandard<Unit, OldUnit>(&values[0], Size);
   Internal::ConversionsFromStandard<Unit, NewUnit>(&values[0], Size);
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
+template<typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::Vector& value) noexcept {
   StaticConvert<Unit, OldUnit, NewUnit, 3>(value.mutable_x_y_z());
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
+template<typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
   StaticConvert<Unit, OldUnit, NewUnit, 6>(value.mutable_xx_xy_xz_yy_yz_zz());
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
+template<typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::Dyad& value) noexcept {
   StaticConvert<Unit, OldUnit, NewUnit, 9>(
       value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
+template<typename Unit, Unit OldUnit, Unit NewUnit>
 inline constexpr double StaticConvertCopy(const double value) noexcept {
   double result{value};
   Internal::ConversionToStandard<Unit, OldUnit>(result);
@@ -210,32 +198,31 @@ inline constexpr double StaticConvertCopy(const double value) noexcept {
   return result;
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
-inline constexpr std::array<double, Size> StaticConvertCopy(
-    const std::array<double, Size>& values) noexcept {
+template<typename Unit, Unit OldUnit, Unit NewUnit, std::size_t Size>
+inline constexpr std::array<double, Size>
+StaticConvertCopy(const std::array<double, Size>& values) noexcept {
   std::array<double, Size> result{values};
   Internal::ConversionsToStandard<Unit, OldUnit>(&result[0], Size);
   Internal::ConversionsFromStandard<Unit, NewUnit>(&result[0], Size);
   return result;
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
-inline constexpr Value::Vector StaticConvertCopy(
-    const Value::Vector& value) noexcept {
+template<typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr Value::Vector
+StaticConvertCopy(const Value::Vector& value) noexcept {
   return Value::Vector{
       StaticConvertCopy<Unit, OldUnit, NewUnit, 3>(value.x_y_z())};
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
-inline constexpr Value::SymmetricDyad StaticConvertCopy(
-    const Value::SymmetricDyad& value) noexcept {
+template<typename Unit, Unit OldUnit, Unit NewUnit>
+inline constexpr Value::SymmetricDyad
+StaticConvertCopy(const Value::SymmetricDyad& value) noexcept {
   return Value::SymmetricDyad{
       StaticConvertCopy<Unit, OldUnit, NewUnit, 6>(value.xx_xy_xz_yy_yz_zz())};
 }
 
-template <typename Unit, Unit OldUnit, Unit NewUnit>
-inline constexpr Value::Dyad StaticConvertCopy(
-    const Value::Dyad& value) noexcept {
+template<typename Unit, Unit OldUnit, Unit NewUnit> inline constexpr Value::Dyad
+StaticConvertCopy(const Value::Dyad& value) noexcept {
   return Value::Dyad{StaticConvertCopy<Unit, OldUnit, NewUnit, 9>(
       value.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }

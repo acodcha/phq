@@ -28,7 +28,7 @@ enum class Type : int_least8_t {
   IdealGas,
 };
 
-template <Type ThermodynamicStateModelType>
+template<Type ThermodynamicStateModelType>
 class GenericThermodynamicStateModel {
 public:
   constexpr ThermodynamicStateModel::Type Type() const noexcept {
@@ -51,30 +51,30 @@ protected:
 
 }  // namespace ThermodynamicStateModel
 
-template <>
+template<>
 inline const std::map<ThermodynamicStateModel::Type, std::string_view>
     Abbreviations<ThermodynamicStateModel::Type>{
         {ThermodynamicStateModel::Type::IncompressibleFluid,
-         "Incompressible Fluid"},
-        {ThermodynamicStateModel::Type::IdealGas, "Ideal Gas"},
-    };
+         "Incompressible Fluid"                                         },
+        {ThermodynamicStateModel::Type::IdealGas,            "Ideal Gas"},
+};
 
-template <>
+template<>
 inline const std::unordered_map<std::string_view, ThermodynamicStateModel::Type>
     Spellings<ThermodynamicStateModel::Type>{
         {"Incompressible Fluid",
-         ThermodynamicStateModel::Type::IncompressibleFluid},
+         ThermodynamicStateModel::Type::IncompressibleFluid             },
         {"IncompressibleFluid",
-         ThermodynamicStateModel::Type::IncompressibleFluid},
+         ThermodynamicStateModel::Type::IncompressibleFluid             },
         {"incompressible fluid",
-         ThermodynamicStateModel::Type::IncompressibleFluid},
+         ThermodynamicStateModel::Type::IncompressibleFluid             },
         {"incompressible_fluid",
-         ThermodynamicStateModel::Type::IncompressibleFluid},
-        {"Ideal Gas", ThermodynamicStateModel::Type::IdealGas},
-        {"IdealGas", ThermodynamicStateModel::Type::IdealGas},
-        {"ideal gas", ThermodynamicStateModel::Type::IdealGas},
-        {"ideal_gas", ThermodynamicStateModel::Type::IdealGas},
-    };
+         ThermodynamicStateModel::Type::IncompressibleFluid             },
+        {"Ideal Gas",            ThermodynamicStateModel::Type::IdealGas},
+        {"IdealGas",             ThermodynamicStateModel::Type::IdealGas},
+        {"ideal gas",            ThermodynamicStateModel::Type::IdealGas},
+        {"ideal_gas",            ThermodynamicStateModel::Type::IdealGas},
+};
 
 }  // namespace PhQ
 

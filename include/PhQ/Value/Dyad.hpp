@@ -27,29 +27,29 @@ public:
   constexpr Dyad(const double xx, const double xy, const double xz,
                  const double yx, const double yy, const double yz,
                  const double zx, const double zy, const double zz) noexcept
-      : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
 
   explicit constexpr Dyad(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
-      : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   explicit constexpr Dyad(
       std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
-      : xx_xy_xz_yx_yy_yz_zx_zy_zz_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
 
   explicit constexpr Dyad(const SymmetricDyad& symdyad) noexcept
-      : xx_xy_xz_yx_yy_yz_zx_zy_zz_({symdyad.xx(), symdyad.xy(), symdyad.xz(),
-                                     symdyad.yx(), symdyad.yy(), symdyad.yz(),
-                                     symdyad.zx(), symdyad.zy(),
-                                     symdyad.zz()}) {}
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
+        {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(),
+         symdyad.yz(), symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
 
   static constexpr Dyad Zero() noexcept {
     return Dyad{
-        std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}};
+        std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    };
   }
 
-  inline constexpr const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz()
-      const noexcept {
+  inline constexpr const std::array<double, 9>&
+  xx_xy_xz_yx_yy_yz_zx_zy_zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
@@ -178,9 +178,9 @@ public:
   inline constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
 
   inline constexpr double Determinant() const noexcept {
-    return (xx() * (yy() * zz() - yz() * zy()) +
-            xy() * (yz() * zx() - yx() * zz()) +
-            xz() * (yx() * zy() - yy() * zx()));
+    return (
+        xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
+        + xz() * (yx() * zy() - yy() * zx()));
   }
 
   inline constexpr Dyad Transpose() const noexcept {
@@ -208,35 +208,35 @@ public:
   inline constexpr std::optional<Dyad> Inverse() const;
 
   inline std::string Print() const noexcept {
-    return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", " +
-           PhQ::Print(xz()) + "; " + PhQ::Print(yx()) + ", " +
-           PhQ::Print(yy()) + ", " + PhQ::Print(yz()) + "; " +
-           PhQ::Print(zx()) + ", " + PhQ::Print(zy()) + ", " +
-           PhQ::Print(zz()) + ")";
+    return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", "
+           + PhQ::Print(xz()) + "; " + PhQ::Print(yx()) + ", "
+           + PhQ::Print(yy()) + ", " + PhQ::Print(yz()) + "; "
+           + PhQ::Print(zx()) + ", " + PhQ::Print(zy()) + ", "
+           + PhQ::Print(zz()) + ")";
   }
 
   inline std::string JSON() const noexcept {
-    return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy()) +
-           ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx()) +
-           ",\"yy\":" + PhQ::Print(yy()) + ",\"yz\":" + PhQ::Print(yz()) +
-           ",\"zx\":" + PhQ::Print(zx()) + ",\"zy\":" + PhQ::Print(zy()) +
-           ",\"zz\":" + PhQ::Print(zz()) + "}";
+    return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy())
+           + ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx())
+           + ",\"yy\":" + PhQ::Print(yy()) + ",\"yz\":" + PhQ::Print(yz())
+           + ",\"zx\":" + PhQ::Print(zx()) + ",\"zy\":" + PhQ::Print(zy())
+           + ",\"zz\":" + PhQ::Print(zz()) + "}";
   }
 
   inline std::string XML() const noexcept {
-    return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy()) +
-           "</xy><xz>" + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx()) +
-           "</yx><yy>" + PhQ::Print(yy()) + "</yy><yz>" + PhQ::Print(yz()) +
-           "</yz><zx>" + PhQ::Print(zx()) + "</zx><zy>" + PhQ::Print(zy()) +
-           "</zy><zz>" + PhQ::Print(zz()) + "</zz>";
+    return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy())
+           + "</xy><xz>" + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx())
+           + "</yx><yy>" + PhQ::Print(yy()) + "</yy><yz>" + PhQ::Print(yz())
+           + "</yz><zx>" + PhQ::Print(zx()) + "</zx><zy>" + PhQ::Print(zy())
+           + "</zy><zz>" + PhQ::Print(zz()) + "</zz>";
   }
 
   inline std::string YAML() const noexcept {
-    return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy()) +
-           ",xz:" + PhQ::Print(xz()) + ",yx:" + PhQ::Print(yx()) +
-           ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz()) +
-           ",zx:" + PhQ::Print(zx()) + ",zy:" + PhQ::Print(zy()) +
-           ",zz:" + PhQ::Print(zz()) + "}";
+    return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy())
+           + ",xz:" + PhQ::Print(xz()) + ",yx:" + PhQ::Print(yx())
+           + ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz())
+           + ",zx:" + PhQ::Print(zx()) + ",zy:" + PhQ::Print(zy())
+           + ",zz:" + PhQ::Print(zz()) + "}";
   }
 
   inline constexpr void operator+=(const Dyad& dyad) noexcept {
@@ -292,19 +292,19 @@ private:
 };
 
 inline constexpr bool operator==(const Dyad& left, const Dyad& right) noexcept {
-  return (left.xx() == right.xx() && left.xy() == right.xy() &&
-          left.xz() == right.xz() && left.yx() == right.yx() &&
-          left.yy() == right.yy() && left.yz() == right.yz() &&
-          left.zx() == right.zx() && left.zy() == right.zy() &&
-          left.zz() == right.zz());
+  return (left.xx() == right.xx() && left.xy() == right.xy()
+          && left.xz() == right.xz() && left.yx() == right.yx()
+          && left.yy() == right.yy() && left.yz() == right.yz()
+          && left.zx() == right.zx() && left.zy() == right.zy()
+          && left.zz() == right.zz());
 }
 
 inline constexpr bool operator!=(const Dyad& left, const Dyad& right) noexcept {
-  return (left.xx() != right.xx() || left.xy() != right.xy() ||
-          left.xz() != right.xz() || left.yx() != right.yx() ||
-          left.yy() != right.yy() || left.yz() != right.yz() ||
-          left.zx() != right.zx() || left.zy() != right.zy() ||
-          left.zz() != right.zz());
+  return (left.xx() != right.xx() || left.xy() != right.xy()
+          || left.xz() != right.xz() || left.yx() != right.yx()
+          || left.yy() != right.yy() || left.yz() != right.yz()
+          || left.zx() != right.zx() || left.zy() != right.zy()
+          || left.zz() != right.zz());
 }
 
 inline constexpr bool operator<(const Dyad& left, const Dyad& right) noexcept {
@@ -395,16 +395,16 @@ inline constexpr Dyad operator*(const double real, const Dyad& dyad) noexcept {
   return {dyad * real};
 }
 
-inline constexpr Vector operator*(const Dyad& dyad,
-                                  const Vector& vector) noexcept {
+inline constexpr Vector operator*(
+    const Dyad& dyad, const Vector& vector) noexcept {
   return {
       dyad.xx() * vector.x() + dyad.xy() * vector.y() + dyad.xz() * vector.z(),
       dyad.yx() * vector.x() + dyad.yy() * vector.y() + dyad.yz() * vector.z(),
       dyad.zx() * vector.x() + dyad.zy() * vector.y() + dyad.zz() * vector.z()};
 }
 
-inline constexpr Dyad operator*(const SymmetricDyad& left,
-                                const SymmetricDyad& right) noexcept {
+inline constexpr Dyad operator*(
+    const SymmetricDyad& left, const SymmetricDyad& right) noexcept {
   return {
       left.xx() * right.xx() + left.xy() * right.xy() + left.xz() * right.xz(),
       left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.yz(),
@@ -417,48 +417,50 @@ inline constexpr Dyad operator*(const SymmetricDyad& left,
       left.xz() * right.xz() + left.yz() * right.yz() + left.zz() * right.zz()};
 }
 
-inline constexpr Dyad operator*(const SymmetricDyad& symdyad,
-                                const Dyad& dyad) noexcept {
-  return {symdyad.xx() * dyad.xx() + symdyad.xy() * dyad.yx() +
-              symdyad.xz() * dyad.zx(),
-          symdyad.xx() * dyad.xy() + symdyad.xy() * dyad.yy() +
-              symdyad.xz() * dyad.zy(),
-          symdyad.xx() * dyad.xz() + symdyad.xy() * dyad.yz() +
-              symdyad.xz() * dyad.zz(),
-          symdyad.xy() * dyad.xx() + symdyad.yy() * dyad.yx() +
-              symdyad.yz() * dyad.zx(),
-          symdyad.xy() * dyad.xy() + symdyad.yy() * dyad.yy() +
-              symdyad.yz() * dyad.zy(),
-          symdyad.xy() * dyad.xz() + symdyad.yy() * dyad.yz() +
-              symdyad.yz() * dyad.zz(),
-          symdyad.xz() * dyad.xx() + symdyad.yz() * dyad.yx() +
-              symdyad.zz() * dyad.zx(),
-          symdyad.xz() * dyad.xy() + symdyad.yz() * dyad.yy() +
-              symdyad.zz() * dyad.zy(),
-          symdyad.xz() * dyad.xz() + symdyad.yz() * dyad.yz() +
-              symdyad.zz() * dyad.zz()};
+inline constexpr Dyad operator*(
+    const SymmetricDyad& symdyad, const Dyad& dyad) noexcept {
+  return {
+      symdyad.xx() * dyad.xx() + symdyad.xy() * dyad.yx()
+          + symdyad.xz() * dyad.zx(),
+      symdyad.xx() * dyad.xy() + symdyad.xy() * dyad.yy()
+          + symdyad.xz() * dyad.zy(),
+      symdyad.xx() * dyad.xz() + symdyad.xy() * dyad.yz()
+          + symdyad.xz() * dyad.zz(),
+      symdyad.xy() * dyad.xx() + symdyad.yy() * dyad.yx()
+          + symdyad.yz() * dyad.zx(),
+      symdyad.xy() * dyad.xy() + symdyad.yy() * dyad.yy()
+          + symdyad.yz() * dyad.zy(),
+      symdyad.xy() * dyad.xz() + symdyad.yy() * dyad.yz()
+          + symdyad.yz() * dyad.zz(),
+      symdyad.xz() * dyad.xx() + symdyad.yz() * dyad.yx()
+          + symdyad.zz() * dyad.zx(),
+      symdyad.xz() * dyad.xy() + symdyad.yz() * dyad.yy()
+          + symdyad.zz() * dyad.zy(),
+      symdyad.xz() * dyad.xz() + symdyad.yz() * dyad.yz()
+          + symdyad.zz() * dyad.zz()};
 }
 
-inline constexpr Dyad operator*(const Dyad& dyad,
-                                const SymmetricDyad& symdyad) noexcept {
-  return {dyad.xx() * symdyad.xx() + dyad.xy() * symdyad.yx() +
-              dyad.xz() * symdyad.zx(),
-          dyad.xx() * symdyad.xy() + dyad.xy() * symdyad.yy() +
-              dyad.xz() * symdyad.zy(),
-          dyad.xx() * symdyad.xz() + dyad.xy() * symdyad.yz() +
-              dyad.xz() * symdyad.zz(),
-          dyad.yx() * symdyad.xx() + dyad.yy() * symdyad.yx() +
-              dyad.yz() * symdyad.zx(),
-          dyad.yx() * symdyad.xy() + dyad.yy() * symdyad.yy() +
-              dyad.yz() * symdyad.zy(),
-          dyad.yx() * symdyad.xz() + dyad.yy() * symdyad.yz() +
-              dyad.yz() * symdyad.zz(),
-          dyad.zx() * symdyad.xx() + dyad.zy() * symdyad.yx() +
-              dyad.zz() * symdyad.zx(),
-          dyad.zx() * symdyad.xy() + dyad.zy() * symdyad.yy() +
-              dyad.zz() * symdyad.zy(),
-          dyad.zx() * symdyad.xz() + dyad.zy() * symdyad.yz() +
-              dyad.zz() * symdyad.zz()};
+inline constexpr Dyad operator*(
+    const Dyad& dyad, const SymmetricDyad& symdyad) noexcept {
+  return {
+      dyad.xx() * symdyad.xx() + dyad.xy() * symdyad.yx()
+          + dyad.xz() * symdyad.zx(),
+      dyad.xx() * symdyad.xy() + dyad.xy() * symdyad.yy()
+          + dyad.xz() * symdyad.zy(),
+      dyad.xx() * symdyad.xz() + dyad.xy() * symdyad.yz()
+          + dyad.xz() * symdyad.zz(),
+      dyad.yx() * symdyad.xx() + dyad.yy() * symdyad.yx()
+          + dyad.yz() * symdyad.zx(),
+      dyad.yx() * symdyad.xy() + dyad.yy() * symdyad.yy()
+          + dyad.yz() * symdyad.zy(),
+      dyad.yx() * symdyad.xz() + dyad.yy() * symdyad.yz()
+          + dyad.yz() * symdyad.zz(),
+      dyad.zx() * symdyad.xx() + dyad.zy() * symdyad.yx()
+          + dyad.zz() * symdyad.zx(),
+      dyad.zx() * symdyad.xy() + dyad.zy() * symdyad.yy()
+          + dyad.zz() * symdyad.zy(),
+      dyad.zx() * symdyad.xz() + dyad.zy() * symdyad.yz()
+          + dyad.zz() * symdyad.zz()};
 }
 
 inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) noexcept {
@@ -480,8 +482,8 @@ inline constexpr Dyad operator/(const Dyad& dyad, const double real) noexcept {
           dyad.zx() / real, dyad.zy() / real, dyad.zz() / real};
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Dyad& dyad) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Dyad& dyad) noexcept {
   stream << dyad.Print();
   return stream;
 }
@@ -507,8 +509,7 @@ inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Value::Dyad> {
+template<> struct hash<PhQ::Value::Dyad> {
   size_t operator()(const PhQ::Value::Dyad& dyad) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(dyad.xx());

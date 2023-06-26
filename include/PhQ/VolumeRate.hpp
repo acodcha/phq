@@ -25,19 +25,19 @@ namespace PhQ {
 class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
 public:
   constexpr VolumeRate() noexcept
-      : DimensionalScalarQuantity<Unit::VolumeRate>() {}
+    : DimensionalScalarQuantity<Unit::VolumeRate>() {}
 
   VolumeRate(const double value, const Unit::VolumeRate unit) noexcept
-      : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
   constexpr VolumeRate(const Volume& volume, const Time& time) noexcept
-      : VolumeRate(volume.Value() / time.Value()) {}
+    : VolumeRate(volume.Value() / time.Value()) {}
 
-  constexpr VolumeRate(const Volume& volume,
-                       const Frequency& frequency) noexcept
-      : VolumeRate(volume.Value() * frequency.Value()) {}
+  constexpr VolumeRate(
+      const Volume& volume, const Frequency& frequency) noexcept
+    : VolumeRate(volume.Value() * frequency.Value()) {}
 
-  template <Unit::VolumeRate Unit>
+  template<Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) noexcept {
     return VolumeRate{StaticConvertCopy<Unit::VolumeRate, Unit,
                                         StandardUnit<Unit::VolumeRate>>(value)};
@@ -91,65 +91,65 @@ public:
 
 private:
   explicit constexpr VolumeRate(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
+    : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
 };
 
-inline constexpr bool operator==(const VolumeRate& left,
-                                 const VolumeRate& right) noexcept {
+inline constexpr bool operator==(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const VolumeRate& left,
-                                 const VolumeRate& right) noexcept {
+inline constexpr bool operator!=(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const VolumeRate& left,
-                                const VolumeRate& right) noexcept {
+inline constexpr bool operator<(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const VolumeRate& left,
-                                const VolumeRate& right) noexcept {
+inline constexpr bool operator>(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const VolumeRate& left,
-                                 const VolumeRate& right) noexcept {
+inline constexpr bool operator<=(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const VolumeRate& left,
-                                 const VolumeRate& right) noexcept {
+inline constexpr bool operator>=(
+    const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const VolumeRate& volume_rate) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const VolumeRate& volume_rate) noexcept {
   stream << volume_rate.Print();
   return stream;
 }
 
-inline constexpr VolumeRate operator*(const double number,
-                                      const VolumeRate& volume_rate) noexcept {
+inline constexpr VolumeRate operator*(
+    const double number, const VolumeRate& volume_rate) noexcept {
   return volume_rate * number;
 }
 
-inline constexpr Volume::Volume(const VolumeRate& volume_rate,
-                                const Time& time) noexcept
-    : Volume(volume_rate.Value() * time.Value()) {}
+inline constexpr Volume::Volume(
+    const VolumeRate& volume_rate, const Time& time) noexcept
+  : Volume(volume_rate.Value() * time.Value()) {}
 
-inline constexpr Volume::Volume(const VolumeRate& volume_rate,
-                                const Frequency& frequency) noexcept
-    : Volume(volume_rate.Value() / frequency.Value()) {}
+inline constexpr Volume::Volume(
+    const VolumeRate& volume_rate, const Frequency& frequency) noexcept
+  : Volume(volume_rate.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const VolumeRate& volume_rate,
-                            const Volume& volume) noexcept
-    : Time(volume.Value() / volume_rate.Value()) {}
+inline constexpr Time::Time(
+    const VolumeRate& volume_rate, const Volume& volume) noexcept
+  : Time(volume.Value() / volume_rate.Value()) {}
 
-inline constexpr Frequency::Frequency(const VolumeRate& volume_rate,
-                                      const Volume& volume) noexcept
-    : Frequency(volume_rate.Value() / volume.Value()) {}
+inline constexpr Frequency::Frequency(
+    const VolumeRate& volume_rate, const Volume& volume) noexcept
+  : Frequency(volume_rate.Value() / volume.Value()) {}
 
 inline constexpr Volume Time::operator*(
     const VolumeRate& volume_rate) const noexcept {
@@ -179,8 +179,7 @@ inline constexpr VolumeRate Volume::operator/(const Time& time) const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::VolumeRate> {
+template<> struct hash<PhQ::VolumeRate> {
   size_t operator()(const PhQ::VolumeRate& volume_rate) const {
     return hash<double>()(volume_rate.Value());
   }

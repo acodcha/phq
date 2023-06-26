@@ -24,21 +24,30 @@ namespace PhQ {
 namespace {
 
 TEST(AreaVector, Accessor) {
-  const AreaVector area{{1.0, 2.0, 4.0}, Unit::Area::SquareMetre};
+  const AreaVector area{
+      {1.0, 2.0, 4.0},
+      Unit::Area::SquareMetre
+  };
   EXPECT_DOUBLE_EQ(area.Value().x(), 1.0);
   EXPECT_DOUBLE_EQ(area.Value().y(), 2.0);
   EXPECT_DOUBLE_EQ(area.Value().z(), 4.0);
-  EXPECT_DOUBLE_EQ(area.Value(Unit::Area::SquareFoot).x(),
-                   1.0 / (0.3048 * 0.3048));
-  EXPECT_DOUBLE_EQ(area.Value(Unit::Area::SquareFoot).y(),
-                   2.0 / (0.3048 * 0.3048));
-  EXPECT_DOUBLE_EQ(area.Value(Unit::Area::SquareFoot).z(),
-                   4.0 / (0.3048 * 0.3048));
+  EXPECT_DOUBLE_EQ(
+      area.Value(Unit::Area::SquareFoot).x(), 1.0 / (0.3048 * 0.3048));
+  EXPECT_DOUBLE_EQ(
+      area.Value(Unit::Area::SquareFoot).y(), 2.0 / (0.3048 * 0.3048));
+  EXPECT_DOUBLE_EQ(
+      area.Value(Unit::Area::SquareFoot).z(), 4.0 / (0.3048 * 0.3048));
 }
 
 TEST(AreaVector, AngleAndMagnitude) {
-  const AreaVector area0{{0.0, 2.0, 0.0}, Unit::Area::SquareMetre};
-  const AreaVector area1{{0.0, 0.0, 4.0}, Unit::Area::SquareMetre};
+  const AreaVector area0{
+      {0.0, 2.0, 0.0},
+      Unit::Area::SquareMetre
+  };
+  const AreaVector area1{
+      {0.0, 0.0, 4.0},
+      Unit::Area::SquareMetre
+  };
   EXPECT_DOUBLE_EQ(area0.Angle(area1).Value(Unit::Angle::Degree), 90.0);
   EXPECT_DOUBLE_EQ(area0.Magnitude().Value(), 2.0);
 }
@@ -46,9 +55,18 @@ TEST(AreaVector, AngleAndMagnitude) {
 TEST(AreaVector, Arithmetic) {
   const Area magnitude{2.0, Unit::Area::SquareMetre};
   const Direction direction{0.0, -1.0, 0.0};
-  const AreaVector area0{{0.0, 0.0, 0.0}, Unit::Area::SquareMetre};
-  const AreaVector area1{{1.0, 2.0, 4.0}, Unit::Area::SquareMetre};
-  const AreaVector area2{{2.0, 4.0, 8.0}, Unit::Area::SquareMetre};
+  const AreaVector area0{
+      {0.0, 0.0, 0.0},
+      Unit::Area::SquareMetre
+  };
+  const AreaVector area1{
+      {1.0, 2.0, 4.0},
+      Unit::Area::SquareMetre
+  };
+  const AreaVector area2{
+      {2.0, 4.0, 8.0},
+      Unit::Area::SquareMetre
+  };
   EXPECT_EQ(area1 + area1, area2);
   EXPECT_EQ(area1 - area1, area0);
   EXPECT_EQ(area1 * 2.0, area2);
@@ -77,8 +95,14 @@ TEST(AreaVector, Arithmetic) {
 }
 
 TEST(AreaVector, Comparison) {
-  const AreaVector area0{{1.0, 2.0, 4.0}, Unit::Area::SquareMetre};
-  const AreaVector area1{{1.0, 2.0, 8.0}, Unit::Area::SquareMetre};
+  const AreaVector area0{
+      {1.0, 2.0, 4.0},
+      Unit::Area::SquareMetre
+  };
+  const AreaVector area1{
+      {1.0, 2.0, 8.0},
+      Unit::Area::SquareMetre
+  };
   EXPECT_EQ(area0, area0);
   EXPECT_NE(area0, area1);
   EXPECT_LT(area0, area1);
@@ -91,8 +115,14 @@ TEST(AreaVector, Comparison) {
 
 TEST(AreaVector, Constructor) {
   constexpr AreaVector area0;
-  const AreaVector area1{{1.0, 2.0, 4.0}, Unit::Area::SquareFoot};
-  const AreaVector area2{{-1.0, -2.0, -4.0}, Unit::Area::SquareFoot};
+  const AreaVector area1{
+      {1.0, 2.0, 4.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area2{
+      {-1.0, -2.0, -4.0},
+      Unit::Area::SquareFoot
+  };
   constexpr AreaVector area3{
       AreaVector::Create<Unit::Area::SquareFoot>({-1.0, -2.0, -4.0})};
   const Direction direction{area1};
@@ -101,21 +131,38 @@ TEST(AreaVector, Constructor) {
 }
 
 TEST(AreaVector, Hash) {
-  const AreaVector area0{{1.0, 2.0, 4.0}, Unit::Area::SquareFoot};
-  const AreaVector area1{{1.0, 2.000001, 4.0}, Unit::Area::SquareFoot};
-  const AreaVector area2{{1.0, 2.0, 5.0}, Unit::Area::SquareFoot};
-  const AreaVector area3{{1.0, 2.0, -4.0}, Unit::Area::SquareFoot};
-  const AreaVector area4{{1000000.0, 2000000.0, 4000000.0},
-                         Unit::Area::SquareFoot};
-  const AreaVector area5{{-1.0, -2.0, -4.0}, Unit::Area::SquareFoot};
+  const AreaVector area0{
+      {1.0, 2.0, 4.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area1{
+      {1.0, 2.000001, 4.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area2{
+      {1.0, 2.0, 5.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area3{
+      {1.0, 2.0, -4.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area4{
+      {1000000.0, 2000000.0, 4000000.0},
+      Unit::Area::SquareFoot
+  };
+  const AreaVector area5{
+      {-1.0, -2.0, -4.0},
+      Unit::Area::SquareFoot
+  };
   const std::hash<AreaVector> hasher;
   EXPECT_NE(hasher(area0), hasher(area1));
   EXPECT_NE(hasher(area0), hasher(area2));
   EXPECT_NE(hasher(area0), hasher(area3));
   EXPECT_NE(hasher(area0), hasher(area4));
   EXPECT_NE(hasher(area0), hasher(area5));
-  const std::unordered_set<AreaVector> unordered{area0, area1, area2,
-                                                 area3, area4, area5};
+  const std::unordered_set<AreaVector> unordered{
+      area0, area1, area2, area3, area4, area5};
 }
 
 TEST(AreaVector, JSON) {
@@ -136,7 +183,10 @@ TEST(AreaVector, Print) {
 }
 
 TEST(AreaVector, Stream) {
-  const AreaVector area{{1.11, 2.22, 4.44}, Unit::Area::SquareMetre};
+  const AreaVector area{
+      {1.11, 2.22, 4.44},
+      Unit::Area::SquareMetre
+  };
   std::ostringstream stream;
   stream << area;
   EXPECT_EQ(stream.str(), area.Print());

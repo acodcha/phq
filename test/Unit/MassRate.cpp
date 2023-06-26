@@ -105,8 +105,8 @@ TEST(UnitMassRate, ConvertVerification) {
 
 TEST(UnitMassRate, DimensionSet) {
   EXPECT_EQ(Dimensions<MassRate>,
-            Dimension::Set(Dimension::Time{-1}, Dimension::Length{0},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitMassRate, Parse) {

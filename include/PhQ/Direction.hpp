@@ -44,7 +44,7 @@ class Velocity;
 class Direction : public DimensionlessVectorQuantity {
 public:
   constexpr Direction() noexcept
-      : DimensionlessVectorQuantity({1.0, 0.0, 0.0}) {}
+    : DimensionlessVectorQuantity({1.0, 0.0, 0.0}) {}
 
   constexpr Direction(const double x, const double y, const double z) noexcept {
     SetValue(x, y, z);
@@ -77,8 +77,8 @@ public:
 
   explicit constexpr Direction(const Velocity& velocity) noexcept;
 
-  inline constexpr void SetValue(const double x, const double y,
-                                 const double z) noexcept {
+  inline constexpr void SetValue(
+      const double x, const double y, const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{SquareRoot(magnitude_squared)};
@@ -89,12 +89,12 @@ public:
   }
 
   inline constexpr void SetValue(const std::array<double, 3>& x_y_z) noexcept {
-    const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] +
-                                   x_y_z[2] * x_y_z[2]};
+    const double magnitude_squared{
+        x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
       const double magnitude{SquareRoot(magnitude_squared)};
-      value_ = {x_y_z[0] / magnitude, x_y_z[1] / magnitude,
-                x_y_z[2] / magnitude};
+      value_ = {
+          x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
       value_ = {0.0, 0.0, 0.0};
     }
@@ -156,8 +156,8 @@ public:
   inline constexpr HeatFlux operator*(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
-  inline constexpr TemperatureGradient operator*(
-      const TemperatureGradientMagnitude& temperature_gradient_magnitude)
+  inline constexpr TemperatureGradient
+  operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const noexcept;
 
   inline constexpr Traction operator*(
@@ -166,45 +166,45 @@ public:
   inline constexpr Velocity operator*(const Speed& speed) const noexcept;
 };
 
-inline constexpr bool operator==(const Direction& left,
-                                 const Direction& right) noexcept {
+inline constexpr bool operator==(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Direction& left,
-                                 const Direction& right) noexcept {
+inline constexpr bool operator!=(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Direction& left,
-                                const Direction& right) noexcept {
+inline constexpr bool operator<(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Direction& left,
-                                const Direction& right) noexcept {
+inline constexpr bool operator>(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Direction& left,
-                                 const Direction& right) noexcept {
+inline constexpr bool operator<=(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Direction& left,
-                                 const Direction& right) noexcept {
+inline constexpr bool operator>=(
+    const Direction& left, const Direction& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Direction& direction) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Direction& direction) noexcept {
   stream << direction.Print();
   return stream;
 }
 
-inline constexpr Value::Vector::Vector(const double magnitude,
-                                       const PhQ::Direction& direction) noexcept
-    : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
+inline constexpr Value::Vector::Vector(
+    const double magnitude, const PhQ::Direction& direction) noexcept
+  : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
 inline constexpr PhQ::Direction Value::Vector::Direction() const noexcept {
   return PhQ::Direction{*this};
@@ -225,13 +225,13 @@ inline constexpr Value::Dyad Value::Vector::Dyadic(
   return Dyadic(direction.Value());
 }
 
-inline constexpr Value::Vector operator*(const Value::SymmetricDyad& symdyad,
-                                         const Direction& direction) noexcept {
+inline constexpr Value::Vector operator*(
+    const Value::SymmetricDyad& symdyad, const Direction& direction) noexcept {
   return symdyad * direction.Value();
 }
 
-inline constexpr Value::Vector operator*(const Value::Dyad& dyad,
-                                         const Direction& direction) noexcept {
+inline constexpr Value::Vector operator*(
+    const Value::Dyad& dyad, const Direction& direction) noexcept {
   return dyad * direction.Value();
 }
 
@@ -240,27 +240,26 @@ inline Angle Value::Vector::Angle(
   return PhQ::Angle{*this, direction};
 }
 
-inline Angle::Angle(const Value::Vector& vector,
-                    const Direction& direction) noexcept
-    : DimensionalScalarQuantity<Unit::Angle>(
-          std::acos(vector.Dot(direction) / vector.Magnitude())) {}
+inline Angle::Angle(
+    const Value::Vector& vector, const Direction& direction) noexcept
+  : DimensionalScalarQuantity<Unit::Angle>(
+      std::acos(vector.Dot(direction) / vector.Magnitude())) {}
 
-inline Angle::Angle(const Direction& direction,
-                    const Value::Vector& vector) noexcept
-    : DimensionalScalarQuantity<Unit::Angle>(
-          std::acos(direction.Dot(vector) / vector.Magnitude())) {}
+inline Angle::Angle(
+    const Direction& direction, const Value::Vector& vector) noexcept
+  : DimensionalScalarQuantity<Unit::Angle>(
+      std::acos(direction.Dot(vector) / vector.Magnitude())) {}
 
-inline Angle::Angle(const Direction& direction1,
-                    const Direction& direction2) noexcept
-    : DimensionalScalarQuantity<Unit::Angle>(
-          std::acos(direction1.Dot(direction2))) {}
+inline Angle::Angle(
+    const Direction& direction1, const Direction& direction2) noexcept
+  : DimensionalScalarQuantity<Unit::Angle>(
+      std::acos(direction1.Dot(direction2))) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Direction> {
+template<> struct hash<PhQ::Direction> {
   size_t operator()(const PhQ::Direction& direction) const {
     return hash<PhQ::Value::Vector>()(direction.Value());
   }

@@ -43,8 +43,8 @@ TEST(DimensionSet, Accessor) {
 }
 
 TEST(DimensionSet, Comparison) {
-  const Set set0{Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0},
-                 Temperature{-1}};
+  const Set set0{
+      Time{-2}, Length{2}, Mass{1}, ElectricCurrent{0}, Temperature{-1}};
   const Set set1{Time{-2},           Length{2},      Mass{1},
                  ElectricCurrent{0}, Temperature{0}, SubstanceAmount{1}};
   EXPECT_EQ(set0, set0);
@@ -67,18 +67,19 @@ TEST(DimensionSet, Hash) {
   const Set set2{Time{-3}, Length{1}};
   const Set set3{Time{3}, Length{0}, Mass{-1}};
   const Set set4{Time{-2}, Length{-1}, Mass{2}, ElectricCurrent{1}};
-  const Set set5{Time{2}, Length{1}, Mass{-2}, ElectricCurrent{0},
-                 Temperature{-1}};
-  const Set set6{Time{0},        Length{1},
-                 Mass{0},        ElectricCurrent{0},
-                 Temperature{0}, SubstanceAmount{-1}};
-  const Set set7{Time{0},
-                 Length{0},
-                 Mass{0},
-                 ElectricCurrent{0},
-                 Temperature{-1},
-                 SubstanceAmount{0},
-                 LuminousIntensity{1}};
+  const Set set5{
+      Time{2}, Length{1}, Mass{-2}, ElectricCurrent{0}, Temperature{-1}};
+  const Set set6{
+      Time{0},        Length{1},          Mass{0}, ElectricCurrent{0},
+      Temperature{0}, SubstanceAmount{-1}};
+  const Set set7{
+      Time{0},
+      Length{0},
+      Mass{0},
+      ElectricCurrent{0},
+      Temperature{-1},
+      SubstanceAmount{0},
+      LuminousIntensity{1}};
   const std::hash<Set> hasher;
   EXPECT_NE(hasher(set0), hasher(set1));
   EXPECT_NE(hasher(set0), hasher(set2));
@@ -86,8 +87,8 @@ TEST(DimensionSet, Hash) {
   EXPECT_NE(hasher(set0), hasher(set4));
   EXPECT_NE(hasher(set0), hasher(set5));
   EXPECT_NE(hasher(set0), hasher(set6));
-  const std::unordered_set<Set> unordered{set0, set1, set2, set3,
-                                          set4, set5, set6, set7};
+  const std::unordered_set<Set> unordered{
+      set0, set1, set2, set3, set4, set5, set6, set7};
 }
 
 TEST(DimensionSet, JSON) {

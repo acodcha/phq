@@ -37,8 +37,8 @@ TEST(OldThermodynamicStateModels, Simple) {
       287.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificIsobaricHeatCapacity specific_isobaric_heat_capacity_2{
       1006.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  ThermodynamicStateModel::IdealGas model_2{specific_gas_constant_2,
-                                            specific_isobaric_heat_capacity_2};
+  ThermodynamicStateModel::IdealGas model_2{
+      specific_gas_constant_2, specific_isobaric_heat_capacity_2};
   std::cout << "Thermodynamic State Model 2:" << std::endl;
   std::cout << "- Print: " << model_2.Print() << std::endl;
   std::cout << "- JSON: " << model_2.JSON() << std::endl;

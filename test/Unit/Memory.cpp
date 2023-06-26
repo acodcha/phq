@@ -60,20 +60,20 @@ TEST(UnitMemory, ConsistentUnit) {
             Memory::Bit);
   EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::MillimetreGramSecondKelvin),
             Memory::Bit);
-  EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::FootPoundSecondRankine),
-            Memory::Bit);
-  EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::InchPoundSecondRankine),
-            Memory::Bit);
+  EXPECT_EQ(
+      ConsistentUnit<Memory>(UnitSystem::FootPoundSecondRankine), Memory::Bit);
+  EXPECT_EQ(
+      ConsistentUnit<Memory>(UnitSystem::InchPoundSecondRankine), Memory::Bit);
 }
 
 TEST(UnitMemory, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Bit), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Byte), value / 8.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Kilobit),
-                   value / 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Kibibit),
-                   value / 1024.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Bit, Memory::Kilobit), value / 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Bit, Memory::Kibibit), value / 1024.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Kilobyte),
                    value / (8.0 * 1000.0));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Kibibyte),
@@ -116,14 +116,14 @@ TEST(UnitMemory, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Bit, Memory::Bit), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Byte, Memory::Bit), value * 8.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Kilobit, Memory::Bit),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Kibibit, Memory::Bit),
-                   value * 1024.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Kilobyte, Memory::Bit),
-                   value * 8.0 * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Kibibyte, Memory::Bit),
-                   value * 8.0 * 1024.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Kilobit, Memory::Bit), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Kibibit, Memory::Bit), value * 1024.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Kilobyte, Memory::Bit), value * 8.0 * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Memory::Kibibyte, Memory::Bit), value * 8.0 * 1024.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Megabit, Memory::Bit),
                    value * std::pow(1000.0, 2));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Memory::Mebibit, Memory::Bit),

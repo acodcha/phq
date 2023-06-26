@@ -26,13 +26,13 @@ namespace {
 TEST(DynamicViscosity, Accessor) {
   const DynamicViscosity viscosity{0.1, Unit::DynamicViscosity::PascalSecond};
   EXPECT_DOUBLE_EQ(viscosity.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(viscosity.Value(Unit::DynamicViscosity::KilopascalSecond),
-                   0.1 * 0.001);
+  EXPECT_DOUBLE_EQ(
+      viscosity.Value(Unit::DynamicViscosity::KilopascalSecond), 0.1 * 0.001);
 }
 
 TEST(DynamicViscosity, Arithmetic) {
-  const KinematicViscosity kinematic{2.0,
-                                     Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity kinematic{
+      2.0, Unit::Diffusivity::SquareMetrePerSecond};
   const MassDensity density{0.5, Unit::MassDensity::KilogramPerCubicMetre};
   const DynamicViscosity viscosity0{0.0, Unit::DynamicViscosity::PascalSecond};
   const DynamicViscosity viscosity1{1.0, Unit::DynamicViscosity::PascalSecond};
@@ -78,33 +78,33 @@ TEST(DynamicViscosity, Comparison) {
 }
 
 TEST(DynamicViscosity, Constructor) {
-  const KinematicViscosity kinematic0{2.0,
-                                      Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity kinematic0{
+      2.0, Unit::Diffusivity::SquareMetrePerSecond};
   const MassDensity density0{0.5, Unit::MassDensity::KilogramPerCubicMetre};
   const DynamicViscosity dynamic0{kinematic0, density0};
   const KinematicViscosity kinematic1{dynamic0, density0};
   const MassDensity density1{dynamic0, kinematic1};
   constexpr DynamicViscosity dynamic1;
-  const DynamicViscosity dynamic2{100.0,
-                                  Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity dynamic2{
+      100.0, Unit::DynamicViscosity::KilopascalSecond};
   constexpr DynamicViscosity dynamic3{
       DynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(
           100.0)};
 }
 
 TEST(DynamicViscosity, Hash) {
-  const DynamicViscosity viscosity0{10.0,
-                                    Unit::DynamicViscosity::KilopascalSecond};
-  const DynamicViscosity viscosity1{10.000001,
-                                    Unit::DynamicViscosity::KilopascalSecond};
-  const DynamicViscosity viscosity2{11.0,
-                                    Unit::DynamicViscosity::KilopascalSecond};
-  const DynamicViscosity viscosity3{-10.0,
-                                    Unit::DynamicViscosity::KilopascalSecond};
-  const DynamicViscosity viscosity4{20000.0,
-                                    Unit::DynamicViscosity::KilopascalSecond};
-  const DynamicViscosity viscosity5{-123.456,
-                                    Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity0{
+      10.0, Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity1{
+      10.000001, Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity2{
+      11.0, Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity3{
+      -10.0, Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity4{
+      20000.0, Unit::DynamicViscosity::KilopascalSecond};
+  const DynamicViscosity viscosity5{
+      -123.456, Unit::DynamicViscosity::KilopascalSecond};
   const std::hash<DynamicViscosity> hasher;
   EXPECT_NE(hasher(viscosity0), hasher(viscosity1));
   EXPECT_NE(hasher(viscosity0), hasher(viscosity2));

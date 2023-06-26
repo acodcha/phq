@@ -22,18 +22,18 @@
 namespace PhQ {
 
 class VolumetricThermalExpansionCoefficient
-    : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
+  : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
   constexpr VolumetricThermalExpansionCoefficient() noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
   VolumetricThermalExpansionCoefficient(
       const double value, const Unit::ThermalExpansion unit) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
-  template <Unit::ThermalExpansion Unit>
-  static constexpr VolumetricThermalExpansionCoefficient Create(
-      const double value) noexcept {
+  template<Unit::ThermalExpansion Unit>
+  static constexpr VolumetricThermalExpansionCoefficient
+  Create(const double value) noexcept {
     return VolumetricThermalExpansionCoefficient{
         StaticConvertCopy<Unit::ThermalExpansion, Unit,
                           StandardUnit<Unit::ThermalExpansion>>(value)};
@@ -91,7 +91,7 @@ public:
 private:
   explicit constexpr VolumetricThermalExpansionCoefficient(
       const double value) noexcept
-      : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
+    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };
 
 inline constexpr double TemperatureDifference::operator*(
@@ -155,8 +155,7 @@ inline constexpr VolumetricThermalExpansionCoefficient operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
+template<> struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
   size_t operator()(const PhQ::VolumetricThermalExpansionCoefficient&
                         volumetric_thermal_expansion_coefficient) const {
     return hash<double>()(volumetric_thermal_expansion_coefficient.Value());

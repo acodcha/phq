@@ -24,23 +24,23 @@ namespace PhQ {
 class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
 public:
   constexpr SpecificPower() noexcept
-      : DimensionalScalarQuantity<Unit::SpecificPower>() {}
+    : DimensionalScalarQuantity<Unit::SpecificPower>() {}
 
   SpecificPower(const double value, const Unit::SpecificPower unit) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
 
-  constexpr SpecificPower(const SpecificEnergy& specific_energy,
-                          const Time& time) noexcept
-      : SpecificPower(specific_energy.Value() / time.Value()) {}
+  constexpr SpecificPower(
+      const SpecificEnergy& specific_energy, const Time& time) noexcept
+    : SpecificPower(specific_energy.Value() / time.Value()) {}
 
   constexpr SpecificPower(const SpecificEnergy& specific_energy,
                           const Frequency& frequency) noexcept
-      : SpecificPower(specific_energy.Value() * frequency.Value()) {}
+    : SpecificPower(specific_energy.Value() * frequency.Value()) {}
 
   constexpr SpecificPower(const Power& power, const Mass& mass) noexcept
-      : SpecificPower(power.Value() / mass.Value()) {}
+    : SpecificPower(power.Value() / mass.Value()) {}
 
-  template <Unit::SpecificPower Unit>
+  template<Unit::SpecificPower Unit>
   static constexpr SpecificPower Create(const double value) noexcept {
     return SpecificPower{
         StaticConvertCopy<Unit::SpecificPower, Unit,
@@ -103,41 +103,41 @@ public:
 
 private:
   explicit constexpr SpecificPower(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
+    : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
 };
 
-inline constexpr bool operator==(const SpecificPower& left,
-                                 const SpecificPower& right) noexcept {
+inline constexpr bool operator==(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const SpecificPower& left,
-                                 const SpecificPower& right) noexcept {
+inline constexpr bool operator!=(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const SpecificPower& left,
-                                const SpecificPower& right) noexcept {
+inline constexpr bool operator<(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const SpecificPower& left,
-                                const SpecificPower& right) noexcept {
+inline constexpr bool operator>(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const SpecificPower& left,
-                                 const SpecificPower& right) noexcept {
+inline constexpr bool operator<=(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const SpecificPower& left,
-                                 const SpecificPower& right) noexcept {
+inline constexpr bool operator>=(
+    const SpecificPower& left, const SpecificPower& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const SpecificPower& specific_power) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const SpecificPower& specific_power) noexcept {
   stream << specific_power.Print();
   return stream;
 }
@@ -149,28 +149,28 @@ inline constexpr SpecificPower operator*(
 
 inline constexpr Time::Time(const SpecificPower& specific_power,
                             const SpecificEnergy& specific_energy) noexcept
-    : Time(specific_energy.Value() / specific_power.Value()) {}
+  : Time(specific_energy.Value() / specific_power.Value()) {}
 
 inline constexpr Frequency::Frequency(
     const SpecificPower& specific_power,
     const SpecificEnergy& specific_energy) noexcept
-    : Frequency(specific_power.Value() / specific_energy.Value()) {}
+  : Frequency(specific_power.Value() / specific_energy.Value()) {}
 
-inline constexpr Mass::Mass(const SpecificPower& specific_power,
-                            const Power& power) noexcept
-    : Mass(power.Value() / specific_power.Value()) {}
+inline constexpr Mass::Mass(
+    const SpecificPower& specific_power, const Power& power) noexcept
+  : Mass(power.Value() / specific_power.Value()) {}
 
-inline constexpr Power::Power(const SpecificPower& specific_power,
-                              const Mass& mass) noexcept
-    : Power(specific_power.Value() * mass.Value()) {}
+inline constexpr Power::Power(
+    const SpecificPower& specific_power, const Mass& mass) noexcept
+  : Power(specific_power.Value() * mass.Value()) {}
 
 inline constexpr SpecificEnergy::SpecificEnergy(
     const SpecificPower& specific_power, const Time& time) noexcept
-    : SpecificEnergy(specific_power.Value() * time.Value()) {}
+  : SpecificEnergy(specific_power.Value() * time.Value()) {}
 
 inline constexpr SpecificEnergy::SpecificEnergy(
     const SpecificPower& specific_power, const Frequency& frequency) noexcept
-    : SpecificEnergy(specific_power.Value() / frequency.Value()) {}
+  : SpecificEnergy(specific_power.Value() / frequency.Value()) {}
 
 inline constexpr Power Mass::operator*(
     const SpecificPower& specific_power) const noexcept {
@@ -216,8 +216,7 @@ inline constexpr Time SpecificEnergy::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificPower> {
+template<> struct hash<PhQ::SpecificPower> {
   size_t operator()(const PhQ::SpecificPower& specific_power) const {
     return hash<double>()(specific_power.Value());
   }

@@ -86,8 +86,8 @@ TEST(Length, Hash) {
   EXPECT_NE(hasher(length0), hasher(length3));
   EXPECT_NE(hasher(length0), hasher(length4));
   EXPECT_NE(hasher(length0), hasher(length5));
-  const std::unordered_set<Length> unordered{length0, length1, length2,
-                                             length3, length4, length5};
+  const std::unordered_set<Length> unordered{
+      length0, length1, length2, length3, length4, length5};
 }
 
 TEST(Length, JSON) {
@@ -121,8 +121,8 @@ TEST(Length, XML) {
 }
 
 TEST(Length, YAML) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).YAML(),
-            "{value:1.110000,unit:\"m\"}");
+  EXPECT_EQ(
+      Length(1.11, Unit::Length::Metre).YAML(), "{value:1.110000,unit:\"m\"}");
   EXPECT_EQ(
       Length(-5.0, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
       "{value:-5.000000,unit:\"mm\"}");

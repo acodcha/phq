@@ -28,71 +28,65 @@ enum class Dimensionless : int_least8_t {
 
 }  // namespace Unit
 
-template <>
+template<>
 inline constexpr const Unit::Dimensionless StandardUnit<Unit::Dimensionless>{
     Unit::Dimensionless::Dimensionless};
 
-template <>
+template<>
 inline constexpr const Dimension::Set Dimensions<Unit::Dimensionless>{
     Dimension::Set{}};
 
-template <>
+template<>
 inline const std::map<UnitSystem, Unit::Dimensionless> ConsistentUnits<
     Unit::Dimensionless>{
-    {UnitSystem::MetreKilogramSecondKelvin, Unit::Dimensionless::Dimensionless},
+    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Dimensionless::Dimensionless},
     {UnitSystem::MillimetreGramSecondKelvin,
-     Unit::Dimensionless::Dimensionless},
-    {UnitSystem::FootPoundSecondRankine, Unit::Dimensionless::Dimensionless},
-    {UnitSystem::InchPoundSecondRankine, Unit::Dimensionless::Dimensionless},
+     Unit::Dimensionless::Dimensionless                                        },
+    {UnitSystem::FootPoundSecondRankine,     Unit::Dimensionless::Dimensionless},
+    {UnitSystem::InchPoundSecondRankine,     Unit::Dimensionless::Dimensionless},
 };
 
-template <>
-inline const std::map<Unit::Dimensionless, UnitSystem>
+template<> inline const std::map<Unit::Dimensionless, UnitSystem>
     RelatedUnitSystems<Unit::Dimensionless>{};
 
-template <>
-inline const std::map<Unit::Dimensionless, std::string_view>
+template<> inline const std::map<Unit::Dimensionless, std::string_view>
     Abbreviations<Unit::Dimensionless>{
         {Unit::Dimensionless::Dimensionless, ""},
-    };
+};
 
-template <>
+template<>
 inline const std::unordered_map<std::string_view, Unit::Dimensionless>
     Spellings<Unit::Dimensionless>{
         {"", Unit::Dimensionless::Dimensionless},
-    };
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Dimensionless, Unit::Dimensionless::Dimensionless>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Dimensionless, Unit::Dimensionless::Dimensionless>(
     double& value) noexcept {}
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Dimensionless,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Dimensionless>{
         {Unit::Dimensionless::Dimensionless,
          ConversionsFromStandard<Unit::Dimensionless,
-                                 Unit::Dimensionless::Dimensionless>},
-    };
+         Unit::Dimensionless::Dimensionless>},
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Dimensionless,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Dimensionless>{
         {Unit::Dimensionless::Dimensionless,
          ConversionsToStandard<Unit::Dimensionless,
-                               Unit::Dimensionless::Dimensionless>},
-    };
+         Unit::Dimensionless::Dimensionless>},
+};
 
 }  // namespace Internal
 

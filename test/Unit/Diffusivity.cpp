@@ -185,32 +185,32 @@ TEST(UnitDiffusivity, DimensionSet) {
 TEST(UnitDiffusivity, Parse) {
   EXPECT_EQ(Parse<Diffusivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Diffusivity>("mi^2/s"), Diffusivity::SquareMilePerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("km^2/s"),
-            Diffusivity::SquareKilometrePerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("km^2/s"), Diffusivity::SquareKilometrePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("ha/s"), Diffusivity::HectarePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("ac/s"), Diffusivity::AcrePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("yd^2/s"), Diffusivity::SquareYardPerSecond);
   EXPECT_EQ(Parse<Diffusivity>("m^2/s"), Diffusivity::SquareMetrePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("ft^2/s"), Diffusivity::SquareFootPerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("dm^2/s"),
-            Diffusivity::SquareDecimetrePerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("dm^2/s"), Diffusivity::SquareDecimetrePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("in^2/s"), Diffusivity::SquareInchPerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("cm^2/s"),
-            Diffusivity::SquareCentimetrePerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("mm^2/s"),
-            Diffusivity::SquareMillimetrePerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("mil^2/s"),
-            Diffusivity::SquareMilliinchPerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("μm^2/s"),
-            Diffusivity::SquareMicrometrePerSecond);
-  EXPECT_EQ(Parse<Diffusivity>("μin^2/s"),
-            Diffusivity::SquareMicroinchPerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("cm^2/s"), Diffusivity::SquareCentimetrePerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("mm^2/s"), Diffusivity::SquareMillimetrePerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("mil^2/s"), Diffusivity::SquareMilliinchPerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("μm^2/s"), Diffusivity::SquareMicrometrePerSecond);
+  EXPECT_EQ(
+      Parse<Diffusivity>("μin^2/s"), Diffusivity::SquareMicroinchPerSecond);
 }
 
 TEST(UnitDiffusivity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMilePerSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareKilometrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareKilometrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::HectarePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::AcrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareYardPerSecond), std::nullopt);
@@ -218,20 +218,20 @@ TEST(UnitDiffusivity, RelatedUnitSystem) {
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareFootPerSecond),
             UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareDecimetrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareDecimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareInchPerSecond),
             UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareCentimetrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareCentimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMillimetrePerSecond),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMilliinchPerSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMicrometrePerSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMicroinchPerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareMilliinchPerSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareMicrometrePerSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(Diffusivity::SquareMicroinchPerSecond), std::nullopt);
 }
 
 TEST(UnitDiffusivity, StandardUnit) {

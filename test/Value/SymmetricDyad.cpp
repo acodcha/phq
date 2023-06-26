@@ -117,8 +117,8 @@ TEST(ValueSymmetricDyad, Adjugate) {
 
 TEST(ValueSymmetricDyad, Arithmetic) {
   const SymmetricDyad symdyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(symdyad0 + symdyad0,
-            SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
+  EXPECT_EQ(
+      symdyad0 + symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
   EXPECT_EQ(symdyad0 - symdyad0, SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
   EXPECT_EQ(symdyad0 * 2.0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
   EXPECT_EQ(2.0 * symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
@@ -172,8 +172,8 @@ TEST(ValueSymmetricDyad, Constructor) {
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
-  EXPECT_EQ(SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Determinant(),
-            3840.0);
+  EXPECT_EQ(
+      SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Determinant(), 3840.0);
 }
 
 TEST(ValueSymmetricDyad, Hash) {

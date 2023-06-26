@@ -37,258 +37,237 @@ enum class AngularSpeed : int_least8_t {
 
 }  // namespace Unit
 
-template <>
+template<>
 inline constexpr const Unit::AngularSpeed StandardUnit<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
-template <>
-inline constexpr const Dimension::Set Dimensions<Unit::AngularSpeed>{
+template<> inline constexpr const Dimension::Set Dimensions<Unit::AngularSpeed>{
     Dimension::Set{Dimension::Time{-1}}};
 
-template <>
-inline const std::map<UnitSystem, Unit::AngularSpeed>
-    ConsistentUnits<Unit::AngularSpeed>{
-        {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::AngularSpeed::RadianPerSecond},
-        {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::AngularSpeed::RadianPerSecond},
-        {UnitSystem::FootPoundSecondRankine,
-         Unit::AngularSpeed::RadianPerSecond},
-        {UnitSystem::InchPoundSecondRankine,
-         Unit::AngularSpeed::RadianPerSecond},
-    };
+template<>
+inline const std::map<UnitSystem, Unit::AngularSpeed> ConsistentUnits<
+    Unit::AngularSpeed>{
+    {UnitSystem::MetreKilogramSecondKelvin,
+     Unit::AngularSpeed::RadianPerSecond                                        },
+    {UnitSystem::MillimetreGramSecondKelvin,
+     Unit::AngularSpeed::RadianPerSecond                                        },
+    {UnitSystem::FootPoundSecondRankine,     Unit::AngularSpeed::RadianPerSecond},
+    {UnitSystem::InchPoundSecondRankine,     Unit::AngularSpeed::RadianPerSecond},
+};
 
-template <>
-inline const std::map<Unit::AngularSpeed, UnitSystem>
+template<> inline const std::map<Unit::AngularSpeed, UnitSystem>
     RelatedUnitSystems<Unit::AngularSpeed>{};
 
-template <>
-inline const std::map<Unit::AngularSpeed, std::string_view>
+template<> inline const std::map<Unit::AngularSpeed, std::string_view>
     Abbreviations<Unit::AngularSpeed>{
-        {Unit::AngularSpeed::RadianPerSecond, "rad/s"},
-        {Unit::AngularSpeed::RadianPerMinute, "rad/min"},
-        {Unit::AngularSpeed::RadianPerHour, "rad/hr"},
-        {Unit::AngularSpeed::DegreePerSecond, "deg/s"},
-        {Unit::AngularSpeed::DegreePerMinute, "deg/min"},
-        {Unit::AngularSpeed::DegreePerHour, "deg/hr"},
-        {Unit::AngularSpeed::RevolutionPerSecond, "rev/s"},
+        {Unit::AngularSpeed::RadianPerSecond,     "rad/s"  },
+        {Unit::AngularSpeed::RadianPerMinute,     "rad/min"},
+        {Unit::AngularSpeed::RadianPerHour,       "rad/hr" },
+        {Unit::AngularSpeed::DegreePerSecond,     "deg/s"  },
+        {Unit::AngularSpeed::DegreePerMinute,     "deg/min"},
+        {Unit::AngularSpeed::DegreePerHour,       "deg/hr" },
+        {Unit::AngularSpeed::RevolutionPerSecond, "rev/s"  },
         {Unit::AngularSpeed::RevolutionPerMinute, "rev/min"},
-        {Unit::AngularSpeed::RevolutionPerHour, "rev/hr"},
-    };
+        {Unit::AngularSpeed::RevolutionPerHour,   "rev/hr" },
+};
 
-template <>
-inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
+template<> inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
     Spellings<Unit::AngularSpeed>{
-        {"rad/s", Unit::AngularSpeed::RadianPerSecond},
-        {"rad/sec", Unit::AngularSpeed::RadianPerSecond},
-        {"rad/min", Unit::AngularSpeed::RadianPerMinute},
-        {"rad/hr", Unit::AngularSpeed::RadianPerHour},
-        {"°/s", Unit::AngularSpeed::DegreePerSecond},
-        {"°/sec", Unit::AngularSpeed::DegreePerSecond},
-        {"deg/s", Unit::AngularSpeed::DegreePerSecond},
-        {"deg/sec", Unit::AngularSpeed::DegreePerSecond},
-        {"°/min", Unit::AngularSpeed::DegreePerMinute},
-        {"deg/min", Unit::AngularSpeed::DegreePerMinute},
-        {"°/hr", Unit::AngularSpeed::DegreePerHour},
-        {"deg/hr", Unit::AngularSpeed::DegreePerHour},
-        {"rev/s", Unit::AngularSpeed::RevolutionPerSecond},
+        {"rad/s",   Unit::AngularSpeed::RadianPerSecond    },
+        {"rad/sec", Unit::AngularSpeed::RadianPerSecond    },
+        {"rad/min", Unit::AngularSpeed::RadianPerMinute    },
+        {"rad/hr",  Unit::AngularSpeed::RadianPerHour      },
+        {"°/s",     Unit::AngularSpeed::DegreePerSecond    },
+        {"°/sec",   Unit::AngularSpeed::DegreePerSecond    },
+        {"deg/s",   Unit::AngularSpeed::DegreePerSecond    },
+        {"deg/sec", Unit::AngularSpeed::DegreePerSecond    },
+        {"°/min",   Unit::AngularSpeed::DegreePerMinute    },
+        {"deg/min", Unit::AngularSpeed::DegreePerMinute    },
+        {"°/hr",    Unit::AngularSpeed::DegreePerHour      },
+        {"deg/hr",  Unit::AngularSpeed::DegreePerHour      },
+        {"rev/s",   Unit::AngularSpeed::RevolutionPerSecond},
         {"rev/sec", Unit::AngularSpeed::RevolutionPerSecond},
         {"rev/min", Unit::AngularSpeed::RevolutionPerMinute},
-        {"rev/hr", Unit::AngularSpeed::RevolutionPerHour},
-    };
+        {"rev/hr",  Unit::AngularSpeed::RevolutionPerHour  },
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
     double& value) noexcept {
   value *= 60.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
   value *= 180.0 / Pi;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
   value *= 10800.0 / Pi;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
   value *= 0.5 / Pi;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
   value *= 30.0 / Pi;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
   value *= 1800.0 / Pi;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
     double& value) noexcept {
   value /= 60.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
   value *= Pi / 180.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
   value *= Pi / 10800.0;
   ;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
   value *= 2.0 * Pi;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
   value *= Pi / 30.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
   value *= Pi / 1800.0;
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::AngularSpeed,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::AngularSpeed>{
         {Unit::AngularSpeed::RadianPerSecond,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RadianPerSecond>},
+         Unit::AngularSpeed::RadianPerSecond>    },
         {Unit::AngularSpeed::RadianPerMinute,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RadianPerMinute>},
+         Unit::AngularSpeed::RadianPerMinute>    },
         {Unit::AngularSpeed::RadianPerHour,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RadianPerHour>},
+         Unit::AngularSpeed::RadianPerHour>      },
         {Unit::AngularSpeed::DegreePerSecond,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::DegreePerSecond>},
+         Unit::AngularSpeed::DegreePerSecond>    },
         {Unit::AngularSpeed::DegreePerMinute,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::DegreePerMinute>},
+         Unit::AngularSpeed::DegreePerMinute>    },
         {Unit::AngularSpeed::DegreePerHour,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::DegreePerHour>},
+         Unit::AngularSpeed::DegreePerHour>      },
         {Unit::AngularSpeed::RevolutionPerSecond,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RevolutionPerSecond>},
+         Unit::AngularSpeed::RevolutionPerSecond>},
         {Unit::AngularSpeed::RevolutionPerMinute,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RevolutionPerMinute>},
+         Unit::AngularSpeed::RevolutionPerMinute>},
         {Unit::AngularSpeed::RevolutionPerHour,
          ConversionsFromStandard<Unit::AngularSpeed,
-                                 Unit::AngularSpeed::RevolutionPerHour>},
-    };
+         Unit::AngularSpeed::RevolutionPerHour>  },
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::AngularSpeed,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::AngularSpeed>{
         {Unit::AngularSpeed::RadianPerSecond,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RadianPerSecond>},
+         Unit::AngularSpeed::RadianPerSecond>    },
         {Unit::AngularSpeed::RadianPerMinute,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RadianPerMinute>},
+         Unit::AngularSpeed::RadianPerMinute>    },
         {Unit::AngularSpeed::RadianPerHour,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RadianPerHour>},
+         Unit::AngularSpeed::RadianPerHour>      },
         {Unit::AngularSpeed::DegreePerSecond,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::DegreePerSecond>},
+         Unit::AngularSpeed::DegreePerSecond>    },
         {Unit::AngularSpeed::DegreePerMinute,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::DegreePerMinute>},
+         Unit::AngularSpeed::DegreePerMinute>    },
         {Unit::AngularSpeed::DegreePerHour,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::DegreePerHour>},
+         Unit::AngularSpeed::DegreePerHour>      },
         {Unit::AngularSpeed::RevolutionPerSecond,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RevolutionPerSecond>},
+         Unit::AngularSpeed::RevolutionPerSecond>},
         {Unit::AngularSpeed::RevolutionPerMinute,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RevolutionPerMinute>},
+         Unit::AngularSpeed::RevolutionPerMinute>},
         {Unit::AngularSpeed::RevolutionPerHour,
          ConversionsToStandard<Unit::AngularSpeed,
-                               Unit::AngularSpeed::RevolutionPerHour>},
-    };
+         Unit::AngularSpeed::RevolutionPerHour>  },
+};
 
 }  // namespace Internal
 

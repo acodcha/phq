@@ -24,12 +24,12 @@ namespace PhQ {
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr IsentropicBulkModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   IsentropicBulkModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) noexcept {
     return IsentropicBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -76,7 +76,7 @@ public:
 
 private:
   explicit constexpr IsentropicBulkModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const IsentropicBulkModulus& left,
@@ -126,8 +126,7 @@ inline constexpr IsentropicBulkModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::IsentropicBulkModulus> {
+template<> struct hash<PhQ::IsentropicBulkModulus> {
   size_t operator()(
       const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return hash<double>()(isentropic_bulk_modulus.Value());

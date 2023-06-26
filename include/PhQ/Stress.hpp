@@ -25,17 +25,17 @@ namespace PhQ {
 class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
 public:
   constexpr Stress() noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
+    : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
 
   Stress(const Value::SymmetricDyad& value, const Unit::Pressure unit) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr Stress(const StaticPressure& static_pressure) noexcept
-      : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
-                -1.0 * static_pressure.Value(), 0.0,
-                -1.0 * static_pressure.Value()}) {}
+    : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
+              -1.0 * static_pressure.Value(), 0.0,
+              -1.0 * static_pressure.Value()}) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {
     return Stress{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -81,53 +81,53 @@ public:
 
 private:
   explicit constexpr Stress(const Value::SymmetricDyad& value) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
+    : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const Stress& left,
-                                 const Stress& right) noexcept {
+inline constexpr bool operator==(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Stress& left,
-                                 const Stress& right) noexcept {
+inline constexpr bool operator!=(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Stress& left,
-                                const Stress& right) noexcept {
+inline constexpr bool operator<(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Stress& left,
-                                const Stress& right) noexcept {
+inline constexpr bool operator>(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Stress& left,
-                                 const Stress& right) noexcept {
+inline constexpr bool operator<=(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Stress& left,
-                                 const Stress& right) noexcept {
+inline constexpr bool operator>=(
+    const Stress& left, const Stress& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Stress& stress) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Stress& stress) noexcept {
   stream << stress.Print();
   return stream;
 }
 
-inline constexpr Stress operator*(const double number,
-                                  const Stress& stress) noexcept {
+inline constexpr Stress operator*(
+    const double number, const Stress& stress) noexcept {
   return stress * number;
 }
 
-inline constexpr Traction::Traction(const Stress& stress,
-                                    const Direction& direction) noexcept
-    : Traction({stress.Value() * direction}) {}
+inline constexpr Traction::Traction(
+    const Stress& stress, const Direction& direction) noexcept
+  : Traction({stress.Value() * direction}) {}
 
 inline constexpr Stress StaticPressure::Stress() const noexcept {
   return {*this};
@@ -137,8 +137,7 @@ inline constexpr Stress StaticPressure::Stress() const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Stress> {
+template<> struct hash<PhQ::Stress> {
   size_t operator()(const PhQ::Stress& stress) const {
     return hash<PhQ::Value::SymmetricDyad>()(stress.Value());
   }

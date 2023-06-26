@@ -43,21 +43,21 @@ public:
   constexpr Mass() noexcept : DimensionalScalarQuantity<Unit::Mass>() {}
 
   Mass(const double value, const Unit::Mass unit) noexcept
-      : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
-  constexpr Mass(const MassDensity& mass_density,
-                 const Volume& volume) noexcept;
+  constexpr Mass(
+      const MassDensity& mass_density, const Volume& volume) noexcept;
 
   constexpr Mass(const MassRate& mass_rate, const Time& time) noexcept;
 
-  constexpr Mass(const MassRate& mass_rate,
-                 const Frequency& frequency) noexcept;
+  constexpr Mass(
+      const MassRate& mass_rate, const Frequency& frequency) noexcept;
 
-  constexpr Mass(const SpecificEnergy& specific_energy,
-                 const Energy& energy) noexcept;
+  constexpr Mass(
+      const SpecificEnergy& specific_energy, const Energy& energy) noexcept;
 
-  constexpr Mass(const SpecificPower& specific_power,
-                 const Power& power) noexcept;
+  constexpr Mass(
+      const SpecificPower& specific_power, const Power& power) noexcept;
 
   constexpr Mass(const SpecificGasConstant& specific_gas_constant,
                  const GasConstant& gas_constant) noexcept;
@@ -70,7 +70,7 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
-  template <Unit::Mass Unit>
+  template<Unit::Mass Unit>
   static constexpr Mass Create(const double value) noexcept {
     return Mass{
         StaticConvertCopy<Unit::Mass, Unit, StandardUnit<Unit::Mass>>(value)};
@@ -97,8 +97,8 @@ public:
   inline constexpr Power operator*(
       const SpecificPower& specific_power) const noexcept;
 
-  inline constexpr IsobaricHeatCapacity operator*(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
+  inline constexpr IsobaricHeatCapacity
+  operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const noexcept;
 
   inline constexpr IsochoricHeatCapacity operator*(
@@ -136,7 +136,7 @@ public:
 
 private:
   explicit constexpr Mass(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Mass>(value) {}
+    : DimensionalScalarQuantity<Unit::Mass>(value) {}
 };
 
 inline constexpr bool operator==(const Mass& left, const Mass& right) noexcept {
@@ -163,14 +163,14 @@ inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Mass& mass) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Mass& mass) noexcept {
   stream << mass.Print();
   return stream;
 }
 
-inline constexpr Mass operator*(const double number,
-                                const Mass& mass) noexcept {
+inline constexpr Mass operator*(
+    const double number, const Mass& mass) noexcept {
   return mass * number;
 }
 
@@ -178,8 +178,7 @@ inline constexpr Mass operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Mass> {
+template<> struct hash<PhQ::Mass> {
   size_t operator()(const PhQ::Mass& mass) const {
     return hash<double>()(mass.Value());
   }

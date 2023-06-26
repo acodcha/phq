@@ -28,18 +28,18 @@ public:
   constexpr ReynoldsNumber() noexcept : DimensionlessScalarQuantity() {}
 
   explicit constexpr ReynoldsNumber(const double value) noexcept
-      : DimensionlessScalarQuantity(value) {}
+    : DimensionlessScalarQuantity(value) {}
 
   constexpr ReynoldsNumber(const DynamicViscosity& dynamic_viscosity,
                            const MassDensity& mass_density, const Speed& speed,
                            const Length& length) noexcept
-      : ReynoldsNumber(mass_density.Value() * speed.Value() * length.Value() /
-                       dynamic_viscosity.Value()) {}
+    : ReynoldsNumber(mass_density.Value() * speed.Value() * length.Value()
+                     / dynamic_viscosity.Value()) {}
 
   constexpr ReynoldsNumber(const KinematicViscosity& kinematic_viscosity,
                            const Speed& speed, const Length& length) noexcept
-      : ReynoldsNumber(speed.Value() * length.Value() /
-                       kinematic_viscosity.Value()) {}
+    : ReynoldsNumber(
+        speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
 
   inline constexpr PhQ::DynamicViscosity DynamicViscosity(
       const PhQ::MassDensity& mass_density, const PhQ::Speed& speed,
@@ -123,33 +123,33 @@ public:
   }
 };
 
-inline constexpr bool operator==(const ReynoldsNumber& left,
-                                 const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator==(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ReynoldsNumber& left,
-                                 const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator!=(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ReynoldsNumber& left,
-                                const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator<(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ReynoldsNumber& left,
-                                const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator>(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ReynoldsNumber& left,
-                                 const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator<=(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ReynoldsNumber& left,
-                                 const ReynoldsNumber& right) noexcept {
+inline constexpr bool operator>=(
+    const ReynoldsNumber& left, const ReynoldsNumber& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -179,57 +179,56 @@ inline constexpr double operator/(
   return number / reynolds_number.Value();
 }
 
-inline constexpr Length::Length(const ReynoldsNumber& reynolds_number,
-                                const DynamicViscosity& dynamic_viscosity,
-                                const MassDensity& mass_density,
-                                const Speed& speed) noexcept
-    : Length(reynolds_number.Value() * dynamic_viscosity.Value() /
-             (mass_density.Value() * speed.Value())) {}
+inline constexpr Length::Length(
+    const ReynoldsNumber& reynolds_number,
+    const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density,
+    const Speed& speed) noexcept
+  : Length(reynolds_number.Value() * dynamic_viscosity.Value()
+           / (mass_density.Value() * speed.Value())) {}
 
-inline constexpr Length::Length(const ReynoldsNumber& reynolds_number,
-                                const KinematicViscosity& kinematic_viscosity,
-                                const Speed& speed) noexcept
-    : Length(reynolds_number.Value() * kinematic_viscosity.Value() /
-             speed.Value()) {}
+inline constexpr Length::Length(
+    const ReynoldsNumber& reynolds_number,
+    const KinematicViscosity& kinematic_viscosity, const Speed& speed) noexcept
+  : Length(
+      reynolds_number.Value() * kinematic_viscosity.Value() / speed.Value()) {}
 
-inline constexpr Speed::Speed(const ReynoldsNumber& reynolds_number,
-                              const DynamicViscosity& dynamic_viscosity,
-                              const MassDensity& mass_density,
-                              const Length& length) noexcept
-    : Speed(reynolds_number.Value() * dynamic_viscosity.Value() /
-            (mass_density.Value() * length.Value())) {}
+inline constexpr Speed::Speed(
+    const ReynoldsNumber& reynolds_number,
+    const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density,
+    const Length& length) noexcept
+  : Speed(reynolds_number.Value() * dynamic_viscosity.Value()
+          / (mass_density.Value() * length.Value())) {}
 
 inline constexpr Speed::Speed(const ReynoldsNumber& reynolds_number,
                               const KinematicViscosity& kinematic_viscosity,
                               const Length& length) noexcept
-    : Speed(reynolds_number.Value() * kinematic_viscosity.Value() /
-            length.Value()) {}
+  : Speed(
+      reynolds_number.Value() * kinematic_viscosity.Value() / length.Value()) {}
 
 inline constexpr MassDensity::MassDensity(
     const ReynoldsNumber& reynolds_number,
     const DynamicViscosity& dynamic_viscosity, const Speed& speed,
     const Length& length) noexcept
-    : MassDensity(reynolds_number.Value() * dynamic_viscosity.Value() /
-                  (speed.Value() * length.Value())) {}
+  : MassDensity(reynolds_number.Value() * dynamic_viscosity.Value()
+                / (speed.Value() * length.Value())) {}
 
 inline constexpr KinematicViscosity::KinematicViscosity(
     const ReynoldsNumber& reynolds_number, const Speed& speed,
     const Length& length) noexcept
-    : KinematicViscosity(speed.Value() * length.Value() /
-                         reynolds_number.Value()) {}
+  : KinematicViscosity(
+      speed.Value() * length.Value() / reynolds_number.Value()) {}
 
 inline constexpr DynamicViscosity::DynamicViscosity(
     const ReynoldsNumber& reynolds_number, const MassDensity& mass_density,
     const Speed& speed, const Length& length) noexcept
-    : DynamicViscosity(mass_density.Value() * speed.Value() * length.Value() /
-                       reynolds_number.Value()) {}
+  : DynamicViscosity(mass_density.Value() * speed.Value() * length.Value()
+                     / reynolds_number.Value()) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::ReynoldsNumber> {
+template<> struct hash<PhQ::ReynoldsNumber> {
   size_t operator()(const PhQ::ReynoldsNumber& reynolds_number) const {
     return hash<double>()(reynolds_number.Value());
   }

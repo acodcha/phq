@@ -156,9 +156,9 @@ TEST(BaseString, SnakeCaseCopy) {
 TEST(BaseString, SplitByWhitespace) {
   EXPECT_EQ(SplitByWhitespace(""), std::vector<std::string>());
   EXPECT_EQ(SplitByWhitespace("aaa bbb   ccc\t\tddd\neee"),
-            std::vector<std::string>({std::string("aaa"), std::string("bbb"),
-                                      std::string("ccc"), std::string("ddd"),
-                                      std::string("eee")}));
+            std::vector<std::string>(
+                {std::string("aaa"), std::string("bbb"), std::string("ccc"),
+                 std::string("ddd"), std::string("eee")}));
 }
 
 TEST(BaseString, UpperCase) {

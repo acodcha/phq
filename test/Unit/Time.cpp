@@ -40,10 +40,10 @@ TEST(UnitTime, ConsistentUnit) {
             Time::Second);
   EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::MillimetreGramSecondKelvin),
             Time::Second);
-  EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::FootPoundSecondRankine),
-            Time::Second);
-  EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine),
-            Time::Second);
+  EXPECT_EQ(
+      ConsistentUnit<Time>(UnitSystem::FootPoundSecondRankine), Time::Second);
+  EXPECT_EQ(
+      ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine), Time::Second);
 }
 
 TEST(UnitTime, Convert) {
@@ -71,8 +71,8 @@ TEST(UnitTime, ConvertCopy) {
   const std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
   constexpr Value::Vector value_vector{10.0, -20.0, 30.0};
   constexpr Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  constexpr Value::Dyad dyad{10.0,  -20.0, 30.0,  -40.0, 50.0,
-                             -60.0, 70.0,  -80.0, 90.0};
+  constexpr Value::Dyad dyad{
+      10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
   for (const Time old_unit : Units) {
     for (const Time new_unit : Units) {
       ConvertCopy(value, old_unit, new_unit);
@@ -87,32 +87,32 @@ TEST(UnitTime, ConvertCopy) {
 
 TEST(UnitTime, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Nanosecond),
-                   value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Microsecond),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Millisecond),
-                   value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Second, Time::Nanosecond), value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Second, Time::Microsecond), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Second, Time::Millisecond), value * 1000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Second), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Minute),
-                   value / 60.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Hour),
-                   value / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Second, Time::Minute), value / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Second, Time::Hour), value / 3600.0);
 }
 
 TEST(UnitTime, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Nanosecond, Time::Second),
-                   value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Microsecond, Time::Second),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Millisecond, Time::Second),
-                   value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Nanosecond, Time::Second), value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Microsecond, Time::Second), value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Millisecond, Time::Second), value * 0.001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Second, Time::Second), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Minute, Time::Second),
-                   value * 60.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Time::Hour, Time::Second),
-                   value * 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Minute, Time::Second), value * 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Time::Hour, Time::Second), value * 3600.0);
 }
 
 TEST(UnitTime, DimensionSet) {
@@ -162,8 +162,8 @@ TEST(UnitTime, StaticConvertCopy) {
   StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(vector);
   constexpr Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
   StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(symdyad);
-  constexpr Value::Dyad dyad{10.0,  -20.0, 30.0,  -40.0, 50.0,
-                             -60.0, 70.0,  -80.0, 90.0};
+  constexpr Value::Dyad dyad{
+      10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
   StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(dyad);
 }
 

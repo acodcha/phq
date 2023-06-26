@@ -25,28 +25,26 @@ namespace PhQ {
 class CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr CompressibleNewtonianFluid() noexcept
-      : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
+    : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
 
   CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept
-      : ConstitutiveModel(),
-        dynamic_viscosity_(dynamic_viscosity),
-        bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
-                                 StandardUnit<Unit::DynamicViscosity>}) {}
+    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
+      bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
+                               StandardUnit<Unit::DynamicViscosity>}) {}
 
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity,
       const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept
-      : ConstitutiveModel(),
-        dynamic_viscosity_(dynamic_viscosity),
-        bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
+    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
+      bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
-  inline constexpr const PhQ::DynamicViscosity& DynamicViscosity()
-      const noexcept {
+  inline constexpr const PhQ::DynamicViscosity&
+  DynamicViscosity() const noexcept {
     return dynamic_viscosity_;
   }
 
-  inline constexpr const PhQ::BulkDynamicViscosity& BulkDynamicViscosity()
-      const noexcept {
+  inline constexpr const PhQ::BulkDynamicViscosity&
+  BulkDynamicViscosity() const noexcept {
     return bulk_dynamic_viscosity_;
   }
 
@@ -60,40 +58,45 @@ public:
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
+
     const double temporary1{2.0 * dynamic_viscosity_.Value()};
-    const double temporary2{bulk_dynamic_viscosity_.Value() *
-                            strain_rate.Value().Trace()};
-    return {Value::SymmetricDyad{temporary1 * strain_rate.Value()} +
-                Value::SymmetricDyad{temporary2, 0.0, 0.0, temporary2, 0.0,
-                                     temporary2},
-            StandardUnit<Unit::Pressure>};
+
+    const double temporary2{
+        bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace()};
+
+    return {
+        Value::SymmetricDyad{temporary1 * strain_rate.Value()}
+            + Value::SymmetricDyad{temporary2, 0.0, 0.0, temporary2, 0.0,
+                             temporary2},
+        StandardUnit<Unit::Pressure>
+    };
   }
 
   inline std::string Print() const noexcept override {
-    return {"Type = " + LowerCaseCopy(Abbreviation(GetType())) +
-            ", Dynamic Viscosity = " + dynamic_viscosity_.Print() +
-            ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
+    return {"Type = " + LowerCaseCopy(Abbreviation(GetType()))
+            + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()
+            + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON() +
-            "\", \"bulk_dynamic_viscosity\": " +
-            bulk_dynamic_viscosity_.JSON() + "}"};
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType()))
+            + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON()
+            + "\", \"bulk_dynamic_viscosity\": "
+            + bulk_dynamic_viscosity_.JSON() + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
-            "</type><dynamic_viscosity>" + dynamic_viscosity_.XML() +
-            "</dynamic_viscosity><bulk_dynamic_viscosity>" +
-            bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
+    return {"<type>" + LowerCaseCopy(Abbreviation(GetType()))
+            + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
+            + "</dynamic_viscosity><bulk_dynamic_viscosity>"
+            + bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", dynamic_viscosity: " + dynamic_viscosity_.JSON() +
-            "\", bulk_dynamic_viscosity: " + bulk_dynamic_viscosity_.JSON() +
-            "}"};
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType()))
+            + "\", dynamic_viscosity: " + dynamic_viscosity_.JSON()
+            + "\", bulk_dynamic_viscosity: " + bulk_dynamic_viscosity_.JSON()
+            + "}"};
   }
 
 private:
@@ -104,14 +107,14 @@ private:
 
 inline bool operator==(const CompressibleNewtonianFluid& left,
                        const CompressibleNewtonianFluid& right) noexcept {
-  return left.DynamicViscosity() == right.DynamicViscosity() &&
-         left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
+  return left.DynamicViscosity() == right.DynamicViscosity()
+         && left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
 }
 
 inline bool operator!=(const CompressibleNewtonianFluid& left,
                        const CompressibleNewtonianFluid& right) noexcept {
-  return left.DynamicViscosity() != right.DynamicViscosity() ||
-         left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
+  return left.DynamicViscosity() != right.DynamicViscosity()
+         || left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
 }
 
 inline std::ostream& operator<<(
@@ -124,14 +127,13 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <>
-struct hash<PhQ::CompressibleNewtonianFluid> {
+template<> struct hash<PhQ::CompressibleNewtonianFluid> {
   size_t operator()(const PhQ::CompressibleNewtonianFluid& model) const {
     size_t result = 17;
     result =
         31 * result + hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
-    result = 31 * result +
-             hash<PhQ::BulkDynamicViscosity>()(model.BulkDynamicViscosity());
+    result = 31 * result
+             + hash<PhQ::BulkDynamicViscosity>()(model.BulkDynamicViscosity());
     return result;
   }
 };

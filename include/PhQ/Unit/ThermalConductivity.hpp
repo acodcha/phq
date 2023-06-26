@@ -30,295 +30,257 @@ enum class ThermalConductivity : int_least8_t {
 
 }  // namespace Unit
 
-template <>
-inline constexpr const Unit::ThermalConductivity
+template<> inline constexpr const Unit::ThermalConductivity
     StandardUnit<Unit::ThermalConductivity>{
         Unit::ThermalConductivity::WattPerMetrePerKelvin};
 
-template <>
+template<>
 inline constexpr const Dimension::Set Dimensions<Unit::ThermalConductivity>{
-    Dimension::Set{Dimension::Time{-3}, Dimension::Length{1},
-                   Dimension::Mass{1}, Dimension::ElectricCurrent{},
-                   Dimension::Temperature{-1}}};
+    Dimension::Set{
+                   Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
+                   Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
+};
 
-template <>
-inline const std::map<UnitSystem, Unit::ThermalConductivity>
+template<> inline const std::map<UnitSystem, Unit::ThermalConductivity>
     ConsistentUnits<Unit::ThermalConductivity>{
         {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin},
+         Unit::ThermalConductivity::WattPerMetrePerKelvin         },
         {UnitSystem::MillimetreGramSecondKelvin,
          Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
         {UnitSystem::FootPoundSecondRankine,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine},
+         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
         {UnitSystem::InchPoundSecondRankine,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine},
-    };
+         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+};
 
-template <>
-inline const std::map<Unit::ThermalConductivity, UnitSystem>
+template<> inline const std::map<Unit::ThermalConductivity, UnitSystem>
     RelatedUnitSystems<Unit::ThermalConductivity>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         UnitSystem::MetreKilogramSecondKelvin},
+         UnitSystem::MetreKilogramSecondKelvin },
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          UnitSystem::MillimetreGramSecondKelvin},
-    };
+};
 
-template <>
-inline const std::map<Unit::ThermalConductivity, std::string_view>
+template<> inline const std::map<Unit::ThermalConductivity, std::string_view>
     Abbreviations<Unit::ThermalConductivity>{
-        {Unit::ThermalConductivity::WattPerMetrePerKelvin, "W/m/K"},
-        {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, "nW/mm/K"},
-        {Unit::ThermalConductivity::PoundPerSecondPerRankine, "lbf/s/°R"},
-    };
+        {Unit::ThermalConductivity::WattPerMetrePerKelvin,          "W/m/K"   },
+        {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, "nW/mm/K" },
+        {Unit::ThermalConductivity::PoundPerSecondPerRankine,       "lbf/s/°R"},
+};
 
 // W/(m*K) = J/(m*s*K) = N/(s*K) = kg*m/(s^3*K)
 
-template <>
-inline const std::unordered_map<std::string_view, Unit::ThermalConductivity>
-    Spellings<Unit::ThermalConductivity>{
-        {"W/m/K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/m/°K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/m/degK", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/m/°C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/m/degC", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/m/C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·°K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·°C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m·C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*°K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*°C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"W/(m*C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/°K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/degK", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/°C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/s^3/degC", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/°K", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/degK", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/°C", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/s^3/degC", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·°K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·°C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg·m/(s^3·degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*°K)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*°C)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"kg*m/(s^3*degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin},
-        {"nW/mm/K", Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/mm/°K", Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/mm/degK",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/mm/°C", Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/mm/degC",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/mm/C", Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·°K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·degK)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·°C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·degC)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm·C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*°K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*degK)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*°C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*degC)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"nW/(mm*C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/K",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/°K",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/degK",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/C",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/°C",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/s^3/degC",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/K",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/°K",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/degK",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/C",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/°C",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/s^3/degC",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·°K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·degK)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·°C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g·mm/(s^3·degC)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*°K)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*degK)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*°C)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"g*mm/(s^3*degC)",
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
-        {"lbf/s/°R", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/s/R", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/s/degR", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/s/°F", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/s/F", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/s/degF", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·°R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·degR)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·°F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s·degF)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*°R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*degR)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*°F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lbf/(s*degF)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/°R", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/R", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/degR", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/°F", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/F", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/s/degF", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·°R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·degR)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·°F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s·degF)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*°R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*R)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*degR)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*°F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*F)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-        {"lb/(s*degF)", Unit::ThermalConductivity::PoundPerSecondPerRankine},
-    };
+template<>
+inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spellings<
+    Unit::ThermalConductivity>{
+    {"W/m/K",           Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/m/°K",          Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/m/degK",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/m/°C",          Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/m/degC",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/m/C",           Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·K)",         Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·°K)",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·degK)",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·°C)",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·degC)",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m·C)",         Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*K)",         Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*°K)",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*degK)",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*°C)",        Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*degC)",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"W/(m*C)",         Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/K",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/°K",     Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/degK",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/C",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/°C",     Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/s^3/degC",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/K",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/°K",     Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/degK",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/C",      Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/°C",     Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/s^3/degC",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·K)",    Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·°K)",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·C)",    Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·°C)",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg·m/(s^3·degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*K)",    Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*°K)",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*degK)", Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*C)",    Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*°C)",   Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"kg*m/(s^3*degC)", Unit::ThermalConductivity::WattPerMetrePerKelvin         },
+    {"nW/mm/K",         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/mm/°K",        Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/mm/degK",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/mm/°C",        Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/mm/degC",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/mm/C",         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·K)",       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·°K)",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·degK)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·°C)",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·degC)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm·C)",       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*K)",       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*°K)",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*degK)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*°C)",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*degC)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"nW/(mm*C)",       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/s^3/K",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/s^3/°K",     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/s^3/degK",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g·mm/s^3/C",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/s^3/°C",     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/s^3/degC",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/s^3/K",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/s^3/°K",     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/s^3/degK",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/s^3/C",      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/s^3/°C",     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/s^3/degC",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g·mm/(s^3·K)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/(s^3·°K)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g·mm/(s^3·degK)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g·mm/(s^3·C)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g·mm/(s^3·°C)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g·mm/(s^3·degC)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/(s^3*K)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/(s^3*°K)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/(s^3*degK)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/(s^3*C)",    Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin},
+    {"g*mm/(s^3*°C)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"g*mm/(s^3*degC)",
+     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin                   },
+    {"lbf/s/°R",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/s/R",         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/s/degR",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/s/°F",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/s/F",         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/s/degF",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·°R)",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·R)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·degR)",    Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·°F)",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·F)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s·degF)",    Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*°R)",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*R)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*degR)",    Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*°F)",      Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*F)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lbf/(s*degF)",    Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/°R",         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/R",          Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/degR",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/°F",         Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/F",          Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/s/degF",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·°R)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·R)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·degR)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·°F)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·F)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s·degF)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*°R)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*R)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*degR)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*°F)",       Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*F)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+    {"lb/(s*degF)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::ThermalConductivity,
                        Unit::ThermalConductivity::WattPerMetrePerKelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionFromStandard<
+template<> inline constexpr void ConversionFromStandard<
     Unit::ThermalConductivity,
     Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::ThermalConductivity,
                        Unit::ThermalConductivity::PoundPerSecondPerRankine>(
     double& value) noexcept {
   value /= 0.45359237 * 9.80665 * 1.8;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity,
                      Unit::ThermalConductivity::WattPerMetrePerKelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity,
                      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity,
                      Unit::ThermalConductivity::PoundPerSecondPerRankine>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 * 1.8;
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::ThermalConductivity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::ThermalConductivity>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
          ConversionsFromStandard<
              Unit::ThermalConductivity,
-             Unit::ThermalConductivity::WattPerMetrePerKelvin>},
+         Unit::ThermalConductivity::WattPerMetrePerKelvin>         },
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          ConversionsFromStandard<
              Unit::ThermalConductivity,
-             Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
          ConversionsFromStandard<
              Unit::ThermalConductivity,
-             Unit::ThermalConductivity::PoundPerSecondPerRankine>},
-    };
+         Unit::ThermalConductivity::PoundPerSecondPerRankine>      },
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::ThermalConductivity,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ThermalConductivity>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
-         ConversionsToStandard<
-             Unit::ThermalConductivity,
-             Unit::ThermalConductivity::WattPerMetrePerKelvin>},
+         ConversionsToStandard<Unit::ThermalConductivity,
+         Unit::ThermalConductivity::WattPerMetrePerKelvin>         },
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          ConversionsToStandard<
              Unit::ThermalConductivity,
-             Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
          ConversionsToStandard<
              Unit::ThermalConductivity,
-             Unit::ThermalConductivity::PoundPerSecondPerRankine>},
-    };
+         Unit::ThermalConductivity::PoundPerSecondPerRankine>      },
+};
 
 }  // namespace Internal
 

@@ -67,8 +67,8 @@ TEST(DimensionLength, Hash) {
   EXPECT_NE(hasher(length0), hasher(length3));
   EXPECT_NE(hasher(length0), hasher(length4));
   EXPECT_NE(hasher(length0), hasher(length5));
-  const std::unordered_set<Length> unordered{length0, length1, length2,
-                                             length3, length4, length5};
+  const std::unordered_set<Length> unordered{
+      length0, length1, length2, length3, length4, length5};
 }
 
 TEST(DimensionLength, Label) { EXPECT_EQ(Length::Label(), "Length"); }

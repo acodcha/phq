@@ -121,8 +121,8 @@ TEST(ValueVector, Dot) {
   const Vector vector0{1.23, 4.56, 7.89};
   EXPECT_EQ(vector0.Dot(vector0), vector0.MagnitudeSquared());
   EXPECT_EQ(Vector(0.0, 10.0, -15.0).Dot(Vector(20.0, 0.0, 0.0)), 0.0);
-  EXPECT_EQ(vector0.Dot(Vector(-1.23, -4.56, -7.89)),
-            -vector0.MagnitudeSquared());
+  EXPECT_EQ(
+      vector0.Dot(Vector(-1.23, -4.56, -7.89)), -vector0.MagnitudeSquared());
 }
 
 TEST(ValueVector, Hash) {
@@ -138,8 +138,8 @@ TEST(ValueVector, Hash) {
   EXPECT_NE(hasher(vector0), hasher(vector3));
   EXPECT_NE(hasher(vector0), hasher(vector4));
   EXPECT_NE(hasher(vector0), hasher(vector5));
-  const std::unordered_set<Vector> unordered{vector0, vector1, vector2,
-                                             vector3, vector4, vector5};
+  const std::unordered_set<Vector> unordered{
+      vector0, vector1, vector2, vector3, vector4, vector5};
 }
 
 TEST(ValueVector, JSON) {
@@ -164,8 +164,8 @@ TEST(ValueVector, Stream) {
 }
 
 TEST(ValueVector, XML) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).XML(),
-            "<x>1.000000</x><y>-2.000000</y><z>0</z>");
+  EXPECT_EQ(
+      Vector(1.0, -2.0, 0.0).XML(), "<x>1.000000</x><y>-2.000000</y><z>0</z>");
 }
 
 TEST(ValueVector, YAML) {

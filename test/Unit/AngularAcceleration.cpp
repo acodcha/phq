@@ -34,22 +34,22 @@ constexpr std::array<AngularAcceleration, 9> Units = {
 };
 
 TEST(UnitAngularAcceleration, Abbreviation) {
-  EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareSecond),
-            "rad/s^2");
-  EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareMinute),
-            "rad/min^2");
+  EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareSecond), "rad/"
+                                                                      "s^2");
+  EXPECT_EQ(
+      Abbreviation(AngularAcceleration::RadianPerSquareMinute), "rad/min^2");
   EXPECT_EQ(Abbreviation(AngularAcceleration::RadianPerSquareHour), "rad/hr^2");
-  EXPECT_EQ(Abbreviation(AngularAcceleration::DegreePerSquareSecond),
-            "deg/s^2");
-  EXPECT_EQ(Abbreviation(AngularAcceleration::DegreePerSquareMinute),
-            "deg/min^2");
+  EXPECT_EQ(Abbreviation(AngularAcceleration::DegreePerSquareSecond), "deg/"
+                                                                      "s^2");
+  EXPECT_EQ(
+      Abbreviation(AngularAcceleration::DegreePerSquareMinute), "deg/min^2");
   EXPECT_EQ(Abbreviation(AngularAcceleration::DegreePerSquareHour), "deg/hr^2");
-  EXPECT_EQ(Abbreviation(AngularAcceleration::RevolutionPerSquareSecond),
-            "rev/s^2");
+  EXPECT_EQ(
+      Abbreviation(AngularAcceleration::RevolutionPerSquareSecond), "rev/s^2");
   EXPECT_EQ(Abbreviation(AngularAcceleration::RevolutionPerSquareMinute),
             "rev/min^2");
-  EXPECT_EQ(Abbreviation(AngularAcceleration::RevolutionPerSquareHour),
-            "rev/hr^2");
+  EXPECT_EQ(
+      Abbreviation(AngularAcceleration::RevolutionPerSquareHour), "rev/hr^2");
 }
 
 TEST(UnitAngularAcceleration, ConsistentUnit) {
@@ -165,8 +165,8 @@ TEST(UnitAngularAcceleration, ConvertVerification) {
 }
 
 TEST(UnitAngularAcceleration, Dimensions) {
-  EXPECT_EQ(Dimensions<AngularAcceleration>,
-            Dimension::Set{Dimension::Time{-2}});
+  EXPECT_EQ(
+      Dimensions<AngularAcceleration>, Dimension::Set{Dimension::Time{-2}});
 }
 
 TEST(UnitAngularAcceleration, Parse) {

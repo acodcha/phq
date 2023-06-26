@@ -34,7 +34,7 @@ public:
   constexpr SpecificHeatRatio() noexcept : DimensionlessScalarQuantity() {}
 
   explicit constexpr SpecificHeatRatio(const double value) noexcept
-      : DimensionlessScalarQuantity(value) {}
+    : DimensionlessScalarQuantity(value) {}
 
   constexpr SpecificHeatRatio(const SpecificGasConstant& specific_gas_constant,
                               const SpecificIsobaricHeatCapacity&
@@ -107,33 +107,33 @@ public:
   }
 };
 
-inline constexpr bool operator==(const SpecificHeatRatio& left,
-                                 const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator==(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const SpecificHeatRatio& left,
-                                 const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator!=(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const SpecificHeatRatio& left,
-                                const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator<(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const SpecificHeatRatio& left,
-                                const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator>(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const SpecificHeatRatio& left,
-                                 const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator<=(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const SpecificHeatRatio& left,
-                                 const SpecificHeatRatio& right) noexcept {
+inline constexpr bool operator>=(
+    const SpecificHeatRatio& left, const SpecificHeatRatio& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -172,8 +172,7 @@ inline constexpr double operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificHeatRatio> {
+template<> struct hash<PhQ::SpecificHeatRatio> {
   size_t operator()(const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
     return hash<double>()(specific_heat_ratio.Value());
   }

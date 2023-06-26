@@ -36,38 +36,38 @@ TEST(UnitMass, Abbreviation) {
 TEST(UnitMass, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::MetreKilogramSecondKelvin),
             Mass::Kilogram);
-  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::MillimetreGramSecondKelvin),
-            Mass::Gram);
-  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::FootPoundSecondRankine),
-            Mass::Slug);
-  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine),
-            Mass::Slinch);
+  EXPECT_EQ(
+      ConsistentUnit<Mass>(UnitSystem::MillimetreGramSecondKelvin), Mass::Gram);
+  EXPECT_EQ(
+      ConsistentUnit<Mass>(UnitSystem::FootPoundSecondRankine), Mass::Slug);
+  EXPECT_EQ(
+      ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
 TEST(UnitMass, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Kilogram), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Gram),
-                   value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Mass::Kilogram, Mass::Gram), value * 1000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Slug),
                    value * 0.3048 / (0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Slinch),
                    value * 0.0254 / (0.45359237 * 9.80665));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Pound),
-                   value / 0.45359237);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Mass::Kilogram, Mass::Pound), value / 0.45359237);
 }
 
 TEST(UnitMass, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Kilogram, Mass::Kilogram), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Gram, Mass::Kilogram),
-                   value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Mass::Gram, Mass::Kilogram), value * 0.001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Slug, Mass::Kilogram),
                    value * 0.45359237 * 9.80665 / 0.3048);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Slinch, Mass::Kilogram),
                    value * 0.45359237 * 9.80665 / 0.0254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Mass::Pound, Mass::Kilogram),
-                   value * 0.45359237);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Mass::Pound, Mass::Kilogram), value * 0.45359237);
 }
 
 TEST(UnitMass, ConvertVerification) {
@@ -91,8 +91,8 @@ TEST(UnitMass, ConvertVerification) {
 
 TEST(UnitMass, DimensionSet) {
   EXPECT_EQ(Dimensions<Mass>,
-            Dimension::Set(Dimension::Time{0}, Dimension::Length{0},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitMass, Parse) {
@@ -105,13 +105,13 @@ TEST(UnitMass, Parse) {
 }
 
 TEST(UnitMass, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(Mass::Kilogram),
-            UnitSystem::MetreKilogramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(Mass::Gram),
-            UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(Mass::Kilogram), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(Mass::Gram), UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Mass::Slug), UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Mass::Slinch),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Mass::Slinch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Mass::Pound), std::nullopt);
 }
 

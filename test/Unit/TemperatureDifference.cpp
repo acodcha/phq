@@ -113,8 +113,8 @@ TEST(UnitTemperatureDifference, Parse) {
   EXPECT_EQ(Parse<TemperatureDifference>("K"), TemperatureDifference::Kelvin);
   EXPECT_EQ(Parse<TemperatureDifference>("°C"), TemperatureDifference::Celsius);
   EXPECT_EQ(Parse<TemperatureDifference>("°R"), TemperatureDifference::Rankine);
-  EXPECT_EQ(Parse<TemperatureDifference>("°F"),
-            TemperatureDifference::Fahrenheit);
+  EXPECT_EQ(
+      Parse<TemperatureDifference>("°F"), TemperatureDifference::Fahrenheit);
 }
 
 TEST(UnitTemperatureDifference, RelatedUnitSystem) {

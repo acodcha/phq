@@ -53,18 +53,18 @@ TEST(UnitPower, ConsistentUnit) {
 TEST(UnitPower, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Watt), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Milliwatt),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Microwatt),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Nanowatt),
-                   value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Kilowatt),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Megawatt),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Gigawatt),
-                   value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Milliwatt), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Microwatt), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Nanowatt), value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Kilowatt), value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Megawatt), value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Watt, Power::Gigawatt), value * 0.000000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::FootPoundPerSecond),
                    value / (0.3048 * 0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::InchPoundPerSecond),
@@ -74,18 +74,18 @@ TEST(UnitPower, ConvertFromStandard) {
 TEST(UnitPower, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Watt), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Milliwatt, Power::Watt),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Microwatt, Power::Watt),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Nanowatt, Power::Watt),
-                   value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Kilowatt, Power::Watt),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Megawatt, Power::Watt),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Gigawatt, Power::Watt),
-                   value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Milliwatt, Power::Watt), value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Microwatt, Power::Watt), value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Nanowatt, Power::Watt), value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Kilowatt, Power::Watt), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Megawatt, Power::Watt), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Power::Gigawatt, Power::Watt), value * 1000000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::FootPoundPerSecond, Power::Watt),
                    value * 0.3048 * 0.45359237 * 9.80665);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::InchPoundPerSecond, Power::Watt),
@@ -113,8 +113,8 @@ TEST(UnitPower, ConvertVerification) {
 
 TEST(UnitPower, DimensionSet) {
   EXPECT_EQ(Dimensions<Power>,
-            Dimension::Set(Dimension::Time{-3}, Dimension::Length{2},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}));
 }
 
 TEST(UnitPower, Parse) {
@@ -131,8 +131,8 @@ TEST(UnitPower, Parse) {
 }
 
 TEST(UnitPower, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(Power::Watt),
-            UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(Power::Watt), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Power::Milliwatt), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Power::Microwatt), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Power::Nanowatt),

@@ -24,14 +24,14 @@ namespace PhQ {
 class IncompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr IncompressibleNewtonianFluid() noexcept
-      : ConstitutiveModel(), dynamic_viscosity_() {}
+    : ConstitutiveModel(), dynamic_viscosity_() {}
 
   constexpr IncompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity) noexcept
-      : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity) {}
+    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity) {}
 
-  inline constexpr const PhQ::DynamicViscosity& DynamicViscosity()
-      const noexcept {
+  inline constexpr const PhQ::DynamicViscosity&
+  DynamicViscosity() const noexcept {
     return dynamic_viscosity_;
   }
 
@@ -54,24 +54,24 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Type = " + LowerCaseCopy(Abbreviation(GetType())) +
-            ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
+    return {"Type = " + LowerCaseCopy(Abbreviation(GetType()))
+            + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON() + "}"};
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType()))
+            + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON() + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(GetType())) +
-            "</type><dynamic_viscosity>" + dynamic_viscosity_.XML() +
-            "</dynamic_viscosity>"};
+    return {"<type>" + LowerCaseCopy(Abbreviation(GetType()))
+            + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
+            + "</dynamic_viscosity>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType())) +
-            "\", dynamic_viscosity: " + dynamic_viscosity_.JSON() + "}"};
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType()))
+            + "\", dynamic_viscosity: " + dynamic_viscosity_.JSON() + "}"};
   }
 
 private:
@@ -98,8 +98,7 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template <>
-struct hash<PhQ::IncompressibleNewtonianFluid> {
+template<> struct hash<PhQ::IncompressibleNewtonianFluid> {
   size_t operator()(const PhQ::IncompressibleNewtonianFluid& model) const {
     return hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
   }

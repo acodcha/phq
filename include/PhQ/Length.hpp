@@ -40,7 +40,7 @@ public:
   constexpr Length() noexcept : DimensionalScalarQuantity<Unit::Length>() {}
 
   Length(const double value, const Unit::Length unit) noexcept
-      : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
   constexpr Length(const Displacement& displacement) noexcept;
 
@@ -50,16 +50,16 @@ public:
 
   constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
 
-  constexpr Length(const ReynoldsNumber& reynolds_number,
-                   const DynamicViscosity& dynamic_viscosity,
-                   const MassDensity& mass_density,
-                   const Speed& speed) noexcept;
+  constexpr Length(
+      const ReynoldsNumber& reynolds_number,
+      const DynamicViscosity& dynamic_viscosity,
+      const MassDensity& mass_density, const Speed& speed) noexcept;
 
   constexpr Length(const ReynoldsNumber& reynolds_number,
                    const KinematicViscosity& kinematic_viscosity,
                    const Speed& speed) noexcept;
 
-  template <Unit::Length Unit>
+  template<Unit::Length Unit>
   static constexpr Length Create(const double value) noexcept {
     return Length{
         StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
@@ -113,50 +113,50 @@ public:
 
 private:
   explicit constexpr Length(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Length>(value) {}
+    : DimensionalScalarQuantity<Unit::Length>(value) {}
 
   friend class Area;
   friend class Volume;
 };
 
-inline constexpr bool operator==(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator==(
+    const Length& left, const Length& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator!=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Length& left,
-                                const Length& right) noexcept {
+inline constexpr bool operator<(
+    const Length& left, const Length& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Length& left,
-                                const Length& right) noexcept {
+inline constexpr bool operator>(
+    const Length& left, const Length& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator<=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Length& left,
-                                 const Length& right) noexcept {
+inline constexpr bool operator>=(
+    const Length& left, const Length& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Length& length) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Length& length) noexcept {
   stream << length.Print();
   return stream;
 }
 
-inline constexpr Length operator*(const double number,
-                                  const Length& length) noexcept {
+inline constexpr Length operator*(
+    const double number, const Length& length) noexcept {
   return length * number;
 }
 
@@ -164,8 +164,7 @@ inline constexpr Length operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Length> {
+template<> struct hash<PhQ::Length> {
   size_t operator()(const PhQ::Length& length) const {
     return hash<double>()(length.Value());
   }

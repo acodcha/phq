@@ -24,12 +24,12 @@ namespace PhQ {
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 public:
   constexpr Temperature() noexcept
-      : DimensionalScalarQuantity<Unit::Temperature>() {}
+    : DimensionalScalarQuantity<Unit::Temperature>() {}
 
   Temperature(const double value, const Unit::Temperature unit) noexcept
-      : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
-  template <Unit::Temperature Unit>
+  template<Unit::Temperature Unit>
   static constexpr Temperature Create(const double value) noexcept {
     return Temperature{
         StaticConvertCopy<Unit::Temperature, Unit,
@@ -92,43 +92,43 @@ public:
 
 private:
   explicit constexpr Temperature(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Temperature>(value) {}
+    : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 
   friend class TemperatureDifference;
 };
 
-inline constexpr bool operator==(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator==(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator!=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Temperature& left,
-                                const Temperature& right) noexcept {
+inline constexpr bool operator<(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Temperature& left,
-                                const Temperature& right) noexcept {
+inline constexpr bool operator>(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator<=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Temperature& left,
-                                 const Temperature& right) noexcept {
+inline constexpr bool operator>=(
+    const Temperature& left, const Temperature& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Temperature& temperature) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Temperature& temperature) noexcept {
   stream << temperature.Print();
   return stream;
 }
@@ -152,8 +152,7 @@ inline constexpr Temperature TemperatureDifference::operator-(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Temperature> {
+template<> struct hash<PhQ::Temperature> {
   size_t operator()(const PhQ::Temperature& temperature) const {
     return hash<double>()(temperature.Value());
   }

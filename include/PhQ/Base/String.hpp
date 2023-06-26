@@ -53,8 +53,8 @@ std::optional<int_least64_t> ParseToInteger(const std::string& text) noexcept {
 std::optional<double> ParseToDouble(const std::string& text) noexcept {
   char* end = 0;
   const double value = strtod(text.c_str(), &end);
-  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL &&
-      value != -HUGE_VAL) {
+  if (end != text.c_str() && *end == '\0' && value != HUGE_VAL
+      && value != -HUGE_VAL) {
     return {value};
   }
   return std::nullopt;
@@ -90,8 +90,8 @@ void Replace(std::string& text, const char from, const char to) noexcept {
   std::replace(text.begin(), text.end(), from, to);
 }
 
-std::string ReplaceCopy(const std::string_view text, const char from,
-                        const char to) noexcept {
+std::string ReplaceCopy(
+    const std::string_view text, const char from, const char to) noexcept {
   std::string result{text};
   std::replace_copy(text.cbegin(), text.cend(), result.begin(), from, to);
   return result;

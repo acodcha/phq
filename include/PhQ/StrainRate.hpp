@@ -29,23 +29,22 @@ class VelocityGradient;
 class StrainRate : public DimensionalSymmetricDyadQuantity<Unit::Frequency> {
 public:
   constexpr StrainRate() noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Frequency>() {}
+    : DimensionalSymmetricDyadQuantity<Unit::Frequency>() {}
 
   StrainRate(const Value::SymmetricDyad& value, Unit::Frequency unit) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value, unit) {}
+    : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value, unit) {}
 
   constexpr StrainRate(const Strain& strain, const Time& time) noexcept
-      : StrainRate(strain.Value() / time.Value()) {}
+    : StrainRate(strain.Value() / time.Value()) {}
 
-  constexpr StrainRate(const Strain& strain,
-                       const Frequency& frequency) noexcept
-      : StrainRate(strain.Value() * frequency.Value()) {}
+  constexpr StrainRate(
+      const Strain& strain, const Frequency& frequency) noexcept
+    : StrainRate(strain.Value() * frequency.Value()) {}
 
   explicit constexpr StrainRate(
       const VelocityGradient& velocity_gradient) noexcept;
 
-  template <Unit::Frequency Unit>
-  static constexpr StrainRate Create(
+  template<Unit::Frequency Unit> static constexpr StrainRate Create(
       const Value::SymmetricDyad& value) noexcept {
     return StrainRate{
         StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
@@ -96,57 +95,57 @@ public:
 
 private:
   constexpr StrainRate(const Value::SymmetricDyad& value) noexcept
-      : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
+    : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
 };
 
-inline constexpr bool operator==(const StrainRate& left,
-                                 const StrainRate& right) noexcept {
+inline constexpr bool operator==(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const StrainRate& left,
-                                 const StrainRate& right) noexcept {
+inline constexpr bool operator!=(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const StrainRate& left,
-                                const StrainRate& right) noexcept {
+inline constexpr bool operator<(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const StrainRate& left,
-                                const StrainRate& right) noexcept {
+inline constexpr bool operator>(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const StrainRate& left,
-                                 const StrainRate& right) noexcept {
+inline constexpr bool operator<=(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const StrainRate& left,
-                                 const StrainRate& right) noexcept {
+inline constexpr bool operator>=(
+    const StrainRate& left, const StrainRate& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const StrainRate& strain_rate) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const StrainRate& strain_rate) noexcept {
   stream << strain_rate.Print();
   return stream;
 }
 
-inline constexpr StrainRate operator*(const double number,
-                                      const StrainRate& strain_rate) noexcept {
+inline constexpr StrainRate operator*(
+    const double number, const StrainRate& strain_rate) noexcept {
   return strain_rate * number;
 }
 
-inline constexpr Strain::Strain(const StrainRate& strain_rate,
-                                const Time& time) noexcept
-    : Strain(strain_rate.Value() * time.Value()) {}
+inline constexpr Strain::Strain(
+    const StrainRate& strain_rate, const Time& time) noexcept
+  : Strain(strain_rate.Value() * time.Value()) {}
 
-inline constexpr Strain::Strain(const StrainRate& strain_rate,
-                                const Frequency& frequency) noexcept
-    : Strain(strain_rate.Value() / frequency.Value()) {}
+inline constexpr Strain::Strain(
+    const StrainRate& strain_rate, const Frequency& frequency) noexcept
+  : Strain(strain_rate.Value() / frequency.Value()) {}
 
 inline constexpr StrainRate Strain::operator*(
     const Frequency& frequency) const noexcept {
@@ -171,8 +170,7 @@ inline constexpr StrainRate Frequency::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::StrainRate> {
+template<> struct hash<PhQ::StrainRate> {
   size_t operator()(const PhQ::StrainRate& strain_rate) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain_rate.Value());
   }

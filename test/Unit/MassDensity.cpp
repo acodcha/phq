@@ -112,8 +112,8 @@ TEST(UnitMassDensity, ConvertVerification) {
 
 TEST(UnitMassDensity, DimensionSet) {
   EXPECT_EQ(Dimensions<MassDensity>,
-            Dimension::Set(Dimension::Time{}, Dimension::Length{-3},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
 }
 
 TEST(UnitMassDensity, Parse) {

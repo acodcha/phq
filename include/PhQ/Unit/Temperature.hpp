@@ -31,141 +31,125 @@ enum class Temperature : int_least8_t {
 
 }  // namespace Unit
 
-template <>
+template<>
 inline constexpr const Unit::Temperature StandardUnit<Unit::Temperature>{
     Unit::Temperature::Kelvin};
 
-template <>
-inline constexpr const Dimension::Set Dimensions<Unit::Temperature>{
+template<> inline constexpr const Dimension::Set Dimensions<Unit::Temperature>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}};
+                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+};
 
-template <>
-inline const std::map<UnitSystem, Unit::Temperature>
+template<> inline const std::map<UnitSystem, Unit::Temperature>
     ConsistentUnits<Unit::Temperature>{
-        {UnitSystem::MetreKilogramSecondKelvin, Unit::Temperature::Kelvin},
-        {UnitSystem::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin},
-        {UnitSystem::FootPoundSecondRankine, Unit::Temperature::Rankine},
-        {UnitSystem::InchPoundSecondRankine, Unit::Temperature::Rankine},
-    };
+        {UnitSystem::MetreKilogramSecondKelvin,  Unit::Temperature::Kelvin },
+        {UnitSystem::MillimetreGramSecondKelvin, Unit::Temperature::Kelvin },
+        {UnitSystem::FootPoundSecondRankine,     Unit::Temperature::Rankine},
+        {UnitSystem::InchPoundSecondRankine,     Unit::Temperature::Rankine},
+};
 
-template <>
-inline const std::map<Unit::Temperature, UnitSystem>
+template<> inline const std::map<Unit::Temperature, UnitSystem>
     RelatedUnitSystems<Unit::Temperature>{};
 
-template <>
-inline const std::map<Unit::Temperature, std::string_view>
+template<> inline const std::map<Unit::Temperature, std::string_view>
     Abbreviations<Unit::Temperature>{
-        {Unit::Temperature::Kelvin, "K"},
-        {Unit::Temperature::Celsius, "°C"},
-        {Unit::Temperature::Rankine, "°R"},
+        {Unit::Temperature::Kelvin,     "K" },
+        {Unit::Temperature::Celsius,    "°C"},
+        {Unit::Temperature::Rankine,    "°R"},
         {Unit::Temperature::Fahrenheit, "°F"},
-    };
+};
 
-template <>
-inline const std::unordered_map<std::string_view, Unit::Temperature>
+template<> inline const std::unordered_map<std::string_view, Unit::Temperature>
     Spellings<Unit::Temperature>{
-        {"K", Unit::Temperature::Kelvin},
-        {"°K", Unit::Temperature::Kelvin},
-        {"degK", Unit::Temperature::Kelvin},
-        {"°C", Unit::Temperature::Celsius},
-        {"C", Unit::Temperature::Celsius},
-        {"degC", Unit::Temperature::Celsius},
-        {"°R", Unit::Temperature::Rankine},
-        {"R", Unit::Temperature::Rankine},
-        {"degR", Unit::Temperature::Rankine},
-        {"°F", Unit::Temperature::Fahrenheit},
-        {"F", Unit::Temperature::Fahrenheit},
+        {"K",    Unit::Temperature::Kelvin    },
+        {"°K",   Unit::Temperature::Kelvin    },
+        {"degK", Unit::Temperature::Kelvin    },
+        {"°C",   Unit::Temperature::Celsius   },
+        {"C",    Unit::Temperature::Celsius   },
+        {"degC", Unit::Temperature::Celsius   },
+        {"°R",   Unit::Temperature::Rankine   },
+        {"R",    Unit::Temperature::Rankine   },
+        {"degR", Unit::Temperature::Rankine   },
+        {"°F",   Unit::Temperature::Fahrenheit},
+        {"F",    Unit::Temperature::Fahrenheit},
         {"degF", Unit::Temperature::Fahrenheit},
-    };
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Temperature, Unit::Temperature::Celsius>(
     double& value) noexcept {
   value -= 273.15;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Temperature, Unit::Temperature::Rankine>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
     double& value) noexcept {
   value = (value * 1.8) - 459.67;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(
     double& value) noexcept {
   value += 273.15;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Temperature, Unit::Temperature::Rankine>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
     double& value) noexcept {
   value = (value + 459.67) / 1.8;
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Temperature,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Temperature>{
         {Unit::Temperature::Kelvin,
-         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>},
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Kelvin> },
         {Unit::Temperature::Celsius,
-         ConversionsFromStandard<Unit::Temperature,
-                                 Unit::Temperature::Celsius>},
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Celsius>},
         {Unit::Temperature::Rankine,
-         ConversionsFromStandard<Unit::Temperature,
-                                 Unit::Temperature::Rankine>},
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Rankine>},
         {Unit::Temperature::Fahrenheit,
          ConversionsFromStandard<Unit::Temperature,
-                                 Unit::Temperature::Fahrenheit>},
-    };
+         Unit::Temperature::Fahrenheit>                                        },
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Temperature,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Temperature>{
         {Unit::Temperature::Kelvin,
-         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Kelvin>},
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Kelvin> },
         {Unit::Temperature::Celsius,
          ConversionsToStandard<Unit::Temperature, Unit::Temperature::Celsius>},
         {Unit::Temperature::Rankine,
          ConversionsToStandard<Unit::Temperature, Unit::Temperature::Rankine>},
         {Unit::Temperature::Fahrenheit,
          ConversionsToStandard<Unit::Temperature,
-                               Unit::Temperature::Fahrenheit>},
-    };
+         Unit::Temperature::Fahrenheit>                                      },
+};
 
 }  // namespace Internal
 

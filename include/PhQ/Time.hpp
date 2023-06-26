@@ -50,7 +50,7 @@ public:
   constexpr Time() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
 
   Time(const double value, const Unit::Time unit) noexcept
-      : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
   constexpr Time(const PhQ::Frequency& frequency) noexcept;
 
@@ -61,8 +61,8 @@ public:
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const AngularSpeed& angular_speed) noexcept;
 
-  constexpr Time(const AngularSpeed& angular_speed,
-                 const Angle& angle) noexcept;
+  constexpr Time(
+      const AngularSpeed& angular_speed, const Angle& angle) noexcept;
 
   constexpr Time(const MassRate& mass_rate, const Mass& mass) noexcept;
 
@@ -77,7 +77,7 @@ public:
 
   constexpr Time(const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
-  template <Unit::Time Unit>
+  template<Unit::Time Unit>
   static constexpr Time Create(const double value) noexcept {
     return Time{
         StaticConvertCopy<Unit::Time, Unit, StandardUnit<Unit::Time>>(value)};
@@ -141,7 +141,7 @@ public:
 
 private:
   explicit constexpr Time(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Time>(value) {}
+    : DimensionalScalarQuantity<Unit::Time>(value) {}
 };
 
 inline constexpr bool operator==(const Time& left, const Time& right) noexcept {
@@ -168,14 +168,14 @@ inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Time& time) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Time& time) noexcept {
   stream << time.Print();
   return stream;
 }
 
-inline constexpr Time operator*(const double number,
-                                const Time& time) noexcept {
+inline constexpr Time operator*(
+    const double number, const Time& time) noexcept {
   return time * number;
 }
 
@@ -183,8 +183,7 @@ inline constexpr Time operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Time> {
+template<> struct hash<PhQ::Time> {
   size_t operator()(const PhQ::Time& time) const {
     return hash<double>()(time.Value());
   }

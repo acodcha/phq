@@ -30,8 +30,8 @@ protected:
   ~DimensionlessQuantity() noexcept = default;
 };
 
-std::ostream& operator<<(std::ostream& stream,
-                         const DimensionlessQuantity& quantity) noexcept {
+std::ostream& operator<<(
+    std::ostream& stream, const DimensionlessQuantity& quantity) noexcept {
   stream << quantity.Print();
   return stream;
 }

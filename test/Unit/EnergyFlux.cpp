@@ -103,15 +103,15 @@ TEST(UnitEnergyFlux, ConvertVerification) {
 
 TEST(UnitEnergyFlux, DimensionSet) {
   EXPECT_EQ(Dimensions<EnergyFlux>,
-            Dimension::Set(Dimension::Time{-3}, Dimension::Length{0},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitEnergyFlux, Parse) {
   EXPECT_EQ(Parse<EnergyFlux>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(Parse<EnergyFlux>("nW/mm^2"),
-            EnergyFlux::NanowattPerSquareMillimetre);
+  EXPECT_EQ(
+      Parse<EnergyFlux>("nW/mm^2"), EnergyFlux::NanowattPerSquareMillimetre);
   EXPECT_EQ(Parse<EnergyFlux>("ft·lbf/ft^2/s"),
             EnergyFlux::FootPoundPerSquareFootPerSecond);
   EXPECT_EQ(Parse<EnergyFlux>("in·lbf/in^2/s"),

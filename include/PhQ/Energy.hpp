@@ -34,16 +34,16 @@ public:
   constexpr Energy() noexcept : DimensionalScalarQuantity<Unit::Energy>() {}
 
   Energy(const double value, const Unit::Energy unit) noexcept
-      : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
   constexpr Energy(const Power& power, const Time& time) noexcept;
 
   constexpr Energy(const Power& power, const Frequency& frequency) noexcept;
 
-  constexpr Energy(const SpecificEnergy& specific_energy,
-                   const Mass& mass) noexcept;
+  constexpr Energy(
+      const SpecificEnergy& specific_energy, const Mass& mass) noexcept;
 
-  template <Unit::Energy Unit>
+  template<Unit::Energy Unit>
   static constexpr Energy Create(const double value) noexcept {
     return Energy{
         StaticConvertCopy<Unit::Energy, Unit, StandardUnit<Unit::Energy>>(
@@ -95,47 +95,47 @@ public:
 
 private:
   explicit constexpr Energy(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Energy>(value) {}
+    : DimensionalScalarQuantity<Unit::Energy>(value) {}
 };
 
-inline constexpr bool operator==(const Energy& left,
-                                 const Energy& right) noexcept {
+inline constexpr bool operator==(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Energy& left,
-                                 const Energy& right) noexcept {
+inline constexpr bool operator!=(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Energy& left,
-                                const Energy& right) noexcept {
+inline constexpr bool operator<(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Energy& left,
-                                const Energy& right) noexcept {
+inline constexpr bool operator>(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Energy& left,
-                                 const Energy& right) noexcept {
+inline constexpr bool operator<=(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Energy& left,
-                                 const Energy& right) noexcept {
+inline constexpr bool operator>=(
+    const Energy& left, const Energy& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Energy& energy) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Energy& energy) noexcept {
   stream << energy.Print();
   return stream;
 }
 
-inline constexpr Energy operator*(const double number,
-                                  const Energy& energy) noexcept {
+inline constexpr Energy operator*(
+    const double number, const Energy& energy) noexcept {
   return energy * number;
 }
 
@@ -143,8 +143,7 @@ inline constexpr Energy operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Energy> {
+template<> struct hash<PhQ::Energy> {
   size_t operator()(const PhQ::Energy& energy) const {
     return hash<double>()(energy.Value());
   }

@@ -89,8 +89,8 @@ TEST(Angle, Hash) {
   EXPECT_NE(hasher(angle0), hasher(angle3));
   EXPECT_NE(hasher(angle0), hasher(angle4));
   EXPECT_NE(hasher(angle0), hasher(angle5));
-  const std::unordered_set<Angle> unordered{angle0, angle1, angle2,
-                                            angle3, angle4, angle5};
+  const std::unordered_set<Angle> unordered{
+      angle0, angle1, angle2, angle3, angle4, angle5};
 }
 
 TEST(Angle, JSON) {
@@ -121,8 +121,8 @@ TEST(Angle, XML) {
 }
 
 TEST(Angle, YAML) {
-  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).YAML(),
-            "{value:1.110000,unit:\"rad\"}");
+  EXPECT_EQ(
+      Angle(1.11, Unit::Angle::Radian).YAML(), "{value:1.110000,unit:\"rad\"}");
   EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).YAML(Unit::Angle::Degree),
             "{value:-5.000000,unit:\"deg\"}");
 }

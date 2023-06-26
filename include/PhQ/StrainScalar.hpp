@@ -29,7 +29,7 @@ public:
   constexpr StrainScalar() noexcept : DimensionlessScalarQuantity() {}
 
   explicit constexpr StrainScalar(const double value) noexcept
-      : DimensionlessScalarQuantity(value) {}
+    : DimensionlessScalarQuantity(value) {}
 
   constexpr StrainScalar(
       const LinearThermalExpansionCoefficient&
@@ -71,38 +71,38 @@ public:
   }
 };
 
-inline constexpr bool operator==(const StrainScalar& left,
-                                 const StrainScalar& right) noexcept {
+inline constexpr bool operator==(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const StrainScalar& left,
-                                 const StrainScalar& right) noexcept {
+inline constexpr bool operator!=(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const StrainScalar& left,
-                                const StrainScalar& right) noexcept {
+inline constexpr bool operator<(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const StrainScalar& left,
-                                const StrainScalar& right) noexcept {
+inline constexpr bool operator>(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const StrainScalar& left,
-                                 const StrainScalar& right) noexcept {
+inline constexpr bool operator<=(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const StrainScalar& left,
-                                 const StrainScalar& right) noexcept {
+inline constexpr bool operator>=(
+    const StrainScalar& left, const StrainScalar& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const StrainScalar& strain_scalar) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const StrainScalar& strain_scalar) noexcept {
   stream << strain_scalar.Print();
   return stream;
 }
@@ -122,8 +122,8 @@ inline constexpr StrainScalar operator*(
   return StrainScalar{number * strain_scalar.Value()};
 }
 
-inline constexpr double operator/(const double number,
-                                  const StrainScalar& strain_scalar) noexcept {
+inline constexpr double operator/(
+    const double number, const StrainScalar& strain_scalar) noexcept {
   return number / strain_scalar.Value();
 }
 
@@ -131,8 +131,7 @@ inline constexpr double operator/(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::StrainScalar> {
+template<> struct hash<PhQ::StrainScalar> {
   size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
     return hash<double>()(strain_scalar.Value());
   }
