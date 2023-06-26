@@ -21,14 +21,14 @@
 namespace PhQ {
 
 class IsobaricHeatCapacity
-    : public DimensionalScalarQuantity<Unit::HeatCapacity> {
+  : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
   constexpr IsobaricHeatCapacity() noexcept
-      : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
+    : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
 
-  IsobaricHeatCapacity(const double value,
-                       const Unit::HeatCapacity unit) noexcept
-      : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
+  IsobaricHeatCapacity(
+      const double value, const Unit::HeatCapacity unit) noexcept
+    : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
   constexpr IsobaricHeatCapacity(
       const GasConstant& gas_constant,
@@ -41,14 +41,14 @@ public:
   constexpr IsobaricHeatCapacity(
       const IsochoricHeatCapacity& isochoric_heat_capacity,
       const SpecificHeatRatio& specific_heat_ratio) noexcept
-      : IsobaricHeatCapacity(isochoric_heat_capacity.Value() *
-                             specific_heat_ratio.Value()) {}
+    : IsobaricHeatCapacity(
+        isochoric_heat_capacity.Value() * specific_heat_ratio.Value()) {}
 
   constexpr IsobaricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const Mass& mass) noexcept;
 
-  template <Unit::HeatCapacity Unit>
+  template<Unit::HeatCapacity Unit>
   static constexpr IsobaricHeatCapacity Create(const double value) noexcept {
     return IsobaricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
@@ -84,8 +84,8 @@ public:
   inline constexpr SpecificIsobaricHeatCapacity operator/(
       const Mass& mass) const noexcept;
 
-  inline constexpr Mass operator/(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
+  inline constexpr Mass
+  operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const noexcept;
 
   inline constexpr SpecificHeatRatio operator/(
@@ -118,7 +118,7 @@ public:
 
 private:
   explicit constexpr IsobaricHeatCapacity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
+    : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(const IsobaricHeatCapacity& left,
@@ -167,14 +167,14 @@ inline constexpr IsobaricHeatCapacity operator*(
 inline constexpr SpecificHeatRatio::SpecificHeatRatio(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
     const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept
-    : SpecificHeatRatio(isobaric_heat_capacity.Value() /
-                        isochoric_heat_capacity.Value()) {}
+  : SpecificHeatRatio(
+      isobaric_heat_capacity.Value() / isochoric_heat_capacity.Value()) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
     const SpecificHeatRatio& specific_heat_ratio) noexcept
-    : IsochoricHeatCapacity(isobaric_heat_capacity.Value() /
-                            specific_heat_ratio.Value()) {}
+  : IsochoricHeatCapacity(
+      isobaric_heat_capacity.Value() / specific_heat_ratio.Value()) {}
 
 inline constexpr IsobaricHeatCapacity SpecificHeatRatio::operator*(
     const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
@@ -190,8 +190,7 @@ inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::IsobaricHeatCapacity> {
+template<> struct hash<PhQ::IsobaricHeatCapacity> {
   size_t operator()(
       const PhQ::IsobaricHeatCapacity& isobaric_heat_capacity) const {
     return hash<double>()(isobaric_heat_capacity.Value());

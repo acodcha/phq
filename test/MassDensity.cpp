@@ -26,8 +26,8 @@ namespace {
 TEST(MassDensity, Accessor) {
   const MassDensity density{0.1, Unit::MassDensity::KilogramPerCubicMetre};
   EXPECT_DOUBLE_EQ(density.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(density.Value(Unit::MassDensity::GramPerCubicMillimetre),
-                   0.1 * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      density.Value(Unit::MassDensity::GramPerCubicMillimetre), 0.1 * 0.000001);
 }
 
 TEST(MassDensity, Arithmetic) {
@@ -90,22 +90,22 @@ TEST(MassDensity, Constructor) {
 
 TEST(MassDensity, Hash) {
   const MassDensity density0{10.0, Unit::MassDensity::GramPerCubicMillimetre};
-  const MassDensity density1{10.000001,
-                             Unit::MassDensity::GramPerCubicMillimetre};
+  const MassDensity density1{
+      10.000001, Unit::MassDensity::GramPerCubicMillimetre};
   const MassDensity density2{11.0, Unit::MassDensity::GramPerCubicMillimetre};
   const MassDensity density3{-10.0, Unit::MassDensity::GramPerCubicMillimetre};
-  const MassDensity density4{20000.0,
-                             Unit::MassDensity::GramPerCubicMillimetre};
-  const MassDensity density5{-123.456,
-                             Unit::MassDensity::GramPerCubicMillimetre};
+  const MassDensity density4{
+      20000.0, Unit::MassDensity::GramPerCubicMillimetre};
+  const MassDensity density5{
+      -123.456, Unit::MassDensity::GramPerCubicMillimetre};
   const std::hash<MassDensity> hasher;
   EXPECT_NE(hasher(density0), hasher(density1));
   EXPECT_NE(hasher(density0), hasher(density2));
   EXPECT_NE(hasher(density0), hasher(density3));
   EXPECT_NE(hasher(density0), hasher(density4));
   EXPECT_NE(hasher(density0), hasher(density5));
-  const std::unordered_set<MassDensity> unordered{density0, density1, density2,
-                                                  density3, density4, density5};
+  const std::unordered_set<MassDensity> unordered{
+      density0, density1, density2, density3, density4, density5};
 }
 
 TEST(MassDensity, JSON) {

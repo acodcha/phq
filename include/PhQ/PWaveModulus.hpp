@@ -24,12 +24,12 @@ namespace PhQ {
 class PWaveModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr PWaveModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   PWaveModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr PWaveModulus Create(const double value) noexcept {
     return PWaveModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -74,41 +74,41 @@ public:
 
 private:
   explicit constexpr PWaveModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const PWaveModulus& left,
-                                 const PWaveModulus& right) noexcept {
+inline constexpr bool operator==(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const PWaveModulus& left,
-                                 const PWaveModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const PWaveModulus& left,
-                                const PWaveModulus& right) noexcept {
+inline constexpr bool operator<(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const PWaveModulus& left,
-                                const PWaveModulus& right) noexcept {
+inline constexpr bool operator>(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const PWaveModulus& left,
-                                 const PWaveModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const PWaveModulus& left,
-                                 const PWaveModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const PWaveModulus& left, const PWaveModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const PWaveModulus& p_wave_modulus) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const PWaveModulus& p_wave_modulus) noexcept {
   stream << p_wave_modulus.Print();
   return stream;
 }
@@ -122,8 +122,7 @@ inline constexpr PWaveModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::PWaveModulus> {
+template<> struct hash<PhQ::PWaveModulus> {
   size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
     return hash<double>()(p_wave_modulus.Value());
   }

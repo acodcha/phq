@@ -24,12 +24,12 @@ namespace PhQ {
 class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr IsothermalBulkModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   IsothermalBulkModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr IsothermalBulkModulus Create(const double value) noexcept {
     return IsothermalBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -76,7 +76,7 @@ public:
 
 private:
   constexpr IsothermalBulkModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const IsothermalBulkModulus& left,
@@ -126,8 +126,7 @@ inline constexpr IsothermalBulkModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::IsothermalBulkModulus> {
+template<> struct hash<PhQ::IsothermalBulkModulus> {
   size_t operator()(
       const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return hash<double>()(isothermal_bulk_modulus.Value());

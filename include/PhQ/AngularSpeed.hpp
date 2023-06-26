@@ -28,17 +28,17 @@ class AngularAccelerationMagnitude;
 class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
 public:
   constexpr AngularSpeed() noexcept
-      : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
+    : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
 
   AngularSpeed(const double value, const Unit::AngularSpeed unit) noexcept
-      : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
   constexpr AngularSpeed(const Angle& angle, const Time& time) noexcept
-      : AngularSpeed(angle.Value() / time.Value()) {}
+    : AngularSpeed(angle.Value() / time.Value()) {}
 
-  constexpr AngularSpeed(const Angle& angle,
-                         const Frequency& frequency) noexcept
-      : AngularSpeed(angle.Value() * frequency.Value()) {}
+  constexpr AngularSpeed(
+      const Angle& angle, const Frequency& frequency) noexcept
+    : AngularSpeed(angle.Value() * frequency.Value()) {}
 
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
@@ -48,7 +48,7 @@ public:
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Frequency& frequency) noexcept;
 
-  template <Unit::AngularSpeed Unit>
+  template<Unit::AngularSpeed Unit>
   static constexpr AngularSpeed Create(const double value) noexcept {
     return AngularSpeed{
         StaticConvertCopy<Unit::AngularSpeed, Unit,
@@ -91,8 +91,8 @@ public:
   inline constexpr AngularAccelerationMagnitude operator/(
       const Time& time) const noexcept;
 
-  inline constexpr Time operator/(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude)
+  inline constexpr Time
+  operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept;
 
   inline constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
@@ -113,41 +113,41 @@ public:
 
 private:
   explicit constexpr AngularSpeed(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
+    : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
 };
 
-inline constexpr bool operator==(const AngularSpeed& left,
-                                 const AngularSpeed& right) noexcept {
+inline constexpr bool operator==(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const AngularSpeed& left,
-                                 const AngularSpeed& right) noexcept {
+inline constexpr bool operator!=(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const AngularSpeed& left,
-                                const AngularSpeed& right) noexcept {
+inline constexpr bool operator<(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const AngularSpeed& left,
-                                const AngularSpeed& right) noexcept {
+inline constexpr bool operator>(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const AngularSpeed& left,
-                                 const AngularSpeed& right) noexcept {
+inline constexpr bool operator<=(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const AngularSpeed& left,
-                                 const AngularSpeed& right) noexcept {
+inline constexpr bool operator>=(
+    const AngularSpeed& left, const AngularSpeed& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const AngularSpeed& angular_speed) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const AngularSpeed& angular_speed) noexcept {
   stream << angular_speed.Print();
   return stream;
 }
@@ -157,21 +157,21 @@ inline constexpr AngularSpeed operator*(
   return angular_speed * number;
 }
 
-inline constexpr Angle::Angle(const AngularSpeed& angular_speed,
-                              const Time& time) noexcept
-    : Angle(angular_speed.Value() * time.Value()) {}
+inline constexpr Angle::Angle(
+    const AngularSpeed& angular_speed, const Time& time) noexcept
+  : Angle(angular_speed.Value() * time.Value()) {}
 
-inline constexpr Angle::Angle(const AngularSpeed& angular_speed,
-                              const Frequency& frequency) noexcept
-    : Angle(angular_speed.Value() / frequency.Value()) {}
+inline constexpr Angle::Angle(
+    const AngularSpeed& angular_speed, const Frequency& frequency) noexcept
+  : Angle(angular_speed.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const AngularSpeed& angular_speed,
-                            const Angle& angle) noexcept
-    : Time(angle.Value() / angular_speed.Value()) {}
+inline constexpr Time::Time(
+    const AngularSpeed& angular_speed, const Angle& angle) noexcept
+  : Time(angle.Value() / angular_speed.Value()) {}
 
-inline constexpr Frequency::Frequency(const AngularSpeed& angular_speed,
-                                      const Angle& angle) noexcept
-    : Frequency(angular_speed.Value() / angle.Value()) {}
+inline constexpr Frequency::Frequency(
+    const AngularSpeed& angular_speed, const Angle& angle) noexcept
+  : Frequency(angular_speed.Value() / angle.Value()) {}
 
 inline constexpr AngularSpeed Angle::operator*(
     const Frequency& frequency) const noexcept {
@@ -197,8 +197,7 @@ inline constexpr Time Angle::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::AngularSpeed> {
+template<> struct hash<PhQ::AngularSpeed> {
   size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
     return hash<double>()(angular_speed.Value());
   }

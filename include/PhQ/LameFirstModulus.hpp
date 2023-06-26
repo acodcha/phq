@@ -24,12 +24,12 @@ namespace PhQ {
 class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr LameFirstModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   LameFirstModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr LameFirstModulus Create(const double value) noexcept {
     return LameFirstModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -76,36 +76,36 @@ public:
 
 private:
   explicit constexpr LameFirstModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const LameFirstModulus& left,
-                                 const LameFirstModulus& right) noexcept {
+inline constexpr bool operator==(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const LameFirstModulus& left,
-                                 const LameFirstModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const LameFirstModulus& left,
-                                const LameFirstModulus& right) noexcept {
+inline constexpr bool operator<(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const LameFirstModulus& left,
-                                const LameFirstModulus& right) noexcept {
+inline constexpr bool operator>(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const LameFirstModulus& left,
-                                 const LameFirstModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const LameFirstModulus& left,
-                                 const LameFirstModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const LameFirstModulus& left, const LameFirstModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -124,8 +124,7 @@ inline constexpr LameFirstModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::LameFirstModulus> {
+template<> struct hash<PhQ::LameFirstModulus> {
   size_t operator()(const PhQ::LameFirstModulus& lame_first_modulus) const {
     return hash<double>()(lame_first_modulus.Value());
   }

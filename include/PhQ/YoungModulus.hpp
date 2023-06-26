@@ -24,12 +24,12 @@ namespace PhQ {
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr YoungModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   YoungModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr YoungModulus Create(const double value) noexcept {
     return YoungModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -72,41 +72,41 @@ public:
 
 private:
   explicit constexpr YoungModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const YoungModulus& left,
-                                 const YoungModulus& right) noexcept {
+inline constexpr bool operator==(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const YoungModulus& left,
-                                 const YoungModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const YoungModulus& left,
-                                const YoungModulus& right) noexcept {
+inline constexpr bool operator<(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const YoungModulus& left,
-                                const YoungModulus& right) noexcept {
+inline constexpr bool operator>(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const YoungModulus& left,
-                                 const YoungModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const YoungModulus& left,
-                                 const YoungModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const YoungModulus& young_modulus) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const YoungModulus& young_modulus) noexcept {
   stream << young_modulus.Print();
   return stream;
 }
@@ -120,8 +120,7 @@ inline constexpr YoungModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::YoungModulus> {
+template<> struct hash<PhQ::YoungModulus> {
   size_t operator()(const PhQ::YoungModulus& young_modulus) const {
     return hash<double>()(young_modulus.Value());
   }

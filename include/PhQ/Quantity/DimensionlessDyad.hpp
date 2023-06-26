@@ -43,13 +43,13 @@ public:
 
 protected:
   constexpr DimensionlessDyadQuantity() noexcept
-      : DimensionlessQuantity(), value_() {}
+    : DimensionlessQuantity(), value_() {}
 
   constexpr DimensionlessDyadQuantity(const Value::Dyad& value) noexcept
-      : DimensionlessQuantity(), value_(value) {}
+    : DimensionlessQuantity(), value_(value) {}
 
   constexpr DimensionlessDyadQuantity(Value::Dyad&& value) noexcept
-      : DimensionlessQuantity(), value_(std::move(value)) {}
+    : DimensionlessQuantity(), value_(std::move(value)) {}
 
   ~DimensionlessDyadQuantity() noexcept = default;
 
@@ -64,8 +64,7 @@ protected:
 
 namespace std {
 
-template <>
-struct hash<PhQ::DimensionlessDyadQuantity> {
+template<> struct hash<PhQ::DimensionlessDyadQuantity> {
   size_t operator()(const PhQ::DimensionlessDyadQuantity& quantity) const {
     return hash<PhQ::Value::Dyad>()(quantity.Value());
   }

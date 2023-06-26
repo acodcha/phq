@@ -40,17 +40,17 @@ TEST(UnitAngle, ConsistentUnit) {
             Angle::Radian);
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::MillimetreGramSecondKelvin),
             Angle::Radian);
-  EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::FootPoundSecondRankine),
-            Angle::Radian);
-  EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine),
-            Angle::Radian);
+  EXPECT_EQ(
+      ConsistentUnit<Angle>(UnitSystem::FootPoundSecondRankine), Angle::Radian);
+  EXPECT_EQ(
+      ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine), Angle::Radian);
 }
 
 TEST(UnitAngle, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Degree),
-                   value * 180.0 / Pi);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Angle::Radian, Angle::Degree), value * 180.0 / Pi);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Arcminute),
                    value * 10800.0 / Pi);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Arcsecond),
@@ -60,8 +60,8 @@ TEST(UnitAngle, ConvertFromStandard) {
 TEST(UnitAngle, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Degree, Angle::Radian),
-                   value * Pi / 180.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Angle::Degree, Angle::Radian), value * Pi / 180.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Arcminute, Angle::Radian),
                    value * Pi / 10800.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Arcsecond, Angle::Radian),

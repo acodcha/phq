@@ -30,13 +30,13 @@ class Velocity;
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
   constexpr Frequency() noexcept
-      : DimensionalScalarQuantity<Unit::Frequency>() {}
+    : DimensionalScalarQuantity<Unit::Frequency>() {}
 
   Frequency(const double value, const Unit::Frequency unit) noexcept
-      : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
   constexpr Frequency(const Time& time) noexcept
-      : Frequency(1.0 / time.Value()) {}
+    : Frequency(1.0 / time.Value()) {}
 
   constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude,
                       const Speed& speed) noexcept;
@@ -45,13 +45,13 @@ public:
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const AngularSpeed& angular_speed) noexcept;
 
-  constexpr Frequency(const AngularSpeed& angular_speed,
-                      const Angle& angle) noexcept;
+  constexpr Frequency(
+      const AngularSpeed& angular_speed, const Angle& angle) noexcept;
 
   constexpr Frequency(const MassRate& mass_rate, const Mass& mass) noexcept;
 
-  constexpr Frequency(const MemoryRate& memory_rate,
-                      const Memory& memory) noexcept;
+  constexpr Frequency(
+      const MemoryRate& memory_rate, const Memory& memory) noexcept;
 
   constexpr Frequency(const Power& power, const Energy& energy) noexcept;
 
@@ -60,10 +60,10 @@ public:
 
   constexpr Frequency(const Speed& speed, const Length& length) noexcept;
 
-  constexpr Frequency(const VolumeRate& volume_rate,
-                      const Volume& volume) noexcept;
+  constexpr Frequency(
+      const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
-  template <Unit::Frequency Unit>
+  template<Unit::Frequency Unit>
   static constexpr Frequency Create(const double value) noexcept {
     return Frequency{
         StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
@@ -138,52 +138,52 @@ public:
 
 private:
   explicit constexpr Frequency(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Frequency>(value) {}
+    : DimensionalScalarQuantity<Unit::Frequency>(value) {}
 };
 
-inline constexpr bool operator==(const Frequency& left,
-                                 const Frequency& right) noexcept {
+inline constexpr bool operator==(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Frequency& left,
-                                 const Frequency& right) noexcept {
+inline constexpr bool operator!=(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Frequency& left,
-                                const Frequency& right) noexcept {
+inline constexpr bool operator<(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Frequency& left,
-                                const Frequency& right) noexcept {
+inline constexpr bool operator>(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Frequency& left,
-                                 const Frequency& right) noexcept {
+inline constexpr bool operator<=(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Frequency& left,
-                                 const Frequency& right) noexcept {
+inline constexpr bool operator>=(
+    const Frequency& left, const Frequency& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Frequency& frequency) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Frequency& frequency) noexcept {
   stream << frequency.Print();
   return stream;
 }
 
-inline constexpr Frequency operator*(const double number,
-                                     const Frequency& frequency) noexcept {
+inline constexpr Frequency operator*(
+    const double number, const Frequency& frequency) noexcept {
   return frequency * number;
 }
 
 inline constexpr Time::Time(const PhQ::Frequency& frequency) noexcept
-    : Time(1.0 / frequency.Value()) {}
+  : Time(1.0 / frequency.Value()) {}
 
 inline constexpr PhQ::Frequency Time::Frequency() const noexcept {
   return {*this};
@@ -198,8 +198,7 @@ inline constexpr double Time::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Frequency> {
+template<> struct hash<PhQ::Frequency> {
   size_t operator()(const PhQ::Frequency& frequency) const {
     return hash<double>()(frequency.Value());
   }

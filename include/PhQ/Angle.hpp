@@ -42,12 +42,11 @@ public:
   constexpr Angle() noexcept : DimensionalScalarQuantity<Unit::Angle>() {}
 
   Angle(const double value, const Unit::Angle unit) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
   Angle(const Value::Vector& vector1, const Value::Vector& vector2) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(
-            std::acos(vector1.Dot(vector2) /
-                      (vector1.Magnitude() * vector2.Magnitude()))) {}
+    : DimensionalScalarQuantity<Unit::Angle>(std::acos(
+        vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
   Angle(const Value::Vector& vector, const Direction& direction) noexcept;
 
@@ -57,8 +56,8 @@ public:
 
   constexpr Angle(const AngularSpeed& angular_speed, const Time& time) noexcept;
 
-  constexpr Angle(const AngularSpeed& angular_speed,
-                  const Frequency& frequency) noexcept;
+  constexpr Angle(
+      const AngularSpeed& angular_speed, const Frequency& frequency) noexcept;
 
   Angle(const Acceleration& acceleration1,
         const Acceleration& acceleration2) noexcept;
@@ -82,7 +81,7 @@ public:
 
   Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
 
-  template <Unit::Angle Unit>
+  template<Unit::Angle Unit>
   static constexpr Angle Create(const double value) noexcept {
     return Angle{
         StaticConvertCopy<Unit::Angle, Unit, StandardUnit<Unit::Angle>>(value)};
@@ -130,49 +129,49 @@ public:
 
 private:
   explicit constexpr Angle(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Angle>(value) {}
+    : DimensionalScalarQuantity<Unit::Angle>(value) {}
 
   friend class Direction;
 };
 
-inline constexpr bool operator==(const Angle& left,
-                                 const Angle& right) noexcept {
+inline constexpr bool operator==(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Angle& left,
-                                 const Angle& right) noexcept {
+inline constexpr bool operator!=(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Angle& left,
-                                const Angle& right) noexcept {
+inline constexpr bool operator<(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Angle& left,
-                                const Angle& right) noexcept {
+inline constexpr bool operator>(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Angle& left,
-                                 const Angle& right) noexcept {
+inline constexpr bool operator<=(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Angle& left,
-                                 const Angle& right) noexcept {
+inline constexpr bool operator>=(
+    const Angle& left, const Angle& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Angle& angle) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Angle& angle) noexcept {
   stream << angle.Print();
   return stream;
 }
 
-inline constexpr Angle operator*(const double number,
-                                 const Angle& angle) noexcept {
+inline constexpr Angle operator*(
+    const double number, const Angle& angle) noexcept {
   return angle * number;
 }
 
@@ -185,8 +184,7 @@ inline PhQ::Angle Value::Vector::Angle(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Angle> {
+template<> struct hash<PhQ::Angle> {
   size_t operator()(const PhQ::Angle& angle) const {
     return hash<double>()(angle.Value());
   }

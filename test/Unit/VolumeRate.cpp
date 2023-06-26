@@ -195,29 +195,29 @@ TEST(UnitVolumeRate, Parse) {
 
 TEST(UnitVolumeRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicKilometrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerSecond),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicYardPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicFootPerSecond),
             UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicDecimetrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicDecimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::LitrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicInchPerSecond),
             UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicCentimetrePerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicCentimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::MillilitrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMillimetrePerSecond),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicMilliinchPerSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicMicrometrePerSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond), std::nullopt);
 }
 
 TEST(UnitVolumeRate, StandardUnit) {

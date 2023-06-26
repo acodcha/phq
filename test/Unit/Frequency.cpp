@@ -48,8 +48,8 @@ TEST(UnitFrequency, ConsistentUnit) {
 
 TEST(UnitFrequency, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Hertz),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::Hertz, Frequency::Hertz), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Kilohertz),
                    value * 0.001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Megahertz),
@@ -60,8 +60,8 @@ TEST(UnitFrequency, ConvertFromStandard) {
 
 TEST(UnitFrequency, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Hertz),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::Hertz, Frequency::Hertz), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Kilohertz, Frequency::Hertz),
                    value * 1000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Megahertz, Frequency::Hertz),

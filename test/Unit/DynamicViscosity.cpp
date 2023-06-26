@@ -35,10 +35,10 @@ TEST(UnitDynamicViscosity, Abbreviation) {
   EXPECT_EQ(Abbreviation(DynamicViscosity::KilopascalSecond), "kPa·s");
   EXPECT_EQ(Abbreviation(DynamicViscosity::MegapascalSecond), "MPa·s");
   EXPECT_EQ(Abbreviation(DynamicViscosity::GigapascalSecond), "GPa·s");
-  EXPECT_EQ(Abbreviation(DynamicViscosity::PoundSecondPerSquareFoot),
-            "lbf·s/ft^2");
-  EXPECT_EQ(Abbreviation(DynamicViscosity::PoundSecondPerSquareInch),
-            "lbf·s/in^2");
+  EXPECT_EQ(
+      Abbreviation(DynamicViscosity::PoundSecondPerSquareFoot), "lbf·s/ft^2");
+  EXPECT_EQ(
+      Abbreviation(DynamicViscosity::PoundSecondPerSquareInch), "lbf·s/in^2");
 }
 
 TEST(UnitDynamicViscosity, ConsistentUnit) {
@@ -130,12 +130,12 @@ TEST(UnitDynamicViscosity, DimensionSet) {
 TEST(UnitDynamicViscosity, Parse) {
   EXPECT_EQ(Parse<DynamicViscosity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<DynamicViscosity>("Pa·s"), DynamicViscosity::PascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("kPa·s"),
-            DynamicViscosity::KilopascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("MPa·s"),
-            DynamicViscosity::MegapascalSecond);
-  EXPECT_EQ(Parse<DynamicViscosity>("GPa·s"),
-            DynamicViscosity::GigapascalSecond);
+  EXPECT_EQ(
+      Parse<DynamicViscosity>("kPa·s"), DynamicViscosity::KilopascalSecond);
+  EXPECT_EQ(
+      Parse<DynamicViscosity>("MPa·s"), DynamicViscosity::MegapascalSecond);
+  EXPECT_EQ(
+      Parse<DynamicViscosity>("GPa·s"), DynamicViscosity::GigapascalSecond);
   EXPECT_EQ(Parse<DynamicViscosity>("lbf·s/ft^2"),
             DynamicViscosity::PoundSecondPerSquareFoot);
   EXPECT_EQ(Parse<DynamicViscosity>("lbf·s/in^2"),
@@ -144,12 +144,12 @@ TEST(UnitDynamicViscosity, Parse) {
 
 TEST(UnitDynamicViscosity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::PascalSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::KilopascalSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::MegapascalSecond),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::GigapascalSecond),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(DynamicViscosity::KilopascalSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(DynamicViscosity::MegapascalSecond), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(DynamicViscosity::GigapascalSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::PoundSecondPerSquareFoot),
             UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(DynamicViscosity::PoundSecondPerSquareInch),

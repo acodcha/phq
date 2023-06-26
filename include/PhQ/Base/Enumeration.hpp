@@ -23,18 +23,18 @@
 
 namespace PhQ {
 
-template <typename Enumeration>
+template<typename Enumeration>
 inline const std::map<Enumeration, std::string_view> Abbreviations;
 
-template <typename Enumeration>
+template<typename Enumeration>
 inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
   return Abbreviations<Enumeration>.find(enumeration)->second;
 }
 
-template <typename Enumeration>
+template<typename Enumeration>
 inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
-template <typename Enumeration>
+template<typename Enumeration>
 std::optional<Enumeration> Parse(const std::string_view& spelling) noexcept {
   const typename std::unordered_map<std::string_view,
                                     Enumeration>::const_iterator found{

@@ -24,12 +24,12 @@ namespace PhQ {
 class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr StressScalar() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   StressScalar(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr StressScalar Create(const double value) noexcept {
     return StressScalar{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -72,41 +72,41 @@ public:
 
 private:
   explicit constexpr StressScalar(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const StressScalar& left,
-                                 const StressScalar& right) noexcept {
+inline constexpr bool operator==(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const StressScalar& left,
-                                 const StressScalar& right) noexcept {
+inline constexpr bool operator!=(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const StressScalar& left,
-                                const StressScalar& right) noexcept {
+inline constexpr bool operator<(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const StressScalar& left,
-                                const StressScalar& right) noexcept {
+inline constexpr bool operator>(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const StressScalar& left,
-                                 const StressScalar& right) noexcept {
+inline constexpr bool operator<=(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const StressScalar& left,
-                                 const StressScalar& right) noexcept {
+inline constexpr bool operator>=(
+    const StressScalar& left, const StressScalar& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const StressScalar& stress_scalar) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const StressScalar& stress_scalar) noexcept {
   stream << stress_scalar.Print();
   return stream;
 }
@@ -120,8 +120,7 @@ inline constexpr StressScalar operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::StressScalar> {
+template<> struct hash<PhQ::StressScalar> {
   size_t operator()(const PhQ::StressScalar& stress_scalar) const {
     return hash<double>()(stress_scalar.Value());
   }

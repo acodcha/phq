@@ -31,14 +31,14 @@ public:
   constexpr Memory() noexcept : DimensionalScalarQuantity<Unit::Memory>() {}
 
   Memory(const double value, const Unit::Memory unit) noexcept
-      : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
   constexpr Memory(const MemoryRate& memory_rate, const Time& time) noexcept;
 
-  constexpr Memory(const MemoryRate& memory_rate,
-                   const Frequency& frequency) noexcept;
+  constexpr Memory(
+      const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
 
-  template <Unit::Memory Unit>
+  template<Unit::Memory Unit>
   static constexpr Memory Create(const double value) noexcept {
     return Memory{
         StaticConvertCopy<Unit::Memory, Unit, StandardUnit<Unit::Memory>>(
@@ -86,47 +86,47 @@ public:
 
 private:
   explicit constexpr Memory(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Memory>(value) {}
+    : DimensionalScalarQuantity<Unit::Memory>(value) {}
 };
 
-inline constexpr bool operator==(const Memory& left,
-                                 const Memory& right) noexcept {
+inline constexpr bool operator==(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Memory& left,
-                                 const Memory& right) noexcept {
+inline constexpr bool operator!=(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Memory& left,
-                                const Memory& right) noexcept {
+inline constexpr bool operator<(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Memory& left,
-                                const Memory& right) noexcept {
+inline constexpr bool operator>(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Memory& left,
-                                 const Memory& right) noexcept {
+inline constexpr bool operator<=(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Memory& left,
-                                 const Memory& right) noexcept {
+inline constexpr bool operator>=(
+    const Memory& left, const Memory& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Memory& memory) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Memory& memory) noexcept {
   stream << memory.Print();
   return stream;
 }
 
-inline constexpr Memory operator*(const double number,
-                                  const Memory& memory) noexcept {
+inline constexpr Memory operator*(
+    const double number, const Memory& memory) noexcept {
   return memory * number;
 }
 
@@ -134,8 +134,7 @@ inline constexpr Memory operator*(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Memory> {
+template<> struct hash<PhQ::Memory> {
   size_t operator()(const PhQ::Memory& memory) const {
     return hash<double>()(memory.Value());
   }

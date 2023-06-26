@@ -135,25 +135,25 @@ TEST(UnitTemperatureGradient, ConvertVerification) {
 
 TEST(UnitTemperatureGradient, DimensionSet) {
   EXPECT_EQ(Dimensions<TemperatureGradient>,
-            Dimension::Set(Dimension::Time{}, Dimension::Length{-1},
-                           Dimension::Mass{}, Dimension::ElectricCurrent{},
-                           Dimension::Temperature{1}));
+            Dimension::Set(
+                Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
+                Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
 }
 
 TEST(UnitTemperatureGradient, Parse) {
   EXPECT_EQ(Parse<TemperatureGradient>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<TemperatureGradient>("K/m"),
-            TemperatureGradient::KelvinPerMetre);
+  EXPECT_EQ(
+      Parse<TemperatureGradient>("K/m"), TemperatureGradient::KelvinPerMetre);
   EXPECT_EQ(Parse<TemperatureGradient>("K/mm"),
             TemperatureGradient::KelvinPerMillimetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("°C/m"),
-            TemperatureGradient::CelsiusPerMetre);
+  EXPECT_EQ(
+      Parse<TemperatureGradient>("°C/m"), TemperatureGradient::CelsiusPerMetre);
   EXPECT_EQ(Parse<TemperatureGradient>("°C/mm"),
             TemperatureGradient::CelsiusPerMillimetre);
-  EXPECT_EQ(Parse<TemperatureGradient>("°R/ft"),
-            TemperatureGradient::RankinePerFoot);
-  EXPECT_EQ(Parse<TemperatureGradient>("°R/in"),
-            TemperatureGradient::RankinePerInch);
+  EXPECT_EQ(
+      Parse<TemperatureGradient>("°R/ft"), TemperatureGradient::RankinePerFoot);
+  EXPECT_EQ(
+      Parse<TemperatureGradient>("°R/in"), TemperatureGradient::RankinePerInch);
   EXPECT_EQ(Parse<TemperatureGradient>("°F/ft"),
             TemperatureGradient::FahrenheitPerFoot);
   EXPECT_EQ(Parse<TemperatureGradient>("°F/in"),
@@ -165,23 +165,23 @@ TEST(UnitTemperatureGradient, RelatedUnitSystem) {
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::KelvinPerMillimetre),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::CelsiusPerMetre),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(TemperatureGradient::CelsiusPerMetre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::CelsiusPerMillimetre),
             std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::RankinePerFoot),
             UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::RankinePerInch),
             UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::FahrenheitPerFoot),
-            std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(TemperatureGradient::FahrenheitPerInch),
-            std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(TemperatureGradient::FahrenheitPerFoot), std::nullopt);
+  EXPECT_EQ(
+      RelatedUnitSystem(TemperatureGradient::FahrenheitPerInch), std::nullopt);
 }
 
 TEST(UnitTemperatureGradient, StandardUnit) {
-  EXPECT_EQ(StandardUnit<TemperatureGradient>,
-            TemperatureGradient::KelvinPerMetre);
+  EXPECT_EQ(
+      StandardUnit<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
 }
 
 }  // namespace

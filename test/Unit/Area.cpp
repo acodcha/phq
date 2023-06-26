@@ -65,12 +65,12 @@ TEST(UnitArea, ConvertFromStandard) {
                    value / std::pow(1609.344, 2));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareKilometre),
                    value * std::pow(0.001, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::Hectare),
-                   value * 0.0001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Area::SquareMetre, Area::Hectare), value * 0.0001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::Acre),
                    value * 640.0 / std::pow(1609.344, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareMetre),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Area::SquareMetre, Area::SquareMetre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareYard),
                    value / std::pow(0.9144, 2));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareFoot),
@@ -100,12 +100,12 @@ TEST(UnitArea, ConvertToStandard) {
                    value * std::pow(1609.344, 2));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareKilometre, Area::SquareMetre),
                    value * std::pow(1000.0, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::Hectare, Area::SquareMetre),
-                   value * 10000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Area::Hectare, Area::SquareMetre), value * 10000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::Acre, Area::SquareMetre),
                    value * std::pow(1609.344, 2) / 640.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareMetre),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Area::SquareMetre, Area::SquareMetre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareYard, Area::SquareMetre),
                    value * std::pow(0.9144, 2));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareFoot, Area::SquareMetre),
@@ -179,11 +179,11 @@ TEST(UnitArea, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMetre),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareYard), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Area::SquareFoot),
-            UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Area::SquareFoot), UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareDecimetre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Area::SquareInch),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Area::SquareInch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareCentimetre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMillimetre),
             UnitSystem::MillimetreGramSecondKelvin);

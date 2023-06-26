@@ -24,12 +24,12 @@ namespace PhQ {
 class ShearModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr ShearModulus() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   ShearModulus(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr ShearModulus Create(const double value) noexcept {
     return ShearModulus{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -72,41 +72,41 @@ public:
 
 private:
   explicit constexpr ShearModulus(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const ShearModulus& left,
-                                 const ShearModulus& right) noexcept {
+inline constexpr bool operator==(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ShearModulus& left,
-                                 const ShearModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ShearModulus& left,
-                                const ShearModulus& right) noexcept {
+inline constexpr bool operator<(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ShearModulus& left,
-                                const ShearModulus& right) noexcept {
+inline constexpr bool operator>(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ShearModulus& left,
-                                 const ShearModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ShearModulus& left,
-                                 const ShearModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const ShearModulus& left, const ShearModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const ShearModulus& shear_modulus) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const ShearModulus& shear_modulus) noexcept {
   stream << shear_modulus.Print();
   return stream;
 }
@@ -120,8 +120,7 @@ inline constexpr ShearModulus operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ShearModulus> {
+template<> struct hash<PhQ::ShearModulus> {
   size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
     return hash<double>()(shear_modulus.Value());
   }

@@ -45,13 +45,13 @@ public:
 
 protected:
   constexpr DimensionlessVectorQuantity() noexcept
-      : DimensionlessQuantity(), value_() {}
+    : DimensionlessQuantity(), value_() {}
 
   constexpr DimensionlessVectorQuantity(const Value::Vector& value) noexcept
-      : DimensionlessQuantity(), value_(value) {}
+    : DimensionlessQuantity(), value_(value) {}
 
   constexpr DimensionlessVectorQuantity(Value::Vector&& value) noexcept
-      : DimensionlessQuantity(), value_(std::move(value)) {}
+    : DimensionlessQuantity(), value_(std::move(value)) {}
 
   ~DimensionlessVectorQuantity() noexcept = default;
 
@@ -66,8 +66,7 @@ protected:
 
 namespace std {
 
-template <>
-struct hash<PhQ::DimensionlessVectorQuantity> {
+template<> struct hash<PhQ::DimensionlessVectorQuantity> {
   size_t operator()(const PhQ::DimensionlessVectorQuantity& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());
   }

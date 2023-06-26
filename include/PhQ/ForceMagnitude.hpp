@@ -29,17 +29,17 @@ class StaticPressure;
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 public:
   constexpr ForceMagnitude() noexcept
-      : DimensionalScalarQuantity<Unit::Force>() {}
+    : DimensionalScalarQuantity<Unit::Force>() {}
 
   ForceMagnitude(const double value, const Unit::Force unit) noexcept
-      : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
   constexpr ForceMagnitude(const Force& force) noexcept;
 
-  inline constexpr ForceMagnitude(const StaticPressure& static_pressure,
-                                  const Area& area) noexcept;
+  inline constexpr ForceMagnitude(
+      const StaticPressure& static_pressure, const Area& area) noexcept;
 
-  template <Unit::Force Unit>
+  template<Unit::Force Unit>
   static constexpr ForceMagnitude Create(const double value) noexcept {
     return ForceMagnitude{
         StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
@@ -89,36 +89,36 @@ public:
 
 private:
   explicit constexpr ForceMagnitude(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Force>(value) {}
+    : DimensionalScalarQuantity<Unit::Force>(value) {}
 };
 
-inline constexpr bool operator==(const ForceMagnitude& left,
-                                 const ForceMagnitude& right) noexcept {
+inline constexpr bool operator==(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ForceMagnitude& left,
-                                 const ForceMagnitude& right) noexcept {
+inline constexpr bool operator!=(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ForceMagnitude& left,
-                                const ForceMagnitude& right) noexcept {
+inline constexpr bool operator<(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ForceMagnitude& left,
-                                const ForceMagnitude& right) noexcept {
+inline constexpr bool operator>(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ForceMagnitude& left,
-                                 const ForceMagnitude& right) noexcept {
+inline constexpr bool operator<=(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ForceMagnitude& left,
-                                 const ForceMagnitude& right) noexcept {
+inline constexpr bool operator>=(
+    const ForceMagnitude& left, const ForceMagnitude& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -137,8 +137,7 @@ inline constexpr ForceMagnitude operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::ForceMagnitude> {
+template<> struct hash<PhQ::ForceMagnitude> {
   size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
     return hash<double>()(force_magnitude.Value());
   }

@@ -23,19 +23,18 @@
 namespace PhQ::ThermodynamicStateModel {
 
 class IncompressibleFluid
-    : public GenericThermodynamicStateModel<Type::IncompressibleFluid> {
+  : public GenericThermodynamicStateModel<Type::IncompressibleFluid> {
 public:
   constexpr IncompressibleFluid() noexcept
-      : GenericThermodynamicStateModel<Type::IncompressibleFluid>(),
-        mass_density_(),
-        specific_isobaric_heat_capacity_() {}
+    : GenericThermodynamicStateModel<Type::IncompressibleFluid>(),
+      mass_density_(), specific_isobaric_heat_capacity_() {}
 
   constexpr IncompressibleFluid(const MassDensity& mass_density,
                                 const SpecificIsobaricHeatCapacity&
                                     specific_isobaric_heat_capacity) noexcept
-      : GenericThermodynamicStateModel<Type::IncompressibleFluid>(),
-        mass_density_(mass_density),
-        specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
+    : GenericThermodynamicStateModel<Type::IncompressibleFluid>(),
+      mass_density_(mass_density),
+      specific_isobaric_heat_capacity_(specific_isobaric_heat_capacity) {}
 
   inline PhQ::MassDensity MassDensity() const noexcept { return mass_density_; }
 
@@ -45,31 +44,31 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Mass Density = " + mass_density_.Print() +
-            ", Specific Isobaric Heat Capacity = " +
-            specific_isobaric_heat_capacity_.Print()};
+    return {"Mass Density = " + mass_density_.Print()
+            + ", Specific Isobaric Heat Capacity = "
+            + specific_isobaric_heat_capacity_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", \"mass_density\": " + mass_density_.JSON() +
-            "\", \"specific_isobaric_heat_capacity\": " +
-            specific_isobaric_heat_capacity_.JSON() + "}"};
+    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(Type()))
+            + "\", \"mass_density\": " + mass_density_.JSON()
+            + "\", \"specific_isobaric_heat_capacity\": "
+            + specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(Type())) +
-            "</type><mass_density>" + specific_isobaric_heat_capacity_.XML() +
-            "</mass_density><specific_isobaric_heat_capacity>" +
-            specific_isobaric_heat_capacity_.XML() +
-            "</specific_isobaric_heat_capacity>"};
+    return {"<type>" + LowerCaseCopy(Abbreviation(Type()))
+            + "</type><mass_density>" + specific_isobaric_heat_capacity_.XML()
+            + "</mass_density><specific_isobaric_heat_capacity>"
+            + specific_isobaric_heat_capacity_.XML()
+            + "</specific_isobaric_heat_capacity>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type())) +
-            "\", mass_density: " + mass_density_.JSON() +
-            "\", specific_isobaric_heat_capacity: " +
-            specific_isobaric_heat_capacity_.JSON() + "}"};
+    return {"{type: \"" + LowerCaseCopy(Abbreviation(Type()))
+            + "\", mass_density: " + mass_density_.JSON()
+            + "\", specific_isobaric_heat_capacity: "
+            + specific_isobaric_heat_capacity_.JSON() + "}"};
   }
 
 private:
@@ -80,20 +79,20 @@ private:
 
 inline bool operator==(const IncompressibleFluid& left,
                        const IncompressibleFluid& right) noexcept {
-  return left.MassDensity() == right.MassDensity() &&
-         left.SpecificIsobaricHeatCapacity() ==
-             right.SpecificIsobaricHeatCapacity();
+  return left.MassDensity() == right.MassDensity()
+         && left.SpecificIsobaricHeatCapacity()
+                == right.SpecificIsobaricHeatCapacity();
 }
 
 inline bool operator!=(const IncompressibleFluid& left,
                        const IncompressibleFluid& right) noexcept {
-  return left.MassDensity() != right.MassDensity() ||
-         left.SpecificIsobaricHeatCapacity() !=
-             right.SpecificIsobaricHeatCapacity();
+  return left.MassDensity() != right.MassDensity()
+         || left.SpecificIsobaricHeatCapacity()
+                != right.SpecificIsobaricHeatCapacity();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const IncompressibleFluid& model) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const IncompressibleFluid& model) noexcept {
   stream << model.Print();
   return stream;
 }
@@ -102,14 +101,14 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::ThermodynamicStateModel::IncompressibleFluid> {
+template<> struct hash<PhQ::ThermodynamicStateModel::IncompressibleFluid> {
   size_t operator()(
       const PhQ::ThermodynamicStateModel::IncompressibleFluid& model) const {
     size_t result = 17;
     result = 31 * result + hash<PhQ::MassDensity>()(model.MassDensity());
-    result = 31 * result + hash<PhQ::SpecificIsobaricHeatCapacity>()(
-                               model.SpecificIsobaricHeatCapacity());
+    result = 31 * result
+             + hash<PhQ::SpecificIsobaricHeatCapacity>()(
+                 model.SpecificIsobaricHeatCapacity());
     return result;
   }
 };

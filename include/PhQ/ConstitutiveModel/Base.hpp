@@ -50,28 +50,27 @@ protected:
   constexpr ConstitutiveModel() noexcept = default;
 };
 
-template <>
-inline const std::map<ConstitutiveModel::Type, std::string_view>
+template<> inline const std::map<ConstitutiveModel::Type, std::string_view>
     Abbreviations<ConstitutiveModel::Type>{
         {ConstitutiveModel::Type::ElasticIsotropicSolid,
-         "Elastic Isotropic Solid"},
+         "Elastic Isotropic Solid"       },
         {ConstitutiveModel::Type::IncompressibleNewtonianFluid,
          "Incompressible Newtonian Fluid"},
         {ConstitutiveModel::Type::CompressibleNewtonianFluid,
-         "Compressible Newtonian Fluid"},
-    };
+         "Compressible Newtonian Fluid"  },
+};
 
-template <>
+template<>
 inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
     Spellings<ConstitutiveModel::Type>{
         {"Elastic Isotropic Solid",
-         ConstitutiveModel::Type::ElasticIsotropicSolid},
+         ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"ElasticIsotropicSolid",
-         ConstitutiveModel::Type::ElasticIsotropicSolid},
+         ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"elastic isotropic solid",
-         ConstitutiveModel::Type::ElasticIsotropicSolid},
+         ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"elastic_isotropic_solid",
-         ConstitutiveModel::Type::ElasticIsotropicSolid},
+         ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"Incompressible Newtonian Fluid",
          ConstitutiveModel::Type::IncompressibleNewtonianFluid},
         {"IncompressibleNewtonianFluid",
@@ -81,14 +80,14 @@ inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
         {"incompressible_newtonian_fluid",
          ConstitutiveModel::Type::IncompressibleNewtonianFluid},
         {"Compressible Newtonian Fluid",
-         ConstitutiveModel::Type::CompressibleNewtonianFluid},
+         ConstitutiveModel::Type::CompressibleNewtonianFluid  },
         {"CompressibleNewtonianFluid",
-         ConstitutiveModel::Type::CompressibleNewtonianFluid},
+         ConstitutiveModel::Type::CompressibleNewtonianFluid  },
         {"compressible newtonian fluid",
-         ConstitutiveModel::Type::CompressibleNewtonianFluid},
+         ConstitutiveModel::Type::CompressibleNewtonianFluid  },
         {"compressible_newtonian_fluid",
-         ConstitutiveModel::Type::CompressibleNewtonianFluid},
-    };
+         ConstitutiveModel::Type::CompressibleNewtonianFluid  },
+};
 
 }  // namespace PhQ
 

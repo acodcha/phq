@@ -47,15 +47,15 @@ public:
 
 protected:
   constexpr DimensionlessSymmetricDyadQuantity() noexcept
-      : DimensionlessQuantity(), value_() {}
+    : DimensionlessQuantity(), value_() {}
 
   constexpr DimensionlessSymmetricDyadQuantity(
       const Value::SymmetricDyad& value) noexcept
-      : DimensionlessQuantity(), value_(value) {}
+    : DimensionlessQuantity(), value_(value) {}
 
   constexpr DimensionlessSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
-      : DimensionlessQuantity(), value_(std::move(value)) {}
+    : DimensionlessQuantity(), value_(std::move(value)) {}
 
   ~DimensionlessSymmetricDyadQuantity() noexcept = default;
 
@@ -72,8 +72,7 @@ protected:
 
 namespace std {
 
-template <>
-struct hash<PhQ::DimensionlessSymmetricDyadQuantity> {
+template<> struct hash<PhQ::DimensionlessSymmetricDyadQuantity> {
   size_t operator()(
       const PhQ::DimensionlessSymmetricDyadQuantity& quantity) const {
     return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());

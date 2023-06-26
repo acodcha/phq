@@ -24,24 +24,24 @@ namespace PhQ {
 class Acceleration : public DimensionalVectorQuantity<Unit::Acceleration> {
 public:
   constexpr Acceleration() noexcept
-      : DimensionalVectorQuantity<Unit::Acceleration>() {}
+    : DimensionalVectorQuantity<Unit::Acceleration>() {}
 
-  Acceleration(const Value::Vector& value,
-               const Unit::Acceleration unit) noexcept
-      : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
+  Acceleration(
+      const Value::Vector& value, const Unit::Acceleration unit) noexcept
+    : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
 
   constexpr Acceleration(const AccelerationMagnitude& acceleration_magnitude,
                          const Direction& direction) noexcept
-      : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
+    : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
 
   constexpr Acceleration(const Velocity& velocity, const Time& time) noexcept
-      : Acceleration(velocity.Value() / time.Value()) {}
+    : Acceleration(velocity.Value() / time.Value()) {}
 
-  constexpr Acceleration(const Velocity& velocity,
-                         const Frequency& frequency) noexcept
-      : Acceleration(velocity.Value() * frequency.Value()) {}
+  constexpr Acceleration(
+      const Velocity& velocity, const Frequency& frequency) noexcept
+    : Acceleration(velocity.Value() * frequency.Value()) {}
 
-  template <Unit::Acceleration Unit>
+  template<Unit::Acceleration Unit>
   static constexpr Acceleration Create(const Value::Vector& value) noexcept {
     return Acceleration{
         StaticConvertCopy<Unit::Acceleration, Unit,
@@ -101,41 +101,41 @@ public:
 
 private:
   explicit constexpr Acceleration(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
+    : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 };
 
-inline constexpr bool operator==(const Acceleration& left,
-                                 const Acceleration& right) noexcept {
+inline constexpr bool operator==(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Acceleration& left,
-                                 const Acceleration& right) noexcept {
+inline constexpr bool operator!=(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Acceleration& left,
-                                const Acceleration& right) noexcept {
+inline constexpr bool operator<(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Acceleration& left,
-                                const Acceleration& right) noexcept {
+inline constexpr bool operator>(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Acceleration& left,
-                                 const Acceleration& right) noexcept {
+inline constexpr bool operator<=(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Acceleration& left,
-                                 const Acceleration& right) noexcept {
+inline constexpr bool operator>=(
+    const Acceleration& left, const Acceleration& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Acceleration& acceleration) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Acceleration& acceleration) noexcept {
   stream << acceleration.Print();
   return stream;
 }
@@ -146,23 +146,23 @@ inline constexpr Acceleration operator*(
 }
 
 inline constexpr Direction::Direction(const Acceleration& acceleration) noexcept
-    : Direction(acceleration.Value()) {}
+  : Direction(acceleration.Value()) {}
 
 inline Angle::Angle(const Acceleration& acceleration_1,
                     const Acceleration& acceleration_2) noexcept
-    : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
+  : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
 inline constexpr AccelerationMagnitude::AccelerationMagnitude(
     const Acceleration& acceleration) noexcept
-    : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
+  : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 
-inline constexpr Velocity::Velocity(const Acceleration& acceleration,
-                                    const Time& time) noexcept
-    : Velocity(acceleration.Value() * time.Value()) {}
+inline constexpr Velocity::Velocity(
+    const Acceleration& acceleration, const Time& time) noexcept
+  : Velocity(acceleration.Value() * time.Value()) {}
 
-inline constexpr Velocity::Velocity(const Acceleration& acceleration,
-                                    const Frequency& frequency) noexcept
-    : Velocity(acceleration.Value() / frequency.Value()) {}
+inline constexpr Velocity::Velocity(
+    const Acceleration& acceleration, const Frequency& frequency) noexcept
+  : Velocity(acceleration.Value() / frequency.Value()) {}
 
 inline constexpr Acceleration Direction::operator*(
     const AccelerationMagnitude& acceleration_magnitude) const noexcept {
@@ -193,8 +193,7 @@ inline constexpr Acceleration Velocity::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Acceleration> {
+template<> struct hash<PhQ::Acceleration> {
   size_t operator()(const PhQ::Acceleration& acceleration) const {
     return hash<PhQ::Value::Vector>()(acceleration.Value());
   }

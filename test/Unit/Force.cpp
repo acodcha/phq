@@ -38,15 +38,15 @@ TEST(UnitForce, ConsistentUnit) {
             Force::Newton);
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::MillimetreGramSecondKelvin),
             Force::Micronewton);
-  EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::FootPoundSecondRankine),
-            Force::Pound);
+  EXPECT_EQ(
+      ConsistentUnit<Force>(UnitSystem::FootPoundSecondRankine), Force::Pound);
 }
 
 TEST(UnitForce, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Micronewton),
-                   value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::Micronewton), value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Pound),
                    value / (0.45359237 * 9.80665));
 }
@@ -54,8 +54,8 @@ TEST(UnitForce, ConvertFromStandard) {
 TEST(UnitForce, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Micronewton, Force::Newton),
-                   value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Micronewton, Force::Newton), value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Pound, Force::Newton),
                    value * 0.45359237 * 9.80665);
 }
@@ -81,8 +81,8 @@ TEST(UnitForce, ConvertVerification) {
 
 TEST(UnitForce, DimensionSet) {
   EXPECT_EQ(Dimensions<Force>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{1},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}));
 }
 
 TEST(UnitForce, Parse) {
@@ -93,8 +93,8 @@ TEST(UnitForce, Parse) {
 }
 
 TEST(UnitForce, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(Force::Newton),
-            UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(Force::Newton), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Force::Micronewton),
             UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Force::Pound), std::nullopt);

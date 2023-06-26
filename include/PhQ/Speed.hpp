@@ -38,13 +38,13 @@ public:
   constexpr Speed() noexcept : DimensionalScalarQuantity<Unit::Speed>() {}
 
   Speed(const double value, const Unit::Speed unit) noexcept
-      : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
   constexpr Speed(const Length& length, const Time& time) noexcept
-      : Speed(length.Value() / time.Value()) {}
+    : Speed(length.Value() / time.Value()) {}
 
   constexpr Speed(const Length& length, const Frequency& frequency) noexcept
-      : Speed(length.Value() * frequency.Value()) {}
+    : Speed(length.Value() * frequency.Value()) {}
 
   constexpr Speed(const Velocity& velocity) noexcept;
 
@@ -60,16 +60,16 @@ public:
   constexpr Speed(
       const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
 
-  constexpr Speed(const ReynoldsNumber& reynolds_number,
-                  const DynamicViscosity& dynamic_viscosity,
-                  const MassDensity& mass_density,
-                  const Length& length) noexcept;
+  constexpr Speed(
+      const ReynoldsNumber& reynolds_number,
+      const DynamicViscosity& dynamic_viscosity,
+      const MassDensity& mass_density, const Length& length) noexcept;
 
   constexpr Speed(const ReynoldsNumber& reynolds_number,
                   const KinematicViscosity& kinematic_viscosity,
                   const Length& length) noexcept;
 
-  template <Unit::Speed Unit>
+  template<Unit::Speed Unit>
   static constexpr Speed Create(const double value) noexcept {
     return Speed{
         StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
@@ -133,63 +133,63 @@ public:
 
 private:
   explicit constexpr Speed(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Speed>(value) {}
+    : DimensionalScalarQuantity<Unit::Speed>(value) {}
 };
 
-inline constexpr bool operator==(const Speed& left,
-                                 const Speed& right) noexcept {
+inline constexpr bool operator==(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Speed& left,
-                                 const Speed& right) noexcept {
+inline constexpr bool operator!=(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Speed& left,
-                                const Speed& right) noexcept {
+inline constexpr bool operator<(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Speed& left,
-                                const Speed& right) noexcept {
+inline constexpr bool operator>(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Speed& left,
-                                 const Speed& right) noexcept {
+inline constexpr bool operator<=(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Speed& left,
-                                 const Speed& right) noexcept {
+inline constexpr bool operator>=(
+    const Speed& left, const Speed& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Speed& speed) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Speed& speed) noexcept {
   stream << speed.Print();
   return stream;
 }
 
-inline constexpr Speed operator*(const double number,
-                                 const Speed& speed) noexcept {
+inline constexpr Speed operator*(
+    const double number, const Speed& speed) noexcept {
   return speed * number;
 }
 
 inline constexpr Length::Length(const Speed& speed, const Time& time) noexcept
-    : Length(speed.Value() * time.Value()) {}
+  : Length(speed.Value() * time.Value()) {}
 
-inline constexpr Length::Length(const Speed& speed,
-                                const Frequency& frequency) noexcept
-    : Length(speed.Value() / frequency.Value()) {}
+inline constexpr Length::Length(
+    const Speed& speed, const Frequency& frequency) noexcept
+  : Length(speed.Value() / frequency.Value()) {}
 
 inline constexpr Time::Time(const Speed& speed, const Length& length) noexcept
-    : Time(length.Value() / speed.Value()) {}
+  : Time(length.Value() / speed.Value()) {}
 
-inline constexpr Frequency::Frequency(const Speed& speed,
-                                      const Length& length) noexcept
-    : Frequency(speed.Value() / length.Value()) {}
+inline constexpr Frequency::Frequency(
+    const Speed& speed, const Length& length) noexcept
+  : Frequency(speed.Value() / length.Value()) {}
 
 inline constexpr Speed Length::operator*(
     const Frequency& frequency) const noexcept {
@@ -213,8 +213,7 @@ inline constexpr Speed Frequency::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Speed> {
+template<> struct hash<PhQ::Speed> {
   size_t operator()(const PhQ::Speed& speed) const {
     return hash<double>()(speed.Value());
   }

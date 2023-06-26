@@ -26,17 +26,17 @@ namespace PhQ {
 class TotalKinematicPressure;
 
 class DynamicKinematicPressure
-    : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
+  : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
   constexpr DynamicKinematicPressure() noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
 
-  DynamicKinematicPressure(const double value,
-                           const Unit::SpecificEnergy unit) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
+  DynamicKinematicPressure(
+      const double value, const Unit::SpecificEnergy unit) noexcept
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
   constexpr DynamicKinematicPressure(const Speed& speed) noexcept
-      : DynamicKinematicPressure(0.5 * std::pow(speed.Value(), 2)) {}
+    : DynamicKinematicPressure(0.5 * std::pow(speed.Value(), 2)) {}
 
   constexpr DynamicKinematicPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
@@ -44,19 +44,18 @@ public:
 
   constexpr DynamicKinematicPressure(const DynamicPressure& dynamic_pressure,
                                      const MassDensity& mass_density) noexcept
-      : DynamicKinematicPressure(dynamic_pressure.Value() /
-                                 mass_density.Value()) {}
+    : DynamicKinematicPressure(
+        dynamic_pressure.Value() / mass_density.Value()) {}
 
-  template <Unit::SpecificEnergy Unit>
-  static constexpr DynamicKinematicPressure Create(
-      const double value) noexcept {
+  template<Unit::SpecificEnergy Unit> static constexpr DynamicKinematicPressure
+  Create(const double value) noexcept {
     return DynamicKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
                           StandardUnit<Unit::SpecificEnergy>>(value)};
   }
 
-  inline constexpr DynamicKinematicPressure operator+(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure)
+  inline constexpr DynamicKinematicPressure
+  operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return DynamicKinematicPressure{value_ + dynamic_kinematic_pressure.value_};
   }
@@ -64,8 +63,8 @@ public:
   inline constexpr TotalKinematicPressure operator+(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept;
 
-  inline constexpr DynamicKinematicPressure operator-(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure)
+  inline constexpr DynamicKinematicPressure
+  operator-(const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return DynamicKinematicPressure{value_ - dynamic_kinematic_pressure.value_};
   }
@@ -100,7 +99,7 @@ public:
 
 private:
   explicit constexpr DynamicKinematicPressure(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
+    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -154,20 +153,19 @@ inline constexpr DynamicKinematicPressure operator*(
 
 inline constexpr Speed::Speed(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept
-    : Speed(SquareRoot(2.0 * dynamic_kinematic_pressure.Value())) {}
+  : Speed(SquareRoot(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
     const DynamicKinematicPressure& dynamic_kinematic_pressure,
     const MassDensity& mass_density) noexcept
-    : DynamicPressure(dynamic_kinematic_pressure.Value() *
-                      mass_density.Value()) {}
+  : DynamicPressure(dynamic_kinematic_pressure.Value() * mass_density.Value()) {
+}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DynamicKinematicPressure> {
+template<> struct hash<PhQ::DynamicKinematicPressure> {
   size_t operator()(
       const PhQ::DynamicKinematicPressure& dynamic_kinematic_pressure) const {
     return hash<double>()(dynamic_kinematic_pressure.Value());

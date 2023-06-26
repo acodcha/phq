@@ -24,8 +24,10 @@ namespace PhQ {
 namespace {
 
 TEST(Acceleration, Accessor) {
-  const Acceleration acceleration{{1.0, 2.0, 4.0},
-                                  Unit::Acceleration::MetrePerSquareSecond};
+  const Acceleration acceleration{
+      {1.0, 2.0, 4.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
   EXPECT_DOUBLE_EQ(acceleration.Value().x(), 1.0);
   EXPECT_DOUBLE_EQ(acceleration.Value().y(), 2.0);
   EXPECT_DOUBLE_EQ(acceleration.Value().z(), 4.0);
@@ -41,10 +43,14 @@ TEST(Acceleration, Accessor) {
 }
 
 TEST(Acceleration, AngleAndMagnitude) {
-  const Acceleration acceleration0{{0.0, 2.0, 0.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration1{{0.0, 0.0, 4.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
+  const Acceleration acceleration0{
+      {0.0, 2.0, 0.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  const Acceleration acceleration1{
+      {0.0, 0.0, 4.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
   EXPECT_DOUBLE_EQ(
       acceleration0.Angle(acceleration1).Value(Unit::Angle::Degree), 90.0);
   EXPECT_DOUBLE_EQ(acceleration0.Magnitude().Value(), 2.0);
@@ -56,13 +62,22 @@ TEST(Acceleration, Arithmetic) {
   const Direction direction{0.0, -1.0, 0.0};
   const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Velocity velocity{{0.5, 1.0, 2.0}, Unit::Speed::MetrePerSecond};
-  const Acceleration acceleration0{{0.0, 0.0, 0.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration1{{1.0, 2.0, 4.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration2{{2.0, 4.0, 8.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
+  const Velocity velocity{
+      {0.5, 1.0, 2.0},
+      Unit::Speed::MetrePerSecond
+  };
+  const Acceleration acceleration0{
+      {0.0, 0.0, 0.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  const Acceleration acceleration1{
+      {1.0, 2.0, 4.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  const Acceleration acceleration2{
+      {2.0, 4.0, 8.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
   EXPECT_EQ(acceleration1 + acceleration1, acceleration2);
   EXPECT_EQ(acceleration1 - acceleration1, acceleration0);
   EXPECT_EQ(acceleration1 * 2.0, acceleration2);
@@ -98,10 +113,14 @@ TEST(Acceleration, Arithmetic) {
 }
 
 TEST(Acceleration, Comparison) {
-  const Acceleration acceleration0{{1.0, 2.0, 4.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
-  const Acceleration acceleration1{{1.0, 2.0, 8.0},
-                                   Unit::Acceleration::MetrePerSquareSecond};
+  const Acceleration acceleration0{
+      {1.0, 2.0, 4.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  const Acceleration acceleration1{
+      {1.0, 2.0, 8.0},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
   EXPECT_EQ(acceleration0, acceleration0);
   EXPECT_NE(acceleration0, acceleration1);
   EXPECT_LT(acceleration0, acceleration1);
@@ -114,10 +133,14 @@ TEST(Acceleration, Comparison) {
 
 TEST(Acceleration, Constructor) {
   constexpr Acceleration acceleration0;
-  const Acceleration acceleration1{{1.0, 2.0, 4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration2{{-1.0, -2.0, -4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
+  const Acceleration acceleration1{
+      {1.0, 2.0, 4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration2{
+      {-1.0, -2.0, -4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
   constexpr Acceleration acceleration3{
       Acceleration::Create<Unit::Acceleration::FootPerSquareSecond>(
           {-1.0, -2.0, -4.0})};
@@ -131,18 +154,30 @@ TEST(Acceleration, Constructor) {
 }
 
 TEST(Acceleration, Hash) {
-  const Acceleration acceleration0{{1.0, 2.0, 4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration1{{1.0, 2.000001, 4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration2{{1.0, 2.0, 5.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration3{{1.0, 2.0, -4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration4{{1000000.0, 2000000.0, 4000000.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
-  const Acceleration acceleration5{{-1.0, -2.0, -4.0},
-                                   Unit::Acceleration::FootPerSquareSecond};
+  const Acceleration acceleration0{
+      {1.0, 2.0, 4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration1{
+      {1.0, 2.000001, 4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration2{
+      {1.0, 2.0, 5.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration3{
+      {1.0, 2.0, -4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration4{
+      {1000000.0, 2000000.0, 4000000.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
+  const Acceleration acceleration5{
+      {-1.0, -2.0, -4.0},
+      Unit::Acceleration::FootPerSquareSecond
+  };
   const std::hash<Acceleration> hasher;
   EXPECT_NE(hasher(acceleration0), hasher(acceleration1));
   EXPECT_NE(hasher(acceleration0), hasher(acceleration2));
@@ -178,8 +213,10 @@ TEST(Acceleration, Print) {
 }
 
 TEST(Acceleration, Stream) {
-  const Acceleration acceleration{{1.11, 2.22, 4.44},
-                                  Unit::Acceleration::MetrePerSquareSecond};
+  const Acceleration acceleration{
+      {1.11, 2.22, 4.44},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
   std::ostringstream stream;
   stream << acceleration;
   EXPECT_EQ(stream.str(), acceleration.Print());

@@ -26,18 +26,18 @@ public:
   constexpr Traction() noexcept : DimensionalVectorQuantity<Unit::Pressure>() {}
 
   Traction(const Value::Vector& value, const Unit::Pressure unit) noexcept
-      : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr Traction(const StaticPressure& static_pressure,
                      const Direction& direction) noexcept
-      : Traction(-static_pressure.Value() * direction.Value()) {}
+    : Traction(-static_pressure.Value() * direction.Value()) {}
 
   constexpr Traction(const Force& force, const Area& area) noexcept
-      : Traction(force.Value() / area.Value()) {}
+    : Traction(force.Value() / area.Value()) {}
 
   constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr Traction Create(const Value::Vector& value) noexcept {
     return Traction{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -88,64 +88,64 @@ public:
 
 private:
   explicit constexpr Traction(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Pressure>(value) {}
+    : DimensionalVectorQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const Traction& left,
-                                 const Traction& right) noexcept {
+inline constexpr bool operator==(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Traction& left,
-                                 const Traction& right) noexcept {
+inline constexpr bool operator!=(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Traction& left,
-                                const Traction& right) noexcept {
+inline constexpr bool operator<(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Traction& left,
-                                const Traction& right) noexcept {
+inline constexpr bool operator>(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Traction& left,
-                                 const Traction& right) noexcept {
+inline constexpr bool operator<=(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Traction& left,
-                                 const Traction& right) noexcept {
+inline constexpr bool operator>=(
+    const Traction& left, const Traction& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Traction& traction) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Traction& traction) noexcept {
   stream << traction.Print();
   return stream;
 }
 
-inline constexpr Traction operator*(const double number,
-                                    const Traction& traction) noexcept {
+inline constexpr Traction operator*(
+    const double number, const Traction& traction) noexcept {
   return traction * number;
 }
 
 inline constexpr Direction::Direction(const Traction& traction) noexcept
-    : Direction(traction.Value()) {}
+  : Direction(traction.Value()) {}
 
-inline Angle::Angle(const Traction& traction_1,
-                    const Traction& traction_2) noexcept
-    : Angle(traction_1.Value(), traction_2.Value()) {}
+inline Angle::Angle(
+    const Traction& traction_1, const Traction& traction_2) noexcept
+  : Angle(traction_1.Value(), traction_2.Value()) {}
 
 inline constexpr StaticPressure::StaticPressure(
     const Traction& traction) noexcept
-    : StaticPressure(traction.Value().Magnitude()) {}
+  : StaticPressure(traction.Value().Magnitude()) {}
 
-inline constexpr Force::Force(const Traction& traction,
-                              const Area& area) noexcept
-    : Force(traction.Value() * area.Value()) {}
+inline constexpr Force::Force(
+    const Traction& traction, const Area& area) noexcept
+  : Force(traction.Value() * area.Value()) {}
 
 inline constexpr Traction Direction::operator*(
     const StaticPressure& static_pressure) const noexcept {
@@ -165,8 +165,7 @@ inline constexpr Traction Force::operator/(const Area& area) const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Traction> {
+template<> struct hash<PhQ::Traction> {
   size_t operator()(const PhQ::Traction& traction) const {
     return hash<PhQ::Value::Vector>()(traction.Value());
   }

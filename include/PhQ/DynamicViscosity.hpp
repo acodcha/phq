@@ -28,29 +28,29 @@ class ThermalConductivityScalar;
 class SpecificIsobaricHeatCapacity;
 
 class DynamicViscosity
-    : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
+  : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
   constexpr DynamicViscosity() noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  DynamicViscosity(const double value,
-                   const Unit::DynamicViscosity unit) noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+  DynamicViscosity(
+      const double value, const Unit::DynamicViscosity unit) noexcept
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
   constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity,
                              const MassDensity& mass_density) noexcept
-      : DynamicViscosity(kinematic_viscosity.Value() * mass_density.Value()) {}
+    : DynamicViscosity(kinematic_viscosity.Value() * mass_density.Value()) {}
 
-  constexpr DynamicViscosity(const ReynoldsNumber& reynolds_number,
-                             const MassDensity& mass_density,
-                             const Speed& speed, const Length& length) noexcept;
+  constexpr DynamicViscosity(
+      const ReynoldsNumber& reynolds_number, const MassDensity& mass_density,
+      const Speed& speed, const Length& length) noexcept;
 
   constexpr DynamicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
 
-  template <Unit::DynamicViscosity Unit>
+  template<Unit::DynamicViscosity Unit>
   static constexpr DynamicViscosity Create(const double value) noexcept {
     return DynamicViscosity{
         StaticConvertCopy<Unit::DynamicViscosity, Unit,
@@ -107,36 +107,36 @@ public:
 
 private:
   explicit constexpr DynamicViscosity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };
 
-inline constexpr bool operator==(const DynamicViscosity& left,
-                                 const DynamicViscosity& right) noexcept {
+inline constexpr bool operator==(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const DynamicViscosity& left,
-                                 const DynamicViscosity& right) noexcept {
+inline constexpr bool operator!=(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const DynamicViscosity& left,
-                                const DynamicViscosity& right) noexcept {
+inline constexpr bool operator<(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const DynamicViscosity& left,
-                                const DynamicViscosity& right) noexcept {
+inline constexpr bool operator>(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const DynamicViscosity& left,
-                                 const DynamicViscosity& right) noexcept {
+inline constexpr bool operator<=(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const DynamicViscosity& left,
-                                 const DynamicViscosity& right) noexcept {
+inline constexpr bool operator>=(
+    const DynamicViscosity& left, const DynamicViscosity& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -154,12 +154,12 @@ inline constexpr DynamicViscosity operator*(
 inline constexpr MassDensity::MassDensity(
     const DynamicViscosity& dynamic_viscosity,
     const KinematicViscosity& kinematic_viscosity) noexcept
-    : MassDensity(dynamic_viscosity.Value() / kinematic_viscosity.Value()) {}
+  : MassDensity(dynamic_viscosity.Value() / kinematic_viscosity.Value()) {}
 
 inline constexpr KinematicViscosity::KinematicViscosity(
     const DynamicViscosity& dynamic_viscosity,
     const MassDensity& mass_density) noexcept
-    : KinematicViscosity(dynamic_viscosity.Value() / mass_density.Value()) {}
+  : KinematicViscosity(dynamic_viscosity.Value() / mass_density.Value()) {}
 
 inline constexpr DynamicViscosity KinematicViscosity::operator*(
     const MassDensity& mass_density) const noexcept {
@@ -175,8 +175,7 @@ inline constexpr DynamicViscosity MassDensity::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::DynamicViscosity> {
+template<> struct hash<PhQ::DynamicViscosity> {
   size_t operator()(const PhQ::DynamicViscosity& dynamic_viscosity) const {
     return hash<double>()(dynamic_viscosity.Value());
   }

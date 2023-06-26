@@ -86,8 +86,8 @@ TEST(Time, Hash) {
   EXPECT_NE(hasher(time0), hasher(time3));
   EXPECT_NE(hasher(time0), hasher(time4));
   EXPECT_NE(hasher(time0), hasher(time5));
-  const std::unordered_set<Time> unordered{time0, time1, time2,
-                                           time3, time4, time5};
+  const std::unordered_set<Time> unordered{
+      time0, time1, time2, time3, time4, time5};
 }
 
 TEST(Time, JSON) {
@@ -118,8 +118,8 @@ TEST(Time, XML) {
 }
 
 TEST(Time, YAML) {
-  EXPECT_EQ(Time(1.11, Unit::Time::Second).YAML(),
-            "{value:1.110000,unit:\"s\"}");
+  EXPECT_EQ(
+      Time(1.11, Unit::Time::Second).YAML(), "{value:1.110000,unit:\"s\"}");
   EXPECT_EQ(Time(-5.0, Unit::Time::Minute).YAML(Unit::Time::Minute),
             "{value:-5.000000,unit:\"min\"}");
 }

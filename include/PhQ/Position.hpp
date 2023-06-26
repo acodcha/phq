@@ -25,15 +25,15 @@ public:
   constexpr Position() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
 
   Position(const Value::Vector& value, const Unit::Length unit) noexcept
-      : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
   constexpr Position(const Length& length, const Direction& direction) noexcept
-      : Position(length.Value() * direction.Value()) {}
+    : Position(length.Value() * direction.Value()) {}
 
   explicit constexpr Position(const Displacement& displacement) noexcept
-      : Position(displacement.Value()) {}
+    : Position(displacement.Value()) {}
 
-  template <Unit::Length Unit>
+  template<Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) noexcept {
     return Position{
         StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
@@ -99,64 +99,64 @@ public:
 
 private:
   explicit constexpr Position(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Length>(value) {}
+    : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Displacement;
 };
 
-inline constexpr bool operator==(const Position& left,
-                                 const Position& right) noexcept {
+inline constexpr bool operator==(
+    const Position& left, const Position& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Position& left,
-                                 const Position& right) noexcept {
+inline constexpr bool operator!=(
+    const Position& left, const Position& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Position& left,
-                                const Position& right) noexcept {
+inline constexpr bool operator<(
+    const Position& left, const Position& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Position& left,
-                                const Position& right) noexcept {
+inline constexpr bool operator>(
+    const Position& left, const Position& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Position& left,
-                                 const Position& right) noexcept {
+inline constexpr bool operator<=(
+    const Position& left, const Position& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Position& left,
-                                 const Position& right) noexcept {
+inline constexpr bool operator>=(
+    const Position& left, const Position& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Position& position) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Position& position) noexcept {
   stream << position.Print();
   return stream;
 }
 
-inline constexpr Position operator*(const double number,
-                                    const Position& position) noexcept {
+inline constexpr Position operator*(
+    const double number, const Position& position) noexcept {
   return position * number;
 }
 
 inline constexpr Direction::Direction(const Position& position) noexcept
-    : Direction(position.Value()) {}
+  : Direction(position.Value()) {}
 
-inline Angle::Angle(const Position& position_1,
-                    const Position& position_2) noexcept
-    : Angle(position_1.Value(), position_2.Value()) {}
+inline Angle::Angle(
+    const Position& position_1, const Position& position_2) noexcept
+  : Angle(position_1.Value(), position_2.Value()) {}
 
 inline constexpr Length::Length(const Position& position) noexcept
-    : Length(position.Value().Magnitude()) {}
+  : Length(position.Value().Magnitude()) {}
 
 inline constexpr Displacement::Displacement(const Position& position) noexcept
-    : Displacement(position.Value()) {}
+  : Displacement(position.Value()) {}
 
 inline constexpr Position Displacement::operator+(
     const Position& position) const noexcept {
@@ -182,8 +182,7 @@ inline constexpr Position Length::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Position> {
+template<> struct hash<PhQ::Position> {
   size_t operator()(const PhQ::Position& position) const {
     return hash<PhQ::Value::Vector>()(position.Value());
   }

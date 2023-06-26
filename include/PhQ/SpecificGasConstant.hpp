@@ -22,39 +22,39 @@
 namespace PhQ {
 
 class SpecificGasConstant
-    : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
+  : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
   constexpr SpecificGasConstant() noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
 
-  SpecificGasConstant(const double value,
-                      const Unit::SpecificHeatCapacity unit) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
+  SpecificGasConstant(
+      const double value, const Unit::SpecificHeatCapacity unit) noexcept
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
 
   constexpr SpecificGasConstant(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const SpecificIsochoricHeatCapacity&
           specific_isochoric_heat_capacity) noexcept
-      : SpecificGasConstant(specific_isobaric_heat_capacity.Value() -
-                            specific_isochoric_heat_capacity.Value()) {}
+    : SpecificGasConstant(specific_isobaric_heat_capacity.Value()
+                          - specific_isochoric_heat_capacity.Value()) {}
 
   constexpr SpecificGasConstant(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const SpecificHeatRatio& specific_heat_ratio) noexcept
-      : SpecificGasConstant(specific_isobaric_heat_capacity.Value() *
-                            (1.0 - 1.0 / specific_heat_ratio.Value())) {}
+    : SpecificGasConstant(specific_isobaric_heat_capacity.Value()
+                          * (1.0 - 1.0 / specific_heat_ratio.Value())) {}
 
   constexpr SpecificGasConstant(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const SpecificHeatRatio& specific_heat_ratio) noexcept
-      : SpecificGasConstant(specific_isochoric_heat_capacity.Value() *
-                            (specific_heat_ratio.Value() - 1.0)) {}
+    : SpecificGasConstant(specific_isochoric_heat_capacity.Value()
+                          * (specific_heat_ratio.Value() - 1.0)) {}
 
-  constexpr SpecificGasConstant(const GasConstant& gas_constant,
-                                const Mass& mass) noexcept
-      : SpecificGasConstant(gas_constant.Value() / mass.Value()) {}
+  constexpr SpecificGasConstant(
+      const GasConstant& gas_constant, const Mass& mass) noexcept
+    : SpecificGasConstant(gas_constant.Value() / mass.Value()) {}
 
-  template <Unit::SpecificHeatCapacity Unit>
+  template<Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificGasConstant Create(const double value) noexcept {
     return SpecificGasConstant{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
@@ -111,7 +111,7 @@ public:
 
 private:
   explicit constexpr SpecificGasConstant(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(const SpecificGasConstant& left,
@@ -159,54 +159,53 @@ inline constexpr SpecificGasConstant operator*(
 
 inline constexpr SpecificHeatRatio::SpecificHeatRatio(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificIsobaricHeatCapacity&
-        specific_isobaric_heat_capacity) noexcept
-    : SpecificHeatRatio(specific_isobaric_heat_capacity.Value() /
-                        (specific_isobaric_heat_capacity.Value() -
-                         specific_gas_constant.Value())) {}
+    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept
+  : SpecificHeatRatio(specific_isobaric_heat_capacity.Value()
+                      / (specific_isobaric_heat_capacity.Value()
+                         - specific_gas_constant.Value())) {}
 
 inline constexpr SpecificHeatRatio::SpecificHeatRatio(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificIsochoricHeatCapacity&
         specific_isochoric_heat_capacity) noexcept
-    : SpecificHeatRatio(specific_gas_constant.Value() /
-                            specific_isochoric_heat_capacity.Value() +
-                        1.0) {}
+  : SpecificHeatRatio(
+      specific_gas_constant.Value() / specific_isochoric_heat_capacity.Value()
+      + 1.0) {}
 
 inline constexpr Mass::Mass(const SpecificGasConstant& specific_gas_constant,
                             const GasConstant& gas_constant) noexcept
-    : Mass(gas_constant.Value() / specific_gas_constant.Value()) {}
+  : Mass(gas_constant.Value() / specific_gas_constant.Value()) {}
 
 inline constexpr GasConstant::GasConstant(
     const SpecificGasConstant& specific_gas_constant, const Mass& mass) noexcept
-    : GasConstant(specific_gas_constant.Value() * mass.Value()) {}
+  : GasConstant(specific_gas_constant.Value() * mass.Value()) {}
 
 inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificIsobaricHeatCapacity&
-        specific_isobaric_heat_capacity) noexcept
-    : SpecificIsochoricHeatCapacity(specific_isobaric_heat_capacity.Value() -
-                                    specific_gas_constant.Value()) {}
+    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept
+  : SpecificIsochoricHeatCapacity(
+      specific_isobaric_heat_capacity.Value() - specific_gas_constant.Value()) {
+}
 
 inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificHeatRatio& specific_heat_ratio) noexcept
-    : SpecificIsochoricHeatCapacity(specific_gas_constant.Value() /
-                                    (specific_heat_ratio.Value() - 1.0)) {}
+  : SpecificIsochoricHeatCapacity(
+      specific_gas_constant.Value() / (specific_heat_ratio.Value() - 1.0)) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificIsochoricHeatCapacity&
         specific_isochoric_heat_capacity) noexcept
-    : SpecificIsobaricHeatCapacity(specific_gas_constant.Value() +
-                                   specific_isochoric_heat_capacity.Value()) {}
+  : SpecificIsobaricHeatCapacity(specific_gas_constant.Value()
+                                 + specific_isochoric_heat_capacity.Value()) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificHeatRatio& specific_heat_ratio) noexcept
-    : SpecificIsobaricHeatCapacity(specific_gas_constant.Value() *
-                                   specific_heat_ratio.Value() /
-                                   (specific_heat_ratio.Value() - 1.0)) {}
+  : SpecificIsobaricHeatCapacity(
+      specific_gas_constant.Value() * specific_heat_ratio.Value()
+      / (specific_heat_ratio.Value() - 1.0)) {}
 
 inline constexpr GasConstant Mass::operator*(
     const SpecificGasConstant& specific_gas_constant) const noexcept {
@@ -245,8 +244,7 @@ SpecificIsobaricHeatCapacity::operator-(
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificGasConstant> {
+template<> struct hash<PhQ::SpecificGasConstant> {
   size_t operator()(
       const PhQ::SpecificGasConstant& specific_gas_constant) const {
     return hash<double>()(specific_gas_constant.Value());

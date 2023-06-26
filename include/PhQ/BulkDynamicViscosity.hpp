@@ -22,16 +22,16 @@
 namespace PhQ {
 
 class BulkDynamicViscosity
-    : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
+  : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
   constexpr BulkDynamicViscosity() noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  BulkDynamicViscosity(const double value,
-                       const Unit::DynamicViscosity unit) noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+  BulkDynamicViscosity(
+      const double value, const Unit::DynamicViscosity unit) noexcept
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
-  template <Unit::DynamicViscosity Unit>
+  template<Unit::DynamicViscosity Unit>
   static constexpr BulkDynamicViscosity Create(const double value) noexcept {
     return BulkDynamicViscosity{
         StaticConvertCopy<Unit::DynamicViscosity, Unit,
@@ -78,7 +78,7 @@ public:
 
 private:
   explicit constexpr BulkDynamicViscosity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
+    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };
 
 inline constexpr bool operator==(const BulkDynamicViscosity& left,
@@ -126,8 +126,7 @@ inline constexpr BulkDynamicViscosity operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::BulkDynamicViscosity> {
+template<> struct hash<PhQ::BulkDynamicViscosity> {
   size_t operator()(
       const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return hash<double>()(bulk_dynamic_viscosity.Value());

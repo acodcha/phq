@@ -23,8 +23,8 @@
 
 namespace PhQ {
 
-template <typename U>
-class DimensionalSymmetricDyadQuantity : public DimensionalQuantity<U> {
+template<typename U> class DimensionalSymmetricDyadQuantity
+  : public DimensionalQuantity<U> {
 public:
   inline constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
@@ -36,7 +36,7 @@ public:
     return result;
   }
 
-  template <U NewUnit>
+  template<U NewUnit>
   inline constexpr Value::SymmetricDyad StaticValue() const noexcept {
     return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
   }
@@ -107,25 +107,25 @@ public:
 
 protected:
   constexpr DimensionalSymmetricDyadQuantity() noexcept
-      : DimensionalQuantity<U>(), value_() {}
+    : DimensionalQuantity<U>(), value_() {}
 
   constexpr DimensionalSymmetricDyadQuantity(
       const Value::SymmetricDyad& value) noexcept
-      : DimensionalQuantity<U>(), value_(value) {}
+    : DimensionalQuantity<U>(), value_(value) {}
 
   constexpr DimensionalSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
-      : DimensionalQuantity<U>(), value_(std::move(value)) {}
+    : DimensionalQuantity<U>(), value_(std::move(value)) {}
 
-  DimensionalSymmetricDyadQuantity(const Value::SymmetricDyad& value,
-                                   const U unit) noexcept
-      : DimensionalQuantity<U>(), value_(value) {
+  DimensionalSymmetricDyadQuantity(
+      const Value::SymmetricDyad& value, const U unit) noexcept
+    : DimensionalQuantity<U>(), value_(value) {
     Convert(value_, unit, StandardUnit<U>);
   }
 
-  DimensionalSymmetricDyadQuantity(Value::SymmetricDyad&& value,
-                                   const U unit) noexcept
-      : DimensionalQuantity<U>(), value_(std::move(value)) {
+  DimensionalSymmetricDyadQuantity(
+      Value::SymmetricDyad&& value, const U unit) noexcept
+    : DimensionalQuantity<U>(), value_(std::move(value)) {
     Convert(value_, unit, StandardUnit<U>);
   }
 
@@ -146,8 +146,7 @@ protected:
 
 namespace std {
 
-template <typename U>
-struct hash<PhQ::DimensionalSymmetricDyadQuantity<U>> {
+template<typename U> struct hash<PhQ::DimensionalSymmetricDyadQuantity<U>> {
   size_t operator()(
       const PhQ::DimensionalSymmetricDyadQuantity<U>& quantity) const {
     return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());

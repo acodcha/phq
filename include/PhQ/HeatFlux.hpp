@@ -25,27 +25,27 @@ namespace PhQ {
 class HeatFlux : public DimensionalVectorQuantity<Unit::EnergyFlux> {
 public:
   constexpr HeatFlux() noexcept
-      : DimensionalVectorQuantity<Unit::EnergyFlux>() {}
+    : DimensionalVectorQuantity<Unit::EnergyFlux>() {}
 
   HeatFlux(const Value::Vector& value, const Unit::EnergyFlux unit) noexcept
-      : DimensionalVectorQuantity<Unit::EnergyFlux>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::EnergyFlux>(value, unit) {}
 
   constexpr HeatFlux(const HeatFluxMagnitude& heat_flux_magnitude,
                      const Direction& direction) noexcept
-      : HeatFlux(heat_flux_magnitude.Value() * direction.Value()) {}
+    : HeatFlux(heat_flux_magnitude.Value() * direction.Value()) {}
 
   constexpr HeatFlux(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradient& temperature_gradient) noexcept
-      : HeatFlux(-thermal_conductivity_scalar.Value() *
-                 temperature_gradient.Value()) {}
+    : HeatFlux(
+        -thermal_conductivity_scalar.Value() * temperature_gradient.Value()) {}
 
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity,
                      const TemperatureGradient& temperature_gradient) noexcept
-      : HeatFlux(-1.0 * thermal_conductivity.Value() *
-                 temperature_gradient.Value()) {}
+    : HeatFlux(
+        -1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
 
-  template <Unit::EnergyFlux Unit>
+  template<Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const Value::Vector& value) noexcept {
     return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit,
                                       StandardUnit<Unit::EnergyFlux>>(value)};
@@ -95,60 +95,60 @@ public:
 
 private:
   explicit constexpr HeatFlux(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::EnergyFlux>(value) {}
+    : DimensionalVectorQuantity<Unit::EnergyFlux>(value) {}
 };
 
-inline constexpr bool operator==(const HeatFlux& left,
-                                 const HeatFlux& right) noexcept {
+inline constexpr bool operator==(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const HeatFlux& left,
-                                 const HeatFlux& right) noexcept {
+inline constexpr bool operator!=(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const HeatFlux& left,
-                                const HeatFlux& right) noexcept {
+inline constexpr bool operator<(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const HeatFlux& left,
-                                const HeatFlux& right) noexcept {
+inline constexpr bool operator>(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const HeatFlux& left,
-                                 const HeatFlux& right) noexcept {
+inline constexpr bool operator<=(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const HeatFlux& left,
-                                 const HeatFlux& right) noexcept {
+inline constexpr bool operator>=(
+    const HeatFlux& left, const HeatFlux& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const HeatFlux& heat_flux) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const HeatFlux& heat_flux) noexcept {
   stream << heat_flux.Print();
   return stream;
 }
 
-inline constexpr HeatFlux operator*(const double number,
-                                    const HeatFlux& heat_flux) noexcept {
+inline constexpr HeatFlux operator*(
+    const double number, const HeatFlux& heat_flux) noexcept {
   return heat_flux * number;
 }
 
 inline constexpr Direction::Direction(const HeatFlux& heat_flux) noexcept
-    : Direction(heat_flux.Value()) {}
+  : Direction(heat_flux.Value()) {}
 
-inline Angle::Angle(const HeatFlux& heat_flux_1,
-                    const HeatFlux& heat_flux_2) noexcept
-    : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
+inline Angle::Angle(
+    const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept
+  : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
 
 inline constexpr HeatFluxMagnitude::HeatFluxMagnitude(
     const HeatFlux& heat_flux) noexcept
-    : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
+  : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
 
 inline constexpr HeatFlux Direction::operator*(
     const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
@@ -164,8 +164,7 @@ inline constexpr HeatFlux HeatFluxMagnitude::operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::HeatFlux> {
+template<> struct hash<PhQ::HeatFlux> {
   size_t operator()(const PhQ::HeatFlux& heat_flux) const {
     return hash<PhQ::Value::Vector>()(heat_flux.Value());
   }

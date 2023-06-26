@@ -104,8 +104,8 @@ TEST(Speed, Hash) {
   EXPECT_NE(hasher(speed0), hasher(speed3));
   EXPECT_NE(hasher(speed0), hasher(speed4));
   EXPECT_NE(hasher(speed0), hasher(speed5));
-  const std::unordered_set<Speed> unordered{speed0, speed1, speed2,
-                                            speed3, speed4, speed5};
+  const std::unordered_set<Speed> unordered{
+      speed0, speed1, speed2, speed3, speed4, speed5};
 }
 
 TEST(Speed, JSON) {

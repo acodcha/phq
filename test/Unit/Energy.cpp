@@ -53,16 +53,16 @@ TEST(UnitEnergy, ConsistentUnit) {
 TEST(UnitEnergy, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Joule), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Millijoule),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Microjoule),
-                   value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Millijoule), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Microjoule), value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Nanojoule),
                    value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Kilojoule),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Megajoule),
-                   value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Kilojoule), value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Megajoule), value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Gigajoule),
                    value * 0.000000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::FootPound),
@@ -74,16 +74,16 @@ TEST(UnitEnergy, ConvertFromStandard) {
 TEST(UnitEnergy, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Joule), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Millijoule, Energy::Joule),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Microjoule, Energy::Joule),
-                   value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Millijoule, Energy::Joule), value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Microjoule, Energy::Joule), value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Nanojoule, Energy::Joule),
                    value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Kilojoule, Energy::Joule),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Megajoule, Energy::Joule),
-                   value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Kilojoule, Energy::Joule), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Megajoule, Energy::Joule), value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Gigajoule, Energy::Joule),
                    value * 1000000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::FootPound, Energy::Joule),
@@ -113,8 +113,8 @@ TEST(UnitEnergy, ConvertVerification) {
 
 TEST(UnitEnergy, DimensionSet) {
   EXPECT_EQ(Dimensions<Energy>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{2},
-                           Dimension::Mass{1}));
+            Dimension::Set(
+                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
 }
 
 TEST(UnitEnergy, Parse) {
@@ -131,8 +131,8 @@ TEST(UnitEnergy, Parse) {
 }
 
 TEST(UnitEnergy, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(Energy::Joule),
-            UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(Energy::Joule), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Energy::Millijoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Microjoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Nanojoule),
@@ -140,10 +140,10 @@ TEST(UnitEnergy, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Energy::Kilojoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Megajoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Gigajoule), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Energy::FootPound),
-            UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(Energy::InchPound),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Energy::FootPound), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Energy::InchPound), UnitSystem::InchPoundSecondRankine);
 }
 
 TEST(UnitEnergy, StandardUnit) {

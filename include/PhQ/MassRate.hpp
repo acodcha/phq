@@ -27,15 +27,15 @@ public:
   constexpr MassRate() noexcept : DimensionalScalarQuantity<Unit::MassRate>() {}
 
   MassRate(const double value, const Unit::MassRate unit) noexcept
-      : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
   constexpr MassRate(const Mass& mass, const Time& time) noexcept
-      : MassRate(mass.Value() / time.Value()) {}
+    : MassRate(mass.Value() / time.Value()) {}
 
   constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept
-      : MassRate(mass.Value() * frequency.Value()) {}
+    : MassRate(mass.Value() * frequency.Value()) {}
 
-  template <Unit::MassRate Unit>
+  template<Unit::MassRate Unit>
   static constexpr MassRate Create(const double value) noexcept {
     return MassRate{
         StaticConvertCopy<Unit::MassRate, Unit, StandardUnit<Unit::MassRate>>(
@@ -90,65 +90,65 @@ public:
 
 private:
   explicit constexpr MassRate(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::MassRate>(value) {}
+    : DimensionalScalarQuantity<Unit::MassRate>(value) {}
 };
 
-inline constexpr bool operator==(const MassRate& left,
-                                 const MassRate& right) noexcept {
+inline constexpr bool operator==(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MassRate& left,
-                                 const MassRate& right) noexcept {
+inline constexpr bool operator!=(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MassRate& left,
-                                const MassRate& right) noexcept {
+inline constexpr bool operator<(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MassRate& left,
-                                const MassRate& right) noexcept {
+inline constexpr bool operator>(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MassRate& left,
-                                 const MassRate& right) noexcept {
+inline constexpr bool operator<=(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MassRate& left,
-                                 const MassRate& right) noexcept {
+inline constexpr bool operator>=(
+    const MassRate& left, const MassRate& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const MassRate& mass_rate) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const MassRate& mass_rate) noexcept {
   stream << mass_rate.Print();
   return stream;
 }
 
-inline constexpr MassRate operator*(const double number,
-                                    const MassRate& mass_rate) noexcept {
+inline constexpr MassRate operator*(
+    const double number, const MassRate& mass_rate) noexcept {
   return mass_rate * number;
 }
 
-inline constexpr Time::Time(const MassRate& mass_rate,
-                            const Mass& mass) noexcept
-    : Time(mass.Value() / mass_rate.Value()) {}
+inline constexpr Time::Time(
+    const MassRate& mass_rate, const Mass& mass) noexcept
+  : Time(mass.Value() / mass_rate.Value()) {}
 
-inline constexpr Frequency::Frequency(const MassRate& mass_rate,
-                                      const Mass& mass) noexcept
-    : Frequency(mass_rate.Value() / mass.Value()) {}
+inline constexpr Frequency::Frequency(
+    const MassRate& mass_rate, const Mass& mass) noexcept
+  : Frequency(mass_rate.Value() / mass.Value()) {}
 
-inline constexpr Mass::Mass(const MassRate& mass_rate,
-                            const Time& time) noexcept
-    : Mass(mass_rate.Value() * time.Value()) {}
+inline constexpr Mass::Mass(
+    const MassRate& mass_rate, const Time& time) noexcept
+  : Mass(mass_rate.Value() * time.Value()) {}
 
-inline constexpr Mass::Mass(const MassRate& mass_rate,
-                            const Frequency& frequency) noexcept
-    : Mass(mass_rate.Value() / frequency.Value()) {}
+inline constexpr Mass::Mass(
+    const MassRate& mass_rate, const Frequency& frequency) noexcept
+  : Mass(mass_rate.Value() / frequency.Value()) {}
 
 inline constexpr Mass Time::operator*(
     const MassRate& mass_rate) const noexcept {
@@ -178,8 +178,7 @@ inline constexpr Time Mass::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::MassRate> {
+template<> struct hash<PhQ::MassRate> {
   size_t operator()(const PhQ::MassRate& mass_rate) const {
     return hash<double>()(mass_rate.Value());
   }

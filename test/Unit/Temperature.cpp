@@ -48,8 +48,8 @@ TEST(UnitTemperature, ConsistentUnit) {
 
 TEST(UnitTemperature, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Temperature::Kelvin, Temperature::Celsius),
       value - 273.15);
@@ -63,8 +63,8 @@ TEST(UnitTemperature, ConvertFromStandard) {
 
 TEST(UnitTemperature, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Temperature::Celsius, Temperature::Kelvin),
       value + 273.15);

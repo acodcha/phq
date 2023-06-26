@@ -64,8 +64,8 @@ TEST(UnitVolume, ConvertFromStandard) {
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Volume::CubicMetre, Volume::CubicKilometre),
       value * std::pow(0.001, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicYard),
                    value / std::pow(0.9144, 3));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicFoot),
@@ -103,8 +103,8 @@ TEST(UnitVolume, ConvertToStandard) {
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Volume::CubicKilometre, Volume::CubicMetre),
       value * std::pow(1000.0, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre),
-                   value);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre), value);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicYard, Volume::CubicMetre),
                    value * std::pow(0.9144, 3));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicFoot, Volume::CubicMetre),
@@ -183,12 +183,12 @@ TEST(UnitVolume, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicMetre),
             UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicYard), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Volume::CubicFoot),
-            UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Volume::CubicFoot), UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicDecimetre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::Litre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Volume::CubicInch),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(Volume::CubicInch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicCentimetre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::Millilitre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicMillimetre),

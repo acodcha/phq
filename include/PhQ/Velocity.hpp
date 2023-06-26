@@ -29,26 +29,26 @@ public:
   constexpr Velocity() noexcept : DimensionalVectorQuantity<Unit::Speed>() {}
 
   Velocity(const Value::Vector& value, const Unit::Speed unit) noexcept
-      : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
+    : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
 
   constexpr Velocity(const Speed& speed, const Direction& direction) noexcept
-      : Velocity(speed.Value() * direction.Value()) {}
+    : Velocity(speed.Value() * direction.Value()) {}
 
-  constexpr Velocity(const Displacement& displacement,
-                     const Time& time) noexcept
-      : Velocity(displacement.Value() / time.Value()) {}
+  constexpr Velocity(
+      const Displacement& displacement, const Time& time) noexcept
+    : Velocity(displacement.Value() / time.Value()) {}
 
-  constexpr Velocity(const Displacement& displacement,
-                     const Frequency& frequency) noexcept
-      : Velocity(displacement.Value() * frequency.Value()) {}
+  constexpr Velocity(
+      const Displacement& displacement, const Frequency& frequency) noexcept
+    : Velocity(displacement.Value() * frequency.Value()) {}
 
-  constexpr Velocity(const Acceleration& acceleration,
-                     const Time& time) noexcept;
+  constexpr Velocity(
+      const Acceleration& acceleration, const Time& time) noexcept;
 
-  constexpr Velocity(const Acceleration& acceleration,
-                     const Frequency& frequency) noexcept;
+  constexpr Velocity(
+      const Acceleration& acceleration, const Frequency& frequency) noexcept;
 
-  template <Unit::Speed Unit>
+  template<Unit::Speed Unit>
   static constexpr Velocity Create(const Value::Vector& value) noexcept {
     return Velocity{
         StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
@@ -108,67 +108,67 @@ public:
 
 private:
   explicit constexpr Velocity(const Value::Vector& value) noexcept
-      : DimensionalVectorQuantity<Unit::Speed>(value) {}
+    : DimensionalVectorQuantity<Unit::Speed>(value) {}
 };
 
-inline constexpr bool operator==(const Velocity& left,
-                                 const Velocity& right) noexcept {
+inline constexpr bool operator==(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Velocity& left,
-                                 const Velocity& right) noexcept {
+inline constexpr bool operator!=(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Velocity& left,
-                                const Velocity& right) noexcept {
+inline constexpr bool operator<(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Velocity& left,
-                                const Velocity& right) noexcept {
+inline constexpr bool operator>(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Velocity& left,
-                                 const Velocity& right) noexcept {
+inline constexpr bool operator<=(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Velocity& left,
-                                 const Velocity& right) noexcept {
+inline constexpr bool operator>=(
+    const Velocity& left, const Velocity& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Velocity& velocity) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Velocity& velocity) noexcept {
   stream << velocity.Print();
   return stream;
 }
 
-inline constexpr Velocity operator*(const double number,
-                                    const Velocity& velocity) noexcept {
+inline constexpr Velocity operator*(
+    const double number, const Velocity& velocity) noexcept {
   return velocity * number;
 }
 
 inline constexpr Direction::Direction(const Velocity& velocity) noexcept
-    : Direction(velocity.Value()) {}
+  : Direction(velocity.Value()) {}
 
-inline Angle::Angle(const Velocity& velocity1,
-                    const Velocity& velocity2) noexcept
-    : Angle(velocity1.Value(), velocity2.Value()) {}
+inline Angle::Angle(
+    const Velocity& velocity1, const Velocity& velocity2) noexcept
+  : Angle(velocity1.Value(), velocity2.Value()) {}
 
-inline constexpr Displacement::Displacement(const Velocity& velocity,
-                                            const Time& time) noexcept
-    : Displacement(velocity.Value() * time.Value()) {}
+inline constexpr Displacement::Displacement(
+    const Velocity& velocity, const Time& time) noexcept
+  : Displacement(velocity.Value() * time.Value()) {}
 
-inline constexpr Displacement::Displacement(const Velocity& velocity,
-                                            const Frequency& frequency) noexcept
-    : Displacement(velocity.Value() / frequency.Value()) {}
+inline constexpr Displacement::Displacement(
+    const Velocity& velocity, const Frequency& frequency) noexcept
+  : Displacement(velocity.Value() / frequency.Value()) {}
 
 inline constexpr Speed::Speed(const Velocity& velocity) noexcept
-    : Speed(velocity.Value().Magnitude()) {}
+  : Speed(velocity.Value().Magnitude()) {}
 
 inline constexpr Velocity Direction::operator*(
     const Speed& speed) const noexcept {
@@ -204,8 +204,7 @@ inline constexpr Velocity Displacement::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::Velocity> {
+template<> struct hash<PhQ::Velocity> {
   size_t operator()(const PhQ::Velocity& velocity) const {
     return hash<PhQ::Value::Vector>()(velocity.Value());
   }

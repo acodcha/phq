@@ -33,243 +33,236 @@ enum class DynamicViscosity : int_least8_t {
 
 }  // namespace Unit
 
-template <>
-inline constexpr const Unit::DynamicViscosity
+template<> inline constexpr const Unit::DynamicViscosity
     StandardUnit<Unit::DynamicViscosity>{Unit::DynamicViscosity::PascalSecond};
 
-template <>
+template<>
 inline constexpr const Dimension::Set Dimensions<Unit::DynamicViscosity>{
-    Dimension::Set{Dimension::Time{-1}, Dimension::Length{-1},
-                   Dimension::Mass{1}}};
+    Dimension::Set{
+                   Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}}
+};
 
-template <>
-inline const std::map<UnitSystem, Unit::DynamicViscosity>
+template<> inline const std::map<UnitSystem, Unit::DynamicViscosity>
     ConsistentUnits<Unit::DynamicViscosity>{
         {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::DynamicViscosity::PascalSecond},
+         Unit::DynamicViscosity::PascalSecond            },
         {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::DynamicViscosity::PascalSecond},
+         Unit::DynamicViscosity::PascalSecond            },
         {UnitSystem::FootPoundSecondRankine,
          Unit::DynamicViscosity::PoundSecondPerSquareFoot},
         {UnitSystem::InchPoundSecondRankine,
          Unit::DynamicViscosity::PoundSecondPerSquareInch},
-    };
+};
 
-template <>
-inline const std::map<Unit::DynamicViscosity, UnitSystem>
+template<> inline const std::map<Unit::DynamicViscosity, UnitSystem>
     RelatedUnitSystems<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
          UnitSystem::FootPoundSecondRankine},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
          UnitSystem::InchPoundSecondRankine},
-    };
+};
 
-template <>
-inline const std::map<Unit::DynamicViscosity, std::string_view>
+template<> inline const std::map<Unit::DynamicViscosity, std::string_view>
     Abbreviations<Unit::DynamicViscosity>{
-        {Unit::DynamicViscosity::PascalSecond, "Pa·s"},
-        {Unit::DynamicViscosity::KilopascalSecond, "kPa·s"},
-        {Unit::DynamicViscosity::MegapascalSecond, "MPa·s"},
-        {Unit::DynamicViscosity::GigapascalSecond, "GPa·s"},
+        {Unit::DynamicViscosity::PascalSecond,             "Pa·s"      },
+        {Unit::DynamicViscosity::KilopascalSecond,         "kPa·s"     },
+        {Unit::DynamicViscosity::MegapascalSecond,         "MPa·s"     },
+        {Unit::DynamicViscosity::GigapascalSecond,         "GPa·s"     },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot, "lbf·s/ft^2"},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch, "lbf·s/in^2"},
-    };
+};
 
-template <>
+template<>
 inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
     Spellings<Unit::DynamicViscosity>{
-        {"Pa·s", Unit::DynamicViscosity::PascalSecond},
-        {"Pa*s", Unit::DynamicViscosity::PascalSecond},
-        {"N·s/m^2", Unit::DynamicViscosity::PascalSecond},
-        {"N·s/m2", Unit::DynamicViscosity::PascalSecond},
-        {"N*s/m^2", Unit::DynamicViscosity::PascalSecond},
-        {"N*s/m2", Unit::DynamicViscosity::PascalSecond},
-        {"kg/(m·s)", Unit::DynamicViscosity::PascalSecond},
-        {"kg/(m*s)", Unit::DynamicViscosity::PascalSecond},
-        {"kg/m/s", Unit::DynamicViscosity::PascalSecond},
-        {"kPa·s", Unit::DynamicViscosity::KilopascalSecond},
-        {"kPa*s", Unit::DynamicViscosity::KilopascalSecond},
-        {"kN·s/m^2", Unit::DynamicViscosity::KilopascalSecond},
-        {"kN·s/m2", Unit::DynamicViscosity::KilopascalSecond},
-        {"kN*s/m^2", Unit::DynamicViscosity::KilopascalSecond},
-        {"kN*s/m2", Unit::DynamicViscosity::KilopascalSecond},
-        {"MPa·s", Unit::DynamicViscosity::MegapascalSecond},
-        {"MPa*s", Unit::DynamicViscosity::MegapascalSecond},
-        {"N·s/mm^2", Unit::DynamicViscosity::MegapascalSecond},
-        {"N·s/mm^2", Unit::DynamicViscosity::MegapascalSecond},
-        {"N*s/mm2", Unit::DynamicViscosity::MegapascalSecond},
-        {"N*s/mm2", Unit::DynamicViscosity::MegapascalSecond},
-        {"MN·s/m^2", Unit::DynamicViscosity::MegapascalSecond},
-        {"MN·s/m2", Unit::DynamicViscosity::MegapascalSecond},
-        {"MN*s/m^2", Unit::DynamicViscosity::MegapascalSecond},
-        {"MN*s/m2", Unit::DynamicViscosity::MegapascalSecond},
-        {"GPa·s", Unit::DynamicViscosity::GigapascalSecond},
-        {"GPa*s", Unit::DynamicViscosity::GigapascalSecond},
-        {"GN·s/m^2", Unit::DynamicViscosity::GigapascalSecond},
-        {"GN·s/m2", Unit::DynamicViscosity::GigapascalSecond},
-        {"GN*s/m^2", Unit::DynamicViscosity::GigapascalSecond},
-        {"GN*s/m2", Unit::DynamicViscosity::GigapascalSecond},
-        {"kN·s/mm^2", Unit::DynamicViscosity::GigapascalSecond},
-        {"kN·s/mm2", Unit::DynamicViscosity::GigapascalSecond},
-        {"kN*s/mm^2", Unit::DynamicViscosity::GigapascalSecond},
-        {"kN*s/mm2", Unit::DynamicViscosity::GigapascalSecond},
+        {"Pa·s",       Unit::DynamicViscosity::PascalSecond            },
+        {"Pa*s",       Unit::DynamicViscosity::PascalSecond            },
+        {"N·s/m^2",    Unit::DynamicViscosity::PascalSecond            },
+        {"N·s/m2",     Unit::DynamicViscosity::PascalSecond            },
+        {"N*s/m^2",    Unit::DynamicViscosity::PascalSecond            },
+        {"N*s/m2",     Unit::DynamicViscosity::PascalSecond            },
+        {"kg/(m·s)",   Unit::DynamicViscosity::PascalSecond            },
+        {"kg/(m*s)",   Unit::DynamicViscosity::PascalSecond            },
+        {"kg/m/s",     Unit::DynamicViscosity::PascalSecond            },
+        {"kPa·s",      Unit::DynamicViscosity::KilopascalSecond        },
+        {"kPa*s",      Unit::DynamicViscosity::KilopascalSecond        },
+        {"kN·s/m^2",   Unit::DynamicViscosity::KilopascalSecond        },
+        {"kN·s/m2",    Unit::DynamicViscosity::KilopascalSecond        },
+        {"kN*s/m^2",   Unit::DynamicViscosity::KilopascalSecond        },
+        {"kN*s/m2",    Unit::DynamicViscosity::KilopascalSecond        },
+        {"MPa·s",      Unit::DynamicViscosity::MegapascalSecond        },
+        {"MPa*s",      Unit::DynamicViscosity::MegapascalSecond        },
+        {"N·s/mm^2",   Unit::DynamicViscosity::MegapascalSecond        },
+        {"N·s/mm^2",   Unit::DynamicViscosity::MegapascalSecond        },
+        {"N*s/mm2",    Unit::DynamicViscosity::MegapascalSecond        },
+        {"N*s/mm2",    Unit::DynamicViscosity::MegapascalSecond        },
+        {"MN·s/m^2",   Unit::DynamicViscosity::MegapascalSecond        },
+        {"MN·s/m2",    Unit::DynamicViscosity::MegapascalSecond        },
+        {"MN*s/m^2",   Unit::DynamicViscosity::MegapascalSecond        },
+        {"MN*s/m2",    Unit::DynamicViscosity::MegapascalSecond        },
+        {"GPa·s",      Unit::DynamicViscosity::GigapascalSecond        },
+        {"GPa*s",      Unit::DynamicViscosity::GigapascalSecond        },
+        {"GN·s/m^2",   Unit::DynamicViscosity::GigapascalSecond        },
+        {"GN·s/m2",    Unit::DynamicViscosity::GigapascalSecond        },
+        {"GN*s/m^2",   Unit::DynamicViscosity::GigapascalSecond        },
+        {"GN*s/m2",    Unit::DynamicViscosity::GigapascalSecond        },
+        {"kN·s/mm^2",  Unit::DynamicViscosity::GigapascalSecond        },
+        {"kN·s/mm2",   Unit::DynamicViscosity::GigapascalSecond        },
+        {"kN*s/mm^2",  Unit::DynamicViscosity::GigapascalSecond        },
+        {"kN*s/mm2",   Unit::DynamicViscosity::GigapascalSecond        },
         {"lbf·s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lbf·s/ft2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lbf·s/ft2",  Unit::DynamicViscosity::PoundSecondPerSquareFoot},
         {"lbf*s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lbf*s/ft2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lb·s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lb·s/ft2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lb*s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"lb*s/ft2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"psf·s", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
-        {"psf*s", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lbf*s/ft2",  Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lb·s/ft^2",  Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lb·s/ft2",   Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lb*s/ft^2",  Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"lb*s/ft2",   Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"psf·s",      Unit::DynamicViscosity::PoundSecondPerSquareFoot},
+        {"psf*s",      Unit::DynamicViscosity::PoundSecondPerSquareFoot},
         {"lbf·s/in^2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lbf·s/in2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"lbf·s/in2",  Unit::DynamicViscosity::PoundSecondPerSquareInch},
         {"lbf*s/in^2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lbf*s/in2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lb·s/in^2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lb·s/in2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lb*s/in^2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"lb*s/in2", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"psi·s", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-        {"psi*s", Unit::DynamicViscosity::PoundSecondPerSquareInch},
-    };
+        {"lbf*s/in2",  Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"lb·s/in^2",  Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"lb·s/in2",   Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"lb*s/in^2",  Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"lb*s/in2",   Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"psi·s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
+        {"psi*s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::PascalSecond>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::KilopascalSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::MegapascalSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::GigapascalSecond>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
   value *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
 }
 
-template <>
-inline constexpr void ConversionFromStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
+template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity,
+                       Unit::DynamicViscosity::PoundSecondPerSquareInch>(
     double& value) noexcept {
   value *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::PascalSecond>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::KilopascalSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::MegapascalSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::GigapascalSecond>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
 }
 
-template <>
-inline constexpr void ConversionToStandard<
-    Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
+template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity,
+                     Unit::DynamicViscosity::PoundSecondPerSquareInch>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
          ConversionsFromStandard<Unit::DynamicViscosity,
-                                 Unit::DynamicViscosity::PascalSecond>},
+         Unit::DynamicViscosity::PascalSecond>            },
         {Unit::DynamicViscosity::KilopascalSecond,
          ConversionsFromStandard<Unit::DynamicViscosity,
-                                 Unit::DynamicViscosity::KilopascalSecond>},
+         Unit::DynamicViscosity::KilopascalSecond>        },
         {Unit::DynamicViscosity::MegapascalSecond,
          ConversionsFromStandard<Unit::DynamicViscosity,
-                                 Unit::DynamicViscosity::MegapascalSecond>},
+         Unit::DynamicViscosity::MegapascalSecond>        },
         {Unit::DynamicViscosity::GigapascalSecond,
          ConversionsFromStandard<Unit::DynamicViscosity,
-                                 Unit::DynamicViscosity::GigapascalSecond>},
+         Unit::DynamicViscosity::GigapascalSecond>        },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
          ConversionsFromStandard<
              Unit::DynamicViscosity,
-             Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
+         Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
          ConversionsFromStandard<
              Unit::DynamicViscosity,
-             Unit::DynamicViscosity::PoundSecondPerSquareInch>},
-    };
+         Unit::DynamicViscosity::PoundSecondPerSquareInch>},
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,
          ConversionsToStandard<Unit::DynamicViscosity,
-                               Unit::DynamicViscosity::PascalSecond>},
+         Unit::DynamicViscosity::PascalSecond>            },
         {Unit::DynamicViscosity::KilopascalSecond,
          ConversionsToStandard<Unit::DynamicViscosity,
-                               Unit::DynamicViscosity::KilopascalSecond>},
+         Unit::DynamicViscosity::KilopascalSecond>        },
         {Unit::DynamicViscosity::MegapascalSecond,
          ConversionsToStandard<Unit::DynamicViscosity,
-                               Unit::DynamicViscosity::MegapascalSecond>},
+         Unit::DynamicViscosity::MegapascalSecond>        },
         {Unit::DynamicViscosity::GigapascalSecond,
          ConversionsToStandard<Unit::DynamicViscosity,
-                               Unit::DynamicViscosity::GigapascalSecond>},
+         Unit::DynamicViscosity::GigapascalSecond>        },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
-         ConversionsToStandard<
-             Unit::DynamicViscosity,
-             Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
+         ConversionsToStandard<Unit::DynamicViscosity,
+         Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
-         ConversionsToStandard<
-             Unit::DynamicViscosity,
-             Unit::DynamicViscosity::PoundSecondPerSquareInch>},
-    };
+         ConversionsToStandard<Unit::DynamicViscosity,
+         Unit::DynamicViscosity::PoundSecondPerSquareInch>},
+};
 
 }  // namespace Internal
 

@@ -26,8 +26,8 @@ namespace {
 TEST(Volume, Accessor) {
   const Volume volume{0.1, Unit::Volume::CubicMetre};
   EXPECT_DOUBLE_EQ(volume.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(volume.Value(Unit::Volume::CubicMillimetre),
-                   0.1 * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      volume.Value(Unit::Volume::CubicMillimetre), 0.1 * 1000000000.0);
 }
 
 TEST(Volume, Arithmetic) {
@@ -94,8 +94,8 @@ TEST(Volume, Hash) {
   EXPECT_NE(hasher(volume0), hasher(volume3));
   EXPECT_NE(hasher(volume0), hasher(volume4));
   EXPECT_NE(hasher(volume0), hasher(volume5));
-  const std::unordered_set<Volume> unordered{volume0, volume1, volume2,
-                                             volume3, volume4, volume5};
+  const std::unordered_set<Volume> unordered{
+      volume0, volume1, volume2, volume3, volume4, volume5};
 }
 
 TEST(Volume, JSON) {

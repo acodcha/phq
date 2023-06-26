@@ -23,14 +23,14 @@
 namespace PhQ {
 
 class SpecificIsochoricHeatCapacity
-    : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
+  : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
   constexpr SpecificIsochoricHeatCapacity() noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
 
-  SpecificIsochoricHeatCapacity(const double value,
-                                const Unit::SpecificHeatCapacity unit) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
+  SpecificIsochoricHeatCapacity(
+      const double value, const Unit::SpecificHeatCapacity unit) noexcept
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
 
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificGasConstant& specific_gas_constant,
@@ -48,12 +48,12 @@ public:
   constexpr SpecificIsochoricHeatCapacity(
       const IsochoricHeatCapacity& isochoric_heat_capacity,
       const Mass& mass) noexcept
-      : SpecificIsochoricHeatCapacity(isochoric_heat_capacity.Value() /
-                                      mass.Value()) {}
+    : SpecificIsochoricHeatCapacity(
+        isochoric_heat_capacity.Value() / mass.Value()) {}
 
-  template <Unit::SpecificHeatCapacity Unit>
-  static constexpr SpecificIsochoricHeatCapacity Create(
-      const double value) noexcept {
+  template<Unit::SpecificHeatCapacity Unit>
+  static constexpr SpecificIsochoricHeatCapacity
+  Create(const double value) noexcept {
     return SpecificIsochoricHeatCapacity{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
                           StandardUnit<Unit::SpecificHeatCapacity>>(value)};
@@ -116,7 +116,7 @@ public:
 
 private:
   explicit constexpr SpecificIsochoricHeatCapacity(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
+    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -155,9 +155,9 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const SpecificIsochoricHeatCapacity&
-                                    specific_isochoric_heat_capacity) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const SpecificIsochoricHeatCapacity&
+                              specific_isochoric_heat_capacity) noexcept {
   stream << specific_isochoric_heat_capacity.Print();
   return stream;
 }
@@ -171,14 +171,14 @@ inline constexpr SpecificIsochoricHeatCapacity operator*(
 inline constexpr Mass::Mass(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
     const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept
-    : Mass(isochoric_heat_capacity.Value() /
-           specific_isochoric_heat_capacity.Value()) {}
+  : Mass(isochoric_heat_capacity.Value()
+         / specific_isochoric_heat_capacity.Value()) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
     const Mass& mass) noexcept
-    : IsochoricHeatCapacity(specific_isochoric_heat_capacity.Value() *
-                            mass.Value()) {}
+  : IsochoricHeatCapacity(
+      specific_isochoric_heat_capacity.Value() * mass.Value()) {}
 
 inline constexpr IsochoricHeatCapacity Mass::operator*(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
@@ -201,8 +201,7 @@ inline constexpr Mass IsochoricHeatCapacity::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::SpecificIsochoricHeatCapacity> {
+template<> struct hash<PhQ::SpecificIsochoricHeatCapacity> {
   size_t operator()(const PhQ::SpecificIsochoricHeatCapacity&
                         specific_isochoric_heat_capacity) const {
     return hash<double>()(specific_isochoric_heat_capacity.Value());

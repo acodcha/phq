@@ -25,7 +25,7 @@ public:
   constexpr PoissonRatio() noexcept : DimensionlessScalarQuantity() {}
 
   explicit constexpr PoissonRatio(const double value) noexcept
-      : DimensionlessScalarQuantity(value) {}
+    : DimensionlessScalarQuantity(value) {}
 
   inline constexpr PoissonRatio operator+(
       const PoissonRatio& poisson_ratio) const noexcept {
@@ -62,38 +62,38 @@ public:
   }
 };
 
-inline constexpr bool operator==(const PoissonRatio& left,
-                                 const PoissonRatio& right) noexcept {
+inline constexpr bool operator==(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const PoissonRatio& left,
-                                 const PoissonRatio& right) noexcept {
+inline constexpr bool operator!=(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const PoissonRatio& left,
-                                const PoissonRatio& right) noexcept {
+inline constexpr bool operator<(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const PoissonRatio& left,
-                                const PoissonRatio& right) noexcept {
+inline constexpr bool operator>(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const PoissonRatio& left,
-                                 const PoissonRatio& right) noexcept {
+inline constexpr bool operator<=(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const PoissonRatio& left,
-                                 const PoissonRatio& right) noexcept {
+inline constexpr bool operator>=(
+    const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const PoissonRatio& poisson_ratio) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const PoissonRatio& poisson_ratio) noexcept {
   stream << poisson_ratio.Print();
   return stream;
 }
@@ -113,8 +113,8 @@ inline constexpr PoissonRatio operator*(
   return PoissonRatio{number * poisson_ratio.Value()};
 }
 
-inline constexpr double operator/(const double number,
-                                  const PoissonRatio& poisson_ratio) noexcept {
+inline constexpr double operator/(
+    const double number, const PoissonRatio& poisson_ratio) noexcept {
   return number / poisson_ratio.Value();
 }
 
@@ -122,8 +122,7 @@ inline constexpr double operator/(const double number,
 
 namespace std {
 
-template <>
-struct hash<PhQ::PoissonRatio> {
+template<> struct hash<PhQ::PoissonRatio> {
   size_t operator()(const PhQ::PoissonRatio& poisson_ratio) const {
     return hash<double>()(poisson_ratio.Value());
   }

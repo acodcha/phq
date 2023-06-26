@@ -86,8 +86,8 @@ TEST(Mass, Hash) {
   EXPECT_NE(hasher(mass0), hasher(mass3));
   EXPECT_NE(hasher(mass0), hasher(mass4));
   EXPECT_NE(hasher(mass0), hasher(mass5));
-  const std::unordered_set<Mass> unordered{mass0, mass1, mass2,
-                                           mass3, mass4, mass5};
+  const std::unordered_set<Mass> unordered{
+      mass0, mass1, mass2, mass3, mass4, mass5};
 }
 
 TEST(Mass, JSON) {
@@ -99,8 +99,8 @@ TEST(Mass, JSON) {
 
 TEST(Mass, Print) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Print(), "1.110000 kg");
-  EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Print(Unit::Mass::Gram),
-            "-5.000000 g");
+  EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Print(Unit::Mass::Gram), "-5.000000 "
+                                                                  "g");
 }
 
 TEST(Mass, Stream) {
@@ -118,8 +118,8 @@ TEST(Mass, XML) {
 }
 
 TEST(Mass, YAML) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).YAML(),
-            "{value:1.110000,unit:\"kg\"}");
+  EXPECT_EQ(
+      Mass(1.11, Unit::Mass::Kilogram).YAML(), "{value:1.110000,unit:\"kg\"}");
   EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).YAML(Unit::Mass::Gram),
             "{value:-5.000000,unit:\"g\"}");
 }

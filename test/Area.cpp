@@ -89,8 +89,8 @@ TEST(Area, Hash) {
   EXPECT_NE(hasher(area0), hasher(area3));
   EXPECT_NE(hasher(area0), hasher(area4));
   EXPECT_NE(hasher(area0), hasher(area5));
-  const std::unordered_set<Area> unordered{area0, area1, area2,
-                                           area3, area4, area5};
+  const std::unordered_set<Area> unordered{
+      area0, area1, area2, area3, area4, area5};
 }
 
 TEST(Area, JSON) {
@@ -118,9 +118,9 @@ TEST(Area, Stream) {
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
             "<value>1.110000</value><unit>m^2</unit>");
-  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
-                .XML(Unit::Area::SquareMillimetre),
-            "<value>-5.000000</value><unit>mm^2</unit>");
+  EXPECT_EQ(
+      Area(-5.0, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
+      "<value>-5.000000</value><unit>mm^2</unit>");
 }
 
 TEST(Area, YAML) {

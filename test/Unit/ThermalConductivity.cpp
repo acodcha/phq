@@ -31,8 +31,8 @@ TEST(UnitThermalConductivity, Abbreviation) {
   EXPECT_EQ(Abbreviation(ThermalConductivity::WattPerMetrePerKelvin), "W/m/K");
   EXPECT_EQ(Abbreviation(ThermalConductivity::NanowattPerMillimetrePerKelvin),
             "nW/mm/K");
-  EXPECT_EQ(Abbreviation(ThermalConductivity::PoundPerSecondPerRankine),
-            "lbf/s/°R");
+  EXPECT_EQ(
+      Abbreviation(ThermalConductivity::PoundPerSecondPerRankine), "lbf/s/°R");
 }
 
 TEST(UnitThermalConductivity, ConsistentUnit) {
@@ -103,9 +103,9 @@ TEST(UnitThermalConductivity, ConvertVerification) {
 
 TEST(UnitThermalConductivity, DimensionSet) {
   EXPECT_EQ(Dimensions<ThermalConductivity>,
-            Dimension::Set(Dimension::Time{-3}, Dimension::Length{1},
-                           Dimension::Mass{1}, Dimension::ElectricCurrent{},
-                           Dimension::Temperature{-1}));
+            Dimension::Set(
+                Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
+                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitThermalConductivity, Parse) {

@@ -31,8 +31,8 @@ constexpr std::array<SpecificPower, 4> Units = {
 TEST(UnitSpecificPower, Abbreviation) {
   EXPECT_EQ(Abbreviation(SpecificPower::WattPerKilogram), "W/kg");
   EXPECT_EQ(Abbreviation(SpecificPower::NanowattPerGram), "nW/g");
-  EXPECT_EQ(Abbreviation(SpecificPower::FootPoundPerSlugPerSecond),
-            "ft·lbf/slug/s");
+  EXPECT_EQ(
+      Abbreviation(SpecificPower::FootPoundPerSlugPerSecond), "ft·lbf/slug/s");
   EXPECT_EQ(Abbreviation(SpecificPower::InchPoundPerSlinchPerSecond),
             "in·lbf/slinch/s");
 }

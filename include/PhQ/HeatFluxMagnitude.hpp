@@ -28,21 +28,21 @@ class HeatFlux;
 class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
 public:
   constexpr HeatFluxMagnitude() noexcept
-      : DimensionalScalarQuantity<Unit::EnergyFlux>() {}
+    : DimensionalScalarQuantity<Unit::EnergyFlux>() {}
 
   HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit) noexcept
-      : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
 
   constexpr HeatFluxMagnitude(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradientMagnitude&
           temperature_gradient_magnitude) noexcept
-      : HeatFluxMagnitude(-thermal_conductivity_scalar.Value() *
-                          temperature_gradient_magnitude.Value()) {}
+    : HeatFluxMagnitude(-thermal_conductivity_scalar.Value()
+                        * temperature_gradient_magnitude.Value()) {}
 
   constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
 
-  template <Unit::EnergyFlux Unit>
+  template<Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) noexcept {
     return HeatFluxMagnitude{
         StaticConvertCopy<Unit::EnergyFlux, Unit,
@@ -92,36 +92,36 @@ public:
 
 private:
   explicit constexpr HeatFluxMagnitude(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
+    : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
 };
 
-inline constexpr bool operator==(const HeatFluxMagnitude& left,
-                                 const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator==(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const HeatFluxMagnitude& left,
-                                 const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator!=(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const HeatFluxMagnitude& left,
-                                const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator<(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const HeatFluxMagnitude& left,
-                                const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator>(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const HeatFluxMagnitude& left,
-                                 const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator<=(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const HeatFluxMagnitude& left,
-                                 const HeatFluxMagnitude& right) noexcept {
+inline constexpr bool operator>=(
+    const HeatFluxMagnitude& left, const HeatFluxMagnitude& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -142,8 +142,7 @@ inline constexpr HeatFluxMagnitude operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::HeatFluxMagnitude> {
+template<> struct hash<PhQ::HeatFluxMagnitude> {
   size_t operator()(const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
     return hash<double>()(heat_flux_magnitude.Value());
   }

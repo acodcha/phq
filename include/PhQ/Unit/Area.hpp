@@ -41,340 +41,314 @@ enum class Area : int_least8_t {
 
 }  // namespace Unit
 
-template <>
-inline constexpr const Unit::Area StandardUnit<Unit::Area>{
+template<> inline constexpr const Unit::Area StandardUnit<Unit::Area>{
     Unit::Area::SquareMetre};
 
-template <>
-inline constexpr const Dimension::Set Dimensions<Unit::Area>{
-    Dimension::Set{Dimension::Time{0}, Dimension::Length{2}}};
+template<> inline constexpr const Dimension::Set Dimensions<Unit::Area>{
+    Dimension::Set{Dimension::Time{0}, Dimension::Length{2}}
+};
 
-template <>
+template<>
 inline const std::map<UnitSystem, Unit::Area> ConsistentUnits<Unit::Area>{
-    {UnitSystem::MetreKilogramSecondKelvin, Unit::Area::SquareMetre},
+    {UnitSystem::MetreKilogramSecondKelvin,  Unit::Area::SquareMetre     },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Area::SquareMillimetre},
-    {UnitSystem::FootPoundSecondRankine, Unit::Area::SquareFoot},
-    {UnitSystem::InchPoundSecondRankine, Unit::Area::SquareInch},
+    {UnitSystem::FootPoundSecondRankine,     Unit::Area::SquareFoot      },
+    {UnitSystem::InchPoundSecondRankine,     Unit::Area::SquareInch      },
 };
 
-template <>
+template<>
 inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
-    {Unit::Area::SquareMetre, UnitSystem::MetreKilogramSecondKelvin},
+    {Unit::Area::SquareMetre,      UnitSystem::MetreKilogramSecondKelvin },
     {Unit::Area::SquareMillimetre, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Area::SquareFoot, UnitSystem::FootPoundSecondRankine},
-    {Unit::Area::SquareInch, UnitSystem::InchPoundSecondRankine},
+    {Unit::Area::SquareFoot,       UnitSystem::FootPoundSecondRankine    },
+    {Unit::Area::SquareInch,       UnitSystem::InchPoundSecondRankine    },
 };
 
-template <>
+template<>
 inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
-    {Unit::Area::SquareMile, "mi^2"},
-    {Unit::Area::SquareKilometre, "km^2"},
-    {Unit::Area::Hectare, "ha"},
-    {Unit::Area::Acre, "ac"},
-    {Unit::Area::SquareMetre, "m^2"},
-    {Unit::Area::SquareYard, "yd^2"},
-    {Unit::Area::SquareFoot, "ft^2"},
-    {Unit::Area::SquareDecimetre, "dm^2"},
-    {Unit::Area::SquareInch, "in^2"},
-    {Unit::Area::SquareCentimetre, "cm^2"},
-    {Unit::Area::SquareMillimetre, "mm^2"},
-    {Unit::Area::SquareMilliinch, "mil^2"},
-    {Unit::Area::SquareMicrometre, "μm^2"},
-    {Unit::Area::SquareMicroinch, "μin^2"},
+    {Unit::Area::SquareMile,       "mi^2" },
+    {Unit::Area::SquareKilometre,  "km^2" },
+    {Unit::Area::Hectare,          "ha"   },
+    {Unit::Area::Acre,             "ac"   },
+    {Unit::Area::SquareMetre,      "m^2"  },
+    {Unit::Area::SquareYard,       "yd^2" },
+    {Unit::Area::SquareFoot,       "ft^2" },
+    {Unit::Area::SquareDecimetre,  "dm^2" },
+    {Unit::Area::SquareInch,       "in^2" },
+    {Unit::Area::SquareCentimetre, "cm^2" },
+    {Unit::Area::SquareMillimetre, "mm^2" },
+    {Unit::Area::SquareMilliinch,  "mil^2"},
+    {Unit::Area::SquareMicrometre, "μm^2" },
+    {Unit::Area::SquareMicroinch,  "μin^2"},
 };
 
-template <>
-inline const std::unordered_map<std::string_view, Unit::Area>
+template<> inline const std::unordered_map<std::string_view, Unit::Area>
     Spellings<Unit::Area>{
-        {"mi^2", Unit::Area::SquareMile},
-        {"mi2", Unit::Area::SquareMile},
-        {"km^2", Unit::Area::SquareKilometre},
-        {"km2", Unit::Area::SquareKilometre},
-        {"ha", Unit::Area::Hectare},
-        {"ac", Unit::Area::Acre},
-        {"m^2", Unit::Area::SquareMetre},
-        {"m2", Unit::Area::SquareMetre},
-        {"yd^2", Unit::Area::SquareYard},
-        {"yd2", Unit::Area::SquareYard},
-        {"ft^2", Unit::Area::SquareFoot},
-        {"ft2", Unit::Area::SquareFoot},
-        {"dm^2", Unit::Area::SquareDecimetre},
-        {"dm2", Unit::Area::SquareDecimetre},
-        {"in^2", Unit::Area::SquareInch},
-        {"in2", Unit::Area::SquareInch},
-        {"cm^2", Unit::Area::SquareCentimetre},
-        {"cm2", Unit::Area::SquareCentimetre},
-        {"mm^2", Unit::Area::SquareMillimetre},
-        {"mm2", Unit::Area::SquareMillimetre},
-        {"millinch^2", Unit::Area::SquareMilliinch},
-        {"millinch2", Unit::Area::SquareMilliinch},
-        {"milliinch^2", Unit::Area::SquareMilliinch},
-        {"milliinch2", Unit::Area::SquareMilliinch},
-        {"mil^2", Unit::Area::SquareMilliinch},
-        {"mil2", Unit::Area::SquareMilliinch},
-        {"thou^2", Unit::Area::SquareMilliinch},
-        {"thou2", Unit::Area::SquareMilliinch},
-        {"μm^2", Unit::Area::SquareMicrometre},
-        {"μm2", Unit::Area::SquareMicrometre},
-        {"um^2", Unit::Area::SquareMicrometre},
-        {"um2", Unit::Area::SquareMicrometre},
-        {"μin^2", Unit::Area::SquareMicroinch},
-        {"μin2", Unit::Area::SquareMicroinch},
-        {"uin^2", Unit::Area::SquareMicroinch},
-        {"uin2", Unit::Area::SquareMicroinch},
-    };
+        {"mi^2",        Unit::Area::SquareMile      },
+        {"mi2",         Unit::Area::SquareMile      },
+        {"km^2",        Unit::Area::SquareKilometre },
+        {"km2",         Unit::Area::SquareKilometre },
+        {"ha",          Unit::Area::Hectare         },
+        {"ac",          Unit::Area::Acre            },
+        {"m^2",         Unit::Area::SquareMetre     },
+        {"m2",          Unit::Area::SquareMetre     },
+        {"yd^2",        Unit::Area::SquareYard      },
+        {"yd2",         Unit::Area::SquareYard      },
+        {"ft^2",        Unit::Area::SquareFoot      },
+        {"ft2",         Unit::Area::SquareFoot      },
+        {"dm^2",        Unit::Area::SquareDecimetre },
+        {"dm2",         Unit::Area::SquareDecimetre },
+        {"in^2",        Unit::Area::SquareInch      },
+        {"in2",         Unit::Area::SquareInch      },
+        {"cm^2",        Unit::Area::SquareCentimetre},
+        {"cm2",         Unit::Area::SquareCentimetre},
+        {"mm^2",        Unit::Area::SquareMillimetre},
+        {"mm2",         Unit::Area::SquareMillimetre},
+        {"millinch^2",  Unit::Area::SquareMilliinch },
+        {"millinch2",   Unit::Area::SquareMilliinch },
+        {"milliinch^2", Unit::Area::SquareMilliinch },
+        {"milliinch2",  Unit::Area::SquareMilliinch },
+        {"mil^2",       Unit::Area::SquareMilliinch },
+        {"mil2",        Unit::Area::SquareMilliinch },
+        {"thou^2",      Unit::Area::SquareMilliinch },
+        {"thou2",       Unit::Area::SquareMilliinch },
+        {"μm^2",        Unit::Area::SquareMicrometre},
+        {"μm2",         Unit::Area::SquareMicrometre},
+        {"um^2",        Unit::Area::SquareMicrometre},
+        {"um2",         Unit::Area::SquareMicrometre},
+        {"μin^2",       Unit::Area::SquareMicroinch },
+        {"μin2",        Unit::Area::SquareMicroinch },
+        {"uin^2",       Unit::Area::SquareMicroinch },
+        {"uin2",        Unit::Area::SquareMicroinch },
+};
 
 namespace Internal {
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
   value /= std::pow(1609.344, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
   value *= std::pow(0.001, 2);
 }
 
-template <>
+template<>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Hectare>(
     double& value) noexcept {
   value *= 0.0001;
 }
 
-template <>
-inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Acre>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionFromStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
   value *= 640.0 / std::pow(1609.344, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(
     double& value) noexcept {}
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
   value /= std::pow(0.9144, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
   value /= std::pow(0.3048, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
   value *= std::pow(10.0, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
   value /= std::pow(0.0254, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
   value *= std::pow(100.0, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
   value *= std::pow(1000.0, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
   value /= std::pow(0.0000254, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
   value *= std::pow(1000000.0, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
   value /= std::pow(0.0000000254, 2);
 }
 
-template <>
+template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
   value *= std::pow(1609.344, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
   value *= std::pow(1000.0, 2);
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::Hectare>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::Hectare>(double& value) noexcept {
   value *= 10000.0;
 }
 
-template <>
-inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::Acre>(
-    double& value) noexcept {
+template<> inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
   value *= std::pow(1609.344, 2) / 640.0;
 }
 
-template <>
+template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
     double& value) noexcept {}
 
-template <>
+template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
   value *= std::pow(0.9144, 2);
 }
 
-template <>
+template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
   value *= std::pow(0.3048, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
   value *= std::pow(0.1, 2);
 }
 
-template <>
+template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
   value *= std::pow(0.0254, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
   value *= std::pow(0.01, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
   value *= std::pow(0.001, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
   value *= std::pow(0.0000254, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
   value *= std::pow(0.000001, 2);
 }
 
-template <>
-inline constexpr void
+template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
   value *= std::pow(0.0000000254, 2);
 }
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Area, std::function<void(double* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Area>{
         {Unit::Area::SquareMile,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMile>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMile>      },
         {Unit::Area::SquareKilometre,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareKilometre>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareKilometre> },
         {Unit::Area::Hectare,
-         ConversionsFromStandard<Unit::Area, Unit::Area::Hectare>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::Hectare>         },
         {Unit::Area::Acre,
-         ConversionsFromStandard<Unit::Area, Unit::Area::Acre>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::Acre>            },
         {Unit::Area::SquareMetre,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMetre>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMetre>     },
         {Unit::Area::SquareYard,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareYard>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareYard>      },
         {Unit::Area::SquareFoot,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareFoot>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareFoot>      },
         {Unit::Area::SquareDecimetre,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareDecimetre>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareDecimetre> },
         {Unit::Area::SquareInch,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareInch>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareInch>      },
         {Unit::Area::SquareCentimetre,
          ConversionsFromStandard<Unit::Area, Unit::Area::SquareCentimetre>},
         {Unit::Area::SquareMillimetre,
          ConversionsFromStandard<Unit::Area, Unit::Area::SquareMillimetre>},
         {Unit::Area::SquareMilliinch,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMilliinch>},
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMilliinch> },
         {Unit::Area::SquareMicrometre,
          ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicrometre>},
         {Unit::Area::SquareMicroinch,
-         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicroinch>},
-    };
+         ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicroinch> },
+};
 
-template <>
-inline const std::map<
+template<> inline const std::map<
     Unit::Area, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Area>{
         {Unit::Area::SquareMile,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMile>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMile>      },
         {Unit::Area::SquareKilometre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareKilometre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareKilometre> },
         {Unit::Area::Hectare,
-         ConversionsToStandard<Unit::Area, Unit::Area::Hectare>},
-        {Unit::Area::Acre, ConversionsToStandard<Unit::Area, Unit::Area::Acre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::Hectare>         },
+        {Unit::Area::Acre,             ConversionsToStandard<Unit::Area, Unit::Area::Acre>            },
         {Unit::Area::SquareMetre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMetre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMetre>     },
         {Unit::Area::SquareYard,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareYard>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareYard>      },
         {Unit::Area::SquareFoot,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareFoot>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareFoot>      },
         {Unit::Area::SquareDecimetre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareDecimetre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareDecimetre> },
         {Unit::Area::SquareInch,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareInch>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareInch>      },
         {Unit::Area::SquareCentimetre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareCentimetre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareCentimetre>},
         {Unit::Area::SquareMillimetre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMillimetre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMillimetre>},
         {Unit::Area::SquareMilliinch,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMilliinch>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMilliinch> },
         {Unit::Area::SquareMicrometre,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMicrometre>},
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMicrometre>},
         {Unit::Area::SquareMicroinch,
-         ConversionsToStandard<Unit::Area, Unit::Area::SquareMicroinch>},
-    };
+         ConversionsToStandard<Unit::Area,                               Unit::Area::SquareMicroinch> },
+};
 
 }  // namespace Internal
 

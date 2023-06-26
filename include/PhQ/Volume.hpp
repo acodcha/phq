@@ -33,16 +33,16 @@ public:
   constexpr Volume() noexcept : DimensionalScalarQuantity<Unit::Volume>() {}
 
   Volume(const double value, const Unit::Volume unit) noexcept
-      : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
   constexpr Volume(const VolumeRate& volume_rate, const Time& time) noexcept;
 
-  constexpr Volume(const VolumeRate& volume_rate,
-                   const Frequency& frequency) noexcept;
+  constexpr Volume(
+      const VolumeRate& volume_rate, const Frequency& frequency) noexcept;
 
   constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
 
-  template <Unit::Volume Unit>
+  template<Unit::Volume Unit>
   static constexpr Volume Create(const double value) noexcept {
     return Volume{
         StaticConvertCopy<Unit::Volume, Unit, StandardUnit<Unit::Volume>>(
@@ -101,50 +101,50 @@ public:
 
 private:
   explicit constexpr Volume(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Volume>(value) {}
+    : DimensionalScalarQuantity<Unit::Volume>(value) {}
 
   friend class Length;
   friend class Area;
 };
 
-inline constexpr bool operator==(const Volume& left,
-                                 const Volume& right) noexcept {
+inline constexpr bool operator==(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Volume& left,
-                                 const Volume& right) noexcept {
+inline constexpr bool operator!=(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Volume& left,
-                                const Volume& right) noexcept {
+inline constexpr bool operator<(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Volume& left,
-                                const Volume& right) noexcept {
+inline constexpr bool operator>(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Volume& left,
-                                 const Volume& right) noexcept {
+inline constexpr bool operator<=(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Volume& left,
-                                 const Volume& right) noexcept {
+inline constexpr bool operator>=(
+    const Volume& left, const Volume& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const Volume& volume) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const Volume& volume) noexcept {
   stream << volume.Print();
   return stream;
 }
 
-inline constexpr Volume operator*(const double number,
-                                  const Volume& volume) noexcept {
+inline constexpr Volume operator*(
+    const double number, const Volume& volume) noexcept {
   return volume * number;
 }
 
@@ -160,8 +160,7 @@ inline constexpr Volume Area::operator*(const Length& length) const noexcept {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Volume> {
+template<> struct hash<PhQ::Volume> {
   size_t operator()(const PhQ::Volume& volume) const {
     return hash<double>()(volume.Value());
   }

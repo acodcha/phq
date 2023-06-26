@@ -27,7 +27,7 @@ public:
   constexpr ElectricCurrent() noexcept : value_(0) {}
 
   explicit constexpr ElectricCurrent(const int_least8_t value) noexcept
-      : value_(value) {}
+    : value_(value) {}
 
   inline constexpr int_least8_t Value() const noexcept { return value_; }
 
@@ -52,38 +52,38 @@ private:
   int_least8_t value_;
 };
 
-inline constexpr bool operator==(const ElectricCurrent& left,
-                                 const ElectricCurrent& right) noexcept {
+inline constexpr bool operator==(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ElectricCurrent& left,
-                                 const ElectricCurrent& right) noexcept {
+inline constexpr bool operator!=(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ElectricCurrent& left,
-                                const ElectricCurrent& right) noexcept {
+inline constexpr bool operator<(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ElectricCurrent& left,
-                                const ElectricCurrent& right) noexcept {
+inline constexpr bool operator>(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ElectricCurrent& left,
-                                 const ElectricCurrent& right) noexcept {
+inline constexpr bool operator<=(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ElectricCurrent& left,
-                                 const ElectricCurrent& right) noexcept {
+inline constexpr bool operator>=(
+    const ElectricCurrent& left, const ElectricCurrent& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const ElectricCurrent& current) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const ElectricCurrent& current) noexcept {
   stream << current.Print();
   return stream;
 }
@@ -92,8 +92,7 @@ inline std::ostream& operator<<(std::ostream& stream,
 
 namespace std {
 
-template <>
-struct hash<PhQ::Dimension::ElectricCurrent> {
+template<> struct hash<PhQ::Dimension::ElectricCurrent> {
   size_t operator()(const PhQ::Dimension::ElectricCurrent& current) const {
     return hash<int_least8_t>()(current.Value());
   }

@@ -29,15 +29,15 @@ class DynamicKinematicPressure;
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr DynamicPressure() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   DynamicPressure(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr DynamicPressure(const MassDensity& mass_density,
-                            const Speed& speed) noexcept
-      : DynamicPressure(0.5 * mass_density.Value() *
-                        std::pow(speed.Value(), 2)) {}
+  constexpr DynamicPressure(
+      const MassDensity& mass_density, const Speed& speed) noexcept
+    : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {
+  }
 
   constexpr DynamicPressure(const TotalPressure& total_pressure,
                             const StaticPressure& static_pressure) noexcept;
@@ -46,7 +46,7 @@ public:
       const DynamicKinematicPressure& dynamic_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr DynamicPressure Create(const double value) noexcept {
     return DynamicPressure{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -96,36 +96,36 @@ public:
 
 private:
   explicit constexpr DynamicPressure(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const DynamicPressure& left,
-                                 const DynamicPressure& right) noexcept {
+inline constexpr bool operator==(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const DynamicPressure& left,
-                                 const DynamicPressure& right) noexcept {
+inline constexpr bool operator!=(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const DynamicPressure& left,
-                                const DynamicPressure& right) noexcept {
+inline constexpr bool operator<(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const DynamicPressure& left,
-                                const DynamicPressure& right) noexcept {
+inline constexpr bool operator>(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const DynamicPressure& left,
-                                 const DynamicPressure& right) noexcept {
+inline constexpr bool operator<=(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const DynamicPressure& left,
-                                 const DynamicPressure& right) noexcept {
+inline constexpr bool operator>=(
+    const DynamicPressure& left, const DynamicPressure& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -142,20 +142,18 @@ inline constexpr DynamicPressure operator*(
 
 inline constexpr MassDensity::MassDensity(
     const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept
-    : MassDensity(2.0 * dynamic_pressure.Value() /
-                  (speed.Value() * speed.Value())) {}
+  : MassDensity(
+      2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
 
 inline constexpr Speed::Speed(const DynamicPressure& dynamic_pressure,
                               const MassDensity& mass_density) noexcept
-    : Speed(SquareRoot(2.0 * dynamic_pressure.Value() / mass_density.Value())) {
-}
+  : Speed(SquareRoot(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DynamicPressure> {
+template<> struct hash<PhQ::DynamicPressure> {
   size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
     return hash<double>()(dynamic_pressure.Value());
   }

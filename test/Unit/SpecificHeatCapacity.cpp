@@ -29,10 +29,10 @@ constexpr std::array<SpecificHeatCapacity, 4> Units = {
 };
 
 TEST(UnitSpecificHeatCapacity, Abbreviation) {
-  EXPECT_EQ(Abbreviation(SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-            "J/kg/K");
-  EXPECT_EQ(Abbreviation(SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-            "nJ/g/K");
+  EXPECT_EQ(
+      Abbreviation(SpecificHeatCapacity::JoulePerKilogramPerKelvin), "J/kg/K");
+  EXPECT_EQ(
+      Abbreviation(SpecificHeatCapacity::NanojoulePerGramPerKelvin), "nJ/g/K");
   EXPECT_EQ(Abbreviation(SpecificHeatCapacity::FootPoundPerSlugPerRankine),
             "ft·lbf/slug/°R");
   EXPECT_EQ(Abbreviation(SpecificHeatCapacity::InchPoundPerSlinchPerRankine),
@@ -115,17 +115,21 @@ TEST(UnitSpecificHeatCapacity, ConvertVerification) {
 
 TEST(UnitSpecificHeatCapacity, DimensionSet) {
   EXPECT_EQ(Dimensions<SpecificHeatCapacity>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{2},
-                           Dimension::Mass{}, Dimension::ElectricCurrent{},
-                           Dimension::Temperature{-1}));
+            Dimension::Set(
+                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},
+                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitSpecificHeatCapacity, Parse) {
   EXPECT_EQ(Parse<SpecificHeatCapacity>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("J/kg/K"),            SpecificHeatCapacity::JoulePerKilogramPerKelvin);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("nJ/g/K"),            SpecificHeatCapacity::NanojoulePerGramPerKelvin);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("ft·lbf/slug/°R"),            SpecificHeatCapacity::FootPoundPerSlugPerRankine);
-  EXPECT_EQ(Parse<SpecificHeatCapacity>("in·lbf/slinch/°R"),            SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
+  EXPECT_EQ(Parse<SpecificHeatCapacity>("J/kg/K"),
+            SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+  EXPECT_EQ(Parse<SpecificHeatCapacity>("nJ/g/K"),
+            SpecificHeatCapacity::NanojoulePerGramPerKelvin);
+  EXPECT_EQ(Parse<SpecificHeatCapacity>("ft·lbf/slug/°R"),
+            SpecificHeatCapacity::FootPoundPerSlugPerRankine);
+  EXPECT_EQ(Parse<SpecificHeatCapacity>("in·lbf/slinch/°R"),
+            SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
 }
 
 TEST(UnitSpecificHeatCapacity, RelatedUnitSystem) {

@@ -28,10 +28,10 @@
 #include "../include/PhQ/LinearThermalExpansionCoefficient.hpp"
 #include "../include/PhQ/MassRate.hpp"
 #include "../include/PhQ/MemoryRate.hpp"
-#include "../include/PhQ/PWaveModulus.hpp"
 #include "../include/PhQ/PoissonRatio.hpp"
 #include "../include/PhQ/Position.hpp"
 #include "../include/PhQ/PrandtlNumber.hpp"
+#include "../include/PhQ/PWaveModulus.hpp"
 #include "../include/PhQ/ReynoldsNumber.hpp"
 #include "../include/PhQ/ShearModulus.hpp"
 #include "../include/PhQ/SpecificGasConstant.hpp"
@@ -59,7 +59,10 @@ TEST(OldQuantities, Simple) {
   PhQ::ReynoldsNumber re{1000.0};
   std::cout << re.Print() << std::endl;
 
-  PhQ::Position position1{{10.0, 20.0, 30.0}, PhQ::Unit::Length::Inch};
+  PhQ::Position position1{
+      {10.0, 20.0, 30.0},
+      PhQ::Unit::Length::Inch
+  };
   std::cout << "Position = " << position1.Print() << " = "
             << position1.Print(PhQ::Unit::Length::Inch)
             << ". Magnitude = " << position1.Magnitude() << "." << std::endl;

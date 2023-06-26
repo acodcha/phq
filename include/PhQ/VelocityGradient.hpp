@@ -24,13 +24,13 @@ namespace PhQ {
 class VelocityGradient : public DimensionalDyadQuantity<Unit::Frequency> {
 public:
   constexpr VelocityGradient() noexcept
-      : DimensionalDyadQuantity<Unit::Frequency>() {}
+    : DimensionalDyadQuantity<Unit::Frequency>() {}
 
-  VelocityGradient(const Value::Dyad& value,
-                   const Unit::Frequency& unit) noexcept
-      : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
+  VelocityGradient(
+      const Value::Dyad& value, const Unit::Frequency& unit) noexcept
+    : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  template <Unit::Frequency Unit>
+  template<Unit::Frequency Unit>
   static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {
     return VelocityGradient{
         StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
@@ -81,36 +81,36 @@ public:
 
 private:
   explicit constexpr VelocityGradient(const Value::Dyad& value) noexcept
-      : DimensionalDyadQuantity<Unit::Frequency>(value) {}
+    : DimensionalDyadQuantity<Unit::Frequency>(value) {}
 };
 
-inline constexpr bool operator==(const VelocityGradient& left,
-                                 const VelocityGradient& right) noexcept {
+inline constexpr bool operator==(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const VelocityGradient& left,
-                                 const VelocityGradient& right) noexcept {
+inline constexpr bool operator!=(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const VelocityGradient& left,
-                                const VelocityGradient& right) noexcept {
+inline constexpr bool operator<(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const VelocityGradient& left,
-                                const VelocityGradient& right) noexcept {
+inline constexpr bool operator>(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const VelocityGradient& left,
-                                 const VelocityGradient& right) noexcept {
+inline constexpr bool operator<=(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const VelocityGradient& left,
-                                 const VelocityGradient& right) noexcept {
+inline constexpr bool operator>=(
+    const VelocityGradient& left, const VelocityGradient& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -127,16 +127,15 @@ inline constexpr VelocityGradient operator*(
 
 inline constexpr StrainRate::StrainRate(
     const VelocityGradient& velocity_gradient) noexcept
-    : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
-                  0.5 * (value_.xz() + value_.zx()), value_.yy(),
-                  0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
+  : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
+                0.5 * (value_.xz() + value_.zx()), value_.yy(),
+                0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::VelocityGradient> {
+template<> struct hash<PhQ::VelocityGradient> {
   size_t operator()(const PhQ::VelocityGradient& velocity_gradient) const {
     return hash<PhQ::Value::Dyad>()(velocity_gradient.Value());
   }

@@ -67,8 +67,8 @@ TEST(DimensionTime, Hash) {
   EXPECT_NE(hasher(time0), hasher(time3));
   EXPECT_NE(hasher(time0), hasher(time4));
   EXPECT_NE(hasher(time0), hasher(time5));
-  const std::unordered_set<Time> unordered{time0, time1, time2,
-                                           time3, time4, time5};
+  const std::unordered_set<Time> unordered{
+      time0, time1, time2, time3, time4, time5};
 }
 
 TEST(DimensionTime, Label) { EXPECT_EQ(Time::Label(), "Time"); }

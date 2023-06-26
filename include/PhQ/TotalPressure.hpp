@@ -23,20 +23,20 @@ namespace PhQ {
 class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr TotalPressure() noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>() {}
+    : DimensionalScalarQuantity<Unit::Pressure>() {}
 
   TotalPressure(const double value, const Unit::Pressure unit) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr TotalPressure(const DynamicPressure& dynamic_pressure,
                           const StaticPressure& static_pressure) noexcept
-      : TotalPressure(dynamic_pressure.Value() + static_pressure.Value()) {}
+    : TotalPressure(dynamic_pressure.Value() + static_pressure.Value()) {}
 
   constexpr TotalPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
-  template <Unit::Pressure Unit>
+  template<Unit::Pressure Unit>
   static constexpr TotalPressure Create(const double value) noexcept {
     return TotalPressure{
         StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
@@ -91,41 +91,41 @@ public:
 
 private:
   explicit constexpr TotalPressure(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const TotalPressure& left,
-                                 const TotalPressure& right) noexcept {
+inline constexpr bool operator==(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const TotalPressure& left,
-                                 const TotalPressure& right) noexcept {
+inline constexpr bool operator!=(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const TotalPressure& left,
-                                const TotalPressure& right) noexcept {
+inline constexpr bool operator<(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const TotalPressure& left,
-                                const TotalPressure& right) noexcept {
+inline constexpr bool operator>(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const TotalPressure& left,
-                                 const TotalPressure& right) noexcept {
+inline constexpr bool operator<=(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const TotalPressure& left,
-                                 const TotalPressure& right) noexcept {
+inline constexpr bool operator>=(
+    const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const TotalPressure& total_pressure) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const TotalPressure& total_pressure) noexcept {
   stream << total_pressure.Print();
   return stream;
 }
@@ -138,12 +138,12 @@ inline constexpr TotalPressure operator*(
 inline constexpr StaticPressure::StaticPressure(
     const TotalPressure& total_pressure,
     const DynamicPressure& dynamic_pressure) noexcept
-    : StaticPressure(total_pressure.Value() - dynamic_pressure.Value()) {}
+  : StaticPressure(total_pressure.Value() - dynamic_pressure.Value()) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
     const TotalPressure& total_pressure,
     const StaticPressure& static_pressure) noexcept
-    : DynamicPressure(total_pressure.Value() - static_pressure.Value()) {}
+  : DynamicPressure(total_pressure.Value() - static_pressure.Value()) {}
 
 inline constexpr TotalPressure StaticPressure::operator+(
     const DynamicPressure& dynamic_pressure) const noexcept {
@@ -159,8 +159,7 @@ inline constexpr TotalPressure DynamicPressure::operator+(
 
 namespace std {
 
-template <>
-struct hash<PhQ::TotalPressure> {
+template<> struct hash<PhQ::TotalPressure> {
   size_t operator()(const PhQ::TotalPressure& total_pressure) const {
     return hash<double>()(total_pressure.Value());
   }

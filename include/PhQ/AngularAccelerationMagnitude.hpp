@@ -22,44 +22,43 @@
 namespace PhQ {
 
 class AngularAccelerationMagnitude
-    : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
+  : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
 public:
   constexpr AngularAccelerationMagnitude() noexcept
-      : DimensionalScalarQuantity<Unit::AngularAcceleration>() {}
+    : DimensionalScalarQuantity<Unit::AngularAcceleration>() {}
 
-  AngularAccelerationMagnitude(const double value,
-                               const Unit::AngularAcceleration unit) noexcept
-      : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
+  AngularAccelerationMagnitude(
+      const double value, const Unit::AngularAcceleration unit) noexcept
+    : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
 
-  constexpr AngularAccelerationMagnitude(const AngularSpeed& angular_speed,
-                                         const Time& time) noexcept
-      : AngularAccelerationMagnitude(angular_speed.Value() / time.Value()) {}
+  constexpr AngularAccelerationMagnitude(
+      const AngularSpeed& angular_speed, const Time& time) noexcept
+    : AngularAccelerationMagnitude(angular_speed.Value() / time.Value()) {}
 
-  constexpr AngularAccelerationMagnitude(const AngularSpeed& angular_speed,
-                                         const Frequency& frequency) noexcept
-      : AngularAccelerationMagnitude(angular_speed.Value() *
-                                     frequency.Value()) {}
+  constexpr AngularAccelerationMagnitude(
+      const AngularSpeed& angular_speed, const Frequency& frequency) noexcept
+    : AngularAccelerationMagnitude(angular_speed.Value() * frequency.Value()) {}
 
-  template <Unit::AngularAcceleration Unit>
-  static constexpr AngularAccelerationMagnitude Create(
-      const double value) noexcept {
+  template<Unit::AngularAcceleration Unit>
+  static constexpr AngularAccelerationMagnitude
+  Create(const double value) noexcept {
     return AngularAccelerationMagnitude{
         StaticConvertCopy<Unit::AngularAcceleration, Unit,
                           StandardUnit<Unit::AngularAcceleration>>(value)};
   }
 
-  inline constexpr AngularAccelerationMagnitude operator+(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude)
+  inline constexpr AngularAccelerationMagnitude
+  operator+(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept {
-    return AngularAccelerationMagnitude{value_ +
-                                        angular_acceleration_magnitude.value_};
+    return AngularAccelerationMagnitude{
+        value_ + angular_acceleration_magnitude.value_};
   }
 
-  inline constexpr AngularAccelerationMagnitude operator-(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude)
+  inline constexpr AngularAccelerationMagnitude
+  operator-(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept {
-    return AngularAccelerationMagnitude{value_ -
-                                        angular_acceleration_magnitude.value_};
+    return AngularAccelerationMagnitude{
+        value_ - angular_acceleration_magnitude.value_};
   }
 
   inline constexpr AngularAccelerationMagnitude operator*(
@@ -108,7 +107,7 @@ public:
 
 private:
   explicit constexpr AngularAccelerationMagnitude(const double value) noexcept
-      : DimensionalScalarQuantity<Unit::AngularAcceleration>(value) {}
+    : DimensionalScalarQuantity<Unit::AngularAcceleration>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -147,9 +146,9 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream,
-                                const AngularAccelerationMagnitude&
-                                    angular_acceleration_magnitude) noexcept {
+inline std::ostream& operator<<(
+    std::ostream& stream, const AngularAccelerationMagnitude&
+                              angular_acceleration_magnitude) noexcept {
   stream << angular_acceleration_magnitude.Print();
   return stream;
 }
@@ -163,24 +162,22 @@ inline constexpr AngularAccelerationMagnitude operator*(
 inline constexpr Time::Time(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
     const AngularSpeed& angular_speed) noexcept
-    : Time(angular_speed.Value() / angular_acceleration_magnitude.Value()) {}
+  : Time(angular_speed.Value() / angular_acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
     const AngularSpeed& angular_speed) noexcept
-    : Frequency(angular_acceleration_magnitude.Value() /
-                angular_speed.Value()) {}
+  : Frequency(angular_acceleration_magnitude.Value() / angular_speed.Value()) {}
 
 inline constexpr AngularSpeed::AngularSpeed(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
     const Time& time) noexcept
-    : AngularSpeed(angular_acceleration_magnitude.Value() * time.Value()) {}
+  : AngularSpeed(angular_acceleration_magnitude.Value() * time.Value()) {}
 
 inline constexpr AngularSpeed::AngularSpeed(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude,
     const Frequency& frequency) noexcept
-    : AngularSpeed(angular_acceleration_magnitude.Value() / frequency.Value()) {
-}
+  : AngularSpeed(angular_acceleration_magnitude.Value() / frequency.Value()) {}
 
 inline constexpr AngularAccelerationMagnitude Frequency::operator*(
     const AngularSpeed& angular_speed) const noexcept {
@@ -207,10 +204,10 @@ inline constexpr Time AngularSpeed::operator/(
 
 namespace std {
 
-template <>
-struct hash<PhQ::AngularAccelerationMagnitude> {
-  size_t operator()(const PhQ::AngularAccelerationMagnitude&
-                        angular_acceleration_magnitude) const {
+template<> struct hash<PhQ::AngularAccelerationMagnitude> {
+  size_t operator()(
+      const PhQ::AngularAccelerationMagnitude& angular_acceleration_magnitude)
+      const {
     return hash<double>()(angular_acceleration_magnitude.Value());
   }
 };
