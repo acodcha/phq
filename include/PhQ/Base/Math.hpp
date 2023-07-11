@@ -22,48 +22,51 @@
 namespace PhQ {
 
 // The mathematical constant pi = 3.14... expressed as a double-precision
-// floating-point number.
+// floating-point number. This value is as accurate as possible given the IEEE
+// 754 floating-point arithmetic standard.
 inline constexpr double Pi{3.14159265358979323846};
 
 namespace Internal {
 
-// Internal square root solver that recursively factors the input number until
-// it falls within a small interval and then applies an iterative Newton-Raphson
-// method. When using this function, initially call it with factor = 1.
+// Efficient square root solver. This function is an internal implementation
+// detail and is not intended to be used except by the PhQ::SquareRoot function.
 inline constexpr double SquareRootSolver(
     const double number, const double factor) noexcept {
-  // Intervals:
-  //   All values are exact due to the IEEE 754 flaoting-point arithmetic
-  //   standard.
-  //   ]0, 2^-16[ = ]0, 1.52587890625e-5[
-  //   [2^-16, 2^-8[ = [1.52587890625e-5, 0.00390625[
-  //   [2^-8, 2^-4[ = [0.00390625, 0.0625[
-  //   [2^-4, 2^-2[ = [0.0625, 0.25[
-  //   [2^-2, 2^2] = [0.25, 4]
-  //   ]2^2, 2^4] = ]4, 16]
-  //   ]2^4, 2^8] = ]16, 256]
-  //   ]2^8, 2^16] = ]256, 65536]
-  //   ]2^16, 2^32] = ]65536, 4294967296]
-  //   ]2^32, 2^64] = ]4294967296, 18446744073709551616]
-  //   ]2^64, +inf[ = ]18446744073709551616, +inf[
-
   // Recursively factor the input number until it falls within the [0.25, 4]
-  // interval.
+  // interval, which greatly reduces the number of Newton-Raphson iterations
+  // needed to numerically compute the square root. When solving s = sqrt(x), if
+  // x can be expressed as x = n^2 * y such that y is geometrically closer than
+  // x to 1, then solving s = n * sqrt(y) requires much fewer Newton-Raphson
+  // iterations than solving for s = sqrt(x). The values used as interval
+  // endpoints are all powers of 2, which minimize floating-point errors thanks
+  // to the IEEE 754 floating-point arithmetic standard. The interval endpoints
+  // are:
+  //   2^(-16) = 1.52587890625e-5
+  //   2^(-8)  = 0.00390625
+  //   2^(-4)  = 0.0625
+  //   2^(-2)  = 0.25
+  //   2^2     = 4
+  //   2^4     = 16
+  //   2^8     = 256
+  //   2^16    = 65536
+  //   2^32    = 4294967296
+  //   2^64    = 18446744073709551616
   if (number >= 0.25) {
     // Interval: [0.25, +inf[
     if (number <= 4.0) {
       // Interval: [0.25, 4]
-      // Apply an iterative Newton-Raphson method to compute the square root.
-      double current_square_root = number;
-      double previous_square_root = 0.0;
-      while (current_square_root != previous_square_root) {
-        previous_square_root = current_square_root;
-        current_square_root =
-            0.5 * (current_square_root + number / current_square_root);
+      // Use an iterative Newton-Raphson method to numerically compute the
+      // square root. Thanks to the factoring done previously, only a few
+      // iterations are typically needed.
+      double current = number;
+      double previous = 0.5 * (current + 1.0);
+      while (current != previous) {
+        previous = current;
+        current = 0.5 * (current + number / current);
       }
-      // Finally, re-apply the factor to obtain the true square root of the
-      // original input number.
-      return current_square_root * factor;
+      // Finally, re-apply the factor to obtain the square root of the original
+      // input number.
+      return current * factor;
     } else {
       // Interval: ]4, +inf[
       if (number <= 256.0) {
@@ -126,10 +129,10 @@ inline constexpr double SquareRootSolver(
 }  // namespace Internal
 
 // Returns the square root of a double-precision floating-point number. This
-// implementation is a constant expression, unlike std::sqrt().
+// implementation is a constant expression, unlike std::sqrt.
 inline constexpr double SquareRoot(const double number) noexcept {
-  // The square root of zero is zero. Notably, the square root solver is
-  // designed to not handle this value, so it is treated separately.
+  // The square root of zero is zero. Notably, the square root solver does not
+  // handle this value, so it must be treated separately.
   if (number == 0.0) {
     return number;
   }
