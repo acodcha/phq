@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ANGULAR_ACCELERATION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ANGULAR_ACCELERATION_HPP
 
-#include "../Base/Math.hpp"
+#include "../Base/Constants.hpp"
 #include "Base.hpp"
 
 namespace PhQ {

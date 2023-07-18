@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ANGLE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ANGLE_HPP
 
-#include "../Base/Math.hpp"
+#include "../Base/Constants.hpp"
 #include "Base.hpp"
 
 namespace PhQ {

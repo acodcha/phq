@@ -104,9 +104,13 @@ if(BUILD_TESTING)
   target_link_libraries(area_vector GTest::gtest_main)
   gtest_discover_tests(area_vector)
 
-  add_executable(base_math ${PROJECT_SOURCE_DIR}/test/Base/Math.cpp)
-  target_link_libraries(base_math GTest::gtest_main)
-  gtest_discover_tests(base_math)
+  add_executable(base_constants ${PROJECT_SOURCE_DIR}/test/Base/Constants.cpp)
+  target_link_libraries(base_constants GTest::gtest_main)
+  gtest_discover_tests(base_constants)
+
+  add_executable(base_square_root ${PROJECT_SOURCE_DIR}/test/Base/SquareRoot.cpp)
+  target_link_libraries(base_square_root GTest::gtest_main)
+  gtest_discover_tests(base_square_root)
 
   add_executable(base_string ${PROJECT_SOURCE_DIR}/test/Base/String.cpp)
   target_link_libraries(base_string GTest::gtest_main)
