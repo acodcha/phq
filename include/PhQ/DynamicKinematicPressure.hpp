@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
 
-#include "Base/Math.hpp"
+#include "Base/SquareRoot.hpp"
 #include "DynamicPressure.hpp"
 #include "StaticKinematicPressure.hpp"
 

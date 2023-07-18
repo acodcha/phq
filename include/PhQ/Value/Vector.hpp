@@ -19,7 +19,7 @@
 #include <array>
 #include <utility>
 
-#include "../Base/Math.hpp"
+#include "../Base/SquareRoot.hpp"
 #include "../Base/String.hpp"
 
 namespace PhQ {

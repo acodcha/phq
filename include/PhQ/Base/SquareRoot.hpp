@@ -13,18 +13,13 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP
 
 #include <cmath>
 #include <limits>
 
 namespace PhQ {
-
-// The mathematical constant pi = 3.14... expressed as a double-precision
-// floating-point number. This value is as accurate as possible given the IEEE
-// 754 floating-point arithmetic standard.
-inline constexpr double Pi{3.14159265358979323846};
 
 namespace Internal {
 
@@ -153,4 +148,4 @@ inline constexpr double SquareRoot(const double number) noexcept {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_CONSTANT_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 
-#include "../Base/Math.hpp"
+#include "../Base/SquareRoot.hpp"
 #include "../IsentropicBulkModulus.hpp"
 #include "../IsothermalBulkModulus.hpp"
 #include "../LameFirstModulus.hpp"

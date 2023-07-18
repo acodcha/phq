@@ -13,7 +13,7 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../include/PhQ/Base/Math.hpp"
+#include "../../include/PhQ/Base/SquareRoot.hpp"
 
 #include <gtest/gtest.h>
 
@@ -21,15 +21,20 @@ namespace PhQ {
 
 namespace {
 
-TEST(BaseMath, Pi) { EXPECT_EQ(Pi, 3.14159265358979323846); }
-
-TEST(BaseMath, SquareRoot) {
+TEST(BaseSquareRoot, CornerCases) {
   EXPECT_TRUE(std::isnan(SquareRoot(std::numeric_limits<double>::quiet_NaN())));
   EXPECT_TRUE(std::isnan(SquareRoot(-std::numeric_limits<double>::infinity())));
   EXPECT_TRUE(std::isnan(SquareRoot(-2.0)));
   EXPECT_EQ(SquareRoot(0.0), std::sqrt(0.0));
+  EXPECT_EQ(SquareRoot(1.0), std::sqrt(1.0));
   EXPECT_EQ(SquareRoot(std::numeric_limits<double>::min()),
             std::sqrt(std::numeric_limits<double>::min()));
+  EXPECT_DOUBLE_EQ(SquareRoot(std::numeric_limits<double>::max()),
+                   std::sqrt(std::numeric_limits<double>::max()));
+  EXPECT_TRUE(std::isinf(SquareRoot(std::numeric_limits<double>::infinity())));
+}
+
+TEST(BaseSquareRoot, Numbers) {
   EXPECT_EQ(SquareRoot(1.234567890123456789e-128),
             std::sqrt(1.234567890123456789e-128));
   EXPECT_EQ(SquareRoot(1.234567890123456789e-64),
@@ -50,7 +55,6 @@ TEST(BaseMath, SquareRoot) {
       SquareRoot(1.234567890123456789e-1), std::sqrt(1.234567890123456789e-1));
   EXPECT_DOUBLE_EQ(
       SquareRoot(0.1234567890123456789), std::sqrt(0.1234567890123456789));
-  EXPECT_EQ(SquareRoot(1.0), std::sqrt(1.0));
   EXPECT_DOUBLE_EQ(
       SquareRoot(1.234567890123456789), std::sqrt(1.234567890123456789));
   EXPECT_DOUBLE_EQ(
@@ -71,9 +75,6 @@ TEST(BaseMath, SquareRoot) {
       SquareRoot(1.234567890123456789e64), std::sqrt(1.234567890123456789e64));
   EXPECT_EQ(SquareRoot(1.234567890123456789e128),
             std::sqrt(1.234567890123456789e128));
-  EXPECT_DOUBLE_EQ(SquareRoot(std::numeric_limits<double>::max()),
-                   std::sqrt(std::numeric_limits<double>::max()));
-  EXPECT_TRUE(std::isinf(SquareRoot(std::numeric_limits<double>::infinity())));
 }
 
 }  // namespace
