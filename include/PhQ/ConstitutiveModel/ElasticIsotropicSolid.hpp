@@ -245,11 +245,15 @@ public:
   inline PhQ::Stress Stress(
       const PhQ::Strain& strain,
       const PhQ::StrainRate& strain_rate) const noexcept override {
+    return Stress(strain);
+  }
+
+  inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept override {
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
     // b = lame_first_modulus
-    const double temporary{
-        lame_first_modulus_.Value() * strain.Value().Trace()};
+    const double temporary =
+        lame_first_modulus_.Value() * strain.Value().Trace();
     return {
         2.0 * shear_modulus_.Value() * strain.Value()
             + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0,
@@ -258,20 +262,36 @@ public:
     };
   }
 
-  inline PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept {
-    // strain = a * stress - b * trace(stress) * identity_matrix
+  inline PhQ::Stress Stress(
+      const PhQ::StrainRate& strain_rate) const noexcept override {
+    return {
+        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+        StandardUnit<Unit::Pressure>
+    };
+  }
+
+  inline PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept override {
+    // strain = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * shear_modulus)
-    // b = lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3 *
-    // lame_first_modulus))
-    const double denominator1{2.0 * shear_modulus_.Value()};
-    const double numerator2{-lame_first_modulus_.Value()};
-    const double denominator2{
-        2.0 * shear_modulus_.Value()
-        * (2.0 * shear_modulus_.Value() + 3.0 * lame_first_modulus_.Value())};
-    const double temporary{numerator2 / denominator2 * stress.Value().Trace()};
+    // b = -1 * lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3
+    //     * lame_first_modulus))
+    const double a = 1.0 / (2.0 * shear_modulus_.Value());
+    const double b = -lame_first_modulus_.Value()
+                     / (2.0 * shear_modulus_.Value()
+                        * (2.0 * shear_modulus_.Value()
+                           + 3.0 * lame_first_modulus_.Value()));
+    const double temporary = b * stress.Value().Trace();
     return PhQ::Strain{
-        stress.Value() / denominator1
+        a * stress.Value()
         + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}
+    };
+  }
+
+  inline PhQ::StrainRate StrainRate(
+      const PhQ::Stress& stress) const noexcept override {
+    return {
+        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+        StandardUnit<Unit::Frequency>
     };
   }
 

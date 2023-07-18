@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Young's Modulus
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr YoungModulus() noexcept

@@ -55,20 +55,54 @@ public:
   inline PhQ::Stress Stress(
       const PhQ::Strain& strain,
       const PhQ::StrainRate& strain_rate) const noexcept override {
+    return Stress(strain_rate);
+  }
+
+  inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept override {
+    return {
+        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+        StandardUnit<Unit::Pressure>
+    };
+  }
+
+  inline PhQ::Stress Stress(
+      const PhQ::StrainRate& strain_rate) const noexcept override {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
-
-    const double temporary1{2.0 * dynamic_viscosity_.Value()};
-
-    const double temporary2{
-        bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace()};
-
+    const double a = 2.0 * dynamic_viscosity_.Value();
+    const double b =
+        bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace();
     return {
-        Value::SymmetricDyad{temporary1 * strain_rate.Value()}
-            + Value::SymmetricDyad{temporary2, 0.0, 0.0, temporary2, 0.0,
-                             temporary2},
+        Value::SymmetricDyad{a * strain_rate.Value()}
+            + Value::SymmetricDyad{b, 0.0, 0.0, b, 0.0, b},
         StandardUnit<Unit::Pressure>
+    };
+  }
+
+  inline PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept override {
+    return PhQ::Strain{
+        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    };
+  }
+
+  inline PhQ::StrainRate StrainRate(
+      const PhQ::Stress& stress) const noexcept override {
+    // strain_rate = a * stress + b * trace(stress) * identity_matrix
+    // a = 1 / (2 * dynamic_viscosity)
+    // b = -1 * bulk_dynamic_viscosity / (2 * dynamic_viscosity * (2 *
+    //     dynamic_viscosity + 3 * bulk_dynamic_viscosity))
+    const double a = 1.0 / (2.0 * dynamic_viscosity_.Value());
+    const double b = -bulk_dynamic_viscosity_.Value()
+                     / (2.0 * dynamic_viscosity_.Value()
+                        * (2.0 * dynamic_viscosity_.Value()
+                           + 3.0 * bulk_dynamic_viscosity_.Value()));
+    const double temporary = b * stress.Value().Trace();
+    return {
+        a * stress.Value()
+            + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0,
+                                   temporary},
+        StandardUnit<Unit::Frequency>
     };
   }
 
