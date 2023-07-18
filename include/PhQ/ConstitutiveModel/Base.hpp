@@ -38,6 +38,18 @@ public:
       const PhQ::Strain& strain,
       const PhQ::StrainRate& strain_rate) const noexcept = 0;
 
+  virtual inline PhQ::Stress Stress(
+      const PhQ::Strain& strain) const noexcept = 0;
+
+  virtual inline PhQ::Stress Stress(
+      const PhQ::StrainRate& strain_rate) const noexcept = 0;
+
+  virtual inline PhQ::Strain Strain(
+      const PhQ::Stress& stress) const noexcept = 0;
+
+  virtual inline PhQ::StrainRate StrainRate(
+      const PhQ::Stress& stress) const noexcept = 0;
+
   virtual inline std::string Print() const noexcept = 0;
 
   virtual inline std::string JSON() const noexcept = 0;

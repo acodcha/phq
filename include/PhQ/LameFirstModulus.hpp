@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Lamé's First Modulus
 class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr LameFirstModulus() noexcept
