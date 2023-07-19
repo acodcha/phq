@@ -162,6 +162,14 @@ public:
           StandardUnit<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
+  ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
+                        const LameFirstModulus& lame_first_modulus) noexcept
+    : ConstitutiveModel(),
+      shear_modulus_(
+          1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value()),
+          StandardUnit<Unit::Pressure>),
+      lame_first_modulus_(lame_first_modulus) {}
+
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(),
@@ -173,14 +181,6 @@ public:
           StandardUnit<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
-                        const LameFirstModulus& lame_first_modulus) noexcept
-    : ConstitutiveModel(),
-      shear_modulus_(
-          1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
-      lame_first_modulus_(lame_first_modulus) {}
-
-  ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(),
       shear_modulus_(
@@ -190,6 +190,30 @@ public:
           1.5 * isothermal_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value(),
           StandardUnit<Unit::Pressure>) {}
 
+  ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
+                        const PoissonRatio& poisson_ratio) noexcept
+    : ConstitutiveModel(),
+      shear_modulus_(3.0 * isentropic_bulk_modulus.Value()
+                         * (1.0 - 2.0 * poisson_ratio.Value())
+                         / (2.0 + 2.0 * poisson_ratio.Value()),
+                     StandardUnit<Unit::Pressure>),
+      lame_first_modulus_(
+          3.0 * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
+              / (1.0 + poisson_ratio.Value()),
+          StandardUnit<Unit::Pressure>) {}
+
+  ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
+                        const PoissonRatio& poisson_ratio) noexcept
+    : ConstitutiveModel(),
+      shear_modulus_(3.0 * isothermal_bulk_modulus.Value()
+                         * (1.0 - 2.0 * poisson_ratio.Value())
+                         / (2.0 + 2.0 * poisson_ratio.Value()),
+                     StandardUnit<Unit::Pressure>),
+      lame_first_modulus_(
+          3.0 * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
+              / (1.0 + poisson_ratio.Value()),
+          StandardUnit<Unit::Pressure>) {}
+
   ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(),
@@ -197,6 +221,26 @@ public:
           0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value()),
           StandardUnit<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
+
+  ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus,
+                        const PoissonRatio& poisson_ratio) noexcept
+    : ConstitutiveModel(),
+      shear_modulus_(
+          lame_first_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+              / (2.0 * poisson_ratio.Value()),
+          StandardUnit<Unit::Pressure>),
+      lame_first_modulus_(lame_first_modulus) {}
+
+  ElasticIsotropicSolid(const PWaveModulus& p_wave_modulus,
+                        const PoissonRatio& poisson_ratio) noexcept
+    : ConstitutiveModel(),
+      shear_modulus_(
+          p_wave_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+              / (2.0 - 2.0 * poisson_ratio.Value()),
+          StandardUnit<Unit::Pressure>),
+      lame_first_modulus_(p_wave_modulus.Value() * poisson_ratio.Value()
+                              / (1.0 - poisson_ratio.Value()),
+                          StandardUnit<Unit::Pressure>) {}
 
   inline constexpr const PhQ::ShearModulus& ShearModulus() const noexcept {
     return shear_modulus_;
@@ -296,28 +340,28 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Type = " + LowerCaseCopy(Abbreviation(GetType()))
+    return {"Type = " + std::string{Abbreviation(GetType())}
             + ", Shear Modulus = " + shear_modulus_.Print()
             + ", Lamé's First Modulus = " + lame_first_modulus_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", \"shear_modulus\": " + shear_modulus_.JSON()
-            + ", \"lame_first_modulus\": " + lame_first_modulus_.JSON() + "}"};
+    return {"{\"type\":\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",\"shear_modulus\":" + shear_modulus_.JSON()
+            + ",\"lame_first_modulus\":" + lame_first_modulus_.JSON() + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(GetType()))
+    return {"<type>" + SnakeCaseCopy(Abbreviation(GetType()))
             + "</type><shear_modulus>" + shear_modulus_.XML()
             + "</shear_modulus><lame_first_modulus>" + lame_first_modulus_.XML()
             + "</lame_first_modulus>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", shear_modulus: " + shear_modulus_.JSON()
-            + ", lame_first_modulus: " + lame_first_modulus_.JSON() + "}"};
+    return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",shear_modulus:" + shear_modulus_.YAML()
+            + ",lame_first_modulus:" + lame_first_modulus_.YAML() + "}"};
   }
 
 private:
@@ -326,16 +370,42 @@ private:
   PhQ::LameFirstModulus lame_first_modulus_;
 };
 
-inline bool operator==(const ElasticIsotropicSolid& left,
-                       const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator==(const ElasticIsotropicSolid& left,
+                                 const ElasticIsotropicSolid& right) noexcept {
   return left.ShearModulus() == right.ShearModulus()
          && left.LameFirstModulus() == right.LameFirstModulus();
 }
 
-inline bool operator!=(const ElasticIsotropicSolid& left,
-                       const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator!=(const ElasticIsotropicSolid& left,
+                                 const ElasticIsotropicSolid& right) noexcept {
   return left.ShearModulus() != right.ShearModulus()
          || left.LameFirstModulus() != right.LameFirstModulus();
+}
+
+inline constexpr bool operator<(const ElasticIsotropicSolid& left,
+                                const ElasticIsotropicSolid& right) noexcept {
+  if (left.ShearModulus() != right.ShearModulus()) {
+    return left.ShearModulus() < right.ShearModulus();
+  }
+  return left.LameFirstModulus() < right.LameFirstModulus();
+}
+
+inline constexpr bool operator>(const ElasticIsotropicSolid& left,
+                                const ElasticIsotropicSolid& right) noexcept {
+  if (left.ShearModulus() != right.ShearModulus()) {
+    return left.ShearModulus() > right.ShearModulus();
+  }
+  return left.LameFirstModulus() > right.LameFirstModulus();
+}
+
+inline constexpr bool operator<=(const ElasticIsotropicSolid& left,
+                                 const ElasticIsotropicSolid& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(const ElasticIsotropicSolid& left,
+                                 const ElasticIsotropicSolid& right) noexcept {
+  return !(left < right);
 }
 
 inline std::ostream& operator<<(

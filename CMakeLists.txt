@@ -120,6 +120,18 @@ if(BUILD_TESTING)
   target_link_libraries(bulk_dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(bulk_dynamic_viscosity)
 
+  add_executable(constitutive_model_compressible_newtonian_fluid ${PROJECT_SOURCE_DIR}/test/ConstitutiveModel/CompressibleNewtonianFluid.cpp)
+  target_link_libraries(constitutive_model_compressible_newtonian_fluid GTest::gtest_main)
+  gtest_discover_tests(constitutive_model_compressible_newtonian_fluid)
+
+  add_executable(constitutive_model_elastic_isotropic_solid ${PROJECT_SOURCE_DIR}/test/ConstitutiveModel/ElasticIsotropicSolid.cpp)
+  target_link_libraries(constitutive_model_elastic_isotropic_solid GTest::gtest_main)
+  gtest_discover_tests(constitutive_model_elastic_isotropic_solid)
+
+  add_executable(constitutive_model_incompressible_newtonian_fluid ${PROJECT_SOURCE_DIR}/test/ConstitutiveModel/IncompressibleNewtonianFluid.cpp)
+  target_link_libraries(constitutive_model_incompressible_newtonian_fluid GTest::gtest_main)
+  gtest_discover_tests(constitutive_model_incompressible_newtonian_fluid)
+
   add_executable(dimension_electric_current ${PROJECT_SOURCE_DIR}/test/Dimension/ElectricCurrent.cpp)
   target_link_libraries(dimension_electric_current GTest::gtest_main)
   gtest_discover_tests(dimension_electric_current)
