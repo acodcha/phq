@@ -73,38 +73,64 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Type = " + LowerCaseCopy(Abbreviation(GetType()))
+    return {"Type = " + std::string{Abbreviation(GetType())}
             + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON() + "}"};
+    return {"{\"type\":\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",\"dynamic_viscosity\":" + dynamic_viscosity_.JSON() + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(GetType()))
+    return {"<type>" + SnakeCaseCopy(Abbreviation(GetType()))
             + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
             + "</dynamic_viscosity>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", dynamic_viscosity: " + dynamic_viscosity_.JSON() + "}"};
+    return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML() + "}"};
   }
 
 private:
   PhQ::DynamicViscosity dynamic_viscosity_;
 };
 
-inline bool operator==(const IncompressibleNewtonianFluid& left,
-                       const IncompressibleNewtonianFluid& right) noexcept {
+inline constexpr bool operator==(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity();
 }
 
-inline bool operator!=(const IncompressibleNewtonianFluid& left,
-                       const IncompressibleNewtonianFluid& right) noexcept {
+inline constexpr bool operator!=(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity();
+}
+
+inline constexpr bool operator<(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
+  return left.DynamicViscosity() < right.DynamicViscosity();
+}
+
+inline constexpr bool operator>(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
+  return left.DynamicViscosity() > right.DynamicViscosity();
+}
+
+inline constexpr bool operator<=(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
+  return left.DynamicViscosity() <= right.DynamicViscosity();
+}
+
+inline constexpr bool operator>=(
+    const IncompressibleNewtonianFluid& left,
+    const IncompressibleNewtonianFluid& right) noexcept {
+  return left.DynamicViscosity() >= right.DynamicViscosity();
 }
 
 inline std::ostream& operator<<(

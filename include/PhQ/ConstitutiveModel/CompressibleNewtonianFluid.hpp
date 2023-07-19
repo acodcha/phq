@@ -107,29 +107,29 @@ public:
   }
 
   inline std::string Print() const noexcept override {
-    return {"Type = " + LowerCaseCopy(Abbreviation(GetType()))
+    return {"Type = " + std::string{Abbreviation(GetType())}
             + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()
             + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
   }
 
   inline std::string JSON() const noexcept override {
-    return {"{\"type\": \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", \"dynamic_viscosity\": " + dynamic_viscosity_.JSON()
-            + "\", \"bulk_dynamic_viscosity\": "
-            + bulk_dynamic_viscosity_.JSON() + "}"};
+    return {"{\"type\":\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",\"dynamic_viscosity\":" + dynamic_viscosity_.JSON()
+            + ",\"bulk_dynamic_viscosity\":" + bulk_dynamic_viscosity_.JSON()
+            + "}"};
   }
 
   inline std::string XML() const noexcept override {
-    return {"<type>" + LowerCaseCopy(Abbreviation(GetType()))
+    return {"<type>" + SnakeCaseCopy(Abbreviation(GetType()))
             + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
             + "</dynamic_viscosity><bulk_dynamic_viscosity>"
             + bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
   }
 
   inline std::string YAML() const noexcept override {
-    return {"{type: \"" + LowerCaseCopy(Abbreviation(GetType()))
-            + "\", dynamic_viscosity: " + dynamic_viscosity_.JSON()
-            + "\", bulk_dynamic_viscosity: " + bulk_dynamic_viscosity_.JSON()
+    return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
+            + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML()
+            + ",bulk_dynamic_viscosity:" + bulk_dynamic_viscosity_.YAML()
             + "}"};
   }
 
@@ -139,16 +139,48 @@ private:
   PhQ::BulkDynamicViscosity bulk_dynamic_viscosity_;
 };
 
-inline bool operator==(const CompressibleNewtonianFluid& left,
-                       const CompressibleNewtonianFluid& right) noexcept {
+inline constexpr bool operator==(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity()
          && left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
 }
 
-inline bool operator!=(const CompressibleNewtonianFluid& left,
-                       const CompressibleNewtonianFluid& right) noexcept {
+inline constexpr bool operator!=(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity()
          || left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
+}
+
+inline constexpr bool operator<(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
+  if (left.DynamicViscosity() != right.DynamicViscosity()) {
+    return left.DynamicViscosity() < right.DynamicViscosity();
+  }
+  return left.BulkDynamicViscosity() < right.BulkDynamicViscosity();
+}
+
+inline constexpr bool operator>(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
+  if (left.DynamicViscosity() != right.DynamicViscosity()) {
+    return left.DynamicViscosity() > right.DynamicViscosity();
+  }
+  return left.BulkDynamicViscosity() > right.BulkDynamicViscosity();
+}
+
+inline constexpr bool operator<=(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
+  return !(left > right);
+}
+
+inline constexpr bool operator>=(
+    const CompressibleNewtonianFluid& left,
+    const CompressibleNewtonianFluid& right) noexcept {
+  return !(left < right);
 }
 
 inline std::ostream& operator<<(
