@@ -372,7 +372,7 @@ if(BUILD_TESTING)
   target_link_libraries(volume_rate GTest::gtest_main)
   gtest_discover_tests(volume_rate)
 
-  message(STATUS "Testing was configured. Build the testing executables with \"make -j\" and run them with \"make test\"")
+  message(STATUS "Testing was configured. Build the testing executables with \"make --jobs=16\" and run them with \"make test\"")
 else()
   message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_TESTING=ON\" to configure testing.")
 endif()
