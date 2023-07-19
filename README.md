@@ -101,7 +101,7 @@ Testing is optional and disabled by default but can be done from the `build` dir
 
 ```lang-bash
 cmake .. -DBUILD_TESTING=ON
-make -j
+make --jobs=16
 make test
 ```
 
