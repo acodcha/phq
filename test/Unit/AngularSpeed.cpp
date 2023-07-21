@@ -21,10 +21,13 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<AngularSpeed, 9> Units = {
+constexpr std::array<AngularSpeed, 15> Units = {
     AngularSpeed::RadianPerSecond,     AngularSpeed::RadianPerMinute,
     AngularSpeed::RadianPerHour,       AngularSpeed::DegreePerSecond,
     AngularSpeed::DegreePerMinute,     AngularSpeed::DegreePerHour,
+    AngularSpeed::ArcminutePerSecond,  AngularSpeed::ArcminutePerMinute,
+    AngularSpeed::ArcminutePerHour,    AngularSpeed::ArcsecondPerSecond,
+    AngularSpeed::ArcsecondPerMinute,  AngularSpeed::ArcsecondPerHour,
     AngularSpeed::RevolutionPerSecond, AngularSpeed::RevolutionPerMinute,
     AngularSpeed::RevolutionPerHour,
 };
@@ -36,6 +39,12 @@ TEST(UnitAngularSpeed, Abbreviation) {
   EXPECT_EQ(Abbreviation(AngularSpeed::DegreePerSecond), "deg/s");
   EXPECT_EQ(Abbreviation(AngularSpeed::DegreePerMinute), "deg/min");
   EXPECT_EQ(Abbreviation(AngularSpeed::DegreePerHour), "deg/hr");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcminutePerSecond), "arcmin/s");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcminutePerMinute), "arcmin/min");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcminutePerHour), "arcmin/hr");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcsecondPerSecond), "arcsec/s");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcsecondPerMinute), "arcsec/min");
+  EXPECT_EQ(Abbreviation(AngularSpeed::ArcsecondPerHour), "arcsec/hr");
   EXPECT_EQ(Abbreviation(AngularSpeed::RevolutionPerSecond), "rev/s");
   EXPECT_EQ(Abbreviation(AngularSpeed::RevolutionPerMinute), "rev/min");
   EXPECT_EQ(Abbreviation(AngularSpeed::RevolutionPerHour), "rev/hr");
@@ -74,6 +83,24 @@ TEST(UnitAngularSpeed, ConvertFromStandard) {
                                AngularSpeed::DegreePerHour),
                    value * 648000.0 / Pi);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcminutePerSecond),
+                   value * 10800.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcminutePerMinute),
+                   value * 648000.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcminutePerHour),
+                   value * 38880000.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcsecondPerSecond),
+                   value * 648000.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcsecondPerMinute),
+                   value * 38880000.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
+                               AngularSpeed::ArcsecondPerHour),
+                   value * 2332800000.0 / Pi);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
                                AngularSpeed::RevolutionPerSecond),
                    value * 0.5 / Pi);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RadianPerSecond,
@@ -104,6 +131,24 @@ TEST(UnitAngularSpeed, ConvertToStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::DegreePerHour,
                                AngularSpeed::RadianPerSecond),
                    value * Pi / 648000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcminutePerSecond,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 10800.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcminutePerMinute,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 648000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcminutePerHour,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 38880000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcsecondPerSecond,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 648000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcsecondPerMinute,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 38880000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::ArcsecondPerHour,
+                               AngularSpeed::RadianPerSecond),
+                   value * Pi / 2332800000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, AngularSpeed::RevolutionPerSecond,
                                AngularSpeed::RadianPerSecond),
                    value * 2.0 * Pi);
@@ -146,6 +191,14 @@ TEST(UnitAngularSpeed, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("deg/s"), AngularSpeed::DegreePerSecond);
   EXPECT_EQ(Parse<AngularSpeed>("deg/min"), AngularSpeed::DegreePerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("deg/hr"), AngularSpeed::DegreePerHour);
+  EXPECT_EQ(Parse<AngularSpeed>("arcmin/s"), AngularSpeed::ArcminutePerSecond);
+  EXPECT_EQ(
+      Parse<AngularSpeed>("arcmin/min"), AngularSpeed::ArcminutePerMinute);
+  EXPECT_EQ(Parse<AngularSpeed>("arcmin/hr"), AngularSpeed::ArcminutePerHour);
+  EXPECT_EQ(Parse<AngularSpeed>("arcsec/s"), AngularSpeed::ArcsecondPerSecond);
+  EXPECT_EQ(
+      Parse<AngularSpeed>("arcsec/min"), AngularSpeed::ArcsecondPerMinute);
+  EXPECT_EQ(Parse<AngularSpeed>("arcsec/hr"), AngularSpeed::ArcsecondPerHour);
   EXPECT_EQ(Parse<AngularSpeed>("rev/s"), AngularSpeed::RevolutionPerSecond);
   EXPECT_EQ(Parse<AngularSpeed>("rev/min"), AngularSpeed::RevolutionPerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("rev/hr"), AngularSpeed::RevolutionPerHour);
@@ -158,6 +211,12 @@ TEST(UnitAngularSpeed, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::DegreePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::DegreePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::DegreePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcminutePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcminutePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcminutePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcsecondPerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcsecondPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(AngularSpeed::ArcsecondPerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RevolutionPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RevolutionPerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RevolutionPerHour), std::nullopt);
