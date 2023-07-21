@@ -21,6 +21,11 @@
 
 namespace PhQ {
 
+// Forward declaration for class StressScalar.
+class Stress;
+
+// Stress scalar. Represents either a component of the Cauchy stress tensor or a
+// related quantity such as principal stress or Von Mises stress.
 class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr StressScalar() noexcept
@@ -73,6 +78,8 @@ public:
 private:
   explicit constexpr StressScalar(const double value) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+
+  friend Stress;
 };
 
 inline constexpr bool operator==(
