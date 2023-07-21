@@ -83,7 +83,7 @@ TEST(Direction, Comparison) {
 }
 
 TEST(Direction, Constructor) {
-  EXPECT_EQ(Direction{}, Direction(1.0, 0.0, 0.0));
+  EXPECT_EQ(Direction{}, Direction(0.0, 0.0, 0.0));
   EXPECT_EQ(Direction(std::array<double, 3>{0.0, -10.0, 0.0}),
             Direction(0.0, -1.0, 0.0));
   EXPECT_EQ(Direction(Value::Vector{-10.0, 20.0, -30.0}),
@@ -142,7 +142,7 @@ TEST(Direction, JSON) {
 }
 
 TEST(Direction, Print) {
-  EXPECT_EQ(Direction{}.Print(), "(1.000000, 0, 0)");
+  EXPECT_EQ(Direction{}.Print(), "(0, 0, 0)");
   EXPECT_EQ(Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000)");
 }
 
