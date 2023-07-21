@@ -21,11 +21,9 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Angle, 4> Units = {
-    Angle::Radian,
-    Angle::Degree,
-    Angle::Arcminute,
-    Angle::Arcsecond,
+constexpr std::array<Angle, 5> Units = {
+    Angle::Radian,    Angle::Degree,     Angle::Arcminute,
+    Angle::Arcsecond, Angle::Revolution,
 };
 
 TEST(UnitAngle, Abbreviation) {
@@ -33,6 +31,7 @@ TEST(UnitAngle, Abbreviation) {
   EXPECT_EQ(Abbreviation(Angle::Degree), "deg");
   EXPECT_EQ(Abbreviation(Angle::Arcminute), "arcmin");
   EXPECT_EQ(Abbreviation(Angle::Arcsecond), "arcsec");
+  EXPECT_EQ(Abbreviation(Angle::Revolution), "rev");
 }
 
 TEST(UnitAngle, ConsistentUnit) {
@@ -55,6 +54,8 @@ TEST(UnitAngle, ConvertFromStandard) {
                    value * 10800.0 / Pi);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Arcsecond),
                    value * 648000.0 / Pi);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Angle::Radian, Angle::Revolution), value / (2.0 * Pi));
 }
 
 TEST(UnitAngle, ConvertToStandard) {
@@ -66,6 +67,8 @@ TEST(UnitAngle, ConvertToStandard) {
                    value * Pi / 10800.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Arcsecond, Angle::Radian),
                    value * Pi / 648000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Angle::Revolution, Angle::Radian), value * 2.0 * Pi);
 }
 
 TEST(UnitAngle, ConvertVerification) {
@@ -97,6 +100,7 @@ TEST(UnitAngle, Parse) {
   EXPECT_EQ(Parse<Angle>("deg"), Angle::Degree);
   EXPECT_EQ(Parse<Angle>("arcmin"), Angle::Arcminute);
   EXPECT_EQ(Parse<Angle>("arcsec"), Angle::Arcsecond);
+  EXPECT_EQ(Parse<Angle>("rev"), Angle::Revolution);
 }
 
 TEST(UnitAngle, RelatedUnitSystem) {
@@ -104,6 +108,7 @@ TEST(UnitAngle, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Angle::Degree), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Angle::Arcminute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Angle::Arcsecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Angle::Revolution), std::nullopt);
 }
 
 TEST(UnitAngle, StandardUnit) { EXPECT_EQ(StandardUnit<Angle>, Angle::Radian); }

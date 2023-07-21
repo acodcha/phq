@@ -30,6 +30,12 @@ enum class AngularSpeed : int_least8_t {
   DegreePerSecond,
   DegreePerMinute,
   DegreePerHour,
+  ArcminutePerSecond,
+  ArcminutePerMinute,
+  ArcminutePerHour,
+  ArcsecondPerSecond,
+  ArcsecondPerMinute,
+  ArcsecondPerHour,
   RevolutionPerSecond,
   RevolutionPerMinute,
   RevolutionPerHour,
@@ -60,31 +66,43 @@ template<> inline const std::map<Unit::AngularSpeed, UnitSystem>
 
 template<> inline const std::map<Unit::AngularSpeed, std::string_view>
     Abbreviations<Unit::AngularSpeed>{
-        {Unit::AngularSpeed::RadianPerSecond,     "rad/s"  },
-        {Unit::AngularSpeed::RadianPerMinute,     "rad/min"},
-        {Unit::AngularSpeed::RadianPerHour,       "rad/hr" },
-        {Unit::AngularSpeed::DegreePerSecond,     "deg/s"  },
-        {Unit::AngularSpeed::DegreePerMinute,     "deg/min"},
-        {Unit::AngularSpeed::DegreePerHour,       "deg/hr" },
-        {Unit::AngularSpeed::RevolutionPerSecond, "rev/s"  },
-        {Unit::AngularSpeed::RevolutionPerMinute, "rev/min"},
-        {Unit::AngularSpeed::RevolutionPerHour,   "rev/hr" },
+        {Unit::AngularSpeed::RadianPerSecond,     "rad/s"     },
+        {Unit::AngularSpeed::RadianPerMinute,     "rad/min"   },
+        {Unit::AngularSpeed::RadianPerHour,       "rad/hr"    },
+        {Unit::AngularSpeed::DegreePerSecond,     "deg/s"     },
+        {Unit::AngularSpeed::DegreePerMinute,     "deg/min"   },
+        {Unit::AngularSpeed::DegreePerHour,       "deg/hr"    },
+        {Unit::AngularSpeed::ArcminutePerSecond,  "arcmin/s"  },
+        {Unit::AngularSpeed::ArcminutePerMinute,  "arcmin/min"},
+        {Unit::AngularSpeed::ArcminutePerHour,    "arcmin/hr" },
+        {Unit::AngularSpeed::ArcsecondPerSecond,  "arcsec/s"  },
+        {Unit::AngularSpeed::ArcsecondPerMinute,  "arcsec/min"},
+        {Unit::AngularSpeed::ArcsecondPerHour,    "arcsec/hr" },
+        {Unit::AngularSpeed::RevolutionPerSecond, "rev/s"     },
+        {Unit::AngularSpeed::RevolutionPerMinute, "rev/min"   },
+        {Unit::AngularSpeed::RevolutionPerHour,   "rev/hr"    },
 };
 
 template<> inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
     Spellings<Unit::AngularSpeed>{
-        {"rad/s",   Unit::AngularSpeed::RadianPerSecond    },
-        {"rad/min", Unit::AngularSpeed::RadianPerMinute    },
-        {"rad/hr",  Unit::AngularSpeed::RadianPerHour      },
-        {"°/s",     Unit::AngularSpeed::DegreePerSecond    },
-        {"deg/s",   Unit::AngularSpeed::DegreePerSecond    },
-        {"°/min",   Unit::AngularSpeed::DegreePerMinute    },
-        {"deg/min", Unit::AngularSpeed::DegreePerMinute    },
-        {"°/hr",    Unit::AngularSpeed::DegreePerHour      },
-        {"deg/hr",  Unit::AngularSpeed::DegreePerHour      },
-        {"rev/s",   Unit::AngularSpeed::RevolutionPerSecond},
-        {"rev/min", Unit::AngularSpeed::RevolutionPerMinute},
-        {"rev/hr",  Unit::AngularSpeed::RevolutionPerHour  },
+        {"rad/s",      Unit::AngularSpeed::RadianPerSecond    },
+        {"rad/min",    Unit::AngularSpeed::RadianPerMinute    },
+        {"rad/hr",     Unit::AngularSpeed::RadianPerHour      },
+        {"°/s",        Unit::AngularSpeed::DegreePerSecond    },
+        {"deg/s",      Unit::AngularSpeed::DegreePerSecond    },
+        {"°/min",      Unit::AngularSpeed::DegreePerMinute    },
+        {"deg/min",    Unit::AngularSpeed::DegreePerMinute    },
+        {"°/hr",       Unit::AngularSpeed::DegreePerHour      },
+        {"deg/hr",     Unit::AngularSpeed::DegreePerHour      },
+        {"arcmin/s",   Unit::AngularSpeed::ArcminutePerSecond },
+        {"arcmin/min", Unit::AngularSpeed::ArcminutePerMinute },
+        {"arcmin/hr",  Unit::AngularSpeed::ArcminutePerHour   },
+        {"arcsec/s",   Unit::AngularSpeed::ArcsecondPerSecond },
+        {"arcsec/min", Unit::AngularSpeed::ArcsecondPerMinute },
+        {"arcsec/hr",  Unit::AngularSpeed::ArcsecondPerHour   },
+        {"rev/s",      Unit::AngularSpeed::RevolutionPerSecond},
+        {"rev/min",    Unit::AngularSpeed::RevolutionPerMinute},
+        {"rev/hr",     Unit::AngularSpeed::RevolutionPerHour  },
 };
 
 namespace Internal {
@@ -121,6 +139,46 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcminutePerSecond>(
+    double& value) noexcept {
+  value *= 10800.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcminutePerMinute>(
+    double& value) noexcept {
+  value *= 648000.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
+    double& value) noexcept {
+  value *= 38880000.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcsecondPerSecond>(
+    double& value) noexcept {
+  value *= 648000.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcsecondPerMinute>(
+    double& value) noexcept {
+  value *= 38880000.0 / Pi;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
+    double& value) noexcept {
+  value *= 2332800000.0 / Pi;
 }
 
 template<> inline constexpr void
@@ -180,6 +238,42 @@ ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
 }
 
 template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>(
+    double& value) noexcept {
+  value *= Pi / 10800.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>(
+    double& value) noexcept {
+  value *= Pi / 648000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
+    double& value) noexcept {
+  value *= Pi / 38880000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>(
+    double& value) noexcept {
+  value *= Pi / 648000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>(
+    double& value) noexcept {
+  value *= Pi / 38880000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
+    double& value) noexcept {
+  value *= Pi / 2332800000.0;
+}
+
+template<> inline constexpr void
 ConversionToStandard<Unit::AngularSpeed,
                      Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
@@ -221,6 +315,24 @@ template<> inline const std::map<
         {Unit::AngularSpeed::DegreePerHour,
          ConversionsFromStandard<Unit::AngularSpeed,
          Unit::AngularSpeed::DegreePerHour>      },
+        {Unit::AngularSpeed::ArcminutePerSecond,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerSecond> },
+        {Unit::AngularSpeed::ArcminutePerMinute,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerMinute> },
+        {Unit::AngularSpeed::ArcminutePerHour,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerHour>   },
+        {Unit::AngularSpeed::ArcsecondPerSecond,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerSecond> },
+        {Unit::AngularSpeed::ArcsecondPerMinute,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerMinute> },
+        {Unit::AngularSpeed::ArcsecondPerHour,
+         ConversionsFromStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerHour>   },
         {Unit::AngularSpeed::RevolutionPerSecond,
          ConversionsFromStandard<Unit::AngularSpeed,
          Unit::AngularSpeed::RevolutionPerSecond>},
@@ -254,6 +366,24 @@ template<> inline const std::map<
         {Unit::AngularSpeed::DegreePerHour,
          ConversionsToStandard<Unit::AngularSpeed,
          Unit::AngularSpeed::DegreePerHour>      },
+        {Unit::AngularSpeed::ArcminutePerSecond,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerSecond> },
+        {Unit::AngularSpeed::ArcminutePerMinute,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerMinute> },
+        {Unit::AngularSpeed::ArcminutePerHour,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcminutePerHour>   },
+        {Unit::AngularSpeed::ArcsecondPerSecond,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerSecond> },
+        {Unit::AngularSpeed::ArcsecondPerMinute,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerMinute> },
+        {Unit::AngularSpeed::ArcsecondPerHour,
+         ConversionsToStandard<Unit::AngularSpeed,
+         Unit::AngularSpeed::ArcsecondPerHour>   },
         {Unit::AngularSpeed::RevolutionPerSecond,
          ConversionsToStandard<Unit::AngularSpeed,
          Unit::AngularSpeed::RevolutionPerSecond>},
