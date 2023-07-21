@@ -73,8 +73,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Time>
         {"millisecond",  Unit::Time::Millisecond},
         {"milliseconds", Unit::Time::Millisecond},
         {"s",            Unit::Time::Second     },
-        {"sec",          Unit::Time::Second     },
-        {"secs",         Unit::Time::Second     },
         {"second",       Unit::Time::Second     },
         {"seconds",      Unit::Time::Second     },
         {"min",          Unit::Time::Minute     },

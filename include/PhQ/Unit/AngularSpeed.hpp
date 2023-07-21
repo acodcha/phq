@@ -74,19 +74,15 @@ template<> inline const std::map<Unit::AngularSpeed, std::string_view>
 template<> inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
     Spellings<Unit::AngularSpeed>{
         {"rad/s",   Unit::AngularSpeed::RadianPerSecond    },
-        {"rad/sec", Unit::AngularSpeed::RadianPerSecond    },
         {"rad/min", Unit::AngularSpeed::RadianPerMinute    },
         {"rad/hr",  Unit::AngularSpeed::RadianPerHour      },
         {"°/s",     Unit::AngularSpeed::DegreePerSecond    },
-        {"°/sec",   Unit::AngularSpeed::DegreePerSecond    },
         {"deg/s",   Unit::AngularSpeed::DegreePerSecond    },
-        {"deg/sec", Unit::AngularSpeed::DegreePerSecond    },
         {"°/min",   Unit::AngularSpeed::DegreePerMinute    },
         {"deg/min", Unit::AngularSpeed::DegreePerMinute    },
         {"°/hr",    Unit::AngularSpeed::DegreePerHour      },
         {"deg/hr",  Unit::AngularSpeed::DegreePerHour      },
         {"rev/s",   Unit::AngularSpeed::RevolutionPerSecond},
-        {"rev/sec", Unit::AngularSpeed::RevolutionPerSecond},
         {"rev/min", Unit::AngularSpeed::RevolutionPerMinute},
         {"rev/hr",  Unit::AngularSpeed::RevolutionPerHour  },
 };
