@@ -69,18 +69,12 @@ template<> inline const std::map<Unit::MassRate, std::string_view>
 
 template<> inline const std::unordered_map<std::string_view, Unit::MassRate>
     Spellings<Unit::MassRate>{
-        {"kg/s",       Unit::MassRate::KilogramPerSecond},
-        {"kg/sec",     Unit::MassRate::KilogramPerSecond},
-        {"g/s",        Unit::MassRate::GramPerSecond    },
-        {"g/sec",      Unit::MassRate::GramPerSecond    },
-        {"slug/s",     Unit::MassRate::SlugPerSecond    },
-        {"slug/sec",   Unit::MassRate::SlugPerSecond    },
-        {"slinch/s",   Unit::MassRate::SlinchPerSecond  },
-        {"slinch/sec", Unit::MassRate::SlinchPerSecond  },
-        {"lbm/s",      Unit::MassRate::PoundPerSecond   },
-        {"lbm/sec",    Unit::MassRate::PoundPerSecond   },
-        {"lb/s",       Unit::MassRate::PoundPerSecond   },
-        {"lb/sec",     Unit::MassRate::PoundPerSecond   },
+        {"kg/s",     Unit::MassRate::KilogramPerSecond},
+        {"g/s",      Unit::MassRate::GramPerSecond    },
+        {"slug/s",   Unit::MassRate::SlugPerSecond    },
+        {"slinch/s", Unit::MassRate::SlinchPerSecond  },
+        {"lbm/s",    Unit::MassRate::PoundPerSecond   },
+        {"lb/s",     Unit::MassRate::PoundPerSecond   },
 };
 
 namespace Internal {

@@ -24,17 +24,41 @@ namespace Unit {
 
 enum class Acceleration : int_least8_t {
   MilePerSquareSecond,
+  MilePerSquareMinute,
+  MilePerSquareHour,
   KilometrePerSquareSecond,
+  KilometrePerSquareMinute,
+  KilometrePerSquareHour,
   YardPerSquareSecond,
+  YardPerSquareMinute,
+  YardPerSquareHour,
   MetrePerSquareSecond,
+  MetrePerSquareMinute,
+  MetrePerSquareHour,
   FootPerSquareSecond,
+  FootPerSquareMinute,
+  FootPerSquareHour,
   DecimetrePerSquareSecond,
+  DecimetrePerSquareMinute,
+  DecimetrePerSquareHour,
   InchPerSquareSecond,
+  InchPerSquareMinute,
+  InchPerSquareHour,
   CentimetrePerSquareSecond,
+  CentimetrePerSquareMinute,
+  CentimetrePerSquareHour,
   MillimetrePerSquareSecond,
+  MillimetrePerSquareMinute,
+  MillimetrePerSquareHour,
   MilliinchPerSquareSecond,
+  MilliinchPerSquareMinute,
+  MilliinchPerSquareHour,
   MicrometrePerSquareSecond,
+  MicrometrePerSquareMinute,
+  MicrometrePerSquareHour,
   MicroinchPerSquareSecond,
+  MicroinchPerSquareMinute,
+  MicroinchPerSquareHour,
 };
 
 }  // namespace Unit
@@ -72,18 +96,42 @@ template<> inline const std::map<Unit::Acceleration, UnitSystem>
 
 template<> inline const std::map<Unit::Acceleration, std::string_view>
     Abbreviations<Unit::Acceleration>{
-        {Unit::Acceleration::MilePerSquareSecond,       "mi/s^2"  },
-        {Unit::Acceleration::KilometrePerSquareSecond,  "km/s^2"  },
-        {Unit::Acceleration::YardPerSquareSecond,       "yd/s^2"  },
-        {Unit::Acceleration::MetrePerSquareSecond,      "m/s^2"   },
-        {Unit::Acceleration::FootPerSquareSecond,       "ft/s^2"  },
-        {Unit::Acceleration::DecimetrePerSquareSecond,  "dm/s^2"  },
-        {Unit::Acceleration::InchPerSquareSecond,       "in/s^2"  },
-        {Unit::Acceleration::CentimetrePerSquareSecond, "cm/s^2"  },
-        {Unit::Acceleration::MillimetrePerSquareSecond, "mm/s^2"  },
-        {Unit::Acceleration::MilliinchPerSquareSecond,  "mil/s^2" },
-        {Unit::Acceleration::MicrometrePerSquareSecond, "μm/s^2" },
-        {Unit::Acceleration::MicroinchPerSquareSecond,  "μin/s^2"},
+        {Unit::Acceleration::MilePerSquareSecond,       "mi/s^2"   },
+        {Unit::Acceleration::MilePerSquareMinute,       "mi/min^2" },
+        {Unit::Acceleration::MilePerSquareHour,         "mi/hr^2"  },
+        {Unit::Acceleration::KilometrePerSquareSecond,  "km/s^2"   },
+        {Unit::Acceleration::KilometrePerSquareMinute,  "km/min^2" },
+        {Unit::Acceleration::KilometrePerSquareHour,    "km/hr^2"  },
+        {Unit::Acceleration::YardPerSquareSecond,       "yd/s^2"   },
+        {Unit::Acceleration::YardPerSquareMinute,       "yd/min^2" },
+        {Unit::Acceleration::YardPerSquareHour,         "yd/hr^2"  },
+        {Unit::Acceleration::MetrePerSquareSecond,      "m/s^2"    },
+        {Unit::Acceleration::MetrePerSquareMinute,      "m/min^2"  },
+        {Unit::Acceleration::MetrePerSquareHour,        "m/hr^2"   },
+        {Unit::Acceleration::FootPerSquareSecond,       "ft/s^2"   },
+        {Unit::Acceleration::FootPerSquareMinute,       "ft/min^2" },
+        {Unit::Acceleration::FootPerSquareHour,         "ft/hr^2"  },
+        {Unit::Acceleration::DecimetrePerSquareSecond,  "dm/s^2"   },
+        {Unit::Acceleration::DecimetrePerSquareMinute,  "dm/min^2" },
+        {Unit::Acceleration::DecimetrePerSquareHour,    "dm/hr^2"  },
+        {Unit::Acceleration::InchPerSquareSecond,       "in/s^2"   },
+        {Unit::Acceleration::InchPerSquareMinute,       "in/min^2" },
+        {Unit::Acceleration::InchPerSquareHour,         "in/hr^2"  },
+        {Unit::Acceleration::CentimetrePerSquareSecond, "cm/s^2"   },
+        {Unit::Acceleration::CentimetrePerSquareMinute, "cm/min^2" },
+        {Unit::Acceleration::CentimetrePerSquareHour,   "cm/hr^2"  },
+        {Unit::Acceleration::MillimetrePerSquareSecond, "mm/s^2"   },
+        {Unit::Acceleration::MillimetrePerSquareMinute, "mm/min^2" },
+        {Unit::Acceleration::MillimetrePerSquareHour,   "mm/hr^2"  },
+        {Unit::Acceleration::MilliinchPerSquareSecond,  "mil/s^2"  },
+        {Unit::Acceleration::MilliinchPerSquareMinute,  "mil/min^2"},
+        {Unit::Acceleration::MilliinchPerSquareHour,    "mil/hr^2" },
+        {Unit::Acceleration::MicrometrePerSquareSecond, "μm/s^2"   },
+        {Unit::Acceleration::MicrometrePerSquareMinute, "μm/min^2" },
+        {Unit::Acceleration::MicrometrePerSquareHour,   "μm/hr^2"  },
+        {Unit::Acceleration::MicroinchPerSquareSecond,  "μin/s^2"  },
+        {Unit::Acceleration::MicroinchPerSquareMinute,  "μin/min^2"},
+        {Unit::Acceleration::MicroinchPerSquareHour,    "μin/hr^2" },
 };
 
 template<>
@@ -92,105 +140,156 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
     {"mi/s^2",            Unit::Acceleration::MilePerSquareSecond      },
     {"mi/s2",             Unit::Acceleration::MilePerSquareSecond      },
     {"mi/s/s",            Unit::Acceleration::MilePerSquareSecond      },
-    {"mi/sec^2",          Unit::Acceleration::MilePerSquareSecond      },
-    {"mi/sec2",           Unit::Acceleration::MilePerSquareSecond      },
-    {"mi/sec/sec",        Unit::Acceleration::MilePerSquareSecond      },
+    {"mi/min^2",          Unit::Acceleration::MilePerSquareMinute      },
+    {"mi/min2",           Unit::Acceleration::MilePerSquareMinute      },
+    {"mi/min/min",        Unit::Acceleration::MilePerSquareMinute      },
+    {"mi/hr^2",           Unit::Acceleration::MilePerSquareHour        },
+    {"mi/hr2",            Unit::Acceleration::MilePerSquareHour        },
+    {"mi/hr/hr",          Unit::Acceleration::MilePerSquareHour        },
     {"km/s^2",            Unit::Acceleration::KilometrePerSquareSecond },
     {"km/s2",             Unit::Acceleration::KilometrePerSquareSecond },
     {"km/s/s",            Unit::Acceleration::KilometrePerSquareSecond },
-    {"km/sec^2",          Unit::Acceleration::KilometrePerSquareSecond },
-    {"km/sec2",           Unit::Acceleration::KilometrePerSquareSecond },
-    {"km/sec/sec",        Unit::Acceleration::KilometrePerSquareSecond },
+    {"km/min^2",          Unit::Acceleration::KilometrePerSquareMinute },
+    {"km/min2",           Unit::Acceleration::KilometrePerSquareMinute },
+    {"km/min/min",        Unit::Acceleration::KilometrePerSquareMinute },
+    {"km/hr^2",           Unit::Acceleration::KilometrePerSquareHour   },
+    {"km/hr2",            Unit::Acceleration::KilometrePerSquareHour   },
+    {"km/hr/hr",          Unit::Acceleration::KilometrePerSquareHour   },
     {"yd/s^2",            Unit::Acceleration::YardPerSquareSecond      },
     {"yd/s2",             Unit::Acceleration::YardPerSquareSecond      },
     {"yd/s/s",            Unit::Acceleration::YardPerSquareSecond      },
-    {"yd/sec^2",          Unit::Acceleration::YardPerSquareSecond      },
-    {"yd/sec2",           Unit::Acceleration::YardPerSquareSecond      },
-    {"yd/sec/sec",        Unit::Acceleration::YardPerSquareSecond      },
+    {"yd/min^2",          Unit::Acceleration::YardPerSquareMinute      },
+    {"yd/min2",           Unit::Acceleration::YardPerSquareMinute      },
+    {"yd/min/min",        Unit::Acceleration::YardPerSquareMinute      },
+    {"yd/hr^2",           Unit::Acceleration::YardPerSquareHour        },
+    {"yd/hr2",            Unit::Acceleration::YardPerSquareHour        },
+    {"yd/hr/hr",          Unit::Acceleration::YardPerSquareHour        },
     {"m/s^2",             Unit::Acceleration::MetrePerSquareSecond     },
     {"m/s2",              Unit::Acceleration::MetrePerSquareSecond     },
     {"m/s/s",             Unit::Acceleration::MetrePerSquareSecond     },
-    {"m/sec^2",           Unit::Acceleration::MetrePerSquareSecond     },
-    {"m/sec2",            Unit::Acceleration::MetrePerSquareSecond     },
-    {"m/sec/sec",         Unit::Acceleration::MetrePerSquareSecond     },
+    {"m/min^2",           Unit::Acceleration::MetrePerSquareMinute     },
+    {"m/min2",            Unit::Acceleration::MetrePerSquareMinute     },
+    {"m/min/min",         Unit::Acceleration::MetrePerSquareMinute     },
+    {"m/hr^2",            Unit::Acceleration::MetrePerSquareHour       },
+    {"m/hr2",             Unit::Acceleration::MetrePerSquareHour       },
+    {"m/hr/hr",           Unit::Acceleration::MetrePerSquareHour       },
     {"ft/s^2",            Unit::Acceleration::FootPerSquareSecond      },
     {"ft/s2",             Unit::Acceleration::FootPerSquareSecond      },
     {"ft/s/s",            Unit::Acceleration::FootPerSquareSecond      },
-    {"ft/sec^2",          Unit::Acceleration::FootPerSquareSecond      },
-    {"ft/sec2",           Unit::Acceleration::FootPerSquareSecond      },
-    {"ft/sec/sec",        Unit::Acceleration::FootPerSquareSecond      },
+    {"ft/min^2",          Unit::Acceleration::FootPerSquareMinute      },
+    {"ft/min2",           Unit::Acceleration::FootPerSquareMinute      },
+    {"ft/min/min",        Unit::Acceleration::FootPerSquareMinute      },
+    {"ft/hr^2",           Unit::Acceleration::FootPerSquareHour        },
+    {"ft/hr2",            Unit::Acceleration::FootPerSquareHour        },
+    {"ft/hr/hr",          Unit::Acceleration::FootPerSquareHour        },
     {"dm/s^2",            Unit::Acceleration::DecimetrePerSquareSecond },
     {"dm/s2",             Unit::Acceleration::DecimetrePerSquareSecond },
     {"dm/s/s",            Unit::Acceleration::DecimetrePerSquareSecond },
-    {"dm/sec^2",          Unit::Acceleration::DecimetrePerSquareSecond },
-    {"dm/sec2",           Unit::Acceleration::DecimetrePerSquareSecond },
-    {"dm/sec/sec",        Unit::Acceleration::DecimetrePerSquareSecond },
+    {"dm/min^2",          Unit::Acceleration::DecimetrePerSquareMinute },
+    {"dm/min2",           Unit::Acceleration::DecimetrePerSquareMinute },
+    {"dm/min/min",        Unit::Acceleration::DecimetrePerSquareMinute },
+    {"dm/hr^2",           Unit::Acceleration::DecimetrePerSquareHour   },
+    {"dm/hr2",            Unit::Acceleration::DecimetrePerSquareHour   },
+    {"dm/hr/hr",          Unit::Acceleration::DecimetrePerSquareHour   },
     {"in/s^2",            Unit::Acceleration::InchPerSquareSecond      },
     {"in/s2",             Unit::Acceleration::InchPerSquareSecond      },
     {"in/s/s",            Unit::Acceleration::InchPerSquareSecond      },
-    {"in/sec^2",          Unit::Acceleration::InchPerSquareSecond      },
-    {"in/sec2",           Unit::Acceleration::InchPerSquareSecond      },
-    {"in/sec/sec",        Unit::Acceleration::InchPerSquareSecond      },
+    {"in/min^2",          Unit::Acceleration::InchPerSquareMinute      },
+    {"in/min2",           Unit::Acceleration::InchPerSquareMinute      },
+    {"in/min/min",        Unit::Acceleration::InchPerSquareMinute      },
+    {"in/hr^2",           Unit::Acceleration::InchPerSquareHour        },
+    {"in/hr2",            Unit::Acceleration::InchPerSquareHour        },
+    {"in/hr/hr",          Unit::Acceleration::InchPerSquareHour        },
     {"cm/s^2",            Unit::Acceleration::CentimetrePerSquareSecond},
     {"cm/s2",             Unit::Acceleration::CentimetrePerSquareSecond},
     {"cm/s/s",            Unit::Acceleration::CentimetrePerSquareSecond},
-    {"cm/sec^2",          Unit::Acceleration::CentimetrePerSquareSecond},
-    {"cm/sec2",           Unit::Acceleration::CentimetrePerSquareSecond},
-    {"cm/sec/sec",        Unit::Acceleration::CentimetrePerSquareSecond},
+    {"cm/min^2",          Unit::Acceleration::CentimetrePerSquareMinute},
+    {"cm/min2",           Unit::Acceleration::CentimetrePerSquareMinute},
+    {"cm/min/min",        Unit::Acceleration::CentimetrePerSquareMinute},
+    {"cm/hr^2",           Unit::Acceleration::CentimetrePerSquareHour  },
+    {"cm/hr2",            Unit::Acceleration::CentimetrePerSquareHour  },
+    {"cm/hr/hr",          Unit::Acceleration::CentimetrePerSquareHour  },
     {"mm/s^2",            Unit::Acceleration::MillimetrePerSquareSecond},
     {"mm/s2",             Unit::Acceleration::MillimetrePerSquareSecond},
     {"mm/s/s",            Unit::Acceleration::MillimetrePerSquareSecond},
-    {"mm/sec^2",          Unit::Acceleration::MillimetrePerSquareSecond},
-    {"mm/sec2",           Unit::Acceleration::MillimetrePerSquareSecond},
-    {"mm/sec/sec",        Unit::Acceleration::MillimetrePerSquareSecond},
+    {"mm/min^2",          Unit::Acceleration::MillimetrePerSquareMinute},
+    {"mm/min2",           Unit::Acceleration::MillimetrePerSquareMinute},
+    {"mm/min/min",        Unit::Acceleration::MillimetrePerSquareMinute},
+    {"mm/hr^2",           Unit::Acceleration::MillimetrePerSquareHour  },
+    {"mm/hr2",            Unit::Acceleration::MillimetrePerSquareHour  },
+    {"mm/hr/hr",          Unit::Acceleration::MillimetrePerSquareHour  },
     {"milin/s^2",         Unit::Acceleration::MilliinchPerSquareSecond },
     {"milin/s2",          Unit::Acceleration::MilliinchPerSquareSecond },
     {"milin/s/s",         Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milin/sec^2",       Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milin/sec2",        Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milin/sec/sec",     Unit::Acceleration::MilliinchPerSquareSecond },
     {"milliinch/s^2",     Unit::Acceleration::MilliinchPerSquareSecond },
     {"milliinch/s2",      Unit::Acceleration::MilliinchPerSquareSecond },
     {"milliinch/s/s",     Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milliinch/sec^2",   Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milliinch/sec2",    Unit::Acceleration::MilliinchPerSquareSecond },
-    {"milliinch/sec/sec", Unit::Acceleration::MilliinchPerSquareSecond },
     {"mil/s^2",           Unit::Acceleration::MilliinchPerSquareSecond },
     {"mil/s2",            Unit::Acceleration::MilliinchPerSquareSecond },
     {"mil/s/s",           Unit::Acceleration::MilliinchPerSquareSecond },
-    {"mil/sec^2",         Unit::Acceleration::MilliinchPerSquareSecond },
-    {"mil/sec2",          Unit::Acceleration::MilliinchPerSquareSecond },
-    {"mil/sec/sec",       Unit::Acceleration::MilliinchPerSquareSecond },
     {"thou/s^2",          Unit::Acceleration::MilliinchPerSquareSecond },
     {"thou/s2",           Unit::Acceleration::MilliinchPerSquareSecond },
     {"thou/s/s",          Unit::Acceleration::MilliinchPerSquareSecond },
-    {"thou/sec^2",        Unit::Acceleration::MilliinchPerSquareSecond },
-    {"thou/sec2",         Unit::Acceleration::MilliinchPerSquareSecond },
-    {"thou/sec/sec",      Unit::Acceleration::MilliinchPerSquareSecond },
+    {"milin/min^2",       Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milin/min2",        Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milin/min/min",     Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milliinch/min^2",   Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milliinch/min2",    Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milliinch/min/min", Unit::Acceleration::MilliinchPerSquareMinute },
+    {"mil/min^2",         Unit::Acceleration::MilliinchPerSquareMinute },
+    {"mil/min2",          Unit::Acceleration::MilliinchPerSquareMinute },
+    {"mil/min/min",       Unit::Acceleration::MilliinchPerSquareMinute },
+    {"thou/min^2",        Unit::Acceleration::MilliinchPerSquareMinute },
+    {"thou/min2",         Unit::Acceleration::MilliinchPerSquareMinute },
+    {"thou/min/min",      Unit::Acceleration::MilliinchPerSquareMinute },
+    {"milin/hr^2",        Unit::Acceleration::MilliinchPerSquareHour   },
+    {"milin/hr2",         Unit::Acceleration::MilliinchPerSquareHour   },
+    {"milin/hr/hr",       Unit::Acceleration::MilliinchPerSquareHour   },
+    {"milliinch/hr^2",    Unit::Acceleration::MilliinchPerSquareHour   },
+    {"milliinch/hr2",     Unit::Acceleration::MilliinchPerSquareHour   },
+    {"milliinch/hr/hr",   Unit::Acceleration::MilliinchPerSquareHour   },
+    {"mil/hr^2",          Unit::Acceleration::MilliinchPerSquareHour   },
+    {"mil/hr2",           Unit::Acceleration::MilliinchPerSquareHour   },
+    {"mil/hr/hr",         Unit::Acceleration::MilliinchPerSquareHour   },
+    {"thou/hr^2",         Unit::Acceleration::MilliinchPerSquareHour   },
+    {"thou/hr2",          Unit::Acceleration::MilliinchPerSquareHour   },
+    {"thou/hr/hr",        Unit::Acceleration::MilliinchPerSquareHour   },
     {"μm/s^2",            Unit::Acceleration::MicrometrePerSquareSecond},
     {"μm/s2",             Unit::Acceleration::MicrometrePerSquareSecond},
     {"μm/s/s",            Unit::Acceleration::MicrometrePerSquareSecond},
-    {"μm/sec^2",          Unit::Acceleration::MicrometrePerSquareSecond},
-    {"μm/sec2",           Unit::Acceleration::MicrometrePerSquareSecond},
-    {"μm/sec/sec",        Unit::Acceleration::MicrometrePerSquareSecond},
     {"um/s^2",            Unit::Acceleration::MicrometrePerSquareSecond},
     {"um/s2",             Unit::Acceleration::MicrometrePerSquareSecond},
     {"um/s/s",            Unit::Acceleration::MicrometrePerSquareSecond},
-    {"um/sec^2",          Unit::Acceleration::MicrometrePerSquareSecond},
-    {"um/sec2",           Unit::Acceleration::MicrometrePerSquareSecond},
-    {"um/sec/sec",        Unit::Acceleration::MicrometrePerSquareSecond},
+    {"μm/min^2",          Unit::Acceleration::MicrometrePerSquareMinute},
+    {"μm/min2",           Unit::Acceleration::MicrometrePerSquareMinute},
+    {"μm/min/min",        Unit::Acceleration::MicrometrePerSquareMinute},
+    {"um/min^2",          Unit::Acceleration::MicrometrePerSquareMinute},
+    {"um/min2",           Unit::Acceleration::MicrometrePerSquareMinute},
+    {"um/min/min",        Unit::Acceleration::MicrometrePerSquareMinute},
+    {"μm/hr^2",           Unit::Acceleration::MicrometrePerSquareHour  },
+    {"μm/hr2",            Unit::Acceleration::MicrometrePerSquareHour  },
+    {"μm/hr/hr",          Unit::Acceleration::MicrometrePerSquareHour  },
+    {"um/hr^2",           Unit::Acceleration::MicrometrePerSquareHour  },
+    {"um/hr2",            Unit::Acceleration::MicrometrePerSquareHour  },
+    {"um/hr/hr",          Unit::Acceleration::MicrometrePerSquareHour  },
     {"μin/s^2",           Unit::Acceleration::MicroinchPerSquareSecond },
     {"μin/s2",            Unit::Acceleration::MicroinchPerSquareSecond },
     {"μin/s/s",           Unit::Acceleration::MicroinchPerSquareSecond },
-    {"μin/sec^2",         Unit::Acceleration::MicroinchPerSquareSecond },
-    {"μin/sec2",          Unit::Acceleration::MicroinchPerSquareSecond },
-    {"μin/sec/sec",       Unit::Acceleration::MicroinchPerSquareSecond },
     {"uin/s^2",           Unit::Acceleration::MicroinchPerSquareSecond },
     {"uin/s2",            Unit::Acceleration::MicroinchPerSquareSecond },
     {"uin/s/s",           Unit::Acceleration::MicroinchPerSquareSecond },
-    {"uin/sec^2",         Unit::Acceleration::MicroinchPerSquareSecond },
-    {"uin/sec2",          Unit::Acceleration::MicroinchPerSquareSecond },
-    {"uin/sec/sec",       Unit::Acceleration::MicroinchPerSquareSecond },
+    {"μin/min^2",         Unit::Acceleration::MicroinchPerSquareMinute },
+    {"μin/min2",          Unit::Acceleration::MicroinchPerSquareMinute },
+    {"μin/min/min",       Unit::Acceleration::MicroinchPerSquareMinute },
+    {"uin/min^2",         Unit::Acceleration::MicroinchPerSquareMinute },
+    {"uin/min2",          Unit::Acceleration::MicroinchPerSquareMinute },
+    {"uin/min/min",       Unit::Acceleration::MicroinchPerSquareMinute },
+    {"μin/hr^2",          Unit::Acceleration::MicroinchPerSquareHour   },
+    {"μin/hr2",           Unit::Acceleration::MicroinchPerSquareHour   },
+    {"μin/hr/hr",         Unit::Acceleration::MicroinchPerSquareHour   },
+    {"uin/hr^2",          Unit::Acceleration::MicroinchPerSquareHour   },
+    {"uin/hr2",           Unit::Acceleration::MicroinchPerSquareHour   },
+    {"uin/hr/hr",         Unit::Acceleration::MicroinchPerSquareHour   },
 };
 
 namespace Internal {
@@ -204,9 +303,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MilePerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 1609.344;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MilePerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 1609.344;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::KilometrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.001;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::KilometrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 3.6;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::KilometrePerSquareHour>(
+    double& value) noexcept {
+  value *= 12960.0;
 }
 
 template<> inline constexpr void
@@ -216,9 +343,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::YardPerSquareSecond>(
     double& value) noexcept {
   value /= 0.9144;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::YardPerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.9144;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::YardPerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 0.9144;
 }
 
 template<> inline constexpr void
@@ -230,9 +385,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::FootPerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.3048;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::FootPerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 0.3048;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::DecimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 10.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::DecimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 36000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::DecimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 129600000.0;
 }
 
 template<> inline constexpr void
@@ -244,9 +427,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::InchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.0254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::InchPerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 0.0254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::CentimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 100.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::CentimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 360000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::CentimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 1296000000.0;
 }
 
 template<> inline constexpr void
@@ -258,9 +469,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MillimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MillimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilliinchPerSquareSecond>(
     double& value) noexcept {
   value /= 0.0000254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MilliinchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.0000254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MilliinchPerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 0.0000254;
 }
 
 template<> inline constexpr void
@@ -272,9 +511,37 @@ ConversionFromStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MicrometrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MicrometrePerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicroinchPerSquareSecond>(
     double& value) noexcept {
   value /= 0.0000000254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MicroinchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.0000000254;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Acceleration,
+                       Unit::Acceleration::MicroinchPerSquareHour>(
+    double& value) noexcept {
+  value *= 12960000.0 / 0.0000000254;
 }
 
 template<> inline constexpr void
@@ -286,9 +553,36 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MilePerSquareMinute>(
+    double& value) noexcept {
+  value *= 1609.344 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>(
+    double& value) noexcept {
+  value *= 1609.344 / 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::KilometrePerSquareSecond>(
     double& value) noexcept {
   value *= 1000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::KilometrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 1000.0 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::KilometrePerSquareHour>(
+    double& value) noexcept {
+  value *= 1000.0 / 12960000.0;
 }
 
 template<> inline constexpr void
@@ -298,9 +592,35 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MetrePerSquareMinute>(
+    double& value) noexcept {
+  value /= 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>(
+    double& value) noexcept {
+  value /= 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::YardPerSquareSecond>(
     double& value) noexcept {
   value *= 0.9144;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::YardPerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.9144 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>(
+    double& value) noexcept {
+  value *= 0.9144 / 12960000.0;
 }
 
 template<> inline constexpr void
@@ -312,9 +632,36 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::FootPerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.3048 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>(
+    double& value) noexcept {
+  value *= 0.3048 / 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::DecimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.1;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::DecimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.1 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::DecimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 0.1 / 12960000.0;
 }
 
 template<> inline constexpr void
@@ -326,9 +673,36 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::InchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.0254 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>(
+    double& value) noexcept {
+  value *= 0.0254 / 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::CentimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.01;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::CentimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.01 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::CentimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 0.01 / 12960000.0;
 }
 
 template<> inline constexpr void
@@ -340,9 +714,37 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MillimetrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.001 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MillimetrePerSquareHour>(
+    double& value) noexcept {
+  value *= 0.001 / 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilliinchPerSquareSecond>(
     double& value) noexcept {
   value *= 0.0000254;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MilliinchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.0000254 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MilliinchPerSquareHour>(
+    double& value) noexcept {
+  value *= 0.0000254 / 12960000.0;
 }
 
 template<> inline constexpr void
@@ -354,9 +756,37 @@ ConversionToStandard<Unit::Acceleration,
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MicrometrePerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.000001 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MicrometrePerSquareHour>(
+    double& value) noexcept {
+  value *= 0.000001 / 12960000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicroinchPerSquareSecond>(
     double& value) noexcept {
   value *= 0.0000000254;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MicroinchPerSquareMinute>(
+    double& value) noexcept {
+  value *= 0.0000000254 / 3600.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MicroinchPerSquareHour>(
+    double& value) noexcept {
+  value *= 0.0000000254 / 12960000.0;
 }
 
 template<> inline const std::map<
@@ -366,39 +796,111 @@ template<> inline const std::map<
         {Unit::Acceleration::MilePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MilePerSquareSecond>      },
+        {Unit::Acceleration::MilePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareMinute>      },
+        {Unit::Acceleration::MilePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareHour>        },
         {Unit::Acceleration::KilometrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::KilometrePerSquareSecond> },
+        {Unit::Acceleration::KilometrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareMinute> },
+        {Unit::Acceleration::KilometrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareHour>   },
         {Unit::Acceleration::MetrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MetrePerSquareSecond>     },
+        {Unit::Acceleration::MetrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>     },
+        {Unit::Acceleration::MetrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>       },
         {Unit::Acceleration::YardPerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::YardPerSquareSecond>      },
+        {Unit::Acceleration::YardPerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareMinute>      },
+        {Unit::Acceleration::YardPerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareHour>        },
         {Unit::Acceleration::FootPerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::FootPerSquareSecond>      },
+        {Unit::Acceleration::FootPerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareMinute>      },
+        {Unit::Acceleration::FootPerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareHour>        },
         {Unit::Acceleration::DecimetrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::DecimetrePerSquareSecond> },
+        {Unit::Acceleration::DecimetrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareMinute> },
+        {Unit::Acceleration::DecimetrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareHour>   },
         {Unit::Acceleration::InchPerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::InchPerSquareSecond>      },
+        {Unit::Acceleration::InchPerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareMinute>      },
+        {Unit::Acceleration::InchPerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareHour>        },
         {Unit::Acceleration::CentimetrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::CentimetrePerSquareSecond>},
+        {Unit::Acceleration::CentimetrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareMinute>},
+        {Unit::Acceleration::CentimetrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareHour>  },
         {Unit::Acceleration::MillimetrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MillimetrePerSquareSecond>},
+        {Unit::Acceleration::MillimetrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareMinute>},
+        {Unit::Acceleration::MillimetrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareHour>  },
         {Unit::Acceleration::MilliinchPerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MilliinchPerSquareSecond> },
+        {Unit::Acceleration::MilliinchPerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareMinute> },
+        {Unit::Acceleration::MilliinchPerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareHour>   },
         {Unit::Acceleration::MicrometrePerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MicrometrePerSquareSecond>},
+        {Unit::Acceleration::MicrometrePerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareMinute>},
+        {Unit::Acceleration::MicrometrePerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareHour>  },
         {Unit::Acceleration::MicroinchPerSquareSecond,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MicroinchPerSquareSecond> },
+        {Unit::Acceleration::MicroinchPerSquareMinute,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareMinute> },
+        {Unit::Acceleration::MicroinchPerSquareHour,
+         ConversionsFromStandard<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareHour>   },
 };
 
 template<> inline const std::map<
@@ -408,39 +910,111 @@ template<> inline const std::map<
         {Unit::Acceleration::MilePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MilePerSquareSecond>      },
+        {Unit::Acceleration::MilePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareMinute>      },
+        {Unit::Acceleration::MilePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareHour>        },
         {Unit::Acceleration::KilometrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::KilometrePerSquareSecond> },
+        {Unit::Acceleration::KilometrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareMinute> },
+        {Unit::Acceleration::KilometrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareHour>   },
         {Unit::Acceleration::MetrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MetrePerSquareSecond>     },
+        {Unit::Acceleration::MetrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>     },
+        {Unit::Acceleration::MetrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>       },
         {Unit::Acceleration::YardPerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::YardPerSquareSecond>      },
+        {Unit::Acceleration::YardPerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareMinute>      },
+        {Unit::Acceleration::YardPerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareHour>        },
         {Unit::Acceleration::FootPerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::FootPerSquareSecond>      },
+        {Unit::Acceleration::FootPerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareMinute>      },
+        {Unit::Acceleration::FootPerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareHour>        },
         {Unit::Acceleration::DecimetrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::DecimetrePerSquareSecond> },
+        {Unit::Acceleration::DecimetrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareMinute> },
+        {Unit::Acceleration::DecimetrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareHour>   },
         {Unit::Acceleration::InchPerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::InchPerSquareSecond>      },
+        {Unit::Acceleration::InchPerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareMinute>      },
+        {Unit::Acceleration::InchPerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareHour>        },
         {Unit::Acceleration::CentimetrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::CentimetrePerSquareSecond>},
+        {Unit::Acceleration::CentimetrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareMinute>},
+        {Unit::Acceleration::CentimetrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareHour>  },
         {Unit::Acceleration::MillimetrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MillimetrePerSquareSecond>},
+        {Unit::Acceleration::MillimetrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareMinute>},
+        {Unit::Acceleration::MillimetrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareHour>  },
         {Unit::Acceleration::MilliinchPerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MilliinchPerSquareSecond> },
+        {Unit::Acceleration::MilliinchPerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareMinute> },
+        {Unit::Acceleration::MilliinchPerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareHour>   },
         {Unit::Acceleration::MicrometrePerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MicrometrePerSquareSecond>},
+        {Unit::Acceleration::MicrometrePerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareMinute>},
+        {Unit::Acceleration::MicrometrePerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareHour>  },
         {Unit::Acceleration::MicroinchPerSquareSecond,
          ConversionsToStandard<Unit::Acceleration,
          Unit::Acceleration::MicroinchPerSquareSecond> },
+        {Unit::Acceleration::MicroinchPerSquareMinute,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareMinute> },
+        {Unit::Acceleration::MicroinchPerSquareHour,
+         ConversionsToStandard<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareHour>   },
 };
 
 }  // namespace Internal
