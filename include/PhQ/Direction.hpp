@@ -41,42 +41,67 @@ class TemperatureGradientMagnitude;
 class Traction;
 class Velocity;
 
+// Direction. This is guaranteed to be either a unit vector or the zero vector
+// [0, 0, 0]. Use the Valid() method to check whether the direction is a unit
+// vector or the zero vector.
 class Direction : public DimensionlessVectorQuantity {
 public:
+  // Default constructor. Initializes the direction to the zero vector.
   constexpr Direction() noexcept
-    : DimensionlessVectorQuantity({1.0, 0.0, 0.0}) {}
+    : DimensionlessVectorQuantity({0.0, 0.0, 0.0}) {}
 
+  // Constructs a direction by normalizing the given [x, y, z] coordinates to a
+  // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
+  // zero vector.
   constexpr Direction(const double x, const double y, const double z) noexcept {
     SetValue(x, y, z);
   }
 
+  // Constructs a direction by normalizing the given [x, y, z] coordinates to a
+  // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
+  // zero vector.
   explicit constexpr Direction(const std::array<double, 3>& x_y_z) noexcept {
     SetValue(x_y_z);
   }
 
+  // Constructs a direction by normalizing the given x-y-z vector to a unit
+  // vector. If the given vector is a zero vector, initializes the direction to
+  // the zero vector.
   explicit constexpr Direction(const Value::Vector& value) noexcept {
     SetValue(value);
   }
 
+  // Constructs a direction from an acceleration.
   explicit constexpr Direction(const Acceleration& acceleration) noexcept;
 
+  // Constructs a direction from a vector area.
   explicit constexpr Direction(const AreaVector& area_vector) noexcept;
 
+  // Constructs a direction from a displacement.
   explicit constexpr Direction(const Displacement& displacement) noexcept;
 
+  // Constructs a direction from a force.
   explicit constexpr Direction(const Force& force) noexcept;
 
+  // Constructs a direction from a heat flux.
   explicit constexpr Direction(const HeatFlux& heat_flux) noexcept;
 
+  // Constructs a direction from a position.
   explicit constexpr Direction(const Position& position) noexcept;
 
+  // Constructs a direction from a temperature gradient.
   explicit constexpr Direction(
       const TemperatureGradient& temperature_gradient) noexcept;
 
+  // Constructs a direction from a traction.
   explicit constexpr Direction(const Traction& traction) noexcept;
 
+  // Constructs a direction from a velocity.
   explicit constexpr Direction(const Velocity& velocity) noexcept;
 
+  // Sets the value of this direction by normalizing the given x, y, and z
+  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
+  // direction to the zero vector.
   inline constexpr void SetValue(
       const double x, const double y, const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
@@ -88,6 +113,9 @@ public:
     }
   }
 
+  // Sets the value of this direction by normalizing the given x, y, and z
+  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
+  // direction to the zero vector.
   inline constexpr void SetValue(const std::array<double, 3>& x_y_z) noexcept {
     const double magnitude_squared{
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
@@ -100,45 +128,73 @@ public:
     }
   }
 
+  // Sets the value of this direction by normalizing the given x-y-z vector to a
+  // unit vector. If the given vector is a zero vector, sets the direction to
+  // the zero vector.
   inline constexpr void SetValue(const Value::Vector& value) noexcept {
     SetValue(value.x_y_z());
   }
 
+  // Returns true if the direction is a unit vector, or false if it is the zero
+  // vector.
   inline constexpr bool Valid() const noexcept {
     return value_.x() != 0.0 || value_.y() != 0.0 || value_.z() != 0.0;
   }
 
+  // Returns the square of the magnitude of the direction. This is guaranteed to
+  // be exactly 1 if the direction is valid, or 0 if the direction is the zero
+  // vector.
+  inline constexpr double MagnitudeSquared() const noexcept {
+    return value_.MagnitudeSquared();
+  }
+
+  // Returns the magnitude of the direction. This is guaranteed to be exactly 1
+  // if the direction is valid, or 0 if the direction is the zero vector.
+  inline constexpr double Magnitude() const noexcept {
+    return value_.Magnitude();
+  }
+
+  // Returns the dot product (also known as the scalar product or the inner
+  // product) of the direction with the given vector.
   inline constexpr double Dot(const Value::Vector& vector) const noexcept {
     return value_.Dot(vector);
   }
 
+  // Returns the dot product (also known as the scalar product or the inner
+  // product) of the direction with the given other direction.
   inline constexpr double Dot(const Direction& direction) const noexcept {
     return value_.Dot(direction.value_);
   }
 
+  // Returns the cross product of the direction with the given vector.
   inline constexpr Value::Vector Cross(
       const Value::Vector& vector) const noexcept {
     return value_.Cross(vector);
   }
 
+  // Returns the cross product of the direction with the given other direction.
   inline constexpr Direction Cross(const Direction& direction) const noexcept {
     return Direction{value_.Cross(direction.value_)};
   }
 
+  // Returns the dyadic product of the direction with the given vector.
   inline constexpr Value::Dyad Dyadic(
       const Value::Vector& vector) const noexcept {
     return value_.Dyadic(vector);
   }
 
+  // Returns the dyadic product of the direction with the given other direction.
   inline constexpr Value::Dyad Dyadic(
       const Direction& direction) const noexcept {
     return value_.Dyadic(direction.value_);
   }
 
+  // Returns the angle between the direction and the given vector.
   inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept {
     return PhQ::Angle{*this, vector};
   }
 
+  // Returns the angle between the direction and the given other direction.
   inline PhQ::Angle Angle(const Direction& direction) const noexcept {
     return PhQ::Angle{*this, direction};
   }
@@ -202,24 +258,30 @@ inline std::ostream& operator<<(
   return stream;
 }
 
+// Constructs a vector from a magnitude and a direction.
 inline constexpr Value::Vector::Vector(
     const double magnitude, const PhQ::Direction& direction) noexcept
   : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
+// Returns the direction of the vector.
 inline constexpr PhQ::Direction Value::Vector::Direction() const noexcept {
   return PhQ::Direction{*this};
 }
 
+// Returns the dot product (also known as the scalar product or the inner
+// product) of the vector with the given direction.
 inline constexpr double Value::Vector::Dot(
     const PhQ::Direction& direction) const noexcept {
   return Dot(direction.Value());
 }
 
+// Returns the cross product of the vector with the given direction.
 inline constexpr Value::Vector Value::Vector::Cross(
     const PhQ::Direction& direction) const noexcept {
   return Cross(direction.Value());
 }
 
+// Returns the dyadic product of the vector with the given direction.
 inline constexpr Value::Dyad Value::Vector::Dyadic(
     const PhQ::Direction& direction) const noexcept {
   return Dyadic(direction.Value());
@@ -235,21 +297,25 @@ inline constexpr Value::Vector operator*(
   return dyad * direction.Value();
 }
 
+// Returns the angle between the vector and the given direction.
 inline Angle Value::Vector::Angle(
     const PhQ::Direction& direction) const noexcept {
   return PhQ::Angle{*this, direction};
 }
 
+// Constructs an angle formed from the angle between a vector and a direction.
 inline Angle::Angle(
     const Value::Vector& vector, const Direction& direction) noexcept
   : DimensionalScalarQuantity<Unit::Angle>(
       std::acos(vector.Dot(direction) / vector.Magnitude())) {}
 
+// Constructs an angle formed from the angle between a direction and a vector.
 inline Angle::Angle(
     const Direction& direction, const Value::Vector& vector) noexcept
   : DimensionalScalarQuantity<Unit::Angle>(
       std::acos(direction.Dot(vector) / vector.Magnitude())) {}
 
+// Constructs an angle formed from the angle between two directions.
 inline Angle::Angle(
     const Direction& direction1, const Direction& direction2) noexcept
   : DimensionalScalarQuantity<Unit::Angle>(
