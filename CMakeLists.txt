@@ -204,6 +204,10 @@ if(BUILD_TESTING)
   target_link_libraries(position GTest::gtest_main)
   gtest_discover_tests(position)
 
+  add_executable(sound_speed ${PROJECT_SOURCE_DIR}/test/SoundSpeed.cpp)
+  target_link_libraries(sound_speed GTest::gtest_main)
+  gtest_discover_tests(sound_speed)
+
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)

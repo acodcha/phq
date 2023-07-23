@@ -25,8 +25,10 @@ namespace PhQ {
 // Forward declarations for class MassDensity.
 class DynamicPressure;
 class DynamicViscosity;
+class IsentropicBulkModulus;
 class KinematicViscosity;
 class ReynoldsNumber;
+class SoundSpeed;
 class SpecificIsobaricHeatCapacity;
 class Speed;
 class ThermalConductivityScalar;
@@ -58,6 +60,9 @@ public:
   constexpr MassDensity(const ReynoldsNumber& reynolds_number,
                         const DynamicViscosity& dynamic_viscosity,
                         const Speed& speed, const Length& length) noexcept;
+
+  constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
+                        const SoundSpeed& sound_speed) noexcept;
 
   template<Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) noexcept {
