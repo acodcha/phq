@@ -26,6 +26,10 @@
 
 namespace PhQ {
 
+// Forward declarations for class SoundSpeed.
+class MachNumber;
+class Speed;
+
 // Speed of sound. Applies to any deformable medium, including fluids and
 // elastic solids.
 class SoundSpeed : public DimensionalScalarQuantity<Unit::Speed> {
@@ -63,6 +67,11 @@ public:
     : SoundSpeed(
         SquareRoot(specific_heat_ratio.Value() * specific_gas_constant.Value()
                    * temperature.Value())) {}
+
+  // Constructs a sound speed from a speed and a Mach number. This uses the
+  // definition of the Mach number; this relation always holds true.
+  constexpr SoundSpeed(
+      const Speed& speed, const MachNumber& mach_number) noexcept;
 
   // Creates a sound speed from a given value and speed unit.
   template<Unit::Speed Unit>

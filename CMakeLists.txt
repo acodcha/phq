@@ -188,6 +188,10 @@ if(BUILD_TESTING)
   target_link_libraries(length GTest::gtest_main)
   gtest_discover_tests(length)
 
+  add_executable(mach_number ${PROJECT_SOURCE_DIR}/test/MachNumber.cpp)
+  target_link_libraries(mach_number GTest::gtest_main)
+  gtest_discover_tests(mach_number)
+
   add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
