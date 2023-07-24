@@ -21,6 +21,10 @@
 
 namespace PhQ {
 
+// Forward declarations for class IsentropicBulkModulus.
+class MassDensity;
+class SoundSpeed;
+
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr IsentropicBulkModulus() noexcept
@@ -28,6 +32,9 @@ public:
 
   IsentropicBulkModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  constexpr IsentropicBulkModulus(
+      const MassDensity& mass_density, const SoundSpeed& sound_speed) noexcept;
 
   template<Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) noexcept {

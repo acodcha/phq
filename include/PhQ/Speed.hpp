@@ -22,15 +22,17 @@
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declarations for class Speed.
 class AccelerationMagnitude;
 class Direction;
 class DynamicKinematicPressure;
 class DynamicPressure;
 class DynamicViscosity;
 class KinematicViscosity;
+class MachNumber;
 class MassDensity;
 class ReynoldsNumber;
+class SoundSpeed;
 class Velocity;
 
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
@@ -68,6 +70,9 @@ public:
   constexpr Speed(const ReynoldsNumber& reynolds_number,
                   const KinematicViscosity& kinematic_viscosity,
                   const Length& length) noexcept;
+
+  constexpr Speed(
+      const SoundSpeed& sound_speed, const MachNumber& mach_number) noexcept;
 
   template<Unit::Speed Unit>
   static constexpr Speed Create(const double value) noexcept {

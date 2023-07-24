@@ -188,6 +188,10 @@ if(BUILD_TESTING)
   target_link_libraries(length GTest::gtest_main)
   gtest_discover_tests(length)
 
+  add_executable(mach_number ${PROJECT_SOURCE_DIR}/test/MachNumber.cpp)
+  target_link_libraries(mach_number GTest::gtest_main)
+  gtest_discover_tests(mach_number)
+
   add_executable(mass ${PROJECT_SOURCE_DIR}/test/Mass.cpp)
   target_link_libraries(mass GTest::gtest_main)
   gtest_discover_tests(mass)
@@ -203,6 +207,10 @@ if(BUILD_TESTING)
   add_executable(position ${PROJECT_SOURCE_DIR}/test/Position.cpp)
   target_link_libraries(position GTest::gtest_main)
   gtest_discover_tests(position)
+
+  add_executable(sound_speed ${PROJECT_SOURCE_DIR}/test/SoundSpeed.cpp)
+  target_link_libraries(sound_speed GTest::gtest_main)
+  gtest_discover_tests(sound_speed)
 
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
