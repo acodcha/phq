@@ -84,9 +84,15 @@ public:
     return Speed{value_ + speed.value_};
   }
 
+  inline constexpr Speed operator+(
+      const SoundSpeed& sound_speed) const noexcept;
+
   inline constexpr Speed operator-(const Speed& speed) const noexcept {
     return Speed{value_ - speed.value_};
   }
+
+  inline constexpr Speed operator-(
+      const SoundSpeed& sound_speed) const noexcept;
 
   inline constexpr Speed operator*(const double number) const noexcept {
     return Speed{value_ * number};
@@ -124,9 +130,13 @@ public:
     value_ += speed.value_;
   }
 
+  inline constexpr void operator+=(const SoundSpeed& speed) noexcept;
+
   inline constexpr void operator-=(const Speed& speed) noexcept {
     value_ -= speed.value_;
   }
+
+  inline constexpr void operator-=(const SoundSpeed& speed) noexcept;
 
   inline constexpr void operator*=(const double number) noexcept {
     value_ *= number;
@@ -139,6 +149,8 @@ public:
 private:
   explicit constexpr Speed(const double value) noexcept
     : DimensionalScalarQuantity<Unit::Speed>(value) {}
+
+  friend SoundSpeed;
 };
 
 inline constexpr bool operator==(

@@ -20,9 +20,9 @@
 #include "MassDensity.hpp"
 #include "SpecificGasConstant.hpp"
 #include "SpecificHeatRatio.hpp"
+#include "Speed.hpp"
 #include "StaticPressure.hpp"
 #include "Temperature.hpp"
-#include "Unit/Speed.hpp"
 
 namespace PhQ {
 
@@ -85,9 +85,17 @@ public:
     return SoundSpeed{value_ + speed.value_};
   }
 
+  inline constexpr Speed operator+(const Speed& speed) const noexcept {
+    return Speed{value_ + speed.value_};
+  }
+
   inline constexpr SoundSpeed operator-(
       const SoundSpeed& speed) const noexcept {
     return SoundSpeed{value_ - speed.value_};
+  }
+
+  inline constexpr Speed operator-(const Speed& speed) const noexcept {
+    return Speed{value_ - speed.value_};
   }
 
   inline constexpr SoundSpeed operator*(const double number) const noexcept {
@@ -98,11 +106,19 @@ public:
     return SoundSpeed{value_ / number};
   }
 
-  inline constexpr void operator+=(const SoundSpeed& speed) noexcept {
+  inline constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
+    value_ += sound_speed.value_;
+  }
+
+  inline constexpr void operator+=(const Speed& speed) noexcept {
     value_ += speed.value_;
   }
 
-  inline constexpr void operator-=(const SoundSpeed& speed) noexcept {
+  inline constexpr void operator-=(const SoundSpeed& sound_speed) noexcept {
+    value_ -= sound_speed.value_;
+  }
+
+  inline constexpr void operator-=(const Speed& speed) noexcept {
     value_ -= speed.value_;
   }
 
@@ -158,6 +174,24 @@ inline std::ostream& operator<<(
 inline constexpr SoundSpeed operator*(
     const double number, const SoundSpeed& sound_speed) noexcept {
   return sound_speed * number;
+}
+
+inline constexpr Speed Speed::operator+(
+    const SoundSpeed& sound_speed) const noexcept {
+  return Speed{value_ + sound_speed.Value()};
+}
+
+inline constexpr Speed Speed::operator-(
+    const SoundSpeed& sound_speed) const noexcept {
+  return Speed{value_ - sound_speed.Value()};
+}
+
+inline constexpr void Speed::operator+=(const SoundSpeed& speed) noexcept {
+  value_ += speed.Value();
+}
+
+inline constexpr void Speed::operator-=(const SoundSpeed& speed) noexcept {
+  value_ -= speed.Value();
 }
 
 constexpr MassDensity::MassDensity(
