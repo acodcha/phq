@@ -32,10 +32,15 @@ TEST(SoundSpeed, Accessor) {
 
 TEST(SoundSpeed, Arithmetic) {
   const SoundSpeed sound_speed_0{1.0, Unit::Speed::MetrePerSecond};
+  const Speed speed0{1.0, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(sound_speed_0 + sound_speed_0,
             SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(sound_speed_0 + speed0, Speed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(speed0 + sound_speed_0, Speed(2.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(sound_speed_0 - sound_speed_0,
             SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(sound_speed_0 - speed0, Speed(0.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(speed0 - sound_speed_0, Speed(0.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(sound_speed_0 * 2.0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(2.0 * sound_speed_0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(sound_speed_0 / 2.0, SoundSpeed(0.5, Unit::Speed::MetrePerSecond));
@@ -43,10 +48,14 @@ TEST(SoundSpeed, Arithmetic) {
   SoundSpeed sound_speed_1{1.0, Unit::Speed::MetrePerSecond};
   sound_speed_1 += SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(sound_speed_1, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+  sound_speed_1 += Speed{1.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(sound_speed_1, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
 
   SoundSpeed sound_speed_2{2.0, Unit::Speed::MetrePerSecond};
   sound_speed_2 -= SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(sound_speed_2, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+  sound_speed_2 -= Speed{1.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(sound_speed_2, SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
 
   SoundSpeed sound_speed_3{1.0, Unit::Speed::MetrePerSecond};
   sound_speed_3 *= 2.0;
@@ -55,6 +64,14 @@ TEST(SoundSpeed, Arithmetic) {
   SoundSpeed sound_speed_4{2.0, Unit::Speed::MetrePerSecond};
   sound_speed_4 /= 2.0;
   EXPECT_EQ(sound_speed_4, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  Speed speed1{1.0, Unit::Speed::MetrePerSecond};
+  speed1 += SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(speed1, Speed(2.0, Unit::Speed::MetrePerSecond));
+
+  Speed speed2{2.0, Unit::Speed::MetrePerSecond};
+  speed2 -= SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(speed2, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(SoundSpeed, Comparison) {
