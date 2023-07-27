@@ -21,11 +21,9 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Frequency, 4> Units = {
-    Frequency::Hertz,
-    Frequency::Kilohertz,
-    Frequency::Megahertz,
-    Frequency::Gigahertz,
+constexpr std::array<Frequency, 6> Units = {
+    Frequency::Hertz,     Frequency::Kilohertz, Frequency::Megahertz,
+    Frequency::Gigahertz, Frequency::PerMinute, Frequency::PerHour,
 };
 
 TEST(UnitFrequency, Abbreviation) {
@@ -33,6 +31,8 @@ TEST(UnitFrequency, Abbreviation) {
   EXPECT_EQ(Abbreviation(Frequency::Kilohertz), "kHz");
   EXPECT_EQ(Abbreviation(Frequency::Megahertz), "MHz");
   EXPECT_EQ(Abbreviation(Frequency::Gigahertz), "GHz");
+  EXPECT_EQ(Abbreviation(Frequency::PerMinute), "/min");
+  EXPECT_EQ(Abbreviation(Frequency::PerHour), "/hr");
 }
 
 TEST(UnitFrequency, ConsistentUnit) {
@@ -56,6 +56,10 @@ TEST(UnitFrequency, ConvertFromStandard) {
                    value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Hertz, Frequency::Gigahertz),
                    value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::Hertz, Frequency::PerMinute), value * 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::Hertz, Frequency::PerHour), value * 3600.0);
 }
 
 TEST(UnitFrequency, ConvertToStandard) {
@@ -68,6 +72,10 @@ TEST(UnitFrequency, ConvertToStandard) {
                    value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Frequency::Gigahertz, Frequency::Hertz),
                    value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::PerMinute, Frequency::Hertz), value / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Frequency::PerHour, Frequency::Hertz), value / 3600.0);
 }
 
 TEST(UnitFrequency, ConvertVerification) {
@@ -99,6 +107,8 @@ TEST(UnitFrequency, Parse) {
   EXPECT_EQ(Parse<Frequency>("kHz"), Frequency::Kilohertz);
   EXPECT_EQ(Parse<Frequency>("MHz"), Frequency::Megahertz);
   EXPECT_EQ(Parse<Frequency>("GHz"), Frequency::Gigahertz);
+  EXPECT_EQ(Parse<Frequency>("/min"), Frequency::PerMinute);
+  EXPECT_EQ(Parse<Frequency>("/hr"), Frequency::PerHour);
 }
 
 TEST(UnitFrequency, RelatedUnitSystem) {

@@ -27,6 +27,8 @@ enum class Frequency : int_least8_t {
   Kilohertz,
   Megahertz,
   Gigahertz,
+  PerMinute,
+  PerHour,
 };
 
 }  // namespace Unit
@@ -50,20 +52,27 @@ template<> inline const std::map<Unit::Frequency, UnitSystem>
 
 template<> inline const std::map<Unit::Frequency, std::string_view>
     Abbreviations<Unit::Frequency>{
-        {Unit::Frequency::Hertz,     "Hz" },
-        {Unit::Frequency::Kilohertz, "kHz"},
-        {Unit::Frequency::Megahertz, "MHz"},
-        {Unit::Frequency::Gigahertz, "GHz"},
+        {Unit::Frequency::Hertz,     "Hz"  },
+        {Unit::Frequency::Kilohertz, "kHz" },
+        {Unit::Frequency::Megahertz, "MHz" },
+        {Unit::Frequency::Gigahertz, "GHz" },
+        {Unit::Frequency::PerMinute, "/min"},
+        {Unit::Frequency::PerHour,   "/hr" },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Frequency>
-    Spellings<Unit::Frequency>{
-        {"Hz",  Unit::Frequency::Hertz    },
-        {"1/s", Unit::Frequency::Hertz    },
-        {"/s",  Unit::Frequency::Hertz    },
-        {"kHz", Unit::Frequency::Kilohertz},
-        {"MHz", Unit::Frequency::Megahertz},
-        {"GHz", Unit::Frequency::Gigahertz},
+template<>
+inline const std::unordered_map<std::string_view, Unit::Frequency> Spellings<
+    Unit::Frequency>{
+    {"Hz",    Unit::Frequency::Hertz    },
+    {"/s",    Unit::Frequency::Hertz    },
+    {"1/s",   Unit::Frequency::Hertz    },
+    {"kHz",   Unit::Frequency::Kilohertz},
+    {"MHz",   Unit::Frequency::Megahertz},
+    {"GHz",   Unit::Frequency::Gigahertz},
+    {"/min",  Unit::Frequency::PerMinute},
+    {"1/min", Unit::Frequency::PerMinute},
+    {"/hr",   Unit::Frequency::PerHour  },
+    {"1/hr",  Unit::Frequency::PerHour  },
 };
 
 namespace Internal {
@@ -91,6 +100,18 @@ ConversionFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
 }
 
 template<> inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
+    double& value) noexcept {
+  value *= 60.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerHour>(
+    double& value) noexcept {
+  value *= 3600.0;
+}
+
+template<> inline constexpr void
 ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(
     double& value) noexcept {}
 
@@ -112,6 +133,18 @@ ConversionToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
   value *= 1000000000.0;
 }
 
+template<> inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
+    double& value) noexcept {
+  value /= 60.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Frequency, Unit::Frequency::PerHour>(
+    double& value) noexcept {
+  value /= 3600.0;
+}
+
 template<> inline const std::map<
     Unit::Frequency, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Frequency>{
@@ -123,6 +156,10 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>},
         {Unit::Frequency::Gigahertz,
          ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>},
+        {Unit::Frequency::PerMinute,
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerMinute>},
+        {Unit::Frequency::PerHour,
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerHour>  },
 };
 
 template<> inline const std::map<
@@ -137,6 +174,10 @@ template<> inline const std::map<
          ConversionsToStandard<Unit::Frequency, Unit::Frequency::Megahertz>},
         {Unit::Frequency::Gigahertz,
          ConversionsToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>},
+        {Unit::Frequency::PerMinute,
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerMinute>},
+        {Unit::Frequency::PerHour,
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerHour>  },
 };
 
 }  // namespace Internal
