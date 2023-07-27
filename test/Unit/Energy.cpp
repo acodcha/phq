@@ -21,10 +21,13 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Energy, 9> Units = {
-    Energy::Joule,     Energy::Millijoule, Energy::Microjoule,
-    Energy::Nanojoule, Energy::Kilojoule,  Energy::Megajoule,
-    Energy::Gigajoule, Energy::FootPound,  Energy::InchPound,
+constexpr std::array<Energy, 17> Units = {
+    Energy::Joule,          Energy::Millijoule,     Energy::Microjoule,
+    Energy::Nanojoule,      Energy::Kilojoule,      Energy::Megajoule,
+    Energy::Gigajoule,      Energy::WattMinute,     Energy::WattHour,
+    Energy::KilowattMinute, Energy::KilowattHour,   Energy::MegawattMinute,
+    Energy::MegawattHour,   Energy::GigawattMinute, Energy::GigawattHour,
+    Energy::FootPound,      Energy::InchPound,
 };
 
 TEST(UnitEnergy, Abbreviation) {
@@ -35,6 +38,14 @@ TEST(UnitEnergy, Abbreviation) {
   EXPECT_EQ(Abbreviation(Energy::Kilojoule), "kJ");
   EXPECT_EQ(Abbreviation(Energy::Megajoule), "MJ");
   EXPECT_EQ(Abbreviation(Energy::Gigajoule), "GJ");
+  EXPECT_EQ(Abbreviation(Energy::WattMinute), "W·min");
+  EXPECT_EQ(Abbreviation(Energy::WattHour), "W·hr");
+  EXPECT_EQ(Abbreviation(Energy::KilowattMinute), "kW·min");
+  EXPECT_EQ(Abbreviation(Energy::KilowattHour), "kW·hr");
+  EXPECT_EQ(Abbreviation(Energy::MegawattMinute), "MW·min");
+  EXPECT_EQ(Abbreviation(Energy::MegawattHour), "MW·hr");
+  EXPECT_EQ(Abbreviation(Energy::GigawattMinute), "GW·min");
+  EXPECT_EQ(Abbreviation(Energy::GigawattHour), "GW·hr");
   EXPECT_EQ(Abbreviation(Energy::FootPound), "ft·lbf");
   EXPECT_EQ(Abbreviation(Energy::InchPound), "in·lbf");
 }
@@ -65,6 +76,22 @@ TEST(UnitEnergy, ConvertFromStandard) {
       ConvertCopy(value, Energy::Joule, Energy::Megajoule), value * 0.000001);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Gigajoule),
                    value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::WattMinute), value / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::WattHour), value / 3600.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::KilowattMinute),
+                   value / 60000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::KilowattHour),
+                   value / 3600000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::MegawattMinute),
+                   value / 60000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::MegawattHour),
+                   value / 3600000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::GigawattMinute),
+                   value / 60000000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::GigawattHour),
+                   value / 3600000000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::FootPound),
                    value / (0.3048 * 0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::InchPound),
@@ -86,6 +113,22 @@ TEST(UnitEnergy, ConvertToStandard) {
       ConvertCopy(value, Energy::Megajoule, Energy::Joule), value * 1000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Gigajoule, Energy::Joule),
                    value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::WattMinute, Energy::Joule), value * 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::WattHour, Energy::Joule), value * 3600.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::KilowattMinute, Energy::Joule),
+                   value * 60000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::KilowattHour, Energy::Joule),
+                   value * 3600000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::MegawattMinute, Energy::Joule),
+                   value * 60000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::MegawattHour, Energy::Joule),
+                   value * 3600000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::GigawattMinute, Energy::Joule),
+                   value * 60000000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::GigawattHour, Energy::Joule),
+                   value * 3600000000000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::FootPound, Energy::Joule),
                    value * (0.3048 * 0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::InchPound, Energy::Joule),
@@ -126,6 +169,14 @@ TEST(UnitEnergy, Parse) {
   EXPECT_EQ(Parse<Energy>("kJ"), Energy::Kilojoule);
   EXPECT_EQ(Parse<Energy>("MJ"), Energy::Megajoule);
   EXPECT_EQ(Parse<Energy>("GJ"), Energy::Gigajoule);
+  EXPECT_EQ(Parse<Energy>("W·min"), Energy::WattMinute);
+  EXPECT_EQ(Parse<Energy>("W·hr"), Energy::WattHour);
+  EXPECT_EQ(Parse<Energy>("kW·min"), Energy::KilowattMinute);
+  EXPECT_EQ(Parse<Energy>("kW·hr"), Energy::KilowattHour);
+  EXPECT_EQ(Parse<Energy>("MW·min"), Energy::MegawattMinute);
+  EXPECT_EQ(Parse<Energy>("MW·hr"), Energy::MegawattHour);
+  EXPECT_EQ(Parse<Energy>("GW·min"), Energy::GigawattMinute);
+  EXPECT_EQ(Parse<Energy>("GW·hr"), Energy::GigawattHour);
   EXPECT_EQ(Parse<Energy>("ft·lbf"), Energy::FootPound);
   EXPECT_EQ(Parse<Energy>("in·lbf"), Energy::InchPound);
 }
