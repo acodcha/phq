@@ -21,9 +21,12 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Force, 15> Units = {
+constexpr std::array<Force, 18> Units = {
     Force::Newton,
     Force::Micronewton,
+    Force::JoulePerMile,
+    Force::JoulePerKilometre,
+    Force::KilojoulePerMile,
     Force::WattMinutePerMile,
     Force::WattHourPerMile,
     Force::WattMinutePerKilometre,
@@ -42,6 +45,9 @@ constexpr std::array<Force, 15> Units = {
 TEST(UnitForce, Abbreviation) {
   EXPECT_EQ(Abbreviation(Force::Newton), "N");
   EXPECT_EQ(Abbreviation(Force::Micronewton), "μN");
+  EXPECT_EQ(Abbreviation(Force::JoulePerMile), "J/mi");
+  EXPECT_EQ(Abbreviation(Force::JoulePerKilometre), "J/km");
+  EXPECT_EQ(Abbreviation(Force::KilojoulePerMile), "kJ/mi");
   EXPECT_EQ(Abbreviation(Force::WattMinutePerMile), "W·min/mi");
   EXPECT_EQ(Abbreviation(Force::WattHourPerMile), "W·hr/mi");
   EXPECT_EQ(Abbreviation(Force::WattMinutePerKilometre), "W·min/km");
@@ -71,6 +77,12 @@ TEST(UnitForce, ConvertFromStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Newton, Force::Micronewton), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::JoulePerMile), value * 1609.344);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::JoulePerKilometre),
+                   value * 1000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::KilojoulePerMile),
+                   value * 1.609344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattMinutePerMile),
                    value * 1609.344 / 60.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattHourPerMile),
@@ -112,6 +124,12 @@ TEST(UnitForce, ConvertToStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Micronewton, Force::Newton), value * 0.000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::JoulePerMile, Force::Newton), value / 1609.344);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::JoulePerKilometre, Force::Newton),
+                   value * 0.001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::KilojoulePerMile, Force::Newton),
+                   value / 1.609344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattMinutePerMile, Force::Newton),
                    value * 60.0 / 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattHourPerMile, Force::Newton),
@@ -177,7 +195,9 @@ TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Force>("N"), Force::Newton);
   EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
-
+  EXPECT_EQ(Parse<Force>("J/mi"), Force::JoulePerMile);
+  EXPECT_EQ(Parse<Force>("J/km"), Force::JoulePerKilometre);
+  EXPECT_EQ(Parse<Force>("kJ/mi"), Force::KilojoulePerMile);
   EXPECT_EQ(Parse<Force>("W·min/mi"), Force::WattMinutePerMile);
   EXPECT_EQ(Parse<Force>("W·hr/mi"), Force::WattHourPerMile);
   EXPECT_EQ(Parse<Force>("W·min/km"), Force::WattMinutePerKilometre);

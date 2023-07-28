@@ -25,6 +25,9 @@ namespace Unit {
 enum class Force : int_least8_t {
   Newton,
   Micronewton,
+  JoulePerMile,
+  JoulePerKilometre,
+  KilojoulePerMile,
   WattMinutePerMile,
   WattHourPerMile,
   WattMinutePerKilometre,
@@ -68,6 +71,9 @@ template<>
 inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
     {Unit::Force::Newton,                     "N"        },
     {Unit::Force::Micronewton,                "μN"       },
+    {Unit::Force::JoulePerMile,               "J/mi"     },
+    {Unit::Force::JoulePerKilometre,          "J/km"     },
+    {Unit::Force::KilojoulePerMile,           "kJ/mi"     },
     {Unit::Force::WattMinutePerMile,          "W·min/mi" },
     {Unit::Force::WattHourPerMile,            "W·hr/mi"  },
     {Unit::Force::WattMinutePerKilometre,     "W·min/km" },
@@ -87,6 +93,7 @@ template<> inline const std::unordered_map<std::string_view, Unit::Force>
     Spellings<Unit::Force>{
         {"N",         Unit::Force::Newton                    },
         {"J/m",       Unit::Force::Newton                    },
+        {"kJ/km",     Unit::Force::Newton                    },
         {"kg·m/s^2",  Unit::Force::Newton                    },
         {"kg*m/s^2",  Unit::Force::Newton                    },
         {"kg·m/s2",   Unit::Force::Newton                    },
@@ -98,6 +105,9 @@ template<> inline const std::unordered_map<std::string_view, Unit::Force>
         {"g*mm/s^2",  Unit::Force::Micronewton               },
         {"g·mm/s2",   Unit::Force::Micronewton               },
         {"g*mm/s2",   Unit::Force::Micronewton               },
+        {"J/mi",      Unit::Force::JoulePerMile              },
+        {"J/km",      Unit::Force::JoulePerKilometre         },
+        {"kJ/mi",     Unit::Force::KilojoulePerMile          },
         {"W·min/mi",  Unit::Force::WattMinutePerMile         },
         {"W*min/mi",  Unit::Force::WattMinutePerMile         },
         {"W·hr/mi",   Unit::Force::WattHourPerMile           },
@@ -136,6 +146,24 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(
     double& value) noexcept {
   value *= 1000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::JoulePerMile>(
+    double& value) noexcept {
+  value *= 1609.344;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::JoulePerKilometre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::KilojoulePerMile>(
+    double& value) noexcept {
+  value *= 1.609344;
 }
 
 template<> inline constexpr void
@@ -227,6 +255,24 @@ ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(
 }
 
 template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::JoulePerMile>(
+    double& value) noexcept {
+  value /= 1609.344;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::JoulePerKilometre>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::KilojoulePerMile>(
+    double& value) noexcept {
+  value /= 1.609344;
+}
+
+template<> inline constexpr void
 ConversionToStandard<Unit::Force, Unit::Force::WattMinutePerMile>(
     double& value) noexcept {
   value *= 60.0 / 1609.344;
@@ -310,6 +356,12 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Force, Unit::Force::Newton>             },
         {Unit::Force::Micronewton,
          ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>        },
+        {Unit::Force::JoulePerMile,
+         ConversionsFromStandard<Unit::Force, Unit::Force::JoulePerMile>       },
+        {Unit::Force::JoulePerKilometre,
+         ConversionsFromStandard<Unit::Force, Unit::Force::JoulePerKilometre>  },
+        {Unit::Force::KilojoulePerMile,
+         ConversionsFromStandard<Unit::Force, Unit::Force::KilojoulePerMile>   },
         {Unit::Force::WattMinutePerMile,
          ConversionsFromStandard<Unit::Force, Unit::Force::WattMinutePerMile>  },
         {Unit::Force::WattHourPerMile,
@@ -353,6 +405,12 @@ inline const std::map<Unit::Force, std::function<void(double* const values,
          ConversionsToStandard<Unit::Force, Unit::Force::Newton>               },
         {Unit::Force::Micronewton,
          ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>          },
+        {Unit::Force::JoulePerMile,
+         ConversionsToStandard<Unit::Force, Unit::Force::JoulePerMile>         },
+        {Unit::Force::JoulePerKilometre,
+         ConversionsToStandard<Unit::Force, Unit::Force::JoulePerKilometre>    },
+        {Unit::Force::KilojoulePerMile,
+         ConversionsToStandard<Unit::Force, Unit::Force::KilojoulePerMile>     },
         {Unit::Force::WattMinutePerMile,
          ConversionsToStandard<Unit::Force, Unit::Force::WattMinutePerMile>    },
         {Unit::Force::WattHourPerMile,
