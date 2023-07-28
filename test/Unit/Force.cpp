@@ -21,15 +21,39 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Force, 3> Units = {
+constexpr std::array<Force, 15> Units = {
     Force::Newton,
     Force::Micronewton,
+    Force::WattMinutePerMile,
+    Force::WattHourPerMile,
+    Force::WattMinutePerKilometre,
+    Force::WattHourPerKilometre,
+    Force::WattMinutePerMetre,
+    Force::WattHourPerMetre,
+    Force::KilowattMinutePerMile,
+    Force::KilowattHourPerMile,
+    Force::KilowattMinutePerKilometre,
+    Force::KilowattHourPerKilometre,
+    Force::KilowattMinutePerMetre,
+    Force::KilowattHourPerMetre,
     Force::Pound,
 };
 
 TEST(UnitForce, Abbreviation) {
   EXPECT_EQ(Abbreviation(Force::Newton), "N");
   EXPECT_EQ(Abbreviation(Force::Micronewton), "μN");
+  EXPECT_EQ(Abbreviation(Force::WattMinutePerMile), "W·min/mi");
+  EXPECT_EQ(Abbreviation(Force::WattHourPerMile), "W·hr/mi");
+  EXPECT_EQ(Abbreviation(Force::WattMinutePerKilometre), "W·min/km");
+  EXPECT_EQ(Abbreviation(Force::WattHourPerKilometre), "W·hr/km");
+  EXPECT_EQ(Abbreviation(Force::WattMinutePerMetre), "W·min/m");
+  EXPECT_EQ(Abbreviation(Force::WattHourPerMetre), "W·hr/m");
+  EXPECT_EQ(Abbreviation(Force::KilowattMinutePerMile), "kW·min/mi");
+  EXPECT_EQ(Abbreviation(Force::KilowattHourPerMile), "kW·hr/mi");
+  EXPECT_EQ(Abbreviation(Force::KilowattMinutePerKilometre), "kW·min/km");
+  EXPECT_EQ(Abbreviation(Force::KilowattHourPerKilometre), "kW·hr/km");
+  EXPECT_EQ(Abbreviation(Force::KilowattMinutePerMetre), "kW·min/m");
+  EXPECT_EQ(Abbreviation(Force::KilowattHourPerMetre), "kW·hr/m");
   EXPECT_EQ(Abbreviation(Force::Pound), "lbf");
 }
 
@@ -47,6 +71,38 @@ TEST(UnitForce, ConvertFromStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Newton, Force::Micronewton), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattMinutePerMile),
+                   value * 1609.344 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattHourPerMile),
+                   value * 1609.344 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::WattMinutePerKilometre),
+      value / 0.06);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::WattHourPerKilometre),
+      value / 3.6);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattMinutePerMetre),
+                   value / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::WattHourPerMetre),
+                   value / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattMinutePerMile),
+      value * 1609.344 / 60000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattHourPerMile),
+      value * 1609.344 / 3600000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattMinutePerKilometre),
+      value / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattHourPerKilometre),
+      value / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattMinutePerMetre),
+      value / 60000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::KilowattHourPerMetre),
+      value / 3600000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Pound),
                    value / (0.45359237 * 9.80665));
 }
@@ -56,6 +112,38 @@ TEST(UnitForce, ConvertToStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Micronewton, Force::Newton), value * 0.000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattMinutePerMile, Force::Newton),
+                   value * 60.0 / 1609.344);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattHourPerMile, Force::Newton),
+                   value * 3600.0 / 1609.344);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::WattMinutePerKilometre, Force::Newton),
+      value * 0.06);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::WattHourPerKilometre, Force::Newton),
+      value * 3.6);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattMinutePerMetre, Force::Newton),
+                   value * 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::WattHourPerMetre, Force::Newton),
+                   value * 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattMinutePerMile, Force::Newton),
+      value * 60000.0 / 1609.344);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattHourPerMile, Force::Newton),
+      value * 3600000.0 / 1609.344);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattMinutePerKilometre, Force::Newton),
+      value * 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattHourPerKilometre, Force::Newton),
+      value * 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattMinutePerMetre, Force::Newton),
+      value * 60000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::KilowattHourPerMetre, Force::Newton),
+      value * 3600000.0);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Pound, Force::Newton),
                    value * 0.45359237 * 9.80665);
 }
@@ -89,6 +177,19 @@ TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Force>("N"), Force::Newton);
   EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
+
+  EXPECT_EQ(Parse<Force>("W·min/mi"), Force::WattMinutePerMile);
+  EXPECT_EQ(Parse<Force>("W·hr/mi"), Force::WattHourPerMile);
+  EXPECT_EQ(Parse<Force>("W·min/km"), Force::WattMinutePerKilometre);
+  EXPECT_EQ(Parse<Force>("W·hr/km"), Force::WattHourPerKilometre);
+  EXPECT_EQ(Parse<Force>("W·min/m"), Force::WattMinutePerMetre);
+  EXPECT_EQ(Parse<Force>("W·hr/m"), Force::WattHourPerMetre);
+  EXPECT_EQ(Parse<Force>("kW·min/mi"), Force::KilowattMinutePerMile);
+  EXPECT_EQ(Parse<Force>("kW·hr/mi"), Force::KilowattHourPerMile);
+  EXPECT_EQ(Parse<Force>("kW·min/km"), Force::KilowattMinutePerKilometre);
+  EXPECT_EQ(Parse<Force>("kW·hr/km"), Force::KilowattHourPerKilometre);
+  EXPECT_EQ(Parse<Force>("kW·min/m"), Force::KilowattMinutePerMetre);
+  EXPECT_EQ(Parse<Force>("kW·hr/m"), Force::KilowattHourPerMetre);
   EXPECT_EQ(Parse<Force>("lbf"), Force::Pound);
 }
 
