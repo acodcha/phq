@@ -220,6 +220,10 @@ if(BUILD_TESTING)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
 
+  add_executable(transport_energy_consumption ${PROJECT_SOURCE_DIR}/test/TransportEnergyConsumption.cpp)
+  target_link_libraries(transport_energy_consumption GTest::gtest_main)
+  gtest_discover_tests(transport_energy_consumption)
+
   add_executable(unit_acceleration ${PROJECT_SOURCE_DIR}/test/Unit/Acceleration.cpp)
   target_link_libraries(unit_acceleration GTest::gtest_main)
   gtest_discover_tests(unit_acceleration)

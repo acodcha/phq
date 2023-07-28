@@ -22,12 +22,14 @@
 namespace PhQ {
 
 // Forward declarations for class Energy.
-class Time;
 class Frequency;
+class Length;
 class Mass;
 class Power;
 class SpecificEnergy;
 class SpecificPower;
+class Time;
+class TransportEnergyConsumption;
 
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
@@ -42,6 +44,10 @@ public:
 
   constexpr Energy(
       const SpecificEnergy& specific_energy, const Mass& mass) noexcept;
+
+  constexpr Energy(
+      const Length& length,
+      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
   template<Unit::Energy Unit>
   static constexpr Energy Create(const double value) noexcept {
@@ -76,6 +82,13 @@ public:
 
   inline constexpr Mass operator/(
       const SpecificEnergy& specific_energy) const noexcept;
+
+  inline constexpr TransportEnergyConsumption operator/(
+      const Length& length) const noexcept;
+
+  inline constexpr Length
+  operator/(const TransportEnergyConsumption& transport_energy_consumption)
+      const noexcept;
 
   inline constexpr void operator+=(const Energy& energy) noexcept {
     value_ += energy.value_;
