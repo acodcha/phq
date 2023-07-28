@@ -25,14 +25,16 @@ namespace PhQ {
 class Area;
 class Direction;
 class Displacement;
-class Time;
 class DynamicViscosity;
+class Energy;
 class Frequency;
 class KinematicViscosity;
 class MassDensity;
 class Position;
 class ReynoldsNumber;
 class Speed;
+class Time;
+class TransportEnergyConsumption;
 class Volume;
 
 class Length : public DimensionalScalarQuantity<Unit::Length> {
@@ -58,6 +60,10 @@ public:
   constexpr Length(const ReynoldsNumber& reynolds_number,
                    const KinematicViscosity& kinematic_viscosity,
                    const Speed& speed) noexcept;
+
+  constexpr Length(
+      const Energy& energy,
+      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
   template<Unit::Length Unit>
   static constexpr Length Create(const double value) noexcept {
