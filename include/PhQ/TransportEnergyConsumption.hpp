@@ -24,8 +24,8 @@ namespace PhQ {
 
 // Energy consumption in transport, which is a measure of energy use per
 // distance travelled. Note that energy per length results in units of force.
-// Energy consumption in transport is often measured in kilowatt-hour per
-// kilometre (kW·hr/km) or similar units.
+// Energy consumption in transport is often measured in joules per metre (J/m)
+// or kilowatt-hours per kilometre (kW·hr/km).
 class TransportEnergyConsumption
   : public DimensionalScalarQuantity<Unit::Force> {
 public:
