@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 # Define the global settings.
 set(CMAKE_CXX_STANDARD 17)
@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -O3 -Wall -Wno-return-type")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_BUILD_TYPE Release)
 
-# Define the CMake project and its options.
+# Define the PhQ project and its options.
 project(
   "PhQ"
   VERSION 1.0.0
@@ -17,12 +17,12 @@ project(
   HOMEPAGE_URL "https://github.com/acodcha/physical-quantities"
 )
 option(
-  BUILD_PHQ_TESTS
-  "Build the tests."
+  TEST_PHQ_LIBRARY
+  "Configure the PhQ library tests."
   OFF
 )
 
-# Define the main library.
+# Define the PhQ library.
 add_library(
   ${PROJECT_NAME}
   INTERFACE
@@ -33,14 +33,9 @@ target_include_directories(
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
-target_compile_features(
-  ${PROJECT_NAME}
-  INTERFACE
-  cxx_std_17
-)
 
-# Configure testing.
-if(BUILD_PHQ_TESTS)
+# Configure the PhQ library tests.
+if(TEST_PHQ_LIBRARY)
   # Fetch the GoogleTest library.
   include(FetchContent)
   FetchContent_Declare(
@@ -367,9 +362,9 @@ if(BUILD_PHQ_TESTS)
   target_link_libraries(volume_rate GTest::gtest_main)
   gtest_discover_tests(volume_rate)
 
-  message(STATUS "Testing was configured. Build the testing executables with \"make --jobs=16\" and run them with \"make test\"")
+  message(STATUS "The PhQ library tests were configured. Build the PhQ library tests with \"make --jobs=16\" and run them with \"make test\"")
 else()
-  message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_PHQ_TESTS=ON\" to configure testing.")
+  message(STATUS "The PhQ library tests were not configured. Run \"cmake .. -DTEST_PHQ_LIBRARY=ON\" to configure the PhQ library tests.")
 endif()
 
 # Define the library directories to be installed.
@@ -415,5 +410,3 @@ install(
   DIRECTORY ${PROJECT_SOURCE_DIR}/include/PhQ
   DESTINATION include
 )
-
-message(STATUS "Installation was configured. Install to your system with \"sudo make install\".")
