@@ -7,7 +7,6 @@ C++ library of physical quantities, physical models, and units of measure for sc
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Documentation](#documentation)
 - [Testing](#testing)
 - [License](#license)
 
@@ -20,7 +19,7 @@ The following packages are required:
 
 Configure the library with:
 
-```lang-bash
+```bash
 mkdir build
 cd build
 cmake ..
@@ -30,7 +29,7 @@ This is a header-only library, so no compilation is needed.
 
 Install the library from the `build` directory with:
 
-```lang-bash
+```bash
 sudo make install
 ```
 
@@ -48,10 +47,17 @@ In your project's `CMakeLists.txt` file, set your project's C++ standard to C++1
 set(CMAKE_CXX_STANDARD 17)
 ```
 
-Some environments automatically detect used libraries; in such cases, no further action is needed. Otherwise, explicitly add the `PhQ` library as a dependency in your project's `CMakeLists.txt` file:
+Locate the `PhQ` library in your project's `CMakeLists.txt` file:
 
 ```cmake
-target_link_libraries(${EXECUTABLE_NAME} [other-options] PhQ)
+find_package(PhQ CONFIG REQUIRED)
+```
+
+Add the `PhQ` library as a dependency in your project's `CMakeLists.txt` file:
+
+```cmake
+add_executable(executable-name source/main.cpp)
+target_link_libraries(executable-name [other-options] PhQ::PhQ)
 ```
 
 Once this is done, simply include the headers you need in your project's source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the library's contents.
@@ -76,36 +82,17 @@ Certain operations can result in divisions by zero. C++ supports floating-point 
 
 [(Back to Top)](#physical-quantities)
 
-## Documentation
-
-Building the documentation is optional and requires additional packages:
-
-- **Doxygen:** On Ubuntu, install with `sudo apt install doxygen`.
-- **Graphviz:** On Ubuntu, install with `sudo apt install graphviz`.
-- **TeX Live:** On Ubuntu, install with `sudo apt install texlive texlive-fonts-extra`.
-
-Documentation is disabled by default but can be generated from the `build` directory with:
-
-```lang-bash
-cmake .. -DBUILD_DOCS=ON
-make docs
-```
-
-This generates HTML documentation using Doxygen. The documentation is located in `docs/html`. Open the `docs/html/index.html` file in any web browser to view the documentation.
-
-[(Back to Top)](#physical-quantities)
-
 ## Testing
 
 Testing is optional and disabled by default but can be done from the `build` directory with:
 
-```lang-bash
-cmake .. -DBUILD_TESTING=ON
+```bash
+cmake .. -DBUILD_PHQ_TESTS=ON
 make --jobs=16
 make test
 ```
 
-This builds and runs the unit tests. The GoogleTest library (<https://github.com/google/googletest>) is used for testing. When testing is enabled, the GoogleTest library is downloaded, compiled, and linked with the source code of this library.
+This builds and runs the tests. The GoogleTest library (<https://github.com/google/googletest>) is used for testing. When testing is enabled, the GoogleTest library is downloaded, compiled, and linked with this library.
 
 [(Back to Top)](#physical-quantities)
 

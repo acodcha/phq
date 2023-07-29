@@ -1,80 +1,63 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-################################################################################
-# Project
-################################################################################
-
+# Define the global settings.
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -O3 -Wall -Wno-return-type")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_BUILD_TYPE Release)
 
+# Define the CMake project and its options.
 project(
-  "PhQ" VERSION 1.0.1 LANGUAGES CXX
+  "PhQ"
+  VERSION 1.0.0
+  LANGUAGES CXX
   DESCRIPTION "C++ library of physical quantities, physical models, and units of measure for scientific computation."
   HOMEPAGE_URL "https://github.com/acodcha/physical-quantities"
 )
-
-option(BUILD_DOCS "Build documentation using Doxygen." OFF)
-option(BUILD_TESTING "Build testing executables." OFF)
-
-include(CMakePackageConfigHelpers)
-include(CTest)
-include(GNUInstallDirs)
-
-set(PHQ_INCLUDE_BUILD_DIR "${PROJECT_SOURCE_DIR}/include/")
-add_library(${PROJECT_NAME} INTERFACE)
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
-
-target_include_directories(
-  ${PROJECT_NAME} INTERFACE
-  $<BUILD_INTERFACE:${PHQ_INCLUDE_BUILD_DIR}>
-  $<INSTALL_INTERFACE:include>
+option(
+  BUILD_PHQ_TESTS
+  "Build the tests."
+  OFF
 )
 
-################################################################################
-# Documentation
-################################################################################
+# Define the main library.
+add_library(
+  ${PROJECT_NAME}
+  INTERFACE
+)
+target_include_directories(
+  ${PROJECT_NAME}
+  INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+target_compile_features(
+  ${PROJECT_NAME}
+  INTERFACE
+  cxx_std_17
+)
 
-if(BUILD_DOCS)
-  find_package(Doxygen REQUIRED dot)
-  if(NOT Doxygen_FOUND)
-    message(WARNING "Cannot generate documentation because Doxygen is not installed. Install it with \"sudo apt install doxygen graphviz texlive\".")
-    return()
-  endif()
-  add_custom_target(
-    docs
-    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs
-    COMMENT "Generating documentation with Doxygen..."
-    VERBATIM)
-endif()
-
-################################################################################
-# Testing
-################################################################################
-
-if(BUILD_TESTING)
+# Configure testing.
+if(BUILD_PHQ_TESTS)
+  # Fetch the GoogleTest library.
   include(FetchContent)
-
   FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        main
+    GIT_TAG main
   )
 
   # Do not override the parent project's compiler and linker settings on Windows.
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
+  # Include the GoogleTest library and enable testing.
   FetchContent_MakeAvailable(googletest)
-
   include(GoogleTest)
-
   enable_testing()
 
-  # With GoogleTest, use gtest_discover_tests(my_test) instead of add_test(NAME my_test COMMAND bin/my_test)
+  # Define the test executables.
 
   add_executable(acceleration ${PROJECT_SOURCE_DIR}/test/Acceleration.cpp)
   target_link_libraries(acceleration GTest::gtest_main)
@@ -386,52 +369,51 @@ if(BUILD_TESTING)
 
   message(STATUS "Testing was configured. Build the testing executables with \"make --jobs=16\" and run them with \"make test\"")
 else()
-  message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_TESTING=ON\" to configure testing.")
+  message(STATUS "Testing was not configured. Run \"cmake .. -DBUILD_PHQ_TESTS=ON\" to configure testing.")
 endif()
 
-################################################################################
-# Installation
-################################################################################
-
+# Define the library directories to be installed.
+include(GNUInstallDirs)
 install(
-  TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}_Targets
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}_Targets
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Write the installation configuration files.
+include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-  "${PROJECT_NAME}ConfigVersion.cmake"
-  VERSION ${PROJECT_VERSION} COMPATIBILITY AnyNewerVersion)
-
+  "PhQConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY AnyNewerVersion
+)
 file(
-  WRITE "${PROJECT_BINARY_DIR}/Config.cmake.input"
+  WRITE "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake.input"
   "@PACKAGE_INIT@\ninclude(\"${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake\")\ncheck_required_components(\"@PROJECT_NAME@\")\n"
 )
-
 configure_package_config_file(
-  "${PROJECT_BINARY_DIR}/Config.cmake.input"
+  "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake.input"
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
 )
 
+# Define the installation instructions.
 install(
   EXPORT ${PROJECT_NAME}_Targets
   FILE ${PROJECT_NAME}Targets.cmake
   NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
 )
-
 install(
-  FILES
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
 )
-
 install(
-  DIRECTORY ${PHQ_INCLUDE_BUILD_DIR}
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  DIRECTORY ${PROJECT_SOURCE_DIR}/include/PhQ
+  DESTINATION include
 )
 
-message(STATUS "Installation was configured. Install to ${CMAKE_INSTALL_INCLUDEDIR} and ${CMAKE_INSTALL_DATAROOTDIR} with \"sudo make install\".")
+message(STATUS "Installation was configured. Install to your system with \"sudo make install\".")
