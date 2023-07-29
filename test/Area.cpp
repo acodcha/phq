@@ -131,6 +131,10 @@ TEST(Area, YAML) {
             "{value:-5.000000,unit:\"mm^2\"}");
 }
 
+TEST(Area, Zero) {
+  EXPECT_EQ(Area::Zero(), Area(0.0, Unit::Area::SquareMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

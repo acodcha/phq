@@ -21,9 +21,10 @@
 
 namespace PhQ {
 
-// Forward declaration.
+// Forward declaration for class Velocity.
 class Acceleration;
 
+// Velocity vector.
 class Velocity : public DimensionalVectorQuantity<Unit::Speed> {
 public:
   constexpr Velocity() noexcept : DimensionalVectorQuantity<Unit::Speed>() {}
@@ -47,6 +48,10 @@ public:
 
   constexpr Velocity(
       const Acceleration& acceleration, const Frequency& frequency) noexcept;
+
+  static constexpr Velocity Zero() noexcept {
+    return Velocity{Value::Vector::Zero()};
+  }
 
   template<Unit::Speed Unit>
   static constexpr Velocity Create(const Value::Vector& value) noexcept {

@@ -22,6 +22,7 @@
 
 namespace PhQ {
 
+// Mach number of a fluid flow.
 class MachNumber : public DimensionlessScalarQuantity {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
@@ -36,6 +37,8 @@ public:
   constexpr MachNumber(
       const Speed& speed, const SoundSpeed& sound_speed) noexcept
     : MachNumber(speed.Value() / sound_speed.Value()) {}
+
+  static constexpr MachNumber Zero() noexcept { return MachNumber{0.0}; }
 
   inline constexpr MachNumber operator+(
       const MachNumber& mach_number) const noexcept {

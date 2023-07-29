@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Temperature.
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 public:
   constexpr Temperature() noexcept
@@ -28,6 +29,8 @@ public:
 
   Temperature(const double value, const Unit::Temperature unit) noexcept
     : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+
+  static constexpr Temperature Zero() noexcept { return Temperature{0.0}; }
 
   template<Unit::Temperature Unit>
   static constexpr Temperature Create(const double value) noexcept {

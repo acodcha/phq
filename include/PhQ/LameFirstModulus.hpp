@@ -21,7 +21,8 @@
 
 namespace PhQ {
 
-// Lamé's First Modulus
+// Lamé's first modulus of a deformable solid material. First of the two Lamé
+// parameters. A measure of a deformable solid material's elastic modulus.
 class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr LameFirstModulus() noexcept
@@ -29,6 +30,10 @@ public:
 
   LameFirstModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  static constexpr LameFirstModulus Zero() noexcept {
+    return LameFirstModulus{0.0};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr LameFirstModulus Create(const double value) noexcept {

@@ -31,6 +31,7 @@ class SpecificPower;
 class Time;
 class TransportEnergyConsumption;
 
+// Energy.
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
   constexpr Energy() noexcept : DimensionalScalarQuantity<Unit::Energy>() {}
@@ -48,6 +49,8 @@ public:
   constexpr Energy(
       const Length& length,
       const TransportEnergyConsumption& transport_energy_consumption) noexcept;
+
+  static constexpr Energy Zero() noexcept { return Energy{0.0}; }
 
   template<Unit::Energy Unit>
   static constexpr Energy Create(const double value) noexcept {

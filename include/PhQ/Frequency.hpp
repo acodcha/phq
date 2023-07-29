@@ -27,6 +27,7 @@ class Displacement;
 class Length;
 class Velocity;
 
+// Frequency.
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
   constexpr Frequency() noexcept
@@ -62,6 +63,8 @@ public:
 
   constexpr Frequency(
       const VolumeRate& volume_rate, const Volume& volume) noexcept;
+
+  static constexpr Frequency Zero() noexcept { return Frequency{0.0}; }
 
   template<Unit::Frequency Unit>
   static constexpr Frequency Create(const double value) noexcept {

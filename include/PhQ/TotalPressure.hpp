@@ -20,6 +20,7 @@
 
 namespace PhQ {
 
+// Total pressure.
 class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr TotalPressure() noexcept
@@ -35,6 +36,8 @@ public:
   constexpr TotalPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
+
+  static constexpr TotalPressure Zero() noexcept { return TotalPressure{0.0}; }
 
   template<Unit::Pressure Unit>
   static constexpr TotalPressure Create(const double value) noexcept {

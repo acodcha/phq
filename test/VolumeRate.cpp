@@ -149,6 +149,11 @@ TEST(VolumeRate, YAML) {
             "{value:-5.000000,unit:\"ft^3/s\"}");
 }
 
+TEST(VolumeRate, Zero) {
+  EXPECT_EQ(VolumeRate::Zero(),
+            VolumeRate(0.0, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

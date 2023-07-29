@@ -21,12 +21,17 @@
 
 namespace PhQ {
 
+// Gradient of the displacement vector, which is a dimensionless dyadic tensor.
 class DisplacementGradient : public DimensionlessDyadQuantity {
 public:
   constexpr DisplacementGradient() noexcept : DimensionlessDyadQuantity() {}
 
   explicit constexpr DisplacementGradient(const Value::Dyad& value) noexcept
     : DimensionlessDyadQuantity(value) {}
+
+  static constexpr DisplacementGradient Zero() noexcept {
+    return DisplacementGradient{Value::Dyad::Zero()};
+  }
 
   inline constexpr PhQ::Strain Strain() const noexcept {
     return PhQ::Strain{*this};

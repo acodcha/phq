@@ -23,6 +23,7 @@
 
 namespace PhQ {
 
+// Temperature gradient vector.
 class TemperatureGradient
   : public DimensionalVectorQuantity<Unit::TemperatureGradient> {
 public:
@@ -38,6 +39,10 @@ public:
       const Direction& direction) noexcept
     : TemperatureGradient(
         temperature_gradient_magnitude.Value() * direction.Value()) {}
+
+  static constexpr TemperatureGradient Zero() noexcept {
+    return TemperatureGradient{Value::Vector::Zero()};
+  }
 
   template<Unit::TemperatureGradient Unit> static constexpr TemperatureGradient
   Create(const Value::Vector& value) noexcept {

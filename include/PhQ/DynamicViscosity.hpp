@@ -27,6 +27,7 @@ class ReynoldsNumber;
 class ThermalConductivityScalar;
 class SpecificIsobaricHeatCapacity;
 
+// Dynamic viscosity, also known as molecular dynamic viscosity.
 class DynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
@@ -49,6 +50,10 @@ public:
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
+
+  static constexpr DynamicViscosity Zero() noexcept {
+    return DynamicViscosity{0.0};
+  }
 
   template<Unit::DynamicViscosity Unit>
   static constexpr DynamicViscosity Create(const double value) noexcept {

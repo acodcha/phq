@@ -155,6 +155,11 @@ TEST(DynamicViscosity, YAML) {
             "{value:-5.000000,unit:\"kPa·s\"}");
 }
 
+TEST(DynamicViscosity, Zero) {
+  EXPECT_EQ(DynamicViscosity::Zero(),
+            DynamicViscosity(0.0, Unit::DynamicViscosity::PascalSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

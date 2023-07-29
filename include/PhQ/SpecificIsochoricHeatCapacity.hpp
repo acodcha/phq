@@ -22,6 +22,7 @@
 
 namespace PhQ {
 
+// Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
 class SpecificIsochoricHeatCapacity
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
@@ -50,6 +51,10 @@ public:
       const Mass& mass) noexcept
     : SpecificIsochoricHeatCapacity(
         isochoric_heat_capacity.Value() / mass.Value()) {}
+
+  static constexpr SpecificIsochoricHeatCapacity Zero() noexcept {
+    return SpecificIsochoricHeatCapacity{0.0};
+  }
 
   template<Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificIsochoricHeatCapacity

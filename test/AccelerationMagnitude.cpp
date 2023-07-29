@@ -175,6 +175,12 @@ TEST(AccelerationMagnitude, YAML) {
             "{value:-5.000000,unit:\"ft/s^2\"}");
 }
 
+TEST(AccelerationMagnitude, Zero) {
+  EXPECT_EQ(
+      AccelerationMagnitude::Zero(),
+      AccelerationMagnitude(0.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

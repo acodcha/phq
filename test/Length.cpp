@@ -128,6 +128,10 @@ TEST(Length, YAML) {
       "{value:-5.000000,unit:\"mm\"}");
 }
 
+TEST(Length, Zero) {
+  EXPECT_EQ(Length::Zero(), Length(0.0, Unit::Length::Metre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

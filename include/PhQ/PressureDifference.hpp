@@ -26,6 +26,7 @@ class KinematicPressureDifference;
 class MassDensity;
 class StaticPressure;
 
+// Pressure difference.
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr PressureDifference() noexcept
@@ -37,6 +38,10 @@ public:
   constexpr PressureDifference(
       const KinematicPressureDifference& kinematic_pressure_difference,
       const MassDensity& mass_density) noexcept;
+
+  static constexpr PressureDifference Zero() noexcept {
+    return PressureDifference{0.0};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr PressureDifference Create(const double value) noexcept {

@@ -124,6 +124,8 @@ TEST(Mass, YAML) {
             "{value:-5.000000,unit:\"g\"}");
 }
 
+TEST(Mass, Zero) { EXPECT_EQ(Mass::Zero(), Mass(0.0, Unit::Mass::Kilogram)); }
+
 }  // namespace
 
 }  // namespace PhQ

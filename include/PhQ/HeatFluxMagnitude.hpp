@@ -25,6 +25,7 @@ namespace PhQ {
 // Forward declaration for class HeatFluxMagnitude.
 class HeatFlux;
 
+// Heat flux scalar. Magnitude of the heat flux vector.
 class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
 public:
   constexpr HeatFluxMagnitude() noexcept
@@ -41,6 +42,10 @@ public:
                         * temperature_gradient_magnitude.Value()) {}
 
   constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
+
+  static constexpr HeatFluxMagnitude Zero() noexcept {
+    return HeatFluxMagnitude{0.0};
+  }
 
   template<Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) noexcept {

@@ -25,6 +25,7 @@ namespace PhQ {
 class Acceleration;
 class Direction;
 
+// Acceleration scalar. Magnitude of the acceleration vector.
 class AccelerationMagnitude
   : public DimensionalScalarQuantity<Unit::Acceleration> {
 public:
@@ -43,6 +44,10 @@ public:
     : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
   constexpr AccelerationMagnitude(const Acceleration& acceleration) noexcept;
+
+  static constexpr AccelerationMagnitude Zero() noexcept {
+    return AccelerationMagnitude{0.0};
+  }
 
   template<Unit::Acceleration Unit>
   static constexpr AccelerationMagnitude Create(const double value) noexcept {

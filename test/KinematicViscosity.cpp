@@ -153,6 +153,11 @@ TEST(KinematicViscosity, YAML) {
             "{value:-5.000000,unit:\"ft^2/s\"}");
 }
 
+TEST(KinematicViscosity, Zero) {
+  EXPECT_EQ(KinematicViscosity::Zero(),
+            KinematicViscosity(0.0, Unit::Diffusivity::SquareMetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

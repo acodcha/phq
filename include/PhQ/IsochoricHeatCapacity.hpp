@@ -22,6 +22,7 @@
 
 namespace PhQ {
 
+// Isochoric heat capacity, also known as heat capacity at constant volume.
 class IsochoricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
@@ -47,6 +48,10 @@ public:
   constexpr IsochoricHeatCapacity(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const Mass& mass) noexcept;
+
+  static constexpr IsochoricHeatCapacity Zero() noexcept {
+    return IsochoricHeatCapacity{0.0};
+  }
 
   template<Unit::HeatCapacity Unit>
   static constexpr IsochoricHeatCapacity Create(const double value) noexcept {

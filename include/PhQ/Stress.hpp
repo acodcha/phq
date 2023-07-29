@@ -22,7 +22,7 @@
 
 namespace PhQ {
 
-// Cauchy stress tensor
+// Cauchy stress dyadic tensor.
 class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
 public:
   constexpr Stress() noexcept
@@ -35,6 +35,10 @@ public:
     : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
               -1.0 * static_pressure.Value(), 0.0,
               -1.0 * static_pressure.Value()}) {}
+
+  static constexpr Stress Zero() noexcept {
+    return Stress{Value::SymmetricDyad::Zero()};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {

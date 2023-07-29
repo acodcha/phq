@@ -34,6 +34,7 @@ class Speed;
 class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
+// Mass density.
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 public:
   constexpr MassDensity() noexcept
@@ -63,6 +64,8 @@ public:
 
   constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const SoundSpeed& sound_speed) noexcept;
+
+  static constexpr MassDensity Zero() noexcept { return MassDensity{0.0}; }
 
   template<Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) noexcept {

@@ -21,6 +21,8 @@
 
 namespace PhQ {
 
+// P-wave modulus of a deformable solid material. A measure of a deformable
+// solid material's elastic modulus.
 class PWaveModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr PWaveModulus() noexcept
@@ -28,6 +30,8 @@ public:
 
   PWaveModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  static constexpr PWaveModulus Zero() noexcept { return PWaveModulus{0.0}; }
 
   template<Unit::Pressure Unit>
   static constexpr PWaveModulus Create(const double value) noexcept {

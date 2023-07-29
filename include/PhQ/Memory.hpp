@@ -26,6 +26,7 @@ class Time;
 class Frequency;
 class MemoryRate;
 
+// Computer memory.
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 public:
   constexpr Memory() noexcept : DimensionalScalarQuantity<Unit::Memory>() {}
@@ -37,6 +38,8 @@ public:
 
   constexpr Memory(
       const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
+
+  static constexpr Memory Zero() noexcept { return Memory{0.0}; }
 
   template<Unit::Memory Unit>
   static constexpr Memory Create(const double value) noexcept {

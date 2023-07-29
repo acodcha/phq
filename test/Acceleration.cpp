@@ -245,6 +245,12 @@ TEST(Acceleration, YAML) {
       "{value:{x:0,y:-5.000000,z:0},unit:\"ft/s^2\"}");
 }
 
+TEST(Acceleration, Zero) {
+  EXPECT_EQ(
+      Acceleration::Zero(),
+      Acceleration({0.0, 0.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

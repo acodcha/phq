@@ -25,6 +25,7 @@ namespace PhQ {
 class DynamicKinematicPressure;
 class TotalKinematicPressure;
 
+// Static kinematic pressure.
 class StaticKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
@@ -42,6 +43,10 @@ public:
   constexpr StaticKinematicPressure(const StaticPressure& static_pressure,
                                     const MassDensity& mass_density) noexcept
     : StaticKinematicPressure(static_pressure.Value() / mass_density.Value()) {}
+
+  static constexpr StaticKinematicPressure Zero() noexcept {
+    return StaticKinematicPressure{0.0};
+  }
 
   template<Unit::SpecificEnergy Unit>
   static constexpr StaticKinematicPressure Create(const double value) noexcept {

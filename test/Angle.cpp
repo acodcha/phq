@@ -127,6 +127,8 @@ TEST(Angle, YAML) {
             "{value:-5.000000,unit:\"deg\"}");
 }
 
+TEST(Angle, Zero) { EXPECT_EQ(Angle::Zero(), Angle(0.0, Unit::Angle::Radian)); }
+
 }  // namespace
 
 }  // namespace PhQ

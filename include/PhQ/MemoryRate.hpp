@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Computer memory rate. Can represent the time rate of change of memory or a
+// memory transfer speed.
 class MemoryRate : public DimensionalScalarQuantity<Unit::MemoryRate> {
 public:
   constexpr MemoryRate() noexcept
@@ -36,6 +38,8 @@ public:
   constexpr MemoryRate(
       const Memory& memory, const Frequency& frequency) noexcept
     : MemoryRate(memory.Value() * frequency.Value()) {}
+
+  static constexpr MemoryRate Zero() noexcept { return MemoryRate{0.0}; }
 
   template<Unit::MemoryRate Unit>
   static constexpr MemoryRate Create(const double value) noexcept {

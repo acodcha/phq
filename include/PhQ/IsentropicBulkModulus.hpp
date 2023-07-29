@@ -25,6 +25,7 @@ namespace PhQ {
 class MassDensity;
 class SoundSpeed;
 
+// Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr IsentropicBulkModulus() noexcept
@@ -35,6 +36,10 @@ public:
 
   constexpr IsentropicBulkModulus(
       const MassDensity& mass_density, const SoundSpeed& sound_speed) noexcept;
+
+  static constexpr IsentropicBulkModulus Zero() noexcept {
+    return IsentropicBulkModulus{0.0};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) noexcept {

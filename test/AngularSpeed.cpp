@@ -155,6 +155,11 @@ TEST(AngularSpeed, YAML) {
             "{value:-5.000000,unit:\"deg/s\"}");
 }
 
+TEST(AngularSpeed, Zero) {
+  EXPECT_EQ(AngularSpeed::Zero(),
+            AngularSpeed(0.0, Unit::AngularSpeed::RadianPerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

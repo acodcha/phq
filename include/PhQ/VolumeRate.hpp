@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Volume rate. Can represent a time rate of change of a volume or a volume flow
+// rate.
 class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
 public:
   constexpr VolumeRate() noexcept
@@ -36,6 +38,8 @@ public:
   constexpr VolumeRate(
       const Volume& volume, const Frequency& frequency) noexcept
     : VolumeRate(volume.Value() * frequency.Value()) {}
+
+  static constexpr VolumeRate Zero() noexcept { return VolumeRate{0.0}; }
 
   template<Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) noexcept {

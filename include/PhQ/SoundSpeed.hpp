@@ -73,6 +73,8 @@ public:
   constexpr SoundSpeed(
       const Speed& speed, const MachNumber& mach_number) noexcept;
 
+  static constexpr SoundSpeed Zero() noexcept { return SoundSpeed{0.0}; }
+
   // Creates a sound speed from a given value and speed unit.
   template<Unit::Speed Unit>
   static constexpr SoundSpeed Create(const double value) noexcept {

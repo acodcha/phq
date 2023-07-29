@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Velocity gradient dyadic tensor.
 class VelocityGradient : public DimensionalDyadQuantity<Unit::Frequency> {
 public:
   constexpr VelocityGradient() noexcept
@@ -29,6 +30,10 @@ public:
   VelocityGradient(
       const Value::Dyad& value, const Unit::Frequency& unit) noexcept
     : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
+
+  static constexpr VelocityGradient Zero() noexcept {
+    return VelocityGradient{Value::Dyad::Zero()};
+  }
 
   template<Unit::Frequency Unit>
   static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {

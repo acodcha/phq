@@ -142,6 +142,10 @@ TEST(Frequency, YAML) {
             "{value:-5.000000,unit:\"kHz\"}");
 }
 
+TEST(Frequency, Zero) {
+  EXPECT_EQ(Frequency::Zero(), Frequency(0.0, Unit::Frequency::Hertz));
+}
+
 }  // namespace
 
 }  // namespace PhQ

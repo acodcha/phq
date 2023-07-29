@@ -28,6 +28,7 @@ class PrandtlNumber;
 class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
+// Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
 class SpecificIsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
@@ -68,6 +69,10 @@ public:
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const DynamicViscosity& dynamic_viscosity) noexcept;
+
+  static constexpr SpecificIsobaricHeatCapacity Zero() noexcept {
+    return SpecificIsobaricHeatCapacity{0.0};
+  }
 
   template<Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificIsobaricHeatCapacity

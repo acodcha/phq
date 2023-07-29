@@ -146,6 +146,10 @@ TEST(Speed, YAML) {
       "{value:-5.000000,unit:\"ft/s\"}");
 }
 
+TEST(Speed, Zero) {
+  EXPECT_EQ(Speed::Zero(), Speed(0.0, Unit::Speed::MetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

@@ -29,6 +29,7 @@ class SpecificGasConstant;
 class SpecificIsobaricHeatCapacity;
 class SpecificIsochoricHeatCapacity;
 
+// Ratio of the isobaric and isochoric specific heats of a material.
 class SpecificHeatRatio : public DimensionlessScalarQuantity {
 public:
   constexpr SpecificHeatRatio() noexcept : DimensionlessScalarQuantity() {}
@@ -60,6 +61,10 @@ public:
   constexpr SpecificHeatRatio(
       const IsobaricHeatCapacity& isobaric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+
+  static constexpr SpecificHeatRatio Zero() noexcept {
+    return SpecificHeatRatio{0.0};
+  }
 
   inline constexpr SpecificHeatRatio operator+(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept {

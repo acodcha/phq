@@ -22,6 +22,7 @@
 
 namespace PhQ {
 
+// Prandtl number of a fluid.
 class PrandtlNumber : public DimensionlessScalarQuantity {
 public:
   constexpr PrandtlNumber() noexcept : DimensionlessScalarQuantity() {}
@@ -42,6 +43,8 @@ public:
     : PrandtlNumber(
         dynamic_viscosity.Value() * specific_isobaric_heat_capacity.Value()
         / thermal_conductivity_scalar.Value()) {}
+
+  static constexpr PrandtlNumber Zero() noexcept { return PrandtlNumber{0.0}; }
 
   inline constexpr PhQ::ThermalDiffusivity ThermalDiffusivity(
       const PhQ::KinematicViscosity& kinematic_viscosity) const noexcept {

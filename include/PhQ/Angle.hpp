@@ -37,6 +37,7 @@ class TemperatureGradient;
 class Traction;
 class Velocity;
 
+// Planar angle.
 class Angle : public DimensionalScalarQuantity<Unit::Angle> {
 public:
   constexpr Angle() noexcept : DimensionalScalarQuantity<Unit::Angle>() {}
@@ -80,6 +81,8 @@ public:
   Angle(const Traction& traction1, const Traction& traction2) noexcept;
 
   Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
+
+  static constexpr Angle Zero() noexcept { return Angle{0.0}; }
 
   template<Unit::Angle Unit>
   static constexpr Angle Create(const double value) noexcept {

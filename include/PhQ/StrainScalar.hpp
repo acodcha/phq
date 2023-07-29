@@ -24,6 +24,7 @@ namespace PhQ {
 class LinearThermalExpansionCoefficient;
 class TemperatureDifference;
 
+// Strain scalar. Component or resultant of the strain dyadic tensor.
 class StrainScalar : public DimensionlessScalarQuantity {
 public:
   constexpr StrainScalar() noexcept : DimensionlessScalarQuantity() {}
@@ -35,6 +36,8 @@ public:
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient,
       const TemperatureDifference& temperature_difference) noexcept;
+
+  static constexpr StrainScalar Zero() noexcept { return StrainScalar{0.0}; }
 
   inline constexpr StrainScalar operator+(
       const StrainScalar& strain_scalar) const noexcept {
