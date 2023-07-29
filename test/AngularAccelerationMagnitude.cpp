@@ -202,6 +202,12 @@ TEST(AngularAccelerationMagnitude, YAML) {
             "{value:-5.000000,unit:\"deg/s^2\"}");
 }
 
+TEST(AngularAccelerationMagnitude, Zero) {
+  EXPECT_EQ(AngularAccelerationMagnitude::Zero(),
+            AngularAccelerationMagnitude(
+                0.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

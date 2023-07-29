@@ -26,6 +26,7 @@ namespace PhQ {
 // Forward declaration for class Force.
 class Traction;
 
+// Force vector.
 class Force : public DimensionalVectorQuantity<Unit::Force> {
 public:
   constexpr Force() noexcept : DimensionalVectorQuantity<Unit::Force>() {}
@@ -38,6 +39,10 @@ public:
     : Force(force_magnitude.Value() * direction.Value()) {}
 
   constexpr Force(const Traction& traction, const Area& area) noexcept;
+
+  static constexpr Force Zero() noexcept {
+    return Force{Value::Vector::Zero()};
+  }
 
   template<Unit::Force Unit>
   static constexpr Force Create(const Value::Vector& value) noexcept {

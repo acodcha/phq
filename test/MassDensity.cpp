@@ -147,6 +147,11 @@ TEST(MassDensity, YAML) {
             "{value:-5.000000,unit:\"g/mm^3\"}");
 }
 
+TEST(MassDensity, Zero) {
+  EXPECT_EQ(MassDensity::Zero(),
+            MassDensity(0.0, Unit::MassDensity::KilogramPerCubicMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

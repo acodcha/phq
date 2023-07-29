@@ -30,6 +30,7 @@ class ReynoldsNumber;
 class Speed;
 class ThermalDiffusivity;
 
+// Kinematic viscosity, also known as molecular kinematic viscosity.
 class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
   constexpr KinematicViscosity() noexcept
@@ -48,6 +49,10 @@ public:
   constexpr KinematicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalDiffusivity& thermal_diffusivity) noexcept;
+
+  static constexpr KinematicViscosity Zero() noexcept {
+    return KinematicViscosity{0.0};
+  }
 
   template<Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) noexcept {

@@ -26,6 +26,7 @@ class Direction;
 class Force;
 class StaticPressure;
 
+// Force scalar. Magnitude of the force vector.
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 public:
   constexpr ForceMagnitude() noexcept
@@ -38,6 +39,10 @@ public:
 
   inline constexpr ForceMagnitude(
       const StaticPressure& static_pressure, const Area& area) noexcept;
+
+  static constexpr ForceMagnitude Zero() noexcept {
+    return ForceMagnitude{0.0};
+  }
 
   template<Unit::Force Unit>
   static constexpr ForceMagnitude Create(const double value) noexcept {

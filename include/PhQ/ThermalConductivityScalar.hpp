@@ -28,6 +28,8 @@ class PrandtlNumber;
 class SpecificIsobaricHeatCapacity;
 class ThermalDiffusivity;
 
+// Thermal conductivity scalar. For materials that are isotropic, thermal
+// conductivity can be represented by a scalar rather than a dyadic tensor.
 class ThermalConductivityScalar
   : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 public:
@@ -47,6 +49,10 @@ public:
       const PrandtlNumber& prandtl_number,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const DynamicViscosity& dynamic_viscosity) noexcept;
+
+  static constexpr ThermalConductivityScalar Zero() noexcept {
+    return ThermalConductivityScalar{0.0};
+  }
 
   template<Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivityScalar

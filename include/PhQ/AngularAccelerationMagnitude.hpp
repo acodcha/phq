@@ -21,6 +21,9 @@
 
 namespace PhQ {
 
+// Planar angular acceleration scalar. Magnitude of angular acceleration vector.
+// Time rate of change of angular speed. Typically measured in radians per
+// square second.
 class AngularAccelerationMagnitude
   : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
 public:
@@ -38,6 +41,10 @@ public:
   constexpr AngularAccelerationMagnitude(
       const AngularSpeed& angular_speed, const Frequency& frequency) noexcept
     : AngularAccelerationMagnitude(angular_speed.Value() * frequency.Value()) {}
+
+  static constexpr AngularAccelerationMagnitude Zero() noexcept {
+    return AngularAccelerationMagnitude{0.0};
+  }
 
   template<Unit::AngularAcceleration Unit>
   static constexpr AngularAccelerationMagnitude

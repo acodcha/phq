@@ -27,6 +27,7 @@ class Time;
 class Frequency;
 class StrainRate;
 
+// Strain dyadic tensor.
 class Strain : public DimensionlessSymmetricDyadQuantity {
 public:
   constexpr Strain() noexcept : DimensionlessSymmetricDyadQuantity() {}
@@ -41,6 +42,10 @@ public:
 
   explicit constexpr Strain(
       const DisplacementGradient& displacement_gradient) noexcept;
+
+  static constexpr Strain Zero() noexcept {
+    return Strain{Value::SymmetricDyad::Zero()};
+  }
 
   inline constexpr Strain operator+(const Strain& strain) const noexcept {
     return Strain{value_ + strain.value_};

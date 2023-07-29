@@ -251,6 +251,10 @@ TEST(Position, YAML) {
             "{value:{x:0,y:-5.000000,z:0},unit:\"mm\"}");
 }
 
+TEST(Position, Zero) {
+  EXPECT_EQ(Position::Zero(), Position({0.0, 0.0, 0.0}, Unit::Length::Metre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

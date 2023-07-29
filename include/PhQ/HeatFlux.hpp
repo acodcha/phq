@@ -22,6 +22,7 @@
 
 namespace PhQ {
 
+// Heat flux vector.
 class HeatFlux : public DimensionalVectorQuantity<Unit::EnergyFlux> {
 public:
   constexpr HeatFlux() noexcept
@@ -44,6 +45,10 @@ public:
                      const TemperatureGradient& temperature_gradient) noexcept
     : HeatFlux(
         -1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
+
+  static constexpr HeatFlux Zero() noexcept {
+    return HeatFlux{Value::Vector::Zero()};
+  }
 
   template<Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const Value::Vector& value) noexcept {

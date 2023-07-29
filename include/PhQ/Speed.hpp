@@ -35,6 +35,7 @@ class ReynoldsNumber;
 class SoundSpeed;
 class Velocity;
 
+// Speed scalar. Magnitude of the velocity vector.
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
   constexpr Speed() noexcept : DimensionalScalarQuantity<Unit::Speed>() {}
@@ -73,6 +74,8 @@ public:
 
   constexpr Speed(
       const SoundSpeed& sound_speed, const MachNumber& mach_number) noexcept;
+
+  static constexpr Speed Zero() noexcept { return Speed{0.0}; }
 
   template<Unit::Speed Unit>
   static constexpr Speed Create(const double value) noexcept {

@@ -168,6 +168,10 @@ TEST(SoundSpeed, YAML) {
             "{value:-5.000000,unit:\"ft/s\"}");
 }
 
+TEST(SoundSpeed, Zero) {
+  EXPECT_EQ(SoundSpeed::Zero(), SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

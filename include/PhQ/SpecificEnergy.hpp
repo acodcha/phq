@@ -25,6 +25,7 @@ namespace PhQ {
 // Forward declaration for class SpecificEnergy.
 class SpecificPower;
 
+// Specific energy. Energy per unit mass.
 class SpecificEnergy : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
   constexpr SpecificEnergy() noexcept
@@ -41,6 +42,10 @@ public:
 
   constexpr SpecificEnergy(
       const SpecificPower& specific_power, const Frequency& frequency) noexcept;
+
+  static constexpr SpecificEnergy Zero() noexcept {
+    return SpecificEnergy{0.0};
+  }
 
   template<Unit::SpecificEnergy Unit>
   static constexpr SpecificEnergy Create(const double value) noexcept {

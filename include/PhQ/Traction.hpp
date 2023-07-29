@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Traction vector.
 class Traction : public DimensionalVectorQuantity<Unit::Pressure> {
 public:
   constexpr Traction() noexcept : DimensionalVectorQuantity<Unit::Pressure>() {}
@@ -36,6 +37,10 @@ public:
     : Traction(force.Value() / area.Value()) {}
 
   constexpr Traction(const Stress& stress, const Direction& direction) noexcept;
+
+  static constexpr Traction Zero() noexcept {
+    return Traction{Value::Vector::Zero()};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr Traction Create(const Value::Vector& value) noexcept {

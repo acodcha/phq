@@ -25,6 +25,7 @@ namespace PhQ {
 // Forward declaration for class KinematicPressureDifference.
 class StaticKinematicPressure;
 
+// Kinematic pressure difference.
 class KinematicPressureDifference
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
@@ -40,6 +41,10 @@ public:
       const MassDensity& mass_density) noexcept
     : KinematicPressureDifference(
         pressure_difference.Value() / mass_density.Value()) {}
+
+  static constexpr KinematicPressureDifference Zero() noexcept {
+    return KinematicPressureDifference{0.0};
+  }
 
   template<Unit::SpecificEnergy Unit>
   static constexpr KinematicPressureDifference

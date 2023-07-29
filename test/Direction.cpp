@@ -189,6 +189,10 @@ TEST(Direction, YAML) {
   EXPECT_EQ(Direction(0.0, -10.0, 0.0).YAML(), "{x:0,y:-1.000000,z:0}");
 }
 
+TEST(Direction, Zero) {
+  EXPECT_EQ(Direction::Zero(), Direction(0.0, 0.0, 0.0));
+}
+
 }  // namespace
 
 }  // namespace PhQ

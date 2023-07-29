@@ -29,6 +29,7 @@ class Frequency;
 class Position;
 class Velocity;
 
+// Displacement vector. Not to be confused with position vector.
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 public:
   constexpr Displacement() noexcept
@@ -47,6 +48,10 @@ public:
       const Velocity& velocity, const Frequency& frequency) noexcept;
 
   explicit constexpr Displacement(const Position& position) noexcept;
+
+  static constexpr Displacement Zero() noexcept {
+    return Displacement{Value::Vector::Zero()};
+  }
 
   template<Unit::Length Unit>
   static constexpr Displacement Create(const Value::Vector& value) noexcept {

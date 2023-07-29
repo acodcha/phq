@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Specific power. Power per unit mass.
 class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
 public:
   constexpr SpecificPower() noexcept
@@ -39,6 +40,8 @@ public:
 
   constexpr SpecificPower(const Power& power, const Mass& mass) noexcept
     : SpecificPower(power.Value() / mass.Value()) {}
+
+  static constexpr SpecificPower Zero() noexcept { return SpecificPower{0.0}; }
 
   template<Unit::SpecificPower Unit>
   static constexpr SpecificPower Create(const double value) noexcept {

@@ -99,6 +99,8 @@ public:
   // Constructs a direction from a velocity.
   explicit constexpr Direction(const Velocity& velocity) noexcept;
 
+  static constexpr Direction Zero() noexcept { return Direction{}; }
+
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.

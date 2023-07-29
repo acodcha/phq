@@ -37,6 +37,8 @@ class Time;
 class TransportEnergyConsumption;
 class Volume;
 
+// Scalar length. Can also represent the magnitude of a position vector or
+// displacement vector.
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 public:
   constexpr Length() noexcept : DimensionalScalarQuantity<Unit::Length>() {}
@@ -64,6 +66,8 @@ public:
   constexpr Length(
       const Energy& energy,
       const TransportEnergyConsumption& transport_energy_consumption) noexcept;
+
+  static constexpr Length Zero() noexcept { return Length{0.0}; }
 
   template<Unit::Length Unit>
   static constexpr Length Create(const double value) noexcept {

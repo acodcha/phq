@@ -29,6 +29,7 @@ class Stress;
 class TotalPressure;
 class Traction;
 
+// Static pressure.
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr StaticPressure() noexcept
@@ -49,6 +50,10 @@ public:
   constexpr StaticPressure(
       const StaticKinematicPressure& static_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
+
+  static constexpr StaticPressure Zero() noexcept {
+    return StaticPressure{0.0};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr StaticPressure Create(const double value) noexcept {

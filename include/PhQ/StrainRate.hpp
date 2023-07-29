@@ -26,6 +26,7 @@ namespace PhQ {
 // Forward declaration for class StrainRate.
 class VelocityGradient;
 
+// Strain rate dyadic tensor. Time rate of change of the strain dyadic tensor.
 class StrainRate : public DimensionalSymmetricDyadQuantity<Unit::Frequency> {
 public:
   constexpr StrainRate() noexcept
@@ -43,6 +44,10 @@ public:
 
   explicit constexpr StrainRate(
       const VelocityGradient& velocity_gradient) noexcept;
+
+  static constexpr StrainRate Zero() noexcept {
+    return StrainRate{Value::SymmetricDyad::Zero()};
+  }
 
   template<Unit::Frequency Unit> static constexpr StrainRate Create(
       const Value::SymmetricDyad& value) noexcept {

@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Thermal conductivity dyadic tensor.
 class ThermalConductivity
   : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
 public:
@@ -37,6 +38,10 @@ public:
     : ThermalConductivity({thermal_conductivity_scalar.Value(), 0.0, 0.0,
                            thermal_conductivity_scalar.Value(), 0.0,
                            thermal_conductivity_scalar.Value()}) {}
+
+  static constexpr ThermalConductivity Zero() noexcept {
+    return ThermalConductivity{Value::SymmetricDyad::Zero()};
+  }
 
   template<Unit::ThermalConductivity Unit> static constexpr ThermalConductivity
   Create(const Value::SymmetricDyad& value) noexcept {

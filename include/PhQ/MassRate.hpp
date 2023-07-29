@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Mass rate. Can represent the time rate of change of a mass or a mass flow
+// rate.
 class MassRate : public DimensionalScalarQuantity<Unit::MassRate> {
 public:
   constexpr MassRate() noexcept : DimensionalScalarQuantity<Unit::MassRate>() {}
@@ -34,6 +36,8 @@ public:
 
   constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept
     : MassRate(mass.Value() * frequency.Value()) {}
+
+  static constexpr MassRate Zero() noexcept { return MassRate{0.0}; }
 
   template<Unit::MassRate Unit>
   static constexpr MassRate Create(const double value) noexcept {

@@ -40,6 +40,10 @@ public:
       const Length& length, const Energy& energy) noexcept
     : TransportEnergyConsumption(energy.Value() / length.Value()) {}
 
+  static constexpr TransportEnergyConsumption Zero() noexcept {
+    return TransportEnergyConsumption{0.0};
+  }
+
   template<Unit::Force Unit> static constexpr TransportEnergyConsumption Create(
       const double value) noexcept {
     return TransportEnergyConsumption{

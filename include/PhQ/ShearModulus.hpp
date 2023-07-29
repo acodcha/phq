@@ -21,6 +21,8 @@
 
 namespace PhQ {
 
+// Shear modulus of a deformable solid material. A measure of a deformable
+// solid material's elastic modulus.
 class ShearModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr ShearModulus() noexcept
@@ -28,6 +30,8 @@ public:
 
   ShearModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  static constexpr ShearModulus Zero() noexcept { return ShearModulus{0.0}; }
 
   template<Unit::Pressure Unit>
   static constexpr ShearModulus Create(const double value) noexcept {

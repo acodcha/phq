@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
 class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr IsothermalBulkModulus() noexcept
@@ -28,6 +29,10 @@ public:
 
   IsothermalBulkModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  static constexpr IsothermalBulkModulus Zero() noexcept {
+    return IsothermalBulkModulus{0.0};
+  }
 
   template<Unit::Pressure Unit>
   static constexpr IsothermalBulkModulus Create(const double value) noexcept {

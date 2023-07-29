@@ -45,6 +45,7 @@ class Velocity;
 class Volume;
 class VolumeRate;
 
+// Time. Can represent either a point in time or a time duration.
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
   constexpr Time() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
@@ -76,6 +77,8 @@ public:
   constexpr Time(const Speed& speed, const Length& length) noexcept;
 
   constexpr Time(const VolumeRate& volume_rate, const Volume& volume) noexcept;
+
+  static constexpr Time Zero() noexcept { return Time{0.0}; }
 
   template<Unit::Time Unit>
   static constexpr Time Create(const double value) noexcept {

@@ -136,6 +136,10 @@ TEST(Volume, YAML) {
             "{value:-5.000000,unit:\"mm^3\"}");
 }
 
+TEST(Volume, Zero) {
+  EXPECT_EQ(Volume::Zero(), Volume(0.0, Unit::Volume::CubicMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

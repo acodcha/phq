@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Specific gas constant of a gas. Gas constant per unit mass.
 class SpecificGasConstant
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
@@ -53,6 +54,10 @@ public:
   constexpr SpecificGasConstant(
       const GasConstant& gas_constant, const Mass& mass) noexcept
     : SpecificGasConstant(gas_constant.Value() / mass.Value()) {}
+
+  static constexpr SpecificGasConstant Zero() noexcept {
+    return SpecificGasConstant{0.0};
+  }
 
   template<Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificGasConstant Create(const double value) noexcept {

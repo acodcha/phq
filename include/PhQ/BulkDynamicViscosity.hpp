@@ -21,6 +21,8 @@
 
 namespace PhQ {
 
+// Bulk dynamic viscosity, also known as volume dynamic viscosity or
+// dilatational dynamic viscosity.
 class BulkDynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
@@ -30,6 +32,10 @@ public:
   BulkDynamicViscosity(
       const double value, const Unit::DynamicViscosity unit) noexcept
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+
+  static constexpr BulkDynamicViscosity Zero() noexcept {
+    return BulkDynamicViscosity{0.0};
+  }
 
   template<Unit::DynamicViscosity Unit>
   static constexpr BulkDynamicViscosity Create(const double value) noexcept {

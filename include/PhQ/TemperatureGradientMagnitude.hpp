@@ -26,6 +26,7 @@ namespace PhQ {
 class Direction;
 class TemperatureGradient;
 
+// Temperature gradient scalar. Magnitude of a temperature gradient vector.
 class TemperatureGradientMagnitude
   : public DimensionalScalarQuantity<Unit::TemperatureGradient> {
 public:
@@ -44,6 +45,10 @@ public:
       const Length& length) noexcept
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(
         temperature_difference.Value() / length.Value()) {}
+
+  static constexpr TemperatureGradientMagnitude Zero() noexcept {
+    return TemperatureGradientMagnitude{0.0};
+  }
 
   template<Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradientMagnitude

@@ -38,6 +38,7 @@ class SpecificIsochoricHeatCapacity;
 class SpecificPower;
 class Volume;
 
+// Mass.
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
 public:
   constexpr Mass() noexcept : DimensionalScalarQuantity<Unit::Mass>() {}
@@ -69,6 +70,8 @@ public:
   constexpr Mass(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+
+  static constexpr Mass Zero() noexcept { return Mass{0.0}; }
 
   template<Unit::Mass Unit>
   static constexpr Mass Create(const double value) noexcept {

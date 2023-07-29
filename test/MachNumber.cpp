@@ -111,6 +111,8 @@ TEST(MachNumber, XML) { EXPECT_EQ(MachNumber(1.11).XML(), "1.110000"); }
 
 TEST(MachNumber, YAML) { EXPECT_EQ(MachNumber(1.11).YAML(), "1.110000"); }
 
+TEST(MachNumber, Zero) { EXPECT_EQ(MachNumber::Zero(), MachNumber(0.0)); }
+
 }  // namespace
 
 }  // namespace PhQ

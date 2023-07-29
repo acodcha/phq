@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Power. Time rate of change of energy. Can also represent an energy transfer
+// rate.
 class Power : public DimensionalScalarQuantity<Unit::Power> {
 public:
   constexpr Power() noexcept : DimensionalScalarQuantity<Unit::Power>() {}
@@ -37,6 +39,8 @@ public:
 
   constexpr Power(
       const SpecificPower& specific_power, const Mass& mass) noexcept;
+
+  static constexpr Power Zero() noexcept { return Power{0.0}; }
 
   template<Unit::Power Unit>
   static constexpr Power Create(const double value) noexcept {

@@ -23,6 +23,7 @@
 
 namespace PhQ {
 
+// Reynolds number of a fluid flow.
 class ReynoldsNumber : public DimensionlessScalarQuantity {
 public:
   constexpr ReynoldsNumber() noexcept : DimensionlessScalarQuantity() {}
@@ -40,6 +41,10 @@ public:
                            const Speed& speed, const Length& length) noexcept
     : ReynoldsNumber(
         speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
+
+  static constexpr ReynoldsNumber Zero() noexcept {
+    return ReynoldsNumber{0.0};
+  }
 
   inline constexpr PhQ::DynamicViscosity DynamicViscosity(
       const PhQ::MassDensity& mass_density, const PhQ::Speed& speed,

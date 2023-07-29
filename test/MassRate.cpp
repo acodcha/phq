@@ -148,6 +148,10 @@ TEST(MassRate, YAML) {
             "{value:-5.000000,unit:\"g/s\"}");
 }
 
+TEST(MassRate, Zero) {
+  EXPECT_EQ(MassRate::Zero(), MassRate(0.0, Unit::MassRate::KilogramPerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ

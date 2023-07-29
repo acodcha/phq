@@ -29,6 +29,7 @@ class ForceMagnitude;
 class StaticPressure;
 class Traction;
 
+// Area. Scalar quantity. Can also represent the magnitude of a vector area.
 class Area : public DimensionalScalarQuantity<Unit::Area> {
 public:
   constexpr Area() noexcept : DimensionalScalarQuantity<Unit::Area>() {}
@@ -40,6 +41,8 @@ public:
 
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;
+
+  static constexpr Area Zero() noexcept { return Area{0.0}; }
 
   template<Unit::Area Unit>
   static constexpr Area Create(const double value) noexcept {

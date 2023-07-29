@@ -23,6 +23,7 @@ namespace PhQ {
 // Forward declaration for class GasConstant.
 class SpecificGasConstant;
 
+// Gas constant of a gas.
 class GasConstant : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
   constexpr GasConstant() noexcept
@@ -50,6 +51,8 @@ public:
 
   constexpr GasConstant(const SpecificGasConstant& specific_gas_constant,
                         const Mass& mass) noexcept;
+
+  static constexpr GasConstant Zero() noexcept { return GasConstant{0.0}; }
 
   template<Unit::HeatCapacity Unit>
   static constexpr GasConstant Create(const double value) noexcept {

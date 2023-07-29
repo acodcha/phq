@@ -209,6 +209,11 @@ TEST(AreaVector, YAML) {
             "{value:{x:0,y:-5.000000,z:0},unit:\"ft^2\"}");
 }
 
+TEST(AreaVector, Zero) {
+  EXPECT_EQ(
+      AreaVector::Zero(), AreaVector({0.0, 0.0, 0.0}, Unit::Area::SquareMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ

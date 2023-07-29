@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Acceleration vector.
 class Acceleration : public DimensionalVectorQuantity<Unit::Acceleration> {
 public:
   constexpr Acceleration() noexcept
@@ -40,6 +41,10 @@ public:
   constexpr Acceleration(
       const Velocity& velocity, const Frequency& frequency) noexcept
     : Acceleration(velocity.Value() * frequency.Value()) {}
+
+  static constexpr Acceleration Zero() noexcept {
+    return Acceleration{Value::Vector::Zero()};
+  }
 
   template<Unit::Acceleration Unit>
   static constexpr Acceleration Create(const Value::Vector& value) noexcept {

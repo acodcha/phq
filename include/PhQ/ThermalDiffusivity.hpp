@@ -26,6 +26,7 @@ namespace PhQ {
 // Forward declaration for class ThermalDiffusivity.
 class PrandtlNumber;
 
+// Thermal diffusivity.
 class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
   constexpr ThermalDiffusivity() noexcept
@@ -45,6 +46,10 @@ public:
   constexpr ThermalDiffusivity(
       const PrandtlNumber& prandtl_number,
       const KinematicViscosity& kinematic_viscosity) noexcept;
+
+  static constexpr ThermalDiffusivity Zero() noexcept {
+    return ThermalDiffusivity{0.0};
+  }
 
   template<Unit::Diffusivity Unit>
   static constexpr ThermalDiffusivity Create(const double value) noexcept {

@@ -23,6 +23,7 @@
 
 namespace PhQ {
 
+// Vector area.
 class AreaVector : public DimensionalVectorQuantity<Unit::Area> {
 public:
   constexpr AreaVector() noexcept : DimensionalVectorQuantity<Unit::Area>() {}
@@ -32,6 +33,10 @@ public:
 
   constexpr AreaVector(const Area& area, const Direction& direction) noexcept
     : AreaVector(area.Value() * direction.Value()) {}
+
+  static constexpr AreaVector Zero() noexcept {
+    return AreaVector{Value::Vector::Zero()};
+  }
 
   template<Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) noexcept {

@@ -20,6 +20,7 @@
 
 namespace PhQ {
 
+// Isobaric heat capacity, also known as heat capacity at constant pressure.
 class IsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
@@ -47,6 +48,10 @@ public:
   constexpr IsobaricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const Mass& mass) noexcept;
+
+  static constexpr IsobaricHeatCapacity Zero() noexcept {
+    return IsobaricHeatCapacity{0.0};
+  }
 
   template<Unit::HeatCapacity Unit>
   static constexpr IsobaricHeatCapacity Create(const double value) noexcept {

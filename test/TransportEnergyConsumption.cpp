@@ -151,6 +151,11 @@ TEST(TransportEnergyConsumption, YAML) {
       "{value:-5.000000,unit:\"kW·hr/km\"}");
 }
 
+TEST(TransportEnergyConsumption, Zero) {
+  EXPECT_EQ(TransportEnergyConsumption::Zero(),
+            TransportEnergyConsumption(0.0, Unit::Force::Newton));
+}
+
 }  // namespace
 
 }  // namespace PhQ

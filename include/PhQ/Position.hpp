@@ -20,6 +20,7 @@
 
 namespace PhQ {
 
+// Position vector. Not to be confused with displacement vector.
 class Position : public DimensionalVectorQuantity<Unit::Length> {
 public:
   constexpr Position() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
@@ -32,6 +33,10 @@ public:
 
   explicit constexpr Position(const Displacement& displacement) noexcept
     : Position(displacement.Value()) {}
+
+  static constexpr Position Zero() noexcept {
+    return Position{Value::Vector::Zero()};
+  }
 
   template<Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) noexcept {

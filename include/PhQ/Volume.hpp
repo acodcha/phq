@@ -28,6 +28,7 @@ class Mass;
 class MassDensity;
 class VolumeRate;
 
+// Volume.
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
 public:
   constexpr Volume() noexcept : DimensionalScalarQuantity<Unit::Volume>() {}
@@ -41,6 +42,8 @@ public:
       const VolumeRate& volume_rate, const Frequency& frequency) noexcept;
 
   constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
+
+  static constexpr Volume Zero() noexcept { return Volume{0.0}; }
 
   template<Unit::Volume Unit>
   static constexpr Volume Create(const double value) noexcept {

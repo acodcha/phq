@@ -25,6 +25,9 @@ namespace PhQ {
 // Forward declaration for class AngularSpeed.
 class AngularAccelerationMagnitude;
 
+// Planar angular speed. Magnitude of angular velocity. Time rate of change of
+// an angle. Typically measured in radians per second. Can also represent a
+// circular frequency.
 class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
 public:
   constexpr AngularSpeed() noexcept
@@ -47,6 +50,8 @@ public:
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Frequency& frequency) noexcept;
+
+  static constexpr AngularSpeed Zero() noexcept { return AngularSpeed{0.0}; }
 
   template<Unit::AngularSpeed Unit>
   static constexpr AngularSpeed Create(const double value) noexcept {

@@ -124,6 +124,8 @@ TEST(Time, YAML) {
             "{value:-5.000000,unit:\"min\"}");
 }
 
+TEST(Time, Zero) { EXPECT_EQ(Time::Zero(), Time(0.0, Unit::Time::Second)); }
+
 }  // namespace
 
 }  // namespace PhQ

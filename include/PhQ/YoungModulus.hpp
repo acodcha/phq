@@ -21,7 +21,8 @@
 
 namespace PhQ {
 
-// Young's Modulus
+// Young's modulus of a deformable solid material. A measure of a deformable
+// solid material's elastic modulus.
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   constexpr YoungModulus() noexcept
@@ -29,6 +30,8 @@ public:
 
   YoungModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+
+  static constexpr YoungModulus Zero() noexcept { return YoungModulus{0.0}; }
 
   template<Unit::Pressure Unit>
   static constexpr YoungModulus Create(const double value) noexcept {

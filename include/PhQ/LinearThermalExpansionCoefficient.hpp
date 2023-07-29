@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Linear thermal expansion coefficient. Not to be confused with the volumetric
+// thermal expansion coefficient.
 class LinearThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
@@ -31,6 +33,10 @@ public:
   LinearThermalExpansionCoefficient(
       const double value, const Unit::ThermalExpansion unit) noexcept
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
+
+  static constexpr LinearThermalExpansionCoefficient Zero() noexcept {
+    return LinearThermalExpansionCoefficient{0.0};
+  }
 
   template<Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient
