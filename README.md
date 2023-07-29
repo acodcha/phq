@@ -17,9 +17,11 @@ The following packages are required:
 - **C++17 Compiler:** Any C++17 compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
 - **CMake:** On Ubuntu, install with `sudo apt install cmake`.
 
-Configure the library with:
+Clone this repository and configure the library with:
 
 ```bash
+git clone git@github.com:acodcha/physical-quantities.git
+cd physical-quantities
 mkdir build
 cd build
 cmake ..
@@ -27,7 +29,7 @@ cmake ..
 
 This is a header-only library, so no compilation is needed.
 
-Install the library from the `build` directory with:
+You may optionally install the library to your system from the `build` directory with:
 
 ```bash
 sudo make install
@@ -39,28 +41,35 @@ On most systems, this installs the library headers to `/usr/local/include/PhQ` a
 
 ## Configuration
 
-To use the library in one of your projects, first install it to your system as described in the Installation section.
-
-In your project's `CMakeLists.txt` file, set your project's C++ standard to C++17 or higher:
+To use the library in one of your CMake projects, do the following in your `CMakeLists.txt` file:
 
 ```cmake
-set(CMAKE_CXX_STANDARD 17)
+include(FetchContent)
+FetchContent_Declare(
+  PhQ
+  GIT_REPOSITORY https://github.com/acodcha/physical-quantities.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(PhQ)
+
+[...]
+
+target_link_libraries(your-target-name [other-options] PhQ)
 ```
 
-Locate the `PhQ` library in your project's `CMakeLists.txt` file:
+This automatically downloads, builds, and links the library to your target.
+
+Alternatively, if you installed the library on your system as described in the Installation section, you can simply do the following in your `CMakeLists.txt` file:
 
 ```cmake
 find_package(PhQ CONFIG REQUIRED)
+
+[...]
+
+target_link_libraries(your-target-name [other-options] PhQ)
 ```
 
-Add the `PhQ` library as a dependency in your project's `CMakeLists.txt` file:
-
-```cmake
-add_executable(executable-name source/main.cpp)
-target_link_libraries(executable-name [other-options] PhQ::PhQ)
-```
-
-Once this is done, simply include the headers you need in your project's source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the library's contents.
+Simply include the headers you need in your project's source files, such as `#include <PhQ/Position.hpp>` for the `PhQ::Position` class. The `PhQ::` namespace encapsulates all of the library's contents.
 
 [(Back to Top)](#physical-quantities)
 
@@ -87,17 +96,17 @@ Certain operations can result in divisions by zero. C++ supports floating-point 
 Testing is optional and disabled by default but can be done from the `build` directory with:
 
 ```bash
-cmake .. -DBUILD_PHQ_TESTS=ON
+cmake .. -DTEST_PHQ_LIBRARY=ON
 make --jobs=16
 make test
 ```
 
-This builds and runs the tests. The GoogleTest library (<https://github.com/google/googletest>) is used for testing. When testing is enabled, the GoogleTest library is downloaded, compiled, and linked with this library.
+This builds and runs the tests. The GoogleTest library (<https://github.com/google/googletest>) is used for testing. When testing is enabled, the GoogleTest library is automatically downloaded, built, and linked with this library.
 
 [(Back to Top)](#physical-quantities)
 
 ## License
 
-This work is maintained by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the `LICENSE` file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
+This project is maintained by Alexandre Coderre-Chabot (<https://github.com/acodcha>) and licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). For more details, see the `LICENSE` file or <https://www.gnu.org/licenses/lgpl-3.0.en.html>.
 
 [(Back to Top)](#physical-quantities)
