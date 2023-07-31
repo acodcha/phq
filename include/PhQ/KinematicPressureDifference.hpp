@@ -89,6 +89,12 @@ public:
     return KinematicPressureDifference{value_ / number};
   }
 
+  inline constexpr double
+  operator/(const KinematicPressureDifference& kinematic_pressure_difference)
+      const noexcept {
+    return value_ / kinematic_pressure_difference.value_;
+  }
+
   inline constexpr void operator+=(const KinematicPressureDifference&
                                        kinematic_pressure_difference) noexcept {
     value_ += kinematic_pressure_difference.value_;

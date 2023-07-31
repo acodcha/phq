@@ -59,6 +59,7 @@ TEST(AngularAccelerationMagnitude, Arithmetic) {
   EXPECT_EQ(acceleration0 / frequency, speed);
   EXPECT_EQ(speed / time, acceleration0);
   EXPECT_EQ(speed / acceleration0, time);
+  EXPECT_EQ(acceleration0 / acceleration0, 1.0);
 
   AngularAccelerationMagnitude acceleration1{
       1.0, Unit::AngularAcceleration::RadianPerSquareSecond};

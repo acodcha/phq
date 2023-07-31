@@ -86,6 +86,11 @@ public:
     return {*this, specific_energy};
   }
 
+  inline constexpr double operator/(
+      const SpecificPower& specific_power) const noexcept {
+    return value_ / specific_power.value_;
+  }
+
   inline constexpr void operator+=(
       const SpecificPower& specific_power) noexcept {
     value_ += specific_power.value_;

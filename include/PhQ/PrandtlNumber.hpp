@@ -95,6 +95,11 @@ public:
     return PrandtlNumber{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const PrandtlNumber& prandtl_number) const noexcept {
+    return value_ / prandtl_number.value_;
+  }
+
   inline constexpr void operator+=(
       const PrandtlNumber& prandtl_number) noexcept {
     value_ += prandtl_number.value_;

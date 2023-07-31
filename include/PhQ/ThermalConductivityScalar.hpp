@@ -86,6 +86,12 @@ public:
     return ThermalConductivityScalar{value_ / number};
   }
 
+  inline constexpr double
+  operator/(const ThermalConductivityScalar& thermal_conductivity_scalar)
+      const noexcept {
+    return value_ / thermal_conductivity_scalar.value_;
+  }
+
   inline constexpr void operator+=(
       const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
     value_ += thermal_conductivity_scalar.value_;

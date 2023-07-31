@@ -71,6 +71,10 @@ public:
 
   inline constexpr Time operator/(const MemoryRate& memory_rate) const noexcept;
 
+  inline constexpr double operator/(const Memory& memory) const noexcept {
+    return value_ / memory.value_;
+  }
+
   inline constexpr void operator+=(const Memory& memory) noexcept {
     value_ += memory.value_;
   }

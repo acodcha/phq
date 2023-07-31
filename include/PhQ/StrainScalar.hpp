@@ -57,6 +57,11 @@ public:
     return StrainScalar{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const StrainScalar& strain_scalar) const noexcept {
+    return value_ / strain_scalar.value_;
+  }
+
   inline constexpr void operator+=(const StrainScalar& strain_scalar) noexcept {
     value_ += strain_scalar.value_;
   }

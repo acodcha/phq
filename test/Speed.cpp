@@ -45,6 +45,7 @@ TEST(Speed, Arithmetic) {
   EXPECT_EQ(speed0 / frequency, Length(0.5, Unit::Length::Metre));
   EXPECT_EQ(length / speed0, time);
   EXPECT_EQ(length / time, speed0);
+  EXPECT_EQ(speed0 / speed0, 1.0);
 
   Speed speed1{1.0, Unit::Speed::MetrePerSecond};
   speed1 += Speed{1.0, Unit::Speed::MetrePerSecond};

@@ -47,6 +47,7 @@ TEST(MassRate, Arithmetic) {
   EXPECT_EQ(rate1 / mass, frequency);
   EXPECT_EQ(mass / rate1, time);
   EXPECT_EQ(mass / time, rate1);
+  EXPECT_EQ(rate2 / rate2, 1.0);
 
   MassRate rate3{rate1};
   rate3 += rate1;

@@ -76,6 +76,10 @@ public:
     return {*this, frequency};
   }
 
+  inline constexpr double operator/(const MassRate& mass_rate) const noexcept {
+    return value_ / mass_rate.value_;
+  }
+
   inline constexpr void operator+=(const MassRate& mass_rate) noexcept {
     value_ += mass_rate.value_;
   }

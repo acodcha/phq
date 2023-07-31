@@ -129,6 +129,10 @@ public:
   inline constexpr Time operator/(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
+  inline constexpr double operator/(const Speed& speed) const noexcept {
+    return value_ / speed.value_;
+  }
+
   inline constexpr void operator+=(const Speed& speed) noexcept {
     value_ += speed.value_;
   }

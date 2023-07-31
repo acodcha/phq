@@ -93,6 +93,11 @@ public:
     return SpecificHeatRatio{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+    return value_ / specific_heat_ratio.value_;
+  }
+
   inline constexpr void operator+=(
       const SpecificHeatRatio& specific_heat_ratio) noexcept {
     value_ += specific_heat_ratio.value_;

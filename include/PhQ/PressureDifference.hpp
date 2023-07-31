@@ -79,6 +79,11 @@ public:
   inline constexpr KinematicPressureDifference operator/(
       const MassDensity& mass_density) const noexcept;
 
+  inline constexpr double operator/(
+      const PressureDifference& pressure_difference) const noexcept {
+    return value_ / pressure_difference.value_;
+  }
+
   inline constexpr void operator+=(
       const PressureDifference& pressure_difference) noexcept {
     value_ += pressure_difference.value_;

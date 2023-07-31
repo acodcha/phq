@@ -74,6 +74,11 @@ public:
     return TotalPressure{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const TotalPressure& total_pressure) const noexcept {
+    return value_ / total_pressure.value_;
+  }
+
   inline constexpr void operator+=(
       const TotalPressure& total_pressure) noexcept {
     value_ += total_pressure.value_;

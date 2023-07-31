@@ -47,6 +47,7 @@ TEST(TransportEnergyConsumption, Arithmetic) {
       consumption0 / 2.0, TransportEnergyConsumption(0.5, Unit::Force::Newton));
   EXPECT_EQ(energy / length, consumption0);
   EXPECT_EQ(energy / consumption0, length);
+  EXPECT_EQ(consumption0 / consumption0, 1.0);
 
   TransportEnergyConsumption consumption1{1.0, Unit::Force::Newton};
   consumption1 += TransportEnergyConsumption{1.0, Unit::Force::Newton};

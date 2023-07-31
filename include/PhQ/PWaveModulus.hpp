@@ -58,6 +58,11 @@ public:
     return PWaveModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const PWaveModulus& p_wave_modulus) const noexcept {
+    return value_ / p_wave_modulus.value_;
+  }
+
   inline constexpr void operator+=(
       const PWaveModulus& p_wave_modulus) noexcept {
     value_ += p_wave_modulus.value_;

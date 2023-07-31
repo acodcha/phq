@@ -68,6 +68,11 @@ public:
     return IsentropicBulkModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+    return value_ / isentropic_bulk_modulus.value_;
+  }
+
   inline constexpr void operator+=(
       const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
     value_ += isentropic_bulk_modulus.value_;

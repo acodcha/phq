@@ -90,6 +90,11 @@ public:
   inline constexpr Mass operator/(
       const SpecificGasConstant& specific_gas_constant) const noexcept;
 
+  inline constexpr double operator/(
+      const GasConstant& gas_constant) const noexcept {
+    return value_ / gas_constant.value_;
+  }
+
   inline constexpr void operator+=(const GasConstant& gas_constant) noexcept {
     value_ += gas_constant.value_;
   }

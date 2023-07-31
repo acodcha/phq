@@ -77,6 +77,11 @@ public:
     return {*this, volume};
   }
 
+  inline constexpr double operator/(
+      const VolumeRate& volume_rate) const noexcept {
+    return value_ / volume_rate.value_;
+  }
+
   inline constexpr void operator+=(const VolumeRate& volume_rate) noexcept {
     value_ += volume_rate.value_;
   }

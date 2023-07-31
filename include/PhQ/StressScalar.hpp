@@ -61,6 +61,11 @@ public:
     return StressScalar{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const StressScalar& stress_scalar) const noexcept {
+    return value_ / stress_scalar.value_;
+  }
+
   inline constexpr void operator+=(const StressScalar& stress_scalar) noexcept {
     value_ += stress_scalar.value_;
   }

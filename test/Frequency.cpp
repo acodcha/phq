@@ -39,6 +39,7 @@ TEST(Frequency, Arithmetic) {
   EXPECT_EQ(frequency0 * time, 2.0);
   EXPECT_EQ(time * frequency0, 2.0);
   EXPECT_EQ(frequency0 / 2.0, Frequency(0.5, Unit::Frequency::Hertz));
+  EXPECT_EQ(frequency0 / frequency0, 1.0);
 
   Frequency frequency1{1.0, Unit::Frequency::Hertz};
   frequency1 += Frequency{1.0, Unit::Frequency::Hertz};

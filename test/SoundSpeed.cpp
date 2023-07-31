@@ -44,6 +44,7 @@ TEST(SoundSpeed, Arithmetic) {
   EXPECT_EQ(sound_speed_0 * 2.0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(2.0 * sound_speed_0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
   EXPECT_EQ(sound_speed_0 / 2.0, SoundSpeed(0.5, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(sound_speed_0 / sound_speed_0, 1.0);
 
   SoundSpeed sound_speed_1{1.0, Unit::Speed::MetrePerSecond};
   sound_speed_1 += SoundSpeed{1.0, Unit::Speed::MetrePerSecond};

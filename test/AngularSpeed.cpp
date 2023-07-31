@@ -51,6 +51,7 @@ TEST(AngularSpeed, Arithmetic) {
   EXPECT_EQ(speed0 / frequency, angle);
   EXPECT_EQ(angle / time, speed0);
   EXPECT_EQ(angle / speed0, time);
+  EXPECT_EQ(speed0 / speed0, 1.0);
 
   AngularSpeed speed1{1.0, Unit::AngularSpeed::RadianPerSecond};
   speed1 += AngularSpeed{1.0, Unit::AngularSpeed::RadianPerSecond};

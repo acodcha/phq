@@ -93,6 +93,11 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept;
 
+  inline constexpr double operator/(
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+    return value_ / isochoric_heat_capacity.value_;
+  }
+
   inline constexpr void operator+=(
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
     value_ += isochoric_heat_capacity.value_;

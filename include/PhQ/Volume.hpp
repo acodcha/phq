@@ -86,6 +86,10 @@ public:
 
   inline constexpr Time operator/(const VolumeRate& volume_rate) const noexcept;
 
+  inline constexpr double operator/(const Volume& volume) const noexcept {
+    return value_ / volume.value_;
+  }
+
   inline constexpr void operator+=(const Volume& volume) noexcept {
     value_ += volume.value_;
   }

@@ -37,6 +37,7 @@ TEST(MachNumber, Arithmetic) {
   EXPECT_EQ(mach_number_1 * 2.0, mach_number_2);
   EXPECT_EQ(2.0 * mach_number_1, mach_number_2);
   EXPECT_EQ(mach_number_2 / 2.0, mach_number_1);
+  EXPECT_EQ(mach_number_2 / mach_number_2, 1.0);
 
   MachNumber mach_number_3{mach_number_1};
   mach_number_3 += mach_number_1;

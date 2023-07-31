@@ -129,6 +129,12 @@ public:
     return {*this, specific_heat_ratio};
   }
 
+  inline constexpr double
+  operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
+      const noexcept {
+    return value_ / specific_isobaric_heat_capacity.value_;
+  }
+
   inline constexpr void operator+=(
       const SpecificIsobaricHeatCapacity&
           specific_isobaric_heat_capacity) noexcept {

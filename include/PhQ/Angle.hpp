@@ -114,6 +114,10 @@ public:
   inline constexpr Time operator/(
       const AngularSpeed& angular_speed) const noexcept;
 
+  inline constexpr double operator/(const Angle& angle) const noexcept {
+    return value_ / angle.value_;
+  }
+
   inline constexpr void operator+=(const Angle& angle) noexcept {
     value_ += angle.value_;
   }

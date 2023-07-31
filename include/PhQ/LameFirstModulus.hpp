@@ -62,6 +62,11 @@ public:
     return LameFirstModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const LameFirstModulus& lame_first_modulus) const noexcept {
+    return value_ / lame_first_modulus.value_;
+  }
+
   inline constexpr void operator+=(
       const LameFirstModulus& lame_first_modulus) noexcept {
     value_ += lame_first_modulus.value_;

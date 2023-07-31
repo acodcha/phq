@@ -58,6 +58,11 @@ public:
     return YoungModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const YoungModulus& young_modulus) const noexcept {
+    return value_ / young_modulus.value_;
+  }
+
   inline constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
     value_ += young_modulus.value_;
   }

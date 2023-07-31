@@ -99,6 +99,11 @@ public:
     return MassDensity{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const MassDensity& mass_density) const noexcept {
+    return value_ / mass_density.value_;
+  }
+
   inline constexpr void operator+=(const MassDensity& mass_density) noexcept {
     value_ += mass_density.value_;
   }

@@ -77,6 +77,11 @@ public:
     return HeatFluxMagnitude{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+    return value_ / heat_flux_magnitude.value_;
+  }
+
   inline constexpr void operator+=(
       const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
     value_ += heat_flux_magnitude.value_;
