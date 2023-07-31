@@ -61,6 +61,11 @@ public:
     return IsothermalBulkModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+    return value_ / isothermal_bulk_modulus.value_;
+  }
+
   inline constexpr void operator+=(
       const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
     value_ += isothermal_bulk_modulus.value_;

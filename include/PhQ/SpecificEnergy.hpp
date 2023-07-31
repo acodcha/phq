@@ -86,6 +86,11 @@ public:
   inline constexpr Time operator/(
       const SpecificPower& specific_power) const noexcept;
 
+  inline constexpr double operator/(
+      const SpecificEnergy& specific_energy) const noexcept {
+    return value_ / specific_energy.value_;
+  }
+
   inline constexpr void operator+=(
       const SpecificEnergy& specific_energy) noexcept {
     value_ += specific_energy.value_;

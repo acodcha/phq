@@ -36,6 +36,7 @@ TEST(Mass, Arithmetic) {
   EXPECT_EQ(mass0 * 2.0, Mass(2.0, Unit::Mass::Kilogram));
   EXPECT_EQ(2.0 * mass0, Mass(2.0, Unit::Mass::Kilogram));
   EXPECT_EQ(mass0 / 2.0, Mass(0.5, Unit::Mass::Kilogram));
+  EXPECT_EQ(mass0 / mass0, 1.0);
 
   Mass mass1{1.0, Unit::Mass::Kilogram};
   mass1 += Mass{1.0, Unit::Mass::Kilogram};
@@ -99,8 +100,9 @@ TEST(Mass, JSON) {
 
 TEST(Mass, Print) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Print(), "1.110000 kg");
-  EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Print(Unit::Mass::Gram), "-5.000000 "
-                                                                  "g");
+  EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Print(Unit::Mass::Gram),
+            "-5.000000 "
+            "g");
 }
 
 TEST(Mass, Stream) {

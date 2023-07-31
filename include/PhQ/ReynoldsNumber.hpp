@@ -109,6 +109,11 @@ public:
     return ReynoldsNumber{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const ReynoldsNumber& reynolds_number) const noexcept {
+    return value_ / reynolds_number.value_;
+  }
+
   inline constexpr void operator+=(
       const ReynoldsNumber& reynolds_number) noexcept {
     value_ += reynolds_number.value_;

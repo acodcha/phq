@@ -121,6 +121,10 @@ public:
 
   inline constexpr Time operator/(const MassRate& mass_rate) const noexcept;
 
+  inline constexpr double operator/(const Mass& mass) const noexcept {
+    return value_ / mass.value_;
+  }
+
   inline constexpr void operator+=(const Mass& mass) noexcept {
     value_ += mass.value_;
   }

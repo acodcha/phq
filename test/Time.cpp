@@ -36,6 +36,7 @@ TEST(Time, Arithmetic) {
   EXPECT_EQ(time0 * 2.0, Time(2.0, Unit::Time::Second));
   EXPECT_EQ(2.0 * time0, Time(2.0, Unit::Time::Second));
   EXPECT_EQ(time0 / 2.0, Time(0.5, Unit::Time::Second));
+  EXPECT_EQ(time0 / time0, 1.0);
 
   Time time1{1.0, Unit::Time::Second};
   time1 += Time{1.0, Unit::Time::Second};

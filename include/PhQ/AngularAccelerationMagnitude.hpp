@@ -92,6 +92,12 @@ public:
     return {*this, angular_speed};
   }
 
+  inline constexpr double
+  operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
+      const noexcept {
+    return value_ / angular_acceleration_magnitude.value_;
+  }
+
   inline constexpr void operator+=(
       const AngularAccelerationMagnitude&
           angular_acceleration_magnitude) noexcept {

@@ -74,6 +74,12 @@ public:
     return VolumetricThermalExpansionCoefficient{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const VolumetricThermalExpansionCoefficient&
+          volumetric_thermal_expansion_coefficient) const noexcept {
+    return value_ / volumetric_thermal_expansion_coefficient.value_;
+  }
+
   inline constexpr void operator+=(
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) noexcept {

@@ -81,6 +81,11 @@ public:
     return DynamicPressure{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const DynamicPressure& dynamic_pressure) const noexcept {
+    return value_ / dynamic_pressure.value_;
+  }
+
   inline constexpr void operator+=(
       const DynamicPressure& dynamic_pressure) noexcept {
     value_ += dynamic_pressure.value_;

@@ -93,6 +93,10 @@ public:
   operator/(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept;
 
+  inline constexpr double operator/(const Energy& energy) const noexcept {
+    return value_ / energy.value_;
+  }
+
   inline constexpr void operator+=(const Energy& energy) noexcept {
     value_ += energy.value_;
   }

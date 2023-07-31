@@ -36,6 +36,7 @@ TEST(Length, Arithmetic) {
   EXPECT_EQ(length0 * 2.0, Length(2.0, Unit::Length::Metre));
   EXPECT_EQ(2.0 * length0, Length(2.0, Unit::Length::Metre));
   EXPECT_EQ(length0 / 2.0, Length(0.5, Unit::Length::Metre));
+  EXPECT_EQ(length0 / length0, 1.0);
 
   Length length1{1.0, Unit::Length::Metre};
   length1 += Length{1.0, Unit::Length::Metre};

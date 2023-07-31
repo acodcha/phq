@@ -75,6 +75,12 @@ public:
     return LinearThermalExpansionCoefficient{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const LinearThermalExpansionCoefficient&
+          linear_thermal_expansion_coefficient) const noexcept {
+    return value_ / linear_thermal_expansion_coefficient.value_;
+  }
+
   inline constexpr void operator+=(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) noexcept {

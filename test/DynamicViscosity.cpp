@@ -46,6 +46,7 @@ TEST(DynamicViscosity, Arithmetic) {
   EXPECT_EQ(viscosity2 / 2.0, viscosity1);
   EXPECT_EQ(viscosity1 / density, kinematic);
   EXPECT_EQ(viscosity1 / kinematic, density);
+  EXPECT_EQ(viscosity2 / viscosity2, 1.0);
 
   DynamicViscosity viscosity3{viscosity1};
   viscosity3 += viscosity1;

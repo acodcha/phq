@@ -84,6 +84,11 @@ public:
     return KinematicViscosity{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const KinematicViscosity& kinematic_viscosity) const noexcept {
+    return value_ / kinematic_viscosity.value_;
+  }
+
   inline constexpr void operator+=(
       const KinematicViscosity& kinematic_viscosity) noexcept {
     value_ += kinematic_viscosity.value_;

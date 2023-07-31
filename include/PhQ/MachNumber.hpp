@@ -58,6 +58,11 @@ public:
     return MachNumber{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const MachNumber& mach_number) const noexcept {
+    return value_ / mach_number.value_;
+  }
+
   inline constexpr void operator+=(const MachNumber& mach_number) noexcept {
     value_ += mach_number.value_;
   }

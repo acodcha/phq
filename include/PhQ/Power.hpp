@@ -81,6 +81,10 @@ public:
   inline constexpr Mass operator/(
       const SpecificPower& specific_power) const noexcept;
 
+  inline constexpr double operator/(const Power& power) const noexcept {
+    return value_ / power.value_;
+  }
+
   inline constexpr void operator+=(const Power& power) noexcept {
     value_ += power.value_;
   }

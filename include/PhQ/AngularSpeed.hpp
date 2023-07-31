@@ -100,6 +100,11 @@ public:
   operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept;
 
+  inline constexpr double operator/(
+      const AngularSpeed& angular_speed) const noexcept {
+    return value_ / angular_speed.value_;
+  }
+
   inline constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
     value_ += angular_speed.value_;
   }

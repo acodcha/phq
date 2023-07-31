@@ -78,6 +78,11 @@ public:
     return ThermalDiffusivity{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const ThermalDiffusivity& thermal_diffusivity) const noexcept {
+    return value_ / thermal_diffusivity.value_;
+  }
+
   inline constexpr void operator+=(
       const ThermalDiffusivity& thermal_diffusivity) noexcept {
     value_ += thermal_diffusivity.value_;

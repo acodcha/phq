@@ -36,6 +36,7 @@ TEST(Angle, Arithmetic) {
   EXPECT_EQ(angle0 * 2.0, Angle(2.0, Unit::Angle::Radian));
   EXPECT_EQ(2.0 * angle0, Angle(2.0, Unit::Angle::Radian));
   EXPECT_EQ(angle0 / 2.0, Angle(0.5, Unit::Angle::Radian));
+  EXPECT_EQ(angle0 / angle0, 1.0);
 
   Angle angle1{1.0, Unit::Angle::Radian};
   angle1 += Angle{1.0, Unit::Angle::Radian};

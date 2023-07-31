@@ -90,6 +90,12 @@ public:
     return TemperatureGradientMagnitude{value_ / number};
   }
 
+  inline constexpr double
+  operator/(const TemperatureGradientMagnitude& temperature_gradient_magnitude)
+      const noexcept {
+    return value_ / temperature_gradient_magnitude.value_;
+  }
+
   inline constexpr void operator+=(
       const TemperatureGradientMagnitude&
           temperature_gradient_magnitude) noexcept {

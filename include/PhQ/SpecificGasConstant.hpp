@@ -96,6 +96,11 @@ public:
     return SpecificGasConstant{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const SpecificGasConstant& specific_gas_constant) const noexcept {
+    return value_ / specific_gas_constant.value_;
+  }
+
   inline constexpr void operator+=(
       const SpecificGasConstant& specific_gas_constant) noexcept {
     value_ += specific_gas_constant.value_;

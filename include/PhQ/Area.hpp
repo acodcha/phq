@@ -78,6 +78,10 @@ public:
     return Length{value_ / length.Value()};
   }
 
+  inline constexpr double operator/(const Area& area) const noexcept {
+    return value_ / area.value_;
+  }
+
   inline constexpr void operator+=(const Area& area) noexcept {
     value_ += area.value_;
   }

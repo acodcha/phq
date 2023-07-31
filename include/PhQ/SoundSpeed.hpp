@@ -108,6 +108,11 @@ public:
     return SoundSpeed{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const SoundSpeed& sound_speed) const noexcept {
+    return value_ / sound_speed.value_;
+  }
+
   inline constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
     value_ += sound_speed.value_;
   }

@@ -94,6 +94,11 @@ public:
   inline constexpr TemperatureGradientMagnitude operator/(
       const Length& length) const noexcept;
 
+  inline constexpr double operator/(
+      const TemperatureDifference& temperature_difference) const noexcept {
+    return value_ / temperature_difference.value_;
+  }
+
   inline constexpr void operator+=(
       const TemperatureDifference& temperature_difference) noexcept {
     value_ += temperature_difference.value_;

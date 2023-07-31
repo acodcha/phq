@@ -126,6 +126,10 @@ public:
     return Time{value_ / number};
   }
 
+  inline constexpr double operator/(const Time& time) const noexcept {
+    return value_ / time.value_;
+  }
+
   inline constexpr void operator+=(const Time& time) noexcept {
     value_ += time.value_;
   }

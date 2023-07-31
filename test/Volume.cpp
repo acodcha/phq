@@ -43,6 +43,7 @@ TEST(Volume, Arithmetic) {
   EXPECT_EQ(volume0 / 2.0, Volume(0.5, Unit::Volume::CubicMetre));
   EXPECT_EQ(volume0 / length, area);
   EXPECT_EQ(volume0 / area, length);
+  EXPECT_EQ(volume0 / volume0, 1.0);
 
   Volume volume1{1.0, Unit::Volume::CubicMetre};
   volume1 += Volume{1.0, Unit::Volume::CubicMetre};

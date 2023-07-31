@@ -98,6 +98,11 @@ public:
     return StaticKinematicPressure{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
+    return value_ / static_kinematic_pressure.value_;
+  }
+
   inline constexpr void operator+=(
       const StaticKinematicPressure& static_kinematic_pressure) noexcept {
     value_ += static_kinematic_pressure.value_;

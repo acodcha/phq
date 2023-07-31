@@ -74,6 +74,11 @@ public:
 
   inline constexpr StaticPressure operator/(const Area& area) const noexcept;
 
+  inline constexpr double operator/(
+      const ForceMagnitude& force_magnitude) const noexcept {
+    return value_ / force_magnitude.value_;
+  }
+
   inline constexpr void operator+=(
       const ForceMagnitude& force_magnitude) noexcept {
     value_ += force_magnitude.value_;

@@ -52,6 +52,7 @@ TEST(AccelerationMagnitude, Arithmetic) {
   EXPECT_EQ(acceleration4 / frequency2, speed2);
   EXPECT_EQ(speed2 / acceleration4, time0p5);
   EXPECT_EQ(speed2 / time0p5, acceleration4);
+  EXPECT_EQ(acceleration4 / acceleration4, 1.0);
 
   AccelerationMagnitude a{acceleration4};
   a += acceleration4;

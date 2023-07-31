@@ -58,6 +58,11 @@ public:
     return ShearModulus{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const ShearModulus& shear_modulus) const noexcept {
+    return value_ / shear_modulus.value_;
+  }
+
   inline constexpr void operator+=(const ShearModulus& shear_modulus) noexcept {
     value_ += shear_modulus.value_;
   }

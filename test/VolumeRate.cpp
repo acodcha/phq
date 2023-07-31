@@ -48,6 +48,7 @@ TEST(VolumeRate, Arithmetic) {
   EXPECT_EQ(rate1 / volume, frequency);
   EXPECT_EQ(volume / rate1, time);
   EXPECT_EQ(volume / time, rate1);
+  EXPECT_EQ(rate2 / rate2, 1.0);
 
   VolumeRate rate3{rate1};
   rate3 += rate1;

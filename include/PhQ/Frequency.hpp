@@ -123,6 +123,10 @@ public:
 
   inline constexpr StrainRate operator*(const Strain& strain) const noexcept;
 
+  inline constexpr double operator/(const Frequency& frequency) const noexcept {
+    return value_ / frequency.value_;
+  }
+
   inline constexpr void operator+=(const Frequency& frequency) noexcept {
     value_ += frequency.value_;
   }

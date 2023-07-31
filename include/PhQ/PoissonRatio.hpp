@@ -48,6 +48,11 @@ public:
     return PoissonRatio{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const PoissonRatio& poisson_ratio) const noexcept {
+    return value_ / poisson_ratio.value_;
+  }
+
   inline constexpr void operator+=(const PoissonRatio& poisson_ratio) noexcept {
     value_ += poisson_ratio.value_;
   }

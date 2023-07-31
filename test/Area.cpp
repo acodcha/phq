@@ -39,6 +39,7 @@ TEST(Area, Arithmetic) {
   EXPECT_EQ(length * length, Area(4.0, Unit::Area::SquareMetre));
   EXPECT_EQ(area0 / 2.0, Area(0.5, Unit::Area::SquareMetre));
   EXPECT_EQ(area0 / length, Length(0.5, Unit::Length::Metre));
+  EXPECT_EQ(area0 / area0, 1.0);
 
   Area area1{1.0, Unit::Area::SquareMetre};
   area1 += Area{1.0, Unit::Area::SquareMetre};

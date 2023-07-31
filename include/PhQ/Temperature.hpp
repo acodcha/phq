@@ -67,6 +67,11 @@ public:
     return Temperature{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const Temperature& temperature) const noexcept {
+    return value_ / temperature.value_;
+  }
+
   inline constexpr void operator+=(const Temperature& temperature) noexcept {
     value_ += temperature.value_;
   }

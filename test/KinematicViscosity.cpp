@@ -43,6 +43,7 @@ TEST(KinematicViscosity, Arithmetic) {
   EXPECT_EQ(viscosity1 * 2.0, viscosity2);
   EXPECT_EQ(2.0 * viscosity1, viscosity2);
   EXPECT_EQ(viscosity2 / 2.0, viscosity1);
+  EXPECT_EQ(viscosity2 / viscosity2, 1.0);
 
   KinematicViscosity viscosity3{viscosity1};
   viscosity3 += viscosity1;

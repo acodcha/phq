@@ -64,6 +64,11 @@ public:
     return BulkDynamicViscosity{value_ / number};
   }
 
+  inline constexpr double operator/(
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+    return value_ / bulk_dynamic_viscosity.value_;
+  }
+
   inline constexpr void operator+=(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
     value_ += bulk_dynamic_viscosity.value_;

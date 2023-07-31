@@ -44,6 +44,7 @@ TEST(MassDensity, Arithmetic) {
   EXPECT_EQ(volume * density1, mass);
   EXPECT_EQ(density2 / 2.0, density1);
   EXPECT_EQ(mass / volume, density1);
+  EXPECT_EQ(density2 / density2, 1.0);
 
   MassDensity density3{density1};
   density3 += density1;

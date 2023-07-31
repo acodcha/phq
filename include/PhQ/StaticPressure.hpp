@@ -107,6 +107,11 @@ public:
   inline constexpr StaticKinematicPressure operator/(
       const MassDensity& mass_density) const noexcept;
 
+  inline constexpr double operator/(
+      const StaticPressure& static_pressure) const noexcept {
+    return value_ / static_pressure.value_;
+  }
+
   inline constexpr void operator+=(
       const StaticPressure& static_pressure) noexcept {
     value_ += static_pressure.value_;
