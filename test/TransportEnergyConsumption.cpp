@@ -34,6 +34,8 @@ TEST(TransportEnergyConsumption, Arithmetic) {
   const TransportEnergyConsumption consumption0{1.0, Unit::Force::Newton};
   const Energy energy{2.0, Unit::Energy::Joule};
   const Length length{2.0, Unit::Length::Metre};
+  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
+  const Power power{2.0, Unit::Power::Watt};
   EXPECT_EQ(consumption0 + consumption0,
             TransportEnergyConsumption(2.0, Unit::Force::Newton));
   EXPECT_EQ(consumption0 - consumption0,
@@ -43,6 +45,9 @@ TEST(TransportEnergyConsumption, Arithmetic) {
   EXPECT_EQ(
       2.0 * consumption0, TransportEnergyConsumption(2.0, Unit::Force::Newton));
   EXPECT_EQ(consumption0 * length, energy);
+  EXPECT_EQ(length * consumption0, energy);
+  EXPECT_EQ(consumption0 * speed, power);
+  EXPECT_EQ(speed * consumption0, power);
   EXPECT_EQ(
       consumption0 / 2.0, TransportEnergyConsumption(0.5, Unit::Force::Newton));
   EXPECT_EQ(energy / length, consumption0);
@@ -86,9 +91,12 @@ TEST(TransportEnergyConsumption, Constructor) {
       TransportEnergyConsumption::Create<Unit::Force::Newton>(4.0)};
   const Energy energy{8.0, Unit::Energy::Joule};
   const Length length{2.0, Unit::Length::Metre};
+  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
+  const Power power{8.0, Unit::Power::Watt};
   EXPECT_EQ(TransportEnergyConsumption(length, energy), consumption1);
   EXPECT_EQ(Energy(length, consumption1), energy);
   EXPECT_EQ(Length(energy, consumption1), length);
+  EXPECT_EQ(Power(speed, consumption1), power);
 }
 
 TEST(TransportEnergyConsumption, Hash) {

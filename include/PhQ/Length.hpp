@@ -97,6 +97,10 @@ public:
   inline constexpr Position operator*(
       const Direction& direction) const noexcept;
 
+  inline constexpr Energy
+  operator*(const TransportEnergyConsumption& transport_energy_consumption)
+      const noexcept;
+
   inline constexpr Length operator/(const double number) const noexcept {
     return Length{value_ / number};
   }

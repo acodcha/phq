@@ -31,8 +31,10 @@ class DynamicViscosity;
 class KinematicViscosity;
 class MachNumber;
 class MassDensity;
+class Power;
 class ReynoldsNumber;
 class SoundSpeed;
+class TransportEnergyConsumption;
 class Velocity;
 
 // Speed scalar. Magnitude of the velocity vector.
@@ -110,6 +112,10 @@ public:
 
   inline constexpr Velocity operator*(
       const Direction& direction) const noexcept;
+
+  inline constexpr Power
+  operator*(const TransportEnergyConsumption& transport_energy_consumption)
+      const noexcept;
 
   inline constexpr Speed operator/(const double number) const noexcept {
     return Speed{value_ / number};

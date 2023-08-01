@@ -22,6 +22,10 @@
 
 namespace PhQ {
 
+// Forward declarations for class Power.
+class Speed;
+class TransportEnergyConsumption;
+
 // Power. Time rate of change of energy. Can also represent an energy transfer
 // rate.
 class Power : public DimensionalScalarQuantity<Unit::Power> {
@@ -39,6 +43,10 @@ public:
 
   constexpr Power(
       const SpecificPower& specific_power, const Mass& mass) noexcept;
+
+  constexpr Power(
+      const Speed& speed,
+      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
   static constexpr Power Zero() noexcept { return Power{0.0}; }
 
