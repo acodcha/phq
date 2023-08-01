@@ -16,8 +16,9 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_TRANSPORT_ENERGY_CONSUMPTION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_TRANSPORT_ENERGY_CONSUMPTION_HPP
 
-#include "Energy.hpp"
 #include "Length.hpp"
+#include "Power.hpp"
+#include "Speed.hpp"
 #include "Unit/Force.hpp"
 
 namespace PhQ {
@@ -71,6 +72,10 @@ public:
 
   inline constexpr Energy operator*(const Length length) const noexcept {
     return Energy{length, *this};
+  }
+
+  inline constexpr Power operator*(const Speed speed) const noexcept {
+    return Power{speed, *this};
   }
 
   inline constexpr TransportEnergyConsumption operator/(
@@ -165,6 +170,23 @@ inline constexpr Energy::Energy(
     const Length& length,
     const TransportEnergyConsumption& transport_energy_consumption) noexcept
   : Energy(transport_energy_consumption.Value() * length.Value()) {}
+
+inline constexpr Power::Power(
+    const Speed& speed,
+    const TransportEnergyConsumption& transport_energy_consumption) noexcept
+  : Power(speed.Value() * transport_energy_consumption.Value()) {}
+
+inline constexpr Energy Length::operator*(
+    const TransportEnergyConsumption& transport_energy_consumption)
+    const noexcept {
+  return {*this, transport_energy_consumption};
+}
+
+inline constexpr Power
+Speed::operator*(const TransportEnergyConsumption& transport_energy_consumption)
+    const noexcept {
+  return {*this, transport_energy_consumption};
+}
 
 inline constexpr TransportEnergyConsumption Energy::operator/(
     const Length& length) const noexcept {
