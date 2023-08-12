@@ -48,6 +48,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Area>{
     Dimension::Set{Dimension::Time{0}, Dimension::Length{2}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Area> ConsistentUnits<Unit::Area>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Area::SquareMetre     },
@@ -121,8 +123,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Area>
         {"uin^2",       Unit::Area::SquareMicroinch },
         {"uin2",        Unit::Area::SquareMicroinch },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(

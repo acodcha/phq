@@ -56,6 +56,8 @@ inline constexpr const Unit::MemoryRate StandardUnit<Unit::MemoryRate>{
 template<> inline constexpr const Dimension::Set Dimensions<Unit::MemoryRate>{
     Dimension::Set{Dimension::Time{-1}}};
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::MemoryRate>
     ConsistentUnits<Unit::MemoryRate>{
         {UnitSystem::MetreKilogramSecondKelvin,  Unit::MemoryRate::BitPerSecond},
@@ -119,8 +121,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::MemoryRate>
         {"Pib/s", Unit::MemoryRate::PebibitPerSecond },
         {"PiB/s", Unit::MemoryRate::PebibytePerSecond},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(

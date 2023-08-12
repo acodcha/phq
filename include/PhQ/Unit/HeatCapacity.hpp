@@ -41,6 +41,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::HeatCapacity>{
                    Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::HeatCapacity>
     ConsistentUnits<Unit::HeatCapacity>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -116,8 +118,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::HeatCapacity>
         {"in*lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
         {"in*lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(

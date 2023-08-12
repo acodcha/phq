@@ -23,23 +23,38 @@
 
 namespace PhQ {
 
+namespace Internal {
+
+// Map of enumerations to their corresponding abbreviations. This is an internal
+// implementation detail and is not intended to be used except by the
+// PhQ::Abbreviation function.
 template<typename Enumeration>
 inline const std::map<Enumeration, std::string_view> Abbreviations;
 
-template<typename Enumeration>
-inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
-  return Abbreviations<Enumeration>.find(enumeration)->second;
-}
-
+// Map of spellings to their corresponding enumeration values. This is an
+// internal implementation detail and is not intended to be used except by the
+// PhQ::Parse function.
 template<typename Enumeration>
 inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
+}  // namespace Internal
+
+// Returns the abbreviation of a given enumeration value. For example,
+// PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
 template<typename Enumeration>
-std::optional<Enumeration> Parse(const std::string_view& spelling) noexcept {
+inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
+  return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
+}
+
+// Attempts to parse some given text into an enumeration. Returns the
+// enumeration if one is found, or std::nullopt otherwise. For example,
+// PhQ::Parse<PhQ::Unit::Time>("hr") returns PhQ::Unit::Time::Hour.
+template<typename Enumeration>
+std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
   const typename std::unordered_map<std::string_view,
                                     Enumeration>::const_iterator found{
-      Spellings<Enumeration>.find(spelling)};
-  if (found != Spellings<Enumeration>.cend()) {
+      Internal::Spellings<Enumeration>.find(spelling)};
+  if (found != Internal::Spellings<Enumeration>.cend()) {
     return found->second;
   } else {
     return std::nullopt;

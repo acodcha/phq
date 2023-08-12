@@ -39,6 +39,8 @@ inline constexpr const Unit::Time StandardUnit<Unit::Time>{Unit::Time::Second};
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Time>{
     Dimension::Set{Dimension::Time{1}}};
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Time::Second},
@@ -84,8 +86,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Time>
         {"hour",         Unit::Time::Hour       },
         {"hours",        Unit::Time::Hour       },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Nanosecond>(

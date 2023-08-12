@@ -39,6 +39,8 @@ template<> inline constexpr const Unit::Angle StandardUnit<Unit::Angle>{
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::Angle>{Dimension::Set{}};
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Angle> ConsistentUnits<Unit::Angle>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Angle::Radian},
@@ -83,8 +85,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Angle>
         {"revolution",  Unit::Angle::Revolution},
         {"revolutions", Unit::Angle::Revolution},
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(

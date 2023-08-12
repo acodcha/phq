@@ -27,6 +27,13 @@
 
 namespace PhQ::Dimension {
 
+// Dimension set of a unit of measure or physical quantity. Composed of the
+// seven base dimensions: time, length, mass, electric current, temperature,
+// amount of substance, and luminous intensity. Units of measure that share the
+// same dimension set can be converted. For example, the foot per second and the
+// kilometre per hour both have the dimension set T*L^(-1), so they are
+// understood to be units of measure of the same type and can be converted into
+// each other.
 class Set {
 public:
   constexpr Set(

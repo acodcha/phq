@@ -44,6 +44,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Power>{
                    Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Power> ConsistentUnits<Unit::Power>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Power::Watt              },
@@ -114,8 +116,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Power>
         {"in·lb/s",    Unit::Power::InchPoundPerSecond},
         {"in*lb/s",    Unit::Power::InchPoundPerSecond},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double& value) noexcept {

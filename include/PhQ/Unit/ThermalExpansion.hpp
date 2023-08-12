@@ -40,6 +40,8 @@ inline constexpr const Dimension::Set Dimensions<Unit::ThermalExpansion>{
                    Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::ThermalExpansion> ConsistentUnits<
     Unit::ThermalExpansion>{
@@ -88,8 +90,6 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
         {"/F",     Unit::ThermalExpansion::PerFahrenheit},
         {"/degF",  Unit::ThermalExpansion::PerFahrenheit},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::ThermalExpansion,

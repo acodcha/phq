@@ -21,6 +21,7 @@
 
 namespace PhQ {
 
+// Abstract base class that represents any dimensional physical quantity.
 template<typename U> class DimensionalQuantity : public Quantity {
 public:
   static constexpr const Dimension::Set& Dimension() noexcept {

@@ -40,6 +40,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::MassRate>{
                    Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::MassRate>
     ConsistentUnits<Unit::MassRate>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -76,8 +78,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::MassRate>
         {"lbm/s",    Unit::MassRate::PoundPerSecond   },
         {"lb/s",     Unit::MassRate::PoundPerSecond   },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(

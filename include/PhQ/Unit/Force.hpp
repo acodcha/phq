@@ -53,6 +53,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Force>{
                    Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Force> ConsistentUnits<Unit::Force>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Force::Newton     },
@@ -73,7 +75,7 @@ inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
     {Unit::Force::Micronewton,                "μN"       },
     {Unit::Force::JoulePerMile,               "J/mi"     },
     {Unit::Force::JoulePerKilometre,          "J/km"     },
-    {Unit::Force::KilojoulePerMile,           "kJ/mi"     },
+    {Unit::Force::KilojoulePerMile,           "kJ/mi"    },
     {Unit::Force::WattMinutePerMile,          "W·min/mi" },
     {Unit::Force::WattHourPerMile,            "W·hr/mi"  },
     {Unit::Force::WattMinutePerKilometre,     "W·min/km" },
@@ -135,8 +137,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Force>
         {"lbf",       Unit::Force::Pound                     },
         {"lb",        Unit::Force::Pound                     },
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(

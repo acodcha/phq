@@ -41,6 +41,8 @@ inline constexpr const Dimension::Set Dimensions<Unit::SpecificPower>{
                    Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::SpecificPower>
     ConsistentUnits<Unit::SpecificPower>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -199,8 +201,6 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower> Spellings
     {"in^2/s^3",          Unit::SpecificPower::InchPoundPerSlinchPerSecond},
     {"in2/s3",            Unit::SpecificPower::InchPoundPerSlinchPerSecond},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::SpecificPower,

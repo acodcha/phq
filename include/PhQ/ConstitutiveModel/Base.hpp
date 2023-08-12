@@ -63,7 +63,7 @@ protected:
 };
 
 template<> inline const std::map<ConstitutiveModel::Type, std::string_view>
-    Abbreviations<ConstitutiveModel::Type>{
+    Internal::Abbreviations<ConstitutiveModel::Type>{
         {ConstitutiveModel::Type::ElasticIsotropicSolid,
          "Elastic Isotropic Solid"       },
         {ConstitutiveModel::Type::IncompressibleNewtonianFluid,
@@ -74,7 +74,7 @@ template<> inline const std::map<ConstitutiveModel::Type, std::string_view>
 
 template<>
 inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
-    Spellings<ConstitutiveModel::Type>{
+    Internal::Spellings<ConstitutiveModel::Type>{
         {"Elastic Isotropic Solid",
          ConstitutiveModel::Type::ElasticIsotropicSolid       },
         {"ElasticIsotropicSolid",

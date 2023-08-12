@@ -53,7 +53,7 @@ protected:
 
 template<>
 inline const std::map<ThermodynamicStateModel::Type, std::string_view>
-    Abbreviations<ThermodynamicStateModel::Type>{
+    Internal::Abbreviations<ThermodynamicStateModel::Type>{
         {ThermodynamicStateModel::Type::IncompressibleFluid,
          "Incompressible Fluid"                                         },
         {ThermodynamicStateModel::Type::IdealGas,            "Ideal Gas"},
@@ -61,7 +61,7 @@ inline const std::map<ThermodynamicStateModel::Type, std::string_view>
 
 template<>
 inline const std::unordered_map<std::string_view, ThermodynamicStateModel::Type>
-    Spellings<ThermodynamicStateModel::Type>{
+    Internal::Spellings<ThermodynamicStateModel::Type>{
         {"Incompressible Fluid",
          ThermodynamicStateModel::Type::IncompressibleFluid             },
         {"IncompressibleFluid",

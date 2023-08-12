@@ -52,6 +52,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Energy>{
                    Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Energy> ConsistentUnits<Unit::Energy>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Energy::Joule    },
@@ -141,8 +143,6 @@ inline const std::unordered_map<std::string_view, Unit::Energy> Spellings<
     {"in·lb",      Unit::Energy::InchPound     },
     {"in*lb",      Unit::Energy::InchPound     },
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(

@@ -48,6 +48,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Volume>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{3}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Volume> ConsistentUnits<Unit::Volume>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Volume::CubicMetre     },
@@ -121,8 +123,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Volume>
         {"uin^3",       Unit::Volume::CubicMicroinch },
         {"uin3",        Unit::Volume::CubicMicroinch },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(

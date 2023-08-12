@@ -45,6 +45,8 @@ inline constexpr const Dimension::Set Dimensions<Unit::TemperatureGradient>{
                    Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::TemperatureGradient>
     ConsistentUnits<Unit::TemperatureGradient>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -109,8 +111,6 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureGradient>
         {"F/in",    Unit::TemperatureGradient::FahrenheitPerInch   },
         {"degF/in", Unit::TemperatureGradient::FahrenheitPerInch   },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient,

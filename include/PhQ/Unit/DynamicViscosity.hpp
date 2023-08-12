@@ -42,6 +42,8 @@ inline constexpr const Dimension::Set Dimensions<Unit::DynamicViscosity>{
                    Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::DynamicViscosity>
     ConsistentUnits<Unit::DynamicViscosity>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -131,8 +133,6 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
         {"psi·s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
         {"psi*s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,

@@ -22,6 +22,9 @@
 
 namespace PhQ::Dimension {
 
+// Electric current base dimension. Typically denoted "I". One of seven base
+// dimensions that form the dimension set of any unit of measure or physical
+// quantity.
 class ElectricCurrent {
 public:
   constexpr ElectricCurrent() noexcept : value_(0) {}

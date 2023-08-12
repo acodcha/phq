@@ -40,6 +40,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::EnergyFlux>{
                    Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::EnergyFlux>
     ConsistentUnits<Unit::EnergyFlux>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -131,8 +133,6 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
     {"slinch/s^3",      Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
     {"slinch/s3",       Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(

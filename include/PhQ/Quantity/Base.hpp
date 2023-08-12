@@ -20,6 +20,7 @@
 
 namespace PhQ {
 
+// Abstract base class that represents any physical quantity.
 class Quantity {
 public:
   virtual std::string Print() const noexcept = 0;

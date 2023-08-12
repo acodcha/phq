@@ -42,6 +42,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::MassDensity>{
                    Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::MassDensity> ConsistentUnits<
     Unit::MassDensity>{
     {UnitSystem::MetreKilogramSecondKelvin,
@@ -100,8 +102,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::MassDensity>
         {"lb/in3",          Unit::MassDensity::PoundPerCubicInch     },
         {"lb/in/in/in",     Unit::MassDensity::PoundPerCubicInch     },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassDensity,

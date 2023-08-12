@@ -21,6 +21,9 @@
 
 namespace PhQ {
 
+// Abstract base class that represents any dimensionless scalar physical
+// quantity. A dimensionless physical quantity has no unit of measure and no
+// dimension set.
 class DimensionlessScalarQuantity : public DimensionlessQuantity {
 public:
   inline constexpr double Value() const noexcept { return value_; }

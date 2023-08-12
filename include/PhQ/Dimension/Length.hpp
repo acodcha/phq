@@ -22,6 +22,8 @@
 
 namespace PhQ::Dimension {
 
+// Length base dimension. Typically denoted "L". One of seven base dimensions
+// that form the dimension set of any unit of measure or physical quantity.
 class Length {
 public:
   constexpr Length() noexcept : value_(0) {}
