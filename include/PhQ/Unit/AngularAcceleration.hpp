@@ -51,6 +51,8 @@ template<>
 inline constexpr const Dimension::Set Dimensions<Unit::AngularAcceleration>{
     Dimension::Set{Dimension::Time{-2}}};
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::AngularAcceleration>
     ConsistentUnits<Unit::AngularAcceleration>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -143,8 +145,6 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration>
         {"rev/hr2",        Unit::AngularAcceleration::RevolutionPerSquareHour  },
         {"rev/hr/hr",      Unit::AngularAcceleration::RevolutionPerSquareHour  },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::AngularAcceleration,

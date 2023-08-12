@@ -41,6 +41,8 @@ inline constexpr const Dimension::Set Dimensions<Unit::ThermalConductivity>{
                    Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::ThermalConductivity>
     ConsistentUnits<Unit::ThermalConductivity>{
         {UnitSystem::MetreKilogramSecondKelvin,
@@ -67,8 +69,6 @@ template<> inline const std::map<Unit::ThermalConductivity, std::string_view>
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, "nW/mm/K" },
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,       "lbf/s/°R"},
 };
-
-// W/(m*K) = J/(m*s*K) = N/(s*K) = kg*m/(s^3*K)
 
 template<>
 inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spellings<
@@ -206,8 +206,6 @@ inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spe
     {"lb/(s*F)",        Unit::ThermalConductivity::PoundPerSecondPerRankine      },
     {"lb/(s*degF)",     Unit::ThermalConductivity::PoundPerSecondPerRankine      },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::ThermalConductivity,

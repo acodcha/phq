@@ -36,6 +36,8 @@ template<>
 inline constexpr const Dimension::Set Dimensions<Unit::Dimensionless>{
     Dimension::Set{}};
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Dimensionless> ConsistentUnits<
     Unit::Dimensionless>{
@@ -59,8 +61,6 @@ inline const std::unordered_map<std::string_view, Unit::Dimensionless>
     Spellings<Unit::Dimensionless>{
         {"", Unit::Dimensionless::Dimensionless},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Dimensionless, Unit::Dimensionless::Dimensionless>(

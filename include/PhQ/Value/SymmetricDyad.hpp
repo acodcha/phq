@@ -20,6 +20,8 @@
 
 namespace PhQ::Value {
 
+// Three dimensional symmetric dyadic tensor value in Cartesian coordinates.
+// Contains six components: xx, xy=yx, xz=zx, yy, yz=zy, and zz.
 class SymmetricDyad {
 public:
   constexpr SymmetricDyad() noexcept : xx_xy_xz_yy_yz_zz_() {}

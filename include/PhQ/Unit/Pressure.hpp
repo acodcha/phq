@@ -43,6 +43,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Pressure>{
                    Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::Pressure> ConsistentUnits<
     Unit::Pressure>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Pressure::Pascal            },
@@ -107,8 +109,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Pressure>
         {"lb/in2",     Unit::Pressure::PoundPerSquareInch},
         {"psi",        Unit::Pressure::PoundPerSquareInch},
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(

@@ -70,6 +70,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Speed>{
     Dimension::Set{Dimension::Time{-1}, Dimension::Length{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Speed> ConsistentUnits<Unit::Speed>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Speed::MetrePerSecond     },
@@ -181,8 +183,6 @@ inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<
     {"uin/min",       Unit::Speed::MicroinchPerMinute },
     {"uin/hr",        Unit::Speed::MicroinchPerHour   },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>(

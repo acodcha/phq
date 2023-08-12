@@ -22,6 +22,8 @@
 
 namespace PhQ::Dimension {
 
+// Mass base dimension. Typically denoted "M". One of seven base dimensions that
+// form the dimension set of any unit of measure or physical quantity.
 class Mass {
 public:
   constexpr Mass() noexcept : value_(0) {}

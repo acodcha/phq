@@ -23,6 +23,8 @@
 
 namespace PhQ {
 
+// Abstract base class that represents any dimensional dyadic tensor physical
+// quantity.
 template<typename U> class DimensionalDyadQuantity
   : public DimensionalQuantity<U> {
 public:

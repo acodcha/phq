@@ -46,6 +46,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Length>{
     Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Length::Metre     },
@@ -140,8 +142,6 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<
     {"microinch",   Unit::Length::Microinch },
     {"microinches", Unit::Length::Microinch },
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Mile>(

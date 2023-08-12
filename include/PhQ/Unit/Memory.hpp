@@ -55,6 +55,8 @@ template<> inline constexpr const Unit::Memory StandardUnit<Unit::Memory>{
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Memory>{
     Dimension::Set{}};
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Memory> ConsistentUnits<Unit::Memory>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Memory::Bit},
@@ -162,8 +164,6 @@ inline const std::unordered_map<std::string_view, Unit::Memory> Spellings<
     {"pebibyte",  Unit::Memory::Pebibyte},
     {"pebibytes", Unit::Memory::Pebibyte},
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(

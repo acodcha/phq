@@ -40,6 +40,8 @@ template<> inline constexpr const Dimension::Set Dimensions<Unit::Mass>{
                    Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
+namespace Internal {
+
 template<>
 inline const std::map<UnitSystem, Unit::Mass> ConsistentUnits<Unit::Mass>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Mass::Kilogram},
@@ -74,8 +76,6 @@ template<> inline const std::unordered_map<std::string_view, Unit::Mass>
         {"lbm",    Unit::Mass::Pound   },
         {"lb",     Unit::Mass::Pound   },
 };
-
-namespace Internal {
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(

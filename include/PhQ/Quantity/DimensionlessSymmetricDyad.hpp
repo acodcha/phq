@@ -23,6 +23,9 @@
 
 namespace PhQ {
 
+// Abstract base class that represents any dimensionless symmetric dyadic tensor
+// physical quantity. A dimensionless physical quantity has no unit of measure
+// and no dimension set.
 class DimensionlessSymmetricDyadQuantity : public DimensionlessQuantity {
 public:
   inline constexpr const Value::SymmetricDyad& Value() const noexcept {

@@ -22,6 +22,9 @@
 
 namespace PhQ::Dimension {
 
+// Temperature base dimension. Typically denoted "Θ". One of seven base
+// dimensions that form the dimension set of any unit of measure or physical
+// quantity.
 class Temperature {
 public:
   constexpr Temperature() noexcept : value_(0) {}

@@ -24,10 +24,8 @@
 
 namespace PhQ {
 
-// Forward declaration for class Vector.
+// Forward declarations for class Vector.
 class Angle;
-
-// Forward declaration for class Vector.
 class Direction;
 
 namespace Value {
@@ -35,6 +33,8 @@ namespace Value {
 // Forward declaration for class Vector.
 class Dyad;
 
+// Three-dimensional vector value in Cartesian coordinates. Contains three
+// components: x, y, and z.
 class Vector {
 public:
   constexpr Vector() noexcept : x_y_z_() {}

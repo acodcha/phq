@@ -20,6 +20,7 @@
 
 namespace PhQ {
 
+// Systems of units of measure.
 enum class UnitSystem : int_least8_t {
   MetreKilogramSecondKelvin,
   MillimetreGramSecondKelvin,
@@ -27,8 +28,11 @@ enum class UnitSystem : int_least8_t {
   InchPoundSecondRankine,
 };
 
+// The standard system of units of measure, the International System (SI).
 inline constexpr UnitSystem StandardUnitSystem{
     UnitSystem::MetreKilogramSecondKelvin};
+
+namespace Internal {
 
 template<>
 const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
@@ -158,29 +162,37 @@ const std::unordered_map<std::string_view, UnitSystem> Spellings<UnitSystem>{
     {"in",             UnitSystem::InchPoundSecondRankine    },
 };
 
+// Map of unit systems to their corresponding units. This is an internal
+// implementation detail and is not intended to be used except by the
+// PhQ::ConsistentUnit function.
 template<typename Unit> inline const std::map<UnitSystem, Unit> ConsistentUnits;
 
-/// \brief Returns the unit of a given type that corresponds to a given unit
-/// system.
-/// \details For example,
-/// PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin)
-/// returns PhQ::Unit::Force::Newton.
-template<typename Unit>
-inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
-  return ConsistentUnits<Unit>.at(system);
-}
-
+// Map of units to their corresponding unit systems. This is an internal
+// implementation detail and is not intended to be used except by the
+// PhQ::RelatedUnitSystem function.
 template<typename Unit>
 inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 
-/// \brief Returns the unit system, if any, that corresponds to a given unit.
-/// \details For example, PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre)
-/// returns PhQ::UnitSystem::MillimetreGramSecondKelvin.
+}  // namespace Internal
+
+// Returns the unit of a given type that corresponds to a given unit system. For
+// example,
+// PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin)
+// returns PhQ::Unit::Force::Newton.
+template<typename Unit>
+inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
+  return Internal::ConsistentUnits<Unit>.at(system);
+}
+
+// Returns the unit system, if any, that corresponds to a given unit, or
+// std::nullptr otherwise. For example,
+// PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
+// PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template<typename Unit>
 std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
-      RelatedUnitSystems<Unit>.find(unit)};
-  if (system != RelatedUnitSystems<Unit>.cend()) {
+      Internal::RelatedUnitSystems<Unit>.find(unit)};
+  if (system != Internal::RelatedUnitSystems<Unit>.cend()) {
     return system->second;
   } else {
     return std::nullopt;

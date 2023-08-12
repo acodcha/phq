@@ -39,6 +39,8 @@ template<> inline constexpr const Unit::Frequency StandardUnit<Unit::Frequency>{
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Frequency>{
     Dimension::Set{Dimension::Time{-1}}};
 
+namespace Internal {
+
 template<> inline const std::map<UnitSystem, Unit::Frequency>
     ConsistentUnits<Unit::Frequency>{
         {UnitSystem::MetreKilogramSecondKelvin,  Unit::Frequency::Hertz},
@@ -74,8 +76,6 @@ inline const std::unordered_map<std::string_view, Unit::Frequency> Spellings<
     {"/hr",   Unit::Frequency::PerHour  },
     {"1/hr",  Unit::Frequency::PerHour  },
 };
-
-namespace Internal {
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(
