@@ -34,7 +34,7 @@ enum class MassRate : int_least8_t {
 }  // namespace Unit
 
 // Standard time rate of mass unit: kilogram per second.
-template<> inline constexpr const Unit::MassRate StandardUnit<Unit::MassRate>{
+template<> inline constexpr const Unit::MassRate Standard<Unit::MassRate>{
     Unit::MassRate::KilogramPerSecond};
 
 // Physical dimension set of time rate of mass units.

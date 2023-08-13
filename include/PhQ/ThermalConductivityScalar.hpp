@@ -59,7 +59,7 @@ public:
   Create(const double value) noexcept {
     return ThermalConductivityScalar{
         StaticConvertCopy<Unit::ThermalConductivity, Unit,
-                          StandardUnit<Unit::ThermalConductivity>>(value)};
+                          Standard<Unit::ThermalConductivity>>(value)};
   }
 
   inline constexpr ThermalConductivityScalar

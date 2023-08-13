@@ -167,9 +167,7 @@ TEST(UnitLength, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Length::Microinch), std::nullopt);
 }
 
-TEST(UnitLength, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Length>, Length::Metre);
-}
+TEST(UnitLength, Standard) { EXPECT_EQ(Standard<Length>, Length::Metre); }
 
 }  // namespace
 

@@ -48,7 +48,7 @@ public:
   Create(const Value::Vector& value) noexcept {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit,
-                          StandardUnit<Unit::TemperatureGradient>>(value)};
+                          Standard<Unit::TemperatureGradient>>(value)};
   }
 
   inline constexpr TemperatureGradientMagnitude Magnitude() const noexcept {

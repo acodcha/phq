@@ -34,7 +34,7 @@ enum class SpecificHeatCapacity : int_least8_t {
 
 // Standard mass-specific heat capacity unit: joule per kilogram per kelvin.
 template<> inline constexpr const Unit::SpecificHeatCapacity
-    StandardUnit<Unit::SpecificHeatCapacity>{
+    Standard<Unit::SpecificHeatCapacity>{
         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
 
 // Physical dimension set of mass-specific heat capacity units.

@@ -125,8 +125,8 @@ TEST(UnitSpecificEnergy, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitSpecificEnergy, StandardUnit) {
-  EXPECT_EQ(StandardUnit<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
+TEST(UnitSpecificEnergy, Standard) {
+  EXPECT_EQ(Standard<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
 }
 
 }  // namespace

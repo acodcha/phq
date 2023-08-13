@@ -55,9 +55,8 @@ public:
 
   template<Unit::AngularSpeed Unit>
   static constexpr AngularSpeed Create(const double value) noexcept {
-    return AngularSpeed{
-        StaticConvertCopy<Unit::AngularSpeed, Unit,
-                          StandardUnit<Unit::AngularSpeed>>(value)};
+    return AngularSpeed{StaticConvertCopy<Unit::AngularSpeed, Unit,
+                                          Standard<Unit::AngularSpeed>>(value)};
   }
 
   inline constexpr AngularSpeed operator+(

@@ -128,8 +128,8 @@ TEST(UnitThermalConductivity, RelatedUnitSystem) {
             std::nullopt);
 }
 
-TEST(UnitThermalConductivity, StandardUnit) {
-  EXPECT_EQ(StandardUnit<ThermalConductivity>,
+TEST(UnitThermalConductivity, Standard) {
+  EXPECT_EQ(Standard<ThermalConductivity>,
             ThermalConductivity::WattPerMetrePerKelvin);
 }
 

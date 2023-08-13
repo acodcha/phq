@@ -83,7 +83,7 @@ public:
   template<Unit::Time Unit>
   static constexpr Time Create(const double value) noexcept {
     return Time{
-        StaticConvertCopy<Unit::Time, Unit, StandardUnit<Unit::Time>>(value)};
+        StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 
   inline constexpr PhQ::Frequency Frequency() const noexcept;

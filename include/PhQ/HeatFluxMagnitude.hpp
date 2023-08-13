@@ -50,8 +50,8 @@ public:
   template<Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) noexcept {
     return HeatFluxMagnitude{
-        StaticConvertCopy<Unit::EnergyFlux, Unit,
-                          StandardUnit<Unit::EnergyFlux>>(value)};
+        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+            value)};
   }
 
   inline constexpr HeatFluxMagnitude operator+(

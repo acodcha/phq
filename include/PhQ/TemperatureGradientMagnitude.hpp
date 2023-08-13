@@ -55,7 +55,7 @@ public:
   Create(const double value) noexcept {
     return TemperatureGradientMagnitude{
         StaticConvertCopy<Unit::TemperatureGradient, Unit,
-                          StandardUnit<Unit::TemperatureGradient>>(value)};
+                          Standard<Unit::TemperatureGradient>>(value)};
   }
 
   inline constexpr TemperatureGradientMagnitude

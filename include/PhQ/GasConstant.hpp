@@ -56,9 +56,8 @@ public:
 
   template<Unit::HeatCapacity Unit>
   static constexpr GasConstant Create(const double value) noexcept {
-    return GasConstant{
-        StaticConvertCopy<Unit::HeatCapacity, Unit,
-                          StandardUnit<Unit::HeatCapacity>>(value)};
+    return GasConstant{StaticConvertCopy<Unit::HeatCapacity, Unit,
+                                         Standard<Unit::HeatCapacity>>(value)};
   }
 
   inline constexpr GasConstant operator+(

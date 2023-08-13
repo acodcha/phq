@@ -232,7 +232,7 @@ TEST(UnitMemory, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Memory::Pebibyte), std::nullopt);
 }
 
-TEST(UnitMemory, StandardUnit) { EXPECT_EQ(StandardUnit<Memory>, Memory::Bit); }
+TEST(UnitMemory, Standard) { EXPECT_EQ(Standard<Memory>, Memory::Bit); }
 
 }  // namespace
 

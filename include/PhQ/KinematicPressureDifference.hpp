@@ -51,7 +51,7 @@ public:
   Create(const double value) noexcept {
     return KinematicPressureDifference{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
-                          StandardUnit<Unit::SpecificEnergy>>(value)};
+                          Standard<Unit::SpecificEnergy>>(value)};
   }
 
   inline constexpr StaticKinematicPressure operator+(

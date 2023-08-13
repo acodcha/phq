@@ -51,7 +51,7 @@ public:
   static constexpr SpecificEnergy Create(const double value) noexcept {
     return SpecificEnergy{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
-                          StandardUnit<Unit::SpecificEnergy>>(value)};
+                          Standard<Unit::SpecificEnergy>>(value)};
   }
 
   inline constexpr SpecificEnergy operator+(

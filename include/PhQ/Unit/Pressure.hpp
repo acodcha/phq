@@ -37,7 +37,7 @@ enum class Pressure : int_least8_t {
 }  // namespace Unit
 
 // Standard pressure unit: watt.
-template<> inline constexpr const Unit::Pressure StandardUnit<Unit::Pressure>{
+template<> inline constexpr const Unit::Pressure Standard<Unit::Pressure>{
     Unit::Pressure::Pascal};
 
 // Physical dimension set of pressure units.

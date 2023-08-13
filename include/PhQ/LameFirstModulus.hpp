@@ -38,7 +38,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr LameFirstModulus Create(const double value) noexcept {
     return LameFirstModulus{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

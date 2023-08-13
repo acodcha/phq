@@ -146,7 +146,7 @@ TEST(UnitPower, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitPower, StandardUnit) { EXPECT_EQ(StandardUnit<Power>, Power::Watt); }
+TEST(UnitPower, Standard) { EXPECT_EQ(Standard<Power>, Power::Watt); }
 
 }  // namespace
 

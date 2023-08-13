@@ -47,7 +47,7 @@ public:
   static constexpr SpecificPower Create(const double value) noexcept {
     return SpecificPower{
         StaticConvertCopy<Unit::SpecificPower, Unit,
-                          StandardUnit<Unit::SpecificPower>>(value)};
+                          Standard<Unit::SpecificPower>>(value)};
   }
 
   inline constexpr SpecificPower operator+(

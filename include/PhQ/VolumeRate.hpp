@@ -43,8 +43,9 @@ public:
 
   template<Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) noexcept {
-    return VolumeRate{StaticConvertCopy<Unit::VolumeRate, Unit,
-                                        StandardUnit<Unit::VolumeRate>>(value)};
+    return VolumeRate{
+        StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(
+            value)};
   }
 
   inline constexpr VolumeRate operator+(

@@ -423,9 +423,7 @@ TEST(UnitSpeed, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Speed::MicroinchPerHour), std::nullopt);
 }
 
-TEST(UnitSpeed, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Speed>, Speed::MetrePerSecond);
-}
+TEST(UnitSpeed, Standard) { EXPECT_EQ(Standard<Speed>, Speed::MetrePerSecond); }
 
 }  // namespace
 

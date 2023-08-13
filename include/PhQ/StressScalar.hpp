@@ -39,7 +39,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr StressScalar Create(const double value) noexcept {
     return StressScalar{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

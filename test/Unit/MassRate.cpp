@@ -130,8 +130,8 @@ TEST(UnitMassRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassRate::PoundPerSecond), std::nullopt);
 }
 
-TEST(UnitMassRate, StandardUnit) {
-  EXPECT_EQ(StandardUnit<MassRate>, MassRate::KilogramPerSecond);
+TEST(UnitMassRate, Standard) {
+  EXPECT_EQ(Standard<MassRate>, MassRate::KilogramPerSecond);
 }
 
 }  // namespace

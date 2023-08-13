@@ -44,8 +44,7 @@ public:
   template<Unit::Memory Unit>
   static constexpr Memory Create(const double value) noexcept {
     return Memory{
-        StaticConvertCopy<Unit::Memory, Unit, StandardUnit<Unit::Memory>>(
-            value)};
+        StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
   inline constexpr Memory operator+(const Memory& memory) const noexcept {

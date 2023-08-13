@@ -36,8 +36,7 @@ enum class Temperature : int_least8_t {
 }  // namespace Unit
 
 // Standard temperature unit: kelvin.
-template<>
-inline constexpr const Unit::Temperature StandardUnit<Unit::Temperature>{
+template<> inline constexpr const Unit::Temperature Standard<Unit::Temperature>{
     Unit::Temperature::Kelvin};
 
 // Physical dimension set of temperature units.

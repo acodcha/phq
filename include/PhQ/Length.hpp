@@ -72,8 +72,7 @@ public:
   template<Unit::Length Unit>
   static constexpr Length Create(const double value) noexcept {
     return Length{
-        StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
-            value)};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   inline constexpr Length operator+(const Length& length) const noexcept {

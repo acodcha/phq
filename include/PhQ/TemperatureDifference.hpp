@@ -54,7 +54,7 @@ public:
   static constexpr TemperatureDifference Create(const double value) noexcept {
     return TemperatureDifference{
         StaticConvertCopy<Unit::TemperatureDifference, Unit,
-                          StandardUnit<Unit::TemperatureDifference>>(value)};
+                          Standard<Unit::TemperatureDifference>>(value)};
   }
 
   inline constexpr Temperature operator+(

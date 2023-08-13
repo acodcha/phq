@@ -36,13 +36,13 @@ public:
 
   inline Value::SymmetricDyad Value(const U unit) const noexcept {
     Value::SymmetricDyad result{value_};
-    Convert(result, StandardUnit<U>, unit);
+    Convert(result, Standard<U>, unit);
     return result;
   }
 
   template<U NewUnit>
   inline constexpr Value::SymmetricDyad StaticValue() const noexcept {
-    return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
+    return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
   inline constexpr Value::SymmetricDyad& MutableValue() noexcept {
@@ -54,7 +54,7 @@ public:
   }
 
   std::string Print() const noexcept override {
-    return value_.Print().append(" ").append(Abbreviation(StandardUnit<U>));
+    return value_.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
   std::string Print(const U unit) const noexcept override {
@@ -65,7 +65,7 @@ public:
     return std::string{"{\"value\":"}
         .append(value_.JSON())
         .append(",\"unit\":\"")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("\"}");
   }
 
@@ -81,7 +81,7 @@ public:
     return std::string{"<value>"}
         .append(value_.XML())
         .append("</value><unit>")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("</unit>");
   }
 
@@ -97,7 +97,7 @@ public:
     return std::string{"{value:"}
         .append(value_.YAML())
         .append(",unit:\"")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("\"}");
   }
 
@@ -124,13 +124,13 @@ protected:
   DimensionalSymmetricDyadQuantity(
       const Value::SymmetricDyad& value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(value) {
-    Convert(value_, unit, StandardUnit<U>);
+    Convert(value_, unit, Standard<U>);
   }
 
   DimensionalSymmetricDyadQuantity(
       Value::SymmetricDyad&& value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(std::move(value)) {
-    Convert(value_, unit, StandardUnit<U>);
+    Convert(value_, unit, Standard<U>);
   }
 
   ~DimensionalSymmetricDyadQuantity() noexcept = default;

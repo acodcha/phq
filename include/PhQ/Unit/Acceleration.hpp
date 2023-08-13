@@ -65,7 +65,7 @@ enum class Acceleration : int_least8_t {
 }  // namespace Unit
 
 // Standard acceleration unit: metre per square second.
-template<> constexpr const Unit::Acceleration StandardUnit<Unit::Acceleration>{
+template<> constexpr const Unit::Acceleration Standard<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};
 
 // Physical dimension set of acceleration units.

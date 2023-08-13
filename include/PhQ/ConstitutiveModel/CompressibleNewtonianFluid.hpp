@@ -35,7 +35,7 @@ public:
   CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept
     : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
       bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
-                               StandardUnit<Unit::DynamicViscosity>}) {}
+                               Standard<Unit::DynamicViscosity>}) {}
 
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity,
@@ -66,7 +66,7 @@ public:
   inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept override {
     return {
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-        StandardUnit<Unit::Pressure>
+        Standard<Unit::Pressure>
     };
   }
 
@@ -81,7 +81,7 @@ public:
     return {
         Value::SymmetricDyad{a * strain_rate.Value()}
             + Value::SymmetricDyad{b, 0.0, 0.0, b, 0.0, b},
-        StandardUnit<Unit::Pressure>
+        Standard<Unit::Pressure>
     };
   }
 
@@ -107,7 +107,7 @@ public:
         a * stress.Value()
             + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0,
                                    temporary},
-        StandardUnit<Unit::Frequency>
+        Standard<Unit::Frequency>
     };
   }
 

@@ -56,7 +56,7 @@ public:
   template<Unit::Speed Unit>
   static constexpr Velocity Create(const Value::Vector& value) noexcept {
     return Velocity{
-        StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
+        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   inline constexpr Speed Magnitude() const noexcept { return {*this}; }

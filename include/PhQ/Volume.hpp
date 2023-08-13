@@ -48,8 +48,7 @@ public:
   template<Unit::Volume Unit>
   static constexpr Volume Create(const double value) noexcept {
     return Volume{
-        StaticConvertCopy<Unit::Volume, Unit, StandardUnit<Unit::Volume>>(
-            value)};
+        StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
   inline constexpr Volume operator+(const Volume& volume) const noexcept {

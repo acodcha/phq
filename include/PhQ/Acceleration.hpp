@@ -48,9 +48,8 @@ public:
 
   template<Unit::Acceleration Unit>
   static constexpr Acceleration Create(const Value::Vector& value) noexcept {
-    return Acceleration{
-        StaticConvertCopy<Unit::Acceleration, Unit,
-                          StandardUnit<Unit::Acceleration>>(value)};
+    return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit,
+                                          Standard<Unit::Acceleration>>(value)};
   }
 
   inline constexpr AccelerationMagnitude Magnitude() const noexcept {

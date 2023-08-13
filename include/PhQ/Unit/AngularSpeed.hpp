@@ -46,7 +46,7 @@ enum class AngularSpeed : int_least8_t {
 
 // Standard angular speed unit: radian per second.
 template<>
-inline constexpr const Unit::AngularSpeed StandardUnit<Unit::AngularSpeed>{
+inline constexpr const Unit::AngularSpeed Standard<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
 // Physical dimension set of angular speed units.

@@ -28,7 +28,7 @@ public:
     return Dimensions<U>;
   }
 
-  static constexpr U Unit() noexcept { return StandardUnit<U>; }
+  static constexpr U Unit() noexcept { return Standard<U>; }
 
   virtual std::string Print(const U unit) const noexcept = 0;
 

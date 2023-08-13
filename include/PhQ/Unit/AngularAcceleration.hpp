@@ -46,7 +46,7 @@ enum class AngularAcceleration : int_least8_t {
 
 // Standard angular acceleration unit: radian per square second.
 template<> inline constexpr const Unit::AngularAcceleration
-    StandardUnit<Unit::AngularAcceleration>{
+    Standard<Unit::AngularAcceleration>{
         Unit::AngularAcceleration::RadianPerSquareSecond};
 
 // Physical dimension set of angular acceleration units.

@@ -70,8 +70,8 @@ public:
   template<Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) noexcept {
     return MassDensity{
-        StaticConvertCopy<Unit::MassDensity, Unit,
-                          StandardUnit<Unit::MassDensity>>(value)};
+        StaticConvertCopy<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(
+            value)};
   }
 
   inline constexpr MassDensity operator+(

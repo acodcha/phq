@@ -285,8 +285,8 @@ TEST(UnitMemoryRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibytePerSecond), std::nullopt);
 }
 
-TEST(UnitMemoryRate, StandardUnit) {
-  EXPECT_EQ(StandardUnit<MemoryRate>, MemoryRate::BitPerSecond);
+TEST(UnitMemoryRate, Standard) {
+  EXPECT_EQ(Standard<MemoryRate>, MemoryRate::BitPerSecond);
 }
 
 }  // namespace

@@ -222,8 +222,8 @@ TEST(UnitAngularSpeed, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(AngularSpeed::RevolutionPerHour), std::nullopt);
 }
 
-TEST(UnitAngularSpeed, StandardUnit) {
-  EXPECT_EQ(StandardUnit<AngularSpeed>, AngularSpeed::RadianPerSecond);
+TEST(UnitAngularSpeed, Standard) {
+  EXPECT_EQ(Standard<AngularSpeed>, AngularSpeed::RadianPerSecond);
 }
 
 }  // namespace

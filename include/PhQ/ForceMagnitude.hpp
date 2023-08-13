@@ -47,7 +47,7 @@ public:
   template<Unit::Force Unit>
   static constexpr ForceMagnitude Create(const double value) noexcept {
     return ForceMagnitude{
-        StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   inline constexpr ForceMagnitude operator+(

@@ -45,7 +45,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr Traction Create(const Value::Vector& value) noexcept {
     return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

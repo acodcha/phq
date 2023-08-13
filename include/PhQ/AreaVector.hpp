@@ -41,7 +41,7 @@ public:
   template<Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) noexcept {
     return AreaVector{
-        StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
+        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   inline constexpr Area Magnitude() const noexcept { return {*this}; }

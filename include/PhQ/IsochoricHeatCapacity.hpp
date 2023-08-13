@@ -57,7 +57,7 @@ public:
   static constexpr IsochoricHeatCapacity Create(const double value) noexcept {
     return IsochoricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
-                          StandardUnit<Unit::HeatCapacity>>(value)};
+                          Standard<Unit::HeatCapacity>>(value)};
   }
 
   inline constexpr IsochoricHeatCapacity operator+(

@@ -179,9 +179,8 @@ TEST(UnitTemperatureGradient, RelatedUnitSystem) {
       RelatedUnitSystem(TemperatureGradient::FahrenheitPerInch), std::nullopt);
 }
 
-TEST(UnitTemperatureGradient, StandardUnit) {
-  EXPECT_EQ(
-      StandardUnit<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
+TEST(UnitTemperatureGradient, Standard) {
+  EXPECT_EQ(Standard<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
 }
 
 }  // namespace

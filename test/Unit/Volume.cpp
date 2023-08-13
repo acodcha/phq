@@ -198,9 +198,7 @@ TEST(UnitVolume, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicMicroinch), std::nullopt);
 }
 
-TEST(UnitVolume, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Volume>, Volume::CubicMetre);
-}
+TEST(UnitVolume, Standard) { EXPECT_EQ(Standard<Volume>, Volume::CubicMetre); }
 
 }  // namespace
 

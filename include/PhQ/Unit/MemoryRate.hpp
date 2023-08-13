@@ -51,8 +51,7 @@ enum class MemoryRate : int_least8_t {
 }  // namespace Unit
 
 // Standard time rate of computer memory unit: bit per second.
-template<>
-inline constexpr const Unit::MemoryRate StandardUnit<Unit::MemoryRate>{
+template<> inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{
     Unit::MemoryRate::BitPerSecond};
 
 // Physical dimension set of time rate of computer memory units.

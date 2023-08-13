@@ -53,7 +53,7 @@ public:
   template<Unit::Power Unit>
   static constexpr Power Create(const double value) noexcept {
     return Power{
-        StaticConvertCopy<Unit::Power, Unit, StandardUnit<Unit::Power>>(value)};
+        StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
   }
 
   inline constexpr Power operator+(const Power& power) const noexcept {

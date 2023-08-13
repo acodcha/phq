@@ -220,8 +220,8 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
       RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond), std::nullopt);
 }
 
-TEST(UnitVolumeRate, StandardUnit) {
-  EXPECT_EQ(StandardUnit<VolumeRate>, VolumeRate::CubicMetrePerSecond);
+TEST(UnitVolumeRate, Standard) {
+  EXPECT_EQ(Standard<VolumeRate>, VolumeRate::CubicMetrePerSecond);
 }
 
 }  // namespace

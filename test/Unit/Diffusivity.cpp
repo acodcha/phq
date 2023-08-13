@@ -234,8 +234,8 @@ TEST(UnitDiffusivity, RelatedUnitSystem) {
       RelatedUnitSystem(Diffusivity::SquareMicroinchPerSecond), std::nullopt);
 }
 
-TEST(UnitDiffusivity, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Diffusivity>, Diffusivity::SquareMetrePerSecond);
+TEST(UnitDiffusivity, Standard) {
+  EXPECT_EQ(Standard<Diffusivity>, Diffusivity::SquareMetrePerSecond);
 }
 
 }  // namespace

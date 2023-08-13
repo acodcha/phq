@@ -156,8 +156,8 @@ TEST(UnitDynamicViscosity, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitDynamicViscosity, StandardUnit) {
-  EXPECT_EQ(StandardUnit<DynamicViscosity>, DynamicViscosity::PascalSecond);
+TEST(UnitDynamicViscosity, Standard) {
+  EXPECT_EQ(Standard<DynamicViscosity>, DynamicViscosity::PascalSecond);
 }
 
 }  // namespace

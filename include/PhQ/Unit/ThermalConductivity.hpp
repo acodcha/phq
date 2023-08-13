@@ -33,7 +33,7 @@ enum class ThermalConductivity : int_least8_t {
 
 // Standard thermal conductivity unit: watt per metre per kelvin.
 template<> inline constexpr const Unit::ThermalConductivity
-    StandardUnit<Unit::ThermalConductivity>{
+    Standard<Unit::ThermalConductivity>{
         Unit::ThermalConductivity::WattPerMetrePerKelvin};
 
 // Physical dimension set of thermal conductivity units.

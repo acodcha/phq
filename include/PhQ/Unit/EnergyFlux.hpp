@@ -33,8 +33,7 @@ enum class EnergyFlux : int_least8_t {
 }  // namespace Unit
 
 // Standard energy flux unit: watt per square metre.
-template<>
-inline constexpr const Unit::EnergyFlux StandardUnit<Unit::EnergyFlux>{
+template<> inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};
 
 // Physical dimension set of energy flux units.

@@ -46,8 +46,8 @@ enum class Energy : int_least8_t {
 }  // namespace Unit
 
 // Standard energy unit: joule.
-template<> inline constexpr const Unit::Energy StandardUnit<Unit::Energy>{
-    Unit::Energy::Joule};
+template<>
+inline constexpr const Unit::Energy Standard<Unit::Energy>{Unit::Energy::Joule};
 
 // Physical dimension set of energy units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Energy>{

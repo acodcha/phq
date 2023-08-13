@@ -43,9 +43,8 @@ public:
     const double denominator1{2.0 * (1.0 + poisson_ratio.Value())};
     const double denominator2{
         (1.0 + poisson_ratio.Value()) * (1.0 - 2.0 * poisson_ratio.Value())};
-    shear_modulus_ = {numerator1 / denominator1, StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {
-        numerator2 / denominator2, StandardUnit<Unit::Pressure>};
+    shear_modulus_ = {numerator1 / denominator1, Standard<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator2, Standard<Unit::Pressure>};
   }
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
@@ -55,7 +54,7 @@ public:
           (shear_modulus.Value()
            * (young_modulus.Value() - 2.0 * shear_modulus.Value()))
               / (3.0 * shear_modulus.Value() - young_modulus.Value()),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus,
@@ -68,9 +67,8 @@ public:
         * (3.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())};
     const double denominator{
         9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value()};
-    shear_modulus_ = {numerator1 / denominator, StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {
-        numerator2 / denominator, StandardUnit<Unit::Pressure>};
+    shear_modulus_ = {numerator1 / denominator, Standard<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator, Standard<Unit::Pressure>};
   }
 
   constexpr ElasticIsotropicSolid(
@@ -84,9 +82,8 @@ public:
         * (3.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())};
     const double denominator{
         9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value()};
-    shear_modulus_ = {numerator1 / denominator, StandardUnit<Unit::Pressure>};
-    lame_first_modulus_ = {
-        numerator2 / denominator, StandardUnit<Unit::Pressure>};
+    shear_modulus_ = {numerator1 / denominator, Standard<Unit::Pressure>};
+    lame_first_modulus_ = {numerator2 / denominator, Standard<Unit::Pressure>};
   }
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
@@ -99,7 +96,7 @@ public:
                               + 9.0 * std::pow(lame_first_modulus.Value(), 2)
                               + 2.0 * young_modulus.Value()
                                     * lame_first_modulus.Value())),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const YoungModulus& young_modulus,
@@ -112,7 +109,7 @@ public:
                      std::pow(young_modulus.Value(), 2)
                      + 9.0 * std::pow(p_wave_modulus.Value(), 2)
                      - 10.0 * young_modulus.Value() * p_wave_modulus.Value())),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(
           0.25
               * (p_wave_modulus.Value() - young_modulus.Value()
@@ -120,14 +117,14 @@ public:
                      std::pow(young_modulus.Value(), 2)
                      + 9.0 * std::pow(p_wave_modulus.Value(), 2)
                      - 10.0 * young_modulus.Value() * p_wave_modulus.Value())),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const ShearModulus& shear_modulus,
                         const PoissonRatio& poisson_ratio) noexcept
     : ConstitutiveModel(), shear_modulus_(shear_modulus),
       lame_first_modulus_((2.0 * shear_modulus.Value() * poisson_ratio.Value())
                               / (1.0 - 2.0 * poisson_ratio.Value()),
-                          StandardUnit<Unit::Pressure>) {}
+                          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(
       const ShearModulus& shear_modulus,
@@ -135,7 +132,7 @@ public:
     : ConstitutiveModel(), shear_modulus_(shear_modulus),
       lame_first_modulus_(
           isentropic_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value(),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(
       const ShearModulus& shear_modulus,
@@ -143,7 +140,7 @@ public:
     : ConstitutiveModel(), shear_modulus_(shear_modulus),
       lame_first_modulus_(
           isothermal_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value(),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const ShearModulus& shear_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
@@ -154,14 +151,14 @@ public:
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(), shear_modulus_(shear_modulus),
       lame_first_modulus_(p_wave_modulus.Value() - 2.0 * shear_modulus.Value(),
-                          StandardUnit<Unit::Pressure>) {}
+                          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const LameFirstModulus& lame_first_modulus) noexcept
     : ConstitutiveModel(),
       shear_modulus_(
           1.5 * (isentropic_bulk_modulus.Value() - lame_first_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
@@ -169,7 +166,7 @@ public:
     : ConstitutiveModel(),
       shear_modulus_(
           1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
@@ -177,20 +174,20 @@ public:
     : ConstitutiveModel(),
       shear_modulus_(
           0.75 * (p_wave_modulus.Value() - isentropic_bulk_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(
           1.5 * isentropic_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value(),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(),
       shear_modulus_(
           0.75 * (p_wave_modulus.Value() - isothermal_bulk_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(
           1.5 * isothermal_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value(),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const PoissonRatio& poisson_ratio) noexcept
@@ -198,11 +195,11 @@ public:
       shear_modulus_(3.0 * isentropic_bulk_modulus.Value()
                          * (1.0 - 2.0 * poisson_ratio.Value())
                          / (2.0 + 2.0 * poisson_ratio.Value()),
-                     StandardUnit<Unit::Pressure>),
+                     Standard<Unit::Pressure>),
       lame_first_modulus_(
           3.0 * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
               / (1.0 + poisson_ratio.Value()),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                         const PoissonRatio& poisson_ratio) noexcept
@@ -210,18 +207,18 @@ public:
       shear_modulus_(3.0 * isothermal_bulk_modulus.Value()
                          * (1.0 - 2.0 * poisson_ratio.Value())
                          / (2.0 + 2.0 * poisson_ratio.Value()),
-                     StandardUnit<Unit::Pressure>),
+                     Standard<Unit::Pressure>),
       lame_first_modulus_(
           3.0 * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
               / (1.0 + poisson_ratio.Value()),
-          StandardUnit<Unit::Pressure>) {}
+          Standard<Unit::Pressure>) {}
 
   ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus,
                         const PWaveModulus& p_wave_modulus) noexcept
     : ConstitutiveModel(),
       shear_modulus_(
           0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const LameFirstModulus& lame_first_modulus,
@@ -230,7 +227,7 @@ public:
       shear_modulus_(
           lame_first_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
               / (2.0 * poisson_ratio.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
   ElasticIsotropicSolid(const PWaveModulus& p_wave_modulus,
@@ -239,10 +236,10 @@ public:
       shear_modulus_(
           p_wave_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
               / (2.0 - 2.0 * poisson_ratio.Value()),
-          StandardUnit<Unit::Pressure>),
+          Standard<Unit::Pressure>),
       lame_first_modulus_(p_wave_modulus.Value() * poisson_ratio.Value()
                               / (1.0 - poisson_ratio.Value()),
-                          StandardUnit<Unit::Pressure>) {}
+                          Standard<Unit::Pressure>) {}
 
   inline constexpr const PhQ::ShearModulus& ShearModulus() const noexcept {
     return shear_modulus_;
@@ -259,22 +256,22 @@ public:
         * (3.0 * lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value())};
     const double denominator{
         shear_modulus_.Value() + lame_first_modulus_.Value()};
-    return {numerator / denominator, StandardUnit<Unit::Pressure>};
+    return {numerator / denominator, Standard<Unit::Pressure>};
   }
 
   inline PhQ::IsentropicBulkModulus IsentropicBulkModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(),
-            StandardUnit<Unit::Pressure>};
+            Standard<Unit::Pressure>};
   }
 
   inline PhQ::IsothermalBulkModulus IsothermalBulkModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(),
-            StandardUnit<Unit::Pressure>};
+            Standard<Unit::Pressure>};
   }
 
   inline PhQ::PWaveModulus PWaveModulus() const noexcept {
     return {lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value(),
-            StandardUnit<Unit::Pressure>};
+            Standard<Unit::Pressure>};
   }
 
   inline PhQ::PoissonRatio PoissonRatio() const noexcept {
@@ -304,7 +301,7 @@ public:
         2.0 * shear_modulus_.Value() * strain.Value()
             + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0,
                                    temporary},
-        StandardUnit<Unit::Pressure>
+        Standard<Unit::Pressure>
     };
   }
 
@@ -312,7 +309,7 @@ public:
       const PhQ::StrainRate& strain_rate) const noexcept override {
     return {
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-        StandardUnit<Unit::Pressure>
+        Standard<Unit::Pressure>
     };
   }
 
@@ -337,7 +334,7 @@ public:
       const PhQ::Stress& stress) const noexcept override {
     return {
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-        StandardUnit<Unit::Frequency>
+        Standard<Unit::Frequency>
     };
   }
 

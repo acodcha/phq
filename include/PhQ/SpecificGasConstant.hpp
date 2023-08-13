@@ -63,7 +63,7 @@ public:
   static constexpr SpecificGasConstant Create(const double value) noexcept {
     return SpecificGasConstant{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
-                          StandardUnit<Unit::SpecificHeatCapacity>>(value)};
+                          Standard<Unit::SpecificHeatCapacity>>(value)};
   }
 
   inline constexpr SpecificGasConstant operator+(

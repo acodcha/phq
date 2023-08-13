@@ -57,8 +57,8 @@ public:
   template<Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) noexcept {
     return KinematicViscosity{
-        StaticConvertCopy<Unit::Diffusivity, Unit,
-                          StandardUnit<Unit::Diffusivity>>(value)};
+        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
+            value)};
   }
 
   inline constexpr KinematicViscosity operator+(

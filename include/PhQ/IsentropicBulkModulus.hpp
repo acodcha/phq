@@ -44,7 +44,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) noexcept {
     return IsentropicBulkModulus{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

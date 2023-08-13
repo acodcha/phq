@@ -129,8 +129,8 @@ TEST(UnitEnergyFlux, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitEnergyFlux, StandardUnit) {
-  EXPECT_EQ(StandardUnit<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
+TEST(UnitEnergyFlux, Standard) {
+  EXPECT_EQ(Standard<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
 }
 
 }  // namespace

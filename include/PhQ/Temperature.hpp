@@ -35,8 +35,8 @@ public:
   template<Unit::Temperature Unit>
   static constexpr Temperature Create(const double value) noexcept {
     return Temperature{
-        StaticConvertCopy<Unit::Temperature, Unit,
-                          StandardUnit<Unit::Temperature>>(value)};
+        StaticConvertCopy<Unit::Temperature, Unit, Standard<Unit::Temperature>>(
+            value)};
   }
 
   inline constexpr Temperature operator+(

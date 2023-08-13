@@ -37,8 +37,7 @@ enum class TemperatureDifference : int_least8_t {
 
 // Standard temperature difference unit: kelvin.
 template<> inline constexpr const Unit::TemperatureDifference
-    StandardUnit<Unit::TemperatureDifference>{
-        Unit::TemperatureDifference::Kelvin};
+    Standard<Unit::TemperatureDifference>{Unit::TemperatureDifference::Kelvin};
 
 // Physical dimension set of temperature difference units.
 template<>

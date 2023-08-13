@@ -148,8 +148,8 @@ TEST(UnitPressure, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitPressure, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Pressure>, Pressure::Pascal);
+TEST(UnitPressure, Standard) {
+  EXPECT_EQ(Standard<Pressure>, Pressure::Pascal);
 }
 
 }  // namespace

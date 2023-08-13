@@ -51,7 +51,7 @@ public:
   Create(const double value) noexcept {
     return AngularAccelerationMagnitude{
         StaticConvertCopy<Unit::AngularAcceleration, Unit,
-                          StandardUnit<Unit::AngularAcceleration>>(value)};
+                          Standard<Unit::AngularAcceleration>>(value)};
   }
 
   inline constexpr AngularAccelerationMagnitude

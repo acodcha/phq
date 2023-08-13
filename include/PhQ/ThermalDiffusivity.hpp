@@ -54,8 +54,8 @@ public:
   template<Unit::Diffusivity Unit>
   static constexpr ThermalDiffusivity Create(const double value) noexcept {
     return ThermalDiffusivity{
-        StaticConvertCopy<Unit::Diffusivity, Unit,
-                          StandardUnit<Unit::Diffusivity>>(value)};
+        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
+            value)};
   }
 
   inline constexpr ThermalDiffusivity operator+(

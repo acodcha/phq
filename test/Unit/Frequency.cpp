@@ -118,8 +118,8 @@ TEST(UnitFrequency, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Frequency::Gigahertz), std::nullopt);
 }
 
-TEST(UnitFrequency, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Frequency>, Frequency::Hertz);
+TEST(UnitFrequency, Standard) {
+  EXPECT_EQ(Standard<Frequency>, Frequency::Hertz);
 }
 
 }  // namespace

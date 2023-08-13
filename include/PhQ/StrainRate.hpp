@@ -52,7 +52,7 @@ public:
   template<Unit::Frequency Unit> static constexpr StrainRate Create(
       const Value::SymmetricDyad& value) noexcept {
     return StrainRate{
-        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 

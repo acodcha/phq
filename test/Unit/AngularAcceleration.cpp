@@ -305,8 +305,8 @@ TEST(UnitAngularAcceleration, RelatedUnitSystem) {
             std::nullopt);
 }
 
-TEST(UnitAngularAcceleration, StandardUnit) {
-  EXPECT_EQ(StandardUnit<AngularAcceleration>,
+TEST(UnitAngularAcceleration, Standard) {
+  EXPECT_EQ(Standard<AngularAcceleration>,
             AngularAcceleration::RadianPerSquareSecond);
 }
 
