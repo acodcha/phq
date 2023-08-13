@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Length units.
 enum class Length : int_least8_t {
   Mile,
   Kilometre,
@@ -39,9 +40,11 @@ enum class Length : int_least8_t {
 
 }  // namespace Unit
 
+// Standard length unit: metre.
 template<> inline constexpr const Unit::Length StandardUnit<Unit::Length>{
     Unit::Length::Metre};
 
+// Physical dimension set of length units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Length>{
     Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}
 };

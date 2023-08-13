@@ -22,9 +22,9 @@
 
 namespace PhQ::Dimension {
 
-// Amount of substance base dimension. Typically denoted "N". One of seven base
-// dimensions that form the dimension set of any unit of measure or physical
-// quantity.
+// Base physical dimension of amount of substance. Typically denoted "N". One of
+// seven independent base physical dimensions that form the physical dimension
+// set of any unit of measure or physical quantity.
 class SubstanceAmount {
 public:
   constexpr SubstanceAmount() noexcept : value_(0) {}

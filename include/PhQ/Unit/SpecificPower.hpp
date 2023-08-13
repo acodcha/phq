@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Mass-specific power units.
 enum class SpecificPower : int_least8_t {
   WattPerKilogram,
   NanowattPerGram,
@@ -31,10 +32,12 @@ enum class SpecificPower : int_least8_t {
 
 }  // namespace Unit
 
+// Standard mass-specific power unit: watt per kilogram.
 template<>
 inline constexpr const Unit::SpecificPower StandardUnit<Unit::SpecificPower>{
     Unit::SpecificPower::WattPerKilogram};
 
+// Physical dimension set of mass-specific power units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::SpecificPower>{
     Dimension::Set{

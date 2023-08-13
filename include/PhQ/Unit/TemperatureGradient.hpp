@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Temperature gradient units.
 enum class TemperatureGradient : int_least8_t {
   KelvinPerMetre,
   KelvinPerMillimetre,
@@ -35,10 +36,12 @@ enum class TemperatureGradient : int_least8_t {
 
 }  // namespace Unit
 
+// Standard temperature gradient unit: kelvin per metre.
 template<> inline constexpr const Unit::TemperatureGradient
     StandardUnit<Unit::TemperatureGradient>{
         Unit::TemperatureGradient::KelvinPerMetre};
 
+// Physical dimension set of temperature gradient units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::TemperatureGradient>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},

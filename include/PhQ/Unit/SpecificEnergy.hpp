@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Mass-specific energy units.
 enum class SpecificEnergy : int_least8_t {
   JoulePerKilogram,
   NanojoulePerGram,
@@ -31,10 +32,12 @@ enum class SpecificEnergy : int_least8_t {
 
 }  // namespace Unit
 
+// Standard mass-specific energy unit: joule per kilogram.
 template<>
 inline constexpr const Unit::SpecificEnergy StandardUnit<Unit::SpecificEnergy>{
     Unit::SpecificEnergy::JoulePerKilogram};
 
+// Physical dimension set of mass-specific energy units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::SpecificEnergy>{
     Dimension::Set{Dimension::Time{-2}, Dimension::Length{2}}

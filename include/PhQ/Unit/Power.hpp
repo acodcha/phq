@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Power units.
 enum class Power : int_least8_t {
   Watt,
   Milliwatt,
@@ -36,9 +37,11 @@ enum class Power : int_least8_t {
 
 }  // namespace Unit
 
+// Standard power unit: watt.
 template<>
 inline constexpr const Unit::Power StandardUnit<Unit::Power>{Unit::Power::Watt};
 
+// Physical dimension set of power units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Power>{
     Dimension::Set{
                    Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}

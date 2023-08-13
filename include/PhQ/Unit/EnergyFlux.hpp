@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Energy flux units.
 enum class EnergyFlux : int_least8_t {
   WattPerSquareMetre,
   NanowattPerSquareMillimetre,
@@ -31,10 +32,12 @@ enum class EnergyFlux : int_least8_t {
 
 }  // namespace Unit
 
+// Standard energy flux unit: watt per square metre.
 template<>
 inline constexpr const Unit::EnergyFlux StandardUnit<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};
 
+// Physical dimension set of energy flux units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::EnergyFlux>{
     Dimension::Set{
                    Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}

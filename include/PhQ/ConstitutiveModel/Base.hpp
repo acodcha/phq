@@ -22,6 +22,8 @@
 
 namespace PhQ {
 
+// Abstract base class for a constitutive model, which is a model that relates
+// stress and strain.
 class ConstitutiveModel {
 public:
   enum class Type : int_least8_t {

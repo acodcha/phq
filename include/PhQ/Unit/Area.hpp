@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Area units.
 enum class Area : int_least8_t {
   SquareMile,
   SquareKilometre,
@@ -41,9 +42,11 @@ enum class Area : int_least8_t {
 
 }  // namespace Unit
 
+// Standard area unit: square metre.
 template<> inline constexpr const Unit::Area StandardUnit<Unit::Area>{
     Unit::Area::SquareMetre};
 
+// Physical dimension set of area units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Area>{
     Dimension::Set{Dimension::Time{0}, Dimension::Length{2}}
 };

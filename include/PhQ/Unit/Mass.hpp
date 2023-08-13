@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Mass units.
 enum class Mass : int_least8_t {
   Kilogram,
   Gram,
@@ -32,9 +33,11 @@ enum class Mass : int_least8_t {
 
 }  // namespace Unit
 
+// Standard mass unit: kilogram.
 template<> inline constexpr const Unit::Mass StandardUnit<Unit::Mass>{
     Unit::Mass::Kilogram};
 
+// Physical dimension set of mass units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Mass>{
     Dimension::Set{
                    Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}

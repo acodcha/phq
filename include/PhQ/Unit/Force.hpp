@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Force units.
 enum class Force : int_least8_t {
   Newton,
   Micronewton,
@@ -45,9 +46,11 @@ enum class Force : int_least8_t {
 
 }  // namespace Unit
 
+// Standard force unit: newton.
 template<> inline constexpr const Unit::Force StandardUnit<Unit::Force>{
     Unit::Force::Newton};
 
+// Physical dimension set of force units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Force>{
     Dimension::Set{
                    Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}

@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Time rate of volume units.
 enum class VolumeRate : int_least8_t {
   CubicMilePerSecond,
   CubicKilometrePerSecond,
@@ -41,10 +42,12 @@ enum class VolumeRate : int_least8_t {
 
 }  // namespace Unit
 
+// Standard time-rate of volume unit: cubic metre per second.
 template<>
 inline constexpr const Unit::VolumeRate StandardUnit<Unit::VolumeRate>{
     Unit::VolumeRate::CubicMetrePerSecond};
 
+// Physical dimension set of time-rate of volume units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::VolumeRate>{
     Dimension::Set{Dimension::Time{-1}, Dimension::Length{3}}
 };

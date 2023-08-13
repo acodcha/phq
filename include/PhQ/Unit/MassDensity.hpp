@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Mass density units.
 enum class MassDensity : int_least8_t {
   KilogramPerCubicMetre,
   GramPerCubicMillimetre,
@@ -33,10 +34,12 @@ enum class MassDensity : int_least8_t {
 
 }  // namespace Unit
 
+// Standard mass density unit: kilogram per cubic metre.
 template<>
 inline constexpr const Unit::MassDensity StandardUnit<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};
 
+// Physical dimension set of mass density units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::MassDensity>{
     Dimension::Set{
                    Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}

@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Mass-specific heat capacity units.
 enum class SpecificHeatCapacity : int_least8_t {
   JoulePerKilogramPerKelvin,
   NanojoulePerGramPerKelvin,
@@ -31,10 +32,12 @@ enum class SpecificHeatCapacity : int_least8_t {
 
 }  // namespace Unit
 
+// Standard mass-specific heat capacity unit: joule per kilogram per kelvin.
 template<> inline constexpr const Unit::SpecificHeatCapacity
     StandardUnit<Unit::SpecificHeatCapacity>{
         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
 
+// Physical dimension set of mass-specific heat capacity units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::SpecificHeatCapacity>{
     Dimension::Set{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},

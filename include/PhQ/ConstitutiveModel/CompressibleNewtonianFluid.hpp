@@ -22,6 +22,11 @@
 
 namespace PhQ {
 
+// Constitutive model for a compressible Newtonian fluid. This is the simplest
+// constitutive model for a compressible fluid. It is similar to the model for
+// an incompressible Newtonian fluid, but also includes the effect of the
+// volumetric component of the strain rate tensor in addition to its deviatoric
+// component.
 class CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr CompressibleNewtonianFluid() noexcept

@@ -22,6 +22,10 @@ namespace PhQ {
 
 namespace Unit {
 
+// Temperature difference units. Not to be confused with temperature units. For
+// example, a temperature difference of +20 °C corresponds to a temperature
+// difference of +36 °F, while a temperature of 20 °C corresponds to a
+// temperature of 68 °F.
 enum class TemperatureDifference : int_least8_t {
   Kelvin,
   Celsius,
@@ -31,10 +35,12 @@ enum class TemperatureDifference : int_least8_t {
 
 }  // namespace Unit
 
+// Standard temperature difference unit: kelvin.
 template<> inline constexpr const Unit::TemperatureDifference
     StandardUnit<Unit::TemperatureDifference>{
         Unit::TemperatureDifference::Kelvin};
 
+// Physical dimension set of temperature difference units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::TemperatureDifference>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},

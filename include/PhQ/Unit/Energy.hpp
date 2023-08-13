@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Energy units.
 enum class Energy : int_least8_t {
   Joule,
   Millijoule,
@@ -44,9 +45,11 @@ enum class Energy : int_least8_t {
 
 }  // namespace Unit
 
+// Standard energy unit: joule.
 template<> inline constexpr const Unit::Energy StandardUnit<Unit::Energy>{
     Unit::Energy::Joule};
 
+// Physical dimension set of energy units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Energy>{
     Dimension::Set{
                    Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}}

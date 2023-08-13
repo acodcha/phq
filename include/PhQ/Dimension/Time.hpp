@@ -22,8 +22,9 @@
 
 namespace PhQ::Dimension {
 
-// Time base dimension. Typically denoted "T". One of seven base dimensions that
-// form the dimension set of any unit of measure or physical quantity.
+// Base physical dimension of time. Typically denoted "T". One of seven
+// independent base physical dimensions that form the physical dimension set of
+// any unit of measure or physical quantity.
 class Time {
 public:
   constexpr Time() noexcept : value_(0) {}

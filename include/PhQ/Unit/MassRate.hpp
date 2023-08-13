@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Time rate of mass units.
 enum class MassRate : int_least8_t {
   KilogramPerSecond,
   GramPerSecond,
@@ -32,9 +33,11 @@ enum class MassRate : int_least8_t {
 
 }  // namespace Unit
 
+// Standard time rate of mass unit: kilogram per second.
 template<> inline constexpr const Unit::MassRate StandardUnit<Unit::MassRate>{
     Unit::MassRate::KilogramPerSecond};
 
+// Physical dimension set of time rate of mass units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::MassRate>{
     Dimension::Set{
                    Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}}

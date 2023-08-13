@@ -23,6 +23,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Angular acceleration units.
 enum class AngularAcceleration : int_least8_t {
   RadianPerSquareSecond,
   RadianPerSquareMinute,
@@ -43,10 +44,12 @@ enum class AngularAcceleration : int_least8_t {
 
 }  // namespace Unit
 
+// Standard angular acceleration unit: radian per square second.
 template<> inline constexpr const Unit::AngularAcceleration
     StandardUnit<Unit::AngularAcceleration>{
         Unit::AngularAcceleration::RadianPerSquareSecond};
 
+// Physical dimension set of angular acceleration units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::AngularAcceleration>{
     Dimension::Set{Dimension::Time{-2}}};

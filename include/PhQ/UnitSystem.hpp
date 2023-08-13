@@ -20,7 +20,11 @@
 
 namespace PhQ {
 
-// Systems of units of measure.
+// Systems of units of measure. All units of measure in a unit system are
+// standard units of measure. When a physical quantity is expressed in terms of
+// a standard unit of measure, its value does not need to be converted when used
+// in mathematical expressions with other physical quantities expressed in
+// standard units of measure.
 enum class UnitSystem : int_least8_t {
   MetreKilogramSecondKelvin,
   MillimetreGramSecondKelvin,
@@ -28,7 +32,10 @@ enum class UnitSystem : int_least8_t {
   InchPoundSecondRankine,
 };
 
-// The standard system of units of measure, the International System (SI).
+// The standard unit system: the International System of Units (SI). It uses the
+// following standard units: second for time, metre for length, kilogram for
+// mass, ampere for electric current, kelvin for temperature, mole for substance
+// amount, and candela for luminous intensity.
 inline constexpr UnitSystem StandardUnitSystem{
     UnitSystem::MetreKilogramSecondKelvin};
 

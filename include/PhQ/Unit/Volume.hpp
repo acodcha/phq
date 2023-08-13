@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Volume units.
 enum class Volume : int_least8_t {
   CubicMile,
   CubicKilometre,
@@ -41,9 +42,11 @@ enum class Volume : int_least8_t {
 
 }  // namespace Unit
 
+// Standard volume unit: cubic metre.
 template<> inline constexpr const Unit::Volume StandardUnit<Unit::Volume>{
     Unit::Volume::CubicMetre};
 
+// Physical dimension set of volume units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Volume>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{3}}
 };
