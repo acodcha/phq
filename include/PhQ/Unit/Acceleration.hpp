@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Acceleration units.
 enum class Acceleration : int_least8_t {
   MilePerSquareSecond,
   MilePerSquareMinute,
@@ -63,9 +64,11 @@ enum class Acceleration : int_least8_t {
 
 }  // namespace Unit
 
+// Standard acceleration unit: metre per square second.
 template<> constexpr const Unit::Acceleration StandardUnit<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};
 
+// Physical dimension set of acceleration units.
 template<> constexpr const Dimension::Set Dimensions<Unit::Acceleration>{
     Dimension::Set{Dimension::Time{-2}, Dimension::Length{1}}
 };

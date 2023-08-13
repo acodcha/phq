@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Heat capacity units.
 enum class HeatCapacity : int_least8_t {
   JoulePerKelvin,
   NanojoulePerKelvin,
@@ -31,10 +32,12 @@ enum class HeatCapacity : int_least8_t {
 
 }  // namespace Unit
 
+// Standard heat capacity unit: joule per kelvin.
 template<>
 inline constexpr const Unit::HeatCapacity StandardUnit<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};
 
+// Physical dimension set of heat capacity units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::HeatCapacity>{
     Dimension::Set{
                    Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},

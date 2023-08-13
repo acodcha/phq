@@ -23,6 +23,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Angle units.
 enum class Angle : int_least8_t {
   Radian,
   Degree,
@@ -33,9 +34,11 @@ enum class Angle : int_least8_t {
 
 }  // namespace Unit
 
+// Standard angle unit: radian.
 template<> inline constexpr const Unit::Angle StandardUnit<Unit::Angle>{
     Unit::Angle::Radian};
 
+// Physical dimension set of angle units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::Angle>{Dimension::Set{}};
 

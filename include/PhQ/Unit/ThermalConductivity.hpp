@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Thermal conductivity units.
 enum class ThermalConductivity : int_least8_t {
   WattPerMetrePerKelvin,
   NanowattPerMillimetrePerKelvin,
@@ -30,10 +31,12 @@ enum class ThermalConductivity : int_least8_t {
 
 }  // namespace Unit
 
+// Standard thermal conductivity unit: watt per metre per kelvin.
 template<> inline constexpr const Unit::ThermalConductivity
     StandardUnit<Unit::ThermalConductivity>{
         Unit::ThermalConductivity::WattPerMetrePerKelvin};
 
+// Physical dimension set of thermal conductivity units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::ThermalConductivity>{
     Dimension::Set{

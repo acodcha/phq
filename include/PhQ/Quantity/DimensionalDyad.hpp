@@ -24,7 +24,9 @@
 namespace PhQ {
 
 // Abstract base class that represents any dimensional dyadic tensor physical
-// quantity.
+// quantity. Such a physical quantity is composed of a value and a unit of
+// measure where the value is a tensor of rank two and dimension three. The
+// tensor may be non-symmetric.
 template<typename U> class DimensionalDyadQuantity
   : public DimensionalQuantity<U> {
 public:

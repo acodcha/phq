@@ -18,7 +18,7 @@
 
 namespace PhQ {
 
-// The mathematical constant pi = 3.14... expressed as a double-precision
+// The mathematical constant π = 3.14... expressed as a double-precision
 // floating-point number. This value is as accurate as possible given the IEEE
 // 754 floating-point arithmetic standard.
 inline constexpr double Pi{3.14159265358979323846};

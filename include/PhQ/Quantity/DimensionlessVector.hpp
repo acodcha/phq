@@ -24,8 +24,9 @@
 namespace PhQ {
 
 // Abstract base class that represents any dimensionless vector physical
-// quantity. A dimensionless physical quantity has no unit of measure and no
-// dimension set.
+// quantity. Such a physical quantity is composed only of a value where the
+// value is a vector of dimension three. Such a physical quantity has no unit of
+// measure and no dimension set.
 class DimensionlessVectorQuantity : public DimensionlessQuantity {
 public:
   inline constexpr const Value::Vector& Value() const noexcept {

@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Speed units.
 enum class Speed : int_least8_t {
   MilePerSecond,
   MilePerMinute,
@@ -63,9 +64,11 @@ enum class Speed : int_least8_t {
 
 }  // namespace Unit
 
+// Standard speed unit: metre per second.
 template<> inline constexpr const Unit::Speed StandardUnit<Unit::Speed>{
     Unit::Speed::MetrePerSecond};
 
+// Physical dimension set of speed units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Speed>{
     Dimension::Set{Dimension::Time{-1}, Dimension::Length{1}}
 };

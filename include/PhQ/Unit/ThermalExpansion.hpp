@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Thermal expansion units.
 enum class ThermalExpansion : int_least8_t {
   PerKelvin,
   PerCelsius,
@@ -31,9 +32,11 @@ enum class ThermalExpansion : int_least8_t {
 
 }  // namespace Unit
 
+// Standard thermal expansion unit: per kelvin.
 template<> inline constexpr const Unit::ThermalExpansion
     StandardUnit<Unit::ThermalExpansion>{Unit::ThermalExpansion::PerKelvin};
 
+// Physical dimension set of thermal expansion units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::ThermalExpansion>{
     Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},

@@ -23,6 +23,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Angular speed units.
 enum class AngularSpeed : int_least8_t {
   RadianPerSecond,
   RadianPerMinute,
@@ -43,10 +44,12 @@ enum class AngularSpeed : int_least8_t {
 
 }  // namespace Unit
 
+// Standard angular speed unit: radian per second.
 template<>
 inline constexpr const Unit::AngularSpeed StandardUnit<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
+// Physical dimension set of angular speed units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::AngularSpeed>{
     Dimension::Set{Dimension::Time{-1}}};
 

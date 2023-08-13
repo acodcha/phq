@@ -21,6 +21,9 @@
 
 namespace PhQ {
 
+// Constitutive model for an incompressible Newtonian fluid. This is the
+// simplest constitutive model for a fluid. The viscous stress tensor at a point
+// is a linear function of only the local strain rate tensor at that point.
 class IncompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr IncompressibleNewtonianFluid() noexcept

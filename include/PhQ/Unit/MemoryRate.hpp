@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Time rate of computer memory units.
 enum class MemoryRate : int_least8_t {
   BitPerSecond,
   BytePerSecond,
@@ -49,10 +50,12 @@ enum class MemoryRate : int_least8_t {
 
 }  // namespace Unit
 
+// Standard time rate of computer memory unit: bit per second.
 template<>
 inline constexpr const Unit::MemoryRate StandardUnit<Unit::MemoryRate>{
     Unit::MemoryRate::BitPerSecond};
 
+// Physical dimension set of time rate of computer memory units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::MemoryRate>{
     Dimension::Set{Dimension::Time{-1}}};
 

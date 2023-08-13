@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Dynamic viscosity units.
 enum class DynamicViscosity : int_least8_t {
   PascalSecond,
   KilopascalSecond,
@@ -33,9 +34,11 @@ enum class DynamicViscosity : int_least8_t {
 
 }  // namespace Unit
 
+// Standard dynamic viscosity unit: pascal-second.
 template<> inline constexpr const Unit::DynamicViscosity
     StandardUnit<Unit::DynamicViscosity>{Unit::DynamicViscosity::PascalSecond};
 
+// Physical dimension set of dynamic viscosity units.
 template<>
 inline constexpr const Dimension::Set Dimensions<Unit::DynamicViscosity>{
     Dimension::Set{

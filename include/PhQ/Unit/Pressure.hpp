@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Pressure units.
 enum class Pressure : int_least8_t {
   Pascal,
   Kilopascal,
@@ -35,9 +36,11 @@ enum class Pressure : int_least8_t {
 
 }  // namespace Unit
 
+// Standard pressure unit: watt.
 template<> inline constexpr const Unit::Pressure StandardUnit<Unit::Pressure>{
     Unit::Pressure::Pascal};
 
+// Physical dimension set of pressure units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Pressure>{
     Dimension::Set{
                    Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}}

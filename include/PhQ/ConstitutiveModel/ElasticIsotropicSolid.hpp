@@ -28,6 +28,8 @@
 
 namespace PhQ {
 
+// Constitutive model for an elastic isotropic solid. This is the simplest
+// constitutive model for a deformable solid material.
 class ElasticIsotropicSolid : public ConstitutiveModel {
 public:
   constexpr ElasticIsotropicSolid() noexcept

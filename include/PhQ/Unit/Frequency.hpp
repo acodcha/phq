@@ -22,6 +22,7 @@ namespace PhQ {
 
 namespace Unit {
 
+// Frequency units.
 enum class Frequency : int_least8_t {
   Hertz,
   Kilohertz,
@@ -33,9 +34,11 @@ enum class Frequency : int_least8_t {
 
 }  // namespace Unit
 
+// Standard frequency unit: hertz.
 template<> inline constexpr const Unit::Frequency StandardUnit<Unit::Frequency>{
     Unit::Frequency::Hertz};
 
+// Physical dimension set of frequency units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Frequency>{
     Dimension::Set{Dimension::Time{-1}}};
 

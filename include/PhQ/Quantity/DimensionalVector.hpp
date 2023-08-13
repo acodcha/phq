@@ -24,6 +24,8 @@
 namespace PhQ {
 
 // Abstract base class that represents any dimensional vector physical quantity.
+// Such a physical quantity is composed of a value and a unit of measure where
+// the value is a vector of dimension three.
 template<typename U> class DimensionalVectorQuantity
   : public DimensionalQuantity<U> {
 public:
