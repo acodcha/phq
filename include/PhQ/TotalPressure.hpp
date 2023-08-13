@@ -42,7 +42,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr TotalPressure Create(const double value) noexcept {
     return TotalPressure{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

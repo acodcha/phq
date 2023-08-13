@@ -138,7 +138,7 @@ TEST(UnitTime, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Time::Hour), std::nullopt);
 }
 
-TEST(UnitTime, StandardUnit) { EXPECT_EQ(StandardUnit<Time>, Time::Second); }
+TEST(UnitTime, Standard) { EXPECT_EQ(Standard<Time>, Time::Second); }
 
 TEST(UnitTime, StaticConvert) {
   double value{10.0};

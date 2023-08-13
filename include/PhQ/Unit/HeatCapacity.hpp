@@ -34,7 +34,7 @@ enum class HeatCapacity : int_least8_t {
 
 // Standard heat capacity unit: joule per kelvin.
 template<>
-inline constexpr const Unit::HeatCapacity StandardUnit<Unit::HeatCapacity>{
+inline constexpr const Unit::HeatCapacity Standard<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};
 
 // Physical dimension set of heat capacity units.

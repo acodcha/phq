@@ -43,8 +43,7 @@ enum class Diffusivity : int_least8_t {
 }  // namespace Unit
 
 // Standard diffusivity unit: square metre per second.
-template<>
-inline constexpr const Unit::Diffusivity StandardUnit<Unit::Diffusivity>{
+template<> inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
     Unit::Diffusivity::SquareMetrePerSecond};
 
 // Physical dimension set of diffusivity units.

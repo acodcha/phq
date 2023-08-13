@@ -34,8 +34,8 @@ enum class Mass : int_least8_t {
 }  // namespace Unit
 
 // Standard mass unit: kilogram.
-template<> inline constexpr const Unit::Mass StandardUnit<Unit::Mass>{
-    Unit::Mass::Kilogram};
+template<>
+inline constexpr const Unit::Mass Standard<Unit::Mass>{Unit::Mass::Kilogram};
 
 // Physical dimension set of mass units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Mass>{

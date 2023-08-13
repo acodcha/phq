@@ -68,8 +68,8 @@ TEST(UnitSystem, Parse) {
 }
 
 TEST(UnitSystem, Standard) {
-  EXPECT_EQ(
-      PhQ::StandardUnitSystem, PhQ::UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(PhQ::Standard<PhQ::UnitSystem>,
+            PhQ::UnitSystem::MetreKilogramSecondKelvin);
 }
 
 }  // namespace

@@ -47,7 +47,7 @@ public:
   template<Unit::Area Unit>
   static constexpr Area Create(const double value) noexcept {
     return Area{
-        StaticConvertCopy<Unit::Area, Unit, StandardUnit<Unit::Area>>(value)};
+        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   inline constexpr Area operator+(const Area& area) const noexcept {

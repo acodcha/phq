@@ -36,7 +36,7 @@ enum class Time : int_least8_t {
 
 // Standard time unit: second.
 template<>
-inline constexpr const Unit::Time StandardUnit<Unit::Time>{Unit::Time::Second};
+inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 
 // Physical dimension set of time units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Time>{

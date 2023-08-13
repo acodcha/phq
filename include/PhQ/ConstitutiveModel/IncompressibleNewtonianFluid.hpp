@@ -51,7 +51,7 @@ public:
   inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept override {
     return {
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-        StandardUnit<Unit::Pressure>
+        Standard<Unit::Pressure>
     };
   }
 
@@ -59,7 +59,7 @@ public:
       const PhQ::StrainRate& strain_rate) const noexcept override {
     // stress = 2 * dynamic_viscosity * strain_rate
     return {{2.0 * dynamic_viscosity_.Value() * strain_rate.Value()},
-            StandardUnit<Unit::Pressure>};
+            Standard<Unit::Pressure>};
   }
 
   inline PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept override {
@@ -72,7 +72,7 @@ public:
       const PhQ::Stress& stress) const noexcept override {
     // strain_rate = stress / (2 * dynamic_viscosity)
     return {{stress.Value() / (2.0 * dynamic_viscosity_.Value())},
-            StandardUnit<Unit::Frequency>};
+            Standard<Unit::Frequency>};
   }
 
   inline std::string Print() const noexcept override {

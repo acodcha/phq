@@ -139,8 +139,8 @@ TEST(UnitMassDensity, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MassDensity::PoundPerCubicInch), std::nullopt);
 }
 
-TEST(UnitMassDensity, StandardUnit) {
-  EXPECT_EQ(StandardUnit<MassDensity>, MassDensity::KilogramPerCubicMetre);
+TEST(UnitMassDensity, Standard) {
+  EXPECT_EQ(Standard<MassDensity>, MassDensity::KilogramPerCubicMetre);
 }
 
 }  // namespace

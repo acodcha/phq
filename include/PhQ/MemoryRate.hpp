@@ -43,8 +43,9 @@ public:
 
   template<Unit::MemoryRate Unit>
   static constexpr MemoryRate Create(const double value) noexcept {
-    return MemoryRate{StaticConvertCopy<Unit::MemoryRate, Unit,
-                                        StandardUnit<Unit::MemoryRate>>(value)};
+    return MemoryRate{
+        StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(
+            value)};
   }
 
   inline constexpr MemoryRate operator+(

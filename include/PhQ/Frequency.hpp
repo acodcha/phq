@@ -69,7 +69,7 @@ public:
   template<Unit::Frequency Unit>
   static constexpr Frequency Create(const double value) noexcept {
     return Frequency{
-        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 

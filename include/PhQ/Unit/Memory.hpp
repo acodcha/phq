@@ -51,8 +51,8 @@ enum class Memory : int_least8_t {
 }  // namespace Unit
 
 // Standard computer memory unit: bit.
-template<> inline constexpr const Unit::Memory StandardUnit<Unit::Memory>{
-    Unit::Memory::Bit};
+template<>
+inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 
 // Physical dimension set of computer memory units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Memory>{

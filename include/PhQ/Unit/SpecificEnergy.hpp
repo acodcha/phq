@@ -34,7 +34,7 @@ enum class SpecificEnergy : int_least8_t {
 
 // Standard mass-specific energy unit: joule per kilogram.
 template<>
-inline constexpr const Unit::SpecificEnergy StandardUnit<Unit::SpecificEnergy>{
+inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
     Unit::SpecificEnergy::JoulePerKilogram};
 
 // Physical dimension set of mass-specific energy units.

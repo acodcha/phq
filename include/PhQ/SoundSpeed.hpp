@@ -79,7 +79,7 @@ public:
   template<Unit::Speed Unit>
   static constexpr SoundSpeed Create(const double value) noexcept {
     return SoundSpeed{
-        StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
+        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   inline constexpr SoundSpeed operator+(

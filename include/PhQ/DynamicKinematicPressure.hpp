@@ -56,7 +56,7 @@ public:
   Create(const double value) noexcept {
     return DynamicKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
-                          StandardUnit<Unit::SpecificEnergy>>(value)};
+                          Standard<Unit::SpecificEnergy>>(value)};
   }
 
   inline constexpr DynamicKinematicPressure

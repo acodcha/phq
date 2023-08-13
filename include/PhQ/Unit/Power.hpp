@@ -39,7 +39,7 @@ enum class Power : int_least8_t {
 
 // Standard power unit: watt.
 template<>
-inline constexpr const Unit::Power StandardUnit<Unit::Power>{Unit::Power::Watt};
+inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 
 // Physical dimension set of power units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Power>{

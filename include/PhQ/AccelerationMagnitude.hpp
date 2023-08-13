@@ -53,7 +53,7 @@ public:
   static constexpr AccelerationMagnitude Create(const double value) noexcept {
     return AccelerationMagnitude{
         StaticConvertCopy<Unit::Acceleration, Unit,
-                          StandardUnit<Unit::Acceleration>>(value)};
+                          Standard<Unit::Acceleration>>(value)};
   }
 
   inline constexpr AccelerationMagnitude operator+(

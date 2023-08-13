@@ -32,11 +32,25 @@ enum class UnitSystem : int_least8_t {
   InchPoundSecondRankine,
 };
 
+// Standard unit of measure of a given type. Standard units of measure of
+// different types can be combined with each other without the need for
+// conversions. When a physical quantity is expressed in terms of a standard
+// unit of measure, its value does not need to be converted when used in
+// mathematical expressions with other physical quantities expressed in standard
+// units of measure.
+//
+// For example, the standard unit of time is the second and the standard unit of
+// length is the metre. Correspondingly, the standard unit of speed is the metre
+// per second. Thus, when forming a speed quantity from a length quantity and a
+// time quantity, if all quantities are expressed in these standard units, no
+// unit conversions are needed.
+template<typename Type> inline constexpr Type Standard;
+
 // The standard unit system: the International System of Units (SI). It uses the
 // following standard units: second for time, metre for length, kilogram for
 // mass, ampere for electric current, kelvin for temperature, mole for substance
 // amount, and candela for luminous intensity.
-inline constexpr UnitSystem StandardUnitSystem{
+template<> inline constexpr const UnitSystem Standard<UnitSystem>{
     UnitSystem::MetreKilogramSecondKelvin};
 
 namespace Internal {

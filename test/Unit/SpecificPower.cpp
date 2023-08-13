@@ -128,8 +128,8 @@ TEST(UnitSpecificPower, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitSpecificPower, StandardUnit) {
-  EXPECT_EQ(StandardUnit<SpecificPower>, SpecificPower::WattPerKilogram);
+TEST(UnitSpecificPower, Standard) {
+  EXPECT_EQ(Standard<SpecificPower>, SpecificPower::WattPerKilogram);
 }
 
 }  // namespace

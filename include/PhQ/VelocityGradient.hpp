@@ -38,7 +38,7 @@ public:
   template<Unit::Frequency Unit>
   static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {
     return VelocityGradient{
-        StaticConvertCopy<Unit::Frequency, Unit, StandardUnit<Unit::Frequency>>(
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 

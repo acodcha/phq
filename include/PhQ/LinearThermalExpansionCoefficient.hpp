@@ -43,7 +43,7 @@ public:
   Create(const double value) noexcept {
     return LinearThermalExpansionCoefficient{
         StaticConvertCopy<Unit::ThermalExpansion, Unit,
-                          StandardUnit<Unit::ThermalExpansion>>(value)};
+                          Standard<Unit::ThermalExpansion>>(value)};
   }
 
   inline constexpr LinearThermalExpansionCoefficient operator+(

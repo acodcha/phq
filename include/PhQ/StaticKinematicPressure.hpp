@@ -52,7 +52,7 @@ public:
   static constexpr StaticKinematicPressure Create(const double value) noexcept {
     return StaticKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
-                          StandardUnit<Unit::SpecificEnergy>>(value)};
+                          Standard<Unit::SpecificEnergy>>(value)};
   }
 
   inline constexpr StaticKinematicPressure operator+(

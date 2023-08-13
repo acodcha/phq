@@ -41,8 +41,7 @@ public:
   template<Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) noexcept {
     return Position{
-        StaticConvertCopy<Unit::Length, Unit, StandardUnit<Unit::Length>>(
-            value)};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   inline constexpr Length Magnitude() const noexcept { return {*this}; }

@@ -102,7 +102,7 @@ public:
       const PhQ::Temperature& temperature) const noexcept {
     return {static_pressure.Value()
                 / (temperature.Value() * specific_gas_constant_.Value()),
-            StandardUnit<Unit::MassDensity>};
+            Standard<Unit::MassDensity>};
   }
 
   inline PhQ::StaticPressure StaticPressure(
@@ -110,7 +110,7 @@ public:
       const PhQ::Temperature& temperature) const noexcept {
     return {mass_density.Value() * temperature.Value()
                 * specific_gas_constant_.Value(),
-            StandardUnit<Unit::Pressure>};
+            Standard<Unit::Pressure>};
   }
 
   inline PhQ::Temperature Temperature(
@@ -118,7 +118,7 @@ public:
       const PhQ::StaticPressure& static_pressure) const noexcept {
     return {static_pressure.Value()
                 / (mass_density.Value() * specific_gas_constant_.Value()),
-            StandardUnit<Unit::Temperature>};
+            Standard<Unit::Temperature>};
   }
 
   inline std::string Print() const noexcept override {

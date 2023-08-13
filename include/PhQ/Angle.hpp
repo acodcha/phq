@@ -87,7 +87,7 @@ public:
   template<Unit::Angle Unit>
   static constexpr Angle Create(const double value) noexcept {
     return Angle{
-        StaticConvertCopy<Unit::Angle, Unit, StandardUnit<Unit::Angle>>(value)};
+        StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
   inline constexpr Angle operator+(const Angle& other) const noexcept {

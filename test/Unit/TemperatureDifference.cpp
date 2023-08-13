@@ -124,8 +124,8 @@ TEST(UnitTemperatureDifference, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(TemperatureDifference::Fahrenheit), std::nullopt);
 }
 
-TEST(UnitTemperatureDifference, StandardUnit) {
-  EXPECT_EQ(StandardUnit<TemperatureDifference>, TemperatureDifference::Kelvin);
+TEST(UnitTemperatureDifference, Standard) {
+  EXPECT_EQ(Standard<TemperatureDifference>, TemperatureDifference::Kelvin);
 }
 
 }  // namespace

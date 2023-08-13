@@ -42,7 +42,7 @@ public:
   template<Unit::MassRate Unit>
   static constexpr MassRate Create(const double value) noexcept {
     return MassRate{
-        StaticConvertCopy<Unit::MassRate, Unit, StandardUnit<Unit::MassRate>>(
+        StaticConvertCopy<Unit::MassRate, Unit, Standard<Unit::MassRate>>(
             value)};
   }
 

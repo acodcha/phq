@@ -26,20 +26,6 @@
 
 namespace PhQ {
 
-// Standard unit of measure of a given type. Standard units of measure of
-// different types can be combined with each other without the need for
-// conversions. When a physical quantity is expressed in terms of a standard
-// unit of measure, its value does not need to be converted when used in
-// mathematical expressions with other physical quantities expressed in standard
-// units of measure.
-//
-// For example, the standard unit of time is the second and the standard unit of
-// length is the metre. Correspondingly, the standard unit of speed is the metre
-// per second. Thus, when forming a speed quantity from a length quantity and a
-// time quantity, if all quantities are expressed in these standard units, no
-// unit conversions are needed.
-template<typename Unit> inline constexpr Unit StandardUnit;
-
 // Physical dimension set of a given type of unit of measure. Units of measure
 // are organized into types that share the same physical dimension set.
 template<typename Unit> inline constexpr Dimension::Set Dimensions;
@@ -110,10 +96,10 @@ template<typename Unit> inline const std::map<
 // measure. The conversion is performed in-place.
 template<typename Unit> void Convert(
     double& value, const Unit original_unit, const Unit new_unit) noexcept {
-  if (original_unit != StandardUnit<Unit>) {
+  if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&value, 1);
   }
-  if (new_unit != StandardUnit<Unit>) {
+  if (new_unit != Standard<Unit>) {
     Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
         &value, 1);
   }
@@ -124,10 +110,10 @@ template<typename Unit> void Convert(
 template<typename Unit, std::size_t Size>
 void Convert(std::array<double, Size>& values, const Unit original_unit,
              const Unit new_unit) noexcept {
-  if (original_unit != StandardUnit<Unit>) {
+  if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&values[0], Size);
   }
-  if (new_unit != StandardUnit<Unit>) {
+  if (new_unit != Standard<Unit>) {
     Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
         &values[0], Size);
   }
@@ -138,11 +124,11 @@ void Convert(std::array<double, Size>& values, const Unit original_unit,
 template<typename Unit>
 void Convert(std::vector<double>& values, const Unit original_unit,
              const Unit new_unit) noexcept {
-  if (original_unit != StandardUnit<Unit>) {
+  if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(
         &values[0], values.size());
   }
-  if (new_unit != StandardUnit<Unit>) {
+  if (new_unit != Standard<Unit>) {
     Internal::MapOfConversionsFromStandard<Unit>.find(new_unit)->second(
         &values[0], values.size());
   }

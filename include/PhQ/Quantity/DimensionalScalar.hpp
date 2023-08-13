@@ -31,12 +31,12 @@ public:
 
   inline double Value(const U unit) const noexcept {
     double result{value_};
-    Convert(result, StandardUnit<U>, unit);
+    Convert(result, Standard<U>, unit);
     return result;
   }
 
   template<U NewUnit> inline constexpr double StaticValue() const noexcept {
-    return StaticConvertCopy<U, StandardUnit<U>, NewUnit>(value_);
+    return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
   inline constexpr double& MutableValue() noexcept { return value_; }
@@ -46,7 +46,7 @@ public:
   }
 
   std::string Print() const noexcept override {
-    return PhQ::Print(value_).append(" ").append(Abbreviation(StandardUnit<U>));
+    return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
   }
 
   std::string Print(const U unit) const noexcept override {
@@ -57,7 +57,7 @@ public:
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("\"}");
   }
 
@@ -73,7 +73,7 @@ public:
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("</unit>");
   }
 
@@ -89,7 +89,7 @@ public:
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")
-        .append(Abbreviation(StandardUnit<U>))
+        .append(Abbreviation(Standard<U>))
         .append("\"}");
   }
 
@@ -110,7 +110,7 @@ protected:
 
   DimensionalScalarQuantity(const double value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(value) {
-    Convert(value_, unit, StandardUnit<U>);
+    Convert(value_, unit, Standard<U>);
   }
 
   ~DimensionalScalarQuantity() noexcept = default;

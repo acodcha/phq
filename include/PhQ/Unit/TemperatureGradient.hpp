@@ -38,7 +38,7 @@ enum class TemperatureGradient : int_least8_t {
 
 // Standard temperature gradient unit: kelvin per metre.
 template<> inline constexpr const Unit::TemperatureGradient
-    StandardUnit<Unit::TemperatureGradient>{
+    Standard<Unit::TemperatureGradient>{
         Unit::TemperatureGradient::KelvinPerMetre};
 
 // Physical dimension set of temperature gradient units.

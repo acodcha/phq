@@ -47,8 +47,8 @@ enum class Force : int_least8_t {
 }  // namespace Unit
 
 // Standard force unit: newton.
-template<> inline constexpr const Unit::Force StandardUnit<Unit::Force>{
-    Unit::Force::Newton};
+template<>
+inline constexpr const Unit::Force Standard<Unit::Force>{Unit::Force::Newton};
 
 // Physical dimension set of force units.
 template<> inline constexpr const Dimension::Set Dimensions<Unit::Force>{

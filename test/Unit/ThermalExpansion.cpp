@@ -123,8 +123,8 @@ TEST(UnitThermalExpansion, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(ThermalExpansion::PerFahrenheit), std::nullopt);
 }
 
-TEST(UnitThermalExpansion, StandardUnit) {
-  EXPECT_EQ(StandardUnit<ThermalExpansion>, ThermalExpansion::PerKelvin);
+TEST(UnitThermalExpansion, Standard) {
+  EXPECT_EQ(Standard<ThermalExpansion>, ThermalExpansion::PerKelvin);
 }
 
 }  // namespace

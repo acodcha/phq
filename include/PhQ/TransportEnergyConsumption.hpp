@@ -48,7 +48,7 @@ public:
   template<Unit::Force Unit> static constexpr TransportEnergyConsumption Create(
       const double value) noexcept {
     return TransportEnergyConsumption{
-        StaticConvertCopy<Unit::Force, Unit, StandardUnit<Unit::Force>>(value)};
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   inline constexpr TransportEnergyConsumption

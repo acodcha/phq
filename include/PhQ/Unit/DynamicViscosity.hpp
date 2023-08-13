@@ -35,8 +35,9 @@ enum class DynamicViscosity : int_least8_t {
 }  // namespace Unit
 
 // Standard dynamic viscosity unit: pascal-second.
-template<> inline constexpr const Unit::DynamicViscosity
-    StandardUnit<Unit::DynamicViscosity>{Unit::DynamicViscosity::PascalSecond};
+template<>
+inline constexpr const Unit::DynamicViscosity Standard<Unit::DynamicViscosity>{
+    Unit::DynamicViscosity::PascalSecond};
 
 // Physical dimension set of dynamic viscosity units.
 template<>

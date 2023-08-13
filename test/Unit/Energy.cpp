@@ -197,9 +197,7 @@ TEST(UnitEnergy, RelatedUnitSystem) {
       RelatedUnitSystem(Energy::InchPound), UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitEnergy, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Energy>, Energy::Joule);
-}
+TEST(UnitEnergy, Standard) { EXPECT_EQ(Standard<Energy>, Energy::Joule); }
 
 }  // namespace
 

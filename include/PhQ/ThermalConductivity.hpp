@@ -47,7 +47,7 @@ public:
   Create(const Value::SymmetricDyad& value) noexcept {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit,
-                          StandardUnit<Unit::ThermalConductivity>>(value)};
+                          Standard<Unit::ThermalConductivity>>(value)};
   }
 
   inline constexpr ThermalConductivity operator+(

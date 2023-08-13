@@ -33,8 +33,9 @@ enum class ThermalExpansion : int_least8_t {
 }  // namespace Unit
 
 // Standard thermal expansion unit: per kelvin.
-template<> inline constexpr const Unit::ThermalExpansion
-    StandardUnit<Unit::ThermalExpansion>{Unit::ThermalExpansion::PerKelvin};
+template<>
+inline constexpr const Unit::ThermalExpansion Standard<Unit::ThermalExpansion>{
+    Unit::ThermalExpansion::PerKelvin};
 
 // Physical dimension set of thermal expansion units.
 template<>

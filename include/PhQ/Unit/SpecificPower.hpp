@@ -34,7 +34,7 @@ enum class SpecificPower : int_least8_t {
 
 // Standard mass-specific power unit: watt per kilogram.
 template<>
-inline constexpr const Unit::SpecificPower StandardUnit<Unit::SpecificPower>{
+inline constexpr const Unit::SpecificPower Standard<Unit::SpecificPower>{
     Unit::SpecificPower::WattPerKilogram};
 
 // Physical dimension set of mass-specific power units.

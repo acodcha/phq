@@ -192,9 +192,7 @@ TEST(UnitArea, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMicroinch), std::nullopt);
 }
 
-TEST(UnitArea, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Area>, Area::SquareMetre);
-}
+TEST(UnitArea, Standard) { EXPECT_EQ(Standard<Area>, Area::SquareMetre); }
 
 }  // namespace
 

@@ -35,8 +35,7 @@ enum class MassDensity : int_least8_t {
 }  // namespace Unit
 
 // Standard mass density unit: kilogram per cubic metre.
-template<>
-inline constexpr const Unit::MassDensity StandardUnit<Unit::MassDensity>{
+template<> inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};
 
 // Physical dimension set of mass density units.

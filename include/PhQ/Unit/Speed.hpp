@@ -65,7 +65,7 @@ enum class Speed : int_least8_t {
 }  // namespace Unit
 
 // Standard speed unit: metre per second.
-template<> inline constexpr const Unit::Speed StandardUnit<Unit::Speed>{
+template<> inline constexpr const Unit::Speed Standard<Unit::Speed>{
     Unit::Speed::MetrePerSecond};
 
 // Physical dimension set of speed units.

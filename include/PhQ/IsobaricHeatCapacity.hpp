@@ -57,7 +57,7 @@ public:
   static constexpr IsobaricHeatCapacity Create(const double value) noexcept {
     return IsobaricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
-                          StandardUnit<Unit::HeatCapacity>>(value)};
+                          Standard<Unit::HeatCapacity>>(value)};
   }
 
   inline constexpr IsobaricHeatCapacity operator+(

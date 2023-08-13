@@ -82,7 +82,7 @@ public:
   template<Unit::Speed Unit>
   static constexpr Speed Create(const double value) noexcept {
     return Speed{
-        StaticConvertCopy<Unit::Speed, Unit, StandardUnit<Unit::Speed>>(value)};
+        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   inline constexpr Speed operator+(const Speed& speed) const noexcept {

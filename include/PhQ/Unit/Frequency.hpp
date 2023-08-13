@@ -35,7 +35,7 @@ enum class Frequency : int_least8_t {
 }  // namespace Unit
 
 // Standard frequency unit: hertz.
-template<> inline constexpr const Unit::Frequency StandardUnit<Unit::Frequency>{
+template<> inline constexpr const Unit::Frequency Standard<Unit::Frequency>{
     Unit::Frequency::Hertz};
 
 // Physical dimension set of frequency units.

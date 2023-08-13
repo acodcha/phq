@@ -484,8 +484,8 @@ TEST(UnitAcceleration, RelatedUnitSystem) {
       RelatedUnitSystem(Acceleration::MicroinchPerSquareHour), std::nullopt);
 }
 
-TEST(UnitAcceleration, StandardUnit) {
-  EXPECT_EQ(StandardUnit<Acceleration>, Acceleration::MetrePerSquareSecond);
+TEST(UnitAcceleration, Standard) {
+  EXPECT_EQ(Standard<Acceleration>, Acceleration::MetrePerSquareSecond);
 }
 
 }  // namespace

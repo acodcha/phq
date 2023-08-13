@@ -43,7 +43,7 @@ public:
   template<Unit::Pressure Unit>
   static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {
     return Stress{
-        StaticConvertCopy<Unit::Pressure, Unit, StandardUnit<Unit::Pressure>>(
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 

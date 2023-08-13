@@ -76,7 +76,7 @@ public:
   template<Unit::Mass Unit>
   static constexpr Mass Create(const double value) noexcept {
     return Mass{
-        StaticConvertCopy<Unit::Mass, Unit, StandardUnit<Unit::Mass>>(value)};
+        StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 
   inline constexpr Mass operator+(const Mass& mass) const noexcept {

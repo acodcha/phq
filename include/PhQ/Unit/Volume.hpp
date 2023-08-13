@@ -43,7 +43,7 @@ enum class Volume : int_least8_t {
 }  // namespace Unit
 
 // Standard volume unit: cubic metre.
-template<> inline constexpr const Unit::Volume StandardUnit<Unit::Volume>{
+template<> inline constexpr const Unit::Volume Standard<Unit::Volume>{
     Unit::Volume::CubicMetre};
 
 // Physical dimension set of volume units.

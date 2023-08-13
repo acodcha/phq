@@ -55,8 +55,7 @@ public:
   template<Unit::Energy Unit>
   static constexpr Energy Create(const double value) noexcept {
     return Energy{
-        StaticConvertCopy<Unit::Energy, Unit, StandardUnit<Unit::Energy>>(
-            value)};
+        StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
   inline constexpr Energy operator+(const Energy& energy) const noexcept {

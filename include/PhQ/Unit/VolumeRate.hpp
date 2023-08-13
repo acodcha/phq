@@ -43,8 +43,7 @@ enum class VolumeRate : int_least8_t {
 }  // namespace Unit
 
 // Standard time-rate of volume unit: cubic metre per second.
-template<>
-inline constexpr const Unit::VolumeRate StandardUnit<Unit::VolumeRate>{
+template<> inline constexpr const Unit::VolumeRate Standard<Unit::VolumeRate>{
     Unit::VolumeRate::CubicMetrePerSecond};
 
 // Physical dimension set of time-rate of volume units.

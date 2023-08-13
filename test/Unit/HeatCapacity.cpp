@@ -126,8 +126,8 @@ TEST(UnitHeatCapacity, RelatedUnitSystem) {
             UnitSystem::InchPoundSecondRankine);
 }
 
-TEST(UnitHeatCapacity, StandardUnit) {
-  EXPECT_EQ(StandardUnit<HeatCapacity>, HeatCapacity::JoulePerKelvin);
+TEST(UnitHeatCapacity, Standard) {
+  EXPECT_EQ(Standard<HeatCapacity>, HeatCapacity::JoulePerKelvin);
 }
 
 }  // namespace
