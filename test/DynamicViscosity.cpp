@@ -118,19 +118,19 @@ TEST(DynamicViscosity, Hash) {
 
 TEST(DynamicViscosity, JSON) {
   EXPECT_EQ(DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).JSON(),
-            "{\"value\":1.110000,\"unit\":\"Pa·s\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"Pa·s\"}");
   EXPECT_EQ(DynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
                 .JSON(Unit::DynamicViscosity::KilopascalSecond),
-            "{\"value\":-5.000000,\"unit\":\"kPa·s\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"kPa·s\"}");
 }
 
 TEST(DynamicViscosity, Print) {
   EXPECT_EQ(
       DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print(),
-      "1.110000 Pa·s");
+      "1.110000000000000 Pa·s");
   EXPECT_EQ(DynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
                 .Print(Unit::DynamicViscosity::KilopascalSecond),
-            "-5.000000 kPa·s");
+            "-5.000000000000000 kPa·s");
 }
 
 TEST(DynamicViscosity, Stream) {
@@ -142,18 +142,18 @@ TEST(DynamicViscosity, Stream) {
 
 TEST(DynamicViscosity, XML) {
   EXPECT_EQ(DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).XML(),
-            "<value>1.110000</value><unit>Pa·s</unit>");
+            "<value>1.110000000000000</value><unit>Pa·s</unit>");
   EXPECT_EQ(DynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
                 .XML(Unit::DynamicViscosity::KilopascalSecond),
-            "<value>-5.000000</value><unit>kPa·s</unit>");
+            "<value>-5.000000000000000</value><unit>kPa·s</unit>");
 }
 
 TEST(DynamicViscosity, YAML) {
   EXPECT_EQ(DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).YAML(),
-            "{value:1.110000,unit:\"Pa·s\"}");
+            "{value:1.110000000000000,unit:\"Pa·s\"}");
   EXPECT_EQ(DynamicViscosity(-5.0, Unit::DynamicViscosity::KilopascalSecond)
                 .YAML(Unit::DynamicViscosity::KilopascalSecond),
-            "{value:-5.000000,unit:\"kPa·s\"}");
+            "{value:-5.000000000000000,unit:\"kPa·s\"}");
 }
 
 TEST(DynamicViscosity, Zero) {

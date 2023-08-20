@@ -42,7 +42,7 @@ public:
       const ForceMagnitude& force_magnitude, const Area& area) noexcept
     : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
-  constexpr StaticPressure(const Traction& traction) noexcept;
+  StaticPressure(const Traction& traction) noexcept;
 
   constexpr StaticPressure(const TotalPressure& total_pressure,
                            const DynamicPressure& dynamic_pressure) noexcept;

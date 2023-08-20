@@ -119,20 +119,20 @@ TEST(TransportEnergyConsumption, Hash) {
 
 TEST(TransportEnergyConsumption, JSON) {
   EXPECT_EQ(TransportEnergyConsumption(1.11, Unit::Force::Newton).JSON(),
-            "{\"value\":1.110000,\"unit\":\"N\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"N\"}");
   EXPECT_EQ(
       TransportEnergyConsumption(-5.0, Unit::Force::KilowattHourPerKilometre)
           .JSON(Unit::Force::KilowattHourPerKilometre),
-      "{\"value\":-5.000000,\"unit\":\"kW·hr/km\"}");
+      "{\"value\":-5.000000000000000,\"unit\":\"kW·hr/km\"}");
 }
 
 TEST(TransportEnergyConsumption, Print) {
   EXPECT_EQ(TransportEnergyConsumption(1.11, Unit::Force::Newton).Print(),
-            "1.110000 N");
+            "1.110000000000000 N");
   EXPECT_EQ(
       TransportEnergyConsumption(-5.0, Unit::Force::KilowattHourPerKilometre)
           .Print(Unit::Force::KilowattHourPerKilometre),
-      "-5.000000 kW·hr/km");
+      "-5.000000000000000 kW·hr/km");
 }
 
 TEST(TransportEnergyConsumption, Stream) {
@@ -144,20 +144,20 @@ TEST(TransportEnergyConsumption, Stream) {
 
 TEST(TransportEnergyConsumption, XML) {
   EXPECT_EQ(TransportEnergyConsumption(1.11, Unit::Force::Newton).XML(),
-            "<value>1.110000</value><unit>N</unit>");
+            "<value>1.110000000000000</value><unit>N</unit>");
   EXPECT_EQ(
       TransportEnergyConsumption(-5.0, Unit::Force::KilowattHourPerKilometre)
           .XML(Unit::Force::KilowattHourPerKilometre),
-      "<value>-5.000000</value><unit>kW·hr/km</unit>");
+      "<value>-5.000000000000000</value><unit>kW·hr/km</unit>");
 }
 
 TEST(TransportEnergyConsumption, YAML) {
   EXPECT_EQ(TransportEnergyConsumption(1.11, Unit::Force::Newton).YAML(),
-            "{value:1.110000,unit:\"N\"}");
+            "{value:1.110000000000000,unit:\"N\"}");
   EXPECT_EQ(
       TransportEnergyConsumption(-5.0, Unit::Force::KilowattHourPerKilometre)
           .YAML(Unit::Force::KilowattHourPerKilometre),
-      "{value:-5.000000,unit:\"kW·hr/km\"}");
+      "{value:-5.000000000000000,unit:\"kW·hr/km\"}");
 }
 
 TEST(TransportEnergyConsumption, Zero) {

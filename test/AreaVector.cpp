@@ -167,19 +167,20 @@ TEST(AreaVector, Hash) {
 
 TEST(AreaVector, JSON) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).JSON(),
-            "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
-            "\"unit\":\"m^2\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":2.220000000000000,\"z\":"
+            "4.440000000000000},\"unit\":\"m^2\"}");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
                 .JSON(Unit::Area::SquareFoot),
-            "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"ft^2\"}");
+            "{\"value\":{\"x\":0,\"y\":-5.000000000000000,\"z\":0},\"unit\":"
+            "\"ft^2\"}");
 }
 
 TEST(AreaVector, Print) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).Print(),
-            "(1.110000, 2.220000, 4.440000) m^2");
+            "(1.110000000000000, 2.220000000000000, 4.440000000000000) m^2");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
                 .Print(Unit::Area::SquareFoot),
-            "(0, -5.000000, 0) ft^2");
+            "(0, -5.000000000000000, 0) ft^2");
 }
 
 TEST(AreaVector, Stream) {
@@ -194,19 +195,21 @@ TEST(AreaVector, Stream) {
 
 TEST(AreaVector, XML) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).XML(),
-            "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
-            "value><unit>m^2</unit>");
+            "<value><x>1.110000000000000</x><y>2.220000000000000</"
+            "y><z>4.440000000000000</z></value><unit>m^2</unit>");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
                 .XML(Unit::Area::SquareFoot),
-            "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>ft^2</unit>");
+            "<value><x>0</x><y>-5.000000000000000</y><z>0</z></"
+            "value><unit>ft^2</unit>");
 }
 
 TEST(AreaVector, YAML) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).YAML(),
-            "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m^2\"}");
+            "{value:{x:1.110000000000000,y:2.220000000000000,z:4."
+            "440000000000000},unit:\"m^2\"}");
   EXPECT_EQ(AreaVector({0.0, -5.0, 0.0}, Unit::Area::SquareFoot)
                 .YAML(Unit::Area::SquareFoot),
-            "{value:{x:0,y:-5.000000,z:0},unit:\"ft^2\"}");
+            "{value:{x:0,y:-5.000000000000000,z:0},unit:\"ft^2\"}");
 }
 
 TEST(AreaVector, Zero) {

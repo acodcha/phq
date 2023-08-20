@@ -111,17 +111,18 @@ TEST(Speed, Hash) {
 
 TEST(Speed, JSON) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).JSON(),
-            "{\"value\":1.110000,\"unit\":\"m/s\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"m/s\"}");
   EXPECT_EQ(
-      Speed(-5.0, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
-      "{\"value\":-5.000000,\"unit\":\"ft/s\"}");
+      Speed(-5.5, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
+      "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
 }
 
 TEST(Speed, Print) {
-  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(), "1.110000 m/s");
+  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(),
+            "1.110000000000000 m/s");
   EXPECT_EQ(
-      Speed(-5.0, Unit::Speed::FootPerSecond).Print(Unit::Speed::FootPerSecond),
-      "-5.000000 ft/s");
+      Speed(-5.5, Unit::Speed::FootPerSecond).Print(Unit::Speed::FootPerSecond),
+      "-5.500000000000000 ft/s");
 }
 
 TEST(Speed, Stream) {
@@ -133,18 +134,18 @@ TEST(Speed, Stream) {
 
 TEST(Speed, XML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).XML(),
-            "<value>1.110000</value><unit>m/s</unit>");
+            "<value>1.110000000000000</value><unit>m/s</unit>");
   EXPECT_EQ(
-      Speed(-5.0, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
-      "<value>-5.000000</value><unit>ft/s</unit>");
+      Speed(-5.5, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
+      "<value>-5.500000000000000</value><unit>ft/s</unit>");
 }
 
 TEST(Speed, YAML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).YAML(),
-            "{value:1.110000,unit:\"m/s\"}");
+            "{value:1.110000000000000,unit:\"m/s\"}");
   EXPECT_EQ(
-      Speed(-5.0, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
-      "{value:-5.000000,unit:\"ft/s\"}");
+      Speed(-5.5, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
+      "{value:-5.500000000000000,unit:\"ft/s\"}");
 }
 
 TEST(Speed, Zero) {

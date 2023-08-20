@@ -37,7 +37,7 @@ public:
   Area(const double value, const Unit::Area unit) noexcept
     : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  constexpr Area(const AreaVector& area_vector) noexcept;
+  Area(const AreaVector& area_vector) noexcept;
 
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;

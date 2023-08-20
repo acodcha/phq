@@ -211,13 +211,21 @@ TEST(ValueSymmetricDyad, Inverse) {
 
 TEST(ValueSymmetricDyad, JSON) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).JSON(),
-            "{\"xx\":1.000000,\"xy\":-2.000000,\"xz\":4.000000,\"yy\":0,\"yz\":"
-            "-4.000000,\"zz\":0}");
+            "{\"xx\":1.000000000000000,\"xy\":-2.000000000000000,\"xz\":4."
+            "000000000000000,\"yy\":0,\"yz\":-4.000000000000000,\"zz\":0}");
 }
 
 TEST(ValueSymmetricDyad, Print) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(),
-            "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
+            "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, "
+            "-4.000000000000000; 0)");
+  EXPECT_EQ(
+      SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Double),
+      "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, "
+      "-4.000000000000000; 0)");
+  EXPECT_EQ(
+      SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Single),
+      "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
 }
 
 TEST(ValueSymmetricDyad, Stream) {
@@ -238,13 +246,15 @@ TEST(ValueSymmetricDyad, Transpose) {
 
 TEST(ValueSymmetricDyad, XML) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).XML(),
-            "<xx>1.000000</xx><xy>-2.000000</xy><xz>4.000000</xz><yy>0</"
-            "yy><yz>-4.000000</yz><zz>0</zz>");
+            "<xx>1.000000000000000</xx><xy>-2.000000000000000</"
+            "xy><xz>4.000000000000000</xz><yy>0</yy><yz>-4.000000000000000</"
+            "yz><zz>0</zz>");
 }
 
 TEST(ValueSymmetricDyad, YAML) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).YAML(),
-            "{xx:1.000000,xy:-2.000000,xz:4.000000,yy:0,yz:-4.000000,zz:0}");
+            "{xx:1.000000000000000,xy:-2.000000000000000,xz:4.000000000000000,"
+            "yy:0,yz:-4.000000000000000,zz:0}");
 }
 
 TEST(ValueSymmetricDyad, Zero) {

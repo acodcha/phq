@@ -13,32 +13,28 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
+#include "../../include/PhQ/Base/Precision.hpp"
 
-#include "../Base/Precision.hpp"
+#include <gtest/gtest.h>
 
 namespace PhQ {
 
-// Abstract base class that represents any physical quantity.
-class Quantity {
-public:
-  virtual std::string Print() const noexcept = 0;
+namespace {
 
-  virtual std::string Print(const Precision precision) const noexcept = 0;
+TEST(BasePrecision, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Precision::Double), "Double");
+  EXPECT_EQ(Abbreviation(Precision::Single), "Single");
+}
 
-  virtual std::string JSON() const noexcept = 0;
+TEST(BasePrecision, Parse) {
+  EXPECT_EQ(Parse<Precision>("DOUBLE"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("Double"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("double"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("SINGLE"), Precision::Single);
+  EXPECT_EQ(Parse<Precision>("Single"), Precision::Single);
+  EXPECT_EQ(Parse<Precision>("single"), Precision::Single);
+}
 
-  virtual std::string XML() const noexcept = 0;
-
-  virtual std::string YAML() const noexcept = 0;
-
-protected:
-  constexpr Quantity() noexcept = default;
-
-  ~Quantity() noexcept = default;
-};
+}  // namespace
 
 }  // namespace PhQ
-
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP

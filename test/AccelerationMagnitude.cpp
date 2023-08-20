@@ -132,20 +132,20 @@ TEST(AccelerationMagnitude, JSON) {
   EXPECT_EQ(
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .JSON(),
-      "{\"value\":1.110000,\"unit\":\"m/s^2\"}");
-  EXPECT_EQ(AccelerationMagnitude(-5.0, Unit::Acceleration::FootPerSquareSecond)
+      "{\"value\":1.110000000000000,\"unit\":\"m/s^2\"}");
+  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
                 .JSON(Unit::Acceleration::FootPerSquareSecond),
-            "{\"value\":-5.000000,\"unit\":\"ft/s^2\"}");
+            "{\"value\":-5.500000000000000,\"unit\":\"ft/s^2\"}");
 }
 
 TEST(AccelerationMagnitude, Print) {
   EXPECT_EQ(
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .Print(),
-      "1.110000 m/s^2");
-  EXPECT_EQ(AccelerationMagnitude(-5.0, Unit::Acceleration::FootPerSquareSecond)
+      "1.110000000000000 m/s^2");
+  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
                 .Print(Unit::Acceleration::FootPerSquareSecond),
-            "-5.000000 ft/s^2");
+            "-5.500000000000000 ft/s^2");
 }
 
 TEST(AccelerationMagnitude, Stream) {
@@ -160,20 +160,20 @@ TEST(AccelerationMagnitude, XML) {
   EXPECT_EQ(
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .XML(),
-      "<value>1.110000</value><unit>m/s^2</unit>");
-  EXPECT_EQ(AccelerationMagnitude(-5.0, Unit::Acceleration::FootPerSquareSecond)
+      "<value>1.110000000000000</value><unit>m/s^2</unit>");
+  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
                 .XML(Unit::Acceleration::FootPerSquareSecond),
-            "<value>-5.000000</value><unit>ft/s^2</unit>");
+            "<value>-5.500000000000000</value><unit>ft/s^2</unit>");
 }
 
 TEST(AccelerationMagnitude, YAML) {
   EXPECT_EQ(
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .YAML(),
-      "{value:1.110000,unit:\"m/s^2\"}");
-  EXPECT_EQ(AccelerationMagnitude(-5.0, Unit::Acceleration::FootPerSquareSecond)
+      "{value:1.110000000000000,unit:\"m/s^2\"}");
+  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
                 .YAML(Unit::Acceleration::FootPerSquareSecond),
-            "{value:-5.000000,unit:\"ft/s^2\"}");
+            "{value:-5.500000000000000,unit:\"ft/s^2\"}");
 }
 
 TEST(AccelerationMagnitude, Zero) {

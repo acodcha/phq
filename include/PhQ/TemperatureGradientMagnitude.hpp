@@ -37,7 +37,7 @@ public:
       const double value, const Unit::TemperatureGradient unit) noexcept
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
 
-  constexpr TemperatureGradientMagnitude(
+  TemperatureGradientMagnitude(
       const TemperatureGradient& temperature_gradient) noexcept;
 
   constexpr TemperatureGradientMagnitude(

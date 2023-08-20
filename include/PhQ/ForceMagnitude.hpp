@@ -35,7 +35,7 @@ public:
   ForceMagnitude(const double value, const Unit::Force unit) noexcept
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
-  constexpr ForceMagnitude(const Force& force) noexcept;
+  ForceMagnitude(const Force& force) noexcept;
 
   inline constexpr ForceMagnitude(
       const StaticPressure& static_pressure, const Area& area) noexcept;

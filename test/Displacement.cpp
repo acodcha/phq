@@ -180,19 +180,20 @@ TEST(Displacement, Hash) {
 
 TEST(Displacement, JSON) {
   EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).JSON(),
-            "{\"value\":{\"x\":1.110000,\"y\":2.220000,\"z\":4.440000},"
-            "\"unit\":\"m\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":2.220000000000000,\"z\":"
+            "4.440000000000000},\"unit\":\"m\"}");
   EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
                 .JSON(Unit::Length::Millimetre),
-            "{\"value\":{\"x\":0,\"y\":-5.000000,\"z\":0},\"unit\":\"mm\"}");
+            "{\"value\":{\"x\":0,\"y\":-5.000000000000000,\"z\":0},\"unit\":"
+            "\"mm\"}");
 }
 
 TEST(Displacement, Print) {
   EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).Print(),
-            "(1.110000, 2.220000, 4.440000) m");
+            "(1.110000000000000, 2.220000000000000, 4.440000000000000) m");
   EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
                 .Print(Unit::Length::Millimetre),
-            "(0, -5.000000, 0) mm");
+            "(0, -5.000000000000000, 0) mm");
 }
 
 TEST(Displacement, Stream) {
@@ -207,19 +208,21 @@ TEST(Displacement, Stream) {
 
 TEST(Displacement, XML) {
   EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).XML(),
-            "<value><x>1.110000</x><y>2.220000</y><z>4.440000</z></"
-            "value><unit>m</unit>");
+            "<value><x>1.110000000000000</x><y>2.220000000000000</"
+            "y><z>4.440000000000000</z></value><unit>m</unit>");
   EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
                 .XML(Unit::Length::Millimetre),
-            "<value><x>0</x><y>-5.000000</y><z>0</z></value><unit>mm</unit>");
+            "<value><x>0</x><y>-5.000000000000000</y><z>0</z></value><unit>mm</"
+            "unit>");
 }
 
 TEST(Displacement, YAML) {
   EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).YAML(),
-            "{value:{x:1.110000,y:2.220000,z:4.440000},unit:\"m\"}");
+            "{value:{x:1.110000000000000,y:2.220000000000000,z:4."
+            "440000000000000},unit:\"m\"}");
   EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
                 .YAML(Unit::Length::Millimetre),
-            "{value:{x:0,y:-5.000000,z:0},unit:\"mm\"}");
+            "{value:{x:0,y:-5.000000000000000,z:0},unit:\"mm\"}");
 }
 
 TEST(Displacement, Zero) {

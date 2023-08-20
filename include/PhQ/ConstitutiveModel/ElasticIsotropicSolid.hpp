@@ -16,7 +16,6 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 
-#include "../Base/SquareRoot.hpp"
 #include "../IsentropicBulkModulus.hpp"
 #include "../IsothermalBulkModulus.hpp"
 #include "../LameFirstModulus.hpp"
@@ -92,10 +91,10 @@ public:
       shear_modulus_(
           0.25
               * (young_modulus.Value() - 3.0 * lame_first_modulus.Value()
-                 + SquareRoot(std::pow(young_modulus.Value(), 2)
-                              + 9.0 * std::pow(lame_first_modulus.Value(), 2)
-                              + 2.0 * young_modulus.Value()
-                                    * lame_first_modulus.Value())),
+                 + std::sqrt(std::pow(young_modulus.Value(), 2)
+                             + 9.0 * std::pow(lame_first_modulus.Value(), 2)
+                             + 2.0 * young_modulus.Value()
+                                   * lame_first_modulus.Value())),
           Standard<Unit::Pressure>),
       lame_first_modulus_(lame_first_modulus) {}
 
@@ -105,7 +104,7 @@ public:
       shear_modulus_(
           0.125
               * (3.0 * p_wave_modulus.Value() + young_modulus.Value()
-                 - SquareRoot(
+                 - std::sqrt(
                      std::pow(young_modulus.Value(), 2)
                      + 9.0 * std::pow(p_wave_modulus.Value(), 2)
                      - 10.0 * young_modulus.Value() * p_wave_modulus.Value())),
@@ -113,7 +112,7 @@ public:
       lame_first_modulus_(
           0.25
               * (p_wave_modulus.Value() - young_modulus.Value()
-                 + SquareRoot(
+                 + std::sqrt(
                      std::pow(young_modulus.Value(), 2)
                      + 9.0 * std::pow(p_wave_modulus.Value(), 2)
                      - 10.0 * young_modulus.Value() * p_wave_modulus.Value())),

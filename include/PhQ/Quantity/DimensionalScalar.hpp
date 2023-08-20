@@ -49,8 +49,21 @@ public:
     return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
   }
 
+  std::string Print(const Precision precision) const noexcept override {
+    return PhQ::Print(value_, precision)
+        .append(" ")
+        .append(Abbreviation(Standard<U>));
+  }
+
   std::string Print(const U unit) const noexcept override {
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
+  }
+
+  std::string Print(
+      const U unit, const Precision precision) const noexcept override {
+    return PhQ::Print(Value(unit), precision)
+        .append(" ")
+        .append(Abbreviation(unit));
   }
 
   std::string JSON() const noexcept override {

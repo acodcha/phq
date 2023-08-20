@@ -19,7 +19,6 @@
 #include <array>
 #include <utility>
 
-#include "../Base/SquareRoot.hpp"
 #include "../Base/String.hpp"
 
 namespace PhQ {
@@ -91,11 +90,11 @@ public:
            + x_y_z_[2] * x_y_z_[2];
   }
 
-  inline constexpr double Magnitude() const noexcept {
-    return SquareRoot(MagnitudeSquared());
+  inline double Magnitude() const noexcept {
+    return std::sqrt(MagnitudeSquared());
   }
 
-  inline constexpr PhQ::Direction Direction() const noexcept;
+  inline PhQ::Direction Direction() const noexcept;
 
   inline constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
@@ -123,6 +122,12 @@ public:
   inline std::string Print() const noexcept {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", "
            + PhQ::Print(x_y_z_[2]) + ")";
+  }
+
+  inline std::string Print(const Precision precision) const noexcept {
+    return "(" + PhQ::Print(x_y_z_[0], precision) + ", "
+           + PhQ::Print(x_y_z_[1], precision) + ", "
+           + PhQ::Print(x_y_z_[2], precision) + ")";
   }
 
   inline std::string JSON() const noexcept {

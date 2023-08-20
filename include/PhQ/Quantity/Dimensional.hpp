@@ -32,6 +32,9 @@ public:
 
   virtual std::string Print(const U unit) const noexcept = 0;
 
+  virtual std::string Print(
+      const U unit, const Precision precision) const noexcept = 0;
+
   virtual std::string JSON(const U unit) const noexcept = 0;
 
   virtual std::string XML(const U unit) const noexcept = 0;

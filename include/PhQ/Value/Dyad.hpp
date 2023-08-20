@@ -218,6 +218,16 @@ public:
            + PhQ::Print(zz()) + ")";
   }
 
+  inline std::string Print(const Precision precision) const noexcept {
+    return "(" + PhQ::Print(xx(), precision) + ", "
+           + PhQ::Print(xy(), precision) + ", " + PhQ::Print(xz(), precision)
+           + "; " + PhQ::Print(yx(), precision) + ", "
+           + PhQ::Print(yy(), precision) + ", " + PhQ::Print(yz(), precision)
+           + "; " + PhQ::Print(zx(), precision) + ", "
+           + PhQ::Print(zy(), precision) + ", " + PhQ::Print(zz(), precision)
+           + ")";
+  }
+
   inline std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy())
            + ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx())

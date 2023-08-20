@@ -59,7 +59,7 @@ public:
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  inline constexpr Length Magnitude() const noexcept { return {*this}; }
+  inline Length Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
@@ -156,14 +156,14 @@ inline constexpr Displacement operator*(
   return displacement * number;
 }
 
-inline constexpr Direction::Direction(const Displacement& displacement) noexcept
+inline Direction::Direction(const Displacement& displacement) noexcept
   : Direction(displacement.Value()) {}
 
 inline Angle::Angle(const Displacement& displacement1,
                     const Displacement& displacement2) noexcept
   : Angle(displacement1.Value(), displacement2.Value()) {}
 
-inline constexpr Length::Length(const Displacement& displacement) noexcept
+inline Length::Length(const Displacement& displacement) noexcept
   : Length(displacement.Value().Magnitude()) {}
 
 }  // namespace PhQ

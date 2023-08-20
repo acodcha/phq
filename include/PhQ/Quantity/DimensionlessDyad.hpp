@@ -40,6 +40,10 @@ public:
 
   std::string Print() const noexcept override { return value_.Print(); }
 
+  std::string Print(const Precision precision) const noexcept override {
+    return value_.Print(precision);
+  }
+
   std::string JSON() const noexcept override { return value_.JSON(); }
 
   std::string XML() const noexcept override { return value_.XML(); }

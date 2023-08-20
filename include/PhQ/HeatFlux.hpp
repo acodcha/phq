@@ -145,15 +145,14 @@ inline constexpr HeatFlux operator*(
   return heat_flux * number;
 }
 
-inline constexpr Direction::Direction(const HeatFlux& heat_flux) noexcept
+inline Direction::Direction(const HeatFlux& heat_flux) noexcept
   : Direction(heat_flux.Value()) {}
 
 inline Angle::Angle(
     const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept
   : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
 
-inline constexpr HeatFluxMagnitude::HeatFluxMagnitude(
-    const HeatFlux& heat_flux) noexcept
+inline HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept
   : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
 
 inline constexpr HeatFlux Direction::operator*(

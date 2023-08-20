@@ -25,12 +25,12 @@ namespace {
 
 TEST(Direction, Accessor) {
   const std::array<double, 3> value{
-      0.0, 0.5 * SquareRoot(2.0), -0.5 * SquareRoot(2.0)};
+      0.0, 0.5 * std::sqrt(2.0), -0.5 * std::sqrt(2.0)};
 
   const Direction direction0{0.0, 10.0, -10.0};
   EXPECT_DOUBLE_EQ(direction0.Value().x(), 0.0);
-  EXPECT_DOUBLE_EQ(direction0.Value().y(), 0.5 * SquareRoot(2.0));
-  EXPECT_DOUBLE_EQ(direction0.Value().z(), -0.5 * SquareRoot(2.0));
+  EXPECT_DOUBLE_EQ(direction0.Value().y(), 0.5 * std::sqrt(2.0));
+  EXPECT_DOUBLE_EQ(direction0.Value().z(), -0.5 * std::sqrt(2.0));
 
   Direction direction1{1.0, 0.0, 0.0};
   direction1.SetValue(Value::Vector{0.0, 10.0, -10.0});
@@ -137,13 +137,13 @@ TEST(Direction, Hash) {
 }
 
 TEST(Direction, JSON) {
-  EXPECT_EQ(
-      Direction(0.0, -10.0, 0.0).JSON(), "{\"x\":0,\"y\":-1.000000,\"z\":0}");
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).JSON(),
+            "{\"x\":0,\"y\":-1.000000000000000,\"z\":0}");
 }
 
 TEST(Direction, Print) {
   EXPECT_EQ(Direction{}.Print(), "(0, 0, 0)");
-  EXPECT_EQ(Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000)");
+  EXPECT_EQ(Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000000000000)");
 }
 
 TEST(Direction, Stream) {
@@ -171,22 +171,24 @@ TEST(Direction, ValueSymmetricDyad) {
 }
 
 TEST(Direction, ValueVector) {
-  constexpr Direction direction0{1.0, 2.0, 4.0};
-  constexpr Value::Vector vector0{4.0, direction0};
+  const Direction direction0{1.0, 2.0, 4.0};
+  const Value::Vector vector0{4.0, direction0};
   EXPECT_EQ(vector0.Direction(), direction0);
 
-  constexpr Direction direction1{0.0, 1.0, 0.0};
-  constexpr Value::Vector vector1{4.0, direction1};
+  const Direction direction1{0.0, 1.0, 0.0};
+  const Value::Vector vector1{4.0, direction1};
   EXPECT_EQ(vector1, Value::Vector(0.0, 4.0, 0.0));
 }
 
 TEST(Direction, XML) {
-  EXPECT_EQ(
-      Direction(0.0, -10.0, 0.0).XML(), "<x>0</x><y>-1.000000</y><z>0</z>");
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).XML(),
+            "<x>0</x><y>-1.000000000000000</y><z>0</z>");
 }
 
 TEST(Direction, YAML) {
-  EXPECT_EQ(Direction(0.0, -10.0, 0.0).YAML(), "{x:0,y:-1.000000,z:0}");
+  EXPECT_EQ(Direction(0.0, -10.0, 0.0).YAML(),
+            "{x:0,y:-1.000000000000000,z:"
+            "0}");
 }
 
 TEST(Direction, Zero) {

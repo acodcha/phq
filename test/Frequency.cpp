@@ -99,10 +99,10 @@ TEST(Frequency, Hash) {
 
 TEST(Frequency, JSON) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).JSON(),
-            "{\"value\":1.110000,\"unit\":\"Hz\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"Hz\"}");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
                 .JSON(Unit::Frequency::Kilohertz),
-            "{\"value\":-5.000000,\"unit\":\"kHz\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"kHz\"}");
 }
 
 TEST(Frequency, Period) {
@@ -114,10 +114,11 @@ TEST(Frequency, Period) {
 }
 
 TEST(Frequency, Print) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).Print(), "1.110000 Hz");
+  EXPECT_EQ(
+      Frequency(1.11, Unit::Frequency::Hertz).Print(), "1.110000000000000 Hz");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
                 .Print(Unit::Frequency::Kilohertz),
-            "-5.000000 kHz");
+            "-5.000000000000000 kHz");
 }
 
 TEST(Frequency, Stream) {
@@ -129,18 +130,18 @@ TEST(Frequency, Stream) {
 
 TEST(Frequency, XML) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).XML(),
-            "<value>1.110000</value><unit>Hz</unit>");
+            "<value>1.110000000000000</value><unit>Hz</unit>");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
                 .XML(Unit::Frequency::Kilohertz),
-            "<value>-5.000000</value><unit>kHz</unit>");
+            "<value>-5.000000000000000</value><unit>kHz</unit>");
 }
 
 TEST(Frequency, YAML) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).YAML(),
-            "{value:1.110000,unit:\"Hz\"}");
+            "{value:1.110000000000000,unit:\"Hz\"}");
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
                 .YAML(Unit::Frequency::Kilohertz),
-            "{value:-5.000000,unit:\"kHz\"}");
+            "{value:-5.000000000000000,unit:\"kHz\"}");
 }
 
 TEST(Frequency, Zero) {

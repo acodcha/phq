@@ -44,7 +44,7 @@ public:
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  inline constexpr Area Magnitude() const noexcept { return {*this}; }
+  inline Area Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
@@ -130,14 +130,14 @@ inline constexpr AreaVector operator*(
   return area_vector * number;
 }
 
-inline constexpr Direction::Direction(const AreaVector& area_vector) noexcept
+inline Direction::Direction(const AreaVector& area_vector) noexcept
   : Direction(area_vector.Value()) {}
 
 inline Angle::Angle(
     const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept
   : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
-inline constexpr Area::Area(const AreaVector& area_vector) noexcept
+inline Area::Area(const AreaVector& area_vector) noexcept
   : Area(area_vector.Value().Magnitude()) {}
 
 inline constexpr AreaVector Direction::operator*(
