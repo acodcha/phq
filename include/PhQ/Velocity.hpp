@@ -59,7 +59,7 @@ public:
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  inline constexpr Speed Magnitude() const noexcept { return {*this}; }
+  inline Speed Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Velocity& velocity) const noexcept {
     return {*this, velocity};
@@ -157,7 +157,7 @@ inline constexpr Velocity operator*(
   return velocity * number;
 }
 
-inline constexpr Direction::Direction(const Velocity& velocity) noexcept
+inline Direction::Direction(const Velocity& velocity) noexcept
   : Direction(velocity.Value()) {}
 
 inline Angle::Angle(
@@ -172,7 +172,7 @@ inline constexpr Displacement::Displacement(
     const Velocity& velocity, const Frequency& frequency) noexcept
   : Displacement(velocity.Value() / frequency.Value()) {}
 
-inline constexpr Speed::Speed(const Velocity& velocity) noexcept
+inline Speed::Speed(const Velocity& velocity) noexcept
   : Speed(velocity.Value().Magnitude()) {}
 
 inline constexpr Velocity Direction::operator*(

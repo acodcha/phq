@@ -111,18 +111,18 @@ TEST(MassDensity, Hash) {
 
 TEST(MassDensity, JSON) {
   EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).JSON(),
-            "{\"value\":1.110000,\"unit\":\"kg/m^3\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"kg/m^3\"}");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .JSON(Unit::MassDensity::GramPerCubicMillimetre),
-            "{\"value\":-5.000000,\"unit\":\"g/mm^3\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"g/mm^3\"}");
 }
 
 TEST(MassDensity, Print) {
   EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Print(),
-            "1.110000 kg/m^3");
+            "1.110000000000000 kg/m^3");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .Print(Unit::MassDensity::GramPerCubicMillimetre),
-            "-5.000000 g/mm^3");
+            "-5.000000000000000 g/mm^3");
 }
 
 TEST(MassDensity, Stream) {
@@ -134,18 +134,18 @@ TEST(MassDensity, Stream) {
 
 TEST(MassDensity, XML) {
   EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).XML(),
-            "<value>1.110000</value><unit>kg/m^3</unit>");
+            "<value>1.110000000000000</value><unit>kg/m^3</unit>");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .XML(Unit::MassDensity::GramPerCubicMillimetre),
-            "<value>-5.000000</value><unit>g/mm^3</unit>");
+            "<value>-5.000000000000000</value><unit>g/mm^3</unit>");
 }
 
 TEST(MassDensity, YAML) {
   EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).YAML(),
-            "{value:1.110000,unit:\"kg/m^3\"}");
+            "{value:1.110000000000000,unit:\"kg/m^3\"}");
   EXPECT_EQ(MassDensity(-5.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .YAML(Unit::MassDensity::GramPerCubicMillimetre),
-            "{value:-5.000000,unit:\"g/mm^3\"}");
+            "{value:-5.000000000000000,unit:\"g/mm^3\"}");
 }
 
 TEST(MassDensity, Zero) {

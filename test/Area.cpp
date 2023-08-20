@@ -96,17 +96,18 @@ TEST(Area, Hash) {
 
 TEST(Area, JSON) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).JSON(),
-            "{\"value\":1.110000,\"unit\":\"m^2\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"m^2\"}");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
                 .JSON(Unit::Area::SquareMillimetre),
-            "{\"value\":-5.000000,\"unit\":\"mm^2\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"mm^2\"}");
 }
 
 TEST(Area, Print) {
-  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000 m^2");
+  EXPECT_EQ(
+      Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000000000000 m^2");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
                 .Print(Unit::Area::SquareMillimetre),
-            "-5.000000 mm^2");
+            "-5.000000000000000 mm^2");
 }
 
 TEST(Area, Stream) {
@@ -118,18 +119,18 @@ TEST(Area, Stream) {
 
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
-            "<value>1.110000</value><unit>m^2</unit>");
+            "<value>1.110000000000000</value><unit>m^2</unit>");
   EXPECT_EQ(
       Area(-5.0, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
-      "<value>-5.000000</value><unit>mm^2</unit>");
+      "<value>-5.000000000000000</value><unit>mm^2</unit>");
 }
 
 TEST(Area, YAML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).YAML(),
-            "{value:1.110000,unit:\"m^2\"}");
+            "{value:1.110000000000000,unit:\"m^2\"}");
   EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
                 .YAML(Unit::Area::SquareMillimetre),
-            "{value:-5.000000,unit:\"mm^2\"}");
+            "{value:-5.000000000000000,unit:\"mm^2\"}");
 }
 
 TEST(Area, Zero) {

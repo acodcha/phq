@@ -86,6 +86,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(base_constants GTest::gtest_main)
   gtest_discover_tests(base_constants)
 
+  add_executable(base_precision ${PROJECT_SOURCE_DIR}/test/Base/Precision.cpp)
+  target_link_libraries(base_precision GTest::gtest_main)
+  gtest_discover_tests(base_precision)
+
   add_executable(base_square_root ${PROJECT_SOURCE_DIR}/test/Base/SquareRoot.cpp)
   target_link_libraries(base_square_root GTest::gtest_main)
   gtest_discover_tests(base_square_root)

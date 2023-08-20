@@ -146,7 +146,7 @@ inline constexpr TemperatureGradient operator*(
   return temperature_gradient * number;
 }
 
-inline constexpr Direction::Direction(
+inline Direction::Direction(
     const TemperatureGradient& temperature_gradient) noexcept
   : Direction(temperature_gradient.Value()) {}
 
@@ -154,7 +154,7 @@ inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
                     const TemperatureGradient& temperature_gradient_2) noexcept
   : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
-inline constexpr TemperatureGradientMagnitude::TemperatureGradientMagnitude(
+inline TemperatureGradientMagnitude::TemperatureGradientMagnitude(
     const TemperatureGradient& temperature_gradient) noexcept
   : TemperatureGradientMagnitude(temperature_gradient.Value().Magnitude()) {}
 

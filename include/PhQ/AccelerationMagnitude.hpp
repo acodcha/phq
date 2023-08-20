@@ -43,7 +43,7 @@ public:
       const Speed& speed, const Frequency& frequency) noexcept
     : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
-  constexpr AccelerationMagnitude(const Acceleration& acceleration) noexcept;
+  AccelerationMagnitude(const Acceleration& acceleration) noexcept;
 
   static constexpr AccelerationMagnitude Zero() noexcept {
     return AccelerationMagnitude{0.0};

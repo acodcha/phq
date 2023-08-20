@@ -113,18 +113,18 @@ TEST(VolumeRate, Hash) {
 
 TEST(VolumeRate, JSON) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).JSON(),
-            "{\"value\":1.110000,\"unit\":\"m^3/s\"}");
+            "{\"value\":1.110000000000000,\"unit\":\"m^3/s\"}");
   EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
                 .JSON(Unit::VolumeRate::CubicFootPerSecond),
-            "{\"value\":-5.000000,\"unit\":\"ft^3/s\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"ft^3/s\"}");
 }
 
 TEST(VolumeRate, Print) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print(),
-            "1.110000 m^3/s");
+            "1.110000000000000 m^3/s");
   EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
                 .Print(Unit::VolumeRate::CubicFootPerSecond),
-            "-5.000000 ft^3/s");
+            "-5.000000000000000 ft^3/s");
 }
 
 TEST(VolumeRate, Stream) {
@@ -136,18 +136,18 @@ TEST(VolumeRate, Stream) {
 
 TEST(VolumeRate, XML) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).XML(),
-            "<value>1.110000</value><unit>m^3/s</unit>");
+            "<value>1.110000000000000</value><unit>m^3/s</unit>");
   EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
                 .XML(Unit::VolumeRate::CubicFootPerSecond),
-            "<value>-5.000000</value><unit>ft^3/s</unit>");
+            "<value>-5.000000000000000</value><unit>ft^3/s</unit>");
 }
 
 TEST(VolumeRate, YAML) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).YAML(),
-            "{value:1.110000,unit:\"m^3/s\"}");
+            "{value:1.110000000000000,unit:\"m^3/s\"}");
   EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
                 .YAML(Unit::VolumeRate::CubicFootPerSecond),
-            "{value:-5.000000,unit:\"ft^3/s\"}");
+            "{value:-5.000000000000000,unit:\"ft^3/s\"}");
 }
 
 TEST(VolumeRate, Zero) {

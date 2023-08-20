@@ -37,6 +37,10 @@ public:
 
   std::string Print() const noexcept override { return PhQ::Print(value_); }
 
+  std::string Print(const Precision precision) const noexcept override {
+    return PhQ::Print(value_, precision);
+  }
+
   std::string JSON() const noexcept override { return PhQ::Print(value_); }
 
   std::string XML() const noexcept override { return PhQ::Print(value_); }

@@ -16,7 +16,6 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
 
-#include "Base/SquareRoot.hpp"
 #include "DynamicPressure.hpp"
 #include "StaticKinematicPressure.hpp"
 
@@ -164,7 +163,7 @@ inline constexpr DynamicKinematicPressure operator*(
 
 inline constexpr Speed::Speed(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept
-  : Speed(SquareRoot(2.0 * dynamic_kinematic_pressure.Value())) {}
+  : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
     const DynamicKinematicPressure& dynamic_kinematic_pressure,

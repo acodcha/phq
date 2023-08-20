@@ -97,9 +97,13 @@ TEST(MachNumber, Hash) {
       mach_number_3, mach_number_4, mach_number_5};
 }
 
-TEST(MachNumber, JSON) { EXPECT_EQ(MachNumber(1.11).JSON(), "1.110000"); }
+TEST(MachNumber, JSON) {
+  EXPECT_EQ(MachNumber(1.11).JSON(), "1.110000000000000");
+}
 
-TEST(MachNumber, Print) { EXPECT_EQ(MachNumber(1.11).Print(), "1.110000"); }
+TEST(MachNumber, Print) {
+  EXPECT_EQ(MachNumber(1.11).Print(), "1.110000000000000");
+}
 
 TEST(MachNumber, Stream) {
   const MachNumber mach_number{1.11};
@@ -108,9 +112,13 @@ TEST(MachNumber, Stream) {
   EXPECT_EQ(stream.str(), mach_number.Print());
 }
 
-TEST(MachNumber, XML) { EXPECT_EQ(MachNumber(1.11).XML(), "1.110000"); }
+TEST(MachNumber, XML) {
+  EXPECT_EQ(MachNumber(1.11).XML(), "1.110000000000000");
+}
 
-TEST(MachNumber, YAML) { EXPECT_EQ(MachNumber(1.11).YAML(), "1.110000"); }
+TEST(MachNumber, YAML) {
+  EXPECT_EQ(MachNumber(1.11).YAML(), "1.110000000000000");
+}
 
 TEST(MachNumber, Zero) { EXPECT_EQ(MachNumber::Zero(), MachNumber(0.0)); }
 

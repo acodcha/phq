@@ -51,7 +51,7 @@ public:
   constexpr Speed(const Length& length, const Frequency& frequency) noexcept
     : Speed(length.Value() * frequency.Value()) {}
 
-  constexpr Speed(const Velocity& velocity) noexcept;
+  Speed(const Velocity& velocity) noexcept;
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
                   const Time& time) noexcept;
@@ -59,11 +59,10 @@ public:
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
                   const Frequency& frequency) noexcept;
 
-  constexpr Speed(const DynamicPressure& dynamic_pressure,
-                  const MassDensity& mass_density) noexcept;
+  Speed(const DynamicPressure& dynamic_pressure,
+        const MassDensity& mass_density) noexcept;
 
-  constexpr Speed(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
+  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
 
   constexpr Speed(
       const ReynoldsNumber& reynolds_number,

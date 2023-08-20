@@ -132,18 +132,18 @@ TEST(SoundSpeed, Hash) {
 
 TEST(SoundSpeed, JSON) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).JSON(),
-            "{\"value\":1.110000,\"unit\":\"m/s\"}");
-  EXPECT_EQ(SoundSpeed(-5.0, Unit::Speed::FootPerSecond)
+            "{\"value\":1.110000000000000,\"unit\":\"m/s\"}");
+  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
                 .JSON(Unit::Speed::FootPerSecond),
-            "{\"value\":-5.000000,\"unit\":\"ft/s\"}");
+            "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
 }
 
 TEST(SoundSpeed, Print) {
-  EXPECT_EQ(
-      SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Print(), "1.110000 m/s");
-  EXPECT_EQ(SoundSpeed(-5.0, Unit::Speed::FootPerSecond)
+  EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Print(),
+            "1.110000000000000 m/s");
+  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
                 .Print(Unit::Speed::FootPerSecond),
-            "-5.000000 ft/s");
+            "-5.500000000000000 ft/s");
 }
 
 TEST(SoundSpeed, Stream) {
@@ -155,18 +155,18 @@ TEST(SoundSpeed, Stream) {
 
 TEST(SoundSpeed, XML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).XML(),
-            "<value>1.110000</value><unit>m/s</unit>");
-  EXPECT_EQ(SoundSpeed(-5.0, Unit::Speed::FootPerSecond)
+            "<value>1.110000000000000</value><unit>m/s</unit>");
+  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
                 .XML(Unit::Speed::FootPerSecond),
-            "<value>-5.000000</value><unit>ft/s</unit>");
+            "<value>-5.500000000000000</value><unit>ft/s</unit>");
 }
 
 TEST(SoundSpeed, YAML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).YAML(),
-            "{value:1.110000,unit:\"m/s\"}");
-  EXPECT_EQ(SoundSpeed(-5.0, Unit::Speed::FootPerSecond)
+            "{value:1.110000000000000,unit:\"m/s\"}");
+  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
                 .YAML(Unit::Speed::FootPerSecond),
-            "{value:-5.000000,unit:\"ft/s\"}");
+            "{value:-5.500000000000000,unit:\"ft/s\"}");
 }
 
 TEST(SoundSpeed, Zero) {

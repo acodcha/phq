@@ -41,7 +41,7 @@ public:
     : HeatFluxMagnitude(-thermal_conductivity_scalar.Value()
                         * temperature_gradient_magnitude.Value()) {}
 
-  constexpr HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
+  HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
 
   static constexpr HeatFluxMagnitude Zero() noexcept {
     return HeatFluxMagnitude{0.0};

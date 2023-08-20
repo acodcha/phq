@@ -46,9 +46,9 @@ public:
   Length(const double value, const Unit::Length unit) noexcept
     : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
-  constexpr Length(const Displacement& displacement) noexcept;
+  Length(const Displacement& displacement) noexcept;
 
-  constexpr Length(const Position& position) noexcept;
+  Length(const Position& position) noexcept;
 
   constexpr Length(const Speed& speed, const Time& time) noexcept;
 

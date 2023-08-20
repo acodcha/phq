@@ -187,6 +187,15 @@ public:
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
+  inline std::string Print(const Precision precision) const noexcept {
+    return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0], precision) + ", "
+           + PhQ::Print(xx_xy_xz_yy_yz_zz_[1], precision) + ", "
+           + PhQ::Print(xx_xy_xz_yy_yz_zz_[2], precision) + "; "
+           + PhQ::Print(xx_xy_xz_yy_yz_zz_[3], precision) + ", "
+           + PhQ::Print(xx_xy_xz_yy_yz_zz_[4], precision) + "; "
+           + PhQ::Print(xx_xy_xz_yy_yz_zz_[5], precision) + ")";
+  }
+
   inline std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0])
            + ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])

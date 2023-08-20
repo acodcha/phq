@@ -113,19 +113,19 @@ TEST(KinematicViscosity, Hash) {
 TEST(KinematicViscosity, JSON) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).JSON(),
-      "{\"value\":1.110000,\"unit\":\"m^2/s\"}");
+      "{\"value\":1.110000000000000,\"unit\":\"m^2/s\"}");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .JSON(Unit::Diffusivity::SquareFootPerSecond),
-            "{\"value\":-5.000000,\"unit\":\"ft^2/s\"}");
+            "{\"value\":-5.000000000000000,\"unit\":\"ft^2/s\"}");
 }
 
 TEST(KinematicViscosity, Print) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Print(),
-      "1.110000 m^2/s");
+      "1.110000000000000 m^2/s");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .Print(Unit::Diffusivity::SquareFootPerSecond),
-            "-5.000000 ft^2/s");
+            "-5.000000000000000 ft^2/s");
 }
 
 TEST(KinematicViscosity, Stream) {
@@ -139,19 +139,19 @@ TEST(KinematicViscosity, Stream) {
 TEST(KinematicViscosity, XML) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).XML(),
-      "<value>1.110000</value><unit>m^2/s</unit>");
+      "<value>1.110000000000000</value><unit>m^2/s</unit>");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .XML(Unit::Diffusivity::SquareFootPerSecond),
-            "<value>-5.000000</value><unit>ft^2/s</unit>");
+            "<value>-5.000000000000000</value><unit>ft^2/s</unit>");
 }
 
 TEST(KinematicViscosity, YAML) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).YAML(),
-      "{value:1.110000,unit:\"m^2/s\"}");
+      "{value:1.110000000000000,unit:\"m^2/s\"}");
   EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
                 .YAML(Unit::Diffusivity::SquareFootPerSecond),
-            "{value:-5.000000,unit:\"ft^2/s\"}");
+            "{value:-5.000000000000000,unit:\"ft^2/s\"}");
 }
 
 TEST(KinematicViscosity, Zero) {

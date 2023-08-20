@@ -49,7 +49,7 @@ public:
             value)};
   }
 
-  inline constexpr StaticPressure Magnitude() const noexcept { return {*this}; }
+  inline StaticPressure Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Traction& traction) const noexcept {
     return {*this, traction};
@@ -137,15 +137,14 @@ inline constexpr Traction operator*(
   return traction * number;
 }
 
-inline constexpr Direction::Direction(const Traction& traction) noexcept
+inline Direction::Direction(const Traction& traction) noexcept
   : Direction(traction.Value()) {}
 
 inline Angle::Angle(
     const Traction& traction_1, const Traction& traction_2) noexcept
   : Angle(traction_1.Value(), traction_2.Value()) {}
 
-inline constexpr StaticPressure::StaticPressure(
-    const Traction& traction) noexcept
+inline StaticPressure::StaticPressure(const Traction& traction) noexcept
   : StaticPressure(traction.Value().Magnitude()) {}
 
 inline constexpr Force::Force(

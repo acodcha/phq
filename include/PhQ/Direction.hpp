@@ -53,62 +53,59 @@ public:
   // Constructs a direction by normalizing the given [x, y, z] coordinates to a
   // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
   // zero vector.
-  constexpr Direction(const double x, const double y, const double z) noexcept {
+  Direction(const double x, const double y, const double z) noexcept {
     SetValue(x, y, z);
   }
 
   // Constructs a direction by normalizing the given [x, y, z] coordinates to a
   // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
   // zero vector.
-  explicit constexpr Direction(const std::array<double, 3>& x_y_z) noexcept {
+  explicit Direction(const std::array<double, 3>& x_y_z) noexcept {
     SetValue(x_y_z);
   }
 
   // Constructs a direction by normalizing the given x-y-z vector to a unit
   // vector. If the given vector is a zero vector, initializes the direction to
   // the zero vector.
-  explicit constexpr Direction(const Value::Vector& value) noexcept {
-    SetValue(value);
-  }
+  explicit Direction(const Value::Vector& value) noexcept { SetValue(value); }
 
   // Constructs a direction from an acceleration.
-  explicit constexpr Direction(const Acceleration& acceleration) noexcept;
+  explicit Direction(const Acceleration& acceleration) noexcept;
 
   // Constructs a direction from a vector area.
-  explicit constexpr Direction(const AreaVector& area_vector) noexcept;
+  explicit Direction(const AreaVector& area_vector) noexcept;
 
   // Constructs a direction from a displacement.
-  explicit constexpr Direction(const Displacement& displacement) noexcept;
+  explicit Direction(const Displacement& displacement) noexcept;
 
   // Constructs a direction from a force.
-  explicit constexpr Direction(const Force& force) noexcept;
+  explicit Direction(const Force& force) noexcept;
 
   // Constructs a direction from a heat flux.
-  explicit constexpr Direction(const HeatFlux& heat_flux) noexcept;
+  explicit Direction(const HeatFlux& heat_flux) noexcept;
 
   // Constructs a direction from a position.
-  explicit constexpr Direction(const Position& position) noexcept;
+  explicit Direction(const Position& position) noexcept;
 
   // Constructs a direction from a temperature gradient.
-  explicit constexpr Direction(
-      const TemperatureGradient& temperature_gradient) noexcept;
+  explicit Direction(const TemperatureGradient& temperature_gradient) noexcept;
 
   // Constructs a direction from a traction.
-  explicit constexpr Direction(const Traction& traction) noexcept;
+  explicit Direction(const Traction& traction) noexcept;
 
   // Constructs a direction from a velocity.
-  explicit constexpr Direction(const Velocity& velocity) noexcept;
+  explicit Direction(const Velocity& velocity) noexcept;
 
   static constexpr Direction Zero() noexcept { return Direction{}; }
 
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  inline constexpr void SetValue(
+  inline void SetValue(
       const double x, const double y, const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
-      const double magnitude{SquareRoot(magnitude_squared)};
+      const double magnitude{std::sqrt(magnitude_squared)};
       value_ = {x / magnitude, y / magnitude, z / magnitude};
     } else {
       value_ = {0.0, 0.0, 0.0};
@@ -118,11 +115,11 @@ public:
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  inline constexpr void SetValue(const std::array<double, 3>& x_y_z) noexcept {
+  inline void SetValue(const std::array<double, 3>& x_y_z) noexcept {
     const double magnitude_squared{
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
-      const double magnitude{SquareRoot(magnitude_squared)};
+      const double magnitude{std::sqrt(magnitude_squared)};
       value_ = {
           x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
@@ -133,7 +130,7 @@ public:
   // Sets the value of this direction by normalizing the given x-y-z vector to a
   // unit vector. If the given vector is a zero vector, sets the direction to
   // the zero vector.
-  inline constexpr void SetValue(const Value::Vector& value) noexcept {
+  inline void SetValue(const Value::Vector& value) noexcept {
     SetValue(value.x_y_z());
   }
 
@@ -152,9 +149,7 @@ public:
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1
   // if the direction is valid, or 0 if the direction is the zero vector.
-  inline constexpr double Magnitude() const noexcept {
-    return value_.Magnitude();
-  }
+  inline double Magnitude() const noexcept { return value_.Magnitude(); }
 
   // Returns the dot product (also known as the scalar product or the inner
   // product) of the direction with the given vector.
@@ -175,7 +170,7 @@ public:
   }
 
   // Returns the cross product of the direction with the given other direction.
-  inline constexpr Direction Cross(const Direction& direction) const noexcept {
+  inline Direction Cross(const Direction& direction) const noexcept {
     return Direction{value_.Cross(direction.value_)};
   }
 
@@ -266,7 +261,7 @@ inline constexpr Value::Vector::Vector(
   : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
 // Returns the direction of the vector.
-inline constexpr PhQ::Direction Value::Vector::Direction() const noexcept {
+inline PhQ::Direction Value::Vector::Direction() const noexcept {
   return PhQ::Direction{*this};
 }
 

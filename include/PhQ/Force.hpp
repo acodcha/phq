@@ -50,7 +50,7 @@ public:
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  inline constexpr ForceMagnitude Magnitude() const noexcept { return {*this}; }
+  inline ForceMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Force& force) const noexcept {
     return {*this, force};
@@ -136,13 +136,13 @@ inline constexpr Force operator*(
   return force * number;
 }
 
-inline constexpr Direction::Direction(const Force& force) noexcept
+inline Direction::Direction(const Force& force) noexcept
   : Direction(force.Value()) {}
 
 inline Angle::Angle(const Force& force1, const Force& force2) noexcept
   : Angle(force1.Value(), force2.Value()) {}
 
-inline constexpr ForceMagnitude::ForceMagnitude(const Force& force) noexcept
+inline ForceMagnitude::ForceMagnitude(const Force& force) noexcept
   : ForceMagnitude(force.Value().Magnitude()) {}
 
 inline constexpr Force Direction::operator*(

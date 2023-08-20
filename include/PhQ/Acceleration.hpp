@@ -52,9 +52,7 @@ public:
                                           Standard<Unit::Acceleration>>(value)};
   }
 
-  inline constexpr AccelerationMagnitude Magnitude() const noexcept {
-    return {*this};
-  }
+  inline AccelerationMagnitude Magnitude() const noexcept { return {*this}; }
 
   inline PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {
     return {*this, acceleration};
@@ -149,14 +147,14 @@ inline constexpr Acceleration operator*(
   return acceleration * number;
 }
 
-inline constexpr Direction::Direction(const Acceleration& acceleration) noexcept
+inline Direction::Direction(const Acceleration& acceleration) noexcept
   : Direction(acceleration.Value()) {}
 
 inline Angle::Angle(const Acceleration& acceleration_1,
                     const Acceleration& acceleration_2) noexcept
   : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
-inline constexpr AccelerationMagnitude::AccelerationMagnitude(
+inline AccelerationMagnitude::AccelerationMagnitude(
     const Acceleration& acceleration) noexcept
   : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 

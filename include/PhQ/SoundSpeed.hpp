@@ -44,29 +44,27 @@ public:
   // Constructs a sound speed from a mass density and an isentropic bulk
   // modulus. This is the definition of the sound speed; this relation always
   // holds true.
-  constexpr SoundSpeed(
-      const MassDensity& mass_density,
-      const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept
+  SoundSpeed(const MassDensity& mass_density,
+             const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept
     : SoundSpeed(
-        SquareRoot(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
+        std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
   // Constructs a sound speed from a mass density, a static pressure, and a
   // specific heat ratio. This relation applies only to an ideal gas.
-  constexpr SoundSpeed(
-      const MassDensity& mass_density, const StaticPressure& static_pressure,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept
-    : SoundSpeed(SquareRoot(specific_heat_ratio.Value()
-                            * static_pressure.Value() / mass_density.Value())) {
-  }
+  SoundSpeed(const MassDensity& mass_density,
+             const StaticPressure& static_pressure,
+             const SpecificHeatRatio& specific_heat_ratio) noexcept
+    : SoundSpeed(std::sqrt(specific_heat_ratio.Value() * static_pressure.Value()
+                           / mass_density.Value())) {}
 
   // Constructs a sound speed from a temperature, a specific gas constant, and a
   // specific heat ratio. This relation applies only to an ideal gas.
-  constexpr SoundSpeed(const Temperature& temperature,
-                       const SpecificGasConstant& specific_gas_constant,
-                       const SpecificHeatRatio& specific_heat_ratio) noexcept
+  SoundSpeed(const Temperature& temperature,
+             const SpecificGasConstant& specific_gas_constant,
+             const SpecificHeatRatio& specific_heat_ratio) noexcept
     : SoundSpeed(
-        SquareRoot(specific_heat_ratio.Value() * specific_gas_constant.Value()
-                   * temperature.Value())) {}
+        std::sqrt(specific_heat_ratio.Value() * specific_gas_constant.Value()
+                  * temperature.Value())) {}
 
   // Constructs a sound speed from a speed and a Mach number. This uses the
   // definition of the Mach number; this relation always holds true.
