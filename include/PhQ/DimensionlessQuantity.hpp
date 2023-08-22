@@ -13,32 +13,31 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_QUANTITY_HPP
 
-#include "../Base/Precision.hpp"
+#include <iostream>
+#include <string>
+
+#include "Quantity.hpp"
 
 namespace PhQ {
 
-// Abstract base class that represents any physical quantity.
-class Quantity {
-public:
-  virtual std::string Print() const noexcept = 0;
-
-  virtual std::string Print(const Precision precision) const noexcept = 0;
-
-  virtual std::string JSON() const noexcept = 0;
-
-  virtual std::string XML() const noexcept = 0;
-
-  virtual std::string YAML() const noexcept = 0;
-
+// Abstract base class that represents any dimensionless physical quantity. A
+// dimensionless physical quantity has no unit of measure and no dimension set.
+class DimensionlessQuantity : public Quantity {
 protected:
-  constexpr Quantity() noexcept = default;
+  constexpr DimensionlessQuantity() noexcept : Quantity() {}
 
-  ~Quantity() noexcept = default;
+  ~DimensionlessQuantity() noexcept = default;
 };
+
+inline std::ostream& operator<<(
+    std::ostream& stream, const DimensionlessQuantity& quantity) noexcept {
+  stream << quantity.Print();
+  return stream;
+}
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_BASE_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_QUANTITY_HPP

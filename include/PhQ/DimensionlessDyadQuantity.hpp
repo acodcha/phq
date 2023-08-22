@@ -13,13 +13,13 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_DYAD_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_DYAD_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_DYAD_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_DYAD_QUANTITY_HPP
 
 #include <utility>
 
-#include "../Value/Dyad.hpp"
-#include "Dimensionless.hpp"
+#include "DimensionlessQuantity.hpp"
+#include "Value/Dyad.hpp"
 
 namespace PhQ {
 
@@ -80,4 +80,4 @@ template<> struct hash<PhQ::DimensionlessDyadQuantity> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_DYAD_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_DYAD_QUANTITY_HPP

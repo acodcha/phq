@@ -13,11 +13,11 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
 
-#include "../Base/String.hpp"
-#include "Dimensionless.hpp"
+#include "Base/String.hpp"
+#include "DimensionlessQuantity.hpp"
 
 namespace PhQ {
 
@@ -112,4 +112,4 @@ template<> struct hash<PhQ::DimensionlessScalarQuantity> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONLESS_SCALAR_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP

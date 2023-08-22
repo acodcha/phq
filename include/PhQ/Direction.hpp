@@ -17,7 +17,7 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
 
 #include "Angle.hpp"
-#include "Quantity/DimensionlessVector.hpp"
+#include "DimensionlessVectorQuantity.hpp"
 #include "Value/Dyad.hpp"
 
 namespace PhQ {

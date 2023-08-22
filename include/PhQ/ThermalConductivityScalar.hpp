@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_SCALAR_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_SCALAR_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/ThermalConductivity.hpp"
 
 namespace PhQ {

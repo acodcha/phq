@@ -17,8 +17,8 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_TEMPERATURE_GRADIENT_HPP
 
 #include "Angle.hpp"
+#include "DimensionalVectorQuantity.hpp"
 #include "Direction.hpp"
-#include "Quantity/DimensionalVector.hpp"
 #include "TemperatureGradientMagnitude.hpp"
 
 namespace PhQ {

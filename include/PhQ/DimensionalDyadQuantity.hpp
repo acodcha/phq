@@ -13,43 +13,38 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_DYAD_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_DYAD_QUANTITY_HPP
 
 #include <utility>
 
-#include "../Value/SymmetricDyad.hpp"
-#include "Dimensional.hpp"
+#include "DimensionalQuantity.hpp"
+#include "Value/Dyad.hpp"
 
 namespace PhQ {
 
-// Abstract base class that represents any dimensional symmetric dyadic tensor
-// physical quantity. Such a physical quantity is composed of a value and a unit
-// of measure where the value is a symmetric tensor of rank two and dimension
-// three.
-template<typename U> class DimensionalSymmetricDyadQuantity
+// Abstract base class that represents any dimensional dyadic tensor physical
+// quantity. Such a physical quantity is composed of a value and a unit of
+// measure where the value is a tensor of rank two and dimension three. The
+// tensor may be non-symmetric.
+template<typename U> class DimensionalDyadQuantity
   : public DimensionalQuantity<U> {
 public:
-  constexpr const Value::SymmetricDyad& Value() const noexcept {
-    return value_;
-  }
+  constexpr const Value::Dyad& Value() const noexcept { return value_; }
 
-  Value::SymmetricDyad Value(const U unit) const noexcept {
-    Value::SymmetricDyad result{value_};
+  Value::Dyad Value(const U unit) const noexcept {
+    Value::Dyad result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
-  template<U NewUnit>
-  constexpr Value::SymmetricDyad StaticValue() const noexcept {
+  template<U NewUnit> constexpr Value::Dyad StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
-  constexpr Value::SymmetricDyad& MutableValue() noexcept { return value_; }
+  constexpr Value::Dyad& MutableValue() noexcept { return value_; }
 
-  constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
-    value_ = value;
-  }
+  constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
 
   std::string Print() const noexcept override {
     return value_.Print().append(" ").append(Abbreviation(Standard<U>));
@@ -118,53 +113,49 @@ public:
   }
 
 protected:
-  constexpr DimensionalSymmetricDyadQuantity() noexcept
+  constexpr DimensionalDyadQuantity() noexcept
     : DimensionalQuantity<U>(), value_() {}
 
-  constexpr DimensionalSymmetricDyadQuantity(
-      const Value::SymmetricDyad& value) noexcept
+  constexpr DimensionalDyadQuantity(const Value::Dyad& value) noexcept
     : DimensionalQuantity<U>(), value_(value) {}
 
-  constexpr DimensionalSymmetricDyadQuantity(
-      Value::SymmetricDyad&& value) noexcept
+  constexpr DimensionalDyadQuantity(Value::Dyad&& value) noexcept
     : DimensionalQuantity<U>(), value_(std::move(value)) {}
 
-  DimensionalSymmetricDyadQuantity(
-      const Value::SymmetricDyad& value, const U unit) noexcept
+  DimensionalDyadQuantity(const Value::Dyad& value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
-  DimensionalSymmetricDyadQuantity(
-      Value::SymmetricDyad&& value, const U unit) noexcept
+  DimensionalDyadQuantity(Value::Dyad&& value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
   }
 
-  ~DimensionalSymmetricDyadQuantity() noexcept = default;
+  virtual ~DimensionalDyadQuantity() noexcept = default;
 
-  constexpr void operator=(const Value::SymmetricDyad& value) noexcept {
+  constexpr void operator=(const Value::Dyad& value) noexcept {
     value_ = value;
   }
 
-  constexpr void operator=(Value::SymmetricDyad&& value) noexcept {
+  constexpr void operator=(Value::Dyad&& value) noexcept {
     value_ = std::move(value);
   }
 
-  Value::SymmetricDyad value_;
+  Value::Dyad value_;
 };
 
 }  // namespace PhQ
 
 namespace std {
 
-template<typename U> struct hash<PhQ::DimensionalSymmetricDyadQuantity<U>> {
+template<typename U> struct hash<PhQ::DimensionalDyadQuantity<U>> {
   inline size_t operator()(
-      const PhQ::DimensionalSymmetricDyadQuantity<U>& quantity) const {
-    return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());
+      const PhQ::DimensionalDyadQuantity<U>& quantity) const {
+    return hash<PhQ::Value::Dyad>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SYMMETRIC_DYAD_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_DYAD_QUANTITY_HPP

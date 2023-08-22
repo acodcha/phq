@@ -27,18 +27,19 @@ namespace {
 TEST(ConstitutiveModelElasticIsotropicSolid, Accessor) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
-  const ElasticIsotropicSolid model{shear_modulus, lame_first_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model{
+      shear_modulus, lame_first_modulus};
   EXPECT_EQ(model.GetType(), ConstitutiveModel::Type::ElasticIsotropicSolid);
   EXPECT_EQ(model.ShearModulus(), shear_modulus);
   EXPECT_EQ(model.LameFirstModulus(), lame_first_modulus);
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Comparison) {
-  const ElasticIsotropicSolid model0{
+  const ConstitutiveModel::ElasticIsotropicSolid model0{
       ShearModulus{4.0,  Unit::Pressure::Pascal},
       LameFirstModulus{-2.0, Unit::Pressure::Pascal}
   };
-  const ElasticIsotropicSolid model1{
+  const ConstitutiveModel::ElasticIsotropicSolid model1{
       ShearModulus{4.0,  Unit::Pressure::Pascal},
       LameFirstModulus{-1.0, Unit::Pressure::Pascal}
   };
@@ -62,42 +63,56 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Constructor) {
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const PWaveModulus p_wave_modulus{4.0, Unit::Pressure::Pascal};
   const PoissonRatio poisson_ratio{0.25};
-  const ElasticIsotropicSolid model00;
-  const ElasticIsotropicSolid model01{young_modulus, shear_modulus};
-  const ElasticIsotropicSolid model02{young_modulus, isentropic_bulk_modulus};
-  const ElasticIsotropicSolid model03{young_modulus, lame_first_modulus};
-  const ElasticIsotropicSolid model04{young_modulus, p_wave_modulus};
-  const ElasticIsotropicSolid model05{young_modulus, poisson_ratio};
-  const ElasticIsotropicSolid model06{shear_modulus, isentropic_bulk_modulus};
-  const ElasticIsotropicSolid model07{shear_modulus, lame_first_modulus};
-  const ElasticIsotropicSolid model08{shear_modulus, p_wave_modulus};
-  const ElasticIsotropicSolid model09{shear_modulus, poisson_ratio};
-  const ElasticIsotropicSolid model10{
+  const ConstitutiveModel::ElasticIsotropicSolid model00;
+  const ConstitutiveModel::ElasticIsotropicSolid model01{
+      young_modulus, shear_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model02{
+      young_modulus, isentropic_bulk_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model03{
+      young_modulus, lame_first_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model04{
+      young_modulus, p_wave_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model05{
+      young_modulus, poisson_ratio};
+  const ConstitutiveModel::ElasticIsotropicSolid model06{
+      shear_modulus, isentropic_bulk_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model07{
+      shear_modulus, lame_first_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model08{
+      shear_modulus, p_wave_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model09{
+      shear_modulus, poisson_ratio};
+  const ConstitutiveModel::ElasticIsotropicSolid model10{
       isentropic_bulk_modulus, lame_first_modulus};
-  const ElasticIsotropicSolid model11{isentropic_bulk_modulus, p_wave_modulus};
-  const ElasticIsotropicSolid model12{isentropic_bulk_modulus, poisson_ratio};
-  const ElasticIsotropicSolid model13{lame_first_modulus, p_wave_modulus};
-  const ElasticIsotropicSolid model14{lame_first_modulus, poisson_ratio};
-  const ElasticIsotropicSolid model15{p_wave_modulus, poisson_ratio};
+  const ConstitutiveModel::ElasticIsotropicSolid model11{
+      isentropic_bulk_modulus, p_wave_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model12{
+      isentropic_bulk_modulus, poisson_ratio};
+  const ConstitutiveModel::ElasticIsotropicSolid model13{
+      lame_first_modulus, p_wave_modulus};
+  const ConstitutiveModel::ElasticIsotropicSolid model14{
+      lame_first_modulus, poisson_ratio};
+  const ConstitutiveModel::ElasticIsotropicSolid model15{
+      p_wave_modulus, poisson_ratio};
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Hash) {
-  const ElasticIsotropicSolid model0{
+  const ConstitutiveModel::ElasticIsotropicSolid model0{
       ShearModulus{4.0,  Unit::Pressure::Pascal},
       LameFirstModulus{-2.0, Unit::Pressure::Pascal}
   };
-  const ElasticIsotropicSolid model1{
+  const ConstitutiveModel::ElasticIsotropicSolid model1{
       ShearModulus{4.000001, Unit::Pressure::Pascal},
       LameFirstModulus{-2.0,     Unit::Pressure::Pascal}
   };
-  const ElasticIsotropicSolid model2{
+  const ConstitutiveModel::ElasticIsotropicSolid model2{
       ShearModulus{4.0,       Unit::Pressure::Pascal},
       LameFirstModulus{-2.000001, Unit::Pressure::Pascal}
   };
-  const std::hash<ElasticIsotropicSolid> hasher;
+  const std::hash<ConstitutiveModel::ElasticIsotropicSolid> hasher;
   EXPECT_NE(hasher(model0), hasher(model1));
   EXPECT_NE(hasher(model0), hasher(model2));
-  const std::unordered_set<ElasticIsotropicSolid> unordered{
+  const std::unordered_set<ConstitutiveModel::ElasticIsotropicSolid> unordered{
       model0, model1, model2};
 }
 
@@ -105,7 +120,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, JSON) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           shear_modulus, lame_first_modulus);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->JSON(),
@@ -118,7 +133,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Print) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           shear_modulus, lame_first_modulus);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(
@@ -128,7 +143,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Print) {
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Stream) {
-  const ElasticIsotropicSolid model{
+  const ConstitutiveModel::ElasticIsotropicSolid model{
       ShearModulus{4.0,  Unit::Pressure::Pascal},
       LameFirstModulus{-2.0, Unit::Pressure::Pascal}
   };
@@ -141,7 +156,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrain) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           shear_modulus, lame_first_modulus);
   ASSERT_NE(model, nullptr);
   const Strain zero_strain{
@@ -173,7 +188,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrain) {
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Type) {
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           ShearModulus{4.0, Unit::Pressure::Pascal},
           LameFirstModulus{-2.0, Unit::Pressure::Pascal});
   ASSERT_NE(model, nullptr);
@@ -184,7 +199,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, XML) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           shear_modulus, lame_first_modulus);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->XML(),
@@ -197,7 +212,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, YAML) {
   const ShearModulus shear_modulus{4.0, Unit::Pressure::Pascal};
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<ElasticIsotropicSolid>(
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
           shear_modulus, lame_first_modulus);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(

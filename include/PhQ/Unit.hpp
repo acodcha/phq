@@ -13,16 +13,16 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_BASE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_BASE_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP
 
 #include <functional>
 #include <vector>
 
-#include "../Base/Enumeration.hpp"
-#include "../Dimension/Set.hpp"
-#include "../UnitSystem.hpp"
-#include "../Value/Dyad.hpp"
+#include "Base/Enumeration.hpp"
+#include "Dimension/Set.hpp"
+#include "UnitSystem.hpp"
+#include "Value/Dyad.hpp"
 
 namespace PhQ {
 
@@ -322,4 +322,4 @@ StaticConvertCopy(const Value::Dyad& value) noexcept {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_BASE_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_HPP
 
-#include "Quantity/DimensionlessSymmetricDyad.hpp"
+#include "DimensionlessSymmetricDyadQuantity.hpp"
 #include "StrainScalar.hpp"
 
 namespace PhQ {

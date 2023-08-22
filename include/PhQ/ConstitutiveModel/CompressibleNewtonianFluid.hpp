@@ -17,8 +17,8 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_COMPRESSIBLE_NEWTONIAN_FLUID_HPP
 
 #include "../BulkDynamicViscosity.hpp"
+#include "../ConstitutiveModel.hpp"
 #include "../DynamicViscosity.hpp"
-#include "Base.hpp"
 
 namespace PhQ {
 
@@ -27,7 +27,7 @@ namespace PhQ {
 // an incompressible Newtonian fluid, but also includes the effect of the
 // volumetric component of the strain rate tensor in addition to its deviatoric
 // component.
-class CompressibleNewtonianFluid : public ConstitutiveModel {
+class ConstitutiveModel::CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
   constexpr CompressibleNewtonianFluid() noexcept
     : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
@@ -145,22 +145,22 @@ private:
 };
 
 inline constexpr bool operator==(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() == right.DynamicViscosity()
          && left.BulkDynamicViscosity() == right.BulkDynamicViscosity();
 }
 
 inline constexpr bool operator!=(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   return left.DynamicViscosity() != right.DynamicViscosity()
          || left.BulkDynamicViscosity() != right.BulkDynamicViscosity();
 }
 
 inline constexpr bool operator<(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() < right.DynamicViscosity();
   }
@@ -168,8 +168,8 @@ inline constexpr bool operator<(
 }
 
 inline constexpr bool operator>(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   if (left.DynamicViscosity() != right.DynamicViscosity()) {
     return left.DynamicViscosity() > right.DynamicViscosity();
   }
@@ -177,19 +177,20 @@ inline constexpr bool operator>(
 }
 
 inline constexpr bool operator<=(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   return !(left > right);
 }
 
 inline constexpr bool operator>=(
-    const CompressibleNewtonianFluid& left,
-    const CompressibleNewtonianFluid& right) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& left,
+    const ConstitutiveModel::CompressibleNewtonianFluid& right) noexcept {
   return !(left < right);
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const CompressibleNewtonianFluid& model) noexcept {
+    std::ostream& stream,
+    const ConstitutiveModel::CompressibleNewtonianFluid& model) noexcept {
   stream << model.Print();
   return stream;
 }
@@ -198,8 +199,9 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::CompressibleNewtonianFluid> {
-  size_t operator()(const PhQ::CompressibleNewtonianFluid& model) const {
+template<> struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
+  size_t operator()(
+      const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
     size_t result = 17;
     result =
         31 * result + hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());

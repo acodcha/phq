@@ -16,6 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_ELASTIC_ISOTROPIC_SOLID_HPP
 
+#include "../ConstitutiveModel.hpp"
 #include "../IsentropicBulkModulus.hpp"
 #include "../IsothermalBulkModulus.hpp"
 #include "../LameFirstModulus.hpp"
@@ -23,13 +24,12 @@
 #include "../PWaveModulus.hpp"
 #include "../ShearModulus.hpp"
 #include "../YoungModulus.hpp"
-#include "Base.hpp"
 
 namespace PhQ {
 
 // Constitutive model for an elastic isotropic solid. This is the simplest
 // constitutive model for a deformable solid material.
-class ElasticIsotropicSolid : public ConstitutiveModel {
+class ConstitutiveModel::ElasticIsotropicSolid : public ConstitutiveModel {
 public:
   constexpr ElasticIsotropicSolid() noexcept
     : ConstitutiveModel(), shear_modulus_(), lame_first_modulus_() {}
@@ -368,46 +368,53 @@ private:
   PhQ::LameFirstModulus lame_first_modulus_;
 };
 
-inline constexpr bool operator==(const ElasticIsotropicSolid& left,
-                                 const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator==(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   return left.ShearModulus() == right.ShearModulus()
          && left.LameFirstModulus() == right.LameFirstModulus();
 }
 
-inline constexpr bool operator!=(const ElasticIsotropicSolid& left,
-                                 const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator!=(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   return left.ShearModulus() != right.ShearModulus()
          || left.LameFirstModulus() != right.LameFirstModulus();
 }
 
-inline constexpr bool operator<(const ElasticIsotropicSolid& left,
-                                const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator<(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   if (left.ShearModulus() != right.ShearModulus()) {
     return left.ShearModulus() < right.ShearModulus();
   }
   return left.LameFirstModulus() < right.LameFirstModulus();
 }
 
-inline constexpr bool operator>(const ElasticIsotropicSolid& left,
-                                const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator>(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   if (left.ShearModulus() != right.ShearModulus()) {
     return left.ShearModulus() > right.ShearModulus();
   }
   return left.LameFirstModulus() > right.LameFirstModulus();
 }
 
-inline constexpr bool operator<=(const ElasticIsotropicSolid& left,
-                                 const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator<=(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   return !(left > right);
 }
 
-inline constexpr bool operator>=(const ElasticIsotropicSolid& left,
-                                 const ElasticIsotropicSolid& right) noexcept {
+inline constexpr bool operator>=(
+    const ConstitutiveModel::ElasticIsotropicSolid& left,
+    const ConstitutiveModel::ElasticIsotropicSolid& right) noexcept {
   return !(left < right);
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const ElasticIsotropicSolid& model) noexcept {
+    std::ostream& stream,
+    const ConstitutiveModel::ElasticIsotropicSolid& model) noexcept {
   stream << model.Print();
   return stream;
 }
@@ -416,8 +423,9 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::ElasticIsotropicSolid> {
-  size_t operator()(const PhQ::ElasticIsotropicSolid& model) const {
+template<> struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
+  size_t operator()(
+      const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
     size_t result = 17;
     result = 31 * result + hash<PhQ::ShearModulus>()(model.ShearModulus());
     result =

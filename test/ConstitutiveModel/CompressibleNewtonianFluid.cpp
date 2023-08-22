@@ -29,7 +29,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Accessor) {
       4.0, Unit::DynamicViscosity::PascalSecond};
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
-  const CompressibleNewtonianFluid model{
+  const ConstitutiveModel::CompressibleNewtonianFluid model{
       dynamic_viscosity, bulk_dynamic_viscosity};
   EXPECT_EQ(
       model.GetType(), ConstitutiveModel::Type::CompressibleNewtonianFluid);
@@ -38,11 +38,11 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Accessor) {
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Comparison) {
-  const CompressibleNewtonianFluid model0{
+  const ConstitutiveModel::CompressibleNewtonianFluid model0{
       DynamicViscosity{4.0,  Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.0, Unit::DynamicViscosity::PascalSecond}
   };
-  const CompressibleNewtonianFluid model1{
+  const ConstitutiveModel::CompressibleNewtonianFluid model1{
       DynamicViscosity{4.0,  Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-1.0, Unit::DynamicViscosity::PascalSecond}
   };
@@ -57,35 +57,35 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Comparison) {
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Constructor) {
-  const CompressibleNewtonianFluid model0;
-  const CompressibleNewtonianFluid model1{
+  const ConstitutiveModel::CompressibleNewtonianFluid model0;
+  const ConstitutiveModel::CompressibleNewtonianFluid model1{
       DynamicViscosity{4.0, Unit::DynamicViscosity::PascalSecond}
   };
   EXPECT_DOUBLE_EQ(model1.BulkDynamicViscosity().Value(), -2.0 / 3.0 * 4.0);
-  const CompressibleNewtonianFluid model2{
+  const ConstitutiveModel::CompressibleNewtonianFluid model2{
       DynamicViscosity{4.0,  Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.0, Unit::DynamicViscosity::PascalSecond}
   };
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Hash) {
-  const CompressibleNewtonianFluid model0{
+  const ConstitutiveModel::CompressibleNewtonianFluid model0{
       DynamicViscosity{4.0,  Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.0, Unit::DynamicViscosity::PascalSecond}
   };
-  const CompressibleNewtonianFluid model1{
+  const ConstitutiveModel::CompressibleNewtonianFluid model1{
       DynamicViscosity{4.000001, Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.0,     Unit::DynamicViscosity::PascalSecond}
   };
-  const CompressibleNewtonianFluid model2{
+  const ConstitutiveModel::CompressibleNewtonianFluid model2{
       DynamicViscosity{4.0,       Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.000001, Unit::DynamicViscosity::PascalSecond}
   };
-  const std::hash<CompressibleNewtonianFluid> hasher;
+  const std::hash<ConstitutiveModel::CompressibleNewtonianFluid> hasher;
   EXPECT_NE(hasher(model0), hasher(model1));
   EXPECT_NE(hasher(model0), hasher(model2));
-  const std::unordered_set<CompressibleNewtonianFluid> unordered{
-      model0, model1, model2};
+  const std::unordered_set<ConstitutiveModel::CompressibleNewtonianFluid>
+      unordered{model0, model1, model2};
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, JSON) {
@@ -94,7 +94,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, JSON) {
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           dynamic_viscosity, bulk_dynamic_viscosity);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->JSON(),
@@ -109,7 +109,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Print) {
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           dynamic_viscosity, bulk_dynamic_viscosity);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->Print(),
@@ -119,7 +119,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, Print) {
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Stream) {
-  const CompressibleNewtonianFluid model{
+  const ConstitutiveModel::CompressibleNewtonianFluid model{
       DynamicViscosity{4.0,  Unit::DynamicViscosity::PascalSecond},
       BulkDynamicViscosity{-2.0, Unit::DynamicViscosity::PascalSecond}
   };
@@ -134,7 +134,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrain) {
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           dynamic_viscosity, bulk_dynamic_viscosity);
   ASSERT_NE(model, nullptr);
   const Strain zero_strain{
@@ -166,7 +166,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrain) {
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Type) {
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           DynamicViscosity{4.0, Unit::DynamicViscosity::PascalSecond},
           BulkDynamicViscosity{-2.0, Unit::DynamicViscosity::PascalSecond});
   ASSERT_NE(model, nullptr);
@@ -180,7 +180,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, XML) {
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           dynamic_viscosity, bulk_dynamic_viscosity);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->XML(),
@@ -196,7 +196,7 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, YAML) {
   const BulkDynamicViscosity bulk_dynamic_viscosity{
       -2.0, Unit::DynamicViscosity::PascalSecond};
   const std::unique_ptr<ConstitutiveModel> model =
-      std::make_unique<CompressibleNewtonianFluid>(
+      std::make_unique<ConstitutiveModel::CompressibleNewtonianFluid>(
           dynamic_viscosity, bulk_dynamic_viscosity);
   ASSERT_NE(model, nullptr);
   EXPECT_EQ(model->YAML(),

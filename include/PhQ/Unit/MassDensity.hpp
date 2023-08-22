@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_MASS_DENSITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_MASS_DENSITY_HPP
 
-#include "Base.hpp"
+#include "../Unit.hpp"
 
 namespace PhQ {
 

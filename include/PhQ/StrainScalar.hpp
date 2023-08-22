@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_SCALAR_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_SCALAR_HPP
 
-#include "Quantity/DimensionlessScalar.hpp"
+#include "DimensionlessScalarQuantity.hpp"
 
 namespace PhQ {
 

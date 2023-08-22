@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ENERGY_FLUX_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ENERGY_FLUX_HPP
 
-#include "Base.hpp"
+#include "../Unit.hpp"
 
 namespace PhQ {
 

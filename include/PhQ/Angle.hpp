@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Angle.hpp"
 #include "Value/Vector.hpp"
 

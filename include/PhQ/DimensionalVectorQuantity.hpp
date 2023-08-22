@@ -13,13 +13,13 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP
 
 #include <utility>
 
-#include "../Value/Vector.hpp"
-#include "Dimensional.hpp"
+#include "DimensionalQuantity.hpp"
+#include "Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -159,4 +159,4 @@ template<typename U> struct hash<PhQ::DimensionalVectorQuantity<U>> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_VECTOR_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MACH_NUMBER_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MACH_NUMBER_HPP
 
-#include "Quantity/DimensionlessScalar.hpp"
+#include "DimensionlessScalarQuantity.hpp"
 #include "SoundSpeed.hpp"
 #include "Speed.hpp"
 
