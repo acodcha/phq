@@ -21,13 +21,39 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Energy, 17> Units = {
-    Energy::Joule,          Energy::Millijoule,     Energy::Microjoule,
-    Energy::Nanojoule,      Energy::Kilojoule,      Energy::Megajoule,
-    Energy::Gigajoule,      Energy::WattMinute,     Energy::WattHour,
-    Energy::KilowattMinute, Energy::KilowattHour,   Energy::MegawattMinute,
-    Energy::MegawattHour,   Energy::GigawattMinute, Energy::GigawattHour,
-    Energy::FootPound,      Energy::InchPound,
+constexpr std::array<Energy, 32> Units = {
+    Energy::Joule,
+    Energy::Millijoule,
+    Energy::Microjoule,
+    Energy::Nanojoule,
+    Energy::Kilojoule,
+    Energy::Megajoule,
+    Energy::Gigajoule,
+    Energy::WattMinute,
+    Energy::WattHour,
+    Energy::KilowattMinute,
+    Energy::KilowattHour,
+    Energy::MegawattMinute,
+    Energy::MegawattHour,
+    Energy::GigawattMinute,
+    Energy::GigawattHour,
+    Energy::FootPound,
+    Energy::InchPound,
+    Energy::Calorie,
+    Energy::Millicalorie,
+    Energy::Microcalorie,
+    Energy::Nanocalorie,
+    Energy::Kilocalorie,
+    Energy::Megacalorie,
+    Energy::Gigacalorie,
+    Energy::Electronvolt,
+    Energy::Millielectronvolt,
+    Energy::Microelectronvolt,
+    Energy::Nanoelectronvolt,
+    Energy::Kiloelectronvolt,
+    Energy::Megaelectronvolt,
+    Energy::Gigaelectronvolt,
+    Energy::BritishThermalUnit,
 };
 
 TEST(UnitEnergy, Abbreviation) {
@@ -48,6 +74,21 @@ TEST(UnitEnergy, Abbreviation) {
   EXPECT_EQ(Abbreviation(Energy::GigawattHour), "GW·hr");
   EXPECT_EQ(Abbreviation(Energy::FootPound), "ft·lbf");
   EXPECT_EQ(Abbreviation(Energy::InchPound), "in·lbf");
+  EXPECT_EQ(Abbreviation(Energy::Calorie), "cal");
+  EXPECT_EQ(Abbreviation(Energy::Millicalorie), "mcal");
+  EXPECT_EQ(Abbreviation(Energy::Microcalorie), "μcal");
+  EXPECT_EQ(Abbreviation(Energy::Nanocalorie), "ncal");
+  EXPECT_EQ(Abbreviation(Energy::Kilocalorie), "kcal");
+  EXPECT_EQ(Abbreviation(Energy::Megacalorie), "Mcal");
+  EXPECT_EQ(Abbreviation(Energy::Gigacalorie), "Gcal");
+  EXPECT_EQ(Abbreviation(Energy::Electronvolt), "eV");
+  EXPECT_EQ(Abbreviation(Energy::Millielectronvolt), "meV");
+  EXPECT_EQ(Abbreviation(Energy::Microelectronvolt), "μeV");
+  EXPECT_EQ(Abbreviation(Energy::Nanoelectronvolt), "neV");
+  EXPECT_EQ(Abbreviation(Energy::Kiloelectronvolt), "keV");
+  EXPECT_EQ(Abbreviation(Energy::Megaelectronvolt), "MeV");
+  EXPECT_EQ(Abbreviation(Energy::Gigaelectronvolt), "GeV");
+  EXPECT_EQ(Abbreviation(Energy::BritishThermalUnit), "BTU");
 }
 
 TEST(UnitEnergy, ConsistentUnit) {
@@ -96,6 +137,37 @@ TEST(UnitEnergy, ConvertFromStandard) {
                    value / (0.3048 * 0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::InchPound),
                    value / (0.0254 * 0.45359237 * 9.80665));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Calorie), value / 4.184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Millicalorie),
+                   value / 0.004184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Microcalorie),
+                   value / 0.000004184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Nanocalorie),
+                   value / 0.000000004184);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::Kilocalorie), value / 4184.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Megacalorie),
+                   value / 4184000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Gigacalorie),
+                   value / 4184000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Electronvolt),
+                   value / 1.602176634e-19);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Millielectronvolt),
+                   value / 1.602176634e-22);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Microelectronvolt),
+                   value / 1.602176634e-25);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Nanoelectronvolt),
+                   value / 1.602176634e-28);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Kiloelectronvolt),
+                   value / 1.602176634e-16);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Megaelectronvolt),
+                   value / 1.602176634e-13);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Joule, Energy::Gigaelectronvolt),
+                   value / 1.602176634e-10);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Joule, Energy::BritishThermalUnit),
+      value * 1.8 / (4.1868 * 453.59237));
 }
 
 TEST(UnitEnergy, ConvertToStandard) {
@@ -133,6 +205,37 @@ TEST(UnitEnergy, ConvertToStandard) {
                    value * (0.3048 * 0.45359237 * 9.80665));
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::InchPound, Energy::Joule),
                    value * (0.0254 * 0.45359237 * 9.80665));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Calorie, Energy::Joule), value * 4.184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Millicalorie, Energy::Joule),
+                   value * 0.004184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Microcalorie, Energy::Joule),
+                   value * 0.000004184);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Nanocalorie, Energy::Joule),
+                   value * 0.000000004184);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::Kilocalorie, Energy::Joule), value * 4184.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Megacalorie, Energy::Joule),
+                   value * 4184000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Gigacalorie, Energy::Joule),
+                   value * 4184000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Electronvolt, Energy::Joule),
+                   value * 1.602176634e-19);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Millielectronvolt, Energy::Joule),
+                   value * 1.602176634e-22);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Microelectronvolt, Energy::Joule),
+                   value * 1.602176634e-25);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Nanoelectronvolt, Energy::Joule),
+                   value * 1.602176634e-28);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Kiloelectronvolt, Energy::Joule),
+                   value * 1.602176634e-16);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Megaelectronvolt, Energy::Joule),
+                   value * 1.602176634e-13);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Energy::Gigaelectronvolt, Energy::Joule),
+                   value * 1.602176634e-10);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Energy::BritishThermalUnit, Energy::Joule),
+      value * 4.1868 * 453.59237 / 1.8);
 }
 
 TEST(UnitEnergy, ConvertVerification) {
@@ -173,6 +276,21 @@ TEST(UnitEnergy, Parse) {
   EXPECT_EQ(Parse<Energy>("GW·hr"), Energy::GigawattHour);
   EXPECT_EQ(Parse<Energy>("ft·lbf"), Energy::FootPound);
   EXPECT_EQ(Parse<Energy>("in·lbf"), Energy::InchPound);
+  EXPECT_EQ(Parse<Energy>("cal"), Energy::Calorie);
+  EXPECT_EQ(Parse<Energy>("mcal"), Energy::Millicalorie);
+  EXPECT_EQ(Parse<Energy>("μcal"), Energy::Microcalorie);
+  EXPECT_EQ(Parse<Energy>("ncal"), Energy::Nanocalorie);
+  EXPECT_EQ(Parse<Energy>("kcal"), Energy::Kilocalorie);
+  EXPECT_EQ(Parse<Energy>("Mcal"), Energy::Megacalorie);
+  EXPECT_EQ(Parse<Energy>("Gcal"), Energy::Gigacalorie);
+  EXPECT_EQ(Parse<Energy>("eV"), Energy::Electronvolt);
+  EXPECT_EQ(Parse<Energy>("meV"), Energy::Millielectronvolt);
+  EXPECT_EQ(Parse<Energy>("μeV"), Energy::Microelectronvolt);
+  EXPECT_EQ(Parse<Energy>("neV"), Energy::Nanoelectronvolt);
+  EXPECT_EQ(Parse<Energy>("keV"), Energy::Kiloelectronvolt);
+  EXPECT_EQ(Parse<Energy>("MeV"), Energy::Megaelectronvolt);
+  EXPECT_EQ(Parse<Energy>("GeV"), Energy::Gigaelectronvolt);
+  EXPECT_EQ(Parse<Energy>("BTU"), Energy::BritishThermalUnit);
 }
 
 TEST(UnitEnergy, RelatedDimensions) {
@@ -195,6 +313,21 @@ TEST(UnitEnergy, RelatedUnitSystem) {
       RelatedUnitSystem(Energy::FootPound), UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(
       RelatedUnitSystem(Energy::InchPound), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Calorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Millicalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Microcalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Nanocalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Kilocalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Megacalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Gigacalorie), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Electronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Millielectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Microelectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Nanoelectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Kiloelectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Megaelectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Gigaelectronvolt), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Energy::BritishThermalUnit), std::nullopt);
 }
 
 TEST(UnitEnergy, Standard) { EXPECT_EQ(Standard<Energy>, Energy::Joule); }
