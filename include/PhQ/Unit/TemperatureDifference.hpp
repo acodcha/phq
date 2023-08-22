@@ -41,9 +41,9 @@ template<> inline constexpr const Unit::TemperatureDifference
 
 // Physical dimension set of temperature difference units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::TemperatureDifference>{
-    Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureDifference>{
+    Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
 namespace Internal {

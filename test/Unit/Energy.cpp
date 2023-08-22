@@ -154,12 +154,6 @@ TEST(UnitEnergy, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergy, DimensionSet) {
-  EXPECT_EQ(Dimensions<Energy>,
-            Dimension::Set(
-                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
-}
-
 TEST(UnitEnergy, Parse) {
   EXPECT_EQ(Parse<Energy>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Energy>("J"), Energy::Joule);
@@ -179,6 +173,12 @@ TEST(UnitEnergy, Parse) {
   EXPECT_EQ(Parse<Energy>("GW·hr"), Energy::GigawattHour);
   EXPECT_EQ(Parse<Energy>("ft·lbf"), Energy::FootPound);
   EXPECT_EQ(Parse<Energy>("in·lbf"), Energy::InchPound);
+}
+
+TEST(UnitEnergy, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Energy>,
+            Dimensions(
+                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
 }
 
 TEST(UnitEnergy, RelatedUnitSystem) {

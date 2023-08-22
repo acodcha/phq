@@ -101,13 +101,6 @@ TEST(UnitThermalConductivity, ConvertVerification) {
   }
 }
 
-TEST(UnitThermalConductivity, DimensionSet) {
-  EXPECT_EQ(Dimensions<ThermalConductivity>,
-            Dimension::Set(
-                Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
-                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
-}
-
 TEST(UnitThermalConductivity, Parse) {
   EXPECT_EQ(Parse<ThermalConductivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<ThermalConductivity>("W/m/K"),
@@ -116,6 +109,13 @@ TEST(UnitThermalConductivity, Parse) {
             ThermalConductivity::NanowattPerMillimetrePerKelvin);
   EXPECT_EQ(Parse<ThermalConductivity>("lbf/s/°R"),
             ThermalConductivity::PoundPerSecondPerRankine);
+}
+
+TEST(UnitThermalConductivity, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<ThermalConductivity>,
+      Dimensions(Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitThermalConductivity, RelatedUnitSystem) {

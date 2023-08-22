@@ -39,9 +39,9 @@ inline constexpr const Unit::ThermalExpansion Standard<Unit::ThermalExpansion>{
 
 // Physical dimension set of thermal expansion units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::ThermalExpansion>{
-    Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::ThermalExpansion>{
+    Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
 namespace Internal {

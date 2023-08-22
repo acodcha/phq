@@ -177,10 +177,6 @@ TEST(UnitMemory, ConvertVerification) {
   }
 }
 
-TEST(UnitMemory, DimensionSet) {
-  EXPECT_EQ(Dimensions<Memory>, Dimension::Set());
-}
-
 TEST(UnitMemory, Parse) {
   EXPECT_EQ(Parse<Memory>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Memory>("b"), Memory::Bit);
@@ -205,6 +201,10 @@ TEST(UnitMemory, Parse) {
   EXPECT_EQ(Parse<Memory>("Pib"), Memory::Pebibit);
   EXPECT_EQ(Parse<Memory>("PB"), Memory::Petabyte);
   EXPECT_EQ(Parse<Memory>("PiB"), Memory::Pebibyte);
+}
+
+TEST(UnitMemory, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Memory>, Dimensions{});
 }
 
 TEST(UnitMemory, RelatedUnitSystem) {

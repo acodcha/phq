@@ -45,8 +45,8 @@ template<>
 inline constexpr const Unit::Length Standard<Unit::Length>{Unit::Length::Metre};
 
 // Physical dimension set of length units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Length>{
-    Dimension::Set{Dimension::Time{0}, Dimension::Length{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Length>{
+    Dimensions{Dimension::Time{0}, Dimension::Length{1}}
 };
 
 namespace Internal {

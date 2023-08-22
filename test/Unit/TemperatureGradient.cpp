@@ -133,13 +133,6 @@ TEST(UnitTemperatureGradient, ConvertVerification) {
   }
 }
 
-TEST(UnitTemperatureGradient, DimensionSet) {
-  EXPECT_EQ(Dimensions<TemperatureGradient>,
-            Dimension::Set(
-                Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
-                Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
-}
-
 TEST(UnitTemperatureGradient, Parse) {
   EXPECT_EQ(Parse<TemperatureGradient>("Hello world!"), std::nullopt);
   EXPECT_EQ(
@@ -158,6 +151,13 @@ TEST(UnitTemperatureGradient, Parse) {
             TemperatureGradient::FahrenheitPerFoot);
   EXPECT_EQ(Parse<TemperatureGradient>("°F/in"),
             TemperatureGradient::FahrenheitPerInch);
+}
+
+TEST(UnitTemperatureGradient, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<TemperatureGradient>,
+      Dimensions(Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
 }
 
 TEST(UnitTemperatureGradient, RelatedUnitSystem) {

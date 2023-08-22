@@ -37,9 +37,9 @@ template<> inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};
 
 // Physical dimension set of energy flux units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::EnergyFlux>{
-    Dimension::Set{
-                   Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::EnergyFlux>{
+    Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
 namespace Internal {

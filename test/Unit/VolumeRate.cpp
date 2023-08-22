@@ -170,11 +170,6 @@ TEST(UnitVolumeRate, ConvertVerification) {
   }
 }
 
-TEST(UnitVolumeRate, DimensionSet) {
-  EXPECT_EQ(Dimensions<VolumeRate>,
-            Dimension::Set(Dimension::Time{-1}, Dimension::Length{3}));
-}
-
 TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<VolumeRate>("mi^3/s"), VolumeRate::CubicMilePerSecond);
@@ -191,6 +186,11 @@ TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("mil^3/s"), VolumeRate::CubicMilliinchPerSecond);
   EXPECT_EQ(Parse<VolumeRate>("μm^3/s"), VolumeRate::CubicMicrometrePerSecond);
   EXPECT_EQ(Parse<VolumeRate>("μin^3/s"), VolumeRate::CubicMicroinchPerSecond);
+}
+
+TEST(UnitVolumeRate, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<VolumeRate>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{3}));
 }
 
 TEST(UnitVolumeRate, RelatedUnitSystem) {

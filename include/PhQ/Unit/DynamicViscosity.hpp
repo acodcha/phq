@@ -41,9 +41,8 @@ inline constexpr const Unit::DynamicViscosity Standard<Unit::DynamicViscosity>{
 
 // Physical dimension set of dynamic viscosity units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::DynamicViscosity>{
-    Dimension::Set{
-                   Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::DynamicViscosity>{
+    Dimensions{Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
 namespace Internal {

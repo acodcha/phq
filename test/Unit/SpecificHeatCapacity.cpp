@@ -113,13 +113,6 @@ TEST(UnitSpecificHeatCapacity, ConvertVerification) {
   }
 }
 
-TEST(UnitSpecificHeatCapacity, DimensionSet) {
-  EXPECT_EQ(Dimensions<SpecificHeatCapacity>,
-            Dimension::Set(
-                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},
-                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
-}
-
 TEST(UnitSpecificHeatCapacity, Parse) {
   EXPECT_EQ(Parse<SpecificHeatCapacity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<SpecificHeatCapacity>("J/kg/K"),
@@ -130,6 +123,13 @@ TEST(UnitSpecificHeatCapacity, Parse) {
             SpecificHeatCapacity::FootPoundPerSlugPerRankine);
   EXPECT_EQ(Parse<SpecificHeatCapacity>("in·lbf/slinch/°R"),
             SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
+}
+
+TEST(UnitSpecificHeatCapacity, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<SpecificHeatCapacity>,
+      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitSpecificHeatCapacity, RelatedUnitSystem) {

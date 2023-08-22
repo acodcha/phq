@@ -49,8 +49,9 @@ inline constexpr const Unit::AngularSpeed Standard<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
 // Physical dimension set of angular speed units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::AngularSpeed>{
-    Dimension::Set{Dimension::Time{-1}}};
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::AngularSpeed>{
+    Dimensions{Dimension::Time{-1}}};
 
 namespace Internal {
 

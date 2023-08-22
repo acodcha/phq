@@ -90,10 +90,6 @@ TEST(UnitAngle, ConvertVerification) {
   }
 }
 
-TEST(UnitAngle, DimensionSet) {
-  EXPECT_EQ(Dimensions<Angle>, Dimension::Set{});
-}
-
 TEST(UnitAngle, Parse) {
   EXPECT_EQ(Parse<Angle>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Angle>("rad"), Angle::Radian);
@@ -101,6 +97,10 @@ TEST(UnitAngle, Parse) {
   EXPECT_EQ(Parse<Angle>("arcmin"), Angle::Arcminute);
   EXPECT_EQ(Parse<Angle>("arcsec"), Angle::Arcsecond);
   EXPECT_EQ(Parse<Angle>("rev"), Angle::Revolution);
+}
+
+TEST(UnitAngle, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Angle>, Dimensions{});
 }
 
 TEST(UnitAngle, RelatedUnitSystem) {

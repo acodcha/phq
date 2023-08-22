@@ -39,9 +39,9 @@ template<> inline constexpr const Unit::SpecificHeatCapacity
 
 // Physical dimension set of mass-specific heat capacity units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::SpecificHeatCapacity>{
-    Dimension::Set{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::SpecificHeatCapacity>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
 namespace Internal {

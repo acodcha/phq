@@ -39,9 +39,9 @@ template<> inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};
 
 // Physical dimension set of mass density units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::MassDensity>{
-    Dimension::Set{
-                   Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::MassDensity>{
+    Dimensions{Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}
 };
 
 namespace Internal {

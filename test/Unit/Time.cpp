@@ -115,10 +115,6 @@ TEST(UnitTime, ConvertToStandard) {
       ConvertCopy(value, Time::Hour, Time::Second), value * 3600.0);
 }
 
-TEST(UnitTime, DimensionSet) {
-  EXPECT_EQ(Dimensions<Time>, Dimension::Set(Dimension::Time{1}));
-}
-
 TEST(UnitTime, Parse) {
   EXPECT_EQ(Parse<Time>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Time>("ns"), Time::Nanosecond);
@@ -127,6 +123,10 @@ TEST(UnitTime, Parse) {
   EXPECT_EQ(Parse<Time>("s"), Time::Second);
   EXPECT_EQ(Parse<Time>("min"), Time::Minute);
   EXPECT_EQ(Parse<Time>("hr"), Time::Hour);
+}
+
+TEST(UnitTime, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Time>, Dimensions(Dimension::Time{1}));
 }
 
 TEST(UnitTime, RelatedUnitSystem) {

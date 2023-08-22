@@ -354,11 +354,6 @@ TEST(UnitAcceleration, ConvertVerification) {
   }
 }
 
-TEST(UnitAcceleration, DimensionSet) {
-  EXPECT_EQ(Dimensions<Acceleration>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{1}));
-}
-
 TEST(UnitAcceleration, Parse) {
   EXPECT_EQ(Parse<Acceleration>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Acceleration>("mi/s^2"), Acceleration::MilePerSquareSecond);
@@ -418,6 +413,11 @@ TEST(UnitAcceleration, Parse) {
       Parse<Acceleration>("μm/hr^2"), Acceleration::MicrometrePerSquareHour);
   EXPECT_EQ(
       Parse<Acceleration>("μin/hr^2"), Acceleration::MicroinchPerSquareHour);
+}
+
+TEST(UnitAcceleration, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Acceleration>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{1}));
 }
 
 TEST(UnitAcceleration, RelatedUnitSystem) {

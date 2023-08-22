@@ -97,10 +97,6 @@ TEST(UnitFrequency, ConvertVerification) {
   }
 }
 
-TEST(UnitFrequency, DimensionSet) {
-  EXPECT_EQ(Dimensions<Frequency>, Dimension::Set(Dimension::Time{-1}));
-}
-
 TEST(UnitFrequency, Parse) {
   EXPECT_EQ(Parse<Frequency>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Frequency>("Hz"), Frequency::Hertz);
@@ -109,6 +105,10 @@ TEST(UnitFrequency, Parse) {
   EXPECT_EQ(Parse<Frequency>("GHz"), Frequency::Gigahertz);
   EXPECT_EQ(Parse<Frequency>("/min"), Frequency::PerMinute);
   EXPECT_EQ(Parse<Frequency>("/hr"), Frequency::PerHour);
+}
+
+TEST(UnitFrequency, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Frequency>, Dimensions(Dimension::Time{-1}));
 }
 
 TEST(UnitFrequency, RelatedUnitSystem) {

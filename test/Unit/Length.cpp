@@ -127,11 +127,6 @@ TEST(UnitLength, ConvertVerification) {
   }
 }
 
-TEST(UnitLength, DimensionSet) {
-  EXPECT_EQ(Dimensions<Length>,
-            Dimension::Set(Dimension::Time{0}, Dimension::Length{1}));
-}
-
 TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Length>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Length>("mi"), Length::Mile);
@@ -146,6 +141,11 @@ TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Length>("mil"), Length::Milliinch);
   EXPECT_EQ(Parse<Length>("μm"), Length::Micrometre);
   EXPECT_EQ(Parse<Length>("μin"), Length::Microinch);
+}
+
+TEST(UnitLength, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Length>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{1}));
 }
 
 TEST(UnitLength, RelatedUnitSystem) {

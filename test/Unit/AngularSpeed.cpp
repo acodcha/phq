@@ -179,10 +179,6 @@ TEST(UnitAngularSpeed, ConvertVerification) {
   }
 }
 
-TEST(UnitAngularSpeed, Dimensions) {
-  EXPECT_EQ(Dimensions<AngularSpeed>, Dimension::Set{Dimension::Time{-1}});
-}
-
 TEST(UnitAngularSpeed, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<AngularSpeed>("rad/s"), AngularSpeed::RadianPerSecond);
@@ -202,6 +198,10 @@ TEST(UnitAngularSpeed, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("rev/s"), AngularSpeed::RevolutionPerSecond);
   EXPECT_EQ(Parse<AngularSpeed>("rev/min"), AngularSpeed::RevolutionPerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("rev/hr"), AngularSpeed::RevolutionPerHour);
+}
+
+TEST(UnitAngularSpeed, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<AngularSpeed>, Dimensions{Dimension::Time{-1}});
 }
 
 TEST(UnitAngularSpeed, RelatedUnitSystem) {

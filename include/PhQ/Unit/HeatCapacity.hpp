@@ -38,10 +38,10 @@ inline constexpr const Unit::HeatCapacity Standard<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};
 
 // Physical dimension set of heat capacity units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::HeatCapacity>{
-    Dimension::Set{
-                   Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::HeatCapacity>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
 namespace Internal {

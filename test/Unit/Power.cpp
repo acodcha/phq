@@ -111,12 +111,6 @@ TEST(UnitPower, ConvertVerification) {
   }
 }
 
-TEST(UnitPower, DimensionSet) {
-  EXPECT_EQ(Dimensions<Power>,
-            Dimension::Set(
-                Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}));
-}
-
 TEST(UnitPower, Parse) {
   EXPECT_EQ(Parse<Power>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Power>("W"), Power::Watt);
@@ -128,6 +122,12 @@ TEST(UnitPower, Parse) {
   EXPECT_EQ(Parse<Power>("GW"), Power::Gigawatt);
   EXPECT_EQ(Parse<Power>("ft·lbf/s"), Power::FootPoundPerSecond);
   EXPECT_EQ(Parse<Power>("in·lbf/s"), Power::InchPoundPerSecond);
+}
+
+TEST(UnitPower, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Power>,
+            Dimensions(
+                Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}));
 }
 
 TEST(UnitPower, RelatedUnitSystem) {

@@ -121,12 +121,6 @@ TEST(UnitDynamicViscosity, ConvertVerification) {
   }
 }
 
-TEST(UnitDynamicViscosity, DimensionSet) {
-  EXPECT_EQ(Dimensions<DynamicViscosity>,
-            Dimension::Set(Dimension::Time{-1}, Dimension::Length{-1},
-                           Dimension::Mass{1}));
-}
-
 TEST(UnitDynamicViscosity, Parse) {
   EXPECT_EQ(Parse<DynamicViscosity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<DynamicViscosity>("Pa·s"), DynamicViscosity::PascalSecond);
@@ -140,6 +134,12 @@ TEST(UnitDynamicViscosity, Parse) {
             DynamicViscosity::PoundSecondPerSquareFoot);
   EXPECT_EQ(Parse<DynamicViscosity>("lbf·s/in^2"),
             DynamicViscosity::PoundSecondPerSquareInch);
+}
+
+TEST(UnitDynamicViscosity, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<DynamicViscosity>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{-1},
+                       Dimension::Mass{1}));
 }
 
 TEST(UnitDynamicViscosity, RelatedUnitSystem) {

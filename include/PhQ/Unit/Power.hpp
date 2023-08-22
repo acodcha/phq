@@ -42,9 +42,8 @@ template<>
 inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 
 // Physical dimension set of power units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Power>{
-    Dimension::Set{
-                   Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
+    Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
 namespace Internal {

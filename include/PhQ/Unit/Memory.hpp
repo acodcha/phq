@@ -55,8 +55,8 @@ template<>
 inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 
 // Physical dimension set of computer memory units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Memory>{
-    Dimension::Set{}};
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensions{}};
 
 namespace Internal {
 

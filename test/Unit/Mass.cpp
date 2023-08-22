@@ -89,12 +89,6 @@ TEST(UnitMass, ConvertVerification) {
   }
 }
 
-TEST(UnitMass, DimensionSet) {
-  EXPECT_EQ(Dimensions<Mass>,
-            Dimension::Set(
-                Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
-}
-
 TEST(UnitMass, Parse) {
   EXPECT_EQ(Parse<Mass>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Mass>("kg"), Mass::Kilogram);
@@ -102,6 +96,12 @@ TEST(UnitMass, Parse) {
   EXPECT_EQ(Parse<Mass>("slug"), Mass::Slug);
   EXPECT_EQ(Parse<Mass>("slinch"), Mass::Slinch);
   EXPECT_EQ(Parse<Mass>("lbm"), Mass::Pound);
+}
+
+TEST(UnitMass, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<Mass>,
+      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitMass, RelatedUnitSystem) {

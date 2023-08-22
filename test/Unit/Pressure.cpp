@@ -117,12 +117,6 @@ TEST(UnitPressure, ConvertVerification) {
   }
 }
 
-TEST(UnitPressure, DimensionSet) {
-  EXPECT_EQ(Dimensions<Pressure>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{-1},
-                           Dimension::Mass{1}));
-}
-
 TEST(UnitPressure, Parse) {
   EXPECT_EQ(Parse<Pressure>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Pressure>("Pa"), Pressure::Pascal);
@@ -133,6 +127,12 @@ TEST(UnitPressure, Parse) {
   EXPECT_EQ(Parse<Pressure>("atm"), Pressure::Atmosphere);
   EXPECT_EQ(Parse<Pressure>("lbf/ft^2"), Pressure::PoundPerSquareFoot);
   EXPECT_EQ(Parse<Pressure>("lbf/in^2"), Pressure::PoundPerSquareInch);
+}
+
+TEST(UnitPressure, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Pressure>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{-1},
+                       Dimension::Mass{1}));
 }
 
 TEST(UnitPressure, RelatedUnitSystem) {

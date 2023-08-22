@@ -148,11 +148,6 @@ TEST(UnitArea, ConvertVerification) {
   }
 }
 
-TEST(UnitArea, DimensionSet) {
-  EXPECT_EQ(Dimensions<Area>,
-            Dimension::Set(Dimension::Time{0}, Dimension::Length{2}));
-}
-
 TEST(UnitArea, Parse) {
   EXPECT_EQ(Parse<Area>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Area>("mi^2"), Area::SquareMile);
@@ -169,6 +164,11 @@ TEST(UnitArea, Parse) {
   EXPECT_EQ(Parse<Area>("mil^2"), Area::SquareMilliinch);
   EXPECT_EQ(Parse<Area>("μm^2"), Area::SquareMicrometre);
   EXPECT_EQ(Parse<Area>("μin^2"), Area::SquareMicroinch);
+}
+
+TEST(UnitArea, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Area>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{2}));
 }
 
 TEST(UnitArea, RelatedUnitSystem) {

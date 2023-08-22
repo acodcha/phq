@@ -39,8 +39,8 @@ template<>
 inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 
 // Physical dimension set of time units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Time>{
-    Dimension::Set{Dimension::Time{1}}};
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Time>{
+    Dimensions{Dimension::Time{1}}};
 
 namespace Internal {
 

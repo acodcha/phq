@@ -50,8 +50,8 @@ template<> inline constexpr const Unit::AngularAcceleration
 
 // Physical dimension set of angular acceleration units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::AngularAcceleration>{
-    Dimension::Set{Dimension::Time{-2}}};
+inline constexpr const Dimensions RelatedDimensions<Unit::AngularAcceleration>{
+    Dimensions{Dimension::Time{-2}}};
 
 namespace Internal {
 

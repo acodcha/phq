@@ -177,11 +177,6 @@ TEST(UnitDiffusivity, ConvertVerification) {
   }
 }
 
-TEST(UnitDiffusivity, DimensionSet) {
-  EXPECT_EQ(Dimensions<Diffusivity>,
-            Dimension::Set(Dimension::Time{-1}, Dimension::Length{2}));
-}
-
 TEST(UnitDiffusivity, Parse) {
   EXPECT_EQ(Parse<Diffusivity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Diffusivity>("mi^2/s"), Diffusivity::SquareMilePerSecond);
@@ -205,6 +200,11 @@ TEST(UnitDiffusivity, Parse) {
       Parse<Diffusivity>("μm^2/s"), Diffusivity::SquareMicrometrePerSecond);
   EXPECT_EQ(
       Parse<Diffusivity>("μin^2/s"), Diffusivity::SquareMicroinchPerSecond);
+}
+
+TEST(UnitDiffusivity, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Diffusivity>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{2}));
 }
 
 TEST(UnitDiffusivity, RelatedUnitSystem) {

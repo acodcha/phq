@@ -47,8 +47,8 @@ template<> inline constexpr const Unit::Volume Standard<Unit::Volume>{
     Unit::Volume::CubicMetre};
 
 // Physical dimension set of volume units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Volume>{
-    Dimension::Set{Dimension::Time{}, Dimension::Length{3}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Volume>{
+    Dimensions{Dimension::Time{}, Dimension::Length{3}}
 };
 
 namespace Internal {

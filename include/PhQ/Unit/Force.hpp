@@ -51,9 +51,8 @@ template<>
 inline constexpr const Unit::Force Standard<Unit::Force>{Unit::Force::Newton};
 
 // Physical dimension set of force units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Force>{
-    Dimension::Set{
-                   Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Force>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
 };
 
 namespace Internal {
