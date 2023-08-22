@@ -16,7 +16,6 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
 
-#include "Base/String.hpp"
 #include "DimensionalQuantity.hpp"
 
 namespace PhQ {

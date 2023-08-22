@@ -13,10 +13,10 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNITSYSTEM_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNITSYSTEM_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP
 
-#include "Base/Enumeration.hpp"
+#include "Base.hpp"
 
 namespace PhQ {
 
@@ -223,4 +223,4 @@ inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNITSYSTEM_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
 
-#include "../Base/String.hpp"
+#include "../Base.hpp"
 #include "ElectricCurrent.hpp"
 #include "Length.hpp"
 #include "LuminousIntensity.hpp"

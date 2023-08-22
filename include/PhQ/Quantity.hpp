@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_HPP
 
-#include "Base/Precision.hpp"
+#include "Base.hpp"
 
 namespace PhQ {
 

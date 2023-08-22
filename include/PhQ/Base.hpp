@@ -13,23 +13,103 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_STRING_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_STRING_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP
 
 #include <algorithm>
 #include <climits>
 #include <cmath>
 #include <iomanip>
 #include <iterator>
+#include <map>
 #include <optional>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
-#include "Precision.hpp"
-
+// Namespace that encompasses all of the Physical Quantities library's content.
 namespace PhQ {
+
+// The mathematical constant π = 3.14... expressed as a double-precision
+// floating-point number. This value is as accurate as possible given the IEEE
+// 754 floating-point arithmetic standard.
+inline constexpr double Pi{3.14159265358979323846};
+
+// Namespace that contains internal implementation details of the Physical
+// Quantities library. Contents within this namespace are not meant to be used
+// except by the the Physical Quantities library's own functions and classes.
+namespace Internal {
+
+// Map of enumerations to their corresponding abbreviations. This is an internal
+// implementation detail and is not intended to be used except by the
+// PhQ::Abbreviation function.
+template<typename Enumeration>
+inline const std::map<Enumeration, std::string_view> Abbreviations;
+
+}  // namespace Internal
+
+// Returns the abbreviation of a given enumeration value. For example,
+// PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
+template<typename Enumeration>
+inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
+  return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
+}
+
+namespace Internal {
+
+// Map of spellings to their corresponding enumeration values. This is an
+// internal implementation detail and is not intended to be used except by the
+// PhQ::Parse function.
+template<typename Enumeration>
+inline const std::unordered_map<std::string_view, Enumeration> Spellings;
+
+}  // namespace Internal
+
+// Attempts to parse some given text into an enumeration. Returns the
+// enumeration if one is found, or std::nullopt otherwise. For example,
+// PhQ::Parse<PhQ::Unit::Time>("hr") returns PhQ::Unit::Time::Hour.
+template<typename Enumeration>
+std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
+  const typename std::unordered_map<std::string_view,
+                                    Enumeration>::const_iterator found{
+      Internal::Spellings<Enumeration>.find(spelling)};
+  if (found != Internal::Spellings<Enumeration>.cend()) {
+    return found->second;
+  } else {
+    return std::nullopt;
+  }
+}
+
+// Precision used when printing a floating-point number as a string. All
+// floating-point numbers in this library use double precision. However, when
+// printing a floating-point number as a string, double precision is not always
+// needed; sometimes, single precision is sufficient.
+enum class Precision : int_least8_t {
+  Double,
+  Single,
+};
+
+namespace Internal {
+
+template<>
+inline const std::map<Precision, std::string_view> Abbreviations<Precision>{
+    {Precision::Double, "Double"},
+    {Precision::Single, "Single"},
+};
+
+template<> inline const std::unordered_map<std::string_view, Precision>
+    Spellings<Precision>{
+        {"DOUBLE", Precision::Double},
+        {"Double", Precision::Double},
+        {"double", Precision::Double},
+        {"SINGLE", Precision::Single},
+        {"Single", Precision::Single},
+        {"single", Precision::Single},
+};
+
+}  // namespace Internal
 
 // Transforms a given string such that all of its characters are lowercase.
 inline void Lowercase(std::string& text) noexcept {
@@ -227,4 +307,4 @@ inline std::string UppercaseCopy(const std::string_view text) noexcept {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_STRING_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP

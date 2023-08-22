@@ -82,21 +82,9 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(area_vector GTest::gtest_main)
   gtest_discover_tests(area_vector)
 
-  add_executable(base_constants ${PROJECT_SOURCE_DIR}/test/Base/Constants.cpp)
-  target_link_libraries(base_constants GTest::gtest_main)
-  gtest_discover_tests(base_constants)
-
-  add_executable(base_precision ${PROJECT_SOURCE_DIR}/test/Base/Precision.cpp)
-  target_link_libraries(base_precision GTest::gtest_main)
-  gtest_discover_tests(base_precision)
-
-  add_executable(base_square_root ${PROJECT_SOURCE_DIR}/test/Base/SquareRoot.cpp)
-  target_link_libraries(base_square_root GTest::gtest_main)
-  gtest_discover_tests(base_square_root)
-
-  add_executable(base_string ${PROJECT_SOURCE_DIR}/test/Base/String.cpp)
-  target_link_libraries(base_string GTest::gtest_main)
-  gtest_discover_tests(base_string)
+  add_executable(base ${PROJECT_SOURCE_DIR}/test/Base.cpp)
+  target_link_libraries(base GTest::gtest_main)
+  gtest_discover_tests(base)
 
   add_executable(bulk_dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/BulkDynamicViscosity.cpp)
   target_link_libraries(bulk_dynamic_viscosity GTest::gtest_main)
@@ -197,6 +185,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)
+
+  add_executable(square_root ${PROJECT_SOURCE_DIR}/test/SquareRoot.cpp)
+  target_link_libraries(square_root GTest::gtest_main)
+  gtest_discover_tests(square_root)
 
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
