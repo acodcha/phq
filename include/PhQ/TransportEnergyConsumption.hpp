@@ -51,61 +51,57 @@ public:
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  inline constexpr TransportEnergyConsumption
+  constexpr TransportEnergyConsumption
   operator+(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept {
     return TransportEnergyConsumption{
         value_ + transport_energy_consumption.value_};
   }
 
-  inline constexpr TransportEnergyConsumption
+  constexpr TransportEnergyConsumption
   operator-(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept {
     return TransportEnergyConsumption{
         value_ - transport_energy_consumption.value_};
   }
 
-  inline constexpr TransportEnergyConsumption operator*(
+  constexpr TransportEnergyConsumption operator*(
       const double number) const noexcept {
     return TransportEnergyConsumption{value_ * number};
   }
 
-  inline constexpr Energy operator*(const Length length) const noexcept {
+  constexpr Energy operator*(const Length length) const noexcept {
     return Energy{length, *this};
   }
 
-  inline constexpr Power operator*(const Speed speed) const noexcept {
+  constexpr Power operator*(const Speed speed) const noexcept {
     return Power{speed, *this};
   }
 
-  inline constexpr TransportEnergyConsumption operator/(
+  constexpr TransportEnergyConsumption operator/(
       const double number) const noexcept {
     return TransportEnergyConsumption{value_ / number};
   }
 
-  inline constexpr double
+  constexpr double
   operator/(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept {
     return value_ / transport_energy_consumption.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const TransportEnergyConsumption& transport_energy_consumption) noexcept {
     value_ += transport_energy_consumption.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const TransportEnergyConsumption& transport_energy_consumption) noexcept {
     value_ -= transport_energy_consumption.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr TransportEnergyConsumption(const double value) noexcept
@@ -204,7 +200,7 @@ inline constexpr Length Energy::operator/(
 namespace std {
 
 template<> struct hash<PhQ::TransportEnergyConsumption> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::TransportEnergyConsumption& transport_energy_consumption)
       const {
     return hash<double>()(transport_energy_consumption.Value());

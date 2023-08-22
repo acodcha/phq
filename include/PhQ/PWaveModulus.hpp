@@ -40,46 +40,40 @@ public:
             value)};
   }
 
-  inline constexpr PWaveModulus operator+(
+  constexpr PWaveModulus operator+(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return PWaveModulus{value_ + p_wave_modulus.value_};
   }
 
-  inline constexpr PWaveModulus operator-(
+  constexpr PWaveModulus operator-(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return PWaveModulus{value_ - p_wave_modulus.value_};
   }
 
-  inline constexpr PWaveModulus operator*(const double number) const noexcept {
+  constexpr PWaveModulus operator*(const double number) const noexcept {
     return PWaveModulus{value_ * number};
   }
 
-  inline constexpr PWaveModulus operator/(const double number) const noexcept {
+  constexpr PWaveModulus operator/(const double number) const noexcept {
     return PWaveModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const PWaveModulus& p_wave_modulus) const noexcept {
     return value_ / p_wave_modulus.value_;
   }
 
-  inline constexpr void operator+=(
-      const PWaveModulus& p_wave_modulus) noexcept {
+  constexpr void operator+=(const PWaveModulus& p_wave_modulus) noexcept {
     value_ += p_wave_modulus.value_;
   }
 
-  inline constexpr void operator-=(
-      const PWaveModulus& p_wave_modulus) noexcept {
+  constexpr void operator-=(const PWaveModulus& p_wave_modulus) noexcept {
     value_ -= p_wave_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr PWaveModulus(const double value) noexcept
@@ -132,7 +126,7 @@ inline constexpr PWaveModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::PWaveModulus> {
-  size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
+  inline size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
     return hash<double>()(p_wave_modulus.Value());
   }
 };

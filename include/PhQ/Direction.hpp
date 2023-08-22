@@ -101,8 +101,7 @@ public:
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  inline void SetValue(
-      const double x, const double y, const double z) noexcept {
+  void SetValue(const double x, const double y, const double z) noexcept {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
@@ -115,7 +114,7 @@ public:
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  inline void SetValue(const std::array<double, 3>& x_y_z) noexcept {
+  void SetValue(const std::array<double, 3>& x_y_z) noexcept {
     const double magnitude_squared{
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
@@ -130,93 +129,90 @@ public:
   // Sets the value of this direction by normalizing the given x-y-z vector to a
   // unit vector. If the given vector is a zero vector, sets the direction to
   // the zero vector.
-  inline void SetValue(const Value::Vector& value) noexcept {
+  void SetValue(const Value::Vector& value) noexcept {
     SetValue(value.x_y_z());
   }
 
   // Returns true if the direction is a unit vector, or false if it is the zero
   // vector.
-  inline constexpr bool Valid() const noexcept {
+  constexpr bool Valid() const noexcept {
     return value_.x() != 0.0 || value_.y() != 0.0 || value_.z() != 0.0;
   }
 
   // Returns the square of the magnitude of the direction. This is guaranteed to
   // be exactly 1 if the direction is valid, or 0 if the direction is the zero
   // vector.
-  inline constexpr double MagnitudeSquared() const noexcept {
+  constexpr double MagnitudeSquared() const noexcept {
     return value_.MagnitudeSquared();
   }
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1
   // if the direction is valid, or 0 if the direction is the zero vector.
-  inline double Magnitude() const noexcept { return value_.Magnitude(); }
+  double Magnitude() const noexcept { return value_.Magnitude(); }
 
   // Returns the dot product (also known as the scalar product or the inner
   // product) of the direction with the given vector.
-  inline constexpr double Dot(const Value::Vector& vector) const noexcept {
+  constexpr double Dot(const Value::Vector& vector) const noexcept {
     return value_.Dot(vector);
   }
 
   // Returns the dot product (also known as the scalar product or the inner
   // product) of the direction with the given other direction.
-  inline constexpr double Dot(const Direction& direction) const noexcept {
+  constexpr double Dot(const Direction& direction) const noexcept {
     return value_.Dot(direction.value_);
   }
 
   // Returns the cross product of the direction with the given vector.
-  inline constexpr Value::Vector Cross(
-      const Value::Vector& vector) const noexcept {
+  constexpr Value::Vector Cross(const Value::Vector& vector) const noexcept {
     return value_.Cross(vector);
   }
 
   // Returns the cross product of the direction with the given other direction.
-  inline Direction Cross(const Direction& direction) const noexcept {
+  Direction Cross(const Direction& direction) const noexcept {
     return Direction{value_.Cross(direction.value_)};
   }
 
   // Returns the dyadic product of the direction with the given vector.
-  inline constexpr Value::Dyad Dyadic(
-      const Value::Vector& vector) const noexcept {
+  constexpr Value::Dyad Dyadic(const Value::Vector& vector) const noexcept {
     return value_.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
-  inline constexpr Value::Dyad Dyadic(
-      const Direction& direction) const noexcept {
+  constexpr Value::Dyad Dyadic(const Direction& direction) const noexcept {
     return value_.Dyadic(direction.value_);
   }
 
   // Returns the angle between the direction and the given vector.
-  inline PhQ::Angle Angle(const Value::Vector& vector) const noexcept {
+  PhQ::Angle Angle(const Value::Vector& vector) const noexcept {
     return PhQ::Angle{*this, vector};
   }
 
   // Returns the angle between the direction and the given other direction.
-  inline PhQ::Angle Angle(const Direction& direction) const noexcept {
+  PhQ::Angle Angle(const Direction& direction) const noexcept {
     return PhQ::Angle{*this, direction};
   }
 
-  inline constexpr Acceleration operator*(
+  constexpr Acceleration operator*(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
-  inline constexpr AreaVector operator*(const Area& area) const noexcept;
+  constexpr AreaVector operator*(const Area& area) const noexcept;
 
-  inline constexpr Position operator*(const Length& length) const noexcept;
+  constexpr Position operator*(const Length& length) const noexcept;
 
-  inline constexpr Force operator*(
+  constexpr Force operator*(
       const ForceMagnitude& force_magnitude) const noexcept;
 
-  inline constexpr HeatFlux operator*(
+  constexpr HeatFlux operator*(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept;
 
-  inline constexpr TemperatureGradient
+  constexpr TemperatureGradient
   operator*(const TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const noexcept;
 
-  inline constexpr Traction operator*(
+  constexpr Traction operator*(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline constexpr Velocity operator*(const Speed& speed) const noexcept;
+  constexpr Velocity operator*(const Speed& speed) const noexcept;
 };
 
 inline constexpr bool operator==(
@@ -323,7 +319,7 @@ inline Angle::Angle(
 namespace std {
 
 template<> struct hash<PhQ::Direction> {
-  size_t operator()(const PhQ::Direction& direction) const {
+  inline size_t operator()(const PhQ::Direction& direction) const {
     return hash<PhQ::Value::Vector>()(direction.Value());
   }
 };

@@ -40,44 +40,37 @@ public:
 
   static constexpr MachNumber Zero() noexcept { return MachNumber{0.0}; }
 
-  inline constexpr MachNumber operator+(
-      const MachNumber& mach_number) const noexcept {
+  constexpr MachNumber operator+(const MachNumber& mach_number) const noexcept {
     return MachNumber{value_ + mach_number.value_};
   }
 
-  inline constexpr MachNumber operator-(
-      const MachNumber& mach_number) const noexcept {
+  constexpr MachNumber operator-(const MachNumber& mach_number) const noexcept {
     return MachNumber{value_ - mach_number.value_};
   }
 
-  inline constexpr MachNumber operator*(const double number) const noexcept {
+  constexpr MachNumber operator*(const double number) const noexcept {
     return MachNumber{value_ * number};
   }
 
-  inline constexpr MachNumber operator/(const double number) const noexcept {
+  constexpr MachNumber operator/(const double number) const noexcept {
     return MachNumber{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const MachNumber& mach_number) const noexcept {
+  constexpr double operator/(const MachNumber& mach_number) const noexcept {
     return value_ / mach_number.value_;
   }
 
-  inline constexpr void operator+=(const MachNumber& mach_number) noexcept {
+  constexpr void operator+=(const MachNumber& mach_number) noexcept {
     value_ += mach_number.value_;
   }
 
-  inline constexpr void operator-=(const MachNumber& mach_number) noexcept {
+  constexpr void operator-=(const MachNumber& mach_number) noexcept {
     value_ -= mach_number.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -149,7 +142,7 @@ constexpr Speed::Speed(
 namespace std {
 
 template<> struct hash<PhQ::MachNumber> {
-  size_t operator()(const PhQ::MachNumber& mach_number) const {
+  inline size_t operator()(const PhQ::MachNumber& mach_number) const {
     return hash<double>()(mach_number.Value());
   }
 };

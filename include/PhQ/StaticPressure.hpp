@@ -62,83 +62,74 @@ public:
             value)};
   }
 
-  inline constexpr PhQ::Stress Stress() const noexcept;
+  constexpr PhQ::Stress Stress() const noexcept;
 
-  inline constexpr StaticPressure operator+(
+  constexpr StaticPressure operator+(
       const StaticPressure& static_pressure) const noexcept {
     return StaticPressure{value_ + static_pressure.value_};
   }
 
-  inline constexpr StaticPressure operator+(
+  constexpr StaticPressure operator+(
       const PressureDifference& pressure_difference) const noexcept {
     return StaticPressure{value_ + pressure_difference.Value()};
   }
 
-  inline constexpr TotalPressure operator+(
+  constexpr TotalPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept;
 
-  inline constexpr PressureDifference operator-(
+  constexpr PressureDifference operator-(
       const StaticPressure& static_pressure) const noexcept {
     return PressureDifference{value_ - static_pressure.value_};
   }
 
-  inline constexpr StaticPressure operator-(
+  constexpr StaticPressure operator-(
       const PressureDifference& pressure_difference) const noexcept {
     return StaticPressure{value_ - pressure_difference.Value()};
   }
 
-  inline constexpr StaticPressure operator*(
-      const double number) const noexcept {
+  constexpr StaticPressure operator*(const double number) const noexcept {
     return StaticPressure{value_ * number};
   }
 
-  inline constexpr ForceMagnitude operator*(const Area& area) const noexcept {
+  constexpr ForceMagnitude operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
-  inline constexpr Traction operator*(
-      const Direction& direction) const noexcept;
+  constexpr Traction operator*(const Direction& direction) const noexcept;
 
-  inline constexpr StaticPressure operator/(
-      const double number) const noexcept {
+  constexpr StaticPressure operator/(const double number) const noexcept {
     return StaticPressure{value_ / number};
   }
 
-  inline constexpr StaticKinematicPressure operator/(
+  constexpr StaticKinematicPressure operator/(
       const MassDensity& mass_density) const noexcept;
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const StaticPressure& static_pressure) const noexcept {
     return value_ / static_pressure.value_;
   }
 
-  inline constexpr void operator+=(
-      const StaticPressure& static_pressure) noexcept {
+  constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
     value_ += static_pressure.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const PressureDifference& pressure_difference) noexcept {
     value_ += pressure_difference.Value();
   }
 
-  inline constexpr void operator-=(
-      const StaticPressure& static_pressure) noexcept {
+  constexpr void operator-=(const StaticPressure& static_pressure) noexcept {
     value_ -= static_pressure.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const PressureDifference& pressure_difference) noexcept {
     value_ -= pressure_difference.Value();
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr StaticPressure(const double value) noexcept
@@ -221,7 +212,7 @@ inline constexpr StaticPressure PressureDifference::operator-(
 namespace std {
 
 template<> struct hash<PhQ::StaticPressure> {
-  size_t operator()(const PhQ::StaticPressure& static_pressure) const {
+  inline size_t operator()(const PhQ::StaticPressure& static_pressure) const {
     return hash<double>()(static_pressure.Value());
   }
 };

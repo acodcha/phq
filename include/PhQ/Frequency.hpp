@@ -73,75 +73,67 @@ public:
             value)};
   }
 
-  inline constexpr Time Period() const noexcept { return {*this}; }
+  constexpr Time Period() const noexcept { return {*this}; }
 
-  inline constexpr Frequency operator+(
-      const Frequency& frequency) const noexcept {
+  constexpr Frequency operator+(const Frequency& frequency) const noexcept {
     return Frequency{value_ + frequency.value_};
   }
 
-  inline constexpr Frequency operator-(
-      const Frequency& frequency) const noexcept {
+  constexpr Frequency operator-(const Frequency& frequency) const noexcept {
     return Frequency{value_ - frequency.value_};
   }
 
-  inline constexpr Frequency operator*(const double number) const noexcept {
+  constexpr Frequency operator*(const double number) const noexcept {
     return Frequency{value_ * number};
   }
 
-  inline constexpr Frequency operator/(const double number) const noexcept {
+  constexpr Frequency operator/(const double number) const noexcept {
     return Frequency{value_ / number};
   }
 
-  inline constexpr double operator*(const Time& time) const noexcept {
+  constexpr double operator*(const Time& time) const noexcept {
     return value_ * time.Value();
   }
 
-  inline constexpr Speed operator*(const Length& length) const noexcept;
+  constexpr Speed operator*(const Length& length) const noexcept;
 
-  inline constexpr AngularSpeed operator*(const Angle& angle) const noexcept;
+  constexpr AngularSpeed operator*(const Angle& angle) const noexcept;
 
-  inline constexpr Velocity operator*(
-      const Displacement& displacement) const noexcept;
+  constexpr Velocity operator*(const Displacement& displacement) const noexcept;
 
-  inline constexpr MemoryRate operator*(const Memory& memory) const noexcept;
+  constexpr MemoryRate operator*(const Memory& memory) const noexcept;
 
-  inline constexpr AccelerationMagnitude operator*(
-      const Speed& speed) const noexcept;
+  constexpr AccelerationMagnitude operator*(const Speed& speed) const noexcept;
 
-  inline constexpr AngularAccelerationMagnitude operator*(
+  constexpr AngularAccelerationMagnitude operator*(
       const AngularSpeed& angular_speed) const noexcept;
 
-  inline constexpr MassRate operator*(const Mass& mass) const noexcept;
+  constexpr MassRate operator*(const Mass& mass) const noexcept;
 
-  inline constexpr VolumeRate operator*(const Volume& volume) const noexcept;
+  constexpr VolumeRate operator*(const Volume& volume) const noexcept;
 
-  inline constexpr Power operator*(const Energy& energy) const noexcept;
+  constexpr Power operator*(const Energy& energy) const noexcept;
 
-  inline constexpr SpecificPower operator*(
+  constexpr SpecificPower operator*(
       const SpecificEnergy& specific_energy) const noexcept;
 
-  inline constexpr StrainRate operator*(const Strain& strain) const noexcept;
+  constexpr StrainRate operator*(const Strain& strain) const noexcept;
 
-  inline constexpr double operator/(const Frequency& frequency) const noexcept {
+  constexpr double operator/(const Frequency& frequency) const noexcept {
     return value_ / frequency.value_;
   }
 
-  inline constexpr void operator+=(const Frequency& frequency) noexcept {
+  constexpr void operator+=(const Frequency& frequency) noexcept {
     value_ += frequency.value_;
   }
 
-  inline constexpr void operator-=(const Frequency& frequency) noexcept {
+  constexpr void operator-=(const Frequency& frequency) noexcept {
     value_ -= frequency.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Frequency(const double value) noexcept
@@ -206,7 +198,7 @@ inline constexpr double Time::operator*(
 namespace std {
 
 template<> struct hash<PhQ::Frequency> {
-  size_t operator()(const PhQ::Frequency& frequency) const {
+  inline size_t operator()(const PhQ::Frequency& frequency) const {
     return hash<double>()(frequency.Value());
   }
 };

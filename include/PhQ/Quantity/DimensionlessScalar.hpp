@@ -104,7 +104,8 @@ double sqrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
 };
 
 template<> struct hash<PhQ::DimensionlessScalarQuantity> {
-  size_t operator()(const PhQ::DimensionlessScalarQuantity& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionlessScalarQuantity& quantity) const {
     return hash<double>()(quantity.Value());
   }
 };

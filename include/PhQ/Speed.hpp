@@ -84,79 +84,71 @@ public:
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  inline constexpr Speed operator+(const Speed& speed) const noexcept {
+  constexpr Speed operator+(const Speed& speed) const noexcept {
     return Speed{value_ + speed.value_};
   }
 
-  inline constexpr Speed operator+(
-      const SoundSpeed& sound_speed) const noexcept;
+  constexpr Speed operator+(const SoundSpeed& sound_speed) const noexcept;
 
-  inline constexpr Speed operator-(const Speed& speed) const noexcept {
+  constexpr Speed operator-(const Speed& speed) const noexcept {
     return Speed{value_ - speed.value_};
   }
 
-  inline constexpr Speed operator-(
-      const SoundSpeed& sound_speed) const noexcept;
+  constexpr Speed operator-(const SoundSpeed& sound_speed) const noexcept;
 
-  inline constexpr Speed operator*(const double number) const noexcept {
+  constexpr Speed operator*(const double number) const noexcept {
     return Speed{value_ * number};
   }
 
-  inline constexpr Length operator*(const Time& time) const noexcept {
+  constexpr Length operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr AccelerationMagnitude operator*(
+  constexpr AccelerationMagnitude operator*(
       const Frequency& frequency) const noexcept;
 
-  inline constexpr Velocity operator*(
-      const Direction& direction) const noexcept;
+  constexpr Velocity operator*(const Direction& direction) const noexcept;
 
-  inline constexpr Power
+  constexpr Power
   operator*(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept;
 
-  inline constexpr Speed operator/(const double number) const noexcept {
+  constexpr Speed operator/(const double number) const noexcept {
     return Speed{value_ / number};
   }
 
-  inline constexpr Length operator/(const Frequency& frequency) const noexcept {
+  constexpr Length operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Length& length) const noexcept {
+  constexpr Frequency operator/(const Length& length) const noexcept {
     return {*this, length};
   }
 
-  inline constexpr AccelerationMagnitude operator/(
-      const Time& time) const noexcept;
+  constexpr AccelerationMagnitude operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(
+  constexpr Time operator/(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept;
 
-  inline constexpr double operator/(const Speed& speed) const noexcept {
+  constexpr double operator/(const Speed& speed) const noexcept {
     return value_ / speed.value_;
   }
 
-  inline constexpr void operator+=(const Speed& speed) noexcept {
+  constexpr void operator+=(const Speed& speed) noexcept {
     value_ += speed.value_;
   }
 
-  inline constexpr void operator+=(const SoundSpeed& speed) noexcept;
+  constexpr void operator+=(const SoundSpeed& speed) noexcept;
 
-  inline constexpr void operator-=(const Speed& speed) noexcept {
+  constexpr void operator-=(const Speed& speed) noexcept {
     value_ -= speed.value_;
   }
 
-  inline constexpr void operator-=(const SoundSpeed& speed) noexcept;
+  constexpr void operator-=(const SoundSpeed& speed) noexcept;
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Speed(const double value) noexcept
@@ -243,7 +235,7 @@ inline constexpr Speed Frequency::operator*(
 namespace std {
 
 template<> struct hash<PhQ::Speed> {
-  size_t operator()(const PhQ::Speed& speed) const {
+  inline size_t operator()(const PhQ::Speed& speed) const {
     return hash<double>()(speed.Value());
   }
 };

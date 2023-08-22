@@ -32,7 +32,7 @@ public:
   explicit constexpr ElectricCurrent(const int_least8_t value) noexcept
     : value_(value) {}
 
-  inline constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int_least8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "I"; }
 
@@ -96,7 +96,8 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Dimension::ElectricCurrent> {
-  size_t operator()(const PhQ::Dimension::ElectricCurrent& current) const {
+  inline size_t operator()(
+      const PhQ::Dimension::ElectricCurrent& current) const {
     return hash<int_least8_t>()(current.Value());
   }
 };

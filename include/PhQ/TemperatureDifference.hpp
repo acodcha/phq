@@ -57,65 +57,61 @@ public:
                           Standard<Unit::TemperatureDifference>>(value)};
   }
 
-  inline constexpr Temperature operator+(
+  constexpr Temperature operator+(
       const Temperature& temperature) const noexcept;
 
-  inline constexpr TemperatureDifference operator+(
+  constexpr TemperatureDifference operator+(
       const TemperatureDifference& temperature_difference) const noexcept {
     return TemperatureDifference{value_ + temperature_difference.value_};
   }
 
-  inline constexpr Temperature operator-(
+  constexpr Temperature operator-(
       const Temperature& temperature) const noexcept;
 
-  inline constexpr TemperatureDifference operator-(
+  constexpr TemperatureDifference operator-(
       const TemperatureDifference& temperature_difference) const noexcept {
     return TemperatureDifference{value_ - temperature_difference.value_};
   }
 
-  inline constexpr TemperatureDifference operator*(
+  constexpr TemperatureDifference operator*(
       const double number) const noexcept {
     return TemperatureDifference{value_ * number};
   }
 
-  inline constexpr StrainScalar operator*(
+  constexpr StrainScalar operator*(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept;
 
-  inline constexpr double operator*(
+  constexpr double operator*(
       const VolumetricThermalExpansionCoefficient&
           volumetric_thermal_expansion_coefficient) const noexcept;
 
-  inline constexpr TemperatureDifference operator/(
+  constexpr TemperatureDifference operator/(
       const double number) const noexcept {
     return TemperatureDifference{value_ / number};
   }
 
-  inline constexpr TemperatureGradientMagnitude operator/(
+  constexpr TemperatureGradientMagnitude operator/(
       const Length& length) const noexcept;
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const TemperatureDifference& temperature_difference) const noexcept {
     return value_ / temperature_difference.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const TemperatureDifference& temperature_difference) noexcept {
     value_ += temperature_difference.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const TemperatureDifference& temperature_difference) noexcept {
     value_ -= temperature_difference.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr TemperatureDifference(const double value) noexcept
@@ -172,7 +168,7 @@ inline constexpr TemperatureDifference operator*(
 namespace std {
 
 template<> struct hash<PhQ::TemperatureDifference> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::TemperatureDifference& temperature_difference) const {
     return hash<double>()(temperature_difference.Value());
   }

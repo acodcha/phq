@@ -47,42 +47,37 @@ public:
     return Strain{Value::SymmetricDyad::Zero()};
   }
 
-  inline constexpr Strain operator+(const Strain& strain) const noexcept {
+  constexpr Strain operator+(const Strain& strain) const noexcept {
     return Strain{value_ + strain.value_};
   }
 
-  inline constexpr Strain operator-(const Strain& strain) const noexcept {
+  constexpr Strain operator-(const Strain& strain) const noexcept {
     return Strain{value_ - strain.value_};
   }
 
-  inline constexpr Strain operator*(const double number) const noexcept {
+  constexpr Strain operator*(const double number) const noexcept {
     return Strain{value_ * number};
   }
 
-  inline constexpr StrainRate operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr StrainRate operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Strain operator/(const double number) const noexcept {
+  constexpr Strain operator/(const double number) const noexcept {
     return Strain{value_ / number};
   }
 
-  inline constexpr StrainRate operator/(const Time& time) const noexcept;
+  constexpr StrainRate operator/(const Time& time) const noexcept;
 
-  inline constexpr void operator+=(const Strain& strain) noexcept {
+  constexpr void operator+=(const Strain& strain) noexcept {
     value_ += strain.value_;
   }
 
-  inline constexpr void operator-=(const Strain& strain) noexcept {
+  constexpr void operator-=(const Strain& strain) noexcept {
     value_ -= strain.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -131,7 +126,7 @@ inline constexpr Strain operator*(
 namespace std {
 
 template<> struct hash<PhQ::Strain> {
-  size_t operator()(const PhQ::Strain& strain) const {
+  inline size_t operator()(const PhQ::Strain& strain) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain.Value());
   }
 };

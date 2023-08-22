@@ -56,58 +56,53 @@ public:
         StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
   }
 
-  inline constexpr Power operator+(const Power& power) const noexcept {
+  constexpr Power operator+(const Power& power) const noexcept {
     return Power{value_ + power.value_};
   }
 
-  inline constexpr Power operator-(const Power& power) const noexcept {
+  constexpr Power operator-(const Power& power) const noexcept {
     return Power{value_ - power.value_};
   }
 
-  inline constexpr Power operator*(const double number) const noexcept {
+  constexpr Power operator*(const double number) const noexcept {
     return Power{value_ * number};
   }
 
-  inline constexpr Energy operator*(const Time& time) const noexcept {
+  constexpr Energy operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr Power operator/(const double number) const noexcept {
+  constexpr Power operator/(const double number) const noexcept {
     return Power{value_ / number};
   }
 
-  inline constexpr Energy operator/(const Frequency& frequency) const noexcept {
+  constexpr Energy operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Energy& energy) const noexcept {
+  constexpr Frequency operator/(const Energy& energy) const noexcept {
     return {*this, energy};
   }
 
-  inline constexpr SpecificPower operator/(const Mass& mass) const noexcept;
+  constexpr SpecificPower operator/(const Mass& mass) const noexcept;
 
-  inline constexpr Mass operator/(
-      const SpecificPower& specific_power) const noexcept;
+  constexpr Mass operator/(const SpecificPower& specific_power) const noexcept;
 
-  inline constexpr double operator/(const Power& power) const noexcept {
+  constexpr double operator/(const Power& power) const noexcept {
     return value_ / power.value_;
   }
 
-  inline constexpr void operator+=(const Power& power) noexcept {
+  constexpr void operator+=(const Power& power) noexcept {
     value_ += power.value_;
   }
 
-  inline constexpr void operator-=(const Power& power) noexcept {
+  constexpr void operator-=(const Power& power) noexcept {
     value_ -= power.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Power(const double value) noexcept
@@ -196,7 +191,7 @@ inline constexpr Time Energy::operator/(const Power& power) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Power> {
-  size_t operator()(const PhQ::Power& power) const {
+  inline size_t operator()(const PhQ::Power& power) const {
     return hash<double>()(power.Value());
   }
 };

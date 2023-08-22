@@ -66,58 +66,52 @@ public:
                           Standard<Unit::SpecificHeatCapacity>>(value)};
   }
 
-  inline constexpr SpecificGasConstant operator+(
+  constexpr SpecificGasConstant operator+(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return SpecificGasConstant{value_ + specific_gas_constant.value_};
   }
 
-  inline constexpr SpecificIsobaricHeatCapacity operator+(
+  constexpr SpecificIsobaricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept {
     return {*this, specific_isochoric_heat_capacity};
   }
 
-  inline constexpr SpecificGasConstant operator-(
+  constexpr SpecificGasConstant operator-(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return SpecificGasConstant{value_ - specific_gas_constant.value_};
   }
 
-  inline constexpr SpecificGasConstant operator*(
-      const double number) const noexcept {
+  constexpr SpecificGasConstant operator*(const double number) const noexcept {
     return SpecificGasConstant{value_ * number};
   }
 
-  inline constexpr GasConstant operator*(const Mass& mass) const noexcept {
+  constexpr GasConstant operator*(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline constexpr SpecificGasConstant operator/(
-      const double number) const noexcept {
+  constexpr SpecificGasConstant operator/(const double number) const noexcept {
     return SpecificGasConstant{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const SpecificGasConstant& specific_gas_constant) const noexcept {
     return value_ / specific_gas_constant.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const SpecificGasConstant& specific_gas_constant) noexcept {
     value_ += specific_gas_constant.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const SpecificGasConstant& specific_gas_constant) noexcept {
     value_ -= specific_gas_constant.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr SpecificGasConstant(const double value) noexcept
@@ -255,7 +249,7 @@ SpecificIsobaricHeatCapacity::operator-(
 namespace std {
 
 template<> struct hash<PhQ::SpecificGasConstant> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::SpecificGasConstant& specific_gas_constant) const {
     return hash<double>()(specific_gas_constant.Value());
   }

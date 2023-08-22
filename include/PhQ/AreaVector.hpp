@@ -44,45 +44,39 @@ public:
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  inline Area Magnitude() const noexcept { return {*this}; }
+  Area Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
+  PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
   }
 
-  inline constexpr AreaVector operator+(
-      const AreaVector& area_vector) const noexcept {
+  constexpr AreaVector operator+(const AreaVector& area_vector) const noexcept {
     return AreaVector{value_ + area_vector.value_};
   }
 
-  inline constexpr AreaVector operator-(
-      const AreaVector& area_vector) const noexcept {
+  constexpr AreaVector operator-(const AreaVector& area_vector) const noexcept {
     return AreaVector{value_ - area_vector.value_};
   }
 
-  inline constexpr AreaVector operator*(const double number) const noexcept {
+  constexpr AreaVector operator*(const double number) const noexcept {
     return AreaVector{value_ * number};
   }
 
-  inline constexpr AreaVector operator/(const double number) const noexcept {
+  constexpr AreaVector operator/(const double number) const noexcept {
     return AreaVector{value_ / number};
   }
 
-  inline constexpr void operator+=(const AreaVector& area_vector) noexcept {
+  constexpr void operator+=(const AreaVector& area_vector) noexcept {
     value_ += area_vector.value_;
   }
 
-  inline constexpr void operator-=(const AreaVector& area_vector) noexcept {
+  constexpr void operator-=(const AreaVector& area_vector) noexcept {
     value_ -= area_vector.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr AreaVector(const Value::Vector& value) noexcept
@@ -155,7 +149,7 @@ inline constexpr AreaVector Area::operator*(
 namespace std {
 
 template<> struct hash<PhQ::AreaVector> {
-  size_t operator()(const PhQ::AreaVector& area_vector) const {
+  inline size_t operator()(const PhQ::AreaVector& area_vector) const {
     return hash<PhQ::Value::Vector>()(area_vector.Value());
   }
 };

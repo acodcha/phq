@@ -56,63 +56,58 @@ public:
                           Standard<Unit::Acceleration>>(value)};
   }
 
-  inline constexpr AccelerationMagnitude operator+(
+  constexpr AccelerationMagnitude operator+(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return AccelerationMagnitude{value_ + acceleration_magnitude.value_};
   }
 
-  inline constexpr AccelerationMagnitude operator-(
+  constexpr AccelerationMagnitude operator-(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return AccelerationMagnitude{value_ - acceleration_magnitude.value_};
   }
 
-  inline constexpr AccelerationMagnitude operator*(
+  constexpr AccelerationMagnitude operator*(
       const double number) const noexcept {
     return AccelerationMagnitude{value_ * number};
   }
 
-  inline constexpr Speed operator*(const Time& time) const noexcept {
+  constexpr Speed operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr Acceleration operator*(
-      const Direction& direction) const noexcept;
+  constexpr Acceleration operator*(const Direction& direction) const noexcept;
 
-  inline constexpr AccelerationMagnitude operator/(
+  constexpr AccelerationMagnitude operator/(
       const double number) const noexcept {
     return AccelerationMagnitude{value_ / number};
   }
 
-  inline constexpr Speed operator/(const Frequency& frequency) const noexcept {
+  constexpr Speed operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Speed& speed) const noexcept {
+  constexpr Frequency operator/(const Speed& speed) const noexcept {
     return {*this, speed};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const AccelerationMagnitude& acceleration_magnitude) const noexcept {
     return value_ / acceleration_magnitude.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const AccelerationMagnitude& acceleration_magnitude) noexcept {
     value_ += acceleration_magnitude.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const AccelerationMagnitude& acceleration_magnitude) noexcept {
     value_ -= acceleration_magnitude.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr AccelerationMagnitude(const double value) noexcept
@@ -206,7 +201,7 @@ inline constexpr Time Speed::operator/(
 namespace std {
 
 template<> struct hash<PhQ::AccelerationMagnitude> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::AccelerationMagnitude& acceleration_magnitude) const {
     return hash<double>()(acceleration_magnitude.Value());
   }

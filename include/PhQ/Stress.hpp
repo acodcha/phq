@@ -47,12 +47,11 @@ public:
             value)};
   }
 
-  inline constexpr PhQ::Traction Traction(
-      const Direction& direction) const noexcept {
+  constexpr PhQ::Traction Traction(const Direction& direction) const noexcept {
     return {*this, direction};
   }
 
-  inline constexpr StressScalar VonMises() const noexcept {
+  constexpr StressScalar VonMises() const noexcept {
     return StressScalar{
         0.5
         * (std::pow(value_.xx() - value_.yy(), 2)
@@ -63,37 +62,33 @@ public:
                     + std::pow(value_.yz(), 2)))};
   }
 
-  inline constexpr Stress operator+(const Stress& stress) const noexcept {
+  constexpr Stress operator+(const Stress& stress) const noexcept {
     return Stress{value_ + stress.value_};
   }
 
-  inline constexpr Stress operator-(const Stress& stress) const noexcept {
+  constexpr Stress operator-(const Stress& stress) const noexcept {
     return Stress{value_ - stress.value_};
   }
 
-  inline constexpr Stress operator*(const double number) const noexcept {
+  constexpr Stress operator*(const double number) const noexcept {
     return Stress{value_ * number};
   }
 
-  inline constexpr Stress operator/(const double number) const noexcept {
+  constexpr Stress operator/(const double number) const noexcept {
     return Stress{value_ / number};
   }
 
-  inline constexpr void operator+=(const Stress& stress) noexcept {
+  constexpr void operator+=(const Stress& stress) noexcept {
     value_ += stress.value_;
   }
 
-  inline constexpr void operator-=(const Stress& stress) noexcept {
+  constexpr void operator-=(const Stress& stress) noexcept {
     value_ -= stress.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Stress(const Value::SymmetricDyad& value) noexcept
@@ -154,7 +149,7 @@ inline constexpr Stress StaticPressure::Stress() const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Stress> {
-  size_t operator()(const PhQ::Stress& stress) const {
+  inline size_t operator()(const PhQ::Stress& stress) const {
     return hash<PhQ::Value::SymmetricDyad>()(stress.Value());
   }
 };

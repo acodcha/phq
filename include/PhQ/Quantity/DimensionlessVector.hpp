@@ -29,13 +29,11 @@ namespace PhQ {
 // measure and no dimension set.
 class DimensionlessVectorQuantity : public DimensionlessQuantity {
 public:
-  inline constexpr const Value::Vector& Value() const noexcept {
-    return value_;
-  }
+  constexpr const Value::Vector& Value() const noexcept { return value_; }
 
-  inline constexpr Value::Vector& MutableValue() noexcept { return value_; }
+  constexpr Value::Vector& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const Value::Vector& value) noexcept {
+  constexpr void SetValue(const Value::Vector& value) noexcept {
     value_ = value;
   }
 
@@ -75,7 +73,8 @@ protected:
 namespace std {
 
 template<> struct hash<PhQ::DimensionlessVectorQuantity> {
-  size_t operator()(const PhQ::DimensionlessVectorQuantity& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionlessVectorQuantity& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());
   }
 };

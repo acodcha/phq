@@ -50,43 +50,37 @@ public:
                           Standard<Unit::ThermalConductivity>>(value)};
   }
 
-  inline constexpr ThermalConductivity operator+(
+  constexpr ThermalConductivity operator+(
       const ThermalConductivity& thermal_conductivity) const noexcept {
     return ThermalConductivity{value_ + thermal_conductivity.value_};
   }
 
-  inline constexpr ThermalConductivity operator-(
+  constexpr ThermalConductivity operator-(
       const ThermalConductivity& thermal_conductivity) const noexcept {
     return ThermalConductivity{value_ - thermal_conductivity.value_};
   }
 
-  inline constexpr ThermalConductivity operator*(
-      const double number) const noexcept {
+  constexpr ThermalConductivity operator*(const double number) const noexcept {
     return ThermalConductivity{value_ * number};
   }
 
-  inline constexpr ThermalConductivity operator/(
-      const double number) const noexcept {
+  constexpr ThermalConductivity operator/(const double number) const noexcept {
     return ThermalConductivity{value_ / number};
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const ThermalConductivity& thermal_conductivity) noexcept {
     value_ += thermal_conductivity.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const ThermalConductivity& thermal_conductivity) noexcept {
     value_ -= thermal_conductivity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr ThermalConductivity(
@@ -142,7 +136,7 @@ inline constexpr ThermalConductivity operator*(
 namespace std {
 
 template<> struct hash<PhQ::ThermalConductivity> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::ThermalConductivity& thermal_conductivity) const {
     return hash<PhQ::Value::SymmetricDyad>()(thermal_conductivity.Value());
   }

@@ -58,48 +58,42 @@ public:
             value)};
   }
 
-  inline constexpr ThermalDiffusivity operator+(
+  constexpr ThermalDiffusivity operator+(
       const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return ThermalDiffusivity{value_ + thermal_diffusivity.value_};
   }
 
-  inline constexpr ThermalDiffusivity operator-(
+  constexpr ThermalDiffusivity operator-(
       const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return ThermalDiffusivity{value_ - thermal_diffusivity.value_};
   }
 
-  inline constexpr ThermalDiffusivity operator*(
-      const double number) const noexcept {
+  constexpr ThermalDiffusivity operator*(const double number) const noexcept {
     return ThermalDiffusivity{value_ * number};
   }
 
-  inline constexpr ThermalDiffusivity operator/(
-      const double number) const noexcept {
+  constexpr ThermalDiffusivity operator/(const double number) const noexcept {
     return ThermalDiffusivity{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return value_ / thermal_diffusivity.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const ThermalDiffusivity& thermal_diffusivity) noexcept {
     value_ += thermal_diffusivity.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const ThermalDiffusivity& thermal_diffusivity) noexcept {
     value_ -= thermal_diffusivity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr ThermalDiffusivity(const double value) noexcept
@@ -178,7 +172,8 @@ inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
 namespace std {
 
 template<> struct hash<PhQ::ThermalDiffusivity> {
-  size_t operator()(const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
+  inline size_t operator()(
+      const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
     return hash<double>()(thermal_diffusivity.Value());
   }
 };

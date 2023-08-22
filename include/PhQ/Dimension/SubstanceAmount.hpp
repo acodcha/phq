@@ -32,7 +32,7 @@ public:
   explicit constexpr SubstanceAmount(const int_least8_t value) noexcept
     : value_(value) {}
 
-  inline constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int_least8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "N"; }
 
@@ -96,7 +96,8 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Dimension::SubstanceAmount> {
-  size_t operator()(const PhQ::Dimension::SubstanceAmount& amount) const {
+  inline size_t operator()(
+      const PhQ::Dimension::SubstanceAmount& amount) const {
     return hash<int_least8_t>()(amount.Value());
   }
 };

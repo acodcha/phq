@@ -61,51 +61,45 @@ public:
             value)};
   }
 
-  inline constexpr KinematicViscosity operator+(
+  constexpr KinematicViscosity operator+(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return KinematicViscosity{value_ + kinematic_viscosity.value_};
   }
 
-  inline constexpr KinematicViscosity operator-(
+  constexpr KinematicViscosity operator-(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return KinematicViscosity{value_ - kinematic_viscosity.value_};
   }
 
-  inline constexpr KinematicViscosity operator*(
-      const double number) const noexcept {
+  constexpr KinematicViscosity operator*(const double number) const noexcept {
     return KinematicViscosity{value_ * number};
   }
 
-  inline constexpr DynamicViscosity operator*(
+  constexpr DynamicViscosity operator*(
       const MassDensity& mass_density) const noexcept;
 
-  inline constexpr KinematicViscosity operator/(
-      const double number) const noexcept {
+  constexpr KinematicViscosity operator/(const double number) const noexcept {
     return KinematicViscosity{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return value_ / kinematic_viscosity.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const KinematicViscosity& kinematic_viscosity) noexcept {
     value_ += kinematic_viscosity.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const KinematicViscosity& kinematic_viscosity) noexcept {
     value_ -= kinematic_viscosity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr KinematicViscosity(const double value) noexcept
@@ -160,7 +154,8 @@ inline constexpr KinematicViscosity operator*(
 namespace std {
 
 template<> struct hash<PhQ::KinematicViscosity> {
-  size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
+  inline size_t operator()(
+      const PhQ::KinematicViscosity& kinematic_viscosity) const {
     return hash<double>()(kinematic_viscosity.Value());
   }
 };

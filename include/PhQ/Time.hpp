@@ -86,65 +86,56 @@ public:
         StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 
-  inline constexpr PhQ::Frequency Frequency() const noexcept;
+  constexpr PhQ::Frequency Frequency() const noexcept;
 
-  inline constexpr Time operator+(const Time& time) const noexcept {
+  constexpr Time operator+(const Time& time) const noexcept {
     return Time{value_ + time.value_};
   }
 
-  inline constexpr Time operator-(const Time& time) const noexcept {
+  constexpr Time operator-(const Time& time) const noexcept {
     return Time{value_ - time.value_};
   }
 
-  inline constexpr Time operator*(const double number) const noexcept {
+  constexpr Time operator*(const double number) const noexcept {
     return Time{value_ * number};
   }
 
-  inline constexpr double operator*(
-      const PhQ::Frequency& frequency) const noexcept;
+  constexpr double operator*(const PhQ::Frequency& frequency) const noexcept;
 
-  inline constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
+  constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
 
-  inline constexpr Volume operator*(
-      const VolumeRate& volume_rate) const noexcept;
+  constexpr Volume operator*(const VolumeRate& volume_rate) const noexcept;
 
-  inline constexpr Energy operator*(const Power& power) const noexcept;
+  constexpr Energy operator*(const Power& power) const noexcept;
 
-  inline constexpr SpecificEnergy operator*(
+  constexpr SpecificEnergy operator*(
       const SpecificPower& specific_power) const noexcept;
 
-  inline constexpr Strain operator*(
-      const StrainRate& strain_rate) const noexcept;
+  constexpr Strain operator*(const StrainRate& strain_rate) const noexcept;
 
-  inline constexpr Displacement operator*(
-      const Velocity& velocity) const noexcept;
+  constexpr Displacement operator*(const Velocity& velocity) const noexcept;
 
-  inline constexpr Velocity operator*(
-      const Acceleration& acceleration) const noexcept;
+  constexpr Velocity operator*(const Acceleration& acceleration) const noexcept;
 
-  inline constexpr Time operator/(const double number) const noexcept {
+  constexpr Time operator/(const double number) const noexcept {
     return Time{value_ / number};
   }
 
-  inline constexpr double operator/(const Time& time) const noexcept {
+  constexpr double operator/(const Time& time) const noexcept {
     return value_ / time.value_;
   }
 
-  inline constexpr void operator+=(const Time& time) noexcept {
+  constexpr void operator+=(const Time& time) noexcept {
     value_ += time.value_;
   }
 
-  inline constexpr void operator-=(const Time& time) noexcept {
+  constexpr void operator-=(const Time& time) noexcept {
     value_ -= time.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Time(const double value) noexcept
@@ -191,7 +182,7 @@ inline constexpr Time operator*(
 namespace std {
 
 template<> struct hash<PhQ::Time> {
-  size_t operator()(const PhQ::Time& time) const {
+  inline size_t operator()(const PhQ::Time& time) const {
     return hash<double>()(time.Value());
   }
 };

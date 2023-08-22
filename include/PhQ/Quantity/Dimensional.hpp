@@ -47,7 +47,7 @@ protected:
   ~DimensionalQuantity() noexcept = default;
 };
 
-template<typename U> std::ostream& operator<<(
+template<typename U> inline std::ostream& operator<<(
     std::ostream& stream, const DimensionalQuantity<U>& quantity) noexcept {
   stream << quantity.Print();
   return stream;

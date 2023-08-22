@@ -46,25 +46,24 @@ public:
 
   static constexpr PrandtlNumber Zero() noexcept { return PrandtlNumber{0.0}; }
 
-  inline constexpr PhQ::ThermalDiffusivity ThermalDiffusivity(
+  constexpr PhQ::ThermalDiffusivity ThermalDiffusivity(
       const PhQ::KinematicViscosity& kinematic_viscosity) const noexcept {
     return {*this, kinematic_viscosity};
   }
 
-  inline constexpr PhQ::ThermalConductivityScalar ThermalConductivityScalar(
+  constexpr PhQ::ThermalConductivityScalar ThermalConductivityScalar(
       const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const PhQ::DynamicViscosity& dynamic_viscosity) const noexcept {
     return {*this, specific_isobaric_heat_capacity, dynamic_viscosity};
   }
 
-  inline constexpr PhQ::SpecificIsobaricHeatCapacity
-  SpecificIsobaricHeatCapacity(
+  constexpr PhQ::SpecificIsobaricHeatCapacity SpecificIsobaricHeatCapacity(
       const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar,
       const PhQ::DynamicViscosity& dynamic_viscosity) const noexcept {
     return {*this, thermal_conductivity_scalar, dynamic_viscosity};
   }
 
-  inline constexpr PhQ::DynamicViscosity DynamicViscosity(
+  constexpr PhQ::DynamicViscosity DynamicViscosity(
       const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar,
       PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const noexcept {
@@ -72,51 +71,45 @@ public:
         *this, thermal_conductivity_scalar, specific_isobaric_heat_capacity};
   }
 
-  inline constexpr PhQ::KinematicViscosity KinematicViscosity(
+  constexpr PhQ::KinematicViscosity KinematicViscosity(
       const PhQ::ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return {*this, thermal_diffusivity};
   }
 
-  inline constexpr PrandtlNumber operator+(
+  constexpr PrandtlNumber operator+(
       const PrandtlNumber& prandtl_number) const noexcept {
     return PrandtlNumber{value_ + prandtl_number.value_};
   }
 
-  inline constexpr PrandtlNumber operator-(
+  constexpr PrandtlNumber operator-(
       const PrandtlNumber& prandtl_number) const noexcept {
     return PrandtlNumber{value_ - prandtl_number.value_};
   }
 
-  inline constexpr PrandtlNumber operator*(const double number) const noexcept {
+  constexpr PrandtlNumber operator*(const double number) const noexcept {
     return PrandtlNumber{value_ * number};
   }
 
-  inline constexpr PrandtlNumber operator/(const double number) const noexcept {
+  constexpr PrandtlNumber operator/(const double number) const noexcept {
     return PrandtlNumber{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const PrandtlNumber& prandtl_number) const noexcept {
     return value_ / prandtl_number.value_;
   }
 
-  inline constexpr void operator+=(
-      const PrandtlNumber& prandtl_number) noexcept {
+  constexpr void operator+=(const PrandtlNumber& prandtl_number) noexcept {
     value_ += prandtl_number.value_;
   }
 
-  inline constexpr void operator-=(
-      const PrandtlNumber& prandtl_number) noexcept {
+  constexpr void operator-=(const PrandtlNumber& prandtl_number) noexcept {
     value_ -= prandtl_number.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -214,7 +207,7 @@ inline constexpr KinematicViscosity::KinematicViscosity(
 namespace std {
 
 template<> struct hash<PhQ::PrandtlNumber> {
-  size_t operator()(const PhQ::PrandtlNumber& prandtl_number) const {
+  inline size_t operator()(const PhQ::PrandtlNumber& prandtl_number) const {
     return hash<double>()(prandtl_number.Value());
   }
 };

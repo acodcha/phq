@@ -33,47 +33,39 @@ public:
     return DisplacementGradient{Value::Dyad::Zero()};
   }
 
-  inline constexpr PhQ::Strain Strain() const noexcept {
-    return PhQ::Strain{*this};
-  }
+  constexpr PhQ::Strain Strain() const noexcept { return PhQ::Strain{*this}; }
 
-  inline constexpr DisplacementGradient operator+(
+  constexpr DisplacementGradient operator+(
       const DisplacementGradient& displacement_gradient) const noexcept {
     return DisplacementGradient{value_ + displacement_gradient.value_};
   }
 
-  inline constexpr DisplacementGradient operator-(
+  constexpr DisplacementGradient operator-(
       const DisplacementGradient& displacement_gradient) const noexcept {
     return DisplacementGradient{value_ - displacement_gradient.value_};
   }
 
-  inline constexpr DisplacementGradient operator*(
-      const double number) const noexcept {
+  constexpr DisplacementGradient operator*(const double number) const noexcept {
     return DisplacementGradient{value_ * number};
   }
 
-  inline constexpr DisplacementGradient operator/(
-      const double number) const noexcept {
+  constexpr DisplacementGradient operator/(const double number) const noexcept {
     return DisplacementGradient{value_ / number};
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const DisplacementGradient& displacement_gradient) noexcept {
     value_ += displacement_gradient.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const DisplacementGradient& displacement_gradient) noexcept {
     value_ -= displacement_gradient.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(const DisplacementGradient& left,
@@ -130,7 +122,7 @@ inline constexpr Strain::Strain(
 namespace std {
 
 template<> struct hash<PhQ::DisplacementGradient> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::DisplacementGradient& displacement_gradient) const {
     return hash<PhQ::Value::Dyad>()(displacement_gradient.Value());
   }

@@ -48,48 +48,44 @@ public:
             value)};
   }
 
-  inline constexpr IsentropicBulkModulus operator+(
+  constexpr IsentropicBulkModulus operator+(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return IsentropicBulkModulus{value_ + isentropic_bulk_modulus.value_};
   }
 
-  inline constexpr IsentropicBulkModulus operator-(
+  constexpr IsentropicBulkModulus operator-(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return IsentropicBulkModulus{value_ - isentropic_bulk_modulus.value_};
   }
 
-  inline constexpr IsentropicBulkModulus operator*(
+  constexpr IsentropicBulkModulus operator*(
       const double number) const noexcept {
     return IsentropicBulkModulus{value_ * number};
   }
 
-  inline constexpr IsentropicBulkModulus operator/(
+  constexpr IsentropicBulkModulus operator/(
       const double number) const noexcept {
     return IsentropicBulkModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return value_ / isentropic_bulk_modulus.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
     value_ += isentropic_bulk_modulus.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
     value_ -= isentropic_bulk_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr IsentropicBulkModulus(const double value) noexcept
@@ -144,7 +140,7 @@ inline constexpr IsentropicBulkModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::IsentropicBulkModulus> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return hash<double>()(isentropic_bulk_modulus.Value());
   }

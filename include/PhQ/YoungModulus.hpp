@@ -40,44 +40,39 @@ public:
             value)};
   }
 
-  inline constexpr YoungModulus operator+(
+  constexpr YoungModulus operator+(
       const YoungModulus& young_modulus) const noexcept {
     return YoungModulus{value_ + young_modulus.value_};
   }
 
-  inline constexpr YoungModulus operator-(
+  constexpr YoungModulus operator-(
       const YoungModulus& young_modulus) const noexcept {
     return YoungModulus{value_ - young_modulus.value_};
   }
 
-  inline constexpr YoungModulus operator*(const double number) const noexcept {
+  constexpr YoungModulus operator*(const double number) const noexcept {
     return YoungModulus{value_ * number};
   }
 
-  inline constexpr YoungModulus operator/(const double number) const noexcept {
+  constexpr YoungModulus operator/(const double number) const noexcept {
     return YoungModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const YoungModulus& young_modulus) const noexcept {
+  constexpr double operator/(const YoungModulus& young_modulus) const noexcept {
     return value_ / young_modulus.value_;
   }
 
-  inline constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
     value_ += young_modulus.value_;
   }
 
-  inline constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
     value_ -= young_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr YoungModulus(const double value) noexcept
@@ -130,7 +125,7 @@ inline constexpr YoungModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::YoungModulus> {
-  size_t operator()(const PhQ::YoungModulus& young_modulus) const {
+  inline size_t operator()(const PhQ::YoungModulus& young_modulus) const {
     return hash<double>()(young_modulus.Value());
   }
 };

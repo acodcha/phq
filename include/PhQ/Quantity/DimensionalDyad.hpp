@@ -30,24 +30,21 @@ namespace PhQ {
 template<typename U> class DimensionalDyadQuantity
   : public DimensionalQuantity<U> {
 public:
-  inline constexpr const Value::Dyad& Value() const noexcept { return value_; }
+  constexpr const Value::Dyad& Value() const noexcept { return value_; }
 
-  inline Value::Dyad Value(const U unit) const noexcept {
+  Value::Dyad Value(const U unit) const noexcept {
     Value::Dyad result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
-  template<U NewUnit>
-  inline constexpr Value::Dyad StaticValue() const noexcept {
+  template<U NewUnit> constexpr Value::Dyad StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
-  inline constexpr Value::Dyad& MutableValue() noexcept { return value_; }
+  constexpr Value::Dyad& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const Value::Dyad& value) noexcept {
-    value_ = value;
-  }
+  constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
 
   std::string Print() const noexcept override {
     return value_.Print().append(" ").append(Abbreviation(Standard<U>));
@@ -153,7 +150,8 @@ protected:
 namespace std {
 
 template<typename U> struct hash<PhQ::DimensionalDyadQuantity<U>> {
-  size_t operator()(const PhQ::DimensionalDyadQuantity<U>& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionalDyadQuantity<U>& quantity) const {
     return hash<PhQ::Value::Dyad>()(quantity.Value());
   }
 };

@@ -53,59 +53,55 @@ public:
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  inline constexpr TotalKinematicPressure operator+(
+  constexpr TotalKinematicPressure operator+(
       const TotalKinematicPressure& total_kinematic_pressure) const noexcept {
     return TotalKinematicPressure{value_ + total_kinematic_pressure.value_};
   }
 
-  inline constexpr TotalKinematicPressure operator-(
+  constexpr TotalKinematicPressure operator-(
       const TotalKinematicPressure& total_kinematic_pressure) const noexcept {
     return TotalKinematicPressure{value_ - total_kinematic_pressure.value_};
   }
 
-  inline constexpr DynamicKinematicPressure operator-(
+  constexpr DynamicKinematicPressure operator-(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return {*this, static_kinematic_pressure};
   }
 
-  inline constexpr StaticKinematicPressure
+  constexpr StaticKinematicPressure
   operator-(const DynamicKinematicPressure& dynamic_kinematic_pressure)
       const noexcept {
     return {*this, dynamic_kinematic_pressure};
   }
 
-  inline constexpr TotalKinematicPressure operator*(
+  constexpr TotalKinematicPressure operator*(
       const double number) const noexcept {
     return TotalKinematicPressure{value_ * number};
   }
 
-  inline constexpr TotalKinematicPressure operator/(
+  constexpr TotalKinematicPressure operator/(
       const double number) const noexcept {
     return TotalKinematicPressure{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const TotalKinematicPressure& total_kinematic_pressure) const noexcept {
     return value_ / total_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const TotalKinematicPressure& total_kinematic_pressure) noexcept {
     value_ += total_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const TotalKinematicPressure& total_kinematic_pressure) noexcept {
     value_ -= total_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr TotalKinematicPressure(const double value) noexcept
@@ -187,7 +183,7 @@ inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
 namespace std {
 
 template<> struct hash<PhQ::TotalKinematicPressure> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::TotalKinematicPressure& total_kinematic_pressure) const {
     return hash<double>()(total_kinematic_pressure.Value());
   }

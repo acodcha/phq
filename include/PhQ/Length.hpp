@@ -75,58 +75,53 @@ public:
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  inline constexpr Length operator+(const Length& length) const noexcept {
+  constexpr Length operator+(const Length& length) const noexcept {
     return Length{value_ + length.value_};
   }
 
-  inline constexpr Length operator-(const Length& length) const noexcept {
+  constexpr Length operator-(const Length& length) const noexcept {
     return Length{value_ - length.value_};
   }
 
-  inline constexpr Length operator*(const double number) const noexcept {
+  constexpr Length operator*(const double number) const noexcept {
     return Length{value_ * number};
   }
 
-  inline constexpr Area operator*(const Length& length) const noexcept;
+  constexpr Area operator*(const Length& length) const noexcept;
 
-  inline constexpr Volume operator*(const Area& area) const noexcept;
+  constexpr Volume operator*(const Area& area) const noexcept;
 
-  inline constexpr Speed operator*(const Frequency& frequency) const noexcept;
+  constexpr Speed operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Position operator*(
-      const Direction& direction) const noexcept;
+  constexpr Position operator*(const Direction& direction) const noexcept;
 
-  inline constexpr Energy
+  constexpr Energy
   operator*(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept;
 
-  inline constexpr Length operator/(const double number) const noexcept {
+  constexpr Length operator/(const double number) const noexcept {
     return Length{value_ / number};
   }
 
-  inline constexpr Speed operator/(const Time& time) const noexcept;
+  constexpr Speed operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(const Speed& speed) const noexcept;
+  constexpr Time operator/(const Speed& speed) const noexcept;
 
-  inline constexpr double operator/(const Length& length) const noexcept {
+  constexpr double operator/(const Length& length) const noexcept {
     return value_ / length.value_;
   }
 
-  inline constexpr void operator+=(const Length& length) noexcept {
+  constexpr void operator+=(const Length& length) noexcept {
     value_ += length.value_;
   }
 
-  inline constexpr void operator-=(const Length& length) noexcept {
+  constexpr void operator-=(const Length& length) noexcept {
     value_ -= length.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Length(const double value) noexcept
@@ -182,7 +177,7 @@ inline constexpr Length operator*(
 namespace std {
 
 template<> struct hash<PhQ::Length> {
-  size_t operator()(const PhQ::Length& length) const {
+  inline size_t operator()(const PhQ::Length& length) const {
     return hash<double>()(length.Value());
   }
 };

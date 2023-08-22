@@ -37,7 +37,7 @@ public:
 
   ForceMagnitude(const Force& force) noexcept;
 
-  inline constexpr ForceMagnitude(
+  constexpr ForceMagnitude(
       const StaticPressure& static_pressure, const Area& area) noexcept;
 
   static constexpr ForceMagnitude Zero() noexcept {
@@ -50,52 +50,44 @@ public:
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  inline constexpr ForceMagnitude operator+(
+  constexpr ForceMagnitude operator+(
       const ForceMagnitude& force_magnitude) const noexcept {
     return ForceMagnitude{value_ + force_magnitude.value_};
   }
 
-  inline constexpr ForceMagnitude operator-(
+  constexpr ForceMagnitude operator-(
       const ForceMagnitude& force_magnitude) const noexcept {
     return ForceMagnitude{value_ - force_magnitude.value_};
   }
 
-  inline constexpr ForceMagnitude operator*(
-      const double number) const noexcept {
+  constexpr ForceMagnitude operator*(const double number) const noexcept {
     return ForceMagnitude{value_ * number};
   }
 
-  inline constexpr Force operator*(const Direction& direction) const noexcept;
+  constexpr Force operator*(const Direction& direction) const noexcept;
 
-  inline constexpr ForceMagnitude operator/(
-      const double number) const noexcept {
+  constexpr ForceMagnitude operator/(const double number) const noexcept {
     return ForceMagnitude{value_ / number};
   }
 
-  inline constexpr StaticPressure operator/(const Area& area) const noexcept;
+  constexpr StaticPressure operator/(const Area& area) const noexcept;
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const ForceMagnitude& force_magnitude) const noexcept {
     return value_ / force_magnitude.value_;
   }
 
-  inline constexpr void operator+=(
-      const ForceMagnitude& force_magnitude) noexcept {
+  constexpr void operator+=(const ForceMagnitude& force_magnitude) noexcept {
     value_ += force_magnitude.value_;
   }
 
-  inline constexpr void operator-=(
-      const ForceMagnitude& force_magnitude) noexcept {
+  constexpr void operator-=(const ForceMagnitude& force_magnitude) noexcept {
     value_ -= force_magnitude.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr ForceMagnitude(const double value) noexcept
@@ -148,7 +140,7 @@ inline constexpr ForceMagnitude operator*(
 namespace std {
 
 template<> struct hash<PhQ::ForceMagnitude> {
-  size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
+  inline size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
     return hash<double>()(force_magnitude.Value());
   }
 };

@@ -40,44 +40,39 @@ public:
             value)};
   }
 
-  inline constexpr ShearModulus operator+(
+  constexpr ShearModulus operator+(
       const ShearModulus& shear_modulus) const noexcept {
     return ShearModulus{value_ + shear_modulus.value_};
   }
 
-  inline constexpr ShearModulus operator-(
+  constexpr ShearModulus operator-(
       const ShearModulus& shear_modulus) const noexcept {
     return ShearModulus{value_ - shear_modulus.value_};
   }
 
-  inline constexpr ShearModulus operator*(const double number) const noexcept {
+  constexpr ShearModulus operator*(const double number) const noexcept {
     return ShearModulus{value_ * number};
   }
 
-  inline constexpr ShearModulus operator/(const double number) const noexcept {
+  constexpr ShearModulus operator/(const double number) const noexcept {
     return ShearModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const ShearModulus& shear_modulus) const noexcept {
+  constexpr double operator/(const ShearModulus& shear_modulus) const noexcept {
     return value_ / shear_modulus.value_;
   }
 
-  inline constexpr void operator+=(const ShearModulus& shear_modulus) noexcept {
+  constexpr void operator+=(const ShearModulus& shear_modulus) noexcept {
     value_ += shear_modulus.value_;
   }
 
-  inline constexpr void operator-=(const ShearModulus& shear_modulus) noexcept {
+  constexpr void operator-=(const ShearModulus& shear_modulus) noexcept {
     value_ -= shear_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr ShearModulus(const double value) noexcept
@@ -130,7 +125,7 @@ inline constexpr ShearModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::ShearModulus> {
-  size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
+  inline size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
     return hash<double>()(shear_modulus.Value());
   }
 };

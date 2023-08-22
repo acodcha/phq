@@ -59,66 +59,61 @@ public:
                                           Standard<Unit::AngularSpeed>>(value)};
   }
 
-  inline constexpr AngularSpeed operator+(
+  constexpr AngularSpeed operator+(
       const AngularSpeed& angular_speed) const noexcept {
     return AngularSpeed{value_ + angular_speed.value_};
   }
 
-  inline constexpr AngularSpeed operator-(
+  constexpr AngularSpeed operator-(
       const AngularSpeed& angular_speed) const noexcept {
     return AngularSpeed{value_ - angular_speed.value_};
   }
 
-  inline constexpr AngularSpeed operator*(const double number) const noexcept {
+  constexpr AngularSpeed operator*(const double number) const noexcept {
     return AngularSpeed{value_ * number};
   }
 
-  inline constexpr Angle operator*(const Time& time) const noexcept {
+  constexpr Angle operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr AngularAccelerationMagnitude operator*(
+  constexpr AngularAccelerationMagnitude operator*(
       const Frequency& frequency) const noexcept;
 
-  inline constexpr AngularSpeed operator/(const double number) const noexcept {
+  constexpr AngularSpeed operator/(const double number) const noexcept {
     return AngularSpeed{value_ / number};
   }
 
-  inline constexpr Angle operator/(const Frequency& frequency) const noexcept {
+  constexpr Angle operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Angle& angle) const noexcept {
+  constexpr Frequency operator/(const Angle& angle) const noexcept {
     return {*this, angle};
   }
 
-  inline constexpr AngularAccelerationMagnitude operator/(
+  constexpr AngularAccelerationMagnitude operator/(
       const Time& time) const noexcept;
 
-  inline constexpr Time
+  constexpr Time
   operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const noexcept;
 
-  inline constexpr double operator/(
-      const AngularSpeed& angular_speed) const noexcept {
+  constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
     return value_ / angular_speed.value_;
   }
 
-  inline constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
+  constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
     value_ += angular_speed.value_;
   }
 
-  inline constexpr void operator-=(const AngularSpeed& angular_speed) noexcept {
+  constexpr void operator-=(const AngularSpeed& angular_speed) noexcept {
     value_ -= angular_speed.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr AngularSpeed(const double value) noexcept
@@ -207,7 +202,7 @@ inline constexpr Time Angle::operator/(
 namespace std {
 
 template<> struct hash<PhQ::AngularSpeed> {
-  size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
+  inline size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
     return hash<double>()(angular_speed.Value());
   }
 };

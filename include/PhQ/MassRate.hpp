@@ -46,55 +46,49 @@ public:
             value)};
   }
 
-  inline constexpr MassRate operator+(
-      const MassRate& mass_rate) const noexcept {
+  constexpr MassRate operator+(const MassRate& mass_rate) const noexcept {
     return MassRate{value_ + mass_rate.value_};
   }
 
-  inline constexpr MassRate operator-(
-      const MassRate& mass_rate) const noexcept {
+  constexpr MassRate operator-(const MassRate& mass_rate) const noexcept {
     return MassRate{value_ - mass_rate.value_};
   }
 
-  inline constexpr MassRate operator*(const double number) const noexcept {
+  constexpr MassRate operator*(const double number) const noexcept {
     return MassRate{value_ * number};
   }
 
-  inline constexpr Mass operator*(const Time& time) const noexcept {
+  constexpr Mass operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr MassRate operator/(const double number) const noexcept {
+  constexpr MassRate operator/(const double number) const noexcept {
     return MassRate{value_ / number};
   }
 
-  inline constexpr Frequency operator/(const Mass& mass) const noexcept {
+  constexpr Frequency operator/(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline constexpr Mass operator/(const Frequency& frequency) const noexcept {
+  constexpr Mass operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr double operator/(const MassRate& mass_rate) const noexcept {
+  constexpr double operator/(const MassRate& mass_rate) const noexcept {
     return value_ / mass_rate.value_;
   }
 
-  inline constexpr void operator+=(const MassRate& mass_rate) noexcept {
+  constexpr void operator+=(const MassRate& mass_rate) noexcept {
     value_ += mass_rate.value_;
   }
 
-  inline constexpr void operator-=(const MassRate& mass_rate) noexcept {
+  constexpr void operator-=(const MassRate& mass_rate) noexcept {
     value_ -= mass_rate.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr MassRate(const double value) noexcept
@@ -187,7 +181,7 @@ inline constexpr Time Mass::operator/(
 namespace std {
 
 template<> struct hash<PhQ::MassRate> {
-  size_t operator()(const PhQ::MassRate& mass_rate) const {
+  inline size_t operator()(const PhQ::MassRate& mass_rate) const {
     return hash<double>()(mass_rate.Value());
   }
 };

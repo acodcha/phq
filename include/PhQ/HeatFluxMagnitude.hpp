@@ -54,51 +54,44 @@ public:
             value)};
   }
 
-  inline constexpr HeatFluxMagnitude operator+(
+  constexpr HeatFluxMagnitude operator+(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return HeatFluxMagnitude{value_ + heat_flux_magnitude.value_};
   }
 
-  inline constexpr HeatFluxMagnitude operator-(
+  constexpr HeatFluxMagnitude operator-(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return HeatFluxMagnitude{value_ - heat_flux_magnitude.value_};
   }
 
-  inline constexpr HeatFluxMagnitude operator*(
-      const double number) const noexcept {
+  constexpr HeatFluxMagnitude operator*(const double number) const noexcept {
     return HeatFluxMagnitude{value_ * number};
   }
 
-  inline constexpr HeatFlux operator*(
-      const Direction& direction) const noexcept;
+  constexpr HeatFlux operator*(const Direction& direction) const noexcept;
 
-  inline constexpr HeatFluxMagnitude operator/(
-      const double number) const noexcept {
+  constexpr HeatFluxMagnitude operator/(const double number) const noexcept {
     return HeatFluxMagnitude{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
     return value_ / heat_flux_magnitude.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
     value_ += heat_flux_magnitude.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
     value_ -= heat_flux_magnitude.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr HeatFluxMagnitude(const double value) noexcept
@@ -153,7 +146,8 @@ inline constexpr HeatFluxMagnitude operator*(
 namespace std {
 
 template<> struct hash<PhQ::HeatFluxMagnitude> {
-  size_t operator()(const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
+  inline size_t operator()(
+      const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
     return hash<double>()(heat_flux_magnitude.Value());
   }
 };

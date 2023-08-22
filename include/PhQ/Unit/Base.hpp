@@ -94,7 +94,7 @@ template<typename Unit> inline const std::map<
 
 // Converts a value expressed in a given unit of measure to a new unit of
 // measure. The conversion is performed in-place.
-template<typename Unit> void Convert(
+template<typename Unit> inline void Convert(
     double& value, const Unit original_unit, const Unit new_unit) noexcept {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&value, 1);
@@ -107,9 +107,9 @@ template<typename Unit> void Convert(
 
 // Converts an array of values expressed in a given unit of measure to a new
 // unit of measure. The conversion is performed in-place.
-template<typename Unit, std::size_t Size>
-void Convert(std::array<double, Size>& values, const Unit original_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit, std::size_t Size> inline void Convert(
+    std::array<double, Size>& values, const Unit original_unit,
+    const Unit new_unit) noexcept {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&values[0], Size);
   }
@@ -121,9 +121,9 @@ void Convert(std::array<double, Size>& values, const Unit original_unit,
 
 // Converts a vector of values expressed in a given unit of measure to a new
 // unit of measure. The conversion is performed in-place.
-template<typename Unit>
-void Convert(std::vector<double>& values, const Unit original_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit> inline void Convert(
+    std::vector<double>& values, const Unit original_unit,
+    const Unit new_unit) noexcept {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(
         &values[0], values.size());
@@ -136,25 +136,25 @@ void Convert(std::vector<double>& values, const Unit original_unit,
 
 // Converts a three-dimensional vector value expressed in a given unit of
 // measure to a new unit of measure. The conversion is performed in-place.
-template<typename Unit>
-void Convert(Value::Vector& value, const Unit original_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit> inline void Convert(
+    Value::Vector& value, const Unit original_unit,
+    const Unit new_unit) noexcept {
   Convert<Unit, 3>(value.mutable_x_y_z(), original_unit, new_unit);
 }
 
 // Converts a symmetric dyadic tensor value expressed in a given unit of measure
 // to a new unit of measure. The conversion is performed in-place.
-template<typename Unit>
-void Convert(Value::SymmetricDyad& value, const Unit original_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit> inline void Convert(
+    Value::SymmetricDyad& value, const Unit original_unit,
+    const Unit new_unit) noexcept {
   Convert<Unit, 6>(value.mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
 }
 
 // Converts a dyadic tensor value expressed in a given unit of measure to a new
 // unit of measure. The conversion is performed in-place.
-template<typename Unit>
-void Convert(Value::Dyad& value, const Unit original_unit,
-             const Unit new_unit) noexcept {
+template<typename Unit> inline void Convert(
+    Value::Dyad& value, const Unit original_unit,
+    const Unit new_unit) noexcept {
   Convert<Unit, 9>(
       value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
@@ -162,7 +162,7 @@ void Convert(Value::Dyad& value, const Unit original_unit,
 // Converts a value expressed in a given unit of measure to a new unit of
 // measure. Returns a copy of the converted value. The original value remains
 // unchanged.
-template<typename Unit> double ConvertCopy(
+template<typename Unit> inline double ConvertCopy(
     const double value, const Unit original_unit,
     const Unit new_unit) noexcept {
   double result{value};
@@ -173,9 +173,9 @@ template<typename Unit> double ConvertCopy(
 // Converts an array of values expressed in a given unit of measure to a new
 // unit of measure. Returns a copy of the converted values. The original values
 // remain unchanged.
-template<typename Unit, std::size_t Size> std::array<double, Size> ConvertCopy(
-    const std::array<double, Size>& values, const Unit original_unit,
-    const Unit new_unit) noexcept {
+template<typename Unit, std::size_t Size> inline std::array<double, Size>
+ConvertCopy(const std::array<double, Size>& values, const Unit original_unit,
+            const Unit new_unit) noexcept {
   std::array<double, Size> result{values};
   Convert<Unit, Size>(result, original_unit, new_unit);
   return result;
@@ -184,7 +184,7 @@ template<typename Unit, std::size_t Size> std::array<double, Size> ConvertCopy(
 // Converts a vector of values expressed in a given unit of measure to a new
 // unit of measure. Returns a copy of the converted values. The original values
 // remain unchanged.
-template<typename Unit> std::vector<double> ConvertCopy(
+template<typename Unit> inline std::vector<double> ConvertCopy(
     const std::vector<double>& values, const Unit original_unit,
     const Unit new_unit) noexcept {
   std::vector<double> result{values};
@@ -195,7 +195,7 @@ template<typename Unit> std::vector<double> ConvertCopy(
 // Converts a three-dimensional vector value expressed in a given unit of
 // measure to a new unit of measure. Returns a copy of the converted value. The
 // original value remains unchanged.
-template<typename Unit> Value::Vector ConvertCopy(
+template<typename Unit> inline Value::Vector ConvertCopy(
     const Value::Vector& value, const Unit original_unit,
     const Unit new_unit) noexcept {
   return Value::Vector{
@@ -205,7 +205,7 @@ template<typename Unit> Value::Vector ConvertCopy(
 // Converts a symmetric dyadic tensor value expressed in a given unit of measure
 // to a new unit of measure. Returns a copy of the converted value. The original
 // value remains unchanged.
-template<typename Unit> Value::SymmetricDyad ConvertCopy(
+template<typename Unit> inline Value::SymmetricDyad ConvertCopy(
     const Value::SymmetricDyad& value, const Unit original_unit,
     const Unit new_unit) noexcept {
   return Value::SymmetricDyad{
@@ -215,7 +215,7 @@ template<typename Unit> Value::SymmetricDyad ConvertCopy(
 // Converts a dyadic tensor value expressed in a given unit of measure to a new
 // unit of measure. Returns a copy of the converted value. The original value
 // remains unchanged.
-template<typename Unit> Value::Dyad ConvertCopy(
+template<typename Unit> inline Value::Dyad ConvertCopy(
     const Value::Dyad& value, const Unit original_unit,
     const Unit new_unit) noexcept {
   return Value::Dyad{ConvertCopy<Unit, 9>(

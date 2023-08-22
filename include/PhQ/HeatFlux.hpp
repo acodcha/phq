@@ -57,47 +57,39 @@ public:
             value)};
   }
 
-  inline constexpr HeatFluxMagnitude Magnitude() const noexcept {
-    return {*this};
-  }
+  constexpr HeatFluxMagnitude Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const HeatFlux& heat_flux) const noexcept {
+  PhQ::Angle Angle(const HeatFlux& heat_flux) const noexcept {
     return {*this, heat_flux};
   }
 
-  inline constexpr HeatFlux operator+(
-      const HeatFlux& heat_flux) const noexcept {
+  constexpr HeatFlux operator+(const HeatFlux& heat_flux) const noexcept {
     return HeatFlux{value_ + heat_flux.value_};
   }
 
-  inline constexpr HeatFlux operator-(
-      const HeatFlux& heat_flux) const noexcept {
+  constexpr HeatFlux operator-(const HeatFlux& heat_flux) const noexcept {
     return HeatFlux{value_ - heat_flux.value_};
   }
 
-  inline constexpr HeatFlux operator*(const double number) const noexcept {
+  constexpr HeatFlux operator*(const double number) const noexcept {
     return HeatFlux{value_ * number};
   }
 
-  inline constexpr HeatFlux operator/(const double number) const noexcept {
+  constexpr HeatFlux operator/(const double number) const noexcept {
     return HeatFlux{value_ / number};
   }
 
-  inline constexpr void operator+=(const HeatFlux& heat_flux) noexcept {
+  constexpr void operator+=(const HeatFlux& heat_flux) noexcept {
     value_ += heat_flux.value_;
   }
 
-  inline constexpr void operator-=(const HeatFlux& heat_flux) noexcept {
+  constexpr void operator-=(const HeatFlux& heat_flux) noexcept {
     value_ -= heat_flux.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr HeatFlux(const Value::Vector& value) noexcept
@@ -170,7 +162,7 @@ inline constexpr HeatFlux HeatFluxMagnitude::operator*(
 namespace std {
 
 template<> struct hash<PhQ::HeatFlux> {
-  size_t operator()(const PhQ::HeatFlux& heat_flux) const {
+  inline size_t operator()(const PhQ::HeatFlux& heat_flux) const {
     return hash<PhQ::Value::Vector>()(heat_flux.Value());
   }
 };

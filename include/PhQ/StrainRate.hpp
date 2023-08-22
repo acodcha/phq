@@ -56,47 +56,41 @@ public:
             value)};
   }
 
-  inline constexpr StrainRate operator+(
-      const StrainRate& strain_rate) const noexcept {
+  constexpr StrainRate operator+(const StrainRate& strain_rate) const noexcept {
     return {value_ + strain_rate.value_};
   }
 
-  inline constexpr StrainRate operator-(
-      const StrainRate& strain_rate) const noexcept {
+  constexpr StrainRate operator-(const StrainRate& strain_rate) const noexcept {
     return {value_ - strain_rate.value_};
   }
 
-  inline constexpr StrainRate operator*(const double number) const noexcept {
+  constexpr StrainRate operator*(const double number) const noexcept {
     return StrainRate{value_ * number};
   }
 
-  inline constexpr Strain operator*(const Time& time) const noexcept {
+  constexpr Strain operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr StrainRate operator/(const double number) const noexcept {
+  constexpr StrainRate operator/(const double number) const noexcept {
     return StrainRate{value_ / number};
   }
 
-  inline constexpr Strain operator/(const Frequency& frequency) const noexcept {
+  constexpr Strain operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr void operator+=(const StrainRate& strain_rate) noexcept {
+  constexpr void operator+=(const StrainRate& strain_rate) noexcept {
     value_ += strain_rate.value_;
   }
 
-  inline constexpr void operator-=(const StrainRate& strain_rate) noexcept {
+  constexpr void operator-=(const StrainRate& strain_rate) noexcept {
     value_ -= strain_rate.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   constexpr StrainRate(const Value::SymmetricDyad& value) noexcept
@@ -176,7 +170,7 @@ inline constexpr StrainRate Frequency::operator*(
 namespace std {
 
 template<> struct hash<PhQ::StrainRate> {
-  size_t operator()(const PhQ::StrainRate& strain_rate) const {
+  inline size_t operator()(const PhQ::StrainRate& strain_rate) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain_rate.Value());
   }
 };

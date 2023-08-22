@@ -27,23 +27,21 @@ namespace PhQ {
 template<typename U> class DimensionalScalarQuantity
   : public DimensionalQuantity<U> {
 public:
-  inline constexpr double Value() const noexcept { return value_; }
+  constexpr double Value() const noexcept { return value_; }
 
-  inline double Value(const U unit) const noexcept {
+  double Value(const U unit) const noexcept {
     double result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
-  template<U NewUnit> inline constexpr double StaticValue() const noexcept {
+  template<U NewUnit> constexpr double StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
-  inline constexpr double& MutableValue() noexcept { return value_; }
+  constexpr double& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const double value) noexcept {
-    value_ = value;
-  }
+  constexpr void SetValue(const double value) noexcept { value_ = value; }
 
   std::string Print() const noexcept override {
     return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
@@ -138,7 +136,8 @@ protected:
 namespace std {
 
 template<typename U> struct hash<PhQ::DimensionalScalarQuantity<U>> {
-  size_t operator()(const PhQ::DimensionalScalarQuantity<U>& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionalScalarQuantity<U>& quantity) const {
     return hash<double>()(quantity.Value());
   }
 };

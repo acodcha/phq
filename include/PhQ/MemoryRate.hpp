@@ -48,56 +48,49 @@ public:
             value)};
   }
 
-  inline constexpr MemoryRate operator+(
-      const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
     return MemoryRate{value_ + memory_rate.value_};
   }
 
-  inline constexpr MemoryRate operator-(
-      const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator-(const MemoryRate& memory_rate) const noexcept {
     return MemoryRate{value_ - memory_rate.value_};
   }
 
-  inline constexpr MemoryRate operator*(const double number) const noexcept {
+  constexpr MemoryRate operator*(const double number) const noexcept {
     return MemoryRate{value_ * number};
   }
 
-  inline constexpr Memory operator*(const Time& time) const noexcept {
+  constexpr Memory operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr MemoryRate operator/(const double number) const noexcept {
+  constexpr MemoryRate operator/(const double number) const noexcept {
     return MemoryRate{value_ / number};
   }
 
-  inline constexpr Memory operator/(const Frequency& frequency) const noexcept {
+  constexpr Memory operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Memory& memory) const noexcept {
+  constexpr Frequency operator/(const Memory& memory) const noexcept {
     return {*this, memory};
   }
 
-  inline constexpr double operator/(
-      const MemoryRate& memory_rate) const noexcept {
+  constexpr double operator/(const MemoryRate& memory_rate) const noexcept {
     return value_ / memory_rate.value_;
   }
 
-  inline constexpr void operator+=(const MemoryRate& memory_rate) noexcept {
+  constexpr void operator+=(const MemoryRate& memory_rate) noexcept {
     value_ += memory_rate.value_;
   }
 
-  inline constexpr void operator-=(const MemoryRate& memory_rate) noexcept {
+  constexpr void operator-=(const MemoryRate& memory_rate) noexcept {
     value_ -= memory_rate.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr MemoryRate(const double value) noexcept
@@ -185,7 +178,7 @@ inline constexpr Time Memory::operator/(
 namespace std {
 
 template<> struct hash<PhQ::MemoryRate> {
-  size_t operator()(const PhQ::MemoryRate& memory_rate) const {
+  inline size_t operator()(const PhQ::MemoryRate& memory_rate) const {
     return hash<double>()(memory_rate.Value());
   }
 };

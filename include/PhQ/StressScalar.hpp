@@ -43,44 +43,39 @@ public:
             value)};
   }
 
-  inline constexpr StressScalar operator+(
+  constexpr StressScalar operator+(
       const StressScalar& stress_scalar) const noexcept {
     return StressScalar{value_ + stress_scalar.value_};
   }
 
-  inline constexpr StressScalar operator-(
+  constexpr StressScalar operator-(
       const StressScalar& stress_scalar) const noexcept {
     return StressScalar{value_ - stress_scalar.value_};
   }
 
-  inline constexpr StressScalar operator*(const double number) const noexcept {
+  constexpr StressScalar operator*(const double number) const noexcept {
     return StressScalar{value_ * number};
   }
 
-  inline constexpr StressScalar operator/(const double number) const noexcept {
+  constexpr StressScalar operator/(const double number) const noexcept {
     return StressScalar{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const StressScalar& stress_scalar) const noexcept {
+  constexpr double operator/(const StressScalar& stress_scalar) const noexcept {
     return value_ / stress_scalar.value_;
   }
 
-  inline constexpr void operator+=(const StressScalar& stress_scalar) noexcept {
+  constexpr void operator+=(const StressScalar& stress_scalar) noexcept {
     value_ += stress_scalar.value_;
   }
 
-  inline constexpr void operator-=(const StressScalar& stress_scalar) noexcept {
+  constexpr void operator-=(const StressScalar& stress_scalar) noexcept {
     value_ -= stress_scalar.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr StressScalar(const double value) noexcept
@@ -135,7 +130,7 @@ inline constexpr StressScalar operator*(
 namespace std {
 
 template<> struct hash<PhQ::StressScalar> {
-  size_t operator()(const PhQ::StressScalar& stress_scalar) const {
+  inline size_t operator()(const PhQ::StressScalar& stress_scalar) const {
     return hash<double>()(stress_scalar.Value());
   }
 };

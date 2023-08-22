@@ -59,57 +59,51 @@ public:
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  inline Speed Magnitude() const noexcept { return {*this}; }
+  Speed Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const Velocity& velocity) const noexcept {
+  PhQ::Angle Angle(const Velocity& velocity) const noexcept {
     return {*this, velocity};
   }
 
-  inline constexpr Velocity operator+(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator+(const Velocity& velocity) const noexcept {
     return Velocity{value_ + velocity.value_};
   }
 
-  inline constexpr Velocity operator-(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator-(const Velocity& velocity) const noexcept {
     return Velocity{value_ - velocity.value_};
   }
 
-  inline constexpr Velocity operator*(const double number) const noexcept {
+  constexpr Velocity operator*(const double number) const noexcept {
     return Velocity{value_ * number};
   }
 
-  inline constexpr Displacement operator*(const Time& time) const noexcept {
+  constexpr Displacement operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr Acceleration operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr Acceleration operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Velocity operator/(const double number) const noexcept {
+  constexpr Velocity operator/(const double number) const noexcept {
     return Velocity{value_ / number};
   }
 
-  inline constexpr Acceleration operator/(const Time& time) const noexcept;
+  constexpr Acceleration operator/(const Time& time) const noexcept;
 
-  inline constexpr Displacement operator/(
-      const Frequency& frequency) const noexcept {
+  constexpr Displacement operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr void operator+=(const Velocity& velocity) noexcept {
+  constexpr void operator+=(const Velocity& velocity) noexcept {
     value_ += velocity.value_;
   }
 
-  inline constexpr void operator-=(const Velocity& velocity) noexcept {
+  constexpr void operator-=(const Velocity& velocity) noexcept {
     value_ -= velocity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Velocity(const Value::Vector& value) noexcept
@@ -210,7 +204,7 @@ inline constexpr Velocity Displacement::operator/(
 namespace std {
 
 template<> struct hash<PhQ::Velocity> {
-  size_t operator()(const PhQ::Velocity& velocity) const {
+  inline size_t operator()(const PhQ::Velocity& velocity) const {
     return hash<PhQ::Value::Vector>()(velocity.Value());
   }
 };

@@ -55,33 +55,25 @@ public:
       substance_amount_(substance_amount),
       luminous_intensity_(luminous_intensity) {}
 
-  inline constexpr const Dimension::Time& Time() const noexcept {
-    return time_;
-  }
+  constexpr const Dimension::Time& Time() const noexcept { return time_; }
 
-  inline constexpr const Dimension::Length& Length() const noexcept {
-    return length_;
-  }
+  constexpr const Dimension::Length& Length() const noexcept { return length_; }
 
-  inline constexpr const Dimension::Mass& Mass() const noexcept {
-    return mass_;
-  }
+  constexpr const Dimension::Mass& Mass() const noexcept { return mass_; }
 
-  inline constexpr const Dimension::ElectricCurrent&
-  ElectricCurrent() const noexcept {
+  constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
     return electric_current_;
   }
 
-  inline constexpr const Dimension::Temperature& Temperature() const noexcept {
+  constexpr const Dimension::Temperature& Temperature() const noexcept {
     return temperature_;
   }
 
-  inline constexpr const Dimension::SubstanceAmount&
-  SubstanceAmount() const noexcept {
+  constexpr const Dimension::SubstanceAmount& SubstanceAmount() const noexcept {
     return substance_amount_;
   }
 
-  inline constexpr const Dimension::LuminousIntensity&
+  constexpr const Dimension::LuminousIntensity&
   LuminousIntensity() const noexcept {
     return luminous_intensity_;
   }
@@ -315,7 +307,7 @@ inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
          || left.LuminousIntensity() != right.LuminousIntensity();
 }
 
-constexpr bool operator<(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator<(const Set& left, const Set& right) noexcept {
   if (left.Time() == right.Time()) {
     if (left.Length() == right.Length()) {
       if (left.Mass() == right.Mass()) {
@@ -343,7 +335,7 @@ constexpr bool operator<(const Set& left, const Set& right) noexcept {
   }
 }
 
-constexpr bool operator>(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator>(const Set& left, const Set& right) noexcept {
   if (left.Time() == right.Time()) {
     if (left.Length() == right.Length()) {
       if (left.Mass() == right.Mass()) {
@@ -371,11 +363,11 @@ constexpr bool operator>(const Set& left, const Set& right) noexcept {
   }
 }
 
-constexpr bool operator<=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator<=(const Set& left, const Set& right) noexcept {
   return !(left > right);
 }
 
-constexpr bool operator>=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator>=(const Set& left, const Set& right) noexcept {
   return !(left < right);
 }
 
@@ -389,7 +381,7 @@ inline std::ostream& operator<<(std::ostream& stream, const Set& set) {
 namespace std {
 
 template<> struct hash<PhQ::Dimension::Set> {
-  size_t operator()(const PhQ::Dimension::Set& set) const {
+  inline size_t operator()(const PhQ::Dimension::Set& set) const {
     size_t result = 17;
     result = 31 * result + set.Time().Value();
     result = 31 * result + set.Length().Value();

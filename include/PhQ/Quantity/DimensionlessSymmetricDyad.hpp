@@ -29,15 +29,13 @@ namespace PhQ {
 // physical quantity has no unit of measure and no dimension set.
 class DimensionlessSymmetricDyadQuantity : public DimensionlessQuantity {
 public:
-  inline constexpr const Value::SymmetricDyad& Value() const noexcept {
+  constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
   }
 
-  inline constexpr Value::SymmetricDyad& MutableValue() noexcept {
-    return value_;
-  }
+  constexpr Value::SymmetricDyad& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
+  constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
     value_ = value;
   }
 
@@ -81,7 +79,7 @@ protected:
 namespace std {
 
 template<> struct hash<PhQ::DimensionlessSymmetricDyadQuantity> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::DimensionlessSymmetricDyadQuantity& quantity) const {
     return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());
   }

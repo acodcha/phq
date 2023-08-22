@@ -32,13 +32,13 @@
 namespace PhQ {
 
 // Transforms a given string such that all of its characters are lowercase.
-void Lowercase(std::string& text) noexcept {
+inline void Lowercase(std::string& text) noexcept {
   std::transform(text.begin(), text.end(), text.begin(),
                  [](int character) { return std::tolower(character); });
 }
 
 // Returns a copy of a given string where all characters are lowercase.
-std::string LowercaseCopy(const std::string_view text) noexcept {
+inline std::string LowercaseCopy(const std::string_view text) noexcept {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(),
                  [](int character) { return std::tolower(character); });
@@ -47,7 +47,8 @@ std::string LowercaseCopy(const std::string_view text) noexcept {
 
 // Parses a given string into an integer. Returns the integer, or std::nullopt
 // if the string cannot be parsed into an integer.
-std::optional<int_least64_t> ParseToInteger(const std::string& text) noexcept {
+inline std::optional<int_least64_t> ParseToInteger(
+    const std::string& text) noexcept {
   char* end = 0;
   const long long int value = std::strtoll(text.c_str(), &end, 10);
   if (end != text.c_str() && *end == '\0' && value != LLONG_MAX
@@ -60,7 +61,7 @@ std::optional<int_least64_t> ParseToInteger(const std::string& text) noexcept {
 // Parses a given string into a double-precision floating-point number. Returns
 // the number, or std::nullopt if the string cannot be parsed into a
 // double-precision floating-point number.
-std::optional<double> ParseToDouble(const std::string& text) noexcept {
+inline std::optional<double> ParseToDouble(const std::string& text) noexcept {
   char* end = 0;
   const double value = strtod(text.c_str(), &end);
   if (end != text.c_str() && *end == '\0' && value != HUGE_VAL
@@ -72,8 +73,9 @@ std::optional<double> ParseToDouble(const std::string& text) noexcept {
 
 // Prints a given double-precision floating point number as a string to a given
 // precision.
-std::string Print(const double value,
-                  const Precision precision = Precision::Double) noexcept {
+inline std::string Print(
+    const double value,
+    const Precision precision = Precision::Double) noexcept {
   const double absolute{std::abs(value)};
   std::ostringstream stream;
   if (absolute < 1.0) {
@@ -172,13 +174,14 @@ std::string Print(const double value,
 
 // Replaces all occurrences of a given character in a given string with a
 // different given character.
-void Replace(std::string& text, const char from, const char to) noexcept {
+inline void Replace(
+    std::string& text, const char from, const char to) noexcept {
   std::replace(text.begin(), text.end(), from, to);
 }
 
 // Returns a copy of a given string where all occurrences of a given character
 // have been replaced with a different given character.
-std::string ReplaceCopy(
+inline std::string ReplaceCopy(
     const std::string_view text, const char from, const char to) noexcept {
   std::string result{text};
   std::replace_copy(text.cbegin(), text.cend(), result.begin(), from, to);
@@ -187,20 +190,21 @@ std::string ReplaceCopy(
 
 // Transforms a given string into snake case; that is, all characters are
 // lowercase and all spaces are replaced with underscores.
-void SnakeCase(std::string& text) noexcept {
+inline void SnakeCase(std::string& text) noexcept {
   Lowercase(text);
   Replace(text, ' ', '_');
 }
 
 // Returns a copy of a given string in snake case; that is, all characters are
 // lowercase and all spaces are replaced with underscores.
-std::string SnakeCaseCopy(const std::string_view text) noexcept {
+inline std::string SnakeCaseCopy(const std::string_view text) noexcept {
   return LowercaseCopy(ReplaceCopy(text, ' ', '_'));
 }
 
 // Splits a given string by whitespace and returns the collection of resulting
 // strings.
-std::vector<std::string> SplitByWhitespace(const std::string& text) noexcept {
+inline std::vector<std::string> SplitByWhitespace(
+    const std::string& text) noexcept {
   std::istringstream stream{text};
   std::vector<std::string> words{std::istream_iterator<std::string>{stream},
                                  std::istream_iterator<std::string>{}};
@@ -208,13 +212,13 @@ std::vector<std::string> SplitByWhitespace(const std::string& text) noexcept {
 }
 
 // Transforms a given string such that all of its characters are uppercase.
-void Uppercase(std::string& text) noexcept {
+inline void Uppercase(std::string& text) noexcept {
   std::transform(text.begin(), text.end(), text.begin(),
                  [](int character) { return std::toupper(character); });
 }
 
 // Returns a copy of a given string where all characters are uppercase.
-std::string UppercaseCopy(const std::string_view text) noexcept {
+inline std::string UppercaseCopy(const std::string_view text) noexcept {
   std::string result{text};
   std::transform(result.begin(), result.end(), result.begin(),
                  [](int character) { return std::toupper(character); });

@@ -46,60 +46,54 @@ public:
                           Standard<Unit::ThermalExpansion>>(value)};
   }
 
-  inline constexpr LinearThermalExpansionCoefficient operator+(
+  constexpr LinearThermalExpansionCoefficient operator+(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept {
     return LinearThermalExpansionCoefficient{
         value_ + linear_thermal_expansion_coefficient.value_};
   }
 
-  inline constexpr LinearThermalExpansionCoefficient operator-(
+  constexpr LinearThermalExpansionCoefficient operator-(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept {
     return LinearThermalExpansionCoefficient{
         value_ - linear_thermal_expansion_coefficient.value_};
   }
 
-  inline constexpr LinearThermalExpansionCoefficient operator*(
+  constexpr LinearThermalExpansionCoefficient operator*(
       const double number) const noexcept {
     return LinearThermalExpansionCoefficient{value_ * number};
   }
 
-  inline constexpr StrainScalar operator*(
+  constexpr StrainScalar operator*(
       const TemperatureDifference& temperature_difference) const noexcept {
     return {*this, temperature_difference};
   }
 
-  inline constexpr LinearThermalExpansionCoefficient operator/(
+  constexpr LinearThermalExpansionCoefficient operator/(
       const double number) const noexcept {
     return LinearThermalExpansionCoefficient{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const LinearThermalExpansionCoefficient&
           linear_thermal_expansion_coefficient) const noexcept {
     return value_ / linear_thermal_expansion_coefficient.value_;
   }
 
-  inline constexpr void operator+=(
-      const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient) noexcept {
+  constexpr void operator+=(const LinearThermalExpansionCoefficient&
+                                linear_thermal_expansion_coefficient) noexcept {
     value_ += linear_thermal_expansion_coefficient.value_;
   }
 
-  inline constexpr void operator-=(
-      const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient) noexcept {
+  constexpr void operator-=(const LinearThermalExpansionCoefficient&
+                                linear_thermal_expansion_coefficient) noexcept {
     value_ -= linear_thermal_expansion_coefficient.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr LinearThermalExpansionCoefficient(
@@ -174,8 +168,8 @@ inline constexpr StrainScalar TemperatureDifference::operator*(
 namespace std {
 
 template<> struct hash<PhQ::LinearThermalExpansionCoefficient> {
-  size_t operator()(const PhQ::LinearThermalExpansionCoefficient&
-                        linear_thermal_expansion_coefficient) const {
+  inline size_t operator()(const PhQ::LinearThermalExpansionCoefficient&
+                               linear_thermal_expansion_coefficient) const {
     return hash<double>()(linear_thermal_expansion_coefficient.Value());
   }
 };

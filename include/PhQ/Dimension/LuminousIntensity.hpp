@@ -32,7 +32,7 @@ public:
   explicit constexpr LuminousIntensity(const int_least8_t value) noexcept
     : value_(value) {}
 
-  inline constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int_least8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "J"; }
 
@@ -96,7 +96,8 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Dimension::LuminousIntensity> {
-  size_t operator()(const PhQ::Dimension::LuminousIntensity& intensity) const {
+  inline size_t operator()(
+      const PhQ::Dimension::LuminousIntensity& intensity) const {
     return hash<int_least8_t>()(intensity.Value());
   }
 };

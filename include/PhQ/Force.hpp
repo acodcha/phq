@@ -50,45 +50,39 @@ public:
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  inline ForceMagnitude Magnitude() const noexcept { return {*this}; }
+  ForceMagnitude Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const Force& force) const noexcept {
-    return {*this, force};
-  }
+  PhQ::Angle Angle(const Force& force) const noexcept { return {*this, force}; }
 
-  inline constexpr Force operator+(const Force& force) const noexcept {
+  constexpr Force operator+(const Force& force) const noexcept {
     return Force{value_ + force.value_};
   }
 
-  inline constexpr Force operator-(const Force& force) const noexcept {
+  constexpr Force operator-(const Force& force) const noexcept {
     return Force{value_ - force.value_};
   }
 
-  inline constexpr Force operator*(const double number) const noexcept {
+  constexpr Force operator*(const double number) const noexcept {
     return Force{value_ * number};
   }
 
-  inline constexpr Force operator/(const double number) const noexcept {
+  constexpr Force operator/(const double number) const noexcept {
     return Force{value_ / number};
   }
 
-  inline constexpr Traction operator/(const Area& area) const noexcept;
+  constexpr Traction operator/(const Area& area) const noexcept;
 
-  inline constexpr void operator+=(const Force& force) noexcept {
+  constexpr void operator+=(const Force& force) noexcept {
     value_ += force.value_;
   }
 
-  inline constexpr void operator-=(const Force& force) noexcept {
+  constexpr void operator-=(const Force& force) noexcept {
     value_ -= force.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Force(const Value::Vector& value) noexcept
@@ -160,7 +154,7 @@ inline constexpr Force ForceMagnitude::operator*(
 namespace std {
 
 template<> struct hash<PhQ::Force> {
-  size_t operator()(const PhQ::Force& force) const {
+  inline size_t operator()(const PhQ::Force& force) const {
     return hash<PhQ::Value::Vector>()(force.Value());
   }
 };

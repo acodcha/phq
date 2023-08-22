@@ -74,51 +74,46 @@ public:
             value)};
   }
 
-  inline constexpr MassDensity operator+(
+  constexpr MassDensity operator+(
       const MassDensity& mass_density) const noexcept {
     return MassDensity{value_ + mass_density.value_};
   }
 
-  inline constexpr MassDensity operator-(
+  constexpr MassDensity operator-(
       const MassDensity& mass_density) const noexcept {
     return MassDensity{value_ - mass_density.value_};
   }
 
-  inline constexpr MassDensity operator*(const double number) const noexcept {
+  constexpr MassDensity operator*(const double number) const noexcept {
     return MassDensity{value_ * number};
   }
 
-  inline constexpr Mass operator*(const Volume& volume) const noexcept {
+  constexpr Mass operator*(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
-  inline constexpr DynamicViscosity operator*(
+  constexpr DynamicViscosity operator*(
       const KinematicViscosity& kinematic_viscosity) const noexcept;
 
-  inline constexpr MassDensity operator/(const double number) const noexcept {
+  constexpr MassDensity operator/(const double number) const noexcept {
     return MassDensity{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const MassDensity& mass_density) const noexcept {
+  constexpr double operator/(const MassDensity& mass_density) const noexcept {
     return value_ / mass_density.value_;
   }
 
-  inline constexpr void operator+=(const MassDensity& mass_density) noexcept {
+  constexpr void operator+=(const MassDensity& mass_density) noexcept {
     value_ += mass_density.value_;
   }
 
-  inline constexpr void operator-=(const MassDensity& mass_density) noexcept {
+  constexpr void operator-=(const MassDensity& mass_density) noexcept {
     value_ -= mass_density.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr MassDensity(const double value) noexcept
@@ -189,7 +184,7 @@ inline constexpr Mass Volume::operator*(
 namespace std {
 
 template<> struct hash<PhQ::MassDensity> {
-  size_t operator()(const PhQ::MassDensity& mass_density) const {
+  inline size_t operator()(const PhQ::MassDensity& mass_density) const {
     return hash<double>()(mass_density.Value());
   }
 };
