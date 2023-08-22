@@ -47,8 +47,9 @@ template<> inline constexpr const Unit::VolumeRate Standard<Unit::VolumeRate>{
     Unit::VolumeRate::CubicMetrePerSecond};
 
 // Physical dimension set of time-rate of volume units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::VolumeRate>{
-    Dimension::Set{Dimension::Time{-1}, Dimension::Length{3}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::VolumeRate>{
+    Dimensions{Dimension::Time{-1}, Dimension::Length{3}}
 };
 
 namespace Internal {

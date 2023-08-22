@@ -38,9 +38,8 @@ template<> inline constexpr const Unit::MassRate Standard<Unit::MassRate>{
     Unit::MassRate::KilogramPerSecond};
 
 // Physical dimension set of time rate of mass units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::MassRate>{
-    Dimension::Set{
-                   Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::MassRate>{
+    Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
 namespace Internal {

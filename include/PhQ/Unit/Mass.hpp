@@ -38,9 +38,8 @@ template<>
 inline constexpr const Unit::Mass Standard<Unit::Mass>{Unit::Mass::Kilogram};
 
 // Physical dimension set of mass units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Mass>{
-    Dimension::Set{
-                   Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Mass>{
+    Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
 namespace Internal {

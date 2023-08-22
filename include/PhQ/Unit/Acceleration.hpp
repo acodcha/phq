@@ -70,8 +70,9 @@ inline constexpr const Unit::Acceleration Standard<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};
 
 // Physical dimension set of acceleration units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Acceleration>{
-    Dimension::Set{Dimension::Time{-2}, Dimension::Length{1}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::Acceleration>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{1}}
 };
 
 namespace Internal {

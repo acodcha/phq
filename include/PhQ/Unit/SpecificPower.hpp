@@ -39,9 +39,8 @@ inline constexpr const Unit::SpecificPower Standard<Unit::SpecificPower>{
 
 // Physical dimension set of mass-specific power units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::SpecificPower>{
-    Dimension::Set{
-                   Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{}}
+inline constexpr const Dimensions RelatedDimensions<Unit::SpecificPower>{
+    Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{}}
 };
 
 namespace Internal {

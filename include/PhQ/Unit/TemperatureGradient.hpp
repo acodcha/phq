@@ -43,9 +43,9 @@ template<> inline constexpr const Unit::TemperatureGradient
 
 // Physical dimension set of temperature gradient units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::TemperatureGradient>{
-    Dimension::Set{Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureGradient>{
+    Dimensions{Dimension::Time{}, Dimension::Length{-1}, Dimension::Mass{},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
 namespace Internal {

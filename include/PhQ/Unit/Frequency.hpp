@@ -39,8 +39,8 @@ template<> inline constexpr const Unit::Frequency Standard<Unit::Frequency>{
     Unit::Frequency::Hertz};
 
 // Physical dimension set of frequency units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Frequency>{
-    Dimension::Set{Dimension::Time{-1}}};
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Frequency>{
+    Dimensions{Dimension::Time{-1}}};
 
 namespace Internal {
 

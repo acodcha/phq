@@ -335,11 +335,6 @@ TEST(UnitSpeed, ConvertVerification) {
   }
 }
 
-TEST(UnitSpeed, DimensionSet) {
-  EXPECT_EQ(Dimensions<Speed>,
-            Dimension::Set(Dimension::Time{-1}, Dimension::Length{1}));
-}
-
 TEST(UnitSpeed, Parse) {
   EXPECT_EQ(Parse<Speed>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Speed>("mi/s"), Speed::MilePerSecond);
@@ -378,6 +373,11 @@ TEST(UnitSpeed, Parse) {
   EXPECT_EQ(Parse<Speed>("mil/hr"), Speed::MilliinchPerHour);
   EXPECT_EQ(Parse<Speed>("μm/hr"), Speed::MicrometrePerHour);
   EXPECT_EQ(Parse<Speed>("μin/hr"), Speed::MicroinchPerHour);
+}
+
+TEST(UnitSpeed, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Speed>,
+            Dimensions(Dimension::Time{-1}, Dimension::Length{1}));
 }
 
 TEST(UnitSpeed, RelatedUnitSystem) {

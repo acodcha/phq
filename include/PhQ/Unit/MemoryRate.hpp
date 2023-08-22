@@ -55,8 +55,9 @@ template<> inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{
     Unit::MemoryRate::BitPerSecond};
 
 // Physical dimension set of time rate of computer memory units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::MemoryRate>{
-    Dimension::Set{Dimension::Time{-1}}};
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::MemoryRate>{
+    Dimensions{Dimension::Time{-1}}};
 
 namespace Internal {
 

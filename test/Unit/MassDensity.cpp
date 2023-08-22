@@ -110,12 +110,6 @@ TEST(UnitMassDensity, ConvertVerification) {
   }
 }
 
-TEST(UnitMassDensity, DimensionSet) {
-  EXPECT_EQ(Dimensions<MassDensity>,
-            Dimension::Set(
-                Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
-}
-
 TEST(UnitMassDensity, Parse) {
   EXPECT_EQ(Parse<MassDensity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<MassDensity>("kg/m^3"), MassDensity::KilogramPerCubicMetre);
@@ -124,6 +118,12 @@ TEST(UnitMassDensity, Parse) {
   EXPECT_EQ(Parse<MassDensity>("slinch/in^3"), MassDensity::SlinchPerCubicInch);
   EXPECT_EQ(Parse<MassDensity>("lbm/ft^3"), MassDensity::PoundPerCubicFoot);
   EXPECT_EQ(Parse<MassDensity>("lbm/in^3"), MassDensity::PoundPerCubicInch);
+}
+
+TEST(UnitMassDensity, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<MassDensity>,
+      Dimensions(Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
 }
 
 TEST(UnitMassDensity, RelatedUnitSystem) {

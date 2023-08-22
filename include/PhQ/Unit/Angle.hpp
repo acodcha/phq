@@ -39,7 +39,7 @@ inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 
 // Physical dimension set of angle units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::Angle>{Dimension::Set{}};
+inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensions{}};
 
 namespace Internal {
 

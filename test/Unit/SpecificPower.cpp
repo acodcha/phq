@@ -102,11 +102,6 @@ TEST(UnitSpecificPower, ConvertVerification) {
   }
 }
 
-TEST(UnitSpecificPower, DimensionSet) {
-  EXPECT_EQ(Dimensions<SpecificPower>,
-            Dimension::Set(Dimension::Time{-3}, Dimension::Length{2}));
-}
-
 TEST(UnitSpecificPower, Parse) {
   EXPECT_EQ(Parse<SpecificPower>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<SpecificPower>("W/kg"), SpecificPower::WattPerKilogram);
@@ -115,6 +110,11 @@ TEST(UnitSpecificPower, Parse) {
             SpecificPower::FootPoundPerSlugPerSecond);
   EXPECT_EQ(Parse<SpecificPower>("in·lbf/slinch/s"),
             SpecificPower::InchPoundPerSlinchPerSecond);
+}
+
+TEST(UnitSpecificPower, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<SpecificPower>,
+            Dimensions(Dimension::Time{-3}, Dimension::Length{2}));
 }
 
 TEST(UnitSpecificPower, RelatedUnitSystem) {

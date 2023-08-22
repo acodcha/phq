@@ -39,8 +39,8 @@ inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
 
 // Physical dimension set of mass-specific energy units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::SpecificEnergy>{
-    Dimension::Set{Dimension::Time{-2}, Dimension::Length{2}}
+inline constexpr const Dimensions RelatedDimensions<Unit::SpecificEnergy>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{2}}
 };
 
 namespace Internal {

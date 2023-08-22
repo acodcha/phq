@@ -40,9 +40,10 @@ template<> inline constexpr const Unit::Temperature Standard<Unit::Temperature>{
     Unit::Temperature::Kelvin};
 
 // Physical dimension set of temperature units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Temperature>{
-    Dimension::Set{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::Temperature>{
+    Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
 namespace Internal {

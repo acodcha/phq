@@ -47,8 +47,8 @@ template<>
 inline constexpr const Unit::Area Standard<Unit::Area>{Unit::Area::SquareMetre};
 
 // Physical dimension set of area units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Area>{
-    Dimension::Set{Dimension::Time{0}, Dimension::Length{2}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Area>{
+    Dimensions{Dimension::Time{0}, Dimension::Length{2}}
 };
 
 namespace Internal {

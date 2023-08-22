@@ -20,6 +20,8 @@
 #include <string>
 #include <string_view>
 
+#include "../Base.hpp"
+
 namespace PhQ::Dimension {
 
 // Base physical dimension of temperature. Typically denoted "Θ". One of seven

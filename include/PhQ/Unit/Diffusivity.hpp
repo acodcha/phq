@@ -47,8 +47,9 @@ template<> inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
     Unit::Diffusivity::SquareMetrePerSecond};
 
 // Physical dimension set of diffusivity units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Diffusivity>{
-    Dimension::Set{Dimension::Time{-1}, Dimension::Length{2}}
+template<>
+inline constexpr const Dimensions RelatedDimensions<Unit::Diffusivity>{
+    Dimensions{Dimension::Time{-1}, Dimension::Length{2}}
 };
 
 namespace Internal {

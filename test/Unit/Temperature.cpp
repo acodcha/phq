@@ -95,19 +95,19 @@ TEST(UnitTemperature, ConvertVerification) {
   }
 }
 
-TEST(UnitTemperature, DimensionSet) {
-  EXPECT_EQ(
-      Dimensions<Temperature>,
-      Dimension::Set(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                     Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
-}
-
 TEST(UnitTemperature, Parse) {
   EXPECT_EQ(Parse<Temperature>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Temperature>("K"), Temperature::Kelvin);
   EXPECT_EQ(Parse<Temperature>("°C"), Temperature::Celsius);
   EXPECT_EQ(Parse<Temperature>("°R"), Temperature::Rankine);
   EXPECT_EQ(Parse<Temperature>("°F"), Temperature::Fahrenheit);
+}
+
+TEST(UnitTemperature, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<Temperature>,
+      Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
 }
 
 TEST(UnitTemperature, RelatedUnitSystem) {

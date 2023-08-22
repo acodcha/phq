@@ -185,12 +185,6 @@ TEST(UnitForce, ConvertVerification) {
   }
 }
 
-TEST(UnitForce, DimensionSet) {
-  EXPECT_EQ(Dimensions<Force>,
-            Dimension::Set(
-                Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}));
-}
-
 TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Force>("N"), Force::Newton);
@@ -211,6 +205,12 @@ TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("kW·min/m"), Force::KilowattMinutePerMetre);
   EXPECT_EQ(Parse<Force>("kW·hr/m"), Force::KilowattHourPerMetre);
   EXPECT_EQ(Parse<Force>("lbf"), Force::Pound);
+}
+
+TEST(UnitForce, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Force>,
+            Dimensions(
+                Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}));
 }
 
 TEST(UnitForce, RelatedUnitSystem) {

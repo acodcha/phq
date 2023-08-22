@@ -41,9 +41,8 @@ template<> inline constexpr const Unit::Pressure Standard<Unit::Pressure>{
     Unit::Pressure::Pascal};
 
 // Physical dimension set of pressure units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Pressure>{
-    Dimension::Set{
-                   Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Pressure>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
 namespace Internal {

@@ -16,16 +16,15 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
 
-#include "../Base.hpp"
-#include "ElectricCurrent.hpp"
-#include "Length.hpp"
-#include "LuminousIntensity.hpp"
-#include "Mass.hpp"
-#include "SubstanceAmount.hpp"
-#include "Temperature.hpp"
-#include "Time.hpp"
+#include "Dimension/ElectricCurrent.hpp"
+#include "Dimension/Length.hpp"
+#include "Dimension/LuminousIntensity.hpp"
+#include "Dimension/Mass.hpp"
+#include "Dimension/SubstanceAmount.hpp"
+#include "Dimension/Temperature.hpp"
+#include "Dimension/Time.hpp"
 
-namespace PhQ::Dimension {
+namespace PhQ {
 
 // Physical dimension set of a unit of measure or physical quantity. Composed of
 // the seven independent base physical dimensions: time, length, mass, electric
@@ -42,14 +41,15 @@ namespace PhQ::Dimension {
 // physical dimension set M·L^(-3), which is the physical dimension set of mass
 // density, so this unit of measure cannot be converted to either the metre per
 // second or the mile per hour.
-class Set {
+class Dimensions {
 public:
-  constexpr Set(
-      const Time& time = {}, const Length& length = {}, const Mass& mass = {},
-      const ElectricCurrent& electric_current = {},
-      const Temperature& temperature = {},
-      const SubstanceAmount& substance_amount = {},
-      const LuminousIntensity& luminous_intensity = {}) noexcept
+  constexpr Dimensions(
+      const Dimension::Time& time = {}, const Dimension::Length& length = {},
+      const Dimension::Mass& mass = {},
+      const Dimension::ElectricCurrent& electric_current = {},
+      const Dimension::Temperature& temperature = {},
+      const Dimension::SubstanceAmount& substance_amount = {},
+      const Dimension::LuminousIntensity& luminous_intensity = {}) noexcept
     : time_(time), length_(length), mass_(mass),
       electric_current_(electric_current), temperature_(temperature),
       substance_amount_(substance_amount),
@@ -289,7 +289,8 @@ private:
   Dimension::LuminousIntensity luminous_intensity_;
 };
 
-inline constexpr bool operator==(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator==(
+    const Dimensions& left, const Dimensions& right) noexcept {
   return left.Time() == right.Time() && left.Length() == right.Length()
          && left.Mass() == right.Mass()
          && left.ElectricCurrent() == right.ElectricCurrent()
@@ -298,7 +299,8 @@ inline constexpr bool operator==(const Set& left, const Set& right) noexcept {
          && left.LuminousIntensity() == right.LuminousIntensity();
 }
 
-inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator!=(
+    const Dimensions& left, const Dimensions& right) noexcept {
   return left.Time() != right.Time() || left.Length() != right.Length()
          || left.Mass() != right.Mass()
          || left.ElectricCurrent() != right.ElectricCurrent()
@@ -307,7 +309,8 @@ inline constexpr bool operator!=(const Set& left, const Set& right) noexcept {
          || left.LuminousIntensity() != right.LuminousIntensity();
 }
 
-inline constexpr bool operator<(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator<(
+    const Dimensions& left, const Dimensions& right) noexcept {
   if (left.Time() == right.Time()) {
     if (left.Length() == right.Length()) {
       if (left.Mass() == right.Mass()) {
@@ -335,7 +338,8 @@ inline constexpr bool operator<(const Set& left, const Set& right) noexcept {
   }
 }
 
-inline constexpr bool operator>(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator>(
+    const Dimensions& left, const Dimensions& right) noexcept {
   if (left.Time() == right.Time()) {
     if (left.Length() == right.Length()) {
       if (left.Mass() == right.Mass()) {
@@ -363,33 +367,36 @@ inline constexpr bool operator>(const Set& left, const Set& right) noexcept {
   }
 }
 
-inline constexpr bool operator<=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator<=(
+    const Dimensions& left, const Dimensions& right) noexcept {
   return !(left > right);
 }
 
-inline constexpr bool operator>=(const Set& left, const Set& right) noexcept {
+inline constexpr bool operator>=(
+    const Dimensions& left, const Dimensions& right) noexcept {
   return !(left < right);
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Set& set) {
-  stream << set.Print();
+inline std::ostream& operator<<(
+    std::ostream& stream, const Dimensions& dimensions) {
+  stream << dimensions.Print();
   return stream;
 }
 
-}  // namespace PhQ::Dimension
+}  // namespace PhQ
 
 namespace std {
 
-template<> struct hash<PhQ::Dimension::Set> {
-  inline size_t operator()(const PhQ::Dimension::Set& set) const {
+template<> struct hash<PhQ::Dimensions> {
+  inline size_t operator()(const PhQ::Dimensions& dimensions) const {
     size_t result = 17;
-    result = 31 * result + set.Time().Value();
-    result = 31 * result + set.Length().Value();
-    result = 31 * result + set.Mass().Value();
-    result = 31 * result + set.ElectricCurrent().Value();
-    result = 31 * result + set.Temperature().Value();
-    result = 31 * result + set.SubstanceAmount().Value();
-    result = 31 * result + set.LuminousIntensity().Value();
+    result = 31 * result + dimensions.Time().Value();
+    result = 31 * result + dimensions.Length().Value();
+    result = 31 * result + dimensions.Mass().Value();
+    result = 31 * result + dimensions.ElectricCurrent().Value();
+    result = 31 * result + dimensions.Temperature().Value();
+    result = 31 * result + dimensions.SubstanceAmount().Value();
+    result = 31 * result + dimensions.LuminousIntensity().Value();
     return result;
   }
 };

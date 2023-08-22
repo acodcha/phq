@@ -101,12 +101,6 @@ TEST(UnitEnergyFlux, ConvertVerification) {
   }
 }
 
-TEST(UnitEnergyFlux, DimensionSet) {
-  EXPECT_EQ(Dimensions<EnergyFlux>,
-            Dimension::Set(
-                Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}));
-}
-
 TEST(UnitEnergyFlux, Parse) {
   EXPECT_EQ(Parse<EnergyFlux>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<EnergyFlux>("W/m^2"), EnergyFlux::WattPerSquareMetre);
@@ -116,6 +110,12 @@ TEST(UnitEnergyFlux, Parse) {
             EnergyFlux::FootPoundPerSquareFootPerSecond);
   EXPECT_EQ(Parse<EnergyFlux>("in·lbf/in^2/s"),
             EnergyFlux::InchPoundPerSquareInchPerSecond);
+}
+
+TEST(UnitEnergyFlux, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<EnergyFlux>,
+            Dimensions(
+                Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitEnergyFlux, RelatedUnitSystem) {

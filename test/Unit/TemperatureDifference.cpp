@@ -101,13 +101,6 @@ TEST(UnitTemperatureDifference, ConvertVerification) {
   }
 }
 
-TEST(UnitTemperatureDifference, DimensionSet) {
-  EXPECT_EQ(
-      Dimensions<TemperatureDifference>,
-      Dimension::Set(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                     Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
-}
-
 TEST(UnitTemperatureDifference, Parse) {
   EXPECT_EQ(Parse<TemperatureDifference>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<TemperatureDifference>("K"), TemperatureDifference::Kelvin);
@@ -115,6 +108,13 @@ TEST(UnitTemperatureDifference, Parse) {
   EXPECT_EQ(Parse<TemperatureDifference>("°R"), TemperatureDifference::Rankine);
   EXPECT_EQ(
       Parse<TemperatureDifference>("°F"), TemperatureDifference::Fahrenheit);
+}
+
+TEST(UnitTemperatureDifference, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<TemperatureDifference>,
+      Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
 }
 
 TEST(UnitTemperatureDifference, RelatedUnitSystem) {

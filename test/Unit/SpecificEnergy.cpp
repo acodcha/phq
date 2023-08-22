@@ -99,11 +99,6 @@ TEST(UnitSpecificEnergy, ConvertVerification) {
   }
 }
 
-TEST(UnitSpecificEnergy, DimensionSet) {
-  EXPECT_EQ(Dimensions<SpecificEnergy>,
-            Dimension::Set(Dimension::Time{-2}, Dimension::Length{2}));
-}
-
 TEST(UnitSpecificEnergy, Parse) {
   EXPECT_EQ(Parse<SpecificEnergy>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<SpecificEnergy>("J/kg"), SpecificEnergy::JoulePerKilogram);
@@ -112,6 +107,11 @@ TEST(UnitSpecificEnergy, Parse) {
       Parse<SpecificEnergy>("ft·lbf/slug"), SpecificEnergy::FootPoundPerSlug);
   EXPECT_EQ(Parse<SpecificEnergy>("in·lbf/slinch"),
             SpecificEnergy::InchPoundPerSlinch);
+}
+
+TEST(UnitSpecificEnergy, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<SpecificEnergy>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{2}));
 }
 
 TEST(UnitSpecificEnergy, RelatedUnitSystem) {

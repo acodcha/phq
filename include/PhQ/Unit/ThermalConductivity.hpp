@@ -38,10 +38,9 @@ template<> inline constexpr const Unit::ThermalConductivity
 
 // Physical dimension set of thermal conductivity units.
 template<>
-inline constexpr const Dimension::Set Dimensions<Unit::ThermalConductivity>{
-    Dimension::Set{
-                   Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
-                   Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::ThermalConductivity>{
+    Dimensions{Dimension::Time{-3}, Dimension::Length{1}, Dimension::Mass{1},
+               Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
 namespace Internal {

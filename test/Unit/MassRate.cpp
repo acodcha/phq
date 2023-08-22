@@ -103,12 +103,6 @@ TEST(UnitMassRate, ConvertVerification) {
   }
 }
 
-TEST(UnitMassRate, DimensionSet) {
-  EXPECT_EQ(Dimensions<MassRate>,
-            Dimension::Set(
-                Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}));
-}
-
 TEST(UnitMassRate, Parse) {
   EXPECT_EQ(Parse<MassRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<MassRate>("kg/s"), MassRate::KilogramPerSecond);
@@ -116,6 +110,12 @@ TEST(UnitMassRate, Parse) {
   EXPECT_EQ(Parse<MassRate>("slug/s"), MassRate::SlugPerSecond);
   EXPECT_EQ(Parse<MassRate>("slinch/s"), MassRate::SlinchPerSecond);
   EXPECT_EQ(Parse<MassRate>("lbm/s"), MassRate::PoundPerSecond);
+}
+
+TEST(UnitMassRate, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<MassRate>,
+            Dimensions(
+                Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitMassRate, RelatedUnitSystem) {

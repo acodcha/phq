@@ -19,7 +19,7 @@
 #include <functional>
 #include <vector>
 
-#include "Dimension/Set.hpp"
+#include "Dimensions.hpp"
 #include "UnitSystem.hpp"
 #include "Value/Dyad.hpp"
 
@@ -27,7 +27,7 @@ namespace PhQ {
 
 // Physical dimension set of a given type of unit of measure. Units of measure
 // are organized into types that share the same physical dimension set.
-template<typename Unit> inline constexpr Dimension::Set Dimensions;
+template<typename Unit> inline constexpr Dimensions RelatedDimensions;
 
 namespace Internal {
 

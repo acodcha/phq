@@ -20,6 +20,8 @@
 #include <string>
 #include <string_view>
 
+#include "../Base.hpp"
+
 namespace PhQ::Dimension {
 
 // Base physical dimension of length. Typically denoted "L". One of seven

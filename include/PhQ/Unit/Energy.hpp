@@ -50,9 +50,8 @@ template<>
 inline constexpr const Unit::Energy Standard<Unit::Energy>{Unit::Energy::Joule};
 
 // Physical dimension set of energy units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Energy>{
-    Dimension::Set{
-                   Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Energy>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
 namespace Internal {

@@ -101,19 +101,19 @@ TEST(UnitThermalExpansion, ConvertVerification) {
   }
 }
 
-TEST(UnitThermalExpansion, DimensionSet) {
-  EXPECT_EQ(
-      Dimensions<ThermalExpansion>,
-      Dimension::Set(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                     Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
-}
-
 TEST(UnitThermalExpansion, Parse) {
   EXPECT_EQ(Parse<ThermalExpansion>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<ThermalExpansion>("1/K"), ThermalExpansion::PerKelvin);
   EXPECT_EQ(Parse<ThermalExpansion>("1/°C"), ThermalExpansion::PerCelsius);
   EXPECT_EQ(Parse<ThermalExpansion>("1/°R"), ThermalExpansion::PerRankine);
   EXPECT_EQ(Parse<ThermalExpansion>("1/°F"), ThermalExpansion::PerFahrenheit);
+}
+
+TEST(UnitThermalExpansion, RelatedDimensions) {
+  EXPECT_EQ(
+      RelatedDimensions<ThermalExpansion>,
+      Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                 Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitThermalExpansion, RelatedUnitSystem) {

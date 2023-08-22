@@ -69,8 +69,8 @@ template<> inline constexpr const Unit::Speed Standard<Unit::Speed>{
     Unit::Speed::MetrePerSecond};
 
 // Physical dimension set of speed units.
-template<> inline constexpr const Dimension::Set Dimensions<Unit::Speed>{
-    Dimension::Set{Dimension::Time{-1}, Dimension::Length{1}}
+template<> inline constexpr const Dimensions RelatedDimensions<Unit::Speed>{
+    Dimensions{Dimension::Time{-1}, Dimension::Length{1}}
 };
 
 namespace Internal {

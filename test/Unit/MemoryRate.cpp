@@ -230,10 +230,6 @@ TEST(UnitMemoryRate, ConvertVerification) {
   }
 }
 
-TEST(UnitMemoryRate, DimensionSet) {
-  EXPECT_EQ(Dimensions<MemoryRate>, Dimension::Set(Dimension::Time{-1}));
-}
-
 TEST(UnitMemoryRate, Parse) {
   EXPECT_EQ(Parse<MemoryRate>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<MemoryRate>("b/s"), MemoryRate::BitPerSecond);
@@ -258,6 +254,10 @@ TEST(UnitMemoryRate, Parse) {
   EXPECT_EQ(Parse<MemoryRate>("Pib/s"), MemoryRate::PebibitPerSecond);
   EXPECT_EQ(Parse<MemoryRate>("PB/s"), MemoryRate::PetabytePerSecond);
   EXPECT_EQ(Parse<MemoryRate>("PiB/s"), MemoryRate::PebibytePerSecond);
+}
+
+TEST(UnitMemoryRate, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<MemoryRate>, Dimensions(Dimension::Time{-1}));
 }
 
 TEST(UnitMemoryRate, RelatedUnitSystem) {

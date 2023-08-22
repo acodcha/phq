@@ -118,10 +118,6 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(dimension_mass GTest::gtest_main)
   gtest_discover_tests(dimension_mass)
 
-  add_executable(dimension_set ${PROJECT_SOURCE_DIR}/test/Dimension/Set.cpp)
-  target_link_libraries(dimension_set GTest::gtest_main)
-  gtest_discover_tests(dimension_set)
-
   add_executable(dimension_substance_amount ${PROJECT_SOURCE_DIR}/test/Dimension/SubstanceAmount.cpp)
   target_link_libraries(dimension_substance_amount GTest::gtest_main)
   gtest_discover_tests(dimension_substance_amount)
@@ -133,6 +129,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(dimension_time ${PROJECT_SOURCE_DIR}/test/Dimension/Time.cpp)
   target_link_libraries(dimension_time GTest::gtest_main)
   gtest_discover_tests(dimension_time)
+
+  add_executable(dimensions ${PROJECT_SOURCE_DIR}/test/Dimensions.cpp)
+  target_link_libraries(dimensions GTest::gtest_main)
+  gtest_discover_tests(dimensions)
 
   add_executable(direction ${PROJECT_SOURCE_DIR}/test/Direction.cpp)
   target_link_libraries(direction GTest::gtest_main)

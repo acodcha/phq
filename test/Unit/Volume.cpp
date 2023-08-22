@@ -154,11 +154,6 @@ TEST(UnitVolume, ConvertVerification) {
   }
 }
 
-TEST(UnitVolume, DimensionSet) {
-  EXPECT_EQ(Dimensions<Volume>,
-            Dimension::Set(Dimension::Time{0}, Dimension::Length{3}));
-}
-
 TEST(UnitVolume, Parse) {
   EXPECT_EQ(Parse<Volume>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Volume>("mi^3"), Volume::CubicMile);
@@ -175,6 +170,11 @@ TEST(UnitVolume, Parse) {
   EXPECT_EQ(Parse<Volume>("mil^3"), Volume::CubicMilliinch);
   EXPECT_EQ(Parse<Volume>("μm^3"), Volume::CubicMicrometre);
   EXPECT_EQ(Parse<Volume>("μin^3"), Volume::CubicMicroinch);
+}
+
+TEST(UnitVolume, RelatedDimensions) {
+  EXPECT_EQ(RelatedDimensions<Volume>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{3}));
 }
 
 TEST(UnitVolume, RelatedUnitSystem) {
