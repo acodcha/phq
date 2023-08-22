@@ -13,24 +13,29 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_BASE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_BASE_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_HPP
 
-#include "../Strain.hpp"
-#include "../StrainRate.hpp"
-#include "../Stress.hpp"
+#include "Strain.hpp"
+#include "StrainRate.hpp"
+#include "Stress.hpp"
 
 namespace PhQ {
 
-// Abstract base class for a constitutive model, which is a model that relates
-// stress and strain.
+// Abstract base class for a material's constitutive model, which is a model
+// that defines the relationship between the stress and strain at a point in a
+// material.
 class ConstitutiveModel {
 public:
   enum class Type : int_least8_t {
+    CompressibleNewtonianFluid,
     ElasticIsotropicSolid,
     IncompressibleNewtonianFluid,
-    CompressibleNewtonianFluid,
   };
+
+  class CompressibleNewtonianFluid;
+  class ElasticIsotropicSolid;
+  class IncompressibleNewtonianFluid;
 
   virtual ~ConstitutiveModel() noexcept = default;
 
@@ -105,4 +110,4 @@ inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_BASE_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_HPP
