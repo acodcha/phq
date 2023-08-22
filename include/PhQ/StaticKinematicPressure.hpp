@@ -55,81 +55,77 @@ public:
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  inline constexpr StaticKinematicPressure operator+(
+  constexpr StaticKinematicPressure operator+(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return StaticKinematicPressure{value_ + static_kinematic_pressure.value_};
   }
 
-  inline constexpr StaticKinematicPressure
+  constexpr StaticKinematicPressure
   operator+(const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return StaticKinematicPressure{
         value_ + kinematic_pressure_difference.Value()};
   }
 
-  inline constexpr TotalKinematicPressure operator+(
+  constexpr TotalKinematicPressure operator+(
       const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept;
 
-  inline constexpr KinematicPressureDifference operator-(
+  constexpr KinematicPressureDifference operator-(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return KinematicPressureDifference{
         value_ - static_kinematic_pressure.value_};
   }
 
-  inline constexpr StaticKinematicPressure
+  constexpr StaticKinematicPressure
   operator-(const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return StaticKinematicPressure{
         value_ - kinematic_pressure_difference.Value()};
   }
 
-  inline constexpr StaticKinematicPressure operator*(
+  constexpr StaticKinematicPressure operator*(
       const double number) const noexcept {
     return StaticKinematicPressure{value_ * number};
   }
 
-  inline constexpr StaticPressure operator*(
+  constexpr StaticPressure operator*(
       const MassDensity& mass_density) const noexcept {
     return {*this, mass_density};
   }
 
-  inline constexpr StaticKinematicPressure operator/(
+  constexpr StaticKinematicPressure operator/(
       const double number) const noexcept {
     return StaticKinematicPressure{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const StaticKinematicPressure& static_kinematic_pressure) const noexcept {
     return value_ / static_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const StaticKinematicPressure& static_kinematic_pressure) noexcept {
     value_ += static_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator+=(const KinematicPressureDifference&
-                                       kinematic_pressure_difference) noexcept {
+  constexpr void operator+=(const KinematicPressureDifference&
+                                kinematic_pressure_difference) noexcept {
     value_ += kinematic_pressure_difference.Value();
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const StaticKinematicPressure& static_kinematic_pressure) noexcept {
     value_ -= static_kinematic_pressure.value_;
   }
 
-  inline constexpr void operator-=(const KinematicPressureDifference&
-                                       kinematic_pressure_difference) noexcept {
+  constexpr void operator-=(const KinematicPressureDifference&
+                                kinematic_pressure_difference) noexcept {
     value_ -= kinematic_pressure_difference.Value();
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr StaticKinematicPressure(const double value) noexcept
@@ -210,7 +206,7 @@ inline constexpr StaticKinematicPressure KinematicPressureDifference::operator-(
 namespace std {
 
 template<> struct hash<PhQ::StaticKinematicPressure> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::StaticKinematicPressure& static_kinematic_pressure) const {
     return hash<double>()(static_kinematic_pressure.Value());
   }

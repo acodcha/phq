@@ -39,44 +39,39 @@ public:
 
   static constexpr StrainScalar Zero() noexcept { return StrainScalar{0.0}; }
 
-  inline constexpr StrainScalar operator+(
+  constexpr StrainScalar operator+(
       const StrainScalar& strain_scalar) const noexcept {
     return StrainScalar{value_ + strain_scalar.value_};
   }
 
-  inline constexpr StrainScalar operator-(
+  constexpr StrainScalar operator-(
       const StrainScalar& strain_scalar) const noexcept {
     return StrainScalar{value_ - strain_scalar.value_};
   }
 
-  inline constexpr StrainScalar operator*(const double number) const noexcept {
+  constexpr StrainScalar operator*(const double number) const noexcept {
     return StrainScalar{value_ * number};
   }
 
-  inline constexpr StrainScalar operator/(const double number) const noexcept {
+  constexpr StrainScalar operator/(const double number) const noexcept {
     return StrainScalar{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const StrainScalar& strain_scalar) const noexcept {
+  constexpr double operator/(const StrainScalar& strain_scalar) const noexcept {
     return value_ / strain_scalar.value_;
   }
 
-  inline constexpr void operator+=(const StrainScalar& strain_scalar) noexcept {
+  constexpr void operator+=(const StrainScalar& strain_scalar) noexcept {
     value_ += strain_scalar.value_;
   }
 
-  inline constexpr void operator-=(const StrainScalar& strain_scalar) noexcept {
+  constexpr void operator-=(const StrainScalar& strain_scalar) noexcept {
     value_ -= strain_scalar.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -140,7 +135,7 @@ inline constexpr double operator/(
 namespace std {
 
 template<> struct hash<PhQ::StrainScalar> {
-  size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
+  inline size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
     return hash<double>()(strain_scalar.Value());
   }
 };

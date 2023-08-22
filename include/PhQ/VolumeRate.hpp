@@ -48,56 +48,49 @@ public:
             value)};
   }
 
-  inline constexpr VolumeRate operator+(
-      const VolumeRate& volume_rate) const noexcept {
+  constexpr VolumeRate operator+(const VolumeRate& volume_rate) const noexcept {
     return VolumeRate{value_ + volume_rate.value_};
   }
 
-  inline constexpr VolumeRate operator-(
-      const VolumeRate& volume_rate) const noexcept {
+  constexpr VolumeRate operator-(const VolumeRate& volume_rate) const noexcept {
     return VolumeRate{value_ - volume_rate.value_};
   }
 
-  inline constexpr VolumeRate operator*(const double number) const noexcept {
+  constexpr VolumeRate operator*(const double number) const noexcept {
     return VolumeRate{value_ * number};
   }
 
-  inline constexpr Volume operator*(const Time& time) const noexcept {
+  constexpr Volume operator*(const Time& time) const noexcept {
     return {*this, time};
   }
 
-  inline constexpr VolumeRate operator/(const double number) const noexcept {
+  constexpr VolumeRate operator/(const double number) const noexcept {
     return VolumeRate{value_ / number};
   }
 
-  inline constexpr Volume operator/(const Frequency& frequency) const noexcept {
+  constexpr Volume operator/(const Frequency& frequency) const noexcept {
     return {*this, frequency};
   }
 
-  inline constexpr Frequency operator/(const Volume& volume) const noexcept {
+  constexpr Frequency operator/(const Volume& volume) const noexcept {
     return {*this, volume};
   }
 
-  inline constexpr double operator/(
-      const VolumeRate& volume_rate) const noexcept {
+  constexpr double operator/(const VolumeRate& volume_rate) const noexcept {
     return value_ / volume_rate.value_;
   }
 
-  inline constexpr void operator+=(const VolumeRate& volume_rate) noexcept {
+  constexpr void operator+=(const VolumeRate& volume_rate) noexcept {
     value_ += volume_rate.value_;
   }
 
-  inline constexpr void operator-=(const VolumeRate& volume_rate) noexcept {
+  constexpr void operator-=(const VolumeRate& volume_rate) noexcept {
     value_ -= volume_rate.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr VolumeRate(const double value) noexcept
@@ -190,7 +183,7 @@ inline constexpr VolumeRate Volume::operator/(const Time& time) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::VolumeRate> {
-  size_t operator()(const PhQ::VolumeRate& volume_rate) const {
+  inline size_t operator()(const PhQ::VolumeRate& volume_rate) const {
     return hash<double>()(volume_rate.Value());
   }
 };

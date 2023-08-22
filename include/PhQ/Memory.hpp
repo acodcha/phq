@@ -47,48 +47,43 @@ public:
         StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
-  inline constexpr Memory operator+(const Memory& memory) const noexcept {
+  constexpr Memory operator+(const Memory& memory) const noexcept {
     return Memory{value_ + memory.value_};
   }
 
-  inline constexpr Memory operator-(const Memory& memory) const noexcept {
+  constexpr Memory operator-(const Memory& memory) const noexcept {
     return Memory{value_ - memory.value_};
   }
 
-  inline constexpr Memory operator*(const double number) const noexcept {
+  constexpr Memory operator*(const double number) const noexcept {
     return Memory{value_ * number};
   }
 
-  inline constexpr MemoryRate operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr MemoryRate operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Memory operator/(const double number) const noexcept {
+  constexpr Memory operator/(const double number) const noexcept {
     return Memory{value_ / number};
   }
 
-  inline constexpr MemoryRate operator/(const Time& time) const noexcept;
+  constexpr MemoryRate operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(const MemoryRate& memory_rate) const noexcept;
+  constexpr Time operator/(const MemoryRate& memory_rate) const noexcept;
 
-  inline constexpr double operator/(const Memory& memory) const noexcept {
+  constexpr double operator/(const Memory& memory) const noexcept {
     return value_ / memory.value_;
   }
 
-  inline constexpr void operator+=(const Memory& memory) noexcept {
+  constexpr void operator+=(const Memory& memory) noexcept {
     value_ += memory.value_;
   }
 
-  inline constexpr void operator-=(const Memory& memory) noexcept {
+  constexpr void operator-=(const Memory& memory) noexcept {
     value_ -= memory.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Memory(const double value) noexcept
@@ -141,7 +136,7 @@ inline constexpr Memory operator*(
 namespace std {
 
 template<> struct hash<PhQ::Memory> {
-  size_t operator()(const PhQ::Memory& memory) const {
+  inline size_t operator()(const PhQ::Memory& memory) const {
     return hash<double>()(memory.Value());
   }
 };

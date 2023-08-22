@@ -62,58 +62,52 @@ public:
                           Standard<Unit::DynamicViscosity>>(value)};
   }
 
-  inline constexpr DynamicViscosity operator+(
+  constexpr DynamicViscosity operator+(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return DynamicViscosity{value_ + dynamic_viscosity.value_};
   }
 
-  inline constexpr DynamicViscosity operator-(
+  constexpr DynamicViscosity operator-(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return DynamicViscosity{value_ - dynamic_viscosity.value_};
   }
 
-  inline constexpr DynamicViscosity operator*(
-      const double number) const noexcept {
+  constexpr DynamicViscosity operator*(const double number) const noexcept {
     return DynamicViscosity{value_ * number};
   }
 
-  inline constexpr DynamicViscosity operator/(
-      const double number) const noexcept {
+  constexpr DynamicViscosity operator/(const double number) const noexcept {
     return DynamicViscosity{value_ / number};
   }
 
-  inline constexpr KinematicViscosity operator/(
+  constexpr KinematicViscosity operator/(
       const MassDensity& mass_density) const noexcept {
     return {*this, mass_density};
   }
 
-  inline constexpr MassDensity operator/(
+  constexpr MassDensity operator/(
       const KinematicViscosity& kinematic_viscosity) const noexcept {
     return {*this, kinematic_viscosity};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const DynamicViscosity& dynamic_viscosity) const noexcept {
     return value_ / dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const DynamicViscosity& dynamic_viscosity) noexcept {
     value_ += dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const DynamicViscosity& dynamic_viscosity) noexcept {
     value_ -= dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr DynamicViscosity(const double value) noexcept
@@ -186,7 +180,8 @@ inline constexpr DynamicViscosity MassDensity::operator*(
 namespace std {
 
 template<> struct hash<PhQ::DynamicViscosity> {
-  size_t operator()(const PhQ::DynamicViscosity& dynamic_viscosity) const {
+  inline size_t operator()(
+      const PhQ::DynamicViscosity& dynamic_viscosity) const {
     return hash<double>()(dynamic_viscosity.Value());
   }
 };

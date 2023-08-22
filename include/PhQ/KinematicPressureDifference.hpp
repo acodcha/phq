@@ -54,64 +54,60 @@ public:
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  inline constexpr StaticKinematicPressure operator+(
+  constexpr StaticKinematicPressure operator+(
       const StaticKinematicPressure& kinematic_static_pressure) const noexcept;
 
-  inline constexpr KinematicPressureDifference
+  constexpr KinematicPressureDifference
   operator+(const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return KinematicPressureDifference{
         value_ + kinematic_pressure_difference.value_};
   }
 
-  inline constexpr StaticKinematicPressure operator-(
+  constexpr StaticKinematicPressure operator-(
       const StaticKinematicPressure& kinematic_static_pressure) const noexcept;
 
-  inline constexpr KinematicPressureDifference
+  constexpr KinematicPressureDifference
   operator-(const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return KinematicPressureDifference{
         value_ - kinematic_pressure_difference.value_};
   }
 
-  inline constexpr KinematicPressureDifference operator*(
+  constexpr KinematicPressureDifference operator*(
       const double number) const noexcept {
     return KinematicPressureDifference{value_ * number};
   }
 
-  inline constexpr PressureDifference operator*(
+  constexpr PressureDifference operator*(
       const MassDensity& mass_density) const noexcept {
     return {*this, mass_density};
   }
 
-  inline constexpr KinematicPressureDifference operator/(
+  constexpr KinematicPressureDifference operator/(
       const double number) const noexcept {
     return KinematicPressureDifference{value_ / number};
   }
 
-  inline constexpr double
+  constexpr double
   operator/(const KinematicPressureDifference& kinematic_pressure_difference)
       const noexcept {
     return value_ / kinematic_pressure_difference.value_;
   }
 
-  inline constexpr void operator+=(const KinematicPressureDifference&
-                                       kinematic_pressure_difference) noexcept {
+  constexpr void operator+=(const KinematicPressureDifference&
+                                kinematic_pressure_difference) noexcept {
     value_ += kinematic_pressure_difference.value_;
   }
 
-  inline constexpr void operator-=(const KinematicPressureDifference&
-                                       kinematic_pressure_difference) noexcept {
+  constexpr void operator-=(const KinematicPressureDifference&
+                                kinematic_pressure_difference) noexcept {
     value_ -= kinematic_pressure_difference.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr KinematicPressureDifference(const double value) noexcept
@@ -185,7 +181,7 @@ inline constexpr KinematicPressureDifference PressureDifference::operator/(
 namespace std {
 
 template<> struct hash<PhQ::KinematicPressureDifference> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::KinematicPressureDifference& kinematic_pressure_difference)
       const {
     return hash<double>()(kinematic_pressure_difference.Value());

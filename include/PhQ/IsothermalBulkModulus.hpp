@@ -41,48 +41,44 @@ public:
             value)};
   }
 
-  inline constexpr IsothermalBulkModulus operator+(
+  constexpr IsothermalBulkModulus operator+(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return {value_ + isothermal_bulk_modulus.value_};
   }
 
-  inline constexpr IsothermalBulkModulus operator-(
+  constexpr IsothermalBulkModulus operator-(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return {value_ - isothermal_bulk_modulus.value_};
   }
 
-  inline constexpr IsothermalBulkModulus operator*(
+  constexpr IsothermalBulkModulus operator*(
       const double number) const noexcept {
     return IsothermalBulkModulus{value_ * number};
   }
 
-  inline constexpr IsothermalBulkModulus operator/(
+  constexpr IsothermalBulkModulus operator/(
       const double number) const noexcept {
     return IsothermalBulkModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return value_ / isothermal_bulk_modulus.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
     value_ += isothermal_bulk_modulus.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
     value_ -= isothermal_bulk_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   constexpr IsothermalBulkModulus(const double value) noexcept
@@ -137,7 +133,7 @@ inline constexpr IsothermalBulkModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::IsothermalBulkModulus> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return hash<double>()(isothermal_bulk_modulus.Value());
   }

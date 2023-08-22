@@ -79,67 +79,61 @@ public:
         StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 
-  inline constexpr Mass operator+(const Mass& mass) const noexcept {
+  constexpr Mass operator+(const Mass& mass) const noexcept {
     return Mass{value_ + mass.value_};
   }
 
-  inline constexpr Mass operator-(const Mass& mass) const noexcept {
+  constexpr Mass operator-(const Mass& mass) const noexcept {
     return Mass{value_ - mass.value_};
   }
 
-  inline constexpr Mass operator*(const double number) const noexcept {
+  constexpr Mass operator*(const double number) const noexcept {
     return Mass{value_ * number};
   }
 
-  inline constexpr MassRate operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr MassRate operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Energy operator*(
+  constexpr Energy operator*(
       const SpecificEnergy& specific_energy) const noexcept;
 
-  inline constexpr Power operator*(
-      const SpecificPower& specific_power) const noexcept;
+  constexpr Power operator*(const SpecificPower& specific_power) const noexcept;
 
-  inline constexpr IsobaricHeatCapacity
+  constexpr IsobaricHeatCapacity
   operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const noexcept;
 
-  inline constexpr IsochoricHeatCapacity operator*(
+  constexpr IsochoricHeatCapacity operator*(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept;
 
-  inline constexpr GasConstant operator*(
+  constexpr GasConstant operator*(
       const SpecificGasConstant& specific_gas_constant) const noexcept;
 
-  inline constexpr Mass operator/(const double number) const noexcept {
+  constexpr Mass operator/(const double number) const noexcept {
     return Mass{value_ / number};
   }
 
-  inline constexpr MassDensity operator/(const Volume& volume) const noexcept;
+  constexpr MassDensity operator/(const Volume& volume) const noexcept;
 
-  inline constexpr MassRate operator/(const Time& time) const noexcept;
+  constexpr MassRate operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(const MassRate& mass_rate) const noexcept;
+  constexpr Time operator/(const MassRate& mass_rate) const noexcept;
 
-  inline constexpr double operator/(const Mass& mass) const noexcept {
+  constexpr double operator/(const Mass& mass) const noexcept {
     return value_ / mass.value_;
   }
 
-  inline constexpr void operator+=(const Mass& mass) noexcept {
+  constexpr void operator+=(const Mass& mass) noexcept {
     value_ += mass.value_;
   }
 
-  inline constexpr void operator-=(const Mass& mass) noexcept {
+  constexpr void operator-=(const Mass& mass) noexcept {
     value_ -= mass.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Mass(const double value) noexcept
@@ -186,7 +180,7 @@ inline constexpr Mass operator*(
 namespace std {
 
 template<> struct hash<PhQ::Mass> {
-  size_t operator()(const PhQ::Mass& mass) const {
+  inline size_t operator()(const PhQ::Mass& mass) const {
     return hash<double>()(mass.Value());
   }
 };

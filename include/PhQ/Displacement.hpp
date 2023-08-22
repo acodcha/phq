@@ -59,54 +59,49 @@ public:
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  inline Length Magnitude() const noexcept { return {*this}; }
+  Length Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const Displacement& displacement) const noexcept {
+  PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
   }
 
-  inline constexpr Position operator+(const Position& position) const noexcept;
+  constexpr Position operator+(const Position& position) const noexcept;
 
-  inline constexpr Displacement operator+(
+  constexpr Displacement operator+(
       const Displacement& displacement) const noexcept {
     return Displacement{value_ + displacement.value_};
   }
 
-  inline constexpr Position operator-(const Position& position) const noexcept;
+  constexpr Position operator-(const Position& position) const noexcept;
 
-  inline constexpr Displacement operator-(
+  constexpr Displacement operator-(
       const Displacement& displacement) const noexcept {
     return Displacement{value_ - displacement.value_};
   }
 
-  inline constexpr Displacement operator*(const double number) const noexcept {
+  constexpr Displacement operator*(const double number) const noexcept {
     return Displacement{value_ * number};
   }
 
-  inline constexpr Velocity operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr Velocity operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Displacement operator/(const double number) const noexcept {
+  constexpr Displacement operator/(const double number) const noexcept {
     return Displacement{value_ / number};
   }
 
-  inline constexpr Velocity operator/(const Time& time) const noexcept;
+  constexpr Velocity operator/(const Time& time) const noexcept;
 
-  inline constexpr void operator+=(const Displacement& displacement) noexcept {
+  constexpr void operator+=(const Displacement& displacement) noexcept {
     value_ += displacement.value_;
   }
 
-  inline constexpr void operator-=(const Displacement& displacement) noexcept {
+  constexpr void operator-=(const Displacement& displacement) noexcept {
     value_ -= displacement.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Displacement(const Value::Vector& value) noexcept
@@ -171,7 +166,7 @@ inline Length::Length(const Displacement& displacement) noexcept
 namespace std {
 
 template<> struct hash<PhQ::Displacement> {
-  size_t operator()(const PhQ::Displacement& displacement) const {
+  inline size_t operator()(const PhQ::Displacement& displacement) const {
     return hash<PhQ::Value::Vector>()(displacement.Value());
   }
 };

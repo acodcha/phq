@@ -44,7 +44,7 @@ enum class UnitSystem : int_least8_t {
 // per second. Thus, when forming a speed quantity from a length quantity and a
 // time quantity, if all quantities are expressed in these standard units, no
 // unit conversions are needed.
-template<typename Type> inline constexpr Type Standard;
+template<typename Type> inline constexpr const Type Standard;
 
 // The standard unit system: the International System of Units (SI). It uses the
 // following standard units: second for time, metre for length, kilogram for
@@ -56,7 +56,7 @@ template<> inline constexpr const UnitSystem Standard<UnitSystem>{
 namespace Internal {
 
 template<>
-const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
+inline const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
     {UnitSystem::MetreKilogramSecondKelvin,  "m·kg·s·K"   },
     {UnitSystem::MillimetreGramSecondKelvin, "mm·g·s·K"   },
     {UnitSystem::FootPoundSecondRankine,     "ft·lbf·s·°R"},
@@ -64,7 +64,8 @@ const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
 };
 
 template<>
-const std::unordered_map<std::string_view, UnitSystem> Spellings<UnitSystem>{
+inline const std::unordered_map<std::string_view, UnitSystem> Spellings<
+    UnitSystem>{
     {"m·kg·s·K",       UnitSystem::MetreKilogramSecondKelvin },
     {"m-kg-s-K",       UnitSystem::MetreKilogramSecondKelvin },
     {"m*kg*s*K",       UnitSystem::MetreKilogramSecondKelvin },
@@ -210,7 +211,7 @@ inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
 // PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
 // PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template<typename Unit>
-std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
+inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
       Internal::RelatedUnitSystems<Unit>.find(unit)};
   if (system != Internal::RelatedUnitSystems<Unit>.cend()) {

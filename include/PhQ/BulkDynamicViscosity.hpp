@@ -44,48 +44,42 @@ public:
                           Standard<Unit::DynamicViscosity>>(value)};
   }
 
-  inline constexpr BulkDynamicViscosity operator+(
+  constexpr BulkDynamicViscosity operator+(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};
   }
 
-  inline constexpr BulkDynamicViscosity operator-(
+  constexpr BulkDynamicViscosity operator-(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return BulkDynamicViscosity{value_ - bulk_dynamic_viscosity.value_};
   }
 
-  inline constexpr BulkDynamicViscosity operator*(
-      const double number) const noexcept {
+  constexpr BulkDynamicViscosity operator*(const double number) const noexcept {
     return BulkDynamicViscosity{value_ * number};
   }
 
-  inline constexpr BulkDynamicViscosity operator/(
-      const double number) const noexcept {
+  constexpr BulkDynamicViscosity operator/(const double number) const noexcept {
     return BulkDynamicViscosity{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
     return value_ / bulk_dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
     value_ += bulk_dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
     value_ -= bulk_dynamic_viscosity.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr BulkDynamicViscosity(const double value) noexcept
@@ -138,7 +132,7 @@ inline constexpr BulkDynamicViscosity operator*(
 namespace std {
 
 template<> struct hash<PhQ::BulkDynamicViscosity> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return hash<double>()(bulk_dynamic_viscosity.Value());
   }

@@ -51,146 +51,146 @@ public:
     };
   }
 
-  inline constexpr const std::array<double, 9>&
+  constexpr const std::array<double, 9>&
   xx_xy_xz_yx_yy_yz_zx_zy_zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
-  inline constexpr std::array<double, 9>&
+  constexpr std::array<double, 9>&
   mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
-  inline constexpr void set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
+  constexpr void set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
   }
 
-  inline constexpr double xx() const noexcept {
+  constexpr double xx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  inline constexpr double& mutable_xx() noexcept {
+  constexpr double& mutable_xx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  inline constexpr void set_xx(const double xx) noexcept {
+  constexpr void set_xx(const double xx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = xx;
   }
 
-  inline constexpr double xy() const noexcept {
+  constexpr double xy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  inline constexpr double& mutable_xy() noexcept {
+  constexpr double& mutable_xy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  inline constexpr void set_xy(const double xy) noexcept {
+  constexpr void set_xy(const double xy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = xy;
   }
 
-  inline constexpr double xz() const noexcept {
+  constexpr double xz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  inline constexpr double& mutable_xz() noexcept {
+  constexpr double& mutable_xz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  inline constexpr void set_xz(const double xz) noexcept {
+  constexpr void set_xz(const double xz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = xz;
   }
 
-  inline constexpr double yx() const noexcept {
+  constexpr double yx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  inline constexpr double& mutable_yx() noexcept {
+  constexpr double& mutable_yx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  inline constexpr void set_yx(const double yx) noexcept {
+  constexpr void set_yx(const double yx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = yx;
   }
 
-  inline constexpr double yy() const noexcept {
+  constexpr double yy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  inline constexpr double& mutable_yy() noexcept {
+  constexpr double& mutable_yy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  inline constexpr void set_yy(const double yy) noexcept {
+  constexpr void set_yy(const double yy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = yy;
   }
 
-  inline constexpr double yz() const noexcept {
+  constexpr double yz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  inline constexpr double& mutable_yz() noexcept {
+  constexpr double& mutable_yz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  inline constexpr void set_yz(const double yz) noexcept {
+  constexpr void set_yz(const double yz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = yz;
   }
 
-  inline constexpr double zx() const noexcept {
+  constexpr double zx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  inline constexpr double& mutable_zx() noexcept {
+  constexpr double& mutable_zx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  inline constexpr void set_zx(const double zx) noexcept {
+  constexpr void set_zx(const double zx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = zx;
   }
 
-  inline constexpr double zy() const noexcept {
+  constexpr double zy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  inline constexpr double& mutable_zy() noexcept {
+  constexpr double& mutable_zy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  inline constexpr void set_zy(const double zy) noexcept {
+  constexpr void set_zy(const double zy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = zy;
   }
 
-  inline constexpr double zz() const noexcept {
+  constexpr double zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr double& mutable_zz() noexcept {
+  constexpr double& mutable_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr void set_zz(const double zz) noexcept {
+  constexpr void set_zz(const double zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = zz;
   }
 
-  inline constexpr bool IsSymmetric() const noexcept {
+  constexpr bool IsSymmetric() const noexcept {
     return xy() == yx() && xz() == zx() && yz() == zy();
   }
 
-  inline constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
+  constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
 
-  inline constexpr double Determinant() const noexcept {
+  constexpr double Determinant() const noexcept {
     return (
         xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
         + xz() * (yx() * zy() - yy() * zx()));
   }
 
-  inline constexpr Dyad Transpose() const noexcept {
+  constexpr Dyad Transpose() const noexcept {
     return {xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
   }
 
-  inline constexpr Dyad Cofactors() const noexcept {
+  constexpr Dyad Cofactors() const noexcept {
     const double cofactor_xx{yy() * zz() - yz() * zy()};
     const double cofactor_xy{yz() * zx() - yx() * zz()};
     const double cofactor_xz{yx() * zy() - yy() * zx()};
@@ -204,13 +204,11 @@ public:
             cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
   }
 
-  inline constexpr Dyad Adjugate() const noexcept {
-    return Cofactors().Transpose();
-  }
+  constexpr Dyad Adjugate() const noexcept { return Cofactors().Transpose(); }
 
-  inline constexpr std::optional<Dyad> Inverse() const;
+  constexpr std::optional<Dyad> Inverse() const;
 
-  inline std::string Print() const noexcept {
+  std::string Print() const noexcept {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", "
            + PhQ::Print(xz()) + "; " + PhQ::Print(yx()) + ", "
            + PhQ::Print(yy()) + ", " + PhQ::Print(yz()) + "; "
@@ -218,7 +216,7 @@ public:
            + PhQ::Print(zz()) + ")";
   }
 
-  inline std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const noexcept {
     return "(" + PhQ::Print(xx(), precision) + ", "
            + PhQ::Print(xy(), precision) + ", " + PhQ::Print(xz(), precision)
            + "; " + PhQ::Print(yx(), precision) + ", "
@@ -228,7 +226,7 @@ public:
            + ")";
   }
 
-  inline std::string JSON() const noexcept {
+  std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy())
            + ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx())
            + ",\"yy\":" + PhQ::Print(yy()) + ",\"yz\":" + PhQ::Print(yz())
@@ -236,7 +234,7 @@ public:
            + ",\"zz\":" + PhQ::Print(zz()) + "}";
   }
 
-  inline std::string XML() const noexcept {
+  std::string XML() const noexcept {
     return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy())
            + "</xy><xz>" + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx())
            + "</yx><yy>" + PhQ::Print(yy()) + "</yy><yz>" + PhQ::Print(yz())
@@ -244,7 +242,7 @@ public:
            + "</zy><zz>" + PhQ::Print(zz()) + "</zz>";
   }
 
-  inline std::string YAML() const noexcept {
+  std::string YAML() const noexcept {
     return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy())
            + ",xz:" + PhQ::Print(xz()) + ",yx:" + PhQ::Print(yx())
            + ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz())
@@ -252,7 +250,7 @@ public:
            + ",zz:" + PhQ::Print(zz()) + "}";
   }
 
-  inline constexpr void operator+=(const Dyad& dyad) noexcept {
+  constexpr void operator+=(const Dyad& dyad) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
@@ -264,7 +262,7 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] += dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr void operator-=(const Dyad& dyad) noexcept {
+  constexpr void operator-=(const Dyad& dyad) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
@@ -276,7 +274,7 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  inline constexpr void operator*=(const double real) noexcept {
+  constexpr void operator*=(const double real) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= real;
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= real;
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= real;
@@ -288,7 +286,7 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= real;
   }
 
-  inline constexpr void operator/=(const double real) noexcept {
+  constexpr void operator/=(const double real) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= real;
@@ -523,7 +521,7 @@ inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Value::Dyad> {
-  size_t operator()(const PhQ::Value::Dyad& dyad) const {
+  inline size_t operator()(const PhQ::Value::Dyad& dyad) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(dyad.xx());
     result = 31 * result + hash<double>()(dyad.xy());

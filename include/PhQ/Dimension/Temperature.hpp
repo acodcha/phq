@@ -32,7 +32,7 @@ public:
   explicit constexpr Temperature(const int_least8_t value) noexcept
     : value_(value) {}
 
-  inline constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int_least8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "Θ"; }
 
@@ -96,7 +96,8 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Dimension::Temperature> {
-  size_t operator()(const PhQ::Dimension::Temperature& temperature) const {
+  inline size_t operator()(
+      const PhQ::Dimension::Temperature& temperature) const {
     return hash<int_least8_t>()(temperature.Value());
   }
 };

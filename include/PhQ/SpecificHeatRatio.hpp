@@ -66,55 +66,49 @@ public:
     return SpecificHeatRatio{0.0};
   }
 
-  inline constexpr SpecificHeatRatio operator+(
+  constexpr SpecificHeatRatio operator+(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept {
     return SpecificHeatRatio{value_ + specific_heat_ratio.value_};
   }
 
-  inline constexpr SpecificHeatRatio operator-(
+  constexpr SpecificHeatRatio operator-(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept {
     return SpecificHeatRatio{value_ - specific_heat_ratio.value_};
   }
 
-  inline constexpr SpecificHeatRatio operator*(
-      const double number) const noexcept {
+  constexpr SpecificHeatRatio operator*(const double number) const noexcept {
     return SpecificHeatRatio{value_ * number};
   }
 
-  inline constexpr IsobaricHeatCapacity operator*(
+  constexpr IsobaricHeatCapacity operator*(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
 
-  inline constexpr SpecificIsobaricHeatCapacity operator*(
+  constexpr SpecificIsobaricHeatCapacity operator*(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const noexcept;
 
-  inline constexpr SpecificHeatRatio operator/(
-      const double number) const noexcept {
+  constexpr SpecificHeatRatio operator/(const double number) const noexcept {
     return SpecificHeatRatio{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const SpecificHeatRatio& specific_heat_ratio) const noexcept {
     return value_ / specific_heat_ratio.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const SpecificHeatRatio& specific_heat_ratio) noexcept {
     value_ += specific_heat_ratio.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const SpecificHeatRatio& specific_heat_ratio) noexcept {
     value_ -= specific_heat_ratio.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -183,7 +177,8 @@ inline constexpr double operator/(
 namespace std {
 
 template<> struct hash<PhQ::SpecificHeatRatio> {
-  size_t operator()(const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
+  inline size_t operator()(
+      const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
     return hash<double>()(specific_heat_ratio.Value());
   }
 };

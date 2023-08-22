@@ -49,47 +49,43 @@ public:
             value)};
   }
 
-  inline StaticPressure Magnitude() const noexcept { return {*this}; }
+  StaticPressure Magnitude() const noexcept { return {*this}; }
 
-  inline PhQ::Angle Angle(const Traction& traction) const noexcept {
+  PhQ::Angle Angle(const Traction& traction) const noexcept {
     return {*this, traction};
   }
 
-  inline constexpr Traction operator+(const Traction& traction) const noexcept {
+  constexpr Traction operator+(const Traction& traction) const noexcept {
     return Traction{value_ + traction.value_};
   }
 
-  inline constexpr Traction operator-(const Traction& traction) const noexcept {
+  constexpr Traction operator-(const Traction& traction) const noexcept {
     return Traction{value_ - traction.value_};
   }
 
-  inline constexpr Traction operator*(const double number) const noexcept {
+  constexpr Traction operator*(const double number) const noexcept {
     return Traction{value_ * number};
   }
 
-  inline constexpr Force operator*(const Area& area) const noexcept {
+  constexpr Force operator*(const Area& area) const noexcept {
     return {*this, area};
   }
 
-  inline constexpr Traction operator/(const double number) const noexcept {
+  constexpr Traction operator/(const double number) const noexcept {
     return Traction{value_ / number};
   }
 
-  inline constexpr void operator+=(const Traction& traction) noexcept {
+  constexpr void operator+=(const Traction& traction) noexcept {
     value_ += traction.value_;
   }
 
-  inline constexpr void operator-=(const Traction& traction) noexcept {
+  constexpr void operator-=(const Traction& traction) noexcept {
     value_ -= traction.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Traction(const Value::Vector& value) noexcept
@@ -170,7 +166,7 @@ inline constexpr Traction Force::operator/(const Area& area) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Traction> {
-  size_t operator()(const PhQ::Traction& traction) const {
+  inline size_t operator()(const PhQ::Traction& traction) const {
     return hash<PhQ::Value::Vector>()(traction.Value());
   }
 };

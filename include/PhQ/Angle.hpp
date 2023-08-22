@@ -90,49 +90,43 @@ public:
         StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
-  inline constexpr Angle operator+(const Angle& other) const noexcept {
+  constexpr Angle operator+(const Angle& other) const noexcept {
     return Angle{value_ + other.value_};
   }
 
-  inline constexpr Angle operator-(const Angle& other) const noexcept {
+  constexpr Angle operator-(const Angle& other) const noexcept {
     return Angle{value_ - other.value_};
   }
 
-  inline constexpr Angle operator*(const double number) const noexcept {
+  constexpr Angle operator*(const double number) const noexcept {
     return Angle{value_ * number};
   }
 
-  inline constexpr AngularSpeed operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr AngularSpeed operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Angle operator/(const double number) const noexcept {
+  constexpr Angle operator/(const double number) const noexcept {
     return Angle{value_ / number};
   }
 
-  inline constexpr AngularSpeed operator/(const Time& time) const noexcept;
+  constexpr AngularSpeed operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(
-      const AngularSpeed& angular_speed) const noexcept;
+  constexpr Time operator/(const AngularSpeed& angular_speed) const noexcept;
 
-  inline constexpr double operator/(const Angle& angle) const noexcept {
+  constexpr double operator/(const Angle& angle) const noexcept {
     return value_ / angle.value_;
   }
 
-  inline constexpr void operator+=(const Angle& angle) noexcept {
+  constexpr void operator+=(const Angle& angle) noexcept {
     value_ += angle.value_;
   }
 
-  inline constexpr void operator-=(const Angle& angle) noexcept {
+  constexpr void operator-=(const Angle& angle) noexcept {
     value_ -= angle.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Angle(const double value) noexcept
@@ -192,7 +186,7 @@ inline PhQ::Angle Value::Vector::Angle(
 namespace std {
 
 template<> struct hash<PhQ::Angle> {
-  size_t operator()(const PhQ::Angle& angle) const {
+  inline size_t operator()(const PhQ::Angle& angle) const {
     return hash<double>()(angle.Value());
   }
 };

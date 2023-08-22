@@ -50,57 +50,51 @@ public:
             value)};
   }
 
-  inline constexpr StaticPressure operator+(
+  constexpr StaticPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline constexpr PressureDifference operator+(
+  constexpr PressureDifference operator+(
       const PressureDifference& pressure_difference) const noexcept {
     return PressureDifference{value_ + pressure_difference.value_};
   }
 
-  inline constexpr StaticPressure operator-(
+  constexpr StaticPressure operator-(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline constexpr PressureDifference operator-(
+  constexpr PressureDifference operator-(
       const PressureDifference& pressure_difference) const noexcept {
     return PressureDifference{value_ - pressure_difference.value_};
   }
 
-  inline constexpr PressureDifference operator*(
-      const double number) const noexcept {
+  constexpr PressureDifference operator*(const double number) const noexcept {
     return PressureDifference{value_ * number};
   }
 
-  inline constexpr PressureDifference operator/(
-      const double number) const noexcept {
+  constexpr PressureDifference operator/(const double number) const noexcept {
     return PressureDifference{value_ / number};
   }
 
-  inline constexpr KinematicPressureDifference operator/(
+  constexpr KinematicPressureDifference operator/(
       const MassDensity& mass_density) const noexcept;
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const PressureDifference& pressure_difference) const noexcept {
     return value_ / pressure_difference.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const PressureDifference& pressure_difference) noexcept {
     value_ += pressure_difference.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const PressureDifference& pressure_difference) noexcept {
     value_ -= pressure_difference.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr PressureDifference(const double value) noexcept
@@ -157,7 +151,8 @@ inline constexpr PressureDifference operator*(
 namespace std {
 
 template<> struct hash<PhQ::PressureDifference> {
-  size_t operator()(const PhQ::PressureDifference& pressure_difference) const {
+  inline size_t operator()(
+      const PhQ::PressureDifference& pressure_difference) const {
     return hash<double>()(pressure_difference.Value());
   }
 };

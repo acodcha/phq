@@ -46,91 +46,80 @@ public:
     return ReynoldsNumber{0.0};
   }
 
-  inline constexpr PhQ::DynamicViscosity DynamicViscosity(
+  constexpr PhQ::DynamicViscosity DynamicViscosity(
       const PhQ::MassDensity& mass_density, const PhQ::Speed& speed,
       const PhQ::Length& length) const noexcept {
     return {*this, mass_density, speed, length};
   }
 
-  inline constexpr PhQ::KinematicViscosity KinematicViscosity(
+  constexpr PhQ::KinematicViscosity KinematicViscosity(
       const PhQ::Speed& speed, const PhQ::Length& length) const noexcept {
     return {*this, speed, length};
   }
 
-  inline constexpr PhQ::MassDensity MassDensity(
+  constexpr PhQ::MassDensity MassDensity(
       const PhQ::DynamicViscosity& dynamic_viscosity, const PhQ::Speed& speed,
       const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, speed, length};
   }
 
-  inline constexpr PhQ::Speed Speed(
-      const PhQ::DynamicViscosity& dynamic_viscosity,
-      const PhQ::MassDensity& mass_density,
-      const PhQ::Length& length) const noexcept {
+  constexpr PhQ::Speed Speed(const PhQ::DynamicViscosity& dynamic_viscosity,
+                             const PhQ::MassDensity& mass_density,
+                             const PhQ::Length& length) const noexcept {
     return {*this, dynamic_viscosity, mass_density, length};
   }
 
-  inline constexpr PhQ::Speed Speed(
-      const PhQ::KinematicViscosity& kinematic_viscosity,
-      const PhQ::Length& length) const noexcept {
+  constexpr PhQ::Speed Speed(const PhQ::KinematicViscosity& kinematic_viscosity,
+                             const PhQ::Length& length) const noexcept {
     return {*this, kinematic_viscosity, length};
   }
 
-  inline constexpr PhQ::Length Length(
-      const PhQ::DynamicViscosity& dynamic_viscosity,
-      const PhQ::MassDensity& mass_density,
-      const PhQ::Speed& speed) const noexcept {
+  constexpr PhQ::Length Length(const PhQ::DynamicViscosity& dynamic_viscosity,
+                               const PhQ::MassDensity& mass_density,
+                               const PhQ::Speed& speed) const noexcept {
     return {*this, dynamic_viscosity, mass_density, speed};
   }
 
-  inline constexpr PhQ::Length Length(
+  constexpr PhQ::Length Length(
       const PhQ::KinematicViscosity& kinematic_viscosity,
       const PhQ::Speed& speed) const noexcept {
     return {*this, kinematic_viscosity, speed};
   }
 
-  inline constexpr ReynoldsNumber operator+(
+  constexpr ReynoldsNumber operator+(
       const ReynoldsNumber& reynolds_number) const noexcept {
     return ReynoldsNumber{value_ + reynolds_number.value_};
   }
 
-  inline constexpr ReynoldsNumber operator-(
+  constexpr ReynoldsNumber operator-(
       const ReynoldsNumber& reynolds_number) const noexcept {
     return ReynoldsNumber{value_ - reynolds_number.value_};
   }
 
-  inline constexpr ReynoldsNumber operator*(
-      const double number) const noexcept {
+  constexpr ReynoldsNumber operator*(const double number) const noexcept {
     return ReynoldsNumber{value_ * number};
   }
 
-  inline constexpr ReynoldsNumber operator/(
-      const double number) const noexcept {
+  constexpr ReynoldsNumber operator/(const double number) const noexcept {
     return ReynoldsNumber{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const ReynoldsNumber& reynolds_number) const noexcept {
     return value_ / reynolds_number.value_;
   }
 
-  inline constexpr void operator+=(
-      const ReynoldsNumber& reynolds_number) noexcept {
+  constexpr void operator+=(const ReynoldsNumber& reynolds_number) noexcept {
     value_ += reynolds_number.value_;
   }
 
-  inline constexpr void operator-=(
-      const ReynoldsNumber& reynolds_number) noexcept {
+  constexpr void operator-=(const ReynoldsNumber& reynolds_number) noexcept {
     value_ -= reynolds_number.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -239,7 +228,7 @@ inline constexpr DynamicViscosity::DynamicViscosity(
 namespace std {
 
 template<> struct hash<PhQ::ReynoldsNumber> {
-  size_t operator()(const PhQ::ReynoldsNumber& reynolds_number) const {
+  inline size_t operator()(const PhQ::ReynoldsNumber& reynolds_number) const {
     return hash<double>()(reynolds_number.Value());
   }
 };

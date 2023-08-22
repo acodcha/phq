@@ -30,13 +30,11 @@ namespace PhQ {
 // dimension set.
 class DimensionlessDyadQuantity : public DimensionlessQuantity {
 public:
-  inline constexpr const Value::Dyad& Value() const noexcept { return value_; }
+  constexpr const Value::Dyad& Value() const noexcept { return value_; }
 
-  inline constexpr Value::Dyad& MutableValue() noexcept { return value_; }
+  constexpr Value::Dyad& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const Value::Dyad& value) noexcept {
-    value_ = value;
-  }
+  constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
 
   std::string Print() const noexcept override { return value_.Print(); }
 
@@ -74,7 +72,8 @@ protected:
 namespace std {
 
 template<> struct hash<PhQ::DimensionlessDyadQuantity> {
-  size_t operator()(const PhQ::DimensionlessDyadQuantity& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionlessDyadQuantity& quantity) const {
     return hash<PhQ::Value::Dyad>()(quantity.Value());
   }
 };

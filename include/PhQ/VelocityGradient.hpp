@@ -42,47 +42,41 @@ public:
             value)};
   }
 
-  inline constexpr PhQ::StrainRate StrainRate() const noexcept {
+  constexpr PhQ::StrainRate StrainRate() const noexcept {
     return PhQ::StrainRate{*this};
   }
 
-  inline constexpr VelocityGradient operator+(
+  constexpr VelocityGradient operator+(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ + velocity_gradient.value_};
   }
 
-  inline constexpr VelocityGradient operator-(
+  constexpr VelocityGradient operator-(
       const VelocityGradient& velocity_gradient) const noexcept {
     return VelocityGradient{value_ - velocity_gradient.value_};
   }
 
-  inline constexpr VelocityGradient operator*(
-      const double number) const noexcept {
+  constexpr VelocityGradient operator*(const double number) const noexcept {
     return VelocityGradient{value_ * number};
   }
 
-  inline constexpr VelocityGradient operator/(
-      const double number) const noexcept {
+  constexpr VelocityGradient operator/(const double number) const noexcept {
     return VelocityGradient{value_ / number};
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const VelocityGradient& velocity_gradient) noexcept {
     value_ += velocity_gradient.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const VelocityGradient& velocity_gradient) noexcept {
     value_ -= velocity_gradient.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr VelocityGradient(const Value::Dyad& value) noexcept
@@ -141,7 +135,8 @@ inline constexpr StrainRate::StrainRate(
 namespace std {
 
 template<> struct hash<PhQ::VelocityGradient> {
-  size_t operator()(const PhQ::VelocityGradient& velocity_gradient) const {
+  inline size_t operator()(
+      const PhQ::VelocityGradient& velocity_gradient) const {
     return hash<PhQ::Value::Dyad>()(velocity_gradient.Value());
   }
 };

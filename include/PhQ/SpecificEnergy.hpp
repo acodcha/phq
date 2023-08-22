@@ -54,60 +54,50 @@ public:
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  inline constexpr SpecificEnergy operator+(
+  constexpr SpecificEnergy operator+(
       const SpecificEnergy& specific_energy) const noexcept {
     return SpecificEnergy{value_ + specific_energy.value_};
   }
 
-  inline constexpr SpecificEnergy operator-(
+  constexpr SpecificEnergy operator-(
       const SpecificEnergy& specific_energy) const noexcept {
     return SpecificEnergy{value_ - specific_energy.value_};
   }
 
-  inline constexpr SpecificEnergy operator*(
-      const double number) const noexcept {
+  constexpr SpecificEnergy operator*(const double number) const noexcept {
     return SpecificEnergy{value_ * number};
   }
 
-  inline constexpr Energy operator*(const Mass& mass) const noexcept {
+  constexpr Energy operator*(const Mass& mass) const noexcept {
     return {*this, mass};
   }
 
-  inline constexpr SpecificPower operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr SpecificPower operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr SpecificEnergy operator/(
-      const double number) const noexcept {
+  constexpr SpecificEnergy operator/(const double number) const noexcept {
     return SpecificEnergy{value_ / number};
   }
 
-  inline constexpr SpecificPower operator/(const Time& time) const noexcept;
+  constexpr SpecificPower operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(
-      const SpecificPower& specific_power) const noexcept;
+  constexpr Time operator/(const SpecificPower& specific_power) const noexcept;
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const SpecificEnergy& specific_energy) const noexcept {
     return value_ / specific_energy.value_;
   }
 
-  inline constexpr void operator+=(
-      const SpecificEnergy& specific_energy) noexcept {
+  constexpr void operator+=(const SpecificEnergy& specific_energy) noexcept {
     value_ += specific_energy.value_;
   }
 
-  inline constexpr void operator-=(
-      const SpecificEnergy& specific_energy) noexcept {
+  constexpr void operator-=(const SpecificEnergy& specific_energy) noexcept {
     value_ -= specific_energy.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr SpecificEnergy(const double value) noexcept
@@ -183,7 +173,7 @@ inline constexpr SpecificEnergy Energy::operator/(
 namespace std {
 
 template<> struct hash<PhQ::SpecificEnergy> {
-  size_t operator()(const PhQ::SpecificEnergy& specific_energy) const {
+  inline size_t operator()(const PhQ::SpecificEnergy& specific_energy) const {
     return hash<double>()(specific_energy.Value());
   }
 };

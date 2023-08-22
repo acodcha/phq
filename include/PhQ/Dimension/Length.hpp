@@ -32,7 +32,7 @@ public:
   explicit constexpr Length(const int_least8_t value) noexcept
     : value_(value) {}
 
-  inline constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int_least8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "L"; }
 
@@ -96,7 +96,7 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Dimension::Length> {
-  size_t operator()(const PhQ::Dimension::Length& length) const {
+  inline size_t operator()(const PhQ::Dimension::Length& length) const {
     return hash<int_least8_t>()(length.Value());
   }
 };

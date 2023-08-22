@@ -30,44 +30,39 @@ public:
 
   static constexpr PoissonRatio Zero() noexcept { return PoissonRatio{0.0}; }
 
-  inline constexpr PoissonRatio operator+(
+  constexpr PoissonRatio operator+(
       const PoissonRatio& poisson_ratio) const noexcept {
     return PoissonRatio{value_ + poisson_ratio.value_};
   }
 
-  inline constexpr PoissonRatio operator-(
+  constexpr PoissonRatio operator-(
       const PoissonRatio& poisson_ratio) const noexcept {
     return PoissonRatio{value_ - poisson_ratio.value_};
   }
 
-  inline constexpr PoissonRatio operator*(const double number) const noexcept {
+  constexpr PoissonRatio operator*(const double number) const noexcept {
     return PoissonRatio{value_ * number};
   }
 
-  inline constexpr PoissonRatio operator/(const double number) const noexcept {
+  constexpr PoissonRatio operator/(const double number) const noexcept {
     return PoissonRatio{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const PoissonRatio& poisson_ratio) const noexcept {
+  constexpr double operator/(const PoissonRatio& poisson_ratio) const noexcept {
     return value_ / poisson_ratio.value_;
   }
 
-  inline constexpr void operator+=(const PoissonRatio& poisson_ratio) noexcept {
+  constexpr void operator+=(const PoissonRatio& poisson_ratio) noexcept {
     value_ += poisson_ratio.value_;
   }
 
-  inline constexpr void operator-=(const PoissonRatio& poisson_ratio) noexcept {
+  constexpr void operator-=(const PoissonRatio& poisson_ratio) noexcept {
     value_ -= poisson_ratio.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 };
 
 inline constexpr bool operator==(
@@ -131,7 +126,7 @@ inline constexpr double operator/(
 namespace std {
 
 template<> struct hash<PhQ::PoissonRatio> {
-  size_t operator()(const PhQ::PoissonRatio& poisson_ratio) const {
+  inline size_t operator()(const PhQ::PoissonRatio& poisson_ratio) const {
     return hash<double>()(poisson_ratio.Value());
   }
 };

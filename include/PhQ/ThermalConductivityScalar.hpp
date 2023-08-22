@@ -62,53 +62,49 @@ public:
                           Standard<Unit::ThermalConductivity>>(value)};
   }
 
-  inline constexpr ThermalConductivityScalar
+  constexpr ThermalConductivityScalar
   operator+(const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
     return ThermalConductivityScalar{
         value_ + thermal_conductivity_scalar.value_};
   }
 
-  inline constexpr ThermalConductivityScalar
+  constexpr ThermalConductivityScalar
   operator-(const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
     return ThermalConductivityScalar{
         value_ - thermal_conductivity_scalar.value_};
   }
 
-  inline constexpr ThermalConductivityScalar operator*(
+  constexpr ThermalConductivityScalar operator*(
       const double number) const noexcept {
     return ThermalConductivityScalar{value_ * number};
   }
 
-  inline constexpr ThermalConductivityScalar operator/(
+  constexpr ThermalConductivityScalar operator/(
       const double number) const noexcept {
     return ThermalConductivityScalar{value_ / number};
   }
 
-  inline constexpr double
+  constexpr double
   operator/(const ThermalConductivityScalar& thermal_conductivity_scalar)
       const noexcept {
     return value_ / thermal_conductivity_scalar.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
     value_ += thermal_conductivity_scalar.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
     value_ -= thermal_conductivity_scalar.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr ThermalConductivityScalar(const double value) noexcept
@@ -169,7 +165,7 @@ inline constexpr ThermalConductivityScalar operator*(
 namespace std {
 
 template<> struct hash<PhQ::ThermalConductivityScalar> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar) const {
     return hash<double>()(thermal_conductivity_scalar.Value());
   }

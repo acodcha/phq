@@ -45,121 +45,102 @@ public:
     };
   }
 
-  inline constexpr const std::array<double, 6>&
-  xx_xy_xz_yy_yz_zz() const noexcept {
+  constexpr const std::array<double, 6>& xx_xy_xz_yy_yz_zz() const noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
-  inline constexpr std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz() noexcept {
+  constexpr std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
 
-  inline constexpr void set_xx_xy_xz_yy_yz_zz(
+  constexpr void set_xx_xy_xz_yy_yz_zz(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
   }
 
-  inline constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+  constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
 
-  inline constexpr double& mutable_xx() noexcept {
-    return xx_xy_xz_yy_yz_zz_[0];
-  }
+  constexpr double& mutable_xx() noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
 
-  inline constexpr void set_xx(const double xx) noexcept {
+  constexpr void set_xx(const double xx) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
   }
 
-  inline constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr double& mutable_xy() noexcept {
-    return xx_xy_xz_yy_yz_zz_[1];
-  }
+  constexpr double& mutable_xy() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr void set_xy(const double xy) noexcept {
+  constexpr void set_xy(const double xy) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = xy;
   }
 
-  inline constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr double& mutable_xz() noexcept {
-    return xx_xy_xz_yy_yz_zz_[2];
-  }
+  constexpr double& mutable_xz() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr void set_xz(const double xz) noexcept {
+  constexpr void set_xz(const double xz) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = xz;
   }
 
-  inline constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr double& mutable_yx() noexcept {
-    return xx_xy_xz_yy_yz_zz_[1];
-  }
+  constexpr double& mutable_yx() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
-  inline constexpr void set_yx(const double yx) noexcept {
+  constexpr void set_yx(const double yx) noexcept {
     xx_xy_xz_yy_yz_zz_[1] = yx;
   }
 
-  inline constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+  constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
 
-  inline constexpr double& mutable_yy() noexcept {
-    return xx_xy_xz_yy_yz_zz_[3];
-  }
+  constexpr double& mutable_yy() noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
 
-  inline constexpr void set_yy(const double yy) noexcept {
+  constexpr void set_yy(const double yy) noexcept {
     xx_xy_xz_yy_yz_zz_[3] = yy;
   }
 
-  inline constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  inline constexpr double& mutable_yz() noexcept {
-    return xx_xy_xz_yy_yz_zz_[4];
-  }
+  constexpr double& mutable_yz() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  inline constexpr void set_yz(const double yz) noexcept {
+  constexpr void set_yz(const double yz) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = yz;
   }
 
-  inline constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr double& mutable_zx() noexcept {
-    return xx_xy_xz_yy_yz_zz_[2];
-  }
+  constexpr double& mutable_zx() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
 
-  inline constexpr void set_zx(const double zx) noexcept {
+  constexpr void set_zx(const double zx) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = zx;
   }
 
-  inline constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  inline constexpr double& mutable_zy() noexcept {
-    return xx_xy_xz_yy_yz_zz_[4];
-  }
+  constexpr double& mutable_zy() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
-  inline constexpr void set_zy(const double zy) noexcept {
+  constexpr void set_zy(const double zy) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = zy;
   }
 
-  inline constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
+  constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
 
-  inline constexpr double& mutable_zz() noexcept {
-    return xx_xy_xz_yy_yz_zz_[5];
-  }
+  constexpr double& mutable_zz() noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
 
-  inline constexpr void set_zz(const double zz) noexcept {
+  constexpr void set_zz(const double zz) noexcept {
     xx_xy_xz_yy_yz_zz_[5] = zz;
   }
 
-  inline constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
+  constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
 
-  inline constexpr double Determinant() const noexcept {
+  constexpr double Determinant() const noexcept {
     return (
         xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
         + xz() * (yx() * zy() - yy() * zx()));
   }
 
-  inline constexpr SymmetricDyad Transpose() const noexcept { return *this; }
+  constexpr SymmetricDyad Transpose() const noexcept { return *this; }
 
-  inline constexpr SymmetricDyad Cofactors() const noexcept {
+  constexpr SymmetricDyad Cofactors() const noexcept {
     const double cofactor_xx{yy() * zz() - yz() * yz()};
     const double cofactor_xy{xz() * yz() - xy() * zz()};
     const double cofactor_xz{xy() * yz() - xz() * yy()};
@@ -170,15 +151,15 @@ public:
             cofactor_yy, cofactor_yz, cofactor_zz};
   }
 
-  inline constexpr SymmetricDyad Adjugate() const noexcept {
+  constexpr SymmetricDyad Adjugate() const noexcept {
     // Normally, this would be cofactors().transpose(), but since this is a
     // symmetric dyad, the transpose is not needed.
     return Cofactors();
   }
 
-  inline std::optional<SymmetricDyad> Inverse() const;
+  std::optional<SymmetricDyad> Inverse() const;
 
-  inline std::string Print() const noexcept {
+  std::string Print() const noexcept {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "; "
@@ -187,7 +168,7 @@ public:
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  inline std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const noexcept {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0], precision) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1], precision) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2], precision) + "; "
@@ -196,7 +177,7 @@ public:
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[5], precision) + ")";
   }
 
-  inline std::string JSON() const noexcept {
+  std::string JSON() const noexcept {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0])
            + ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])
            + ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -205,7 +186,7 @@ public:
            + ",\"zz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  inline std::string XML() const noexcept {
+  std::string XML() const noexcept {
     return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>"
@@ -214,7 +195,7 @@ public:
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "</zz>";
   }
 
-  inline std::string YAML() const noexcept {
+  std::string YAML() const noexcept {
     return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0])
            + ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])
            + ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -223,7 +204,7 @@ public:
            + ",zz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + "}";
   }
 
-  inline constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
+  constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] += symdyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] += symdyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] += symdyad.xx_xy_xz_yy_yz_zz_[2];
@@ -232,7 +213,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] += symdyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  inline constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
+  constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] -= symdyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] -= symdyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] -= symdyad.xx_xy_xz_yy_yz_zz_[2];
@@ -241,7 +222,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] -= symdyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  inline constexpr void operator*=(const double real) noexcept {
+  constexpr void operator*=(const double real) noexcept {
     xx_xy_xz_yy_yz_zz_[0] *= real;
     xx_xy_xz_yy_yz_zz_[1] *= real;
     xx_xy_xz_yy_yz_zz_[2] *= real;
@@ -250,7 +231,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] *= real;
   }
 
-  inline constexpr void operator/=(const double real) noexcept {
+  constexpr void operator/=(const double real) noexcept {
     xx_xy_xz_yy_yz_zz_[0] /= real;
     xx_xy_xz_yy_yz_zz_[1] /= real;
     xx_xy_xz_yy_yz_zz_[2] /= real;
@@ -394,7 +375,7 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Value::SymmetricDyad> {
-  size_t operator()(const PhQ::Value::SymmetricDyad& symmetric) const {
+  inline size_t operator()(const PhQ::Value::SymmetricDyad& symmetric) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(symmetric.xx());
     result = 31 * result + hash<double>()(symmetric.xy());

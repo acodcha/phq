@@ -51,52 +51,46 @@ public:
                           Standard<Unit::TemperatureGradient>>(value)};
   }
 
-  inline constexpr TemperatureGradientMagnitude Magnitude() const noexcept {
+  constexpr TemperatureGradientMagnitude Magnitude() const noexcept {
     return {*this};
   }
 
-  inline PhQ::Angle Angle(
+  PhQ::Angle Angle(
       const TemperatureGradient& temperature_gradient) const noexcept {
     return {*this, temperature_gradient};
   }
 
-  inline constexpr TemperatureGradient operator+(
+  constexpr TemperatureGradient operator+(
       const TemperatureGradient& temperature_gradient) const noexcept {
     return TemperatureGradient{value_ + temperature_gradient.value_};
   }
 
-  inline constexpr TemperatureGradient operator-(
+  constexpr TemperatureGradient operator-(
       const TemperatureGradient& temperature_gradient) const noexcept {
     return TemperatureGradient{value_ - temperature_gradient.value_};
   }
 
-  inline constexpr TemperatureGradient operator*(
-      const double number) const noexcept {
+  constexpr TemperatureGradient operator*(const double number) const noexcept {
     return TemperatureGradient{value_ * number};
   }
 
-  inline constexpr TemperatureGradient operator/(
-      const double number) const noexcept {
+  constexpr TemperatureGradient operator/(const double number) const noexcept {
     return TemperatureGradient{value_ / number};
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const TemperatureGradient& temperature_gradient) noexcept {
     value_ += temperature_gradient.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const TemperatureGradient& temperature_gradient) noexcept {
     value_ -= temperature_gradient.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr TemperatureGradient(const Value::Vector& value) noexcept
@@ -174,7 +168,7 @@ inline constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(
 namespace std {
 
 template<> struct hash<PhQ::TemperatureGradient> {
-  size_t operator()(
+  inline size_t operator()(
       const PhQ::TemperatureGradient& temperature_gradient) const {
     return hash<PhQ::Value::Vector>()(temperature_gradient.Value());
   }

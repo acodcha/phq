@@ -29,24 +29,21 @@ namespace PhQ {
 template<typename U> class DimensionalVectorQuantity
   : public DimensionalQuantity<U> {
 public:
-  inline constexpr const Value::Vector& Value() const noexcept {
-    return value_;
-  }
+  constexpr const Value::Vector& Value() const noexcept { return value_; }
 
-  inline Value::Vector Value(const U unit) const noexcept {
+  Value::Vector Value(const U unit) const noexcept {
     Value::Vector result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
-  template<U NewUnit>
-  inline constexpr Value::Vector StaticValue() const noexcept {
+  template<U NewUnit> constexpr Value::Vector StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
-  inline constexpr Value::Vector& MutableValue() noexcept { return value_; }
+  constexpr Value::Vector& MutableValue() noexcept { return value_; }
 
-  inline constexpr void SetValue(const Value::Vector& value) noexcept {
+  constexpr void SetValue(const Value::Vector& value) noexcept {
     value_ = value;
   }
 
@@ -154,7 +151,8 @@ protected:
 namespace std {
 
 template<typename U> struct hash<PhQ::DimensionalVectorQuantity<U>> {
-  size_t operator()(const PhQ::DimensionalVectorQuantity<U>& quantity) const {
+  inline size_t operator()(
+      const PhQ::DimensionalVectorQuantity<U>& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());
   }
 };

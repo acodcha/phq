@@ -46,56 +46,50 @@ public:
             value)};
   }
 
-  inline constexpr TotalPressure operator+(
+  constexpr TotalPressure operator+(
       const TotalPressure& total_pressure) const noexcept {
     return TotalPressure{value_ + total_pressure.value_};
   }
 
-  inline constexpr TotalPressure operator-(
+  constexpr TotalPressure operator-(
       const TotalPressure& total_pressure) const noexcept {
     return TotalPressure{value_ - total_pressure.value_};
   }
 
-  inline constexpr DynamicPressure operator-(
+  constexpr DynamicPressure operator-(
       const StaticPressure& static_pressure) const noexcept {
     return {*this, static_pressure};
   }
 
-  inline constexpr StaticPressure operator-(
+  constexpr StaticPressure operator-(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return {*this, dynamic_pressure};
   }
 
-  inline constexpr TotalPressure operator*(const double number) const noexcept {
+  constexpr TotalPressure operator*(const double number) const noexcept {
     return TotalPressure{value_ * number};
   }
 
-  inline constexpr TotalPressure operator/(const double number) const noexcept {
+  constexpr TotalPressure operator/(const double number) const noexcept {
     return TotalPressure{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const TotalPressure& total_pressure) const noexcept {
     return value_ / total_pressure.value_;
   }
 
-  inline constexpr void operator+=(
-      const TotalPressure& total_pressure) noexcept {
+  constexpr void operator+=(const TotalPressure& total_pressure) noexcept {
     value_ += total_pressure.value_;
   }
 
-  inline constexpr void operator-=(
-      const TotalPressure& total_pressure) noexcept {
+  constexpr void operator-=(const TotalPressure& total_pressure) noexcept {
     value_ -= total_pressure.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr TotalPressure(const double value) noexcept
@@ -168,7 +162,7 @@ inline constexpr TotalPressure DynamicPressure::operator+(
 namespace std {
 
 template<> struct hash<PhQ::TotalPressure> {
-  size_t operator()(const PhQ::TotalPressure& total_pressure) const {
+  inline size_t operator()(const PhQ::TotalPressure& total_pressure) const {
     return hash<double>()(total_pressure.Value());
   }
 };

@@ -80,60 +80,53 @@ public:
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  inline constexpr SoundSpeed operator+(
-      const SoundSpeed& speed) const noexcept {
+  constexpr SoundSpeed operator+(const SoundSpeed& speed) const noexcept {
     return SoundSpeed{value_ + speed.value_};
   }
 
-  inline constexpr Speed operator+(const Speed& speed) const noexcept {
+  constexpr Speed operator+(const Speed& speed) const noexcept {
     return Speed{value_ + speed.value_};
   }
 
-  inline constexpr SoundSpeed operator-(
-      const SoundSpeed& speed) const noexcept {
+  constexpr SoundSpeed operator-(const SoundSpeed& speed) const noexcept {
     return SoundSpeed{value_ - speed.value_};
   }
 
-  inline constexpr Speed operator-(const Speed& speed) const noexcept {
+  constexpr Speed operator-(const Speed& speed) const noexcept {
     return Speed{value_ - speed.value_};
   }
 
-  inline constexpr SoundSpeed operator*(const double number) const noexcept {
+  constexpr SoundSpeed operator*(const double number) const noexcept {
     return SoundSpeed{value_ * number};
   }
 
-  inline constexpr SoundSpeed operator/(const double number) const noexcept {
+  constexpr SoundSpeed operator/(const double number) const noexcept {
     return SoundSpeed{value_ / number};
   }
 
-  inline constexpr double operator/(
-      const SoundSpeed& sound_speed) const noexcept {
+  constexpr double operator/(const SoundSpeed& sound_speed) const noexcept {
     return value_ / sound_speed.value_;
   }
 
-  inline constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
+  constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
     value_ += sound_speed.value_;
   }
 
-  inline constexpr void operator+=(const Speed& speed) noexcept {
+  constexpr void operator+=(const Speed& speed) noexcept {
     value_ += speed.value_;
   }
 
-  inline constexpr void operator-=(const SoundSpeed& sound_speed) noexcept {
+  constexpr void operator-=(const SoundSpeed& sound_speed) noexcept {
     value_ -= sound_speed.value_;
   }
 
-  inline constexpr void operator-=(const Speed& speed) noexcept {
+  constexpr void operator-=(const Speed& speed) noexcept {
     value_ -= speed.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr SoundSpeed(const double value) noexcept
@@ -215,7 +208,7 @@ constexpr IsentropicBulkModulus::IsentropicBulkModulus(
 namespace std {
 
 template<> struct hash<PhQ::SoundSpeed> {
-  size_t operator()(const PhQ::SoundSpeed& sound_speed) const {
+  inline size_t operator()(const PhQ::SoundSpeed& sound_speed) const {
     return hash<double>()(sound_speed.Value());
   }
 };

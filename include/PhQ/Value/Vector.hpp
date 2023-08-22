@@ -55,115 +55,111 @@ public:
     };
   }
 
-  inline constexpr const std::array<double, 3>& x_y_z() const noexcept {
+  constexpr const std::array<double, 3>& x_y_z() const noexcept {
     return x_y_z_;
   }
 
-  inline constexpr std::array<double, 3>& mutable_x_y_z() noexcept {
-    return x_y_z_;
-  }
+  constexpr std::array<double, 3>& mutable_x_y_z() noexcept { return x_y_z_; }
 
-  inline constexpr void set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
+  constexpr void set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
     x_y_z_ = x_y_z;
   }
 
-  inline constexpr double x() const noexcept { return x_y_z_[0]; }
+  constexpr double x() const noexcept { return x_y_z_[0]; }
 
-  inline constexpr double& mutable_x() noexcept { return x_y_z_[0]; }
+  constexpr double& mutable_x() noexcept { return x_y_z_[0]; }
 
-  inline constexpr void set_x(const double x) noexcept { x_y_z_[0] = x; }
+  constexpr void set_x(const double x) noexcept { x_y_z_[0] = x; }
 
-  inline constexpr double y() const noexcept { return x_y_z_[1]; }
+  constexpr double y() const noexcept { return x_y_z_[1]; }
 
-  inline constexpr double& mutable_y() noexcept { return x_y_z_[1]; }
+  constexpr double& mutable_y() noexcept { return x_y_z_[1]; }
 
-  inline constexpr void set_y(const double y) noexcept { x_y_z_[1] = y; }
+  constexpr void set_y(const double y) noexcept { x_y_z_[1] = y; }
 
-  inline constexpr double z() const noexcept { return x_y_z_[2]; }
+  constexpr double z() const noexcept { return x_y_z_[2]; }
 
-  inline constexpr double& mutable_z() noexcept { return x_y_z_[2]; }
+  constexpr double& mutable_z() noexcept { return x_y_z_[2]; }
 
-  inline constexpr void set_z(const double z) noexcept { x_y_z_[2] = z; }
+  constexpr void set_z(const double z) noexcept { x_y_z_[2] = z; }
 
-  inline constexpr double MagnitudeSquared() const noexcept {
+  constexpr double MagnitudeSquared() const noexcept {
     return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1]
            + x_y_z_[2] * x_y_z_[2];
   }
 
-  inline double Magnitude() const noexcept {
-    return std::sqrt(MagnitudeSquared());
-  }
+  double Magnitude() const noexcept { return std::sqrt(MagnitudeSquared()); }
 
-  inline PhQ::Direction Direction() const noexcept;
+  PhQ::Direction Direction() const noexcept;
 
-  inline constexpr double Dot(const Vector& vector) const noexcept {
+  constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
            + x_y_z_[2] * vector.x_y_z_[2];
   }
 
-  inline constexpr double Dot(const PhQ::Direction& direction) const noexcept;
+  constexpr double Dot(const PhQ::Direction& direction) const noexcept;
 
-  inline constexpr Vector Cross(const Vector& vector) const noexcept {
+  constexpr Vector Cross(const Vector& vector) const noexcept {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
             x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
             x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
   }
 
-  inline constexpr Vector Cross(const PhQ::Direction& direction) const noexcept;
+  constexpr Vector Cross(const PhQ::Direction& direction) const noexcept;
 
-  inline constexpr Dyad Dyadic(const Vector& vector) const noexcept;
+  constexpr Dyad Dyadic(const Vector& vector) const noexcept;
 
-  inline constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
+  constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
 
-  inline PhQ::Angle Angle(const Vector& vector) const noexcept;
+  PhQ::Angle Angle(const Vector& vector) const noexcept;
 
-  inline PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
+  PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
 
-  inline std::string Print() const noexcept {
+  std::string Print() const noexcept {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", "
            + PhQ::Print(x_y_z_[2]) + ")";
   }
 
-  inline std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const noexcept {
     return "(" + PhQ::Print(x_y_z_[0], precision) + ", "
            + PhQ::Print(x_y_z_[1], precision) + ", "
            + PhQ::Print(x_y_z_[2], precision) + ")";
   }
 
-  inline std::string JSON() const noexcept {
+  std::string JSON() const noexcept {
     return "{\"x\":" + PhQ::Print(x_y_z_[0]) + ",\"y\":" + PhQ::Print(x_y_z_[1])
            + ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  inline std::string XML() const noexcept {
+  std::string XML() const noexcept {
     return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1])
            + "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
-  inline std::string YAML() const noexcept {
+  std::string YAML() const noexcept {
     return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1])
            + ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  inline constexpr void operator+=(const Vector& vector) noexcept {
+  constexpr void operator+=(const Vector& vector) noexcept {
     x_y_z_[0] += vector.x_y_z_[0];
     x_y_z_[1] += vector.x_y_z_[1];
     x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  inline constexpr void operator-=(const Vector& vector) noexcept {
+  constexpr void operator-=(const Vector& vector) noexcept {
     x_y_z_[0] -= vector.x_y_z_[0];
     x_y_z_[1] -= vector.x_y_z_[1];
     x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  inline constexpr void operator*=(const double real) noexcept {
+  constexpr void operator*=(const double real) noexcept {
     x_y_z_[0] *= real;
     x_y_z_[1] *= real;
     x_y_z_[2] *= real;
   }
 
-  inline constexpr void operator/=(const double real) noexcept {
+  constexpr void operator/=(const double real) noexcept {
     x_y_z_[0] /= real;
     x_y_z_[1] /= real;
     x_y_z_[2] /= real;
@@ -255,7 +251,7 @@ inline std::ostream& operator<<(
 namespace std {
 
 template<> struct hash<PhQ::Value::Vector> {
-  size_t operator()(const PhQ::Value::Vector& vector) const {
+  inline size_t operator()(const PhQ::Value::Vector& vector) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(vector.x());
     result = 31 * result + hash<double>()(vector.y());

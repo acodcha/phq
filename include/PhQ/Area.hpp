@@ -50,53 +50,48 @@ public:
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  inline constexpr Area operator+(const Area& area) const noexcept {
+  constexpr Area operator+(const Area& area) const noexcept {
     return Area{value_ + area.value_};
   }
 
-  inline constexpr Area operator-(const Area& area) const noexcept {
+  constexpr Area operator-(const Area& area) const noexcept {
     return Area{value_ - area.value_};
   }
 
-  inline constexpr Area operator*(const double number) const noexcept {
+  constexpr Area operator*(const double number) const noexcept {
     return Area{value_ * number};
   }
 
-  inline constexpr Volume operator*(const Length& length) const noexcept;
+  constexpr Volume operator*(const Length& length) const noexcept;
 
-  inline constexpr ForceMagnitude operator*(
+  constexpr ForceMagnitude operator*(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline constexpr AreaVector operator*(
-      const Direction& direction) const noexcept;
+  constexpr AreaVector operator*(const Direction& direction) const noexcept;
 
-  inline constexpr Area operator/(const double number) const noexcept {
+  constexpr Area operator/(const double number) const noexcept {
     return Area{value_ / number};
   }
 
-  inline constexpr Length operator/(const Length& length) const noexcept {
+  constexpr Length operator/(const Length& length) const noexcept {
     return Length{value_ / length.Value()};
   }
 
-  inline constexpr double operator/(const Area& area) const noexcept {
+  constexpr double operator/(const Area& area) const noexcept {
     return value_ / area.value_;
   }
 
-  inline constexpr void operator+=(const Area& area) noexcept {
+  constexpr void operator+=(const Area& area) noexcept {
     value_ += area.value_;
   }
 
-  inline constexpr void operator-=(const Area& area) noexcept {
+  constexpr void operator-=(const Area& area) noexcept {
     value_ -= area.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Area(const double value) noexcept
@@ -150,7 +145,7 @@ inline constexpr Area Length::operator*(const Length& length) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Area> {
-  size_t operator()(const PhQ::Area& area) const {
+  inline size_t operator()(const PhQ::Area& area) const {
     return hash<double>()(area.Value());
   }
 };

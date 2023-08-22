@@ -51,59 +51,53 @@ public:
         StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
-  inline constexpr Volume operator+(const Volume& volume) const noexcept {
+  constexpr Volume operator+(const Volume& volume) const noexcept {
     return Volume{value_ + volume.value_};
   }
 
-  inline constexpr Volume operator-(const Volume& volume) const noexcept {
+  constexpr Volume operator-(const Volume& volume) const noexcept {
     return Volume{value_ - volume.value_};
   }
 
-  inline constexpr Volume operator*(const double number) const noexcept {
+  constexpr Volume operator*(const double number) const noexcept {
     return Volume{value_ * number};
   }
 
-  inline constexpr Mass operator*(
-      const MassDensity& mass_density) const noexcept;
+  constexpr Mass operator*(const MassDensity& mass_density) const noexcept;
 
-  inline constexpr VolumeRate operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr VolumeRate operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Volume operator/(const double number) const noexcept {
+  constexpr Volume operator/(const double number) const noexcept {
     return Volume{value_ / number};
   }
 
-  inline constexpr Area operator/(const Length& length) const noexcept {
+  constexpr Area operator/(const Length& length) const noexcept {
     return Area{value_ / length.Value()};
   }
 
-  inline constexpr Length operator/(const Area& area) const noexcept {
+  constexpr Length operator/(const Area& area) const noexcept {
     return Length{value_ / area.Value()};
   }
 
-  inline constexpr VolumeRate operator/(const Time& time) const noexcept;
+  constexpr VolumeRate operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(const VolumeRate& volume_rate) const noexcept;
+  constexpr Time operator/(const VolumeRate& volume_rate) const noexcept;
 
-  inline constexpr double operator/(const Volume& volume) const noexcept {
+  constexpr double operator/(const Volume& volume) const noexcept {
     return value_ / volume.value_;
   }
 
-  inline constexpr void operator+=(const Volume& volume) noexcept {
+  constexpr void operator+=(const Volume& volume) noexcept {
     value_ += volume.value_;
   }
 
-  inline constexpr void operator-=(const Volume& volume) noexcept {
+  constexpr void operator-=(const Volume& volume) noexcept {
     value_ -= volume.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Volume(const double value) noexcept
@@ -167,7 +161,7 @@ inline constexpr Volume Area::operator*(const Length& length) const noexcept {
 namespace std {
 
 template<> struct hash<PhQ::Volume> {
-  size_t operator()(const PhQ::Volume& volume) const {
+  inline size_t operator()(const PhQ::Volume& volume) const {
     return hash<double>()(volume.Value());
   }
 };

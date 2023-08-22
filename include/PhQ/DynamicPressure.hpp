@@ -57,51 +57,43 @@ public:
             value)};
   }
 
-  inline constexpr DynamicPressure operator+(
+  constexpr DynamicPressure operator+(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ + dynamic_pressure.value_};
   }
 
-  inline constexpr TotalPressure operator+(
+  constexpr TotalPressure operator+(
       const StaticPressure& static_pressure) const noexcept;
 
-  inline constexpr DynamicPressure operator-(
+  constexpr DynamicPressure operator-(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return DynamicPressure{value_ - dynamic_pressure.value_};
   }
 
-  inline constexpr DynamicPressure operator*(
-      const double number) const noexcept {
+  constexpr DynamicPressure operator*(const double number) const noexcept {
     return DynamicPressure{value_ * number};
   }
 
-  inline constexpr DynamicPressure operator/(
-      const double number) const noexcept {
+  constexpr DynamicPressure operator/(const double number) const noexcept {
     return DynamicPressure{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const DynamicPressure& dynamic_pressure) const noexcept {
     return value_ / dynamic_pressure.value_;
   }
 
-  inline constexpr void operator+=(
-      const DynamicPressure& dynamic_pressure) noexcept {
+  constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
     value_ += dynamic_pressure.value_;
   }
 
-  inline constexpr void operator-=(
-      const DynamicPressure& dynamic_pressure) noexcept {
+  constexpr void operator-=(const DynamicPressure& dynamic_pressure) noexcept {
     value_ -= dynamic_pressure.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr DynamicPressure(const double value) noexcept
@@ -163,7 +155,7 @@ inline Speed::Speed(const DynamicPressure& dynamic_pressure,
 namespace std {
 
 template<> struct hash<PhQ::DynamicPressure> {
-  size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
+  inline size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
     return hash<double>()(dynamic_pressure.Value());
   }
 };

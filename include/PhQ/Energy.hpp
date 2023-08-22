@@ -58,59 +58,55 @@ public:
         StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
-  inline constexpr Energy operator+(const Energy& energy) const noexcept {
+  constexpr Energy operator+(const Energy& energy) const noexcept {
     return Energy{value_ + energy.value_};
   }
 
-  inline constexpr Energy operator-(const Energy& energy) const noexcept {
+  constexpr Energy operator-(const Energy& energy) const noexcept {
     return Energy{value_ - energy.value_};
   }
 
-  inline constexpr Energy operator*(const double number) const noexcept {
+  constexpr Energy operator*(const double number) const noexcept {
     return Energy{value_ * number};
   }
 
-  inline constexpr Power operator*(const Frequency& frequency) const noexcept;
+  constexpr Power operator*(const Frequency& frequency) const noexcept;
 
-  inline constexpr Energy operator/(const double number) const noexcept {
+  constexpr Energy operator/(const double number) const noexcept {
     return Energy{value_ / number};
   }
 
-  inline constexpr Power operator/(const Time& time) const noexcept;
+  constexpr Power operator/(const Time& time) const noexcept;
 
-  inline constexpr Time operator/(const Power& power) const noexcept;
+  constexpr Time operator/(const Power& power) const noexcept;
 
-  inline constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
+  constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
 
-  inline constexpr Mass operator/(
+  constexpr Mass operator/(
       const SpecificEnergy& specific_energy) const noexcept;
 
-  inline constexpr TransportEnergyConsumption operator/(
+  constexpr TransportEnergyConsumption operator/(
       const Length& length) const noexcept;
 
-  inline constexpr Length
+  constexpr Length
   operator/(const TransportEnergyConsumption& transport_energy_consumption)
       const noexcept;
 
-  inline constexpr double operator/(const Energy& energy) const noexcept {
+  constexpr double operator/(const Energy& energy) const noexcept {
     return value_ / energy.value_;
   }
 
-  inline constexpr void operator+=(const Energy& energy) noexcept {
+  constexpr void operator+=(const Energy& energy) noexcept {
     value_ += energy.value_;
   }
 
-  inline constexpr void operator-=(const Energy& energy) noexcept {
+  constexpr void operator-=(const Energy& energy) noexcept {
     value_ -= energy.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr Energy(const double value) noexcept
@@ -163,7 +159,7 @@ inline constexpr Energy operator*(
 namespace std {
 
 template<> struct hash<PhQ::Energy> {
-  size_t operator()(const PhQ::Energy& energy) const {
+  inline size_t operator()(const PhQ::Energy& energy) const {
     return hash<double>()(energy.Value());
   }
 };

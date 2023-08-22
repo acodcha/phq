@@ -42,48 +42,42 @@ public:
             value)};
   }
 
-  inline constexpr LameFirstModulus operator+(
+  constexpr LameFirstModulus operator+(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return LameFirstModulus{value_ + lame_first_modulus.value_};
   }
 
-  inline constexpr LameFirstModulus operator-(
+  constexpr LameFirstModulus operator-(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return LameFirstModulus{value_ - lame_first_modulus.value_};
   }
 
-  inline constexpr LameFirstModulus operator*(
-      const double number) const noexcept {
+  constexpr LameFirstModulus operator*(const double number) const noexcept {
     return LameFirstModulus{value_ * number};
   }
 
-  inline constexpr LameFirstModulus operator/(
-      const double number) const noexcept {
+  constexpr LameFirstModulus operator/(const double number) const noexcept {
     return LameFirstModulus{value_ / number};
   }
 
-  inline constexpr double operator/(
+  constexpr double operator/(
       const LameFirstModulus& lame_first_modulus) const noexcept {
     return value_ / lame_first_modulus.value_;
   }
 
-  inline constexpr void operator+=(
+  constexpr void operator+=(
       const LameFirstModulus& lame_first_modulus) noexcept {
     value_ += lame_first_modulus.value_;
   }
 
-  inline constexpr void operator-=(
+  constexpr void operator-=(
       const LameFirstModulus& lame_first_modulus) noexcept {
     value_ -= lame_first_modulus.value_;
   }
 
-  inline constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
-  }
+  constexpr void operator*=(const double number) noexcept { value_ *= number; }
 
-  inline constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
-  }
+  constexpr void operator/=(const double number) noexcept { value_ /= number; }
 
 private:
   explicit constexpr LameFirstModulus(const double value) noexcept
@@ -136,7 +130,8 @@ inline constexpr LameFirstModulus operator*(
 namespace std {
 
 template<> struct hash<PhQ::LameFirstModulus> {
-  size_t operator()(const PhQ::LameFirstModulus& lame_first_modulus) const {
+  inline size_t operator()(
+      const PhQ::LameFirstModulus& lame_first_modulus) const {
     return hash<double>()(lame_first_modulus.Value());
   }
 };
