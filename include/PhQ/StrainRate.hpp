@@ -16,8 +16,8 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_RATE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_RATE_HPP
 
+#include "DimensionalSymmetricDyadQuantity.hpp"
 #include "Frequency.hpp"
-#include "Quantity/DimensionalSymmetricDyad.hpp"
 #include "Strain.hpp"
 #include "Unit/Frequency.hpp"
 

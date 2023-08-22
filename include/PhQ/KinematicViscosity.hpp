@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Diffusivity.hpp"
 
 namespace PhQ {

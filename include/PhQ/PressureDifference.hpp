@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_PRESSURE_DIFFERENCE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_PRESSURE_DIFFERENCE_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOTHERMAL_BULK_MODULUS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOTHERMAL_BULK_MODULUS_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {

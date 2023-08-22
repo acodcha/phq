@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Mass.hpp"
 
 namespace PhQ {

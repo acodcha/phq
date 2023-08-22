@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MEMORY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MEMORY_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Memory.hpp"
 
 namespace PhQ {

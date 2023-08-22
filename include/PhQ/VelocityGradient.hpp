@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VELOCITY_GRADIENT_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VELOCITY_GRADIENT_HPP
 
-#include "Quantity/DimensionalDyad.hpp"
+#include "DimensionalDyadQuantity.hpp"
 #include "StrainRate.hpp"
 
 namespace PhQ {

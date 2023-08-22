@@ -17,9 +17,9 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_FORCE_HPP
 
 #include "Angle.hpp"
+#include "DimensionalVectorQuantity.hpp"
 #include "Direction.hpp"
 #include "ForceMagnitude.hpp"
-#include "Quantity/DimensionalVector.hpp"
 
 namespace PhQ {
 

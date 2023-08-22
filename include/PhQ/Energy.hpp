@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ENERGY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ENERGY_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/Energy.hpp"
 
 namespace PhQ {

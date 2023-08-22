@@ -16,9 +16,9 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_REYNOLDS_NUMBER_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_REYNOLDS_NUMBER_HPP
 
+#include "DimensionlessScalarQuantity.hpp"
 #include "DynamicViscosity.hpp"
 #include "MassDensity.hpp"
-#include "Quantity/DimensionlessScalar.hpp"
 #include "Speed.hpp"
 
 namespace PhQ {

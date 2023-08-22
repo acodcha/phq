@@ -13,60 +13,65 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SYMMETRIC_DYAD_QUANTITY_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SYMMETRIC_DYAD_QUANTITY_HPP
 
-#include "../Base/String.hpp"
-#include "Dimensional.hpp"
+#include <utility>
+
+#include "DimensionalQuantity.hpp"
+#include "Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
-// Abstract base class that represents any dimensional scalar physical quantity.
-// Such a physical quantity is composed of a value and a unit of measure where
-// the value is a scalar number.
-template<typename U> class DimensionalScalarQuantity
+// Abstract base class that represents any dimensional symmetric dyadic tensor
+// physical quantity. Such a physical quantity is composed of a value and a unit
+// of measure where the value is a symmetric tensor of rank two and dimension
+// three.
+template<typename U> class DimensionalSymmetricDyadQuantity
   : public DimensionalQuantity<U> {
 public:
-  constexpr double Value() const noexcept { return value_; }
+  constexpr const Value::SymmetricDyad& Value() const noexcept {
+    return value_;
+  }
 
-  double Value(const U unit) const noexcept {
-    double result{value_};
+  Value::SymmetricDyad Value(const U unit) const noexcept {
+    Value::SymmetricDyad result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
-  template<U NewUnit> constexpr double StaticValue() const noexcept {
+  template<U NewUnit>
+  constexpr Value::SymmetricDyad StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
-  constexpr double& MutableValue() noexcept { return value_; }
+  constexpr Value::SymmetricDyad& MutableValue() noexcept { return value_; }
 
-  constexpr void SetValue(const double value) noexcept { value_ = value; }
+  constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
+  }
 
   std::string Print() const noexcept override {
-    return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
+    return value_.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
   std::string Print(const Precision precision) const noexcept override {
-    return PhQ::Print(value_, precision)
-        .append(" ")
-        .append(Abbreviation(Standard<U>));
+    return value_.Print(precision).append(" ").append(
+        Abbreviation(Standard<U>));
   }
 
   std::string Print(const U unit) const noexcept override {
-    return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
+    return Value(unit).Print().append(" ").append(Abbreviation(unit));
   }
 
   std::string Print(
       const U unit, const Precision precision) const noexcept override {
-    return PhQ::Print(Value(unit), precision)
-        .append(" ")
-        .append(Abbreviation(unit));
+    return Value(unit).Print(precision).append(" ").append(Abbreviation(unit));
   }
 
   std::string JSON() const noexcept override {
     return std::string{"{\"value\":"}
-        .append(PhQ::Print(value_))
+        .append(value_.JSON())
         .append(",\"unit\":\"")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -74,7 +79,7 @@ public:
 
   std::string JSON(const U unit) const noexcept override {
     return std::string{"{\"value\":"}
-        .append(PhQ::Print(Value(unit)))
+        .append(Value(unit).JSON())
         .append(",\"unit\":\"")
         .append(Abbreviation(unit))
         .append("\"}");
@@ -82,7 +87,7 @@ public:
 
   std::string XML() const noexcept override {
     return std::string{"<value>"}
-        .append(PhQ::Print(value_))
+        .append(value_.XML())
         .append("</value><unit>")
         .append(Abbreviation(Standard<U>))
         .append("</unit>");
@@ -90,7 +95,7 @@ public:
 
   std::string XML(const U unit) const noexcept override {
     return std::string{"<value>"}
-        .append(PhQ::Print(Value(unit)))
+        .append(Value(unit).XML())
         .append("</value><unit>")
         .append(Abbreviation(unit))
         .append("</unit>");
@@ -98,7 +103,7 @@ public:
 
   std::string YAML() const noexcept override {
     return std::string{"{value:"}
-        .append(PhQ::Print(value_))
+        .append(value_.YAML())
         .append(",unit:\"")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -106,42 +111,60 @@ public:
 
   std::string YAML(const U unit) const noexcept override {
     return std::string{"{value:"}
-        .append(PhQ::Print(Value(unit)))
+        .append(Value(unit).YAML())
         .append(",unit:\"")
         .append(Abbreviation(unit))
         .append("\"}");
   }
 
 protected:
-  constexpr DimensionalScalarQuantity() noexcept
+  constexpr DimensionalSymmetricDyadQuantity() noexcept
     : DimensionalQuantity<U>(), value_() {}
 
-  constexpr DimensionalScalarQuantity(const double value) noexcept
+  constexpr DimensionalSymmetricDyadQuantity(
+      const Value::SymmetricDyad& value) noexcept
     : DimensionalQuantity<U>(), value_(value) {}
 
-  DimensionalScalarQuantity(const double value, const U unit) noexcept
+  constexpr DimensionalSymmetricDyadQuantity(
+      Value::SymmetricDyad&& value) noexcept
+    : DimensionalQuantity<U>(), value_(std::move(value)) {}
+
+  DimensionalSymmetricDyadQuantity(
+      const Value::SymmetricDyad& value, const U unit) noexcept
     : DimensionalQuantity<U>(), value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
-  ~DimensionalScalarQuantity() noexcept = default;
+  DimensionalSymmetricDyadQuantity(
+      Value::SymmetricDyad&& value, const U unit) noexcept
+    : DimensionalQuantity<U>(), value_(std::move(value)) {
+    Convert(value_, unit, Standard<U>);
+  }
 
-  constexpr void operator=(const double value) noexcept { value_ = value; }
+  ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
-  double value_;
+  constexpr void operator=(const Value::SymmetricDyad& value) noexcept {
+    value_ = value;
+  }
+
+  constexpr void operator=(Value::SymmetricDyad&& value) noexcept {
+    value_ = std::move(value);
+  }
+
+  Value::SymmetricDyad value_;
 };
 
 }  // namespace PhQ
 
 namespace std {
 
-template<typename U> struct hash<PhQ::DimensionalScalarQuantity<U>> {
+template<typename U> struct hash<PhQ::DimensionalSymmetricDyadQuantity<U>> {
   inline size_t operator()(
-      const PhQ::DimensionalScalarQuantity<U>& quantity) const {
-    return hash<double>()(quantity.Value());
+      const PhQ::DimensionalSymmetricDyadQuantity<U>& quantity) const {
+    return hash<PhQ::Value::SymmetricDyad>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_QUANTITY_DIMENSIONAL_SCALAR_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SYMMETRIC_DYAD_QUANTITY_HPP

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRESS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRESS_HPP
 
-#include "Quantity/DimensionalSymmetricDyad.hpp"
+#include "DimensionalSymmetricDyadQuantity.hpp"
 #include "StressScalar.hpp"
 #include "Traction.hpp"
 

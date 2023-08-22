@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BULK_DYNAMIC_VISCOSITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BULK_DYNAMIC_VISCOSITY_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "Unit/DynamicViscosity.hpp"
 
 namespace PhQ {

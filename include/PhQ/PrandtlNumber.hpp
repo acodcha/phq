@@ -16,8 +16,8 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_PRANDTL_NUMBER_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_PRANDTL_NUMBER_HPP
 
+#include "DimensionlessScalarQuantity.hpp"
 #include "DynamicViscosity.hpp"
-#include "Quantity/DimensionlessScalar.hpp"
 #include "ThermalDiffusivity.hpp"
 
 namespace PhQ {

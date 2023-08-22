@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_POISSON_RATIO_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_POISSON_RATIO_HPP
 
-#include "Quantity/DimensionlessScalar.hpp"
+#include "DimensionlessScalarQuantity.hpp"
 
 namespace PhQ {
 

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_HPP
 
-#include "Quantity/DimensionalSymmetricDyad.hpp"
+#include "DimensionalSymmetricDyadQuantity.hpp"
 #include "ThermalConductivityScalar.hpp"
 
 namespace PhQ {

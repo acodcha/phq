@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_GRADIENT_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_GRADIENT_HPP
 
-#include "Quantity/DimensionlessDyad.hpp"
+#include "DimensionlessDyadQuantity.hpp"
 #include "Strain.hpp"
 
 namespace PhQ {

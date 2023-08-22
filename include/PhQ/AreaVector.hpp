@@ -18,8 +18,8 @@
 
 #include "Angle.hpp"
 #include "Area.hpp"
+#include "DimensionalVectorQuantity.hpp"
 #include "Direction.hpp"
-#include "Quantity/DimensionalVector.hpp"
 
 namespace PhQ {
 

@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOCHORIC_HEAT_CAPACITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOCHORIC_HEAT_CAPACITY_HPP
 
-#include "Quantity/DimensionalScalar.hpp"
+#include "DimensionalScalarQuantity.hpp"
 #include "SpecificHeatRatio.hpp"
 #include "Unit/HeatCapacity.hpp"
 
