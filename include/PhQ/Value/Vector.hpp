@@ -19,7 +19,7 @@
 #include <array>
 #include <utility>
 
-#include "../Base/String.hpp"
+#include "../Base.hpp"
 
 namespace PhQ {
 

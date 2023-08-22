@@ -13,7 +13,7 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#include "../../include/PhQ/Base/String.hpp"
+#include "../include/PhQ/Base.hpp"
 
 #include <gtest/gtest.h>
 
@@ -21,7 +21,23 @@ namespace PhQ {
 
 namespace {
 
-TEST(BaseString, Lowercase) {
+TEST(Base, Pi) { EXPECT_EQ(Pi, 3.14159265358979323846); }
+
+TEST(Base, PrecisionAbbreviation) {
+  EXPECT_EQ(Abbreviation(Precision::Double), "Double");
+  EXPECT_EQ(Abbreviation(Precision::Single), "Single");
+}
+
+TEST(Base, PrecisionParse) {
+  EXPECT_EQ(Parse<Precision>("DOUBLE"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("Double"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("double"), Precision::Double);
+  EXPECT_EQ(Parse<Precision>("SINGLE"), Precision::Single);
+  EXPECT_EQ(Parse<Precision>("Single"), Precision::Single);
+  EXPECT_EQ(Parse<Precision>("single"), Precision::Single);
+}
+
+TEST(Base, Lowercase) {
   std::string text0;
   Lowercase(text0);
   EXPECT_EQ(text0, "");
@@ -30,12 +46,12 @@ TEST(BaseString, Lowercase) {
   EXPECT_EQ(text1, "abcd123!?^-_");
 }
 
-TEST(BaseString, LowercaseCopy) {
+TEST(Base, LowercaseCopy) {
   EXPECT_EQ(LowercaseCopy(""), "");
   EXPECT_EQ(LowercaseCopy("AbCd123!?^-_"), "abcd123!?^-_");
 }
 
-TEST(BaseString, ParseToInteger) {
+TEST(Base, ParseToInteger) {
   EXPECT_EQ(ParseToInteger(""), std::nullopt);
   EXPECT_EQ(ParseToInteger("-Inf"), std::nullopt);
   EXPECT_EQ(ParseToInteger("-1.23456789e10"), std::nullopt);
@@ -46,7 +62,7 @@ TEST(BaseString, ParseToInteger) {
   EXPECT_EQ(ParseToInteger("NaN"), std::nullopt);
 }
 
-TEST(BaseString, ParseToDouble) {
+TEST(Base, ParseToDouble) {
   EXPECT_EQ(ParseToDouble(""), std::nullopt);
   EXPECT_EQ(ParseToDouble("-Inf"), std::nullopt);
   EXPECT_EQ(ParseToDouble("-1.23456789e10"), -1.23456789e10);
@@ -58,7 +74,7 @@ TEST(BaseString, ParseToDouble) {
   EXPECT_EQ(ParseToDouble("NaN"), std::nullopt);
 }
 
-TEST(BaseString, PrintDefault) {
+TEST(Base, PrintDefault) {
   EXPECT_EQ(Print(-12345678.9012345678901234567890), "-1.234567890123457e+07");
   EXPECT_EQ(Print(-10000000.0), "-1.000000000000000e+07");
   EXPECT_EQ(Print(-1234567.89012345678901234567890), "-1.234567890123457e+06");
@@ -79,8 +95,9 @@ TEST(BaseString, PrintDefault) {
   EXPECT_EQ(Print(-0.1), "-0.1000000000000000");
   EXPECT_EQ(Print(-0.0123456789012345678901234567890), "-0.01234567890123457");
   EXPECT_EQ(Print(-0.01), "-0.01000000000000000");
-  EXPECT_EQ(Print(-0.00123456789012345678901234567890), "-0."
-                                                        "001234567890123457");
+  EXPECT_EQ(Print(-0.00123456789012345678901234567890),
+            "-0."
+            "001234567890123457");
   EXPECT_EQ(Print(-0.001), "-0.001000000000000000");
   EXPECT_EQ(
       Print(-0.000123456789012345678901234567890), "-1.234567890123457e-04");
@@ -105,8 +122,9 @@ TEST(BaseString, PrintDefault) {
   EXPECT_EQ(
       Print(0.0000123456789012345678901234567890), "1.234567890123457e-05");
   EXPECT_EQ(Print(0.0001), "1.000000000000000e-04");
-  EXPECT_EQ(Print(0.000123456789012345678901234567890), "1.234567890123457e-"
-                                                        "04");
+  EXPECT_EQ(Print(0.000123456789012345678901234567890),
+            "1.234567890123457e-"
+            "04");
   EXPECT_EQ(Print(0.001), "0.001000000000000000");
   EXPECT_EQ(Print(0.00123456789012345678901234567890), "0.001234567890123457");
   EXPECT_EQ(Print(0.01), "0.01000000000000000");
@@ -131,7 +149,7 @@ TEST(BaseString, PrintDefault) {
   EXPECT_EQ(Print(12345678.9012345678901234567890), "1.234567890123457e+07");
 }
 
-TEST(BaseString, PrintDoublePrecision) {
+TEST(Base, PrintDoublePrecision) {
   EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Double),
             "-1.234567890123457e+07");
   EXPECT_EQ(Print(-10000000.0, Precision::Double), "-1.000000000000000e+07");
@@ -225,7 +243,7 @@ TEST(BaseString, PrintDoublePrecision) {
             "1.234567890123457e+07");
 }
 
-TEST(BaseString, PrintSinglePrecision) {
+TEST(Base, PrintSinglePrecision) {
   EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Single),
             "-1.234568e+07");
   EXPECT_EQ(Print(-10000000.0, Precision::Single), "-1.000000e+07");
@@ -319,7 +337,7 @@ TEST(BaseString, PrintSinglePrecision) {
             "1.234568e+07");
 }
 
-TEST(BaseString, Replace) {
+TEST(Base, Replace) {
   std::string text0;
   Replace(text0, 'A', 'B');
   EXPECT_EQ(text0, "");
@@ -330,13 +348,13 @@ TEST(BaseString, Replace) {
   EXPECT_EQ(text1, "AbDd123!?^-_");
 }
 
-TEST(BaseString, ReplaceCopy) {
+TEST(Base, ReplaceCopy) {
   EXPECT_EQ(ReplaceCopy("", 'A', 'B'), "");
   EXPECT_EQ(ReplaceCopy("AbCd123!?^-_", 'C', 'D'), "AbDd123!?^-_");
   EXPECT_EQ(ReplaceCopy("AbCd123!?^-_", 'X', 'Y'), "AbCd123!?^-_");
 }
 
-TEST(BaseString, SnakeCase) {
+TEST(Base, SnakeCase) {
   std::string text0;
   SnakeCase(text0);
   EXPECT_EQ(text0, "");
@@ -345,12 +363,12 @@ TEST(BaseString, SnakeCase) {
   EXPECT_EQ(text1, "ab_cd_123___!?^-_");
 }
 
-TEST(BaseString, SnakeCaseCopy) {
+TEST(Base, SnakeCaseCopy) {
   EXPECT_EQ(SnakeCaseCopy(""), "");
   EXPECT_EQ(SnakeCaseCopy("Ab Cd 123   !?^-_"), "ab_cd_123___!?^-_");
 }
 
-TEST(BaseString, SplitByWhitespace) {
+TEST(Base, SplitByWhitespace) {
   EXPECT_EQ(SplitByWhitespace(""), std::vector<std::string>());
   EXPECT_EQ(SplitByWhitespace("aaa bbb   ccc\t\tddd\neee"),
             std::vector<std::string>(
@@ -358,7 +376,7 @@ TEST(BaseString, SplitByWhitespace) {
                  std::string("ddd"), std::string("eee")}));
 }
 
-TEST(BaseString, Uppercase) {
+TEST(Base, Uppercase) {
   std::string text0;
   Uppercase(text0);
   EXPECT_EQ(text0, "");
@@ -367,7 +385,7 @@ TEST(BaseString, Uppercase) {
   EXPECT_EQ(text1, "ABCD123!?^-_");
 }
 
-TEST(BaseString, UppercaseCopy) {
+TEST(Base, UppercaseCopy) {
   EXPECT_EQ(UppercaseCopy(""), "");
   EXPECT_EQ(UppercaseCopy("AbCd123.!?*^-_"), "ABCD123.!?*^-_");
 }

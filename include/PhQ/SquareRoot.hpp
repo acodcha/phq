@@ -13,8 +13,8 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_SQUARE_ROOT_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_SQUARE_ROOT_HPP
 
 #include <cmath>
 #include <limits>
@@ -148,4 +148,4 @@ inline constexpr double SquareRoot(const double number) noexcept {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_SQUARE_ROOT_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_SQUARE_ROOT_HPP

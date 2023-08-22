@@ -19,7 +19,6 @@
 #include <functional>
 #include <vector>
 
-#include "Base/Enumeration.hpp"
 #include "Dimension/Set.hpp"
 #include "UnitSystem.hpp"
 #include "Value/Dyad.hpp"
