@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SPEED_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SPEED_HPP
 
-#include "Base.hpp"
+#include "../Unit.hpp"
 
 namespace PhQ {
 

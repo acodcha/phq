@@ -17,7 +17,7 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_QUANTITY_HPP
 
 #include "Quantity.hpp"
-#include "Unit/Base.hpp"
+#include "Unit.hpp"
 
 namespace PhQ {
 
