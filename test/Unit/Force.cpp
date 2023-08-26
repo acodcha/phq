@@ -21,9 +21,15 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Force, 18> Units = {
+constexpr std::array<Force, 24> Units = {
     Force::Newton,
+    Force::Kilonewton,
+    Force::Meganewton,
+    Force::Giganewton,
+    Force::Millinewton,
     Force::Micronewton,
+    Force::Nanonewton,
+    Force::Dyne,
     Force::JoulePerMile,
     Force::JoulePerKilometre,
     Force::KilojoulePerMile,
@@ -44,7 +50,13 @@ constexpr std::array<Force, 18> Units = {
 
 TEST(UnitForce, Abbreviation) {
   EXPECT_EQ(Abbreviation(Force::Newton), "N");
+  EXPECT_EQ(Abbreviation(Force::Kilonewton), "kN");
+  EXPECT_EQ(Abbreviation(Force::Meganewton), "MN");
+  EXPECT_EQ(Abbreviation(Force::Giganewton), "GN");
+  EXPECT_EQ(Abbreviation(Force::Millinewton), "mN");
   EXPECT_EQ(Abbreviation(Force::Micronewton), "μN");
+  EXPECT_EQ(Abbreviation(Force::Nanonewton), "nN");
+  EXPECT_EQ(Abbreviation(Force::Dyne), "dyn");
   EXPECT_EQ(Abbreviation(Force::JoulePerMile), "J/mi");
   EXPECT_EQ(Abbreviation(Force::JoulePerKilometre), "J/km");
   EXPECT_EQ(Abbreviation(Force::KilojoulePerMile), "kJ/mi");
@@ -70,13 +82,27 @@ TEST(UnitForce, ConsistentUnit) {
             Force::Micronewton);
   EXPECT_EQ(
       ConsistentUnit<Force>(UnitSystem::FootPoundSecondRankine), Force::Pound);
+  EXPECT_EQ(
+      ConsistentUnit<Force>(UnitSystem::InchPoundSecondRankine), Force::Pound);
 }
 
 TEST(UnitForce, ConvertFromStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::Kilonewton), value * 0.001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::Meganewton), value * 0.000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Giganewton),
+                   value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::Millinewton), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Newton, Force::Micronewton), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Nanonewton),
+                   value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Newton, Force::Dyne), value * 100000.0);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Newton, Force::JoulePerMile), value * 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::JoulePerKilometre),
@@ -123,7 +149,19 @@ TEST(UnitForce, ConvertToStandard) {
   constexpr double value{10.0};
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Newton, Force::Newton), value);
   EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Kilonewton, Force::Newton), value * 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Meganewton, Force::Newton), value * 1000000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Giganewton, Force::Newton),
+                   value * 1000000000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Millinewton, Force::Newton), value * 0.001);
+  EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::Micronewton, Force::Newton), value * 0.000001);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::Nanonewton, Force::Newton),
+                   value * 0.000000001);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, Force::Dyne, Force::Newton), value * 0.00001);
   EXPECT_DOUBLE_EQ(
       ConvertCopy(value, Force::JoulePerMile, Force::Newton), value / 1609.344);
   EXPECT_DOUBLE_EQ(ConvertCopy(value, Force::JoulePerKilometre, Force::Newton),
@@ -188,7 +226,13 @@ TEST(UnitForce, ConvertVerification) {
 TEST(UnitForce, Parse) {
   EXPECT_EQ(Parse<Force>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<Force>("N"), Force::Newton);
+  EXPECT_EQ(Parse<Force>("kN"), Force::Kilonewton);
+  EXPECT_EQ(Parse<Force>("MN"), Force::Meganewton);
+  EXPECT_EQ(Parse<Force>("GN"), Force::Giganewton);
+  EXPECT_EQ(Parse<Force>("mN"), Force::Millinewton);
   EXPECT_EQ(Parse<Force>("μN"), Force::Micronewton);
+  EXPECT_EQ(Parse<Force>("nN"), Force::Nanonewton);
+  EXPECT_EQ(Parse<Force>("dyn"), Force::Dyne);
   EXPECT_EQ(Parse<Force>("J/mi"), Force::JoulePerMile);
   EXPECT_EQ(Parse<Force>("J/km"), Force::JoulePerKilometre);
   EXPECT_EQ(Parse<Force>("kJ/mi"), Force::KilojoulePerMile);
@@ -216,8 +260,29 @@ TEST(UnitForce, RelatedDimensions) {
 TEST(UnitForce, RelatedUnitSystem) {
   EXPECT_EQ(
       RelatedUnitSystem(Force::Newton), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Force::Kilonewton), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::Meganewton), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::Giganewton), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::Millinewton), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Force::Micronewton),
             UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Force::Nanonewton), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::Dyne), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::JoulePerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::JoulePerKilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilojoulePerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattMinutePerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattHourPerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattMinutePerKilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattHourPerKilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattMinutePerMetre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::WattHourPerMetre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattMinutePerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattHourPerMile), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattMinutePerKilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattHourPerKilometre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattMinutePerMetre), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(Force::KilowattHourPerMetre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Force::Pound), std::nullopt);
 }
 

@@ -28,6 +28,7 @@ enum class DynamicViscosity : int_least8_t {
   KilopascalSecond,
   MegapascalSecond,
   GigapascalSecond,
+  Poise,
   PoundSecondPerSquareFoot,
   PoundSecondPerSquareInch,
 };
@@ -73,6 +74,7 @@ template<> inline const std::map<Unit::DynamicViscosity, std::string_view>
         {Unit::DynamicViscosity::KilopascalSecond,         "kPa·s"     },
         {Unit::DynamicViscosity::MegapascalSecond,         "MPa·s"     },
         {Unit::DynamicViscosity::GigapascalSecond,         "GPa·s"     },
+        {Unit::DynamicViscosity::Poise,                    "P"         },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot, "lbf·s/ft^2"},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch, "lbf·s/in^2"},
 };
@@ -115,6 +117,7 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
         {"kN·s/mm2",   Unit::DynamicViscosity::GigapascalSecond        },
         {"kN*s/mm^2",  Unit::DynamicViscosity::GigapascalSecond        },
         {"kN*s/mm2",   Unit::DynamicViscosity::GigapascalSecond        },
+        {"P",          Unit::DynamicViscosity::Poise                   },
         {"lbf·s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
         {"lbf·s/ft2",  Unit::DynamicViscosity::PoundSecondPerSquareFoot},
         {"lbf*s/ft^2", Unit::DynamicViscosity::PoundSecondPerSquareFoot},
@@ -164,6 +167,12 @@ ConversionFromStandard<Unit::DynamicViscosity,
 }
 
 template<> inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
+    double& value) noexcept {
+  value *= 10.0;
+}
+
+template<> inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
@@ -204,6 +213,12 @@ ConversionToStandard<Unit::DynamicViscosity,
 }
 
 template<> inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
+    double& value) noexcept {
+  value *= 0.1;
+}
+
+template<> inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
@@ -233,6 +248,9 @@ template<> inline const std::map<
         {Unit::DynamicViscosity::GigapascalSecond,
          ConversionsFromStandard<Unit::DynamicViscosity,
          Unit::DynamicViscosity::GigapascalSecond>        },
+        {Unit::DynamicViscosity::Poise,
+         ConversionsFromStandard<Unit::DynamicViscosity,
+         Unit::DynamicViscosity::Poise>                   },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
          ConversionsFromStandard<
              Unit::DynamicViscosity,
@@ -259,6 +277,9 @@ template<> inline const std::map<
         {Unit::DynamicViscosity::GigapascalSecond,
          ConversionsToStandard<Unit::DynamicViscosity,
          Unit::DynamicViscosity::GigapascalSecond>        },
+        {Unit::DynamicViscosity::Poise,
+         ConversionsToStandard<Unit::DynamicViscosity,
+         Unit::DynamicViscosity::Poise>                   },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
          ConversionsToStandard<Unit::DynamicViscosity,
          Unit::DynamicViscosity::PoundSecondPerSquareFoot>},

@@ -21,7 +21,7 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<MemoryRate, 22> Units = {
+constexpr std::array<MemoryRate, 66> Units = {
     MemoryRate::BitPerSecond,      MemoryRate::BytePerSecond,
     MemoryRate::KilobitPerSecond,  MemoryRate::KibibitPerSecond,
     MemoryRate::KilobytePerSecond, MemoryRate::KibibytePerSecond,
@@ -33,6 +33,28 @@ constexpr std::array<MemoryRate, 22> Units = {
     MemoryRate::TerabytePerSecond, MemoryRate::TebibytePerSecond,
     MemoryRate::PetabitPerSecond,  MemoryRate::PebibitPerSecond,
     MemoryRate::PetabytePerSecond, MemoryRate::PebibytePerSecond,
+    MemoryRate::BitPerMinute,      MemoryRate::BytePerMinute,
+    MemoryRate::KilobitPerMinute,  MemoryRate::KibibitPerMinute,
+    MemoryRate::KilobytePerMinute, MemoryRate::KibibytePerMinute,
+    MemoryRate::MegabitPerMinute,  MemoryRate::MebibitPerMinute,
+    MemoryRate::MegabytePerMinute, MemoryRate::MebibytePerMinute,
+    MemoryRate::GigabitPerMinute,  MemoryRate::GibibitPerMinute,
+    MemoryRate::GigabytePerMinute, MemoryRate::GibibytePerMinute,
+    MemoryRate::TerabitPerMinute,  MemoryRate::TebibitPerMinute,
+    MemoryRate::TerabytePerMinute, MemoryRate::TebibytePerMinute,
+    MemoryRate::PetabitPerMinute,  MemoryRate::PebibitPerMinute,
+    MemoryRate::PetabytePerMinute, MemoryRate::PebibytePerMinute,
+    MemoryRate::BitPerHour,        MemoryRate::BytePerHour,
+    MemoryRate::KilobitPerHour,    MemoryRate::KibibitPerHour,
+    MemoryRate::KilobytePerHour,   MemoryRate::KibibytePerHour,
+    MemoryRate::MegabitPerHour,    MemoryRate::MebibitPerHour,
+    MemoryRate::MegabytePerHour,   MemoryRate::MebibytePerHour,
+    MemoryRate::GigabitPerHour,    MemoryRate::GibibitPerHour,
+    MemoryRate::GigabytePerHour,   MemoryRate::GibibytePerHour,
+    MemoryRate::TerabitPerHour,    MemoryRate::TebibitPerHour,
+    MemoryRate::TerabytePerHour,   MemoryRate::TebibytePerHour,
+    MemoryRate::PetabitPerHour,    MemoryRate::PebibitPerHour,
+    MemoryRate::PetabytePerHour,   MemoryRate::PebibytePerHour,
 };
 
 TEST(UnitMemoryRate, Abbreviation) {
@@ -58,6 +80,50 @@ TEST(UnitMemoryRate, Abbreviation) {
   EXPECT_EQ(Abbreviation(MemoryRate::PebibitPerSecond), "Pib/s");
   EXPECT_EQ(Abbreviation(MemoryRate::PetabytePerSecond), "PB/s");
   EXPECT_EQ(Abbreviation(MemoryRate::PebibytePerSecond), "PiB/s");
+  EXPECT_EQ(Abbreviation(MemoryRate::BitPerMinute), "b/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::BytePerMinute), "B/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::KilobitPerMinute), "kb/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::KibibitPerMinute), "kib/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::KilobytePerMinute), "kB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::KibibytePerMinute), "kiB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::MegabitPerMinute), "Mb/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::MebibitPerMinute), "Mib/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::MegabytePerMinute), "MB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::MebibytePerMinute), "MiB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::GigabitPerMinute), "Gb/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::GibibitPerMinute), "Gib/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::GigabytePerMinute), "GB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::GibibytePerMinute), "GiB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::TerabitPerMinute), "Tb/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::TebibitPerMinute), "Tib/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::TerabytePerMinute), "TB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::TebibytePerMinute), "TiB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::PetabitPerMinute), "Pb/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::PebibitPerMinute), "Pib/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::PetabytePerMinute), "PB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::PebibytePerMinute), "PiB/min");
+  EXPECT_EQ(Abbreviation(MemoryRate::BitPerHour), "b/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::BytePerHour), "B/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::KilobitPerHour), "kb/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::KibibitPerHour), "kib/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::KilobytePerHour), "kB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::KibibytePerHour), "kiB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::MegabitPerHour), "Mb/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::MebibitPerHour), "Mib/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::MegabytePerHour), "MB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::MebibytePerHour), "MiB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::GigabitPerHour), "Gb/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::GibibitPerHour), "Gib/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::GigabytePerHour), "GB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::GibibytePerHour), "GiB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::TerabitPerHour), "Tb/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::TebibitPerHour), "Tib/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::TerabytePerHour), "TB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::TebibytePerHour), "TiB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::PetabitPerHour), "Pb/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::PebibitPerHour), "Pib/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::PetabytePerHour), "PB/hr");
+  EXPECT_EQ(Abbreviation(MemoryRate::PebibytePerHour), "PiB/hr");
 }
 
 TEST(UnitMemoryRate, ConsistentUnit) {
@@ -139,6 +205,138 @@ TEST(UnitMemoryRate, ConvertFromStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
                                MemoryRate::PebibytePerSecond),
                    value / (8.0 * std::pow(1024.0, 5)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::BitPerMinute),
+      value * 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::BytePerMinute),
+      value * 60.0 / 8.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::KilobitPerMinute),
+                   value * 60.0 / 1000.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::KibibitPerMinute),
+                   value * 60.0 / 1024.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::KilobytePerMinute),
+                   value * 60.0 / (8.0 * 1000.0));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::KibibytePerMinute),
+                   value * 60.0 / (8.0 * 1024.0));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::MegabitPerMinute),
+                   value * 60.0 / std::pow(1000.0, 2));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::MebibitPerMinute),
+                   value * 60.0 / std::pow(1024.0, 2));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::MegabytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1000.0, 2)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::MebibytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1024.0, 2)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::GigabitPerMinute),
+                   value * 60.0 / std::pow(1000.0, 3));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::GibibitPerMinute),
+                   value * 60.0 / std::pow(1024.0, 3));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::GigabytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1000.0, 3)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::GibibytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1024.0, 3)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::TerabitPerMinute),
+                   value * 60.0 / std::pow(1000.0, 4));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::TebibitPerMinute),
+                   value * 60.0 / std::pow(1024.0, 4));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::TerabytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1000.0, 4)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::TebibytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1024.0, 4)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::PetabitPerMinute),
+                   value * 60.0 / std::pow(1000.0, 5));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::PebibitPerMinute),
+                   value * 60.0 / std::pow(1024.0, 5));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::PetabytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1000.0, 5)));
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::BitPerSecond,
+                               MemoryRate::PebibytePerMinute),
+                   value * 60.0 / (8.0 * std::pow(1024.0, 5)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::BitPerHour),
+      value * 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::BytePerHour),
+      value * 3600.0 / 8.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::KilobitPerHour),
+      value * 3600.0 / 1000.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::KibibitPerHour),
+      value * 3600.0 / 1024.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::KilobytePerHour),
+      value * 3600.0 / (8.0 * 1000.0));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::KibibytePerHour),
+      value * 3600.0 / (8.0 * 1024.0));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::MegabitPerHour),
+      value * 3600.0 / std::pow(1000.0, 2));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::MebibitPerHour),
+      value * 3600.0 / std::pow(1024.0, 2));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::MegabytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1000.0, 2)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::MebibytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1024.0, 2)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::GigabitPerHour),
+      value * 3600.0 / std::pow(1000.0, 3));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::GibibitPerHour),
+      value * 3600.0 / std::pow(1024.0, 3));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::GigabytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1000.0, 3)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::GibibytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1024.0, 3)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::TerabitPerHour),
+      value * 3600.0 / std::pow(1000.0, 4));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::TebibitPerHour),
+      value * 3600.0 / std::pow(1024.0, 4));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::TerabytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1000.0, 4)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::TebibytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1024.0, 4)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::PetabitPerHour),
+      value * 3600.0 / std::pow(1000.0, 5));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::PebibitPerHour),
+      value * 3600.0 / std::pow(1024.0, 5));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::PetabytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1000.0, 5)));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerSecond, MemoryRate::PebibytePerHour),
+      value * 3600.0 / (8.0 * std::pow(1024.0, 5)));
 }
 
 TEST(UnitMemoryRate, ConvertToStandard) {
@@ -209,6 +407,138 @@ TEST(UnitMemoryRate, ConvertToStandard) {
   EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::PebibytePerSecond,
                                MemoryRate::BitPerSecond),
                    value * 8.0 * std::pow(1024.0, 5));
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerMinute, MemoryRate::BitPerSecond),
+      value / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BytePerMinute, MemoryRate::BitPerSecond),
+      value * 8.0 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::KilobitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 1000.0 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::KibibitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 1024.0 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::KilobytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * 1000.0 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::KibibytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * 1024.0 / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::MegabitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1000.0, 2) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::MebibitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1024.0, 2) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::MegabytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1000.0, 2) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::MebibytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1024.0, 2) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::GigabitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1000.0, 3) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::GibibitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1024.0, 3) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::GigabytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1000.0, 3) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::GibibytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1024.0, 3) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::TerabitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1000.0, 4) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::TebibitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1024.0, 4) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::TerabytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1000.0, 4) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::TebibytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1024.0, 4) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::PetabitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1000.0, 5) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::PebibitPerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * std::pow(1024.0, 5) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::PetabytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1000.0, 5) / 60.0);
+  EXPECT_DOUBLE_EQ(ConvertCopy(value, MemoryRate::PebibytePerMinute,
+                               MemoryRate::BitPerSecond),
+                   value * 8.0 * std::pow(1024.0, 5) / 60.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BitPerHour, MemoryRate::BitPerSecond),
+      value / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::BytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::KilobitPerHour, MemoryRate::BitPerSecond),
+      value * 1000.0 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::KibibitPerHour, MemoryRate::BitPerSecond),
+      value * 1024.0 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::KilobytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * 1000.0 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::KibibytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * 1024.0 / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::MegabitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1000.0, 2) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::MebibitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1024.0, 2) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::MegabytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1000.0, 2) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::MebibytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1024.0, 2) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::GigabitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1000.0, 3) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::GibibitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1024.0, 3) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::GigabytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1000.0, 3) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::GibibytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1024.0, 3) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::TerabitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1000.0, 4) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::TebibitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1024.0, 4) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::TerabytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1000.0, 4) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::TebibytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1024.0, 4) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::PetabitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1000.0, 5) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::PebibitPerHour, MemoryRate::BitPerSecond),
+      value * std::pow(1024.0, 5) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::PetabytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1000.0, 5) / 3600.0);
+  EXPECT_DOUBLE_EQ(
+      ConvertCopy(value, MemoryRate::PebibytePerHour, MemoryRate::BitPerSecond),
+      value * 8.0 * std::pow(1024.0, 5) / 3600.0);
 }
 
 TEST(UnitMemoryRate, ConvertVerification) {
@@ -254,6 +584,50 @@ TEST(UnitMemoryRate, Parse) {
   EXPECT_EQ(Parse<MemoryRate>("Pib/s"), MemoryRate::PebibitPerSecond);
   EXPECT_EQ(Parse<MemoryRate>("PB/s"), MemoryRate::PetabytePerSecond);
   EXPECT_EQ(Parse<MemoryRate>("PiB/s"), MemoryRate::PebibytePerSecond);
+  EXPECT_EQ(Parse<MemoryRate>("b/min"), MemoryRate::BitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("B/min"), MemoryRate::BytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("kb/min"), MemoryRate::KilobitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("kib/min"), MemoryRate::KibibitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("kB/min"), MemoryRate::KilobytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("kiB/min"), MemoryRate::KibibytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Mb/min"), MemoryRate::MegabitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Mib/min"), MemoryRate::MebibitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("MB/min"), MemoryRate::MegabytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("MiB/min"), MemoryRate::MebibytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Gb/min"), MemoryRate::GigabitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Gib/min"), MemoryRate::GibibitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("GB/min"), MemoryRate::GigabytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("GiB/min"), MemoryRate::GibibytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Tb/min"), MemoryRate::TerabitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Tib/min"), MemoryRate::TebibitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("TB/min"), MemoryRate::TerabytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("TiB/min"), MemoryRate::TebibytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Pb/min"), MemoryRate::PetabitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("Pib/min"), MemoryRate::PebibitPerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("PB/min"), MemoryRate::PetabytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("PiB/min"), MemoryRate::PebibytePerMinute);
+  EXPECT_EQ(Parse<MemoryRate>("b/hr"), MemoryRate::BitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("B/hr"), MemoryRate::BytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("kb/hr"), MemoryRate::KilobitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("kib/hr"), MemoryRate::KibibitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("kB/hr"), MemoryRate::KilobytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("kiB/hr"), MemoryRate::KibibytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Mb/hr"), MemoryRate::MegabitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Mib/hr"), MemoryRate::MebibitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("MB/hr"), MemoryRate::MegabytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("MiB/hr"), MemoryRate::MebibytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Gb/hr"), MemoryRate::GigabitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Gib/hr"), MemoryRate::GibibitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("GB/hr"), MemoryRate::GigabytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("GiB/hr"), MemoryRate::GibibytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Tb/hr"), MemoryRate::TerabitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Tib/hr"), MemoryRate::TebibitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("TB/hr"), MemoryRate::TerabytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("TiB/hr"), MemoryRate::TebibytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Pb/hr"), MemoryRate::PetabitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("Pib/hr"), MemoryRate::PebibitPerHour);
+  EXPECT_EQ(Parse<MemoryRate>("PB/hr"), MemoryRate::PetabytePerHour);
+  EXPECT_EQ(Parse<MemoryRate>("PiB/hr"), MemoryRate::PebibytePerHour);
 }
 
 TEST(UnitMemoryRate, RelatedDimensions) {
@@ -283,6 +657,50 @@ TEST(UnitMemoryRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibitPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(MemoryRate::PetabytePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibytePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::BitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::BytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KilobitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KibibitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KilobytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KibibytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MegabitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MebibitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MegabytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MebibytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GigabitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GibibitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GigabytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GibibytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TerabitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TebibitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TerabytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TebibytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PetabitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibitPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PetabytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibytePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::BitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::BytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KilobitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KibibitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KilobytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::KibibytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MegabitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MebibitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MegabytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::MebibytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GigabitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GibibitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GigabytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::GibibytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TerabitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TebibitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TerabytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::TebibytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PetabitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibitPerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PetabytePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(MemoryRate::PebibytePerHour), std::nullopt);
 }
 
 TEST(UnitMemoryRate, Standard) {

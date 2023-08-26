@@ -294,6 +294,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(unit_speed GTest::gtest_main)
   gtest_discover_tests(unit_speed)
 
+  add_executable(unit_substance_amount ${PROJECT_SOURCE_DIR}/test/Unit/SubstanceAmount.cpp)
+  target_link_libraries(unit_substance_amount GTest::gtest_main)
+  gtest_discover_tests(unit_substance_amount)
+
   add_executable(unit_system ${PROJECT_SOURCE_DIR}/test/UnitSystem.cpp)
   target_link_libraries(unit_system GTest::gtest_main)
   gtest_discover_tests(unit_system)
