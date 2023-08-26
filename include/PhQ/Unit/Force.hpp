@@ -25,7 +25,13 @@ namespace Unit {
 // Force units.
 enum class Force : int_least8_t {
   Newton,
+  Kilonewton,
+  Meganewton,
+  Giganewton,
+  Millinewton,
   Micronewton,
+  Nanonewton,
+  Dyne,
   JoulePerMile,
   JoulePerKilometre,
   KilojoulePerMile,
@@ -74,7 +80,13 @@ inline const std::map<Unit::Force, UnitSystem> RelatedUnitSystems<Unit::Force>{
 template<>
 inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
     {Unit::Force::Newton,                     "N"        },
+    {Unit::Force::Kilonewton,                 "kN"       },
+    {Unit::Force::Meganewton,                 "MN"       },
+    {Unit::Force::Giganewton,                 "GN"       },
+    {Unit::Force::Millinewton,                "mN"       },
     {Unit::Force::Micronewton,                "μN"       },
+    {Unit::Force::Nanonewton,                 "nN"       },
+    {Unit::Force::Dyne,                       "dyn"      },
     {Unit::Force::JoulePerMile,               "J/mi"     },
     {Unit::Force::JoulePerKilometre,          "J/km"     },
     {Unit::Force::KilojoulePerMile,           "kJ/mi"    },
@@ -102,6 +114,10 @@ template<> inline const std::unordered_map<std::string_view, Unit::Force>
         {"kg*m/s^2",  Unit::Force::Newton                    },
         {"kg·m/s2",   Unit::Force::Newton                    },
         {"kg*m/s2",   Unit::Force::Newton                    },
+        {"kN",        Unit::Force::Kilonewton                },
+        {"MN",        Unit::Force::Meganewton                },
+        {"GN",        Unit::Force::Giganewton                },
+        {"mN",        Unit::Force::Millinewton               },
         {"μN",        Unit::Force::Micronewton               },
         {"uN",        Unit::Force::Micronewton               },
         {"nJ/mm",     Unit::Force::Micronewton               },
@@ -109,6 +125,8 @@ template<> inline const std::unordered_map<std::string_view, Unit::Force>
         {"g*mm/s^2",  Unit::Force::Micronewton               },
         {"g·mm/s2",   Unit::Force::Micronewton               },
         {"g*mm/s2",   Unit::Force::Micronewton               },
+        {"nN",        Unit::Force::Nanonewton                },
+        {"dyn",       Unit::Force::Dyne                      },
         {"J/mi",      Unit::Force::JoulePerMile              },
         {"J/km",      Unit::Force::JoulePerKilometre         },
         {"kJ/mi",     Unit::Force::KilojoulePerMile          },
@@ -145,9 +163,44 @@ inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(
     double& value) noexcept {}
 
 template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Kilonewton>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Meganewton>(
+    double& value) noexcept {
+  value *= 0.000001;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Giganewton>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Millinewton>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template<> inline constexpr void
 ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(
     double& value) noexcept {
   value *= 1000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Nanonewton>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template<> inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
+  value *= 100000.0;
 }
 
 template<> inline constexpr void
@@ -251,9 +304,44 @@ ConversionToStandard<Unit::Force, Unit::Force::Newton>(double& value) noexcept {
 }
 
 template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Kilonewton>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Meganewton>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Giganewton>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Millinewton>(
+    double& value) noexcept {
+  value *= 0.001;
+}
+
+template<> inline constexpr void
 ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(
     double& value) noexcept {
   value *= 0.000001;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Nanonewton>(
+    double& value) noexcept {
+  value *= 0.000000001;
+}
+
+template<> inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
+  value *= 0.00001;
 }
 
 template<> inline constexpr void
@@ -356,8 +444,20 @@ template<> inline const std::map<
     MapOfConversionsFromStandard<Unit::Force>{
         {Unit::Force::Newton,
          ConversionsFromStandard<Unit::Force, Unit::Force::Newton>             },
+        {Unit::Force::Kilonewton,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton>         },
+        {Unit::Force::Meganewton,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton>         },
+        {Unit::Force::Giganewton,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton>         },
+        {Unit::Force::Millinewton,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>        },
         {Unit::Force::Micronewton,
          ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>        },
+        {Unit::Force::Nanonewton,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton>         },
+        {Unit::Force::Dyne,
+         ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>               },
         {Unit::Force::JoulePerMile,
          ConversionsFromStandard<Unit::Force, Unit::Force::JoulePerMile>       },
         {Unit::Force::JoulePerKilometre,
@@ -405,8 +505,20 @@ inline const std::map<Unit::Force, std::function<void(double* const values,
     MapOfConversionsToStandard<Unit::Force>{
         {Unit::Force::Newton,
          ConversionsToStandard<Unit::Force, Unit::Force::Newton>               },
+        {Unit::Force::Kilonewton,
+         ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton>           },
+        {Unit::Force::Meganewton,
+         ConversionsToStandard<Unit::Force, Unit::Force::Meganewton>           },
+        {Unit::Force::Giganewton,
+         ConversionsToStandard<Unit::Force, Unit::Force::Giganewton>           },
+        {Unit::Force::Millinewton,
+         ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>          },
         {Unit::Force::Micronewton,
          ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>          },
+        {Unit::Force::Nanonewton,
+         ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton>           },
+        {Unit::Force::Dyne,
+         ConversionsToStandard<Unit::Force, Unit::Force::Dyne>                 },
         {Unit::Force::JoulePerMile,
          ConversionsToStandard<Unit::Force, Unit::Force::JoulePerMile>         },
         {Unit::Force::JoulePerKilometre,
