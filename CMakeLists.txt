@@ -190,6 +190,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(square_root GTest::gtest_main)
   gtest_discover_tests(square_root)
 
+  add_executable(substance_amount ${PROJECT_SOURCE_DIR}/test/SubstanceAmount.cpp)
+  target_link_libraries(substance_amount GTest::gtest_main)
+  gtest_discover_tests(substance_amount)
+
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
