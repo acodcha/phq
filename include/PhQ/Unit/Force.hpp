@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Force units.
-enum class Force : int_least8_t {
+enum class Force : int8_t {
   Newton,
   Kilonewton,
   Meganewton,

@@ -16,9 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_QUANTITY_HPP
 
-#include <utility>
-
-#include "DimensionlessQuantity.hpp"
+#include "Dimensions.hpp"
 #include "Value/Vector.hpp"
 
 namespace PhQ {
@@ -27,8 +25,10 @@ namespace PhQ {
 // quantity. Such a physical quantity is composed only of a value where the
 // value is a vector of dimension three. Such a physical quantity has no unit of
 // measure and no dimension set.
-class DimensionlessVectorQuantity : public DimensionlessQuantity {
+class DimensionlessVectorQuantity {
 public:
+  static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
+
   constexpr const Value::Vector& Value() const noexcept { return value_; }
 
   constexpr Value::Vector& MutableValue() noexcept { return value_; }
@@ -37,27 +37,26 @@ public:
     value_ = value;
   }
 
-  std::string Print() const noexcept override { return value_.Print(); }
+  std::string Print() const noexcept { return value_.Print(); }
 
-  std::string Print(const Precision precision) const noexcept override {
+  std::string Print(const Precision precision) const noexcept {
     return value_.Print(precision);
   }
 
-  std::string JSON() const noexcept override { return value_.JSON(); }
+  std::string JSON() const noexcept { return value_.JSON(); }
 
-  std::string XML() const noexcept override { return value_.XML(); }
+  std::string XML() const noexcept { return value_.XML(); }
 
-  std::string YAML() const noexcept override { return value_.YAML(); }
+  std::string YAML() const noexcept { return value_.YAML(); }
 
 protected:
-  constexpr DimensionlessVectorQuantity() noexcept
-    : DimensionlessQuantity(), value_() {}
+  constexpr DimensionlessVectorQuantity() noexcept : value_() {}
 
   constexpr DimensionlessVectorQuantity(const Value::Vector& value) noexcept
-    : DimensionlessQuantity(), value_(value) {}
+    : value_(value) {}
 
   constexpr DimensionlessVectorQuantity(Value::Vector&& value) noexcept
-    : DimensionlessQuantity(), value_(std::move(value)) {}
+    : value_(std::move(value)) {}
 
   ~DimensionlessVectorQuantity() noexcept = default;
 
@@ -67,6 +66,13 @@ protected:
 
   Value::Vector value_;
 };
+
+inline std::ostream& operator<<(
+    std::ostream& stream,
+    const DimensionlessVectorQuantity& quantity) noexcept {
+  stream << quantity.Print();
+  return stream;
+}
 
 }  // namespace PhQ
 

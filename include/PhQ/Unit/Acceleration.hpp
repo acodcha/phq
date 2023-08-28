@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Acceleration units.
-enum class Acceleration : int_least8_t {
+enum class Acceleration : int8_t {
   MilePerSquareSecond,
   MilePerSquareMinute,
   MilePerSquareHour,

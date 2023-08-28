@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Time rate of mass units.
-enum class MassRate : int_least8_t {
+enum class MassRate : int8_t {
   KilogramPerSecond,
   GramPerSecond,
   SlugPerSecond,

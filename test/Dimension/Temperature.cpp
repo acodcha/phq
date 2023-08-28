@@ -89,6 +89,11 @@ TEST(DimensionTemperature, Print) {
   EXPECT_EQ(Temperature{3}.Print(), "Θ^3");
 }
 
+TEST(DimensionTemperature, SizeOf) {
+  const Temperature temperature{3};
+  EXPECT_EQ(sizeof(temperature), sizeof(int8_t));
+}
+
 TEST(DimensionTemperature, Stream) {
   const Temperature temperature{3};
   std::ostringstream stream;

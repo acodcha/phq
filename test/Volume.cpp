@@ -115,6 +115,11 @@ TEST(Volume, Print) {
             "-5.000000000000000 mm^3");
 }
 
+TEST(Volume, SizeOf) {
+  const Volume volume{1.11, Unit::Volume::CubicMetre};
+  EXPECT_EQ(sizeof(volume), sizeof(double));
+}
+
 TEST(Volume, Stream) {
   const Volume volume{1.11, Unit::Volume::CubicMetre};
   std::ostringstream stream;

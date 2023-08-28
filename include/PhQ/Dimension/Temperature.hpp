@@ -31,10 +31,9 @@ class Temperature {
 public:
   constexpr Temperature() noexcept : value_(0) {}
 
-  explicit constexpr Temperature(const int_least8_t value) noexcept
-    : value_(value) {}
+  explicit constexpr Temperature(const int8_t value) noexcept : value_(value) {}
 
-  constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "Θ"; }
 
@@ -54,7 +53,7 @@ public:
   }
 
 private:
-  int_least8_t value_;
+  int8_t value_;
 };
 
 inline constexpr bool operator==(
@@ -100,7 +99,7 @@ namespace std {
 template<> struct hash<PhQ::Dimension::Temperature> {
   inline size_t operator()(
       const PhQ::Dimension::Temperature& temperature) const {
-    return hash<int_least8_t>()(temperature.Value());
+    return hash<int8_t>()(temperature.Value());
   }
 };
 

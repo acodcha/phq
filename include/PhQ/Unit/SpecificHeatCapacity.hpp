@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Mass-specific heat capacity units.
-enum class SpecificHeatCapacity : int_least8_t {
+enum class SpecificHeatCapacity : int8_t {
   JoulePerKilogramPerKelvin,
   NanojoulePerGramPerKelvin,
   FootPoundPerSlugPerRankine,

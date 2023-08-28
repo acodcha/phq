@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Volume units.
-enum class Volume : int_least8_t {
+enum class Volume : int8_t {
   CubicMile,
   CubicKilometre,
   CubicMetre,

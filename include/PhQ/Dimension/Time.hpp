@@ -31,9 +31,9 @@ class Time {
 public:
   constexpr Time() noexcept : value_(0) {}
 
-  explicit constexpr Time(const int_least8_t value) noexcept : value_(value) {}
+  explicit constexpr Time(const int8_t value) noexcept : value_(value) {}
 
-  constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "T"; }
 
@@ -53,7 +53,7 @@ public:
   }
 
 private:
-  int_least8_t value_;
+  int8_t value_;
 };
 
 inline constexpr bool operator==(const Time& left, const Time& right) noexcept {
@@ -92,7 +92,7 @@ namespace std {
 
 template<> struct hash<PhQ::Dimension::Time> {
   inline size_t operator()(const PhQ::Dimension::Time& time) const {
-    return hash<int_least8_t>()(time.Value());
+    return hash<int8_t>()(time.Value());
   }
 };
 

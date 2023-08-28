@@ -25,7 +25,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(DimensionSet, Accessor) {
+TEST(Dimensions, Accessor) {
   const Dimensions dimensions{
       Dimension::Time{-3},
       Dimension::Length{-2},
@@ -43,7 +43,7 @@ TEST(DimensionSet, Accessor) {
   EXPECT_EQ(dimensions.LuminousIntensity(), Dimension::LuminousIntensity{3});
 }
 
-TEST(DimensionSet, Comparison) {
+TEST(Dimensions, Comparison) {
   const Dimensions set0{
       Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
       Dimension::ElectricCurrent{0}, Dimension::Temperature{-1}};
@@ -65,7 +65,7 @@ TEST(DimensionSet, Comparison) {
   EXPECT_EQ(*decreasing.begin(), set1);
 }
 
-TEST(DimensionSet, Hash) {
+TEST(Dimensions, Hash) {
   const Dimensions set0;
   const Dimensions set1{Dimension::Time{2}};
   const Dimensions set2{Dimension::Time{-3}, Dimension::Length{1}};
@@ -99,7 +99,7 @@ TEST(DimensionSet, Hash) {
       set0, set1, set2, set3, set4, set5, set6, set7};
 }
 
-TEST(DimensionSet, JSON) {
+TEST(Dimensions, JSON) {
   EXPECT_EQ(
       Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
                  Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
@@ -113,7 +113,7 @@ TEST(DimensionSet, JSON) {
       "{\"mass\":1,\"substance_amount\":-1}");
 }
 
-TEST(DimensionSet, Print) {
+TEST(Dimensions, Print) {
   EXPECT_EQ(Dimensions{}.Print(), "1");
   EXPECT_EQ(Dimensions{Dimension::Time{2}}.Print(), "T^2");
   EXPECT_EQ(Dimensions(Dimension::Time{1}, Dimension::Length{-3}).Print(),
@@ -145,7 +145,14 @@ TEST(DimensionSet, Print) {
       "Θ^(-1)·J");
 }
 
-TEST(DimensionSet, Stream) {
+TEST(Dimensions, SizeOf) {
+  const Dimensions dimensions{
+      Dimension::Time{2}, Dimension::Length{-2}, Dimension::Mass{-1},
+      Dimension::ElectricCurrent{1}};
+  EXPECT_EQ(sizeof(dimensions), 7 * sizeof(int8_t));
+}
+
+TEST(Dimensions, Stream) {
   const Dimensions dimensions{
       Dimension::Time{2}, Dimension::Length{-2}, Dimension::Mass{-1},
       Dimension::ElectricCurrent{1}};
@@ -154,7 +161,7 @@ TEST(DimensionSet, Stream) {
   EXPECT_EQ(stream.str(), dimensions.Print());
 }
 
-TEST(DimensionSet, XML) {
+TEST(Dimensions, XML) {
   EXPECT_EQ(
       Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
                  Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
@@ -169,7 +176,7 @@ TEST(DimensionSet, XML) {
       "<mass>1</mass><substance_amount>-1</substance_amount>");
 }
 
-TEST(DimensionSet, YAML) {
+TEST(Dimensions, YAML) {
   EXPECT_EQ(
       Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
                  Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})

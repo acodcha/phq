@@ -104,6 +104,11 @@ TEST(Mass, Print) {
             "-5.000000000000000 g");
 }
 
+TEST(Mass, SizeOf) {
+  const Mass mass{1.11, Unit::Mass::Kilogram};
+  EXPECT_EQ(sizeof(mass), sizeof(double));
+}
+
 TEST(Mass, Stream) {
   const Mass mass{1.11, Unit::Mass::Kilogram};
   std::ostringstream stream;

@@ -26,7 +26,7 @@ namespace Unit {
 // example, a temperature of 20 °C corresponds to a temperature of 68 °F, while
 // a temperature difference of +20 °C corresponds to a temperature difference of
 // +36 °F.
-enum class Temperature : int_least8_t {
+enum class Temperature : int8_t {
   Kelvin,
   Celsius,
   Rankine,

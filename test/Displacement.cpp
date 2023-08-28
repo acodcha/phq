@@ -196,6 +196,14 @@ TEST(Displacement, Print) {
             "(0, -5.000000000000000, 0) mm");
 }
 
+TEST(Displacement, SizeOf) {
+  const Displacement displacement{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  EXPECT_EQ(sizeof(displacement), 3 * sizeof(double));
+}
+
 TEST(Displacement, Stream) {
   const Displacement displacement{
       {1.11, 2.22, 4.44},

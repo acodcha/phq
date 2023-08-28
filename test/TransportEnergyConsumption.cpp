@@ -135,6 +135,11 @@ TEST(TransportEnergyConsumption, Print) {
       "-5.000000000000000 kW·hr/km");
 }
 
+TEST(TransportEnergyConsumption, SizeOf) {
+  const TransportEnergyConsumption consumption{1.11, Unit::Force::Newton};
+  EXPECT_EQ(sizeof(consumption), sizeof(double));
+}
+
 TEST(TransportEnergyConsumption, Stream) {
   const TransportEnergyConsumption consumption{1.11, Unit::Force::Newton};
   std::ostringstream stream;

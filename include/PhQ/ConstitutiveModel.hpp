@@ -27,7 +27,7 @@ namespace PhQ {
 // material.
 class ConstitutiveModel {
 public:
-  enum class Type : int_least8_t {
+  enum class Type : int8_t {
     CompressibleNewtonianFluid,
     ElasticIsotropicSolid,
     IncompressibleNewtonianFluid,

@@ -121,6 +121,11 @@ TEST(Frequency, Print) {
             "-5.000000000000000 kHz");
 }
 
+TEST(Frequency, SizeOf) {
+  const Frequency frequency{1.11, Unit::Frequency::Hertz};
+  EXPECT_EQ(sizeof(frequency), sizeof(double));
+}
+
 TEST(Frequency, Stream) {
   const Frequency frequency{1.11, Unit::Frequency::Hertz};
   std::ostringstream stream;

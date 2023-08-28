@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Area units.
-enum class Area : int_least8_t {
+enum class Area : int8_t {
   SquareMile,
   SquareKilometre,
   Hectare,

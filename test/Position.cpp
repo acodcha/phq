@@ -225,6 +225,14 @@ TEST(Position, Print) {
             "(0, -5.000000000000000, 0) mm");
 }
 
+TEST(Position, SizeOf) {
+  const Position position{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  EXPECT_EQ(sizeof(position), 3 * sizeof(double));
+}
+
 TEST(Position, Stream) {
   const Position position{
       {1.11, 2.22, 4.44},

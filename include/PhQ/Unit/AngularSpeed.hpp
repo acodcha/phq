@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Angular speed units.
-enum class AngularSpeed : int_least8_t {
+enum class AngularSpeed : int8_t {
   RadianPerSecond,
   RadianPerMinute,
   RadianPerHour,

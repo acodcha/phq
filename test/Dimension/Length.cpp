@@ -83,6 +83,11 @@ TEST(DimensionLength, Print) {
   EXPECT_EQ(Length{3}.Print(), "L^3");
 }
 
+TEST(DimensionLength, SizeOf) {
+  const Length length{3};
+  EXPECT_EQ(sizeof(length), sizeof(int8_t));
+}
+
 TEST(DimensionLength, Stream) {
   const Length length{3};
   std::ostringstream stream;

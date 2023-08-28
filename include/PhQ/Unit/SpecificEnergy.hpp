@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Mass-specific energy units.
-enum class SpecificEnergy : int_least8_t {
+enum class SpecificEnergy : int8_t {
   JoulePerKilogram,
   NanojoulePerGram,
   FootPoundPerSlug,

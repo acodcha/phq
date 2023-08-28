@@ -128,6 +128,12 @@ TEST(KinematicViscosity, Print) {
             "-5.000000000000000 ft^2/s");
 }
 
+TEST(KinematicViscosity, SizeOf) {
+  const KinematicViscosity viscosity{
+      1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  EXPECT_EQ(sizeof(viscosity), sizeof(double));
+}
+
 TEST(KinematicViscosity, Stream) {
   const KinematicViscosity viscosity{
       1.11, Unit::Diffusivity::SquareMetrePerSecond};

@@ -213,6 +213,14 @@ TEST(Acceleration, Print) {
       "(0, -5.500000000000000, 0) ft/s^2");
 }
 
+TEST(Acceleration, SizeOf) {
+  const Acceleration acceleration{
+      {1.11, 2.22, 4.44},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  EXPECT_EQ(sizeof(acceleration), 3 * sizeof(double));
+}
+
 TEST(Acceleration, Stream) {
   const Acceleration acceleration{
       {1.11, 2.22, 4.44},

@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Angle units.
-enum class Angle : int_least8_t {
+enum class Angle : int8_t {
   Radian,
   Degree,
   Arcminute,

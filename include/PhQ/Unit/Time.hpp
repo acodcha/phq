@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Time units.
-enum class Time : int_least8_t {
+enum class Time : int8_t {
   Nanosecond,
   Microsecond,
   Millisecond,

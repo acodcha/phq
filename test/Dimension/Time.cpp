@@ -83,6 +83,11 @@ TEST(DimensionTime, Print) {
   EXPECT_EQ(Time{3}.Print(), "T^3");
 }
 
+TEST(DimensionTime, SizeOf) {
+  const Time time{3};
+  EXPECT_EQ(sizeof(time), sizeof(int8_t));
+}
+
 TEST(DimensionTime, Stream) {
   const Time time{3};
   std::ostringstream stream;

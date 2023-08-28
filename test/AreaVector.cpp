@@ -183,6 +183,14 @@ TEST(AreaVector, Print) {
             "(0, -5.000000000000000, 0) ft^2");
 }
 
+TEST(AreaVector, SizeOf) {
+  const AreaVector area{
+      {1.11, 2.22, 4.44},
+      Unit::Area::SquareMetre
+  };
+  EXPECT_EQ(sizeof(area), 3 * sizeof(double));
+}
+
 TEST(AreaVector, Stream) {
   const AreaVector area{
       {1.11, 2.22, 4.44},

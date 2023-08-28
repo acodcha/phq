@@ -104,6 +104,11 @@ TEST(Time, Print) {
             "-5.000000000000000 min");
 }
 
+TEST(Time, SizeOf) {
+  const Time time{1.11, Unit::Time::Second};
+  EXPECT_EQ(sizeof(time), sizeof(double));
+}
+
 TEST(Time, Stream) {
   const Time time{1.11, Unit::Time::Second};
   std::ostringstream stream;

@@ -83,6 +83,11 @@ TEST(DimensionMass, Print) {
   EXPECT_EQ(Mass{3}.Print(), "M^3");
 }
 
+TEST(DimensionMass, SizeOf) {
+  const Mass mass{3};
+  EXPECT_EQ(sizeof(mass), sizeof(int8_t));
+}
+
 TEST(DimensionMass, Stream) {
   const Mass mass{3};
   std::ostringstream stream;

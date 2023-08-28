@@ -88,6 +88,11 @@ TEST(DimensionElectricCurrent, Print) {
   EXPECT_EQ(ElectricCurrent{3}.Print(), "I^3");
 }
 
+TEST(DimensionElectricCurrent, SizeOf) {
+  const ElectricCurrent current{3};
+  EXPECT_EQ(sizeof(current), sizeof(int8_t));
+}
+
 TEST(DimensionElectricCurrent, Stream) {
   const ElectricCurrent current{3};
   std::ostringstream stream;

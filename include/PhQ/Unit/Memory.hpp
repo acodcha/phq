@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Computer memory units.
-enum class Memory : int_least8_t {
+enum class Memory : int8_t {
   Bit,
   Byte,
   Kilobit,

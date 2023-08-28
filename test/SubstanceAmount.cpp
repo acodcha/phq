@@ -126,6 +126,11 @@ TEST(SubstanceAmount, Print) {
             "-5.000000000000000 kmol");
 }
 
+TEST(SubstanceAmount, SizeOf) {
+  const SubstanceAmount substance_amount{1.11, Unit::SubstanceAmount::Mole};
+  EXPECT_EQ(sizeof(substance_amount), sizeof(double));
+}
+
 TEST(SubstanceAmount, Stream) {
   const SubstanceAmount substance_amount{1.11, Unit::SubstanceAmount::Mole};
   std::ostringstream stream;
