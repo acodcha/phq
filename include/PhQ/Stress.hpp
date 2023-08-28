@@ -52,14 +52,14 @@ public:
   }
 
   constexpr StressScalar VonMises() const noexcept {
-    return StressScalar{
+    return StressScalar{std::sqrt(
         0.5
         * (std::pow(value_.xx() - value_.yy(), 2)
            + std::pow(value_.yy() - value_.zz(), 2)
            + std::pow(value_.zz() - value_.xx(), 2)
            + 6.0
                  * (std::pow(value_.xy(), 2) + std::pow(value_.xz(), 2)
-                    + std::pow(value_.yz(), 2)))};
+                    + std::pow(value_.yz(), 2))))};
   }
 
   constexpr Stress operator+(const Stress& stress) const noexcept {
