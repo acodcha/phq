@@ -74,6 +74,19 @@ TEST(Length, Constructor) {
   constexpr Length length2{Length::Create<Unit::Length::Millimetre>(100.0)};
 }
 
+TEST(Length, Copy) {
+  const Length reference{1.11, Unit::Length::Metre};
+  const Length first{reference};
+  EXPECT_EQ(first, reference);
+  Length second = Length::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Length, Dimensions) {
+  EXPECT_EQ(Length::Dimensions(), RelatedDimensions<Unit::Length>);
+}
+
 TEST(Length, Hash) {
   const Length length0{10.0, Unit::Length::Millimetre};
   const Length length1{10.000001, Unit::Length::Millimetre};
@@ -99,6 +112,16 @@ TEST(Length, JSON) {
       "{\"value\":-5.000000000000000,\"unit\":\"mm\"}");
 }
 
+TEST(Length, Move) {
+  const Length reference{1.11, Unit::Length::Metre};
+  Length first{1.11, Unit::Length::Metre};
+  Length second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Length third = Length::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Length, Print) {
   EXPECT_EQ(Length(1.11, Unit::Length::Metre).Print(), "1.110000000000000 m");
   EXPECT_EQ(
@@ -117,6 +140,8 @@ TEST(Length, Stream) {
   stream << length;
   EXPECT_EQ(stream.str(), length.Print());
 }
+
+TEST(Length, Unit) { EXPECT_EQ(Length::Unit(), Standard<Unit::Length>); }
 
 TEST(Length, XML) {
   EXPECT_EQ(Length(1.11, Unit::Length::Metre).XML(),

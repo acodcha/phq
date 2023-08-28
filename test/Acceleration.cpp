@@ -153,6 +153,22 @@ TEST(Acceleration, Constructor) {
   const Velocity velocity1{acceleration1, frequency};
 }
 
+TEST(Acceleration, Copy) {
+  const Acceleration reference{
+      {1.11, 2.22, 3.33},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  const Acceleration first{reference};
+  EXPECT_EQ(first, reference);
+  Acceleration second = Acceleration::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Acceleration, Dimensions) {
+  EXPECT_EQ(Acceleration::Dimensions(), RelatedDimensions<Unit::Acceleration>);
+}
+
 TEST(Acceleration, Hash) {
   const Acceleration acceleration0{
       {1.0, 2.0, 4.0},
@@ -202,6 +218,22 @@ TEST(Acceleration, JSON) {
       "s^2\"}");
 }
 
+TEST(Acceleration, Move) {
+  const Acceleration reference{
+      {1.11, 2.22, 4.44},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  Acceleration first{
+      {1.11, 2.22, 4.44},
+      Unit::Acceleration::MetrePerSquareSecond
+  };
+  Acceleration second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Acceleration third = Acceleration::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Acceleration, Print) {
   EXPECT_EQ(
       Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
@@ -229,6 +261,10 @@ TEST(Acceleration, Stream) {
   std::ostringstream stream;
   stream << acceleration;
   EXPECT_EQ(stream.str(), acceleration.Print());
+}
+
+TEST(Acceleration, Unit) {
+  EXPECT_EQ(Acceleration::Unit(), Standard<Unit::Acceleration>);
 }
 
 TEST(Acceleration, XML) {

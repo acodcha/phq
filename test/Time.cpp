@@ -74,6 +74,19 @@ TEST(Time, Constructor) {
   constexpr Time time2{Time::Create<Unit::Time::Minute>(4.0)};
 }
 
+TEST(Time, Copy) {
+  const Time reference{1.11, Unit::Time::Second};
+  const Time first{reference};
+  EXPECT_EQ(first, reference);
+  Time second = Time::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Time, Dimensions) {
+  EXPECT_EQ(Time::Dimensions(), RelatedDimensions<Unit::Time>);
+}
+
 TEST(Time, Hash) {
   const Time time0{10.0, Unit::Time::Second};
   const Time time1{10.000001, Unit::Time::Second};
@@ -98,6 +111,16 @@ TEST(Time, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"min\"}");
 }
 
+TEST(Time, Move) {
+  const Time reference{1.11, Unit::Time::Second};
+  Time first{1.11, Unit::Time::Second};
+  Time second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Time third = Time::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Time, Print) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).Print(), "1.110000000000000 s");
   EXPECT_EQ(Time(-5.0, Unit::Time::Minute).Print(Unit::Time::Minute),
@@ -115,6 +138,8 @@ TEST(Time, Stream) {
   stream << time;
   EXPECT_EQ(stream.str(), time.Print());
 }
+
+TEST(Time, Unit) { EXPECT_EQ(Time::Unit(), Standard<Unit::Time>); }
 
 TEST(Time, XML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(),

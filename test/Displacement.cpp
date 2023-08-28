@@ -142,6 +142,22 @@ TEST(Displacement, Constructor) {
   const Length length{displacement1};
 }
 
+TEST(Displacement, Copy) {
+  const Displacement reference{
+      {1.11, 2.22, 3.33},
+      Unit::Length::Metre
+  };
+  const Displacement first{reference};
+  EXPECT_EQ(first, reference);
+  Displacement second = Displacement::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Displacement, Dimensions) {
+  EXPECT_EQ(Displacement::Dimensions(), RelatedDimensions<Unit::Length>);
+}
+
 TEST(Displacement, Hash) {
   const Displacement displacement0{
       {1.0, 2.0, 4.0},
@@ -188,6 +204,22 @@ TEST(Displacement, JSON) {
             "\"mm\"}");
 }
 
+TEST(Displacement, Move) {
+  const Displacement reference{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  Displacement first{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  Displacement second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Displacement third = Displacement::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Displacement, Print) {
   EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).Print(),
             "(1.110000000000000, 2.220000000000000, 4.440000000000000) m");
@@ -212,6 +244,10 @@ TEST(Displacement, Stream) {
   std::ostringstream stream;
   stream << displacement;
   EXPECT_EQ(stream.str(), displacement.Print());
+}
+
+TEST(Displacement, Unit) {
+  EXPECT_EQ(Displacement::Unit(), Standard<Unit::Length>);
 }
 
 TEST(Displacement, XML) {

@@ -80,6 +80,19 @@ TEST(Frequency, Constructor) {
             Frequency(0.5, Unit::Frequency::Hertz));
 }
 
+TEST(Frequency, Copy) {
+  const Frequency reference{1.11, Unit::Frequency::Hertz};
+  const Frequency first{reference};
+  EXPECT_EQ(first, reference);
+  Frequency second = Frequency::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Frequency, Dimensions) {
+  EXPECT_EQ(Frequency::Dimensions(), RelatedDimensions<Unit::Frequency>);
+}
+
 TEST(Frequency, Hash) {
   const Frequency frequency0{10.0, Unit::Frequency::Hertz};
   const Frequency frequency1{10.000001, Unit::Frequency::Hertz};
@@ -103,6 +116,16 @@ TEST(Frequency, JSON) {
   EXPECT_EQ(Frequency(-5.0, Unit::Frequency::Kilohertz)
                 .JSON(Unit::Frequency::Kilohertz),
             "{\"value\":-5.000000000000000,\"unit\":\"kHz\"}");
+}
+
+TEST(Frequency, Move) {
+  const Frequency reference{1.11, Unit::Frequency::Hertz};
+  Frequency first{1.11, Unit::Frequency::Hertz};
+  Frequency second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Frequency third = Frequency::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
 }
 
 TEST(Frequency, Period) {
@@ -131,6 +154,10 @@ TEST(Frequency, Stream) {
   std::ostringstream stream;
   stream << frequency;
   EXPECT_EQ(stream.str(), frequency.Print());
+}
+
+TEST(Frequency, Unit) {
+  EXPECT_EQ(Frequency::Unit(), Standard<Unit::Frequency>);
 }
 
 TEST(Frequency, XML) {

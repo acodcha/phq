@@ -79,6 +79,19 @@ TEST(MachNumber, Constructor) {
   EXPECT_EQ(Speed(sound_speed, mach_number_1), speed);
 }
 
+TEST(MachNumber, Copy) {
+  const MachNumber reference{1.11};
+  const MachNumber first{reference};
+  EXPECT_EQ(first, reference);
+  MachNumber second = MachNumber::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(MachNumber, Dimensions) {
+  EXPECT_EQ(MachNumber::Dimensions(), Dimensions{});
+}
+
 TEST(MachNumber, Hash) {
   const MachNumber mach_number_0{10.0};
   const MachNumber mach_number_1{10.000001};
@@ -99,6 +112,16 @@ TEST(MachNumber, Hash) {
 
 TEST(MachNumber, JSON) {
   EXPECT_EQ(MachNumber(1.11).JSON(), "1.110000000000000");
+}
+
+TEST(MachNumber, Move) {
+  const MachNumber reference{1.11};
+  MachNumber first{1.11};
+  MachNumber second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  MachNumber third = MachNumber::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
 }
 
 TEST(MachNumber, Print) {

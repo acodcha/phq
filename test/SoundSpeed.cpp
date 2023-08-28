@@ -112,6 +112,19 @@ TEST(SoundSpeed, Constructor) {
             sound_speed_1);
 }
 
+TEST(SoundSpeed, Copy) {
+  const SoundSpeed reference{1.11, Unit::Speed::MetrePerSecond};
+  const SoundSpeed first{reference};
+  EXPECT_EQ(first, reference);
+  SoundSpeed second = SoundSpeed::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(SoundSpeed, Dimensions) {
+  EXPECT_EQ(SoundSpeed::Dimensions(), RelatedDimensions<Unit::Speed>);
+}
+
 TEST(SoundSpeed, Hash) {
   const SoundSpeed sound_speed_0{10.0, Unit::Speed::FootPerSecond};
   const SoundSpeed sound_speed_1{10.000001, Unit::Speed::FootPerSecond};
@@ -138,6 +151,16 @@ TEST(SoundSpeed, JSON) {
             "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
 }
 
+TEST(SoundSpeed, Move) {
+  const SoundSpeed reference{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  SoundSpeed third = SoundSpeed::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(SoundSpeed, Print) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Print(),
             "1.110000000000000 m/s");
@@ -157,6 +180,8 @@ TEST(SoundSpeed, Stream) {
   stream << sound_speed;
   EXPECT_EQ(stream.str(), sound_speed.Print());
 }
+
+TEST(SoundSpeed, Unit) { EXPECT_EQ(SoundSpeed::Unit(), Standard<Unit::Speed>); }
 
 TEST(SoundSpeed, XML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).XML(),

@@ -86,6 +86,20 @@ TEST(SubstanceAmount, Constructor) {
       SubstanceAmount::Create<Unit::SubstanceAmount::Kilomole>(4.0)};
 }
 
+TEST(SubstanceAmount, Copy) {
+  const SubstanceAmount reference{1.11, Unit::SubstanceAmount::Mole};
+  const SubstanceAmount first{reference};
+  EXPECT_EQ(first, reference);
+  SubstanceAmount second = SubstanceAmount::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(SubstanceAmount, Dimensions) {
+  EXPECT_EQ(
+      SubstanceAmount::Dimensions(), RelatedDimensions<Unit::SubstanceAmount>);
+}
+
 TEST(SubstanceAmount, Hash) {
   const SubstanceAmount substance_amount_0{
       10.0, Unit::SubstanceAmount::Kilomole};
@@ -118,6 +132,16 @@ TEST(SubstanceAmount, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"kmol\"}");
 }
 
+TEST(SubstanceAmount, Move) {
+  const SubstanceAmount reference{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  SubstanceAmount third = SubstanceAmount::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(SubstanceAmount, Print) {
   EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).Print(),
             "1.110000000000000 mol");
@@ -136,6 +160,10 @@ TEST(SubstanceAmount, Stream) {
   std::ostringstream stream;
   stream << substance_amount;
   EXPECT_EQ(stream.str(), substance_amount.Print());
+}
+
+TEST(SubstanceAmount, Unit) {
+  EXPECT_EQ(SubstanceAmount::Unit(), Standard<Unit::SubstanceAmount>);
 }
 
 TEST(SubstanceAmount, XML) {

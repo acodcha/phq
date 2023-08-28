@@ -172,6 +172,22 @@ TEST(Position, Constructor) {
   const Displacement displacement{position1};
 }
 
+TEST(Position, Copy) {
+  const Position reference{
+      {1.11, 2.22, 3.33},
+      Unit::Length::Metre
+  };
+  const Position first{reference};
+  EXPECT_EQ(first, reference);
+  Position second = Position::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Position, Dimensions) {
+  EXPECT_EQ(Position::Dimensions(), RelatedDimensions<Unit::Length>);
+}
+
 TEST(Position, Hash) {
   const Position position0{
       {1.0, 2.0, 4.0},
@@ -217,6 +233,22 @@ TEST(Position, JSON) {
             "\"mm\"}");
 }
 
+TEST(Position, Move) {
+  const Position reference{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  Position first{
+      {1.11, 2.22, 4.44},
+      Unit::Length::Metre
+  };
+  Position second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Position third = Position::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Position, Print) {
   EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).Print(),
             "(1.110000000000000, 2.220000000000000, 4.440000000000000) m");
@@ -242,6 +274,8 @@ TEST(Position, Stream) {
   stream << position;
   EXPECT_EQ(stream.str(), position.Print());
 }
+
+TEST(Position, Unit) { EXPECT_EQ(Position::Unit(), Standard<Unit::Length>); }
 
 TEST(Position, XML) {
   EXPECT_EQ(Position({1.11, 2.22, 4.44}, Unit::Length::Metre).XML(),

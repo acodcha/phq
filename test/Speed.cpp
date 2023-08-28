@@ -92,6 +92,19 @@ TEST(Speed, Constructor) {
   EXPECT_EQ(Frequency(speed1, length), frequency);
 }
 
+TEST(Speed, Copy) {
+  const Speed reference{1.11, Unit::Speed::MetrePerSecond};
+  const Speed first{reference};
+  EXPECT_EQ(first, reference);
+  Speed second = Speed::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Speed, Dimensions) {
+  EXPECT_EQ(Speed::Dimensions(), RelatedDimensions<Unit::Speed>);
+}
+
 TEST(Speed, Hash) {
   const Speed speed0{10.0, Unit::Speed::FootPerSecond};
   const Speed speed1{10.000001, Unit::Speed::FootPerSecond};
@@ -117,6 +130,16 @@ TEST(Speed, JSON) {
       "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
 }
 
+TEST(Speed, Move) {
+  const Speed reference{1.11, Unit::Speed::MetrePerSecond};
+  Speed first{1.11, Unit::Speed::MetrePerSecond};
+  Speed second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Speed third = Speed::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Speed, Print) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(),
             "1.110000000000000 m/s");
@@ -136,6 +159,8 @@ TEST(Speed, Stream) {
   stream << speed;
   EXPECT_EQ(stream.str(), speed.Print());
 }
+
+TEST(Speed, Unit) { EXPECT_EQ(Speed::Unit(), Standard<Unit::Speed>); }
 
 TEST(Speed, XML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).XML(),

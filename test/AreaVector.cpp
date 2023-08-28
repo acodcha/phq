@@ -130,6 +130,22 @@ TEST(AreaVector, Constructor) {
   const Area magnitude{area1};
 }
 
+TEST(AreaVector, Copy) {
+  const AreaVector reference{
+      {1.11, 2.22, 3.33},
+      Unit::Area::SquareMetre
+  };
+  const AreaVector first{reference};
+  EXPECT_EQ(first, reference);
+  AreaVector second = AreaVector::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(AreaVector, Dimensions) {
+  EXPECT_EQ(AreaVector::Dimensions(), RelatedDimensions<Unit::Area>);
+}
+
 TEST(AreaVector, Hash) {
   const AreaVector area0{
       {1.0, 2.0, 4.0},
@@ -175,6 +191,22 @@ TEST(AreaVector, JSON) {
             "\"ft^2\"}");
 }
 
+TEST(AreaVector, Move) {
+  const AreaVector reference{
+      {1.11, 2.22, 4.44},
+      Unit::Area::SquareMetre
+  };
+  AreaVector first{
+      {1.11, 2.22, 4.44},
+      Unit::Area::SquareMetre
+  };
+  AreaVector second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  AreaVector third = AreaVector::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(AreaVector, Print) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).Print(),
             "(1.110000000000000, 2.220000000000000, 4.440000000000000) m^2");
@@ -200,6 +232,8 @@ TEST(AreaVector, Stream) {
   stream << area;
   EXPECT_EQ(stream.str(), area.Print());
 }
+
+TEST(AreaVector, Unit) { EXPECT_EQ(AreaVector::Unit(), Standard<Unit::Area>); }
 
 TEST(AreaVector, XML) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).XML(),

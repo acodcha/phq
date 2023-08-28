@@ -77,6 +77,19 @@ TEST(Angle, Constructor) {
   EXPECT_DOUBLE_EQ(vector0.Angle(vector1).Value(), angle1.Value());
 }
 
+TEST(Angle, Copy) {
+  const Angle reference{1.11, Unit::Angle::Radian};
+  const Angle first{reference};
+  EXPECT_EQ(first, reference);
+  Angle second = Angle::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Angle, Dimensions) {
+  EXPECT_EQ(Angle::Dimensions(), RelatedDimensions<Unit::Angle>);
+}
+
 TEST(Angle, Hash) {
   const Angle angle0{10.0, Unit::Angle::Degree};
   const Angle angle1{10.000001, Unit::Angle::Degree};
@@ -101,6 +114,16 @@ TEST(Angle, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"deg\"}");
 }
 
+TEST(Angle, Move) {
+  const Angle reference{1.11, Unit::Angle::Radian};
+  Angle first{1.11, Unit::Angle::Radian};
+  Angle second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Angle third = Angle::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Angle, Print) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).Print(), "1.110000000000000 rad");
   EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).Print(Unit::Angle::Degree),
@@ -118,6 +141,8 @@ TEST(Angle, Stream) {
   stream << angle;
   EXPECT_EQ(stream.str(), angle.Print());
 }
+
+TEST(Angle, Unit) { EXPECT_EQ(Angle::Unit(), Standard<Unit::Angle>); }
 
 TEST(Angle, XML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).XML(),
