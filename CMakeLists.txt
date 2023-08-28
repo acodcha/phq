@@ -18,7 +18,7 @@ project(
 )
 option(
   TEST_PHQ_LIBRARY
-  "Configure the PhQ library tests."
+  "Configure the Physical Quantities (PhQ) library tests."
   OFF
 )
 
@@ -36,19 +36,25 @@ target_include_directories(
 
 # Configure the PhQ library tests.
 if(TEST_PHQ_LIBRARY)
-  # Fetch the GoogleTest library.
-  include(FetchContent)
-  FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG main
-  )
+  # Search for the GoogleTest library.
+  find_package(GTest QUIET)
 
-  # Do not override the parent project's compiler and linker settings on Windows.
-  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  if(GTest_FOUND)
+    message(STATUS "The GoogleTest library was found at: ${GTest_CONFIG}")
+  else()
+    # In this case, the GoogleTest library is not found, so fetch it instead.
+    include(FetchContent)
+    FetchContent_Declare(
+      GoogleTest
+      GIT_REPOSITORY https://github.com/google/googletest.git
+      GIT_TAG main
+    )
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(GoogleTest)
+    message(STATUS "The GoogleTest library was fetched from: https://github.com/google/googletest.git")
+  endif()
 
   # Include the GoogleTest library and enable testing.
-  FetchContent_MakeAvailable(googletest)
   include(GoogleTest)
   enable_testing()
 
@@ -362,9 +368,9 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(volume_rate GTest::gtest_main)
   gtest_discover_tests(volume_rate)
 
-  message(STATUS "The PhQ library tests were configured. Build the PhQ library tests with \"make --jobs=16\" and run them with \"make test\"")
+  message(STATUS "The Physical Quantities (PhQ) library tests were configured. Build the tests with \"make --jobs=16\" and run them with \"make test\"")
 else()
-  message(STATUS "The PhQ library tests were not configured. Run \"cmake .. -DTEST_PHQ_LIBRARY=ON\" to configure the PhQ library tests.")
+  message(STATUS "The Physical Quantities (PhQ) library tests were not configured. Run \"cmake .. -DTEST_PHQ_LIBRARY=ON\" to configure the tests.")
 endif()
 
 # Define the library directories to be installed.
