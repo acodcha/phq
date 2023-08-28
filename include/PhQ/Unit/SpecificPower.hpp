@@ -220,14 +220,14 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::SpecificPower,
                        Unit::SpecificPower::FootPoundPerSlugPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.3048, 2);
+  value /= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::SpecificPower,
                        Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.0254, 2);
+  value /= 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
@@ -244,14 +244,14 @@ template<> inline constexpr void
 ConversionToStandard<Unit::SpecificPower,
                      Unit::SpecificPower::FootPoundPerSlugPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 2);
+  value *= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::SpecificPower,
                      Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 2);
+  value *= 0.0254 * 0.0254;
 }
 
 template<> inline const std::map<

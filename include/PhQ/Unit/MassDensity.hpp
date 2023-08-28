@@ -120,25 +120,25 @@ ConversionFromStandard<Unit::MassDensity,
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 4) / (0.45359237 * 9.80665);
+  value *= 0.3048 * 0.3048 * 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 4) / (0.45359237 * 9.80665);
+  value *= 0.0254 * 0.0254 * 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 3) / 0.45359237;
+  value *= 0.3048 * 0.3048 * 0.3048 / 0.45359237;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 3) / 0.45359237;
+  value *= 0.0254 * 0.0254 * 0.0254 / 0.45359237;
 }
 
 template<> inline constexpr void

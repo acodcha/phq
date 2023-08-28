@@ -130,13 +130,13 @@ template<> inline const std::unordered_map<std::string_view, Unit::Volume>
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(
     double& value) noexcept {
-  value /= std::pow(1609.344, 3);
+  value /= 1609.344 * 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
     double& value) noexcept {
-  value *= std::pow(0.001, 3);
+  value *= 0.000000001;
 }
 
 template<> inline constexpr void
@@ -146,79 +146,79 @@ ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicYard>(
     double& value) noexcept {
-  value /= std::pow(0.9144, 3);
+  value /= 0.9144 * 0.9144 * 0.9144;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicFoot>(
     double& value) noexcept {
-  value /= std::pow(0.3048, 3);
+  value /= 0.3048 * 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
     double& value) noexcept {
-  value *= std::pow(10.0, 3);
+  value *= 1000.0;
 }
 
 template<>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::Litre>(
     double& value) noexcept {
-  value *= std::pow(10.0, 3);
+  value *= 1000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicInch>(
     double& value) noexcept {
-  value /= std::pow(0.0254, 3);
+  value /= 0.0254 * 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
     double& value) noexcept {
-  value *= std::pow(100.0, 3);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::Millilitre>(
     double& value) noexcept {
-  value *= std::pow(100.0, 3);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 3);
+  value *= 1000000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
     double& value) noexcept {
-  value /= std::pow(0.0000254, 3);
+  value /= 0.0000254 * 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
     double& value) noexcept {
-  value *= std::pow(1000000.0, 3);
+  value *= 1.0e18;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
     double& value) noexcept {
-  value /= std::pow(0.0000000254, 3);
+  value /= 0.0000000254 * 0.0000000254 * 0.0000000254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicMile>(
     double& value) noexcept {
-  value *= std::pow(1609.344, 3);
+  value *= 1609.344 * 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 3);
+  value *= 1000000000.0;
 }
 
 template<> inline constexpr void
@@ -228,67 +228,67 @@ ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicYard>(
     double& value) noexcept {
-  value *= std::pow(0.9144, 3);
+  value *= 0.9144 * 0.9144 * 0.9144;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicFoot>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 3);
+  value *= 0.3048 * 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
     double& value) noexcept {
-  value *= std::pow(0.1, 3);
+  value *= 0.001;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::Litre>(
     double& value) noexcept {
-  value *= std::pow(0.1, 3);
+  value *= 0.001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicInch>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 3);
+  value *= 0.0254 * 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
     double& value) noexcept {
-  value *= std::pow(0.01, 3);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::Millilitre>(
     double& value) noexcept {
-  value *= std::pow(0.01, 3);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
     double& value) noexcept {
-  value *= std::pow(0.001, 3);
+  value *= 0.000000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
     double& value) noexcept {
-  value *= std::pow(0.0000254, 3);
+  value *= 0.0000254 * 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
     double& value) noexcept {
-  value *= std::pow(0.000001, 3);
+  value *= 1.0e-18;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
     double& value) noexcept {
-  value *= std::pow(0.0000000254, 3);
+  value *= 0.0000000254 * 0.0000000254 * 0.0000000254;
 }
 
 template<> inline const std::map<

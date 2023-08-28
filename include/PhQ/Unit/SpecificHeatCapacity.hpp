@@ -475,14 +475,14 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::SpecificHeatCapacity,
                        Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
     double& value) noexcept {
-  value /= 1.8 * std::pow(0.3048, 2);
+  value /= 1.8 * 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::SpecificHeatCapacity,
                        Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
     double& value) noexcept {
-  value /= 1.8 * std::pow(0.0254, 2);
+  value /= 1.8 * 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
@@ -501,14 +501,14 @@ template<> inline constexpr void
 ConversionToStandard<Unit::SpecificHeatCapacity,
                      Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
     double& value) noexcept {
-  value *= 1.8 * std::pow(0.3048, 2);
+  value *= 1.8 * 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::SpecificHeatCapacity,
                      Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
     double& value) noexcept {
-  value *= 1.8 * std::pow(0.0254, 2);
+  value *= 1.8 * 0.0254 * 0.0254;
 }
 
 template<> inline const std::map<

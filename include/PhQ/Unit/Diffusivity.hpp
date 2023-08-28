@@ -140,14 +140,14 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
-  value /= std::pow(1609.344, 2);
+  value /= 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareKilometrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.001, 2);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
@@ -159,7 +159,7 @@ ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
     double& value) noexcept {
-  value *= 640.0 / std::pow(1609.344, 2);
+  value *= 640.0 / (1609.344 * 1609.344);
 }
 
 template<> inline constexpr void
@@ -171,76 +171,76 @@ template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareYardPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.9144, 2);
+  value /= 0.9144 * 0.9144;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareFootPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.3048, 2);
+  value /= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareDecimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(10.0, 2);
+  value *= 100.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareInchPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.0254, 2);
+  value /= 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareCentimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(100.0, 2);
+  value *= 10000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMillimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 2);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMilliinchPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.0000254, 2);
+  value /= 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMicrometrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(1000000.0, 2);
+  value *= 1000000000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMicroinchPerSecond>(
     double& value) noexcept {
-  value /= std::pow(0.0000000254, 2);
+  value /= 0.0000000254 * 0.0000000254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
-  value *= std::pow(1609.344, 2);
+  value *= 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareKilometrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 2);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
@@ -252,7 +252,7 @@ ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(1609.344, 2) / 640.0;
+  value *= 1609.344 * 1609.344 / 640.0;
 }
 
 template<> inline constexpr void
@@ -262,61 +262,61 @@ ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.9144, 2);
+  value *= 0.9144 * 0.9144;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 2);
+  value *= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareDecimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.1, 2);
+  value *= 0.01;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 2);
+  value *= 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareCentimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.01, 2);
+  value *= 0.0001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMillimetrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.001, 2);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMilliinchPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.0000254, 2);
+  value *= 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMicrometrePerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.000001, 2);
+  value *= 0.000000000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMicroinchPerSecond>(
     double& value) noexcept {
-  value *= std::pow(0.0000000254, 2);
+  value *= 0.0000000254 * 0.0000000254;
 }
 
 template<>
