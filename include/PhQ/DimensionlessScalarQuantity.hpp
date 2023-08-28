@@ -16,7 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
 
-#include "DimensionlessQuantity.hpp"
+#include "Dimensions.hpp"
 
 namespace PhQ {
 
@@ -24,8 +24,10 @@ namespace PhQ {
 // quantity. Such a physical quantity is composed only of a value where the
 // value is a scalar number. Such a physical quantity has no unit of measure and
 // no dimension set.
-class DimensionlessScalarQuantity : public DimensionlessQuantity {
+class DimensionlessScalarQuantity {
 public:
+  static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
+
   inline constexpr double Value() const noexcept { return value_; }
 
   inline constexpr double& MutableValue() noexcept { return value_; }
@@ -34,24 +36,23 @@ public:
     value_ = value;
   }
 
-  std::string Print() const noexcept override { return PhQ::Print(value_); }
+  std::string Print() const noexcept { return PhQ::Print(value_); }
 
-  std::string Print(const Precision precision) const noexcept override {
+  std::string Print(const Precision precision) const noexcept {
     return PhQ::Print(value_, precision);
   }
 
-  std::string JSON() const noexcept override { return PhQ::Print(value_); }
+  std::string JSON() const noexcept { return PhQ::Print(value_); }
 
-  std::string XML() const noexcept override { return PhQ::Print(value_); }
+  std::string XML() const noexcept { return PhQ::Print(value_); }
 
-  std::string YAML() const noexcept override { return PhQ::Print(value_); }
+  std::string YAML() const noexcept { return PhQ::Print(value_); }
 
 protected:
-  constexpr DimensionlessScalarQuantity() noexcept
-    : DimensionlessQuantity(), value_() {}
+  constexpr DimensionlessScalarQuantity() noexcept : value_() {}
 
   constexpr DimensionlessScalarQuantity(const double value) noexcept
-    : DimensionlessQuantity(), value_(value) {}
+    : value_(value) {}
 
   ~DimensionlessScalarQuantity() noexcept = default;
 
@@ -59,6 +60,13 @@ protected:
 
   double value_;
 };
+
+inline std::ostream& operator<<(
+    std::ostream& stream,
+    const DimensionlessScalarQuantity& quantity) noexcept {
+  stream << quantity.Print();
+  return stream;
+}
 
 }  // namespace PhQ
 
@@ -88,8 +96,8 @@ double log10(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
   return log10(quantity.Value());
 };
 
-constexpr double pow(const PhQ::DimensionlessScalarQuantity& quantity,
-                     const int_least64_t exponent) {
+constexpr double pow(
+    const PhQ::DimensionlessScalarQuantity& quantity, const int64_t exponent) {
   return pow(quantity.Value(), exponent);
 };
 

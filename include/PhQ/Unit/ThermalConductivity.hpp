@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Thermal conductivity units.
-enum class ThermalConductivity : int_least8_t {
+enum class ThermalConductivity : int8_t {
   WattPerMetrePerKelvin,
   NanowattPerMillimetrePerKelvin,
   PoundPerSecondPerRankine,

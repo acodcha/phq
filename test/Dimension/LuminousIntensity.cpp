@@ -88,6 +88,11 @@ TEST(DimensionLuminousIntensity, Print) {
   EXPECT_EQ(LuminousIntensity{3}.Print(), "J^3");
 }
 
+TEST(DimensionLuminousIntensity, SizeOf) {
+  const LuminousIntensity intensity{3};
+  EXPECT_EQ(sizeof(intensity), sizeof(int8_t));
+}
+
 TEST(DimensionLuminousIntensity, Stream) {
   const LuminousIntensity intensity{3};
   std::ostringstream stream;

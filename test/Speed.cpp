@@ -125,6 +125,11 @@ TEST(Speed, Print) {
       "-5.500000000000000 ft/s");
 }
 
+TEST(Speed, SizeOf) {
+  const Speed speed{1.11, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(sizeof(speed), sizeof(double));
+}
+
 TEST(Speed, Stream) {
   const Speed speed{1.11, Unit::Speed::MetrePerSecond};
   std::ostringstream stream;

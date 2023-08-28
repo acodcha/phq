@@ -16,9 +16,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_DYAD_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_DYAD_QUANTITY_HPP
 
-#include <utility>
-
-#include "DimensionlessQuantity.hpp"
+#include "Dimensions.hpp"
 #include "Value/Dyad.hpp"
 
 namespace PhQ {
@@ -28,35 +26,36 @@ namespace PhQ {
 // value is a tensor of rank two and dimension three. The tensor may be
 // non-symmetric. Such a physical quantity has no unit of measure and no
 // dimension set.
-class DimensionlessDyadQuantity : public DimensionlessQuantity {
+class DimensionlessDyadQuantity {
 public:
+  static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
+
   constexpr const Value::Dyad& Value() const noexcept { return value_; }
 
   constexpr Value::Dyad& MutableValue() noexcept { return value_; }
 
   constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
 
-  std::string Print() const noexcept override { return value_.Print(); }
+  std::string Print() const noexcept { return value_.Print(); }
 
-  std::string Print(const Precision precision) const noexcept override {
+  std::string Print(const Precision precision) const noexcept {
     return value_.Print(precision);
   }
 
-  std::string JSON() const noexcept override { return value_.JSON(); }
+  std::string JSON() const noexcept { return value_.JSON(); }
 
-  std::string XML() const noexcept override { return value_.XML(); }
+  std::string XML() const noexcept { return value_.XML(); }
 
-  std::string YAML() const noexcept override { return value_.YAML(); }
+  std::string YAML() const noexcept { return value_.YAML(); }
 
 protected:
-  constexpr DimensionlessDyadQuantity() noexcept
-    : DimensionlessQuantity(), value_() {}
+  constexpr DimensionlessDyadQuantity() noexcept : value_() {}
 
   constexpr DimensionlessDyadQuantity(const Value::Dyad& value) noexcept
-    : DimensionlessQuantity(), value_(value) {}
+    : value_(value) {}
 
   constexpr DimensionlessDyadQuantity(Value::Dyad&& value) noexcept
-    : DimensionlessQuantity(), value_(std::move(value)) {}
+    : value_(std::move(value)) {}
 
   ~DimensionlessDyadQuantity() noexcept = default;
 
@@ -66,6 +65,12 @@ protected:
 
   Value::Dyad value_;
 };
+
+inline std::ostream& operator<<(
+    std::ostream& stream, const DimensionlessDyadQuantity& quantity) noexcept {
+  stream << quantity.Print();
+  return stream;
+}
 
 }  // namespace PhQ
 

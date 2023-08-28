@@ -196,6 +196,14 @@ TEST(Velocity, Print) {
             "(0, -5.500000000000000, 0) ft/s");
 }
 
+TEST(Velocity, SizeOf) {
+  const Velocity velocity{
+      {1.11, 2.22, 4.44},
+      Unit::Speed::MetrePerSecond
+  };
+  EXPECT_EQ(sizeof(velocity), 3 * sizeof(double));
+}
+
 TEST(Velocity, Stream) {
   const Velocity velocity{
       {1.11, 2.22, 4.44},

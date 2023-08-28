@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Length units.
-enum class Length : int_least8_t {
+enum class Length : int8_t {
   Mile,
   Kilometre,
   Metre,

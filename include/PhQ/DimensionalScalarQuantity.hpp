@@ -16,16 +16,21 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
 
-#include "DimensionalQuantity.hpp"
+#include "Unit.hpp"
 
 namespace PhQ {
 
 // Abstract base class that represents any dimensional scalar physical quantity.
 // Such a physical quantity is composed of a value and a unit of measure where
 // the value is a scalar number.
-template<typename U> class DimensionalScalarQuantity
-  : public DimensionalQuantity<U> {
+template<typename U> class DimensionalScalarQuantity {
 public:
+  static constexpr const PhQ::Dimensions& Dimensions() noexcept {
+    return RelatedDimensions<U>;
+  }
+
+  static constexpr U Unit() noexcept { return Standard<U>; }
+
   constexpr double Value() const noexcept { return value_; }
 
   double Value(const U unit) const noexcept {
@@ -42,28 +47,27 @@ public:
 
   constexpr void SetValue(const double value) noexcept { value_ = value; }
 
-  std::string Print() const noexcept override {
+  std::string Print() const noexcept {
     return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
   }
 
-  std::string Print(const Precision precision) const noexcept override {
+  std::string Print(const Precision precision) const noexcept {
     return PhQ::Print(value_, precision)
         .append(" ")
         .append(Abbreviation(Standard<U>));
   }
 
-  std::string Print(const U unit) const noexcept override {
+  std::string Print(const U unit) const noexcept {
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
-  std::string Print(
-      const U unit, const Precision precision) const noexcept override {
+  std::string Print(const U unit, const Precision precision) const noexcept {
     return PhQ::Print(Value(unit), precision)
         .append(" ")
         .append(Abbreviation(unit));
   }
 
-  std::string JSON() const noexcept override {
+  std::string JSON() const noexcept {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
@@ -71,7 +75,7 @@ public:
         .append("\"}");
   }
 
-  std::string JSON(const U unit) const noexcept override {
+  std::string JSON(const U unit) const noexcept {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(Value(unit)))
         .append(",\"unit\":\"")
@@ -79,7 +83,7 @@ public:
         .append("\"}");
   }
 
-  std::string XML() const noexcept override {
+  std::string XML() const noexcept {
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
@@ -87,7 +91,7 @@ public:
         .append("</unit>");
   }
 
-  std::string XML(const U unit) const noexcept override {
+  std::string XML(const U unit) const noexcept {
     return std::string{"<value>"}
         .append(PhQ::Print(Value(unit)))
         .append("</value><unit>")
@@ -95,7 +99,7 @@ public:
         .append("</unit>");
   }
 
-  std::string YAML() const noexcept override {
+  std::string YAML() const noexcept {
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")
@@ -103,7 +107,7 @@ public:
         .append("\"}");
   }
 
-  std::string YAML(const U unit) const noexcept override {
+  std::string YAML(const U unit) const noexcept {
     return std::string{"{value:"}
         .append(PhQ::Print(Value(unit)))
         .append(",unit:\"")
@@ -112,14 +116,13 @@ public:
   }
 
 protected:
-  constexpr DimensionalScalarQuantity() noexcept
-    : DimensionalQuantity<U>(), value_() {}
+  constexpr DimensionalScalarQuantity() noexcept : value_() {}
 
   constexpr DimensionalScalarQuantity(const double value) noexcept
-    : DimensionalQuantity<U>(), value_(value) {}
+    : value_(value) {}
 
   DimensionalScalarQuantity(const double value, const U unit) noexcept
-    : DimensionalQuantity<U>(), value_(value) {
+    : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
@@ -129,6 +132,13 @@ protected:
 
   double value_;
 };
+
+template<typename U> inline std::ostream& operator<<(
+    std::ostream& stream,
+    const DimensionalScalarQuantity<U>& quantity) noexcept {
+  stream << quantity.Print();
+  return stream;
+}
 
 }  // namespace PhQ
 

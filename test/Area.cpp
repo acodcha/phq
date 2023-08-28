@@ -110,6 +110,11 @@ TEST(Area, Print) {
             "-5.000000000000000 mm^2");
 }
 
+TEST(Area, SizeOf) {
+  const Area area{1.11, Unit::Area::SquareMetre};
+  EXPECT_EQ(sizeof(area), sizeof(double));
+}
+
 TEST(Area, Stream) {
   const Area area{1.11, Unit::Area::SquareMetre};
   std::ostringstream stream;

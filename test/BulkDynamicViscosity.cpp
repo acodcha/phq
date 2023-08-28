@@ -129,6 +129,12 @@ TEST(BulkDynamicViscosity, Print) {
             "-5.000000000000000 kPa·s");
 }
 
+TEST(BulkDynamicViscosity, SizeOf) {
+  const BulkDynamicViscosity viscosity{
+      1.11, Unit::DynamicViscosity::PascalSecond};
+  EXPECT_EQ(sizeof(viscosity), sizeof(double));
+}
+
 TEST(BulkDynamicViscosity, Stream) {
   const BulkDynamicViscosity viscosity{
       1.11, Unit::DynamicViscosity::PascalSecond};

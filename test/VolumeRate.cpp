@@ -127,6 +127,11 @@ TEST(VolumeRate, Print) {
             "-5.000000000000000 ft^3/s");
 }
 
+TEST(VolumeRate, SizeOf) {
+  const VolumeRate rate{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  EXPECT_EQ(sizeof(rate), sizeof(double));
+}
+
 TEST(VolumeRate, Stream) {
   const VolumeRate rate{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   std::ostringstream stream;

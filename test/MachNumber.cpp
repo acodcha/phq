@@ -105,6 +105,11 @@ TEST(MachNumber, Print) {
   EXPECT_EQ(MachNumber(1.11).Print(), "1.110000000000000");
 }
 
+TEST(MachNumber, SizeOf) {
+  const MachNumber mach_number{1.11};
+  EXPECT_EQ(sizeof(mach_number), sizeof(double));
+}
+
 TEST(MachNumber, Stream) {
   const MachNumber mach_number{1.11};
   std::ostringstream stream;

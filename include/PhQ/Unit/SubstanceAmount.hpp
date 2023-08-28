@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Amount of substance units.
-enum class SubstanceAmount : int_least8_t {
+enum class SubstanceAmount : int8_t {
   Mole,
   Kilomole,
   Megamole,

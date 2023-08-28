@@ -27,6 +27,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 // Namespace that encompasses all of the Physical Quantities library's content.
@@ -86,7 +87,7 @@ std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
 // floating-point numbers in this library use double precision. However, when
 // printing a floating-point number as a string, double precision is not always
 // needed; sometimes, single precision is sufficient.
-enum class Precision : int_least8_t {
+enum class Precision : int8_t {
   Double,
   Single,
 };
@@ -127,13 +128,12 @@ inline std::string LowercaseCopy(const std::string_view text) noexcept {
 
 // Parses a given string into an integer. Returns the integer, or std::nullopt
 // if the string cannot be parsed into an integer.
-inline std::optional<int_least64_t> ParseToInteger(
-    const std::string& text) noexcept {
+inline std::optional<int64_t> ParseToInteger(const std::string& text) noexcept {
   char* end = 0;
   const long long int value = std::strtoll(text.c_str(), &end, 10);
   if (end != text.c_str() && *end == '\0' && value != LLONG_MAX
       && value != LLONG_MIN) {
-    return {static_cast<int_least64_t>(value)};
+    return {static_cast<int64_t>(value)};
   }
   return std::nullopt;
 }

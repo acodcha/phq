@@ -173,6 +173,12 @@ TEST(AngularAccelerationMagnitude, Print) {
             "-5.000000000000000 deg/s^2");
 }
 
+TEST(AngularAccelerationMagnitude, SizeOf) {
+  const AngularAccelerationMagnitude acceleration{
+      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  EXPECT_EQ(sizeof(acceleration), sizeof(double));
+}
+
 TEST(AngularAccelerationMagnitude, Stream) {
   const AngularAccelerationMagnitude acceleration{
       1.11, Unit::AngularAcceleration::RadianPerSquareSecond};

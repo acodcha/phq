@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Frequency units.
-enum class Frequency : int_least8_t {
+enum class Frequency : int8_t {
   Hertz,
   Kilohertz,
   Megahertz,

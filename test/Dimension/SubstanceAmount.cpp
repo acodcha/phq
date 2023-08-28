@@ -88,6 +88,11 @@ TEST(DimensionSubstanceAmount, Print) {
   EXPECT_EQ(SubstanceAmount{3}.Print(), "N^3");
 }
 
+TEST(DimensionSubstanceAmount, SizeOf) {
+  const SubstanceAmount amount{3};
+  EXPECT_EQ(sizeof(amount), sizeof(int8_t));
+}
+
 TEST(DimensionSubstanceAmount, Stream) {
   const SubstanceAmount amount{3};
   std::ostringstream stream;

@@ -106,6 +106,11 @@ TEST(Length, Print) {
       "-5.000000000000000 mm");
 }
 
+TEST(Length, SizeOf) {
+  const Length length{1.11, Unit::Length::Metre};
+  EXPECT_EQ(sizeof(length), sizeof(double));
+}
+
 TEST(Length, Stream) {
   const Length length{1.11, Unit::Length::Metre};
   std::ostringstream stream;

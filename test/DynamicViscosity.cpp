@@ -133,6 +133,11 @@ TEST(DynamicViscosity, Print) {
             "-5.000000000000000 kPa·s");
 }
 
+TEST(DynamicViscosity, SizeOf) {
+  const DynamicViscosity viscosity{1.11, Unit::DynamicViscosity::PascalSecond};
+  EXPECT_EQ(sizeof(viscosity), sizeof(double));
+}
+
 TEST(DynamicViscosity, Stream) {
   const DynamicViscosity viscosity{1.11, Unit::DynamicViscosity::PascalSecond};
   std::ostringstream stream;

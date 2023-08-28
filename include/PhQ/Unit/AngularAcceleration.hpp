@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Angular acceleration units.
-enum class AngularAcceleration : int_least8_t {
+enum class AngularAcceleration : int8_t {
   RadianPerSquareSecond,
   RadianPerSquareMinute,
   RadianPerSquareHour,

@@ -31,10 +31,10 @@ class SubstanceAmount {
 public:
   constexpr SubstanceAmount() noexcept : value_(0) {}
 
-  explicit constexpr SubstanceAmount(const int_least8_t value) noexcept
+  explicit constexpr SubstanceAmount(const int8_t value) noexcept
     : value_(value) {}
 
-  constexpr int_least8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept { return value_; }
 
   static std::string_view Abbreviation() noexcept { return "N"; }
 
@@ -54,7 +54,7 @@ public:
   }
 
 private:
-  int_least8_t value_;
+  int8_t value_;
 };
 
 inline constexpr bool operator==(
@@ -100,7 +100,7 @@ namespace std {
 template<> struct hash<PhQ::Dimension::SubstanceAmount> {
   inline size_t operator()(
       const PhQ::Dimension::SubstanceAmount& amount) const {
-    return hash<int_least8_t>()(amount.Value());
+    return hash<int8_t>()(amount.Value());
   }
 };
 

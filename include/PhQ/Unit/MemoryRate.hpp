@@ -23,7 +23,7 @@ namespace PhQ {
 namespace Unit {
 
 // Time rate of computer memory units.
-enum class MemoryRate : int_least8_t {
+enum class MemoryRate : int8_t {
   BitPerSecond,
   BytePerSecond,
   KilobitPerSecond,

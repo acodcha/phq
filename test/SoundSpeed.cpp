@@ -146,6 +146,11 @@ TEST(SoundSpeed, Print) {
             "-5.500000000000000 ft/s");
 }
 
+TEST(SoundSpeed, SizeOf) {
+  const SoundSpeed sound_speed{1.11, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(sizeof(sound_speed), sizeof(double));
+}
+
 TEST(SoundSpeed, Stream) {
   const SoundSpeed sound_speed{1.11, Unit::Speed::MetrePerSecond};
   std::ostringstream stream;

@@ -146,6 +146,11 @@ TEST(Direction, Print) {
   EXPECT_EQ(Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000000000000)");
 }
 
+TEST(Direction, SizeOf) {
+  const Direction direction{1.23, 4.56, 7.89};
+  EXPECT_EQ(sizeof(direction), 3 * sizeof(double));
+}
+
 TEST(Direction, Stream) {
   const Direction direction{1.23, 4.56, 7.89};
   std::ostringstream stream;

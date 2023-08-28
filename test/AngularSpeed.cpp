@@ -133,6 +133,11 @@ TEST(AngularSpeed, Print) {
             "-5.000000000000000 deg/s");
 }
 
+TEST(AngularSpeed, SizeOf) {
+  const AngularSpeed speed{1.11, Unit::AngularSpeed::RadianPerSecond};
+  EXPECT_EQ(sizeof(speed), sizeof(double));
+}
+
 TEST(AngularSpeed, Stream) {
   const AngularSpeed speed{1.11, Unit::AngularSpeed::RadianPerSecond};
   std::ostringstream stream;

@@ -126,6 +126,11 @@ TEST(MassRate, Print) {
             "-5.000000000000000 g/s");
 }
 
+TEST(MassRate, SizeOf) {
+  const MassRate rate{1.11, Unit::MassRate::KilogramPerSecond};
+  EXPECT_EQ(sizeof(rate), sizeof(double));
+}
+
 TEST(MassRate, Stream) {
   const MassRate rate{1.11, Unit::MassRate::KilogramPerSecond};
   std::ostringstream stream;

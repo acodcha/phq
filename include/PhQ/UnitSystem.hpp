@@ -25,7 +25,7 @@ namespace PhQ {
 // a standard unit of measure, its value does not need to be converted when used
 // in mathematical expressions with other physical quantities expressed in
 // standard units of measure.
-enum class UnitSystem : int_least8_t {
+enum class UnitSystem : int8_t {
   MetreKilogramSecondKelvin,
   MillimetreGramSecondKelvin,
   FootPoundSecondRankine,

@@ -125,6 +125,11 @@ TEST(MassDensity, Print) {
             "-5.000000000000000 g/mm^3");
 }
 
+TEST(MassDensity, SizeOf) {
+  const MassDensity density{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  EXPECT_EQ(sizeof(density), sizeof(double));
+}
+
 TEST(MassDensity, Stream) {
   const MassDensity density{1.11, Unit::MassDensity::KilogramPerCubicMetre};
   std::ostringstream stream;

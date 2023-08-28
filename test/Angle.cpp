@@ -107,6 +107,11 @@ TEST(Angle, Print) {
             "-5.000000000000000 deg");
 }
 
+TEST(Angle, SizeOf) {
+  const Angle angle{1.11, Unit::Angle::Radian};
+  EXPECT_EQ(sizeof(angle), sizeof(double));
+}
+
 TEST(Angle, Stream) {
   const Angle angle{1.11, Unit::Angle::Radian};
   std::ostringstream stream;
