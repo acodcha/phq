@@ -100,6 +100,19 @@ TEST(AngularSpeed, Constructor) {
   EXPECT_EQ(Frequency(speed2, angle), frequency);
 }
 
+TEST(AngularSpeed, Copy) {
+  const AngularSpeed reference{1.11, Unit::AngularSpeed::RadianPerSecond};
+  const AngularSpeed first{reference};
+  EXPECT_EQ(first, reference);
+  AngularSpeed second = AngularSpeed::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(AngularSpeed, Dimensions) {
+  EXPECT_EQ(AngularSpeed::Dimensions(), RelatedDimensions<Unit::AngularSpeed>);
+}
+
 TEST(AngularSpeed, Hash) {
   const AngularSpeed speed0{10.0, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed speed1{10.000001, Unit::AngularSpeed::DegreePerSecond};
@@ -125,6 +138,16 @@ TEST(AngularSpeed, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"deg/s\"}");
 }
 
+TEST(AngularSpeed, Move) {
+  const AngularSpeed reference{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  AngularSpeed third = AngularSpeed::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(AngularSpeed, Print) {
   EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Print(),
             "1.110000000000000 rad/s");
@@ -143,6 +166,10 @@ TEST(AngularSpeed, Stream) {
   std::ostringstream stream;
   stream << speed;
   EXPECT_EQ(stream.str(), speed.Print());
+}
+
+TEST(AngularSpeed, Unit) {
+  EXPECT_EQ(AngularSpeed::Unit(), Standard<Unit::AngularSpeed>);
 }
 
 TEST(AngularSpeed, XML) {

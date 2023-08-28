@@ -93,6 +93,20 @@ TEST(DynamicViscosity, Constructor) {
           100.0)};
 }
 
+TEST(DynamicViscosity, Copy) {
+  const DynamicViscosity reference{1.11, Unit::DynamicViscosity::PascalSecond};
+  const DynamicViscosity first{reference};
+  EXPECT_EQ(first, reference);
+  DynamicViscosity second = DynamicViscosity::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(DynamicViscosity, Dimensions) {
+  EXPECT_EQ(DynamicViscosity::Dimensions(),
+            RelatedDimensions<Unit::DynamicViscosity>);
+}
+
 TEST(DynamicViscosity, Hash) {
   const DynamicViscosity viscosity0{
       10.0, Unit::DynamicViscosity::KilopascalSecond};
@@ -124,6 +138,16 @@ TEST(DynamicViscosity, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"kPa·s\"}");
 }
 
+TEST(DynamicViscosity, Move) {
+  const DynamicViscosity reference{1.11, Unit::DynamicViscosity::PascalSecond};
+  DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  DynamicViscosity second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  DynamicViscosity third = DynamicViscosity::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(DynamicViscosity, Print) {
   EXPECT_EQ(
       DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print(),
@@ -143,6 +167,10 @@ TEST(DynamicViscosity, Stream) {
   std::ostringstream stream;
   stream << viscosity;
   EXPECT_EQ(stream.str(), viscosity.Print());
+}
+
+TEST(DynamicViscosity, Unit) {
+  EXPECT_EQ(DynamicViscosity::Unit(), Standard<Unit::DynamicViscosity>);
 }
 
 TEST(DynamicViscosity, XML) {

@@ -149,13 +149,13 @@ ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 2) / (0.45359237 * 9.80665);
+  value *= 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 2) / (0.45359237 * 9.80665);
+  value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template<> inline constexpr void
@@ -195,13 +195,13 @@ ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
 template<> inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
     double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 2);
+  value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
     double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 2);
+  value *= 0.45359237 * 9.80665 / (0.0254 * 0.0254);
 }
 
 template<> inline const std::map<

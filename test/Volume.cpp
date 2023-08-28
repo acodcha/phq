@@ -82,6 +82,19 @@ TEST(Volume, Constructor) {
       Volume::Create<Unit::Volume::CubicMillimetre>(100.0)};
 }
 
+TEST(Volume, Copy) {
+  const Volume reference{1.11, Unit::Volume::CubicMetre};
+  const Volume first{reference};
+  EXPECT_EQ(first, reference);
+  Volume second = Volume::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Volume, Dimensions) {
+  EXPECT_EQ(Volume::Dimensions(), RelatedDimensions<Unit::Volume>);
+}
+
 TEST(Volume, Hash) {
   const Volume volume0{10.0, Unit::Volume::CubicMetre};
   const Volume volume1{10.000001, Unit::Volume::CubicMetre};
@@ -107,6 +120,16 @@ TEST(Volume, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"mm^3\"}");
 }
 
+TEST(Volume, Move) {
+  const Volume reference{1.11, Unit::Volume::CubicMetre};
+  Volume first{1.11, Unit::Volume::CubicMetre};
+  Volume second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Volume third = Volume::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Volume, Print) {
   EXPECT_EQ(
       Volume(1.11, Unit::Volume::CubicMetre).Print(), "1.110000000000000 m^3");
@@ -126,6 +149,8 @@ TEST(Volume, Stream) {
   stream << volume;
   EXPECT_EQ(stream.str(), volume.Print());
 }
+
+TEST(Volume, Unit) { EXPECT_EQ(Volume::Unit(), Standard<Unit::Volume>); }
 
 TEST(Volume, XML) {
   EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).XML(),

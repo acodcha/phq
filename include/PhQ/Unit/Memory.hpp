@@ -175,13 +175,13 @@ inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(
 template<>
 inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Byte>(
     double& value) noexcept {
-  value /= 8.0;
+  value *= 0.125;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobit>(
     double& value) noexcept {
-  value /= 1000.0;
+  value *= 0.001;
 }
 
 template<> inline constexpr void
@@ -193,7 +193,7 @@ ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibit>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobyte>(
     double& value) noexcept {
-  value /= 8.0 * 1000.0;
+  value /= 8000.0;
 }
 
 template<> inline constexpr void
@@ -205,97 +205,97 @@ ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibyte>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Megabit>(
     double& value) noexcept {
-  value /= std::pow(1000.0, 2);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibit>(
     double& value) noexcept {
-  value /= std::pow(1024.0, 2);
+  value /= 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Megabyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1000.0, 2);
+  value /= 8000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1024.0, 2);
+  value /= 8.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabit>(
     double& value) noexcept {
-  value /= std::pow(1000.0, 3);
+  value *= 1.0e-9;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibit>(
     double& value) noexcept {
-  value /= std::pow(1024.0, 3);
+  value /= 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1000.0, 3);
+  value /= 8.0e9;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1024.0, 3);
+  value /= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Terabit>(
     double& value) noexcept {
-  value /= std::pow(1000.0, 4);
+  value *= 1.0e-12;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibit>(
     double& value) noexcept {
-  value /= std::pow(1024.0, 4);
+  value /= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Terabyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1000.0, 4);
+  value /= 8.0e12;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1024.0, 4);
+  value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Petabit>(
     double& value) noexcept {
-  value /= std::pow(1000.0, 5);
+  value *= 1.0e-15;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibit>(
     double& value) noexcept {
-  value /= std::pow(1024.0, 5);
+  value /= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Petabyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1000.0, 5);
+  value /= 8.0e15;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibyte>(
     double& value) noexcept {
-  value /= 8.0 * std::pow(1024.0, 5);
+  value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
@@ -321,7 +321,7 @@ inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Kibibit>(
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Kilobyte>(
     double& value) noexcept {
-  value *= 8.0 * 1000.0;
+  value *= 8000.0;
 }
 
 template<> inline constexpr void
@@ -333,97 +333,97 @@ ConversionToStandard<Unit::Memory, Unit::Memory::Kibibyte>(
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Megabit>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 2);
+  value *= 1000000.0;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Mebibit>(
     double& value) noexcept {
-  value *= std::pow(1024.0, 2);
+  value *= 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Megabyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1000.0, 2);
+  value *= 8000000.0;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Mebibyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1024.0, 2);
+  value *= 8.0 * 1024.0 * 1024.0;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gigabit>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 3);
+  value *= 1000000000.0;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gibibit>(
     double& value) noexcept {
-  value *= std::pow(1024.0, 3);
+  value *= 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Gigabyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1000.0, 3);
+  value *= 8.0e9;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Gibibyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1024.0, 3);
+  value *= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Terabit>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 4);
+  value *= 1.0e12;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Tebibit>(
     double& value) noexcept {
-  value *= std::pow(1024.0, 4);
+  value *= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Terabyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1000.0, 4);
+  value *= 8.0e12;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Tebibyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1024.0, 4);
+  value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Petabit>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 5);
+  value *= 1.0e15;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Pebibit>(
     double& value) noexcept {
-  value *= std::pow(1024.0, 5);
+  value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Petabyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1000.0, 5);
+  value *= 8.0e15;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Pebibyte>(
     double& value) noexcept {
-  value *= 8.0 * std::pow(1024.0, 5);
+  value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
 template<> inline const std::map<

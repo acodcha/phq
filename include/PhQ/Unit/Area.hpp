@@ -130,13 +130,13 @@ template<> inline const std::unordered_map<std::string_view, Unit::Area>
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
-  value /= std::pow(1609.344, 2);
+  value /= 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
-  value *= std::pow(0.001, 2);
+  value *= 0.000001;
 }
 
 template<>
@@ -147,7 +147,7 @@ inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Hectare>(
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
-  value *= 640.0 / std::pow(1609.344, 2);
+  value *= 640.0 / (1609.344 * 1609.344);
 }
 
 template<> inline constexpr void
@@ -157,67 +157,67 @@ ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
-  value /= std::pow(0.9144, 2);
+  value /= 0.9144 * 0.9144;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
-  value /= std::pow(0.3048, 2);
+  value /= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
-  value *= std::pow(10.0, 2);
+  value *= 100.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
-  value /= std::pow(0.0254, 2);
+  value /= 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
-  value *= std::pow(100.0, 2);
+  value *= 10000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 2);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
-  value /= std::pow(0.0000254, 2);
+  value /= 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
-  value *= std::pow(1000000.0, 2);
+  value *= 1000000000000.0;
 }
 
 template<> inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
-  value /= std::pow(0.0000000254, 2);
+  value /= 0.0000000254 * 0.0000000254;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
-  value *= std::pow(1609.344, 2);
+  value *= 1609.344 * 1609.344;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
-  value *= std::pow(1000.0, 2);
+  value *= 1000000.0;
 }
 
 template<> inline constexpr void
@@ -227,7 +227,7 @@ ConversionToStandard<Unit::Area, Unit::Area::Hectare>(double& value) noexcept {
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
-  value *= std::pow(1609.344, 2) / 640.0;
+  value *= 1609.344 * 1609.344 / 640.0;
 }
 
 template<>
@@ -237,55 +237,55 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
 template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
-  value *= std::pow(0.9144, 2);
+  value *= 0.9144 * 0.9144;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
-  value *= std::pow(0.3048, 2);
+  value *= 0.3048 * 0.3048;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
-  value *= std::pow(0.1, 2);
+  value *= 0.01;
 }
 
 template<>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
-  value *= std::pow(0.0254, 2);
+  value *= 0.0254 * 0.0254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
-  value *= std::pow(0.01, 2);
+  value *= 0.0001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
-  value *= std::pow(0.001, 2);
+  value *= 0.000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
-  value *= std::pow(0.0000254, 2);
+  value *= 0.0000254 * 0.0000254;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
-  value *= std::pow(0.000001, 2);
+  value *= 0.000000000001;
 }
 
 template<> inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
-  value *= std::pow(0.0000000254, 2);
+  value *= 0.0000000254 * 0.0000000254;
 }
 
 template<> inline const std::map<

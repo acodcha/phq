@@ -77,6 +77,19 @@ TEST(Area, Constructor) {
   constexpr Area area2{Area::Create<Unit::Area::SquareMillimetre>(90.0)};
 }
 
+TEST(Area, Copy) {
+  const Area reference{1.11, Unit::Area::SquareMetre};
+  const Area first{reference};
+  EXPECT_EQ(first, reference);
+  Area second = Area::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Area, Dimensions) {
+  EXPECT_EQ(Area::Dimensions(), RelatedDimensions<Unit::Area>);
+}
+
 TEST(Area, Hash) {
   const Area area0{10.0, Unit::Area::SquareMillimetre};
   const Area area1{10.000001, Unit::Area::SquareMillimetre};
@@ -102,6 +115,16 @@ TEST(Area, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"mm^2\"}");
 }
 
+TEST(Area, Move) {
+  const Area reference{1.11, Unit::Area::SquareMetre};
+  Area first{1.11, Unit::Area::SquareMetre};
+  Area second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Area third = Area::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Area, Print) {
   EXPECT_EQ(
       Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000000000000 m^2");
@@ -121,6 +144,8 @@ TEST(Area, Stream) {
   stream << area;
   EXPECT_EQ(stream.str(), area.Print());
 }
+
+TEST(Area, Unit) { EXPECT_EQ(Area::Unit(), Standard<Unit::Area>); }
 
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),

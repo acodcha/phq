@@ -74,6 +74,19 @@ TEST(Mass, Constructor) {
   constexpr Mass mass2{Mass::Create<Unit::Mass::Gram>(100.0)};
 }
 
+TEST(Mass, Copy) {
+  const Mass reference{1.11, Unit::Mass::Kilogram};
+  const Mass first{reference};
+  EXPECT_EQ(first, reference);
+  Mass second = Mass::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Mass, Dimensions) {
+  EXPECT_EQ(Mass::Dimensions(), RelatedDimensions<Unit::Mass>);
+}
+
 TEST(Mass, Hash) {
   const Mass mass0{10.0, Unit::Mass::Gram};
   const Mass mass1{10.000001, Unit::Mass::Gram};
@@ -98,6 +111,16 @@ TEST(Mass, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"g\"}");
 }
 
+TEST(Mass, Move) {
+  const Mass reference{1.11, Unit::Mass::Kilogram};
+  Mass first{1.11, Unit::Mass::Kilogram};
+  Mass second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Mass third = Mass::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Mass, Print) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Print(), "1.110000000000000 kg");
   EXPECT_EQ(Mass(-5.0, Unit::Mass::Gram).Print(Unit::Mass::Gram),
@@ -115,6 +138,8 @@ TEST(Mass, Stream) {
   stream << mass;
   EXPECT_EQ(stream.str(), mass.Print());
 }
+
+TEST(Mass, Unit) { EXPECT_EQ(Mass::Unit(), Standard<Unit::Mass>); }
 
 TEST(Mass, XML) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).XML(),

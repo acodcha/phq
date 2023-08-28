@@ -99,6 +99,20 @@ TEST(TransportEnergyConsumption, Constructor) {
   EXPECT_EQ(Power(speed, consumption1), power);
 }
 
+TEST(TransportEnergyConsumption, Copy) {
+  const TransportEnergyConsumption reference{1.11, Unit::Force::Newton};
+  const TransportEnergyConsumption first{reference};
+  EXPECT_EQ(first, reference);
+  TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(TransportEnergyConsumption, Dimensions) {
+  EXPECT_EQ(
+      TransportEnergyConsumption::Dimensions(), RelatedDimensions<Unit::Force>);
+}
+
 TEST(TransportEnergyConsumption, Hash) {
   const TransportEnergyConsumption consumption0{10.0, Unit::Force::Newton};
   const TransportEnergyConsumption consumption1{10.000001, Unit::Force::Newton};
@@ -126,6 +140,16 @@ TEST(TransportEnergyConsumption, JSON) {
       "{\"value\":-5.000000000000000,\"unit\":\"kW·hr/km\"}");
 }
 
+TEST(TransportEnergyConsumption, Move) {
+  const TransportEnergyConsumption reference{1.11, Unit::Force::Newton};
+  TransportEnergyConsumption first{1.11, Unit::Force::Newton};
+  TransportEnergyConsumption second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  TransportEnergyConsumption third = TransportEnergyConsumption::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(TransportEnergyConsumption, Print) {
   EXPECT_EQ(TransportEnergyConsumption(1.11, Unit::Force::Newton).Print(),
             "1.110000000000000 N");
@@ -145,6 +169,10 @@ TEST(TransportEnergyConsumption, Stream) {
   std::ostringstream stream;
   stream << consumption;
   EXPECT_EQ(stream.str(), consumption.Print());
+}
+
+TEST(TransportEnergyConsumption, Unit) {
+  EXPECT_EQ(TransportEnergyConsumption::Unit(), Standard<Unit::Force>);
 }
 
 TEST(TransportEnergyConsumption, XML) {

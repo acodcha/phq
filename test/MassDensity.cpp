@@ -89,6 +89,19 @@ TEST(MassDensity, Constructor) {
   const Volume volume1{density0, mass0};
 }
 
+TEST(MassDensity, Copy) {
+  const MassDensity reference{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  const MassDensity first{reference};
+  EXPECT_EQ(first, reference);
+  MassDensity second = MassDensity::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(MassDensity, Dimensions) {
+  EXPECT_EQ(MassDensity::Dimensions(), RelatedDimensions<Unit::MassDensity>);
+}
+
 TEST(MassDensity, Hash) {
   const MassDensity density0{10.0, Unit::MassDensity::GramPerCubicMillimetre};
   const MassDensity density1{
@@ -117,6 +130,16 @@ TEST(MassDensity, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"g/mm^3\"}");
 }
 
+TEST(MassDensity, Move) {
+  const MassDensity reference{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  MassDensity second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  MassDensity third = MassDensity::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(MassDensity, Print) {
   EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Print(),
             "1.110000000000000 kg/m^3");
@@ -135,6 +158,10 @@ TEST(MassDensity, Stream) {
   std::ostringstream stream;
   stream << density;
   EXPECT_EQ(stream.str(), density.Print());
+}
+
+TEST(MassDensity, Unit) {
+  EXPECT_EQ(MassDensity::Unit(), Standard<Unit::MassDensity>);
 }
 
 TEST(MassDensity, XML) {

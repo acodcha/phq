@@ -94,6 +94,19 @@ TEST(VolumeRate, Constructor) {
   const Frequency frequency1{rate1, volume0};
 }
 
+TEST(VolumeRate, Copy) {
+  const VolumeRate reference{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  const VolumeRate first{reference};
+  EXPECT_EQ(first, reference);
+  VolumeRate second = VolumeRate::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(VolumeRate, Dimensions) {
+  EXPECT_EQ(VolumeRate::Dimensions(), RelatedDimensions<Unit::VolumeRate>);
+}
+
 TEST(VolumeRate, Hash) {
   const VolumeRate rate0{10.0, Unit::VolumeRate::CubicFootPerSecond};
   const VolumeRate rate1{10.000001, Unit::VolumeRate::CubicFootPerSecond};
@@ -119,6 +132,16 @@ TEST(VolumeRate, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"ft^3/s\"}");
 }
 
+TEST(VolumeRate, Move) {
+  const VolumeRate reference{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  VolumeRate third = VolumeRate::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(VolumeRate, Print) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print(),
             "1.110000000000000 m^3/s");
@@ -137,6 +160,10 @@ TEST(VolumeRate, Stream) {
   std::ostringstream stream;
   stream << rate;
   EXPECT_EQ(stream.str(), rate.Print());
+}
+
+TEST(VolumeRate, Unit) {
+  EXPECT_EQ(VolumeRate::Unit(), Standard<Unit::VolumeRate>);
 }
 
 TEST(VolumeRate, XML) {

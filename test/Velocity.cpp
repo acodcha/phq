@@ -143,6 +143,22 @@ TEST(Velocity, Constructor) {
   const Displacement displacement1{velocity1, frequency};
 }
 
+TEST(Velocity, Copy) {
+  const Velocity reference{
+      {1.11, 2.22, 3.33},
+      Unit::Speed::MetrePerSecond
+  };
+  const Velocity first{reference};
+  EXPECT_EQ(first, reference);
+  Velocity second = Velocity::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(Velocity, Dimensions) {
+  EXPECT_EQ(Velocity::Dimensions(), RelatedDimensions<Unit::Speed>);
+}
+
 TEST(Velocity, Hash) {
   const Velocity velocity0{
       {1.0, 2.0, 4.0},
@@ -188,6 +204,22 @@ TEST(Velocity, JSON) {
             "\"ft/s\"}");
 }
 
+TEST(Velocity, Move) {
+  const Velocity reference{
+      {1.11, 2.22, 4.44},
+      Unit::Speed::MetrePerSecond
+  };
+  Velocity first{
+      {1.11, 2.22, 4.44},
+      Unit::Speed::MetrePerSecond
+  };
+  Velocity second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Velocity third = Velocity::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Velocity, Print) {
   EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).Print(),
             "(1.110000000000000, 2.220000000000000, 4.440000000000000) m/s");
@@ -213,6 +245,8 @@ TEST(Velocity, Stream) {
   stream << velocity;
   EXPECT_EQ(stream.str(), velocity.Print());
 }
+
+TEST(Velocity, Unit) { EXPECT_EQ(Velocity::Unit(), Standard<Unit::Speed>); }
 
 TEST(Velocity, XML) {
   EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).XML(),

@@ -90,6 +90,15 @@ TEST(Direction, Constructor) {
             Direction(-10.0, 20.0, -30.0));
 }
 
+TEST(Direction, Copy) {
+  const Direction reference{1.11, 2.22, 3.33};
+  const Direction first{reference};
+  EXPECT_EQ(first, reference);
+  Direction second = Direction::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
 TEST(Direction, Cross) {
   EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Direction(0.0, 20.0, 0.0)),
             Direction(0.0, 0.0, 30.0));
@@ -97,6 +106,10 @@ TEST(Direction, Cross) {
             Value::Vector(0.0, 0.0, 10.0));
   EXPECT_EQ(Direction(10.0, 0.0, 0.0).Cross(Value::Vector(0.0, 20.0, 0.0)),
             Value::Vector(0.0, 0.0, 20.0));
+}
+
+TEST(Direction, Dimensions) {
+  EXPECT_EQ(Direction::Dimensions(), Dimensions{});
 }
 
 TEST(Direction, Dot) {
@@ -141,18 +154,28 @@ TEST(Direction, JSON) {
             "{\"x\":0,\"y\":-1.000000000000000,\"z\":0}");
 }
 
+TEST(Direction, Move) {
+  const Direction reference{1.11, 2.22, 3.33};
+  Direction first{1.11, 2.22, 3.33};
+  Direction second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  Direction third = Direction::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(Direction, Print) {
   EXPECT_EQ(Direction{}.Print(), "(0, 0, 0)");
   EXPECT_EQ(Direction(0.0, 0.0, -10.0).Print(), "(0, 0, -1.000000000000000)");
 }
 
 TEST(Direction, SizeOf) {
-  const Direction direction{1.23, 4.56, 7.89};
+  const Direction direction{1.11, 2.22, 3.33};
   EXPECT_EQ(sizeof(direction), 3 * sizeof(double));
 }
 
 TEST(Direction, Stream) {
-  const Direction direction{1.23, 4.56, 7.89};
+  const Direction direction{1.11, 2.22, 3.33};
   std::ostringstream stream;
   stream << direction;
   EXPECT_EQ(stream.str(), direction.Print());

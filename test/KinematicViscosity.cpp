@@ -87,6 +87,21 @@ TEST(KinematicViscosity, Constructor) {
       KinematicViscosity::Create<Unit::Diffusivity::SquareFootPerSecond>(4.0)};
 }
 
+TEST(KinematicViscosity, Copy) {
+  const KinematicViscosity reference{
+      1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity first{reference};
+  EXPECT_EQ(first, reference);
+  KinematicViscosity second = KinematicViscosity::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(KinematicViscosity, Dimensions) {
+  EXPECT_EQ(
+      KinematicViscosity::Dimensions(), RelatedDimensions<Unit::Diffusivity>);
+}
+
 TEST(KinematicViscosity, Hash) {
   const KinematicViscosity viscosity0{
       10.0, Unit::Diffusivity::SquareFootPerSecond};
@@ -119,6 +134,17 @@ TEST(KinematicViscosity, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"ft^2/s\"}");
 }
 
+TEST(KinematicViscosity, Move) {
+  const KinematicViscosity reference{
+      1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  KinematicViscosity third = KinematicViscosity::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(KinematicViscosity, Print) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Print(),
@@ -140,6 +166,10 @@ TEST(KinematicViscosity, Stream) {
   std::ostringstream stream;
   stream << viscosity;
   EXPECT_EQ(stream.str(), viscosity.Print());
+}
+
+TEST(KinematicViscosity, Unit) {
+  EXPECT_EQ(KinematicViscosity::Unit(), Standard<Unit::Diffusivity>);
 }
 
 TEST(KinematicViscosity, XML) {

@@ -127,6 +127,21 @@ TEST(AngularAccelerationMagnitude, Constructor) {
   EXPECT_EQ(Frequency(acceleration2, speed), frequency);
 }
 
+TEST(AngularAccelerationMagnitude, Copy) {
+  const AngularAccelerationMagnitude reference{
+      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  const AngularAccelerationMagnitude first{reference};
+  EXPECT_EQ(first, reference);
+  AngularAccelerationMagnitude second = AngularAccelerationMagnitude::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(AngularAccelerationMagnitude, Dimensions) {
+  EXPECT_EQ(AngularAccelerationMagnitude::Dimensions(),
+            RelatedDimensions<Unit::AngularAcceleration>);
+}
+
 TEST(AngularAccelerationMagnitude, Hash) {
   const AngularAccelerationMagnitude acceleration0{
       10.0, Unit::AngularAcceleration::DegreePerSquareSecond};
@@ -162,6 +177,18 @@ TEST(AngularAccelerationMagnitude, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"deg/s^2\"}");
 }
 
+TEST(AngularAccelerationMagnitude, Move) {
+  const AngularAccelerationMagnitude reference{
+      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  AngularAccelerationMagnitude first{
+      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  AngularAccelerationMagnitude second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  AngularAccelerationMagnitude third = AngularAccelerationMagnitude::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(AngularAccelerationMagnitude, Print) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 1.11, Unit::AngularAcceleration::RadianPerSquareSecond)
@@ -185,6 +212,11 @@ TEST(AngularAccelerationMagnitude, Stream) {
   std::ostringstream stream;
   stream << acceleration;
   EXPECT_EQ(stream.str(), acceleration.Print());
+}
+
+TEST(AngularAccelerationMagnitude, Unit) {
+  EXPECT_EQ(AngularAccelerationMagnitude::Unit(),
+            Standard<Unit::AngularAcceleration>);
 }
 
 TEST(AngularAccelerationMagnitude, XML) {

@@ -93,6 +93,19 @@ TEST(MassRate, Constructor) {
   const Frequency frequency1{rate1, mass0};
 }
 
+TEST(MassRate, Copy) {
+  const MassRate reference{1.11, Unit::MassRate::KilogramPerSecond};
+  const MassRate first{reference};
+  EXPECT_EQ(first, reference);
+  MassRate second = MassRate::Zero();
+  second = reference;
+  EXPECT_EQ(second, reference);
+}
+
+TEST(MassRate, Dimensions) {
+  EXPECT_EQ(MassRate::Dimensions(), RelatedDimensions<Unit::MassRate>);
+}
+
 TEST(MassRate, Hash) {
   const MassRate rate0{10.0, Unit::MassRate::GramPerSecond};
   const MassRate rate1{10.000001, Unit::MassRate::GramPerSecond};
@@ -118,6 +131,16 @@ TEST(MassRate, JSON) {
             "{\"value\":-5.000000000000000,\"unit\":\"g/s\"}");
 }
 
+TEST(MassRate, Move) {
+  const MassRate reference{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate second{std::move(first)};
+  EXPECT_EQ(second, reference);
+  MassRate third = MassRate::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, reference);
+}
+
 TEST(MassRate, Print) {
   EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Print(),
             "1.110000000000000 kg/s");
@@ -137,6 +160,8 @@ TEST(MassRate, Stream) {
   stream << rate;
   EXPECT_EQ(stream.str(), rate.Print());
 }
+
+TEST(MassRate, Unit) { EXPECT_EQ(MassRate::Unit(), Standard<Unit::MassRate>); }
 
 TEST(MassRate, XML) {
   EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).XML(),
