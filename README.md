@@ -56,27 +56,58 @@ To use the Physical Quantities library in your source code, simply include this 
 
 ## Usage
 
+- [Basics](#usage-basics)
+- [Vectors and Tensors](#usage-vectors-and-tensors)
+- [Operations](#usage-operations)
+- [Unit Conversions](#usage-unit-conversions)
+- [Physical Models](#usage-physical-models)
+- [Divisions by Zero](#usage-divisions-by-zero)
+- [Exceptions](#usage-exceptions)
+
+[(Back to Top)](#physical-quantities)
+
+### Usage: Basics
+
 Physical quantities are constructed from a value and a unit. For example:
 
 ```C++
 PhQ::Temperature low{10.0, PhQ::Unit::Temperature::Celsius};
 PhQ::Temperature high{68.0, PhQ::Unit::Temperature::Fahrenheit};
 PhQ::Temperature average = 0.5 * (low + high);
-std::cout << "average = " << average << std::endl;
+std::cout << "Average: " << average << std::endl;
 ```
 
 The above example creates two temperature quantities, computes their average, and prints the result, which is 15 °C.
 
+[(Back to Usage)](#usage)
+
+### Usage: Vectors and Tensors
+
 Values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors are represented internally in a Cartesian (x-y-z) coordinate system. For example:
 
 ```C++
-PhQ::Force force{{300.0, 0.0, -400.0}, PhQ::Unit::Force::Pound};
+PhQ::Force force{{/*x=*/300.0, /*y=*/0.0, /*z=*/-400.0}, PhQ::Unit::Force::Pound};
 force /= 5.0;
 PhQ::ForceMagnitude magnitude = force.Magnitude();
-std::cout << "magnitude = " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
+std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
 ```
 
 The above example creates a force quantity of (300, 0, -400) lbf, divides it by 5, computes its magnitude, and prints the magnitude in pounds, which results in 100 lbf.
+
+Some dyadic tensor quantities are symmetric. For example:
+
+```C++
+PhQ::Stress stress{
+    {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0},
+    PhQ::Unit::Pressure::Megapascal};
+std::cout << "Von Mises stress: " << stress.VonMises() << std::endl;
+```
+
+The above example creates a stress quantity and computes and prints its equivalent von Mises stress.
+
+[(Back to Usage)](#usage)
+
+### Usage: Operations
 
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example:
 
@@ -84,7 +115,7 @@ Meaningful arithmetic operations between different physical quantities are suppo
 PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
 PhQ::Time time{10.0, PhQ::Unit::Time::Second};
 PhQ::Acceleration acceleration = velocity / time;
-std::cout << "acceleration = " << acceleration << std::endl;
+std::cout << "Acceleration: " << acceleration << std::endl;
 ```
 
 The above example creates a velocity quantity of (50, -10, 20) m/s and a time quantity of 10 s, then divides the velocity by the time to produce an acceleration quantity of (5, -1, 2) m/s^2.
@@ -92,17 +123,21 @@ The above example creates a velocity quantity of (50, -10, 20) m/s and a time qu
 Similarly, other meaningful mathematical operations are supported via member methods. For example:
 
 ```C++
-PhQ::Displacement displacement1{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
+PhQ::Displacement displacement{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
 PhQ::Length length = displacement.Magnitude();
 PhQ::Direction direction = displacement.Direction();
-std::cout << "length = " << length << ", direction = " << direction << std::endl;
+std::cout << "Length: " << length << ", Direction: " << direction << std::endl;
 
-PhQ::Displacement displacement2{{0.0, 0.0, -3.0}, PhQ::Unit::Length::Inch};
-PhQ::Angle angle{displacement1, displacement2};
-std::cout << "angle = " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
+PhQ::Displacement other_displacement{{0.0, 0.0, -3.0}, PhQ::Unit::Length::Inch};
+PhQ::Angle angle{displacement, other_displacement};
+std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
 ```
 
 The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) in, and computes and prints the angle between the two displacements, which is 90 deg.
+
+[(Back to Usage)](#usage)
+
+### Usage: Unit Conversions
 
 Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A physical quantity's value can be obtained in any unit of measure through its `Value` method. For example:
 
@@ -132,26 +167,41 @@ std::cout << foot_pounds << std::endl;
 
 In general, it is easier to use physical quantities instead of manually invoking the `PhQ::Convert` function.
 
+[(Back to Usage)](#usage)
+
+### Usage: Physical Models
+
 Some physical models and related operations are also supported. For example:
 
 ```C++
 PhQ::YoungModulus young_modulus{70.0, PhQ::Unit::Pressure::Gigapascal};
 PhQ::PoissonRatio poisson_ratio{0.33};
+
 std::unique_ptr<ConstitutiveModel> constitutive_model =
-    std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
-        young_modulus, poisson_ratio);
-PhQ::Strain strain{{32.0, -4.0, -2.0, 16.0, -1.0, 8.0}};
+    std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(young_modulus, poisson_ratio);
+
+PhQ::Strain strain{
+    {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0}};
+
 PhQ::Stress stress = constitutive_model->Stress(strain);
 std::cout << stress << std::endl;
 ```
 
 The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor given a strain tensor.
 
-Certain operations can result in divisions by zero. C++ supports floating-point divisions by zero, for example with `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. This library makes no attempt to detect, report, or avoid divisions by zero. Instead, it is the implementer's responsibility to determine whether such cases warrant special consideration, for example through the use of try-catch blocks or standard C++ utilities such as `isfinite()`.
+[(Back to Usage)](#usage)
+
+### Usage: Divisions by Zero
+
+Certain operations can result in divisions by zero. C++ supports floating-point divisions by zero, for example with `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. The Physical Quantities library makes no attempt to detect, report, or avoid divisions by zero. Instead, it is the implementer's responsibility to determine whether such cases warrant special consideration, for example through the use of try-catch blocks or standard C++ utilities such as `std::isfinite`.
+
+[(Back to Usage)](#usage)
+
+### Usage: Exceptions
 
 The Physical Quantities library does not throw exceptions, and most of this library's functions and methods are marked as `noexcept`. In practice, the only conceivable cause for an exception in this library is a memory allocation failure due to memory exhaustion, which should typically be treated as a fatal error in most applications.
 
-[(Back to Top)](#physical-quantities)
+[(Back to Usage)](#usage)
 
 ## Installation
 
