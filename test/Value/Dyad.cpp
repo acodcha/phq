@@ -268,6 +268,11 @@ TEST(ValueDyad, Print) {
             "-8.000000, 0)");
 }
 
+TEST(ValueDyad, SizeOf) {
+  const Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  EXPECT_EQ(sizeof(dyad), 9 * sizeof(double));
+}
+
 TEST(ValueDyad, Stream) {
   const Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   std::ostringstream stream;

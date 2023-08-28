@@ -228,6 +228,11 @@ TEST(ValueSymmetricDyad, Print) {
       "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
 }
 
+TEST(ValueSymmetricDyad, SizeOf) {
+  const SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  EXPECT_EQ(sizeof(symdyad), 6 * sizeof(double));
+}
+
 TEST(ValueSymmetricDyad, Stream) {
   const SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   std::ostringstream stream;

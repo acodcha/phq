@@ -161,6 +161,11 @@ TEST(ValueVector, Print) {
             "(1.000000, -2.000000, 0)");
 }
 
+TEST(ValueVector, SizeOf) {
+  const Vector vector{1.23, 4.56, 7.89};
+  EXPECT_EQ(sizeof(vector), 3 * sizeof(double));
+}
+
 TEST(ValueVector, Stream) {
   const Vector vector{1.23, 4.56, 7.89};
   std::ostringstream stream;
