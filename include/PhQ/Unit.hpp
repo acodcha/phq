@@ -138,7 +138,7 @@ template<typename Unit> inline void Convert(
 template<typename Unit> inline void Convert(
     Value::Vector& value, const Unit original_unit,
     const Unit new_unit) noexcept {
-  Convert<Unit, 3>(value.mutable_x_y_z(), original_unit, new_unit);
+  Convert<Unit, 3>(value.Mutable_x_y_z(), original_unit, new_unit);
 }
 
 // Converts a symmetric dyadic tensor value expressed in a given unit of measure
@@ -146,7 +146,7 @@ template<typename Unit> inline void Convert(
 template<typename Unit> inline void Convert(
     Value::SymmetricDyad& value, const Unit original_unit,
     const Unit new_unit) noexcept {
-  Convert<Unit, 6>(value.mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
+  Convert<Unit, 6>(value.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
 }
 
 // Converts a dyadic tensor value expressed in a given unit of measure to a new
@@ -155,7 +155,7 @@ template<typename Unit> inline void Convert(
     Value::Dyad& value, const Unit original_unit,
     const Unit new_unit) noexcept {
   Convert<Unit, 9>(
-      value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
+      value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
 
 // Converts a value expressed in a given unit of measure to a new unit of
@@ -244,7 +244,7 @@ inline constexpr void StaticConvert(std::array<double, Size>& values) noexcept {
 // function can be evaluated at compile time.
 template<typename Unit, Unit OriginalUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::Vector& value) noexcept {
-  StaticConvert<Unit, OriginalUnit, NewUnit, 3>(value.mutable_x_y_z());
+  StaticConvert<Unit, OriginalUnit, NewUnit, 3>(value.Mutable_x_y_z());
 }
 
 // Converts a symmetric dyadic tensor value expressed in a given unit of measure
@@ -253,7 +253,7 @@ inline constexpr void StaticConvert(Value::Vector& value) noexcept {
 template<typename Unit, Unit OriginalUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
   StaticConvert<Unit, OriginalUnit, NewUnit, 6>(
-      value.mutable_xx_xy_xz_yy_yz_zz());
+      value.Mutable_xx_xy_xz_yy_yz_zz());
 }
 
 // Converts a dyadic tensor value expressed in a given unit of measure to a new
@@ -262,7 +262,7 @@ inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
 template<typename Unit, Unit OriginalUnit, Unit NewUnit>
 inline constexpr void StaticConvert(Value::Dyad& value) noexcept {
   StaticConvert<Unit, OriginalUnit, NewUnit, 9>(
-      value.mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
+      value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
 }
 
 // Converts a value expressed in a given unit of measure to a new unit of

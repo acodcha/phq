@@ -38,7 +38,7 @@ TEST(ValueSymmetricDyad, Accessor) {
   EXPECT_EQ(symdyad0.zz(), 6.66);
 
   SymmetricDyad symdyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  std::array<double, 6>& value1{symdyad1.mutable_xx_xy_xz_yy_yz_zz()};
+  std::array<double, 6>& value1{symdyad1.Mutable_xx_xy_xz_yy_yz_zz()};
   value1 = {0.11, 0.22, 0.33, 0.44, 0.55, 0.66};
   EXPECT_EQ(symdyad1.xx(), 0.11);
   EXPECT_EQ(symdyad1.xy(), 0.22);
@@ -48,17 +48,17 @@ TEST(ValueSymmetricDyad, Accessor) {
   EXPECT_EQ(symdyad1.zz(), 0.66);
 
   SymmetricDyad symdyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  double& xx{symdyad2.mutable_xx()};
+  double& xx{symdyad2.Mutable_xx()};
   xx = 0.11;
-  double& xy{symdyad2.mutable_xy()};
+  double& xy{symdyad2.Mutable_xy()};
   xy = 0.22;
-  double& xz{symdyad2.mutable_xz()};
+  double& xz{symdyad2.Mutable_xz()};
   xz = 0.33;
-  double& yy{symdyad2.mutable_yy()};
+  double& yy{symdyad2.Mutable_yy()};
   yy = 0.44;
-  double& yz{symdyad2.mutable_yz()};
+  double& yz{symdyad2.Mutable_yz()};
   yz = 0.55;
-  double& zz{symdyad2.mutable_zz()};
+  double& zz{symdyad2.Mutable_zz()};
   zz = 0.66;
   EXPECT_EQ(symdyad2.xx(), 0.11);
   EXPECT_EQ(symdyad2.xy(), 0.22);
@@ -68,18 +68,18 @@ TEST(ValueSymmetricDyad, Accessor) {
   EXPECT_EQ(symdyad2.zz(), 0.66);
 
   SymmetricDyad symdyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  double& yx{symdyad3.mutable_yx()};
+  double& yx{symdyad3.Mutable_yx()};
   yx = 0.11;
-  double& zx{symdyad3.mutable_zx()};
+  double& zx{symdyad3.Mutable_zx()};
   zx = 0.22;
-  double& zy{symdyad3.mutable_zy()};
+  double& zy{symdyad3.Mutable_zy()};
   zy = 0.33;
   EXPECT_EQ(symdyad3.yx(), 0.11);
   EXPECT_EQ(symdyad3.zx(), 0.22);
   EXPECT_EQ(symdyad3.zy(), 0.33);
 
   SymmetricDyad symdyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad4.set_xx_xy_xz_yy_yz_zz({0.11, 0.22, 0.33, 0.44, 0.55, 0.66});
+  symdyad4.Set_xx_xy_xz_yy_yz_zz({0.11, 0.22, 0.33, 0.44, 0.55, 0.66});
   EXPECT_EQ(symdyad4.xx(), 0.11);
   EXPECT_EQ(symdyad4.xy(), 0.22);
   EXPECT_EQ(symdyad4.xz(), 0.33);
@@ -88,12 +88,12 @@ TEST(ValueSymmetricDyad, Accessor) {
   EXPECT_EQ(symdyad4.zz(), 0.66);
 
   SymmetricDyad symdyad5{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad5.set_xx(0.11);
-  symdyad5.set_xy(0.22);
-  symdyad5.set_xz(0.33);
-  symdyad5.set_yy(0.44);
-  symdyad5.set_yz(0.55);
-  symdyad5.set_zz(0.66);
+  symdyad5.Set_xx(0.11);
+  symdyad5.Set_xy(0.22);
+  symdyad5.Set_xz(0.33);
+  symdyad5.Set_yy(0.44);
+  symdyad5.Set_yz(0.55);
+  symdyad5.Set_zz(0.66);
   EXPECT_EQ(symdyad5.xx(), 0.11);
   EXPECT_EQ(symdyad5.xy(), 0.22);
   EXPECT_EQ(symdyad5.xz(), 0.33);
@@ -102,9 +102,9 @@ TEST(ValueSymmetricDyad, Accessor) {
   EXPECT_EQ(symdyad5.zz(), 0.66);
 
   SymmetricDyad symdyad6{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad6.set_yx(0.11);
-  symdyad6.set_zx(0.22);
-  symdyad6.set_zy(0.33);
+  symdyad6.Set_yx(0.11);
+  symdyad6.Set_zx(0.22);
+  symdyad6.Set_zy(0.33);
   EXPECT_EQ(symdyad6.yx(), 0.11);
   EXPECT_EQ(symdyad6.zx(), 0.22);
   EXPECT_EQ(symdyad6.zy(), 0.33);
