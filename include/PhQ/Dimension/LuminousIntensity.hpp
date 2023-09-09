@@ -29,17 +29,25 @@ namespace PhQ::Dimension {
 // set of any unit of measure or physical quantity.
 class LuminousIntensity {
 public:
+  // Constructs a base physical dimension of luminous intensity with a value of
+  // zero.
   constexpr LuminousIntensity() noexcept : value_(0) {}
 
+  // Constructs a base physical dimension of luminous intensity with a given
+  // value.
   explicit constexpr LuminousIntensity(const int8_t value) noexcept
     : value_(value) {}
 
+  // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept { return value_; }
 
+  // Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept { return "J"; }
 
+  // Label of this base physical dimension.
   static std::string_view Label() noexcept { return "Luminous Intensity"; }
 
+  // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
     if (value_ == 0) {
       return {};

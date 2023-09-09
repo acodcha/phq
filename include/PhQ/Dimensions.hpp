@@ -13,8 +13,8 @@
 // copy of the GNU Lesser General Public License along with Physical Quantities.
 // If not, see <https://www.gnu.org/licenses/>.
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONS_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONS_HPP
 
 #include "Dimension/ElectricCurrent.hpp"
 #include "Dimension/Length.hpp"
@@ -43,6 +43,9 @@ namespace PhQ {
 // second or the mile per hour.
 class Dimensions {
 public:
+  // Constructs a physical dimension set from the given base physical
+  // dimensions. Omitted base physical dimensions are initialized to a value of
+  // zero.
   constexpr Dimensions(
       const Dimension::Time& time = {}, const Dimension::Length& length = {},
       const Dimension::Mass& mass = {},
@@ -55,29 +58,37 @@ public:
       substance_amount_(substance_amount),
       luminous_intensity_(luminous_intensity) {}
 
+  // Base physical dimension of time.
   constexpr const Dimension::Time& Time() const noexcept { return time_; }
 
+  // Base physical dimension of length.
   constexpr const Dimension::Length& Length() const noexcept { return length_; }
 
+  // Base physical dimension of mass.
   constexpr const Dimension::Mass& Mass() const noexcept { return mass_; }
 
+  // Base physical dimension of electric current.
   constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
     return electric_current_;
   }
 
+  // Base physical dimension of temperature.
   constexpr const Dimension::Temperature& Temperature() const noexcept {
     return temperature_;
   }
 
+  // Base physical dimension of amount of substance.
   constexpr const Dimension::SubstanceAmount& SubstanceAmount() const noexcept {
     return substance_amount_;
   }
 
+  // Base physical dimension of luminous intensity.
   constexpr const Dimension::LuminousIntensity&
   LuminousIntensity() const noexcept {
     return luminous_intensity_;
   }
 
+  // Prints this physical dimension set as a string.
   std::string Print() const noexcept {
     std::string text;
     const std::string time{time_.Print()};
@@ -130,6 +141,7 @@ public:
     return text;
   }
 
+  // Serializes this physical dimension set as a JSON message.
   std::string JSON() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
@@ -181,6 +193,7 @@ public:
     return "{" + text + "}";
   }
 
+  // Serializes this physical dimension set as an XML message.
   std::string XML() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
@@ -222,6 +235,7 @@ public:
     return text;
   }
 
+  // Serializes this physical dimension set as a YAML message.
   std::string YAML() const noexcept {
     std::string text;
     if (time_.Value() != 0) {
@@ -403,4 +417,4 @@ template<> struct hash<PhQ::Dimensions> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_SET_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONS_HPP

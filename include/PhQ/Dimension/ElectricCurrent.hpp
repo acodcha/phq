@@ -29,17 +29,25 @@ namespace PhQ::Dimension {
 // set of any unit of measure or physical quantity.
 class ElectricCurrent {
 public:
+  // Constructs a base physical dimension of electric current with a value of
+  // zero.
   constexpr ElectricCurrent() noexcept : value_(0) {}
 
+  // Constructs a base physical dimension of electric current with a given
+  // value.
   explicit constexpr ElectricCurrent(const int8_t value) noexcept
     : value_(value) {}
 
+  // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept { return value_; }
 
+  // Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept { return "I"; }
 
+  // Label of this base physical dimension.
   static std::string_view Label() noexcept { return "Electric Current"; }
 
+  // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
     if (value_ == 0) {
       return {};

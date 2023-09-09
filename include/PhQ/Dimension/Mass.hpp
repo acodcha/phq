@@ -29,16 +29,22 @@ namespace PhQ::Dimension {
 // any unit of measure or physical quantity.
 class Mass {
 public:
+  // Constructs a base physical dimension of mass with a value of zero.
   constexpr Mass() noexcept : value_(0) {}
 
+  // Constructs a base physical dimension of mass with a given value.
   explicit constexpr Mass(const int8_t value) noexcept : value_(value) {}
 
+  // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept { return value_; }
 
+  // Abbreviation of this base physical dimension.
   static std::string_view Abbreviation() noexcept { return "M"; }
 
+  // Label of this base physical dimension.
   static std::string_view Label() noexcept { return "Mass"; }
 
+  // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
     if (value_ == 0) {
       return {};
