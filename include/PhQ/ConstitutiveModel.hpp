@@ -23,46 +23,67 @@
 namespace PhQ {
 
 // Abstract base class for a material's constitutive model, which is a model
-// that defines the relationship between the stress and strain at a point in a
-// material.
+// that defines the relationship between the stress and the strain and strain
+// rate at any point in the material.
 class ConstitutiveModel {
 public:
+  // Constitutive model type of a material.
   enum class Type : int8_t {
+    // Compressible Newtonian fluid constitutive model
     CompressibleNewtonianFluid,
+
+    // Elastic isotropic solid constitutive model
     ElasticIsotropicSolid,
+
+    // Incompressible Newtonian fluid constitutive model
     IncompressibleNewtonianFluid,
   };
 
+  // Forward declaration for class PhQ::ConstitutiveModel.
   class CompressibleNewtonianFluid;
+
+  // Forward declaration for class PhQ::ConstitutiveModel.
   class ElasticIsotropicSolid;
+
+  // Forward declaration for class PhQ::ConstitutiveModel.
   class IncompressibleNewtonianFluid;
 
   virtual ~ConstitutiveModel() noexcept = default;
 
+  // Returns this constitutive model's type.
   virtual inline Type GetType() const noexcept = 0;
 
+  // Returns the stress resulting from a given strain and strain rate.
   virtual inline PhQ::Stress Stress(
       const PhQ::Strain& strain,
       const PhQ::StrainRate& strain_rate) const noexcept = 0;
 
+  // Returns the stress resulting from a given strain.
   virtual inline PhQ::Stress Stress(
       const PhQ::Strain& strain) const noexcept = 0;
 
+  // Returns the stress resulting from a given strain rate.
   virtual inline PhQ::Stress Stress(
       const PhQ::StrainRate& strain_rate) const noexcept = 0;
 
+  // Returns the strain resulting from a given stress.
   virtual inline PhQ::Strain Strain(
       const PhQ::Stress& stress) const noexcept = 0;
 
+  // Returns the strain rate resulting from a given stress.
   virtual inline PhQ::StrainRate StrainRate(
       const PhQ::Stress& stress) const noexcept = 0;
 
+  // Prints this constitutive model as a string.
   virtual inline std::string Print() const noexcept = 0;
 
+  // Serializes this constitutive model as a JSON message.
   virtual inline std::string JSON() const noexcept = 0;
 
+  // Serializes this constitutive model as an XML message.
   virtual inline std::string XML() const noexcept = 0;
 
+  // Serializes this constitutive model as a YAML message.
   virtual inline std::string YAML() const noexcept = 0;
 
 protected:

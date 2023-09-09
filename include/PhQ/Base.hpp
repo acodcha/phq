@@ -88,8 +88,11 @@ std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
 // printing a floating-point number as a string, double precision is not always
 // needed; sometimes, single precision is sufficient.
 enum class Precision : int8_t {
-  Double,  // Double precision
-  Single,  // Single precision
+  // Double floating point precision
+  Double,
+
+  // Single floating point precision
+  Single,
 };
 
 namespace Internal {
