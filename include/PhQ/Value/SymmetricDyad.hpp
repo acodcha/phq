@@ -48,8 +48,8 @@ public:
       std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
     : xx_xy_xz_yy_yz_zz_(std::move(xx_xy_xz_yy_yz_zz)) {}
 
-  // Returns a three-dimensional symmetric dyadic tensor value with all of its
-  // Cartesian components initialized to zero.
+  // Returns a three-dimensional symmetric dyadic tensor value with its xx, xy,
+  // xz, yy, yz, and zz Cartesian components initialized to zero.
   static constexpr SymmetricDyad Zero() noexcept {
     return SymmetricDyad{
         std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
@@ -62,11 +62,83 @@ public:
     return xx_xy_xz_yy_yz_zz_;
   }
 
+  // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
+  // component.
+  constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
+  // Cartesian component.
+  constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
+  // Cartesian component.
+  constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
+  // Cartesian component.
+  constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
+  // component.
+  constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
+  // Cartesian component.
+  constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
+  // Cartesian component.
+  constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
+  // Cartesian component.
+  constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
+  // component.
+  constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
+
   // Returns this three-dimensional symmetric dyadic tensor value's xx, xy, xz,
   // yy, yz, and zz Cartesian components as a mutable array.
   constexpr std::array<double, 6>& Mutable_xx_xy_xz_yy_yz_zz() noexcept {
     return xx_xy_xz_yy_yz_zz_;
   }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
+  // component as a mutable value.
+  constexpr double& Mutable_xx() noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_xy() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_xz() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_yx() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
+  // component as a mutable value.
+  constexpr double& Mutable_yy() noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_yz() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_zx() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
+  // Cartesian component as a mutable value.
+  constexpr double& Mutable_zy() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+
+  // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
+  // component as a mutable value.
+  constexpr double& Mutable_zz() noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
 
   // Sets this three-dimensional symmetric dyadic tensor value's xx, xy, xz, yy,
   // yz, and zz Cartesian components to the given values.
@@ -75,27 +147,11 @@ public:
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
-  // component.
-  constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
-  // component as a mutable value.
-  constexpr double& Mutable_xx() noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
-
   // Sets this three-dimensional symmetric dyadic tensor value's xx Cartesian
   // component to a given value.
   constexpr void Set_xx(const double xx) noexcept {
     xx_xy_xz_yy_yz_zz_[0] = xx;
   }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
-  // Cartesian component.
-  constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_xy() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
   // Sets this three-dimensional symmetric dyadic tensor value's xy = yx
   // Cartesian component to a given value.
@@ -103,27 +159,11 @@ public:
     xx_xy_xz_yy_yz_zz_[1] = xy;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
-  // Cartesian component.
-  constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_xz() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
-
   // Sets this three-dimensional symmetric dyadic tensor value's xz = zx
   // Cartesian component to a given value.
   constexpr void Set_xz(const double xz) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = xz;
   }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
-  // Cartesian component.
-  constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_yx() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
 
   // Sets this three-dimensional symmetric dyadic tensor value's yx = xy
   // Cartesian component to a given value.
@@ -131,27 +171,11 @@ public:
     xx_xy_xz_yy_yz_zz_[1] = yx;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
-  // component.
-  constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
-  // component as a mutable value.
-  constexpr double& Mutable_yy() noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
-
   // Sets this three-dimensional symmetric dyadic tensor value's yy Cartesian
   // component to a given value.
   constexpr void Set_yy(const double yy) noexcept {
     xx_xy_xz_yy_yz_zz_[3] = yy;
   }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
-  // Cartesian component.
-  constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_yz() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
 
   // Sets this three-dimensional symmetric dyadic tensor value's yz = zy
   // Cartesian component to a given value.
@@ -159,41 +183,17 @@ public:
     xx_xy_xz_yy_yz_zz_[4] = yz;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
-  // Cartesian component.
-  constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_zx() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
-
   // Sets this three-dimensional symmetric dyadic tensor value's zx = xz
   // Cartesian component to a given value.
   constexpr void Set_zx(const double zx) noexcept {
     xx_xy_xz_yy_yz_zz_[2] = zx;
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
-  // Cartesian component.
-  constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
-  // Cartesian component as a mutable value.
-  constexpr double& Mutable_zy() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
-
   // Sets this three-dimensional symmetric dyadic tensor value's zy = yz
   // Cartesian component to a given value.
   constexpr void Set_zy(const double zy) noexcept {
     xx_xy_xz_yy_yz_zz_[4] = zy;
   }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
-  // component.
-  constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
-
-  // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
-  // component as a mutable value.
-  constexpr double& Mutable_zz() noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
 
   // Sets this three-dimensional symmetric dyadic tensor value's zz Cartesian
   // component to a given value.

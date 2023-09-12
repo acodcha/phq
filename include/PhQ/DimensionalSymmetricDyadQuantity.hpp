@@ -27,50 +27,75 @@ namespace PhQ {
 // three.
 template<typename U> class DimensionalSymmetricDyadQuantity {
 public:
+  // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() noexcept {
     return RelatedDimensions<U>;
   }
 
+  // Standard unit of measure for this physical quantity. This physical
+  // quantity's value is stored internally in this unit of measure.
   static constexpr U Unit() noexcept { return Standard<U>; }
 
+  // Value of this physical quantity expressed in its standard unit of measure.
   constexpr const Value::SymmetricDyad& Value() const noexcept {
     return value_;
   }
 
+  // Value of this physical quantity expressed in a given unit of measure.
   Value::SymmetricDyad Value(const U unit) const noexcept {
     Value::SymmetricDyad result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
 
+  // Value of this physical quantity expressed in a given unit of measure. This
+  // method can be evaluated statically at compile-time.
   template<U NewUnit>
   constexpr Value::SymmetricDyad StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
+  // Returns the value of this physical quantity expressed in its standard unit
+  // of measure as a mutable value.
   constexpr Value::SymmetricDyad& MutableValue() noexcept { return value_; }
 
+  // Sets the value of this physical quantity expressed in its standard unit of
+  // measure to the given value.
   constexpr void SetValue(const Value::SymmetricDyad& value) noexcept {
     value_ = value;
   }
 
+  // Prints this physical quantity as a string. This physical quantity's value
+  // is expressed in its standard unit of measure and printed to double floating
+  // point precision.
   std::string Print() const noexcept {
     return value_.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
+  // Prints this physical quantity as a string. This physical quantity's value
+  // is expressed in its standard unit of measure and printed to the given
+  // floating point precision.
   std::string Print(const Precision precision) const noexcept {
     return value_.Print(precision).append(" ").append(
         Abbreviation(Standard<U>));
   }
 
+  // Prints this physical quantity as a string. This physical quantity's value
+  // is expressed in the given unit of measure and printed to double floating
+  // point precision.
   std::string Print(const U unit) const noexcept {
     return Value(unit).Print().append(" ").append(Abbreviation(unit));
   }
 
+  // Prints this physical quantity as a string. This physical quantity's value
+  // is expressed in the given unit of measure and printed to the given floating
+  // point precision.
   std::string Print(const U unit, const Precision precision) const noexcept {
     return Value(unit).Print(precision).append(" ").append(Abbreviation(unit));
   }
 
+  // Serializes this physical quantity as a JSON message. This physical
+  // quantity's value is expressed in its standard unit of measure.
   std::string JSON() const noexcept {
     return std::string{"{\"value\":"}
         .append(value_.JSON())
@@ -79,6 +104,8 @@ public:
         .append("\"}");
   }
 
+  // Serializes this physical quantity as a JSON message. This physical
+  // quantity's value is expressed in the given unit of measure.
   std::string JSON(const U unit) const noexcept {
     return std::string{"{\"value\":"}
         .append(Value(unit).JSON())
@@ -87,6 +114,8 @@ public:
         .append("\"}");
   }
 
+  // Serializes this physical quantity as an XML message. This physical
+  // quantity's value is expressed in its standard unit of measure.
   std::string XML() const noexcept {
     return std::string{"<value>"}
         .append(value_.XML())
@@ -95,6 +124,8 @@ public:
         .append("</unit>");
   }
 
+  // Serializes this physical quantity as an XML message. This physical
+  // quantity's value is expressed in the given unit of measure.
   std::string XML(const U unit) const noexcept {
     return std::string{"<value>"}
         .append(Value(unit).XML())
@@ -103,6 +134,8 @@ public:
         .append("</unit>");
   }
 
+  // Serializes this physical quantity as a YAML message. This physical
+  // quantity's value is expressed in its standard unit of measure.
   std::string YAML() const noexcept {
     return std::string{"{value:"}
         .append(value_.YAML())
@@ -111,6 +144,8 @@ public:
         .append("\"}");
   }
 
+  // Serializes this physical quantity as a YAML message. This physical
+  // quantity's value is expressed in the given unit of measure.
   std::string YAML(const U unit) const noexcept {
     return std::string{"{value:"}
         .append(Value(unit).YAML())
@@ -120,28 +155,42 @@ public:
   }
 
 protected:
+  // Default constructor. Constructs a dimensional symmetric dyadic tensor
+  // physical quantity with an uninitialized value expressed in its standard
+  // unit of measure.
   constexpr DimensionalSymmetricDyadQuantity() noexcept : value_() {}
 
+  // Constructs a dimensional symmetric dyadic tensor physical quantity with a
+  // given value expressed in its standard unit of measure.
   constexpr DimensionalSymmetricDyadQuantity(
       const Value::SymmetricDyad& value) noexcept
     : value_(value) {}
 
+  // Constructs a dimensional symmetric dyadic tensor physical quantity with a
+  // given value expressed in its standard unit of measure by moving the value.
   constexpr DimensionalSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
     : value_(std::move(value)) {}
 
+  // Constructs a dimensional dimensional symmetric dyadic tensor physical
+  // quantity with a given value expressed in a given unit of measure.
   DimensionalSymmetricDyadQuantity(
       const Value::SymmetricDyad& value, const U unit) noexcept
     : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
+  // Constructs a dimensional dimensional symmetric dyadic tensor physical
+  // quantity with a given value expressed in a given unit of measure by moving
+  // the value.
   DimensionalSymmetricDyadQuantity(
       Value::SymmetricDyad&& value, const U unit) noexcept
     : value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
   }
 
+  // Default destructor. Destroys this dimensional symmetric dyadic tensor
+  // physical quantity.
   ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
   constexpr void operator=(const Value::SymmetricDyad& value) noexcept {
