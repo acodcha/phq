@@ -26,34 +26,52 @@ namespace PhQ {
 // no dimension set.
 class DimensionlessScalarQuantity {
 public:
+  // Physical dimension set of this dimensionless physical quantity. Since this
+  // physical quantity is dimensionless, its physical dimension set is simply
+  // the null set.
   static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
 
+  // Value of this dimensionless physical quantity.
   inline constexpr double Value() const noexcept { return value_; }
 
+  // Returns the value of this dimensionless physical quantity as a mutable
+  // value.
   inline constexpr double& MutableValue() noexcept { return value_; }
 
+  // Sets the value of this dimensionless physical quantity to the given value.
   inline constexpr void SetValue(const double value) noexcept {
     value_ = value;
   }
 
+  // Prints this dimensionless physical quantity as a string. This dimensionless
+  // physical quantity's value is printed to double floating point precision.
   std::string Print() const noexcept { return PhQ::Print(value_); }
 
+  // Prints this dimensionless physical quantity as a string. This dimensionless
+  // physical quantity's value is printed to the given floating point precision.
   std::string Print(const Precision precision) const noexcept {
     return PhQ::Print(value_, precision);
   }
 
+  // Serializes this dimensionless physical quantity as a JSON message.
   std::string JSON() const noexcept { return PhQ::Print(value_); }
 
+  // Serializes this dimensionless physical quantity as an XML message.
   std::string XML() const noexcept { return PhQ::Print(value_); }
 
+  // Serializes this dimensionless physical quantity as a YAML message.
   std::string YAML() const noexcept { return PhQ::Print(value_); }
 
 protected:
+  // Default constructor. Constructs a dimensionless scalar physical quantity
+  // with an uninitialized value.
   constexpr DimensionlessScalarQuantity() noexcept : value_() {}
 
+  // Constructs a dimensionless scalar physical quantity with a given value.
   constexpr DimensionlessScalarQuantity(const double value) noexcept
     : value_(value) {}
 
+  // Default destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalarQuantity() noexcept = default;
 
   void operator=(const double value) noexcept { value_ = value; }
