@@ -41,9 +41,11 @@ public:
   constexpr SpecificPower(const Power& power, const Mass& mass) noexcept
     : SpecificPower(power.Value() / mass.Value()) {}
 
-  static constexpr SpecificPower Zero() noexcept { return SpecificPower{0.0}; }
+  static constexpr SpecificPower Zero() noexcept {
+    return SpecificPower{0.0};
+  }
 
-  template<Unit::SpecificPower Unit>
+  template <Unit::SpecificPower Unit>
   static constexpr SpecificPower Create(const double value) noexcept {
     return SpecificPower{
         StaticConvertCopy<Unit::SpecificPower, Unit,
@@ -99,9 +101,13 @@ public:
     value_ -= specific_power.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SpecificPower(const double value) noexcept
@@ -218,7 +224,8 @@ inline constexpr Time SpecificEnergy::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::SpecificPower> {
+template <>
+struct hash<PhQ::SpecificPower> {
   inline size_t operator()(const PhQ::SpecificPower& specific_power) const {
     return hash<double>()(specific_power.Value());
   }

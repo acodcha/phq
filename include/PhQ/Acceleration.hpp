@@ -46,13 +46,15 @@ public:
     return Acceleration{Value::Vector::Zero()};
   }
 
-  template<Unit::Acceleration Unit>
+  template <Unit::Acceleration Unit>
   static constexpr Acceleration Create(const Value::Vector& value) noexcept {
     return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit,
                                           Standard<Unit::Acceleration>>(value)};
   }
 
-  AccelerationMagnitude Magnitude() const noexcept { return {*this}; }
+  AccelerationMagnitude Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {
     return {*this, acceleration};
@@ -92,9 +94,13 @@ public:
     value_ -= acceleration.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Acceleration(const Value::Vector& value) noexcept
@@ -190,7 +196,8 @@ inline constexpr Acceleration Velocity::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::Acceleration> {
+template <>
+struct hash<PhQ::Acceleration> {
   inline size_t operator()(const PhQ::Acceleration& acceleration) const {
     return hash<PhQ::Value::Vector>()(acceleration.Value());
   }

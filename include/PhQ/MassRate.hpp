@@ -37,9 +37,11 @@ public:
   constexpr MassRate(const Mass& mass, const Frequency& frequency) noexcept
     : MassRate(mass.Value() * frequency.Value()) {}
 
-  static constexpr MassRate Zero() noexcept { return MassRate{0.0}; }
+  static constexpr MassRate Zero() noexcept {
+    return MassRate{0.0};
+  }
 
-  template<Unit::MassRate Unit>
+  template <Unit::MassRate Unit>
   static constexpr MassRate Create(const double value) noexcept {
     return MassRate{
         StaticConvertCopy<Unit::MassRate, Unit, Standard<Unit::MassRate>>(
@@ -86,9 +88,13 @@ public:
     value_ -= mass_rate.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr MassRate(const double value) noexcept
@@ -180,7 +186,8 @@ inline constexpr Time Mass::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::MassRate> {
+template <>
+struct hash<PhQ::MassRate> {
   inline size_t operator()(const PhQ::MassRate& mass_rate) const {
     return hash<double>()(mass_rate.Value());
   }

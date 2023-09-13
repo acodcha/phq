@@ -76,9 +76,11 @@ public:
   constexpr Speed(
       const SoundSpeed& sound_speed, const MachNumber& mach_number) noexcept;
 
-  static constexpr Speed Zero() noexcept { return Speed{0.0}; }
+  static constexpr Speed Zero() noexcept {
+    return Speed{0.0};
+  }
 
-  template<Unit::Speed Unit>
+  template <Unit::Speed Unit>
   static constexpr Speed Create(const double value) noexcept {
     return Speed{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
@@ -146,9 +148,13 @@ public:
 
   constexpr void operator-=(const SoundSpeed& speed) noexcept;
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Speed(const double value) noexcept
@@ -234,7 +240,8 @@ inline constexpr Speed Frequency::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Speed> {
+template <>
+struct hash<PhQ::Speed> {
   inline size_t operator()(const PhQ::Speed& speed) const {
     return hash<double>()(speed.Value());
   }

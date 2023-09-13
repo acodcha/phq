@@ -254,7 +254,9 @@ public:
   }
 
   // Returns the trace of this three-dimensional dyadic tensor value.
-  constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
+  constexpr double Trace() const noexcept {
+    return xx() + yy() + zz();
+  }
 
   // Returns the determinant of this three-dimensional dyadic tensor value.
   constexpr double Determinant() const noexcept {
@@ -284,7 +286,9 @@ public:
   }
 
   // Returns the adjugate of this three-dimensional dyadic tensor value.
-  constexpr Dyad Adjugate() const noexcept { return Cofactors().Transpose(); }
+  constexpr Dyad Adjugate() const noexcept {
+    return Cofactors().Transpose();
+  }
 
   // Returns the inverse of this three-dimensional dyadic tensor value if it
   // exists, or std::nullopt otherwise.
@@ -609,7 +613,8 @@ inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Value::Dyad> {
+template <>
+struct hash<PhQ::Value::Dyad> {
   inline size_t operator()(const PhQ::Value::Dyad& dyad) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(dyad.xx());

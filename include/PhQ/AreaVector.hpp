@@ -38,13 +38,15 @@ public:
     return AreaVector{Value::Vector::Zero()};
   }
 
-  template<Unit::Area Unit>
+  template <Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) noexcept {
     return AreaVector{
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  Area Magnitude() const noexcept { return {*this}; }
+  Area Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
     return {*this, area_vector};
@@ -74,9 +76,13 @@ public:
     value_ -= area_vector.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr AreaVector(const Value::Vector& value) noexcept
@@ -148,7 +154,8 @@ inline constexpr AreaVector Area::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::AreaVector> {
+template <>
+struct hash<PhQ::AreaVector> {
   inline size_t operator()(const PhQ::AreaVector& area_vector) const {
     return hash<PhQ::Value::Vector>()(area_vector.Value());
   }

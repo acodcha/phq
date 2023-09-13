@@ -25,7 +25,9 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionLength, Abbreviation) { EXPECT_EQ(Length::Abbreviation(), "L"); }
+TEST(DimensionLength, Abbreviation) {
+  EXPECT_EQ(Length::Abbreviation(), "L");
+}
 
 TEST(DimensionLength, Accessor) {
   EXPECT_EQ(Length{}.Value(), 0);
@@ -71,7 +73,9 @@ TEST(DimensionLength, Hash) {
       length0, length1, length2, length3, length4, length5};
 }
 
-TEST(DimensionLength, Label) { EXPECT_EQ(Length::Label(), "Length"); }
+TEST(DimensionLength, Label) {
+  EXPECT_EQ(Length::Label(), "Length");
+}
 
 TEST(DimensionLength, Print) {
   EXPECT_EQ(Length{}.Print(), "");

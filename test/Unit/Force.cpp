@@ -286,7 +286,9 @@ TEST(UnitForce, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Force::Pound), std::nullopt);
 }
 
-TEST(UnitForce, Standard) { EXPECT_EQ(Standard<Force>, Force::Newton); }
+TEST(UnitForce, Standard) {
+  EXPECT_EQ(Standard<Force>, Force::Newton);
+}
 
 }  // namespace
 

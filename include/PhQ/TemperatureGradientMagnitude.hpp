@@ -50,7 +50,7 @@ public:
     return TemperatureGradientMagnitude{0.0};
   }
 
-  template<Unit::TemperatureGradient Unit>
+  template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradientMagnitude
   Create(const double value) noexcept {
     return TemperatureGradientMagnitude{
@@ -106,9 +106,13 @@ public:
     value_ -= temperature_gradient_magnitude.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TemperatureGradientMagnitude(const double value) noexcept
@@ -179,7 +183,8 @@ inline constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::TemperatureGradientMagnitude> {
+template <>
+struct hash<PhQ::TemperatureGradientMagnitude> {
   inline size_t operator()(
       const PhQ::TemperatureGradientMagnitude& temperature_gradient_magnitude)
       const {

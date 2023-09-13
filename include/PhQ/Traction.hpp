@@ -42,14 +42,16 @@ public:
     return Traction{Value::Vector::Zero()};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr Traction Create(const Value::Vector& value) noexcept {
     return Traction{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  StaticPressure Magnitude() const noexcept { return {*this}; }
+  StaticPressure Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const Traction& traction) const noexcept {
     return {*this, traction};
@@ -83,9 +85,13 @@ public:
     value_ -= traction.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Traction(const Value::Vector& value) noexcept
@@ -165,7 +171,8 @@ inline constexpr Traction Force::operator/(const Area& area) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Traction> {
+template <>
+struct hash<PhQ::Traction> {
   inline size_t operator()(const PhQ::Traction& traction) const {
     return hash<PhQ::Value::Vector>()(traction.Value());
   }

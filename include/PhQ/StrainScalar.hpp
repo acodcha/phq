@@ -37,7 +37,9 @@ public:
           linear_thermal_expansion_coefficient,
       const TemperatureDifference& temperature_difference) noexcept;
 
-  static constexpr StrainScalar Zero() noexcept { return StrainScalar{0.0}; }
+  static constexpr StrainScalar Zero() noexcept {
+    return StrainScalar{0.0};
+  }
 
   constexpr StrainScalar operator+(
       const StrainScalar& strain_scalar) const noexcept {
@@ -69,9 +71,13 @@ public:
     value_ -= strain_scalar.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -134,7 +140,8 @@ inline constexpr double operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::StrainScalar> {
+template <>
+struct hash<PhQ::StrainScalar> {
   inline size_t operator()(const PhQ::StrainScalar& strain_scalar) const {
     return hash<double>()(strain_scalar.Value());
   }

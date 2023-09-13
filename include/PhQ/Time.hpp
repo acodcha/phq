@@ -78,9 +78,11 @@ public:
 
   constexpr Time(const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
-  static constexpr Time Zero() noexcept { return Time{0.0}; }
+  static constexpr Time Zero() noexcept {
+    return Time{0.0};
+  }
 
-  template<Unit::Time Unit>
+  template <Unit::Time Unit>
   static constexpr Time Create(const double value) noexcept {
     return Time{
         StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
@@ -133,9 +135,13 @@ public:
     value_ -= time.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Time(const double value) noexcept
@@ -181,7 +187,8 @@ inline constexpr Time operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Time> {
+template <>
+struct hash<PhQ::Time> {
   inline size_t operator()(const PhQ::Time& time) const {
     return hash<double>()(time.Value());
   }

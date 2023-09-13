@@ -46,7 +46,7 @@ public:
     return KinematicPressureDifference{0.0};
   }
 
-  template<Unit::SpecificEnergy Unit>
+  template <Unit::SpecificEnergy Unit>
   static constexpr KinematicPressureDifference
   Create(const double value) noexcept {
     return KinematicPressureDifference{
@@ -105,9 +105,13 @@ public:
     value_ -= kinematic_pressure_difference.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr KinematicPressureDifference(const double value) noexcept
@@ -180,7 +184,8 @@ inline constexpr KinematicPressureDifference PressureDifference::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::KinematicPressureDifference> {
+template <>
+struct hash<PhQ::KinematicPressureDifference> {
   inline size_t operator()(
       const PhQ::KinematicPressureDifference& kinematic_pressure_difference)
       const {

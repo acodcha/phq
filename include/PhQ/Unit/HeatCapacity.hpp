@@ -33,12 +33,12 @@ enum class HeatCapacity : int8_t {
 }  // namespace Unit
 
 // Standard heat capacity unit: joule per kelvin.
-template<>
+template <>
 inline constexpr const Unit::HeatCapacity Standard<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};
 
 // Physical dimension set of heat capacity units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::HeatCapacity>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
@@ -46,7 +46,8 @@ inline constexpr const Dimensions RelatedDimensions<Unit::HeatCapacity>{
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::HeatCapacity>
+template <>
+inline const std::map<UnitSystem, Unit::HeatCapacity>
     ConsistentUnits<Unit::HeatCapacity>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::HeatCapacity::JoulePerKelvin     },
@@ -58,7 +59,8 @@ template<> inline const std::map<UnitSystem, Unit::HeatCapacity>
          Unit::HeatCapacity::InchPoundPerRankine},
 };
 
-template<> inline const std::map<Unit::HeatCapacity, UnitSystem>
+template <>
+inline const std::map<Unit::HeatCapacity, UnitSystem>
     RelatedUnitSystems<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,
          UnitSystem::MetreKilogramSecondKelvin },
@@ -70,7 +72,8 @@ template<> inline const std::map<Unit::HeatCapacity, UnitSystem>
          UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::HeatCapacity, std::string_view>
+template <>
+inline const std::map<Unit::HeatCapacity, std::string_view>
     Abbreviations<Unit::HeatCapacity>{
         {Unit::HeatCapacity::JoulePerKelvin,      "J/K"      },
         {Unit::HeatCapacity::NanojoulePerKelvin,  "nJ/K"     },
@@ -78,100 +81,111 @@ template<> inline const std::map<Unit::HeatCapacity, std::string_view>
         {Unit::HeatCapacity::InchPoundPerRankine, "in·lbf/°R"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::HeatCapacity>
-    Spellings<Unit::HeatCapacity>{
-        {"J/K",            Unit::HeatCapacity::JoulePerKelvin     },
-        {"N·m/K",          Unit::HeatCapacity::JoulePerKelvin     },
-        {"N*m/K",          Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg·m^2/s^2/K",   Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg*m^2/s^2/K",   Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg·m2/s2/K",     Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg*m2/s2/K",     Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg·m^2/(s^2·K)", Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg*m^2/(s^2*K)", Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg·m2/(s2·K)",   Unit::HeatCapacity::JoulePerKelvin     },
-        {"kg*m2/(s2*K)",   Unit::HeatCapacity::JoulePerKelvin     },
-        {"nJ/K",           Unit::HeatCapacity::NanojoulePerKelvin },
-        {"μN·mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
-        {"μN*mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
-        {"uN·mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
-        {"uN*mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g·mm^2/s^2/K",   Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g*mm^2/s^2/K",   Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g·mm2/s2/K",     Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g*mm2/s2/K",     Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g·mm^2/(s^2·K)", Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g*mm^2/(s^2*K)", Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g·mm2/(s2·K)",   Unit::HeatCapacity::NanojoulePerKelvin },
-        {"g*mm2/(s2*K)",   Unit::HeatCapacity::NanojoulePerKelvin },
-        {"ft·lbf/°R",      Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft·lbf/R",       Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft*lbf/°R",      Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft*lbf/R",       Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft·lb/°R",       Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft·lb/R",        Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft*lb/°R",       Unit::HeatCapacity::FootPoundPerRankine},
-        {"ft*lb/R",        Unit::HeatCapacity::FootPoundPerRankine},
-        {"in·lbf/°R",      Unit::HeatCapacity::InchPoundPerRankine},
-        {"in·lbf/R",       Unit::HeatCapacity::InchPoundPerRankine},
-        {"in*lbf/°R",      Unit::HeatCapacity::InchPoundPerRankine},
-        {"in*lbf/R",       Unit::HeatCapacity::InchPoundPerRankine},
-        {"in·lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
-        {"in·lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
-        {"in*lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
-        {"in*lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
+template <>
+inline const std::unordered_map<std::string_view, Unit::HeatCapacity> Spellings<
+    Unit::HeatCapacity>{
+    {"J/K",            Unit::HeatCapacity::JoulePerKelvin     },
+    {"N·m/K",          Unit::HeatCapacity::JoulePerKelvin     },
+    {"N*m/K",          Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg·m^2/s^2/K",   Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg*m^2/s^2/K",   Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg·m2/s2/K",     Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg*m2/s2/K",     Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg·m^2/(s^2·K)", Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg*m^2/(s^2*K)", Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg·m2/(s2·K)",   Unit::HeatCapacity::JoulePerKelvin     },
+    {"kg*m2/(s2*K)",   Unit::HeatCapacity::JoulePerKelvin     },
+    {"nJ/K",           Unit::HeatCapacity::NanojoulePerKelvin },
+    {"μN·mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
+    {"μN*mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
+    {"uN·mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
+    {"uN*mm/K",        Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g·mm^2/s^2/K",   Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g*mm^2/s^2/K",   Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g·mm2/s2/K",     Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g*mm2/s2/K",     Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g·mm^2/(s^2·K)", Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g*mm^2/(s^2*K)", Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g·mm2/(s2·K)",   Unit::HeatCapacity::NanojoulePerKelvin },
+    {"g*mm2/(s2*K)",   Unit::HeatCapacity::NanojoulePerKelvin },
+    {"ft·lbf/°R",      Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft·lbf/R",       Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft*lbf/°R",      Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft*lbf/R",       Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft·lb/°R",       Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft·lb/R",        Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft*lb/°R",       Unit::HeatCapacity::FootPoundPerRankine},
+    {"ft*lb/R",        Unit::HeatCapacity::FootPoundPerRankine},
+    {"in·lbf/°R",      Unit::HeatCapacity::InchPoundPerRankine},
+    {"in·lbf/R",       Unit::HeatCapacity::InchPoundPerRankine},
+    {"in*lbf/°R",      Unit::HeatCapacity::InchPoundPerRankine},
+    {"in*lbf/R",       Unit::HeatCapacity::InchPoundPerRankine},
+    {"in·lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
+    {"in·lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
+    {"in*lb/°R",       Unit::HeatCapacity::InchPoundPerRankine},
+    {"in*lb/R",        Unit::HeatCapacity::InchPoundPerRankine},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity,
                        Unit::HeatCapacity::NanojoulePerKelvin>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity,
                        Unit::HeatCapacity::FootPoundPerRankine>(
     double& value) noexcept {
   value /= 0.3048 * 0.45359237 * 9.80665 * 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity,
                        Unit::HeatCapacity::InchPoundPerRankine>(
     double& value) noexcept {
   value /= 0.0254 * 0.45359237 * 9.80665 * 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
-ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::HeatCapacity,
+                     Unit::HeatCapacity::NanojoulePerKelvin>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::HeatCapacity,
                      Unit::HeatCapacity::FootPoundPerRankine>(
     double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::HeatCapacity,
                      Unit::HeatCapacity::InchPoundPerRankine>(
     double& value) noexcept {
   value *= 0.0254 * 0.45359237 * 9.80665 * 1.8;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::HeatCapacity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::HeatCapacity>{
@@ -189,7 +203,8 @@ template<> inline const std::map<
          Unit::HeatCapacity::InchPoundPerRankine>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::HeatCapacity,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::HeatCapacity>{

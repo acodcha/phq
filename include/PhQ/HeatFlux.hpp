@@ -50,14 +50,16 @@ public:
     return HeatFlux{Value::Vector::Zero()};
   }
 
-  template<Unit::EnergyFlux Unit>
+  template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const Value::Vector& value) noexcept {
     return HeatFlux{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             value)};
   }
 
-  constexpr HeatFluxMagnitude Magnitude() const noexcept { return {*this}; }
+  constexpr HeatFluxMagnitude Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const HeatFlux& heat_flux) const noexcept {
     return {*this, heat_flux};
@@ -87,9 +89,13 @@ public:
     value_ -= heat_flux.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr HeatFlux(const Value::Vector& value) noexcept
@@ -161,7 +167,8 @@ inline constexpr HeatFlux HeatFluxMagnitude::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::HeatFlux> {
+template <>
+struct hash<PhQ::HeatFlux> {
   inline size_t operator()(const PhQ::HeatFlux& heat_flux) const {
     return hash<PhQ::Value::Vector>()(heat_flux.Value());
   }

@@ -90,7 +90,8 @@ protected:
   constexpr ConstitutiveModel() noexcept = default;
 };
 
-template<> inline const std::map<ConstitutiveModel::Type, std::string_view>
+template <>
+inline const std::map<ConstitutiveModel::Type, std::string_view>
     Internal::Abbreviations<ConstitutiveModel::Type>{
         {ConstitutiveModel::Type::ElasticIsotropicSolid,
          "Elastic Isotropic Solid"       },
@@ -100,7 +101,7 @@ template<> inline const std::map<ConstitutiveModel::Type, std::string_view>
          "Compressible Newtonian Fluid"  },
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
     Internal::Spellings<ConstitutiveModel::Type>{
         {"Elastic Isotropic Solid",

@@ -150,7 +150,9 @@ TEST(Volume, Stream) {
   EXPECT_EQ(stream.str(), volume.Print());
 }
 
-TEST(Volume, Unit) { EXPECT_EQ(Volume::Unit(), Standard<Unit::Volume>); }
+TEST(Volume, Unit) {
+  EXPECT_EQ(Volume::Unit(), Standard<Unit::Volume>);
+}
 
 TEST(Volume, XML) {
   EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).XML(),

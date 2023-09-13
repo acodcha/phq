@@ -111,7 +111,9 @@ TEST(UnitAngle, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Angle::Revolution), std::nullopt);
 }
 
-TEST(UnitAngle, Standard) { EXPECT_EQ(Standard<Angle>, Angle::Radian); }
+TEST(UnitAngle, Standard) {
+  EXPECT_EQ(Standard<Angle>, Angle::Radian);
+}
 
 }  // namespace
 

@@ -51,18 +51,20 @@ enum class UnitSystem : int8_t {
 // per second. Thus, when forming a speed quantity from a length quantity and a
 // time quantity, if all quantities are expressed in these standard units, no
 // unit conversions are needed.
-template<typename Type> inline constexpr const Type Standard;
+template <typename Type>
+inline constexpr const Type Standard;
 
 // The standard unit system: the International System of Units (SI). It uses the
 // following standard units: second for time, metre for length, kilogram for
 // mass, ampere for electric current, kelvin for temperature, mole for substance
 // amount, and candela for luminous intensity.
-template<> inline constexpr const UnitSystem Standard<UnitSystem>{
+template <>
+inline constexpr const UnitSystem Standard<UnitSystem>{
     UnitSystem::MetreKilogramSecondKelvin};
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
     {UnitSystem::MetreKilogramSecondKelvin,  "m·kg·s·K"   },
     {UnitSystem::MillimetreGramSecondKelvin, "mm·g·s·K"   },
@@ -70,7 +72,7 @@ inline const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
     {UnitSystem::InchPoundSecondRankine,     "in·lbf·s·°R"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, UnitSystem> Spellings<
     UnitSystem>{
     {"m·kg·s·K",       UnitSystem::MetreKilogramSecondKelvin },
@@ -194,12 +196,13 @@ inline const std::unordered_map<std::string_view, UnitSystem> Spellings<
 // Map of unit systems to their corresponding units. This is an internal
 // implementation detail and is not intended to be used except by the
 // PhQ::ConsistentUnit function.
-template<typename Unit> inline const std::map<UnitSystem, Unit> ConsistentUnits;
+template <typename Unit>
+inline const std::map<UnitSystem, Unit> ConsistentUnits;
 
 // Map of units to their corresponding unit systems. This is an internal
 // implementation detail and is not intended to be used except by the
 // PhQ::RelatedUnitSystem function.
-template<typename Unit>
+template <typename Unit>
 inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 
 }  // namespace Internal
@@ -208,7 +211,7 @@ inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 // example,
 // PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin)
 // returns PhQ::Unit::Force::Newton.
-template<typename Unit>
+template <typename Unit>
 inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
   return Internal::ConsistentUnits<Unit>.at(system);
 }
@@ -217,7 +220,7 @@ inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
 // std::nullptr otherwise. For example,
 // PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
 // PhQ::UnitSystem::MillimetreGramSecondKelvin.
-template<typename Unit>
+template <typename Unit>
 inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
       Internal::RelatedUnitSystems<Unit>.find(unit)};

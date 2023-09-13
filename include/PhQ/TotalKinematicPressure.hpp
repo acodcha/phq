@@ -46,7 +46,7 @@ public:
     return TotalKinematicPressure{0.0};
   }
 
-  template<Unit::SpecificEnergy Unit>
+  template <Unit::SpecificEnergy Unit>
   static constexpr TotalKinematicPressure Create(const double value) noexcept {
     return TotalKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
@@ -99,9 +99,13 @@ public:
     value_ -= total_kinematic_pressure.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TotalKinematicPressure(const double value) noexcept
@@ -182,7 +186,8 @@ inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
 
 namespace std {
 
-template<> struct hash<PhQ::TotalKinematicPressure> {
+template <>
+struct hash<PhQ::TotalKinematicPressure> {
   inline size_t operator()(
       const PhQ::TotalKinematicPressure& total_kinematic_pressure) const {
     return hash<double>()(total_kinematic_pressure.Value());

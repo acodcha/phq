@@ -139,7 +139,9 @@ TEST(Mass, Stream) {
   EXPECT_EQ(stream.str(), mass.Print());
 }
 
-TEST(Mass, Unit) { EXPECT_EQ(Mass::Unit(), Standard<Unit::Mass>); }
+TEST(Mass, Unit) {
+  EXPECT_EQ(Mass::Unit(), Standard<Unit::Mass>);
+}
 
 TEST(Mass, XML) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).XML(),
@@ -155,7 +157,9 @@ TEST(Mass, YAML) {
             "{value:-5.000000000000000,unit:\"g\"}");
 }
 
-TEST(Mass, Zero) { EXPECT_EQ(Mass::Zero(), Mass(0.0, Unit::Mass::Kilogram)); }
+TEST(Mass, Zero) {
+  EXPECT_EQ(Mass::Zero(), Mass(0.0, Unit::Mass::Kilogram));
+}
 
 }  // namespace
 

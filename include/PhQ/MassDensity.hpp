@@ -65,9 +65,11 @@ public:
   constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const SoundSpeed& sound_speed) noexcept;
 
-  static constexpr MassDensity Zero() noexcept { return MassDensity{0.0}; }
+  static constexpr MassDensity Zero() noexcept {
+    return MassDensity{0.0};
+  }
 
-  template<Unit::MassDensity Unit>
+  template <Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) noexcept {
     return MassDensity{
         StaticConvertCopy<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(
@@ -111,9 +113,13 @@ public:
     value_ -= mass_density.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr MassDensity(const double value) noexcept
@@ -183,7 +189,8 @@ inline constexpr Mass Volume::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::MassDensity> {
+template <>
+struct hash<PhQ::MassDensity> {
   inline size_t operator()(const PhQ::MassDensity& mass_density) const {
     return hash<double>()(mass_density.Value());
   }

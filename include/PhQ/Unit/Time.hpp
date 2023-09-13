@@ -35,16 +35,17 @@ enum class Time : int8_t {
 }  // namespace Unit
 
 // Standard time unit: second.
-template<>
+template <>
 inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 
 // Physical dimension set of time units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Time>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Time>{
     Dimensions{Dimension::Time{1}}};
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Time::Second},
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Time::Second},
@@ -52,10 +53,10 @@ inline const std::map<UnitSystem, Unit::Time> ConsistentUnits<Unit::Time>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Time::Second},
 };
 
-template<>
+template <>
 inline const std::map<Unit::Time, UnitSystem> RelatedUnitSystems<Unit::Time>{};
 
-template<>
+template <>
 inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
     {Unit::Time::Nanosecond,  "ns" },
     {Unit::Time::Microsecond, "μs" },
@@ -65,7 +66,8 @@ inline const std::map<Unit::Time, std::string_view> Abbreviations<Unit::Time>{
     {Unit::Time::Hour,        "hr" },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Time>
+template <>
+inline const std::unordered_map<std::string_view, Unit::Time>
     Spellings<Unit::Time>{
         {"ns",           Unit::Time::Nanosecond },
         {"nanosecond",   Unit::Time::Nanosecond },
@@ -90,70 +92,79 @@ template<> inline const std::unordered_map<std::string_view, Unit::Time>
         {"hours",        Unit::Time::Hour       },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Nanosecond>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Microsecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Millisecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::Time, Unit::Time::Second>(double& value) noexcept {
-}
+template <>
+inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Second>(
+    double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Minute>(double& value) noexcept {
   value /= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Time, Unit::Time::Hour>(double& value) noexcept {
   value /= 3600.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Nanosecond>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Microsecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Millisecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Time, Unit::Time::Second>(double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Time, Unit::Time::Minute>(double& value) noexcept {
   value *= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Time, Unit::Time::Hour>(double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Time, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Time>{
         {Unit::Time::Nanosecond,
@@ -170,7 +181,7 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Time, Unit::Time::Hour>       },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Time, std::function<void(double* const values,
                                                      const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Time>{

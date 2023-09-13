@@ -37,17 +37,20 @@ enum class Pressure : int8_t {
 }  // namespace Unit
 
 // Standard pressure unit: watt.
-template<> inline constexpr const Unit::Pressure Standard<Unit::Pressure>{
+template <>
+inline constexpr const Unit::Pressure Standard<Unit::Pressure>{
     Unit::Pressure::Pascal};
 
 // Physical dimension set of pressure units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Pressure>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Pressure>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::Pressure> ConsistentUnits<
+template <>
+inline const std::map<UnitSystem, Unit::Pressure> ConsistentUnits<
     Unit::Pressure>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Pressure::Pascal            },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Pressure::Pascal            },
@@ -55,13 +58,15 @@ template<> inline const std::map<UnitSystem, Unit::Pressure> ConsistentUnits<
     {UnitSystem::InchPoundSecondRankine,     Unit::Pressure::PoundPerSquareInch},
 };
 
-template<> inline const std::map<Unit::Pressure, UnitSystem> RelatedUnitSystems<
+template <>
+inline const std::map<Unit::Pressure, UnitSystem> RelatedUnitSystems<
     Unit::Pressure>{
     {Unit::Pressure::PoundPerSquareFoot, UnitSystem::FootPoundSecondRankine},
     {Unit::Pressure::PoundPerSquareInch, UnitSystem::InchPoundSecondRankine},
 };
 
-template<> inline const std::map<Unit::Pressure, std::string_view>
+template <>
+inline const std::map<Unit::Pressure, std::string_view>
     Abbreviations<Unit::Pressure>{
         {Unit::Pressure::Pascal,             "Pa"      },
         {Unit::Pressure::Kilopascal,         "kPa"     },
@@ -73,7 +78,8 @@ template<> inline const std::map<Unit::Pressure, std::string_view>
         {Unit::Pressure::PoundPerSquareInch, "lbf/in^2"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Pressure>
+template <>
+inline const std::unordered_map<std::string_view, Unit::Pressure>
     Spellings<Unit::Pressure>{
         {"Pa",         Unit::Pressure::Pascal            },
         {"N/m^2",      Unit::Pressure::Pascal            },
@@ -112,99 +118,115 @@ template<> inline const std::unordered_map<std::string_view, Unit::Pressure>
         {"psi",        Unit::Pressure::PoundPerSquareInch},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Bar>(
     double& value) noexcept {
   value *= 0.00001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
     double& value) noexcept {
   value /= 101325.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(
     double& value) noexcept {
   value *= 100000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
     double& value) noexcept {
   value *= 101325.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 0.0254);
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Pressure, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Pressure>{
         {Unit::Pressure::Pascal,
@@ -227,7 +249,8 @@ template<> inline const std::map<
          Unit::Pressure::PoundPerSquareInch>                                },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Pressure,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Pressure>{

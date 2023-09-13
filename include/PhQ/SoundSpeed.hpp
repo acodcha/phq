@@ -71,10 +71,12 @@ public:
   constexpr SoundSpeed(
       const Speed& speed, const MachNumber& mach_number) noexcept;
 
-  static constexpr SoundSpeed Zero() noexcept { return SoundSpeed{0.0}; }
+  static constexpr SoundSpeed Zero() noexcept {
+    return SoundSpeed{0.0};
+  }
 
   // Creates a sound speed from a given value and speed unit.
-  template<Unit::Speed Unit>
+  template <Unit::Speed Unit>
   static constexpr SoundSpeed Create(const double value) noexcept {
     return SoundSpeed{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
@@ -124,9 +126,13 @@ public:
     value_ -= speed.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SoundSpeed(const double value) noexcept
@@ -207,7 +213,8 @@ constexpr IsentropicBulkModulus::IsentropicBulkModulus(
 
 namespace std {
 
-template<> struct hash<PhQ::SoundSpeed> {
+template <>
+struct hash<PhQ::SoundSpeed> {
   inline size_t operator()(const PhQ::SoundSpeed& sound_speed) const {
     return hash<double>()(sound_speed.Value());
   }

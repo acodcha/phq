@@ -181,7 +181,9 @@ TEST(SoundSpeed, Stream) {
   EXPECT_EQ(stream.str(), sound_speed.Print());
 }
 
-TEST(SoundSpeed, Unit) { EXPECT_EQ(SoundSpeed::Unit(), Standard<Unit::Speed>); }
+TEST(SoundSpeed, Unit) {
+  EXPECT_EQ(SoundSpeed::Unit(), Standard<Unit::Speed>);
+}
 
 TEST(SoundSpeed, XML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).XML(),

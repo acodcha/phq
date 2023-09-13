@@ -246,7 +246,9 @@ TEST(Velocity, Stream) {
   EXPECT_EQ(stream.str(), velocity.Print());
 }
 
-TEST(Velocity, Unit) { EXPECT_EQ(Velocity::Unit(), Standard<Unit::Speed>); }
+TEST(Velocity, Unit) {
+  EXPECT_EQ(Velocity::Unit(), Standard<Unit::Speed>);
+}
 
 TEST(Velocity, XML) {
   EXPECT_EQ(Velocity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond).XML(),

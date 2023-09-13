@@ -31,21 +31,31 @@ public:
   // Physical dimension set of this dimensionless physical quantity. Since this
   // physical quantity is dimensionless, its physical dimension set is simply
   // the null set.
-  static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
+  static constexpr const PhQ::Dimensions Dimensions() noexcept {
+    return {};
+  }
 
   // Value of this dimensionless physical quantity.
-  constexpr const Value::Dyad& Value() const noexcept { return value_; }
+  constexpr const Value::Dyad& Value() const noexcept {
+    return value_;
+  }
 
   // Returns the value of this dimensionless physical quantity as a mutable
   // value.
-  constexpr Value::Dyad& MutableValue() noexcept { return value_; }
+  constexpr Value::Dyad& MutableValue() noexcept {
+    return value_;
+  }
 
   // Sets the value of this dimensionless physical quantity to the given value.
-  constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
+  constexpr void SetValue(const Value::Dyad& value) noexcept {
+    value_ = value;
+  }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to double floating point precision.
-  std::string Print() const noexcept { return value_.Print(); }
+  std::string Print() const noexcept {
+    return value_.Print();
+  }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to the given floating point precision.
@@ -54,13 +64,19 @@ public:
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
-  std::string JSON() const noexcept { return value_.JSON(); }
+  std::string JSON() const noexcept {
+    return value_.JSON();
+  }
 
   // Serializes this dimensionless physical quantity as an XML message.
-  std::string XML() const noexcept { return value_.XML(); }
+  std::string XML() const noexcept {
+    return value_.XML();
+  }
 
   // Serializes this dimensionless physical quantity as a YAML message.
-  std::string YAML() const noexcept { return value_.YAML(); }
+  std::string YAML() const noexcept {
+    return value_.YAML();
+  }
 
 protected:
   // Default constructor. Constructs a dimensionless dyadic tensor physical
@@ -81,9 +97,13 @@ protected:
   // quantity.
   ~DimensionlessDyadQuantity() noexcept = default;
 
-  void operator=(const Value::Dyad& value) noexcept { value_ = value; }
+  void operator=(const Value::Dyad& value) noexcept {
+    value_ = value;
+  }
 
-  void operator=(Value::Dyad&& value) noexcept { value_ = std::move(value); }
+  void operator=(Value::Dyad&& value) noexcept {
+    value_ = std::move(value);
+  }
 
   Value::Dyad value_;
 };
@@ -98,7 +118,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::DimensionlessDyadQuantity> {
+template <>
+struct hash<PhQ::DimensionlessDyadQuantity> {
   inline size_t operator()(
       const PhQ::DimensionlessDyadQuantity& quantity) const {
     return hash<PhQ::Value::Dyad>()(quantity.Value());

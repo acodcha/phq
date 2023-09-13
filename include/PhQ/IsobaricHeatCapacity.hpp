@@ -53,7 +53,7 @@ public:
     return IsobaricHeatCapacity{0.0};
   }
 
-  template<Unit::HeatCapacity Unit>
+  template <Unit::HeatCapacity Unit>
   static constexpr IsobaricHeatCapacity Create(const double value) noexcept {
     return IsobaricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
@@ -116,9 +116,13 @@ public:
     value_ -= isobaric_heat_capacity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr IsobaricHeatCapacity(const double value) noexcept
@@ -194,7 +198,8 @@ inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::IsobaricHeatCapacity> {
+template <>
+struct hash<PhQ::IsobaricHeatCapacity> {
   inline size_t operator()(
       const PhQ::IsobaricHeatCapacity& isobaric_heat_capacity) const {
     return hash<double>()(isobaric_heat_capacity.Value());

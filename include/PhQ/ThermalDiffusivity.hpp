@@ -51,7 +51,7 @@ public:
     return ThermalDiffusivity{0.0};
   }
 
-  template<Unit::Diffusivity Unit>
+  template <Unit::Diffusivity Unit>
   static constexpr ThermalDiffusivity Create(const double value) noexcept {
     return ThermalDiffusivity{
         StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
@@ -91,9 +91,13 @@ public:
     value_ -= thermal_diffusivity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr ThermalDiffusivity(const double value) noexcept
@@ -154,7 +158,8 @@ inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
 inline constexpr MassDensity::MassDensity(
     const ThermalDiffusivity& thermal_diffusivity,
     const ThermalConductivityScalar& thermal_conductivity_scalar,
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept
+    const SpecificIsobaricHeatCapacity&
+        specific_isobaric_heat_capacity) noexcept
   : MassDensity(thermal_conductivity_scalar.Value()
                 / (thermal_diffusivity.Value()
                    * specific_isobaric_heat_capacity.Value())) {}
@@ -171,7 +176,8 @@ inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
 
 namespace std {
 
-template<> struct hash<PhQ::ThermalDiffusivity> {
+template <>
+struct hash<PhQ::ThermalDiffusivity> {
   inline size_t operator()(
       const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
     return hash<double>()(thermal_diffusivity.Value());

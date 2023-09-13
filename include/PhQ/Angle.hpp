@@ -82,9 +82,11 @@ public:
 
   Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
 
-  static constexpr Angle Zero() noexcept { return Angle{0.0}; }
+  static constexpr Angle Zero() noexcept {
+    return Angle{0.0};
+  }
 
-  template<Unit::Angle Unit>
+  template <Unit::Angle Unit>
   static constexpr Angle Create(const double value) noexcept {
     return Angle{
         StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
@@ -124,9 +126,13 @@ public:
     value_ -= angle.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Angle(const double value) noexcept
@@ -185,7 +191,8 @@ inline PhQ::Angle Value::Vector::Angle(
 
 namespace std {
 
-template<> struct hash<PhQ::Angle> {
+template <>
+struct hash<PhQ::Angle> {
   inline size_t operator()(const PhQ::Angle& angle) const {
     return hash<double>()(angle.Value());
   }

@@ -39,13 +39,19 @@ public:
     : value_(value) {}
 
   // Value of this base physical dimension.
-  constexpr int8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept {
+    return value_;
+  }
 
   // Abbreviation of this base physical dimension.
-  static std::string_view Abbreviation() noexcept { return "J"; }
+  static std::string_view Abbreviation() noexcept {
+    return "J";
+  }
 
   // Label of this base physical dimension.
-  static std::string_view Label() noexcept { return "Luminous Intensity"; }
+  static std::string_view Label() noexcept {
+    return "Luminous Intensity";
+  }
 
   // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
@@ -105,7 +111,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Dimension::LuminousIntensity> {
+template <>
+struct hash<PhQ::Dimension::LuminousIntensity> {
   inline size_t operator()(
       const PhQ::Dimension::LuminousIntensity& intensity) const {
     return hash<int8_t>()(intensity.Value());

@@ -30,9 +30,11 @@ public:
   Temperature(const double value, const Unit::Temperature unit) noexcept
     : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
-  static constexpr Temperature Zero() noexcept { return Temperature{0.0}; }
+  static constexpr Temperature Zero() noexcept {
+    return Temperature{0.0};
+  }
 
-  template<Unit::Temperature Unit>
+  template <Unit::Temperature Unit>
   static constexpr Temperature Create(const double value) noexcept {
     return Temperature{
         StaticConvertCopy<Unit::Temperature, Unit, Standard<Unit::Temperature>>(
@@ -89,9 +91,13 @@ public:
     value_ -= temperature_difference.Value();
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Temperature(const double value) noexcept
@@ -155,7 +161,8 @@ inline constexpr Temperature TemperatureDifference::operator-(
 
 namespace std {
 
-template<> struct hash<PhQ::Temperature> {
+template <>
+struct hash<PhQ::Temperature> {
   inline size_t operator()(const PhQ::Temperature& temperature) const {
     return hash<double>()(temperature.Value());
   }

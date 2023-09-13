@@ -49,8 +49,9 @@ public:
     return StrainRate{Value::SymmetricDyad::Zero()};
   }
 
-  template<Unit::Frequency Unit> static constexpr StrainRate Create(
-      const Value::SymmetricDyad& value) noexcept {
+  template <Unit::Frequency Unit>
+  static constexpr StrainRate
+  Create(const Value::SymmetricDyad& value) noexcept {
     return StrainRate{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
@@ -88,9 +89,13 @@ public:
     value_ -= strain_rate.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   constexpr StrainRate(const Value::SymmetricDyad& value) noexcept
@@ -169,7 +174,8 @@ inline constexpr StrainRate Frequency::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::StrainRate> {
+template <>
+struct hash<PhQ::StrainRate> {
   inline size_t operator()(const PhQ::StrainRate& strain_rate) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain_rate.Value());
   }

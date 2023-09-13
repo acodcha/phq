@@ -47,7 +47,7 @@ public:
     return SpecificEnergy{0.0};
   }
 
-  template<Unit::SpecificEnergy Unit>
+  template <Unit::SpecificEnergy Unit>
   static constexpr SpecificEnergy Create(const double value) noexcept {
     return SpecificEnergy{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
@@ -95,9 +95,13 @@ public:
     value_ -= specific_energy.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SpecificEnergy(const double value) noexcept
@@ -172,7 +176,8 @@ inline constexpr SpecificEnergy Energy::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::SpecificEnergy> {
+template <>
+struct hash<PhQ::SpecificEnergy> {
   inline size_t operator()(const PhQ::SpecificEnergy& specific_energy) const {
     return hash<double>()(specific_energy.Value());
   }

@@ -35,7 +35,7 @@ public:
     return VelocityGradient{Value::Dyad::Zero()};
   }
 
-  template<Unit::Frequency Unit>
+  template <Unit::Frequency Unit>
   static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {
     return VelocityGradient{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
@@ -74,9 +74,13 @@ public:
     value_ -= velocity_gradient.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr VelocityGradient(const Value::Dyad& value) noexcept
@@ -134,7 +138,8 @@ inline constexpr StrainRate::StrainRate(
 
 namespace std {
 
-template<> struct hash<PhQ::VelocityGradient> {
+template <>
+struct hash<PhQ::VelocityGradient> {
   inline size_t operator()(
       const PhQ::VelocityGradient& velocity_gradient) const {
     return hash<PhQ::Value::Dyad>()(velocity_gradient.Value());

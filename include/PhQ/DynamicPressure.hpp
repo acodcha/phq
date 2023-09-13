@@ -50,7 +50,7 @@ public:
     return DynamicPressure{0.0};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr DynamicPressure Create(const double value) noexcept {
     return DynamicPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -91,9 +91,13 @@ public:
     value_ -= dynamic_pressure.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr DynamicPressure(const double value) noexcept
@@ -154,7 +158,8 @@ inline Speed::Speed(const DynamicPressure& dynamic_pressure,
 
 namespace std {
 
-template<> struct hash<PhQ::DynamicPressure> {
+template <>
+struct hash<PhQ::DynamicPressure> {
   inline size_t operator()(const PhQ::DynamicPressure& dynamic_pressure) const {
     return hash<double>()(dynamic_pressure.Value());
   }

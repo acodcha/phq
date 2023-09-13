@@ -25,7 +25,8 @@ namespace PhQ {
 // quantity. Such a physical quantity is composed of a value and a unit of
 // measure where the value is a tensor of rank two and dimension three. The
 // tensor may be non-symmetric.
-template<typename U> class DimensionalDyadQuantity {
+template <typename U>
+class DimensionalDyadQuantity {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() noexcept {
@@ -34,10 +35,14 @@ public:
 
   // Standard unit of measure for this physical quantity. This physical
   // quantity's value is stored internally in this unit of measure.
-  static constexpr U Unit() noexcept { return Standard<U>; }
+  static constexpr U Unit() noexcept {
+    return Standard<U>;
+  }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  constexpr const Value::Dyad& Value() const noexcept { return value_; }
+  constexpr const Value::Dyad& Value() const noexcept {
+    return value_;
+  }
 
   // Value of this physical quantity expressed in a given unit of measure.
   Value::Dyad Value(const U unit) const noexcept {
@@ -48,17 +53,22 @@ public:
 
   // Value of this physical quantity expressed in a given unit of measure. This
   // method can be evaluated statically at compile-time.
-  template<U NewUnit> constexpr Value::Dyad StaticValue() const noexcept {
+  template <U NewUnit>
+  constexpr Value::Dyad StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit
   // of measure as a mutable value.
-  constexpr Value::Dyad& MutableValue() noexcept { return value_; }
+  constexpr Value::Dyad& MutableValue() noexcept {
+    return value_;
+  }
 
   // Sets the value of this physical quantity expressed in its standard unit of
   // measure to the given value.
-  constexpr void SetValue(const Value::Dyad& value) noexcept { value_ = value; }
+  constexpr void SetValue(const Value::Dyad& value) noexcept {
+    value_ = value;
+  }
 
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in its standard unit of measure and printed to double floating
@@ -194,7 +204,8 @@ protected:
   Value::Dyad value_;
 };
 
-template<typename U> inline std::ostream& operator<<(
+template <typename U>
+inline std::ostream& operator<<(
     std::ostream& stream, const DimensionalDyadQuantity<U>& quantity) noexcept {
   stream << quantity.Print();
   return stream;
@@ -204,7 +215,8 @@ template<typename U> inline std::ostream& operator<<(
 
 namespace std {
 
-template<typename U> struct hash<PhQ::DimensionalDyadQuantity<U>> {
+template <typename U>
+struct hash<PhQ::DimensionalDyadQuantity<U>> {
   inline size_t operator()(
       const PhQ::DimensionalDyadQuantity<U>& quantity) const {
     return hash<PhQ::Value::Dyad>()(quantity.Value());

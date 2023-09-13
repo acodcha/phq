@@ -36,19 +36,20 @@ enum class DynamicViscosity : int8_t {
 }  // namespace Unit
 
 // Standard dynamic viscosity unit: pascal-second.
-template<>
+template <>
 inline constexpr const Unit::DynamicViscosity Standard<Unit::DynamicViscosity>{
     Unit::DynamicViscosity::PascalSecond};
 
 // Physical dimension set of dynamic viscosity units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::DynamicViscosity>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{-1}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::DynamicViscosity>
+template <>
+inline const std::map<UnitSystem, Unit::DynamicViscosity>
     ConsistentUnits<Unit::DynamicViscosity>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::DynamicViscosity::PascalSecond            },
@@ -60,7 +61,8 @@ template<> inline const std::map<UnitSystem, Unit::DynamicViscosity>
          Unit::DynamicViscosity::PoundSecondPerSquareInch},
 };
 
-template<> inline const std::map<Unit::DynamicViscosity, UnitSystem>
+template <>
+inline const std::map<Unit::DynamicViscosity, UnitSystem>
     RelatedUnitSystems<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
          UnitSystem::FootPoundSecondRankine},
@@ -68,7 +70,8 @@ template<> inline const std::map<Unit::DynamicViscosity, UnitSystem>
          UnitSystem::InchPoundSecondRankine},
 };
 
-template<> inline const std::map<Unit::DynamicViscosity, std::string_view>
+template <>
+inline const std::map<Unit::DynamicViscosity, std::string_view>
     Abbreviations<Unit::DynamicViscosity>{
         {Unit::DynamicViscosity::PascalSecond,             "Pa·s"      },
         {Unit::DynamicViscosity::KilopascalSecond,         "kPa·s"     },
@@ -79,7 +82,7 @@ template<> inline const std::map<Unit::DynamicViscosity, std::string_view>
         {Unit::DynamicViscosity::PoundSecondPerSquareInch, "lbf·s/in^2"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
     Spellings<Unit::DynamicViscosity>{
         {"Pa·s",       Unit::DynamicViscosity::PascalSecond            },
@@ -140,99 +143,114 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity>
         {"psi*s",      Unit::DynamicViscosity::PoundSecondPerSquareInch},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::PascalSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::KilopascalSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::MegapascalSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::GigapascalSecond>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
     double& value) noexcept {
   value *= 10.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity,
                        Unit::DynamicViscosity::PoundSecondPerSquareInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::PascalSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::KilopascalSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::MegapascalSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::GigapascalSecond>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
     double& value) noexcept {
   value *= 0.1;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity,
                      Unit::DynamicViscosity::PoundSecondPerSquareInch>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 0.0254);
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::DynamicViscosity>{
@@ -261,7 +279,8 @@ template<> inline const std::map<
          Unit::DynamicViscosity::PoundSecondPerSquareInch>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::DynamicViscosity,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::DynamicViscosity>{
@@ -281,10 +300,12 @@ template<> inline const std::map<
          ConversionsToStandard<Unit::DynamicViscosity,
          Unit::DynamicViscosity::Poise>                   },
         {Unit::DynamicViscosity::PoundSecondPerSquareFoot,
-         ConversionsToStandard<Unit::DynamicViscosity,
+         ConversionsToStandard<
+             Unit::DynamicViscosity,
          Unit::DynamicViscosity::PoundSecondPerSquareFoot>},
         {Unit::DynamicViscosity::PoundSecondPerSquareInch,
-         ConversionsToStandard<Unit::DynamicViscosity,
+         ConversionsToStandard<
+             Unit::DynamicViscosity,
          Unit::DynamicViscosity::PoundSecondPerSquareInch>},
 };
 

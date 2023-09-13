@@ -50,7 +50,7 @@ public:
     return TemperatureDifference{0.0};
   }
 
-  template<Unit::TemperatureDifference Unit>
+  template <Unit::TemperatureDifference Unit>
   static constexpr TemperatureDifference Create(const double value) noexcept {
     return TemperatureDifference{
         StaticConvertCopy<Unit::TemperatureDifference, Unit,
@@ -109,9 +109,13 @@ public:
     value_ -= temperature_difference.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TemperatureDifference(const double value) noexcept
@@ -167,7 +171,8 @@ inline constexpr TemperatureDifference operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::TemperatureDifference> {
+template <>
+struct hash<PhQ::TemperatureDifference> {
   inline size_t operator()(
       const PhQ::TemperatureDifference& temperature_difference) const {
     return hash<double>()(temperature_difference.Value());

@@ -75,9 +75,13 @@ public:
     value_ -= strain.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -125,7 +129,8 @@ inline constexpr Strain operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Strain> {
+template <>
+struct hash<PhQ::Strain> {
   inline size_t operator()(const PhQ::Strain& strain) const {
     return hash<PhQ::Value::SymmetricDyad>()(strain.Value());
   }

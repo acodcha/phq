@@ -67,9 +67,11 @@ public:
       const Energy& energy,
       const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
-  static constexpr Length Zero() noexcept { return Length{0.0}; }
+  static constexpr Length Zero() noexcept {
+    return Length{0.0};
+  }
 
-  template<Unit::Length Unit>
+  template <Unit::Length Unit>
   static constexpr Length Create(const double value) noexcept {
     return Length{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
@@ -119,9 +121,13 @@ public:
     value_ -= length.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Length(const double value) noexcept
@@ -176,7 +182,8 @@ inline constexpr Length operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Length> {
+template <>
+struct hash<PhQ::Length> {
   inline size_t operator()(const PhQ::Length& length) const {
     return hash<double>()(length.Value());
   }

@@ -25,7 +25,9 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionTime, Abbreviation) { EXPECT_EQ(Time::Abbreviation(), "T"); }
+TEST(DimensionTime, Abbreviation) {
+  EXPECT_EQ(Time::Abbreviation(), "T");
+}
 
 TEST(DimensionTime, Accessor) {
   EXPECT_EQ(Time{}.Value(), 0);
@@ -71,7 +73,9 @@ TEST(DimensionTime, Hash) {
       time0, time1, time2, time3, time4, time5};
 }
 
-TEST(DimensionTime, Label) { EXPECT_EQ(Time::Label(), "Time"); }
+TEST(DimensionTime, Label) {
+  EXPECT_EQ(Time::Label(), "Time");
+}
 
 TEST(DimensionTime, Print) {
   EXPECT_EQ(Time{}.Print(), "");

@@ -106,9 +106,13 @@ public:
     value_ -= specific_heat_ratio.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -176,7 +180,8 @@ inline constexpr double operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::SpecificHeatRatio> {
+template <>
+struct hash<PhQ::SpecificHeatRatio> {
   inline size_t operator()(
       const PhQ::SpecificHeatRatio& specific_heat_ratio) const {
     return hash<double>()(specific_heat_ratio.Value());

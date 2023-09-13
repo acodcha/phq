@@ -28,7 +28,9 @@ public:
   explicit constexpr PoissonRatio(const double value) noexcept
     : DimensionlessScalarQuantity(value) {}
 
-  static constexpr PoissonRatio Zero() noexcept { return PoissonRatio{0.0}; }
+  static constexpr PoissonRatio Zero() noexcept {
+    return PoissonRatio{0.0};
+  }
 
   constexpr PoissonRatio operator+(
       const PoissonRatio& poisson_ratio) const noexcept {
@@ -60,9 +62,13 @@ public:
     value_ -= poisson_ratio.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -125,7 +131,8 @@ inline constexpr double operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::PoissonRatio> {
+template <>
+struct hash<PhQ::PoissonRatio> {
   inline size_t operator()(const PhQ::PoissonRatio& poisson_ratio) const {
     return hash<double>()(poisson_ratio.Value());
   }

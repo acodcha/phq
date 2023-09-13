@@ -42,9 +42,11 @@ public:
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude) noexcept;
 
-  static constexpr Area Zero() noexcept { return Area{0.0}; }
+  static constexpr Area Zero() noexcept {
+    return Area{0.0};
+  }
 
-  template<Unit::Area Unit>
+  template <Unit::Area Unit>
   static constexpr Area Create(const double value) noexcept {
     return Area{
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
@@ -89,9 +91,13 @@ public:
     value_ -= area.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Area(const double value) noexcept
@@ -144,7 +150,8 @@ inline constexpr Area Length::operator*(const Length& length) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Area> {
+template <>
+struct hash<PhQ::Area> {
   inline size_t operator()(const PhQ::Area& area) const {
     return hash<double>()(area.Value());
   }

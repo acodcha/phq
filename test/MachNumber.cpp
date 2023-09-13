@@ -148,7 +148,9 @@ TEST(MachNumber, YAML) {
   EXPECT_EQ(MachNumber(1.11).YAML(), "1.110000000000000");
 }
 
-TEST(MachNumber, Zero) { EXPECT_EQ(MachNumber::Zero(), MachNumber(0.0)); }
+TEST(MachNumber, Zero) {
+  EXPECT_EQ(MachNumber::Zero(), MachNumber(0.0));
+}
 
 }  // namespace
 

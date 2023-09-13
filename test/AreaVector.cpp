@@ -233,7 +233,9 @@ TEST(AreaVector, Stream) {
   EXPECT_EQ(stream.str(), area.Print());
 }
 
-TEST(AreaVector, Unit) { EXPECT_EQ(AreaVector::Unit(), Standard<Unit::Area>); }
+TEST(AreaVector, Unit) {
+  EXPECT_EQ(AreaVector::Unit(), Standard<Unit::Area>);
+}
 
 TEST(AreaVector, XML) {
   EXPECT_EQ(AreaVector({1.11, 2.22, 4.44}, Unit::Area::SquareMetre).XML(),

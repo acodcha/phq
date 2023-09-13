@@ -43,9 +43,11 @@ public:
 
   constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
 
-  static constexpr Volume Zero() noexcept { return Volume{0.0}; }
+  static constexpr Volume Zero() noexcept {
+    return Volume{0.0};
+  }
 
-  template<Unit::Volume Unit>
+  template <Unit::Volume Unit>
   static constexpr Volume Create(const double value) noexcept {
     return Volume{
         StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
@@ -95,9 +97,13 @@ public:
     value_ -= volume.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Volume(const double value) noexcept
@@ -160,7 +166,8 @@ inline constexpr Volume Area::operator*(const Length& length) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Volume> {
+template <>
+struct hash<PhQ::Volume> {
   inline size_t operator()(const PhQ::Volume& volume) const {
     return hash<double>()(volume.Value());
   }

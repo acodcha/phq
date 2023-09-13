@@ -52,9 +52,11 @@ public:
   constexpr GasConstant(const SpecificGasConstant& specific_gas_constant,
                         const Mass& mass) noexcept;
 
-  static constexpr GasConstant Zero() noexcept { return GasConstant{0.0}; }
+  static constexpr GasConstant Zero() noexcept {
+    return GasConstant{0.0};
+  }
 
-  template<Unit::HeatCapacity Unit>
+  template <Unit::HeatCapacity Unit>
   static constexpr GasConstant Create(const double value) noexcept {
     return GasConstant{StaticConvertCopy<Unit::HeatCapacity, Unit,
                                          Standard<Unit::HeatCapacity>>(value)};
@@ -100,9 +102,13 @@ public:
     value_ -= gas_constant.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr GasConstant(const double value) noexcept
@@ -206,7 +212,8 @@ inline constexpr IsochoricHeatCapacity IsobaricHeatCapacity::operator-(
 
 namespace std {
 
-template<> struct hash<PhQ::GasConstant> {
+template <>
+struct hash<PhQ::GasConstant> {
   inline size_t operator()(const PhQ::GasConstant& gas_constant) const {
     return hash<double>()(gas_constant.Value());
   }

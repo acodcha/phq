@@ -47,7 +47,7 @@ public:
     return HeatFluxMagnitude{0.0};
   }
 
-  template<Unit::EnergyFlux Unit>
+  template <Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) noexcept {
     return HeatFluxMagnitude{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
@@ -89,9 +89,13 @@ public:
     value_ -= heat_flux_magnitude.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr HeatFluxMagnitude(const double value) noexcept
@@ -145,7 +149,8 @@ inline constexpr HeatFluxMagnitude operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::HeatFluxMagnitude> {
+template <>
+struct hash<PhQ::HeatFluxMagnitude> {
   inline size_t operator()(
       const PhQ::HeatFluxMagnitude& heat_flux_magnitude) const {
     return hash<double>()(heat_flux_magnitude.Value());

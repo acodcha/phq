@@ -34,9 +34,11 @@ public:
   StressScalar(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr StressScalar Zero() noexcept { return StressScalar{0.0}; }
+  static constexpr StressScalar Zero() noexcept {
+    return StressScalar{0.0};
+  }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr StressScalar Create(const double value) noexcept {
     return StressScalar{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -73,9 +75,13 @@ public:
     value_ -= stress_scalar.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr StressScalar(const double value) noexcept
@@ -129,7 +135,8 @@ inline constexpr StressScalar operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::StressScalar> {
+template <>
+struct hash<PhQ::StressScalar> {
   inline size_t operator()(const PhQ::StressScalar& stress_scalar) const {
     return hash<double>()(stress_scalar.Value());
   }

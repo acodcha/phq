@@ -21,14 +21,28 @@
 
 namespace PhQ {
 
-// Forward declarations for class Energy.
+// Forward declaration for class Energy.
 class Frequency;
+
+// Forward declaration for class Energy.
 class Length;
+
+// Forward declaration for class Energy.
 class Mass;
+
+// Forward declaration for class Energy.
 class Power;
+
+// Forward declaration for class Energy.
 class SpecificEnergy;
+
+// Forward declaration for class Energy.
 class SpecificPower;
+
+// Forward declaration for class Energy.
 class Time;
+
+// Forward declaration for class Energy.
 class TransportEnergyConsumption;
 
 // Energy.
@@ -50,9 +64,11 @@ public:
       const Length& length,
       const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
-  static constexpr Energy Zero() noexcept { return Energy{0.0}; }
+  static constexpr Energy Zero() noexcept {
+    return Energy{0.0};
+  }
 
-  template<Unit::Energy Unit>
+  template <Unit::Energy Unit>
   static constexpr Energy Create(const double value) noexcept {
     return Energy{
         StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
@@ -104,9 +120,13 @@ public:
     value_ -= energy.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Energy(const double value) noexcept
@@ -158,7 +178,8 @@ inline constexpr Energy operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Energy> {
+template <>
+struct hash<PhQ::Energy> {
   inline size_t operator()(const PhQ::Energy& energy) const {
     return hash<double>()(energy.Value());
   }

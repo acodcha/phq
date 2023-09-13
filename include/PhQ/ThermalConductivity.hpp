@@ -43,7 +43,8 @@ public:
     return ThermalConductivity{Value::SymmetricDyad::Zero()};
   }
 
-  template<Unit::ThermalConductivity Unit> static constexpr ThermalConductivity
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity
   Create(const Value::SymmetricDyad& value) noexcept {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit,
@@ -78,9 +79,13 @@ public:
     value_ -= thermal_conductivity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr ThermalConductivity(
@@ -135,7 +140,8 @@ inline constexpr ThermalConductivity operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::ThermalConductivity> {
+template <>
+struct hash<PhQ::ThermalConductivity> {
   inline size_t operator()(
       const PhQ::ThermalConductivity& thermal_conductivity) const {
     return hash<PhQ::Value::SymmetricDyad>()(thermal_conductivity.Value());

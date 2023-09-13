@@ -142,7 +142,9 @@ TEST(Angle, Stream) {
   EXPECT_EQ(stream.str(), angle.Print());
 }
 
-TEST(Angle, Unit) { EXPECT_EQ(Angle::Unit(), Standard<Unit::Angle>); }
+TEST(Angle, Unit) {
+  EXPECT_EQ(Angle::Unit(), Standard<Unit::Angle>);
+}
 
 TEST(Angle, XML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).XML(),
@@ -158,7 +160,9 @@ TEST(Angle, YAML) {
             "{value:-5.000000000000000,unit:\"deg\"}");
 }
 
-TEST(Angle, Zero) { EXPECT_EQ(Angle::Zero(), Angle(0.0, Unit::Angle::Radian)); }
+TEST(Angle, Zero) {
+  EXPECT_EQ(Angle::Zero(), Angle(0.0, Unit::Angle::Radian));
+}
 
 }  // namespace
 
