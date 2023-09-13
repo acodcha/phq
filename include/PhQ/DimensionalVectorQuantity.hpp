@@ -24,7 +24,8 @@ namespace PhQ {
 // Abstract base class that represents any dimensional vector physical quantity.
 // Such a physical quantity is composed of a value and a unit of measure where
 // the value is a vector of dimension three.
-template<typename U> class DimensionalVectorQuantity {
+template <typename U>
+class DimensionalVectorQuantity {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() noexcept {
@@ -33,10 +34,14 @@ public:
 
   // Standard unit of measure for this physical quantity. This physical
   // quantity's value is stored internally in this unit of measure.
-  static constexpr U Unit() noexcept { return Standard<U>; }
+  static constexpr U Unit() noexcept {
+    return Standard<U>;
+  }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  constexpr const Value::Vector& Value() const noexcept { return value_; }
+  constexpr const Value::Vector& Value() const noexcept {
+    return value_;
+  }
 
   // Value of this physical quantity expressed in a given unit of measure.
   Value::Vector Value(const U unit) const noexcept {
@@ -47,13 +52,16 @@ public:
 
   // Value of this physical quantity expressed in a given unit of measure. This
   // method can be evaluated statically at compile-time.
-  template<U NewUnit> constexpr Value::Vector StaticValue() const noexcept {
+  template <U NewUnit>
+  constexpr Value::Vector StaticValue() const noexcept {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit
   // of measure as a mutable value.
-  constexpr Value::Vector& MutableValue() noexcept { return value_; }
+  constexpr Value::Vector& MutableValue() noexcept {
+    return value_;
+  }
 
   // Sets the value of this physical quantity expressed in its standard unit of
   // measure to the given value.
@@ -193,9 +201,10 @@ protected:
   Value::Vector value_;
 };
 
-template<typename U> inline std::ostream& operator<<(
-    std::ostream& stream,
-    const DimensionalVectorQuantity<U>& quantity) noexcept {
+template <typename U>
+inline std::ostream&
+operator<<(std::ostream& stream,
+           const DimensionalVectorQuantity<U>& quantity) noexcept {
   stream << quantity.Print();
   return stream;
 }
@@ -204,7 +213,8 @@ template<typename U> inline std::ostream& operator<<(
 
 namespace std {
 
-template<typename U> struct hash<PhQ::DimensionalVectorQuantity<U>> {
+template <typename U>
+struct hash<PhQ::DimensionalVectorQuantity<U>> {
   inline size_t operator()(
       const PhQ::DimensionalVectorQuantity<U>& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());

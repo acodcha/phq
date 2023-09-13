@@ -33,18 +33,20 @@ enum class EnergyFlux : int8_t {
 }  // namespace Unit
 
 // Standard energy flux unit: watt per square metre.
-template<> inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
+template <>
+inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};
 
 // Physical dimension set of energy flux units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::EnergyFlux>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::EnergyFlux>
+template <>
+inline const std::map<UnitSystem, Unit::EnergyFlux>
     ConsistentUnits<Unit::EnergyFlux>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::EnergyFlux::WattPerSquareMetre             },
@@ -56,7 +58,8 @@ template<> inline const std::map<UnitSystem, Unit::EnergyFlux>
          Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
 
-template<> inline const std::map<Unit::EnergyFlux, UnitSystem>
+template <>
+inline const std::map<Unit::EnergyFlux, UnitSystem>
     RelatedUnitSystems<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
          UnitSystem::MetreKilogramSecondKelvin },
@@ -68,7 +71,8 @@ template<> inline const std::map<Unit::EnergyFlux, UnitSystem>
          UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::EnergyFlux, std::string_view>
+template <>
+inline const std::map<Unit::EnergyFlux, std::string_view>
     Abbreviations<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,              "W/m^2"        },
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,     "nW/mm^2"      },
@@ -76,7 +80,7 @@ template<> inline const std::map<Unit::EnergyFlux, std::string_view>
         {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, "in·lbf/in^2/s"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
     Unit::EnergyFlux>{
     {"W/m^2",           Unit::EnergyFlux::WattPerSquareMetre             },
@@ -136,57 +140,66 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
     {"slinch/s3",       Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux,
                        Unit::EnergyFlux::NanowattPerSquareMillimetre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux,
                        Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux,
                        Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
     double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::EnergyFlux,
                      Unit::EnergyFlux::NanowattPerSquareMillimetre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::EnergyFlux,
                      Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::EnergyFlux,
                      Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::EnergyFlux,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::EnergyFlux>{
@@ -206,7 +219,8 @@ template<> inline const std::map<
          Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>                                      },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::EnergyFlux,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::EnergyFlux>{

@@ -65,17 +65,19 @@ enum class Speed : int8_t {
 }  // namespace Unit
 
 // Standard speed unit: metre per second.
-template<> inline constexpr const Unit::Speed Standard<Unit::Speed>{
+template <>
+inline constexpr const Unit::Speed Standard<Unit::Speed>{
     Unit::Speed::MetrePerSecond};
 
 // Physical dimension set of speed units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Speed>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Speed>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{1}}
 };
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Speed> ConsistentUnits<Unit::Speed>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Speed::MetrePerSecond     },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Speed::MillimetrePerSecond},
@@ -83,7 +85,7 @@ inline const std::map<UnitSystem, Unit::Speed> ConsistentUnits<Unit::Speed>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Speed::InchPerSecond      },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Speed, UnitSystem> RelatedUnitSystems<Unit::Speed>{
     {Unit::Speed::MetrePerSecond,      UnitSystem::MetreKilogramSecondKelvin },
     {Unit::Speed::MillimetrePerSecond, UnitSystem::MillimetreGramSecondKelvin},
@@ -91,7 +93,7 @@ inline const std::map<Unit::Speed, UnitSystem> RelatedUnitSystems<Unit::Speed>{
     {Unit::Speed::InchPerSecond,       UnitSystem::InchPoundSecondRankine    },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Speed, std::string_view> Abbreviations<Unit::Speed>{
     {Unit::Speed::MilePerSecond,       "mi/s"   },
     {Unit::Speed::MilePerMinute,       "mi/min" },
@@ -131,7 +133,7 @@ inline const std::map<Unit::Speed, std::string_view> Abbreviations<Unit::Speed>{
     {Unit::Speed::MicroinchPerHour,    "μin/hr" },
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<
     Unit::Speed>{
     {"mi/s",          Unit::Speed::MilePerSecond      },
@@ -187,512 +189,591 @@ inline const std::unordered_map<std::string_view, Unit::Speed> Spellings<
     {"uin/hr",        Unit::Speed::MicroinchPerHour   },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>(
     double& value) noexcept {
   value /= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::KilometrePerMinute>(
     double& value) noexcept {
   value *= 0.06;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::KilometrePerHour>(
     double& value) noexcept {
   value *= 3.6;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MetrePerMinute>(
     double& value) noexcept {
   value *= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MetrePerHour>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::YardPerSecond>(
     double& value) noexcept {
   value /= 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::YardPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::YardPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::FootPerSecond>(
     double& value) noexcept {
   value /= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::FootPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::FootPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>(
     double& value) noexcept {
   value *= 10.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::DecimetrePerMinute>(
     double& value) noexcept {
   value *= 600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::DecimetrePerHour>(
     double& value) noexcept {
   value *= 36000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::InchPerSecond>(
     double& value) noexcept {
   value /= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::InchPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::InchPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>(
     double& value) noexcept {
   value *= 100.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::CentimetrePerMinute>(
     double& value) noexcept {
   value *= 6000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::CentimetrePerHour>(
     double& value) noexcept {
   value *= 360000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MillimetrePerMinute>(
     double& value) noexcept {
   value *= 60000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MillimetrePerHour>(
     double& value) noexcept {
   value *= 3600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>(
     double& value) noexcept {
   value /= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilliinchPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MilliinchPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicrometrePerMinute>(
     double& value) noexcept {
   value *= 60000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicrometrePerHour>(
     double& value) noexcept {
   value *= 3600000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>(
     double& value) noexcept {
   value /= 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicroinchPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MicroinchPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilePerSecond>(
     double& value) noexcept {
   value *= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilePerMinute>(
     double& value) noexcept {
   value *= 1609.344 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilePerHour>(
     double& value) noexcept {
   value *= 1609.344 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::KilometrePerMinute>(
     double& value) noexcept {
   value *= 1000.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::KilometrePerHour>(
     double& value) noexcept {
   value *= 1000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MetrePerMinute>(
     double& value) noexcept {
   value /= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MetrePerHour>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::YardPerSecond>(
     double& value) noexcept {
   value *= 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::YardPerMinute>(
     double& value) noexcept {
   value *= 0.9144 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::YardPerHour>(
     double& value) noexcept {
   value *= 0.9144 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::FootPerSecond>(
     double& value) noexcept {
   value *= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::FootPerMinute>(
     double& value) noexcept {
   value *= 0.3048 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::FootPerHour>(
     double& value) noexcept {
   value *= 0.3048 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>(
     double& value) noexcept {
   value *= 0.1;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::DecimetrePerMinute>(
     double& value) noexcept {
   value /= 600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::DecimetrePerHour>(
     double& value) noexcept {
   value /= 36000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::InchPerSecond>(
     double& value) noexcept {
   value *= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::InchPerMinute>(
     double& value) noexcept {
   value *= 0.0254 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::InchPerHour>(
     double& value) noexcept {
   value *= 0.0254 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>(
     double& value) noexcept {
   value *= 0.01;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::CentimetrePerMinute>(
     double& value) noexcept {
   value /= 6000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::CentimetrePerHour>(
     double& value) noexcept {
   value /= 360000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MillimetrePerMinute>(
     double& value) noexcept {
   value /= 60000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MillimetrePerHour>(
     double& value) noexcept {
   value /= 3600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>(
     double& value) noexcept {
   value *= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilliinchPerMinute>(
     double& value) noexcept {
   value *= 0.0000254 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MilliinchPerHour>(
     double& value) noexcept {
   value *= 0.0000254 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicrometrePerMinute>(
     double& value) noexcept {
   value /= 60000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicrometrePerHour>(
     double& value) noexcept {
   value /= 3600000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>(
     double& value) noexcept {
   value *= 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicroinchPerMinute>(
     double& value) noexcept {
   value *= 0.0000000254 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MicroinchPerHour>(
     double& value) noexcept {
   value *= 0.0000000254 / 3600.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Speed, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Speed>{
         {Unit::Speed::MilePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerSecond>     },
         {Unit::Speed::MilePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerMinute>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerMinute>     },
         {Unit::Speed::MilePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerHour>        },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilePerHour>       },
         {Unit::Speed::KilometrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerSecond> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerSecond>},
         {Unit::Speed::KilometrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerMinute> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerMinute>},
         {Unit::Speed::KilometrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerHour>   },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::KilometrePerHour>  },
         {Unit::Speed::MetrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>     },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>    },
         {Unit::Speed::MetrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerMinute>     },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerMinute>    },
         {Unit::Speed::MetrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerHour>       },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MetrePerHour>      },
         {Unit::Speed::YardPerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerSecond>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerSecond>     },
         {Unit::Speed::YardPerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerMinute>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerMinute>     },
         {Unit::Speed::YardPerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerHour>        },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::YardPerHour>       },
         {Unit::Speed::FootPerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerSecond>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerSecond>     },
         {Unit::Speed::FootPerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerMinute>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerMinute>     },
         {Unit::Speed::FootPerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerHour>        },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::FootPerHour>       },
         {Unit::Speed::DecimetrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerSecond>},
         {Unit::Speed::DecimetrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerMinute> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerMinute>},
         {Unit::Speed::DecimetrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerHour>   },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::DecimetrePerHour>  },
         {Unit::Speed::InchPerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerSecond>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerSecond>     },
         {Unit::Speed::InchPerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerMinute>      },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerMinute>     },
         {Unit::Speed::InchPerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerHour>        },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::InchPerHour>       },
         {Unit::Speed::CentimetrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::CentimetrePerSecond>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::CentimetrePerSecond>                                    },
         {Unit::Speed::CentimetrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::CentimetrePerMinute>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::CentimetrePerMinute>                                    },
         {Unit::Speed::CentimetrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::CentimetrePerHour>  },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::CentimetrePerHour> },
         {Unit::Speed::MillimetrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MillimetrePerSecond>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::MillimetrePerSecond>                                    },
         {Unit::Speed::MillimetrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MillimetrePerMinute>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::MillimetrePerMinute>                                    },
         {Unit::Speed::MillimetrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MillimetrePerHour>  },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MillimetrePerHour> },
         {Unit::Speed::MilliinchPerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerSecond>},
         {Unit::Speed::MilliinchPerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerMinute> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerMinute>},
         {Unit::Speed::MilliinchPerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerHour>   },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MilliinchPerHour>  },
         {Unit::Speed::MicrometrePerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicrometrePerSecond>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::MicrometrePerSecond>                                    },
         {Unit::Speed::MicrometrePerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicrometrePerMinute>},
+         ConversionsFromStandard<Unit::Speed,
+         Unit::Speed::MicrometrePerMinute>                                    },
         {Unit::Speed::MicrometrePerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicrometrePerHour>  },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicrometrePerHour> },
         {Unit::Speed::MicroinchPerSecond,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerSecond>},
         {Unit::Speed::MicroinchPerMinute,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerMinute> },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerMinute>},
         {Unit::Speed::MicroinchPerHour,
-         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerHour>   },
+         ConversionsFromStandard<Unit::Speed, Unit::Speed::MicroinchPerHour>  },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Speed, std::function<void(double* const values,
                                                       const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Speed>{

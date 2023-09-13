@@ -35,7 +35,7 @@ public:
     return LameFirstModulus{0.0};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr LameFirstModulus Create(const double value) noexcept {
     return LameFirstModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -75,9 +75,13 @@ public:
     value_ -= lame_first_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr LameFirstModulus(const double value) noexcept
@@ -129,7 +133,8 @@ inline constexpr LameFirstModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::LameFirstModulus> {
+template <>
+struct hash<PhQ::LameFirstModulus> {
   inline size_t operator()(
       const PhQ::LameFirstModulus& lame_first_modulus) const {
     return hash<double>()(lame_first_modulus.Value());

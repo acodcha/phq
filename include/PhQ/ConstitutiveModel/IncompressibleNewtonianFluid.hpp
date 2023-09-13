@@ -148,7 +148,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::ConstitutiveModel::IncompressibleNewtonianFluid> {
+template <>
+struct hash<PhQ::ConstitutiveModel::IncompressibleNewtonianFluid> {
   size_t operator()(
       const PhQ::ConstitutiveModel::IncompressibleNewtonianFluid& model) const {
     return hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());

@@ -330,7 +330,9 @@ TEST(UnitEnergy, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Energy::BritishThermalUnit), std::nullopt);
 }
 
-TEST(UnitEnergy, Standard) { EXPECT_EQ(Standard<Energy>, Energy::Joule); }
+TEST(UnitEnergy, Standard) {
+  EXPECT_EQ(Standard<Energy>, Energy::Joule);
+}
 
 }  // namespace
 

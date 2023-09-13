@@ -33,12 +33,12 @@ enum class ThermalExpansion : int8_t {
 }  // namespace Unit
 
 // Standard thermal expansion unit: per kelvin.
-template<>
+template <>
 inline constexpr const Unit::ThermalExpansion Standard<Unit::ThermalExpansion>{
     Unit::ThermalExpansion::PerKelvin};
 
 // Physical dimension set of thermal expansion units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::ThermalExpansion>{
     Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
@@ -46,7 +46,7 @@ inline constexpr const Dimensions RelatedDimensions<Unit::ThermalExpansion>{
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::ThermalExpansion> ConsistentUnits<
     Unit::ThermalExpansion>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::ThermalExpansion::PerKelvin },
@@ -55,10 +55,12 @@ inline const std::map<UnitSystem, Unit::ThermalExpansion> ConsistentUnits<
     {UnitSystem::InchPoundSecondRankine,     Unit::ThermalExpansion::PerRankine},
 };
 
-template<> inline const std::map<Unit::ThermalExpansion, UnitSystem>
+template <>
+inline const std::map<Unit::ThermalExpansion, UnitSystem>
     RelatedUnitSystems<Unit::ThermalExpansion>{};
 
-template<> inline const std::map<Unit::ThermalExpansion, std::string_view>
+template <>
+inline const std::map<Unit::ThermalExpansion, std::string_view>
     Abbreviations<Unit::ThermalExpansion>{
         {Unit::ThermalExpansion::PerKelvin,     "1/K" },
         {Unit::ThermalExpansion::PerCelsius,    "1/°C"},
@@ -66,7 +68,7 @@ template<> inline const std::map<Unit::ThermalExpansion, std::string_view>
         {Unit::ThermalExpansion::PerFahrenheit, "1/°F"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
     Spellings<Unit::ThermalExpansion>{
         {"1/K",    Unit::ThermalExpansion::PerKelvin    },
@@ -95,52 +97,60 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
         {"/degF",  Unit::ThermalExpansion::PerFahrenheit},
 };
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerKelvin>(
+template <>
+inline constexpr void ConversionFromStandard<Unit::ThermalExpansion,
+                                             Unit::ThermalExpansion::PerKelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::ThermalExpansion,
                        Unit::ThermalExpansion::PerCelsius>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::ThermalExpansion,
                        Unit::ThermalExpansion::PerRankine>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::ThermalExpansion,
                        Unit::ThermalExpansion::PerFahrenheit>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(
+template <>
+inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
+                                           Unit::ThermalExpansion::PerCelsius>(
     double& value) noexcept {}
 
-template<> inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
+template <>
+inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
+                                           Unit::ThermalExpansion::PerRankine>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::ThermalExpansion,
                      Unit::ThermalExpansion::PerFahrenheit>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::ThermalExpansion,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::ThermalExpansion>{
@@ -158,7 +168,8 @@ template<> inline const std::map<
          Unit::ThermalExpansion::PerFahrenheit>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::ThermalExpansion,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ThermalExpansion>{

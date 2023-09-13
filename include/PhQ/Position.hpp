@@ -38,13 +38,15 @@ public:
     return Position{Value::Vector::Zero()};
   }
 
-  template<Unit::Length Unit>
+  template <Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) noexcept {
     return Position{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  Length Magnitude() const noexcept { return {*this}; }
+  Length Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const Position& position) const noexcept {
     return {*this, position};
@@ -92,9 +94,13 @@ public:
     value_ -= displacement.Value();
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Position(const Value::Vector& value) noexcept
@@ -181,7 +187,8 @@ inline constexpr Position Length::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Position> {
+template <>
+struct hash<PhQ::Position> {
   inline size_t operator()(const PhQ::Position& position) const {
     return hash<PhQ::Value::Vector>()(position.Value());
   }

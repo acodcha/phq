@@ -44,7 +44,8 @@ public:
     return TemperatureGradient{Value::Vector::Zero()};
   }
 
-  template<Unit::TemperatureGradient Unit> static constexpr TemperatureGradient
+  template <Unit::TemperatureGradient Unit>
+  static constexpr TemperatureGradient
   Create(const Value::Vector& value) noexcept {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit,
@@ -88,9 +89,13 @@ public:
     value_ -= temperature_gradient.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TemperatureGradient(const Value::Vector& value) noexcept
@@ -167,7 +172,8 @@ inline constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::TemperatureGradient> {
+template <>
+struct hash<PhQ::TemperatureGradient> {
   inline size_t operator()(
       const PhQ::TemperatureGradient& temperature_gradient) const {
     return hash<PhQ::Value::Vector>()(temperature_gradient.Value());

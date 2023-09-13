@@ -36,19 +36,21 @@ enum class TemperatureDifference : int8_t {
 }  // namespace Unit
 
 // Standard temperature difference unit: kelvin.
-template<> inline constexpr const Unit::TemperatureDifference
+template <>
+inline constexpr const Unit::TemperatureDifference
     Standard<Unit::TemperatureDifference>{Unit::TemperatureDifference::Kelvin};
 
 // Physical dimension set of temperature difference units.
-template<>
-inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureDifference>{
-    Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-               Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
+template <>
+inline constexpr const Dimensions
+    RelatedDimensions<Unit::TemperatureDifference>{
+        Dimensions{Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                   Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::TemperatureDifference> ConsistentUnits<
     Unit::TemperatureDifference>{
     {UnitSystem::MetreKilogramSecondKelvin,
@@ -59,10 +61,12 @@ inline const std::map<UnitSystem, Unit::TemperatureDifference> ConsistentUnits<
     {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureDifference::Rankine},
 };
 
-template<> inline const std::map<Unit::TemperatureDifference, UnitSystem>
+template <>
+inline const std::map<Unit::TemperatureDifference, UnitSystem>
     RelatedUnitSystems<Unit::TemperatureDifference>{};
 
-template<> inline const std::map<Unit::TemperatureDifference, std::string_view>
+template <>
+inline const std::map<Unit::TemperatureDifference, std::string_view>
     Abbreviations<Unit::TemperatureDifference>{
         {Unit::TemperatureDifference::Kelvin,     "K" },
         {Unit::TemperatureDifference::Celsius,    "°C"},
@@ -70,7 +74,7 @@ template<> inline const std::map<Unit::TemperatureDifference, std::string_view>
         {Unit::TemperatureDifference::Fahrenheit, "°F"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
     Spellings<Unit::TemperatureDifference>{
         {"K",    Unit::TemperatureDifference::Kelvin    },
@@ -87,55 +91,63 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
         {"degF", Unit::TemperatureDifference::Fahrenheit},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
                        Unit::TemperatureDifference::Kelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
                        Unit::TemperatureDifference::Celsius>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
                        Unit::TemperatureDifference::Rankine>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
                        Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
   value *= 1.8;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::TemperatureDifference,
-                     Unit::TemperatureDifference::Kelvin>(
+template <>
+inline constexpr void ConversionToStandard<Unit::TemperatureDifference,
+                                           Unit::TemperatureDifference::Kelvin>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::TemperatureDifference,
                      Unit::TemperatureDifference::Celsius>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::TemperatureDifference,
                      Unit::TemperatureDifference::Rankine>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::TemperatureDifference,
                      Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
   value /= 1.8;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::TemperatureDifference,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TemperatureDifference>{
@@ -153,7 +165,8 @@ template<> inline const std::map<
          Unit::TemperatureDifference::Fahrenheit>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::TemperatureDifference,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TemperatureDifference>{

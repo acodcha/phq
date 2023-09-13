@@ -115,7 +115,9 @@ TEST(UnitMass, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Mass::Pound), std::nullopt);
 }
 
-TEST(UnitMass, Standard) { EXPECT_EQ(Standard<Mass>, Mass::Kilogram); }
+TEST(UnitMass, Standard) {
+  EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
+}
 
 }  // namespace
 

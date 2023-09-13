@@ -30,14 +30,20 @@ public:
   // Physical dimension set of this dimensionless physical quantity. Since this
   // physical quantity is dimensionless, its physical dimension set is simply
   // the null set.
-  static constexpr const PhQ::Dimensions Dimensions() noexcept { return {}; }
+  static constexpr const PhQ::Dimensions Dimensions() noexcept {
+    return {};
+  }
 
   // Value of this dimensionless physical quantity.
-  constexpr const Value::Vector& Value() const noexcept { return value_; }
+  constexpr const Value::Vector& Value() const noexcept {
+    return value_;
+  }
 
   // Returns the value of this dimensionless physical quantity as a mutable
   // value.
-  constexpr Value::Vector& MutableValue() noexcept { return value_; }
+  constexpr Value::Vector& MutableValue() noexcept {
+    return value_;
+  }
 
   // Sets the value of this dimensionless physical quantity to the given value.
   constexpr void SetValue(const Value::Vector& value) noexcept {
@@ -46,7 +52,9 @@ public:
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to double floating point precision.
-  std::string Print() const noexcept { return value_.Print(); }
+  std::string Print() const noexcept {
+    return value_.Print();
+  }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to the given floating point precision.
@@ -55,13 +63,19 @@ public:
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
-  std::string JSON() const noexcept { return value_.JSON(); }
+  std::string JSON() const noexcept {
+    return value_.JSON();
+  }
 
   // Serializes this dimensionless physical quantity as an XML message.
-  std::string XML() const noexcept { return value_.XML(); }
+  std::string XML() const noexcept {
+    return value_.XML();
+  }
 
   // Serializes this dimensionless physical quantity as a YAML message.
-  std::string YAML() const noexcept { return value_.YAML(); }
+  std::string YAML() const noexcept {
+    return value_.YAML();
+  }
 
 protected:
   // Default constructor. Constructs a dimensionless vector physical quantity
@@ -80,9 +94,13 @@ protected:
   // Default destructor. Destroys this dimensionless vector physical quantity.
   ~DimensionlessVectorQuantity() noexcept = default;
 
-  void operator=(const Value::Vector& value) noexcept { value_ = value; }
+  void operator=(const Value::Vector& value) noexcept {
+    value_ = value;
+  }
 
-  void operator=(Value::Vector&& value) noexcept { value_ = std::move(value); }
+  void operator=(Value::Vector&& value) noexcept {
+    value_ = std::move(value);
+  }
 
   Value::Vector value_;
 };
@@ -98,7 +116,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::DimensionlessVectorQuantity> {
+template <>
+struct hash<PhQ::DimensionlessVectorQuantity> {
   inline size_t operator()(
       const PhQ::DimensionlessVectorQuantity& quantity) const {
     return hash<PhQ::Value::Vector>()(quantity.Value());

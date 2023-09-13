@@ -37,7 +37,7 @@ public:
     return BulkDynamicViscosity{0.0};
   }
 
-  template<Unit::DynamicViscosity Unit>
+  template <Unit::DynamicViscosity Unit>
   static constexpr BulkDynamicViscosity Create(const double value) noexcept {
     return BulkDynamicViscosity{
         StaticConvertCopy<Unit::DynamicViscosity, Unit,
@@ -77,9 +77,13 @@ public:
     value_ -= bulk_dynamic_viscosity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr BulkDynamicViscosity(const double value) noexcept
@@ -131,7 +135,8 @@ inline constexpr BulkDynamicViscosity operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::BulkDynamicViscosity> {
+template <>
+struct hash<PhQ::BulkDynamicViscosity> {
   inline size_t operator()(
       const PhQ::BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return hash<double>()(bulk_dynamic_viscosity.Value());

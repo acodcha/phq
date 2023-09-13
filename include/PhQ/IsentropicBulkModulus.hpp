@@ -41,7 +41,7 @@ public:
     return IsentropicBulkModulus{0.0};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) noexcept {
     return IsentropicBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -83,9 +83,13 @@ public:
     value_ -= isentropic_bulk_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr IsentropicBulkModulus(const double value) noexcept
@@ -139,7 +143,8 @@ inline constexpr IsentropicBulkModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::IsentropicBulkModulus> {
+template <>
+struct hash<PhQ::IsentropicBulkModulus> {
   inline size_t operator()(
       const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return hash<double>()(isentropic_bulk_modulus.Value());

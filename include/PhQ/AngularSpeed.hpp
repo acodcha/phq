@@ -51,9 +51,11 @@ public:
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Frequency& frequency) noexcept;
 
-  static constexpr AngularSpeed Zero() noexcept { return AngularSpeed{0.0}; }
+  static constexpr AngularSpeed Zero() noexcept {
+    return AngularSpeed{0.0};
+  }
 
-  template<Unit::AngularSpeed Unit>
+  template <Unit::AngularSpeed Unit>
   static constexpr AngularSpeed Create(const double value) noexcept {
     return AngularSpeed{StaticConvertCopy<Unit::AngularSpeed, Unit,
                                           Standard<Unit::AngularSpeed>>(value)};
@@ -111,9 +113,13 @@ public:
     value_ -= angular_speed.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr AngularSpeed(const double value) noexcept
@@ -201,7 +207,8 @@ inline constexpr Time Angle::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::AngularSpeed> {
+template <>
+struct hash<PhQ::AngularSpeed> {
   inline size_t operator()(const PhQ::AngularSpeed& angular_speed) const {
     return hash<double>()(angular_speed.Value());
   }

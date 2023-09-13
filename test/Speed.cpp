@@ -160,7 +160,9 @@ TEST(Speed, Stream) {
   EXPECT_EQ(stream.str(), speed.Print());
 }
 
-TEST(Speed, Unit) { EXPECT_EQ(Speed::Unit(), Standard<Unit::Speed>); }
+TEST(Speed, Unit) {
+  EXPECT_EQ(Speed::Unit(), Standard<Unit::Speed>);
+}
 
 TEST(Speed, XML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).XML(),

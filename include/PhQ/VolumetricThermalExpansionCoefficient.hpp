@@ -37,7 +37,7 @@ public:
     return VolumetricThermalExpansionCoefficient{0.0};
   }
 
-  template<Unit::ThermalExpansion Unit>
+  template <Unit::ThermalExpansion Unit>
   static constexpr VolumetricThermalExpansionCoefficient
   Create(const double value) noexcept {
     return VolumetricThermalExpansionCoefficient{
@@ -92,9 +92,13 @@ public:
     value_ -= volumetric_thermal_expansion_coefficient.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr VolumetricThermalExpansionCoefficient(
@@ -163,7 +167,8 @@ inline constexpr VolumetricThermalExpansionCoefficient operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
+template <>
+struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
   inline size_t operator()(const PhQ::VolumetricThermalExpansionCoefficient&
                                volumetric_thermal_expansion_coefficient) const {
     return hash<double>()(volumetric_thermal_expansion_coefficient.Value());

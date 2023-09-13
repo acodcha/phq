@@ -44,15 +44,19 @@ public:
     return Force{Value::Vector::Zero()};
   }
 
-  template<Unit::Force Unit>
+  template <Unit::Force Unit>
   static constexpr Force Create(const Value::Vector& value) noexcept {
     return Force{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  ForceMagnitude Magnitude() const noexcept { return {*this}; }
+  ForceMagnitude Magnitude() const noexcept {
+    return {*this};
+  }
 
-  PhQ::Angle Angle(const Force& force) const noexcept { return {*this, force}; }
+  PhQ::Angle Angle(const Force& force) const noexcept {
+    return {*this, force};
+  }
 
   constexpr Force operator+(const Force& force) const noexcept {
     return Force{value_ + force.value_};
@@ -80,9 +84,13 @@ public:
     value_ -= force.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Force(const Value::Vector& value) noexcept
@@ -153,7 +161,8 @@ inline constexpr Force ForceMagnitude::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Force> {
+template <>
+struct hash<PhQ::Force> {
   inline size_t operator()(const PhQ::Force& force) const {
     return hash<PhQ::Value::Vector>()(force.Value());
   }

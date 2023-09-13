@@ -145,14 +145,16 @@ TEST(Area, Stream) {
   EXPECT_EQ(stream.str(), area.Print());
 }
 
-TEST(Area, Unit) { EXPECT_EQ(Area::Unit(), Standard<Unit::Area>); }
+TEST(Area, Unit) {
+  EXPECT_EQ(Area::Unit(), Standard<Unit::Area>);
+}
 
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
             "<value>1.110000000000000</value><unit>m^2</unit>");
-  EXPECT_EQ(
-      Area(-5.0, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
-      "<value>-5.000000000000000</value><unit>mm^2</unit>");
+  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
+                .XML(Unit::Area::SquareMillimetre),
+            "<value>-5.000000000000000</value><unit>mm^2</unit>");
 }
 
 TEST(Area, YAML) {

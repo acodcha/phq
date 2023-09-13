@@ -51,16 +51,16 @@ enum class Memory : int8_t {
 }  // namespace Unit
 
 // Standard computer memory unit: bit.
-template<>
+template <>
 inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 
 // Physical dimension set of computer memory units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensions{}};
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Memory> ConsistentUnits<Unit::Memory>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Memory::Bit},
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Memory::Bit},
@@ -68,10 +68,12 @@ inline const std::map<UnitSystem, Unit::Memory> ConsistentUnits<Unit::Memory>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Memory::Bit},
 };
 
-template<> inline const std::map<Unit::Memory, UnitSystem>
+template <>
+inline const std::map<Unit::Memory, UnitSystem>
     RelatedUnitSystems<Unit::Memory>{};
 
-template<> inline const std::map<Unit::Memory, std::string_view>
+template <>
+inline const std::map<Unit::Memory, std::string_view>
     Abbreviations<Unit::Memory>{
         {Unit::Memory::Bit,      "b"  },
         {Unit::Memory::Byte,     "B"  },
@@ -97,7 +99,7 @@ template<> inline const std::map<Unit::Memory, std::string_view>
         {Unit::Memory::Pebibyte, "PiB"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::Memory> Spellings<
     Unit::Memory>{
     {"b",         Unit::Memory::Bit     },
@@ -168,265 +170,298 @@ inline const std::unordered_map<std::string_view, Unit::Memory> Spellings<
     {"pebibytes", Unit::Memory::Pebibyte},
 };
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(
     double& value) noexcept {}
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Byte>(
     double& value) noexcept {
   value *= 0.125;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobit>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibit>(
     double& value) noexcept {
   value /= 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kilobyte>(
     double& value) noexcept {
   value /= 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Kibibyte>(
     double& value) noexcept {
   value /= 8.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Megabit>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibit>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Megabyte>(
     double& value) noexcept {
   value /= 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Mebibyte>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabit>(
     double& value) noexcept {
   value *= 1.0e-9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibit>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gigabyte>(
     double& value) noexcept {
   value /= 8.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Gibibyte>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Terabit>(
     double& value) noexcept {
   value *= 1.0e-12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibit>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Terabyte>(
     double& value) noexcept {
   value /= 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Tebibyte>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Petabit>(
     double& value) noexcept {
   value *= 1.0e-15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibit>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Petabyte>(
     double& value) noexcept {
   value /= 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibyte>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Bit>(double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Byte>(double& value) noexcept {
   value *= 8.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Kilobit>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Kibibit>(
     double& value) noexcept {
   value *= 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Kilobyte>(
     double& value) noexcept {
   value *= 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Kibibyte>(
     double& value) noexcept {
   value *= 8.0 * 1024.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Megabit>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Mebibit>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Megabyte>(
     double& value) noexcept {
   value *= 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Mebibyte>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gigabit>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Gibibit>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Gigabyte>(
     double& value) noexcept {
   value *= 8.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Gibibyte>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Terabit>(
     double& value) noexcept {
   value *= 1.0e12;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Tebibit>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Terabyte>(
     double& value) noexcept {
   value *= 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Tebibyte>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Petabit>(
     double& value) noexcept {
   value *= 1.0e15;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Memory, Unit::Memory::Pebibit>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Petabyte>(
     double& value) noexcept {
   value *= 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Memory, Unit::Memory::Pebibyte>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Memory, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Memory>{
         {Unit::Memory::Bit,
@@ -475,7 +510,7 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Memory, Unit::Memory::Pebibyte>},
 };
 
-template<>
+template <>
 inline const std::map<Unit::Memory, std::function<void(double* const values,
                                                        const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Memory>{

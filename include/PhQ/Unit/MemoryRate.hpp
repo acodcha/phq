@@ -95,17 +95,19 @@ enum class MemoryRate : int8_t {
 }  // namespace Unit
 
 // Standard time rate of computer memory unit: bit per second.
-template<> inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{
+template <>
+inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{
     Unit::MemoryRate::BitPerSecond};
 
 // Physical dimension set of time rate of computer memory units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MemoryRate>{
     Dimensions{Dimension::Time{-1}}};
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::MemoryRate>
+template <>
+inline const std::map<UnitSystem, Unit::MemoryRate>
     ConsistentUnits<Unit::MemoryRate>{
         {UnitSystem::MetreKilogramSecondKelvin,  Unit::MemoryRate::BitPerSecond},
         {UnitSystem::MillimetreGramSecondKelvin,
@@ -114,10 +116,11 @@ template<> inline const std::map<UnitSystem, Unit::MemoryRate>
         {UnitSystem::InchPoundSecondRankine,     Unit::MemoryRate::BitPerSecond},
 };
 
-template<> inline const std::map<Unit::MemoryRate, UnitSystem>
+template <>
+inline const std::map<Unit::MemoryRate, UnitSystem>
     RelatedUnitSystems<Unit::MemoryRate>{};
 
-template<>
+template <>
 inline const std::map<Unit::MemoryRate, std::string_view> Abbreviations<
     Unit::MemoryRate>{
     {Unit::MemoryRate::BitPerSecond,      "b/s"    },
@@ -188,7 +191,7 @@ inline const std::map<Unit::MemoryRate, std::string_view> Abbreviations<
     {Unit::MemoryRate::PebibytePerHour,   "PiB/hr" },
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::MemoryRate> Spellings<
     Unit::MemoryRate>{
     {"b/s",     Unit::MemoryRate::BitPerSecond     },
@@ -259,795 +262,928 @@ inline const std::unordered_map<std::string_view, Unit::MemoryRate> Spellings<
     {"PiB/hr",  Unit::MemoryRate::PebibytePerHour  },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>(
     double& value) noexcept {
   value *= 0.125;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>(
     double& value) noexcept {
   value /= 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>(
     double& value) noexcept {
   value /= 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>(
     double& value) noexcept {
   value /= 8.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>(
     double& value) noexcept {
   value /= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>(
     double& value) noexcept {
   value /= 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>(
     double& value) noexcept {
   value /= 1.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>(
     double& value) noexcept {
   value /= 8.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>(
     double& value) noexcept {
   value /= 1.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>(
     double& value) noexcept {
   value /= 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>(
     double& value) noexcept {
   value /= 1.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>(
     double& value) noexcept {
   value /= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>(
     double& value) noexcept {
   value /= 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>(
     double& value) noexcept {
   value /= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>(
     double& value) noexcept {
   value *= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 8.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / (1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / (1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0e9);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / (1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 1.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>(
     double& value) noexcept {
   value *= 60.0 / (1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>(
     double& value) noexcept {
   value *= 60.0 / (8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 8.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / (1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / (1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0e9);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / (1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 1.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerHour>(
     double& value) noexcept {
   value *= 3600.0 / (1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>(
     double& value) noexcept {
   value *= 3600.0 / (8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerSecond>(
     double& value) noexcept {
   value *= 8.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerSecond>(
     double& value) noexcept {
   value *= 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerSecond>(
     double& value) noexcept {
   value *= 8000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerSecond>(
     double& value) noexcept {
   value *= 8.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerSecond>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerSecond>(
     double& value) noexcept {
   value *= 8000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerSecond>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerSecond>(
     double& value) noexcept {
   value *= 1.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerSecond>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerSecond>(
     double& value) noexcept {
   value *= 8.0e9;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerSecond>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerSecond>(
     double& value) noexcept {
   value *= 1.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerSecond>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerSecond>(
     double& value) noexcept {
   value *= 8.0e12;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerSecond>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerSecond>(
     double& value) noexcept {
   value *= 1.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerSecond>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerSecond>(
     double& value) noexcept {
   value *= 8.0e15;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerSecond>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerMinute>(
     double& value) noexcept {
   value /= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerMinute>(
     double& value) noexcept {
   value *= 8.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerMinute>(
     double& value) noexcept {
   value *= 1000.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerMinute>(
     double& value) noexcept {
   value *= 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerMinute>(
     double& value) noexcept {
   value *= 8000.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerMinute>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerMinute>(
     double& value) noexcept {
   value *= 1000000.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerMinute>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerMinute>(
     double& value) noexcept {
   value *= 8000000.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerMinute>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerMinute>(
     double& value) noexcept {
   value *= 1.0e9 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerMinute>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerMinute>(
     double& value) noexcept {
   value *= 8.0e9 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerMinute>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerMinute>(
     double& value) noexcept {
   value *= 1.0e12 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerMinute>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerMinute>(
     double& value) noexcept {
   value *= 8.0e12 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerMinute>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerMinute>(
     double& value) noexcept {
   value *= 1.0e15 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerMinute>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerMinute>(
     double& value) noexcept {
   value *= 8.0e15 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerMinute>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerHour>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BytePerHour>(
     double& value) noexcept {
   value *= 8.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobitPerHour>(
     double& value) noexcept {
   value *= 1000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibitPerHour>(
     double& value) noexcept {
   value *= 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KilobytePerHour>(
     double& value) noexcept {
   value *= 8000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::KibibytePerHour>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabitPerHour>(
     double& value) noexcept {
   value *= 1000000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibitPerHour>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MegabytePerHour>(
     double& value) noexcept {
   value *= 8000000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::MebibytePerHour>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabitPerHour>(
     double& value) noexcept {
   value *= 1.0e9 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibitPerHour>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GigabytePerHour>(
     double& value) noexcept {
   value *= 8.0e9 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::GibibytePerHour>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabitPerHour>(
     double& value) noexcept {
   value *= 1.0e12 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibitPerHour>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TerabytePerHour>(
     double& value) noexcept {
   value *= 8.0e12 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::TebibytePerHour>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabitPerHour>(
     double& value) noexcept {
   value *= 1.0e15 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibitPerHour>(
     double& value) noexcept {
   value *= 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PetabytePerHour>(
     double& value) noexcept {
   value *= 8.0e15 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>(
     double& value) noexcept {
   value *= 8.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 * 1024.0 / 3600.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MemoryRate,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::MemoryRate>{
@@ -1251,7 +1387,8 @@ template<> inline const std::map<
          Unit::MemoryRate::PebibytePerHour>  },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MemoryRate,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::MemoryRate>{

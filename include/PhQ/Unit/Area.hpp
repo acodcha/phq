@@ -43,17 +43,18 @@ enum class Area : int8_t {
 }  // namespace Unit
 
 // Standard area unit: square metre.
-template<>
+template <>
 inline constexpr const Unit::Area Standard<Unit::Area>{Unit::Area::SquareMetre};
 
 // Physical dimension set of area units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Area>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Area>{
     Dimensions{Dimension::Time{0}, Dimension::Length{2}}
 };
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Area> ConsistentUnits<Unit::Area>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Area::SquareMetre     },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Area::SquareMillimetre},
@@ -61,7 +62,7 @@ inline const std::map<UnitSystem, Unit::Area> ConsistentUnits<Unit::Area>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Area::SquareInch      },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
     {Unit::Area::SquareMetre,      UnitSystem::MetreKilogramSecondKelvin },
     {Unit::Area::SquareMillimetre, UnitSystem::MillimetreGramSecondKelvin},
@@ -69,7 +70,7 @@ inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
     {Unit::Area::SquareInch,       UnitSystem::InchPoundSecondRankine    },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
     {Unit::Area::SquareMile,       "mi^2" },
     {Unit::Area::SquareKilometre,  "km^2" },
@@ -87,7 +88,8 @@ inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
     {Unit::Area::SquareMicroinch,  "μin^2"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Area>
+template <>
+inline const std::unordered_map<std::string_view, Unit::Area>
     Spellings<Unit::Area>{
         {"mi^2",        Unit::Area::SquareMile      },
         {"mi2",         Unit::Area::SquareMile      },
@@ -127,168 +129,191 @@ template<> inline const std::unordered_map<std::string_view, Unit::Area>
         {"uin2",        Unit::Area::SquareMicroinch },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
   value /= 1609.344 * 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Hectare>(
     double& value) noexcept {
   value *= 0.0001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
   value *= 640.0 / (1609.344 * 1609.344);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
   value /= 0.9144 * 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
   value /= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
   value *= 100.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
   value /= 0.0254 * 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
   value *= 10000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
   value /= 0.0000254 * 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
   value *= 1000000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
   value /= 0.0000000254 * 0.0000000254;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
   value *= 1609.344 * 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareKilometre>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::Hectare>(double& value) noexcept {
   value *= 10000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
   value *= 1609.344 * 1609.344 / 640.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
     double& value) noexcept {}
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
   value *= 0.9144 * 0.9144;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareDecimetre>(
     double& value) noexcept {
   value *= 0.01;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareCentimetre>(
     double& value) noexcept {
   value *= 0.0001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMillimetre>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
   value *= 0.0000254 * 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicrometre>(
     double& value) noexcept {
   value *= 0.000000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
   value *= 0.0000000254 * 0.0000000254;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Area, std::function<void(double* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Area>{
         {Unit::Area::SquareMile,
@@ -321,7 +346,8 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Area, Unit::Area::SquareMicroinch> },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Area, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Area>{
         {Unit::Area::SquareMile,

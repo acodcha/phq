@@ -21,9 +21,13 @@
 
 namespace PhQ {
 
-// Forward declarations for class ForceMagnitude.
+// Forward declaration for class ForceMagnitude.
 class Direction;
+
+// Forward declaration for class ForceMagnitude.
 class Force;
+
+// Forward declaration for class ForceMagnitude.
 class StaticPressure;
 
 // Force scalar. Magnitude of the force vector.
@@ -44,7 +48,7 @@ public:
     return ForceMagnitude{0.0};
   }
 
-  template<Unit::Force Unit>
+  template <Unit::Force Unit>
   static constexpr ForceMagnitude Create(const double value) noexcept {
     return ForceMagnitude{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
@@ -85,9 +89,13 @@ public:
     value_ -= force_magnitude.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr ForceMagnitude(const double value) noexcept
@@ -139,7 +147,8 @@ inline constexpr ForceMagnitude operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::ForceMagnitude> {
+template <>
+struct hash<PhQ::ForceMagnitude> {
   inline size_t operator()(const PhQ::ForceMagnitude& force_magnitude) const {
     return hash<double>()(force_magnitude.Value());
   }

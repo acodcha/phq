@@ -65,19 +65,20 @@ enum class Acceleration : int8_t {
 }  // namespace Unit
 
 // Standard acceleration unit: metre per square second.
-template<>
+template <>
 inline constexpr const Unit::Acceleration Standard<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};
 
 // Physical dimension set of acceleration units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Acceleration>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::Acceleration>
+template <>
+inline const std::map<UnitSystem, Unit::Acceleration>
     ConsistentUnits<Unit::Acceleration>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::Acceleration::MetrePerSquareSecond     },
@@ -89,7 +90,8 @@ template<> inline const std::map<UnitSystem, Unit::Acceleration>
          Unit::Acceleration::InchPerSquareSecond      },
 };
 
-template<> inline const std::map<Unit::Acceleration, UnitSystem>
+template <>
+inline const std::map<Unit::Acceleration, UnitSystem>
     RelatedUnitSystems<Unit::Acceleration>{
         {Unit::Acceleration::MetrePerSquareSecond,
          UnitSystem::MetreKilogramSecondKelvin },
@@ -101,7 +103,8 @@ template<> inline const std::map<Unit::Acceleration, UnitSystem>
          UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::Acceleration, std::string_view>
+template <>
+inline const std::map<Unit::Acceleration, std::string_view>
     Abbreviations<Unit::Acceleration>{
         {Unit::Acceleration::MilePerSquareSecond,       "mi/s^2"   },
         {Unit::Acceleration::MilePerSquareMinute,       "mi/min^2" },
@@ -141,7 +144,7 @@ template<> inline const std::map<Unit::Acceleration, std::string_view>
         {Unit::Acceleration::MicroinchPerSquareHour,    "μin/hr^2" },
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
     Unit::Acceleration>{
     {"mi/s^2",            Unit::Acceleration::MilePerSquareSecond      },
@@ -299,502 +302,576 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
     {"uin/hr/hr",         Unit::Acceleration::MicroinchPerSquareHour   },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilePerSquareSecond>(
     double& value) noexcept {
   value /= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilePerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilePerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::KilometrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::KilometrePerSquareMinute>(
     double& value) noexcept {
   value *= 3.6;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::KilometrePerSquareHour>(
     double& value) noexcept {
   value *= 12960.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MetrePerSquareSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MetrePerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MetrePerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::YardPerSquareSecond>(
     double& value) noexcept {
   value /= 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::YardPerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::YardPerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::FootPerSquareSecond>(
     double& value) noexcept {
   value /= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::FootPerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::FootPerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::DecimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 10.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::DecimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 36000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::DecimetrePerSquareHour>(
     double& value) noexcept {
   value *= 129600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::InchPerSquareSecond>(
     double& value) noexcept {
   value /= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::InchPerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::InchPerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::CentimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 100.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::CentimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 360000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::CentimetrePerSquareHour>(
     double& value) noexcept {
   value *= 1296000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MillimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MillimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 3600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MillimetrePerSquareHour>(
     double& value) noexcept {
   value *= 12960000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilliinchPerSquareSecond>(
     double& value) noexcept {
   value /= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilliinchPerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MilliinchPerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicrometrePerSquareSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicrometrePerSquareMinute>(
     double& value) noexcept {
   value *= 3600000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicrometrePerSquareHour>(
     double& value) noexcept {
   value *= 12960000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicroinchPerSquareSecond>(
     double& value) noexcept {
   value /= 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicroinchPerSquareMinute>(
     double& value) noexcept {
   value *= 3600.0 / 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MicroinchPerSquareHour>(
     double& value) noexcept {
   value *= 12960000.0 / 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilePerSquareSecond>(
     double& value) noexcept {
   value *= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilePerSquareMinute>(
     double& value) noexcept {
   value *= 1609.344 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>(
     double& value) noexcept {
   value *= 1609.344 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::KilometrePerSquareSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::KilometrePerSquareMinute>(
     double& value) noexcept {
   value *= 1000.0 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::KilometrePerSquareHour>(
     double& value) noexcept {
   value *= 1000.0 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MetrePerSquareSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MetrePerSquareMinute>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Acceleration,
+                     Unit::Acceleration::MetrePerSquareHour>(
     double& value) noexcept {
   value /= 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::YardPerSquareSecond>(
     double& value) noexcept {
   value *= 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::YardPerSquareMinute>(
     double& value) noexcept {
   value *= 0.9144 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>(
     double& value) noexcept {
   value *= 0.9144 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::FootPerSquareSecond>(
     double& value) noexcept {
   value *= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::FootPerSquareMinute>(
     double& value) noexcept {
   value *= 0.3048 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>(
     double& value) noexcept {
   value *= 0.3048 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::DecimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.1;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::DecimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 0.1 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::DecimetrePerSquareHour>(
     double& value) noexcept {
   value *= 0.1 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::InchPerSquareSecond>(
     double& value) noexcept {
   value *= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::InchPerSquareMinute>(
     double& value) noexcept {
   value *= 0.0254 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>(
     double& value) noexcept {
   value *= 0.0254 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::CentimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.01;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::CentimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 0.01 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::CentimetrePerSquareHour>(
     double& value) noexcept {
   value *= 0.01 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MillimetrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MillimetrePerSquareMinute>(
     double& value) noexcept {
   value *= 0.001 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MillimetrePerSquareHour>(
     double& value) noexcept {
   value *= 0.001 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilliinchPerSquareSecond>(
     double& value) noexcept {
   value *= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilliinchPerSquareMinute>(
     double& value) noexcept {
   value *= 0.0000254 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MilliinchPerSquareHour>(
     double& value) noexcept {
   value *= 0.0000254 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicrometrePerSquareSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicrometrePerSquareMinute>(
     double& value) noexcept {
   value *= 0.000001 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicrometrePerSquareHour>(
     double& value) noexcept {
   value *= 0.000001 / 12960000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicroinchPerSquareSecond>(
     double& value) noexcept {
   value *= 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicroinchPerSquareMinute>(
     double& value) noexcept {
   value *= 0.0000000254 / 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MicroinchPerSquareHour>(
     double& value) noexcept {
   value *= 0.0000000254 / 12960000.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Acceleration,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Acceleration>{
@@ -862,19 +939,23 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::InchPerSquareHour>        },
         {Unit::Acceleration::CentimetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::CentimetrePerSquareSecond>},
         {Unit::Acceleration::CentimetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::CentimetrePerSquareMinute>},
         {Unit::Acceleration::CentimetrePerSquareHour,
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::CentimetrePerSquareHour>  },
         {Unit::Acceleration::MillimetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::MillimetrePerSquareSecond>},
         {Unit::Acceleration::MillimetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::MillimetrePerSquareMinute>},
         {Unit::Acceleration::MillimetrePerSquareHour,
          ConversionsFromStandard<Unit::Acceleration,
@@ -889,10 +970,12 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Acceleration,
          Unit::Acceleration::MilliinchPerSquareHour>   },
         {Unit::Acceleration::MicrometrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::MicrometrePerSquareSecond>},
         {Unit::Acceleration::MicrometrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration,
+         ConversionsFromStandard<
+             Unit::Acceleration,
          Unit::Acceleration::MicrometrePerSquareMinute>},
         {Unit::Acceleration::MicrometrePerSquareHour,
          ConversionsFromStandard<Unit::Acceleration,
@@ -908,7 +991,8 @@ template<> inline const std::map<
          Unit::Acceleration::MicroinchPerSquareHour>   },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Acceleration,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Acceleration>{

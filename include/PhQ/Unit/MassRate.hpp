@@ -44,17 +44,20 @@ enum class MassRate : int8_t {
 }  // namespace Unit
 
 // Standard time rate of mass unit: kilogram per second.
-template<> inline constexpr const Unit::MassRate Standard<Unit::MassRate>{
+template <>
+inline constexpr const Unit::MassRate Standard<Unit::MassRate>{
     Unit::MassRate::KilogramPerSecond};
 
 // Physical dimension set of time rate of mass units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::MassRate>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::MassRate>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::MassRate>
+template <>
+inline const std::map<UnitSystem, Unit::MassRate>
     ConsistentUnits<Unit::MassRate>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::MassRate::KilogramPerSecond                                      },
@@ -63,7 +66,8 @@ template<> inline const std::map<UnitSystem, Unit::MassRate>
         {UnitSystem::InchPoundSecondRankine,     Unit::MassRate::SlinchPerSecond},
 };
 
-template<> inline const std::map<Unit::MassRate, UnitSystem>
+template <>
+inline const std::map<Unit::MassRate, UnitSystem>
     RelatedUnitSystems<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
          UnitSystem::MetreKilogramSecondKelvin                                    },
@@ -72,7 +76,8 @@ template<> inline const std::map<Unit::MassRate, UnitSystem>
         {Unit::MassRate::SlinchPerSecond,   UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::MassRate, std::string_view>
+template <>
+inline const std::map<Unit::MassRate, std::string_view>
     Abbreviations<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond, "kg/s"      },
         {Unit::MassRate::GramPerSecond,     "g/s"       },
@@ -91,7 +96,8 @@ template<> inline const std::map<Unit::MassRate, std::string_view>
         {Unit::MassRate::PoundPerHour,      "lbm/hr"    },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::MassRate>
+template <>
+inline const std::unordered_map<std::string_view, Unit::MassRate>
     Spellings<Unit::MassRate>{
         {"kg/s",       Unit::MassRate::KilogramPerSecond},
         {"g/s",        Unit::MassRate::GramPerSecond    },
@@ -113,260 +119,300 @@ template<> inline const std::unordered_map<std::string_view, Unit::MassRate>
         {"lb/hr",      Unit::MassRate::PoundPerHour     },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
     double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
     double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
     double& value) noexcept {
   value /= 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
     double& value) noexcept {
   value *= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
     double& value) noexcept {
   value *= 60000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
     double& value) noexcept {
   value *= 60.0 * 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
     double& value) noexcept {
   value *= 60.0 * 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
     double& value) noexcept {
   value *= 60.0 / 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
     double& value) noexcept {
   value *= 3600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
     double& value) noexcept {
   value *= 3600.0 * 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
     double& value) noexcept {
   value *= 3600.0 * 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
     double& value) noexcept {
   value *= 3600.0 / 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
     double& value) noexcept {
   value *= 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
     double& value) noexcept {
   value /= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
     double& value) noexcept {
   value /= 60000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 60.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 60.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
     double& value) noexcept {
   value *= 0.45359237 / 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
     double& value) noexcept {
   value /= 3600000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 3600.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 3600.0);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
     double& value) noexcept {
   value *= 0.45359237 / 3600.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MassRate, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::KilogramPerSecond>                                    },
+         Unit::MassRate::KilogramPerSecond>                                   },
         {Unit::MassRate::GramPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>},
+         ConversionsFromStandard<Unit::MassRate,
+         Unit::MassRate::GramPerSecond>                                       },
         {Unit::MassRate::SlugPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>},
+         ConversionsFromStandard<Unit::MassRate,
+         Unit::MassRate::SlugPerSecond>                                       },
         {Unit::MassRate::SlinchPerSecond,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::SlinchPerSecond>                                      },
+         Unit::MassRate::SlinchPerSecond>                                     },
         {Unit::MassRate::PoundPerSecond,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::PoundPerSecond>                                       },
+         Unit::MassRate::PoundPerSecond>                                      },
         {Unit::MassRate::KilogramPerMinute,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::KilogramPerMinute>                                    },
+         Unit::MassRate::KilogramPerMinute>                                   },
         {Unit::MassRate::GramPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>},
+         ConversionsFromStandard<Unit::MassRate,
+         Unit::MassRate::GramPerMinute>                                       },
         {Unit::MassRate::SlugPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>},
+         ConversionsFromStandard<Unit::MassRate,
+         Unit::MassRate::SlugPerMinute>                                       },
         {Unit::MassRate::SlinchPerMinute,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::SlinchPerMinute>                                      },
+         Unit::MassRate::SlinchPerMinute>                                     },
         {Unit::MassRate::PoundPerMinute,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::PoundPerMinute>                                       },
+         Unit::MassRate::PoundPerMinute>                                      },
         {Unit::MassRate::KilogramPerHour,
          ConversionsFromStandard<Unit::MassRate,
-         Unit::MassRate::KilogramPerHour>                                      },
+         Unit::MassRate::KilogramPerHour>                                     },
         {Unit::MassRate::GramPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour>  },
+         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour> },
         {Unit::MassRate::SlugPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>  },
+         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour> },
         {Unit::MassRate::SlinchPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>},
+         ConversionsFromStandard<Unit::MassRate,
+         Unit::MassRate::SlinchPerHour>                                       },
         {Unit::MassRate::PoundPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour> },
+         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MassRate,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::MassRate>{
         {Unit::MassRate::KilogramPerSecond,
          ConversionsToStandard<Unit::MassRate,
-         Unit::MassRate::KilogramPerSecond>                                    },
+         Unit::MassRate::KilogramPerSecond>                                   },
         {Unit::MassRate::GramPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>  },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond> },
         {Unit::MassRate::SlugPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>  },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond> },
         {Unit::MassRate::SlinchPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>},
+         ConversionsToStandard<Unit::MassRate,
+         Unit::MassRate::SlinchPerSecond>                                     },
         {Unit::MassRate::PoundPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond> },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>},
         {Unit::MassRate::KilogramPerMinute,
          ConversionsToStandard<Unit::MassRate,
-         Unit::MassRate::KilogramPerMinute>                                    },
+         Unit::MassRate::KilogramPerMinute>                                   },
         {Unit::MassRate::GramPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>  },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute> },
         {Unit::MassRate::SlugPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>  },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute> },
         {Unit::MassRate::SlinchPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>},
+         ConversionsToStandard<Unit::MassRate,
+         Unit::MassRate::SlinchPerMinute>                                     },
         {Unit::MassRate::PoundPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute> },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>},
         {Unit::MassRate::KilogramPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>},
+         ConversionsToStandard<Unit::MassRate,
+         Unit::MassRate::KilogramPerHour>                                     },
         {Unit::MassRate::GramPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>    },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>   },
         {Unit::MassRate::SlugPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>    },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>   },
         {Unit::MassRate::SlinchPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>  },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour> },
         {Unit::MassRate::PoundPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>   },
+         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>  },
 };
 
 }  // namespace Internal

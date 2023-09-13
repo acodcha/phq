@@ -59,13 +59,19 @@ public:
       luminous_intensity_(luminous_intensity) {}
 
   // Base physical dimension of time.
-  constexpr const Dimension::Time& Time() const noexcept { return time_; }
+  constexpr const Dimension::Time& Time() const noexcept {
+    return time_;
+  }
 
   // Base physical dimension of length.
-  constexpr const Dimension::Length& Length() const noexcept { return length_; }
+  constexpr const Dimension::Length& Length() const noexcept {
+    return length_;
+  }
 
   // Base physical dimension of mass.
-  constexpr const Dimension::Mass& Mass() const noexcept { return mass_; }
+  constexpr const Dimension::Mass& Mass() const noexcept {
+    return mass_;
+  }
 
   // Base physical dimension of electric current.
   constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
@@ -401,7 +407,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Dimensions> {
+template <>
+struct hash<PhQ::Dimensions> {
   inline size_t operator()(const PhQ::Dimensions& dimensions) const {
     size_t result = 17;
     result = 31 * result + dimensions.Time().Value();

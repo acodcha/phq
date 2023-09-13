@@ -45,8 +45,9 @@ public:
     return TransportEnergyConsumption{0.0};
   }
 
-  template<Unit::Force Unit> static constexpr TransportEnergyConsumption Create(
-      const double value) noexcept {
+  template <Unit::Force Unit>
+  static constexpr TransportEnergyConsumption
+  Create(const double value) noexcept {
     return TransportEnergyConsumption{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
@@ -99,9 +100,13 @@ public:
     value_ -= transport_energy_consumption.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TransportEnergyConsumption(const double value) noexcept
@@ -199,7 +204,8 @@ inline constexpr Length Energy::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::TransportEnergyConsumption> {
+template <>
+struct hash<PhQ::TransportEnergyConsumption> {
   inline size_t operator()(
       const PhQ::TransportEnergyConsumption& transport_energy_consumption)
       const {

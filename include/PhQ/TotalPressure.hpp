@@ -37,9 +37,11 @@ public:
       const TotalKinematicPressure& total_kinematic_pressure,
       const MassDensity& mass_density) noexcept;
 
-  static constexpr TotalPressure Zero() noexcept { return TotalPressure{0.0}; }
+  static constexpr TotalPressure Zero() noexcept {
+    return TotalPressure{0.0};
+  }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr TotalPressure Create(const double value) noexcept {
     return TotalPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -87,9 +89,13 @@ public:
     value_ -= total_pressure.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr TotalPressure(const double value) noexcept
@@ -161,7 +167,8 @@ inline constexpr TotalPressure DynamicPressure::operator+(
 
 namespace std {
 
-template<> struct hash<PhQ::TotalPressure> {
+template <>
+struct hash<PhQ::TotalPressure> {
   inline size_t operator()(const PhQ::TotalPressure& total_pressure) const {
     return hash<double>()(total_pressure.Value());
   }

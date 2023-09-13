@@ -43,18 +43,20 @@ enum class Diffusivity : int8_t {
 }  // namespace Unit
 
 // Standard diffusivity unit: square metre per second.
-template<> inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
+template <>
+inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
     Unit::Diffusivity::SquareMetrePerSecond};
 
 // Physical dimension set of diffusivity units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Diffusivity>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{2}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::Diffusivity>
+template <>
+inline const std::map<UnitSystem, Unit::Diffusivity>
     ConsistentUnits<Unit::Diffusivity>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::Diffusivity::SquareMetrePerSecond     },
@@ -66,7 +68,8 @@ template<> inline const std::map<UnitSystem, Unit::Diffusivity>
          Unit::Diffusivity::SquareInchPerSecond      },
 };
 
-template<> inline const std::map<Unit::Diffusivity, UnitSystem>
+template <>
+inline const std::map<Unit::Diffusivity, UnitSystem>
     RelatedUnitSystems<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMetrePerSecond,
          UnitSystem::MetreKilogramSecondKelvin },
@@ -78,7 +81,8 @@ template<> inline const std::map<Unit::Diffusivity, UnitSystem>
          UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::Diffusivity, std::string_view>
+template <>
+inline const std::map<Unit::Diffusivity, std::string_view>
     Abbreviations<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,       "mi^2/s" },
         {Unit::Diffusivity::SquareKilometrePerSecond,  "km^2/s" },
@@ -96,7 +100,8 @@ template<> inline const std::map<Unit::Diffusivity, std::string_view>
         {Unit::Diffusivity::SquareMicroinchPerSecond,  "μin^2/s"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Diffusivity>
+template <>
+inline const std::unordered_map<std::string_view, Unit::Diffusivity>
     Spellings<Unit::Diffusivity>{
         {"mi^2/s",        Unit::Diffusivity::SquareMilePerSecond      },
         {"mi2/s",         Unit::Diffusivity::SquareMilePerSecond      },
@@ -136,192 +141,222 @@ template<> inline const std::unordered_map<std::string_view, Unit::Diffusivity>
         {"uin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
   value /= 1609.344 * 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareKilometrePerSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
     double& value) noexcept {
   value *= 0.0001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
     double& value) noexcept {
   value *= 640.0 / (1609.344 * 1609.344);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMetrePerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareYardPerSecond>(
     double& value) noexcept {
   value /= 0.9144 * 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareFootPerSecond>(
     double& value) noexcept {
   value /= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareDecimetrePerSecond>(
     double& value) noexcept {
   value *= 100.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareInchPerSecond>(
     double& value) noexcept {
   value /= 0.0254 * 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareCentimetrePerSecond>(
     double& value) noexcept {
   value *= 10000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMillimetrePerSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMilliinchPerSecond>(
     double& value) noexcept {
   value /= 0.0000254 * 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMicrometrePerSecond>(
     double& value) noexcept {
   value *= 1000000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMicroinchPerSecond>(
     double& value) noexcept {
   value /= 0.0000000254 * 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
   value *= 1609.344 * 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareKilometrePerSecond>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>(
     double& value) noexcept {
   value *= 10000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
     double& value) noexcept {
   value *= 1609.344 * 1609.344 / 640.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::Diffusivity,
+                     Unit::Diffusivity::SquareMetrePerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>(
     double& value) noexcept {
   value *= 0.9144 * 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareDecimetrePerSecond>(
     double& value) noexcept {
   value *= 0.01;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareCentimetrePerSecond>(
     double& value) noexcept {
   value *= 0.0001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMillimetrePerSecond>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMilliinchPerSecond>(
     double& value) noexcept {
   value *= 0.0000254 * 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMicrometrePerSecond>(
     double& value) noexcept {
   value *= 0.000000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMicroinchPerSecond>(
     double& value) noexcept {
   value *= 0.0000000254 * 0.0000000254;
 }
 
-template<>
-inline const std::map<Unit::Diffusivity,
-                      std::function<void(double* const, const std::size_t size)>>
+template <>
+inline const std::map<
+    Unit::Diffusivity,
+    std::function<void(double* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Diffusivity>{
         {Unit::Diffusivity::SquareMilePerSecond,
          ConversionsFromStandard<Unit::Diffusivity,
@@ -367,7 +402,8 @@ inline const std::map<Unit::Diffusivity,
          Unit::Diffusivity::SquareMicroinchPerSecond> },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Diffusivity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Diffusivity>{

@@ -64,16 +64,20 @@ public:
   constexpr Frequency(
       const VolumeRate& volume_rate, const Volume& volume) noexcept;
 
-  static constexpr Frequency Zero() noexcept { return Frequency{0.0}; }
+  static constexpr Frequency Zero() noexcept {
+    return Frequency{0.0};
+  }
 
-  template<Unit::Frequency Unit>
+  template <Unit::Frequency Unit>
   static constexpr Frequency Create(const double value) noexcept {
     return Frequency{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 
-  constexpr Time Period() const noexcept { return {*this}; }
+  constexpr Time Period() const noexcept {
+    return {*this};
+  }
 
   constexpr Frequency operator+(const Frequency& frequency) const noexcept {
     return Frequency{value_ + frequency.value_};
@@ -131,9 +135,13 @@ public:
     value_ -= frequency.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Frequency(const double value) noexcept
@@ -197,7 +205,8 @@ inline constexpr double Time::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Frequency> {
+template <>
+struct hash<PhQ::Frequency> {
   inline size_t operator()(const PhQ::Frequency& frequency) const {
     return hash<double>()(frequency.Value());
   }

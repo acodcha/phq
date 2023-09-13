@@ -39,9 +39,11 @@ public:
       const Volume& volume, const Frequency& frequency) noexcept
     : VolumeRate(volume.Value() * frequency.Value()) {}
 
-  static constexpr VolumeRate Zero() noexcept { return VolumeRate{0.0}; }
+  static constexpr VolumeRate Zero() noexcept {
+    return VolumeRate{0.0};
+  }
 
-  template<Unit::VolumeRate Unit>
+  template <Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) noexcept {
     return VolumeRate{
         StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(
@@ -88,9 +90,13 @@ public:
     value_ -= volume_rate.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr VolumeRate(const double value) noexcept
@@ -182,7 +188,8 @@ inline constexpr VolumeRate Volume::operator/(const Time& time) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::VolumeRate> {
+template <>
+struct hash<PhQ::VolumeRate> {
   inline size_t operator()(const PhQ::VolumeRate& volume_rate) const {
     return hash<double>()(volume_rate.Value());
   }

@@ -71,9 +71,11 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
 
-  static constexpr Mass Zero() noexcept { return Mass{0.0}; }
+  static constexpr Mass Zero() noexcept {
+    return Mass{0.0};
+  }
 
-  template<Unit::Mass Unit>
+  template <Unit::Mass Unit>
   static constexpr Mass Create(const double value) noexcept {
     return Mass{
         StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
@@ -131,9 +133,13 @@ public:
     value_ -= mass.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Mass(const double value) noexcept
@@ -179,7 +185,8 @@ inline constexpr Mass operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Mass> {
+template <>
+struct hash<PhQ::Mass> {
   inline size_t operator()(const PhQ::Mass& mass) const {
     return hash<double>()(mass.Value());
   }

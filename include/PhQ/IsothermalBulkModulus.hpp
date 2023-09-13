@@ -34,7 +34,7 @@ public:
     return IsothermalBulkModulus{0.0};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr IsothermalBulkModulus Create(const double value) noexcept {
     return IsothermalBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -76,9 +76,13 @@ public:
     value_ -= isothermal_bulk_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   constexpr IsothermalBulkModulus(const double value) noexcept
@@ -132,7 +136,8 @@ inline constexpr IsothermalBulkModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::IsothermalBulkModulus> {
+template <>
+struct hash<PhQ::IsothermalBulkModulus> {
   inline size_t operator()(
       const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return hash<double>()(isothermal_bulk_modulus.Value());

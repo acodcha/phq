@@ -39,9 +39,11 @@ public:
       const Memory& memory, const Frequency& frequency) noexcept
     : MemoryRate(memory.Value() * frequency.Value()) {}
 
-  static constexpr MemoryRate Zero() noexcept { return MemoryRate{0.0}; }
+  static constexpr MemoryRate Zero() noexcept {
+    return MemoryRate{0.0};
+  }
 
-  template<Unit::MemoryRate Unit>
+  template <Unit::MemoryRate Unit>
   static constexpr MemoryRate Create(const double value) noexcept {
     return MemoryRate{
         StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(
@@ -88,9 +90,13 @@ public:
     value_ -= memory_rate.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr MemoryRate(const double value) noexcept
@@ -177,7 +183,8 @@ inline constexpr Time Memory::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::MemoryRate> {
+template <>
+struct hash<PhQ::MemoryRate> {
   inline size_t operator()(const PhQ::MemoryRate& memory_rate) const {
     return hash<double>()(memory_rate.Value());
   }

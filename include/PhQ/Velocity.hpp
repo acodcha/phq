@@ -53,13 +53,15 @@ public:
     return Velocity{Value::Vector::Zero()};
   }
 
-  template<Unit::Speed Unit>
+  template <Unit::Speed Unit>
   static constexpr Velocity Create(const Value::Vector& value) noexcept {
     return Velocity{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  Speed Magnitude() const noexcept { return {*this}; }
+  Speed Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const Velocity& velocity) const noexcept {
     return {*this, velocity};
@@ -101,9 +103,13 @@ public:
     value_ -= velocity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Velocity(const Value::Vector& value) noexcept
@@ -203,7 +209,8 @@ inline constexpr Velocity Displacement::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::Velocity> {
+template <>
+struct hash<PhQ::Velocity> {
   inline size_t operator()(const PhQ::Velocity& velocity) const {
     return hash<PhQ::Value::Vector>()(velocity.Value());
   }

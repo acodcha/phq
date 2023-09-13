@@ -34,12 +34,12 @@ enum class SubstanceAmount : int8_t {
 }  // namespace Unit
 
 // Standard amount of substance unit: mole.
-template<>
+template <>
 inline constexpr const Unit::SubstanceAmount Standard<Unit::SubstanceAmount>{
     Unit::SubstanceAmount::Mole};
 
 // Physical dimension set of amount of substance units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SubstanceAmount>{
     Dimensions{Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
                Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
@@ -48,7 +48,8 @@ inline constexpr const Dimensions RelatedDimensions<Unit::SubstanceAmount>{
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::SubstanceAmount>
+template <>
+inline const std::map<UnitSystem, Unit::SubstanceAmount>
     ConsistentUnits<Unit::SubstanceAmount>{
         {UnitSystem::MetreKilogramSecondKelvin,  Unit::SubstanceAmount::Mole},
         {UnitSystem::MillimetreGramSecondKelvin, Unit::SubstanceAmount::Mole},
@@ -56,10 +57,12 @@ template<> inline const std::map<UnitSystem, Unit::SubstanceAmount>
         {UnitSystem::InchPoundSecondRankine,     Unit::SubstanceAmount::Mole},
 };
 
-template<> inline const std::map<Unit::SubstanceAmount, UnitSystem>
+template <>
+inline const std::map<Unit::SubstanceAmount, UnitSystem>
     RelatedUnitSystems<Unit::SubstanceAmount>{};
 
-template<> inline const std::map<Unit::SubstanceAmount, std::string_view>
+template <>
+inline const std::map<Unit::SubstanceAmount, std::string_view>
     Abbreviations<Unit::SubstanceAmount>{
         {Unit::SubstanceAmount::Mole,      "mol"      },
         {Unit::SubstanceAmount::Kilomole,  "kmol"     },
@@ -68,7 +71,7 @@ template<> inline const std::map<Unit::SubstanceAmount, std::string_view>
         {Unit::SubstanceAmount::Particles, "particles"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::SubstanceAmount>
     Spellings<Unit::SubstanceAmount>{
         {"mol",       Unit::SubstanceAmount::Mole     },
@@ -78,63 +81,74 @@ inline const std::unordered_map<std::string_view, Unit::SubstanceAmount>
         {"particles", Unit::SubstanceAmount::Particles},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
     double& value) noexcept {
   value *= 6.02214076e23;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
     double& value) noexcept {
   value /= 6.02214076e23;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::SubstanceAmount,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::SubstanceAmount>{
@@ -155,7 +169,8 @@ template<> inline const std::map<
          Unit::SubstanceAmount::Particles>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::SubstanceAmount,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::SubstanceAmount>{

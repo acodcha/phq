@@ -21,7 +21,9 @@ namespace PhQ {
 
 namespace {
 
-TEST(Base, Pi) { EXPECT_EQ(Pi, 3.14159265358979323846); }
+TEST(Base, Pi) {
+  EXPECT_EQ(Pi, 3.14159265358979323846);
+}
 
 TEST(Base, PrecisionAbbreviation) {
   EXPECT_EQ(Abbreviation(Precision::Double), "Double");

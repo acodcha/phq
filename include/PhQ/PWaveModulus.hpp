@@ -31,9 +31,11 @@ public:
   PWaveModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr PWaveModulus Zero() noexcept { return PWaveModulus{0.0}; }
+  static constexpr PWaveModulus Zero() noexcept {
+    return PWaveModulus{0.0};
+  }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr PWaveModulus Create(const double value) noexcept {
     return PWaveModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -71,9 +73,13 @@ public:
     value_ -= p_wave_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr PWaveModulus(const double value) noexcept
@@ -125,7 +131,8 @@ inline constexpr PWaveModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::PWaveModulus> {
+template <>
+struct hash<PhQ::PWaveModulus> {
   inline size_t operator()(const PhQ::PWaveModulus& p_wave_modulus) const {
     return hash<double>()(p_wave_modulus.Value());
   }

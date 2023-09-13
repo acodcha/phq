@@ -117,9 +117,13 @@ public:
     value_ -= reynolds_number.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -227,7 +231,8 @@ inline constexpr DynamicViscosity::DynamicViscosity(
 
 namespace std {
 
-template<> struct hash<PhQ::ReynoldsNumber> {
+template <>
+struct hash<PhQ::ReynoldsNumber> {
   inline size_t operator()(const PhQ::ReynoldsNumber& reynolds_number) const {
     return hash<double>()(reynolds_number.Value());
   }

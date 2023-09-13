@@ -35,7 +35,7 @@ public:
     return SubstanceAmount{0.0};
   }
 
-  template<Unit::SubstanceAmount Unit>
+  template <Unit::SubstanceAmount Unit>
   static constexpr SubstanceAmount Create(const double value) noexcept {
     return SubstanceAmount{
         StaticConvertCopy<Unit::SubstanceAmount, Unit,
@@ -73,9 +73,13 @@ public:
     value_ -= substance_amount.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SubstanceAmount(const double value) noexcept
@@ -127,7 +131,8 @@ inline constexpr SubstanceAmount operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::SubstanceAmount> {
+template <>
+struct hash<PhQ::SubstanceAmount> {
   inline size_t operator()(const PhQ::SubstanceAmount& substance_amount) const {
     return hash<double>()(substance_amount.Value());
   }

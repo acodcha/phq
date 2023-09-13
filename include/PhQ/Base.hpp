@@ -46,14 +46,14 @@ namespace Internal {
 // Map of enumerations to their corresponding abbreviations. This is an internal
 // implementation detail and is not intended to be used except by the
 // PhQ::Abbreviation function.
-template<typename Enumeration>
+template <typename Enumeration>
 inline const std::map<Enumeration, std::string_view> Abbreviations;
 
 }  // namespace Internal
 
 // Returns the abbreviation of a given enumeration value. For example,
 // PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
-template<typename Enumeration>
+template <typename Enumeration>
 inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
   return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
 }
@@ -63,7 +63,7 @@ namespace Internal {
 // Map of spellings to their corresponding enumeration values. This is an
 // internal implementation detail and is not intended to be used except by the
 // PhQ::Parse function.
-template<typename Enumeration>
+template <typename Enumeration>
 inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 
 }  // namespace Internal
@@ -71,7 +71,7 @@ inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 // Attempts to parse some given text into an enumeration. Returns the
 // enumeration if one is found, or std::nullopt otherwise. For example,
 // PhQ::Parse<PhQ::Unit::Time>("hr") returns PhQ::Unit::Time::Hour.
-template<typename Enumeration>
+template <typename Enumeration>
 std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
   const typename std::unordered_map<std::string_view,
                                     Enumeration>::const_iterator found{
@@ -97,13 +97,14 @@ enum class Precision : int8_t {
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<Precision, std::string_view> Abbreviations<Precision>{
     {Precision::Double, "Double"},
     {Precision::Single, "Single"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Precision>
+template <>
+inline const std::unordered_map<std::string_view, Precision>
     Spellings<Precision>{
         {"DOUBLE", Precision::Double},
         {"Double", Precision::Double},
@@ -117,15 +118,18 @@ template<> inline const std::unordered_map<std::string_view, Precision>
 
 // Transforms a given string such that all of its characters are lowercase.
 inline void Lowercase(std::string& text) noexcept {
-  std::transform(text.begin(), text.end(), text.begin(),
-                 [](int character) { return std::tolower(character); });
+  std::transform(text.begin(), text.end(), text.begin(), [](int character) {
+    return std::tolower(character);
+  });
 }
 
 // Returns a copy of a given string where all characters are lowercase.
 inline std::string LowercaseCopy(const std::string_view text) noexcept {
   std::string result{text};
-  std::transform(result.begin(), result.end(), result.begin(),
-                 [](int character) { return std::tolower(character); });
+  std::transform(
+      result.begin(), result.end(), result.begin(), [](int character) {
+        return std::tolower(character);
+      });
   return result;
 }
 
@@ -296,15 +300,18 @@ inline std::vector<std::string> SplitByWhitespace(
 
 // Transforms a given string such that all of its characters are uppercase.
 inline void Uppercase(std::string& text) noexcept {
-  std::transform(text.begin(), text.end(), text.begin(),
-                 [](int character) { return std::toupper(character); });
+  std::transform(text.begin(), text.end(), text.begin(), [](int character) {
+    return std::toupper(character);
+  });
 }
 
 // Returns a copy of a given string where all characters are uppercase.
 inline std::string UppercaseCopy(const std::string_view text) noexcept {
   std::string result{text};
-  std::transform(result.begin(), result.end(), result.begin(),
-                 [](int character) { return std::toupper(character); });
+  std::transform(
+      result.begin(), result.end(), result.begin(), [](int character) {
+        return std::toupper(character);
+      });
   return result;
 }
 

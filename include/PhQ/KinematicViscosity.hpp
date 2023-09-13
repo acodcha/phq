@@ -54,7 +54,7 @@ public:
     return KinematicViscosity{0.0};
   }
 
-  template<Unit::Diffusivity Unit>
+  template <Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) noexcept {
     return KinematicViscosity{
         StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
@@ -97,9 +97,13 @@ public:
     value_ -= kinematic_viscosity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr KinematicViscosity(const double value) noexcept
@@ -153,7 +157,8 @@ inline constexpr KinematicViscosity operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::KinematicViscosity> {
+template <>
+struct hash<PhQ::KinematicViscosity> {
   inline size_t operator()(
       const PhQ::KinematicViscosity& kinematic_viscosity) const {
     return hash<double>()(kinematic_viscosity.Value());

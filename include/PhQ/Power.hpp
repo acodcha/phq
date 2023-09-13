@@ -48,9 +48,11 @@ public:
       const Speed& speed,
       const TransportEnergyConsumption& transport_energy_consumption) noexcept;
 
-  static constexpr Power Zero() noexcept { return Power{0.0}; }
+  static constexpr Power Zero() noexcept {
+    return Power{0.0};
+  }
 
-  template<Unit::Power Unit>
+  template <Unit::Power Unit>
   static constexpr Power Create(const double value) noexcept {
     return Power{
         StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
@@ -100,9 +102,13 @@ public:
     value_ -= power.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Power(const double value) noexcept
@@ -190,7 +196,8 @@ inline constexpr Time Energy::operator/(const Power& power) const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Power> {
+template <>
+struct hash<PhQ::Power> {
   inline size_t operator()(const PhQ::Power& power) const {
     return hash<double>()(power.Value());
   }

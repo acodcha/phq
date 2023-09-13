@@ -36,13 +36,19 @@ public:
   explicit constexpr Temperature(const int8_t value) noexcept : value_(value) {}
 
   // Value of this base physical dimension.
-  constexpr int8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept {
+    return value_;
+  }
 
   // Abbreviation of this base physical dimension.
-  static std::string_view Abbreviation() noexcept { return "Θ"; }
+  static std::string_view Abbreviation() noexcept {
+    return "Θ";
+  }
 
   // Label of this base physical dimension.
-  static std::string_view Label() noexcept { return "Temperature"; }
+  static std::string_view Label() noexcept {
+    return "Temperature";
+  }
 
   // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
@@ -102,7 +108,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Dimension::Temperature> {
+template <>
+struct hash<PhQ::Dimension::Temperature> {
   inline size_t operator()(
       const PhQ::Dimension::Temperature& temperature) const {
     return hash<int8_t>()(temperature.Value());

@@ -31,9 +31,11 @@ public:
   ShearModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr ShearModulus Zero() noexcept { return ShearModulus{0.0}; }
+  static constexpr ShearModulus Zero() noexcept {
+    return ShearModulus{0.0};
+  }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr ShearModulus Create(const double value) noexcept {
     return ShearModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -70,9 +72,13 @@ public:
     value_ -= shear_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr ShearModulus(const double value) noexcept
@@ -124,7 +130,8 @@ inline constexpr ShearModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::ShearModulus> {
+template <>
+struct hash<PhQ::ShearModulus> {
   inline size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
     return hash<double>()(shear_modulus.Value());
   }

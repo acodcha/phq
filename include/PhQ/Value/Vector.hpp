@@ -76,29 +76,43 @@ public:
   }
 
   // Returns this three-dimensional vector value's x Cartesian component.
-  constexpr double x() const noexcept { return x_y_z_[0]; }
+  constexpr double x() const noexcept {
+    return x_y_z_[0];
+  }
 
   // Returns this three-dimensional vector value's y Cartesian component.
-  constexpr double y() const noexcept { return x_y_z_[1]; }
+  constexpr double y() const noexcept {
+    return x_y_z_[1];
+  }
 
   // Returns this three-dimensional vector value's z Cartesian component.
-  constexpr double z() const noexcept { return x_y_z_[2]; }
+  constexpr double z() const noexcept {
+    return x_y_z_[2];
+  }
 
   // Returns this three-dimensional vector value's x, y, and z Cartesian
   // components as a mutable array.
-  constexpr std::array<double, 3>& Mutable_x_y_z() noexcept { return x_y_z_; }
+  constexpr std::array<double, 3>& Mutable_x_y_z() noexcept {
+    return x_y_z_;
+  }
 
   // Returns this three-dimensional vector value's x Cartesian component as a
   // mutable value.
-  constexpr double& Mutable_x() noexcept { return x_y_z_[0]; }
+  constexpr double& Mutable_x() noexcept {
+    return x_y_z_[0];
+  }
 
   // Returns this three-dimensional vector value's y Cartesian component as a
   // mutable value.
-  constexpr double& Mutable_y() noexcept { return x_y_z_[1]; }
+  constexpr double& Mutable_y() noexcept {
+    return x_y_z_[1];
+  }
 
   // Returns this three-dimensional vector value's z Cartesian component as a
   // mutable value.
-  constexpr double& Mutable_z() noexcept { return x_y_z_[2]; }
+  constexpr double& Mutable_z() noexcept {
+    return x_y_z_[2];
+  }
 
   // Sets this three-dimensional vector value's x, y, and z Cartesian components
   // to the given values.
@@ -108,15 +122,21 @@ public:
 
   // Sets this three-dimensional vector value's x Cartesian component to a given
   // value.
-  constexpr void Set_x(const double x) noexcept { x_y_z_[0] = x; }
+  constexpr void Set_x(const double x) noexcept {
+    x_y_z_[0] = x;
+  }
 
   // Sets this three-dimensional vector value's y Cartesian component to a given
   // value.
-  constexpr void Set_y(const double y) noexcept { x_y_z_[1] = y; }
+  constexpr void Set_y(const double y) noexcept {
+    x_y_z_[1] = y;
+  }
 
   // Sets this three-dimensional vector value's z Cartesian component to a given
   // value.
-  constexpr void Set_z(const double z) noexcept { x_y_z_[2] = z; }
+  constexpr void Set_z(const double z) noexcept {
+    x_y_z_[2] = z;
+  }
 
   // Returns the square of the magnitude of this three-dimensional vector value.
   constexpr double MagnitudeSquared() const noexcept {
@@ -126,7 +146,9 @@ public:
 
   // Returns the magnitude (also known as the L2 norm) of this three-dimensional
   // vector value.
-  double Magnitude() const noexcept { return std::sqrt(MagnitudeSquared()); }
+  double Magnitude() const noexcept {
+    return std::sqrt(MagnitudeSquared());
+  }
 
   // Returns the direction of this three-dimensional vector value.
   PhQ::Direction Direction() const noexcept;
@@ -315,7 +337,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Value::Vector> {
+template <>
+struct hash<PhQ::Value::Vector> {
   inline size_t operator()(const PhQ::Value::Vector& vector) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(vector.x());

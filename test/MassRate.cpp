@@ -161,7 +161,9 @@ TEST(MassRate, Stream) {
   EXPECT_EQ(stream.str(), rate.Print());
 }
 
-TEST(MassRate, Unit) { EXPECT_EQ(MassRate::Unit(), Standard<Unit::MassRate>); }
+TEST(MassRate, Unit) {
+  EXPECT_EQ(MassRate::Unit(), Standard<Unit::MassRate>);
+}
 
 TEST(MassRate, XML) {
   EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).XML(),

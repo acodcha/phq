@@ -38,7 +38,9 @@ public:
       const Speed& speed, const SoundSpeed& sound_speed) noexcept
     : MachNumber(speed.Value() / sound_speed.Value()) {}
 
-  static constexpr MachNumber Zero() noexcept { return MachNumber{0.0}; }
+  static constexpr MachNumber Zero() noexcept {
+    return MachNumber{0.0};
+  }
 
   constexpr MachNumber operator+(const MachNumber& mach_number) const noexcept {
     return MachNumber{value_ + mach_number.value_};
@@ -68,9 +70,13 @@ public:
     value_ -= mach_number.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -141,7 +147,8 @@ constexpr Speed::Speed(
 
 namespace std {
 
-template<> struct hash<PhQ::MachNumber> {
+template <>
+struct hash<PhQ::MachNumber> {
   inline size_t operator()(const PhQ::MachNumber& mach_number) const {
     return hash<double>()(mach_number.Value());
   }

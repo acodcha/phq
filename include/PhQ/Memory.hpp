@@ -39,9 +39,11 @@ public:
   constexpr Memory(
       const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
 
-  static constexpr Memory Zero() noexcept { return Memory{0.0}; }
+  static constexpr Memory Zero() noexcept {
+    return Memory{0.0};
+  }
 
-  template<Unit::Memory Unit>
+  template <Unit::Memory Unit>
   static constexpr Memory Create(const double value) noexcept {
     return Memory{
         StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
@@ -81,9 +83,13 @@ public:
     value_ -= memory.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Memory(const double value) noexcept
@@ -135,7 +141,8 @@ inline constexpr Memory operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::Memory> {
+template <>
+struct hash<PhQ::Memory> {
   inline size_t operator()(const PhQ::Memory& memory) const {
     return hash<double>()(memory.Value());
   }

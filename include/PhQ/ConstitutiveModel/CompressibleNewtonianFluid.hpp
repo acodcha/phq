@@ -199,7 +199,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
+template <>
+struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
   size_t operator()(
       const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
     size_t result = 17;

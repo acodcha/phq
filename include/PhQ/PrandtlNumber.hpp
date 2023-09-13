@@ -44,7 +44,9 @@ public:
         dynamic_viscosity.Value() * specific_isobaric_heat_capacity.Value()
         / thermal_conductivity_scalar.Value()) {}
 
-  static constexpr PrandtlNumber Zero() noexcept { return PrandtlNumber{0.0}; }
+  static constexpr PrandtlNumber Zero() noexcept {
+    return PrandtlNumber{0.0};
+  }
 
   constexpr PhQ::ThermalDiffusivity ThermalDiffusivity(
       const PhQ::KinematicViscosity& kinematic_viscosity) const noexcept {
@@ -107,9 +109,13 @@ public:
     value_ -= prandtl_number.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 };
 
 inline constexpr bool operator==(
@@ -206,7 +212,8 @@ inline constexpr KinematicViscosity::KinematicViscosity(
 
 namespace std {
 
-template<> struct hash<PhQ::PrandtlNumber> {
+template <>
+struct hash<PhQ::PrandtlNumber> {
   inline size_t operator()(const PhQ::PrandtlNumber& prandtl_number) const {
     return hash<double>()(prandtl_number.Value());
   }

@@ -55,7 +55,7 @@ public:
     return StaticPressure{0.0};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr StaticPressure Create(const double value) noexcept {
     return StaticPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -127,9 +127,13 @@ public:
     value_ -= pressure_difference.Value();
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr StaticPressure(const double value) noexcept
@@ -211,7 +215,8 @@ inline constexpr StaticPressure PressureDifference::operator-(
 
 namespace std {
 
-template<> struct hash<PhQ::StaticPressure> {
+template <>
+struct hash<PhQ::StaticPressure> {
   inline size_t operator()(const PhQ::StaticPressure& static_pressure) const {
     return hash<double>()(static_pressure.Value());
   }

@@ -67,7 +67,9 @@ public:
   // Constructs a direction by normalizing the given x-y-z vector to a unit
   // vector. If the given vector is a zero vector, initializes the direction to
   // the zero vector.
-  explicit Direction(const Value::Vector& value) noexcept { SetValue(value); }
+  explicit Direction(const Value::Vector& value) noexcept {
+    SetValue(value);
+  }
 
   // Constructs a direction from an acceleration.
   explicit Direction(const Acceleration& acceleration) noexcept;
@@ -96,7 +98,9 @@ public:
   // Constructs a direction from a velocity.
   explicit Direction(const Velocity& velocity) noexcept;
 
-  static constexpr Direction Zero() noexcept { return Direction{}; }
+  static constexpr Direction Zero() noexcept {
+    return Direction{};
+  }
 
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
@@ -148,7 +152,9 @@ public:
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1
   // if the direction is valid, or 0 if the direction is the zero vector.
-  double Magnitude() const noexcept { return value_.Magnitude(); }
+  double Magnitude() const noexcept {
+    return value_.Magnitude();
+  }
 
   // Returns the dot product (also known as the scalar product or the inner
   // product) of the direction with the given vector.
@@ -318,7 +324,8 @@ inline Angle::Angle(
 
 namespace std {
 
-template<> struct hash<PhQ::Direction> {
+template <>
+struct hash<PhQ::Direction> {
   inline size_t operator()(const PhQ::Direction& direction) const {
     return hash<PhQ::Value::Vector>()(direction.Value());
   }

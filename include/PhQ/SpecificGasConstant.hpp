@@ -59,7 +59,7 @@ public:
     return SpecificGasConstant{0.0};
   }
 
-  template<Unit::SpecificHeatCapacity Unit>
+  template <Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificGasConstant Create(const double value) noexcept {
     return SpecificGasConstant{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
@@ -109,9 +109,13 @@ public:
     value_ -= specific_gas_constant.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SpecificGasConstant(const double value) noexcept
@@ -163,7 +167,8 @@ inline constexpr SpecificGasConstant operator*(
 
 inline constexpr SpecificHeatRatio::SpecificHeatRatio(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept
+    const SpecificIsobaricHeatCapacity&
+        specific_isobaric_heat_capacity) noexcept
   : SpecificHeatRatio(specific_isobaric_heat_capacity.Value()
                       / (specific_isobaric_heat_capacity.Value()
                          - specific_gas_constant.Value())) {}
@@ -186,7 +191,8 @@ inline constexpr GasConstant::GasConstant(
 
 inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept
+    const SpecificIsobaricHeatCapacity&
+        specific_isobaric_heat_capacity) noexcept
   : SpecificIsochoricHeatCapacity(
       specific_isobaric_heat_capacity.Value() - specific_gas_constant.Value()) {
 }
@@ -248,7 +254,8 @@ SpecificIsobaricHeatCapacity::operator-(
 
 namespace std {
 
-template<> struct hash<PhQ::SpecificGasConstant> {
+template <>
+struct hash<PhQ::SpecificGasConstant> {
   inline size_t operator()(
       const PhQ::SpecificGasConstant& specific_gas_constant) const {
     return hash<double>()(specific_gas_constant.Value());

@@ -46,7 +46,7 @@ public:
     return AngularAccelerationMagnitude{0.0};
   }
 
-  template<Unit::AngularAcceleration Unit>
+  template <Unit::AngularAcceleration Unit>
   static constexpr AngularAccelerationMagnitude
   Create(const double value) noexcept {
     return AngularAccelerationMagnitude{
@@ -107,9 +107,13 @@ public:
     value_ -= angular_acceleration_magnitude.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr AngularAccelerationMagnitude(const double value) noexcept
@@ -210,7 +214,8 @@ inline constexpr Time AngularSpeed::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::AngularAccelerationMagnitude> {
+template <>
+struct hash<PhQ::AngularAccelerationMagnitude> {
   inline size_t operator()(
       const PhQ::AngularAccelerationMagnitude& angular_acceleration_magnitude)
       const {

@@ -38,7 +38,7 @@ public:
     return LinearThermalExpansionCoefficient{0.0};
   }
 
-  template<Unit::ThermalExpansion Unit>
+  template <Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient
   Create(const double value) noexcept {
     return LinearThermalExpansionCoefficient{
@@ -91,9 +91,13 @@ public:
     value_ -= linear_thermal_expansion_coefficient.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr LinearThermalExpansionCoefficient(
@@ -167,7 +171,8 @@ inline constexpr StrainScalar TemperatureDifference::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::LinearThermalExpansionCoefficient> {
+template <>
+struct hash<PhQ::LinearThermalExpansionCoefficient> {
   inline size_t operator()(const PhQ::LinearThermalExpansionCoefficient&
                                linear_thermal_expansion_coefficient) const {
     return hash<double>()(linear_thermal_expansion_coefficient.Value());

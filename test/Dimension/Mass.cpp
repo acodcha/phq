@@ -25,7 +25,9 @@ namespace PhQ::Dimension {
 
 namespace {
 
-TEST(DimensionMass, Abbreviation) { EXPECT_EQ(Mass::Abbreviation(), "M"); }
+TEST(DimensionMass, Abbreviation) {
+  EXPECT_EQ(Mass::Abbreviation(), "M");
+}
 
 TEST(DimensionMass, Accessor) {
   EXPECT_EQ(Mass{}.Value(), 0);
@@ -71,7 +73,9 @@ TEST(DimensionMass, Hash) {
       mass0, mass1, mass2, mass3, mass4, mass5};
 }
 
-TEST(DimensionMass, Label) { EXPECT_EQ(Mass::Label(), "Mass"); }
+TEST(DimensionMass, Label) {
+  EXPECT_EQ(Mass::Label(), "Mass");
+}
 
 TEST(DimensionMass, Print) {
   EXPECT_EQ(Mass{}.Print(), "");

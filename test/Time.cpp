@@ -139,7 +139,9 @@ TEST(Time, Stream) {
   EXPECT_EQ(stream.str(), time.Print());
 }
 
-TEST(Time, Unit) { EXPECT_EQ(Time::Unit(), Standard<Unit::Time>); }
+TEST(Time, Unit) {
+  EXPECT_EQ(Time::Unit(), Standard<Unit::Time>);
+}
 
 TEST(Time, XML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(),
@@ -155,7 +157,9 @@ TEST(Time, YAML) {
             "{value:-5.000000000000000,unit:\"min\"}");
 }
 
-TEST(Time, Zero) { EXPECT_EQ(Time::Zero(), Time(0.0, Unit::Time::Second)); }
+TEST(Time, Zero) {
+  EXPECT_EQ(Time::Zero(), Time(0.0, Unit::Time::Second));
+}
 
 }  // namespace
 

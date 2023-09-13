@@ -141,7 +141,9 @@ TEST(Length, Stream) {
   EXPECT_EQ(stream.str(), length.Print());
 }
 
-TEST(Length, Unit) { EXPECT_EQ(Length::Unit(), Standard<Unit::Length>); }
+TEST(Length, Unit) {
+  EXPECT_EQ(Length::Unit(), Standard<Unit::Length>);
+}
 
 TEST(Length, XML) {
   EXPECT_EQ(Length(1.11, Unit::Length::Metre).XML(),

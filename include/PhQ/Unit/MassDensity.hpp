@@ -35,18 +35,20 @@ enum class MassDensity : int8_t {
 }  // namespace Unit
 
 // Standard mass density unit: kilogram per cubic metre.
-template<> inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
+template <>
+inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};
 
 // Physical dimension set of mass density units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MassDensity>{
     Dimensions{Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::MassDensity> ConsistentUnits<
+template <>
+inline const std::map<UnitSystem, Unit::MassDensity> ConsistentUnits<
     Unit::MassDensity>{
     {UnitSystem::MetreKilogramSecondKelvin,
      Unit::MassDensity::KilogramPerCubicMetre                                     },
@@ -56,7 +58,7 @@ template<> inline const std::map<UnitSystem, Unit::MassDensity> ConsistentUnits<
     {UnitSystem::InchPoundSecondRankine,     Unit::MassDensity::SlinchPerCubicInch},
 };
 
-template<>
+template <>
 inline const std::map<Unit::MassDensity, UnitSystem> RelatedUnitSystems<
     Unit::MassDensity>{
     {Unit::MassDensity::KilogramPerCubicMetre,
@@ -67,7 +69,8 @@ inline const std::map<Unit::MassDensity, UnitSystem> RelatedUnitSystems<
     {Unit::MassDensity::SlinchPerCubicInch,     UnitSystem::InchPoundSecondRankine},
 };
 
-template<> inline const std::map<Unit::MassDensity, std::string_view>
+template <>
+inline const std::map<Unit::MassDensity, std::string_view>
     Abbreviations<Unit::MassDensity>{
         {Unit::MassDensity::KilogramPerCubicMetre,  "kg/m^3"     },
         {Unit::MassDensity::GramPerCubicMillimetre, "g/mm^3"     },
@@ -77,7 +80,8 @@ template<> inline const std::map<Unit::MassDensity, std::string_view>
         {Unit::MassDensity::PoundPerCubicInch,      "lbm/in^3"   },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::MassDensity>
+template <>
+inline const std::unordered_map<std::string_view, Unit::MassDensity>
     Spellings<Unit::MassDensity>{
         {"kg/m^3",          Unit::MassDensity::KilogramPerCubicMetre },
         {"kg/m3",           Unit::MassDensity::KilogramPerCubicMetre },
@@ -105,79 +109,93 @@ template<> inline const std::unordered_map<std::string_view, Unit::MassDensity>
         {"lb/in/in/in",     Unit::MassDensity::PoundPerCubicInch     },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity,
                        Unit::MassDensity::KilogramPerCubicMetre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity,
                        Unit::MassDensity::GramPerCubicMillimetre>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 * 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::MassDensity,
+                       Unit::MassDensity::SlinchPerCubicInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254 * 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 * 0.3048 / 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254 * 0.0254 / 0.45359237;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity,
                      Unit::MassDensity::KilogramPerCubicMetre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity,
                      Unit::MassDensity::GramPerCubicMillimetre>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
     double& value) noexcept {
   value *= 0.45359237 / std::pow(0.3048, 3);
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
     double& value) noexcept {
   value *= 0.45359237 / std::pow(0.0254, 3);
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MassDensity,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::MassDensity>{
@@ -201,7 +219,8 @@ template<> inline const std::map<
          Unit::MassDensity::PoundPerCubicInch>     },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::MassDensity,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::MassDensity>{

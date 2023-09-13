@@ -44,18 +44,18 @@ enum class AngularSpeed : int8_t {
 }  // namespace Unit
 
 // Standard angular speed unit: radian per second.
-template<>
+template <>
 inline constexpr const Unit::AngularSpeed Standard<Unit::AngularSpeed>{
     Unit::AngularSpeed::RadianPerSecond};
 
 // Physical dimension set of angular speed units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::AngularSpeed>{
     Dimensions{Dimension::Time{-1}}};
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::AngularSpeed> ConsistentUnits<
     Unit::AngularSpeed>{
     {UnitSystem::MetreKilogramSecondKelvin,
@@ -66,10 +66,12 @@ inline const std::map<UnitSystem, Unit::AngularSpeed> ConsistentUnits<
     {UnitSystem::InchPoundSecondRankine,     Unit::AngularSpeed::RadianPerSecond},
 };
 
-template<> inline const std::map<Unit::AngularSpeed, UnitSystem>
+template <>
+inline const std::map<Unit::AngularSpeed, UnitSystem>
     RelatedUnitSystems<Unit::AngularSpeed>{};
 
-template<> inline const std::map<Unit::AngularSpeed, std::string_view>
+template <>
+inline const std::map<Unit::AngularSpeed, std::string_view>
     Abbreviations<Unit::AngularSpeed>{
         {Unit::AngularSpeed::RadianPerSecond,     "rad/s"     },
         {Unit::AngularSpeed::RadianPerMinute,     "rad/min"   },
@@ -88,7 +90,8 @@ template<> inline const std::map<Unit::AngularSpeed, std::string_view>
         {Unit::AngularSpeed::RevolutionPerHour,   "rev/hr"    },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
+template <>
+inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
     Spellings<Unit::AngularSpeed>{
         {"rad/s",      Unit::AngularSpeed::RadianPerSecond    },
         {"rad/min",    Unit::AngularSpeed::RadianPerMinute    },
@@ -110,193 +113,230 @@ template<> inline const std::unordered_map<std::string_view, Unit::AngularSpeed>
         {"rev/hr",     Unit::AngularSpeed::RevolutionPerHour  },
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
     double& value) noexcept {
   value *= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
     double& value) noexcept {
   value *= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
   value *= 180.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
   value *= 10800.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::ArcminutePerSecond>(
     double& value) noexcept {
   value *= 10800.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::ArcminutePerMinute>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcminutePerHour>(
     double& value) noexcept {
   value *= 38880000.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::ArcsecondPerSecond>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::ArcsecondPerMinute>(
     double& value) noexcept {
   value *= 38880000.0 / Pi;
 }
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::AngularSpeed,
+                       Unit::AngularSpeed::ArcsecondPerHour>(
     double& value) noexcept {
   value *= 2332800000.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
   value *= 0.5 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
   value *= 30.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed,
                        Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
   value *= 1800.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
     double& value) noexcept {
   value /= 60.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
   value *= Pi / 180.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
   value *= Pi / 10800.0;
   ;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::ArcminutePerSecond>(
     double& value) noexcept {
   value *= Pi / 10800.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::ArcminutePerMinute>(
     double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
     double& value) noexcept {
   value *= Pi / 38880000.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::ArcsecondPerSecond>(
     double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>(
+template <>
+inline constexpr void
+ConversionToStandard<Unit::AngularSpeed,
+                     Unit::AngularSpeed::ArcsecondPerMinute>(
     double& value) noexcept {
   value *= Pi / 38880000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
     double& value) noexcept {
   value *= Pi / 2332800000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed,
                      Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
   value *= 2.0 * Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed,
                      Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
   value *= Pi / 30.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
   value *= Pi / 1800.0;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::AngularSpeed,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::AngularSpeed>{
@@ -347,7 +387,8 @@ template<> inline const std::map<
          Unit::AngularSpeed::RevolutionPerHour>  },
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::AngularSpeed,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::AngularSpeed>{

@@ -36,13 +36,19 @@ public:
   explicit constexpr Mass(const int8_t value) noexcept : value_(value) {}
 
   // Value of this base physical dimension.
-  constexpr int8_t Value() const noexcept { return value_; }
+  constexpr int8_t Value() const noexcept {
+    return value_;
+  }
 
   // Abbreviation of this base physical dimension.
-  static std::string_view Abbreviation() noexcept { return "M"; }
+  static std::string_view Abbreviation() noexcept {
+    return "M";
+  }
 
   // Label of this base physical dimension.
-  static std::string_view Label() noexcept { return "Mass"; }
+  static std::string_view Label() noexcept {
+    return "Mass";
+  }
 
   // Prints this base physical dimension as a string.
   std::string Print() const noexcept {
@@ -96,7 +102,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Dimension::Mass> {
+template <>
+struct hash<PhQ::Dimension::Mass> {
   inline size_t operator()(const PhQ::Dimension::Mass& mass) const {
     return hash<int8_t>()(mass.Value());
   }

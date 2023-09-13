@@ -74,7 +74,7 @@ public:
     return SpecificIsobaricHeatCapacity{0.0};
   }
 
-  template<Unit::SpecificHeatCapacity Unit>
+  template <Unit::SpecificHeatCapacity Unit>
   static constexpr SpecificIsobaricHeatCapacity
   Create(const double value) noexcept {
     return SpecificIsobaricHeatCapacity{
@@ -144,9 +144,13 @@ public:
     value_ -= specific_isobaric_heat_capacity.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr SpecificIsobaricHeatCapacity(const double value) noexcept
@@ -260,7 +264,8 @@ SpecificIsochoricHeatCapacity::operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::SpecificIsobaricHeatCapacity> {
+template <>
+struct hash<PhQ::SpecificIsobaricHeatCapacity> {
   inline size_t operator()(
       const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const {

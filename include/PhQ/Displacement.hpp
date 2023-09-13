@@ -23,10 +23,16 @@
 
 namespace PhQ {
 
-// Forward declarations.
+// Forward declaration for class Displacement.
 class Time;
+
+// Forward declaration for class Displacement.
 class Frequency;
+
+// Forward declaration for class Displacement.
 class Position;
+
+// Forward declaration for class Displacement.
 class Velocity;
 
 // Displacement vector. Not to be confused with position vector.
@@ -53,13 +59,15 @@ public:
     return Displacement{Value::Vector::Zero()};
   }
 
-  template<Unit::Length Unit>
+  template <Unit::Length Unit>
   static constexpr Displacement Create(const Value::Vector& value) noexcept {
     return Displacement{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  Length Magnitude() const noexcept { return {*this}; }
+  Length Magnitude() const noexcept {
+    return {*this};
+  }
 
   PhQ::Angle Angle(const Displacement& displacement) const noexcept {
     return {*this, displacement};
@@ -99,9 +107,13 @@ public:
     value_ -= displacement.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Displacement(const Value::Vector& value) noexcept
@@ -165,7 +177,8 @@ inline Length::Length(const Displacement& displacement) noexcept
 
 namespace std {
 
-template<> struct hash<PhQ::Displacement> {
+template <>
+struct hash<PhQ::Displacement> {
   inline size_t operator()(const PhQ::Displacement& displacement) const {
     return hash<PhQ::Value::Vector>()(displacement.Value());
   }

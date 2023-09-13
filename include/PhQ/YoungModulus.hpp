@@ -31,9 +31,11 @@ public:
   YoungModulus(const double value, const Unit::Pressure unit) noexcept
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr YoungModulus Zero() noexcept { return YoungModulus{0.0}; }
+  static constexpr YoungModulus Zero() noexcept {
+    return YoungModulus{0.0};
+  }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr YoungModulus Create(const double value) noexcept {
     return YoungModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -70,9 +72,13 @@ public:
     value_ -= young_modulus.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr YoungModulus(const double value) noexcept
@@ -124,7 +130,8 @@ inline constexpr YoungModulus operator*(
 
 namespace std {
 
-template<> struct hash<PhQ::YoungModulus> {
+template <>
+struct hash<PhQ::YoungModulus> {
   inline size_t operator()(const PhQ::YoungModulus& young_modulus) const {
     return hash<double>()(young_modulus.Value());
   }

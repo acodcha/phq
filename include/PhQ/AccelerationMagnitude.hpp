@@ -49,7 +49,7 @@ public:
     return AccelerationMagnitude{0.0};
   }
 
-  template<Unit::Acceleration Unit>
+  template <Unit::Acceleration Unit>
   static constexpr AccelerationMagnitude Create(const double value) noexcept {
     return AccelerationMagnitude{
         StaticConvertCopy<Unit::Acceleration, Unit,
@@ -105,9 +105,13 @@ public:
     value_ -= acceleration_magnitude.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr AccelerationMagnitude(const double value) noexcept
@@ -200,7 +204,8 @@ inline constexpr Time Speed::operator/(
 
 namespace std {
 
-template<> struct hash<PhQ::AccelerationMagnitude> {
+template <>
+struct hash<PhQ::AccelerationMagnitude> {
   inline size_t operator()(
       const PhQ::AccelerationMagnitude& acceleration_magnitude) const {
     return hash<double>()(acceleration_magnitude.Value());

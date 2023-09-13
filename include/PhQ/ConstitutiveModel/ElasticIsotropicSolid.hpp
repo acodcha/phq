@@ -423,7 +423,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
+template <>
+struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
   size_t operator()(
       const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
     size_t result = 17;

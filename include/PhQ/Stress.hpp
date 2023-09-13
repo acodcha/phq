@@ -40,7 +40,7 @@ public:
     return Stress{Value::SymmetricDyad::Zero()};
   }
 
-  template<Unit::Pressure Unit>
+  template <Unit::Pressure Unit>
   static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {
     return Stress{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
@@ -86,9 +86,13 @@ public:
     value_ -= stress.value_;
   }
 
-  constexpr void operator*=(const double number) noexcept { value_ *= number; }
+  constexpr void operator*=(const double number) noexcept {
+    value_ *= number;
+  }
 
-  constexpr void operator/=(const double number) noexcept { value_ /= number; }
+  constexpr void operator/=(const double number) noexcept {
+    value_ /= number;
+  }
 
 private:
   explicit constexpr Stress(const Value::SymmetricDyad& value) noexcept
@@ -148,7 +152,8 @@ inline constexpr Stress StaticPressure::Stress() const noexcept {
 
 namespace std {
 
-template<> struct hash<PhQ::Stress> {
+template <>
+struct hash<PhQ::Stress> {
   inline size_t operator()(const PhQ::Stress& stress) const {
     return hash<PhQ::Value::SymmetricDyad>()(stress.Value());
   }

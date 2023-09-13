@@ -41,17 +41,18 @@ enum class Length : int8_t {
 }  // namespace Unit
 
 // Standard length unit: metre.
-template<>
+template <>
 inline constexpr const Unit::Length Standard<Unit::Length>{Unit::Length::Metre};
 
 // Physical dimension set of length units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Length>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Length>{
     Dimensions{Dimension::Time{0}, Dimension::Length{1}}
 };
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Length::Metre     },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Length::Millimetre},
@@ -59,15 +60,17 @@ inline const std::map<UnitSystem, Unit::Length> ConsistentUnits<Unit::Length>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Length::Inch      },
 };
 
-template<>
-inline const std::map<Unit::Length, UnitSystem> RelatedUnitSystems<Unit::Length>{
-    {Unit::Length::Metre,      UnitSystem::MetreKilogramSecondKelvin },
-    {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
-    {Unit::Length::Foot,       UnitSystem::FootPoundSecondRankine    },
-    {Unit::Length::Inch,       UnitSystem::InchPoundSecondRankine    },
+template <>
+inline const std::map<Unit::Length, UnitSystem>
+    RelatedUnitSystems<Unit::Length>{
+        {Unit::Length::Metre,      UnitSystem::MetreKilogramSecondKelvin },
+        {Unit::Length::Millimetre, UnitSystem::MillimetreGramSecondKelvin},
+        {Unit::Length::Foot,       UnitSystem::FootPoundSecondRankine    },
+        {Unit::Length::Inch,       UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::Length, std::string_view>
+template <>
+inline const std::map<Unit::Length, std::string_view>
     Abbreviations<Unit::Length>{
         {Unit::Length::Mile,       "mi" },
         {Unit::Length::Kilometre,  "km" },
@@ -83,7 +86,7 @@ template<> inline const std::map<Unit::Length, std::string_view>
         {Unit::Length::Microinch,  "μin"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::Length> Spellings<
     Unit::Length>{
     {"mi",          Unit::Length::Mile      },
@@ -146,143 +149,162 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<
     {"microinches", Unit::Length::Microinch },
 };
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Mile>(
     double& value) noexcept {
   value /= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Kilometre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Metre>(
     double& value) noexcept {}
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Yard>(
     double& value) noexcept {
   value /= 0.9144;
 }
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Foot>(
     double& value) noexcept {
   value /= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Decimetre>(
     double& value) noexcept {
   value *= 10.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Inch>(
     double& value) noexcept {
   value /= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Centimetre>(
     double& value) noexcept {
   value *= 100.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Millimetre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Milliinch>(
     double& value) noexcept {
   value /= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Micrometre>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Length, Unit::Length::Microinch>(
     double& value) noexcept {
   value /= 0.0000000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Mile>(double& value) noexcept {
   value *= 1609.344;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Kilometre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Metre>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Yard>(double& value) noexcept {
   value *= 0.9144;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Foot>(double& value) noexcept {
   value *= 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Decimetre>(
     double& value) noexcept {
   value *= 0.1;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Inch>(double& value) noexcept {
   value *= 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Centimetre>(
     double& value) noexcept {
   value *= 0.01;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Millimetre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Milliinch>(
     double& value) noexcept {
   value *= 0.0000254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Micrometre>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Length, Unit::Length::Microinch>(
     double& value) noexcept {
   value *= 0.0000000254;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Length, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Length>{
         {Unit::Length::Mile,
@@ -311,7 +333,7 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Length, Unit::Length::Microinch> },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Length, std::function<void(double* const values,
                                                        const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Length>{

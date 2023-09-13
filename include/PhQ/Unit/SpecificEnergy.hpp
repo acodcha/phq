@@ -33,19 +33,20 @@ enum class SpecificEnergy : int8_t {
 }  // namespace Unit
 
 // Standard mass-specific energy unit: joule per kilogram.
-template<>
+template <>
 inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
     Unit::SpecificEnergy::JoulePerKilogram};
 
 // Physical dimension set of mass-specific energy units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::SpecificEnergy>{
     Dimensions{Dimension::Time{-2}, Dimension::Length{2}}
 };
 
 namespace Internal {
 
-template<> inline const std::map<UnitSystem, Unit::SpecificEnergy>
+template <>
+inline const std::map<UnitSystem, Unit::SpecificEnergy>
     ConsistentUnits<Unit::SpecificEnergy>{
         {UnitSystem::MetreKilogramSecondKelvin,
          Unit::SpecificEnergy::JoulePerKilogram  },
@@ -57,7 +58,8 @@ template<> inline const std::map<UnitSystem, Unit::SpecificEnergy>
          Unit::SpecificEnergy::InchPoundPerSlinch},
 };
 
-template<> inline const std::map<Unit::SpecificEnergy, UnitSystem>
+template <>
+inline const std::map<Unit::SpecificEnergy, UnitSystem>
     RelatedUnitSystems<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,
          UnitSystem::MetreKilogramSecondKelvin },
@@ -69,7 +71,8 @@ template<> inline const std::map<Unit::SpecificEnergy, UnitSystem>
          UnitSystem::InchPoundSecondRankine    },
 };
 
-template<> inline const std::map<Unit::SpecificEnergy, std::string_view>
+template <>
+inline const std::map<Unit::SpecificEnergy, std::string_view>
     Abbreviations<Unit::SpecificEnergy>{
         {Unit::SpecificEnergy::JoulePerKilogram,   "J/kg"         },
         {Unit::SpecificEnergy::NanojoulePerGram,   "nJ/g"         },
@@ -77,7 +80,7 @@ template<> inline const std::map<Unit::SpecificEnergy, std::string_view>
         {Unit::SpecificEnergy::InchPoundPerSlinch, "in·lbf/slinch"},
 };
 
-template<>
+template <>
 inline const std::unordered_map<std::string_view, Unit::SpecificEnergy>
     Spellings<Unit::SpecificEnergy>{
         {"J/kg",          Unit::SpecificEnergy::JoulePerKilogram  },
@@ -120,59 +123,68 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy>
         {"in2/s2",        Unit::SpecificEnergy::InchPoundPerSlinch},
 };
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy,
                        Unit::SpecificEnergy::JoulePerKilogram>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy,
                        Unit::SpecificEnergy::NanojoulePerGram>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy,
                        Unit::SpecificEnergy::FootPoundPerSlug>(
     double& value) noexcept {
   value /= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy,
                        Unit::SpecificEnergy::InchPoundPerSlinch>(
     double& value) noexcept {
   value /= 0.0254 * 0.0254;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy,
                      Unit::SpecificEnergy::JoulePerKilogram>(
     double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy,
                      Unit::SpecificEnergy::NanojoulePerGram>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy,
                      Unit::SpecificEnergy::FootPoundPerSlug>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy,
                      Unit::SpecificEnergy::InchPoundPerSlinch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::SpecificEnergy,
     std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::SpecificEnergy>{
@@ -190,7 +202,8 @@ template<> inline const std::map<
          Unit::SpecificEnergy::InchPoundPerSlinch>},
 };
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::SpecificEnergy,
     std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::SpecificEnergy>{

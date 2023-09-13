@@ -64,39 +64,57 @@ public:
 
   // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
   // component.
-  constexpr double xx() const noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+  constexpr double xx() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[0];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
   // Cartesian component.
-  constexpr double xy() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double xy() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
   // Cartesian component.
-  constexpr double xz() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double xz() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
   // Cartesian component.
-  constexpr double yx() const noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double yx() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
   // component.
-  constexpr double yy() const noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+  constexpr double yy() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[3];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
   // Cartesian component.
-  constexpr double yz() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double yz() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
   // Cartesian component.
-  constexpr double zx() const noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double zx() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
   // Cartesian component.
-  constexpr double zy() const noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double zy() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
   // component.
-  constexpr double zz() const noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
+  constexpr double zz() const noexcept {
+    return xx_xy_xz_yy_yz_zz_[5];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's xx, xy, xz,
   // yy, yz, and zz Cartesian components as a mutable array.
@@ -106,39 +124,57 @@ public:
 
   // Returns this three-dimensional symmetric dyadic tensor value's xx Cartesian
   // component as a mutable value.
-  constexpr double& Mutable_xx() noexcept { return xx_xy_xz_yy_yz_zz_[0]; }
+  constexpr double& Mutable_xx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[0];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's xy = yx
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_xy() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double& Mutable_xy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's xz = zx
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_xz() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double& Mutable_xz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yx = xy
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_yx() noexcept { return xx_xy_xz_yy_yz_zz_[1]; }
+  constexpr double& Mutable_yx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[1];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yy Cartesian
   // component as a mutable value.
-  constexpr double& Mutable_yy() noexcept { return xx_xy_xz_yy_yz_zz_[3]; }
+  constexpr double& Mutable_yy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[3];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's yz = zy
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_yz() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double& Mutable_yz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zx = xz
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_zx() noexcept { return xx_xy_xz_yy_yz_zz_[2]; }
+  constexpr double& Mutable_zx() noexcept {
+    return xx_xy_xz_yy_yz_zz_[2];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zy = yz
   // Cartesian component as a mutable value.
-  constexpr double& Mutable_zy() noexcept { return xx_xy_xz_yy_yz_zz_[4]; }
+  constexpr double& Mutable_zy() noexcept {
+    return xx_xy_xz_yy_yz_zz_[4];
+  }
 
   // Returns this three-dimensional symmetric dyadic tensor value's zz Cartesian
   // component as a mutable value.
-  constexpr double& Mutable_zz() noexcept { return xx_xy_xz_yy_yz_zz_[5]; }
+  constexpr double& Mutable_zz() noexcept {
+    return xx_xy_xz_yy_yz_zz_[5];
+  }
 
   // Sets this three-dimensional symmetric dyadic tensor value's xx, xy, xz, yy,
   // yz, and zz Cartesian components to the given values.
@@ -202,7 +238,9 @@ public:
   }
 
   // Returns the trace of this three-dimensional symmetric dyadic tensor value.
-  constexpr double Trace() const noexcept { return xx() + yy() + zz(); }
+  constexpr double Trace() const noexcept {
+    return xx() + yy() + zz();
+  }
 
   // Returns the determinant of this three-dimensional symmetric dyadic tensor
   // value.
@@ -214,7 +252,9 @@ public:
 
   // Returns the transpose of this three-dimensional symmetric dyadic tensor
   // value.
-  constexpr SymmetricDyad Transpose() const noexcept { return *this; }
+  constexpr SymmetricDyad Transpose() const noexcept {
+    return *this;
+  }
 
   // Returns the cofactors of this three-dimensional symmetric dyadic tensor
   // value.
@@ -466,7 +506,8 @@ inline std::ostream& operator<<(
 
 namespace std {
 
-template<> struct hash<PhQ::Value::SymmetricDyad> {
+template <>
+struct hash<PhQ::Value::SymmetricDyad> {
   inline size_t operator()(const PhQ::Value::SymmetricDyad& symmetric) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(symmetric.xx());

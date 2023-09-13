@@ -34,16 +34,16 @@ enum class Angle : int8_t {
 }  // namespace Unit
 
 // Standard angle unit: radian.
-template<>
+template <>
 inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 
 // Physical dimension set of angle units.
-template<>
+template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensions{}};
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Angle> ConsistentUnits<Unit::Angle>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Angle::Radian},
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Angle::Radian},
@@ -51,10 +51,11 @@ inline const std::map<UnitSystem, Unit::Angle> ConsistentUnits<Unit::Angle>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Angle::Radian},
 };
 
-template<>
-inline const std::map<Unit::Angle, UnitSystem> RelatedUnitSystems<Unit::Angle>{};
+template <>
+inline const std::map<Unit::Angle, UnitSystem>
+    RelatedUnitSystems<Unit::Angle>{};
 
-template<>
+template <>
 inline const std::map<Unit::Angle, std::string_view> Abbreviations<Unit::Angle>{
     {Unit::Angle::Radian,     "rad"   },
     {Unit::Angle::Degree,     "deg"   },
@@ -63,7 +64,8 @@ inline const std::map<Unit::Angle, std::string_view> Abbreviations<Unit::Angle>{
     {Unit::Angle::Revolution, "rev"   },
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Angle>
+template <>
+inline const std::unordered_map<std::string_view, Unit::Angle>
     Spellings<Unit::Angle>{
         {"rad",         Unit::Angle::Radian    },
         {"radian",      Unit::Angle::Radian    },
@@ -88,62 +90,68 @@ template<> inline const std::unordered_map<std::string_view, Unit::Angle>
         {"revolutions", Unit::Angle::Revolution},
 };
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(
     double& value) noexcept {}
 
-template<>
+template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(
     double& value) noexcept {
   value *= 180.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Angle, Unit::Angle::Arcminute>(
     double& value) noexcept {
   value *= 10800.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Angle, Unit::Angle::Arcsecond>(
     double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Angle, Unit::Angle::Revolution>(
     double& value) noexcept {
   value /= 2.0 * Pi;
 }
 
-template<> inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(double& value) noexcept {
-}
+template <>
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(
+    double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Angle, Unit::Angle::Degree>(double& value) noexcept {
   value *= Pi / 180.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcminute>(
     double& value) noexcept {
   value *= Pi / 10800.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcsecond>(
     double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Angle, Unit::Angle::Revolution>(
     double& value) noexcept {
   value *= 2.0 * Pi;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Angle, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Angle>{
         {Unit::Angle::Radian,
@@ -158,7 +166,7 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Angle, Unit::Angle::Revolution>},
 };
 
-template<>
+template <>
 inline const std::map<Unit::Angle, std::function<void(double* const values,
                                                       const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Angle>{

@@ -183,7 +183,9 @@ TEST(ValueVector, YAML) {
             "{x:1.000000000000000,y:-2.000000000000000,z:0}");
 }
 
-TEST(ValueVector, Zero) { EXPECT_EQ(Vector::Zero(), Vector(0.0, 0.0, 0.0)); }
+TEST(ValueVector, Zero) {
+  EXPECT_EQ(Vector::Zero(), Vector(0.0, 0.0, 0.0));
+}
 
 }  // namespace
 

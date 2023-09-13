@@ -38,17 +38,18 @@ enum class Power : int8_t {
 }  // namespace Unit
 
 // Standard power unit: watt.
-template<>
+template <>
 inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 
 // Physical dimension set of power units.
-template<> inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
+template <>
+inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
 namespace Internal {
 
-template<>
+template <>
 inline const std::map<UnitSystem, Unit::Power> ConsistentUnits<Unit::Power>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::Power::Watt              },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::Power::Nanowatt          },
@@ -56,7 +57,7 @@ inline const std::map<UnitSystem, Unit::Power> ConsistentUnits<Unit::Power>{
     {UnitSystem::InchPoundSecondRankine,     Unit::Power::InchPoundPerSecond},
 };
 
-template<>
+template <>
 inline const std::map<Unit::Power, UnitSystem> RelatedUnitSystems<Unit::Power>{
     {Unit::Power::Watt,               UnitSystem::MetreKilogramSecondKelvin },
     {Unit::Power::Nanowatt,           UnitSystem::MillimetreGramSecondKelvin},
@@ -64,7 +65,7 @@ inline const std::map<Unit::Power, UnitSystem> RelatedUnitSystems<Unit::Power>{
     {Unit::Power::InchPoundPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
-template<>
+template <>
 inline const std::map<Unit::Power, std::string_view> Abbreviations<Unit::Power>{
     {Unit::Power::Watt,               "W"       },
     {Unit::Power::Milliwatt,          "mW"      },
@@ -77,152 +78,165 @@ inline const std::map<Unit::Power, std::string_view> Abbreviations<Unit::Power>{
     {Unit::Power::InchPoundPerSecond, "in·lbf/s"},
 };
 
-template<> inline const std::unordered_map<std::string_view, Unit::Power>
-    Spellings<Unit::Power>{
-        {"W",          Unit::Power::Watt              },
-        {"J/s",        Unit::Power::Watt              },
-        {"N·m/s",      Unit::Power::Watt              },
-        {"N*m/s",      Unit::Power::Watt              },
-        {"kg·m^2/s^3", Unit::Power::Watt              },
-        {"kg*m^2/s^3", Unit::Power::Watt              },
-        {"kg·m2/s3",   Unit::Power::Watt              },
-        {"kg*m2/s3",   Unit::Power::Watt              },
-        {"mW",         Unit::Power::Milliwatt         },
-        {"mJ/s",       Unit::Power::Milliwatt         },
-        {"μW",         Unit::Power::Microwatt         },
-        {"μJ/s",       Unit::Power::Microwatt         },
-        {"uW",         Unit::Power::Microwatt         },
-        {"uJ/s",       Unit::Power::Microwatt         },
-        {"nW",         Unit::Power::Nanowatt          },
-        {"nJ/s",       Unit::Power::Nanowatt          },
-        {"μN·mm/s",    Unit::Power::Nanowatt          },
-        {"μN*mm/s",    Unit::Power::Nanowatt          },
-        {"uN·mm/s",    Unit::Power::Nanowatt          },
-        {"uN*mm/s",    Unit::Power::Nanowatt          },
-        {"g·mm^2/s^3", Unit::Power::Nanowatt          },
-        {"g*mm^2/s^3", Unit::Power::Nanowatt          },
-        {"g·mm2/s3",   Unit::Power::Nanowatt          },
-        {"g*mm2/s3",   Unit::Power::Nanowatt          },
-        {"kW",         Unit::Power::Kilowatt          },
-        {"kJ/s",       Unit::Power::Kilowatt          },
-        {"MW",         Unit::Power::Megawatt          },
-        {"MJ/s",       Unit::Power::Megawatt          },
-        {"GW",         Unit::Power::Gigawatt          },
-        {"GJ/s",       Unit::Power::Gigawatt          },
-        {"ft·lbf/s",   Unit::Power::FootPoundPerSecond},
-        {"ft*lbf/s",   Unit::Power::FootPoundPerSecond},
-        {"ft·lb/s",    Unit::Power::FootPoundPerSecond},
-        {"ft*lb/s",    Unit::Power::FootPoundPerSecond},
-        {"in·lbf/s",   Unit::Power::InchPoundPerSecond},
-        {"in*lbf/s",   Unit::Power::InchPoundPerSecond},
-        {"in·lb/s",    Unit::Power::InchPoundPerSecond},
-        {"in*lb/s",    Unit::Power::InchPoundPerSecond},
+template <>
+inline const std::unordered_map<std::string_view, Unit::Power> Spellings<
+    Unit::Power>{
+    {"W",          Unit::Power::Watt              },
+    {"J/s",        Unit::Power::Watt              },
+    {"N·m/s",      Unit::Power::Watt              },
+    {"N*m/s",      Unit::Power::Watt              },
+    {"kg·m^2/s^3", Unit::Power::Watt              },
+    {"kg*m^2/s^3", Unit::Power::Watt              },
+    {"kg·m2/s3",   Unit::Power::Watt              },
+    {"kg*m2/s3",   Unit::Power::Watt              },
+    {"mW",         Unit::Power::Milliwatt         },
+    {"mJ/s",       Unit::Power::Milliwatt         },
+    {"μW",         Unit::Power::Microwatt         },
+    {"μJ/s",       Unit::Power::Microwatt         },
+    {"uW",         Unit::Power::Microwatt         },
+    {"uJ/s",       Unit::Power::Microwatt         },
+    {"nW",         Unit::Power::Nanowatt          },
+    {"nJ/s",       Unit::Power::Nanowatt          },
+    {"μN·mm/s",    Unit::Power::Nanowatt          },
+    {"μN*mm/s",    Unit::Power::Nanowatt          },
+    {"uN·mm/s",    Unit::Power::Nanowatt          },
+    {"uN*mm/s",    Unit::Power::Nanowatt          },
+    {"g·mm^2/s^3", Unit::Power::Nanowatt          },
+    {"g*mm^2/s^3", Unit::Power::Nanowatt          },
+    {"g·mm2/s3",   Unit::Power::Nanowatt          },
+    {"g*mm2/s3",   Unit::Power::Nanowatt          },
+    {"kW",         Unit::Power::Kilowatt          },
+    {"kJ/s",       Unit::Power::Kilowatt          },
+    {"MW",         Unit::Power::Megawatt          },
+    {"MJ/s",       Unit::Power::Megawatt          },
+    {"GW",         Unit::Power::Gigawatt          },
+    {"GJ/s",       Unit::Power::Gigawatt          },
+    {"ft·lbf/s",   Unit::Power::FootPoundPerSecond},
+    {"ft*lbf/s",   Unit::Power::FootPoundPerSecond},
+    {"ft·lb/s",    Unit::Power::FootPoundPerSecond},
+    {"ft*lb/s",    Unit::Power::FootPoundPerSecond},
+    {"in·lbf/s",   Unit::Power::InchPoundPerSecond},
+    {"in*lbf/s",   Unit::Power::InchPoundPerSecond},
+    {"in·lb/s",    Unit::Power::InchPoundPerSecond},
+    {"in*lb/s",    Unit::Power::InchPoundPerSecond},
 };
 
-template<> inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double& value) noexcept {
-}
+template <>
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(
+    double& value) noexcept {}
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
     double& value) noexcept {
   value /= 0.3048 * 0.45359237 * 9.80665;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
     double& value) noexcept {
   value /= 0.0254 * 0.45359237 * 9.80665;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Power, Unit::Power::Watt>(double& value) noexcept {}
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(
     double& value) noexcept {
   value *= 0.001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(
     double& value) noexcept {
   value *= 0.000001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(
     double& value) noexcept {
   value *= 1000000.0;
 }
 
-template<>
+template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
     double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665;
 }
 
-template<> inline constexpr void
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
     double& value) noexcept {
   value *= 0.0254 * 0.45359237 * 9.80665;
 }
 
-template<> inline const std::map<
+template <>
+inline const std::map<
     Unit::Power, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Power>{
         {Unit::Power::Watt,
@@ -245,7 +259,7 @@ template<> inline const std::map<
          ConversionsFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>},
 };
 
-template<>
+template <>
 inline const std::map<Unit::Power, std::function<void(double* const values,
                                                       const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Power>{
