@@ -56,6 +56,34 @@ TEST(DimensionLength, Comparison) {
   EXPECT_EQ(*decreasing.begin(), length1);
 }
 
+TEST(DimensionLength, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr Length reference{1};
+
+  // Default constructor.
+  constexpr Length default_;
+
+  // Copy constructor.
+  constexpr Length copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Length copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Length to_move_construct{value_reference};
+  Length move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Length to_move_assign{value_reference};
+  Length move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionLength, Hash) {
   const Length length0{-2};
   const Length length1{-1};

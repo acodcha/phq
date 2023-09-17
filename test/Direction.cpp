@@ -83,11 +83,38 @@ TEST(Direction, Comparison) {
 }
 
 TEST(Direction, Constructor) {
+  const Direction reference{0.0, -1.0, 0.0};
+
+  // Default constructor.
   EXPECT_EQ(Direction{}, Direction(0.0, 0.0, 0.0));
+
+  // Constructor from array.
   EXPECT_EQ(Direction(std::array<double, 3>{0.0, -10.0, 0.0}),
             Direction(0.0, -1.0, 0.0));
+
+  // Constructor from vector.
   EXPECT_EQ(Direction(Value::Vector{-10.0, 20.0, -30.0}),
             Direction(-10.0, 20.0, -30.0));
+
+  // Copy constructor.
+  const Direction copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Direction copy_assigned{0.0, 0.0, 1.0};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Direction to_move_construct{reference};
+  Direction move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Direction to_move_assign{reference};
+  Direction move_assigned{0.0, 0.0, 1.0};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
 }
 
 TEST(Direction, Copy) {

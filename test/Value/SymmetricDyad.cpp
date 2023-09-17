@@ -24,8 +24,8 @@ namespace PhQ::Value {
 namespace {
 
 TEST(ValueSymmetricDyad, Accessor) {
-  const std::array<double, 6> value0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const SymmetricDyad symdyad0{value0};
+  constexpr std::array<double, 6> value0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad symdyad0{value0};
   EXPECT_EQ(symdyad0.xx_xy_xz_yy_yz_zz(), value0);
   EXPECT_EQ(symdyad0.xx(), 1.11);
   EXPECT_EQ(symdyad0.xy(), 2.22);
@@ -116,7 +116,7 @@ TEST(ValueSymmetricDyad, Adjugate) {
 }
 
 TEST(ValueSymmetricDyad, Arithmetic) {
-  const SymmetricDyad symdyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  constexpr SymmetricDyad symdyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
   EXPECT_EQ(
       symdyad0 + symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
   EXPECT_EQ(symdyad0 - symdyad0, SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
@@ -166,9 +166,53 @@ TEST(ValueSymmetricDyad, Comparison) {
 }
 
 TEST(ValueSymmetricDyad, Constructor) {
-  EXPECT_EQ(
-      SymmetricDyad(std::array<double, 6>{1.11, 2.22, 3.33, 4.44, 5.55, 6.66}),
-      SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66));
+  constexpr std::array<double, 6> array_reference{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad reference{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+
+  // Default constructor.
+  constexpr SymmetricDyad default_;
+
+  // Constructor from array.
+  constexpr SymmetricDyad from_array{array_reference};
+  EXPECT_EQ(from_array, reference);
+
+  // Copy constructor.
+  constexpr SymmetricDyad copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  SymmetricDyad copy_assigned = SymmetricDyad::Zero();
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Copy-assignment operator from array.
+  SymmetricDyad copy_assigned_from_array = SymmetricDyad::Zero();
+  copy_assigned_from_array = array_reference;
+  EXPECT_EQ(copy_assigned_from_array, reference);
+
+  // Move constructor.
+  SymmetricDyad to_move_construct{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move constructor from array.
+  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_constructed_from_array{std::move(array_to_move)};
+  EXPECT_EQ(move_constructed_from_array, reference);
+
+  // Move-assignment operator.
+  SymmetricDyad to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_assigned = SymmetricDyad::Zero();
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+
+  // Move-assignment operator from array.
+  std::array<double, 6> array_to_move_assign{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_assigned_from_array = SymmetricDyad::Zero();
+  move_assigned_from_array = std::move(array_to_move_assign);
+  EXPECT_EQ(move_assigned_from_array, reference);
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
@@ -177,13 +221,13 @@ TEST(ValueSymmetricDyad, Determinant) {
 }
 
 TEST(ValueSymmetricDyad, Hash) {
-  const SymmetricDyad symdyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const SymmetricDyad symdyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
-  const SymmetricDyad symdyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0};
-  const SymmetricDyad symdyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const SymmetricDyad symdyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  const SymmetricDyad symdyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
-  const std::hash<SymmetricDyad> hasher;
+  constexpr SymmetricDyad symdyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr SymmetricDyad symdyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr SymmetricDyad symdyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0};
+  constexpr SymmetricDyad symdyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr SymmetricDyad symdyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad symdyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  constexpr std::hash<SymmetricDyad> hasher;
   EXPECT_NE(hasher(symdyad0), hasher(symdyad1));
   EXPECT_NE(hasher(symdyad0), hasher(symdyad2));
   EXPECT_NE(hasher(symdyad0), hasher(symdyad3));
@@ -194,7 +238,7 @@ TEST(ValueSymmetricDyad, Hash) {
 }
 
 TEST(ValueSymmetricDyad, Inverse) {
-  const SymmetricDyad symdyad0{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
+  constexpr SymmetricDyad symdyad0{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
   const std::optional<SymmetricDyad> inverse0{symdyad0.Inverse()};
   EXPECT_TRUE(inverse0.has_value());
   EXPECT_DOUBLE_EQ(inverse0.value().xx(), 496.0 / 3840.0);
@@ -204,7 +248,7 @@ TEST(ValueSymmetricDyad, Inverse) {
   EXPECT_DOUBLE_EQ(inverse0.value().yz(), -30.0 / 3840.0);
   EXPECT_DOUBLE_EQ(inverse0.value().zz(), 124.0 / 3840.0);
 
-  const SymmetricDyad symdyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr SymmetricDyad symdyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   const std::optional<SymmetricDyad> inverse1{symdyad1.Inverse()};
   EXPECT_FALSE(inverse1.has_value());
 }
@@ -229,12 +273,12 @@ TEST(ValueSymmetricDyad, Print) {
 }
 
 TEST(ValueSymmetricDyad, SizeOf) {
-  const SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   EXPECT_EQ(sizeof(symdyad), 6 * sizeof(double));
 }
 
 TEST(ValueSymmetricDyad, Stream) {
-  const SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   std::ostringstream stream;
   stream << symdyad;
   EXPECT_EQ(stream.str(), symdyad.Print());
@@ -245,7 +289,7 @@ TEST(ValueSymmetricDyad, Trace) {
 }
 
 TEST(ValueSymmetricDyad, Transpose) {
-  const SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   EXPECT_EQ(symdyad.Transpose(), symdyad);
 }
 

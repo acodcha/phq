@@ -57,6 +57,34 @@ TEST(DimensionTemperature, Comparison) {
   EXPECT_EQ(*decreasing.begin(), temperature1);
 }
 
+TEST(DimensionTemperature, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr Temperature reference{1};
+
+  // Default constructor.
+  constexpr Temperature default_;
+
+  // Copy constructor.
+  constexpr Temperature copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Temperature copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Temperature to_move_construct{value_reference};
+  Temperature move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Temperature to_move_assign{value_reference};
+  Temperature move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionTemperature, Hash) {
   const Temperature temperature0{-2};
   const Temperature temperature1{-1};

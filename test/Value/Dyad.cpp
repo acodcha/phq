@@ -24,9 +24,9 @@ namespace PhQ::Value {
 namespace {
 
 TEST(ValueDyad, Accessor) {
-  const std::array<double, 9> value0{
+  constexpr std::array<double, 9> value0{
       1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  const Dyad dyad0{value0};
+  constexpr Dyad dyad0{value0};
   EXPECT_EQ(dyad0.xx_xy_xz_yx_yy_yz_zx_zy_zz(), value0);
   EXPECT_EQ(dyad0.xx(), 1.11);
   EXPECT_EQ(dyad0.xy(), 2.22);
@@ -121,9 +121,9 @@ TEST(ValueDyad, Adjugate) {
 }
 
 TEST(ValueDyad, Arithmetic) {
-  const Vector vector{1.0, 2.0, 4.0};
-  const SymmetricDyad symdyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  const Dyad dyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
+  constexpr Vector vector{1.0, 2.0, 4.0};
+  constexpr SymmetricDyad symdyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
+  constexpr Dyad dyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0};
   EXPECT_EQ(dyad0 + dyad0,
             Dyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0, 512.0));
   EXPECT_EQ(dyad0 - dyad0, Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
@@ -186,11 +186,75 @@ TEST(ValueDyad, Comparison) {
 }
 
 TEST(ValueDyad, Constructor) {
-  EXPECT_EQ(Dyad(std::array<double, 9>{
-                1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99}),
-            Dyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99));
-  EXPECT_EQ(Dyad(SymmetricDyad(1.11, 2.22, 3.33, 4.44, 5.55, 6.66)),
+  constexpr std::array<double, 9> array_reference{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  constexpr Dyad reference{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+
+  // Default constructor.
+  constexpr Dyad default_;
+
+  // Constructor from array.
+  constexpr Dyad from_array{array_reference};
+  EXPECT_EQ(from_array, reference);
+
+  // Copy constructor.
+  constexpr Dyad copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy constructor from symmetric dyad.
+  constexpr SymmetricDyad symmetric_reference{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr Dyad copy_constructed_from_symmetric{symmetric_reference};
+  EXPECT_EQ(copy_constructed_from_symmetric,
             Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
+
+  // Copy-assignment operator.
+  Dyad copy_assigned = Dyad::Zero();
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Copy-assignment operator from symmetric dyad.
+  Dyad copy_assigned_from_symmetric = Dyad::Zero();
+  copy_assigned_from_symmetric = symmetric_reference;
+  EXPECT_EQ(copy_assigned_from_symmetric,
+            Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
+
+  // Copy-assignment operator from array.
+  Dyad copy_assigned_from_array = Dyad::Zero();
+  copy_assigned_from_array = array_reference;
+  EXPECT_EQ(copy_assigned_from_array, reference);
+
+  // Move constructor.
+  Dyad to_move_construct{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move constructor from array.
+  std::array<double, 9> array_to_move{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad move_constructed_from_array{std::move(array_to_move)};
+  EXPECT_EQ(move_constructed_from_array, reference);
+
+  // Move-assignment operator.
+  Dyad to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad move_assigned = Dyad::Zero();
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+
+  // Move-assignment operator from symmetric dyad.
+  SymmetricDyad symmetric_to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  Dyad move_assigned_from_symmetric = Dyad::Zero();
+  move_assigned_from_symmetric = std::move(symmetric_to_move_assign);
+  EXPECT_EQ(move_assigned_from_symmetric,
+            Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
+
+  // Move-assignment operator from array.
+  std::array<double, 9> array_to_move_assign{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  Dyad move_assigned_from_array = Dyad::Zero();
+  move_assigned_from_array = std::move(array_to_move_assign);
+  EXPECT_EQ(move_assigned_from_array, reference);
 }
 
 TEST(ValueDyad, Determinant) {
@@ -205,13 +269,13 @@ TEST(ValueDyad, DyadicProduct) {
 }
 
 TEST(ValueDyad, Hash) {
-  const Dyad dyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Dyad dyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Dyad dyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Dyad dyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
-  const Dyad dyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
-  const std::hash<Dyad> hasher;
+  constexpr Dyad dyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr Dyad dyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr Dyad dyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr Dyad dyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr Dyad dyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  constexpr Dyad dyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44, 7.33, 8.22, 9.11};
+  constexpr std::hash<Dyad> hasher;
   EXPECT_NE(hasher(dyad0), hasher(dyad1));
   EXPECT_NE(hasher(dyad0), hasher(dyad2));
   EXPECT_NE(hasher(dyad0), hasher(dyad3));
@@ -222,7 +286,7 @@ TEST(ValueDyad, Hash) {
 }
 
 TEST(ValueDyad, Inverse) {
-  const Dyad dyad0{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
+  constexpr Dyad dyad0{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
   const std::optional<Dyad> inverse0{dyad0.Inverse()};
   EXPECT_TRUE(inverse0.has_value());
   EXPECT_DOUBLE_EQ(inverse0.value().xx(), 32512.0 / 2064704.0);
@@ -235,7 +299,7 @@ TEST(ValueDyad, Inverse) {
   EXPECT_DOUBLE_EQ(inverse0.value().zy(), -2040.0 / 2064704.0);
   EXPECT_DOUBLE_EQ(inverse0.value().zz(), 8128.0 / 2064704.0);
 
-  const Dyad dyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  constexpr Dyad dyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   const std::optional<Dyad> inverse1{dyad1.Inverse()};
   EXPECT_FALSE(inverse1.has_value());
 }
@@ -269,12 +333,12 @@ TEST(ValueDyad, Print) {
 }
 
 TEST(ValueDyad, SizeOf) {
-  const Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  constexpr Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   EXPECT_EQ(sizeof(dyad), 9 * sizeof(double));
 }
 
 TEST(ValueDyad, Stream) {
-  const Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
+  constexpr Dyad dyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   std::ostringstream stream;
   stream << dyad;
   EXPECT_EQ(stream.str(), dyad.Print());

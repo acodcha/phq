@@ -29,14 +29,35 @@ namespace PhQ::Dimension {
 // set of any unit of measure or physical quantity.
 class ElectricCurrent {
 public:
-  // Constructs a base physical dimension of electric current with a value of
-  // zero.
+  // Default constructor. Constructs a base physical dimension of electric
+  // current with a value of zero.
   constexpr ElectricCurrent() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of electric current with a given
-  // value.
+  // Constructor. Constructs a base physical dimension of electric current with
+  // a given value.
   explicit constexpr ElectricCurrent(const int8_t value) noexcept
     : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~ElectricCurrent() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of electric current
+  // by copying another one.
+  constexpr ElectricCurrent(const ElectricCurrent& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of electric current by copying from another one.
+  constexpr ElectricCurrent& operator=(
+      const ElectricCurrent& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of electric current
+  // by moving another one.
+  constexpr ElectricCurrent(ElectricCurrent&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of electric current by moving another one.
+  constexpr ElectricCurrent& operator=(
+      ElectricCurrent&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {

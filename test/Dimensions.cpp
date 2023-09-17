@@ -65,6 +65,45 @@ TEST(Dimensions, Comparison) {
   EXPECT_EQ(*decreasing.begin(), set1);
 }
 
+TEST(Dimensions, Constructor) {
+  constexpr Dimensions reference{
+      Dimension::Time{-3},
+      Dimension::Length{-2},
+      Dimension::Mass{-1},
+      Dimension::ElectricCurrent{0},
+      Dimension::Temperature{1},
+      Dimension::SubstanceAmount{2},
+      Dimension::LuminousIntensity{3}};
+
+  // Default constructor.
+  constexpr Dimensions default_;
+  EXPECT_EQ(default_,
+            Dimensions(Dimension::Time{0}, Dimension::Length{0},
+                       Dimension::Mass{0}, Dimension::ElectricCurrent{0},
+                       Dimension::Temperature{0}, Dimension::SubstanceAmount{0},
+                       Dimension::LuminousIntensity{0}));
+
+  // Copy constructor.
+  constexpr Dimensions copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Dimensions copy_assigned;
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Dimensions to_move_construct{reference};
+  Dimensions move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Dimensions to_move_assign{reference};
+  Dimensions move_assigned;
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(Dimensions, Hash) {
   const Dimensions set0;
   const Dimensions set1{Dimension::Time{2}};

@@ -48,55 +48,78 @@ class Direction : public DimensionlessVectorQuantity {
 public:
   // Default constructor. Initializes the direction to the zero vector.
   constexpr Direction() noexcept
-    : DimensionlessVectorQuantity({0.0, 0.0, 0.0}) {}
+    : DimensionlessVectorQuantity(Value::Vector::Zero()) {}
 
-  // Constructs a direction by normalizing the given [x, y, z] coordinates to a
-  // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
-  // zero vector.
+  // Constructor. Constructs a direction by normalizing the given [x, y, z]
+  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
+  // direction to the zero vector.
   Direction(const double x, const double y, const double z) noexcept {
     SetValue(x, y, z);
   }
 
-  // Constructs a direction by normalizing the given [x, y, z] coordinates to a
-  // unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the
-  // zero vector.
+  // Constructor. Constructs a direction by normalizing the given [x, y, z]
+  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
+  // direction to the zero vector.
   explicit Direction(const std::array<double, 3>& x_y_z) noexcept {
     SetValue(x_y_z);
   }
 
-  // Constructs a direction by normalizing the given x-y-z vector to a unit
-  // vector. If the given vector is a zero vector, initializes the direction to
-  // the zero vector.
+  // Constructor. Constructs a direction by normalizing the given x-y-z vector
+  // to a unit vector. If the given vector is a zero vector, initializes the
+  // direction to the zero vector.
   explicit Direction(const Value::Vector& value) noexcept {
     SetValue(value);
   }
 
-  // Constructs a direction from an acceleration.
+  // Constructor. Constructs a direction from an acceleration.
   explicit Direction(const Acceleration& acceleration) noexcept;
 
-  // Constructs a direction from a vector area.
+  // Constructor. Constructs a direction from a vector area.
   explicit Direction(const AreaVector& area_vector) noexcept;
 
-  // Constructs a direction from a displacement.
+  // Constructor. Constructs a direction from a displacement.
   explicit Direction(const Displacement& displacement) noexcept;
 
-  // Constructs a direction from a force.
+  // Constructor. Constructs a direction from a force.
   explicit Direction(const Force& force) noexcept;
 
-  // Constructs a direction from a heat flux.
+  // Constructor. Constructs a direction from a heat flux.
   explicit Direction(const HeatFlux& heat_flux) noexcept;
 
-  // Constructs a direction from a position.
+  // Constructor. Constructs a direction from a position.
   explicit Direction(const Position& position) noexcept;
 
-  // Constructs a direction from a temperature gradient.
+  // Constructor. Constructs a direction from a temperature gradient.
   explicit Direction(const TemperatureGradient& temperature_gradient) noexcept;
 
-  // Constructs a direction from a traction.
+  // Constructor. Constructs a direction from a traction.
   explicit Direction(const Traction& traction) noexcept;
 
-  // Constructs a direction from a velocity.
+  // Constructor. Constructs a direction from a velocity.
   explicit Direction(const Velocity& velocity) noexcept;
+
+  // Destructor. Destroys this direction.
+  ~Direction() noexcept = default;
+
+  // Copy constructor. Constructs a direction by copying another one.
+  constexpr Direction(const Direction& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this direction by copying
+  // from another one.
+  constexpr Direction& operator=(const Direction& other) noexcept {
+    value_ = other.value_;
+    return *this;
+  }
+
+  // Move constructor. Constructs a direction by moving another one.
+  constexpr Direction(Direction&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this direction by moving
+  // another one.
+  constexpr Direction& operator=(Direction&& other) noexcept {
+    value_ = std::move(other.value_);
+    return *this;
+  }
 
   static constexpr Direction Zero() noexcept {
     return Direction{};
@@ -109,9 +132,9 @@ public:
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = {x / magnitude, y / magnitude, z / magnitude};
+      value_ = Value::Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value_ = {0.0, 0.0, 0.0};
+      value_ = Value::Vector::Zero();
     }
   }
 
@@ -123,10 +146,10 @@ public:
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = {
+      value_ = Value::Vector{
           x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value_ = {0.0, 0.0, 0.0};
+      value_ = Value::Vector::Zero();
     }
   }
 

@@ -56,6 +56,34 @@ TEST(DimensionTime, Comparison) {
   EXPECT_EQ(*decreasing.begin(), time1);
 }
 
+TEST(DimensionTime, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr Time reference{1};
+
+  // Default constructor.
+  constexpr Time default_;
+
+  // Copy constructor.
+  constexpr Time copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Time copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Time to_move_construct{value_reference};
+  Time move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Time to_move_assign{value_reference};
+  Time move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionTime, Hash) {
   const Time time0{-2};
   const Time time1{-1};

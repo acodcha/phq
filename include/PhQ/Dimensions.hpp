@@ -43,9 +43,9 @@ namespace PhQ {
 // second or the mile per hour.
 class Dimensions {
 public:
-  // Constructs a physical dimension set from the given base physical
-  // dimensions. Omitted base physical dimensions are initialized to a value of
-  // zero.
+  // Constructor. Constructs a physical dimension set from the given base
+  // physical dimensions. Omitted base physical dimensions are initialized to a
+  // value of zero.
   constexpr Dimensions(
       const Dimension::Time& time = {}, const Dimension::Length& length = {},
       const Dimension::Mass& mass = {},
@@ -57,6 +57,25 @@ public:
       electric_current_(electric_current), temperature_(temperature),
       substance_amount_(substance_amount),
       luminous_intensity_(luminous_intensity) {}
+
+  // Destructor. Destroys this physical dimension set.
+  ~Dimensions() noexcept = default;
+
+  // Copy constructor. Constructs a physical dimension set by copying another
+  // one.
+  constexpr Dimensions(const Dimensions& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the base physical dimensions of this
+  // physical dimension set by copying from another one.
+  constexpr Dimensions& operator=(const Dimensions& other) noexcept = default;
+
+  // Move constructor. Constructs a physical dimension set by moving another
+  // one.
+  constexpr Dimensions(Dimensions&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the base physical dimensions of this
+  // physical dimension set by moving another one.
+  constexpr Dimensions& operator=(Dimensions&& other) noexcept = default;
 
   // Base physical dimension of time.
   constexpr const Dimension::Time& Time() const noexcept {

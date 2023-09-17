@@ -29,11 +29,32 @@ namespace PhQ::Dimension {
 // any unit of measure or physical quantity.
 class Mass {
 public:
-  // Constructs a base physical dimension of mass with a value of zero.
+  // Default constructor. Constructs a base physical dimension of mass with a
+  // value of zero.
   constexpr Mass() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of mass with a given value.
+  // Constructor. Constructs a base physical dimension of mass with a given
+  // value.
   explicit constexpr Mass(const int8_t value) noexcept : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~Mass() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of mass by copying
+  // another one.
+  constexpr Mass(const Mass& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of mass by copying from another one.
+  constexpr Mass& operator=(const Mass& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of mass by moving
+  // another one.
+  constexpr Mass(Mass&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of mass by moving another one.
+  constexpr Mass& operator=(Mass&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {

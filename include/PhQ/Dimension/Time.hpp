@@ -29,11 +29,32 @@ namespace PhQ::Dimension {
 // any unit of measure or physical quantity.
 class Time {
 public:
-  // Constructs a base physical dimension of time with a value of zero.
+  // Default constructor. Constructs a base physical dimension of time with a
+  // value of zero.
   constexpr Time() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of time with a given value.
+  // Constructor. Constructs a base physical dimension of time with a given
+  // value.
   explicit constexpr Time(const int8_t value) noexcept : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~Time() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of time by copying
+  // another one.
+  constexpr Time(const Time& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of time by copying from another one.
+  constexpr Time& operator=(const Time& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of time by moving
+  // another one.
+  constexpr Time(Time&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of time by moving another one.
+  constexpr Time& operator=(Time&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {

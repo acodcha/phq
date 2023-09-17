@@ -38,28 +38,63 @@ class Dyad;
 // components: x, y, and z.
 class Vector {
 public:
-  // Constructs a three-dimensional vector value with uninitialized x, y, and z
-  // Cartesian components.
+  // Default constructor. Constructs a three-dimensional vector value with
+  // uninitialized x, y, and z Cartesian components.
   constexpr Vector() noexcept : x_y_z_() {}
 
-  // Constructs a three-dimensional vector value from the given x, y, and z
-  // Cartesian components.
+  // Constructor. Constructs a three-dimensional vector value from the given x,
+  // y, and z Cartesian components.
   constexpr Vector(const double x, const double y, const double z) noexcept
     : x_y_z_({x, y, z}) {}
 
-  // Constructs a three-dimensional vector value from a given array representing
-  // its x, y, and z Cartesian components.
+  // Constructor. Constructs a three-dimensional vector value from a given array
+  // representing its x, y, and z Cartesian components.
   explicit constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
     : x_y_z_(x_y_z) {}
 
-  // Constructs a three-dimensional vector value by moving a given array
-  // representing its x, y, and z Cartesian components.
-  explicit constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
+  // Constructor. Constructs a three-dimensional vector value given a magnitude
+  // and a direction.
+  constexpr Vector(const double magnitude, const Direction& direction) noexcept;
+
+  // Destructor. Destroys this three-dimensional vector value.
+  ~Vector() noexcept = default;
+
+  // Copy constructor. Constructs a three-dimensional vector value by copying
+  // another one.
+  constexpr Vector(const Vector& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // vector value by copying another three-dimensional vector value.
+  constexpr Vector& operator=(const Vector& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // vector value by copying a given array representing its x, y, and z
+  // Cartesian components.
+  constexpr Vector& operator=(const std::array<double, 3>& x_y_z) noexcept {
+    x_y_z_ = x_y_z;
+    return *this;
+  }
+
+  // Move constructor. Constructs a three-dimensional vector value by moving
+  // another one.
+  constexpr Vector(Vector&& other) noexcept = default;
+
+  // Move constructor. Constructs a three-dimensional vector value by moving a
+  // given array representing its x, y, and z Cartesian components.
+  constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
     : x_y_z_(std::move(x_y_z)) {}
 
-  // Constructs a three-dimensional vector value given a magnitude and a
-  // direction.
-  constexpr Vector(const double magnitude, const Direction& direction) noexcept;
+  // Move-assignment operator. Assigns the components of this three-dimensional
+  // vector value by moving another three-dimensional vector value.
+  constexpr Vector& operator=(Vector&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the components of this three-dimensional
+  // vector value by moving a given array representing its x, y, and z Cartesian
+  // components.
+  constexpr Vector& operator=(std::array<double, 3>&& x_y_z) noexcept {
+    x_y_z_ = std::move(x_y_z);
+    return *this;
+  }
 
   // Returns a three-dimensional vector value with its x, y, and z Cartesian
   // components initialized to zero.

@@ -24,29 +24,69 @@ namespace PhQ::Value {
 // Contains six components: xx, xy = yx, xz = zx, yy, yz = zy, and zz.
 class SymmetricDyad {
 public:
-  // Constructs a three-dimensional symmetric dyadic tensor value with
-  // uninitialized xx, xy, xz, yy, yz, and zz Cartesian components.
+  // Default constructor. Constructs a three-dimensional symmetric dyadic tensor
+  // value with uninitialized xx, xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad() noexcept : xx_xy_xz_yy_yz_zz_() {}
 
-  // Constructs a three-dimensional symmetric dyadic tensor value from the given
-  // xx, xy, xz, yy, yz, and zz Cartesian components.
+  // Constructor. Constructs a three-dimensional symmetric dyadic tensor value
+  // from the given xx, xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad(
       const double xx, const double xy, const double xz, const double yy,
       const double yz, const double zz) noexcept
     : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
-  // Constructs a three-dimensional symmetric dyadic tensor value from a given
-  // array representing its xx, xy, xz, yy, yz, and zz Cartesian components.
+  // Constructor. Constructs a three-dimensional symmetric dyadic tensor value
+  // from a given array representing its xx, xy, xz, yy, yz, and zz Cartesian
+  // components.
   explicit constexpr SymmetricDyad(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept
     : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
-  // Constructs a three-dimensional symmetric dyadic tensor value by moving a
-  // given array representing its xx, xy, xz, yy, yz, and zz Cartesian
-  // components.
-  explicit constexpr SymmetricDyad(
-      std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
+  // Destructor. Destroys this three-dimensional symmetric dyadic tensor value.
+  ~SymmetricDyad() noexcept = default;
+
+  // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor
+  // value by copying another one.
+  constexpr SymmetricDyad(const SymmetricDyad& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // symmetric dyadic tensor value by copying another three-dimensional
+  // symmetric dyadic tensor value.
+  constexpr SymmetricDyad& operator=(
+      const SymmetricDyad& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // symmetric dyadic tensor value by copying a given array representing its xx,
+  // xy, xz, yy, yz, and zz Cartesian components.
+  constexpr SymmetricDyad& operator=(
+      const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept {
+    xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
+    return *this;
+  }
+
+  // Move constructor. Constructs a three-dimensional symmetric dyadic tensor
+  // value by moving another one.
+  constexpr SymmetricDyad(SymmetricDyad&& other) noexcept = default;
+
+  // Move constructor. Constructs a three-dimensional symmetric dyadic tensor
+  // value by moving a given array representing its xx, xy, xz, yy, yz, and zz
+  // Cartesian components.
+  constexpr SymmetricDyad(std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
     : xx_xy_xz_yy_yz_zz_(std::move(xx_xy_xz_yy_yz_zz)) {}
+
+  // Move-assignment operator. Assigns the components of this three-dimensional
+  // symmetric dyadic tensor value by moving another three-dimensional symmetric
+  // dyadic tensor value.
+  constexpr SymmetricDyad& operator=(SymmetricDyad&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the components of this three-dimensional
+  // symmetric dyadic tensor value by moving a given array representing its xx,
+  // xy, xz, yy, yz, and zz Cartesian components.
+  constexpr SymmetricDyad& operator=(
+      std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept {
+    xx_xy_xz_yy_yz_zz_ = std::move(xx_xy_xz_yy_yz_zz);
+    return *this;
+  }
 
   // Returns a three-dimensional symmetric dyadic tensor value with its xx, xy,
   // xz, yy, yz, and zz Cartesian components initialized to zero.
@@ -252,7 +292,7 @@ public:
 
   // Returns the transpose of this three-dimensional symmetric dyadic tensor
   // value.
-  constexpr SymmetricDyad Transpose() const noexcept {
+  constexpr const SymmetricDyad& Transpose() const noexcept {
     return *this;
   }
 
@@ -374,6 +414,8 @@ public:
 
 private:
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
+
+  friend Dyad;
 };
 
 inline constexpr bool operator==(
@@ -490,7 +532,7 @@ inline constexpr SymmetricDyad operator/(
 inline std::optional<SymmetricDyad> SymmetricDyad::Inverse() const {
   const double determinant_{Determinant()};
   if (determinant_ != 0.0) {
-    return Adjugate() / determinant_;
+    return std::optional<SymmetricDyad>{Adjugate() / determinant_};
   } else {
     return std::nullopt;
   }

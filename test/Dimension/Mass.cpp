@@ -56,6 +56,34 @@ TEST(DimensionMass, Comparison) {
   EXPECT_EQ(*decreasing.begin(), mass1);
 }
 
+TEST(DimensionMass, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr Mass reference{1};
+
+  // Default constructor.
+  constexpr Mass default_;
+
+  // Copy constructor.
+  constexpr Mass copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Mass copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  Mass to_move_construct{value_reference};
+  Mass move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  Mass to_move_assign{value_reference};
+  Mass move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionMass, Hash) {
   const Mass mass0{-2};
   const Mass mass1{-1};
