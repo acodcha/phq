@@ -57,6 +57,34 @@ TEST(DimensionLuminousIntensity, Comparison) {
   EXPECT_EQ(*decreasing.begin(), intensity1);
 }
 
+TEST(DimensionLuminousIntensity, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr LuminousIntensity reference{1};
+
+  // Default constructor.
+  constexpr LuminousIntensity default_;
+
+  // Copy constructor.
+  constexpr LuminousIntensity copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  LuminousIntensity copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  LuminousIntensity to_move_construct{value_reference};
+  LuminousIntensity move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  LuminousIntensity to_move_assign{value_reference};
+  LuminousIntensity move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionLuminousIntensity, Hash) {
   const LuminousIntensity intensity0{-2};
   const LuminousIntensity intensity1{-1};

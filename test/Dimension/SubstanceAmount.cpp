@@ -57,6 +57,34 @@ TEST(DimensionSubstanceAmount, Comparison) {
   EXPECT_EQ(*decreasing.begin(), amount1);
 }
 
+TEST(DimensionSubstanceAmount, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr SubstanceAmount reference{1};
+
+  // Default constructor.
+  constexpr SubstanceAmount default_;
+
+  // Copy constructor.
+  constexpr SubstanceAmount copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  SubstanceAmount copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  SubstanceAmount to_move_construct{value_reference};
+  SubstanceAmount move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  SubstanceAmount to_move_assign{value_reference};
+  SubstanceAmount move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionSubstanceAmount, Hash) {
   const SubstanceAmount amount0{-2};
   const SubstanceAmount amount1{-1};

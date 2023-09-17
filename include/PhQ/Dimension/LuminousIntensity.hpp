@@ -29,14 +29,36 @@ namespace PhQ::Dimension {
 // set of any unit of measure or physical quantity.
 class LuminousIntensity {
 public:
-  // Constructs a base physical dimension of luminous intensity with a value of
-  // zero.
+  // Default constructor. Constructs a base physical dimension of luminous
+  // intensity with a value of zero.
   constexpr LuminousIntensity() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of luminous intensity with a given
-  // value.
+  // Constructor. Constructs a base physical dimension of luminous intensity
+  // with a given value.
   explicit constexpr LuminousIntensity(const int8_t value) noexcept
     : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~LuminousIntensity() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of luminous
+  // intensity by copying another one.
+  constexpr LuminousIntensity(
+      const LuminousIntensity& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of luminous intensity by copying from another one.
+  constexpr LuminousIntensity& operator=(
+      const LuminousIntensity& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of luminous
+  // intensity by moving another one.
+  constexpr LuminousIntensity(LuminousIntensity&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of luminous intensity by moving another one.
+  constexpr LuminousIntensity& operator=(
+      LuminousIntensity&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {

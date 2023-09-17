@@ -57,6 +57,34 @@ TEST(DimensionElectricCurrent, Comparison) {
   EXPECT_EQ(*decreasing.begin(), current1);
 }
 
+TEST(DimensionElectricCurrent, Constructor) {
+  constexpr int8_t value_reference{1};
+  constexpr ElectricCurrent reference{1};
+
+  // Default constructor.
+  constexpr ElectricCurrent default_;
+
+  // Copy constructor.
+  constexpr ElectricCurrent copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  ElectricCurrent copy_assigned{-1};
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Move constructor.
+  ElectricCurrent to_move_construct{value_reference};
+  ElectricCurrent move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move-assignment operator.
+  ElectricCurrent to_move_assign{value_reference};
+  ElectricCurrent move_assigned{-1};
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+}
+
 TEST(DimensionElectricCurrent, Hash) {
   const ElectricCurrent current0{-2};
   const ElectricCurrent current1{-1};

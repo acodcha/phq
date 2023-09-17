@@ -24,8 +24,8 @@ namespace PhQ::Value {
 namespace {
 
 TEST(ValueVector, Accessor) {
-  const std::array<double, 3> value0{1.23, 4.56, 7.89};
-  const Vector vector0{value0};
+  constexpr std::array<double, 3> value0{1.23, 4.56, 7.89};
+  constexpr Vector vector0{value0};
   EXPECT_EQ(vector0.x_y_z(), value0);
   EXPECT_EQ(vector0.x(), 1.23);
   EXPECT_EQ(vector0.y(), 4.56);
@@ -65,7 +65,7 @@ TEST(ValueVector, Accessor) {
 }
 
 TEST(ValueVector, Arithmetic) {
-  const Vector vector0{2.0, 4.0, 8.0};
+  constexpr Vector vector0{2.0, 4.0, 8.0};
   EXPECT_EQ(vector0 + vector0, Vector(4.0, 8.0, 16.0));
   EXPECT_EQ(vector0 - vector0, Vector(0.0, 0.0, 0.0));
   EXPECT_EQ(vector0 * 2.0, Vector(4.0, 8.0, 16.0));
@@ -108,8 +108,51 @@ TEST(ValueVector, Comparison) {
 }
 
 TEST(ValueVector, Constructor) {
-  EXPECT_EQ(Vector(std::array<double, 3>{1.23, 4.56, 7.89}),
-            Vector(1.23, 4.56, 7.89));
+  constexpr std::array<double, 3> array_reference{1.23, 4.56, 7.89};
+  constexpr Vector reference{1.23, 4.56, 7.89};
+
+  // Default constructor.
+  constexpr Vector default_;
+
+  // Constructor from array.
+  constexpr Vector from_array{array_reference};
+  EXPECT_EQ(from_array, reference);
+
+  // Copy constructor.
+  constexpr Vector copy_constructed{reference};
+  EXPECT_EQ(copy_constructed, reference);
+
+  // Copy-assignment operator.
+  Vector copy_assigned = Vector::Zero();
+  copy_assigned = reference;
+  EXPECT_EQ(copy_assigned, reference);
+
+  // Copy-assignment operator from array.
+  Vector copy_assigned_from_array = Vector::Zero();
+  copy_assigned_from_array = array_reference;
+  EXPECT_EQ(copy_assigned_from_array, reference);
+
+  // Move constructor.
+  Vector to_move_construct{1.23, 4.56, 7.89};
+  Vector move_constructed{std::move(to_move_construct)};
+  EXPECT_EQ(move_constructed, reference);
+
+  // Move constructor from array.
+  std::array<double, 3> array_to_move_construct{1.23, 4.56, 7.89};
+  Vector move_constructed_from_array{std::move(array_to_move_construct)};
+  EXPECT_EQ(move_constructed_from_array, reference);
+
+  // Move-assignment operator.
+  Vector to_move_assign{1.23, 4.56, 7.89};
+  Vector move_assigned = Vector::Zero();
+  move_assigned = std::move(to_move_assign);
+  EXPECT_EQ(move_assigned, reference);
+
+  // Move-assignment operator from array.
+  std::array<double, 3> array_to_move_assign{1.23, 4.56, 7.89};
+  Vector move_assigned_from_array = Vector::Zero();
+  move_assigned_from_array = std::move(array_to_move_assign);
+  EXPECT_EQ(move_assigned_from_array, reference);
 }
 
 TEST(ValueVector, Cross) {
@@ -118,7 +161,7 @@ TEST(ValueVector, Cross) {
 }
 
 TEST(ValueVector, Dot) {
-  const Vector vector0{1.23, 4.56, 7.89};
+  constexpr Vector vector0{1.23, 4.56, 7.89};
   EXPECT_EQ(vector0.Dot(vector0), vector0.MagnitudeSquared());
   EXPECT_EQ(Vector(0.0, 10.0, -15.0).Dot(Vector(20.0, 0.0, 0.0)), 0.0);
   EXPECT_EQ(
@@ -126,13 +169,13 @@ TEST(ValueVector, Dot) {
 }
 
 TEST(ValueVector, Hash) {
-  const Vector vector0{10.0, 0.0, 0.0};
-  const Vector vector1{0.0, 10.0, 0.0};
-  const Vector vector2{0.0, 0.0, 10.0};
-  const Vector vector3{-10.0, 0.0, 0.0};
-  const Vector vector4{1.11, 2.22, 3.33};
-  const Vector vector5{1.23, 4.56, 7.89};
-  const std::hash<Vector> hasher;
+  constexpr Vector vector0{10.0, 0.0, 0.0};
+  constexpr Vector vector1{0.0, 10.0, 0.0};
+  constexpr Vector vector2{0.0, 0.0, 10.0};
+  constexpr Vector vector3{-10.0, 0.0, 0.0};
+  constexpr Vector vector4{1.11, 2.22, 3.33};
+  constexpr Vector vector5{1.23, 4.56, 7.89};
+  constexpr std::hash<Vector> hasher;
   EXPECT_NE(hasher(vector0), hasher(vector1));
   EXPECT_NE(hasher(vector0), hasher(vector2));
   EXPECT_NE(hasher(vector0), hasher(vector3));
@@ -162,12 +205,12 @@ TEST(ValueVector, Print) {
 }
 
 TEST(ValueVector, SizeOf) {
-  const Vector vector{1.23, 4.56, 7.89};
+  constexpr Vector vector{1.23, 4.56, 7.89};
   EXPECT_EQ(sizeof(vector), 3 * sizeof(double));
 }
 
 TEST(ValueVector, Stream) {
-  const Vector vector{1.23, 4.56, 7.89};
+  constexpr Vector vector{1.23, 4.56, 7.89};
   std::ostringstream stream;
   stream << vector;
   EXPECT_EQ(stream.str(), vector.Print());

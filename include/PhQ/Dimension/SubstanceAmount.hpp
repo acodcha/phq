@@ -29,14 +29,35 @@ namespace PhQ::Dimension {
 // set of any unit of measure or physical quantity.
 class SubstanceAmount {
 public:
-  // Constructs a base physical dimension of amount of substance with a value of
-  // zero.
+  // Default constructor. Constructs a base physical dimension of amount of
+  // substance with a value of zero.
   constexpr SubstanceAmount() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of amount of substance with a given
-  // value.
+  // Constructor. Constructs a base physical dimension of amount of substance
+  // with a given value.
   explicit constexpr SubstanceAmount(const int8_t value) noexcept
     : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~SubstanceAmount() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of amount of
+  // substance by copying another one.
+  constexpr SubstanceAmount(const SubstanceAmount& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of amount of substance by copying from another one.
+  constexpr SubstanceAmount& operator=(
+      const SubstanceAmount& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of amount of
+  // substance by moving another one.
+  constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of amount of substance by moving another one.
+  constexpr SubstanceAmount& operator=(
+      SubstanceAmount&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {

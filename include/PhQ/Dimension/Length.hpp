@@ -29,11 +29,32 @@ namespace PhQ::Dimension {
 // any unit of measure or physical quantity.
 class Length {
 public:
-  // Constructs a base physical dimension of length with a value of zero.
+  // Default constructor. Constructs a base physical dimension of length with a
+  // value of zero.
   constexpr Length() noexcept : value_(0) {}
 
-  // Constructs a base physical dimension of length with a given value.
+  // Constructor. Constructs a base physical dimension of length with a given
+  // value.
   explicit constexpr Length(const int8_t value) noexcept : value_(value) {}
+
+  // Destructor. Destroys this base physical dimension.
+  ~Length() noexcept = default;
+
+  // Copy constructor. Constructs a base physical dimension of length by copying
+  // another one.
+  constexpr Length(const Length& other) noexcept = default;
+
+  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // of length by copying from another one.
+  constexpr Length& operator=(const Length& other) noexcept = default;
+
+  // Move constructor. Constructs a base physical dimension of length by moving
+  // another one.
+  constexpr Length(Length&& other) noexcept = default;
+
+  // Move-assignment operator. Assigns the value of this base physical dimension
+  // of length by moving another one.
+  constexpr Length& operator=(Length&& other) noexcept = default;
 
   // Value of this base physical dimension.
   constexpr int8_t Value() const noexcept {
