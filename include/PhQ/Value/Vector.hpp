@@ -63,11 +63,11 @@ public:
   // another one.
   constexpr Vector(const Vector& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // Copy assignment operator. Assigns the components of this three-dimensional
   // vector value by copying another three-dimensional vector value.
   constexpr Vector& operator=(const Vector& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // Copy assignment operator. Assigns the components of this three-dimensional
   // vector value by copying a given array representing its x, y, and z
   // Cartesian components.
   constexpr Vector& operator=(const std::array<double, 3>& x_y_z) noexcept {
@@ -84,11 +84,11 @@ public:
   constexpr Vector(std::array<double, 3>&& x_y_z) noexcept
     : x_y_z_(std::move(x_y_z)) {}
 
-  // Move-assignment operator. Assigns the components of this three-dimensional
+  // Move assignment operator. Assigns the components of this three-dimensional
   // vector value by moving another three-dimensional vector value.
   constexpr Vector& operator=(Vector&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the components of this three-dimensional
+  // Move assignment operator. Assigns the components of this three-dimensional
   // vector value by moving a given array representing its x, y, and z Cartesian
   // components.
   constexpr Vector& operator=(std::array<double, 3>&& x_y_z) noexcept {

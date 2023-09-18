@@ -44,7 +44,7 @@ public:
   // another one.
   constexpr Length(const Length& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of length by copying from another one.
   constexpr Length& operator=(const Length& other) noexcept = default;
 
@@ -52,7 +52,7 @@ public:
   // another one.
   constexpr Length(Length&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of length by moving another one.
   constexpr Length& operator=(Length&& other) noexcept = default;
 

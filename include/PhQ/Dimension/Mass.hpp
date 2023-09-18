@@ -44,7 +44,7 @@ public:
   // another one.
   constexpr Mass(const Mass& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of mass by copying from another one.
   constexpr Mass& operator=(const Mass& other) noexcept = default;
 
@@ -52,7 +52,7 @@ public:
   // another one.
   constexpr Mass(Mass&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of mass by moving another one.
   constexpr Mass& operator=(Mass&& other) noexcept = default;
 

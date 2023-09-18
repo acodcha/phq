@@ -65,7 +65,7 @@ public:
   // one.
   constexpr Dimensions(const Dimensions& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the base physical dimensions of this
+  // Copy assignment operator. Assigns the base physical dimensions of this
   // physical dimension set by copying from another one.
   constexpr Dimensions& operator=(const Dimensions& other) noexcept = default;
 
@@ -73,7 +73,7 @@ public:
   // one.
   constexpr Dimensions(Dimensions&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the base physical dimensions of this
+  // Move assignment operator. Assigns the base physical dimensions of this
   // physical dimension set by moving another one.
   constexpr Dimensions& operator=(Dimensions&& other) noexcept = default;
 

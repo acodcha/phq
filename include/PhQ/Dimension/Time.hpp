@@ -44,7 +44,7 @@ public:
   // another one.
   constexpr Time(const Time& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of time by copying from another one.
   constexpr Time& operator=(const Time& other) noexcept = default;
 
@@ -52,7 +52,7 @@ public:
   // another one.
   constexpr Time(Time&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of time by moving another one.
   constexpr Time& operator=(Time&& other) noexcept = default;
 

@@ -68,7 +68,7 @@ TEST(DimensionLuminousIntensity, Constructor) {
   constexpr LuminousIntensity copy_constructed{reference};
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   LuminousIntensity copy_assigned{-1};
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
@@ -78,7 +78,7 @@ TEST(DimensionLuminousIntensity, Constructor) {
   LuminousIntensity move_constructed{std::move(to_move_construct)};
   EXPECT_EQ(move_constructed, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   LuminousIntensity to_move_assign{value_reference};
   LuminousIntensity move_assigned{-1};
   move_assigned = std::move(to_move_assign);

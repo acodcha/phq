@@ -49,13 +49,13 @@ public:
   // value by copying another one.
   constexpr SymmetricDyad(const SymmetricDyad& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // Copy assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by copying another three-dimensional
   // symmetric dyadic tensor value.
   constexpr SymmetricDyad& operator=(
       const SymmetricDyad& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the components of this three-dimensional
+  // Copy assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by copying a given array representing its xx,
   // xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad& operator=(
@@ -74,12 +74,12 @@ public:
   constexpr SymmetricDyad(std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
     : xx_xy_xz_yy_yz_zz_(std::move(xx_xy_xz_yy_yz_zz)) {}
 
-  // Move-assignment operator. Assigns the components of this three-dimensional
+  // Move assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by moving another three-dimensional symmetric
   // dyadic tensor value.
   constexpr SymmetricDyad& operator=(SymmetricDyad&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the components of this three-dimensional
+  // Move assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by moving a given array representing its xx,
   // xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad& operator=(

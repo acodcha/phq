@@ -44,7 +44,7 @@ public:
   // copying another one.
   constexpr Temperature(const Temperature& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of temperature by copying from another one.
   constexpr Temperature& operator=(const Temperature& other) noexcept = default;
 
@@ -52,7 +52,7 @@ public:
   // moving another one.
   constexpr Temperature(Temperature&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of temperature by moving another one.
   constexpr Temperature& operator=(Temperature&& other) noexcept = default;
 
