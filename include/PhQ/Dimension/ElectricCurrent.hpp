@@ -45,7 +45,7 @@ public:
   // by copying another one.
   constexpr ElectricCurrent(const ElectricCurrent& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of electric current by copying from another one.
   constexpr ElectricCurrent& operator=(
       const ElectricCurrent& other) noexcept = default;
@@ -54,7 +54,7 @@ public:
   // by moving another one.
   constexpr ElectricCurrent(ElectricCurrent&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of electric current by moving another one.
   constexpr ElectricCurrent& operator=(
       ElectricCurrent&& other) noexcept = default;

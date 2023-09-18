@@ -46,7 +46,7 @@ public:
   constexpr LuminousIntensity(
       const LuminousIntensity& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of luminous intensity by copying from another one.
   constexpr LuminousIntensity& operator=(
       const LuminousIntensity& other) noexcept = default;
@@ -55,7 +55,7 @@ public:
   // intensity by moving another one.
   constexpr LuminousIntensity(LuminousIntensity&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of luminous intensity by moving another one.
   constexpr LuminousIntensity& operator=(
       LuminousIntensity&& other) noexcept = default;

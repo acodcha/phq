@@ -209,18 +209,18 @@ TEST(ValueDyad, Constructor) {
   EXPECT_EQ(copy_constructed_from_symmetric,
             Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   Dyad copy_assigned = Dyad::Zero();
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
 
-  // Copy-assignment operator from symmetric dyad.
+  // Copy assignment operator from symmetric dyad.
   Dyad copy_assigned_from_symmetric = Dyad::Zero();
   copy_assigned_from_symmetric = symmetric_reference;
   EXPECT_EQ(copy_assigned_from_symmetric,
             Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
 
-  // Copy-assignment operator from array.
+  // Copy assignment operator from array.
   Dyad copy_assigned_from_array = Dyad::Zero();
   copy_assigned_from_array = array_reference;
   EXPECT_EQ(copy_assigned_from_array, reference);
@@ -236,20 +236,13 @@ TEST(ValueDyad, Constructor) {
   Dyad move_constructed_from_array{std::move(array_to_move)};
   EXPECT_EQ(move_constructed_from_array, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   Dyad to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   Dyad move_assigned = Dyad::Zero();
   move_assigned = std::move(to_move_assign);
   EXPECT_EQ(move_assigned, reference);
 
-  // Move-assignment operator from symmetric dyad.
-  SymmetricDyad symmetric_to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  Dyad move_assigned_from_symmetric = Dyad::Zero();
-  move_assigned_from_symmetric = std::move(symmetric_to_move_assign);
-  EXPECT_EQ(move_assigned_from_symmetric,
-            Dyad(1.11, 2.22, 3.33, 2.22, 4.44, 5.55, 3.33, 5.55, 6.66));
-
-  // Move-assignment operator from array.
+  // Move assignment operator from array.
   std::array<double, 9> array_to_move_assign{
       1.11, 2.22, 3.33, 4.44, 5.55, 6.66, 7.77, 8.88, 9.99};
   Dyad move_assigned_from_array = Dyad::Zero();

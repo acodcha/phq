@@ -45,7 +45,7 @@ public:
   // substance by copying another one.
   constexpr SubstanceAmount(const SubstanceAmount& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this base physical dimension
+  // Copy assignment operator. Assigns the value of this base physical dimension
   // of amount of substance by copying from another one.
   constexpr SubstanceAmount& operator=(
       const SubstanceAmount& other) noexcept = default;
@@ -54,7 +54,7 @@ public:
   // substance by moving another one.
   constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this base physical dimension
+  // Move assignment operator. Assigns the value of this base physical dimension
   // of amount of substance by moving another one.
   constexpr SubstanceAmount& operator=(
       SubstanceAmount&& other) noexcept = default;

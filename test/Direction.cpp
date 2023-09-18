@@ -100,7 +100,7 @@ TEST(Direction, Constructor) {
   const Direction copy_constructed{reference};
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   Direction copy_assigned{0.0, 0.0, 1.0};
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
@@ -110,7 +110,7 @@ TEST(Direction, Constructor) {
   Direction move_constructed{std::move(to_move_construct)};
   EXPECT_EQ(move_constructed, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   Direction to_move_assign{reference};
   Direction move_assigned{0.0, 0.0, 1.0};
   move_assigned = std::move(to_move_assign);

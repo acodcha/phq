@@ -181,12 +181,12 @@ TEST(ValueSymmetricDyad, Constructor) {
   constexpr SymmetricDyad copy_constructed{reference};
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   SymmetricDyad copy_assigned = SymmetricDyad::Zero();
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
 
-  // Copy-assignment operator from array.
+  // Copy assignment operator from array.
   SymmetricDyad copy_assigned_from_array = SymmetricDyad::Zero();
   copy_assigned_from_array = array_reference;
   EXPECT_EQ(copy_assigned_from_array, reference);
@@ -201,13 +201,13 @@ TEST(ValueSymmetricDyad, Constructor) {
   SymmetricDyad move_constructed_from_array{std::move(array_to_move)};
   EXPECT_EQ(move_constructed_from_array, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   SymmetricDyad to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   SymmetricDyad move_assigned = SymmetricDyad::Zero();
   move_assigned = std::move(to_move_assign);
   EXPECT_EQ(move_assigned, reference);
 
-  // Move-assignment operator from array.
+  // Move assignment operator from array.
   std::array<double, 6> array_to_move_assign{
       1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   SymmetricDyad move_assigned_from_array = SymmetricDyad::Zero();

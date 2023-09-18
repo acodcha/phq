@@ -87,7 +87,7 @@ TEST(Dimensions, Constructor) {
   constexpr Dimensions copy_constructed{reference};
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   Dimensions copy_assigned;
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
@@ -97,7 +97,7 @@ TEST(Dimensions, Constructor) {
   Dimensions move_constructed{std::move(to_move_construct)};
   EXPECT_EQ(move_constructed, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   Dimensions to_move_assign{reference};
   Dimensions move_assigned;
   move_assigned = std::move(to_move_assign);

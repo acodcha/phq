@@ -104,7 +104,7 @@ public:
   // Copy constructor. Constructs a direction by copying another one.
   constexpr Direction(const Direction& other) noexcept = default;
 
-  // Copy-assignment operator. Assigns the value of this direction by copying
+  // Copy assignment operator. Assigns the value of this direction by copying
   // from another one.
   constexpr Direction& operator=(const Direction& other) noexcept {
     value_ = other.value_;
@@ -114,7 +114,7 @@ public:
   // Move constructor. Constructs a direction by moving another one.
   constexpr Direction(Direction&& other) noexcept = default;
 
-  // Move-assignment operator. Assigns the value of this direction by moving
+  // Move assignment operator. Assigns the value of this direction by moving
   // another one.
   constexpr Direction& operator=(Direction&& other) noexcept {
     value_ = std::move(other.value_);

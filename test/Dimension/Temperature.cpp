@@ -68,7 +68,7 @@ TEST(DimensionTemperature, Constructor) {
   constexpr Temperature copy_constructed{reference};
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy-assignment operator.
+  // Copy assignment operator.
   Temperature copy_assigned{-1};
   copy_assigned = reference;
   EXPECT_EQ(copy_assigned, reference);
@@ -78,7 +78,7 @@ TEST(DimensionTemperature, Constructor) {
   Temperature move_constructed{std::move(to_move_construct)};
   EXPECT_EQ(move_constructed, reference);
 
-  // Move-assignment operator.
+  // Move assignment operator.
   Temperature to_move_assign{value_reference};
   Temperature move_assigned{-1};
   move_assigned = std::move(to_move_assign);
