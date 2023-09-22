@@ -21,42 +21,39 @@
 
 namespace PhQ {
 
-// Young's modulus of a deformable solid material. A measure of a deformable
-// solid material's elastic modulus.
+// Young's modulus of elasticity of a deformable solid material. A measure of a
+// deformable solid material's elastic modulus.
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr YoungModulus() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr YoungModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  YoungModulus(const double value, const Unit::Pressure unit) noexcept
+  YoungModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr YoungModulus Zero() noexcept {
+  static constexpr YoungModulus Zero() {
     return YoungModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr YoungModulus Create(const double value) noexcept {
+  static constexpr YoungModulus Create(const double value) {
     return YoungModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr YoungModulus operator+(
-      const YoungModulus& young_modulus) const noexcept {
+  constexpr YoungModulus operator+(const YoungModulus& young_modulus) const {
     return YoungModulus{value_ + young_modulus.value_};
   }
 
-  constexpr YoungModulus operator-(
-      const YoungModulus& young_modulus) const noexcept {
+  constexpr YoungModulus operator-(const YoungModulus& young_modulus) const {
     return YoungModulus{value_ - young_modulus.value_};
   }
 
-  constexpr YoungModulus operator*(const double number) const noexcept {
+  constexpr YoungModulus operator*(const double number) const {
     return YoungModulus{value_ * number};
   }
 
-  constexpr YoungModulus operator/(const double number) const noexcept {
+  constexpr YoungModulus operator/(const double number) const {
     return YoungModulus{value_ / number};
   }
 
@@ -81,7 +78,7 @@ public:
   }
 
 private:
-  explicit constexpr YoungModulus(const double value) noexcept
+  explicit constexpr YoungModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -116,13 +113,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const YoungModulus& young_modulus) noexcept {
+    std::ostream& stream, const YoungModulus& young_modulus) {
   stream << young_modulus.Print();
   return stream;
 }
 
 inline constexpr YoungModulus operator*(
-    const double number, const YoungModulus& young_modulus) noexcept {
+    const double number, const YoungModulus& young_modulus) {
   return young_modulus * number;
 }
 

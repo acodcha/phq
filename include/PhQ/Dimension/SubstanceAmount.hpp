@@ -31,24 +31,22 @@ class SubstanceAmount {
 public:
   // Default constructor. Constructs a base physical dimension of amount of
   // substance with a value of zero.
-  constexpr SubstanceAmount() noexcept : value_(0) {}
+  constexpr SubstanceAmount() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of amount of substance
   // with a given value.
-  explicit constexpr SubstanceAmount(const int8_t value) noexcept
-    : value_(value) {}
+  explicit constexpr SubstanceAmount(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~SubstanceAmount() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of amount of
   // substance by copying another one.
-  constexpr SubstanceAmount(const SubstanceAmount& other) noexcept = default;
+  constexpr SubstanceAmount(const SubstanceAmount& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of amount of substance by copying from another one.
-  constexpr SubstanceAmount& operator=(
-      const SubstanceAmount& other) noexcept = default;
+  constexpr SubstanceAmount& operator=(const SubstanceAmount& other) = default;
 
   // Move constructor. Constructs a base physical dimension of amount of
   // substance by moving another one.
@@ -123,7 +121,7 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SubstanceAmount& amount) noexcept {
+    std::ostream& stream, const SubstanceAmount& amount) {
   stream << amount.Print();
   return stream;
 }

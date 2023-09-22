@@ -28,49 +28,48 @@ class HeatFlux;
 // Heat flux scalar. Magnitude of the heat flux vector.
 class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
 public:
-  constexpr HeatFluxMagnitude() noexcept
+  constexpr HeatFluxMagnitude()
     : DimensionalScalarQuantity<Unit::EnergyFlux>() {}
 
-  HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit) noexcept
+  HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit)
     : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
 
   constexpr HeatFluxMagnitude(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
-      const TemperatureGradientMagnitude&
-          temperature_gradient_magnitude) noexcept
+      const TemperatureGradientMagnitude& temperature_gradient_magnitude)
     : HeatFluxMagnitude(-thermal_conductivity_scalar.Value()
                         * temperature_gradient_magnitude.Value()) {}
 
-  HeatFluxMagnitude(const HeatFlux& heat_flux) noexcept;
+  HeatFluxMagnitude(const HeatFlux& heat_flux);
 
-  static constexpr HeatFluxMagnitude Zero() noexcept {
+  static constexpr HeatFluxMagnitude Zero() {
     return HeatFluxMagnitude{0.0};
   }
 
   template <Unit::EnergyFlux Unit>
-  static constexpr HeatFluxMagnitude Create(const double value) noexcept {
+  static constexpr HeatFluxMagnitude Create(const double value) {
     return HeatFluxMagnitude{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
             value)};
   }
 
   constexpr HeatFluxMagnitude operator+(
-      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+      const HeatFluxMagnitude& heat_flux_magnitude) const {
     return HeatFluxMagnitude{value_ + heat_flux_magnitude.value_};
   }
 
   constexpr HeatFluxMagnitude operator-(
-      const HeatFluxMagnitude& heat_flux_magnitude) const noexcept {
+      const HeatFluxMagnitude& heat_flux_magnitude) const {
     return HeatFluxMagnitude{value_ - heat_flux_magnitude.value_};
   }
 
-  constexpr HeatFluxMagnitude operator*(const double number) const noexcept {
+  constexpr HeatFluxMagnitude operator*(const double number) const {
     return HeatFluxMagnitude{value_ * number};
   }
 
-  constexpr HeatFlux operator*(const Direction& direction) const noexcept;
+  constexpr HeatFlux operator*(const Direction& direction) const;
 
-  constexpr HeatFluxMagnitude operator/(const double number) const noexcept {
+  constexpr HeatFluxMagnitude operator/(const double number) const {
     return HeatFluxMagnitude{value_ / number};
   }
 
@@ -98,7 +97,7 @@ public:
   }
 
 private:
-  explicit constexpr HeatFluxMagnitude(const double value) noexcept
+  explicit constexpr HeatFluxMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
 };
 
@@ -133,15 +132,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
+    std::ostream& stream, const HeatFluxMagnitude& heat_flux_magnitude) {
   stream << heat_flux_magnitude.Print();
   return stream;
 }
 
 inline constexpr HeatFluxMagnitude operator*(
-    const double number,
-    const HeatFluxMagnitude& heat_flux_magnitude) noexcept {
+    const double number, const HeatFluxMagnitude& heat_flux_magnitude) {
   return heat_flux_magnitude * number;
 }
 

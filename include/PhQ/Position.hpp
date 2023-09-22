@@ -23,58 +23,56 @@ namespace PhQ {
 // Position vector. Not to be confused with displacement vector.
 class Position : public DimensionalVectorQuantity<Unit::Length> {
 public:
-  constexpr Position() noexcept : DimensionalVectorQuantity<Unit::Length>() {}
+  constexpr Position() : DimensionalVectorQuantity<Unit::Length>() {}
 
-  Position(const Value::Vector& value, const Unit::Length unit) noexcept
+  Position(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  constexpr Position(const Length& length, const Direction& direction) noexcept
+  constexpr Position(const Length& length, const Direction& direction)
     : Position(length.Value() * direction.Value()) {}
 
-  explicit constexpr Position(const Displacement& displacement) noexcept
+  explicit constexpr Position(const Displacement& displacement)
     : Position(displacement.Value()) {}
 
-  static constexpr Position Zero() noexcept {
+  static constexpr Position Zero() {
     return Position{Value::Vector::Zero()};
   }
 
   template <Unit::Length Unit>
-  static constexpr Position Create(const Value::Vector& value) noexcept {
+  static constexpr Position Create(const Value::Vector& value) {
     return Position{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  Length Magnitude() const noexcept {
+  Length Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const Position& position) const noexcept {
+  PhQ::Angle Angle(const Position& position) const {
     return {*this, position};
   }
 
-  constexpr Position operator+(const Position& position) const noexcept {
+  constexpr Position operator+(const Position& position) const {
     return Position{value_ + position.value_};
   }
 
-  constexpr Position operator+(
-      const Displacement& displacement) const noexcept {
+  constexpr Position operator+(const Displacement& displacement) const {
     return Position{value_ + displacement.Value()};
   }
 
-  constexpr Displacement operator-(const Position& position) const noexcept {
+  constexpr Displacement operator-(const Position& position) const {
     return Displacement{value_ - position.value_};
   }
 
-  constexpr Position operator-(
-      const Displacement& displacement) const noexcept {
+  constexpr Position operator-(const Displacement& displacement) const {
     return Position{value_ - displacement.Value()};
   }
 
-  constexpr Position operator*(const double number) const noexcept {
+  constexpr Position operator*(const double number) const {
     return Position{value_ * number};
   }
 
-  constexpr Position operator/(const double number) const noexcept {
+  constexpr Position operator/(const double number) const {
     return Position{value_ / number};
   }
 
@@ -103,7 +101,7 @@ public:
   }
 
 private:
-  explicit constexpr Position(const Value::Vector& value) noexcept
+  explicit constexpr Position(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Displacement;
@@ -140,46 +138,43 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Position& position) noexcept {
+    std::ostream& stream, const Position& position) {
   stream << position.Print();
   return stream;
 }
 
 inline constexpr Position operator*(
-    const double number, const Position& position) noexcept {
+    const double number, const Position& position) {
   return position * number;
 }
 
-inline Direction::Direction(const Position& position) noexcept
+inline Direction::Direction(const Position& position)
   : Direction(position.Value()) {}
 
-inline Angle::Angle(
-    const Position& position_1, const Position& position_2) noexcept
+inline Angle::Angle(const Position& position_1, const Position& position_2)
   : Angle(position_1.Value(), position_2.Value()) {}
 
-inline Length::Length(const Position& position) noexcept
+inline Length::Length(const Position& position)
   : Length(position.Value().Magnitude()) {}
 
-inline constexpr Displacement::Displacement(const Position& position) noexcept
+inline constexpr Displacement::Displacement(const Position& position)
   : Displacement(position.Value()) {}
 
 inline constexpr Position Displacement::operator+(
-    const Position& position) const noexcept {
+    const Position& position) const {
   return Position{value_ + position.Value()};
 }
 
 inline constexpr Position Displacement::operator-(
-    const Position& position) const noexcept {
+    const Position& position) const {
   return Position{value_ - position.Value()};
 }
 
-inline constexpr Position Direction::operator*(
-    const Length& length) const noexcept {
+inline constexpr Position Direction::operator*(const Length& length) const {
   return {length, *this};
 }
 
-inline constexpr Position Length::operator*(
-    const Direction& direction) const noexcept {
+inline constexpr Position Length::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

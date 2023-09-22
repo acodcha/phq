@@ -21,42 +21,39 @@
 
 namespace PhQ {
 
-// P-wave modulus of a deformable solid material. A measure of a deformable
-// solid material's elastic modulus.
+// P-wave modulus of elasticity of a deformable solid material. A measure of a
+// deformable solid material's elastic modulus.
 class PWaveModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr PWaveModulus() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr PWaveModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  PWaveModulus(const double value, const Unit::Pressure unit) noexcept
+  PWaveModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr PWaveModulus Zero() noexcept {
+  static constexpr PWaveModulus Zero() {
     return PWaveModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr PWaveModulus Create(const double value) noexcept {
+  static constexpr PWaveModulus Create(const double value) {
     return PWaveModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr PWaveModulus operator+(
-      const PWaveModulus& p_wave_modulus) const noexcept {
+  constexpr PWaveModulus operator+(const PWaveModulus& p_wave_modulus) const {
     return PWaveModulus{value_ + p_wave_modulus.value_};
   }
 
-  constexpr PWaveModulus operator-(
-      const PWaveModulus& p_wave_modulus) const noexcept {
+  constexpr PWaveModulus operator-(const PWaveModulus& p_wave_modulus) const {
     return PWaveModulus{value_ - p_wave_modulus.value_};
   }
 
-  constexpr PWaveModulus operator*(const double number) const noexcept {
+  constexpr PWaveModulus operator*(const double number) const {
     return PWaveModulus{value_ * number};
   }
 
-  constexpr PWaveModulus operator/(const double number) const noexcept {
+  constexpr PWaveModulus operator/(const double number) const {
     return PWaveModulus{value_ / number};
   }
 
@@ -82,7 +79,7 @@ public:
   }
 
 private:
-  explicit constexpr PWaveModulus(const double value) noexcept
+  explicit constexpr PWaveModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -117,13 +114,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const PWaveModulus& p_wave_modulus) noexcept {
+    std::ostream& stream, const PWaveModulus& p_wave_modulus) {
   stream << p_wave_modulus.Print();
   return stream;
 }
 
 inline constexpr PWaveModulus operator*(
-    const double number, const PWaveModulus& p_wave_modulus) noexcept {
+    const double number, const PWaveModulus& p_wave_modulus) {
   return p_wave_modulus * number;
 }
 

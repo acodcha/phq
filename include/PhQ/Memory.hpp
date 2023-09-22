@@ -29,47 +29,46 @@ class MemoryRate;
 // Computer memory.
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 public:
-  constexpr Memory() noexcept : DimensionalScalarQuantity<Unit::Memory>() {}
+  constexpr Memory() : DimensionalScalarQuantity<Unit::Memory>() {}
 
-  Memory(const double value, const Unit::Memory unit) noexcept
+  Memory(const double value, const Unit::Memory unit)
     : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
-  constexpr Memory(const MemoryRate& memory_rate, const Time& time) noexcept;
+  constexpr Memory(const MemoryRate& memory_rate, const Time& time);
 
-  constexpr Memory(
-      const MemoryRate& memory_rate, const Frequency& frequency) noexcept;
+  constexpr Memory(const MemoryRate& memory_rate, const Frequency& frequency);
 
-  static constexpr Memory Zero() noexcept {
+  static constexpr Memory Zero() {
     return Memory{0.0};
   }
 
   template <Unit::Memory Unit>
-  static constexpr Memory Create(const double value) noexcept {
+  static constexpr Memory Create(const double value) {
     return Memory{
         StaticConvertCopy<Unit::Memory, Unit, Standard<Unit::Memory>>(value)};
   }
 
-  constexpr Memory operator+(const Memory& memory) const noexcept {
+  constexpr Memory operator+(const Memory& memory) const {
     return Memory{value_ + memory.value_};
   }
 
-  constexpr Memory operator-(const Memory& memory) const noexcept {
+  constexpr Memory operator-(const Memory& memory) const {
     return Memory{value_ - memory.value_};
   }
 
-  constexpr Memory operator*(const double number) const noexcept {
+  constexpr Memory operator*(const double number) const {
     return Memory{value_ * number};
   }
 
-  constexpr MemoryRate operator*(const Frequency& frequency) const noexcept;
+  constexpr MemoryRate operator*(const Frequency& frequency) const;
 
-  constexpr Memory operator/(const double number) const noexcept {
+  constexpr Memory operator/(const double number) const {
     return Memory{value_ / number};
   }
 
-  constexpr MemoryRate operator/(const Time& time) const noexcept;
+  constexpr MemoryRate operator/(const Time& time) const;
 
-  constexpr Time operator/(const MemoryRate& memory_rate) const noexcept;
+  constexpr Time operator/(const MemoryRate& memory_rate) const;
 
   constexpr double operator/(const Memory& memory) const noexcept {
     return value_ / memory.value_;
@@ -92,7 +91,7 @@ public:
   }
 
 private:
-  explicit constexpr Memory(const double value) noexcept
+  explicit constexpr Memory(const double value)
     : DimensionalScalarQuantity<Unit::Memory>(value) {}
 };
 
@@ -126,14 +125,12 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Memory& memory) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Memory& memory) {
   stream << memory.Print();
   return stream;
 }
 
-inline constexpr Memory operator*(
-    const double number, const Memory& memory) noexcept {
+inline constexpr Memory operator*(const double number, const Memory& memory) {
   return memory * number;
 }
 

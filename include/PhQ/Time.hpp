@@ -48,78 +48,76 @@ class VolumeRate;
 // Time. Can represent either a point in time or a time duration.
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
-  constexpr Time() noexcept : DimensionalScalarQuantity<Unit::Time>() {}
+  constexpr Time() : DimensionalScalarQuantity<Unit::Time>() {}
 
-  Time(const double value, const Unit::Time unit) noexcept
+  Time(const double value, const Unit::Time unit)
     : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
-  constexpr Time(const PhQ::Frequency& frequency) noexcept;
+  constexpr Time(const PhQ::Frequency& frequency);
 
-  constexpr Time(const AccelerationMagnitude& acceleration_magnitude,
-                 const Speed& speed) noexcept;
+  constexpr Time(
+      const AccelerationMagnitude& acceleration_magnitude, const Speed& speed);
 
   constexpr Time(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const AngularSpeed& angular_speed) noexcept;
+      const AngularSpeed& angular_speed);
 
-  constexpr Time(
-      const AngularSpeed& angular_speed, const Angle& angle) noexcept;
+  constexpr Time(const AngularSpeed& angular_speed, const Angle& angle);
 
-  constexpr Time(const MassRate& mass_rate, const Mass& mass) noexcept;
+  constexpr Time(const MassRate& mass_rate, const Mass& mass);
 
-  constexpr Time(const MemoryRate& memory_rate, const Memory& memory) noexcept;
+  constexpr Time(const MemoryRate& memory_rate, const Memory& memory);
 
-  constexpr Time(const Power& power, const Energy& energy) noexcept;
+  constexpr Time(const Power& power, const Energy& energy);
 
   constexpr Time(const SpecificPower& specific_power,
-                 const SpecificEnergy& specific_energy) noexcept;
+                 const SpecificEnergy& specific_energy);
 
-  constexpr Time(const Speed& speed, const Length& length) noexcept;
+  constexpr Time(const Speed& speed, const Length& length);
 
-  constexpr Time(const VolumeRate& volume_rate, const Volume& volume) noexcept;
+  constexpr Time(const VolumeRate& volume_rate, const Volume& volume);
 
-  static constexpr Time Zero() noexcept {
+  static constexpr Time Zero() {
     return Time{0.0};
   }
 
   template <Unit::Time Unit>
-  static constexpr Time Create(const double value) noexcept {
+  static constexpr Time Create(const double value) {
     return Time{
         StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 
-  constexpr PhQ::Frequency Frequency() const noexcept;
+  constexpr PhQ::Frequency Frequency() const;
 
-  constexpr Time operator+(const Time& time) const noexcept {
+  constexpr Time operator+(const Time& time) const {
     return Time{value_ + time.value_};
   }
 
-  constexpr Time operator-(const Time& time) const noexcept {
+  constexpr Time operator-(const Time& time) const {
     return Time{value_ - time.value_};
   }
 
-  constexpr Time operator*(const double number) const noexcept {
+  constexpr Time operator*(const double number) const {
     return Time{value_ * number};
   }
 
   constexpr double operator*(const PhQ::Frequency& frequency) const noexcept;
 
-  constexpr Mass operator*(const MassRate& mass_rate) const noexcept;
+  constexpr Mass operator*(const MassRate& mass_rate) const;
 
-  constexpr Volume operator*(const VolumeRate& volume_rate) const noexcept;
+  constexpr Volume operator*(const VolumeRate& volume_rate) const;
 
-  constexpr Energy operator*(const Power& power) const noexcept;
+  constexpr Energy operator*(const Power& power) const;
 
-  constexpr SpecificEnergy operator*(
-      const SpecificPower& specific_power) const noexcept;
+  constexpr SpecificEnergy operator*(const SpecificPower& specific_power) const;
 
-  constexpr Strain operator*(const StrainRate& strain_rate) const noexcept;
+  constexpr Strain operator*(const StrainRate& strain_rate) const;
 
-  constexpr Displacement operator*(const Velocity& velocity) const noexcept;
+  constexpr Displacement operator*(const Velocity& velocity) const;
 
-  constexpr Velocity operator*(const Acceleration& acceleration) const noexcept;
+  constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Time operator/(const double number) const noexcept {
+  constexpr Time operator/(const double number) const {
     return Time{value_ / number};
   }
 
@@ -144,7 +142,7 @@ public:
   }
 
 private:
-  explicit constexpr Time(const double value) noexcept
+  explicit constexpr Time(const double value)
     : DimensionalScalarQuantity<Unit::Time>(value) {}
 };
 
@@ -172,14 +170,12 @@ inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Time& time) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Time& time) {
   stream << time.Print();
   return stream;
 }
 
-inline constexpr Time operator*(
-    const double number, const Time& time) noexcept {
+inline constexpr Time operator*(const double number, const Time& time) {
   return time * number;
 }
 

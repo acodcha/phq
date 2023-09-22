@@ -24,67 +24,63 @@ namespace PhQ {
 // Specific power. Power per unit mass.
 class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
 public:
-  constexpr SpecificPower() noexcept
+  constexpr SpecificPower()
     : DimensionalScalarQuantity<Unit::SpecificPower>() {}
 
-  SpecificPower(const double value, const Unit::SpecificPower unit) noexcept
+  SpecificPower(const double value, const Unit::SpecificPower unit)
     : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
 
   constexpr SpecificPower(
-      const SpecificEnergy& specific_energy, const Time& time) noexcept
+      const SpecificEnergy& specific_energy, const Time& time)
     : SpecificPower(specific_energy.Value() / time.Value()) {}
 
-  constexpr SpecificPower(const SpecificEnergy& specific_energy,
-                          const Frequency& frequency) noexcept
+  constexpr SpecificPower(
+      const SpecificEnergy& specific_energy, const Frequency& frequency)
     : SpecificPower(specific_energy.Value() * frequency.Value()) {}
 
-  constexpr SpecificPower(const Power& power, const Mass& mass) noexcept
+  constexpr SpecificPower(const Power& power, const Mass& mass)
     : SpecificPower(power.Value() / mass.Value()) {}
 
-  static constexpr SpecificPower Zero() noexcept {
+  static constexpr SpecificPower Zero() {
     return SpecificPower{0.0};
   }
 
   template <Unit::SpecificPower Unit>
-  static constexpr SpecificPower Create(const double value) noexcept {
+  static constexpr SpecificPower Create(const double value) {
     return SpecificPower{
         StaticConvertCopy<Unit::SpecificPower, Unit,
                           Standard<Unit::SpecificPower>>(value)};
   }
 
-  constexpr SpecificPower operator+(
-      const SpecificPower& specific_power) const noexcept {
+  constexpr SpecificPower operator+(const SpecificPower& specific_power) const {
     return SpecificPower{value_ + specific_power.value_};
   }
 
-  constexpr SpecificPower operator-(
-      const SpecificPower& specific_power) const noexcept {
+  constexpr SpecificPower operator-(const SpecificPower& specific_power) const {
     return SpecificPower{value_ - specific_power.value_};
   }
 
-  constexpr SpecificPower operator*(const double number) const noexcept {
+  constexpr SpecificPower operator*(const double number) const {
     return SpecificPower{value_ * number};
   }
 
-  constexpr SpecificEnergy operator*(const Time& time) const noexcept {
+  constexpr SpecificEnergy operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr Power operator*(const Mass& mass) const noexcept {
+  constexpr Power operator*(const Mass& mass) const {
     return {*this, mass};
   }
 
-  constexpr SpecificPower operator/(const double number) const noexcept {
+  constexpr SpecificPower operator/(const double number) const {
     return SpecificPower{value_ / number};
   }
 
-  constexpr SpecificEnergy operator/(
-      const Frequency& frequency) const noexcept {
+  constexpr SpecificEnergy operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(
-      const SpecificEnergy& specific_energy) const noexcept {
+  constexpr Frequency operator/(const SpecificEnergy& specific_energy) const {
     return {*this, specific_energy};
   }
 
@@ -110,7 +106,7 @@ public:
   }
 
 private:
-  explicit constexpr SpecificPower(const double value) noexcept
+  explicit constexpr SpecificPower(const double value)
     : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
 };
 
@@ -145,78 +141,76 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SpecificPower& specific_power) noexcept {
+    std::ostream& stream, const SpecificPower& specific_power) {
   stream << specific_power.Print();
   return stream;
 }
 
 inline constexpr SpecificPower operator*(
-    const double number, const SpecificPower& specific_power) noexcept {
+    const double number, const SpecificPower& specific_power) {
   return specific_power * number;
 }
 
-inline constexpr Time::Time(const SpecificPower& specific_power,
-                            const SpecificEnergy& specific_energy) noexcept
+inline constexpr Time::Time(
+    const SpecificPower& specific_power, const SpecificEnergy& specific_energy)
   : Time(specific_energy.Value() / specific_power.Value()) {}
 
 inline constexpr Frequency::Frequency(
-    const SpecificPower& specific_power,
-    const SpecificEnergy& specific_energy) noexcept
+    const SpecificPower& specific_power, const SpecificEnergy& specific_energy)
   : Frequency(specific_power.Value() / specific_energy.Value()) {}
 
 inline constexpr Mass::Mass(
-    const SpecificPower& specific_power, const Power& power) noexcept
+    const SpecificPower& specific_power, const Power& power)
   : Mass(power.Value() / specific_power.Value()) {}
 
 inline constexpr Power::Power(
-    const SpecificPower& specific_power, const Mass& mass) noexcept
+    const SpecificPower& specific_power, const Mass& mass)
   : Power(specific_power.Value() * mass.Value()) {}
 
 inline constexpr SpecificEnergy::SpecificEnergy(
-    const SpecificPower& specific_power, const Time& time) noexcept
+    const SpecificPower& specific_power, const Time& time)
   : SpecificEnergy(specific_power.Value() * time.Value()) {}
 
 inline constexpr SpecificEnergy::SpecificEnergy(
-    const SpecificPower& specific_power, const Frequency& frequency) noexcept
+    const SpecificPower& specific_power, const Frequency& frequency)
   : SpecificEnergy(specific_power.Value() / frequency.Value()) {}
 
 inline constexpr Power Mass::operator*(
-    const SpecificPower& specific_power) const noexcept {
+    const SpecificPower& specific_power) const {
   return {specific_power, *this};
 }
 
 inline constexpr Mass Power::operator/(
-    const SpecificPower& specific_power) const noexcept {
+    const SpecificPower& specific_power) const {
   return {specific_power, *this};
 }
 
 inline constexpr SpecificEnergy Time::operator*(
-    const SpecificPower& specific_power) const noexcept {
+    const SpecificPower& specific_power) const {
   return {specific_power, *this};
 }
 
 inline constexpr SpecificPower Frequency::operator*(
-    const SpecificEnergy& specific_energy) const noexcept {
+    const SpecificEnergy& specific_energy) const {
   return {specific_energy, *this};
 }
 
-inline constexpr SpecificPower Power::operator/(
-    const Mass& mass) const noexcept {
+inline constexpr SpecificPower Power::operator/(const Mass& mass) const {
   return {*this, mass};
 }
 
 inline constexpr SpecificPower SpecificEnergy::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
 inline constexpr SpecificPower SpecificEnergy::operator/(
-    const Time& time) const noexcept {
+    const Time& time) const {
   return {*this, time};
 }
 
 inline constexpr Time SpecificEnergy::operator/(
-    const SpecificPower& specific_power) const noexcept {
+    const SpecificPower& specific_power) const {
   return {specific_power, *this};
 }
 

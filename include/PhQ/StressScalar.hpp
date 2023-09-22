@@ -28,38 +28,35 @@ class Stress;
 // related quantity such as principal stress or Von Mises stress.
 class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr StressScalar() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr StressScalar() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  StressScalar(const double value, const Unit::Pressure unit) noexcept
+  StressScalar(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr StressScalar Zero() noexcept {
+  static constexpr StressScalar Zero() {
     return StressScalar{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr StressScalar Create(const double value) noexcept {
+  static constexpr StressScalar Create(const double value) {
     return StressScalar{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr StressScalar operator+(
-      const StressScalar& stress_scalar) const noexcept {
+  constexpr StressScalar operator+(const StressScalar& stress_scalar) const {
     return StressScalar{value_ + stress_scalar.value_};
   }
 
-  constexpr StressScalar operator-(
-      const StressScalar& stress_scalar) const noexcept {
+  constexpr StressScalar operator-(const StressScalar& stress_scalar) const {
     return StressScalar{value_ - stress_scalar.value_};
   }
 
-  constexpr StressScalar operator*(const double number) const noexcept {
+  constexpr StressScalar operator*(const double number) const {
     return StressScalar{value_ * number};
   }
 
-  constexpr StressScalar operator/(const double number) const noexcept {
+  constexpr StressScalar operator/(const double number) const {
     return StressScalar{value_ / number};
   }
 
@@ -84,7 +81,7 @@ public:
   }
 
 private:
-  explicit constexpr StressScalar(const double value) noexcept
+  explicit constexpr StressScalar(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend Stress;
@@ -121,13 +118,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const StressScalar& stress_scalar) noexcept {
+    std::ostream& stream, const StressScalar& stress_scalar) {
   stream << stress_scalar.Print();
   return stream;
 }
 
 inline constexpr StressScalar operator*(
-    const double number, const StressScalar& stress_scalar) noexcept {
+    const double number, const StressScalar& stress_scalar) {
   return stress_scalar * number;
 }
 

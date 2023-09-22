@@ -24,65 +24,60 @@ namespace PhQ {
 // Acceleration vector.
 class Acceleration : public DimensionalVectorQuantity<Unit::Acceleration> {
 public:
-  constexpr Acceleration() noexcept
-    : DimensionalVectorQuantity<Unit::Acceleration>() {}
+  constexpr Acceleration() : DimensionalVectorQuantity<Unit::Acceleration>() {}
 
-  Acceleration(
-      const Value::Vector& value, const Unit::Acceleration unit) noexcept
+  Acceleration(const Value::Vector& value, const Unit::Acceleration unit)
     : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
 
   constexpr Acceleration(const AccelerationMagnitude& acceleration_magnitude,
-                         const Direction& direction) noexcept
+                         const Direction& direction)
     : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
 
-  constexpr Acceleration(const Velocity& velocity, const Time& time) noexcept
+  constexpr Acceleration(const Velocity& velocity, const Time& time)
     : Acceleration(velocity.Value() / time.Value()) {}
 
-  constexpr Acceleration(
-      const Velocity& velocity, const Frequency& frequency) noexcept
+  constexpr Acceleration(const Velocity& velocity, const Frequency& frequency)
     : Acceleration(velocity.Value() * frequency.Value()) {}
 
-  static constexpr Acceleration Zero() noexcept {
+  static constexpr Acceleration Zero() {
     return Acceleration{Value::Vector::Zero()};
   }
 
   template <Unit::Acceleration Unit>
-  static constexpr Acceleration Create(const Value::Vector& value) noexcept {
+  static constexpr Acceleration Create(const Value::Vector& value) {
     return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit,
                                           Standard<Unit::Acceleration>>(value)};
   }
 
-  AccelerationMagnitude Magnitude() const noexcept {
+  AccelerationMagnitude Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const Acceleration& acceleration) const noexcept {
+  PhQ::Angle Angle(const Acceleration& acceleration) const {
     return {*this, acceleration};
   }
 
-  constexpr Acceleration operator+(
-      const Acceleration& acceleration) const noexcept {
+  constexpr Acceleration operator+(const Acceleration& acceleration) const {
     return Acceleration{value_ + acceleration.value_};
   }
 
-  constexpr Acceleration operator-(
-      const Acceleration& acceleration) const noexcept {
+  constexpr Acceleration operator-(const Acceleration& acceleration) const {
     return Acceleration{value_ - acceleration.value_};
   }
 
-  constexpr Acceleration operator*(const double number) const noexcept {
+  constexpr Acceleration operator*(const double number) const {
     return Acceleration{value_ * number};
   }
 
-  constexpr Velocity operator*(const Time& time) const noexcept {
+  constexpr Velocity operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr Acceleration operator/(const double number) const noexcept {
+  constexpr Acceleration operator/(const double number) const {
     return Acceleration{value_ / number};
   }
 
-  constexpr Velocity operator/(const Frequency& frequency) const noexcept {
+  constexpr Velocity operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
@@ -103,7 +98,7 @@ public:
   }
 
 private:
-  explicit constexpr Acceleration(const Value::Vector& value) noexcept
+  explicit constexpr Acceleration(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 };
 
@@ -138,57 +133,56 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Acceleration& acceleration) noexcept {
+    std::ostream& stream, const Acceleration& acceleration) {
   stream << acceleration.Print();
   return stream;
 }
 
 inline constexpr Acceleration operator*(
-    const double number, const Acceleration& acceleration) noexcept {
+    const double number, const Acceleration& acceleration) {
   return acceleration * number;
 }
 
-inline Direction::Direction(const Acceleration& acceleration) noexcept
+inline Direction::Direction(const Acceleration& acceleration)
   : Direction(acceleration.Value()) {}
 
-inline Angle::Angle(const Acceleration& acceleration_1,
-                    const Acceleration& acceleration_2) noexcept
+inline Angle::Angle(
+    const Acceleration& acceleration_1, const Acceleration& acceleration_2)
   : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
 inline AccelerationMagnitude::AccelerationMagnitude(
-    const Acceleration& acceleration) noexcept
+    const Acceleration& acceleration)
   : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
 
 inline constexpr Velocity::Velocity(
-    const Acceleration& acceleration, const Time& time) noexcept
+    const Acceleration& acceleration, const Time& time)
   : Velocity(acceleration.Value() * time.Value()) {}
 
 inline constexpr Velocity::Velocity(
-    const Acceleration& acceleration, const Frequency& frequency) noexcept
+    const Acceleration& acceleration, const Frequency& frequency)
   : Velocity(acceleration.Value() / frequency.Value()) {}
 
 inline constexpr Acceleration Direction::operator*(
-    const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+    const AccelerationMagnitude& acceleration_magnitude) const {
   return {acceleration_magnitude, *this};
 }
 
 inline constexpr Velocity Time::operator*(
-    const Acceleration& acceleration) const noexcept {
+    const Acceleration& acceleration) const {
   return {acceleration, *this};
 }
 
 inline constexpr Acceleration AccelerationMagnitude::operator*(
-    const Direction& direction) const noexcept {
+    const Direction& direction) const {
   return {*this, direction};
 }
 
 inline constexpr Acceleration Velocity::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr Acceleration Velocity::operator/(
-    const Time& time) const noexcept {
+inline constexpr Acceleration Velocity::operator/(const Time& time) const {
   return {*this, time};
 }
 

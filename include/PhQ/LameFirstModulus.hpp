@@ -21,42 +21,42 @@
 
 namespace PhQ {
 
-// Lamé's first modulus of a deformable solid material. First of the two Lamé
-// parameters. A measure of a deformable solid material's elastic modulus.
+// Lamé's first modulus of elasticity of a deformable solid material. First of
+// the two Lamé parameters. A measure of a deformable solid material's elastic
+// modulus.
 class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr LameFirstModulus() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr LameFirstModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  LameFirstModulus(const double value, const Unit::Pressure unit) noexcept
+  LameFirstModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr LameFirstModulus Zero() noexcept {
+  static constexpr LameFirstModulus Zero() {
     return LameFirstModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr LameFirstModulus Create(const double value) noexcept {
+  static constexpr LameFirstModulus Create(const double value) {
     return LameFirstModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
   constexpr LameFirstModulus operator+(
-      const LameFirstModulus& lame_first_modulus) const noexcept {
+      const LameFirstModulus& lame_first_modulus) const {
     return LameFirstModulus{value_ + lame_first_modulus.value_};
   }
 
   constexpr LameFirstModulus operator-(
-      const LameFirstModulus& lame_first_modulus) const noexcept {
+      const LameFirstModulus& lame_first_modulus) const {
     return LameFirstModulus{value_ - lame_first_modulus.value_};
   }
 
-  constexpr LameFirstModulus operator*(const double number) const noexcept {
+  constexpr LameFirstModulus operator*(const double number) const {
     return LameFirstModulus{value_ * number};
   }
 
-  constexpr LameFirstModulus operator/(const double number) const noexcept {
+  constexpr LameFirstModulus operator/(const double number) const {
     return LameFirstModulus{value_ / number};
   }
 
@@ -84,7 +84,7 @@ public:
   }
 
 private:
-  explicit constexpr LameFirstModulus(const double value) noexcept
+  explicit constexpr LameFirstModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -119,13 +119,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const LameFirstModulus& lame_first_modulus) noexcept {
+    std::ostream& stream, const LameFirstModulus& lame_first_modulus) {
   stream << lame_first_modulus.Print();
   return stream;
 }
 
 inline constexpr LameFirstModulus operator*(
-    const double number, const LameFirstModulus& lame_first_modulus) noexcept {
+    const double number, const LameFirstModulus& lame_first_modulus) {
   return lame_first_modulus * number;
 }
 

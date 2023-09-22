@@ -26,39 +26,38 @@ namespace PhQ {
 class BulkDynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
-  constexpr BulkDynamicViscosity() noexcept
+  constexpr BulkDynamicViscosity()
     : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  BulkDynamicViscosity(
-      const double value, const Unit::DynamicViscosity unit) noexcept
+  BulkDynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
-  static constexpr BulkDynamicViscosity Zero() noexcept {
+  static constexpr BulkDynamicViscosity Zero() {
     return BulkDynamicViscosity{0.0};
   }
 
   template <Unit::DynamicViscosity Unit>
-  static constexpr BulkDynamicViscosity Create(const double value) noexcept {
+  static constexpr BulkDynamicViscosity Create(const double value) {
     return BulkDynamicViscosity{
         StaticConvertCopy<Unit::DynamicViscosity, Unit,
                           Standard<Unit::DynamicViscosity>>(value)};
   }
 
   constexpr BulkDynamicViscosity operator+(
-      const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};
   }
 
   constexpr BulkDynamicViscosity operator-(
-      const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
+      const BulkDynamicViscosity& bulk_dynamic_viscosity) const {
     return BulkDynamicViscosity{value_ - bulk_dynamic_viscosity.value_};
   }
 
-  constexpr BulkDynamicViscosity operator*(const double number) const noexcept {
+  constexpr BulkDynamicViscosity operator*(const double number) const {
     return BulkDynamicViscosity{value_ * number};
   }
 
-  constexpr BulkDynamicViscosity operator/(const double number) const noexcept {
+  constexpr BulkDynamicViscosity operator/(const double number) const {
     return BulkDynamicViscosity{value_ / number};
   }
 
@@ -86,7 +85,7 @@ public:
   }
 
 private:
-  explicit constexpr BulkDynamicViscosity(const double value) noexcept
+  explicit constexpr BulkDynamicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };
 
@@ -121,13 +120,13 @@ inline constexpr bool operator>=(const BulkDynamicViscosity& left,
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const BulkDynamicViscosity& mass_density) noexcept {
+    std::ostream& stream, const BulkDynamicViscosity& mass_density) {
   stream << mass_density.Print();
   return stream;
 }
 
 inline constexpr BulkDynamicViscosity operator*(
-    const double number, const BulkDynamicViscosity& mass_density) noexcept {
+    const double number, const BulkDynamicViscosity& mass_density) {
   return mass_density * number;
 }
 

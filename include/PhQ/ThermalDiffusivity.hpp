@@ -29,50 +29,49 @@ class PrandtlNumber;
 // Thermal diffusivity.
 class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
-  constexpr ThermalDiffusivity() noexcept
+  constexpr ThermalDiffusivity()
     : DimensionalScalarQuantity<Unit::Diffusivity>() {}
 
-  ThermalDiffusivity(const double value, const Unit::Diffusivity unit) noexcept
+  ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
   constexpr ThermalDiffusivity(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const MassDensity& mass_density) noexcept
+      const MassDensity& mass_density)
     : ThermalDiffusivity(
         thermal_conductivity_scalar.Value()
         / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
-  constexpr ThermalDiffusivity(
-      const PrandtlNumber& prandtl_number,
-      const KinematicViscosity& kinematic_viscosity) noexcept;
+  constexpr ThermalDiffusivity(const PrandtlNumber& prandtl_number,
+                               const KinematicViscosity& kinematic_viscosity);
 
-  static constexpr ThermalDiffusivity Zero() noexcept {
+  static constexpr ThermalDiffusivity Zero() {
     return ThermalDiffusivity{0.0};
   }
 
   template <Unit::Diffusivity Unit>
-  static constexpr ThermalDiffusivity Create(const double value) noexcept {
+  static constexpr ThermalDiffusivity Create(const double value) {
     return ThermalDiffusivity{
         StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
             value)};
   }
 
   constexpr ThermalDiffusivity operator+(
-      const ThermalDiffusivity& thermal_diffusivity) const noexcept {
+      const ThermalDiffusivity& thermal_diffusivity) const {
     return ThermalDiffusivity{value_ + thermal_diffusivity.value_};
   }
 
   constexpr ThermalDiffusivity operator-(
-      const ThermalDiffusivity& thermal_diffusivity) const noexcept {
+      const ThermalDiffusivity& thermal_diffusivity) const {
     return ThermalDiffusivity{value_ - thermal_diffusivity.value_};
   }
 
-  constexpr ThermalDiffusivity operator*(const double number) const noexcept {
+  constexpr ThermalDiffusivity operator*(const double number) const {
     return ThermalDiffusivity{value_ * number};
   }
 
-  constexpr ThermalDiffusivity operator/(const double number) const noexcept {
+  constexpr ThermalDiffusivity operator/(const double number) const {
     return ThermalDiffusivity{value_ / number};
   }
 
@@ -100,7 +99,7 @@ public:
   }
 
 private:
-  explicit constexpr ThermalDiffusivity(const double value) noexcept
+  explicit constexpr ThermalDiffusivity(const double value)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 };
 
@@ -135,22 +134,20 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const ThermalDiffusivity& thermal_diffusivity) noexcept {
+    std::ostream& stream, const ThermalDiffusivity& thermal_diffusivity) {
   stream << thermal_diffusivity.Print();
   return stream;
 }
 
 inline constexpr ThermalDiffusivity operator*(
-    const double number,
-    const ThermalDiffusivity& thermal_diffusivity) noexcept {
+    const double number, const ThermalDiffusivity& thermal_diffusivity) {
   return thermal_diffusivity * number;
 }
 
 inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
     const ThermalDiffusivity& thermal_diffusivity,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-    const MassDensity& mass_density) noexcept
+    const MassDensity& mass_density)
   : ThermalConductivityScalar(
       thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value()
       * mass_density.Value()) {}
@@ -158,8 +155,7 @@ inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
 inline constexpr MassDensity::MassDensity(
     const ThermalDiffusivity& thermal_diffusivity,
     const ThermalConductivityScalar& thermal_conductivity_scalar,
-    const SpecificIsobaricHeatCapacity&
-        specific_isobaric_heat_capacity) noexcept
+    const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
   : MassDensity(thermal_conductivity_scalar.Value()
                 / (thermal_diffusivity.Value()
                    * specific_isobaric_heat_capacity.Value())) {}
@@ -167,7 +163,7 @@ inline constexpr MassDensity::MassDensity(
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const ThermalDiffusivity& thermal_diffusivity,
     const ThermalConductivityScalar& thermal_conductivity_scalar,
-    const MassDensity& mass_density) noexcept
+    const MassDensity& mass_density)
   : SpecificIsobaricHeatCapacity(
       thermal_conductivity_scalar.Value()
       / (thermal_diffusivity.Value() * mass_density.Value())) {}

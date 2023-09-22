@@ -26,35 +26,34 @@ namespace PhQ {
 class MachNumber : public DimensionlessScalarQuantity {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
-  constexpr MachNumber() noexcept : DimensionlessScalarQuantity() {}
+  constexpr MachNumber() : DimensionlessScalarQuantity() {}
 
   // Constructs a Mach Number with a given value.
-  explicit constexpr MachNumber(const double value) noexcept
+  explicit constexpr MachNumber(const double value)
     : DimensionlessScalarQuantity(value) {}
 
   // Constructs a Mach number from a given speed and sound speed. This is the
   // definition of the Mach number.
-  constexpr MachNumber(
-      const Speed& speed, const SoundSpeed& sound_speed) noexcept
+  constexpr MachNumber(const Speed& speed, const SoundSpeed& sound_speed)
     : MachNumber(speed.Value() / sound_speed.Value()) {}
 
-  static constexpr MachNumber Zero() noexcept {
+  static constexpr MachNumber Zero() {
     return MachNumber{0.0};
   }
 
-  constexpr MachNumber operator+(const MachNumber& mach_number) const noexcept {
+  constexpr MachNumber operator+(const MachNumber& mach_number) const {
     return MachNumber{value_ + mach_number.value_};
   }
 
-  constexpr MachNumber operator-(const MachNumber& mach_number) const noexcept {
+  constexpr MachNumber operator-(const MachNumber& mach_number) const {
     return MachNumber{value_ - mach_number.value_};
   }
 
-  constexpr MachNumber operator*(const double number) const noexcept {
+  constexpr MachNumber operator*(const double number) const {
     return MachNumber{value_ * number};
   }
 
-  constexpr MachNumber operator/(const double number) const noexcept {
+  constexpr MachNumber operator/(const double number) const {
     return MachNumber{value_ / number};
   }
 
@@ -110,23 +109,23 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const MachNumber& mach_number) noexcept {
+    std::ostream& stream, const MachNumber& mach_number) {
   stream << mach_number.Print();
   return stream;
 }
 
 inline constexpr MachNumber operator+(
-    const double number, const MachNumber& mach_number) noexcept {
+    const double number, const MachNumber& mach_number) {
   return MachNumber{number + mach_number.Value()};
 }
 
 inline constexpr MachNumber operator-(
-    const double number, const MachNumber& mach_number) noexcept {
+    const double number, const MachNumber& mach_number) {
   return MachNumber{number - mach_number.Value()};
 }
 
 inline constexpr MachNumber operator*(
-    const double number, const MachNumber& mach_number) noexcept {
+    const double number, const MachNumber& mach_number) {
   return MachNumber{number * mach_number.Value()};
 }
 
@@ -136,11 +135,11 @@ inline constexpr double operator/(
 }
 
 constexpr SoundSpeed::SoundSpeed(
-    const Speed& speed, const MachNumber& mach_number) noexcept
+    const Speed& speed, const MachNumber& mach_number)
   : SoundSpeed(speed.Value() / mach_number.Value()) {}
 
 constexpr Speed::Speed(
-    const SoundSpeed& sound_speed, const MachNumber& mach_number) noexcept
+    const SoundSpeed& sound_speed, const MachNumber& mach_number)
   : Speed(sound_speed.Value() * mach_number.Value()) {}
 
 }  // namespace PhQ

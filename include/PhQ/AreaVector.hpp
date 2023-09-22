@@ -26,45 +26,45 @@ namespace PhQ {
 // Vector area.
 class AreaVector : public DimensionalVectorQuantity<Unit::Area> {
 public:
-  constexpr AreaVector() noexcept : DimensionalVectorQuantity<Unit::Area>() {}
+  constexpr AreaVector() : DimensionalVectorQuantity<Unit::Area>() {}
 
-  AreaVector(const Value::Vector& value, const Unit::Area unit) noexcept
+  AreaVector(const Value::Vector& value, const Unit::Area unit)
     : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
-  constexpr AreaVector(const Area& area, const Direction& direction) noexcept
+  constexpr AreaVector(const Area& area, const Direction& direction)
     : AreaVector(area.Value() * direction.Value()) {}
 
-  static constexpr AreaVector Zero() noexcept {
+  static constexpr AreaVector Zero() {
     return AreaVector{Value::Vector::Zero()};
   }
 
   template <Unit::Area Unit>
-  static constexpr AreaVector Create(const Value::Vector& value) noexcept {
+  static constexpr AreaVector Create(const Value::Vector& value) {
     return AreaVector{
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  Area Magnitude() const noexcept {
+  Area Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const AreaVector& area_vector) const noexcept {
+  PhQ::Angle Angle(const AreaVector& area_vector) const {
     return {*this, area_vector};
   }
 
-  constexpr AreaVector operator+(const AreaVector& area_vector) const noexcept {
+  constexpr AreaVector operator+(const AreaVector& area_vector) const {
     return AreaVector{value_ + area_vector.value_};
   }
 
-  constexpr AreaVector operator-(const AreaVector& area_vector) const noexcept {
+  constexpr AreaVector operator-(const AreaVector& area_vector) const {
     return AreaVector{value_ - area_vector.value_};
   }
 
-  constexpr AreaVector operator*(const double number) const noexcept {
+  constexpr AreaVector operator*(const double number) const {
     return AreaVector{value_ * number};
   }
 
-  constexpr AreaVector operator/(const double number) const noexcept {
+  constexpr AreaVector operator/(const double number) const {
     return AreaVector{value_ / number};
   }
 
@@ -85,7 +85,7 @@ public:
   }
 
 private:
-  explicit constexpr AreaVector(const Value::Vector& value) noexcept
+  explicit constexpr AreaVector(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Area>(value) {}
 };
 
@@ -120,33 +120,31 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const AreaVector& area_vector) noexcept {
+    std::ostream& stream, const AreaVector& area_vector) {
   stream << area_vector.Print();
   return stream;
 }
 
 inline constexpr AreaVector operator*(
-    const double number, const AreaVector& area_vector) noexcept {
+    const double number, const AreaVector& area_vector) {
   return area_vector * number;
 }
 
-inline Direction::Direction(const AreaVector& area_vector) noexcept
+inline Direction::Direction(const AreaVector& area_vector)
   : Direction(area_vector.Value()) {}
 
 inline Angle::Angle(
-    const AreaVector& area_vector_1, const AreaVector& area_vector_2) noexcept
+    const AreaVector& area_vector_1, const AreaVector& area_vector_2)
   : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
 
-inline Area::Area(const AreaVector& area_vector) noexcept
+inline Area::Area(const AreaVector& area_vector)
   : Area(area_vector.Value().Magnitude()) {}
 
-inline constexpr AreaVector Direction::operator*(
-    const Area& area) const noexcept {
+inline constexpr AreaVector Direction::operator*(const Area& area) const {
   return {area, *this};
 }
 
-inline constexpr AreaVector Area::operator*(
-    const Direction& direction) const noexcept {
+inline constexpr AreaVector Area::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

@@ -24,34 +24,34 @@ namespace PhQ {
 // Gradient of the displacement vector, which is a dimensionless dyadic tensor.
 class DisplacementGradient : public DimensionlessDyadQuantity {
 public:
-  constexpr DisplacementGradient() noexcept : DimensionlessDyadQuantity() {}
+  constexpr DisplacementGradient() : DimensionlessDyadQuantity() {}
 
-  explicit constexpr DisplacementGradient(const Value::Dyad& value) noexcept
+  explicit constexpr DisplacementGradient(const Value::Dyad& value)
     : DimensionlessDyadQuantity(value) {}
 
-  static constexpr DisplacementGradient Zero() noexcept {
+  static constexpr DisplacementGradient Zero() {
     return DisplacementGradient{Value::Dyad::Zero()};
   }
 
-  constexpr PhQ::Strain Strain() const noexcept {
+  constexpr PhQ::Strain Strain() const {
     return PhQ::Strain{*this};
   }
 
   constexpr DisplacementGradient operator+(
-      const DisplacementGradient& displacement_gradient) const noexcept {
+      const DisplacementGradient& displacement_gradient) const {
     return DisplacementGradient{value_ + displacement_gradient.value_};
   }
 
   constexpr DisplacementGradient operator-(
-      const DisplacementGradient& displacement_gradient) const noexcept {
+      const DisplacementGradient& displacement_gradient) const {
     return DisplacementGradient{value_ - displacement_gradient.value_};
   }
 
-  constexpr DisplacementGradient operator*(const double number) const noexcept {
+  constexpr DisplacementGradient operator*(const double number) const {
     return DisplacementGradient{value_ * number};
   }
 
-  constexpr DisplacementGradient operator/(const double number) const noexcept {
+  constexpr DisplacementGradient operator/(const double number) const {
     return DisplacementGradient{value_ / number};
   }
 
@@ -105,23 +105,30 @@ inline constexpr bool operator>=(const DisplacementGradient& left,
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const DisplacementGradient& displacement_gradient) noexcept {
+    std::ostream& stream, const DisplacementGradient& displacement_gradient) {
   stream << displacement_gradient.Print();
   return stream;
 }
 
 inline constexpr DisplacementGradient operator*(
-    const double number,
-    const DisplacementGradient& displacement_gradient) noexcept {
+    const double number, const DisplacementGradient& displacement_gradient) {
   return displacement_gradient * number;
 }
 
 inline constexpr Strain::Strain(
-    const DisplacementGradient& displacement_gradient) noexcept
-  : Strain({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
-            0.5 * (value_.xz() + value_.zx()), value_.yy(),
-            0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
+    const DisplacementGradient& displacement_gradient)
+  : Strain({displacement_gradient.Value().xx(),
+            0.5
+                * (displacement_gradient.Value().xy()
+                   + displacement_gradient.Value().yx()),
+            0.5
+                * (displacement_gradient.Value().xz()
+                   + displacement_gradient.Value().zx()),
+            displacement_gradient.Value().yy(),
+            0.5
+                * (displacement_gradient.Value().yz()
+                   + displacement_gradient.Value().zy()),
+            displacement_gradient.Value().zz()}) {}
 
 }  // namespace PhQ
 

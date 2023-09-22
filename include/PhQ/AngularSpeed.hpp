@@ -30,76 +30,70 @@ class AngularAccelerationMagnitude;
 // circular frequency.
 class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
 public:
-  constexpr AngularSpeed() noexcept
-    : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
+  constexpr AngularSpeed() : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
 
-  AngularSpeed(const double value, const Unit::AngularSpeed unit) noexcept
+  AngularSpeed(const double value, const Unit::AngularSpeed unit)
     : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
-  constexpr AngularSpeed(const Angle& angle, const Time& time) noexcept
+  constexpr AngularSpeed(const Angle& angle, const Time& time)
     : AngularSpeed(angle.Value() / time.Value()) {}
 
-  constexpr AngularSpeed(
-      const Angle& angle, const Frequency& frequency) noexcept
+  constexpr AngularSpeed(const Angle& angle, const Frequency& frequency)
     : AngularSpeed(angle.Value() * frequency.Value()) {}
 
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const Time& time) noexcept;
+      const Time& time);
 
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const Frequency& frequency) noexcept;
+      const Frequency& frequency);
 
-  static constexpr AngularSpeed Zero() noexcept {
+  static constexpr AngularSpeed Zero() {
     return AngularSpeed{0.0};
   }
 
   template <Unit::AngularSpeed Unit>
-  static constexpr AngularSpeed Create(const double value) noexcept {
+  static constexpr AngularSpeed Create(const double value) {
     return AngularSpeed{StaticConvertCopy<Unit::AngularSpeed, Unit,
                                           Standard<Unit::AngularSpeed>>(value)};
   }
 
-  constexpr AngularSpeed operator+(
-      const AngularSpeed& angular_speed) const noexcept {
+  constexpr AngularSpeed operator+(const AngularSpeed& angular_speed) const {
     return AngularSpeed{value_ + angular_speed.value_};
   }
 
-  constexpr AngularSpeed operator-(
-      const AngularSpeed& angular_speed) const noexcept {
+  constexpr AngularSpeed operator-(const AngularSpeed& angular_speed) const {
     return AngularSpeed{value_ - angular_speed.value_};
   }
 
-  constexpr AngularSpeed operator*(const double number) const noexcept {
+  constexpr AngularSpeed operator*(const double number) const {
     return AngularSpeed{value_ * number};
   }
 
-  constexpr Angle operator*(const Time& time) const noexcept {
+  constexpr Angle operator*(const Time& time) const {
     return {*this, time};
   }
 
   constexpr AngularAccelerationMagnitude operator*(
-      const Frequency& frequency) const noexcept;
+      const Frequency& frequency) const;
 
-  constexpr AngularSpeed operator/(const double number) const noexcept {
+  constexpr AngularSpeed operator/(const double number) const {
     return AngularSpeed{value_ / number};
   }
 
-  constexpr Angle operator/(const Frequency& frequency) const noexcept {
+  constexpr Angle operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Angle& angle) const noexcept {
+  constexpr Frequency operator/(const Angle& angle) const {
     return {*this, angle};
   }
 
-  constexpr AngularAccelerationMagnitude operator/(
-      const Time& time) const noexcept;
+  constexpr AngularAccelerationMagnitude operator/(const Time& time) const;
 
-  constexpr Time
-  operator/(const AngularAccelerationMagnitude& angular_acceleration_magnitude)
-      const noexcept;
+  constexpr Time operator/(
+      const AngularAccelerationMagnitude& angular_acceleration_magnitude) const;
 
   constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
     return value_ / angular_speed.value_;
@@ -122,7 +116,7 @@ public:
   }
 
 private:
-  explicit constexpr AngularSpeed(const double value) noexcept
+  explicit constexpr AngularSpeed(const double value)
     : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
 };
 
@@ -157,49 +151,47 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const AngularSpeed& angular_speed) noexcept {
+    std::ostream& stream, const AngularSpeed& angular_speed) {
   stream << angular_speed.Print();
   return stream;
 }
 
 inline constexpr AngularSpeed operator*(
-    const double number, const AngularSpeed& angular_speed) noexcept {
+    const double number, const AngularSpeed& angular_speed) {
   return angular_speed * number;
 }
 
 inline constexpr Angle::Angle(
-    const AngularSpeed& angular_speed, const Time& time) noexcept
+    const AngularSpeed& angular_speed, const Time& time)
   : Angle(angular_speed.Value() * time.Value()) {}
 
 inline constexpr Angle::Angle(
-    const AngularSpeed& angular_speed, const Frequency& frequency) noexcept
+    const AngularSpeed& angular_speed, const Frequency& frequency)
   : Angle(angular_speed.Value() / frequency.Value()) {}
 
 inline constexpr Time::Time(
-    const AngularSpeed& angular_speed, const Angle& angle) noexcept
+    const AngularSpeed& angular_speed, const Angle& angle)
   : Time(angle.Value() / angular_speed.Value()) {}
 
 inline constexpr Frequency::Frequency(
-    const AngularSpeed& angular_speed, const Angle& angle) noexcept
+    const AngularSpeed& angular_speed, const Angle& angle)
   : Frequency(angular_speed.Value() / angle.Value()) {}
 
 inline constexpr AngularSpeed Angle::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr AngularSpeed Frequency::operator*(
-    const Angle& angle) const noexcept {
+inline constexpr AngularSpeed Frequency::operator*(const Angle& angle) const {
   return {angle, *this};
 }
 
-inline constexpr AngularSpeed Angle::operator/(
-    const Time& time) const noexcept {
+inline constexpr AngularSpeed Angle::operator/(const Time& time) const {
   return {*this, time};
 }
 
 inline constexpr Time Angle::operator/(
-    const AngularSpeed& angular_speed) const noexcept {
+    const AngularSpeed& angular_speed) const {
   return {angular_speed, *this};
 }
 

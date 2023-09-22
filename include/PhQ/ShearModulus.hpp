@@ -21,42 +21,39 @@
 
 namespace PhQ {
 
-// Shear modulus of a deformable solid material. A measure of a deformable
-// solid material's elastic modulus.
+// Shear modulus of elasticity of a deformable solid material. A measure of a
+// deformable solid material's elastic modulus.
 class ShearModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr ShearModulus() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr ShearModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  ShearModulus(const double value, const Unit::Pressure unit) noexcept
+  ShearModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr ShearModulus Zero() noexcept {
+  static constexpr ShearModulus Zero() {
     return ShearModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr ShearModulus Create(const double value) noexcept {
+  static constexpr ShearModulus Create(const double value) {
     return ShearModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr ShearModulus operator+(
-      const ShearModulus& shear_modulus) const noexcept {
+  constexpr ShearModulus operator+(const ShearModulus& shear_modulus) const {
     return ShearModulus{value_ + shear_modulus.value_};
   }
 
-  constexpr ShearModulus operator-(
-      const ShearModulus& shear_modulus) const noexcept {
+  constexpr ShearModulus operator-(const ShearModulus& shear_modulus) const {
     return ShearModulus{value_ - shear_modulus.value_};
   }
 
-  constexpr ShearModulus operator*(const double number) const noexcept {
+  constexpr ShearModulus operator*(const double number) const {
     return ShearModulus{value_ * number};
   }
 
-  constexpr ShearModulus operator/(const double number) const noexcept {
+  constexpr ShearModulus operator/(const double number) const {
     return ShearModulus{value_ / number};
   }
 
@@ -81,7 +78,7 @@ public:
   }
 
 private:
-  explicit constexpr ShearModulus(const double value) noexcept
+  explicit constexpr ShearModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -116,13 +113,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const ShearModulus& shear_modulus) noexcept {
+    std::ostream& stream, const ShearModulus& shear_modulus) {
   stream << shear_modulus.Print();
   return stream;
 }
 
 inline constexpr ShearModulus operator*(
-    const double number, const ShearModulus& shear_modulus) noexcept {
+    const double number, const ShearModulus& shear_modulus) {
   return shear_modulus * number;
 }
 

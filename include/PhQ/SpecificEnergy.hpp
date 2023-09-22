@@ -28,59 +28,59 @@ class SpecificPower;
 // Specific energy. Energy per unit mass.
 class SpecificEnergy : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr SpecificEnergy() noexcept
+  constexpr SpecificEnergy()
     : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
 
-  SpecificEnergy(const double value, const Unit::SpecificEnergy unit) noexcept
+  SpecificEnergy(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
-  constexpr SpecificEnergy(const Energy& energy, const Mass& mass) noexcept
+  constexpr SpecificEnergy(const Energy& energy, const Mass& mass)
     : SpecificEnergy(energy.Value() / mass.Value()) {}
 
   constexpr SpecificEnergy(
-      const SpecificPower& specific_power, const Time& time) noexcept;
+      const SpecificPower& specific_power, const Time& time);
 
   constexpr SpecificEnergy(
-      const SpecificPower& specific_power, const Frequency& frequency) noexcept;
+      const SpecificPower& specific_power, const Frequency& frequency);
 
-  static constexpr SpecificEnergy Zero() noexcept {
+  static constexpr SpecificEnergy Zero() {
     return SpecificEnergy{0.0};
   }
 
   template <Unit::SpecificEnergy Unit>
-  static constexpr SpecificEnergy Create(const double value) noexcept {
+  static constexpr SpecificEnergy Create(const double value) {
     return SpecificEnergy{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr SpecificEnergy operator+(
-      const SpecificEnergy& specific_energy) const noexcept {
+      const SpecificEnergy& specific_energy) const {
     return SpecificEnergy{value_ + specific_energy.value_};
   }
 
   constexpr SpecificEnergy operator-(
-      const SpecificEnergy& specific_energy) const noexcept {
+      const SpecificEnergy& specific_energy) const {
     return SpecificEnergy{value_ - specific_energy.value_};
   }
 
-  constexpr SpecificEnergy operator*(const double number) const noexcept {
+  constexpr SpecificEnergy operator*(const double number) const {
     return SpecificEnergy{value_ * number};
   }
 
-  constexpr Energy operator*(const Mass& mass) const noexcept {
+  constexpr Energy operator*(const Mass& mass) const {
     return {*this, mass};
   }
 
-  constexpr SpecificPower operator*(const Frequency& frequency) const noexcept;
+  constexpr SpecificPower operator*(const Frequency& frequency) const;
 
-  constexpr SpecificEnergy operator/(const double number) const noexcept {
+  constexpr SpecificEnergy operator/(const double number) const {
     return SpecificEnergy{value_ / number};
   }
 
-  constexpr SpecificPower operator/(const Time& time) const noexcept;
+  constexpr SpecificPower operator/(const Time& time) const;
 
-  constexpr Time operator/(const SpecificPower& specific_power) const noexcept;
+  constexpr Time operator/(const SpecificPower& specific_power) const;
 
   constexpr double operator/(
       const SpecificEnergy& specific_energy) const noexcept {
@@ -104,7 +104,7 @@ public:
   }
 
 private:
-  explicit constexpr SpecificEnergy(const double value) noexcept
+  explicit constexpr SpecificEnergy(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };
 
@@ -139,36 +139,35 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SpecificEnergy& specific_energy) noexcept {
+    std::ostream& stream, const SpecificEnergy& specific_energy) {
   stream << specific_energy.Print();
   return stream;
 }
 
 inline constexpr SpecificEnergy operator*(
-    const double number, const SpecificEnergy& specific_energy) noexcept {
+    const double number, const SpecificEnergy& specific_energy) {
   return specific_energy * number;
 }
 
 inline constexpr Mass::Mass(
-    const SpecificEnergy& specific_energy, const Energy& energy) noexcept
+    const SpecificEnergy& specific_energy, const Energy& energy)
   : Mass(energy.Value() / specific_energy.Value()) {}
 
 inline constexpr Energy::Energy(
-    const SpecificEnergy& specific_energy, const Mass& mass) noexcept
+    const SpecificEnergy& specific_energy, const Mass& mass)
   : Energy(specific_energy.Value() * mass.Value()) {}
 
 inline constexpr Energy Mass::operator*(
-    const SpecificEnergy& specific_energy) const noexcept {
+    const SpecificEnergy& specific_energy) const {
   return {specific_energy, *this};
 }
 
 inline constexpr Mass Energy::operator/(
-    const SpecificEnergy& specific_energy) const noexcept {
+    const SpecificEnergy& specific_energy) const {
   return {specific_energy, *this};
 }
 
-inline constexpr SpecificEnergy Energy::operator/(
-    const Mass& mass) const noexcept {
+inline constexpr SpecificEnergy Energy::operator/(const Mass& mass) const {
   return {*this, mass};
 }
 

@@ -31,22 +31,22 @@ class Temperature {
 public:
   // Default constructor. Constructs a base physical dimension of temperature
   // with a value of zero.
-  constexpr Temperature() noexcept : value_(0) {}
+  constexpr Temperature() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of temperature with a
   // given value.
-  explicit constexpr Temperature(const int8_t value) noexcept : value_(value) {}
+  explicit constexpr Temperature(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~Temperature() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of temperature by
   // copying another one.
-  constexpr Temperature(const Temperature& other) noexcept = default;
+  constexpr Temperature(const Temperature& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of temperature by copying from another one.
-  constexpr Temperature& operator=(const Temperature& other) noexcept = default;
+  constexpr Temperature& operator=(const Temperature& other) = default;
 
   // Move constructor. Constructs a base physical dimension of temperature by
   // moving another one.
@@ -120,7 +120,7 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Temperature& temperature) noexcept {
+    std::ostream& stream, const Temperature& temperature) {
   stream << temperature.Print();
   return stream;
 }

@@ -24,43 +24,41 @@ namespace PhQ {
 // Velocity gradient dyadic tensor.
 class VelocityGradient : public DimensionalDyadQuantity<Unit::Frequency> {
 public:
-  constexpr VelocityGradient() noexcept
-    : DimensionalDyadQuantity<Unit::Frequency>() {}
+  constexpr VelocityGradient() : DimensionalDyadQuantity<Unit::Frequency>() {}
 
-  VelocityGradient(
-      const Value::Dyad& value, const Unit::Frequency& unit) noexcept
+  VelocityGradient(const Value::Dyad& value, const Unit::Frequency& unit)
     : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
-  static constexpr VelocityGradient Zero() noexcept {
+  static constexpr VelocityGradient Zero() {
     return VelocityGradient{Value::Dyad::Zero()};
   }
 
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient Create(const Value::Dyad& value) noexcept {
+  static constexpr VelocityGradient Create(const Value::Dyad& value) {
     return VelocityGradient{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 
-  constexpr PhQ::StrainRate StrainRate() const noexcept {
+  constexpr PhQ::StrainRate StrainRate() const {
     return PhQ::StrainRate{*this};
   }
 
   constexpr VelocityGradient operator+(
-      const VelocityGradient& velocity_gradient) const noexcept {
+      const VelocityGradient& velocity_gradient) const {
     return VelocityGradient{value_ + velocity_gradient.value_};
   }
 
   constexpr VelocityGradient operator-(
-      const VelocityGradient& velocity_gradient) const noexcept {
+      const VelocityGradient& velocity_gradient) const {
     return VelocityGradient{value_ - velocity_gradient.value_};
   }
 
-  constexpr VelocityGradient operator*(const double number) const noexcept {
+  constexpr VelocityGradient operator*(const double number) const {
     return VelocityGradient{value_ * number};
   }
 
-  constexpr VelocityGradient operator/(const double number) const noexcept {
+  constexpr VelocityGradient operator/(const double number) const {
     return VelocityGradient{value_ / number};
   }
 
@@ -83,7 +81,7 @@ public:
   }
 
 private:
-  explicit constexpr VelocityGradient(const Value::Dyad& value) noexcept
+  explicit constexpr VelocityGradient(const Value::Dyad& value)
     : DimensionalDyadQuantity<Unit::Frequency>(value) {}
 };
 
@@ -118,21 +116,25 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const VelocityGradient& velocity_gradient) noexcept {
+    std::ostream& stream, const VelocityGradient& velocity_gradient) {
   stream << velocity_gradient.Print();
   return stream;
 }
 
 inline constexpr VelocityGradient operator*(
-    const double number, const VelocityGradient& velocity_gradient) noexcept {
+    const double number, const VelocityGradient& velocity_gradient) {
   return velocity_gradient * number;
 }
 
 inline constexpr StrainRate::StrainRate(
-    const VelocityGradient& velocity_gradient) noexcept
-  : StrainRate({value_.xx(), 0.5 * (value_.xy() + value_.yx()),
-                0.5 * (value_.xz() + value_.zx()), value_.yy(),
-                0.5 * (value_.yz() + value_.zy()), value_.zz()}) {}
+    const VelocityGradient& velocity_gradient)
+  : StrainRate(
+      {velocity_gradient.Value().xx(),
+       0.5 * (velocity_gradient.Value().xy() + velocity_gradient.Value().yx()),
+       0.5 * (velocity_gradient.Value().xz() + velocity_gradient.Value().zx()),
+       velocity_gradient.Value().yy(),
+       0.5 * (velocity_gradient.Value().yz() + velocity_gradient.Value().zy()),
+       velocity_gradient.Value().zz()}) {}
 
 }  // namespace PhQ
 

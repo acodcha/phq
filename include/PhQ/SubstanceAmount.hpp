@@ -25,38 +25,38 @@ namespace PhQ {
 class SubstanceAmount
   : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
 public:
-  constexpr SubstanceAmount() noexcept
+  constexpr SubstanceAmount()
     : DimensionalScalarQuantity<Unit::SubstanceAmount>() {}
 
-  SubstanceAmount(const double value, const Unit::SubstanceAmount unit) noexcept
+  SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value, unit) {}
 
-  static constexpr SubstanceAmount Zero() noexcept {
+  static constexpr SubstanceAmount Zero() {
     return SubstanceAmount{0.0};
   }
 
   template <Unit::SubstanceAmount Unit>
-  static constexpr SubstanceAmount Create(const double value) noexcept {
+  static constexpr SubstanceAmount Create(const double value) {
     return SubstanceAmount{
         StaticConvertCopy<Unit::SubstanceAmount, Unit,
                           Standard<Unit::SubstanceAmount>>(value)};
   }
 
   constexpr SubstanceAmount operator+(
-      const SubstanceAmount& substance_amount) const noexcept {
+      const SubstanceAmount& substance_amount) const {
     return SubstanceAmount{value_ + substance_amount.value_};
   }
 
   constexpr SubstanceAmount operator-(
-      const SubstanceAmount& substance_amount) const noexcept {
+      const SubstanceAmount& substance_amount) const {
     return SubstanceAmount{value_ - substance_amount.value_};
   }
 
-  constexpr SubstanceAmount operator*(const double number) const noexcept {
+  constexpr SubstanceAmount operator*(const double number) const {
     return SubstanceAmount{value_ * number};
   }
 
-  constexpr SubstanceAmount operator/(const double number) const noexcept {
+  constexpr SubstanceAmount operator/(const double number) const {
     return SubstanceAmount{value_ / number};
   }
 
@@ -82,7 +82,7 @@ public:
   }
 
 private:
-  explicit constexpr SubstanceAmount(const double value) noexcept
+  explicit constexpr SubstanceAmount(const double value)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value) {}
 };
 
@@ -117,13 +117,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SubstanceAmount& substance_amount) noexcept {
+    std::ostream& stream, const SubstanceAmount& substance_amount) {
   stream << substance_amount.Print();
   return stream;
 }
 
 inline constexpr SubstanceAmount operator*(
-    const double number, const SubstanceAmount& substance_amount) noexcept {
+    const double number, const SubstanceAmount& substance_amount) {
   return substance_amount * number;
 }
 

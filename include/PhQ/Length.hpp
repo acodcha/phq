@@ -41,73 +41,71 @@ class Volume;
 // displacement vector.
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 public:
-  constexpr Length() noexcept : DimensionalScalarQuantity<Unit::Length>() {}
+  constexpr Length() : DimensionalScalarQuantity<Unit::Length>() {}
 
-  Length(const double value, const Unit::Length unit) noexcept
+  Length(const double value, const Unit::Length unit)
     : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
-  Length(const Displacement& displacement) noexcept;
+  Length(const Displacement& displacement);
 
-  Length(const Position& position) noexcept;
+  Length(const Position& position);
 
-  constexpr Length(const Speed& speed, const Time& time) noexcept;
+  constexpr Length(const Speed& speed, const Time& time);
 
-  constexpr Length(const Speed& speed, const Frequency& frequency) noexcept;
+  constexpr Length(const Speed& speed, const Frequency& frequency);
+
+  constexpr Length(const ReynoldsNumber& reynolds_number,
+                   const DynamicViscosity& dynamic_viscosity,
+                   const MassDensity& mass_density, const Speed& speed);
 
   constexpr Length(
       const ReynoldsNumber& reynolds_number,
-      const DynamicViscosity& dynamic_viscosity,
-      const MassDensity& mass_density, const Speed& speed) noexcept;
-
-  constexpr Length(const ReynoldsNumber& reynolds_number,
-                   const KinematicViscosity& kinematic_viscosity,
-                   const Speed& speed) noexcept;
+      const KinematicViscosity& kinematic_viscosity, const Speed& speed);
 
   constexpr Length(
       const Energy& energy,
-      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
+      const TransportEnergyConsumption& transport_energy_consumption);
 
-  static constexpr Length Zero() noexcept {
+  static constexpr Length Zero() {
     return Length{0.0};
   }
 
   template <Unit::Length Unit>
-  static constexpr Length Create(const double value) noexcept {
+  static constexpr Length Create(const double value) {
     return Length{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  constexpr Length operator+(const Length& length) const noexcept {
+  constexpr Length operator+(const Length& length) const {
     return Length{value_ + length.value_};
   }
 
-  constexpr Length operator-(const Length& length) const noexcept {
+  constexpr Length operator-(const Length& length) const {
     return Length{value_ - length.value_};
   }
 
-  constexpr Length operator*(const double number) const noexcept {
+  constexpr Length operator*(const double number) const {
     return Length{value_ * number};
   }
 
-  constexpr Area operator*(const Length& length) const noexcept;
+  constexpr Area operator*(const Length& length) const;
 
-  constexpr Volume operator*(const Area& area) const noexcept;
+  constexpr Volume operator*(const Area& area) const;
 
-  constexpr Speed operator*(const Frequency& frequency) const noexcept;
+  constexpr Speed operator*(const Frequency& frequency) const;
 
-  constexpr Position operator*(const Direction& direction) const noexcept;
+  constexpr Position operator*(const Direction& direction) const;
 
-  constexpr Energy
-  operator*(const TransportEnergyConsumption& transport_energy_consumption)
-      const noexcept;
+  constexpr Energy operator*(
+      const TransportEnergyConsumption& transport_energy_consumption) const;
 
-  constexpr Length operator/(const double number) const noexcept {
+  constexpr Length operator/(const double number) const {
     return Length{value_ / number};
   }
 
-  constexpr Speed operator/(const Time& time) const noexcept;
+  constexpr Speed operator/(const Time& time) const;
 
-  constexpr Time operator/(const Speed& speed) const noexcept;
+  constexpr Time operator/(const Speed& speed) const;
 
   constexpr double operator/(const Length& length) const noexcept {
     return value_ / length.value_;
@@ -130,7 +128,7 @@ public:
   }
 
 private:
-  explicit constexpr Length(const double value) noexcept
+  explicit constexpr Length(const double value)
     : DimensionalScalarQuantity<Unit::Length>(value) {}
 
   friend class Area;
@@ -167,14 +165,12 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Length& length) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Length& length) {
   stream << length.Print();
   return stream;
 }
 
-inline constexpr Length operator*(
-    const double number, const Length& length) noexcept {
+inline constexpr Length operator*(const double number, const Length& length) {
   return length * number;
 }
 

@@ -29,64 +29,61 @@ class Direction;
 class AccelerationMagnitude
   : public DimensionalScalarQuantity<Unit::Acceleration> {
 public:
-  constexpr AccelerationMagnitude() noexcept
+  constexpr AccelerationMagnitude()
     : DimensionalScalarQuantity<Unit::Acceleration>() {}
 
-  AccelerationMagnitude(
-      const double value, const Unit::Acceleration unit) noexcept
+  AccelerationMagnitude(const double value, const Unit::Acceleration unit)
     : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
 
-  constexpr AccelerationMagnitude(const Speed& speed, const Time& time) noexcept
+  constexpr AccelerationMagnitude(const Speed& speed, const Time& time)
     : AccelerationMagnitude(speed.Value() / time.Value()) {}
 
   constexpr AccelerationMagnitude(
-      const Speed& speed, const Frequency& frequency) noexcept
+      const Speed& speed, const Frequency& frequency)
     : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
-  AccelerationMagnitude(const Acceleration& acceleration) noexcept;
+  AccelerationMagnitude(const Acceleration& acceleration);
 
-  static constexpr AccelerationMagnitude Zero() noexcept {
+  static constexpr AccelerationMagnitude Zero() {
     return AccelerationMagnitude{0.0};
   }
 
   template <Unit::Acceleration Unit>
-  static constexpr AccelerationMagnitude Create(const double value) noexcept {
+  static constexpr AccelerationMagnitude Create(const double value) {
     return AccelerationMagnitude{
         StaticConvertCopy<Unit::Acceleration, Unit,
                           Standard<Unit::Acceleration>>(value)};
   }
 
   constexpr AccelerationMagnitude operator+(
-      const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+      const AccelerationMagnitude& acceleration_magnitude) const {
     return AccelerationMagnitude{value_ + acceleration_magnitude.value_};
   }
 
   constexpr AccelerationMagnitude operator-(
-      const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+      const AccelerationMagnitude& acceleration_magnitude) const {
     return AccelerationMagnitude{value_ - acceleration_magnitude.value_};
   }
 
-  constexpr AccelerationMagnitude operator*(
-      const double number) const noexcept {
+  constexpr AccelerationMagnitude operator*(const double number) const {
     return AccelerationMagnitude{value_ * number};
   }
 
-  constexpr Speed operator*(const Time& time) const noexcept {
+  constexpr Speed operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr Acceleration operator*(const Direction& direction) const noexcept;
+  constexpr Acceleration operator*(const Direction& direction) const;
 
-  constexpr AccelerationMagnitude operator/(
-      const double number) const noexcept {
+  constexpr AccelerationMagnitude operator/(const double number) const {
     return AccelerationMagnitude{value_ / number};
   }
 
-  constexpr Speed operator/(const Frequency& frequency) const noexcept {
+  constexpr Speed operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Speed& speed) const noexcept {
+  constexpr Frequency operator/(const Speed& speed) const {
     return {*this, speed};
   }
 
@@ -114,7 +111,7 @@ public:
   }
 
 private:
-  explicit constexpr AccelerationMagnitude(const double value) noexcept
+  explicit constexpr AccelerationMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
 };
 
@@ -149,54 +146,50 @@ inline constexpr bool operator>=(const AccelerationMagnitude& left,
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const AccelerationMagnitude& acceleration_magnitude) noexcept {
+    std::ostream& stream, const AccelerationMagnitude& acceleration_magnitude) {
   stream << acceleration_magnitude.Print();
   return stream;
 }
 
 inline constexpr AccelerationMagnitude operator*(
-    const double number,
-    const AccelerationMagnitude& acceleration_magnitude) noexcept {
+    const double number, const AccelerationMagnitude& acceleration_magnitude) {
   return acceleration_magnitude * number;
 }
 
-inline constexpr Time::Time(const AccelerationMagnitude& acceleration_magnitude,
-                            const Speed& speed) noexcept
+inline constexpr Time::Time(
+    const AccelerationMagnitude& acceleration_magnitude, const Speed& speed)
   : Time(speed.Value() / acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
-    const AccelerationMagnitude& acceleration_magnitude,
-    const Speed& speed) noexcept
+    const AccelerationMagnitude& acceleration_magnitude, const Speed& speed)
   : Frequency(acceleration_magnitude.Value() / speed.Value()) {}
 
 inline constexpr Speed::Speed(
-    const AccelerationMagnitude& acceleration_magnitude,
-    const Time& time) noexcept
+    const AccelerationMagnitude& acceleration_magnitude, const Time& time)
   : Speed(acceleration_magnitude.Value() * time.Value()) {}
 
 inline constexpr Speed::Speed(
     const AccelerationMagnitude& acceleration_magnitude,
-    const Frequency& frequency) noexcept
+    const Frequency& frequency)
   : Speed(acceleration_magnitude.Value() / frequency.Value()) {}
 
 inline constexpr AccelerationMagnitude Frequency::operator*(
-    const Speed& speed) const noexcept {
+    const Speed& speed) const {
   return {speed, *this};
 }
 
 inline constexpr AccelerationMagnitude Speed::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
 inline constexpr AccelerationMagnitude Speed::operator/(
-    const Time& time) const noexcept {
+    const Time& time) const {
   return {*this, time};
 }
 
 inline constexpr Time Speed::operator/(
-    const AccelerationMagnitude& acceleration_magnitude) const noexcept {
+    const AccelerationMagnitude& acceleration_magnitude) const {
   return {acceleration_magnitude, *this};
 }
 

@@ -29,7 +29,7 @@ public:
   // Physical dimension set of this dimensionless physical quantity. Since this
   // physical quantity is dimensionless, its physical dimension set is simply
   // the null set.
-  static constexpr const PhQ::Dimensions Dimensions() noexcept {
+  static constexpr const PhQ::Dimensions Dimensions() {
     return {};
   }
 
@@ -51,44 +51,46 @@ public:
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to double floating point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return PhQ::Print(value_);
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to the given floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return PhQ::Print(value_, precision);
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return PhQ::Print(value_);
   }
 
   // Serializes this dimensionless physical quantity as an XML message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return PhQ::Print(value_);
   }
 
   // Serializes this dimensionless physical quantity as a YAML message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return PhQ::Print(value_);
   }
 
 protected:
   // Default constructor. Constructs a dimensionless scalar physical quantity
   // with an uninitialized value.
-  constexpr DimensionlessScalarQuantity() noexcept : value_() {}
+  constexpr DimensionlessScalarQuantity() : value_() {}
 
-  // Constructs a dimensionless scalar physical quantity with a given value.
-  constexpr DimensionlessScalarQuantity(const double value) noexcept
-    : value_(value) {}
+  // Constructor. Constructs a dimensionless scalar physical quantity with a
+  // given value.
+  constexpr DimensionlessScalarQuantity(const double value) : value_(value) {}
 
-  // Default destructor. Destroys this dimensionless scalar physical quantity.
+  // Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalarQuantity() noexcept = default;
 
-  void operator=(const double value) noexcept {
+  // Copy assignment operator. Assigns the value of this dimensionless scalar
+  // physical quantity from a given value.
+  void operator=(const double value) {
     value_ = value;
   }
 
@@ -96,8 +98,7 @@ protected:
 };
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const DimensionlessScalarQuantity& quantity) noexcept {
+    std::ostream& stream, const DimensionlessScalarQuantity& quantity) {
   stream << quantity.Print();
   return stream;
 }

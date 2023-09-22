@@ -35,17 +35,17 @@ class Speed;
 class SoundSpeed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
   // Default constructor. Constructs a sound speed with an uninitialized value.
-  constexpr SoundSpeed() noexcept : DimensionalScalarQuantity<Unit::Speed>() {}
+  constexpr SoundSpeed() : DimensionalScalarQuantity<Unit::Speed>() {}
 
   // Constructs a sound speed from a given value and speed unit.
-  SoundSpeed(const double value, const Unit::Speed unit) noexcept
+  SoundSpeed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
   // Constructs a sound speed from a mass density and an isentropic bulk
   // modulus. This is the definition of the sound speed; this relation always
   // holds true.
   SoundSpeed(const MassDensity& mass_density,
-             const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept
+             const IsentropicBulkModulus& isentropic_bulk_modulus)
     : SoundSpeed(
         std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
@@ -53,7 +53,7 @@ public:
   // specific heat ratio. This relation applies only to an ideal gas.
   SoundSpeed(const MassDensity& mass_density,
              const StaticPressure& static_pressure,
-             const SpecificHeatRatio& specific_heat_ratio) noexcept
+             const SpecificHeatRatio& specific_heat_ratio)
     : SoundSpeed(std::sqrt(specific_heat_ratio.Value() * static_pressure.Value()
                            / mass_density.Value())) {}
 
@@ -61,48 +61,47 @@ public:
   // specific heat ratio. This relation applies only to an ideal gas.
   SoundSpeed(const Temperature& temperature,
              const SpecificGasConstant& specific_gas_constant,
-             const SpecificHeatRatio& specific_heat_ratio) noexcept
+             const SpecificHeatRatio& specific_heat_ratio)
     : SoundSpeed(
         std::sqrt(specific_heat_ratio.Value() * specific_gas_constant.Value()
                   * temperature.Value())) {}
 
   // Constructs a sound speed from a speed and a Mach number. This uses the
   // definition of the Mach number; this relation always holds true.
-  constexpr SoundSpeed(
-      const Speed& speed, const MachNumber& mach_number) noexcept;
+  constexpr SoundSpeed(const Speed& speed, const MachNumber& mach_number);
 
-  static constexpr SoundSpeed Zero() noexcept {
+  static constexpr SoundSpeed Zero() {
     return SoundSpeed{0.0};
   }
 
   // Creates a sound speed from a given value and speed unit.
   template <Unit::Speed Unit>
-  static constexpr SoundSpeed Create(const double value) noexcept {
+  static constexpr SoundSpeed Create(const double value) {
     return SoundSpeed{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  constexpr SoundSpeed operator+(const SoundSpeed& speed) const noexcept {
+  constexpr SoundSpeed operator+(const SoundSpeed& speed) const {
     return SoundSpeed{value_ + speed.value_};
   }
 
-  constexpr Speed operator+(const Speed& speed) const noexcept {
+  constexpr Speed operator+(const Speed& speed) const {
     return Speed{value_ + speed.value_};
   }
 
-  constexpr SoundSpeed operator-(const SoundSpeed& speed) const noexcept {
+  constexpr SoundSpeed operator-(const SoundSpeed& speed) const {
     return SoundSpeed{value_ - speed.value_};
   }
 
-  constexpr Speed operator-(const Speed& speed) const noexcept {
+  constexpr Speed operator-(const Speed& speed) const {
     return Speed{value_ - speed.value_};
   }
 
-  constexpr SoundSpeed operator*(const double number) const noexcept {
+  constexpr SoundSpeed operator*(const double number) const {
     return SoundSpeed{value_ * number};
   }
 
-  constexpr SoundSpeed operator/(const double number) const noexcept {
+  constexpr SoundSpeed operator/(const double number) const {
     return SoundSpeed{value_ / number};
   }
 
@@ -135,7 +134,7 @@ public:
   }
 
 private:
-  explicit constexpr SoundSpeed(const double value) noexcept
+  explicit constexpr SoundSpeed(const double value)
     : DimensionalScalarQuantity<Unit::Speed>(value) {}
 };
 
@@ -170,23 +169,21 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SoundSpeed& sound_speed) noexcept {
+    std::ostream& stream, const SoundSpeed& sound_speed) {
   stream << sound_speed.Print();
   return stream;
 }
 
 inline constexpr SoundSpeed operator*(
-    const double number, const SoundSpeed& sound_speed) noexcept {
+    const double number, const SoundSpeed& sound_speed) {
   return sound_speed * number;
 }
 
-inline constexpr Speed Speed::operator+(
-    const SoundSpeed& sound_speed) const noexcept {
+inline constexpr Speed Speed::operator+(const SoundSpeed& sound_speed) const {
   return Speed{value_ + sound_speed.Value()};
 }
 
-inline constexpr Speed Speed::operator-(
-    const SoundSpeed& sound_speed) const noexcept {
+inline constexpr Speed Speed::operator-(const SoundSpeed& sound_speed) const {
   return Speed{value_ - sound_speed.Value()};
 }
 
@@ -200,12 +197,12 @@ inline constexpr void Speed::operator-=(const SoundSpeed& speed) noexcept {
 
 constexpr MassDensity::MassDensity(
     const IsentropicBulkModulus& isentropic_bulk_modulus,
-    const SoundSpeed& sound_speed) noexcept
+    const SoundSpeed& sound_speed)
   : MassDensity(
       isentropic_bulk_modulus.Value() / std::pow(sound_speed.Value(), 2)) {}
 
 constexpr IsentropicBulkModulus::IsentropicBulkModulus(
-    const MassDensity& mass_density, const SoundSpeed& sound_speed) noexcept
+    const MassDensity& mass_density, const SoundSpeed& sound_speed)
   : IsentropicBulkModulus(
       mass_density.Value() * std::pow(sound_speed.Value(), 2)) {}
 

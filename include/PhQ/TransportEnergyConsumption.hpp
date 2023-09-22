@@ -30,57 +30,51 @@ namespace PhQ {
 class TransportEnergyConsumption
   : public DimensionalScalarQuantity<Unit::Force> {
 public:
-  constexpr TransportEnergyConsumption() noexcept
+  constexpr TransportEnergyConsumption()
     : DimensionalScalarQuantity<Unit::Force>() {}
 
-  TransportEnergyConsumption(
-      const double value, const Unit::Force unit) noexcept
+  TransportEnergyConsumption(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
   constexpr TransportEnergyConsumption(
-      const Length& length, const Energy& energy) noexcept
+      const Length& length, const Energy& energy)
     : TransportEnergyConsumption(energy.Value() / length.Value()) {}
 
-  static constexpr TransportEnergyConsumption Zero() noexcept {
+  static constexpr TransportEnergyConsumption Zero() {
     return TransportEnergyConsumption{0.0};
   }
 
   template <Unit::Force Unit>
-  static constexpr TransportEnergyConsumption
-  Create(const double value) noexcept {
+  static constexpr TransportEnergyConsumption Create(const double value) {
     return TransportEnergyConsumption{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  constexpr TransportEnergyConsumption
-  operator+(const TransportEnergyConsumption& transport_energy_consumption)
-      const noexcept {
+  constexpr TransportEnergyConsumption operator+(
+      const TransportEnergyConsumption& transport_energy_consumption) const {
     return TransportEnergyConsumption{
         value_ + transport_energy_consumption.value_};
   }
 
-  constexpr TransportEnergyConsumption
-  operator-(const TransportEnergyConsumption& transport_energy_consumption)
-      const noexcept {
+  constexpr TransportEnergyConsumption operator-(
+      const TransportEnergyConsumption& transport_energy_consumption) const {
     return TransportEnergyConsumption{
         value_ - transport_energy_consumption.value_};
   }
 
-  constexpr TransportEnergyConsumption operator*(
-      const double number) const noexcept {
+  constexpr TransportEnergyConsumption operator*(const double number) const {
     return TransportEnergyConsumption{value_ * number};
   }
 
-  constexpr Energy operator*(const Length length) const noexcept {
+  constexpr Energy operator*(const Length length) const {
     return Energy{length, *this};
   }
 
-  constexpr Power operator*(const Speed speed) const noexcept {
+  constexpr Power operator*(const Speed speed) const {
     return Power{speed, *this};
   }
 
-  constexpr TransportEnergyConsumption operator/(
-      const double number) const noexcept {
+  constexpr TransportEnergyConsumption operator/(const double number) const {
     return TransportEnergyConsumption{value_ / number};
   }
 
@@ -109,7 +103,7 @@ public:
   }
 
 private:
-  explicit constexpr TransportEnergyConsumption(const double value) noexcept
+  explicit constexpr TransportEnergyConsumption(const double value)
     : DimensionalScalarQuantity<Unit::Force>(value) {}
 };
 
@@ -151,52 +145,49 @@ inline constexpr bool operator>=(
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const TransportEnergyConsumption& transport_energy_consumption) noexcept {
+    const TransportEnergyConsumption& transport_energy_consumption) {
   stream << transport_energy_consumption.Print();
   return stream;
 }
 
 inline constexpr TransportEnergyConsumption operator*(
     const double number,
-    const TransportEnergyConsumption& transport_energy_consumption) noexcept {
+    const TransportEnergyConsumption& transport_energy_consumption) {
   return transport_energy_consumption * number;
 }
 
 inline constexpr Length::Length(
     const Energy& energy,
-    const TransportEnergyConsumption& transport_energy_consumption) noexcept
+    const TransportEnergyConsumption& transport_energy_consumption)
   : Length(energy.Value() / transport_energy_consumption.Value()) {}
 
 inline constexpr Energy::Energy(
     const Length& length,
-    const TransportEnergyConsumption& transport_energy_consumption) noexcept
+    const TransportEnergyConsumption& transport_energy_consumption)
   : Energy(transport_energy_consumption.Value() * length.Value()) {}
 
 inline constexpr Power::Power(
     const Speed& speed,
-    const TransportEnergyConsumption& transport_energy_consumption) noexcept
+    const TransportEnergyConsumption& transport_energy_consumption)
   : Power(speed.Value() * transport_energy_consumption.Value()) {}
 
 inline constexpr Energy Length::operator*(
-    const TransportEnergyConsumption& transport_energy_consumption)
-    const noexcept {
+    const TransportEnergyConsumption& transport_energy_consumption) const {
   return {*this, transport_energy_consumption};
 }
 
-inline constexpr Power
-Speed::operator*(const TransportEnergyConsumption& transport_energy_consumption)
-    const noexcept {
+inline constexpr Power Speed::operator*(
+    const TransportEnergyConsumption& transport_energy_consumption) const {
   return {*this, transport_energy_consumption};
 }
 
 inline constexpr TransportEnergyConsumption Energy::operator/(
-    const Length& length) const noexcept {
+    const Length& length) const {
   return {length, *this};
 }
 
 inline constexpr Length Energy::operator/(
-    const TransportEnergyConsumption& transport_energy_consumption)
-    const noexcept {
+    const TransportEnergyConsumption& transport_energy_consumption) const {
   return {*this, transport_energy_consumption};
 }
 

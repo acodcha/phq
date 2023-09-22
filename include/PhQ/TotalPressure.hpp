@@ -23,56 +23,53 @@ namespace PhQ {
 // Total pressure.
 class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr TotalPressure() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr TotalPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  TotalPressure(const double value, const Unit::Pressure unit) noexcept
+  TotalPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr TotalPressure(const DynamicPressure& dynamic_pressure,
-                          const StaticPressure& static_pressure) noexcept
+                          const StaticPressure& static_pressure)
     : TotalPressure(dynamic_pressure.Value() + static_pressure.Value()) {}
 
   constexpr TotalPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
-      const MassDensity& mass_density) noexcept;
+      const MassDensity& mass_density);
 
-  static constexpr TotalPressure Zero() noexcept {
+  static constexpr TotalPressure Zero() {
     return TotalPressure{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr TotalPressure Create(const double value) noexcept {
+  static constexpr TotalPressure Create(const double value) {
     return TotalPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr TotalPressure operator+(
-      const TotalPressure& total_pressure) const noexcept {
+  constexpr TotalPressure operator+(const TotalPressure& total_pressure) const {
     return TotalPressure{value_ + total_pressure.value_};
   }
 
-  constexpr TotalPressure operator-(
-      const TotalPressure& total_pressure) const noexcept {
+  constexpr TotalPressure operator-(const TotalPressure& total_pressure) const {
     return TotalPressure{value_ - total_pressure.value_};
   }
 
   constexpr DynamicPressure operator-(
-      const StaticPressure& static_pressure) const noexcept {
+      const StaticPressure& static_pressure) const {
     return {*this, static_pressure};
   }
 
   constexpr StaticPressure operator-(
-      const DynamicPressure& dynamic_pressure) const noexcept {
+      const DynamicPressure& dynamic_pressure) const {
     return {*this, dynamic_pressure};
   }
 
-  constexpr TotalPressure operator*(const double number) const noexcept {
+  constexpr TotalPressure operator*(const double number) const {
     return TotalPressure{value_ * number};
   }
 
-  constexpr TotalPressure operator/(const double number) const noexcept {
+  constexpr TotalPressure operator/(const double number) const {
     return TotalPressure{value_ / number};
   }
 
@@ -98,7 +95,7 @@ public:
   }
 
 private:
-  explicit constexpr TotalPressure(const double value) noexcept
+  explicit constexpr TotalPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -133,33 +130,32 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const TotalPressure& total_pressure) noexcept {
+    std::ostream& stream, const TotalPressure& total_pressure) {
   stream << total_pressure.Print();
   return stream;
 }
 
 inline constexpr TotalPressure operator*(
-    const double number, const TotalPressure& total_pressure) noexcept {
+    const double number, const TotalPressure& total_pressure) {
   return total_pressure * number;
 }
 
 inline constexpr StaticPressure::StaticPressure(
     const TotalPressure& total_pressure,
-    const DynamicPressure& dynamic_pressure) noexcept
+    const DynamicPressure& dynamic_pressure)
   : StaticPressure(total_pressure.Value() - dynamic_pressure.Value()) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
-    const TotalPressure& total_pressure,
-    const StaticPressure& static_pressure) noexcept
+    const TotalPressure& total_pressure, const StaticPressure& static_pressure)
   : DynamicPressure(total_pressure.Value() - static_pressure.Value()) {}
 
 inline constexpr TotalPressure StaticPressure::operator+(
-    const DynamicPressure& dynamic_pressure) const noexcept {
+    const DynamicPressure& dynamic_pressure) const {
   return {dynamic_pressure, *this};
 }
 
 inline constexpr TotalPressure DynamicPressure::operator+(
-    const StaticPressure& static_pressure) const noexcept {
+    const StaticPressure& static_pressure) const {
   return {*this, static_pressure};
 }
 

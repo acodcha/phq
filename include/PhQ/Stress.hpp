@@ -25,33 +25,32 @@ namespace PhQ {
 // Cauchy stress dyadic tensor.
 class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
 public:
-  constexpr Stress() noexcept
-    : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
+  constexpr Stress() : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
 
-  Stress(const Value::SymmetricDyad& value, const Unit::Pressure unit) noexcept
+  Stress(const Value::SymmetricDyad& value, const Unit::Pressure unit)
     : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr Stress(const StaticPressure& static_pressure) noexcept
+  constexpr Stress(const StaticPressure& static_pressure)
     : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
               -1.0 * static_pressure.Value(), 0.0,
               -1.0 * static_pressure.Value()}) {}
 
-  static constexpr Stress Zero() noexcept {
+  static constexpr Stress Zero() {
     return Stress{Value::SymmetricDyad::Zero()};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr Stress Create(const Value::SymmetricDyad& value) noexcept {
+  static constexpr Stress Create(const Value::SymmetricDyad& value) {
     return Stress{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr PhQ::Traction Traction(const Direction& direction) const noexcept {
+  constexpr PhQ::Traction Traction(const Direction& direction) const {
     return {*this, direction};
   }
 
-  constexpr StressScalar VonMises() const noexcept {
+  constexpr StressScalar VonMises() const {
     return StressScalar{std::sqrt(
         0.5
         * (std::pow(value_.xx() - value_.yy(), 2)
@@ -62,19 +61,19 @@ public:
                     + std::pow(value_.yz(), 2))))};
   }
 
-  constexpr Stress operator+(const Stress& stress) const noexcept {
+  constexpr Stress operator+(const Stress& stress) const {
     return Stress{value_ + stress.value_};
   }
 
-  constexpr Stress operator-(const Stress& stress) const noexcept {
+  constexpr Stress operator-(const Stress& stress) const {
     return Stress{value_ - stress.value_};
   }
 
-  constexpr Stress operator*(const double number) const noexcept {
+  constexpr Stress operator*(const double number) const {
     return Stress{value_ * number};
   }
 
-  constexpr Stress operator/(const double number) const noexcept {
+  constexpr Stress operator/(const double number) const {
     return Stress{value_ / number};
   }
 
@@ -95,7 +94,7 @@ public:
   }
 
 private:
-  explicit constexpr Stress(const Value::SymmetricDyad& value) noexcept
+  explicit constexpr Stress(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
 };
 
@@ -129,22 +128,20 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Stress& stress) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Stress& stress) {
   stream << stress.Print();
   return stream;
 }
 
-inline constexpr Stress operator*(
-    const double number, const Stress& stress) noexcept {
+inline constexpr Stress operator*(const double number, const Stress& stress) {
   return stress * number;
 }
 
 inline constexpr Traction::Traction(
-    const Stress& stress, const Direction& direction) noexcept
+    const Stress& stress, const Direction& direction)
   : Traction({stress.Value() * direction}) {}
 
-inline constexpr Stress StaticPressure::Stress() const noexcept {
+inline constexpr Stress StaticPressure::Stress() const {
   return {*this};
 }
 

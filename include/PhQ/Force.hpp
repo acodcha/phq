@@ -29,52 +29,52 @@ class Traction;
 // Force vector.
 class Force : public DimensionalVectorQuantity<Unit::Force> {
 public:
-  constexpr Force() noexcept : DimensionalVectorQuantity<Unit::Force>() {}
+  constexpr Force() : DimensionalVectorQuantity<Unit::Force>() {}
 
-  Force(const Value::Vector& value, const Unit::Force unit) noexcept
+  Force(const Value::Vector& value, const Unit::Force unit)
     : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
 
-  constexpr Force(const ForceMagnitude& force_magnitude,
-                  const Direction& direction) noexcept
+  constexpr Force(
+      const ForceMagnitude& force_magnitude, const Direction& direction)
     : Force(force_magnitude.Value() * direction.Value()) {}
 
-  constexpr Force(const Traction& traction, const Area& area) noexcept;
+  constexpr Force(const Traction& traction, const Area& area);
 
-  static constexpr Force Zero() noexcept {
+  static constexpr Force Zero() {
     return Force{Value::Vector::Zero()};
   }
 
   template <Unit::Force Unit>
-  static constexpr Force Create(const Value::Vector& value) noexcept {
+  static constexpr Force Create(const Value::Vector& value) {
     return Force{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  ForceMagnitude Magnitude() const noexcept {
+  ForceMagnitude Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const Force& force) const noexcept {
+  PhQ::Angle Angle(const Force& force) const {
     return {*this, force};
   }
 
-  constexpr Force operator+(const Force& force) const noexcept {
+  constexpr Force operator+(const Force& force) const {
     return Force{value_ + force.value_};
   }
 
-  constexpr Force operator-(const Force& force) const noexcept {
+  constexpr Force operator-(const Force& force) const {
     return Force{value_ - force.value_};
   }
 
-  constexpr Force operator*(const double number) const noexcept {
+  constexpr Force operator*(const double number) const {
     return Force{value_ * number};
   }
 
-  constexpr Force operator/(const double number) const noexcept {
+  constexpr Force operator/(const double number) const {
     return Force{value_ / number};
   }
 
-  constexpr Traction operator/(const Area& area) const noexcept;
+  constexpr Traction operator/(const Area& area) const;
 
   constexpr void operator+=(const Force& force) noexcept {
     value_ += force.value_;
@@ -93,7 +93,7 @@ public:
   }
 
 private:
-  explicit constexpr Force(const Value::Vector& value) noexcept
+  explicit constexpr Force(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Force>(value) {}
 };
 
@@ -127,33 +127,30 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Force& force) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Force& force) {
   stream << force.Print();
   return stream;
 }
 
-inline constexpr Force operator*(
-    const double number, const Force& force) noexcept {
+inline constexpr Force operator*(const double number, const Force& force) {
   return force * number;
 }
 
-inline Direction::Direction(const Force& force) noexcept
-  : Direction(force.Value()) {}
+inline Direction::Direction(const Force& force) : Direction(force.Value()) {}
 
-inline Angle::Angle(const Force& force1, const Force& force2) noexcept
+inline Angle::Angle(const Force& force1, const Force& force2)
   : Angle(force1.Value(), force2.Value()) {}
 
-inline ForceMagnitude::ForceMagnitude(const Force& force) noexcept
+inline ForceMagnitude::ForceMagnitude(const Force& force)
   : ForceMagnitude(force.Value().Magnitude()) {}
 
 inline constexpr Force Direction::operator*(
-    const ForceMagnitude& force_magnitude) const noexcept {
+    const ForceMagnitude& force_magnitude) const {
   return {force_magnitude, *this};
 }
 
 inline constexpr Force ForceMagnitude::operator*(
-    const Direction& direction) const noexcept {
+    const Direction& direction) const {
   return {*this, direction};
 }
 

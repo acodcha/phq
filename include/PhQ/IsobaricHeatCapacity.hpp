@@ -24,80 +24,77 @@ namespace PhQ {
 class IsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
-  constexpr IsobaricHeatCapacity() noexcept
+  constexpr IsobaricHeatCapacity()
     : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
 
-  IsobaricHeatCapacity(
-      const double value, const Unit::HeatCapacity unit) noexcept
+  IsobaricHeatCapacity(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
   constexpr IsobaricHeatCapacity(
       const GasConstant& gas_constant,
-      const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity);
 
-  constexpr IsobaricHeatCapacity(
-      const GasConstant& gas_constant,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept;
+  constexpr IsobaricHeatCapacity(const GasConstant& gas_constant,
+                                 const SpecificHeatRatio& specific_heat_ratio);
 
   constexpr IsobaricHeatCapacity(
       const IsochoricHeatCapacity& isochoric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept
+      const SpecificHeatRatio& specific_heat_ratio)
     : IsobaricHeatCapacity(
         isochoric_heat_capacity.Value() * specific_heat_ratio.Value()) {}
 
   constexpr IsobaricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const Mass& mass) noexcept;
+      const Mass& mass);
 
-  static constexpr IsobaricHeatCapacity Zero() noexcept {
+  static constexpr IsobaricHeatCapacity Zero() {
     return IsobaricHeatCapacity{0.0};
   }
 
   template <Unit::HeatCapacity Unit>
-  static constexpr IsobaricHeatCapacity Create(const double value) noexcept {
+  static constexpr IsobaricHeatCapacity Create(const double value) {
     return IsobaricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
                           Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr IsobaricHeatCapacity operator+(
-      const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
+      const IsobaricHeatCapacity& isobaric_heat_capacity) const {
     return IsobaricHeatCapacity{value_ + isobaric_heat_capacity.value_};
   }
 
   constexpr IsobaricHeatCapacity operator-(
-      const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
+      const IsobaricHeatCapacity& isobaric_heat_capacity) const {
     return IsobaricHeatCapacity{value_ - isobaric_heat_capacity.value_};
   }
 
   constexpr GasConstant operator-(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const;
 
   constexpr IsochoricHeatCapacity operator-(
-      const GasConstant& gas_constant) const noexcept;
+      const GasConstant& gas_constant) const;
 
-  constexpr IsobaricHeatCapacity operator*(const double number) const noexcept {
+  constexpr IsobaricHeatCapacity operator*(const double number) const {
     return IsobaricHeatCapacity{value_ * number};
   }
 
-  constexpr IsobaricHeatCapacity operator/(const double number) const noexcept {
+  constexpr IsobaricHeatCapacity operator/(const double number) const {
     return IsobaricHeatCapacity{value_ / number};
   }
 
-  constexpr SpecificIsobaricHeatCapacity operator/(
-      const Mass& mass) const noexcept;
+  constexpr SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
 
   constexpr Mass
   operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-      const noexcept;
+      const;
 
   constexpr SpecificHeatRatio operator/(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const {
     return {*this, isochoric_heat_capacity};
   }
 
   constexpr IsochoricHeatCapacity operator/(
-      const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+      const SpecificHeatRatio& specific_heat_ratio) const {
     return {*this, specific_heat_ratio};
   }
 
@@ -125,7 +122,7 @@ public:
   }
 
 private:
-  explicit constexpr IsobaricHeatCapacity(const double value) noexcept
+  explicit constexpr IsobaricHeatCapacity(const double value)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 };
 
@@ -160,37 +157,35 @@ inline constexpr bool operator>=(const IsobaricHeatCapacity& left,
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
+    std::ostream& stream, const IsobaricHeatCapacity& isobaric_heat_capacity) {
   stream << isobaric_heat_capacity.Print();
   return stream;
 }
 
 inline constexpr IsobaricHeatCapacity operator*(
-    const double number,
-    const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
+    const double number, const IsobaricHeatCapacity& isobaric_heat_capacity) {
   return isobaric_heat_capacity * number;
 }
 
 inline constexpr SpecificHeatRatio::SpecificHeatRatio(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
-    const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept
+    const IsochoricHeatCapacity& isochoric_heat_capacity)
   : SpecificHeatRatio(
       isobaric_heat_capacity.Value() / isochoric_heat_capacity.Value()) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
-    const SpecificHeatRatio& specific_heat_ratio) noexcept
+    const SpecificHeatRatio& specific_heat_ratio)
   : IsochoricHeatCapacity(
       isobaric_heat_capacity.Value() / specific_heat_ratio.Value()) {}
 
 inline constexpr IsobaricHeatCapacity SpecificHeatRatio::operator*(
-    const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+    const IsochoricHeatCapacity& isochoric_heat_capacity) const {
   return {isochoric_heat_capacity, *this};
 }
 
 inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(
-    const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+    const SpecificHeatRatio& specific_heat_ratio) const {
   return {*this, specific_heat_ratio};
 }
 

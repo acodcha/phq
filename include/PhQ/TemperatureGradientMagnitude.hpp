@@ -30,29 +30,26 @@ class TemperatureGradient;
 class TemperatureGradientMagnitude
   : public DimensionalScalarQuantity<Unit::TemperatureGradient> {
 public:
-  constexpr TemperatureGradientMagnitude() noexcept
+  constexpr TemperatureGradientMagnitude()
     : DimensionalScalarQuantity<Unit::TemperatureGradient>() {}
 
   TemperatureGradientMagnitude(
-      const double value, const Unit::TemperatureGradient unit) noexcept
+      const double value, const Unit::TemperatureGradient unit)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
 
-  TemperatureGradientMagnitude(
-      const TemperatureGradient& temperature_gradient) noexcept;
+  TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient);
 
   constexpr TemperatureGradientMagnitude(
-      const TemperatureDifference& temperature_difference,
-      const Length& length) noexcept
+      const TemperatureDifference& temperature_difference, const Length& length)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(
         temperature_difference.Value() / length.Value()) {}
 
-  static constexpr TemperatureGradientMagnitude Zero() noexcept {
+  static constexpr TemperatureGradientMagnitude Zero() {
     return TemperatureGradientMagnitude{0.0};
   }
 
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradientMagnitude
-  Create(const double value) noexcept {
+  static constexpr TemperatureGradientMagnitude Create(const double value) {
     return TemperatureGradientMagnitude{
         StaticConvertCopy<Unit::TemperatureGradient, Unit,
                           Standard<Unit::TemperatureGradient>>(value)};
@@ -60,33 +57,29 @@ public:
 
   constexpr TemperatureGradientMagnitude
   operator+(const TemperatureGradientMagnitude& temperature_gradient_magnitude)
-      const noexcept {
+      const {
     return TemperatureGradientMagnitude{
         value_ + temperature_gradient_magnitude.value_};
   }
 
   constexpr TemperatureGradientMagnitude
   operator-(const TemperatureGradientMagnitude& temperature_gradient_magnitude)
-      const noexcept {
+      const {
     return TemperatureGradientMagnitude{
         value_ - temperature_gradient_magnitude.value_};
   }
 
-  constexpr TemperatureGradientMagnitude operator*(
-      const double number) const noexcept {
+  constexpr TemperatureGradientMagnitude operator*(const double number) const {
     return TemperatureGradientMagnitude{value_ * number};
   }
 
-  constexpr TemperatureDifference operator*(
-      const Length& length) const noexcept {
+  constexpr TemperatureDifference operator*(const Length& length) const {
     return {*this, length};
   }
 
-  constexpr TemperatureGradient operator*(
-      const Direction& direction) const noexcept;
+  constexpr TemperatureGradient operator*(const Direction& direction) const;
 
-  constexpr TemperatureGradientMagnitude operator/(
-      const double number) const noexcept {
+  constexpr TemperatureGradientMagnitude operator/(const double number) const {
     return TemperatureGradientMagnitude{value_ / number};
   }
 
@@ -115,7 +108,7 @@ public:
   }
 
 private:
-  explicit constexpr TemperatureGradientMagnitude(const double value) noexcept
+  explicit constexpr TemperatureGradientMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(value) {}
 };
 
@@ -156,26 +149,26 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const TemperatureGradientMagnitude&
-                              temperature_gradient_magnitude) noexcept {
+    std::ostream& stream,
+    const TemperatureGradientMagnitude& temperature_gradient_magnitude) {
   stream << temperature_gradient_magnitude.Print();
   return stream;
 }
 
 inline constexpr TemperatureGradientMagnitude operator*(
-    const double number, const TemperatureGradientMagnitude&
-                             temperature_gradient_magnitude) noexcept {
+    const double number,
+    const TemperatureGradientMagnitude& temperature_gradient_magnitude) {
   return temperature_gradient_magnitude * number;
 }
 
 inline constexpr TemperatureDifference::TemperatureDifference(
     const TemperatureGradientMagnitude& temperature_gradient_magnitude,
-    const Length& length) noexcept
+    const Length& length)
   : TemperatureDifference(
       temperature_gradient_magnitude.Value() * length.Value()) {}
 
 inline constexpr TemperatureGradientMagnitude TemperatureDifference::operator/(
-    const Length& length) const noexcept {
+    const Length& length) const {
   return {*this, length};
 }
 

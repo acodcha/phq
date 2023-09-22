@@ -55,39 +55,36 @@ public:
 
   // Returns the stress resulting from a given strain and strain rate.
   virtual inline PhQ::Stress Stress(
-      const PhQ::Strain& strain,
-      const PhQ::StrainRate& strain_rate) const noexcept = 0;
+      const PhQ::Strain& strain, const PhQ::StrainRate& strain_rate) const = 0;
 
   // Returns the stress resulting from a given strain.
-  virtual inline PhQ::Stress Stress(
-      const PhQ::Strain& strain) const noexcept = 0;
+  virtual inline PhQ::Stress Stress(const PhQ::Strain& strain) const = 0;
 
   // Returns the stress resulting from a given strain rate.
   virtual inline PhQ::Stress Stress(
-      const PhQ::StrainRate& strain_rate) const noexcept = 0;
+      const PhQ::StrainRate& strain_rate) const = 0;
 
   // Returns the strain resulting from a given stress.
-  virtual inline PhQ::Strain Strain(
-      const PhQ::Stress& stress) const noexcept = 0;
+  virtual inline PhQ::Strain Strain(const PhQ::Stress& stress) const = 0;
 
   // Returns the strain rate resulting from a given stress.
   virtual inline PhQ::StrainRate StrainRate(
-      const PhQ::Stress& stress) const noexcept = 0;
+      const PhQ::Stress& stress) const = 0;
 
   // Prints this constitutive model as a string.
-  virtual inline std::string Print() const noexcept = 0;
+  virtual inline std::string Print() const = 0;
 
   // Serializes this constitutive model as a JSON message.
-  virtual inline std::string JSON() const noexcept = 0;
+  virtual inline std::string JSON() const = 0;
 
   // Serializes this constitutive model as an XML message.
-  virtual inline std::string XML() const noexcept = 0;
+  virtual inline std::string XML() const = 0;
 
   // Serializes this constitutive model as a YAML message.
-  virtual inline std::string YAML() const noexcept = 0;
+  virtual inline std::string YAML() const = 0;
 
 protected:
-  constexpr ConstitutiveModel() noexcept = default;
+  constexpr ConstitutiveModel() = default;
 };
 
 template <>

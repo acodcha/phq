@@ -30,68 +30,63 @@ class Velocity;
 // Frequency.
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
-  constexpr Frequency() noexcept
-    : DimensionalScalarQuantity<Unit::Frequency>() {}
+  constexpr Frequency() : DimensionalScalarQuantity<Unit::Frequency>() {}
 
-  Frequency(const double value, const Unit::Frequency unit) noexcept
+  Frequency(const double value, const Unit::Frequency unit)
     : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
-  constexpr Frequency(const Time& time) noexcept
-    : Frequency(1.0 / time.Value()) {}
+  constexpr Frequency(const Time& time) : Frequency(1.0 / time.Value()) {}
 
-  constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude,
-                      const Speed& speed) noexcept;
+  constexpr Frequency(
+      const AccelerationMagnitude& acceleration_magnitude, const Speed& speed);
 
   constexpr Frequency(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const AngularSpeed& angular_speed) noexcept;
+      const AngularSpeed& angular_speed);
 
-  constexpr Frequency(
-      const AngularSpeed& angular_speed, const Angle& angle) noexcept;
+  constexpr Frequency(const AngularSpeed& angular_speed, const Angle& angle);
 
-  constexpr Frequency(const MassRate& mass_rate, const Mass& mass) noexcept;
+  constexpr Frequency(const MassRate& mass_rate, const Mass& mass);
 
-  constexpr Frequency(
-      const MemoryRate& memory_rate, const Memory& memory) noexcept;
+  constexpr Frequency(const MemoryRate& memory_rate, const Memory& memory);
 
-  constexpr Frequency(const Power& power, const Energy& energy) noexcept;
+  constexpr Frequency(const Power& power, const Energy& energy);
 
   constexpr Frequency(const SpecificPower& specific_power,
-                      const SpecificEnergy& specific_energy) noexcept;
+                      const SpecificEnergy& specific_energy);
 
-  constexpr Frequency(const Speed& speed, const Length& length) noexcept;
+  constexpr Frequency(const Speed& speed, const Length& length);
 
-  constexpr Frequency(
-      const VolumeRate& volume_rate, const Volume& volume) noexcept;
+  constexpr Frequency(const VolumeRate& volume_rate, const Volume& volume);
 
-  static constexpr Frequency Zero() noexcept {
+  static constexpr Frequency Zero() {
     return Frequency{0.0};
   }
 
   template <Unit::Frequency Unit>
-  static constexpr Frequency Create(const double value) noexcept {
+  static constexpr Frequency Create(const double value) {
     return Frequency{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
             value)};
   }
 
-  constexpr Time Period() const noexcept {
+  constexpr Time Period() const {
     return {*this};
   }
 
-  constexpr Frequency operator+(const Frequency& frequency) const noexcept {
+  constexpr Frequency operator+(const Frequency& frequency) const {
     return Frequency{value_ + frequency.value_};
   }
 
-  constexpr Frequency operator-(const Frequency& frequency) const noexcept {
+  constexpr Frequency operator-(const Frequency& frequency) const {
     return Frequency{value_ - frequency.value_};
   }
 
-  constexpr Frequency operator*(const double number) const noexcept {
+  constexpr Frequency operator*(const double number) const {
     return Frequency{value_ * number};
   }
 
-  constexpr Frequency operator/(const double number) const noexcept {
+  constexpr Frequency operator/(const double number) const {
     return Frequency{value_ / number};
   }
 
@@ -99,29 +94,29 @@ public:
     return value_ * time.Value();
   }
 
-  constexpr Speed operator*(const Length& length) const noexcept;
+  constexpr Speed operator*(const Length& length) const;
 
-  constexpr AngularSpeed operator*(const Angle& angle) const noexcept;
+  constexpr AngularSpeed operator*(const Angle& angle) const;
 
-  constexpr Velocity operator*(const Displacement& displacement) const noexcept;
+  constexpr Velocity operator*(const Displacement& displacement) const;
 
-  constexpr MemoryRate operator*(const Memory& memory) const noexcept;
+  constexpr MemoryRate operator*(const Memory& memory) const;
 
-  constexpr AccelerationMagnitude operator*(const Speed& speed) const noexcept;
+  constexpr AccelerationMagnitude operator*(const Speed& speed) const;
 
   constexpr AngularAccelerationMagnitude operator*(
-      const AngularSpeed& angular_speed) const noexcept;
+      const AngularSpeed& angular_speed) const;
 
-  constexpr MassRate operator*(const Mass& mass) const noexcept;
+  constexpr MassRate operator*(const Mass& mass) const;
 
-  constexpr VolumeRate operator*(const Volume& volume) const noexcept;
+  constexpr VolumeRate operator*(const Volume& volume) const;
 
-  constexpr Power operator*(const Energy& energy) const noexcept;
+  constexpr Power operator*(const Energy& energy) const;
 
   constexpr SpecificPower operator*(
-      const SpecificEnergy& specific_energy) const noexcept;
+      const SpecificEnergy& specific_energy) const;
 
-  constexpr StrainRate operator*(const Strain& strain) const noexcept;
+  constexpr StrainRate operator*(const Strain& strain) const;
 
   constexpr double operator/(const Frequency& frequency) const noexcept {
     return value_ / frequency.value_;
@@ -144,7 +139,7 @@ public:
   }
 
 private:
-  explicit constexpr Frequency(const double value) noexcept
+  explicit constexpr Frequency(const double value)
     : DimensionalScalarQuantity<Unit::Frequency>(value) {}
 };
 
@@ -179,20 +174,20 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Frequency& frequency) noexcept {
+    std::ostream& stream, const Frequency& frequency) {
   stream << frequency.Print();
   return stream;
 }
 
 inline constexpr Frequency operator*(
-    const double number, const Frequency& frequency) noexcept {
+    const double number, const Frequency& frequency) {
   return frequency * number;
 }
 
-inline constexpr Time::Time(const PhQ::Frequency& frequency) noexcept
+inline constexpr Time::Time(const PhQ::Frequency& frequency)
   : Time(1.0 / frequency.Value()) {}
 
-inline constexpr PhQ::Frequency Time::Frequency() const noexcept {
+inline constexpr PhQ::Frequency Time::Frequency() const {
   return {*this};
 }
 

@@ -31,24 +31,22 @@ class ElectricCurrent {
 public:
   // Default constructor. Constructs a base physical dimension of electric
   // current with a value of zero.
-  constexpr ElectricCurrent() noexcept : value_(0) {}
+  constexpr ElectricCurrent() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of electric current with
   // a given value.
-  explicit constexpr ElectricCurrent(const int8_t value) noexcept
-    : value_(value) {}
+  explicit constexpr ElectricCurrent(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~ElectricCurrent() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of electric current
   // by copying another one.
-  constexpr ElectricCurrent(const ElectricCurrent& other) noexcept = default;
+  constexpr ElectricCurrent(const ElectricCurrent& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of electric current by copying from another one.
-  constexpr ElectricCurrent& operator=(
-      const ElectricCurrent& other) noexcept = default;
+  constexpr ElectricCurrent& operator=(const ElectricCurrent& other) = default;
 
   // Move constructor. Constructs a base physical dimension of electric current
   // by moving another one.
@@ -123,7 +121,7 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const ElectricCurrent& current) noexcept {
+    std::ostream& stream, const ElectricCurrent& current) {
   stream << current.Print();
   return stream;
 }

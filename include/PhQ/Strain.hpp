@@ -30,42 +30,40 @@ class StrainRate;
 // Strain dyadic tensor.
 class Strain : public DimensionlessSymmetricDyadQuantity {
 public:
-  constexpr Strain() noexcept : DimensionlessSymmetricDyadQuantity() {}
+  constexpr Strain() : DimensionlessSymmetricDyadQuantity() {}
 
-  explicit constexpr Strain(const Value::SymmetricDyad& value) noexcept
+  explicit constexpr Strain(const Value::SymmetricDyad& value)
     : DimensionlessSymmetricDyadQuantity(value) {}
 
-  constexpr Strain(const StrainRate& strain_rate, const Time& time) noexcept;
+  constexpr Strain(const StrainRate& strain_rate, const Time& time);
 
-  constexpr Strain(
-      const StrainRate& strain_rate, const Frequency& frequency) noexcept;
+  constexpr Strain(const StrainRate& strain_rate, const Frequency& frequency);
 
-  explicit constexpr Strain(
-      const DisplacementGradient& displacement_gradient) noexcept;
+  explicit constexpr Strain(const DisplacementGradient& displacement_gradient);
 
-  static constexpr Strain Zero() noexcept {
+  static constexpr Strain Zero() {
     return Strain{Value::SymmetricDyad::Zero()};
   }
 
-  constexpr Strain operator+(const Strain& strain) const noexcept {
+  constexpr Strain operator+(const Strain& strain) const {
     return Strain{value_ + strain.value_};
   }
 
-  constexpr Strain operator-(const Strain& strain) const noexcept {
+  constexpr Strain operator-(const Strain& strain) const {
     return Strain{value_ - strain.value_};
   }
 
-  constexpr Strain operator*(const double number) const noexcept {
+  constexpr Strain operator*(const double number) const {
     return Strain{value_ * number};
   }
 
-  constexpr StrainRate operator*(const Frequency& frequency) const noexcept;
+  constexpr StrainRate operator*(const Frequency& frequency) const;
 
-  constexpr Strain operator/(const double number) const noexcept {
+  constexpr Strain operator/(const double number) const {
     return Strain{value_ / number};
   }
 
-  constexpr StrainRate operator/(const Time& time) const noexcept;
+  constexpr StrainRate operator/(const Time& time) const;
 
   constexpr void operator+=(const Strain& strain) noexcept {
     value_ += strain.value_;
@@ -114,14 +112,12 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Strain& strain) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Strain& strain) {
   stream << strain.Print();
   return stream;
 }
 
-inline constexpr Strain operator*(
-    const double number, const Strain& strain) noexcept {
+inline constexpr Strain operator*(const double number, const Strain& strain) {
   return strain * number;
 }
 

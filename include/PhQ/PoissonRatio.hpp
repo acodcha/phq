@@ -23,30 +23,28 @@ namespace PhQ {
 // Poisson's ratio of a deformable solid material.
 class PoissonRatio : public DimensionlessScalarQuantity {
 public:
-  constexpr PoissonRatio() noexcept : DimensionlessScalarQuantity() {}
+  constexpr PoissonRatio() : DimensionlessScalarQuantity() {}
 
-  explicit constexpr PoissonRatio(const double value) noexcept
+  explicit constexpr PoissonRatio(const double value)
     : DimensionlessScalarQuantity(value) {}
 
-  static constexpr PoissonRatio Zero() noexcept {
+  static constexpr PoissonRatio Zero() {
     return PoissonRatio{0.0};
   }
 
-  constexpr PoissonRatio operator+(
-      const PoissonRatio& poisson_ratio) const noexcept {
+  constexpr PoissonRatio operator+(const PoissonRatio& poisson_ratio) const {
     return PoissonRatio{value_ + poisson_ratio.value_};
   }
 
-  constexpr PoissonRatio operator-(
-      const PoissonRatio& poisson_ratio) const noexcept {
+  constexpr PoissonRatio operator-(const PoissonRatio& poisson_ratio) const {
     return PoissonRatio{value_ - poisson_ratio.value_};
   }
 
-  constexpr PoissonRatio operator*(const double number) const noexcept {
+  constexpr PoissonRatio operator*(const double number) const {
     return PoissonRatio{value_ * number};
   }
 
-  constexpr PoissonRatio operator/(const double number) const noexcept {
+  constexpr PoissonRatio operator/(const double number) const {
     return PoissonRatio{value_ / number};
   }
 
@@ -102,23 +100,23 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const PoissonRatio& poisson_ratio) noexcept {
+    std::ostream& stream, const PoissonRatio& poisson_ratio) {
   stream << poisson_ratio.Print();
   return stream;
 }
 
 inline constexpr PoissonRatio operator+(
-    const double number, const PoissonRatio& poisson_ratio) noexcept {
+    const double number, const PoissonRatio& poisson_ratio) {
   return PoissonRatio{number + poisson_ratio.Value()};
 }
 
 inline constexpr PoissonRatio operator-(
-    const double number, const PoissonRatio& poisson_ratio) noexcept {
+    const double number, const PoissonRatio& poisson_ratio) {
   return PoissonRatio{number - poisson_ratio.Value()};
 }
 
 inline constexpr PoissonRatio operator*(
-    const double number, const PoissonRatio& poisson_ratio) noexcept {
+    const double number, const PoissonRatio& poisson_ratio) {
   return PoissonRatio{number * poisson_ratio.Value()};
 }
 

@@ -28,53 +28,51 @@ class DynamicKinematicPressure;
 // Dynamic pressure.
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr DynamicPressure() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr DynamicPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  DynamicPressure(const double value, const Unit::Pressure unit) noexcept
+  DynamicPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  constexpr DynamicPressure(
-      const MassDensity& mass_density, const Speed& speed) noexcept
+  constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed)
     : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {
   }
 
   constexpr DynamicPressure(const TotalPressure& total_pressure,
-                            const StaticPressure& static_pressure) noexcept;
+                            const StaticPressure& static_pressure);
 
   constexpr DynamicPressure(
       const DynamicKinematicPressure& dynamic_kinematic_pressure,
-      const MassDensity& mass_density) noexcept;
+      const MassDensity& mass_density);
 
-  static constexpr DynamicPressure Zero() noexcept {
+  static constexpr DynamicPressure Zero() {
     return DynamicPressure{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr DynamicPressure Create(const double value) noexcept {
+  static constexpr DynamicPressure Create(const double value) {
     return DynamicPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
   constexpr DynamicPressure operator+(
-      const DynamicPressure& dynamic_pressure) const noexcept {
+      const DynamicPressure& dynamic_pressure) const {
     return DynamicPressure{value_ + dynamic_pressure.value_};
   }
 
   constexpr TotalPressure operator+(
-      const StaticPressure& static_pressure) const noexcept;
+      const StaticPressure& static_pressure) const;
 
   constexpr DynamicPressure operator-(
-      const DynamicPressure& dynamic_pressure) const noexcept {
+      const DynamicPressure& dynamic_pressure) const {
     return DynamicPressure{value_ - dynamic_pressure.value_};
   }
 
-  constexpr DynamicPressure operator*(const double number) const noexcept {
+  constexpr DynamicPressure operator*(const double number) const {
     return DynamicPressure{value_ * number};
   }
 
-  constexpr DynamicPressure operator/(const double number) const noexcept {
+  constexpr DynamicPressure operator/(const double number) const {
     return DynamicPressure{value_ / number};
   }
 
@@ -100,7 +98,7 @@ public:
   }
 
 private:
-  explicit constexpr DynamicPressure(const double value) noexcept
+  explicit constexpr DynamicPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -135,23 +133,23 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const DynamicPressure& dynamic_pressure) noexcept {
+    std::ostream& stream, const DynamicPressure& dynamic_pressure) {
   stream << dynamic_pressure.Print();
   return stream;
 }
 
 inline constexpr DynamicPressure operator*(
-    const double number, const DynamicPressure& dynamic_pressure) noexcept {
+    const double number, const DynamicPressure& dynamic_pressure) {
   return dynamic_pressure * number;
 }
 
 inline constexpr MassDensity::MassDensity(
-    const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept
+    const DynamicPressure& dynamic_pressure, const Speed& speed)
   : MassDensity(
       2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
 
-inline Speed::Speed(const DynamicPressure& dynamic_pressure,
-                    const MassDensity& mass_density) noexcept
+inline Speed::Speed(
+    const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
   : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 
 }  // namespace PhQ
