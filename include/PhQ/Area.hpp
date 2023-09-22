@@ -32,50 +32,50 @@ class Traction;
 // Area. Scalar quantity. Can also represent the magnitude of a vector area.
 class Area : public DimensionalScalarQuantity<Unit::Area> {
 public:
-  constexpr Area() noexcept : DimensionalScalarQuantity<Unit::Area>() {}
+  constexpr Area() : DimensionalScalarQuantity<Unit::Area>() {}
 
-  Area(const double value, const Unit::Area unit) noexcept
+  Area(const double value, const Unit::Area unit)
     : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
-  Area(const AreaVector& area_vector) noexcept;
+  Area(const AreaVector& area_vector);
 
   constexpr Area(const StaticPressure& static_pressure,
-                 const ForceMagnitude& force_magnitude) noexcept;
+                 const ForceMagnitude& force_magnitude);
 
-  static constexpr Area Zero() noexcept {
+  static constexpr Area Zero() {
     return Area{0.0};
   }
 
   template <Unit::Area Unit>
-  static constexpr Area Create(const double value) noexcept {
+  static constexpr Area Create(const double value) {
     return Area{
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
-  constexpr Area operator+(const Area& area) const noexcept {
+  constexpr Area operator+(const Area& area) const {
     return Area{value_ + area.value_};
   }
 
-  constexpr Area operator-(const Area& area) const noexcept {
+  constexpr Area operator-(const Area& area) const {
     return Area{value_ - area.value_};
   }
 
-  constexpr Area operator*(const double number) const noexcept {
+  constexpr Area operator*(const double number) const {
     return Area{value_ * number};
   }
 
-  constexpr Volume operator*(const Length& length) const noexcept;
+  constexpr Volume operator*(const Length& length) const;
 
   constexpr ForceMagnitude operator*(
-      const StaticPressure& static_pressure) const noexcept;
+      const StaticPressure& static_pressure) const;
 
-  constexpr AreaVector operator*(const Direction& direction) const noexcept;
+  constexpr AreaVector operator*(const Direction& direction) const;
 
-  constexpr Area operator/(const double number) const noexcept {
+  constexpr Area operator/(const double number) const {
     return Area{value_ / number};
   }
 
-  constexpr Length operator/(const Length& length) const noexcept {
+  constexpr Length operator/(const Length& length) const {
     return Length{value_ / length.Value()};
   }
 
@@ -100,7 +100,7 @@ public:
   }
 
 private:
-  explicit constexpr Area(const double value) noexcept
+  explicit constexpr Area(const double value)
     : DimensionalScalarQuantity<Unit::Area>(value) {}
 
   friend class Length;
@@ -131,18 +131,16 @@ inline constexpr bool operator>=(const Area& left, const Area& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Area& area) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Area& area) {
   stream << area.Print();
   return stream;
 }
 
-inline constexpr Area operator*(
-    const double number, const Area& area) noexcept {
+inline constexpr Area operator*(const double number, const Area& area) {
   return area * number;
 }
 
-inline constexpr Area Length::operator*(const Length& length) const noexcept {
+inline constexpr Area Length::operator*(const Length& length) const {
   return Area{value_ * length.Value()};
 }
 

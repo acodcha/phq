@@ -54,7 +54,7 @@ inline const std::map<Enumeration, std::string_view> Abbreviations;
 // Returns the abbreviation of a given enumeration value. For example,
 // PhQ::Abbreviation(PhQ::Unit::Time::Hour) returns "hr".
 template <typename Enumeration>
-inline std::string_view Abbreviation(const Enumeration enumeration) noexcept {
+inline std::string_view Abbreviation(const Enumeration enumeration) {
   return Internal::Abbreviations<Enumeration>.find(enumeration)->second;
 }
 
@@ -72,7 +72,7 @@ inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 // enumeration if one is found, or std::nullopt otherwise. For example,
 // PhQ::Parse<PhQ::Unit::Time>("hr") returns PhQ::Unit::Time::Hour.
 template <typename Enumeration>
-std::optional<Enumeration> Parse(const std::string_view spelling) noexcept {
+std::optional<Enumeration> Parse(const std::string_view spelling) {
   const typename std::unordered_map<std::string_view,
                                     Enumeration>::const_iterator found{
       Internal::Spellings<Enumeration>.find(spelling)};
@@ -117,14 +117,14 @@ inline const std::unordered_map<std::string_view, Precision>
 }  // namespace Internal
 
 // Transforms a given string such that all of its characters are lowercase.
-inline void Lowercase(std::string& text) noexcept {
+inline void Lowercase(std::string& text) {
   std::transform(text.begin(), text.end(), text.begin(), [](int character) {
     return std::tolower(character);
   });
 }
 
 // Returns a copy of a given string where all characters are lowercase.
-inline std::string LowercaseCopy(const std::string_view text) noexcept {
+inline std::string LowercaseCopy(const std::string_view text) {
   std::string result{text};
   std::transform(
       result.begin(), result.end(), result.begin(), [](int character) {
@@ -135,7 +135,7 @@ inline std::string LowercaseCopy(const std::string_view text) noexcept {
 
 // Parses a given string into an integer. Returns the integer, or std::nullopt
 // if the string cannot be parsed into an integer.
-inline std::optional<int64_t> ParseToInteger(const std::string& text) noexcept {
+inline std::optional<int64_t> ParseToInteger(const std::string& text) {
   char* end = 0;
   const long long int value = std::strtoll(text.c_str(), &end, 10);
   if (end != text.c_str() && *end == '\0' && value != LLONG_MAX
@@ -148,7 +148,7 @@ inline std::optional<int64_t> ParseToInteger(const std::string& text) noexcept {
 // Parses a given string into a double-precision floating-point number. Returns
 // the number, or std::nullopt if the string cannot be parsed into a
 // double-precision floating-point number.
-inline std::optional<double> ParseToDouble(const std::string& text) noexcept {
+inline std::optional<double> ParseToDouble(const std::string& text) {
   char* end = 0;
   const double value = strtod(text.c_str(), &end);
   if (end != text.c_str() && *end == '\0' && value != HUGE_VAL
@@ -161,8 +161,7 @@ inline std::optional<double> ParseToDouble(const std::string& text) noexcept {
 // Prints a given floating point number as a string to a given floating point
 // precision. If no precision is specified, double precision is used by default.
 inline std::string Print(
-    const double value,
-    const Precision precision = Precision::Double) noexcept {
+    const double value, const Precision precision = Precision::Double) {
   const double absolute{std::abs(value)};
   std::ostringstream stream;
   if (absolute < 1.0) {
@@ -261,15 +260,14 @@ inline std::string Print(
 
 // Replaces all occurrences of a given character in a given string with a
 // different given character.
-inline void Replace(
-    std::string& text, const char from, const char to) noexcept {
+inline void Replace(std::string& text, const char from, const char to) {
   std::replace(text.begin(), text.end(), from, to);
 }
 
 // Returns a copy of a given string where all occurrences of a given character
 // have been replaced with a different given character.
 inline std::string ReplaceCopy(
-    const std::string_view text, const char from, const char to) noexcept {
+    const std::string_view text, const char from, const char to) {
   std::string result{text};
   std::replace_copy(text.cbegin(), text.cend(), result.begin(), from, to);
   return result;
@@ -277,21 +275,20 @@ inline std::string ReplaceCopy(
 
 // Transforms a given string into snake case; that is, all characters are
 // lowercase and all spaces are replaced with underscores.
-inline void SnakeCase(std::string& text) noexcept {
+inline void SnakeCase(std::string& text) {
   Lowercase(text);
   Replace(text, ' ', '_');
 }
 
 // Returns a copy of a given string in snake case; that is, all characters are
 // lowercase and all spaces are replaced with underscores.
-inline std::string SnakeCaseCopy(const std::string_view text) noexcept {
+inline std::string SnakeCaseCopy(const std::string_view text) {
   return LowercaseCopy(ReplaceCopy(text, ' ', '_'));
 }
 
 // Splits a given string by whitespace and returns the collection of resulting
 // strings.
-inline std::vector<std::string> SplitByWhitespace(
-    const std::string& text) noexcept {
+inline std::vector<std::string> SplitByWhitespace(const std::string& text) {
   std::istringstream stream{text};
   std::vector<std::string> words{std::istream_iterator<std::string>{stream},
                                  std::istream_iterator<std::string>{}};
@@ -299,14 +296,14 @@ inline std::vector<std::string> SplitByWhitespace(
 }
 
 // Transforms a given string such that all of its characters are uppercase.
-inline void Uppercase(std::string& text) noexcept {
+inline void Uppercase(std::string& text) {
   std::transform(text.begin(), text.end(), text.begin(), [](int character) {
     return std::toupper(character);
   });
 }
 
 // Returns a copy of a given string where all characters are uppercase.
-inline std::string UppercaseCopy(const std::string_view text) noexcept {
+inline std::string UppercaseCopy(const std::string_view text) {
   std::string result{text};
   std::transform(
       result.begin(), result.end(), result.begin(), [](int character) {

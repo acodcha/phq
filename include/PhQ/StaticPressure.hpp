@@ -32,77 +32,76 @@ class Traction;
 // Static pressure.
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr StaticPressure() noexcept
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  constexpr StaticPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  StaticPressure(const double value, const Unit::Pressure unit) noexcept
+  StaticPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr StaticPressure(
-      const ForceMagnitude& force_magnitude, const Area& area) noexcept
+      const ForceMagnitude& force_magnitude, const Area& area)
     : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
-  StaticPressure(const Traction& traction) noexcept;
+  StaticPressure(const Traction& traction);
 
   constexpr StaticPressure(const TotalPressure& total_pressure,
-                           const DynamicPressure& dynamic_pressure) noexcept;
+                           const DynamicPressure& dynamic_pressure);
 
   constexpr StaticPressure(
       const StaticKinematicPressure& static_kinematic_pressure,
-      const MassDensity& mass_density) noexcept;
+      const MassDensity& mass_density);
 
-  static constexpr StaticPressure Zero() noexcept {
+  static constexpr StaticPressure Zero() {
     return StaticPressure{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr StaticPressure Create(const double value) noexcept {
+  static constexpr StaticPressure Create(const double value) {
     return StaticPressure{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
-  constexpr PhQ::Stress Stress() const noexcept;
+  constexpr PhQ::Stress Stress() const;
 
   constexpr StaticPressure operator+(
-      const StaticPressure& static_pressure) const noexcept {
+      const StaticPressure& static_pressure) const {
     return StaticPressure{value_ + static_pressure.value_};
   }
 
   constexpr StaticPressure operator+(
-      const PressureDifference& pressure_difference) const noexcept {
+      const PressureDifference& pressure_difference) const {
     return StaticPressure{value_ + pressure_difference.Value()};
   }
 
   constexpr TotalPressure operator+(
-      const DynamicPressure& dynamic_pressure) const noexcept;
+      const DynamicPressure& dynamic_pressure) const;
 
   constexpr PressureDifference operator-(
-      const StaticPressure& static_pressure) const noexcept {
+      const StaticPressure& static_pressure) const {
     return PressureDifference{value_ - static_pressure.value_};
   }
 
   constexpr StaticPressure operator-(
-      const PressureDifference& pressure_difference) const noexcept {
+      const PressureDifference& pressure_difference) const {
     return StaticPressure{value_ - pressure_difference.Value()};
   }
 
-  constexpr StaticPressure operator*(const double number) const noexcept {
+  constexpr StaticPressure operator*(const double number) const {
     return StaticPressure{value_ * number};
   }
 
-  constexpr ForceMagnitude operator*(const Area& area) const noexcept {
+  constexpr ForceMagnitude operator*(const Area& area) const {
     return {*this, area};
   }
 
-  constexpr Traction operator*(const Direction& direction) const noexcept;
+  constexpr Traction operator*(const Direction& direction) const;
 
-  constexpr StaticPressure operator/(const double number) const noexcept {
+  constexpr StaticPressure operator/(const double number) const {
     return StaticPressure{value_ / number};
   }
 
   constexpr StaticKinematicPressure operator/(
-      const MassDensity& mass_density) const noexcept;
+      const MassDensity& mass_density) const;
 
   constexpr double operator/(
       const StaticPressure& static_pressure) const noexcept {
@@ -136,7 +135,7 @@ public:
   }
 
 private:
-  explicit constexpr StaticPressure(const double value) noexcept
+  explicit constexpr StaticPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class PressureDifference;
@@ -173,41 +172,41 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const StaticPressure& static_pressure) noexcept {
+    std::ostream& stream, const StaticPressure& static_pressure) {
   stream << static_pressure.Print();
   return stream;
 }
 
 inline constexpr StaticPressure operator*(
-    const double number, const StaticPressure& static_pressure) noexcept {
+    const double number, const StaticPressure& static_pressure) {
   return static_pressure * number;
 }
 
 inline constexpr Area::Area(const StaticPressure& static_pressure,
-                            const ForceMagnitude& force_magnitude) noexcept
+                            const ForceMagnitude& force_magnitude)
   : Area(force_magnitude.Value() / static_pressure.Value()) {}
 
 inline constexpr ForceMagnitude::ForceMagnitude(
-    const StaticPressure& static_pressure, const Area& area) noexcept
+    const StaticPressure& static_pressure, const Area& area)
   : ForceMagnitude(static_pressure.Value() * area.Value()) {}
 
 inline constexpr ForceMagnitude Area::operator*(
-    const StaticPressure& static_pressure) const noexcept {
+    const StaticPressure& static_pressure) const {
   return {static_pressure, *this};
 }
 
 inline constexpr StaticPressure ForceMagnitude::operator/(
-    const Area& area) const noexcept {
+    const Area& area) const {
   return {*this, area};
 }
 
 inline constexpr StaticPressure PressureDifference::operator+(
-    const StaticPressure& static_pressure) const noexcept {
+    const StaticPressure& static_pressure) const {
   return StaticPressure{value_ + static_pressure.Value()};
 }
 
 inline constexpr StaticPressure PressureDifference::operator-(
-    const StaticPressure& static_pressure) const noexcept {
+    const StaticPressure& static_pressure) const {
   return StaticPressure{value_ - static_pressure.Value()};
 }
 

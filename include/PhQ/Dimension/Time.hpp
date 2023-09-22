@@ -31,22 +31,22 @@ class Time {
 public:
   // Default constructor. Constructs a base physical dimension of time with a
   // value of zero.
-  constexpr Time() noexcept : value_(0) {}
+  constexpr Time() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of time with a given
   // value.
-  explicit constexpr Time(const int8_t value) noexcept : value_(value) {}
+  explicit constexpr Time(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~Time() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of time by copying
   // another one.
-  constexpr Time(const Time& other) noexcept = default;
+  constexpr Time(const Time& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of time by copying from another one.
-  constexpr Time& operator=(const Time& other) noexcept = default;
+  constexpr Time& operator=(const Time& other) = default;
 
   // Move constructor. Constructs a base physical dimension of time by moving
   // another one.
@@ -113,8 +113,7 @@ inline constexpr bool operator>=(const Time& left, const Time& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Time& time) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Time& time) {
   stream << time.Print();
   return stream;
 }

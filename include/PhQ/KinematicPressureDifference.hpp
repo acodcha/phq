@@ -29,63 +29,58 @@ class StaticKinematicPressure;
 class KinematicPressureDifference
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr KinematicPressureDifference() noexcept
+  constexpr KinematicPressureDifference()
     : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
 
   KinematicPressureDifference(
-      const double value, const Unit::SpecificEnergy unit) noexcept
+      const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
   constexpr KinematicPressureDifference(
       const PressureDifference& pressure_difference,
-      const MassDensity& mass_density) noexcept
+      const MassDensity& mass_density)
     : KinematicPressureDifference(
         pressure_difference.Value() / mass_density.Value()) {}
 
-  static constexpr KinematicPressureDifference Zero() noexcept {
+  static constexpr KinematicPressureDifference Zero() {
     return KinematicPressureDifference{0.0};
   }
 
   template <Unit::SpecificEnergy Unit>
-  static constexpr KinematicPressureDifference
-  Create(const double value) noexcept {
+  static constexpr KinematicPressureDifference Create(const double value) {
     return KinematicPressureDifference{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
   constexpr StaticKinematicPressure operator+(
-      const StaticKinematicPressure& kinematic_static_pressure) const noexcept;
+      const StaticKinematicPressure& kinematic_static_pressure) const;
 
-  constexpr KinematicPressureDifference
-  operator+(const KinematicPressureDifference& kinematic_pressure_difference)
-      const noexcept {
+  constexpr KinematicPressureDifference operator+(
+      const KinematicPressureDifference& kinematic_pressure_difference) const {
     return KinematicPressureDifference{
         value_ + kinematic_pressure_difference.value_};
   }
 
   constexpr StaticKinematicPressure operator-(
-      const StaticKinematicPressure& kinematic_static_pressure) const noexcept;
+      const StaticKinematicPressure& kinematic_static_pressure) const;
 
-  constexpr KinematicPressureDifference
-  operator-(const KinematicPressureDifference& kinematic_pressure_difference)
-      const noexcept {
+  constexpr KinematicPressureDifference operator-(
+      const KinematicPressureDifference& kinematic_pressure_difference) const {
     return KinematicPressureDifference{
         value_ - kinematic_pressure_difference.value_};
   }
 
-  constexpr KinematicPressureDifference operator*(
-      const double number) const noexcept {
+  constexpr KinematicPressureDifference operator*(const double number) const {
     return KinematicPressureDifference{value_ * number};
   }
 
   constexpr PressureDifference operator*(
-      const MassDensity& mass_density) const noexcept {
+      const MassDensity& mass_density) const {
     return {*this, mass_density};
   }
 
-  constexpr KinematicPressureDifference operator/(
-      const double number) const noexcept {
+  constexpr KinematicPressureDifference operator/(const double number) const {
     return KinematicPressureDifference{value_ / number};
   }
 
@@ -114,7 +109,7 @@ public:
   }
 
 private:
-  explicit constexpr KinematicPressureDifference(const double value) noexcept
+  explicit constexpr KinematicPressureDifference(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 
   friend class StaticKinematicPressure;
@@ -158,25 +153,25 @@ inline constexpr bool operator>=(
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const KinematicPressureDifference& kinematic_pressure_difference) noexcept {
+    const KinematicPressureDifference& kinematic_pressure_difference) {
   stream << kinematic_pressure_difference.Print();
   return stream;
 }
 
 inline constexpr KinematicPressureDifference operator*(
     const double number,
-    const KinematicPressureDifference& kinematic_pressure_difference) noexcept {
+    const KinematicPressureDifference& kinematic_pressure_difference) {
   return kinematic_pressure_difference * number;
 }
 
 inline constexpr PressureDifference::PressureDifference(
     const KinematicPressureDifference& kinematic_pressure_difference,
-    const MassDensity& mass_density) noexcept
+    const MassDensity& mass_density)
   : PressureDifference(
       kinematic_pressure_difference.Value() * mass_density.Value()) {}
 
 inline constexpr KinematicPressureDifference PressureDifference::operator/(
-    const MassDensity& mass_density) const noexcept {
+    const MassDensity& mass_density) const {
   return {*this, mass_density};
 }
 

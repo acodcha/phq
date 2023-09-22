@@ -27,71 +27,69 @@ class Acceleration;
 // Velocity vector.
 class Velocity : public DimensionalVectorQuantity<Unit::Speed> {
 public:
-  constexpr Velocity() noexcept : DimensionalVectorQuantity<Unit::Speed>() {}
+  constexpr Velocity() : DimensionalVectorQuantity<Unit::Speed>() {}
 
-  Velocity(const Value::Vector& value, const Unit::Speed unit) noexcept
+  Velocity(const Value::Vector& value, const Unit::Speed unit)
     : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
 
-  constexpr Velocity(const Speed& speed, const Direction& direction) noexcept
+  constexpr Velocity(const Speed& speed, const Direction& direction)
     : Velocity(speed.Value() * direction.Value()) {}
 
-  constexpr Velocity(
-      const Displacement& displacement, const Time& time) noexcept
+  constexpr Velocity(const Displacement& displacement, const Time& time)
     : Velocity(displacement.Value() / time.Value()) {}
 
   constexpr Velocity(
-      const Displacement& displacement, const Frequency& frequency) noexcept
+      const Displacement& displacement, const Frequency& frequency)
     : Velocity(displacement.Value() * frequency.Value()) {}
 
-  constexpr Velocity(
-      const Acceleration& acceleration, const Time& time) noexcept;
+  constexpr Velocity(const Acceleration& acceleration, const Time& time);
 
   constexpr Velocity(
-      const Acceleration& acceleration, const Frequency& frequency) noexcept;
+      const Acceleration& acceleration, const Frequency& frequency);
 
-  static constexpr Velocity Zero() noexcept {
+  static constexpr Velocity Zero() {
     return Velocity{Value::Vector::Zero()};
   }
 
   template <Unit::Speed Unit>
-  static constexpr Velocity Create(const Value::Vector& value) noexcept {
+  static constexpr Velocity Create(const Value::Vector& value) {
     return Velocity{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  Speed Magnitude() const noexcept {
+  Speed Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const Velocity& velocity) const noexcept {
+  PhQ::Angle Angle(const Velocity& velocity) const {
     return {*this, velocity};
   }
 
-  constexpr Velocity operator+(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator+(const Velocity& velocity) const {
     return Velocity{value_ + velocity.value_};
   }
 
-  constexpr Velocity operator-(const Velocity& velocity) const noexcept {
+  constexpr Velocity operator-(const Velocity& velocity) const {
     return Velocity{value_ - velocity.value_};
   }
 
-  constexpr Velocity operator*(const double number) const noexcept {
+  constexpr Velocity operator*(const double number) const {
     return Velocity{value_ * number};
   }
 
-  constexpr Displacement operator*(const Time& time) const noexcept {
+  constexpr Displacement operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr Acceleration operator*(const Frequency& frequency) const noexcept;
+  constexpr Acceleration operator*(const Frequency& frequency) const;
 
-  constexpr Velocity operator/(const double number) const noexcept {
+  constexpr Velocity operator/(const double number) const {
     return Velocity{value_ / number};
   }
 
-  constexpr Acceleration operator/(const Time& time) const noexcept;
+  constexpr Acceleration operator/(const Time& time) const;
 
-  constexpr Displacement operator/(const Frequency& frequency) const noexcept {
+  constexpr Displacement operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
@@ -112,7 +110,7 @@ public:
   }
 
 private:
-  explicit constexpr Velocity(const Value::Vector& value) noexcept
+  explicit constexpr Velocity(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Speed>(value) {}
 };
 
@@ -147,61 +145,56 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Velocity& velocity) noexcept {
+    std::ostream& stream, const Velocity& velocity) {
   stream << velocity.Print();
   return stream;
 }
 
 inline constexpr Velocity operator*(
-    const double number, const Velocity& velocity) noexcept {
+    const double number, const Velocity& velocity) {
   return velocity * number;
 }
 
-inline Direction::Direction(const Velocity& velocity) noexcept
+inline Direction::Direction(const Velocity& velocity)
   : Direction(velocity.Value()) {}
 
-inline Angle::Angle(
-    const Velocity& velocity1, const Velocity& velocity2) noexcept
+inline Angle::Angle(const Velocity& velocity1, const Velocity& velocity2)
   : Angle(velocity1.Value(), velocity2.Value()) {}
 
 inline constexpr Displacement::Displacement(
-    const Velocity& velocity, const Time& time) noexcept
+    const Velocity& velocity, const Time& time)
   : Displacement(velocity.Value() * time.Value()) {}
 
 inline constexpr Displacement::Displacement(
-    const Velocity& velocity, const Frequency& frequency) noexcept
+    const Velocity& velocity, const Frequency& frequency)
   : Displacement(velocity.Value() / frequency.Value()) {}
 
-inline Speed::Speed(const Velocity& velocity) noexcept
+inline Speed::Speed(const Velocity& velocity)
   : Speed(velocity.Value().Magnitude()) {}
 
-inline constexpr Velocity Direction::operator*(
-    const Speed& speed) const noexcept {
+inline constexpr Velocity Direction::operator*(const Speed& speed) const {
   return {speed, *this};
 }
 
-inline constexpr Displacement Time::operator*(
-    const Velocity& velocity) const noexcept {
+inline constexpr Displacement Time::operator*(const Velocity& velocity) const {
   return {velocity, *this};
 }
 
-inline constexpr Velocity Speed::operator*(
-    const Direction& direction) const noexcept {
+inline constexpr Velocity Speed::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 
 inline constexpr Velocity Frequency::operator*(
-    const Displacement& displacement) const noexcept {
+    const Displacement& displacement) const {
   return {displacement, *this};
 }
 
 inline constexpr Velocity Displacement::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr Velocity Displacement::operator/(
-    const Time& time) const noexcept {
+inline constexpr Velocity Displacement::operator/(const Time& time) const {
   return {*this, time};
 }
 

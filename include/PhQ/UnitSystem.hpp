@@ -212,7 +212,7 @@ inline const std::map<Unit, UnitSystem> RelatedUnitSystems;
 // PhQ::ConsistentUnit<Force>(PhQ::UnitSystem::MetreKilogramSecondKelvin)
 // returns PhQ::Unit::Force::Newton.
 template <typename Unit>
-inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
+inline Unit ConsistentUnit(const UnitSystem& system) {
   return Internal::ConsistentUnits<Unit>.at(system);
 }
 
@@ -221,7 +221,7 @@ inline Unit ConsistentUnit(const UnitSystem& system) noexcept {
 // PhQ::RelatedUnitSystem(PhQ::Unit::Length::Millimetre) returns
 // PhQ::UnitSystem::MillimetreGramSecondKelvin.
 template <typename Unit>
-inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) noexcept {
+inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) {
   const typename std::map<Unit, UnitSystem>::const_iterator system{
       Internal::RelatedUnitSystems<Unit>.find(unit)};
   if (system != Internal::RelatedUnitSystems<Unit>.cend()) {

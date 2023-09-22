@@ -28,20 +28,20 @@ public:
   // Default constructor. Constructs a three-dimensional dyadic tensor value
   // with uninitialized xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
   // components.
-  constexpr Dyad() noexcept : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
+  constexpr Dyad() : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
 
   // Constructor. Constructs a three-dimensional dyadic tensor value from the
   // given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr Dyad(const double xx, const double xy, const double xz,
                  const double yx, const double yy, const double yz,
-                 const double zx, const double zy, const double zz) noexcept
+                 const double zx, const double zy, const double zz)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
 
   // Constructor. Constructs a three-dimensional dyadic tensor value from a
   // given array representing its xx, xy, xz, yx, yy, yz, zx, zy, and zz
   // Cartesian components.
   explicit constexpr Dyad(
-      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
+      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Destructor. Destroys this three-dimensional dyadic tensor value.
@@ -49,11 +49,11 @@ public:
 
   // Copy constructor. Constructs a three-dimensional dyadic tensor
   // value by copying another one.
-  constexpr Dyad(const Dyad& other) noexcept = default;
+  constexpr Dyad(const Dyad& other) = default;
 
   // Copy constructor. Constructs a three-dimensional dyadic tensor value from a
   // given three-dimensional symmetric dyadic tensor value.
-  explicit constexpr Dyad(const SymmetricDyad& symdyad) noexcept
+  explicit constexpr Dyad(const SymmetricDyad& symdyad)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
         {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(),
          symdyad.yz(), symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
@@ -61,12 +61,12 @@ public:
   // Copy assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by copying another three-dimensional dyadic tensor
   // value.
-  constexpr Dyad& operator=(const Dyad& other) noexcept = default;
+  constexpr Dyad& operator=(const Dyad& other) = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by copying a three-dimensional symmetric dyadic tensor
   // value.
-  constexpr Dyad& operator=(const SymmetricDyad& other) noexcept {
+  constexpr Dyad& operator=(const SymmetricDyad& other) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = other.xx();
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = other.xy();
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = other.xz();
@@ -114,7 +114,7 @@ public:
 
   // Returns a three-dimensional dyadic tensor value with its xx, xy, xz, yx,
   // yy, yz, zx, zy, and zz Cartesian components initialized to zero.
-  static constexpr Dyad Zero() noexcept {
+  static constexpr Dyad Zero() {
     return Dyad{
         std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
     };
@@ -321,12 +321,12 @@ public:
   }
 
   // Returns the transpose of this three-dimensional dyadic tensor value.
-  constexpr Dyad Transpose() const noexcept {
+  constexpr Dyad Transpose() const {
     return {xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
   }
 
   // Returns the cofactors of this three-dimensional dyadic tensor value.
-  constexpr Dyad Cofactors() const noexcept {
+  constexpr Dyad Cofactors() const {
     const double cofactor_xx{yy() * zz() - yz() * zy()};
     const double cofactor_xy{yz() * zx() - yx() * zz()};
     const double cofactor_xz{yx() * zy() - yy() * zx()};
@@ -341,7 +341,7 @@ public:
   }
 
   // Returns the adjugate of this three-dimensional dyadic tensor value.
-  constexpr Dyad Adjugate() const noexcept {
+  constexpr Dyad Adjugate() const {
     return Cofactors().Transpose();
   }
 
@@ -351,7 +351,7 @@ public:
 
   // Prints this three-dimensional dyadic tensor value as a string. Components
   // are printed to double floating point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", "
            + PhQ::Print(xz()) + "; " + PhQ::Print(yx()) + ", "
            + PhQ::Print(yy()) + ", " + PhQ::Print(yz()) + "; "
@@ -361,7 +361,7 @@ public:
 
   // Prints this three-dimensional dyadic tensor value as a string. Components
   // are printed to a given floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return "(" + PhQ::Print(xx(), precision) + ", "
            + PhQ::Print(xy(), precision) + ", " + PhQ::Print(xz(), precision)
            + "; " + PhQ::Print(yx(), precision) + ", "
@@ -372,7 +372,7 @@ public:
   }
 
   // Serializes this three-dimensional dyadic tensor value as a JSON message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy())
            + ",\"xz\":" + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx())
            + ",\"yy\":" + PhQ::Print(yy()) + ",\"yz\":" + PhQ::Print(yz())
@@ -381,7 +381,7 @@ public:
   }
 
   // Serializes this three-dimensional dyadic tensor value as an XML message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy())
            + "</xy><xz>" + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx())
            + "</yx><yy>" + PhQ::Print(yy()) + "</yy><yz>" + PhQ::Print(yz())
@@ -390,7 +390,7 @@ public:
   }
 
   // Serializes this three-dimensional dyadic tensor value as a YAML message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy())
            + ",xz:" + PhQ::Print(xz()) + ",yx:" + PhQ::Print(yx())
            + ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz())
@@ -530,32 +530,31 @@ inline constexpr bool operator>=(const Dyad& left, const Dyad& right) noexcept {
   return !(left < right);
 }
 
-inline constexpr Dyad operator+(const Dyad& left, const Dyad& right) noexcept {
+inline constexpr Dyad operator+(const Dyad& left, const Dyad& right) {
   return {
       left.xx() + right.xx(), left.xy() + right.xy(), left.xz() + right.xz(),
       left.yx() + right.yx(), left.yy() + right.yy(), left.yz() + right.yz(),
       left.zx() + right.zx(), left.zy() + right.zy(), left.zz() + right.zz()};
 }
 
-inline constexpr Dyad operator-(const Dyad& left, const Dyad& right) noexcept {
+inline constexpr Dyad operator-(const Dyad& left, const Dyad& right) {
   return {
       left.xx() - right.xx(), left.xy() - right.xy(), left.xz() - right.xz(),
       left.yx() - right.yx(), left.yy() - right.yy(), left.yz() - right.yz(),
       left.zx() - right.zx(), left.zy() - right.zy(), left.zz() - right.zz()};
 }
 
-inline constexpr Dyad operator*(const Dyad& dyad, const double real) noexcept {
+inline constexpr Dyad operator*(const Dyad& dyad, const double real) {
   return {dyad.xx() * real, dyad.xy() * real, dyad.xz() * real,
           dyad.yx() * real, dyad.yy() * real, dyad.yz() * real,
           dyad.zx() * real, dyad.zy() * real, dyad.zz() * real};
 }
 
-inline constexpr Dyad operator*(const double real, const Dyad& dyad) noexcept {
+inline constexpr Dyad operator*(const double real, const Dyad& dyad) {
   return {dyad * real};
 }
 
-inline constexpr Vector operator*(
-    const Dyad& dyad, const Vector& vector) noexcept {
+inline constexpr Vector operator*(const Dyad& dyad, const Vector& vector) {
   return {
       dyad.xx() * vector.x() + dyad.xy() * vector.y() + dyad.xz() * vector.z(),
       dyad.yx() * vector.x() + dyad.yy() * vector.y() + dyad.yz() * vector.z(),
@@ -563,7 +562,7 @@ inline constexpr Vector operator*(
 }
 
 inline constexpr Dyad operator*(
-    const SymmetricDyad& left, const SymmetricDyad& right) noexcept {
+    const SymmetricDyad& left, const SymmetricDyad& right) {
   return {
       left.xx() * right.xx() + left.xy() * right.xy() + left.xz() * right.xz(),
       left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.yz(),
@@ -577,7 +576,7 @@ inline constexpr Dyad operator*(
 }
 
 inline constexpr Dyad operator*(
-    const SymmetricDyad& symdyad, const Dyad& dyad) noexcept {
+    const SymmetricDyad& symdyad, const Dyad& dyad) {
   return {
       symdyad.xx() * dyad.xx() + symdyad.xy() * dyad.yx()
           + symdyad.xz() * dyad.zx(),
@@ -600,7 +599,7 @@ inline constexpr Dyad operator*(
 }
 
 inline constexpr Dyad operator*(
-    const Dyad& dyad, const SymmetricDyad& symdyad) noexcept {
+    const Dyad& dyad, const SymmetricDyad& symdyad) {
   return {
       dyad.xx() * symdyad.xx() + dyad.xy() * symdyad.yx()
           + dyad.xz() * symdyad.zx(),
@@ -622,7 +621,7 @@ inline constexpr Dyad operator*(
           + dyad.zz() * symdyad.zz()};
 }
 
-inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) noexcept {
+inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) {
   return {
       left.xx() * right.xx() + left.xy() * right.yx() + left.xz() * right.zx(),
       left.xx() * right.xy() + left.xy() * right.yy() + left.xz() * right.zy(),
@@ -635,14 +634,13 @@ inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) noexcept {
       left.zx() * right.xz() + left.zy() * right.yz() + left.zz() * right.zz()};
 }
 
-inline constexpr Dyad operator/(const Dyad& dyad, const double real) noexcept {
+inline constexpr Dyad operator/(const Dyad& dyad, const double real) {
   return {dyad.xx() / real, dyad.xy() / real, dyad.xz() / real,
           dyad.yx() / real, dyad.yy() / real, dyad.yz() / real,
           dyad.zx() / real, dyad.zy() / real, dyad.zz() / real};
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Dyad& dyad) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Dyad& dyad) {
   stream << dyad.Print();
   return stream;
 }
@@ -656,7 +654,7 @@ inline constexpr std::optional<Dyad> Dyad::Inverse() const {
   }
 }
 
-inline constexpr Dyad Vector::Dyadic(const Vector& vector) const noexcept {
+inline constexpr Dyad Vector::Dyadic(const Vector& vector) const {
   return {x_y_z_[0] * vector.x_y_z_[0], x_y_z_[0] * vector.x_y_z_[1],
           x_y_z_[0] * vector.x_y_z_[2], x_y_z_[1] * vector.x_y_z_[0],
           x_y_z_[1] * vector.x_y_z_[1], x_y_z_[1] * vector.x_y_z_[2],

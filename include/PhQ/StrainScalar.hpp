@@ -27,35 +27,32 @@ class TemperatureDifference;
 // Strain scalar. Component or resultant of the strain dyadic tensor.
 class StrainScalar : public DimensionlessScalarQuantity {
 public:
-  constexpr StrainScalar() noexcept : DimensionlessScalarQuantity() {}
+  constexpr StrainScalar() : DimensionlessScalarQuantity() {}
 
-  explicit constexpr StrainScalar(const double value) noexcept
+  explicit constexpr StrainScalar(const double value)
     : DimensionlessScalarQuantity(value) {}
 
-  constexpr StrainScalar(
-      const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient,
-      const TemperatureDifference& temperature_difference) noexcept;
+  constexpr StrainScalar(const LinearThermalExpansionCoefficient&
+                             linear_thermal_expansion_coefficient,
+                         const TemperatureDifference& temperature_difference);
 
-  static constexpr StrainScalar Zero() noexcept {
+  static constexpr StrainScalar Zero() {
     return StrainScalar{0.0};
   }
 
-  constexpr StrainScalar operator+(
-      const StrainScalar& strain_scalar) const noexcept {
+  constexpr StrainScalar operator+(const StrainScalar& strain_scalar) const {
     return StrainScalar{value_ + strain_scalar.value_};
   }
 
-  constexpr StrainScalar operator-(
-      const StrainScalar& strain_scalar) const noexcept {
+  constexpr StrainScalar operator-(const StrainScalar& strain_scalar) const {
     return StrainScalar{value_ - strain_scalar.value_};
   }
 
-  constexpr StrainScalar operator*(const double number) const noexcept {
+  constexpr StrainScalar operator*(const double number) const {
     return StrainScalar{value_ * number};
   }
 
-  constexpr StrainScalar operator/(const double number) const noexcept {
+  constexpr StrainScalar operator/(const double number) const {
     return StrainScalar{value_ / number};
   }
 
@@ -111,28 +108,28 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const StrainScalar& strain_scalar) noexcept {
+    std::ostream& stream, const StrainScalar& strain_scalar) {
   stream << strain_scalar.Print();
   return stream;
 }
 
 inline constexpr StrainScalar operator+(
-    const double number, const StrainScalar& strain_scalar) noexcept {
+    const double number, const StrainScalar& strain_scalar) {
   return StrainScalar{number + strain_scalar.Value()};
 }
 
 inline constexpr StrainScalar operator-(
-    const double number, const StrainScalar& strain_scalar) noexcept {
+    const double number, const StrainScalar& strain_scalar) {
   return StrainScalar{number - strain_scalar.Value()};
 }
 
 inline constexpr StrainScalar operator*(
-    const double number, const StrainScalar& strain_scalar) noexcept {
+    const double number, const StrainScalar& strain_scalar) {
   return StrainScalar{number * strain_scalar.Value()};
 }
 
 inline constexpr double operator/(
-    const double number, const StrainScalar& strain_scalar) noexcept {
+    const double number, const StrainScalar& strain_scalar) {
   return number / strain_scalar.Value();
 }
 

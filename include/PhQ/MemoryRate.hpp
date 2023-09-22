@@ -26,55 +26,53 @@ namespace PhQ {
 // memory transfer speed.
 class MemoryRate : public DimensionalScalarQuantity<Unit::MemoryRate> {
 public:
-  constexpr MemoryRate() noexcept
-    : DimensionalScalarQuantity<Unit::MemoryRate>() {}
+  constexpr MemoryRate() : DimensionalScalarQuantity<Unit::MemoryRate>() {}
 
-  MemoryRate(const double value, const Unit::MemoryRate unit) noexcept
+  MemoryRate(const double value, const Unit::MemoryRate unit)
     : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
 
-  constexpr MemoryRate(const Memory& memory, const Time& time) noexcept
+  constexpr MemoryRate(const Memory& memory, const Time& time)
     : MemoryRate(memory.Value() / time.Value()) {}
 
-  constexpr MemoryRate(
-      const Memory& memory, const Frequency& frequency) noexcept
+  constexpr MemoryRate(const Memory& memory, const Frequency& frequency)
     : MemoryRate(memory.Value() * frequency.Value()) {}
 
-  static constexpr MemoryRate Zero() noexcept {
+  static constexpr MemoryRate Zero() {
     return MemoryRate{0.0};
   }
 
   template <Unit::MemoryRate Unit>
-  static constexpr MemoryRate Create(const double value) noexcept {
+  static constexpr MemoryRate Create(const double value) {
     return MemoryRate{
         StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(
             value)};
   }
 
-  constexpr MemoryRate operator+(const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator+(const MemoryRate& memory_rate) const {
     return MemoryRate{value_ + memory_rate.value_};
   }
 
-  constexpr MemoryRate operator-(const MemoryRate& memory_rate) const noexcept {
+  constexpr MemoryRate operator-(const MemoryRate& memory_rate) const {
     return MemoryRate{value_ - memory_rate.value_};
   }
 
-  constexpr MemoryRate operator*(const double number) const noexcept {
+  constexpr MemoryRate operator*(const double number) const {
     return MemoryRate{value_ * number};
   }
 
-  constexpr Memory operator*(const Time& time) const noexcept {
+  constexpr Memory operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr MemoryRate operator/(const double number) const noexcept {
+  constexpr MemoryRate operator/(const double number) const {
     return MemoryRate{value_ / number};
   }
 
-  constexpr Memory operator/(const Frequency& frequency) const noexcept {
+  constexpr Memory operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Memory& memory) const noexcept {
+  constexpr Frequency operator/(const Memory& memory) const {
     return {*this, memory};
   }
 
@@ -99,7 +97,7 @@ public:
   }
 
 private:
-  explicit constexpr MemoryRate(const double value) noexcept
+  explicit constexpr MemoryRate(const double value)
     : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}
 };
 
@@ -134,48 +132,44 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const MemoryRate& memory_rate) noexcept {
+    std::ostream& stream, const MemoryRate& memory_rate) {
   stream << memory_rate.Print();
   return stream;
 }
 
 inline constexpr MemoryRate operator*(
-    const double number, const MemoryRate& memory_rate) noexcept {
+    const double number, const MemoryRate& memory_rate) {
   return memory_rate * number;
 }
 
-inline constexpr Time::Time(
-    const MemoryRate& memory_rate, const Memory& memory) noexcept
+inline constexpr Time::Time(const MemoryRate& memory_rate, const Memory& memory)
   : Time(memory.Value() / memory_rate.Value()) {}
 
 inline constexpr Frequency::Frequency(
-    const MemoryRate& memory_rate, const Memory& memory) noexcept
+    const MemoryRate& memory_rate, const Memory& memory)
   : Frequency(memory_rate.Value() / memory.Value()) {}
 
-inline constexpr Memory::Memory(
-    const MemoryRate& memory_rate, const Time& time) noexcept
+inline constexpr Memory::Memory(const MemoryRate& memory_rate, const Time& time)
   : Memory(memory_rate.Value() * time.Value()) {}
 
 inline constexpr Memory::Memory(
-    const MemoryRate& memory_rate, const Frequency& frequency) noexcept
+    const MemoryRate& memory_rate, const Frequency& frequency)
   : Memory(memory_rate.Value() / frequency.Value()) {}
 
-inline constexpr MemoryRate Frequency::operator*(
-    const Memory& memory) const noexcept {
+inline constexpr MemoryRate Frequency::operator*(const Memory& memory) const {
   return {memory, *this};
 }
 
 inline constexpr MemoryRate Memory::operator*(
-    const Frequency& frequency) const noexcept {
+    const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr MemoryRate Memory::operator/(const Time& time) const noexcept {
+inline constexpr MemoryRate Memory::operator/(const Time& time) const {
   return {*this, time};
 }
 
-inline constexpr Time Memory::operator/(
-    const MemoryRate& memory_rate) const noexcept {
+inline constexpr Time Memory::operator/(const MemoryRate& memory_rate) const {
   return {memory_rate, *this};
 }
 

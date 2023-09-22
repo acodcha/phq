@@ -31,62 +31,61 @@ class SpecificIsobaricHeatCapacity;
 class DynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
-  constexpr DynamicViscosity() noexcept
+  constexpr DynamicViscosity()
     : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
 
-  DynamicViscosity(
-      const double value, const Unit::DynamicViscosity unit) noexcept
+  DynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
   constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity,
-                             const MassDensity& mass_density) noexcept
+                             const MassDensity& mass_density)
     : DynamicViscosity(kinematic_viscosity.Value() * mass_density.Value()) {}
 
   constexpr DynamicViscosity(
       const ReynoldsNumber& reynolds_number, const MassDensity& mass_density,
-      const Speed& speed, const Length& length) noexcept;
+      const Speed& speed, const Length& length);
 
   constexpr DynamicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
-      SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept;
+      SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
-  static constexpr DynamicViscosity Zero() noexcept {
+  static constexpr DynamicViscosity Zero() {
     return DynamicViscosity{0.0};
   }
 
   template <Unit::DynamicViscosity Unit>
-  static constexpr DynamicViscosity Create(const double value) noexcept {
+  static constexpr DynamicViscosity Create(const double value) {
     return DynamicViscosity{
         StaticConvertCopy<Unit::DynamicViscosity, Unit,
                           Standard<Unit::DynamicViscosity>>(value)};
   }
 
   constexpr DynamicViscosity operator+(
-      const DynamicViscosity& dynamic_viscosity) const noexcept {
+      const DynamicViscosity& dynamic_viscosity) const {
     return DynamicViscosity{value_ + dynamic_viscosity.value_};
   }
 
   constexpr DynamicViscosity operator-(
-      const DynamicViscosity& dynamic_viscosity) const noexcept {
+      const DynamicViscosity& dynamic_viscosity) const {
     return DynamicViscosity{value_ - dynamic_viscosity.value_};
   }
 
-  constexpr DynamicViscosity operator*(const double number) const noexcept {
+  constexpr DynamicViscosity operator*(const double number) const {
     return DynamicViscosity{value_ * number};
   }
 
-  constexpr DynamicViscosity operator/(const double number) const noexcept {
+  constexpr DynamicViscosity operator/(const double number) const {
     return DynamicViscosity{value_ / number};
   }
 
   constexpr KinematicViscosity operator/(
-      const MassDensity& mass_density) const noexcept {
+      const MassDensity& mass_density) const {
     return {*this, mass_density};
   }
 
   constexpr MassDensity operator/(
-      const KinematicViscosity& kinematic_viscosity) const noexcept {
+      const KinematicViscosity& kinematic_viscosity) const {
     return {*this, kinematic_viscosity};
   }
 
@@ -114,7 +113,7 @@ public:
   }
 
 private:
-  explicit constexpr DynamicViscosity(const double value) noexcept
+  explicit constexpr DynamicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };
 
@@ -149,33 +148,32 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const DynamicViscosity& dynamic_viscosity) noexcept {
+    std::ostream& stream, const DynamicViscosity& dynamic_viscosity) {
   stream << dynamic_viscosity.Print();
   return stream;
 }
 
 inline constexpr DynamicViscosity operator*(
-    const double number, const DynamicViscosity& dynamic_viscosity) noexcept {
+    const double number, const DynamicViscosity& dynamic_viscosity) {
   return dynamic_viscosity * number;
 }
 
 inline constexpr MassDensity::MassDensity(
     const DynamicViscosity& dynamic_viscosity,
-    const KinematicViscosity& kinematic_viscosity) noexcept
+    const KinematicViscosity& kinematic_viscosity)
   : MassDensity(dynamic_viscosity.Value() / kinematic_viscosity.Value()) {}
 
 inline constexpr KinematicViscosity::KinematicViscosity(
-    const DynamicViscosity& dynamic_viscosity,
-    const MassDensity& mass_density) noexcept
+    const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density)
   : KinematicViscosity(dynamic_viscosity.Value() / mass_density.Value()) {}
 
 inline constexpr DynamicViscosity KinematicViscosity::operator*(
-    const MassDensity& mass_density) const noexcept {
+    const MassDensity& mass_density) const {
   return {*this, mass_density};
 }
 
 inline constexpr DynamicViscosity MassDensity::operator*(
-    const KinematicViscosity& kinematic_viscosity) const noexcept {
+    const KinematicViscosity& kinematic_viscosity) const {
   return {kinematic_viscosity, *this};
 }
 

@@ -26,20 +26,19 @@ class SymmetricDyad {
 public:
   // Default constructor. Constructs a three-dimensional symmetric dyadic tensor
   // value with uninitialized xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr SymmetricDyad() noexcept : xx_xy_xz_yy_yz_zz_() {}
+  constexpr SymmetricDyad() : xx_xy_xz_yy_yz_zz_() {}
 
   // Constructor. Constructs a three-dimensional symmetric dyadic tensor value
   // from the given xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr SymmetricDyad(
-      const double xx, const double xy, const double xz, const double yy,
-      const double yz, const double zz) noexcept
+  constexpr SymmetricDyad(const double xx, const double xy, const double xz,
+                          const double yy, const double yz, const double zz)
     : xx_xy_xz_yy_yz_zz_({xx, xy, xz, yy, yz, zz}) {}
 
   // Constructor. Constructs a three-dimensional symmetric dyadic tensor value
   // from a given array representing its xx, xy, xz, yy, yz, and zz Cartesian
   // components.
   explicit constexpr SymmetricDyad(
-      const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept
+      const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
     : xx_xy_xz_yy_yz_zz_(xx_xy_xz_yy_yz_zz) {}
 
   // Destructor. Destroys this three-dimensional symmetric dyadic tensor value.
@@ -47,19 +46,18 @@ public:
 
   // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor
   // value by copying another one.
-  constexpr SymmetricDyad(const SymmetricDyad& other) noexcept = default;
+  constexpr SymmetricDyad(const SymmetricDyad& other) = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by copying another three-dimensional
   // symmetric dyadic tensor value.
-  constexpr SymmetricDyad& operator=(
-      const SymmetricDyad& other) noexcept = default;
+  constexpr SymmetricDyad& operator=(const SymmetricDyad& other) = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // symmetric dyadic tensor value by copying a given array representing its xx,
   // xy, xz, yy, yz, and zz Cartesian components.
   constexpr SymmetricDyad& operator=(
-      const std::array<double, 6>& xx_xy_xz_yy_yz_zz) noexcept {
+      const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
     return *this;
   }
@@ -90,7 +88,7 @@ public:
 
   // Returns a three-dimensional symmetric dyadic tensor value with its xx, xy,
   // xz, yy, yz, and zz Cartesian components initialized to zero.
-  static constexpr SymmetricDyad Zero() noexcept {
+  static constexpr SymmetricDyad Zero() {
     return SymmetricDyad{
         std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
     };
@@ -285,9 +283,9 @@ public:
   // Returns the determinant of this three-dimensional symmetric dyadic tensor
   // value.
   constexpr double Determinant() const noexcept {
-    return (
-        xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
-        + xz() * (yx() * zy() - yy() * zx()));
+    return xx() * (yy() * zz() - yz() * zy())
+           + xy() * (yz() * zx() - yx() * zz())
+           + xz() * (yx() * zy() - yy() * zx());
   }
 
   // Returns the transpose of this three-dimensional symmetric dyadic tensor
@@ -298,7 +296,7 @@ public:
 
   // Returns the cofactors of this three-dimensional symmetric dyadic tensor
   // value.
-  constexpr SymmetricDyad Cofactors() const noexcept {
+  constexpr SymmetricDyad Cofactors() const {
     const double cofactor_xx{yy() * zz() - yz() * yz()};
     const double cofactor_xy{xz() * yz() - xy() * zz()};
     const double cofactor_xz{xy() * yz() - xz() * yy()};
@@ -311,7 +309,7 @@ public:
 
   // Returns the adjugate of this three-dimensional symmetric dyadic tensor
   // value.
-  constexpr SymmetricDyad Adjugate() const noexcept {
+  constexpr SymmetricDyad Adjugate() const {
     // Normally, this would be cofactors().transpose(), but since this is a
     // symmetric dyad, the transpose is not needed.
     return Cofactors();
@@ -323,7 +321,7 @@ public:
 
   // Prints this three-dimensional symmetric dyadic tensor value as a string.
   // Components are printed to double floating point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "; "
@@ -334,7 +332,7 @@ public:
 
   // Prints this three-dimensional symmetric dyadic tensor value as a string.
   // Components are printed to a given floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0], precision) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1], precision) + ", "
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2], precision) + "; "
@@ -345,7 +343,7 @@ public:
 
   // Serializes this three-dimensional symmetric dyadic tensor value as a JSON
   // message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0])
            + ",\"xy\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])
            + ",\"xz\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -356,7 +354,7 @@ public:
 
   // Serializes this three-dimensional symmetric dyadic tensor value as an XML
   // message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return "<xx>" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + "</xx><xy>"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[1]) + "</xy><xz>"
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[2]) + "</xz><yy>"
@@ -367,7 +365,7 @@ public:
 
   // Serializes this three-dimensional symmetric dyadic tensor value as a YAML
   // message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return "{xx:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0])
            + ",xy:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[1])
            + ",xz:" + PhQ::Print(xx_xy_xz_yy_yz_zz_[2])
@@ -483,32 +481,32 @@ inline constexpr bool operator>=(
 }
 
 inline constexpr SymmetricDyad operator+(
-    const SymmetricDyad& left, const SymmetricDyad& right) noexcept {
+    const SymmetricDyad& left, const SymmetricDyad& right) {
   return {left.xx() + right.xx(), left.xy() + right.xy(),
           left.xz() + right.xz(), left.yy() + right.yy(),
           left.yz() + right.yz(), left.zz() + right.zz()};
 }
 
 inline constexpr SymmetricDyad operator-(
-    const SymmetricDyad& left, const SymmetricDyad& right) noexcept {
+    const SymmetricDyad& left, const SymmetricDyad& right) {
   return {left.xx() - right.xx(), left.xy() - right.xy(),
           left.xz() - right.xz(), left.yy() - right.yy(),
           left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
 inline constexpr SymmetricDyad operator*(
-    const SymmetricDyad& symdyad, const double real) noexcept {
+    const SymmetricDyad& symdyad, const double real) {
   return {symdyad.xx() * real, symdyad.xy() * real, symdyad.xz() * real,
           symdyad.yy() * real, symdyad.yz() * real, symdyad.zz() * real};
 }
 
 inline constexpr SymmetricDyad operator*(
-    const double real, const SymmetricDyad& symdyad) noexcept {
+    const double real, const SymmetricDyad& symdyad) {
   return {symdyad * real};
 }
 
 inline constexpr Vector operator*(
-    const SymmetricDyad& symdyad, const Vector& vector) noexcept {
+    const SymmetricDyad& symdyad, const Vector& vector) {
   return {symdyad.xx() * vector.x() + symdyad.xy() * vector.y()
               + symdyad.xz() * vector.z(),
           symdyad.xy() * vector.x() + symdyad.yy() * vector.y()
@@ -518,13 +516,12 @@ inline constexpr Vector operator*(
 }
 
 inline constexpr Dyad operator*(
-    const SymmetricDyad& left, const SymmetricDyad& right) noexcept;
+    const SymmetricDyad& left, const SymmetricDyad& right);
 
-inline constexpr Dyad operator*(
-    const SymmetricDyad& symdyad, const Dyad& dyad) noexcept;
+inline constexpr Dyad operator*(const SymmetricDyad& symdyad, const Dyad& dyad);
 
 inline constexpr SymmetricDyad operator/(
-    const SymmetricDyad& symdyad, const double real) noexcept {
+    const SymmetricDyad& symdyad, const double real) {
   return {symdyad.xx() / real, symdyad.xy() / real, symdyad.xz() / real,
           symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
 }
@@ -539,7 +536,7 @@ inline std::optional<SymmetricDyad> SymmetricDyad::Inverse() const {
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SymmetricDyad& symmetric) noexcept {
+    std::ostream& stream, const SymmetricDyad& symmetric) {
   stream << symmetric.Print();
   return stream;
 }

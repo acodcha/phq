@@ -32,62 +32,61 @@ class SpecificIsochoricHeatCapacity;
 // Ratio of the isobaric and isochoric specific heats of a material.
 class SpecificHeatRatio : public DimensionlessScalarQuantity {
 public:
-  constexpr SpecificHeatRatio() noexcept : DimensionlessScalarQuantity() {}
+  constexpr SpecificHeatRatio() : DimensionlessScalarQuantity() {}
 
-  explicit constexpr SpecificHeatRatio(const double value) noexcept
+  explicit constexpr SpecificHeatRatio(const double value)
     : DimensionlessScalarQuantity(value) {}
 
-  constexpr SpecificHeatRatio(const SpecificGasConstant& specific_gas_constant,
-                              const SpecificIsobaricHeatCapacity&
-                                  specific_isobaric_heat_capacity) noexcept;
+  constexpr SpecificHeatRatio(
+      const SpecificGasConstant& specific_gas_constant,
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
-  constexpr SpecificHeatRatio(const SpecificGasConstant& specific_gas_constant,
-                              const SpecificIsochoricHeatCapacity&
-                                  specific_isochoric_heat_capacity) noexcept;
+  constexpr SpecificHeatRatio(
+      const SpecificGasConstant& specific_gas_constant,
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
   constexpr SpecificHeatRatio(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const SpecificIsochoricHeatCapacity&
-          specific_isochoric_heat_capacity) noexcept;
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
   constexpr SpecificHeatRatio(
       const GasConstant& gas_constant,
-      const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+      const IsobaricHeatCapacity& isobaric_heat_capacity);
 
   constexpr SpecificHeatRatio(
       const GasConstant& gas_constant,
-      const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity);
 
   constexpr SpecificHeatRatio(
       const IsobaricHeatCapacity& isobaric_heat_capacity,
-      const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity);
 
-  static constexpr SpecificHeatRatio Zero() noexcept {
+  static constexpr SpecificHeatRatio Zero() {
     return SpecificHeatRatio{0.0};
   }
 
   constexpr SpecificHeatRatio operator+(
-      const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+      const SpecificHeatRatio& specific_heat_ratio) const {
     return SpecificHeatRatio{value_ + specific_heat_ratio.value_};
   }
 
   constexpr SpecificHeatRatio operator-(
-      const SpecificHeatRatio& specific_heat_ratio) const noexcept {
+      const SpecificHeatRatio& specific_heat_ratio) const {
     return SpecificHeatRatio{value_ - specific_heat_ratio.value_};
   }
 
-  constexpr SpecificHeatRatio operator*(const double number) const noexcept {
+  constexpr SpecificHeatRatio operator*(const double number) const {
     return SpecificHeatRatio{value_ * number};
   }
 
   constexpr IsobaricHeatCapacity operator*(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const;
 
   constexpr SpecificIsobaricHeatCapacity operator*(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-      const noexcept;
+      const;
 
-  constexpr SpecificHeatRatio operator/(const double number) const noexcept {
+  constexpr SpecificHeatRatio operator/(const double number) const {
     return SpecificHeatRatio{value_ / number};
   }
 
@@ -146,27 +145,23 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const SpecificHeatRatio& specific_heat_ratio) noexcept {
+    std::ostream& stream, const SpecificHeatRatio& specific_heat_ratio) {
   stream << specific_heat_ratio.Print();
   return stream;
 }
 
 inline constexpr SpecificHeatRatio operator+(
-    const double number,
-    const SpecificHeatRatio& specific_heat_ratio) noexcept {
+    const double number, const SpecificHeatRatio& specific_heat_ratio) {
   return SpecificHeatRatio{number + specific_heat_ratio.Value()};
 }
 
 inline constexpr SpecificHeatRatio operator-(
-    const double number,
-    const SpecificHeatRatio& specific_heat_ratio) noexcept {
+    const double number, const SpecificHeatRatio& specific_heat_ratio) {
   return SpecificHeatRatio{number - specific_heat_ratio.Value()};
 }
 
 inline constexpr SpecificHeatRatio operator*(
-    const double number,
-    const SpecificHeatRatio& specific_heat_ratio) noexcept {
+    const double number, const SpecificHeatRatio& specific_heat_ratio) {
   return SpecificHeatRatio{number * specific_heat_ratio.Value()};
 }
 

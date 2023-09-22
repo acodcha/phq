@@ -27,13 +27,13 @@ template <typename U>
 class DimensionalScalarQuantity {
 public:
   // Physical dimension set of this physical quantity.
-  static constexpr const PhQ::Dimensions& Dimensions() noexcept {
+  static constexpr const PhQ::Dimensions& Dimensions() {
     return RelatedDimensions<U>;
   }
 
   // Standard unit of measure for this physical quantity. This physical
   // quantity's value is stored internally in this unit of measure.
-  static constexpr U Unit() noexcept {
+  static constexpr U Unit() {
     return Standard<U>;
   }
 
@@ -43,7 +43,7 @@ public:
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  double Value(const U unit) const noexcept {
+  double Value(const U unit) const {
     double result{value_};
     Convert(result, Standard<U>, unit);
     return result;
@@ -52,7 +52,7 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This
   // method can be evaluated statically at compile-time.
   template <U NewUnit>
-  constexpr double StaticValue() const noexcept {
+  constexpr double StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
@@ -71,14 +71,14 @@ public:
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in its standard unit of measure and printed to double floating
   // point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in its standard unit of measure and printed to the given
   // floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return PhQ::Print(value_, precision)
         .append(" ")
         .append(Abbreviation(Standard<U>));
@@ -87,14 +87,14 @@ public:
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in the given unit of measure and printed to double floating
   // point precision.
-  std::string Print(const U unit) const noexcept {
+  std::string Print(const U unit) const {
     return PhQ::Print(Value(unit)).append(" ").append(Abbreviation(unit));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in the given unit of measure and printed to the given floating
   // point precision.
-  std::string Print(const U unit, const Precision precision) const noexcept {
+  std::string Print(const U unit, const Precision precision) const {
     return PhQ::Print(Value(unit), precision)
         .append(" ")
         .append(Abbreviation(unit));
@@ -102,7 +102,7 @@ public:
 
   // Serializes this physical quantity as a JSON message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(value_))
         .append(",\"unit\":\"")
@@ -112,7 +112,7 @@ public:
 
   // Serializes this physical quantity as a JSON message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string JSON(const U unit) const noexcept {
+  std::string JSON(const U unit) const {
     return std::string{"{\"value\":"}
         .append(PhQ::Print(Value(unit)))
         .append(",\"unit\":\"")
@@ -122,7 +122,7 @@ public:
 
   // Serializes this physical quantity as an XML message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return std::string{"<value>"}
         .append(PhQ::Print(value_))
         .append("</value><unit>")
@@ -132,7 +132,7 @@ public:
 
   // Serializes this physical quantity as an XML message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string XML(const U unit) const noexcept {
+  std::string XML(const U unit) const {
     return std::string{"<value>"}
         .append(PhQ::Print(Value(unit)))
         .append("</value><unit>")
@@ -142,7 +142,7 @@ public:
 
   // Serializes this physical quantity as a YAML message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return std::string{"{value:"}
         .append(PhQ::Print(value_))
         .append(",unit:\"")
@@ -152,7 +152,7 @@ public:
 
   // Serializes this physical quantity as a YAML message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string YAML(const U unit) const noexcept {
+  std::string YAML(const U unit) const {
     return std::string{"{value:"}
         .append(PhQ::Print(Value(unit)))
         .append(",unit:\"")
@@ -163,24 +163,24 @@ public:
 protected:
   // Default constructor. Constructs a dimensional scalar physical quantity with
   // an uninitialized value expressed in its standard unit of measure.
-  constexpr DimensionalScalarQuantity() noexcept : value_() {}
+  constexpr DimensionalScalarQuantity() : value_() {}
 
-  // Constructs a dimensional scalar physical quantity with a given value
-  // expressed in its standard unit of measure.
-  constexpr DimensionalScalarQuantity(const double value) noexcept
-    : value_(value) {}
+  // Constructor. Constructs a dimensional scalar physical quantity with a given
+  // value expressed in its standard unit of measure.
+  constexpr DimensionalScalarQuantity(const double value) : value_(value) {}
 
-  // Constructs a dimensional scalar physical quantity with a given value
-  // expressed in a given unit of measure.
-  DimensionalScalarQuantity(const double value, const U unit) noexcept
-    : value_(value) {
+  // Constructor. Constructs a dimensional scalar physical quantity with a given
+  // value expressed in a given unit of measure.
+  DimensionalScalarQuantity(const double value, const U unit) : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
-  // Default destructor. Destroys this dimensional scalar physical quantity.
+  // Destructor. Destroys this dimensional scalar physical quantity.
   ~DimensionalScalarQuantity() noexcept = default;
 
-  constexpr void operator=(const double value) noexcept {
+  // Copy assignment operator. Assigns the value of this dimensional scalar
+  // physical quantity from a given value.
+  constexpr void operator=(const double value) {
     value_ = value;
   }
 
@@ -189,8 +189,7 @@ protected:
 
 template <typename U>
 inline std::ostream&
-operator<<(std::ostream& stream,
-           const DimensionalScalarQuantity<U>& quantity) noexcept {
+operator<<(std::ostream& stream, const DimensionalScalarQuantity<U>& quantity) {
   stream << quantity.Print();
   return stream;
 }

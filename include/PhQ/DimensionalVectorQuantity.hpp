@@ -28,13 +28,13 @@ template <typename U>
 class DimensionalVectorQuantity {
 public:
   // Physical dimension set of this physical quantity.
-  static constexpr const PhQ::Dimensions& Dimensions() noexcept {
+  static constexpr const PhQ::Dimensions& Dimensions() {
     return RelatedDimensions<U>;
   }
 
   // Standard unit of measure for this physical quantity. This physical
   // quantity's value is stored internally in this unit of measure.
-  static constexpr U Unit() noexcept {
+  static constexpr U Unit() {
     return Standard<U>;
   }
 
@@ -44,7 +44,7 @@ public:
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  Value::Vector Value(const U unit) const noexcept {
+  Value::Vector Value(const U unit) const {
     Value::Vector result{value_};
     Convert(result, Standard<U>, unit);
     return result;
@@ -53,7 +53,7 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This
   // method can be evaluated statically at compile-time.
   template <U NewUnit>
-  constexpr Value::Vector StaticValue() const noexcept {
+  constexpr Value::Vector StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
@@ -72,14 +72,14 @@ public:
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in its standard unit of measure and printed to double floating
   // point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return value_.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in its standard unit of measure and printed to the given
   // floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return value_.Print(precision).append(" ").append(
         Abbreviation(Standard<U>));
   }
@@ -87,20 +87,20 @@ public:
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in the given unit of measure and printed to double floating
   // point precision.
-  std::string Print(const U unit) const noexcept {
+  std::string Print(const U unit) const {
     return Value(unit).Print().append(" ").append(Abbreviation(unit));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value
   // is expressed in the given unit of measure and printed to the given floating
   // point precision.
-  std::string Print(const U unit, const Precision precision) const noexcept {
+  std::string Print(const U unit, const Precision precision) const {
     return Value(unit).Print(precision).append(" ").append(Abbreviation(unit));
   }
 
   // Serializes this physical quantity as a JSON message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return std::string{"{\"value\":"}
         .append(value_.JSON())
         .append(",\"unit\":\"")
@@ -110,7 +110,7 @@ public:
 
   // Serializes this physical quantity as a JSON message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string JSON(const U unit) const noexcept {
+  std::string JSON(const U unit) const {
     return std::string{"{\"value\":"}
         .append(Value(unit).JSON())
         .append(",\"unit\":\"")
@@ -120,7 +120,7 @@ public:
 
   // Serializes this physical quantity as an XML message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return std::string{"<value>"}
         .append(value_.XML())
         .append("</value><unit>")
@@ -130,7 +130,7 @@ public:
 
   // Serializes this physical quantity as an XML message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string XML(const U unit) const noexcept {
+  std::string XML(const U unit) const {
     return std::string{"<value>"}
         .append(Value(unit).XML())
         .append("</value><unit>")
@@ -140,7 +140,7 @@ public:
 
   // Serializes this physical quantity as a YAML message. This physical
   // quantity's value is expressed in its standard unit of measure.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return std::string{"{value:"}
         .append(value_.YAML())
         .append(",unit:\"")
@@ -150,7 +150,7 @@ public:
 
   // Serializes this physical quantity as a YAML message. This physical
   // quantity's value is expressed in the given unit of measure.
-  std::string YAML(const U unit) const noexcept {
+  std::string YAML(const U unit) const {
     return std::string{"{value:"}
         .append(Value(unit).YAML())
         .append(",unit:\"")
@@ -161,39 +161,44 @@ public:
 protected:
   // Default constructor. Constructs a dimensional vector physical quantity with
   // an uninitialized value expressed in its standard unit of measure.
-  constexpr DimensionalVectorQuantity() noexcept : value_() {}
+  constexpr DimensionalVectorQuantity() : value_() {}
 
-  // Constructs a dimensional vector physical quantity with a given value
-  // expressed in its standard unit of measure.
-  constexpr DimensionalVectorQuantity(const Value::Vector& value) noexcept
+  // Constructor. Constructs a dimensional vector physical quantity with a given
+  // value expressed in its standard unit of measure.
+  constexpr DimensionalVectorQuantity(const Value::Vector& value)
     : value_(value) {}
 
-  // Constructs a dimensional vector physical quantity with a given value
-  // expressed in its standard unit of measure by moving the given value.
-  constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
-    : value_(std::move(value)) {}
-
-  // Constructs a dimensional vector physical quantity with a given value
-  // expressed in a given unit of measure.
-  DimensionalVectorQuantity(const Value::Vector& value, const U unit) noexcept
+  // Constructor. Constructs a dimensional vector physical quantity with a given
+  // value expressed in a given unit of measure.
+  DimensionalVectorQuantity(const Value::Vector& value, const U unit)
     : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
-  // Constructs a dimensional vector physical quantity with a given value
-  // expressed in a given unit of measure by moving the value.
-  DimensionalVectorQuantity(Value::Vector&& value, const U unit) noexcept
+  // Move constructor. Constructs a dimensional vector physical quantity with a
+  // given value expressed in its standard unit of measure by moving the given
+  // value.
+  constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
+    : value_(std::move(value)) {}
+
+  // Move constructor. Constructs a dimensional vector physical quantity with a
+  // given value expressed in a given unit of measure by moving the value.
+  DimensionalVectorQuantity(Value::Vector&& value, const U unit)
     : value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
   }
 
-  // Default destructor. Destroys this dimensional vector physical quantity.
+  // Destructor. Destroys this dimensional vector physical quantity.
   ~DimensionalVectorQuantity() noexcept = default;
 
-  constexpr void operator=(const Value::Vector& value) noexcept {
+  // Copy assignment operator. Assigns the value of this dimensional vector
+  // physical quantity by copying a given value.
+  constexpr void operator=(const Value::Vector& value) {
     value_ = value;
   }
 
+  // Move assignment operator. Assigns the components of this dimensional vector
+  // physical quantity by moving a given vector value.
   constexpr void operator=(Value::Vector&& value) noexcept {
     value_ = std::move(value);
   }
@@ -203,8 +208,7 @@ protected:
 
 template <typename U>
 inline std::ostream&
-operator<<(std::ostream& stream,
-           const DimensionalVectorQuantity<U>& quantity) noexcept {
+operator<<(std::ostream& stream, const DimensionalVectorQuantity<U>& quantity) {
   stream << quantity.Print();
   return stream;
 }

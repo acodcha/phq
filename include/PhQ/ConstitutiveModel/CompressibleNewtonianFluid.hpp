@@ -29,17 +29,17 @@ namespace PhQ {
 // component.
 class ConstitutiveModel::CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
-  constexpr CompressibleNewtonianFluid() noexcept
+  constexpr CompressibleNewtonianFluid()
     : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
 
-  CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity) noexcept
+  CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
       bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
                                Standard<Unit::DynamicViscosity>}) {}
 
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity,
-      const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept
+      const BulkDynamicViscosity& bulk_dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
       bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
@@ -57,21 +57,19 @@ public:
     return Type::CompressibleNewtonianFluid;
   }
 
-  inline PhQ::Stress Stress(
-      const PhQ::Strain& strain,
-      const PhQ::StrainRate& strain_rate) const noexcept override {
+  inline PhQ::Stress Stress(const PhQ::Strain& strain,
+                            const PhQ::StrainRate& strain_rate) const override {
     return Stress(strain_rate);
   }
 
-  inline PhQ::Stress Stress(const PhQ::Strain& strain) const noexcept override {
+  inline PhQ::Stress Stress(const PhQ::Strain& strain) const override {
     return {
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
         Standard<Unit::Pressure>
     };
   }
 
-  inline PhQ::Stress Stress(
-      const PhQ::StrainRate& strain_rate) const noexcept override {
+  inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
@@ -80,19 +78,18 @@ public:
         bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace();
     return {
         Value::SymmetricDyad{a * strain_rate.Value()}
-            + Value::SymmetricDyad{b, 0.0, 0.0, b, 0.0, b},
+            + Value::SymmetricDyad{ b, 0.0, 0.0, b, 0.0, b},
         Standard<Unit::Pressure>
     };
   }
 
-  inline PhQ::Strain Strain(const PhQ::Stress& stress) const noexcept override {
+  inline PhQ::Strain Strain(const PhQ::Stress& stress) const override {
     return PhQ::Strain{
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
     };
   }
 
-  inline PhQ::StrainRate StrainRate(
-      const PhQ::Stress& stress) const noexcept override {
+  inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
     // strain_rate = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * dynamic_viscosity)
     // b = -1 * bulk_dynamic_viscosity / (2 * dynamic_viscosity * (2 *
@@ -111,27 +108,27 @@ public:
     };
   }
 
-  inline std::string Print() const noexcept override {
+  inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(GetType())}
             + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()
             + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
   }
 
-  inline std::string JSON() const noexcept override {
+  inline std::string JSON() const override {
     return {"{\"type\":\"" + SnakeCaseCopy(Abbreviation(GetType()))
             + "\",\"dynamic_viscosity\":" + dynamic_viscosity_.JSON()
             + ",\"bulk_dynamic_viscosity\":" + bulk_dynamic_viscosity_.JSON()
             + "}"};
   }
 
-  inline std::string XML() const noexcept override {
+  inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(GetType()))
             + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
             + "</dynamic_viscosity><bulk_dynamic_viscosity>"
             + bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
   }
 
-  inline std::string YAML() const noexcept override {
+  inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
             + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML()
             + ",bulk_dynamic_viscosity:" + bulk_dynamic_viscosity_.YAML()
@@ -190,7 +187,7 @@ inline constexpr bool operator>=(
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const ConstitutiveModel::CompressibleNewtonianFluid& model) noexcept {
+    const ConstitutiveModel::CompressibleNewtonianFluid& model) {
   stream << model.Print();
   return stream;
 }

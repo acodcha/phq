@@ -26,20 +26,20 @@ namespace PhQ {
 class VolumetricThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
-  constexpr VolumetricThermalExpansionCoefficient() noexcept
+  constexpr VolumetricThermalExpansionCoefficient()
     : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
   VolumetricThermalExpansionCoefficient(
-      const double value, const Unit::ThermalExpansion unit) noexcept
+      const double value, const Unit::ThermalExpansion unit)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
-  static constexpr VolumetricThermalExpansionCoefficient Zero() noexcept {
+  static constexpr VolumetricThermalExpansionCoefficient Zero() {
     return VolumetricThermalExpansionCoefficient{0.0};
   }
 
   template <Unit::ThermalExpansion Unit>
   static constexpr VolumetricThermalExpansionCoefficient
-  Create(const double value) noexcept {
+  Create(const double value) {
     return VolumetricThermalExpansionCoefficient{
         StaticConvertCopy<Unit::ThermalExpansion, Unit,
                           Standard<Unit::ThermalExpansion>>(value)};
@@ -47,30 +47,30 @@ public:
 
   constexpr VolumetricThermalExpansionCoefficient operator+(
       const VolumetricThermalExpansionCoefficient&
-          volumetric_thermal_expansion_coefficient) const noexcept {
+          volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient{
         value_ + volumetric_thermal_expansion_coefficient.value_};
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator-(
       const VolumetricThermalExpansionCoefficient&
-          volumetric_thermal_expansion_coefficient) const noexcept {
+          volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient{
         value_ - volumetric_thermal_expansion_coefficient.value_};
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator*(
-      const double number) const noexcept {
+      const double number) const {
     return VolumetricThermalExpansionCoefficient{value_ * number};
   }
 
   constexpr double operator*(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return value_ * temperature_difference.Value();
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator/(
-      const double number) const noexcept {
+      const double number) const {
     return VolumetricThermalExpansionCoefficient{value_ / number};
   }
 
@@ -101,14 +101,13 @@ public:
   }
 
 private:
-  explicit constexpr VolumetricThermalExpansionCoefficient(
-      const double value) noexcept
+  explicit constexpr VolumetricThermalExpansionCoefficient(const double value)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };
 
 inline constexpr double TemperatureDifference::operator*(
     const VolumetricThermalExpansionCoefficient&
-        volumetric_thermal_expansion_coefficient) const noexcept {
+        volumetric_thermal_expansion_coefficient) const {
   return value_ * volumetric_thermal_expansion_coefficient.Value();
 }
 
@@ -149,17 +148,15 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const VolumetricThermalExpansionCoefficient&
-        volumetric_thermal_expansion_coefficient) noexcept {
+    std::ostream& stream, const VolumetricThermalExpansionCoefficient&
+                              volumetric_thermal_expansion_coefficient) {
   stream << volumetric_thermal_expansion_coefficient.Print();
   return stream;
 }
 
 inline constexpr VolumetricThermalExpansionCoefficient operator*(
-    const double number,
-    const VolumetricThermalExpansionCoefficient&
-        volumetric_thermal_expansion_coefficient) noexcept {
+    const double number, const VolumetricThermalExpansionCoefficient&
+                             volumetric_thermal_expansion_coefficient) {
   return volumetric_thermal_expansion_coefficient * number;
 }
 

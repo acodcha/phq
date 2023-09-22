@@ -28,59 +28,53 @@ class TotalKinematicPressure;
 class DynamicKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr DynamicKinematicPressure() noexcept
+  constexpr DynamicKinematicPressure()
     : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
 
-  DynamicKinematicPressure(
-      const double value, const Unit::SpecificEnergy unit) noexcept
+  DynamicKinematicPressure(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
-  constexpr DynamicKinematicPressure(const Speed& speed) noexcept
+  constexpr DynamicKinematicPressure(const Speed& speed)
     : DynamicKinematicPressure(0.5 * std::pow(speed.Value(), 2)) {}
 
   constexpr DynamicKinematicPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
-      const StaticKinematicPressure& static_kinematic_pressure) noexcept;
+      const StaticKinematicPressure& static_kinematic_pressure);
 
-  constexpr DynamicKinematicPressure(const DynamicPressure& dynamic_pressure,
-                                     const MassDensity& mass_density) noexcept
+  constexpr DynamicKinematicPressure(
+      const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
     : DynamicKinematicPressure(
         dynamic_pressure.Value() / mass_density.Value()) {}
 
-  static constexpr DynamicKinematicPressure Zero() noexcept {
+  static constexpr DynamicKinematicPressure Zero() {
     return DynamicKinematicPressure{0.0};
   }
 
   template <Unit::SpecificEnergy Unit>
-  static constexpr DynamicKinematicPressure
-  Create(const double value) noexcept {
+  static constexpr DynamicKinematicPressure Create(const double value) {
     return DynamicKinematicPressure{
         StaticConvertCopy<Unit::SpecificEnergy, Unit,
                           Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  constexpr DynamicKinematicPressure
-  operator+(const DynamicKinematicPressure& dynamic_kinematic_pressure)
-      const noexcept {
+  constexpr DynamicKinematicPressure operator+(
+      const DynamicKinematicPressure& dynamic_kinematic_pressure) const {
     return DynamicKinematicPressure{value_ + dynamic_kinematic_pressure.value_};
   }
 
   constexpr TotalKinematicPressure operator+(
-      const StaticKinematicPressure& static_kinematic_pressure) const noexcept;
+      const StaticKinematicPressure& static_kinematic_pressure) const;
 
-  constexpr DynamicKinematicPressure
-  operator-(const DynamicKinematicPressure& dynamic_kinematic_pressure)
-      const noexcept {
+  constexpr DynamicKinematicPressure operator-(
+      const DynamicKinematicPressure& dynamic_kinematic_pressure) const {
     return DynamicKinematicPressure{value_ - dynamic_kinematic_pressure.value_};
   }
 
-  constexpr DynamicKinematicPressure operator*(
-      const double number) const noexcept {
+  constexpr DynamicKinematicPressure operator*(const double number) const {
     return DynamicKinematicPressure{value_ * number};
   }
 
-  constexpr DynamicKinematicPressure operator/(
-      const double number) const noexcept {
+  constexpr DynamicKinematicPressure operator/(const double number) const {
     return DynamicKinematicPressure{value_ / number};
   }
 
@@ -109,7 +103,7 @@ public:
   }
 
 private:
-  explicit constexpr DynamicKinematicPressure(const double value) noexcept
+  explicit constexpr DynamicKinematicPressure(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };
 
@@ -151,24 +145,24 @@ inline constexpr bool operator>=(
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
+    const DynamicKinematicPressure& dynamic_kinematic_pressure) {
   stream << dynamic_kinematic_pressure.Print();
   return stream;
 }
 
 inline constexpr DynamicKinematicPressure operator*(
     const double number,
-    const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
+    const DynamicKinematicPressure& dynamic_kinematic_pressure) {
   return dynamic_kinematic_pressure * number;
 }
 
 inline constexpr Speed::Speed(
-    const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept
+    const DynamicKinematicPressure& dynamic_kinematic_pressure)
   : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
     const DynamicKinematicPressure& dynamic_kinematic_pressure,
-    const MassDensity& mass_density) noexcept
+    const MassDensity& mass_density)
   : DynamicPressure(dynamic_kinematic_pressure.Value() * mass_density.Value()) {
 }
 

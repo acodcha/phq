@@ -29,53 +29,53 @@ class StaticPressure;
 // Pressure difference.
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr PressureDifference() noexcept
+  constexpr PressureDifference()
     : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  PressureDifference(const double value, const Unit::Pressure unit) noexcept
+  PressureDifference(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr PressureDifference(
       const KinematicPressureDifference& kinematic_pressure_difference,
-      const MassDensity& mass_density) noexcept;
+      const MassDensity& mass_density);
 
-  static constexpr PressureDifference Zero() noexcept {
+  static constexpr PressureDifference Zero() {
     return PressureDifference{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr PressureDifference Create(const double value) noexcept {
+  static constexpr PressureDifference Create(const double value) {
     return PressureDifference{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
   constexpr StaticPressure operator+(
-      const StaticPressure& static_pressure) const noexcept;
+      const StaticPressure& static_pressure) const;
 
   constexpr PressureDifference operator+(
-      const PressureDifference& pressure_difference) const noexcept {
+      const PressureDifference& pressure_difference) const {
     return PressureDifference{value_ + pressure_difference.value_};
   }
 
   constexpr StaticPressure operator-(
-      const StaticPressure& static_pressure) const noexcept;
+      const StaticPressure& static_pressure) const;
 
   constexpr PressureDifference operator-(
-      const PressureDifference& pressure_difference) const noexcept {
+      const PressureDifference& pressure_difference) const {
     return PressureDifference{value_ - pressure_difference.value_};
   }
 
-  constexpr PressureDifference operator*(const double number) const noexcept {
+  constexpr PressureDifference operator*(const double number) const {
     return PressureDifference{value_ * number};
   }
 
-  constexpr PressureDifference operator/(const double number) const noexcept {
+  constexpr PressureDifference operator/(const double number) const {
     return PressureDifference{value_ / number};
   }
 
   constexpr KinematicPressureDifference operator/(
-      const MassDensity& mass_density) const noexcept;
+      const MassDensity& mass_density) const;
 
   constexpr double operator/(
       const PressureDifference& pressure_difference) const noexcept {
@@ -101,7 +101,7 @@ public:
   }
 
 private:
-  explicit constexpr PressureDifference(const double value) noexcept
+  explicit constexpr PressureDifference(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 
   friend class StaticPressure;
@@ -138,15 +138,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const PressureDifference& pressure_difference) noexcept {
+    std::ostream& stream, const PressureDifference& pressure_difference) {
   stream << pressure_difference.Print();
   return stream;
 }
 
 inline constexpr PressureDifference operator*(
-    const double number,
-    const PressureDifference& pressure_difference) noexcept {
+    const double number, const PressureDifference& pressure_difference) {
   return pressure_difference * number;
 }
 

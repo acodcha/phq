@@ -24,48 +24,46 @@ namespace PhQ {
 // Temperature.
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 public:
-  constexpr Temperature() noexcept
-    : DimensionalScalarQuantity<Unit::Temperature>() {}
+  constexpr Temperature() : DimensionalScalarQuantity<Unit::Temperature>() {}
 
-  Temperature(const double value, const Unit::Temperature unit) noexcept
+  Temperature(const double value, const Unit::Temperature unit)
     : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
-  static constexpr Temperature Zero() noexcept {
+  static constexpr Temperature Zero() {
     return Temperature{0.0};
   }
 
   template <Unit::Temperature Unit>
-  static constexpr Temperature Create(const double value) noexcept {
+  static constexpr Temperature Create(const double value) {
     return Temperature{
         StaticConvertCopy<Unit::Temperature, Unit, Standard<Unit::Temperature>>(
             value)};
   }
 
-  constexpr Temperature operator+(
-      const Temperature& temperature) const noexcept {
+  constexpr Temperature operator+(const Temperature& temperature) const {
     return Temperature{value_ + temperature.value_};
   }
 
   constexpr Temperature operator+(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return Temperature{value_ + temperature_difference.Value()};
   }
 
   constexpr TemperatureDifference operator-(
-      const Temperature& temperature) const noexcept {
+      const Temperature& temperature) const {
     return TemperatureDifference{value_ - temperature.value_};
   }
 
   constexpr Temperature operator-(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return Temperature{value_ - temperature_difference.Value()};
   }
 
-  constexpr Temperature operator*(const double number) const noexcept {
+  constexpr Temperature operator*(const double number) const {
     return Temperature{value_ * number};
   }
 
-  constexpr Temperature operator/(const double number) const noexcept {
+  constexpr Temperature operator/(const double number) const {
     return Temperature{value_ / number};
   }
 
@@ -100,7 +98,7 @@ public:
   }
 
 private:
-  explicit constexpr Temperature(const double value) noexcept
+  explicit constexpr Temperature(const double value)
     : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 
   friend class TemperatureDifference;
@@ -137,23 +135,23 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Temperature& temperature) noexcept {
+    std::ostream& stream, const Temperature& temperature) {
   stream << temperature.Print();
   return stream;
 }
 
 inline constexpr Temperature operator*(
-    const double number, const Temperature& temperature) noexcept {
+    const double number, const Temperature& temperature) {
   return temperature * number;
 }
 
 inline constexpr Temperature TemperatureDifference::operator+(
-    const Temperature& temperature) const noexcept {
+    const Temperature& temperature) const {
   return Temperature{value_ + temperature.Value()};
 }
 
 inline constexpr Temperature TemperatureDifference::operator-(
-    const Temperature& temperature) const noexcept {
+    const Temperature& temperature) const {
   return Temperature{value_ - temperature.Value()};
 }
 

@@ -30,7 +30,7 @@ public:
   // Physical dimension set of this dimensionless physical quantity. Since this
   // physical quantity is dimensionless, its physical dimension set is simply
   // the null set.
-  static constexpr const PhQ::Dimensions Dimensions() noexcept {
+  static constexpr const PhQ::Dimensions Dimensions() {
     return {};
   }
 
@@ -52,56 +52,60 @@ public:
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to double floating point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return value_.Print();
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to the given floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return value_.Print(precision);
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return value_.JSON();
   }
 
   // Serializes this dimensionless physical quantity as an XML message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return value_.XML();
   }
 
   // Serializes this dimensionless physical quantity as a YAML message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return value_.YAML();
   }
 
 protected:
   // Default constructor. Constructs a dimensionless symmetric dyadic tensor
   // physical quantity with an uninitialized value.
-  constexpr DimensionlessSymmetricDyadQuantity() noexcept : value_() {}
+  constexpr DimensionlessSymmetricDyadQuantity() : value_() {}
 
-  // Constructs a dimensionless symmetric dyadic tensor physical quantity with a
-  // given value.
+  // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
+  // quantity with a given value.
   constexpr DimensionlessSymmetricDyadQuantity(
-      const Value::SymmetricDyad& value) noexcept
+      const Value::SymmetricDyad& value)
     : value_(value) {}
 
-  // Constructs a dimensionless symmetric dyadic tensor physical quantity with a
-  // given value by moving the value.
+  // Move constructor. Constructs a dimensionless symmetric dyadic tensor
+  // physical quantity with a given value by moving the value.
   constexpr DimensionlessSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
     : value_(std::move(value)) {}
 
-  // Default destructor. Destroys this dimensionless symmetric dyadic tensor
-  // physical quantity.
+  // Destructor. Destroys this dimensionless symmetric dyadic tensor physical
+  // quantity.
   ~DimensionlessSymmetricDyadQuantity() noexcept = default;
 
-  void operator=(const Value::SymmetricDyad& value) noexcept {
+  // Copy assignment operator. Assigns the value of this dimensionless symmetric
+  // dyadic tensor physical quantity by copying a given value.
+  void operator=(const Value::SymmetricDyad& value) {
     value_ = value;
   }
 
+  // Move assignment operator. Assigns the components of this dimensionless
+  // symmetric dyadic tensor physical quantity by moving a given vector value.
   void operator=(Value::SymmetricDyad&& value) noexcept {
     value_ = std::move(value);
   }
@@ -110,8 +114,7 @@ protected:
 };
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const DimensionlessSymmetricDyadQuantity& quantity) noexcept {
+    std::ostream& stream, const DimensionlessSymmetricDyadQuantity& quantity) {
   stream << quantity.Print();
   return stream;
 }

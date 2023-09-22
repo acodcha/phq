@@ -31,25 +31,23 @@ class LuminousIntensity {
 public:
   // Default constructor. Constructs a base physical dimension of luminous
   // intensity with a value of zero.
-  constexpr LuminousIntensity() noexcept : value_(0) {}
+  constexpr LuminousIntensity() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of luminous intensity
   // with a given value.
-  explicit constexpr LuminousIntensity(const int8_t value) noexcept
-    : value_(value) {}
+  explicit constexpr LuminousIntensity(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~LuminousIntensity() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of luminous
   // intensity by copying another one.
-  constexpr LuminousIntensity(
-      const LuminousIntensity& other) noexcept = default;
+  constexpr LuminousIntensity(const LuminousIntensity& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of luminous intensity by copying from another one.
   constexpr LuminousIntensity& operator=(
-      const LuminousIntensity& other) noexcept = default;
+      const LuminousIntensity& other) = default;
 
   // Move constructor. Constructs a base physical dimension of luminous
   // intensity by moving another one.
@@ -124,7 +122,7 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const LuminousIntensity& intensity) noexcept {
+    std::ostream& stream, const LuminousIntensity& intensity) {
   stream << intensity.Print();
   return stream;
 }

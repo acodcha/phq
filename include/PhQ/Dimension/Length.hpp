@@ -31,22 +31,22 @@ class Length {
 public:
   // Default constructor. Constructs a base physical dimension of length with a
   // value of zero.
-  constexpr Length() noexcept : value_(0) {}
+  constexpr Length() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of length with a given
   // value.
-  explicit constexpr Length(const int8_t value) noexcept : value_(value) {}
+  explicit constexpr Length(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~Length() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of length by copying
   // another one.
-  constexpr Length(const Length& other) noexcept = default;
+  constexpr Length(const Length& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of length by copying from another one.
-  constexpr Length& operator=(const Length& other) noexcept = default;
+  constexpr Length& operator=(const Length& other) = default;
 
   // Move constructor. Constructs a base physical dimension of length by moving
   // another one.
@@ -119,8 +119,7 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Length& length) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Length& length) {
   stream << length.Print();
   return stream;
 }

@@ -52,7 +52,7 @@ public:
       const Dimension::ElectricCurrent& electric_current = {},
       const Dimension::Temperature& temperature = {},
       const Dimension::SubstanceAmount& substance_amount = {},
-      const Dimension::LuminousIntensity& luminous_intensity = {}) noexcept
+      const Dimension::LuminousIntensity& luminous_intensity = {})
     : time_(time), length_(length), mass_(mass),
       electric_current_(electric_current), temperature_(temperature),
       substance_amount_(substance_amount),
@@ -63,11 +63,11 @@ public:
 
   // Copy constructor. Constructs a physical dimension set by copying another
   // one.
-  constexpr Dimensions(const Dimensions& other) noexcept = default;
+  constexpr Dimensions(const Dimensions& other) = default;
 
   // Copy assignment operator. Assigns the base physical dimensions of this
   // physical dimension set by copying from another one.
-  constexpr Dimensions& operator=(const Dimensions& other) noexcept = default;
+  constexpr Dimensions& operator=(const Dimensions& other) = default;
 
   // Move constructor. Constructs a physical dimension set by moving another
   // one.
@@ -114,7 +114,7 @@ public:
   }
 
   // Prints this physical dimension set as a string.
-  std::string Print() const noexcept {
+  std::string Print() const {
     std::string text;
     const std::string time{time_.Print()};
     const std::string length{length_.Print()};
@@ -167,7 +167,7 @@ public:
   }
 
   // Serializes this physical dimension set as a JSON message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     std::string text;
     if (time_.Value() != 0) {
       text.append("\"" + SnakeCaseCopy(time_.Label())
@@ -219,7 +219,7 @@ public:
   }
 
   // Serializes this physical dimension set as an XML message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     std::string text;
     if (time_.Value() != 0) {
       const std::string label{SnakeCaseCopy(time_.Label())};
@@ -261,7 +261,7 @@ public:
   }
 
   // Serializes this physical dimension set as a YAML message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     std::string text;
     if (time_.Value() != 0) {
       text.append(

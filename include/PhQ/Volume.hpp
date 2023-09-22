@@ -31,59 +31,58 @@ class VolumeRate;
 // Volume.
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
 public:
-  constexpr Volume() noexcept : DimensionalScalarQuantity<Unit::Volume>() {}
+  constexpr Volume() : DimensionalScalarQuantity<Unit::Volume>() {}
 
-  Volume(const double value, const Unit::Volume unit) noexcept
+  Volume(const double value, const Unit::Volume unit)
     : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
-  constexpr Volume(const VolumeRate& volume_rate, const Time& time) noexcept;
+  constexpr Volume(const VolumeRate& volume_rate, const Time& time);
 
-  constexpr Volume(
-      const VolumeRate& volume_rate, const Frequency& frequency) noexcept;
+  constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency);
 
-  constexpr Volume(const MassDensity& mass_density, const Mass& mass) noexcept;
+  constexpr Volume(const MassDensity& mass_density, const Mass& mass);
 
-  static constexpr Volume Zero() noexcept {
+  static constexpr Volume Zero() {
     return Volume{0.0};
   }
 
   template <Unit::Volume Unit>
-  static constexpr Volume Create(const double value) noexcept {
+  static constexpr Volume Create(const double value) {
     return Volume{
         StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
-  constexpr Volume operator+(const Volume& volume) const noexcept {
+  constexpr Volume operator+(const Volume& volume) const {
     return Volume{value_ + volume.value_};
   }
 
-  constexpr Volume operator-(const Volume& volume) const noexcept {
+  constexpr Volume operator-(const Volume& volume) const {
     return Volume{value_ - volume.value_};
   }
 
-  constexpr Volume operator*(const double number) const noexcept {
+  constexpr Volume operator*(const double number) const {
     return Volume{value_ * number};
   }
 
-  constexpr Mass operator*(const MassDensity& mass_density) const noexcept;
+  constexpr Mass operator*(const MassDensity& mass_density) const;
 
-  constexpr VolumeRate operator*(const Frequency& frequency) const noexcept;
+  constexpr VolumeRate operator*(const Frequency& frequency) const;
 
-  constexpr Volume operator/(const double number) const noexcept {
+  constexpr Volume operator/(const double number) const {
     return Volume{value_ / number};
   }
 
-  constexpr Area operator/(const Length& length) const noexcept {
+  constexpr Area operator/(const Length& length) const {
     return Area{value_ / length.Value()};
   }
 
-  constexpr Length operator/(const Area& area) const noexcept {
+  constexpr Length operator/(const Area& area) const {
     return Length{value_ / area.Value()};
   }
 
-  constexpr VolumeRate operator/(const Time& time) const noexcept;
+  constexpr VolumeRate operator/(const Time& time) const;
 
-  constexpr Time operator/(const VolumeRate& volume_rate) const noexcept;
+  constexpr Time operator/(const VolumeRate& volume_rate) const;
 
   constexpr double operator/(const Volume& volume) const noexcept {
     return value_ / volume.value_;
@@ -106,7 +105,7 @@ public:
   }
 
 private:
-  explicit constexpr Volume(const double value) noexcept
+  explicit constexpr Volume(const double value)
     : DimensionalScalarQuantity<Unit::Volume>(value) {}
 
   friend class Length;
@@ -143,22 +142,20 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Volume& volume) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Volume& volume) {
   stream << volume.Print();
   return stream;
 }
 
-inline constexpr Volume operator*(
-    const double number, const Volume& volume) noexcept {
+inline constexpr Volume operator*(const double number, const Volume& volume) {
   return volume * number;
 }
 
-inline constexpr Volume Length::operator*(const Area& area) const noexcept {
+inline constexpr Volume Length::operator*(const Area& area) const {
   return Volume{value_ * area.Value()};
 }
 
-inline constexpr Volume Area::operator*(const Length& length) const noexcept {
+inline constexpr Volume Area::operator*(const Length& length) const {
   return Volume{value_ * length.Value()};
 }
 

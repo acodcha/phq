@@ -40,79 +40,76 @@ class Velocity;
 // Planar angle.
 class Angle : public DimensionalScalarQuantity<Unit::Angle> {
 public:
-  constexpr Angle() noexcept : DimensionalScalarQuantity<Unit::Angle>() {}
+  constexpr Angle() : DimensionalScalarQuantity<Unit::Angle>() {}
 
-  Angle(const double value, const Unit::Angle unit) noexcept
+  Angle(const double value, const Unit::Angle unit)
     : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  Angle(const Value::Vector& vector1, const Value::Vector& vector2) noexcept
+  Angle(const Value::Vector& vector1, const Value::Vector& vector2)
     : DimensionalScalarQuantity<Unit::Angle>(std::acos(
         vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
-  Angle(const Value::Vector& vector, const Direction& direction) noexcept;
+  Angle(const Value::Vector& vector, const Direction& direction);
 
-  Angle(const Direction& direction, const Value::Vector& vector) noexcept;
+  Angle(const Direction& direction, const Value::Vector& vector);
 
-  Angle(const Direction& direction1, const Direction& direction2) noexcept;
+  Angle(const Direction& direction1, const Direction& direction2);
 
-  constexpr Angle(const AngularSpeed& angular_speed, const Time& time) noexcept;
+  constexpr Angle(const AngularSpeed& angular_speed, const Time& time);
 
   constexpr Angle(
-      const AngularSpeed& angular_speed, const Frequency& frequency) noexcept;
+      const AngularSpeed& angular_speed, const Frequency& frequency);
 
-  Angle(const Acceleration& acceleration1,
-        const Acceleration& acceleration2) noexcept;
+  Angle(const Acceleration& acceleration1, const Acceleration& acceleration2);
 
-  Angle(const AreaVector& area_vector_1,
-        const AreaVector& area_vector_2) noexcept;
+  Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2);
 
-  Angle(const Displacement& displacement1,
-        const Displacement& displacement2) noexcept;
+  Angle(const Displacement& displacement1, const Displacement& displacement2);
 
-  Angle(const Force& force1, const Force& force2) noexcept;
+  Angle(const Force& force1, const Force& force2);
 
-  Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2) noexcept;
+  Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2);
 
-  Angle(const Position& position1, const Position& position2) noexcept;
+  Angle(const Position& position1, const Position& position2);
 
   Angle(const TemperatureGradient& temperature_gradient_1,
-        const TemperatureGradient& temperature_gradient_2) noexcept;
+        const TemperatureGradient& temperature_gradient_2);
 
-  Angle(const Traction& traction1, const Traction& traction2) noexcept;
+  Angle(const Traction& traction1, const Traction& traction2);
 
-  Angle(const Velocity& velocity1, const Velocity& velocity2) noexcept;
+  Angle(const Velocity& velocity1, const Velocity& velocity2);
 
-  static constexpr Angle Zero() noexcept {
+  static constexpr Angle Zero() {
     return Angle{0.0};
   }
 
   template <Unit::Angle Unit>
-  static constexpr Angle Create(const double value) noexcept {
+  static constexpr Angle Create(const double value) {
     return Angle{
         StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
-  constexpr Angle operator+(const Angle& other) const noexcept {
+  constexpr Angle operator+(const Angle& other) const {
     return Angle{value_ + other.value_};
   }
 
-  constexpr Angle operator-(const Angle& other) const noexcept {
+  constexpr Angle operator-(const Angle& other) const {
     return Angle{value_ - other.value_};
   }
 
-  constexpr Angle operator*(const double number) const noexcept {
+  constexpr Angle operator*(const double number) const {
     return Angle{value_ * number};
   }
 
-  constexpr AngularSpeed operator*(const Frequency& frequency) const noexcept;
+  constexpr AngularSpeed operator*(const Frequency& frequency) const;
 
-  constexpr Angle operator/(const double number) const noexcept {
+  constexpr Angle operator/(const double number) const {
     return Angle{value_ / number};
   }
 
-  constexpr AngularSpeed operator/(const Time& time) const noexcept;
+  constexpr AngularSpeed operator/(const Time& time) const;
 
-  constexpr Time operator/(const AngularSpeed& angular_speed) const noexcept;
+  constexpr Time operator/(const AngularSpeed& angular_speed) const;
 
   constexpr double operator/(const Angle& angle) const noexcept {
     return value_ / angle.value_;
@@ -135,7 +132,7 @@ public:
   }
 
 private:
-  explicit constexpr Angle(const double value) noexcept
+  explicit constexpr Angle(const double value)
     : DimensionalScalarQuantity<Unit::Angle>(value) {}
 
   friend class Direction;
@@ -171,19 +168,16 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Angle& angle) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Angle& angle) {
   stream << angle.Print();
   return stream;
 }
 
-inline constexpr Angle operator*(
-    const double number, const Angle& angle) noexcept {
+inline constexpr Angle operator*(const double number, const Angle& angle) {
   return angle * number;
 }
 
-inline PhQ::Angle Value::Vector::Angle(
-    const Value::Vector& vector) const noexcept {
+inline PhQ::Angle Value::Vector::Angle(const Value::Vector& vector) const {
   return PhQ::Angle{*this, vector};
 }
 

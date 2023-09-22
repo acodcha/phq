@@ -26,39 +26,36 @@ namespace PhQ {
 class SpecificIsochoricHeatCapacity
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
-  constexpr SpecificIsochoricHeatCapacity() noexcept
+  constexpr SpecificIsochoricHeatCapacity()
     : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
 
   SpecificIsochoricHeatCapacity(
-      const double value, const Unit::SpecificHeatCapacity unit) noexcept
+      const double value, const Unit::SpecificHeatCapacity unit)
     : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
 
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificGasConstant& specific_gas_constant,
-      const SpecificIsobaricHeatCapacity&
-          specific_isobaric_heat_capacity) noexcept;
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificGasConstant& specific_gas_constant,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept;
+      const SpecificHeatRatio& specific_heat_ratio);
 
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept;
+      const SpecificHeatRatio& specific_heat_ratio);
 
   constexpr SpecificIsochoricHeatCapacity(
-      const IsochoricHeatCapacity& isochoric_heat_capacity,
-      const Mass& mass) noexcept
+      const IsochoricHeatCapacity& isochoric_heat_capacity, const Mass& mass)
     : SpecificIsochoricHeatCapacity(
         isochoric_heat_capacity.Value() / mass.Value()) {}
 
-  static constexpr SpecificIsochoricHeatCapacity Zero() noexcept {
+  static constexpr SpecificIsochoricHeatCapacity Zero() {
     return SpecificIsochoricHeatCapacity{0.0};
   }
 
   template <Unit::SpecificHeatCapacity Unit>
-  static constexpr SpecificIsochoricHeatCapacity
-  Create(const double value) noexcept {
+  static constexpr SpecificIsochoricHeatCapacity Create(const double value) {
     return SpecificIsochoricHeatCapacity{
         StaticConvertCopy<Unit::SpecificHeatCapacity, Unit,
                           Standard<Unit::SpecificHeatCapacity>>(value)};
@@ -66,35 +63,33 @@ public:
 
   constexpr SpecificIsochoricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-      const noexcept {
+      const {
     return SpecificIsochoricHeatCapacity{
         value_ + specific_isochoric_heat_capacity.value_};
   }
 
   constexpr SpecificIsobaricHeatCapacity operator+(
-      const SpecificGasConstant& specific_gas_constant) const noexcept;
+      const SpecificGasConstant& specific_gas_constant) const;
 
   constexpr SpecificIsochoricHeatCapacity operator-(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-      const noexcept {
+      const {
     return SpecificIsochoricHeatCapacity{
         value_ - specific_isochoric_heat_capacity.value_};
   }
 
-  constexpr SpecificIsochoricHeatCapacity operator*(
-      const double number) const noexcept {
+  constexpr SpecificIsochoricHeatCapacity operator*(const double number) const {
     return SpecificIsochoricHeatCapacity{value_ * number};
   }
 
-  constexpr IsochoricHeatCapacity operator*(const Mass& mass) const noexcept {
+  constexpr IsochoricHeatCapacity operator*(const Mass& mass) const {
     return {*this, mass};
   }
 
   constexpr SpecificIsobaricHeatCapacity operator*(
-      const SpecificHeatRatio& specific_heat_ratio) const noexcept;
+      const SpecificHeatRatio& specific_heat_ratio) const;
 
-  constexpr SpecificIsochoricHeatCapacity operator/(
-      const double number) const noexcept {
+  constexpr SpecificIsochoricHeatCapacity operator/(const double number) const {
     return SpecificIsochoricHeatCapacity{value_ / number};
   }
 
@@ -123,7 +118,7 @@ public:
   }
 
 private:
-  explicit constexpr SpecificIsochoricHeatCapacity(const double value) noexcept
+  explicit constexpr SpecificIsochoricHeatCapacity(const double value)
     : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
 };
 
@@ -164,44 +159,44 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const SpecificIsochoricHeatCapacity&
-                              specific_isochoric_heat_capacity) noexcept {
+    std::ostream& stream,
+    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) {
   stream << specific_isochoric_heat_capacity.Print();
   return stream;
 }
 
 inline constexpr SpecificIsochoricHeatCapacity operator*(
-    const double number, const SpecificIsochoricHeatCapacity&
-                             specific_isochoric_heat_capacity) noexcept {
+    const double number,
+    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) {
   return specific_isochoric_heat_capacity * number;
 }
 
 inline constexpr Mass::Mass(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-    const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept
+    const IsochoricHeatCapacity& isochoric_heat_capacity)
   : Mass(isochoric_heat_capacity.Value()
          / specific_isochoric_heat_capacity.Value()) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-    const Mass& mass) noexcept
+    const Mass& mass)
   : IsochoricHeatCapacity(
       specific_isochoric_heat_capacity.Value() * mass.Value()) {}
 
 inline constexpr IsochoricHeatCapacity Mass::operator*(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-    const noexcept {
+    const {
   return {specific_isochoric_heat_capacity, *this};
 }
 
 inline constexpr SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(
-    const Mass& mass) const noexcept {
+    const Mass& mass) const {
   return {*this, mass};
 }
 
 inline constexpr Mass IsochoricHeatCapacity::operator/(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-    const noexcept {
+    const {
   return {specific_isochoric_heat_capacity, *this};
 }
 

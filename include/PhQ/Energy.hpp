@@ -48,65 +48,61 @@ class TransportEnergyConsumption;
 // Energy.
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
-  constexpr Energy() noexcept : DimensionalScalarQuantity<Unit::Energy>() {}
+  constexpr Energy() : DimensionalScalarQuantity<Unit::Energy>() {}
 
-  Energy(const double value, const Unit::Energy unit) noexcept
+  Energy(const double value, const Unit::Energy unit)
     : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
-  constexpr Energy(const Power& power, const Time& time) noexcept;
+  constexpr Energy(const Power& power, const Time& time);
 
-  constexpr Energy(const Power& power, const Frequency& frequency) noexcept;
+  constexpr Energy(const Power& power, const Frequency& frequency);
 
-  constexpr Energy(
-      const SpecificEnergy& specific_energy, const Mass& mass) noexcept;
+  constexpr Energy(const SpecificEnergy& specific_energy, const Mass& mass);
 
   constexpr Energy(
       const Length& length,
-      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
+      const TransportEnergyConsumption& transport_energy_consumption);
 
-  static constexpr Energy Zero() noexcept {
+  static constexpr Energy Zero() {
     return Energy{0.0};
   }
 
   template <Unit::Energy Unit>
-  static constexpr Energy Create(const double value) noexcept {
+  static constexpr Energy Create(const double value) {
     return Energy{
         StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
-  constexpr Energy operator+(const Energy& energy) const noexcept {
+  constexpr Energy operator+(const Energy& energy) const {
     return Energy{value_ + energy.value_};
   }
 
-  constexpr Energy operator-(const Energy& energy) const noexcept {
+  constexpr Energy operator-(const Energy& energy) const {
     return Energy{value_ - energy.value_};
   }
 
-  constexpr Energy operator*(const double number) const noexcept {
+  constexpr Energy operator*(const double number) const {
     return Energy{value_ * number};
   }
 
-  constexpr Power operator*(const Frequency& frequency) const noexcept;
+  constexpr Power operator*(const Frequency& frequency) const;
 
-  constexpr Energy operator/(const double number) const noexcept {
+  constexpr Energy operator/(const double number) const {
     return Energy{value_ / number};
   }
 
-  constexpr Power operator/(const Time& time) const noexcept;
+  constexpr Power operator/(const Time& time) const;
 
-  constexpr Time operator/(const Power& power) const noexcept;
+  constexpr Time operator/(const Power& power) const;
 
-  constexpr SpecificEnergy operator/(const Mass& mass) const noexcept;
+  constexpr SpecificEnergy operator/(const Mass& mass) const;
 
-  constexpr Mass operator/(
-      const SpecificEnergy& specific_energy) const noexcept;
+  constexpr Mass operator/(const SpecificEnergy& specific_energy) const;
 
-  constexpr TransportEnergyConsumption operator/(
-      const Length& length) const noexcept;
+  constexpr TransportEnergyConsumption operator/(const Length& length) const;
 
-  constexpr Length
-  operator/(const TransportEnergyConsumption& transport_energy_consumption)
-      const noexcept;
+  constexpr Length operator/(
+      const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr double operator/(const Energy& energy) const noexcept {
     return value_ / energy.value_;
@@ -129,7 +125,7 @@ public:
   }
 
 private:
-  explicit constexpr Energy(const double value) noexcept
+  explicit constexpr Energy(const double value)
     : DimensionalScalarQuantity<Unit::Energy>(value) {}
 };
 
@@ -163,14 +159,12 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Energy& energy) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Energy& energy) {
   stream << energy.Print();
   return stream;
 }
 
-inline constexpr Energy operator*(
-    const double number, const Energy& energy) noexcept {
+inline constexpr Energy operator*(const double number, const Energy& energy) {
   return energy * number;
 }
 

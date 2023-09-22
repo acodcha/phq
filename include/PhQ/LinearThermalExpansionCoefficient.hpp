@@ -27,20 +27,20 @@ namespace PhQ {
 class LinearThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
-  constexpr LinearThermalExpansionCoefficient() noexcept
+  constexpr LinearThermalExpansionCoefficient()
     : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
 
   LinearThermalExpansionCoefficient(
-      const double value, const Unit::ThermalExpansion unit) noexcept
+      const double value, const Unit::ThermalExpansion unit)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
-  static constexpr LinearThermalExpansionCoefficient Zero() noexcept {
+  static constexpr LinearThermalExpansionCoefficient Zero() {
     return LinearThermalExpansionCoefficient{0.0};
   }
 
   template <Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient
-  Create(const double value) noexcept {
+  Create(const double value) {
     return LinearThermalExpansionCoefficient{
         StaticConvertCopy<Unit::ThermalExpansion, Unit,
                           Standard<Unit::ThermalExpansion>>(value)};
@@ -48,30 +48,30 @@ public:
 
   constexpr LinearThermalExpansionCoefficient operator+(
       const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient) const noexcept {
+          linear_thermal_expansion_coefficient) const {
     return LinearThermalExpansionCoefficient{
         value_ + linear_thermal_expansion_coefficient.value_};
   }
 
   constexpr LinearThermalExpansionCoefficient operator-(
       const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient) const noexcept {
+          linear_thermal_expansion_coefficient) const {
     return LinearThermalExpansionCoefficient{
         value_ - linear_thermal_expansion_coefficient.value_};
   }
 
   constexpr LinearThermalExpansionCoefficient operator*(
-      const double number) const noexcept {
+      const double number) const {
     return LinearThermalExpansionCoefficient{value_ * number};
   }
 
   constexpr StrainScalar operator*(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return {*this, temperature_difference};
   }
 
   constexpr LinearThermalExpansionCoefficient operator/(
-      const double number) const noexcept {
+      const double number) const {
     return LinearThermalExpansionCoefficient{value_ / number};
   }
 
@@ -100,8 +100,7 @@ public:
   }
 
 private:
-  explicit constexpr LinearThermalExpansionCoefficient(
-      const double value) noexcept
+  explicit constexpr LinearThermalExpansionCoefficient(const double value)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };
 
@@ -143,27 +142,27 @@ inline constexpr bool operator>=(
 
 inline std::ostream& operator<<(
     std::ostream& stream, const LinearThermalExpansionCoefficient&
-                              linear_thermal_expansion_coefficient) noexcept {
+                              linear_thermal_expansion_coefficient) {
   stream << linear_thermal_expansion_coefficient.Print();
   return stream;
 }
 
 inline constexpr LinearThermalExpansionCoefficient operator*(
     const double number, const LinearThermalExpansionCoefficient&
-                             linear_thermal_expansion_coefficient) noexcept {
+                             linear_thermal_expansion_coefficient) {
   return linear_thermal_expansion_coefficient * number;
 }
 
 inline constexpr StrainScalar::StrainScalar(
     const LinearThermalExpansionCoefficient&
         linear_thermal_expansion_coefficient,
-    const TemperatureDifference& temperature_difference) noexcept
+    const TemperatureDifference& temperature_difference)
   : StrainScalar(linear_thermal_expansion_coefficient.Value()
                  * temperature_difference.Value()) {}
 
 inline constexpr StrainScalar TemperatureDifference::operator*(
     const LinearThermalExpansionCoefficient&
-        linear_thermal_expansion_coefficient) const noexcept {
+        linear_thermal_expansion_coefficient) const {
   return {linear_thermal_expansion_coefficient, *this};
 }
 

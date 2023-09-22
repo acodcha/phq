@@ -30,65 +30,64 @@ class TransportEnergyConsumption;
 // rate.
 class Power : public DimensionalScalarQuantity<Unit::Power> {
 public:
-  constexpr Power() noexcept : DimensionalScalarQuantity<Unit::Power>() {}
+  constexpr Power() : DimensionalScalarQuantity<Unit::Power>() {}
 
-  Power(const double value, const Unit::Power unit) noexcept
+  Power(const double value, const Unit::Power unit)
     : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
 
-  constexpr Power(const Energy& energy, const Time& time) noexcept
+  constexpr Power(const Energy& energy, const Time& time)
     : Power(energy.Value() / time.Value()) {}
 
-  constexpr Power(const Energy& energy, const Frequency& frequency) noexcept
+  constexpr Power(const Energy& energy, const Frequency& frequency)
     : Power(energy.Value() * frequency.Value()) {}
 
-  constexpr Power(
-      const SpecificPower& specific_power, const Mass& mass) noexcept;
+  constexpr Power(const SpecificPower& specific_power, const Mass& mass);
 
   constexpr Power(
       const Speed& speed,
-      const TransportEnergyConsumption& transport_energy_consumption) noexcept;
+      const TransportEnergyConsumption& transport_energy_consumption);
 
-  static constexpr Power Zero() noexcept {
+  static constexpr Power Zero() {
     return Power{0.0};
   }
 
   template <Unit::Power Unit>
-  static constexpr Power Create(const double value) noexcept {
+  static constexpr Power Create(const double value) {
     return Power{
         StaticConvertCopy<Unit::Power, Unit, Standard<Unit::Power>>(value)};
   }
 
-  constexpr Power operator+(const Power& power) const noexcept {
+  constexpr Power operator+(const Power& power) const {
     return Power{value_ + power.value_};
   }
 
-  constexpr Power operator-(const Power& power) const noexcept {
+  constexpr Power operator-(const Power& power) const {
     return Power{value_ - power.value_};
   }
 
-  constexpr Power operator*(const double number) const noexcept {
+  constexpr Power operator*(const double number) const {
     return Power{value_ * number};
   }
 
-  constexpr Energy operator*(const Time& time) const noexcept {
+  constexpr Energy operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr Power operator/(const double number) const noexcept {
+  constexpr Power operator/(const double number) const {
     return Power{value_ / number};
   }
 
-  constexpr Energy operator/(const Frequency& frequency) const noexcept {
+  constexpr Energy operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Energy& energy) const noexcept {
+  constexpr Frequency operator/(const Energy& energy) const {
     return {*this, energy};
   }
 
-  constexpr SpecificPower operator/(const Mass& mass) const noexcept;
+  constexpr SpecificPower operator/(const Mass& mass) const;
 
-  constexpr Mass operator/(const SpecificPower& specific_power) const noexcept;
+  constexpr Mass operator/(const SpecificPower& specific_power) const;
 
   constexpr double operator/(const Power& power) const noexcept {
     return value_ / power.value_;
@@ -111,7 +110,7 @@ public:
   }
 
 private:
-  explicit constexpr Power(const double value) noexcept
+  explicit constexpr Power(const double value)
     : DimensionalScalarQuantity<Unit::Power>(value) {}
 };
 
@@ -145,50 +144,44 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Power& power) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Power& power) {
   stream << power.Print();
   return stream;
 }
 
-inline constexpr Power operator*(
-    const double number, const Power& power) noexcept {
+inline constexpr Power operator*(const double number, const Power& power) {
   return power * number;
 }
 
-inline constexpr Time::Time(const Power& power, const Energy& energy) noexcept
+inline constexpr Time::Time(const Power& power, const Energy& energy)
   : Time(energy.Value() / power.Value()) {}
 
-inline constexpr Frequency::Frequency(
-    const Power& power, const Energy& energy) noexcept
+inline constexpr Frequency::Frequency(const Power& power, const Energy& energy)
   : Frequency(power.Value() / energy.Value()) {}
 
-inline constexpr Energy::Energy(const Power& power, const Time& time) noexcept
+inline constexpr Energy::Energy(const Power& power, const Time& time)
   : Energy(power.Value() * time.Value()) {}
 
-inline constexpr Energy::Energy(
-    const Power& power, const Frequency& frequency) noexcept
+inline constexpr Energy::Energy(const Power& power, const Frequency& frequency)
   : Energy(power.Value() / frequency.Value()) {}
 
-inline constexpr Energy Time::operator*(const Power& power) const noexcept {
+inline constexpr Energy Time::operator*(const Power& power) const {
   return {power, *this};
 }
 
-inline constexpr Power Frequency::operator*(
-    const Energy& energy) const noexcept {
+inline constexpr Power Frequency::operator*(const Energy& energy) const {
   return {energy, *this};
 }
 
-inline constexpr Power Energy::operator*(
-    const Frequency& frequency) const noexcept {
+inline constexpr Power Energy::operator*(const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr Power Energy::operator/(const Time& time) const noexcept {
+inline constexpr Power Energy::operator/(const Time& time) const {
   return {*this, time};
 }
 
-inline constexpr Time Energy::operator/(const Power& power) const noexcept {
+inline constexpr Time Energy::operator/(const Power& power) const {
   return {power, *this};
 }
 

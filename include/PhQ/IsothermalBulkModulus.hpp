@@ -24,40 +24,38 @@ namespace PhQ {
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
 class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr IsothermalBulkModulus() noexcept
+  constexpr IsothermalBulkModulus()
     : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  IsothermalBulkModulus(const double value, const Unit::Pressure unit) noexcept
+  IsothermalBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  static constexpr IsothermalBulkModulus Zero() noexcept {
+  static constexpr IsothermalBulkModulus Zero() {
     return IsothermalBulkModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr IsothermalBulkModulus Create(const double value) noexcept {
+  static constexpr IsothermalBulkModulus Create(const double value) {
     return IsothermalBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
   constexpr IsothermalBulkModulus operator+(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+      const IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return {value_ + isothermal_bulk_modulus.value_};
   }
 
   constexpr IsothermalBulkModulus operator-(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+      const IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return {value_ - isothermal_bulk_modulus.value_};
   }
 
-  constexpr IsothermalBulkModulus operator*(
-      const double number) const noexcept {
+  constexpr IsothermalBulkModulus operator*(const double number) const {
     return IsothermalBulkModulus{value_ * number};
   }
 
-  constexpr IsothermalBulkModulus operator/(
-      const double number) const noexcept {
+  constexpr IsothermalBulkModulus operator/(const double number) const {
     return IsothermalBulkModulus{value_ / number};
   }
 
@@ -85,7 +83,7 @@ public:
   }
 
 private:
-  constexpr IsothermalBulkModulus(const double value) noexcept
+  constexpr IsothermalBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -121,14 +119,13 @@ inline constexpr bool operator>=(const IsothermalBulkModulus& left,
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+    const IsothermalBulkModulus& isothermal_bulk_modulus) {
   stream << isothermal_bulk_modulus.Print();
   return stream;
 }
 
 inline constexpr IsothermalBulkModulus operator*(
-    const double number,
-    const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+    const double number, const IsothermalBulkModulus& isothermal_bulk_modulus) {
   return isothermal_bulk_modulus * number;
 }
 

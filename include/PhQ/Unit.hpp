@@ -100,7 +100,7 @@ inline const std::map<
 // measure. The conversion is performed in-place.
 template <typename Unit>
 inline void
-Convert(double& value, const Unit original_unit, const Unit new_unit) noexcept {
+Convert(double& value, const Unit original_unit, const Unit new_unit) {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&value, 1);
   }
@@ -114,7 +114,7 @@ Convert(double& value, const Unit original_unit, const Unit new_unit) noexcept {
 // unit of measure. The conversion is performed in-place.
 template <typename Unit, std::size_t Size>
 inline void Convert(std::array<double, Size>& values, const Unit original_unit,
-                    const Unit new_unit) noexcept {
+                    const Unit new_unit) {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(&values[0], Size);
   }
@@ -128,7 +128,7 @@ inline void Convert(std::array<double, Size>& values, const Unit original_unit,
 // unit of measure. The conversion is performed in-place.
 template <typename Unit>
 inline void Convert(std::vector<double>& values, const Unit original_unit,
-                    const Unit new_unit) noexcept {
+                    const Unit new_unit) {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(
         &values[0], values.size());
@@ -142,8 +142,8 @@ inline void Convert(std::vector<double>& values, const Unit original_unit,
 // Converts a three-dimensional vector value expressed in a given unit of
 // measure to a new unit of measure. The conversion is performed in-place.
 template <typename Unit>
-inline void Convert(Value::Vector& value, const Unit original_unit,
-                    const Unit new_unit) noexcept {
+inline void
+Convert(Value::Vector& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 3>(value.Mutable_x_y_z(), original_unit, new_unit);
 }
 
@@ -151,15 +151,15 @@ inline void Convert(Value::Vector& value, const Unit original_unit,
 // to a new unit of measure. The conversion is performed in-place.
 template <typename Unit>
 inline void Convert(Value::SymmetricDyad& value, const Unit original_unit,
-                    const Unit new_unit) noexcept {
+                    const Unit new_unit) {
   Convert<Unit, 6>(value.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
 }
 
 // Converts a dyadic tensor value expressed in a given unit of measure to a new
 // unit of measure. The conversion is performed in-place.
 template <typename Unit>
-inline void Convert(Value::Dyad& value, const Unit original_unit,
-                    const Unit new_unit) noexcept {
+inline void
+Convert(Value::Dyad& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 9>(
       value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
@@ -168,8 +168,8 @@ inline void Convert(Value::Dyad& value, const Unit original_unit,
 // measure. Returns a copy of the converted value. The original value remains
 // unchanged.
 template <typename Unit>
-inline double ConvertCopy(const double value, const Unit original_unit,
-                          const Unit new_unit) noexcept {
+inline double
+ConvertCopy(const double value, const Unit original_unit, const Unit new_unit) {
   double result{value};
   Convert<Unit>(result, original_unit, new_unit);
   return result;
@@ -181,7 +181,7 @@ inline double ConvertCopy(const double value, const Unit original_unit,
 template <typename Unit, std::size_t Size>
 inline std::array<double, Size>
 ConvertCopy(const std::array<double, Size>& values, const Unit original_unit,
-            const Unit new_unit) noexcept {
+            const Unit new_unit) {
   std::array<double, Size> result{values};
   Convert<Unit, Size>(result, original_unit, new_unit);
   return result;
@@ -193,7 +193,7 @@ ConvertCopy(const std::array<double, Size>& values, const Unit original_unit,
 template <typename Unit>
 inline std::vector<double>
 ConvertCopy(const std::vector<double>& values, const Unit original_unit,
-            const Unit new_unit) noexcept {
+            const Unit new_unit) {
   std::vector<double> result{values};
   Convert<Unit>(result, original_unit, new_unit);
   return result;
@@ -203,9 +203,8 @@ ConvertCopy(const std::vector<double>& values, const Unit original_unit,
 // measure to a new unit of measure. Returns a copy of the converted value. The
 // original value remains unchanged.
 template <typename Unit>
-inline Value::Vector
-ConvertCopy(const Value::Vector& value, const Unit original_unit,
-            const Unit new_unit) noexcept {
+inline Value::Vector ConvertCopy(
+    const Value::Vector& value, const Unit original_unit, const Unit new_unit) {
   return Value::Vector{
       ConvertCopy<Unit, 3>(value.x_y_z(), original_unit, new_unit)};
 }
@@ -216,7 +215,7 @@ ConvertCopy(const Value::Vector& value, const Unit original_unit,
 template <typename Unit>
 inline Value::SymmetricDyad
 ConvertCopy(const Value::SymmetricDyad& value, const Unit original_unit,
-            const Unit new_unit) noexcept {
+            const Unit new_unit) {
   return Value::SymmetricDyad{
       ConvertCopy<Unit, 6>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
@@ -225,9 +224,8 @@ ConvertCopy(const Value::SymmetricDyad& value, const Unit original_unit,
 // unit of measure. Returns a copy of the converted value. The original value
 // remains unchanged.
 template <typename Unit>
-inline Value::Dyad
-ConvertCopy(const Value::Dyad& value, const Unit original_unit,
-            const Unit new_unit) noexcept {
+inline Value::Dyad ConvertCopy(
+    const Value::Dyad& value, const Unit original_unit, const Unit new_unit) {
   return Value::Dyad{ConvertCopy<Unit, 9>(
       value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
 }
@@ -236,7 +234,7 @@ ConvertCopy(const Value::Dyad& value, const Unit original_unit,
 // measure. The conversion is performed in-place. This function can be evaluated
 // at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(double& value) noexcept {
+inline constexpr void StaticConvert(double& value) {
   Internal::ConversionToStandard<Unit, OriginalUnit>(value);
   Internal::ConversionFromStandard<Unit, NewUnit>(value);
 }
@@ -245,7 +243,7 @@ inline constexpr void StaticConvert(double& value) noexcept {
 // unit of measure. The conversion is performed in-place. This function can be
 // evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size>
-inline constexpr void StaticConvert(std::array<double, Size>& values) noexcept {
+inline constexpr void StaticConvert(std::array<double, Size>& values) {
   Internal::ConversionsToStandard<Unit, OriginalUnit>(&values[0], Size);
   Internal::ConversionsFromStandard<Unit, NewUnit>(&values[0], Size);
 }
@@ -254,7 +252,7 @@ inline constexpr void StaticConvert(std::array<double, Size>& values) noexcept {
 // measure to a new unit of measure. The conversion is performed in-place. This
 // function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::Vector& value) noexcept {
+inline constexpr void StaticConvert(Value::Vector& value) {
   StaticConvert<Unit, OriginalUnit, NewUnit, 3>(value.Mutable_x_y_z());
 }
 
@@ -262,7 +260,7 @@ inline constexpr void StaticConvert(Value::Vector& value) noexcept {
 // to a new unit of measure. The conversion is performed in-place. This function
 // can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
+inline constexpr void StaticConvert(Value::SymmetricDyad& value) {
   StaticConvert<Unit, OriginalUnit, NewUnit, 6>(
       value.Mutable_xx_xy_xz_yy_yz_zz());
 }
@@ -271,7 +269,7 @@ inline constexpr void StaticConvert(Value::SymmetricDyad& value) noexcept {
 // unit of measure. The conversion is performed in-place. This function can be
 // evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::Dyad& value) noexcept {
+inline constexpr void StaticConvert(Value::Dyad& value) {
   StaticConvert<Unit, OriginalUnit, NewUnit, 9>(
       value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
 }
@@ -280,7 +278,7 @@ inline constexpr void StaticConvert(Value::Dyad& value) noexcept {
 // measure. Returns a copy of the converted value. The original value remains
 // unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr double StaticConvertCopy(const double value) noexcept {
+inline constexpr double StaticConvertCopy(const double value) {
   double result{value};
   Internal::ConversionToStandard<Unit, OriginalUnit>(result);
   Internal::ConversionFromStandard<Unit, NewUnit>(result);
@@ -292,7 +290,7 @@ inline constexpr double StaticConvertCopy(const double value) noexcept {
 // remain unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size>
 inline constexpr std::array<double, Size>
-StaticConvertCopy(const std::array<double, Size>& values) noexcept {
+StaticConvertCopy(const std::array<double, Size>& values) {
   std::array<double, Size> result{values};
   Internal::ConversionsToStandard<Unit, OriginalUnit>(&result[0], Size);
   Internal::ConversionsFromStandard<Unit, NewUnit>(&result[0], Size);
@@ -304,8 +302,7 @@ StaticConvertCopy(const std::array<double, Size>& values) noexcept {
 // original value remains unchanged. This function can be evaluated at compile
 // time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr Value::Vector
-StaticConvertCopy(const Value::Vector& value) noexcept {
+inline constexpr Value::Vector StaticConvertCopy(const Value::Vector& value) {
   return Value::Vector{
       StaticConvertCopy<Unit, OriginalUnit, NewUnit, 3>(value.x_y_z())};
 }
@@ -315,7 +312,7 @@ StaticConvertCopy(const Value::Vector& value) noexcept {
 // value remains unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
 inline constexpr Value::SymmetricDyad
-StaticConvertCopy(const Value::SymmetricDyad& value) noexcept {
+StaticConvertCopy(const Value::SymmetricDyad& value) {
   return Value::SymmetricDyad{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 6>(
       value.xx_xy_xz_yy_yz_zz())};
 }
@@ -324,8 +321,7 @@ StaticConvertCopy(const Value::SymmetricDyad& value) noexcept {
 // unit of measure. Returns a copy of the converted value. The original value
 // remains unchanged. This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr Value::Dyad
-StaticConvertCopy(const Value::Dyad& value) noexcept {
+inline constexpr Value::Dyad StaticConvertCopy(const Value::Dyad& value) {
   return Value::Dyad{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 9>(
       value.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }

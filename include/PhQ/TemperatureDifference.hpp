@@ -35,64 +35,59 @@ class VolumetricThermalExpansionCoefficient;
 class TemperatureDifference
   : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 public:
-  constexpr TemperatureDifference() noexcept
+  constexpr TemperatureDifference()
     : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
 
   TemperatureDifference(
-      const double value, const Unit::TemperatureDifference unit) noexcept
+      const double value, const Unit::TemperatureDifference unit)
     : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
   constexpr TemperatureDifference(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude,
-      const Length& length) noexcept;
+      const Length& length);
 
-  static constexpr TemperatureDifference Zero() noexcept {
+  static constexpr TemperatureDifference Zero() {
     return TemperatureDifference{0.0};
   }
 
   template <Unit::TemperatureDifference Unit>
-  static constexpr TemperatureDifference Create(const double value) noexcept {
+  static constexpr TemperatureDifference Create(const double value) {
     return TemperatureDifference{
         StaticConvertCopy<Unit::TemperatureDifference, Unit,
                           Standard<Unit::TemperatureDifference>>(value)};
   }
 
-  constexpr Temperature operator+(
-      const Temperature& temperature) const noexcept;
+  constexpr Temperature operator+(const Temperature& temperature) const;
 
   constexpr TemperatureDifference operator+(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return TemperatureDifference{value_ + temperature_difference.value_};
   }
 
-  constexpr Temperature operator-(
-      const Temperature& temperature) const noexcept;
+  constexpr Temperature operator-(const Temperature& temperature) const;
 
   constexpr TemperatureDifference operator-(
-      const TemperatureDifference& temperature_difference) const noexcept {
+      const TemperatureDifference& temperature_difference) const {
     return TemperatureDifference{value_ - temperature_difference.value_};
   }
 
-  constexpr TemperatureDifference operator*(
-      const double number) const noexcept {
+  constexpr TemperatureDifference operator*(const double number) const {
     return TemperatureDifference{value_ * number};
   }
 
   constexpr StrainScalar operator*(
       const LinearThermalExpansionCoefficient&
-          linear_thermal_expansion_coefficient) const noexcept;
+          linear_thermal_expansion_coefficient) const;
 
   constexpr double operator*(
       const VolumetricThermalExpansionCoefficient&
-          volumetric_thermal_expansion_coefficient) const noexcept;
+          volumetric_thermal_expansion_coefficient) const;
 
-  constexpr TemperatureDifference operator/(
-      const double number) const noexcept {
+  constexpr TemperatureDifference operator/(const double number) const {
     return TemperatureDifference{value_ / number};
   }
 
-  constexpr TemperatureGradientMagnitude operator/(
-      const Length& length) const noexcept;
+  constexpr TemperatureGradientMagnitude operator/(const Length& length) const;
 
   constexpr double operator/(
       const TemperatureDifference& temperature_difference) const noexcept {
@@ -118,7 +113,7 @@ public:
   }
 
 private:
-  explicit constexpr TemperatureDifference(const double value) noexcept
+  explicit constexpr TemperatureDifference(const double value)
     : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
@@ -155,15 +150,13 @@ inline constexpr bool operator>=(const TemperatureDifference& left,
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const TemperatureDifference& temperature_difference) noexcept {
+    std::ostream& stream, const TemperatureDifference& temperature_difference) {
   stream << temperature_difference.Print();
   return stream;
 }
 
 inline constexpr TemperatureDifference operator*(
-    const double number,
-    const TemperatureDifference& temperature_difference) noexcept {
+    const double number, const TemperatureDifference& temperature_difference) {
   return temperature_difference * number;
 }
 

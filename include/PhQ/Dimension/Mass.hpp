@@ -31,22 +31,22 @@ class Mass {
 public:
   // Default constructor. Constructs a base physical dimension of mass with a
   // value of zero.
-  constexpr Mass() noexcept : value_(0) {}
+  constexpr Mass() : value_(0) {}
 
   // Constructor. Constructs a base physical dimension of mass with a given
   // value.
-  explicit constexpr Mass(const int8_t value) noexcept : value_(value) {}
+  explicit constexpr Mass(const int8_t value) : value_(value) {}
 
   // Destructor. Destroys this base physical dimension.
   ~Mass() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of mass by copying
   // another one.
-  constexpr Mass(const Mass& other) noexcept = default;
+  constexpr Mass(const Mass& other) = default;
 
   // Copy assignment operator. Assigns the value of this base physical dimension
   // of mass by copying from another one.
-  constexpr Mass& operator=(const Mass& other) noexcept = default;
+  constexpr Mass& operator=(const Mass& other) = default;
 
   // Move constructor. Constructs a base physical dimension of mass by moving
   // another one.
@@ -113,8 +113,7 @@ inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Mass& mass) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Mass& mass) {
   stream << mass.Print();
   return stream;
 }

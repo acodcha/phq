@@ -26,72 +26,67 @@ namespace PhQ {
 class IsochoricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
-  constexpr IsochoricHeatCapacity() noexcept
+  constexpr IsochoricHeatCapacity()
     : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
 
-  IsochoricHeatCapacity(
-      const double value, const Unit::HeatCapacity unit) noexcept
+  IsochoricHeatCapacity(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
   constexpr IsochoricHeatCapacity(
       const GasConstant& gas_constant,
-      const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+      const IsobaricHeatCapacity& isobaric_heat_capacity);
 
-  constexpr IsochoricHeatCapacity(
-      const GasConstant& gas_constant,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept;
+  constexpr IsochoricHeatCapacity(const GasConstant& gas_constant,
+                                  const SpecificHeatRatio& specific_heat_ratio);
 
   constexpr IsochoricHeatCapacity(
       const IsobaricHeatCapacity& isobaric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio) noexcept;
+      const SpecificHeatRatio& specific_heat_ratio);
 
   constexpr IsochoricHeatCapacity(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const Mass& mass) noexcept;
+      const Mass& mass);
 
-  static constexpr IsochoricHeatCapacity Zero() noexcept {
+  static constexpr IsochoricHeatCapacity Zero() {
     return IsochoricHeatCapacity{0.0};
   }
 
   template <Unit::HeatCapacity Unit>
-  static constexpr IsochoricHeatCapacity Create(const double value) noexcept {
+  static constexpr IsochoricHeatCapacity Create(const double value) {
     return IsochoricHeatCapacity{
         StaticConvertCopy<Unit::HeatCapacity, Unit,
                           Standard<Unit::HeatCapacity>>(value)};
   }
 
   constexpr IsochoricHeatCapacity operator+(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const {
     return IsochoricHeatCapacity{value_ + isochoric_heat_capacity.value_};
   }
 
   constexpr IsobaricHeatCapacity operator+(
-      const GasConstant& gas_constant) const noexcept;
+      const GasConstant& gas_constant) const;
 
   constexpr IsochoricHeatCapacity operator-(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
+      const IsochoricHeatCapacity& isochoric_heat_capacity) const {
     return IsochoricHeatCapacity{value_ - isochoric_heat_capacity.value_};
   }
 
-  constexpr IsochoricHeatCapacity operator*(
-      const double number) const noexcept {
+  constexpr IsochoricHeatCapacity operator*(const double number) const {
     return IsochoricHeatCapacity{value_ * number};
   }
 
   constexpr IsobaricHeatCapacity operator*(
-      const SpecificHeatRatio& specific_heat_ratio) const noexcept;
+      const SpecificHeatRatio& specific_heat_ratio) const;
 
-  constexpr IsochoricHeatCapacity operator/(
-      const double number) const noexcept {
+  constexpr IsochoricHeatCapacity operator/(const double number) const {
     return IsochoricHeatCapacity{value_ / number};
   }
 
-  constexpr SpecificIsochoricHeatCapacity operator/(
-      const Mass& mass) const noexcept;
+  constexpr SpecificIsochoricHeatCapacity operator/(const Mass& mass) const;
 
   constexpr Mass operator/(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-      const noexcept;
+      const;
 
   constexpr double operator/(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
@@ -117,7 +112,7 @@ public:
   }
 
 private:
-  explicit constexpr IsochoricHeatCapacity(const double value) noexcept
+  explicit constexpr IsochoricHeatCapacity(const double value)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 };
 
@@ -153,14 +148,13 @@ inline constexpr bool operator>=(const IsochoricHeatCapacity& left,
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
+    const IsochoricHeatCapacity& isochoric_heat_capacity) {
   stream << isochoric_heat_capacity.Print();
   return stream;
 }
 
 inline constexpr IsochoricHeatCapacity operator*(
-    const double number,
-    const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
+    const double number, const IsochoricHeatCapacity& isochoric_heat_capacity) {
   return isochoric_heat_capacity * number;
 }
 

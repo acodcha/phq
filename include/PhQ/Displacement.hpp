@@ -38,66 +38,61 @@ class Velocity;
 // Displacement vector. Not to be confused with position vector.
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 public:
-  constexpr Displacement() noexcept
-    : DimensionalVectorQuantity<Unit::Length>() {}
+  constexpr Displacement() : DimensionalVectorQuantity<Unit::Length>() {}
 
-  Displacement(const Value::Vector& value, const Unit::Length unit) noexcept
+  Displacement(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
-  constexpr Displacement(
-      const Length& length, const Direction& direction) noexcept
+  constexpr Displacement(const Length& length, const Direction& direction)
     : Displacement(length.Value() * direction.Value()) {}
 
-  constexpr Displacement(const Velocity& velocity, const Time& time) noexcept;
+  constexpr Displacement(const Velocity& velocity, const Time& time);
 
-  constexpr Displacement(
-      const Velocity& velocity, const Frequency& frequency) noexcept;
+  constexpr Displacement(const Velocity& velocity, const Frequency& frequency);
 
-  explicit constexpr Displacement(const Position& position) noexcept;
+  explicit constexpr Displacement(const Position& position);
 
-  static constexpr Displacement Zero() noexcept {
+  static constexpr Displacement Zero() {
     return Displacement{Value::Vector::Zero()};
   }
 
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const Value::Vector& value) noexcept {
+  static constexpr Displacement Create(const Value::Vector& value) {
     return Displacement{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  Length Magnitude() const noexcept {
+  Length Magnitude() const {
     return {*this};
   }
 
-  PhQ::Angle Angle(const Displacement& displacement) const noexcept {
+  PhQ::Angle Angle(const Displacement& displacement) const {
     return {*this, displacement};
   }
 
-  constexpr Position operator+(const Position& position) const noexcept;
+  constexpr Position operator+(const Position& position) const;
 
-  constexpr Displacement operator+(
-      const Displacement& displacement) const noexcept {
+  constexpr Displacement operator+(const Displacement& displacement) const {
     return Displacement{value_ + displacement.value_};
   }
 
-  constexpr Position operator-(const Position& position) const noexcept;
+  constexpr Position operator-(const Position& position) const;
 
-  constexpr Displacement operator-(
-      const Displacement& displacement) const noexcept {
+  constexpr Displacement operator-(const Displacement& displacement) const {
     return Displacement{value_ - displacement.value_};
   }
 
-  constexpr Displacement operator*(const double number) const noexcept {
+  constexpr Displacement operator*(const double number) const {
     return Displacement{value_ * number};
   }
 
-  constexpr Velocity operator*(const Frequency& frequency) const noexcept;
+  constexpr Velocity operator*(const Frequency& frequency) const;
 
-  constexpr Displacement operator/(const double number) const noexcept {
+  constexpr Displacement operator/(const double number) const {
     return Displacement{value_ / number};
   }
 
-  constexpr Velocity operator/(const Time& time) const noexcept;
+  constexpr Velocity operator/(const Time& time) const;
 
   constexpr void operator+=(const Displacement& displacement) noexcept {
     value_ += displacement.value_;
@@ -116,7 +111,7 @@ public:
   }
 
 private:
-  explicit constexpr Displacement(const Value::Vector& value) noexcept
+  explicit constexpr Displacement(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Position;
@@ -153,24 +148,24 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const Displacement& displacement) noexcept {
+    std::ostream& stream, const Displacement& displacement) {
   stream << displacement.Print();
   return stream;
 }
 
 inline constexpr Displacement operator*(
-    const double number, const Displacement& displacement) noexcept {
+    const double number, const Displacement& displacement) {
   return displacement * number;
 }
 
-inline Direction::Direction(const Displacement& displacement) noexcept
+inline Direction::Direction(const Displacement& displacement)
   : Direction(displacement.Value()) {}
 
-inline Angle::Angle(const Displacement& displacement1,
-                    const Displacement& displacement2) noexcept
+inline Angle::Angle(
+    const Displacement& displacement1, const Displacement& displacement2)
   : Angle(displacement1.Value(), displacement2.Value()) {}
 
-inline Length::Length(const Displacement& displacement) noexcept
+inline Length::Length(const Displacement& displacement)
   : Length(displacement.Value().Magnitude()) {}
 
 }  // namespace PhQ

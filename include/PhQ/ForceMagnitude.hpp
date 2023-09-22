@@ -33,48 +33,47 @@ class StaticPressure;
 // Force scalar. Magnitude of the force vector.
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 public:
-  constexpr ForceMagnitude() noexcept
-    : DimensionalScalarQuantity<Unit::Force>() {}
+  constexpr ForceMagnitude() : DimensionalScalarQuantity<Unit::Force>() {}
 
-  ForceMagnitude(const double value, const Unit::Force unit) noexcept
+  ForceMagnitude(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
-  ForceMagnitude(const Force& force) noexcept;
+  ForceMagnitude(const Force& force);
 
   constexpr ForceMagnitude(
-      const StaticPressure& static_pressure, const Area& area) noexcept;
+      const StaticPressure& static_pressure, const Area& area);
 
-  static constexpr ForceMagnitude Zero() noexcept {
+  static constexpr ForceMagnitude Zero() {
     return ForceMagnitude{0.0};
   }
 
   template <Unit::Force Unit>
-  static constexpr ForceMagnitude Create(const double value) noexcept {
+  static constexpr ForceMagnitude Create(const double value) {
     return ForceMagnitude{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
   constexpr ForceMagnitude operator+(
-      const ForceMagnitude& force_magnitude) const noexcept {
+      const ForceMagnitude& force_magnitude) const {
     return ForceMagnitude{value_ + force_magnitude.value_};
   }
 
   constexpr ForceMagnitude operator-(
-      const ForceMagnitude& force_magnitude) const noexcept {
+      const ForceMagnitude& force_magnitude) const {
     return ForceMagnitude{value_ - force_magnitude.value_};
   }
 
-  constexpr ForceMagnitude operator*(const double number) const noexcept {
+  constexpr ForceMagnitude operator*(const double number) const {
     return ForceMagnitude{value_ * number};
   }
 
-  constexpr Force operator*(const Direction& direction) const noexcept;
+  constexpr Force operator*(const Direction& direction) const;
 
-  constexpr ForceMagnitude operator/(const double number) const noexcept {
+  constexpr ForceMagnitude operator/(const double number) const {
     return ForceMagnitude{value_ / number};
   }
 
-  constexpr StaticPressure operator/(const Area& area) const noexcept;
+  constexpr StaticPressure operator/(const Area& area) const;
 
   constexpr double operator/(
       const ForceMagnitude& force_magnitude) const noexcept {
@@ -98,7 +97,7 @@ public:
   }
 
 private:
-  explicit constexpr ForceMagnitude(const double value) noexcept
+  explicit constexpr ForceMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::Force>(value) {}
 };
 
@@ -133,13 +132,13 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const ForceMagnitude& force_magnitude) noexcept {
+    std::ostream& stream, const ForceMagnitude& force_magnitude) {
   stream << force_magnitude.Print();
   return stream;
 }
 
 inline constexpr ForceMagnitude operator*(
-    const double number, const ForceMagnitude& force_magnitude) noexcept {
+    const double number, const ForceMagnitude& force_magnitude) {
   return force_magnitude * number;
 }
 

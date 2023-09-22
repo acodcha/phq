@@ -41,85 +41,80 @@ class Volume;
 // Mass.
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
 public:
-  constexpr Mass() noexcept : DimensionalScalarQuantity<Unit::Mass>() {}
+  constexpr Mass() : DimensionalScalarQuantity<Unit::Mass>() {}
 
-  Mass(const double value, const Unit::Mass unit) noexcept
+  Mass(const double value, const Unit::Mass unit)
     : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
-  constexpr Mass(
-      const MassDensity& mass_density, const Volume& volume) noexcept;
+  constexpr Mass(const MassDensity& mass_density, const Volume& volume);
 
-  constexpr Mass(const MassRate& mass_rate, const Time& time) noexcept;
+  constexpr Mass(const MassRate& mass_rate, const Time& time);
 
-  constexpr Mass(
-      const MassRate& mass_rate, const Frequency& frequency) noexcept;
+  constexpr Mass(const MassRate& mass_rate, const Frequency& frequency);
 
-  constexpr Mass(
-      const SpecificEnergy& specific_energy, const Energy& energy) noexcept;
+  constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy);
 
-  constexpr Mass(
-      const SpecificPower& specific_power, const Power& power) noexcept;
+  constexpr Mass(const SpecificPower& specific_power, const Power& power);
 
   constexpr Mass(const SpecificGasConstant& specific_gas_constant,
-                 const GasConstant& gas_constant) noexcept;
+                 const GasConstant& gas_constant);
 
   constexpr Mass(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept;
+      const IsobaricHeatCapacity& isobaric_heat_capacity);
 
   constexpr Mass(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept;
+      const IsochoricHeatCapacity& isochoric_heat_capacity);
 
-  static constexpr Mass Zero() noexcept {
+  static constexpr Mass Zero() {
     return Mass{0.0};
   }
 
   template <Unit::Mass Unit>
-  static constexpr Mass Create(const double value) noexcept {
+  static constexpr Mass Create(const double value) {
     return Mass{
         StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 
-  constexpr Mass operator+(const Mass& mass) const noexcept {
+  constexpr Mass operator+(const Mass& mass) const {
     return Mass{value_ + mass.value_};
   }
 
-  constexpr Mass operator-(const Mass& mass) const noexcept {
+  constexpr Mass operator-(const Mass& mass) const {
     return Mass{value_ - mass.value_};
   }
 
-  constexpr Mass operator*(const double number) const noexcept {
+  constexpr Mass operator*(const double number) const {
     return Mass{value_ * number};
   }
 
-  constexpr MassRate operator*(const Frequency& frequency) const noexcept;
+  constexpr MassRate operator*(const Frequency& frequency) const;
 
-  constexpr Energy operator*(
-      const SpecificEnergy& specific_energy) const noexcept;
+  constexpr Energy operator*(const SpecificEnergy& specific_energy) const;
 
-  constexpr Power operator*(const SpecificPower& specific_power) const noexcept;
+  constexpr Power operator*(const SpecificPower& specific_power) const;
 
   constexpr IsobaricHeatCapacity
   operator*(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-      const noexcept;
+      const;
 
   constexpr IsochoricHeatCapacity operator*(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-      const noexcept;
+      const;
 
   constexpr GasConstant operator*(
-      const SpecificGasConstant& specific_gas_constant) const noexcept;
+      const SpecificGasConstant& specific_gas_constant) const;
 
-  constexpr Mass operator/(const double number) const noexcept {
+  constexpr Mass operator/(const double number) const {
     return Mass{value_ / number};
   }
 
-  constexpr MassDensity operator/(const Volume& volume) const noexcept;
+  constexpr MassDensity operator/(const Volume& volume) const;
 
-  constexpr MassRate operator/(const Time& time) const noexcept;
+  constexpr MassRate operator/(const Time& time) const;
 
-  constexpr Time operator/(const MassRate& mass_rate) const noexcept;
+  constexpr Time operator/(const MassRate& mass_rate) const;
 
   constexpr double operator/(const Mass& mass) const noexcept {
     return value_ / mass.value_;
@@ -142,7 +137,7 @@ public:
   }
 
 private:
-  explicit constexpr Mass(const double value) noexcept
+  explicit constexpr Mass(const double value)
     : DimensionalScalarQuantity<Unit::Mass>(value) {}
 };
 
@@ -170,14 +165,12 @@ inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Mass& mass) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Mass& mass) {
   stream << mass.Print();
   return stream;
 }
 
-inline constexpr Mass operator*(
-    const double number, const Mass& mass) noexcept {
+inline constexpr Mass operator*(const double number, const Mass& mass) {
   return mass * number;
 }
 

@@ -40,97 +40,93 @@ class Velocity;
 // Speed scalar. Magnitude of the velocity vector.
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
-  constexpr Speed() noexcept : DimensionalScalarQuantity<Unit::Speed>() {}
+  constexpr Speed() : DimensionalScalarQuantity<Unit::Speed>() {}
 
-  Speed(const double value, const Unit::Speed unit) noexcept
+  Speed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
-  constexpr Speed(const Length& length, const Time& time) noexcept
+  constexpr Speed(const Length& length, const Time& time)
     : Speed(length.Value() / time.Value()) {}
 
-  constexpr Speed(const Length& length, const Frequency& frequency) noexcept
+  constexpr Speed(const Length& length, const Frequency& frequency)
     : Speed(length.Value() * frequency.Value()) {}
 
-  Speed(const Velocity& velocity) noexcept;
+  Speed(const Velocity& velocity);
+
+  constexpr Speed(
+      const AccelerationMagnitude& acceleration_magnitude, const Time& time);
 
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
-                  const Time& time) noexcept;
-
-  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
-                  const Frequency& frequency) noexcept;
+                  const Frequency& frequency);
 
   Speed(const DynamicPressure& dynamic_pressure,
-        const MassDensity& mass_density) noexcept;
+        const MassDensity& mass_density);
 
-  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept;
+  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure);
+
+  constexpr Speed(const ReynoldsNumber& reynolds_number,
+                  const DynamicViscosity& dynamic_viscosity,
+                  const MassDensity& mass_density, const Length& length);
 
   constexpr Speed(
       const ReynoldsNumber& reynolds_number,
-      const DynamicViscosity& dynamic_viscosity,
-      const MassDensity& mass_density, const Length& length) noexcept;
+      const KinematicViscosity& kinematic_viscosity, const Length& length);
 
-  constexpr Speed(const ReynoldsNumber& reynolds_number,
-                  const KinematicViscosity& kinematic_viscosity,
-                  const Length& length) noexcept;
+  constexpr Speed(const SoundSpeed& sound_speed, const MachNumber& mach_number);
 
-  constexpr Speed(
-      const SoundSpeed& sound_speed, const MachNumber& mach_number) noexcept;
-
-  static constexpr Speed Zero() noexcept {
+  static constexpr Speed Zero() {
     return Speed{0.0};
   }
 
   template <Unit::Speed Unit>
-  static constexpr Speed Create(const double value) noexcept {
+  static constexpr Speed Create(const double value) {
     return Speed{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  constexpr Speed operator+(const Speed& speed) const noexcept {
+  constexpr Speed operator+(const Speed& speed) const {
     return Speed{value_ + speed.value_};
   }
 
-  constexpr Speed operator+(const SoundSpeed& sound_speed) const noexcept;
+  constexpr Speed operator+(const SoundSpeed& sound_speed) const;
 
-  constexpr Speed operator-(const Speed& speed) const noexcept {
+  constexpr Speed operator-(const Speed& speed) const {
     return Speed{value_ - speed.value_};
   }
 
-  constexpr Speed operator-(const SoundSpeed& sound_speed) const noexcept;
+  constexpr Speed operator-(const SoundSpeed& sound_speed) const;
 
-  constexpr Speed operator*(const double number) const noexcept {
+  constexpr Speed operator*(const double number) const {
     return Speed{value_ * number};
   }
 
-  constexpr Length operator*(const Time& time) const noexcept {
+  constexpr Length operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr AccelerationMagnitude operator*(
-      const Frequency& frequency) const noexcept;
+  constexpr AccelerationMagnitude operator*(const Frequency& frequency) const;
 
-  constexpr Velocity operator*(const Direction& direction) const noexcept;
+  constexpr Velocity operator*(const Direction& direction) const;
 
-  constexpr Power
-  operator*(const TransportEnergyConsumption& transport_energy_consumption)
-      const noexcept;
+  constexpr Power operator*(
+      const TransportEnergyConsumption& transport_energy_consumption) const;
 
-  constexpr Speed operator/(const double number) const noexcept {
+  constexpr Speed operator/(const double number) const {
     return Speed{value_ / number};
   }
 
-  constexpr Length operator/(const Frequency& frequency) const noexcept {
+  constexpr Length operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr Frequency operator/(const Length& length) const noexcept {
+  constexpr Frequency operator/(const Length& length) const {
     return {*this, length};
   }
 
-  constexpr AccelerationMagnitude operator/(const Time& time) const noexcept;
+  constexpr AccelerationMagnitude operator/(const Time& time) const;
 
   constexpr Time operator/(
-      const AccelerationMagnitude& acceleration_magnitude) const noexcept;
+      const AccelerationMagnitude& acceleration_magnitude) const;
 
   constexpr double operator/(const Speed& speed) const noexcept {
     return value_ / speed.value_;
@@ -157,7 +153,7 @@ public:
   }
 
 private:
-  explicit constexpr Speed(const double value) noexcept
+  explicit constexpr Speed(const double value)
     : DimensionalScalarQuantity<Unit::Speed>(value) {}
 
   friend SoundSpeed;
@@ -193,46 +189,40 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Speed& speed) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Speed& speed) {
   stream << speed.Print();
   return stream;
 }
 
-inline constexpr Speed operator*(
-    const double number, const Speed& speed) noexcept {
+inline constexpr Speed operator*(const double number, const Speed& speed) {
   return speed * number;
 }
 
-inline constexpr Length::Length(const Speed& speed, const Time& time) noexcept
+inline constexpr Length::Length(const Speed& speed, const Time& time)
   : Length(speed.Value() * time.Value()) {}
 
-inline constexpr Length::Length(
-    const Speed& speed, const Frequency& frequency) noexcept
+inline constexpr Length::Length(const Speed& speed, const Frequency& frequency)
   : Length(speed.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const Speed& speed, const Length& length) noexcept
+inline constexpr Time::Time(const Speed& speed, const Length& length)
   : Time(length.Value() / speed.Value()) {}
 
-inline constexpr Frequency::Frequency(
-    const Speed& speed, const Length& length) noexcept
+inline constexpr Frequency::Frequency(const Speed& speed, const Length& length)
   : Frequency(speed.Value() / length.Value()) {}
 
-inline constexpr Speed Length::operator*(
-    const Frequency& frequency) const noexcept {
+inline constexpr Speed Length::operator*(const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr Time Length::operator/(const Speed& speed) const noexcept {
+inline constexpr Time Length::operator/(const Speed& speed) const {
   return {speed, *this};
 }
 
-inline constexpr Speed Length::operator/(const Time& time) const noexcept {
+inline constexpr Speed Length::operator/(const Time& time) const {
   return {*this, time};
 }
 
-inline constexpr Speed Frequency::operator*(
-    const Length& length) const noexcept {
+inline constexpr Speed Frequency::operator*(const Length& length) const {
   return {length, *this};
 }
 

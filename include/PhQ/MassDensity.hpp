@@ -37,67 +37,63 @@ class ThermalDiffusivity;
 // Mass density.
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 public:
-  constexpr MassDensity() noexcept
-    : DimensionalScalarQuantity<Unit::MassDensity>() {}
+  constexpr MassDensity() : DimensionalScalarQuantity<Unit::MassDensity>() {}
 
-  MassDensity(const double value, const Unit::MassDensity unit) noexcept
+  MassDensity(const double value, const Unit::MassDensity unit)
     : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
 
-  constexpr MassDensity(const Mass& mass, const Volume& volume) noexcept
+  constexpr MassDensity(const Mass& mass, const Volume& volume)
     : MassDensity(mass.Value() / volume.Value()) {}
 
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity,
-                        const KinematicViscosity& kinematic_viscosity) noexcept;
+                        const KinematicViscosity& kinematic_viscosity);
 
   constexpr MassDensity(
       const ThermalDiffusivity& thermal_diffusivity,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
-      const SpecificIsobaricHeatCapacity&
-          specific_isobaric_heat_capacity) noexcept;
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   constexpr MassDensity(
-      const DynamicPressure& dynamic_pressure, const Speed& speed) noexcept;
+      const DynamicPressure& dynamic_pressure, const Speed& speed);
 
   constexpr MassDensity(const ReynoldsNumber& reynolds_number,
                         const DynamicViscosity& dynamic_viscosity,
-                        const Speed& speed, const Length& length) noexcept;
+                        const Speed& speed, const Length& length);
 
   constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
-                        const SoundSpeed& sound_speed) noexcept;
+                        const SoundSpeed& sound_speed);
 
-  static constexpr MassDensity Zero() noexcept {
+  static constexpr MassDensity Zero() {
     return MassDensity{0.0};
   }
 
   template <Unit::MassDensity Unit>
-  static constexpr MassDensity Create(const double value) noexcept {
+  static constexpr MassDensity Create(const double value) {
     return MassDensity{
         StaticConvertCopy<Unit::MassDensity, Unit, Standard<Unit::MassDensity>>(
             value)};
   }
 
-  constexpr MassDensity operator+(
-      const MassDensity& mass_density) const noexcept {
+  constexpr MassDensity operator+(const MassDensity& mass_density) const {
     return MassDensity{value_ + mass_density.value_};
   }
 
-  constexpr MassDensity operator-(
-      const MassDensity& mass_density) const noexcept {
+  constexpr MassDensity operator-(const MassDensity& mass_density) const {
     return MassDensity{value_ - mass_density.value_};
   }
 
-  constexpr MassDensity operator*(const double number) const noexcept {
+  constexpr MassDensity operator*(const double number) const {
     return MassDensity{value_ * number};
   }
 
-  constexpr Mass operator*(const Volume& volume) const noexcept {
+  constexpr Mass operator*(const Volume& volume) const {
     return {*this, volume};
   }
 
   constexpr DynamicViscosity operator*(
-      const KinematicViscosity& kinematic_viscosity) const noexcept;
+      const KinematicViscosity& kinematic_viscosity) const;
 
-  constexpr MassDensity operator/(const double number) const noexcept {
+  constexpr MassDensity operator/(const double number) const {
     return MassDensity{value_ / number};
   }
 
@@ -122,7 +118,7 @@ public:
   }
 
 private:
-  explicit constexpr MassDensity(const double value) noexcept
+  explicit constexpr MassDensity(const double value)
     : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
 };
 
@@ -157,31 +153,29 @@ inline constexpr bool operator>=(
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const MassDensity& mass_density) noexcept {
+    std::ostream& stream, const MassDensity& mass_density) {
   stream << mass_density.Print();
   return stream;
 }
 
 inline constexpr MassDensity operator*(
-    const double number, const MassDensity& mass_density) noexcept {
+    const double number, const MassDensity& mass_density) {
   return mass_density * number;
 }
 
 inline constexpr Volume::Volume(
-    const MassDensity& mass_density, const Mass& mass) noexcept
+    const MassDensity& mass_density, const Mass& mass)
   : Volume(mass.Value() / mass_density.Value()) {}
 
 inline constexpr Mass::Mass(
-    const MassDensity& mass_density, const Volume& volume) noexcept
+    const MassDensity& mass_density, const Volume& volume)
   : Mass(mass_density.Value() * volume.Value()) {}
 
-inline constexpr MassDensity Mass::operator/(
-    const Volume& volume) const noexcept {
+inline constexpr MassDensity Mass::operator/(const Volume& volume) const {
   return {*this, volume};
 }
 
-inline constexpr Mass Volume::operator*(
-    const MassDensity& mass_density) const noexcept {
+inline constexpr Mass Volume::operator*(const MassDensity& mass_density) const {
   return {mass_density, *this};
 }
 

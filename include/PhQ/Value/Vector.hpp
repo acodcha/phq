@@ -40,37 +40,37 @@ class Vector {
 public:
   // Default constructor. Constructs a three-dimensional vector value with
   // uninitialized x, y, and z Cartesian components.
-  constexpr Vector() noexcept : x_y_z_() {}
+  constexpr Vector() : x_y_z_() {}
 
   // Constructor. Constructs a three-dimensional vector value from the given x,
   // y, and z Cartesian components.
-  constexpr Vector(const double x, const double y, const double z) noexcept
+  constexpr Vector(const double x, const double y, const double z)
     : x_y_z_({x, y, z}) {}
 
   // Constructor. Constructs a three-dimensional vector value from a given array
   // representing its x, y, and z Cartesian components.
-  explicit constexpr Vector(const std::array<double, 3>& x_y_z) noexcept
+  explicit constexpr Vector(const std::array<double, 3>& x_y_z)
     : x_y_z_(x_y_z) {}
 
   // Constructor. Constructs a three-dimensional vector value given a magnitude
   // and a direction.
-  constexpr Vector(const double magnitude, const Direction& direction) noexcept;
+  constexpr Vector(const double magnitude, const Direction& direction);
 
   // Destructor. Destroys this three-dimensional vector value.
   ~Vector() noexcept = default;
 
   // Copy constructor. Constructs a three-dimensional vector value by copying
   // another one.
-  constexpr Vector(const Vector& other) noexcept = default;
+  constexpr Vector(const Vector& other) = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // vector value by copying another three-dimensional vector value.
-  constexpr Vector& operator=(const Vector& other) noexcept = default;
+  constexpr Vector& operator=(const Vector& other) = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // vector value by copying a given array representing its x, y, and z
   // Cartesian components.
-  constexpr Vector& operator=(const std::array<double, 3>& x_y_z) noexcept {
+  constexpr Vector& operator=(const std::array<double, 3>& x_y_z) {
     x_y_z_ = x_y_z;
     return *this;
   }
@@ -98,7 +98,7 @@ public:
 
   // Returns a three-dimensional vector value with its x, y, and z Cartesian
   // components initialized to zero.
-  static constexpr Vector Zero() noexcept {
+  static constexpr Vector Zero() {
     return Vector{
         std::array<double, 3>{0.0, 0.0, 0.0}
     };
@@ -186,7 +186,7 @@ public:
   }
 
   // Returns the direction of this three-dimensional vector value.
-  PhQ::Direction Direction() const noexcept;
+  PhQ::Direction Direction() const;
 
   // Returns the dot product (also known as the inner product or scalar product)
   // of this three-dimensional vector value and another given three-dimensional
@@ -203,7 +203,7 @@ public:
   // Returns the cross product (also known as the vector product) of this
   // three-dimensional vector value and another given three-dimensional vector
   // value.
-  constexpr Vector Cross(const Vector& vector) const noexcept {
+  constexpr Vector Cross(const Vector& vector) const {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
             x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
             x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
@@ -211,54 +211,54 @@ public:
 
   // Returns the cross product (also known as the vector product) of this
   // three-dimensional vector value and a given direction.
-  constexpr Vector Cross(const PhQ::Direction& direction) const noexcept;
+  constexpr Vector Cross(const PhQ::Direction& direction) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this
   // three-dimensional vector value and another given three-dimensional vector
   // value.
-  constexpr Dyad Dyadic(const Vector& vector) const noexcept;
+  constexpr Dyad Dyadic(const Vector& vector) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this
   // three-dimensional vector value and a given direction.
-  constexpr Dyad Dyadic(const PhQ::Direction& direction) const noexcept;
+  constexpr Dyad Dyadic(const PhQ::Direction& direction) const;
 
   // Returns the angle between this three-dimensional vector value and another
   // given three-dimensional vector value.
-  PhQ::Angle Angle(const Vector& vector) const noexcept;
+  PhQ::Angle Angle(const Vector& vector) const;
 
   // Returns the angle between this three-dimensional vector value and a given
   // direction.
-  PhQ::Angle Angle(const PhQ::Direction& direction) const noexcept;
+  PhQ::Angle Angle(const PhQ::Direction& direction) const;
 
   // Prints this three-dimensional vector value as a string. Components are
   // printed to double floating point precision.
-  std::string Print() const noexcept {
+  std::string Print() const {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", "
            + PhQ::Print(x_y_z_[2]) + ")";
   }
 
   // Prints this three-dimensional vector value as a string. Components are
   // printed to a given floating point precision.
-  std::string Print(const Precision precision) const noexcept {
+  std::string Print(const Precision precision) const {
     return "(" + PhQ::Print(x_y_z_[0], precision) + ", "
            + PhQ::Print(x_y_z_[1], precision) + ", "
            + PhQ::Print(x_y_z_[2], precision) + ")";
   }
 
   // Serializes this three-dimensional vector value as a JSON message.
-  std::string JSON() const noexcept {
+  std::string JSON() const {
     return "{\"x\":" + PhQ::Print(x_y_z_[0]) + ",\"y\":" + PhQ::Print(x_y_z_[1])
            + ",\"z\":" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
   // Serializes this three-dimensional vector value as an XML message.
-  std::string XML() const noexcept {
+  std::string XML() const {
     return "<x>" + PhQ::Print(x_y_z_[0]) + "</x><y>" + PhQ::Print(x_y_z_[1])
            + "</y><z>" + PhQ::Print(x_y_z_[2]) + "</z>";
   }
 
   // Serializes this three-dimensional vector value as a YAML message.
-  std::string YAML() const noexcept {
+  std::string YAML() const {
     return "{x:" + PhQ::Print(x_y_z_[0]) + ",y:" + PhQ::Print(x_y_z_[1])
            + ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
@@ -335,33 +335,27 @@ inline constexpr bool operator>=(
   return !(left < right);
 }
 
-inline constexpr Vector operator+(
-    const Vector& left, const Vector& right) noexcept {
+inline constexpr Vector operator+(const Vector& left, const Vector& right) {
   return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
-inline constexpr Vector operator-(
-    const Vector& left, const Vector& right) noexcept {
+inline constexpr Vector operator-(const Vector& left, const Vector& right) {
   return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
-inline constexpr Vector operator*(
-    const Vector& vector, const double real) noexcept {
+inline constexpr Vector operator*(const Vector& vector, const double real) {
   return {vector.x() * real, vector.y() * real, vector.z() * real};
 }
 
-inline constexpr Vector operator*(
-    const double real, const Vector& vector) noexcept {
+inline constexpr Vector operator*(const double real, const Vector& vector) {
   return {vector * real};
 }
 
-inline constexpr Vector operator/(
-    const Vector& vector, const double real) noexcept {
+inline constexpr Vector operator/(const Vector& vector, const double real) {
   return {vector.x() / real, vector.y() / real, vector.z() / real};
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Vector& vector) noexcept {
+inline std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
   stream << vector.Print();
   return stream;
 }

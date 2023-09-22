@@ -28,43 +28,41 @@ class SoundSpeed;
 // Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr IsentropicBulkModulus() noexcept
+  constexpr IsentropicBulkModulus()
     : DimensionalScalarQuantity<Unit::Pressure>() {}
 
-  IsentropicBulkModulus(const double value, const Unit::Pressure unit) noexcept
+  IsentropicBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   constexpr IsentropicBulkModulus(
-      const MassDensity& mass_density, const SoundSpeed& sound_speed) noexcept;
+      const MassDensity& mass_density, const SoundSpeed& sound_speed);
 
-  static constexpr IsentropicBulkModulus Zero() noexcept {
+  static constexpr IsentropicBulkModulus Zero() {
     return IsentropicBulkModulus{0.0};
   }
 
   template <Unit::Pressure Unit>
-  static constexpr IsentropicBulkModulus Create(const double value) noexcept {
+  static constexpr IsentropicBulkModulus Create(const double value) {
     return IsentropicBulkModulus{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
             value)};
   }
 
   constexpr IsentropicBulkModulus operator+(
-      const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+      const IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return IsentropicBulkModulus{value_ + isentropic_bulk_modulus.value_};
   }
 
   constexpr IsentropicBulkModulus operator-(
-      const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+      const IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return IsentropicBulkModulus{value_ - isentropic_bulk_modulus.value_};
   }
 
-  constexpr IsentropicBulkModulus operator*(
-      const double number) const noexcept {
+  constexpr IsentropicBulkModulus operator*(const double number) const {
     return IsentropicBulkModulus{value_ * number};
   }
 
-  constexpr IsentropicBulkModulus operator/(
-      const double number) const noexcept {
+  constexpr IsentropicBulkModulus operator/(const double number) const {
     return IsentropicBulkModulus{value_ / number};
   }
 
@@ -92,7 +90,7 @@ public:
   }
 
 private:
-  explicit constexpr IsentropicBulkModulus(const double value) noexcept
+  explicit constexpr IsentropicBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
@@ -128,14 +126,13 @@ inline constexpr bool operator>=(const IsentropicBulkModulus& left,
 
 inline std::ostream& operator<<(
     std::ostream& stream,
-    const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+    const IsentropicBulkModulus& isentropic_bulk_modulus) {
   stream << isentropic_bulk_modulus.Print();
   return stream;
 }
 
 inline constexpr IsentropicBulkModulus operator*(
-    const double number,
-    const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+    const double number, const IsentropicBulkModulus& isentropic_bulk_modulus) {
   return isentropic_bulk_modulus * number;
 }
 
