@@ -79,6 +79,16 @@ std::cout << "Average: " << average << std::endl;
 
 The above example creates two temperature quantities, computes their average, and prints the result, which is 15 °C.
 
+Physical quantities have no memory overhead compared to using `double` variables to store data. For example:
+
+```C++
+PhQ::Area area{10.0, PhQ::Unit::Area::Hectare};
+assert(sizeof(area) == sizeof(double));
+
+PhQ::Position position{{-1.11, 2.22, -3.33}, PhQ::Unit::Length::Mile};
+assert(sizeof(position) == 3 * sizeof(double));
+```
+
 [(Back to Usage)](#usage)
 
 ### Usage: Vectors and Tensors
@@ -139,15 +149,34 @@ The above example creates a displacement quantity of (0, 6, 0) in, computes and 
 
 ### Usage: Unit Conversions
 
-Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. A physical quantity's value can be obtained in any unit of measure through its `Value` method. For example:
+Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. This approach minimizes the number of unit conversions during program execution; when a physical quantity is constructed, it is immediately converted to its standard unit of measure in the standard unit system. The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure.
+
+A physical quantity's value can be expressed in any unit of measure through its `Value` method. For example:
 
 ```C++
+
 PhQ::Mass mass{10.0, PhQ::Unit::Mass::Pound};
-double kilograms = mass.Value(PhQ::Unit::Mass::Kilogram);
-std::cout << kilograms << std::endl;
+double standard_value = mass.Value();
+PhQ::Unit::Mass standard_unit = PhQ::Mass::Unit();
+std::string abbreviation = PhQ::Abbreviation(standard_unit);
+std::cout << standard_value << " " << abbreviation << std::endl;
+
+double grams = mass.Value(PhQ::Unit::Mass::Gram);
+std::cout << grams << " grams" << std::endl;
 ```
 
-The above example creates a 10 lbm mass and prints its value as 4.535924 kg.
+The above example creates a 10 lbm mass and prints its value as 4.535924 kg and 4535.924 g.
+
+A physical quantity can be expressed in any unit of measure through its `Print` method. For example:
+
+```C++
+PhQ::Frequency frequency{10.0, PhQ::Unit::Frequency::Hertz};
+std::string standard = frequency.Print();
+std::string kilohertz = frequency.Print(PhQ::Unit::Frequency::Kilohertz);
+std::cout << standard << " = " << kilohertz << std::endl;
+```
+
+The above example creates a 10 Hz frequency and prints it both in hertz and in kilohertz.
 
 Unit conversions can also be done explicitly without the use of physical quantities through the `PhQ::Convert` function, which takes a value, an original unit, and a new unit. For example:
 
@@ -193,13 +222,13 @@ The above example creates an elastic isotropic solid constitutive model from a Y
 
 ### Usage: Divisions by Zero
 
-Certain operations can result in divisions by zero. C++ supports floating-point divisions by zero, for example with `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. The Physical Quantities library makes no attempt to detect, report, or avoid divisions by zero. Instead, it is the implementer's responsibility to determine whether such cases warrant special consideration, for example through the use of try-catch blocks or standard C++ utilities such as `std::isfinite`.
+The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for the zero determinant when computing their inverse. However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Exceptions
 
-The Physical Quantities library does not throw exceptions, and most of this library's functions and methods are marked as `noexcept`. In practice, the only conceivable cause for an exception in this library is a memory allocation failure due to memory exhaustion, which should typically be treated as a fatal error in most applications.
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object, which throws a `std::bad_alloc` exception. If maintaining a strong exception guarantee is a concern, use try-catch blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. As a result, most of this library's functions and methods are marked `noexcept`.
 
 [(Back to Usage)](#usage)
 
