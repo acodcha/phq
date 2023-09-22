@@ -7,6 +7,13 @@ C++ library of physical quantities, physical models, and units of measure for sc
 - [Requirements](#requirements)
 - [Configuration](#configuration)
 - [Usage](#usage)
+  - [Basics](#usage-basics)
+  - [Vectors and Tensors](#usage-vectors-and-tensors)
+  - [Operations](#usage-operations)
+  - [Unit Conversions](#usage-unit-conversions)
+  - [Physical Models](#usage-physical-models)
+  - [Divisions by Zero](#usage-divisions-by-zero)
+  - [Exceptions](#usage-exceptions)
 - [Installation](#installation)
 - [Testing](#testing)
 - [License](#license)
@@ -16,7 +23,7 @@ C++ library of physical quantities, physical models, and units of measure for sc
 This library requires the following packages:
 
 - **C++17 Compiler:** Any C++17 compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
-- **CMake:** On Ubuntu, install with `sudo apt install cmake`.
+- **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`.
 
 [(Back to Top)](#physical-quantities)
 
@@ -222,13 +229,13 @@ The above example creates an elastic isotropic solid constitutive model from a Y
 
 ### Usage: Divisions by Zero
 
-The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for the zero determinant when computing their inverse. However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for a zero determinant when computing their inverse. However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Exceptions
 
-The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object, which throws a `std::bad_alloc` exception. If maintaining a strong exception guarantee is a concern, use try-catch blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. As a result, most of this library's functions and methods are marked `noexcept`.
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object, which throws a `std::bad_alloc` exception. If maintaining a strong exception guarantee is a concern, use try-catch blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. As a result, many of this library's functions and methods are marked `noexcept`.
 
 [(Back to Usage)](#usage)
 
