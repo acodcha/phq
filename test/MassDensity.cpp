@@ -79,7 +79,7 @@ TEST(MassDensity, Comparison) {
 TEST(MassDensity, Constructor) {
   const Mass mass0{2.0, Unit::Mass::Kilogram};
   const Volume volume0{2.0, Unit::Volume::CubicMetre};
-  constexpr MassDensity density0;
+  constexpr MassDensity density0{};
   const MassDensity density1{1.0, Unit::MassDensity::KilogramPerCubicMetre};
   const MassDensity density2{100.0, Unit::MassDensity::GramPerCubicMillimetre};
   constexpr MassDensity density3{

@@ -447,6 +447,7 @@ public:
   }
 
 private:
+  // Cartesian components of this three-dimensional dyadic tensor value.
   std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz_;
 };
 

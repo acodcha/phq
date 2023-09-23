@@ -37,39 +37,74 @@ class Time;
 class TransportEnergyConsumption;
 class Volume;
 
-// Scalar length. Can also represent the magnitude of a position vector or
-// displacement vector.
+// Length, size, or distance. Can also represent the magnitude of a position
+// vector or displacement vector.
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 public:
-  constexpr Length() : DimensionalScalarQuantity<Unit::Length>() {}
+  // Default constructor. Constructs a length.
+  Length() = default;
 
+  // Constructor. Constructs a length from a given value expressed in a given
+  // length unit.
   Length(const double value, const Unit::Length unit)
     : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
 
+  // Constructor. Constructs a length from the magnitude of a given
+  // displacement.
   Length(const Displacement& displacement);
 
+  // Constructor. Constructs a length from the magnitude of a given position.
   Length(const Position& position);
 
+  // Constructor. Constructs a length from a given speed and time using the
+  // definition of speed.
   constexpr Length(const Speed& speed, const Time& time);
 
+  // Constructor. Constructs a length from a given speed and frequency using the
+  // definition of speed.
   constexpr Length(const Speed& speed, const Frequency& frequency);
 
+  // Constructor. Constructs a length from a given Reynolds number, dynamic
+  // viscosity, mass density, and speed using the definition of the Reynolds
+  // number.
   constexpr Length(const ReynoldsNumber& reynolds_number,
                    const DynamicViscosity& dynamic_viscosity,
                    const MassDensity& mass_density, const Speed& speed);
 
+  // Constructor. Constructs a length from a given Reynolds number, kinematic
+  // viscosity, and speed using the definition of the Reynolds number.
   constexpr Length(
       const ReynoldsNumber& reynolds_number,
       const KinematicViscosity& kinematic_viscosity, const Speed& speed);
 
+  // Constructor. Constructs a length from a given energy and transport energy
+  // consumption using the definition of transport energy consumption.
   constexpr Length(
       const Energy& energy,
       const TransportEnergyConsumption& transport_energy_consumption);
 
+  // Destructor. Destroys a length.
+  ~Length() noexcept = default;
+
+  // Copy constructor. Constructs a length by copying another one.
+  constexpr Length(const Length& other) = default;
+
+  // Move constructor. Constructs a length by moving another one.
+  constexpr Length(Length&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this length by copying another one.
+  constexpr Length& operator=(const Length& other) = default;
+
+  // Move assignment operator. Assigns this length by moving another one.
+  constexpr Length& operator=(Length&& other) noexcept = default;
+
+  // Returns a length of zero.
   static constexpr Length Zero() {
     return Length{0.0};
   }
 
+  // Statically creates a length from a given value expressed in a given length
+  // unit.
   template <Unit::Length Unit>
   static constexpr Length Create(const double value) {
     return Length{
@@ -128,6 +163,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a length from a given value expressed in the
+  // standard length unit.
   explicit constexpr Length(const double value)
     : DimensionalScalarQuantity<Unit::Length>(value) {}
 

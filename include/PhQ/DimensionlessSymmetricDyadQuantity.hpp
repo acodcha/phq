@@ -80,17 +80,17 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless symmetric dyadic tensor
   // physical quantity with an uninitialized value.
-  constexpr DimensionlessSymmetricDyadQuantity() : value_() {}
+  DimensionlessSymmetricDyadQuantity() = default;
 
   // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
   // quantity with a given value.
-  constexpr DimensionlessSymmetricDyadQuantity(
+  explicit constexpr DimensionlessSymmetricDyadQuantity(
       const Value::SymmetricDyad& value)
     : value_(value) {}
 
-  // Move constructor. Constructs a dimensionless symmetric dyadic tensor
-  // physical quantity with a given value by moving the value.
-  constexpr DimensionlessSymmetricDyadQuantity(
+  // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
+  // quantity by moving a given value.
+  explicit constexpr DimensionlessSymmetricDyadQuantity(
       Value::SymmetricDyad&& value) noexcept
     : value_(std::move(value)) {}
 
@@ -98,18 +98,27 @@ protected:
   // quantity.
   ~DimensionlessSymmetricDyadQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensionless symmetric
-  // dyadic tensor physical quantity by copying a given value.
-  void operator=(const Value::SymmetricDyad& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensionless symmetric dyadic tensor
+  // physical quantity by copying another one.
+  constexpr DimensionlessSymmetricDyadQuantity(
+      const DimensionlessSymmetricDyadQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensionless
-  // symmetric dyadic tensor physical quantity by moving a given vector value.
-  void operator=(Value::SymmetricDyad&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensionless symmetric dyadic tensor
+  // physical quantity by moving another one.
+  constexpr DimensionlessSymmetricDyadQuantity(
+      DimensionlessSymmetricDyadQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensionless symmetric dyadic
+  // tensor physical quantity by copying another one.
+  constexpr DimensionlessSymmetricDyadQuantity& operator=(
+      const DimensionlessSymmetricDyadQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensionless symmetric dyadic
+  // tensor physical quantity by moving another one.
+  constexpr DimensionlessSymmetricDyadQuantity& operator=(
+      DimensionlessSymmetricDyadQuantity&& other) noexcept = default;
+
+  // Value of this dimensionless symmetric dyadic tensor physical quantity.
   Value::SymmetricDyad value_;
 };
 

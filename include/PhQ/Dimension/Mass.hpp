@@ -86,6 +86,7 @@ public:
   }
 
 private:
+  // Value of this base physical dimension.
   int8_t value_;
 };
 

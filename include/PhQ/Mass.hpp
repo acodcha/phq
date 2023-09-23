@@ -41,36 +41,75 @@ class Volume;
 // Mass.
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
 public:
-  constexpr Mass() : DimensionalScalarQuantity<Unit::Mass>() {}
+  // Default constructor. Constructs a mass.
+  Mass() = default;
 
+  // Constructor. Constructs a mass from a given value expressed in a given mass
+  // unit.
   Mass(const double value, const Unit::Mass unit)
     : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
 
+  // Constructor. Constructs a mass from a given mass density and volume using
+  // the definition of mass density.
   constexpr Mass(const MassDensity& mass_density, const Volume& volume);
 
+  // Constructor. Constructs a mass from a given mass rate and time using the
+  // definition of mass rate.
   constexpr Mass(const MassRate& mass_rate, const Time& time);
 
+  // Constructor. Constructs a mass from a given mass rate and frequency using
+  // the definition of mass rate.
   constexpr Mass(const MassRate& mass_rate, const Frequency& frequency);
 
+  // Constructor. Constructs a mass from a given specific energy and energy
+  // using the definition of specific energy.
   constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy);
 
+  // Constructor. Constructs a mass from a given specific power and power using
+  // the definition of specific power.
   constexpr Mass(const SpecificPower& specific_power, const Power& power);
 
+  // Constructor. Constructs a mass from a given specific gas constant and gas
+  // constant using the definition of the specific gas constant.
   constexpr Mass(const SpecificGasConstant& specific_gas_constant,
                  const GasConstant& gas_constant);
 
+  // Constructor. Constructs a mass from a given specific isobaric heat capacity
+  // and isobaric heat capacity using the definition of the specific isobaric
+  // heat capacity.
   constexpr Mass(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const IsobaricHeatCapacity& isobaric_heat_capacity);
 
+  // Constructor. Constructs a mass from a given specific isochoric heat
+  // capacity and isochoric heat capacity using the definition of the specific
+  // isochoric heat capacity.
   constexpr Mass(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
+  // Destructor. Destroys a mass.
+  ~Mass() noexcept = default;
+
+  // Copy constructor. Constructs a mass by copying another one.
+  constexpr Mass(const Mass& other) = default;
+
+  // Move constructor. Constructs a mass by moving another one.
+  constexpr Mass(Mass&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this mass by copying another one.
+  constexpr Mass& operator=(const Mass& other) = default;
+
+  // Move assignment operator. Assigns this mass by moving another one.
+  constexpr Mass& operator=(Mass&& other) noexcept = default;
+
+  // Returns a mass of zero.
   static constexpr Mass Zero() {
     return Mass{0.0};
   }
 
+  // Statically creates a mass from a given value expressed in a given mass
+  // unit.
   template <Unit::Mass Unit>
   static constexpr Mass Create(const double value) {
     return Mass{
@@ -137,6 +176,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a mass from a given value expressed in the standard
+  // mass unit.
   explicit constexpr Mass(const double value)
     : DimensionalScalarQuantity<Unit::Mass>(value) {}
 };

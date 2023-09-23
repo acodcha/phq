@@ -70,7 +70,7 @@ TEST(MachNumber, Comparison) {
 }
 
 TEST(MachNumber, Constructor) {
-  constexpr MachNumber mach_number_0;
+  constexpr MachNumber mach_number_0{};
   constexpr MachNumber mach_number_1{0.5};
   const Speed speed{2.0, Unit::Speed::MetrePerSecond};
   const SoundSpeed sound_speed{4.0, Unit::Speed::MetrePerSecond};

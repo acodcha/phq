@@ -79,21 +79,37 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless scalar physical quantity
   // with an uninitialized value.
-  constexpr DimensionlessScalarQuantity() : value_() {}
+  DimensionlessScalarQuantity() = default;
 
   // Constructor. Constructs a dimensionless scalar physical quantity with a
   // given value.
-  constexpr DimensionlessScalarQuantity(const double value) : value_(value) {}
+  explicit constexpr DimensionlessScalarQuantity(const double value)
+    : value_(value) {}
 
   // Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalarQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensionless scalar
-  // physical quantity from a given value.
-  void operator=(const double value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensionless scalar physical quantity by
+  // copying another one.
+  constexpr DimensionlessScalarQuantity(
+      const DimensionlessScalarQuantity& other) = default;
 
+  // Move constructor. Constructs a dimensionless scalar physical quantity by
+  // moving another one.
+  constexpr DimensionlessScalarQuantity(
+      DimensionlessScalarQuantity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this dimensionless scalar physical
+  // quantity by copying another one.
+  constexpr DimensionlessScalarQuantity& operator=(
+      const DimensionlessScalarQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensionless scalar physical
+  // quantity by moving another one.
+  constexpr DimensionlessScalarQuantity& operator=(
+      DimensionlessScalarQuantity&& other) noexcept = default;
+
+  // Value of this dimensionless scalar physical quantity.
   double value_;
 };
 

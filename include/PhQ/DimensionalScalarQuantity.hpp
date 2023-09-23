@@ -163,11 +163,12 @@ public:
 protected:
   // Default constructor. Constructs a dimensional scalar physical quantity with
   // an uninitialized value expressed in its standard unit of measure.
-  constexpr DimensionalScalarQuantity() : value_() {}
+  DimensionalScalarQuantity() = default;
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given
   // value expressed in its standard unit of measure.
-  constexpr DimensionalScalarQuantity(const double value) : value_(value) {}
+  explicit constexpr DimensionalScalarQuantity(const double value)
+    : value_(value) {}
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given
   // value expressed in a given unit of measure.
@@ -178,12 +179,28 @@ protected:
   // Destructor. Destroys this dimensional scalar physical quantity.
   ~DimensionalScalarQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensional scalar
-  // physical quantity from a given value.
-  constexpr void operator=(const double value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensional scalar physical quantity by
+  // copying another one.
+  constexpr DimensionalScalarQuantity(
+      const DimensionalScalarQuantity& other) = default;
 
+  // Move constructor. Constructs a dimensional scalar physical quantity by
+  // moving another one.
+  constexpr DimensionalScalarQuantity(
+      DimensionalScalarQuantity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this dimensional scalar physical quantity
+  // by copying another one.
+  constexpr DimensionalScalarQuantity& operator=(
+      const DimensionalScalarQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensional scalar physical quantity
+  // by moving another one.
+  constexpr DimensionalScalarQuantity& operator=(
+      DimensionalScalarQuantity&& other) noexcept = default;
+
+  // Value of this dimensional scalar physical quantity expressed in its
+  // standard unit of measure.
   double value_;
 };
 

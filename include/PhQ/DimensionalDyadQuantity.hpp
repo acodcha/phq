@@ -163,11 +163,17 @@ protected:
   // Default constructor. Constructs a dimensional dyadic tensor physical
   // quantity with an uninitialized value expressed in its standard unit of
   // measure.
-  constexpr DimensionalDyadQuantity() : value_() {}
+  DimensionalDyadQuantity() = default;
 
   // Constructor. Constructs a dimensional dyadic tensor physical quantity with
   // a given value expressed in its standard unit of measure.
-  constexpr DimensionalDyadQuantity(const Value::Dyad& value) : value_(value) {}
+  explicit constexpr DimensionalDyadQuantity(const Value::Dyad& value)
+    : value_(value) {}
+
+  // Constructor. Constructs a dimensional dyadic tensor physical quantity by
+  // moving a given value expressed in its standard unit of measure.
+  explicit constexpr DimensionalDyadQuantity(Value::Dyad&& value) noexcept
+    : value_(std::move(value)) {}
 
   // Constructor. Constructs a dimensional dimensional dyadic tensor physical
   // quantity with a given value expressed in a given unit of measure.
@@ -176,15 +182,8 @@ protected:
     Convert(value_, unit, Standard<U>);
   }
 
-  // Move constructor. Constructs a dimensional dyadic tensor physical quantity
-  // with a given value expressed in its standard unit of measure by moving the
-  // value.
-  constexpr DimensionalDyadQuantity(Value::Dyad&& value) noexcept
-    : value_(std::move(value)) {}
-
-  // Move constructor. Constructs a dimensional dimensional dyadic tensor
-  // physical quantity with a given value expressed in a given unit of measure
-  // by moving the value.
+  // Constructor. Constructs a dimensional dimensional dyadic tensor physical
+  // quantity by moving a given value expressed in a given unit of measure.
   DimensionalDyadQuantity(Value::Dyad&& value, const U unit)
     : value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
@@ -194,18 +193,28 @@ protected:
   // quantity.
   ~DimensionalDyadQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensional dyadic
-  // tensor physical quantity by copying a given value.
-  constexpr void operator=(const Value::Dyad& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensional dyadic tensor physical quantity
+  // by copying another one.
+  constexpr DimensionalDyadQuantity(
+      const DimensionalDyadQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensional dyadic
-  // tensor physical quantity by moving a given vector value.
-  constexpr void operator=(Value::Dyad&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensional dyadic tensor physical quantity
+  // by moving another one.
+  constexpr DimensionalDyadQuantity(
+      DimensionalDyadQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensional dyadic tensor physical
+  // quantity by copying another one.
+  constexpr DimensionalDyadQuantity& operator=(
+      const DimensionalDyadQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensional dyadic tensor physical
+  // quantity by moving another one.
+  constexpr DimensionalDyadQuantity& operator=(
+      DimensionalDyadQuantity&& other) noexcept = default;
+
+  // Value of this dimensional dyadic tensor physical quantity expressed in its
+  // standard unit of measure.
   Value::Dyad value_;
 };
 

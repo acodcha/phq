@@ -81,33 +81,42 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless dyadic tensor physical
   // quantity with an uninitialized value.
-  constexpr DimensionlessDyadQuantity() : value_() {}
+  DimensionlessDyadQuantity() = default;
 
   // Constructor. Constructs a dimensionless dyadic tensor physical quantity
   // with a given value.
-  constexpr DimensionlessDyadQuantity(const Value::Dyad& value)
+  explicit constexpr DimensionlessDyadQuantity(const Value::Dyad& value)
     : value_(value) {}
 
-  // Move constructor. Constructs a dimensionless dyadic tensor physical
-  // quantity with a given value by moving the value.
-  constexpr DimensionlessDyadQuantity(Value::Dyad&& value) noexcept
+  // Constructor. Constructs a dimensionless dyadic tensor physical quantity by
+  // moving a given value.
+  explicit constexpr DimensionlessDyadQuantity(Value::Dyad&& value) noexcept
     : value_(std::move(value)) {}
 
   // Destructor. Destroys this dimensionless dyadic tensor physical quantity.
   ~DimensionlessDyadQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensionless dyadic
-  // tensor physical quantity by copying a given value.
-  void operator=(const Value::Dyad& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensionless dyadic tensor physical
+  // quantity by copying another one.
+  constexpr DimensionlessDyadQuantity(
+      const DimensionlessDyadQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensionless
-  // dyadic tensor physical quantity by moving a given vector value.
-  void operator=(Value::Dyad&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensionless dyadic tensor physical
+  // quantity by moving another one.
+  constexpr DimensionlessDyadQuantity(
+      DimensionlessDyadQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensionless dyadic tensor physical
+  // quantity by copying another one.
+  constexpr DimensionlessDyadQuantity& operator=(
+      const DimensionlessDyadQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensionless dyadic tensor physical
+  // quantity by moving another one.
+  constexpr DimensionlessDyadQuantity& operator=(
+      DimensionlessDyadQuantity&& other) noexcept = default;
+
+  // Value of this dimensionless dyadic tensor physical quantity.
   Value::Dyad value_;
 };
 
