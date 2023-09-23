@@ -28,7 +28,7 @@ public:
   // Default constructor. Constructs a three-dimensional dyadic tensor value
   // with uninitialized xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
   // components.
-  constexpr Dyad() : xx_xy_xz_yx_yy_yz_zx_zy_zz_() {}
+  Dyad() = default;
 
   // Constructor. Constructs a three-dimensional dyadic tensor value from the
   // given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
@@ -44,6 +44,19 @@ public:
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
+  // Constructor. Constructs a three-dimensional dyadic tensor value from a
+  // given three-dimensional symmetric dyadic tensor value.
+  explicit constexpr Dyad(const SymmetricDyad& symdyad)
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
+        {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(),
+         symdyad.yz(), symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
+
+  // Constructor. Constructs a three-dimensional dyadic tensor value by moving a
+  // given array representing its xx, xy, xz, yx, yy, yz, zx, zy, and zz
+  // Cartesian components.
+  constexpr Dyad(std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
+
   // Destructor. Destroys this three-dimensional dyadic tensor value.
   ~Dyad() noexcept = default;
 
@@ -51,19 +64,21 @@ public:
   // value by copying another one.
   constexpr Dyad(const Dyad& other) = default;
 
-  // Copy constructor. Constructs a three-dimensional dyadic tensor value from a
-  // given three-dimensional symmetric dyadic tensor value.
-  explicit constexpr Dyad(const SymmetricDyad& symdyad)
-    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
-        {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(),
-         symdyad.yz(), symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
+  // Move constructor. Constructs a three-dimensional dyadic tensor value by
+  // moving another one.
+  constexpr Dyad(Dyad&& other) noexcept = default;
 
   // Copy assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by copying another three-dimensional dyadic tensor
   // value.
   constexpr Dyad& operator=(const Dyad& other) = default;
 
-  // Copy assignment operator. Assigns the components of this three-dimensional
+  // Move assignment operator. Assigns the components of this three-dimensional
+  // dyadic tensor value by moving another three-dimensional dyadic tensor
+  // value.
+  constexpr Dyad& operator=(Dyad&& other) noexcept = default;
+
+  // Assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by copying a three-dimensional symmetric dyadic tensor
   // value.
   constexpr Dyad& operator=(const SymmetricDyad& other) {
@@ -79,16 +94,16 @@ public:
     return *this;
   }
 
-  // Copy assignment operator. Assigns the components of this three-dimensional
+  // Assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by copying a given array representing its xx, xy, xz,
   // yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr Dyad& operator=(
-      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept {
+      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
     return *this;
   }
 
-  // Move assignment operator. Assigns the components of this three-dimensional
+  // Assignment operator. Assigns the components of this three-dimensional
   // dyadic tensor value by moving a given array representing its xx, xy, xz,
   // yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr Dyad& operator=(
@@ -96,21 +111,6 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz);
     return *this;
   }
-
-  // Move constructor. Constructs a three-dimensional dyadic tensor value by
-  // moving another one.
-  constexpr Dyad(Dyad&& other) noexcept = default;
-
-  // Move constructor. Constructs a three-dimensional dyadic tensor value by
-  // moving a given array representing its xx, xy, xz, yx, yy, yz, zx, zy, and
-  // zz Cartesian components.
-  constexpr Dyad(std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
-    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
-
-  // Move assignment operator. Assigns the components of this three-dimensional
-  // dyadic tensor value by moving another three-dimensional dyadic tensor
-  // value.
-  constexpr Dyad& operator=(Dyad&& other) noexcept = default;
 
   // Returns a three-dimensional dyadic tensor value with its xx, xy, xz, yx,
   // yy, yz, zx, zy, and zz Cartesian components initialized to zero.

@@ -142,6 +142,31 @@ TEST(ValueSymmetricDyad, Arithmetic) {
   EXPECT_EQ(symdyad4, SymmetricDyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
 }
 
+TEST(ValueSymmetricDyad, Assignment) {
+  constexpr SymmetricDyad reference{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+
+  constexpr SymmetricDyad to_copy{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad copy_assigned = SymmetricDyad::Zero();
+  copy_assigned = to_copy;
+  EXPECT_EQ(copy_assigned, reference);
+
+  SymmetricDyad to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_assigned = SymmetricDyad::Zero();
+  move_assigned = std::move(to_move);
+  EXPECT_EQ(move_assigned, reference);
+
+  constexpr std::array<double, 6> array_to_copy{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad assigned_by_copying_an_array = SymmetricDyad::Zero();
+  assigned_by_copying_an_array = array_to_copy;
+  EXPECT_EQ(assigned_by_copying_an_array, reference);
+
+  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad assigned_by_moving_an_array = SymmetricDyad::Zero();
+  assigned_by_moving_an_array = std::move(array_to_move);
+  EXPECT_EQ(assigned_by_moving_an_array, reference);
+}
+
 TEST(ValueSymmetricDyad, Cofactors) {
   EXPECT_EQ(SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Cofactors(),
             SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
@@ -166,53 +191,26 @@ TEST(ValueSymmetricDyad, Comparison) {
 }
 
 TEST(ValueSymmetricDyad, Constructor) {
-  constexpr std::array<double, 6> array_reference{
-      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   constexpr SymmetricDyad reference{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
 
-  // Default constructor.
-  constexpr SymmetricDyad default_;
+  constexpr SymmetricDyad default_constructed{};
 
-  // Constructor from array.
-  constexpr SymmetricDyad from_array{array_reference};
-  EXPECT_EQ(from_array, reference);
+  constexpr std::array<double, 6> array_to_copy{
+      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad constructed_by_copying_an_array(array_to_copy);
+  EXPECT_EQ(constructed_by_copying_an_array, reference);
 
-  // Copy constructor.
-  constexpr SymmetricDyad copy_constructed{reference};
+  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad constructed_by_moving_an_array(std::move(array_to_move));
+  EXPECT_EQ(constructed_by_moving_an_array, reference);
+
+  constexpr SymmetricDyad to_copy{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad copy_constructed(to_copy);
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy assignment operator.
-  SymmetricDyad copy_assigned = SymmetricDyad::Zero();
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Copy assignment operator from array.
-  SymmetricDyad copy_assigned_from_array = SymmetricDyad::Zero();
-  copy_assigned_from_array = array_reference;
-  EXPECT_EQ(copy_assigned_from_array, reference);
-
-  // Move constructor.
-  SymmetricDyad to_move_construct{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_constructed{std::move(to_move_construct)};
+  SymmetricDyad to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  SymmetricDyad move_constructed(std::move(to_move));
   EXPECT_EQ(move_constructed, reference);
-
-  // Move constructor from array.
-  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_constructed_from_array{std::move(array_to_move)};
-  EXPECT_EQ(move_constructed_from_array, reference);
-
-  // Move assignment operator.
-  SymmetricDyad to_move_assign{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_assigned = SymmetricDyad::Zero();
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
-
-  // Move assignment operator from array.
-  std::array<double, 6> array_to_move_assign{
-      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_assigned_from_array = SymmetricDyad::Zero();
-  move_assigned_from_array = std::move(array_to_move_assign);
-  EXPECT_EQ(move_assigned_from_array, reference);
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
