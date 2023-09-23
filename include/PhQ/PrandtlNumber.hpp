@@ -25,16 +25,24 @@ namespace PhQ {
 // Prandtl number of a fluid.
 class PrandtlNumber : public DimensionlessScalarQuantity {
 public:
+  // Default constructor. Constructs a Prandtl number with an uninitialized
+  // value.
   constexpr PrandtlNumber() : DimensionlessScalarQuantity() {}
 
+  // Constructor. Constructs a Prandtl number with a given value.
   explicit constexpr PrandtlNumber(const double value)
     : DimensionlessScalarQuantity(value) {}
 
+  // Constructor. Constructs a Prandtl number from a given kinematic viscosity
+  // and thermal diffusivity using the definition of the Prandtl number.
   constexpr PrandtlNumber(const KinematicViscosity& kinematic_viscosity,
                           const ThermalDiffusivity& thermal_diffusivity)
     : PrandtlNumber(kinematic_viscosity.Value() / thermal_diffusivity.Value()) {
   }
 
+  // Constructor. Constructs a Prandtl number from a given dynamic viscosity,
+  // specific isobaric heat capacity, and thermal conductivity using the
+  // definition of the Prandtl number.
   constexpr PrandtlNumber(
       const DynamicViscosity& dynamic_viscosity,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
@@ -43,6 +51,24 @@ public:
         dynamic_viscosity.Value() * specific_isobaric_heat_capacity.Value()
         / thermal_conductivity_scalar.Value()) {}
 
+  // Destructor. Destroys a Prandtl number.
+  ~PrandtlNumber() noexcept = default;
+
+  // Copy constructor. Constructs a Prandtl number by copying another one.
+  constexpr PrandtlNumber(const PrandtlNumber& other) = default;
+
+  // Move constructor. Constructs a Prandtl number by moving another one.
+  constexpr PrandtlNumber(PrandtlNumber&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Prandtl number by copying another
+  // one.
+  constexpr PrandtlNumber& operator=(const PrandtlNumber& other) = default;
+
+  // Move assignment operator. Assigns this Prandtl number by moving another
+  // one.
+  constexpr PrandtlNumber& operator=(PrandtlNumber&& other) noexcept = default;
+
+  // Returns a Prandtl number of zero.
   static constexpr PrandtlNumber Zero() {
     return PrandtlNumber{0.0};
   }

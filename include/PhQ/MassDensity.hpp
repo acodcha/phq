@@ -37,36 +37,71 @@ class ThermalDiffusivity;
 // Mass density.
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 public:
-  constexpr MassDensity() : DimensionalScalarQuantity<Unit::MassDensity>() {}
+  // Default constructor. Constructs a mass density.
+  MassDensity() = default;
 
+  // Constructor. Constructs a mass density from a given value expressed in a
+  // given mass density unit.
   MassDensity(const double value, const Unit::MassDensity unit)
     : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
 
+  // Constructor. Constructs a mass density from a given mass and volume using
+  // the definition of mass density.
   constexpr MassDensity(const Mass& mass, const Volume& volume)
     : MassDensity(mass.Value() / volume.Value()) {}
 
+  // Constructor. Constructs a mass density from a given dynamic viscosity and
+  // kinematic viscosity using the definition of kinematic viscosity.
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity,
                         const KinematicViscosity& kinematic_viscosity);
 
+  // Constructor. Constructs a mass density from a given thermal diffusivity,
+  // thermal conductivity, and specific isobaric heat capacity using the
+  // definition of thermal diffusivity.
   constexpr MassDensity(
       const ThermalDiffusivity& thermal_diffusivity,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
+  // Constructor. Constructs a mass density from a given dynamic pressure and
+  // speed using the definition of dynamic pressure.
   constexpr MassDensity(
       const DynamicPressure& dynamic_pressure, const Speed& speed);
 
+  // Constructor. Constructs a mass density from a given Reynolds number,
+  // dynamic viscosity, speed, and length using the definition of the Reynolds
+  // number.
   constexpr MassDensity(const ReynoldsNumber& reynolds_number,
                         const DynamicViscosity& dynamic_viscosity,
                         const Speed& speed, const Length& length);
 
+  // Constructor. Constructs a mass density from a given isentropic bulk modulus
+  // and sound speed using the definition of the isentropic bulk modulus.
   constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const SoundSpeed& sound_speed);
 
+  // Destructor. Destroys a mass density.
+  ~MassDensity() noexcept = default;
+
+  // Copy constructor. Constructs a mass density by copying another one.
+  constexpr MassDensity(const MassDensity& other) = default;
+
+  // Move constructor. Constructs a mass density by moving another one.
+  constexpr MassDensity(MassDensity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this mass density by copying another one.
+  constexpr MassDensity& operator=(const MassDensity& other) = default;
+
+  // Move assignment operator. Assigns this mass density by moving another one.
+  constexpr MassDensity& operator=(MassDensity&& other) noexcept = default;
+
+  // Returns a mass density of zero.
   static constexpr MassDensity Zero() {
     return MassDensity{0.0};
   }
 
+  // Statically creates a mass density from a given value expressed in a given
+  // mass density unit.
   template <Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) {
     return MassDensity{
@@ -87,7 +122,7 @@ public:
   }
 
   constexpr Mass operator*(const Volume& volume) const {
-    return {*this, volume};
+    return Mass{*this, volume};
   }
 
   constexpr DynamicViscosity operator*(
@@ -118,6 +153,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a mass density from a given value expressed in the
+  // standard mass density unit.
   explicit constexpr MassDensity(const double value)
     : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
 };
@@ -172,11 +209,11 @@ inline constexpr Mass::Mass(
   : Mass(mass_density.Value() * volume.Value()) {}
 
 inline constexpr MassDensity Mass::operator/(const Volume& volume) const {
-  return {*this, volume};
+  return MassDensity{*this, volume};
 }
 
 inline constexpr Mass Volume::operator*(const MassDensity& mass_density) const {
-  return {mass_density, *this};
+  return Mass{mass_density, *this};
 }
 
 }  // namespace PhQ

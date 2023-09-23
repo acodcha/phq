@@ -288,6 +288,7 @@ public:
   }
 
 private:
+  // Cartesian components of this three-dimensional vector value.
   std::array<double, 3> x_y_z_;
 };
 

@@ -163,12 +163,19 @@ protected:
   // Default constructor. Constructs a dimensional symmetric dyadic tensor
   // physical quantity with an uninitialized value expressed in its standard
   // unit of measure.
-  constexpr DimensionalSymmetricDyadQuantity() : value_() {}
+  DimensionalSymmetricDyadQuantity() = default;
 
   // Constructor. Constructs a dimensional symmetric dyadic tensor physical
   // quantity with a given value expressed in its standard unit of measure.
-  constexpr DimensionalSymmetricDyadQuantity(const Value::SymmetricDyad& value)
+  explicit constexpr DimensionalSymmetricDyadQuantity(
+      const Value::SymmetricDyad& value)
     : value_(value) {}
+
+  // Constructor. Constructs a dimensional symmetric dyadic tensor physical
+  // quantity by moving a given value expressed in its standard unit of measure.
+  explicit constexpr DimensionalSymmetricDyadQuantity(
+      Value::SymmetricDyad&& value) noexcept
+    : value_(std::move(value)) {}
 
   // Constructor. Constructs a dimensional dimensional symmetric dyadic tensor
   // physical quantity with a given value expressed in a given unit of measure.
@@ -178,16 +185,9 @@ protected:
     Convert(value_, unit, Standard<U>);
   }
 
-  // Move constructor. Constructs a dimensional symmetric dyadic tensor physical
-  // quantity with a given value expressed in its standard unit of measure by
-  // moving the value.
-  constexpr DimensionalSymmetricDyadQuantity(
-      Value::SymmetricDyad&& value) noexcept
-    : value_(std::move(value)) {}
-
-  // Move constructor. Constructs a dimensional dimensional symmetric dyadic
-  // tensor physical quantity with a given value expressed in a given unit of
-  // measure by moving the value.
+  // Constructor. Constructs a dimensional dimensional symmetric dyadic tensor
+  // physical quantity by moving a given value expressed in a given unit of
+  // measure.
   DimensionalSymmetricDyadQuantity(Value::SymmetricDyad&& value, const U unit)
     : value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
@@ -197,18 +197,28 @@ protected:
   // physical quantity.
   ~DimensionalSymmetricDyadQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensional symmetric
-  // dyadic tensor physical quantity by copying a given value.
-  constexpr void operator=(const Value::SymmetricDyad& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensional symmetric dyadic tensor physical
+  // quantity by copying another one.
+  constexpr DimensionalSymmetricDyadQuantity(
+      const DimensionalSymmetricDyadQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensional
-  // symmetric dyadic tensor physical quantity by moving a given vector value.
-  constexpr void operator=(Value::SymmetricDyad&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensional symmetric dyadic tensor physical
+  // quantity by moving another one.
+  constexpr DimensionalSymmetricDyadQuantity(
+      DimensionalSymmetricDyadQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensional symmetric dyadic tensor
+  // physical quantity by copying another one.
+  constexpr DimensionalSymmetricDyadQuantity& operator=(
+      const DimensionalSymmetricDyadQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensional symmetric dyadic tensor
+  // physical quantity by moving another one.
+  constexpr DimensionalSymmetricDyadQuantity& operator=(
+      DimensionalSymmetricDyadQuantity&& other) noexcept = default;
+
+  // Value of this dimensional symmetric dyadic tensor physical quantity
+  // expressed in its standard unit of measure.
   Value::SymmetricDyad value_;
 };
 

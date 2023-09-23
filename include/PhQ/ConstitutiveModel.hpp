@@ -84,6 +84,7 @@ public:
   virtual inline std::string YAML() const = 0;
 
 protected:
+  // Default constructor. Constructs this abstract base class.
   constexpr ConstitutiveModel() = default;
 };
 

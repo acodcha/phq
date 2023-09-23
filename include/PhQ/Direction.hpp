@@ -103,15 +103,15 @@ public:
   // Copy constructor. Constructs a direction by copying another one.
   constexpr Direction(const Direction& other) = default;
 
+  // Move constructor. Constructs a direction by moving another one.
+  constexpr Direction(Direction&& other) noexcept = default;
+
   // Copy assignment operator. Assigns the value of this direction by copying
   // from another one.
   constexpr Direction& operator=(const Direction& other) {
     value_ = other.value_;
     return *this;
   }
-
-  // Move constructor. Constructs a direction by moving another one.
-  constexpr Direction(Direction&& other) noexcept = default;
 
   // Move assignment operator. Assigns the value of this direction by moving
   // another one.
@@ -120,6 +120,7 @@ public:
     return *this;
   }
 
+  // Returns a direction with its value initialized to the zero vector.
   static constexpr Direction Zero() {
     return Direction{};
   }

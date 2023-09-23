@@ -411,6 +411,8 @@ public:
   }
 
 private:
+  // Cartesian components of this three-dimensional symmetric dyadic tensor
+  // value.
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
 
   friend Dyad;

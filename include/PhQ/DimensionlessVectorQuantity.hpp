@@ -80,33 +80,42 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless vector physical quantity
   // with an uninitialized value.
-  constexpr DimensionlessVectorQuantity() : value_() {}
+  DimensionlessVectorQuantity() = default;
 
   // Constructor. Constructs a dimensionless vector physical quantity with a
   // given value.
-  constexpr DimensionlessVectorQuantity(const Value::Vector& value)
+  explicit constexpr DimensionlessVectorQuantity(const Value::Vector& value)
     : value_(value) {}
 
-  // Move constructor. Constructs a dimensionless vector physical quantity with
-  // a given value by moving the value.
-  constexpr DimensionlessVectorQuantity(Value::Vector&& value) noexcept
+  // Constructor. Constructs a dimensionless vector physical quantity by moving
+  // a given value.
+  explicit constexpr DimensionlessVectorQuantity(Value::Vector&& value) noexcept
     : value_(std::move(value)) {}
 
   // Destructor. Destroys this dimensionless vector physical quantity.
   ~DimensionlessVectorQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensionless vector
-  // physical quantity by copying a given value.
-  void operator=(const Value::Vector& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensionless vector physical quantity by
+  // copying another one.
+  constexpr DimensionlessVectorQuantity(
+      const DimensionlessVectorQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensionless
-  // vector physical quantity by moving a given vector value.
-  void operator=(Value::Vector&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensionless vector physical quantity by
+  // moving another one.
+  constexpr DimensionlessVectorQuantity(
+      DimensionlessVectorQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensionless vector physical
+  // quantity by copying another one.
+  constexpr DimensionlessVectorQuantity& operator=(
+      const DimensionlessVectorQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensionless vector physical
+  // quantity by moving another one.
+  constexpr DimensionlessVectorQuantity& operator=(
+      DimensionlessVectorQuantity&& other) noexcept = default;
+
+  // Value of this dimensionless vector physical quantity.
   Value::Vector value_;
 };
 

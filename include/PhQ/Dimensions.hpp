@@ -65,49 +65,51 @@ public:
   // one.
   constexpr Dimensions(const Dimensions& other) = default;
 
-  // Copy assignment operator. Assigns the base physical dimensions of this
-  // physical dimension set by copying from another one.
-  constexpr Dimensions& operator=(const Dimensions& other) = default;
-
   // Move constructor. Constructs a physical dimension set by moving another
   // one.
   constexpr Dimensions(Dimensions&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns the base physical dimensions of this
+  // physical dimension set by copying from another one.
+  constexpr Dimensions& operator=(const Dimensions& other) = default;
 
   // Move assignment operator. Assigns the base physical dimensions of this
   // physical dimension set by moving another one.
   constexpr Dimensions& operator=(Dimensions&& other) noexcept = default;
 
-  // Base physical dimension of time.
+  // Base physical dimension of time of this physical dimension set.
   constexpr const Dimension::Time& Time() const noexcept {
     return time_;
   }
 
-  // Base physical dimension of length.
+  // Base physical dimension of length of this physical dimension set.
   constexpr const Dimension::Length& Length() const noexcept {
     return length_;
   }
 
-  // Base physical dimension of mass.
+  // Base physical dimension of mass of this physical dimension set.
   constexpr const Dimension::Mass& Mass() const noexcept {
     return mass_;
   }
 
-  // Base physical dimension of electric current.
+  // Base physical dimension of electric current of this physical dimension set.
   constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
     return electric_current_;
   }
 
-  // Base physical dimension of temperature.
+  // Base physical dimension of temperature of this physical dimension set.
   constexpr const Dimension::Temperature& Temperature() const noexcept {
     return temperature_;
   }
 
-  // Base physical dimension of amount of substance.
+  // Base physical dimension of amount of substance of this physical dimension
+  // set.
   constexpr const Dimension::SubstanceAmount& SubstanceAmount() const noexcept {
     return substance_amount_;
   }
 
-  // Base physical dimension of luminous intensity.
+  // Base physical dimension of luminous intensity of this physical dimension
+  // set.
   constexpr const Dimension::LuminousIntensity&
   LuminousIntensity() const noexcept {
     return luminous_intensity_;
@@ -313,6 +315,7 @@ public:
   }
 
 private:
+  // Base physical dimension of time of this physical dimension set.
   Dimension::Time time_;
 
   Dimension::Length length_;

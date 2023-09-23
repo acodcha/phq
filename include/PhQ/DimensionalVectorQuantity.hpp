@@ -161,12 +161,17 @@ public:
 protected:
   // Default constructor. Constructs a dimensional vector physical quantity with
   // an uninitialized value expressed in its standard unit of measure.
-  constexpr DimensionalVectorQuantity() : value_() {}
+  DimensionalVectorQuantity() = default;
 
   // Constructor. Constructs a dimensional vector physical quantity with a given
   // value expressed in its standard unit of measure.
-  constexpr DimensionalVectorQuantity(const Value::Vector& value)
+  explicit constexpr DimensionalVectorQuantity(const Value::Vector& value)
     : value_(value) {}
+
+  // Constructor. Constructs a dimensional vector physical quantity by moving a
+  // given value expressed in its standard unit of measure.
+  explicit constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
+    : value_(std::move(value)) {}
 
   // Constructor. Constructs a dimensional vector physical quantity with a given
   // value expressed in a given unit of measure.
@@ -175,14 +180,8 @@ protected:
     Convert(value_, unit, Standard<U>);
   }
 
-  // Move constructor. Constructs a dimensional vector physical quantity with a
-  // given value expressed in its standard unit of measure by moving the given
-  // value.
-  constexpr DimensionalVectorQuantity(Value::Vector&& value) noexcept
-    : value_(std::move(value)) {}
-
-  // Move constructor. Constructs a dimensional vector physical quantity with a
-  // given value expressed in a given unit of measure by moving the value.
+  // Constructor. Constructs a dimensional vector physical quantity by moving a
+  // given value expressed in a given unit of measure.
   DimensionalVectorQuantity(Value::Vector&& value, const U unit)
     : value_(std::move(value)) {
     Convert(value_, unit, Standard<U>);
@@ -191,18 +190,28 @@ protected:
   // Destructor. Destroys this dimensional vector physical quantity.
   ~DimensionalVectorQuantity() noexcept = default;
 
-  // Copy assignment operator. Assigns the value of this dimensional vector
-  // physical quantity by copying a given value.
-  constexpr void operator=(const Value::Vector& value) {
-    value_ = value;
-  }
+  // Copy constructor. Constructs a dimensional vector physical quantity by
+  // copying another one.
+  constexpr DimensionalVectorQuantity(
+      const DimensionalVectorQuantity& other) = default;
 
-  // Move assignment operator. Assigns the components of this dimensional vector
-  // physical quantity by moving a given vector value.
-  constexpr void operator=(Value::Vector&& value) noexcept {
-    value_ = std::move(value);
-  }
+  // Move constructor. Constructs a dimensional vector physical quantity by
+  // moving another one.
+  constexpr DimensionalVectorQuantity(
+      DimensionalVectorQuantity&& other) noexcept = default;
 
+  // Copy assignment operator. Assigns this dimensional vector physical quantity
+  // by copying another one.
+  constexpr DimensionalVectorQuantity& operator=(
+      const DimensionalVectorQuantity& other) = default;
+
+  // Move assignment operator. Assigns this dimensional vector physical quantity
+  // by moving another one.
+  constexpr DimensionalVectorQuantity& operator=(
+      DimensionalVectorQuantity&& other) noexcept = default;
+
+  // Value of this dimensional vector physical quantity expressed in its
+  // standard unit of measure.
   Value::Vector value_;
 };
 

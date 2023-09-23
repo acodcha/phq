@@ -26,22 +26,48 @@ namespace PhQ {
 // Reynolds number of a fluid flow.
 class ReynoldsNumber : public DimensionlessScalarQuantity {
 public:
+  // Default constructor. Constructs a Reynolds number with an uninitialized
+  // value.
   constexpr ReynoldsNumber() : DimensionlessScalarQuantity() {}
 
+  // Constructor. Constructs a Reynolds number with a given value.
   explicit constexpr ReynoldsNumber(const double value)
     : DimensionlessScalarQuantity(value) {}
 
+  // Constructor. Constructs a Reynolds number from a given mass density, speed,
+  // length, and dynamic viscosity using the definition of the Reynolds number.
   constexpr ReynoldsNumber(
-      const DynamicViscosity& dynamic_viscosity,
-      const MassDensity& mass_density, const Speed& speed, const Length& length)
+      const MassDensity& mass_density, const Speed& speed, const Length& length,
+      const DynamicViscosity& dynamic_viscosity)
     : ReynoldsNumber(mass_density.Value() * speed.Value() * length.Value()
                      / dynamic_viscosity.Value()) {}
 
-  constexpr ReynoldsNumber(const KinematicViscosity& kinematic_viscosity,
-                           const Speed& speed, const Length& length)
+  // Constructor. Constructs a Reynolds number from a given speed, length, and
+  // kinematic viscosity using the definition of the Reynolds number.
+  constexpr ReynoldsNumber(const Speed& speed, const Length& length,
+                           const KinematicViscosity& kinematic_viscosity)
     : ReynoldsNumber(
         speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
 
+  // Destructor. Destroys a Reynolds number.
+  ~ReynoldsNumber() noexcept = default;
+
+  // Copy constructor. Constructs a Reynolds number by copying another one.
+  constexpr ReynoldsNumber(const ReynoldsNumber& other) = default;
+
+  // Move constructor. Constructs a Reynolds number by moving another one.
+  constexpr ReynoldsNumber(ReynoldsNumber&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Reynolds number by copying another
+  // one.
+  constexpr ReynoldsNumber& operator=(const ReynoldsNumber& other) = default;
+
+  // Move assignment operator. Assigns this Reynolds number by moving another
+  // one.
+  constexpr ReynoldsNumber& operator=(
+      ReynoldsNumber&& other) noexcept = default;
+
+  // Returns a Reynolds number of zero.
   static constexpr ReynoldsNumber Zero() {
     return ReynoldsNumber{0.0};
   }

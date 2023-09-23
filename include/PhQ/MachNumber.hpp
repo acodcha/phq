@@ -26,17 +26,33 @@ namespace PhQ {
 class MachNumber : public DimensionlessScalarQuantity {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
-  constexpr MachNumber() : DimensionlessScalarQuantity() {}
+  MachNumber() = default;
 
-  // Constructs a Mach Number with a given value.
+  // Constructor. Constructs a Mach number with a given value.
   explicit constexpr MachNumber(const double value)
     : DimensionlessScalarQuantity(value) {}
 
-  // Constructs a Mach number from a given speed and sound speed. This is the
-  // definition of the Mach number.
+  // Constructor. Constructs a Mach number from a given speed and sound speed
+  // using the definition of the Mach number.
   constexpr MachNumber(const Speed& speed, const SoundSpeed& sound_speed)
     : MachNumber(speed.Value() / sound_speed.Value()) {}
 
+  // Destructor. Destroys a Mach number.
+  ~MachNumber() noexcept = default;
+
+  // Copy constructor. Constructs a Mach number by copying another one.
+  constexpr MachNumber(const MachNumber& other) = default;
+
+  // Move constructor. Constructs a Mach number by moving another one.
+  constexpr MachNumber(MachNumber&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Mach number by copying another one.
+  constexpr MachNumber& operator=(const MachNumber& other) = default;
+
+  // Move assignment operator. Assigns this Mach number by moving another one.
+  constexpr MachNumber& operator=(MachNumber&& other) noexcept = default;
+
+  // Returns a Mach number of zero.
   static constexpr MachNumber Zero() {
     return MachNumber{0.0};
   }
