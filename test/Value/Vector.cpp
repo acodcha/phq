@@ -89,6 +89,30 @@ TEST(ValueVector, Arithmetic) {
   EXPECT_EQ(vector4, Vector(1.0, 2.0, 4.0));
 }
 
+TEST(ValueVector, Assignment) {
+  constexpr Vector reference{1.23, 4.56, 7.89};
+
+  constexpr Vector to_copy{1.23, 4.56, 7.89};
+  Vector copy_assigned = Vector::Zero();
+  copy_assigned = to_copy;
+  EXPECT_EQ(copy_assigned, reference);
+
+  Vector to_move{1.23, 4.56, 7.89};
+  Vector move_assigned = Vector::Zero();
+  move_assigned = std::move(to_move);
+  EXPECT_EQ(move_assigned, reference);
+
+  constexpr std::array<double, 3> array_to_copy{1.23, 4.56, 7.89};
+  Vector assigned_by_copying_an_array = Vector::Zero();
+  assigned_by_copying_an_array = array_to_copy;
+  EXPECT_EQ(assigned_by_copying_an_array, reference);
+
+  std::array<double, 3> array_to_move{1.23, 4.56, 7.89};
+  Vector assigned_by_moving_an_array = Vector::Zero();
+  assigned_by_moving_an_array = std::move(array_to_move);
+  EXPECT_EQ(assigned_by_moving_an_array, reference);
+}
+
 TEST(ValueVector, Comparison) {
   constexpr Vector vector0{1.1, 2.2, 3.3};
   constexpr Vector vector1{1.1, 2.3, 3.3};
@@ -108,51 +132,25 @@ TEST(ValueVector, Comparison) {
 }
 
 TEST(ValueVector, Constructor) {
-  constexpr std::array<double, 3> array_reference{1.23, 4.56, 7.89};
   constexpr Vector reference{1.23, 4.56, 7.89};
 
-  // Default constructor.
-  constexpr Vector default_;
+  constexpr Vector default_constructed{};
 
-  // Constructor from array.
-  constexpr Vector from_array{array_reference};
-  EXPECT_EQ(from_array, reference);
+  constexpr std::array<double, 3> array_to_copy{1.23, 4.56, 7.89};
+  constexpr Vector constructed_by_copying_an_array(array_to_copy);
+  EXPECT_EQ(constructed_by_copying_an_array, reference);
 
-  // Copy constructor.
-  constexpr Vector copy_constructed{reference};
+  std::array<double, 3> array_to_move{1.23, 4.56, 7.89};
+  Vector constructed_by_moving_an_array(std::move(array_to_move));
+  EXPECT_EQ(constructed_by_moving_an_array, reference);
+
+  constexpr Vector to_copy{1.23, 4.56, 7.89};
+  constexpr Vector copy_constructed(to_copy);
   EXPECT_EQ(copy_constructed, reference);
 
-  // Copy assignment operator.
-  Vector copy_assigned = Vector::Zero();
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Copy assignment operator from array.
-  Vector copy_assigned_from_array = Vector::Zero();
-  copy_assigned_from_array = array_reference;
-  EXPECT_EQ(copy_assigned_from_array, reference);
-
-  // Move constructor.
-  Vector to_move_construct{1.23, 4.56, 7.89};
-  Vector move_constructed{std::move(to_move_construct)};
+  Vector to_move{1.23, 4.56, 7.89};
+  Vector move_constructed(std::move(to_move));
   EXPECT_EQ(move_constructed, reference);
-
-  // Move constructor from array.
-  std::array<double, 3> array_to_move_construct{1.23, 4.56, 7.89};
-  Vector move_constructed_from_array{std::move(array_to_move_construct)};
-  EXPECT_EQ(move_constructed_from_array, reference);
-
-  // Move assignment operator.
-  Vector to_move_assign{1.23, 4.56, 7.89};
-  Vector move_assigned = Vector::Zero();
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
-
-  // Move assignment operator from array.
-  std::array<double, 3> array_to_move_assign{1.23, 4.56, 7.89};
-  Vector move_assigned_from_array = Vector::Zero();
-  move_assigned_from_array = std::move(array_to_move_assign);
-  EXPECT_EQ(move_assigned_from_array, reference);
 }
 
 TEST(ValueVector, Cross) {
