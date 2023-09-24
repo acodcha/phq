@@ -37,7 +37,7 @@ public:
   // a given value.
   explicit constexpr ElectricCurrent(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of electric current.
   ~ElectricCurrent() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of electric current

@@ -39,16 +39,27 @@ public:
     IncompressibleNewtonianFluid,
   };
 
-  // Forward declaration for class PhQ::ConstitutiveModel.
+  // Forward declarations for class PhQ::ConstitutiveModel.
   class CompressibleNewtonianFluid;
-
-  // Forward declaration for class PhQ::ConstitutiveModel.
   class ElasticIsotropicSolid;
-
-  // Forward declaration for class PhQ::ConstitutiveModel.
   class IncompressibleNewtonianFluid;
 
+  // Destructor. Destroys this constitutive model.
   virtual ~ConstitutiveModel() noexcept = default;
+
+  // Copy constructor. Constructs a constitutive model by copying another one.
+  constexpr ConstitutiveModel(const ConstitutiveModel& other) = default;
+
+  // Move constructor. Constructs a constitutive model by moving another one.
+  constexpr ConstitutiveModel(ConstitutiveModel&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this constitutive model by copying
+  // another one.
+  ConstitutiveModel& operator=(const ConstitutiveModel& other) = default;
+
+  // Move assignment operator. Assigns this constitutive model by moving another
+  // one.
+  ConstitutiveModel& operator=(ConstitutiveModel&& other) noexcept = default;
 
   // Returns this constitutive model's type.
   virtual inline Type GetType() const noexcept = 0;
@@ -84,7 +95,7 @@ public:
   virtual inline std::string YAML() const = 0;
 
 protected:
-  // Default constructor. Constructs this abstract base class.
+  // Default constructor. Constructs this constitutive model.
   constexpr ConstitutiveModel() = default;
 };
 

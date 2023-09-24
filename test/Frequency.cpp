@@ -72,7 +72,7 @@ TEST(Frequency, Comparison) {
 }
 
 TEST(Frequency, Constructor) {
-  constexpr Frequency frequency0;
+  constexpr Frequency frequency0{};
   const Frequency frequency1{4.0, Unit::Frequency::Kilohertz};
   constexpr Frequency dynamic3{
       Frequency::Create<Unit::Frequency::Kilohertz>(4.0)};

@@ -24,16 +24,44 @@ namespace PhQ {
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
 class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr IsothermalBulkModulus()
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs an isothermal bulk modulus with an
+  // uninitialized value.
+  IsothermalBulkModulus() = default;
 
+  // Constructor. Constructs an isothermal bulk modulus with a given value
+  // expressed in a given pressure unit.
   IsothermalBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this isothermal bulk modulus.
+  ~IsothermalBulkModulus() noexcept = default;
+
+  // Copy constructor. Constructs an isothermal bulk modulus by copying another
+  // one.
+  constexpr IsothermalBulkModulus(const IsothermalBulkModulus& other) = default;
+
+  // Move constructor. Constructs an isothermal bulk modulus by moving another
+  // one.
+  constexpr IsothermalBulkModulus(
+      IsothermalBulkModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this isothermal bulk modulus by copying
+  // another one.
+  constexpr IsothermalBulkModulus& operator=(
+      const IsothermalBulkModulus& other) = default;
+
+  // Move assignment operator. Assigns this isothermal bulk modulus by moving
+  // another one.
+  constexpr IsothermalBulkModulus& operator=(
+      IsothermalBulkModulus&& other) noexcept = default;
+
+  // Statically creates an isothermal bulk modulus of zero.
   static constexpr IsothermalBulkModulus Zero() {
     return IsothermalBulkModulus{0.0};
   }
 
+  // Statically creates an isothermal bulk modulus with a given value expressed
+  // in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr IsothermalBulkModulus Create(const double value) {
     return IsothermalBulkModulus{
@@ -83,6 +111,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an isothermal bulk modulus with a given value
+  // expressed in the standard pressure unit.
   constexpr IsothermalBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };

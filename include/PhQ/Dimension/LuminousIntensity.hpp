@@ -37,7 +37,7 @@ public:
   // with a given value.
   explicit constexpr LuminousIntensity(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of luminous intensity.
   ~LuminousIntensity() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of luminous

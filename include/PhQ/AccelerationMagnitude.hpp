@@ -29,25 +29,59 @@ class Direction;
 class AccelerationMagnitude
   : public DimensionalScalarQuantity<Unit::Acceleration> {
 public:
-  constexpr AccelerationMagnitude()
-    : DimensionalScalarQuantity<Unit::Acceleration>() {}
+  // Default constructor. Constructs an acceleration magnitude with an
+  // uninitialized value.
+  AccelerationMagnitude() = default;
 
+  // Constructor. Constructs an acceleration magnitude with a given value
+  // expressed in a given acceleration unit.
   AccelerationMagnitude(const double value, const Unit::Acceleration unit)
     : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
 
+  // Constructor. Constructs an acceleration magnitude from a given
+  // acceleration.
+  AccelerationMagnitude(const Acceleration& acceleration);
+
+  // Constructor. Constructs an acceleration magnitude from a given speed and
+  // time using the definition of acceleration.
   constexpr AccelerationMagnitude(const Speed& speed, const Time& time)
     : AccelerationMagnitude(speed.Value() / time.Value()) {}
 
+  // Constructor. Constructs an acceleration magnitude from a given speed and
+  // frequency using the definition of acceleration.
   constexpr AccelerationMagnitude(
       const Speed& speed, const Frequency& frequency)
     : AccelerationMagnitude(speed.Value() * frequency.Value()) {}
 
-  AccelerationMagnitude(const Acceleration& acceleration);
+  // Destructor. Destroys this acceleration magnitude.
+  ~AccelerationMagnitude() noexcept = default;
 
+  // Copy constructor. Constructs an acceleration magnitude by copying another
+  // one.
+  constexpr AccelerationMagnitude(const AccelerationMagnitude& other) = default;
+
+  // Move constructor. Constructs an acceleration magnitude by moving another
+  // one.
+  constexpr AccelerationMagnitude(
+      AccelerationMagnitude&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this acceleration magnitude by copying
+  // another one.
+  constexpr AccelerationMagnitude& operator=(
+      const AccelerationMagnitude& other) = default;
+
+  // Move assignment operator. Assigns this acceleration magnitude by moving
+  // another one.
+  constexpr AccelerationMagnitude& operator=(
+      AccelerationMagnitude&& other) noexcept = default;
+
+  // Statically creates an acceleration magnitude of zero.
   static constexpr AccelerationMagnitude Zero() {
     return AccelerationMagnitude{0.0};
   }
 
+  // Statically creates an acceleration magnitude with a given value expressed
+  // in a given acceleration unit.
   template <Unit::Acceleration Unit>
   static constexpr AccelerationMagnitude Create(const double value) {
     return AccelerationMagnitude{
@@ -111,6 +145,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an acceleration magnitude with a given value
+  // expressed in the standard acceleration unit.
   explicit constexpr AccelerationMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
 };

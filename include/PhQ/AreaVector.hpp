@@ -23,31 +23,55 @@
 
 namespace PhQ {
 
-// Vector area.
+// Vector area. The vector analog to a scalar area.
 class AreaVector : public DimensionalVectorQuantity<Unit::Area> {
 public:
-  constexpr AreaVector() : DimensionalVectorQuantity<Unit::Area>() {}
+  // Default constructor. Constructs a vector area with an uninitialized value.
+  AreaVector() = default;
 
+  // Constructor. Constructs a vector area with a given value expressedin a
+  // given area unit.
   AreaVector(const Value::Vector& value, const Unit::Area unit)
     : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
 
+  // Constructor. Constructs a vector area from a given area and direction.
   constexpr AreaVector(const Area& area, const Direction& direction)
     : AreaVector(area.Value() * direction.Value()) {}
 
+  // Destructor. Destroys this vector area.
+  ~AreaVector() noexcept = default;
+
+  // Copy constructor. Constructs a vector area by copying another one.
+  constexpr AreaVector(const AreaVector& other) = default;
+
+  // Move constructor. Constructs a vector area by moving another one.
+  constexpr AreaVector(AreaVector&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this vector area by copying another one.
+  constexpr AreaVector& operator=(const AreaVector& other) = default;
+
+  // Move assignment operator. Assigns this vector area by moving another one.
+  constexpr AreaVector& operator=(AreaVector&& other) noexcept = default;
+
+  // Statically creates a vector area of zero.
   static constexpr AreaVector Zero() {
     return AreaVector{Value::Vector::Zero()};
   }
 
+  // Statically creates vector area with a given value expressed in a given area
+  // unit.
   template <Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) {
     return AreaVector{
         StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
+  // Returns the magnitude of this vector area.
   Area Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this vector area and another one.
   PhQ::Angle Angle(const AreaVector& area_vector) const {
     return {*this, area_vector};
   }
@@ -85,6 +109,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a vector area with a given value expressed in the
+  // standard area unit.
   explicit constexpr AreaVector(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Area>(value) {}
 };

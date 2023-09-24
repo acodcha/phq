@@ -132,7 +132,7 @@ TEST(Acceleration, Comparison) {
 }
 
 TEST(Acceleration, Constructor) {
-  constexpr Acceleration acceleration0;
+  constexpr Acceleration acceleration0{};
   const Acceleration acceleration1{
       {1.0, 2.0, 4.0},
       Unit::Acceleration::FootPerSquareSecond

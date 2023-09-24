@@ -37,7 +37,7 @@ public:
   // value.
   explicit constexpr Mass(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of mass.
   ~Mass() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of mass by copying

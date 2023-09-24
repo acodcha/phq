@@ -30,29 +30,60 @@ class AngularAccelerationMagnitude;
 // circular frequency.
 class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
 public:
-  constexpr AngularSpeed() : DimensionalScalarQuantity<Unit::AngularSpeed>() {}
+  // Default constructor. Constructs an angular speed with an uninitialized
+  // value.
+  AngularSpeed() = default;
 
+  // Constructor. Constructs an angular speed with a given value expressed in a
+  // given angular speed unit.
   AngularSpeed(const double value, const Unit::AngularSpeed unit)
     : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
 
+  // Constructor. Constructs an angular speed from a given angle and time using
+  // the definition of angular speed.
   constexpr AngularSpeed(const Angle& angle, const Time& time)
     : AngularSpeed(angle.Value() / time.Value()) {}
 
+  // Constructor. Constructs an angular speed from a given angle and frequency
+  // using the definition of angular speed.
   constexpr AngularSpeed(const Angle& angle, const Frequency& frequency)
     : AngularSpeed(angle.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs an angular speed from a given angular acceleration
+  // magnitude and time using the definition of angular acceleration.
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Time& time);
 
+  // Constructor. Constructs an angular speed from a given angular acceleration
+  // magnitude and frequency using the definition of angular acceleration.
   constexpr AngularSpeed(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const Frequency& frequency);
 
+  // Destructor. Destroys this angular speed.
+  ~AngularSpeed() noexcept = default;
+
+  // Copy constructor. Constructs an angular speed by copying another one.
+  constexpr AngularSpeed(const AngularSpeed& other) = default;
+
+  // Move constructor. Constructs an angular speed by moving another one.
+  constexpr AngularSpeed(AngularSpeed&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this angular speed by copying another
+  // one.
+  constexpr AngularSpeed& operator=(const AngularSpeed& other) = default;
+
+  // Move assignment operator. Assigns this angular speed by moving another one.
+  constexpr AngularSpeed& operator=(AngularSpeed&& other) noexcept = default;
+
+  // Statically creates an angular speed of zero.
   static constexpr AngularSpeed Zero() {
     return AngularSpeed{0.0};
   }
 
+  // Statically creates an angular speed with a given value expressed in a given
+  // angular speed unit.
   template <Unit::AngularSpeed Unit>
   static constexpr AngularSpeed Create(const double value) {
     return AngularSpeed{StaticConvertCopy<Unit::AngularSpeed, Unit,
@@ -116,6 +147,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an angular speed with a given value expressed in
+  // the standard angular speed unit.
   explicit constexpr AngularSpeed(const double value)
     : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
 };

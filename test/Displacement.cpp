@@ -126,7 +126,7 @@ TEST(Displacement, Comparison) {
 }
 
 TEST(Displacement, Constructor) {
-  constexpr Displacement displacement0;
+  constexpr Displacement displacement0{};
   const Displacement displacement1{
       {1.0, 2.0, 4.0},
       Unit::Length::Millimetre

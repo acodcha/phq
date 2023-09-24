@@ -37,7 +37,7 @@ public:
   // given value.
   explicit constexpr Temperature(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of temperature.
   ~Temperature() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of temperature by

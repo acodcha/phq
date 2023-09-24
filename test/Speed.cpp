@@ -81,7 +81,7 @@ TEST(Speed, Constructor) {
   const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
   const Length length{2.0, Unit::Length::Metre};
-  constexpr Speed speed0;
+  constexpr Speed speed0{};
   const Speed speed1{4.0, Unit::Speed::MetrePerSecond};
   constexpr Speed speed2{Speed::Create<Unit::Speed::MetrePerSecond>(4.0)};
   EXPECT_EQ(Speed(length, time), speed1);

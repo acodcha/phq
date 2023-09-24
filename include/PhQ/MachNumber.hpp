@@ -37,7 +37,7 @@ public:
   constexpr MachNumber(const Speed& speed, const SoundSpeed& sound_speed)
     : MachNumber(speed.Value() / sound_speed.Value()) {}
 
-  // Destructor. Destroys a Mach number.
+  // Destructor. Destroys this Mach number.
   ~MachNumber() noexcept = default;
 
   // Copy constructor. Constructs a Mach number by copying another one.
@@ -52,7 +52,7 @@ public:
   // Move assignment operator. Assigns this Mach number by moving another one.
   constexpr MachNumber& operator=(MachNumber&& other) noexcept = default;
 
-  // Returns a Mach number of zero.
+  // Statically creates a Mach number of zero.
   static constexpr MachNumber Zero() {
     return MachNumber{0.0};
   }

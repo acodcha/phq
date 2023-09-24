@@ -123,7 +123,7 @@ TEST(Velocity, Comparison) {
 }
 
 TEST(Velocity, Constructor) {
-  constexpr Velocity velocity0;
+  constexpr Velocity velocity0{};
   const Velocity velocity1{
       {1.0, 2.0, 4.0},
       Unit::Speed::FootPerSecond

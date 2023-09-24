@@ -27,25 +27,58 @@ namespace PhQ {
 class AngularAccelerationMagnitude
   : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
 public:
-  constexpr AngularAccelerationMagnitude()
-    : DimensionalScalarQuantity<Unit::AngularAcceleration>() {}
+  // Default constructor. Constructs an angular acceleration magnitude with an
+  // uninitialized value.
+  AngularAccelerationMagnitude() = default;
 
+  // Constructor. Constructs an angular acceleration magnitude with a given
+  // value expressed in a given angular acceleration unit.
   AngularAccelerationMagnitude(
       const double value, const Unit::AngularAcceleration unit)
     : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
 
+  // Constructor. Constructs an angular acceleration magnitude from a given
+  // angular speed and time using the definition of angular acceleration.
   constexpr AngularAccelerationMagnitude(
       const AngularSpeed& angular_speed, const Time& time)
     : AngularAccelerationMagnitude(angular_speed.Value() / time.Value()) {}
 
+  // Constructor. Constructs an angular acceleration magnitude from a given
+  // angular speed and frequency using the definition of angular acceleration.
   constexpr AngularAccelerationMagnitude(
       const AngularSpeed& angular_speed, const Frequency& frequency)
     : AngularAccelerationMagnitude(angular_speed.Value() * frequency.Value()) {}
 
+  // Destructor. Destroys this angular acceleration magnitude.
+  ~AngularAccelerationMagnitude() noexcept = default;
+
+  // Copy constructor. Constructs an angular acceleration magnitude by copying
+  // another one.
+  constexpr AngularAccelerationMagnitude(
+      const AngularAccelerationMagnitude& other) = default;
+
+  // Move constructor. Constructs an angular acceleration magnitude by moving
+  // another one.
+  constexpr AngularAccelerationMagnitude(
+      AngularAccelerationMagnitude&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this angular acceleration magnitude by
+  // copying another one.
+  constexpr AngularAccelerationMagnitude& operator=(
+      const AngularAccelerationMagnitude& other) = default;
+
+  // Move assignment operator. Assigns this angular acceleration magnitude by
+  // moving another one.
+  constexpr AngularAccelerationMagnitude& operator=(
+      AngularAccelerationMagnitude&& other) noexcept = default;
+
+  // Statically creates an angular acceleration magnitude of zero.
   static constexpr AngularAccelerationMagnitude Zero() {
     return AngularAccelerationMagnitude{0.0};
   }
 
+  // Statically creates an angular acceleration magnitude with a given value
+  // expressed in a given angular acceleration unit.
   template <Unit::AngularAcceleration Unit>
   static constexpr AngularAccelerationMagnitude Create(const double value) {
     return AngularAccelerationMagnitude{
@@ -112,6 +145,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an angular acceleration magnitude with a given
+  // value expressed in the standard angular acceleration unit.
   explicit constexpr AngularAccelerationMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::AngularAcceleration>(value) {}
 };

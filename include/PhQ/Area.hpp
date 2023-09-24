@@ -32,20 +32,44 @@ class Traction;
 // Area. Scalar quantity. Can also represent the magnitude of a vector area.
 class Area : public DimensionalScalarQuantity<Unit::Area> {
 public:
-  constexpr Area() : DimensionalScalarQuantity<Unit::Area>() {}
+  // Default constructor. Constructs an area with an uninitialized value.
+  Area() = default;
 
+  // Constructor. Constructs an area with a given value expressed in a given
+  // area unit.
   Area(const double value, const Unit::Area unit)
     : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
+  // Constructor. Constructs an area from a given vector area.
   Area(const AreaVector& area_vector);
 
+  // Constructor. Constructs an area from a given static pressure and force
+  // magnitude using the definition of pressure.
   constexpr Area(const StaticPressure& static_pressure,
                  const ForceMagnitude& force_magnitude);
 
+  // Destructor. Destroys this area.
+  ~Area() noexcept = default;
+
+  // Copy constructor. Constructs an area by copying another one.
+  constexpr Area(const Area& other) = default;
+
+  // Move constructor. Constructs an area by moving another one.
+  constexpr Area(Area&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this area by copying another one.
+  constexpr Area& operator=(const Area& other) = default;
+
+  // Move assignment operator. Assigns this area by moving another one.
+  constexpr Area& operator=(Area&& other) noexcept = default;
+
+  // Statically creates an area of zero.
   static constexpr Area Zero() {
     return Area{0.0};
   }
 
+  // Statically creates an area with a given value expressed in a given area
+  // unit.
   template <Unit::Area Unit>
   static constexpr Area Create(const double value) {
     return Area{
@@ -100,6 +124,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an area with a given value expressed in the
+  // standard area unit.
   explicit constexpr Area(const double value)
     : DimensionalScalarQuantity<Unit::Area>(value) {}
 

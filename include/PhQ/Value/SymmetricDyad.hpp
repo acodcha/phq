@@ -58,36 +58,34 @@ public:
   // value by moving another one.
   constexpr SymmetricDyad(SymmetricDyad&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns the components of this three-dimensional
-  // symmetric dyadic tensor value by copying another three-dimensional
-  // symmetric dyadic tensor value.
+  // Copy assignment operator. Assigns this three-dimensional symmetric dyadic
+  // tensor value by copying another one.
   constexpr SymmetricDyad& operator=(const SymmetricDyad& other) = default;
 
-  // Move assignment operator. Assigns the components of this three-dimensional
-  // symmetric dyadic tensor value by moving another three-dimensional symmetric
-  // dyadic tensor value.
+  // Move assignment operator. Assigns this three-dimensional symmetric dyadic
+  // tensor value by moving another one.
   constexpr SymmetricDyad& operator=(SymmetricDyad&& other) noexcept = default;
 
-  // Assignment operator. Assigns the components of this three-dimensional
-  // symmetric dyadic tensor value by copying a given array representing its xx,
-  // xy, xz, yy, yz, and zz Cartesian components.
+  // Assignment operator. Assigns this three-dimensional symmetric dyadic tensor
+  // value by copying a given array representing its xx, xy, xz, yy, yz, and zz
+  // Cartesian components.
   constexpr SymmetricDyad& operator=(
       const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
     return *this;
   }
 
-  // Assignment operator. Assigns the components of this three-dimensional
-  // symmetric dyadic tensor value by moving a given array representing its xx,
-  // xy, xz, yy, yz, and zz Cartesian components.
+  // Assignment operator. Assigns this three-dimensional symmetric dyadic tensor
+  // value by moving a given array representing its xx, xy, xz, yy, yz, and zz
+  // Cartesian components.
   constexpr SymmetricDyad& operator=(
       std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept {
     xx_xy_xz_yy_yz_zz_ = std::move(xx_xy_xz_yy_yz_zz);
     return *this;
   }
 
-  // Returns a three-dimensional symmetric dyadic tensor value with its xx, xy,
-  // xz, yy, yz, and zz Cartesian components initialized to zero.
+  // Statically creates a three-dimensional symmetric dyadic tensor value with
+  // its xx, xy, xz, yy, yz, and zz Cartesian components initialized to zero.
   static constexpr SymmetricDyad Zero() {
     return SymmetricDyad{
         std::array<double, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}

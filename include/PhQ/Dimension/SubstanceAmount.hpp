@@ -37,7 +37,7 @@ public:
   // with a given value.
   explicit constexpr SubstanceAmount(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of amount of substance.
   ~SubstanceAmount() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of amount of

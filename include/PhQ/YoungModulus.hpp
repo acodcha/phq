@@ -25,15 +25,39 @@ namespace PhQ {
 // deformable solid material's elastic modulus.
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr YoungModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a Young's modulus with an uninitialized
+  // value.
+  YoungModulus() = default;
 
+  // Constructor. Constructs a Young's modulus with a given value expressed in a
+  // given pressure unit.
   YoungModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this Young's modulus.
+  ~YoungModulus() noexcept = default;
+
+  // Copy constructor. Constructs a Young's modulus by copying another one.
+  constexpr YoungModulus(const YoungModulus& other) = default;
+
+  // Move constructor. Constructs a Young's modulus by moving another one.
+  constexpr YoungModulus(YoungModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Young's modulus by copying another
+  // one.
+  constexpr YoungModulus& operator=(const YoungModulus& other) = default;
+
+  // Move assignment operator. Assigns this Young's modulus by moving another
+  // one.
+  constexpr YoungModulus& operator=(YoungModulus&& other) noexcept = default;
+
+  // Statically creates a Young's modulus of zero.
   static constexpr YoungModulus Zero() {
     return YoungModulus{0.0};
   }
 
+  // Statically creates a Young's modulus with a given value expressed in a
+  // given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr YoungModulus Create(const double value) {
     return YoungModulus{
@@ -78,6 +102,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a Young's modulus with a given value expressed in
+  // the standard pressure unit.
   explicit constexpr YoungModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };

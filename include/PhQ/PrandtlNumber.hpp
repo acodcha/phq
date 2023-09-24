@@ -51,7 +51,7 @@ public:
         dynamic_viscosity.Value() * specific_isobaric_heat_capacity.Value()
         / thermal_conductivity_scalar.Value()) {}
 
-  // Destructor. Destroys a Prandtl number.
+  // Destructor. Destroys this Prandtl number.
   ~PrandtlNumber() noexcept = default;
 
   // Copy constructor. Constructs a Prandtl number by copying another one.
@@ -68,7 +68,7 @@ public:
   // one.
   constexpr PrandtlNumber& operator=(PrandtlNumber&& other) noexcept = default;
 
-  // Returns a Prandtl number of zero.
+  // Statically creates a Prandtl number of zero.
   static constexpr PrandtlNumber Zero() {
     return PrandtlNumber{0.0};
   }

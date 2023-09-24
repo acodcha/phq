@@ -26,15 +26,41 @@ namespace PhQ {
 // modulus.
 class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr LameFirstModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a Lamé's first modulus with an
+  // uninitialized value.
+  LameFirstModulus() = default;
 
+  // Constructor. Constructs a Lamé's first modulus with a given value expressed
+  // in a given pressure unit.
   LameFirstModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this Lamé's first modulus.
+  ~LameFirstModulus() noexcept = default;
+
+  // Copy constructor. Constructs a Lamé's first modulus by copying another one.
+  constexpr LameFirstModulus(const LameFirstModulus& other) = default;
+
+  // Move constructor. Constructs a Lamé's first modulus by moving another one.
+  constexpr LameFirstModulus(LameFirstModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Lamé's first modulus by copying
+  // another one.
+  constexpr LameFirstModulus& operator=(
+      const LameFirstModulus& other) = default;
+
+  // Move assignment operator. Assigns this Lamé's first modulus by moving
+  // another one.
+  constexpr LameFirstModulus& operator=(
+      LameFirstModulus&& other) noexcept = default;
+
+  // Statically creates a Lamé's first modulus of zero.
   static constexpr LameFirstModulus Zero() {
     return LameFirstModulus{0.0};
   }
 
+  // Statically creates a Lamé's first modulus with a given value expressed in a
+  // given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr LameFirstModulus Create(const double value) {
     return LameFirstModulus{
@@ -84,8 +110,12 @@ public:
   }
 
 private:
+  // Constructor. Constructs a Lamé's first modulus with a given value expressed
+  // in the standard pressure unit.
   explicit constexpr LameFirstModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+
+  friend class ConstitutiveModel;
 };
 
 inline constexpr bool operator==(

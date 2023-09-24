@@ -155,7 +155,7 @@ TEST(Position, Comparison) {
 }
 
 TEST(Position, Constructor) {
-  constexpr Position position0;
+  constexpr Position position0{};
   const Position position1{
       {1.0, 2.0, 4.0},
       Unit::Length::Millimetre

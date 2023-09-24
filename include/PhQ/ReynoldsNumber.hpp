@@ -49,7 +49,7 @@ public:
     : ReynoldsNumber(
         speed.Value() * length.Value() / kinematic_viscosity.Value()) {}
 
-  // Destructor. Destroys a Reynolds number.
+  // Destructor. Destroys this Reynolds number.
   ~ReynoldsNumber() noexcept = default;
 
   // Copy constructor. Constructs a Reynolds number by copying another one.
@@ -67,7 +67,7 @@ public:
   constexpr ReynoldsNumber& operator=(
       ReynoldsNumber&& other) noexcept = default;
 
-  // Returns a Reynolds number of zero.
+  // Statically creates a Reynolds number of zero.
   static constexpr ReynoldsNumber Zero() {
     return ReynoldsNumber{0.0};
   }

@@ -90,7 +90,7 @@ TEST(AccelerationMagnitude, Constructor) {
   const Time time{0.5, Unit::Time::Second};
   const Frequency frequency{2.0, Unit::Frequency::Hertz};
   const Speed speed{2.0, Unit::Speed::MetrePerSecond};
-  constexpr AccelerationMagnitude acceleration0;
+  constexpr AccelerationMagnitude acceleration0{};
   const AccelerationMagnitude acceleration1{
       4.0, Unit::Acceleration::MetrePerSquareSecond};
   constexpr AccelerationMagnitude acceleration2{

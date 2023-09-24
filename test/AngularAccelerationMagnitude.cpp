@@ -111,7 +111,7 @@ TEST(AngularAccelerationMagnitude, Constructor) {
   const AngularSpeed speed{8.0, Unit::AngularSpeed::RadianPerSecond};
   const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
-  constexpr AngularAccelerationMagnitude acceleration0;
+  constexpr AngularAccelerationMagnitude acceleration0{};
   const AngularAccelerationMagnitude acceleration1{
       90.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const AngularAccelerationMagnitude acceleration2{

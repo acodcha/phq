@@ -89,7 +89,7 @@ TEST(SoundSpeed, Comparison) {
 }
 
 TEST(SoundSpeed, Constructor) {
-  constexpr SoundSpeed sound_speed_0;
+  constexpr SoundSpeed sound_speed_0{};
   const SoundSpeed sound_speed_1{4.0, Unit::Speed::MetrePerSecond};
   constexpr SoundSpeed sound_speed_2{
       SoundSpeed::Create<Unit::Speed::MetrePerSecond>(4.0)};

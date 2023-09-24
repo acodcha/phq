@@ -24,35 +24,67 @@ namespace PhQ {
 // Acceleration vector.
 class Acceleration : public DimensionalVectorQuantity<Unit::Acceleration> {
 public:
-  constexpr Acceleration() : DimensionalVectorQuantity<Unit::Acceleration>() {}
+  // Default constructor. Constructs an acceleration vector with an
+  // uninitialized value.
+  Acceleration() = default;
 
+  // Constructor. Constructs an acceleration vector with a given value expressed
+  // in a given acceleration unit.
   Acceleration(const Value::Vector& value, const Unit::Acceleration unit)
     : DimensionalVectorQuantity<Unit::Acceleration>(value, unit) {}
 
+  // Constructor. Constructs an acceleration vector from a given acceleration
+  // magnitude and direction.
   constexpr Acceleration(const AccelerationMagnitude& acceleration_magnitude,
                          const Direction& direction)
     : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
 
+  // Constructor. Constructs an acceleration vector from a given velocity and
+  // time using the definition of acceleration.
   constexpr Acceleration(const Velocity& velocity, const Time& time)
     : Acceleration(velocity.Value() / time.Value()) {}
 
+  // Constructor. Constructs an acceleration vector from a given velocity and
+  // frequency using the definition of acceleration.
   constexpr Acceleration(const Velocity& velocity, const Frequency& frequency)
     : Acceleration(velocity.Value() * frequency.Value()) {}
 
+  // Destructor. Destroys this acceleration vector.
+  ~Acceleration() noexcept = default;
+
+  // Copy constructor. Constructs an acceleration vector by copying another one.
+  constexpr Acceleration(const Acceleration& other) = default;
+
+  // Move constructor. Constructs an acceleration vector by moving another one.
+  constexpr Acceleration(Acceleration&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this acceleration vector by copying
+  // another one.
+  constexpr Acceleration& operator=(const Acceleration& other) = default;
+
+  // Move assignment operator. Assigns this acceleration vector by moving
+  // another one.
+  constexpr Acceleration& operator=(Acceleration&& other) noexcept = default;
+
+  // Statically creates an acceleration vector of zero.
   static constexpr Acceleration Zero() {
     return Acceleration{Value::Vector::Zero()};
   }
 
+  // Statically creates an acceleration vector with a given value expressed in a
+  // given acceleration unit.
   template <Unit::Acceleration Unit>
   static constexpr Acceleration Create(const Value::Vector& value) {
     return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit,
                                           Standard<Unit::Acceleration>>(value)};
   }
 
+  // Returns the magnitude of this acceleration vector.
   AccelerationMagnitude Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this acceleration vector and another one.
   PhQ::Angle Angle(const Acceleration& acceleration) const {
     return {*this, acceleration};
   }
@@ -98,6 +130,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an acceleration vector with a given value expressed
+  // in the standard acceleration unit.
   explicit constexpr Acceleration(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Acceleration>(value) {}
 };

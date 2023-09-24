@@ -69,7 +69,7 @@ TEST(Angle, Comparison) {
 }
 
 TEST(Angle, Constructor) {
-  constexpr Angle angle0;
+  constexpr Angle angle0{};
   const Angle angle1{90.0, Unit::Angle::Degree};
   constexpr Angle angle2{Angle::Create<Unit::Angle::Degree>(90.0)};
   const Value::Vector vector0{1.0, 0.0, 0.0};

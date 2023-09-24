@@ -52,7 +52,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Comparison) {
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Constructor) {
-  const ConstitutiveModel::IncompressibleNewtonianFluid model0;
+  const ConstitutiveModel::IncompressibleNewtonianFluid model0{};
   const ConstitutiveModel::IncompressibleNewtonianFluid model1{
       DynamicViscosity{4.0, Unit::DynamicViscosity::PascalSecond}
   };
