@@ -72,7 +72,7 @@ TEST(Area, Comparison) {
 }
 
 TEST(Area, Constructor) {
-  constexpr Area area0;
+  constexpr Area area0{};
   const Area area1{100.0, Unit::Area::SquareMillimetre};
   constexpr Area area2{Area::Create<Unit::Area::SquareMillimetre>(90.0)};
 }

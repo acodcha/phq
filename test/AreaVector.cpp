@@ -114,7 +114,7 @@ TEST(AreaVector, Comparison) {
 }
 
 TEST(AreaVector, Constructor) {
-  constexpr AreaVector area0;
+  constexpr AreaVector area0{};
   const AreaVector area1{
       {1.0, 2.0, 4.0},
       Unit::Area::SquareFoot

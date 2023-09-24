@@ -120,7 +120,7 @@ public:
     return *this;
   }
 
-  // Returns a direction with its value initialized to the zero vector.
+  // Statically creates a direction with a value of zero.
   static constexpr Direction Zero() {
     return Direction{};
   }

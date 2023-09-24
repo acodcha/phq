@@ -69,7 +69,7 @@ TEST(Time, Comparison) {
 }
 
 TEST(Time, Constructor) {
-  constexpr Time time0;
+  constexpr Time time0{};
   const Time time1{4.0, Unit::Time::Minute};
   constexpr Time time2{Time::Create<Unit::Time::Minute>(4.0)};
 }

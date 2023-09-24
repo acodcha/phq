@@ -37,7 +37,7 @@ public:
   // value.
   explicit constexpr Time(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of time.
   ~Time() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of time by copying

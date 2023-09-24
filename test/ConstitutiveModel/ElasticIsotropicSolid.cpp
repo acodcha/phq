@@ -63,7 +63,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Constructor) {
   const LameFirstModulus lame_first_modulus{-2.0, Unit::Pressure::Pascal};
   const PWaveModulus p_wave_modulus{4.0, Unit::Pressure::Pascal};
   const PoissonRatio poisson_ratio{0.25};
-  const ConstitutiveModel::ElasticIsotropicSolid model00;
+  const ConstitutiveModel::ElasticIsotropicSolid model00{};
   const ConstitutiveModel::ElasticIsotropicSolid model01{
       young_modulus, shear_modulus};
   const ConstitutiveModel::ElasticIsotropicSolid model02{

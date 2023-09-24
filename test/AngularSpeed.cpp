@@ -87,7 +87,7 @@ TEST(AngularSpeed, Constructor) {
   const Angle angle{8.0, Unit::Angle::Radian};
   const Time time{2.0, Unit::Time::Second};
   const Frequency frequency{0.5, Unit::Frequency::Hertz};
-  constexpr AngularSpeed speed0;
+  constexpr AngularSpeed speed0{};
   const AngularSpeed speed1{90.0, Unit::AngularSpeed::DegreePerSecond};
   const AngularSpeed speed2{4.0, Unit::AngularSpeed::RadianPerSecond};
   constexpr AngularSpeed speed3{

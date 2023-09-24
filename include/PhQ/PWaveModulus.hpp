@@ -25,15 +25,39 @@ namespace PhQ {
 // deformable solid material's elastic modulus.
 class PWaveModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr PWaveModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a P-wave modulus with an uninitialized
+  // value.
+  PWaveModulus() = default;
 
+  // Constructor. Constructs a P-wave modulus with a given value expressed in a
+  // given pressure unit.
   PWaveModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this P-wave modulus.
+  ~PWaveModulus() noexcept = default;
+
+  // Copy constructor. Constructs a P-wave modulus by copying another one.
+  constexpr PWaveModulus(const PWaveModulus& other) = default;
+
+  // Move constructor. Constructs a P-wave modulus by moving another one.
+  constexpr PWaveModulus(PWaveModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this P-wave modulus by copying another
+  // one.
+  constexpr PWaveModulus& operator=(const PWaveModulus& other) = default;
+
+  // Move assignment operator. Assigns this P-wave modulus by moving another
+  // one.
+  constexpr PWaveModulus& operator=(PWaveModulus&& other) noexcept = default;
+
+  // Statically creates a P-wave modulus of zero.
   static constexpr PWaveModulus Zero() {
     return PWaveModulus{0.0};
   }
 
+  // Statically creates a P-wave modulus with a given value expressed in a given
+  // pressure unit.
   template <Unit::Pressure Unit>
   static constexpr PWaveModulus Create(const double value) {
     return PWaveModulus{
@@ -79,6 +103,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a P-wave modulus with a given value expressed in
+  // the standard pressure unit.
   explicit constexpr PWaveModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };

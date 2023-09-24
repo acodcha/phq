@@ -28,19 +28,50 @@ class SoundSpeed;
 // Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr IsentropicBulkModulus()
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs an isentropic bulk modulus with an
+  // uninitialized value.
+  IsentropicBulkModulus() = default;
 
+  // Constructor. Constructs an isentropic bulk modulus with a given value
+  // expressed in a given pressure unit.
   IsentropicBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs an isentropic bulk modulus from a given mass
+  // density and sound speed using the definition of the isentropic bulk
+  // modulus.
   constexpr IsentropicBulkModulus(
       const MassDensity& mass_density, const SoundSpeed& sound_speed);
 
+  // Destructor. Destroys this isentropic bulk modulus.
+  ~IsentropicBulkModulus() noexcept = default;
+
+  // Copy constructor. Constructs an isentropic bulk modulus by copying another
+  // one.
+  constexpr IsentropicBulkModulus(const IsentropicBulkModulus& other) = default;
+
+  // Move constructor. Constructs an isentropic bulk modulus by moving another
+  // one.
+  constexpr IsentropicBulkModulus(
+      IsentropicBulkModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this isentropic bulk modulus by copying
+  // another one.
+  constexpr IsentropicBulkModulus& operator=(
+      const IsentropicBulkModulus& other) = default;
+
+  // Move assignment operator. Assigns this isentropic bulk modulus by moving
+  // another one.
+  constexpr IsentropicBulkModulus& operator=(
+      IsentropicBulkModulus&& other) noexcept = default;
+
+  // Statically creates an isentropic bulk modulus of zero.
   static constexpr IsentropicBulkModulus Zero() {
     return IsentropicBulkModulus{0.0};
   }
 
+  // Statically creates an isentropic bulk modulus with a given value expressed
+  // in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) {
     return IsentropicBulkModulus{
@@ -90,6 +121,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an isentropic bulk modulus with a given value
+  // expressed in the standard pressure unit.
   explicit constexpr IsentropicBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };

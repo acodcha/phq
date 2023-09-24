@@ -26,16 +26,44 @@ namespace PhQ {
 class BulkDynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
-  constexpr BulkDynamicViscosity()
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
+  // Default constructor. Constructs a bulk dynamic viscosity with an
+  // uninitialized value.
+  BulkDynamicViscosity() = default;
 
+  // Constructor. Constructs a bulk dynamic viscosity with a given value
+  // expressed in a given dynamic viscosity unit.
   BulkDynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
+  // Destructor. Destroys this bulk dynamic viscosity.
+  ~BulkDynamicViscosity() noexcept = default;
+
+  // Copy constructor. Constructs a bulk dynamic viscosity by copying another
+  // one.
+  constexpr BulkDynamicViscosity(const BulkDynamicViscosity& other) = default;
+
+  // Move constructor. Constructs a bulk dynamic viscosity by moving another
+  // one.
+  constexpr BulkDynamicViscosity(
+      BulkDynamicViscosity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this bulk dynamic viscosity by copying
+  // another one.
+  constexpr BulkDynamicViscosity& operator=(
+      const BulkDynamicViscosity& other) = default;
+
+  // Move assignment operator. Assigns this bulk dynamic viscosity by moving
+  // another one.
+  constexpr BulkDynamicViscosity& operator=(
+      BulkDynamicViscosity&& other) noexcept = default;
+
+  // Statically creates a bulk dynamic viscosity of zero.
   static constexpr BulkDynamicViscosity Zero() {
     return BulkDynamicViscosity{0.0};
   }
 
+  // Statically creates a bulk dynamic viscosity with a given value expressed in
+  // a given dynamic viscosity unit.
   template <Unit::DynamicViscosity Unit>
   static constexpr BulkDynamicViscosity Create(const double value) {
     return BulkDynamicViscosity{
@@ -85,8 +113,12 @@ public:
   }
 
 private:
+  // Constructor. Constructs a bulk dynamic viscosity with a given value
+  // expressed in the standard dynamic viscosity unit.
   explicit constexpr BulkDynamicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
+
+  friend class ConstitutiveModel;
 };
 
 inline constexpr bool operator==(const BulkDynamicViscosity& left,

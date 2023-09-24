@@ -37,10 +37,10 @@ class ThermalDiffusivity;
 // Mass density.
 class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
 public:
-  // Default constructor. Constructs a mass density.
+  // Default constructor. Constructs a mass density with an uninitialized value.
   MassDensity() = default;
 
-  // Constructor. Constructs a mass density from a given value expressed in a
+  // Constructor. Constructs a mass density with a given value expressed in a
   // given mass density unit.
   MassDensity(const double value, const Unit::MassDensity unit)
     : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
@@ -80,7 +80,7 @@ public:
   constexpr MassDensity(const IsentropicBulkModulus& isentropic_bulk_modulus,
                         const SoundSpeed& sound_speed);
 
-  // Destructor. Destroys a mass density.
+  // Destructor. Destroys this mass density.
   ~MassDensity() noexcept = default;
 
   // Copy constructor. Constructs a mass density by copying another one.
@@ -95,12 +95,12 @@ public:
   // Move assignment operator. Assigns this mass density by moving another one.
   constexpr MassDensity& operator=(MassDensity&& other) noexcept = default;
 
-  // Returns a mass density of zero.
+  // Statically creates a mass density of zero.
   static constexpr MassDensity Zero() {
     return MassDensity{0.0};
   }
 
-  // Statically creates a mass density from a given value expressed in a given
+  // Statically creates a mass density with a given value expressed in a given
   // mass density unit.
   template <Unit::MassDensity Unit>
   static constexpr MassDensity Create(const double value) {
@@ -153,7 +153,7 @@ public:
   }
 
 private:
-  // Constructor. Constructs a mass density from a given value expressed in the
+  // Constructor. Constructs a mass density with a given value expressed in the
   // standard mass density unit.
   explicit constexpr MassDensity(const double value)
     : DimensionalScalarQuantity<Unit::MassDensity>(value) {}

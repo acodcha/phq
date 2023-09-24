@@ -40,49 +40,100 @@ class Velocity;
 // Planar angle.
 class Angle : public DimensionalScalarQuantity<Unit::Angle> {
 public:
-  constexpr Angle() : DimensionalScalarQuantity<Unit::Angle>() {}
+  // Default constructor. Constructs an angle with an uninitialized value.
+  Angle() = default;
 
+  // Constructor. Constructs an angle with a given value expressed in a given
+  // angle unit.
   Angle(const double value, const Unit::Angle unit)
     : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // vector values.
   Angle(const Value::Vector& vector1, const Value::Vector& vector2)
     : DimensionalScalarQuantity<Unit::Angle>(std::acos(
         vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
+  // Constructor. Constructs an angle by computing the angle between a given
+  // vector value and direction.
   Angle(const Value::Vector& vector, const Direction& direction);
 
+  // Constructor. Constructs an angle by computing the angle between a given
+  // direction and vector value.
   Angle(const Direction& direction, const Value::Vector& vector);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // directions.
   Angle(const Direction& direction1, const Direction& direction2);
 
+  // Constructor. Constructs an angle from a given angular speed and time using
+  // the definition of angular speed.
   constexpr Angle(const AngularSpeed& angular_speed, const Time& time);
 
+  // Constructor. Constructs an angle from a given angular speed and frequency
+  // using the definition of angular speed.
   constexpr Angle(
       const AngularSpeed& angular_speed, const Frequency& frequency);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // acceleration vectors.
   Angle(const Acceleration& acceleration1, const Acceleration& acceleration2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // vector areas.
   Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // displacements.
   Angle(const Displacement& displacement1, const Displacement& displacement2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // forces.
   Angle(const Force& force1, const Force& force2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // heat fluxes.
   Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // positions.
   Angle(const Position& position1, const Position& position2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // temperature gradients.
   Angle(const TemperatureGradient& temperature_gradient_1,
         const TemperatureGradient& temperature_gradient_2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // tractions.
   Angle(const Traction& traction1, const Traction& traction2);
 
+  // Constructor. Constructs an angle by computing the angle between two given
+  // velocities.
   Angle(const Velocity& velocity1, const Velocity& velocity2);
 
+  // Destructor. Destroys this angle.
+  ~Angle() noexcept = default;
+
+  // Copy constructor. Constructs an angle by copying another one.
+  constexpr Angle(const Angle& other) = default;
+
+  // Move constructor. Constructs an angle by moving another one.
+  constexpr Angle(Angle&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this angle by copying another one.
+  constexpr Angle& operator=(const Angle& other) = default;
+
+  // Move assignment operator. Assigns this angle by moving another one.
+  constexpr Angle& operator=(Angle&& other) noexcept = default;
+
+  // Statically creates an angle of zero.
   static constexpr Angle Zero() {
     return Angle{0.0};
   }
 
+  // Statically creates an angle with a given value expressed in a given angle
+  // unit.
   template <Unit::Angle Unit>
   static constexpr Angle Create(const double value) {
     return Angle{
@@ -132,6 +183,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an angle with a given value expressed in the
+  // standard angle unit.
   explicit constexpr Angle(const double value)
     : DimensionalScalarQuantity<Unit::Angle>(value) {}
 

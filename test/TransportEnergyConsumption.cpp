@@ -85,7 +85,7 @@ TEST(TransportEnergyConsumption, Comparison) {
 }
 
 TEST(TransportEnergyConsumption, Constructor) {
-  constexpr TransportEnergyConsumption consumption0;
+  constexpr TransportEnergyConsumption consumption0{};
   const TransportEnergyConsumption consumption1{4.0, Unit::Force::Newton};
   constexpr TransportEnergyConsumption consumption2{
       TransportEnergyConsumption::Create<Unit::Force::Newton>(4.0)};

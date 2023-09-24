@@ -78,7 +78,7 @@ TEST(KinematicViscosity, Comparison) {
 }
 
 TEST(KinematicViscosity, Constructor) {
-  constexpr KinematicViscosity viscosity0;
+  constexpr KinematicViscosity viscosity0{};
   const KinematicViscosity viscosity1{
       1.0, Unit::Diffusivity::SquareMetrePerSecond};
   const KinematicViscosity viscosity2{

@@ -29,46 +29,83 @@ namespace PhQ {
 // component.
 class ConstitutiveModel::CompressibleNewtonianFluid : public ConstitutiveModel {
 public:
-  constexpr CompressibleNewtonianFluid()
-    : ConstitutiveModel(), dynamic_viscosity_(), bulk_dynamic_viscosity_() {}
+  // Default constructor. Constructs a compressible Newtonian fluid constitutive
+  // model with an uninitialized dynamic viscosity and bulk dynamic viscosity.
+  CompressibleNewtonianFluid() = default;
 
-  CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
+  // Constructor. Constructs a compressible Newtonian fluid constitutive model
+  // from a given dynamic viscosity. Initializes the bulk dynamic viscosity as
+  // -2/3 of the dynamic viscosity.
+  constexpr CompressibleNewtonianFluid(
+      const DynamicViscosity& dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
-      bulk_dynamic_viscosity_({-2.0 / 3.0 * dynamic_viscosity.Value(),
-                               Standard<Unit::DynamicViscosity>}) {}
+      bulk_dynamic_viscosity_(-2.0 / 3.0 * dynamic_viscosity.Value()) {}
 
+  // Constructor. Constructs a compressible Newtonian fluid constitutive model
+  // from a given dynamic viscosity and bulk dynamic viscosity.
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity,
       const BulkDynamicViscosity& bulk_dynamic_viscosity)
     : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
       bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
 
+  // Destructor. Destroys this compressible Newtonian fluid constitutive model.
+  ~CompressibleNewtonianFluid() noexcept = default;
+
+  // Copy constructor. Constructs a compressible Newtonian fluid constitutive
+  // model by copying another one.
+  constexpr CompressibleNewtonianFluid(
+      const CompressibleNewtonianFluid& other) = default;
+
+  // Move constructor. Constructs a compressible Newtonian fluid constitutive
+  // model by moving another one.
+  constexpr CompressibleNewtonianFluid(
+      CompressibleNewtonianFluid&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this compressible Newtonian fluid
+  // constitutive model by copying another one.
+  CompressibleNewtonianFluid& operator=(
+      const CompressibleNewtonianFluid& other) = default;
+
+  // Move assignment operator. Assigns this compressible Newtonian fluid
+  // constitutive model by moving another one.
+  CompressibleNewtonianFluid& operator=(
+      CompressibleNewtonianFluid&& other) noexcept = default;
+
+  // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
   inline constexpr const PhQ::DynamicViscosity&
   DynamicViscosity() const noexcept {
     return dynamic_viscosity_;
   }
 
+  // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive
+  // model.
   inline constexpr const PhQ::BulkDynamicViscosity&
   BulkDynamicViscosity() const noexcept {
     return bulk_dynamic_viscosity_;
   }
 
+  // Returns this constitutive model's type.
   inline Type GetType() const noexcept override {
     return Type::CompressibleNewtonianFluid;
   }
 
+  // Returns the stress resulting from a given strain and strain rate. Since
+  // this is a compressible Newtonian fluid constitutive model, the strain does
+  // not contribute to the stress and is ignored.
   inline PhQ::Stress Stress(const PhQ::Strain& strain,
                             const PhQ::StrainRate& strain_rate) const override {
     return Stress(strain_rate);
   }
 
+  // Returns the stress resulting from a given strain. Since this is a
+  // compressible Newtonian fluid constitutive model, the strain does not
+  // contribute to the stress, so this always returns a stress of zero.
   inline PhQ::Stress Stress(const PhQ::Strain& strain) const override {
-    return {
-        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-        Standard<Unit::Pressure>
-    };
+    return PhQ::Stress::Zero();
   }
 
+  // Returns the stress resulting from a given strain rate.
   inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
@@ -83,12 +120,14 @@ public:
     };
   }
 
+  // Returns the strain resulting from a given stress. Since this is a
+  // compressible Newtonian fluid constitutive model, stress does not depend on
+  // strain, so this always returns a strain of zero.
   inline PhQ::Strain Strain(const PhQ::Stress& stress) const override {
-    return PhQ::Strain{
-        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-    };
+    return PhQ::Strain::Zero();
   }
 
+  // Returns the strain rate resulting from a given stress.
   inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
     // strain_rate = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * dynamic_viscosity)
@@ -108,12 +147,15 @@ public:
     };
   }
 
+  // Prints this compressible Newtonian fluid constitutive model as a string.
   inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(GetType())}
             + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()
             + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
   }
 
+  // Serializes this compressible Newtonian fluid constitutive model as a JSON
+  // message.
   inline std::string JSON() const override {
     return {"{\"type\":\"" + SnakeCaseCopy(Abbreviation(GetType()))
             + "\",\"dynamic_viscosity\":" + dynamic_viscosity_.JSON()
@@ -121,6 +163,8 @@ public:
             + "}"};
   }
 
+  // Serializes this compressible Newtonian fluid constitutive model as an XML
+  // message.
   inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(GetType()))
             + "</type><dynamic_viscosity>" + dynamic_viscosity_.XML()
@@ -128,6 +172,8 @@ public:
             + bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
   }
 
+  // Serializes this compressible Newtonian fluid constitutive model as a YAML
+  // message.
   inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
             + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML()
@@ -136,8 +182,11 @@ public:
   }
 
 private:
+  // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
   PhQ::DynamicViscosity dynamic_viscosity_;
 
+  // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive
+  // model.
   PhQ::BulkDynamicViscosity bulk_dynamic_viscosity_;
 };
 

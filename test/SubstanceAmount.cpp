@@ -79,7 +79,7 @@ TEST(SubstanceAmount, Comparison) {
 }
 
 TEST(SubstanceAmount, Constructor) {
-  constexpr SubstanceAmount substance_amount_0;
+  constexpr SubstanceAmount substance_amount_0{};
   const SubstanceAmount substance_amount_1{
       2.0, Unit::SubstanceAmount::Kilomole};
   constexpr SubstanceAmount substance_amount_2{

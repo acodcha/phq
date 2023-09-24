@@ -72,32 +72,30 @@ public:
   // another one.
   constexpr Vector(Vector&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns the components of this three-dimensional
-  // vector value by copying another three-dimensional vector value.
+  // Copy assignment operator. Assigns this three-dimensional vector value by
+  // copying another one.
   constexpr Vector& operator=(const Vector& other) = default;
 
-  // Move assignment operator. Assigns the components of this three-dimensional
-  // vector value by moving another three-dimensional vector value.
+  // Move assignment operator. Assigns this three-dimensional vector value by
+  // moving another one.
   constexpr Vector& operator=(Vector&& other) noexcept = default;
 
-  // Assignment operator. Assigns the components of this three-dimensional
-  // vector value by copying a given array representing its x, y, and z
-  // Cartesian components.
+  // Assignment operator. Assigns this three-dimensional vector value by copying
+  // a given array representing its x, y, and z Cartesian components.
   constexpr Vector& operator=(const std::array<double, 3>& x_y_z) {
     x_y_z_ = x_y_z;
     return *this;
   }
 
-  // Assignment operator. Assigns the components of this three-dimensional
-  // vector value by moving a given array representing its x, y, and z Cartesian
-  // components.
+  // Assignment operator. Assigns this three-dimensional vector value by moving
+  // a given array representing its x, y, and z Cartesian components.
   constexpr Vector& operator=(std::array<double, 3>&& x_y_z) noexcept {
     x_y_z_ = std::move(x_y_z);
     return *this;
   }
 
-  // Returns a three-dimensional vector value with its x, y, and z Cartesian
-  // components initialized to zero.
+  // Statically creates a three-dimensional vector value with its x, y, and z
+  // Cartesian components initialized to zero.
   static constexpr Vector Zero() {
     return Vector{
         std::array<double, 3>{0.0, 0.0, 0.0}
@@ -189,8 +187,7 @@ public:
   PhQ::Direction Direction() const;
 
   // Returns the dot product (also known as the inner product or scalar product)
-  // of this three-dimensional vector value and another given three-dimensional
-  // vector value.
+  // of this three-dimensional vector value and another one.
   constexpr double Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
            + x_y_z_[2] * vector.x_y_z_[2];
@@ -201,8 +198,7 @@ public:
   constexpr double Dot(const PhQ::Direction& direction) const noexcept;
 
   // Returns the cross product (also known as the vector product) of this
-  // three-dimensional vector value and another given three-dimensional vector
-  // value.
+  // three-dimensional vector value and another one.
   constexpr Vector Cross(const Vector& vector) const {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
             x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
@@ -214,8 +210,7 @@ public:
   constexpr Vector Cross(const PhQ::Direction& direction) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this
-  // three-dimensional vector value and another given three-dimensional vector
-  // value.
+  // three-dimensional vector value and another one.
   constexpr Dyad Dyadic(const Vector& vector) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this
@@ -223,7 +218,7 @@ public:
   constexpr Dyad Dyadic(const PhQ::Direction& direction) const;
 
   // Returns the angle between this three-dimensional vector value and another
-  // given three-dimensional vector value.
+  // one.
   PhQ::Angle Angle(const Vector& vector) const;
 
   // Returns the angle between this three-dimensional vector value and a given

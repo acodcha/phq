@@ -37,7 +37,7 @@ public:
   // value.
   explicit constexpr Length(const int8_t value) : value_(value) {}
 
-  // Destructor. Destroys this base physical dimension.
+  // Destructor. Destroys this base physical dimension of length.
   ~Length() noexcept = default;
 
   // Copy constructor. Constructs a base physical dimension of length by copying

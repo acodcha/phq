@@ -25,15 +25,38 @@ namespace PhQ {
 // deformable solid material's elastic modulus.
 class ShearModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr ShearModulus() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a shear modulus with an uninitialized
+  // value.
+  ShearModulus() = default;
 
+  // Constructor. Constructs a shear modulus with a given value expressed in a
+  // given pressure unit.
   ShearModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this shear modulus.
+  ~ShearModulus() noexcept = default;
+
+  // Copy constructor. Constructs a shear modulus by copying another one.
+  constexpr ShearModulus(const ShearModulus& other) = default;
+
+  // Move constructor. Constructs a shear modulus by moving another one.
+  constexpr ShearModulus(ShearModulus&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this shear modulus by copying another
+  // one.
+  constexpr ShearModulus& operator=(const ShearModulus& other) = default;
+
+  // Move assignment operator. Assigns this shear modulus by moving another one.
+  constexpr ShearModulus& operator=(ShearModulus&& other) noexcept = default;
+
+  // Statically creates a shear modulus of zero.
   static constexpr ShearModulus Zero() {
     return ShearModulus{0.0};
   }
 
+  // Statically creates a shear modulus with a given value expressed in a given
+  // pressure unit.
   template <Unit::Pressure Unit>
   static constexpr ShearModulus Create(const double value) {
     return ShearModulus{
@@ -78,8 +101,12 @@ public:
   }
 
 private:
+  // Constructor. Constructs a shear modulus with a given value expressed in the
+  // standard pressure unit.
   explicit constexpr ShearModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+
+  friend class ConstitutiveModel;
 };
 
 inline constexpr bool operator==(

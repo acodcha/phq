@@ -41,10 +41,10 @@ class Volume;
 // Mass.
 class Mass : public DimensionalScalarQuantity<Unit::Mass> {
 public:
-  // Default constructor. Constructs a mass.
+  // Default constructor. Constructs a mass with an uninitialized value.
   Mass() = default;
 
-  // Constructor. Constructs a mass from a given value expressed in a given mass
+  // Constructor. Constructs a mass with a given value expressed in a given mass
   // unit.
   Mass(const double value, const Unit::Mass unit)
     : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
@@ -88,7 +88,7 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
-  // Destructor. Destroys a mass.
+  // Destructor. Destroys this mass.
   ~Mass() noexcept = default;
 
   // Copy constructor. Constructs a mass by copying another one.
@@ -103,12 +103,12 @@ public:
   // Move assignment operator. Assigns this mass by moving another one.
   constexpr Mass& operator=(Mass&& other) noexcept = default;
 
-  // Returns a mass of zero.
+  // Statically creates a mass of zero.
   static constexpr Mass Zero() {
     return Mass{0.0};
   }
 
-  // Statically creates a mass from a given value expressed in a given mass
+  // Statically creates a mass with a given value expressed in a given mass
   // unit.
   template <Unit::Mass Unit>
   static constexpr Mass Create(const double value) {
@@ -176,7 +176,7 @@ public:
   }
 
 private:
-  // Constructor. Constructs a mass from a given value expressed in the standard
+  // Constructor. Constructs a mass with a given value expressed in the standard
   // mass unit.
   explicit constexpr Mass(const double value)
     : DimensionalScalarQuantity<Unit::Mass>(value) {}

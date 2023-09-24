@@ -41,10 +41,10 @@ class Volume;
 // vector or displacement vector.
 class Length : public DimensionalScalarQuantity<Unit::Length> {
 public:
-  // Default constructor. Constructs a length.
+  // Default constructor. Constructs a length with an uninitialized value.
   Length() = default;
 
-  // Constructor. Constructs a length from a given value expressed in a given
+  // Constructor. Constructs a length with a given value expressed in a given
   // length unit.
   Length(const double value, const Unit::Length unit)
     : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
@@ -83,7 +83,7 @@ public:
       const Energy& energy,
       const TransportEnergyConsumption& transport_energy_consumption);
 
-  // Destructor. Destroys a length.
+  // Destructor. Destroys this length.
   ~Length() noexcept = default;
 
   // Copy constructor. Constructs a length by copying another one.
@@ -98,12 +98,12 @@ public:
   // Move assignment operator. Assigns this length by moving another one.
   constexpr Length& operator=(Length&& other) noexcept = default;
 
-  // Returns a length of zero.
+  // Statically creates a length of zero.
   static constexpr Length Zero() {
     return Length{0.0};
   }
 
-  // Statically creates a length from a given value expressed in a given length
+  // Statically creates a length with a given value expressed in a given length
   // unit.
   template <Unit::Length Unit>
   static constexpr Length Create(const double value) {
@@ -163,7 +163,7 @@ public:
   }
 
 private:
-  // Constructor. Constructs a length from a given value expressed in the
+  // Constructor. Constructs a length with a given value expressed in the
   // standard length unit.
   explicit constexpr Length(const double value)
     : DimensionalScalarQuantity<Unit::Length>(value) {}
