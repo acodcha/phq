@@ -143,7 +143,7 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -172,7 +172,7 @@ ConversionFromStandard<Unit::EnergyFlux,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

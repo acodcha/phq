@@ -354,7 +354,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration,
                        Unit::Acceleration::MetrePerSquareSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -639,7 +639,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::Acceleration,
                      Unit::Acceleration::MetrePerSquareSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

@@ -82,8 +82,8 @@ inline const std::unordered_map<std::string_view, Unit::Mass>
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -110,8 +110,8 @@ ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(double& value) noexcept {
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(double&) noexcept {}
 
 template <>
 inline constexpr void

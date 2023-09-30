@@ -127,7 +127,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy,
                        Unit::SpecificEnergy::JoulePerKilogram>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -156,8 +156,8 @@ ConversionFromStandard<Unit::SpecificEnergy,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy,
-                     Unit::SpecificEnergy::JoulePerKilogram>(
-    double& value) noexcept {}
+                     Unit::SpecificEnergy::JoulePerKilogram>(double&) noexcept {
+}
 
 template <>
 inline constexpr void

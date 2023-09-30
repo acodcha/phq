@@ -129,7 +129,7 @@ inline const std::unordered_map<std::string_view, Unit::HeatCapacity> Spellings<
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -158,7 +158,7 @@ ConversionFromStandard<Unit::HeatCapacity,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

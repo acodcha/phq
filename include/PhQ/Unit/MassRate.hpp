@@ -122,7 +122,7 @@ inline const std::unordered_map<std::string_view, Unit::MassRate>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -225,7 +225,7 @@ ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
 template <>
 inline constexpr void
 ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

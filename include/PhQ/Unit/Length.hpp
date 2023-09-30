@@ -163,8 +163,8 @@ ConversionFromStandard<Unit::Length, Unit::Length::Kilometre>(
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Metre>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Metre>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Yard>(
@@ -240,8 +240,8 @@ ConversionToStandard<Unit::Length, Unit::Length::Kilometre>(
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Metre>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Metre>(double&) noexcept {}
 
 template <>
 inline constexpr void

@@ -553,7 +553,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificHeatCapacity,
                        Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -583,7 +583,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::SpecificHeatCapacity,
                      Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

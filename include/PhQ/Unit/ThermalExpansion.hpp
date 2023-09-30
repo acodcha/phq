@@ -98,15 +98,14 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::ThermalExpansion,
-                                             Unit::ThermalExpansion::PerKelvin>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::ThermalExpansion,
+                       Unit::ThermalExpansion::PerKelvin>(double&) noexcept {}
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerCelsius>(
-    double& value) noexcept {}
+                       Unit::ThermalExpansion::PerCelsius>(double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -127,12 +126,12 @@ ConversionFromStandard<Unit::ThermalExpansion,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
-                                           Unit::ThermalExpansion::PerCelsius>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::ThermalExpansion,
+                     Unit::ThermalExpansion::PerCelsius>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::ThermalExpansion,

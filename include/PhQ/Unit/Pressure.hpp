@@ -121,7 +121,7 @@ inline const std::unordered_map<std::string_view, Unit::Pressure>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -174,8 +174,8 @@ ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(
-    double& value) noexcept {}
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(double&) noexcept {
+}
 
 template <>
 inline constexpr void

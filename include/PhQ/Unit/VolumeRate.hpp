@@ -283,7 +283,7 @@ ConversionFromStandard<Unit::VolumeRate,
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -596,7 +596,7 @@ ConversionToStandard<Unit::VolumeRate,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

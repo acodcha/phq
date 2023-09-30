@@ -84,7 +84,7 @@ inline const std::unordered_map<std::string_view, Unit::SubstanceAmount>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -117,7 +117,7 @@ ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
 template <>
 inline constexpr void
 ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

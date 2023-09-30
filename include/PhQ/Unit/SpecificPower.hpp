@@ -210,8 +210,8 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificPower,
-                       Unit::SpecificPower::WattPerKilogram>(
-    double& value) noexcept {}
+                       Unit::SpecificPower::WattPerKilogram>(double&) noexcept {
+}
 
 template <>
 inline constexpr void
@@ -240,7 +240,7 @@ ConversionFromStandard<Unit::SpecificPower,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

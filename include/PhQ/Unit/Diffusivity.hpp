@@ -175,7 +175,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity,
                        Unit::Diffusivity::SquareMetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -282,7 +282,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::Diffusivity,
                      Unit::Diffusivity::SquareMetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
