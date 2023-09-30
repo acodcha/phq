@@ -24,8 +24,7 @@ namespace PhQ {
 class IsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
-  constexpr IsobaricHeatCapacity()
-    : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
+  IsobaricHeatCapacity() = default;
 
   IsobaricHeatCapacity(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}

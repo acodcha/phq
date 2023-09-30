@@ -35,7 +35,7 @@ class Speed;
 class SoundSpeed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
   // Default constructor. Constructs a sound speed with an uninitialized value.
-  constexpr SoundSpeed() : DimensionalScalarQuantity<Unit::Speed>() {}
+  SoundSpeed() = default;
 
   // Constructs a sound speed from a given value and speed unit.
   SoundSpeed(const double value, const Unit::Speed unit)

@@ -30,7 +30,7 @@ class Velocity;
 // Frequency.
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
-  constexpr Frequency() : DimensionalScalarQuantity<Unit::Frequency>() {}
+  Frequency() = default;
 
   Frequency(const double value, const Unit::Frequency unit)
     : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}

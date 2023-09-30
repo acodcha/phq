@@ -31,8 +31,7 @@ class SpecificIsobaricHeatCapacity;
 class DynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
-  constexpr DynamicViscosity()
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>() {}
+  DynamicViscosity() = default;
 
   DynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}

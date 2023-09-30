@@ -29,8 +29,7 @@ class StaticKinematicPressure;
 class KinematicPressureDifference
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr KinematicPressureDifference()
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+  KinematicPressureDifference() = default;
 
   KinematicPressureDifference(
       const double value, const Unit::SpecificEnergy unit)

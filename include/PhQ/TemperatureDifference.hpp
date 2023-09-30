@@ -35,8 +35,7 @@ class VolumetricThermalExpansionCoefficient;
 class TemperatureDifference
   : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 public:
-  constexpr TemperatureDifference()
-    : DimensionalScalarQuantity<Unit::TemperatureDifference>() {}
+  TemperatureDifference() = default;
 
   TemperatureDifference(
       const double value, const Unit::TemperatureDifference unit)

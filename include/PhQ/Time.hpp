@@ -48,7 +48,7 @@ class VolumeRate;
 // Time. Can represent either a point in time or a time duration.
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
-  constexpr Time() : DimensionalScalarQuantity<Unit::Time>() {}
+  Time() = default;
 
   Time(const double value, const Unit::Time unit)
     : DimensionalScalarQuantity<Unit::Time>(value, unit) {}

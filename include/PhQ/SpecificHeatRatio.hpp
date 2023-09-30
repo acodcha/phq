@@ -32,7 +32,7 @@ class SpecificIsochoricHeatCapacity;
 // Ratio of the isobaric and isochoric specific heats of a material.
 class SpecificHeatRatio : public DimensionlessScalarQuantity {
 public:
-  constexpr SpecificHeatRatio() : DimensionlessScalarQuantity() {}
+  SpecificHeatRatio() = default;
 
   explicit constexpr SpecificHeatRatio(const double value)
     : DimensionlessScalarQuantity(value) {}

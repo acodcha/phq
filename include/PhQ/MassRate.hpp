@@ -26,7 +26,7 @@ namespace PhQ {
 // rate.
 class MassRate : public DimensionalScalarQuantity<Unit::MassRate> {
 public:
-  constexpr MassRate() : DimensionalScalarQuantity<Unit::MassRate>() {}
+  MassRate() = default;
 
   MassRate(const double value, const Unit::MassRate unit)
     : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}

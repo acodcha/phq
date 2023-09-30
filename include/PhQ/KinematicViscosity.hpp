@@ -33,8 +33,7 @@ class ThermalDiffusivity;
 // Kinematic viscosity, also known as molecular kinematic viscosity.
 class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
-  constexpr KinematicViscosity()
-    : DimensionalScalarQuantity<Unit::Diffusivity>() {}
+  KinematicViscosity() = default;
 
   KinematicViscosity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}

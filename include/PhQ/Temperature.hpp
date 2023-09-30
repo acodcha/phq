@@ -24,7 +24,7 @@ namespace PhQ {
 // Temperature.
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 public:
-  constexpr Temperature() : DimensionalScalarQuantity<Unit::Temperature>() {}
+  Temperature() = default;
 
   Temperature(const double value, const Unit::Temperature unit)
     : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}

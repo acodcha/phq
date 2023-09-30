@@ -32,8 +32,7 @@ class ThermalDiffusivity;
 class SpecificIsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
-  constexpr SpecificIsobaricHeatCapacity()
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
+  SpecificIsobaricHeatCapacity() = default;
 
   SpecificIsobaricHeatCapacity(
       const double value, const Unit::SpecificHeatCapacity unit)

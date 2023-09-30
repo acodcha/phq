@@ -28,8 +28,7 @@ class SpecificPower;
 // Specific energy. Energy per unit mass.
 class SpecificEnergy : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr SpecificEnergy()
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+  SpecificEnergy() = default;
 
   SpecificEnergy(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}

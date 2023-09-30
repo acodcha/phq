@@ -31,7 +31,7 @@ class VolumeRate;
 // Volume.
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
 public:
-  constexpr Volume() : DimensionalScalarQuantity<Unit::Volume>() {}
+  Volume() = default;
 
   Volume(const double value, const Unit::Volume unit)
     : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}

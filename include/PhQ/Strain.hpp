@@ -27,20 +27,46 @@ class Time;
 class Frequency;
 class StrainRate;
 
-// Strain dyadic tensor.
+// Strain symmetric dyadic tensor.
 class Strain : public DimensionlessSymmetricDyadQuantity {
 public:
-  constexpr Strain() : DimensionlessSymmetricDyadQuantity() {}
+  // Default constructor. Constructs a strain tensor with an uninitialized
+  // value.
+  Strain() = default;
 
+  // Constructor. Constructs a strain tensor with a given value.
   explicit constexpr Strain(const Value::SymmetricDyad& value)
     : DimensionlessSymmetricDyadQuantity(value) {}
 
+  // Constructor. Constructs a strain tensor from a given strain rate tensor and
+  // time using the definition of the strain rate tensor.
   constexpr Strain(const StrainRate& strain_rate, const Time& time);
 
+  // Constructor. Constructs a strain tensor from a given strain rate tensor and
+  // frequency using the definition of the strain rate tensor.
   constexpr Strain(const StrainRate& strain_rate, const Frequency& frequency);
 
+  // Constructor. Constructs a strain tensor from a given displacement gradient
+  // using the definition of the strain tensor.
   explicit constexpr Strain(const DisplacementGradient& displacement_gradient);
 
+  // Destructor. Destroys this strain tensor.
+  ~Strain() noexcept = default;
+
+  // Copy constructor. Constructs a strain tensor by copying another one.
+  constexpr Strain(const Strain& other) = default;
+
+  // Move constructor. Constructs a strain tensor by moving another one.
+  constexpr Strain(Strain&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this strain tensor by copying another
+  // one.
+  constexpr Strain& operator=(const Strain& other) = default;
+
+  // Move assignment operator. Assigns this strain tensor by moving another one.
+  constexpr Strain& operator=(Strain&& other) noexcept = default;
+
+  // Statically creates a strain tensor of zero.
   static constexpr Strain Zero() {
     return Strain{Value::SymmetricDyad::Zero()};
   }

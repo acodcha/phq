@@ -23,49 +23,73 @@
 
 namespace PhQ {
 
-// Forward declaration for class Displacement.
-class Time;
-
-// Forward declaration for class Displacement.
+// Forward declarations for class Displacement.
 class Frequency;
-
-// Forward declaration for class Displacement.
 class Position;
-
-// Forward declaration for class Displacement.
+class Time;
 class Velocity;
 
 // Displacement vector. Not to be confused with position vector.
 class Displacement : public DimensionalVectorQuantity<Unit::Length> {
 public:
-  constexpr Displacement() : DimensionalVectorQuantity<Unit::Length>() {}
+  // Default constructor. Constructs a displacement with an uninitialized value.
+  Displacement() = default;
 
+  // Constructor. Constructs a displacement with a given value expressed in a
+  // given length unit.
   Displacement(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
+  // Constructor. Constructs a displacement from a given length and direction.
   constexpr Displacement(const Length& length, const Direction& direction)
     : Displacement(length.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a displacement from a given velocity and time using
+  // the definition of velocity.
   constexpr Displacement(const Velocity& velocity, const Time& time);
 
+  // Constructor. Constructs a displacement from a given velocity and frequency
+  // using the definition of velocity.
   constexpr Displacement(const Velocity& velocity, const Frequency& frequency);
 
+  // Constructor. Constructs a displacement between a given position and the
+  // origin.
   explicit constexpr Displacement(const Position& position);
 
+  // Destructor. Destroys this displacement.
+  ~Displacement() noexcept = default;
+
+  // Copy constructor. Constructs a displacement by copying another one.
+  constexpr Displacement(const Displacement& other) = default;
+
+  // Move constructor. Constructs a displacement by moving another one.
+  constexpr Displacement(Displacement&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this displacement by copying another one.
+  constexpr Displacement& operator=(const Displacement& other) = default;
+
+  // Move assignment operator. Assigns this displacement by moving another one.
+  constexpr Displacement& operator=(Displacement&& other) noexcept = default;
+
+  // Statically creates a displacement of zero.
   static constexpr Displacement Zero() {
     return Displacement{Value::Vector::Zero()};
   }
 
+  // Statically creates a displacement with a given value expressed in a given
+  // length unit.
   template <Unit::Length Unit>
   static constexpr Displacement Create(const Value::Vector& value) {
     return Displacement{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
+  // Returns the magnitude of this displacement.
   Length Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this displacement and another one.
   PhQ::Angle Angle(const Displacement& displacement) const {
     return {*this, displacement};
   }
@@ -111,6 +135,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a displacement with a given value expressed in the
+  // standard length unit.
   explicit constexpr Displacement(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 

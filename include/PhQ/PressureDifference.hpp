@@ -29,8 +29,7 @@ class StaticPressure;
 // Pressure difference.
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr PressureDifference()
-    : DimensionalScalarQuantity<Unit::Pressure>() {}
+  PressureDifference() = default;
 
   PressureDifference(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}

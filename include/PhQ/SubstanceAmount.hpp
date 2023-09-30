@@ -25,8 +25,7 @@ namespace PhQ {
 class SubstanceAmount
   : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
 public:
-  constexpr SubstanceAmount()
-    : DimensionalScalarQuantity<Unit::SubstanceAmount>() {}
+  SubstanceAmount() = default;
 
   SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value, unit) {}

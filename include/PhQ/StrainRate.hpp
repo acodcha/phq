@@ -26,27 +26,57 @@ namespace PhQ {
 // Forward declaration for class StrainRate.
 class VelocityGradient;
 
-// Strain rate dyadic tensor. Time rate of change of the strain dyadic tensor.
+// Strain rate symmetric dyadic tensor. Time rate of change of the strain
+// symmetric dyadic tensor.
 class StrainRate : public DimensionalSymmetricDyadQuantity<Unit::Frequency> {
 public:
-  constexpr StrainRate()
-    : DimensionalSymmetricDyadQuantity<Unit::Frequency>() {}
+  // Default constructor. Constructs a strain rate tensor with an uninitialized
+  // value.
+  StrainRate() = default;
 
+  // Constructor. Constructs a strain rate tensor with a given value expressed
+  // in a given frequency unit.
   StrainRate(const Value::SymmetricDyad& value, Unit::Frequency unit)
     : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value, unit) {}
 
+  // Constructor. Constructs a strain rate tensor from a given strain tensor and
+  // time using the definition of the strain rate tensor.
   constexpr StrainRate(const Strain& strain, const Time& time)
     : StrainRate(strain.Value() / time.Value()) {}
 
+  // Constructor. Constructs a strain rate tensor from a given strain tensor and
+  // frequency using the definition of the strain rate tensor.
   constexpr StrainRate(const Strain& strain, const Frequency& frequency)
     : StrainRate(strain.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs a strain rate tensor from a given velocity gradient
+  // using the definition of the strain rate tensor.
   explicit constexpr StrainRate(const VelocityGradient& velocity_gradient);
 
+  // Destructor. Destroys this strain rate tensor.
+  ~StrainRate() noexcept = default;
+
+  // Copy constructor. Constructs a strain rate tensor by copying another one.
+  constexpr StrainRate(const StrainRate& other) = default;
+
+  // Move constructor. Constructs a strain rate tensor by moving another one.
+  constexpr StrainRate(StrainRate&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this strain rate tensor by copying
+  // another one.
+  constexpr StrainRate& operator=(const StrainRate& other) = default;
+
+  // Move assignment operator. Assigns this strain rate tensor by moving another
+  // one.
+  constexpr StrainRate& operator=(StrainRate&& other) noexcept = default;
+
+  // Statically creates a strain rate tensor of zero.
   static constexpr StrainRate Zero() {
     return StrainRate{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a strain rate tensor with a given value expressed in a
+  // given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr StrainRate Create(const Value::SymmetricDyad& value) {
     return StrainRate{
@@ -95,6 +125,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a strain rate tensor with a given value expressed
+  // in the standard frequency unit.
   constexpr StrainRate(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
 };

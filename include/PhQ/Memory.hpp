@@ -29,7 +29,7 @@ class MemoryRate;
 // Computer memory.
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 public:
-  constexpr Memory() : DimensionalScalarQuantity<Unit::Memory>() {}
+  Memory() = default;
 
   Memory(const double value, const Unit::Memory unit)
     : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}

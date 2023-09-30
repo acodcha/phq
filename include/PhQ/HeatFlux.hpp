@@ -25,30 +25,57 @@ namespace PhQ {
 // Heat flux vector.
 class HeatFlux : public DimensionalVectorQuantity<Unit::EnergyFlux> {
 public:
-  constexpr HeatFlux() : DimensionalVectorQuantity<Unit::EnergyFlux>() {}
+  // Default constructor. Constructs a heat flux with an uninitialized value.
+  HeatFlux() = default;
 
+  // Constructor. Constructs a heat flux with a given value expressed in a given
+  // energy flux unit.
   HeatFlux(const Value::Vector& value, const Unit::EnergyFlux unit)
     : DimensionalVectorQuantity<Unit::EnergyFlux>(value, unit) {}
 
+  // Constructor. Constructs a heat flux from a given heat flux magnitude and
+  // direction.
   constexpr HeatFlux(
       const HeatFluxMagnitude& heat_flux_magnitude, const Direction& direction)
     : HeatFlux(heat_flux_magnitude.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a heat flux from a given thermal conductivity
+  // scalar and temperature gradient using Fourier's law of heat conduction.
   constexpr HeatFlux(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradient& temperature_gradient)
     : HeatFlux(
         -thermal_conductivity_scalar.Value() * temperature_gradient.Value()) {}
 
+  // Constructor. Constructs a heat flux from a given thermal conductivity and
+  // temperature gradient using Fourier's law of heat conduction.
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity,
                      const TemperatureGradient& temperature_gradient)
     : HeatFlux(
         -1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
 
+  // Destructor. Destroys this heat flux.
+  ~HeatFlux() noexcept = default;
+
+  // Copy constructor. Constructs a heat flux by copying another one.
+  constexpr HeatFlux(const HeatFlux& other) = default;
+
+  // Move constructor. Constructs a heat flux by moving another one.
+  constexpr HeatFlux(HeatFlux&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this heat flux by copying another one.
+  constexpr HeatFlux& operator=(const HeatFlux& other) = default;
+
+  // Move assignment operator. Assigns this heat flux by moving another one.
+  constexpr HeatFlux& operator=(HeatFlux&& other) noexcept = default;
+
+  // Statically creates a heat flux of zero.
   static constexpr HeatFlux Zero() {
     return HeatFlux{Value::Vector::Zero()};
   }
 
+  // Statically creates a heat flux with a given value expressed in a given
+  // energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const Value::Vector& value) {
     return HeatFlux{
@@ -56,10 +83,12 @@ public:
             value)};
   }
 
-  constexpr HeatFluxMagnitude Magnitude() const {
+  // Returns the magnitude of this heat flux.
+  HeatFluxMagnitude Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this heat flux and another one.
   PhQ::Angle Angle(const HeatFlux& heat_flux) const {
     return {*this, heat_flux};
   }
@@ -97,6 +126,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a heat flux with a given value expressed in the
+  // standard energy flux unit.
   explicit constexpr HeatFlux(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::EnergyFlux>(value) {}
 };

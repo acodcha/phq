@@ -24,24 +24,51 @@ namespace PhQ {
 // Traction vector.
 class Traction : public DimensionalVectorQuantity<Unit::Pressure> {
 public:
-  constexpr Traction() : DimensionalVectorQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a traction with an uninitialized value.
+  Traction() = default;
 
+  // Constructor. Constructs a traction with a given value expressed in a given
+  // pressure unit.
   Traction(const Value::Vector& value, const Unit::Pressure unit)
     : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs a traction from a given static pressure and
+  // direction.
   constexpr Traction(
       const StaticPressure& static_pressure, const Direction& direction)
     : Traction(-static_pressure.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a traction from a given force and area using the
+  // definition of traction.
   constexpr Traction(const Force& force, const Area& area)
     : Traction(force.Value() / area.Value()) {}
 
+  // Constructor. Constructs a traction from a given stress and direction using
+  // the definition of traction.
   constexpr Traction(const Stress& stress, const Direction& direction);
 
+  // Destructor. Destroys this traction.
+  ~Traction() noexcept = default;
+
+  // Copy constructor. Constructs a traction by copying another one.
+  constexpr Traction(const Traction& other) = default;
+
+  // Move constructor. Constructs a traction by moving another one.
+  constexpr Traction(Traction&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this traction by copying another one.
+  constexpr Traction& operator=(const Traction& other) = default;
+
+  // Move assignment operator. Assigns this traction by moving another one.
+  constexpr Traction& operator=(Traction&& other) noexcept = default;
+
+  // Statically creates a traction of zero.
   static constexpr Traction Zero() {
     return Traction{Value::Vector::Zero()};
   }
 
+  // Statically creates a traction with a given value expressed in a given
+  // pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const Value::Vector& value) {
     return Traction{
@@ -49,10 +76,12 @@ public:
             value)};
   }
 
+  // Returns the magnitude of this traction.
   StaticPressure Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this traction and another one.
   PhQ::Angle Angle(const Traction& traction) const {
     return {*this, traction};
   }
@@ -94,6 +123,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a traction with a given value expressed in the
+  // standard pressure unit.
   explicit constexpr Traction(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Pressure>(value) {}
 };

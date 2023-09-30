@@ -21,19 +21,15 @@
 
 namespace PhQ {
 
-// Forward declaration for class ForceMagnitude.
+// Forward declarations for class ForceMagnitude.
 class Direction;
-
-// Forward declaration for class ForceMagnitude.
 class Force;
-
-// Forward declaration for class ForceMagnitude.
 class StaticPressure;
 
 // Force scalar. Magnitude of the force vector.
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 public:
-  constexpr ForceMagnitude() : DimensionalScalarQuantity<Unit::Force>() {}
+  ForceMagnitude() = default;
 
   ForceMagnitude(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}

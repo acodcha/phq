@@ -27,7 +27,7 @@ class PrandtlNumber : public DimensionlessScalarQuantity {
 public:
   // Default constructor. Constructs a Prandtl number with an uninitialized
   // value.
-  constexpr PrandtlNumber() : DimensionlessScalarQuantity() {}
+  PrandtlNumber() = default;
 
   // Constructor. Constructs a Prandtl number with a given value.
   explicit constexpr PrandtlNumber(const double value)

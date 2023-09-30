@@ -28,7 +28,7 @@ class Stress;
 // related quantity such as principal stress or Von Mises stress.
 class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr StressScalar() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  StressScalar() = default;
 
   StressScalar(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}

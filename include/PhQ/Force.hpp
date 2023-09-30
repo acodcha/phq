@@ -29,31 +29,57 @@ class Traction;
 // Force vector.
 class Force : public DimensionalVectorQuantity<Unit::Force> {
 public:
-  constexpr Force() : DimensionalVectorQuantity<Unit::Force>() {}
+  // Default constructor. Constructs a force with an uninitialized value.
+  Force() = default;
 
+  // Constructor. Constructs a force with a given value expressed in a given
+  // force unit.
   Force(const Value::Vector& value, const Unit::Force unit)
     : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
 
+  // Constructor. Constructs a force from a given force magnitude and direction.
   constexpr Force(
       const ForceMagnitude& force_magnitude, const Direction& direction)
     : Force(force_magnitude.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a force from a given traction and area using the
+  // definition of traction.
   constexpr Force(const Traction& traction, const Area& area);
 
+  // Destructor. Destroys this force.
+  ~Force() noexcept = default;
+
+  // Copy constructor. Constructs a force by copying another one.
+  constexpr Force(const Force& other) = default;
+
+  // Move constructor. Constructs a force by moving another one.
+  constexpr Force(Force&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this force by copying another one.
+  constexpr Force& operator=(const Force& other) = default;
+
+  // Move assignment operator. Assigns this force by moving another one.
+  constexpr Force& operator=(Force&& other) noexcept = default;
+
+  // Statically creates a force of zero.
   static constexpr Force Zero() {
     return Force{Value::Vector::Zero()};
   }
 
+  // Statically creates a force with a given value expressed in a given force
+  // unit.
   template <Unit::Force Unit>
   static constexpr Force Create(const Value::Vector& value) {
     return Force{
         StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
+  // Returns the magnitude of this force.
   ForceMagnitude Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this force and another one.
   PhQ::Angle Angle(const Force& force) const {
     return {*this, force};
   }
@@ -93,6 +119,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a force with a given value expressed in the
+  // standard force unit.
   explicit constexpr Force(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Force>(value) {}
 };
