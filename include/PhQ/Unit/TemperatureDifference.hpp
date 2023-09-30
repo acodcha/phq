@@ -94,14 +94,13 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureDifference>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
-                       Unit::TemperatureDifference::Kelvin>(
-    double& value) noexcept {}
+                       Unit::TemperatureDifference::Kelvin>(double&) noexcept {}
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference,
-                       Unit::TemperatureDifference::Celsius>(
-    double& value) noexcept {}
+                       Unit::TemperatureDifference::Celsius>(double&) noexcept {
+}
 
 template <>
 inline constexpr void
@@ -120,15 +119,14 @@ ConversionFromStandard<Unit::TemperatureDifference,
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::TemperatureDifference,
-                                           Unit::TemperatureDifference::Kelvin>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference,
+                     Unit::TemperatureDifference::Kelvin>(double&) noexcept {}
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureDifference,
-                     Unit::TemperatureDifference::Celsius>(
-    double& value) noexcept {}
+                     Unit::TemperatureDifference::Celsius>(double&) noexcept {}
 
 template <>
 inline constexpr void

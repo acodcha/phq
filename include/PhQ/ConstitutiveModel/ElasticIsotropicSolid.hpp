@@ -321,8 +321,8 @@ public:
   // Returns the stress resulting from a given strain and strain rate. Since
   // this is an elastic isotropic solid constitutive model, the strain rate does
   // not contribute to the stress and is ignored.
-  inline PhQ::Stress Stress(const PhQ::Strain& strain,
-                            const PhQ::StrainRate& strain_rate) const override {
+  inline PhQ::Stress Stress(
+      const PhQ::Strain& strain, const PhQ::StrainRate&) const override {
     return Stress(strain);
   }
 
@@ -344,7 +344,7 @@ public:
   // Returns the stress resulting from a given strain rate. Since this is an
   // elastic isotropic solid constitutive model, the strain rate does not
   // contribute to the stress, so this always returns a stress of zero.
-  inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
+  inline PhQ::Stress Stress(const PhQ::StrainRate&) const override {
     return PhQ::Stress::Zero();
   }
 
@@ -369,7 +369,7 @@ public:
   // Returns the strain rate resulting from a given stress. Since this is an
   // elastic isotropic solid constitutive model, stress does not depend on
   // strain rate, so this always returns a strain rate of zero.
-  inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
+  inline PhQ::StrainRate StrainRate(const PhQ::Stress&) const override {
     return PhQ::StrainRate::Zero();
   }
 

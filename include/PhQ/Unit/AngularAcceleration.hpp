@@ -156,7 +156,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularAcceleration,
                        Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -274,7 +274,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularAcceleration,
                      Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

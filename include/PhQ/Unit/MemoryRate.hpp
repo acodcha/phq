@@ -265,7 +265,7 @@ inline const std::unordered_map<std::string_view, Unit::MemoryRate> Spellings<
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -725,7 +725,7 @@ ConversionFromStandard<Unit::MemoryRate, Unit::MemoryRate::PebibytePerHour>(
 template <>
 inline constexpr void
 ConversionToStandard<Unit::MemoryRate, Unit::MemoryRate::BitPerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

@@ -113,7 +113,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::MassDensity,
                        Unit::MassDensity::KilogramPerCubicMetre>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -156,7 +156,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::MassDensity,
                      Unit::MassDensity::KilogramPerCubicMetre>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

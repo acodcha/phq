@@ -243,7 +243,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::ThermalConductivity,
                        Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<
@@ -265,7 +265,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity,
                      Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void

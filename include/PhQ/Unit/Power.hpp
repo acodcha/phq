@@ -122,8 +122,8 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -183,7 +183,7 @@ ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Watt>(double& value) noexcept {}
+ConversionToStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(

@@ -91,8 +91,8 @@ inline const std::unordered_map<std::string_view, Unit::Angle>
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(
@@ -122,8 +122,8 @@ ConversionFromStandard<Unit::Angle, Unit::Angle::Revolution>(
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(double&) noexcept {}
 
 template <>
 inline constexpr void

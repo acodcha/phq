@@ -72,18 +72,18 @@ inline const std::map<Unit::Area, UnitSystem> RelatedUnitSystems<Unit::Area>{
 
 template <>
 inline const std::map<Unit::Area, std::string_view> Abbreviations<Unit::Area>{
-    {Unit::Area::SquareMile,       "mi^2" },
-    {Unit::Area::SquareKilometre,  "km^2" },
-    {Unit::Area::Hectare,          "ha"   },
-    {Unit::Area::Acre,             "ac"   },
-    {Unit::Area::SquareMetre,      "m^2"  },
-    {Unit::Area::SquareYard,       "yd^2" },
-    {Unit::Area::SquareFoot,       "ft^2" },
-    {Unit::Area::SquareDecimetre,  "dm^2" },
-    {Unit::Area::SquareInch,       "in^2" },
-    {Unit::Area::SquareCentimetre, "cm^2" },
-    {Unit::Area::SquareMillimetre, "mm^2" },
-    {Unit::Area::SquareMilliinch,  "mil^2"},
+    {Unit::Area::SquareMile,       "mi^2"  },
+    {Unit::Area::SquareKilometre,  "km^2"  },
+    {Unit::Area::Hectare,          "ha"    },
+    {Unit::Area::Acre,             "ac"    },
+    {Unit::Area::SquareMetre,      "m^2"   },
+    {Unit::Area::SquareYard,       "yd^2"  },
+    {Unit::Area::SquareFoot,       "ft^2"  },
+    {Unit::Area::SquareDecimetre,  "dm^2"  },
+    {Unit::Area::SquareInch,       "in^2"  },
+    {Unit::Area::SquareCentimetre, "cm^2"  },
+    {Unit::Area::SquareMillimetre, "mm^2"  },
+    {Unit::Area::SquareMilliinch,  "mil^2" },
     {Unit::Area::SquareMicrometre, "μm^2" },
     {Unit::Area::SquareMicroinch,  "μin^2"},
 };
@@ -157,8 +157,7 @@ ConversionFromStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(
-    double& value) noexcept {}
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -249,8 +248,8 @@ ConversionToStandard<Unit::Area, Unit::Area::Acre>(double& value) noexcept {
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(

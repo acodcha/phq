@@ -171,8 +171,8 @@ inline const std::unordered_map<std::string_view, Unit::Memory> Spellings<
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(
-    double& value) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Memory, Unit::Memory::Bit>(double&) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Memory, Unit::Memory::Byte>(
@@ -322,7 +322,7 @@ ConversionFromStandard<Unit::Memory, Unit::Memory::Pebibyte>(
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Memory, Unit::Memory::Bit>(double& value) noexcept {}
+ConversionToStandard<Unit::Memory, Unit::Memory::Bit>(double&) noexcept {}
 
 template <>
 inline constexpr void

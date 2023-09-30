@@ -76,15 +76,15 @@ public:
   // Returns the stress resulting from a given strain and strain rate. Since
   // this is an incompressible Newtonian fluid constitutive model, the strain
   // does not contribute to the stress and is ignored.
-  inline PhQ::Stress Stress(const PhQ::Strain& strain,
-                            const PhQ::StrainRate& strain_rate) const override {
+  inline PhQ::Stress Stress(
+      const PhQ::Strain&, const PhQ::StrainRate& strain_rate) const override {
     return Stress(strain_rate);
   }
 
   // Returns the stress resulting from a given strain. Since this is an
   // incompressible Newtonian fluid constitutive model, the strain does not
   // contribute to the stress, so this always returns a stress of zero.
-  inline PhQ::Stress Stress(const PhQ::Strain& strain) const override {
+  inline PhQ::Stress Stress(const PhQ::Strain&) const override {
     return PhQ::Stress::Zero();
   }
 
@@ -98,7 +98,7 @@ public:
   // Returns the strain resulting from a given stress. Since this is an
   // incompressible Newtonian fluid constitutive model, stress does not depend
   // on strain, so this always returns a strain of zero.
-  inline PhQ::Strain Strain(const PhQ::Stress& stress) const override {
+  inline PhQ::Strain Strain(const PhQ::Stress&) const override {
     return PhQ::Strain::Zero();
   }
 

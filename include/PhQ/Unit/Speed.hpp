@@ -234,7 +234,7 @@ ConversionFromStandard<Unit::Speed, Unit::Speed::KilometrePerHour>(
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -484,7 +484,7 @@ ConversionToStandard<Unit::Speed, Unit::Speed::KilometrePerHour>(
 template <>
 inline constexpr void
 ConversionToStandard<Unit::Speed, Unit::Speed::MetrePerSecond>(
-    double& value) noexcept {}
+    double&) noexcept {}
 
 template <>
 inline constexpr void
