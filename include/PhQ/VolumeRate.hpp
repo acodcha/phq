@@ -26,7 +26,7 @@ namespace PhQ {
 // rate.
 class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
 public:
-  constexpr VolumeRate() : DimensionalScalarQuantity<Unit::VolumeRate>() {}
+  VolumeRate() = default;
 
   VolumeRate(const double value, const Unit::VolumeRate unit)
     : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}

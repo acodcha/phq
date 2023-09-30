@@ -40,7 +40,7 @@ class Velocity;
 // Speed scalar. Magnitude of the velocity vector.
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
-  constexpr Speed() : DimensionalScalarQuantity<Unit::Speed>() {}
+  Speed() = default;
 
   Speed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}

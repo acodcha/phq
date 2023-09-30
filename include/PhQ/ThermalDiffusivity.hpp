@@ -29,8 +29,7 @@ class PrandtlNumber;
 // Thermal diffusivity.
 class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
-  constexpr ThermalDiffusivity()
-    : DimensionalScalarQuantity<Unit::Diffusivity>() {}
+  ThermalDiffusivity() = default;
 
   ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}

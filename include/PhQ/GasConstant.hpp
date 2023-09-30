@@ -23,10 +23,11 @@ namespace PhQ {
 // Forward declaration for class GasConstant.
 class SpecificGasConstant;
 
-// Gas constant of a gas.
+// Gas constant of a gas. Not to be confused with the molar gas constant or the
+// specific gas constant.
 class GasConstant : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
-  constexpr GasConstant() : DimensionalScalarQuantity<Unit::HeatCapacity>() {}
+  GasConstant() = default;
 
   GasConstant(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}

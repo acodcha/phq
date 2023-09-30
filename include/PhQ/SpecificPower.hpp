@@ -24,8 +24,7 @@ namespace PhQ {
 // Specific power. Power per unit mass.
 class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
 public:
-  constexpr SpecificPower()
-    : DimensionalScalarQuantity<Unit::SpecificPower>() {}
+  SpecificPower() = default;
 
   SpecificPower(const double value, const Unit::SpecificPower unit)
     : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}

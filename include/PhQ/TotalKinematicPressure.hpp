@@ -25,8 +25,7 @@ namespace PhQ {
 class TotalKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr TotalKinematicPressure()
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+  TotalKinematicPressure() = default;
 
   TotalKinematicPressure(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}

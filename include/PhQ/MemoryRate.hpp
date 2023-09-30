@@ -26,7 +26,7 @@ namespace PhQ {
 // memory transfer speed.
 class MemoryRate : public DimensionalScalarQuantity<Unit::MemoryRate> {
 public:
-  constexpr MemoryRate() : DimensionalScalarQuantity<Unit::MemoryRate>() {}
+  MemoryRate() = default;
 
   MemoryRate(const double value, const Unit::MemoryRate unit)
     : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}

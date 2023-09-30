@@ -27,23 +27,50 @@ namespace PhQ {
 class TemperatureGradient
   : public DimensionalVectorQuantity<Unit::TemperatureGradient> {
 public:
-  constexpr TemperatureGradient()
-    : DimensionalVectorQuantity<Unit::TemperatureGradient>() {}
+  // Default constructor. Constructs a temperature gradient with an
+  // uninitialized value.
+  TemperatureGradient() = default;
 
+  // Constructor. Constructs a temperature gradient with a given value expressed
+  // in a given temperature gradient unit.
   TemperatureGradient(
       const Value::Vector& value, const Unit::TemperatureGradient unit)
     : DimensionalVectorQuantity<Unit::TemperatureGradient>(value, unit) {}
 
+  // Constructor. Constructs a temperature gradient from a given temperature
+  // gradient magnitude and direction.
   constexpr TemperatureGradient(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude,
       const Direction& direction)
     : TemperatureGradient(
         temperature_gradient_magnitude.Value() * direction.Value()) {}
 
+  // Destructor. Destroys this temperature gradient.
+  ~TemperatureGradient() noexcept = default;
+
+  // Copy constructor. Constructs a temperature gradient by copying another one.
+  constexpr TemperatureGradient(const TemperatureGradient& other) = default;
+
+  // Move constructor. Constructs a temperature gradient by moving another one.
+  constexpr TemperatureGradient(TemperatureGradient&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this temperature gradient by copying
+  // another one.
+  constexpr TemperatureGradient& operator=(
+      const TemperatureGradient& other) = default;
+
+  // Move assignment operator. Assigns this temperature gradient by moving
+  // another one.
+  constexpr TemperatureGradient& operator=(
+      TemperatureGradient&& other) noexcept = default;
+
+  // Statically creates a temperature gradient of zero.
   static constexpr TemperatureGradient Zero() {
     return TemperatureGradient{Value::Vector::Zero()};
   }
 
+  // Statically creates a temperature gradient with a given value expressed in a
+  // given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradient Create(const Value::Vector& value) {
     return TemperatureGradient{
@@ -51,10 +78,12 @@ public:
                           Standard<Unit::TemperatureGradient>>(value)};
   }
 
+  // Returns the magnitude of this temperature gradient.
   TemperatureGradientMagnitude Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this temperature gradient and another one.
   PhQ::Angle Angle(const TemperatureGradient& temperature_gradient) const {
     return {*this, temperature_gradient};
   }
@@ -96,6 +125,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a temperature gradient with a given value expressed
+  // in the standard temperature gradient unit.
   explicit constexpr TemperatureGradient(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::TemperatureGradient>(value) {}
 };

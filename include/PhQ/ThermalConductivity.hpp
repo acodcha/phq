@@ -21,28 +21,57 @@
 
 namespace PhQ {
 
-// Thermal conductivity dyadic tensor.
+// Thermal conductivity symmetric dyadic tensor.
 class ThermalConductivity
   : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
 public:
-  constexpr ThermalConductivity()
-    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>() {}
+  // Default constructor. Constructs a thermal conductivity tensor with an
+  // uninitialized value.
+  ThermalConductivity() = default;
 
+  // Constructor. Constructs a thermal conductivity tensor with a given value
+  // expressed in a given thermal conductivity unit.
   ThermalConductivity(
       const Value::SymmetricDyad& value, const Unit::ThermalConductivity unit)
     : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value, unit) {
   }
 
+  // Constructor. Constructs a thermal conductivity tensor from a given thermal
+  // conductivity scalar.
   constexpr ThermalConductivity(
       const ThermalConductivityScalar& thermal_conductivity_scalar)
     : ThermalConductivity({thermal_conductivity_scalar.Value(), 0.0, 0.0,
                            thermal_conductivity_scalar.Value(), 0.0,
                            thermal_conductivity_scalar.Value()}) {}
 
+  // Destructor. Destroys this thermal conductivity tensor.
+  ~ThermalConductivity() noexcept = default;
+
+  // Copy constructor. Constructs a thermal conductivity tensor by copying
+  // another one.
+  constexpr ThermalConductivity(const ThermalConductivity& other) = default;
+
+  // Move constructor. Constructs a thermal conductivity tensor by moving
+  // another one.
+  constexpr ThermalConductivity(ThermalConductivity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this thermal conductivity tensor by
+  // copying another one.
+  constexpr ThermalConductivity& operator=(
+      const ThermalConductivity& other) = default;
+
+  // Move assignment operator. Assigns this thermal conductivity tensor by
+  // moving another one.
+  constexpr ThermalConductivity& operator=(
+      ThermalConductivity&& other) noexcept = default;
+
+  // Statically creates a thermal conductivity tensor of zero.
   static constexpr ThermalConductivity Zero() {
     return ThermalConductivity{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a thermal conductivity tensor with a given value
+  // expressed in a given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivity
   Create(const Value::SymmetricDyad& value) {
@@ -88,6 +117,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a thermal conductivity tensor with a given value
+  // expressed in the standard thermal conductivity unit.
   explicit constexpr ThermalConductivity(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value) {}
 };

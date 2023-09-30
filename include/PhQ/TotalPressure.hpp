@@ -23,7 +23,7 @@ namespace PhQ {
 // Total pressure.
 class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr TotalPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  TotalPressure() = default;
 
   TotalPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}

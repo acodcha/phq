@@ -33,8 +33,7 @@ class ThermalDiffusivity;
 class ThermalConductivityScalar
   : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 public:
-  constexpr ThermalConductivityScalar()
-    : DimensionalScalarQuantity<Unit::ThermalConductivity>() {}
+  ThermalConductivityScalar() = default;
 
   ThermalConductivityScalar(
       const double value, const Unit::ThermalConductivity unit)

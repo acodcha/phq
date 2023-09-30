@@ -28,8 +28,7 @@ class TotalKinematicPressure;
 class DynamicKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
-  constexpr DynamicKinematicPressure()
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>() {}
+  DynamicKinematicPressure() = default;
 
   DynamicKinematicPressure(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
@@ -156,8 +155,7 @@ inline constexpr DynamicKinematicPressure operator*(
   return dynamic_kinematic_pressure * number;
 }
 
-inline constexpr Speed::Speed(
-    const DynamicKinematicPressure& dynamic_kinematic_pressure)
+inline Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure)
   : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 inline constexpr DynamicPressure::DynamicPressure(

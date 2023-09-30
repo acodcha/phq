@@ -21,34 +21,20 @@
 
 namespace PhQ {
 
-// Forward declaration for class Energy.
+// Forward declarations for class Energy.
 class Frequency;
-
-// Forward declaration for class Energy.
 class Length;
-
-// Forward declaration for class Energy.
 class Mass;
-
-// Forward declaration for class Energy.
 class Power;
-
-// Forward declaration for class Energy.
 class SpecificEnergy;
-
-// Forward declaration for class Energy.
 class SpecificPower;
-
-// Forward declaration for class Energy.
 class Time;
-
-// Forward declaration for class Energy.
 class TransportEnergyConsumption;
 
 // Energy.
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
-  constexpr Energy() : DimensionalScalarQuantity<Unit::Energy>() {}
+  Energy() = default;
 
   Energy(const double value, const Unit::Energy unit)
     : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}

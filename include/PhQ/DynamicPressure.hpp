@@ -28,7 +28,7 @@ class DynamicKinematicPressure;
 // Dynamic pressure.
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr DynamicPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  DynamicPressure() = default;
 
   DynamicPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}

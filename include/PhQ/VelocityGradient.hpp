@@ -21,18 +21,47 @@
 
 namespace PhQ {
 
-// Velocity gradient dyadic tensor.
+// Velocity gradient dyadic tensor. In general, this dyadic tensor is
+// asymmetric.
 class VelocityGradient : public DimensionalDyadQuantity<Unit::Frequency> {
 public:
-  constexpr VelocityGradient() : DimensionalDyadQuantity<Unit::Frequency>() {}
+  // Default constructor. Constructs a velocity gradient tensor with an
+  // uninitialized value.
+  VelocityGradient() = default;
 
+  // Constructor. Constructs a velocity gradient tensor with a given value
+  // expressed in a given frequency unit.
   VelocityGradient(const Value::Dyad& value, const Unit::Frequency& unit)
     : DimensionalDyadQuantity<Unit::Frequency>(value, unit) {}
 
+  // Destructor. Destroys this velocity gradient tensor.
+  ~VelocityGradient() noexcept = default;
+
+  // Copy constructor. Constructs a velocity gradient tensor by copying another
+  // one.
+  constexpr VelocityGradient(const VelocityGradient& other) = default;
+
+  // Move constructor. Constructs a velocity gradient tensor by moving another
+  // one.
+  constexpr VelocityGradient(VelocityGradient&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this velocity gradient tensor by copying
+  // another one.
+  constexpr VelocityGradient& operator=(
+      const VelocityGradient& other) = default;
+
+  // Move assignment operator. Assigns this velocity gradient tensor by moving
+  // another one.
+  constexpr VelocityGradient& operator=(
+      VelocityGradient&& other) noexcept = default;
+
+  // Statically creates a velocity gradient tensor of zero.
   static constexpr VelocityGradient Zero() {
     return VelocityGradient{Value::Dyad::Zero()};
   }
 
+  // Statically creates a velocity gradient tensor with a given value expressed
+  // in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr VelocityGradient Create(const Value::Dyad& value) {
     return VelocityGradient{
@@ -40,6 +69,8 @@ public:
             value)};
   }
 
+  // Creates a strain rate tensor from this velocity gradient tensor using the
+  // definition of the strain rate tensor.
   constexpr PhQ::StrainRate StrainRate() const {
     return PhQ::StrainRate{*this};
   }
@@ -81,6 +112,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a velocity gradient tensor with a given value
+  // expressed in the standard frequency unit.
   explicit constexpr VelocityGradient(const Value::Dyad& value)
     : DimensionalDyadQuantity<Unit::Frequency>(value) {}
 };

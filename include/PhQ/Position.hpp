@@ -23,31 +23,57 @@ namespace PhQ {
 // Position vector. Not to be confused with displacement vector.
 class Position : public DimensionalVectorQuantity<Unit::Length> {
 public:
-  constexpr Position() : DimensionalVectorQuantity<Unit::Length>() {}
+  // Default constructor. Constructs a position with an uninitialized value.
+  Position() = default;
 
+  // Constructor. Constructs a position with a given value expressed in a given
+  // length unit.
   Position(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
+  // Constructor. Constructs a position from a given length and direction.
   constexpr Position(const Length& length, const Direction& direction)
     : Position(length.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a position from a given displacement from the
+  // origin.
   explicit constexpr Position(const Displacement& displacement)
     : Position(displacement.Value()) {}
 
+  // Destructor. Destroys this position.
+  ~Position() noexcept = default;
+
+  // Copy constructor. Constructs a position by copying another one.
+  constexpr Position(const Position& other) = default;
+
+  // Move constructor. Constructs a position by moving another one.
+  constexpr Position(Position&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this position by copying another one.
+  constexpr Position& operator=(const Position& other) = default;
+
+  // Move assignment operator. Assigns this position by moving another one.
+  constexpr Position& operator=(Position&& other) noexcept = default;
+
+  // Statically creates a position of zero.
   static constexpr Position Zero() {
     return Position{Value::Vector::Zero()};
   }
 
+  // Statically creates a position with a given value expressed in a given
+  // length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) {
     return Position{
         StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
+  // Returns the magnitude of this position.
   Length Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this position and another one.
   PhQ::Angle Angle(const Position& position) const {
     return {*this, position};
   }
@@ -101,6 +127,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a position with a given value expressed in the
+  // standard length unit.
   explicit constexpr Position(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 

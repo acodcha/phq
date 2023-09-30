@@ -30,8 +30,7 @@ class TemperatureGradient;
 class TemperatureGradientMagnitude
   : public DimensionalScalarQuantity<Unit::TemperatureGradient> {
 public:
-  constexpr TemperatureGradientMagnitude()
-    : DimensionalScalarQuantity<Unit::TemperatureGradient>() {}
+  TemperatureGradientMagnitude() = default;
 
   TemperatureGradientMagnitude(
       const double value, const Unit::TemperatureGradient unit)

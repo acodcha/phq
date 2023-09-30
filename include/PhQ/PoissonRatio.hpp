@@ -23,7 +23,7 @@ namespace PhQ {
 // Poisson's ratio of a deformable solid material.
 class PoissonRatio : public DimensionlessScalarQuantity {
 public:
-  constexpr PoissonRatio() : DimensionlessScalarQuantity() {}
+  PoissonRatio() = default;
 
   explicit constexpr PoissonRatio(const double value)
     : DimensionlessScalarQuantity(value) {}

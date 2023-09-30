@@ -27,7 +27,7 @@ class TemperatureDifference;
 // Strain scalar. Component or resultant of the strain dyadic tensor.
 class StrainScalar : public DimensionlessScalarQuantity {
 public:
-  constexpr StrainScalar() : DimensionlessScalarQuantity() {}
+  StrainScalar() = default;
 
   explicit constexpr StrainScalar(const double value)
     : DimensionlessScalarQuantity(value) {}

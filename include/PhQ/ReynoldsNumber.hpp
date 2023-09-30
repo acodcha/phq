@@ -28,7 +28,7 @@ class ReynoldsNumber : public DimensionlessScalarQuantity {
 public:
   // Default constructor. Constructs a Reynolds number with an uninitialized
   // value.
-  constexpr ReynoldsNumber() : DimensionlessScalarQuantity() {}
+  ReynoldsNumber() = default;
 
   // Constructor. Constructs a Reynolds number with a given value.
   explicit constexpr ReynoldsNumber(const double value)

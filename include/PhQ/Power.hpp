@@ -30,7 +30,7 @@ class TransportEnergyConsumption;
 // rate.
 class Power : public DimensionalScalarQuantity<Unit::Power> {
 public:
-  constexpr Power() : DimensionalScalarQuantity<Unit::Power>() {}
+  Power() = default;
 
   Power(const double value, const Unit::Power unit)
     : DimensionalScalarQuantity<Unit::Power>(value, unit) {}

@@ -32,7 +32,7 @@ class Traction;
 // Static pressure.
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  constexpr StaticPressure() : DimensionalScalarQuantity<Unit::Pressure>() {}
+  StaticPressure() = default;
 
   StaticPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}

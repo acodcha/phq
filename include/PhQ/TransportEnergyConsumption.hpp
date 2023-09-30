@@ -30,8 +30,7 @@ namespace PhQ {
 class TransportEnergyConsumption
   : public DimensionalScalarQuantity<Unit::Force> {
 public:
-  constexpr TransportEnergyConsumption()
-    : DimensionalScalarQuantity<Unit::Force>() {}
+  TransportEnergyConsumption() = default;
 
   TransportEnergyConsumption(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}

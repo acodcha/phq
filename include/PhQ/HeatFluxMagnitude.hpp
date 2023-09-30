@@ -28,8 +28,7 @@ class HeatFlux;
 // Heat flux scalar. Magnitude of the heat flux vector.
 class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
 public:
-  constexpr HeatFluxMagnitude()
-    : DimensionalScalarQuantity<Unit::EnergyFlux>() {}
+  HeatFluxMagnitude() = default;
 
   HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit)
     : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}

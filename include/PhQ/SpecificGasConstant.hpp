@@ -25,8 +25,7 @@ namespace PhQ {
 class SpecificGasConstant
   : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
 public:
-  constexpr SpecificGasConstant()
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>() {}
+  SpecificGasConstant() = default;
 
   SpecificGasConstant(const double value, const Unit::SpecificHeatCapacity unit)
     : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}

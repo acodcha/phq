@@ -27,8 +27,7 @@ namespace PhQ {
 class LinearThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
-  constexpr LinearThermalExpansionCoefficient()
-    : DimensionalScalarQuantity<Unit::ThermalExpansion>() {}
+  LinearThermalExpansionCoefficient() = default;
 
   LinearThermalExpansionCoefficient(
       const double value, const Unit::ThermalExpansion unit)

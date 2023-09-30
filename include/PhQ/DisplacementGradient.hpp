@@ -21,18 +21,47 @@
 
 namespace PhQ {
 
-// Gradient of the displacement vector, which is a dimensionless dyadic tensor.
+// Displacement gradient dyadic tensor. Gradient of the displacement vector. In
+// general, this dyadic tensor is asymmetric.
 class DisplacementGradient : public DimensionlessDyadQuantity {
 public:
-  constexpr DisplacementGradient() : DimensionlessDyadQuantity() {}
+  // Default constructor. Constructs a displacement gradient tensor with an
+  // uninitialized value.
+  DisplacementGradient() = default;
 
+  // Constructor. Constructs a displacement gradient tensor with a given value.
   explicit constexpr DisplacementGradient(const Value::Dyad& value)
     : DimensionlessDyadQuantity(value) {}
 
+  // Destructor. Destroys this displacement gradient tensor.
+  ~DisplacementGradient() noexcept = default;
+
+  // Copy constructor. Constructs a displacement gradient tensor by copying
+  // another one.
+  constexpr DisplacementGradient(const DisplacementGradient& other) = default;
+
+  // Move constructor. Constructs a displacement gradient tensor by moving
+  // another one.
+  constexpr DisplacementGradient(
+      DisplacementGradient&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this displacement gradient tensor by
+  // copying another one.
+  constexpr DisplacementGradient& operator=(
+      const DisplacementGradient& other) = default;
+
+  // Move assignment operator. Assigns this displacement gradient tensor by
+  // moving another one.
+  constexpr DisplacementGradient& operator=(
+      DisplacementGradient&& other) noexcept = default;
+
+  // Statically creates a displacement gradient tensor of zero.
   static constexpr DisplacementGradient Zero() {
     return DisplacementGradient{Value::Dyad::Zero()};
   }
 
+  // Creates a strain tensor from this displacement gradient tensor using the
+  // definition of the strain tensor.
   constexpr PhQ::Strain Strain() const {
     return PhQ::Strain{*this};
   }

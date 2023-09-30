@@ -27,40 +27,72 @@ class Acceleration;
 // Velocity vector.
 class Velocity : public DimensionalVectorQuantity<Unit::Speed> {
 public:
-  constexpr Velocity() : DimensionalVectorQuantity<Unit::Speed>() {}
+  // Default constructor. Constructs a velocity with an uninitialized value.
+  Velocity() = default;
 
+  // Constructor. Constructs a velocity with a given value expressed in a given
+  // speed unit.
   Velocity(const Value::Vector& value, const Unit::Speed unit)
     : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
 
+  // Constructor. Constructs a velocity from a given speed and direction.
   constexpr Velocity(const Speed& speed, const Direction& direction)
     : Velocity(speed.Value() * direction.Value()) {}
 
+  // Constructor. Constructs a velocity from a given displacement and time using
+  // the definition of velocity.
   constexpr Velocity(const Displacement& displacement, const Time& time)
     : Velocity(displacement.Value() / time.Value()) {}
 
+  // Constructor. Constructs a velocity from a given displacement and frequency
+  // using the definition of velocity.
   constexpr Velocity(
       const Displacement& displacement, const Frequency& frequency)
     : Velocity(displacement.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs a velocity from a given acceleration and time using
+  // the definition of acceleration.
   constexpr Velocity(const Acceleration& acceleration, const Time& time);
 
+  // Constructor. Constructs a velocity from a given acceleration and frequency
+  // using the definition of acceleration.
   constexpr Velocity(
       const Acceleration& acceleration, const Frequency& frequency);
 
+  // Destructor. Destroys this velocity.
+  ~Velocity() noexcept = default;
+
+  // Copy constructor. Constructs a velocity by copying another one.
+  constexpr Velocity(const Velocity& other) = default;
+
+  // Move constructor. Constructs a velocity by moving another one.
+  constexpr Velocity(Velocity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this velocity by copying another one.
+  constexpr Velocity& operator=(const Velocity& other) = default;
+
+  // Move assignment operator. Assigns this velocity by moving another one.
+  constexpr Velocity& operator=(Velocity&& other) noexcept = default;
+
+  // Statically creates a velocity of zero.
   static constexpr Velocity Zero() {
     return Velocity{Value::Vector::Zero()};
   }
 
+  // Statically creates a velocity with a given value expressed in a given speed
+  // unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const Value::Vector& value) {
     return Velocity{
         StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
+  // Returns the magnitude of this velocity.
   Speed Magnitude() const {
     return {*this};
   }
 
+  // Returns the angle between this velocity and another one.
   PhQ::Angle Angle(const Velocity& velocity) const {
     return {*this, velocity};
   }
@@ -110,6 +142,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a velocity with a given value expressed in the
+  // standard speed unit.
   explicit constexpr Velocity(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Speed>(value) {}
 };

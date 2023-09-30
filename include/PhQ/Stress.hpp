@@ -22,23 +22,48 @@
 
 namespace PhQ {
 
-// Cauchy stress dyadic tensor.
+// Cauchy stress symmetric dyadic tensor.
 class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
 public:
-  constexpr Stress() : DimensionalSymmetricDyadQuantity<Unit::Pressure>() {}
+  // Default constructor. Constructs a stress tensor with an uninitialized
+  // value.
+  Stress() = default;
 
+  // Constructor. Constructs a stress tensor with a given value expressed in a
+  // given pressure unit.
   Stress(const Value::SymmetricDyad& value, const Unit::Pressure unit)
     : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs a stress tensor from a given static pressure using
+  // the definition of stress due to pressure.
   constexpr Stress(const StaticPressure& static_pressure)
     : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
               -1.0 * static_pressure.Value(), 0.0,
               -1.0 * static_pressure.Value()}) {}
 
+  // Destructor. Destroys this stress tensor.
+  ~Stress() noexcept = default;
+
+  // Copy constructor. Constructs a stress tensor by copying another one.
+  constexpr Stress(const Stress& other) = default;
+
+  // Move constructor. Constructs a stress tensor by moving another one.
+  constexpr Stress(Stress&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this stress tensor by copying another
+  // one.
+  constexpr Stress& operator=(const Stress& other) = default;
+
+  // Move assignment operator. Assigns this stress tensor by moving another one.
+  constexpr Stress& operator=(Stress&& other) noexcept = default;
+
+  // Statically creates a stress tensor of zero.
   static constexpr Stress Zero() {
     return Stress{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a stress tensor with a given value expressed in a given
+  // pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Stress Create(const Value::SymmetricDyad& value) {
     return Stress{
@@ -46,10 +71,14 @@ public:
             value)};
   }
 
+  // Creates a traction from this stress tensor using the definition of
+  // traction.
   constexpr PhQ::Traction Traction(const Direction& direction) const {
     return {*this, direction};
   }
 
+  // Computes the von Mises stress of this stress tensor using the von Mises
+  // yield criterion.
   constexpr StressScalar VonMises() const {
     return StressScalar{std::sqrt(
         0.5
@@ -94,6 +123,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a stress tensor with a given value expressed in the
+  // standard pressure unit.
   explicit constexpr Stress(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
 };
