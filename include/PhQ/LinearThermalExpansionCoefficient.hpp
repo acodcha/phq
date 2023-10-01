@@ -27,16 +27,46 @@ namespace PhQ {
 class LinearThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
+  // Default constructor. Constructs a linear thermal expansion coefficient with
+  // an uninitialized value.
   LinearThermalExpansionCoefficient() = default;
 
+  // Constructor. Constructs a linear thermal expansion coefficient with a given
+  // value expressed in a given thermal expansion unit.
   LinearThermalExpansionCoefficient(
       const double value, const Unit::ThermalExpansion unit)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
+  // Destructor. Destroys this linear thermal expansion coefficient.
+  ~LinearThermalExpansionCoefficient() noexcept = default;
+
+  // Copy constructor. Constructs a linear thermal expansion coefficient by
+  // copying another one.
+  constexpr LinearThermalExpansionCoefficient(
+      const LinearThermalExpansionCoefficient& other) = default;
+
+  // Move constructor. Constructs a linear thermal expansion coefficient by
+  // moving another one.
+  constexpr LinearThermalExpansionCoefficient(
+      LinearThermalExpansionCoefficient&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this linear thermal expansion coefficient
+  // by copying another one.
+  constexpr LinearThermalExpansionCoefficient& operator=(
+      const LinearThermalExpansionCoefficient& other) = default;
+
+  // Move assignment operator. Assigns this linear thermal expansion coefficient
+  // by moving another one.
+  constexpr LinearThermalExpansionCoefficient& operator=(
+      LinearThermalExpansionCoefficient&& other) noexcept = default;
+
+  // Statically creates a linear thermal expansion coefficient of zero.
   static constexpr LinearThermalExpansionCoefficient Zero() {
     return LinearThermalExpansionCoefficient{0.0};
   }
 
+  // Statically creates a linear thermal expansion coefficient with a given
+  // value expressed in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
   static constexpr LinearThermalExpansionCoefficient
   Create(const double value) {
@@ -99,6 +129,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a linear thermal expansion coefficient with a given
+  // value expressed in the standard thermal expansion unit.
   explicit constexpr LinearThermalExpansionCoefficient(const double value)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };

@@ -26,16 +26,46 @@ namespace PhQ {
 class VolumetricThermalExpansionCoefficient
   : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
 public:
+  // Default constructor. Constructs a volumetric thermal expansion coefficient
+  // with an uninitialized value.
   VolumetricThermalExpansionCoefficient() = default;
 
+  // Constructor. Constructs a volumetric thermal expansion coefficient with a
+  // given value expressed in a given thermal expansion unit.
   VolumetricThermalExpansionCoefficient(
       const double value, const Unit::ThermalExpansion unit)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
 
+  // Destructor. Destroys this volumetric thermal expansion coefficient.
+  ~VolumetricThermalExpansionCoefficient() noexcept = default;
+
+  // Copy constructor. Constructs a volumetric thermal expansion coefficient by
+  // copying another one.
+  constexpr VolumetricThermalExpansionCoefficient(
+      const VolumetricThermalExpansionCoefficient& other) = default;
+
+  // Move constructor. Constructs a volumetric thermal expansion coefficient by
+  // moving another one.
+  constexpr VolumetricThermalExpansionCoefficient(
+      VolumetricThermalExpansionCoefficient&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this volumetric thermal expansion
+  // coefficient by copying another one.
+  constexpr VolumetricThermalExpansionCoefficient& operator=(
+      const VolumetricThermalExpansionCoefficient& other) = default;
+
+  // Move assignment operator. Assigns this volumetric thermal expansion
+  // coefficient by moving another one.
+  constexpr VolumetricThermalExpansionCoefficient& operator=(
+      VolumetricThermalExpansionCoefficient&& other) noexcept = default;
+
+  // Statically creates a volumetric thermal expansion coefficient of zero.
   static constexpr VolumetricThermalExpansionCoefficient Zero() {
     return VolumetricThermalExpansionCoefficient{0.0};
   }
 
+  // Statically creates a volumetric thermal expansion coefficient with a given
+  // value expressed in a given thermal expansion unit.
   template <Unit::ThermalExpansion Unit>
   static constexpr VolumetricThermalExpansionCoefficient
   Create(const double value) {
@@ -100,6 +130,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a volumetric thermal expansion coefficient with a
+  // given value expressed in the standard thermal expansion unit.
   explicit constexpr VolumetricThermalExpansionCoefficient(const double value)
     : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
 };

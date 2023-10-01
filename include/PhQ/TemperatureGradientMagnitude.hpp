@@ -30,23 +30,58 @@ class TemperatureGradient;
 class TemperatureGradientMagnitude
   : public DimensionalScalarQuantity<Unit::TemperatureGradient> {
 public:
+  // Default constructor. Constructs a temperature gradient magnitude with an
+  // uninitialized value.
   TemperatureGradientMagnitude() = default;
 
+  // Constructor. Constructs a temperature gradient magnitude with a given value
+  // expressed in a given temperature gradient unit.
   TemperatureGradientMagnitude(
       const double value, const Unit::TemperatureGradient unit)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
 
+  // Constructor. Constructs a temperature gradient magnitude from a given
+  // temperature gradient vector.
   TemperatureGradientMagnitude(const TemperatureGradient& temperature_gradient);
 
+  // Constructor. Constructs a temperature gradient magnitude from a given
+  // temperature difference and length using the definition of temperature
+  // gradient.
   constexpr TemperatureGradientMagnitude(
       const TemperatureDifference& temperature_difference, const Length& length)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(
         temperature_difference.Value() / length.Value()) {}
 
+  // Destructor. Destroys this temperature gradient magnitude.
+  ~TemperatureGradientMagnitude() noexcept = default;
+
+  // Copy constructor. Constructs a temperature gradient magnitude by copying
+  // another one.
+  constexpr TemperatureGradientMagnitude(
+      const TemperatureGradientMagnitude& other) = default;
+
+  // Move constructor. Constructs a temperature gradient magnitude by moving
+  // another one.
+  constexpr TemperatureGradientMagnitude(
+      TemperatureGradientMagnitude&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this temperature gradient magnitude by
+  // copying another one.
+  constexpr TemperatureGradientMagnitude& operator=(
+      const TemperatureGradientMagnitude& other) = default;
+
+  // Move assignment operator. Assigns this temperature gradient magnitude by
+  // moving another one.
+  constexpr TemperatureGradientMagnitude& operator=(
+      TemperatureGradientMagnitude&& other) noexcept = default;
+
+  // Statically creates a temperature gradient magnitude of zero.
   static constexpr TemperatureGradientMagnitude Zero() {
     return TemperatureGradientMagnitude{0.0};
   }
 
+  // Statically creates a temperature gradient magnitude with a given value
+  // expressed in a given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
   static constexpr TemperatureGradientMagnitude Create(const double value) {
     return TemperatureGradientMagnitude{
@@ -107,6 +142,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a temperature gradient magnitude with a given value
+  // expressed in the standard temperature gradient unit.
   explicit constexpr TemperatureGradientMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::TemperatureGradient>(value) {}
 };

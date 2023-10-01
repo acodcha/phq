@@ -45,42 +45,85 @@ class Velocity;
 class Volume;
 class VolumeRate;
 
-// Time. Can represent either a point in time or a time duration.
+// Time. Can represent either a point in time, a time duration, or a period.
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
+  // Default constructor. Constructs a time quantity with an uninitialized
+  // value.
   Time() = default;
 
+  // Constructor. Constructs a time quantity with a given value expressed in a
+  // given time unit.
   Time(const double value, const Unit::Time unit)
     : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
+  // Constructor. Constructs a time quantity from a given frequency using the
+  // definition of frequency.
   constexpr Time(const PhQ::Frequency& frequency);
 
+  // Constructor. Constructs a time quantity from a given acceleration magnitude
+  // and speed using the definition of acceleration.
   constexpr Time(
       const AccelerationMagnitude& acceleration_magnitude, const Speed& speed);
 
+  // Constructor. Constructs a time quantity from a given angular acceleration
+  // magnitude and angular speed using the definition of angular acceleration.
   constexpr Time(
       const AngularAccelerationMagnitude& angular_acceleration_magnitude,
       const AngularSpeed& angular_speed);
 
+  // Constructor. Constructs a time quantity from a given angular speed and
+  // angle using the definition of angular speed.
   constexpr Time(const AngularSpeed& angular_speed, const Angle& angle);
 
+  // Constructor. Constructs a time quantity from a given mass rate and mass
+  // using the definition of mass rate.
   constexpr Time(const MassRate& mass_rate, const Mass& mass);
 
+  // Constructor. Constructs a time quantity from a given memory rate and memory
+  // using the definition of memory rate.
   constexpr Time(const MemoryRate& memory_rate, const Memory& memory);
 
+  // Constructor. Constructs a time quantity from a given power and energy using
+  // the definition of power.
   constexpr Time(const Power& power, const Energy& energy);
 
+  // Constructor. Constructs a time quantity from a given specific power and
+  // specific energy using the definition of specific power.
   constexpr Time(const SpecificPower& specific_power,
                  const SpecificEnergy& specific_energy);
 
+  // Constructor. Constructs a time quantity from a given speed and length using
+  // the definition of speed.
   constexpr Time(const Speed& speed, const Length& length);
 
+  // Constructor. Constructs a time quantity from a given volume rate and volume
+  // using the definition of volume rate.
   constexpr Time(const VolumeRate& volume_rate, const Volume& volume);
 
+  // Destructor. Destroys this time quantity.
+  ~Time() noexcept = default;
+
+  // Copy constructor. Constructs a time quantity by copying another one.
+  constexpr Time(const Time& other) = default;
+
+  // Move constructor. Constructs a time quantity by moving another one.
+  constexpr Time(Time&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this time quantity by copying another
+  // one.
+  constexpr Time& operator=(const Time& other) = default;
+
+  // Move assignment operator. Assigns this time quantity by moving another one.
+  constexpr Time& operator=(Time&& other) noexcept = default;
+
+  // Statically creates a time quantity of zero.
   static constexpr Time Zero() {
     return Time{0.0};
   }
 
+  // Statically creates a time quantity with a given value expressed in a given
+  // time unit.
   template <Unit::Time Unit>
   static constexpr Time Create(const double value) {
     return Time{
@@ -142,6 +185,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a time quantity with a given value expressed in the
+  // standard time unit.
   explicit constexpr Time(const double value)
     : DimensionalScalarQuantity<Unit::Time>(value) {}
 };

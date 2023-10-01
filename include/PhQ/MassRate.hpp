@@ -26,21 +26,46 @@ namespace PhQ {
 // rate.
 class MassRate : public DimensionalScalarQuantity<Unit::MassRate> {
 public:
+  // Default constructor. Constructs a mass rate with an uninitialized value.
   MassRate() = default;
 
+  // Constructor. Constructs a mass rate with a given value expressed in a given
+  // mass rate unit.
   MassRate(const double value, const Unit::MassRate unit)
     : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
 
+  // Constructor. Constructs a mass rate from a given mass and time using the
+  // definition of mass rate.
   constexpr MassRate(const Mass& mass, const Time& time)
     : MassRate(mass.Value() / time.Value()) {}
 
+  // Constructor. Constructs a mass rate from a given mass and frequency using
+  // the definition of mass rate.
   constexpr MassRate(const Mass& mass, const Frequency& frequency)
     : MassRate(mass.Value() * frequency.Value()) {}
 
+  // Destructor. Destroys this mass rate.
+  ~MassRate() noexcept = default;
+
+  // Copy constructor. Constructs a mass rate by copying another one.
+  constexpr MassRate(const MassRate& other) = default;
+
+  // Move constructor. Constructs a mass rate by moving another one.
+  constexpr MassRate(MassRate&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this mass rate by copying another one.
+  constexpr MassRate& operator=(const MassRate& other) = default;
+
+  // Move assignment operator. Assigns this mass rate by moving another one.
+  constexpr MassRate& operator=(MassRate&& other) noexcept = default;
+
+  // Statically creates a mass rate of zero.
   static constexpr MassRate Zero() {
     return MassRate{0.0};
   }
 
+  // Statically creates a mass rate with a given value expressed in a given mass
+  // rate unit.
   template <Unit::MassRate Unit>
   static constexpr MassRate Create(const double value) {
     return MassRate{
@@ -97,6 +122,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a mass rate with a given value expressed in the
+  // standard mass rate unit.
   explicit constexpr MassRate(const double value)
     : DimensionalScalarQuantity<Unit::MassRate>(value) {}
 };

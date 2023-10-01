@@ -24,31 +24,72 @@ namespace PhQ {
 // Forward declaration for class DynamicKinematicPressure.
 class TotalKinematicPressure;
 
-// Dynamic kinematic pressure.
+// Dynamic kinematic pressure. Dynamic pressure is the component of pressure
+// arising from a fluid's kinetic energy. Kinematic pressure is pressure divided
+// by mass density, so dynamic kinematic pressure is dynamic pressure divided by
+// mass density.
 class DynamicKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
+  // Default constructor. Constructs a dynamic kinematic pressure with an
+  // uninitialized value.
   DynamicKinematicPressure() = default;
 
+  // Constructor. Constructs a dynamic kinematic pressure with a given value
+  // expressed in a given specific energy unit.
   DynamicKinematicPressure(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
+  // Constructor. Constructs a dynamic kinematic pressure from a given speed
+  // using the definition of dynamic kinematic pressure.
   constexpr DynamicKinematicPressure(const Speed& speed)
     : DynamicKinematicPressure(0.5 * std::pow(speed.Value(), 2)) {}
 
+  // Constructor. Constructs a dynamic kinematic pressure from a given total
+  // kinematic pressure and static kinematic pressure using the definition of
+  // total kinematic pressure.
   constexpr DynamicKinematicPressure(
       const TotalKinematicPressure& total_kinematic_pressure,
       const StaticKinematicPressure& static_kinematic_pressure);
 
+  // Constructor. Constructs a dynamic kinematic pressure from a given dynamic
+  // pressure and mass density using the definition of dynamic kinematic
+  // pressure.
   constexpr DynamicKinematicPressure(
       const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
     : DynamicKinematicPressure(
         dynamic_pressure.Value() / mass_density.Value()) {}
 
+  // Destructor. Destroys this dynamic kinematic pressure.
+  ~DynamicKinematicPressure() noexcept = default;
+
+  // Copy constructor. Constructs a dynamic kinematic pressure by copying
+  // another one.
+  constexpr DynamicKinematicPressure(
+      const DynamicKinematicPressure& other) = default;
+
+  // Move constructor. Constructs a dynamic kinematic pressure by moving another
+  // one.
+  constexpr DynamicKinematicPressure(
+      DynamicKinematicPressure&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this dynamic kinematic pressure by
+  // copying another one.
+  constexpr DynamicKinematicPressure& operator=(
+      const DynamicKinematicPressure& other) = default;
+
+  // Move assignment operator. Assigns this dynamic kinematic pressure by moving
+  // another one.
+  constexpr DynamicKinematicPressure& operator=(
+      DynamicKinematicPressure&& other) noexcept = default;
+
+  // Statically creates a dynamic kinematic pressure of zero.
   static constexpr DynamicKinematicPressure Zero() {
     return DynamicKinematicPressure{0.0};
   }
 
+  // Statically creates a dynamic kinematic pressure with a given value
+  // expressed in a given specific energy unit.
   template <Unit::SpecificEnergy Unit>
   static constexpr DynamicKinematicPressure Create(const double value) {
     return DynamicKinematicPressure{
@@ -102,6 +143,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a dynamic kinematic pressure with a given value
+  // expressed in the standard specific energy unit.
   explicit constexpr DynamicKinematicPressure(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };

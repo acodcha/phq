@@ -27,34 +27,65 @@ class SpecificGasConstant;
 // specific gas constant.
 class GasConstant : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
+  // Default constructor. Constructs a gas constant with an uninitialized value.
   GasConstant() = default;
 
+  // Constructor. Constructs a gas constant with a given value expressed in a
+  // given heat capacity unit.
   GasConstant(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
+  // Constructor. Constructs a gas constant from a given isobaric heat capacity
+  // and isochoric heat capacity using Mayer's relation.
   constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity,
                         const IsochoricHeatCapacity& isochoric_heat_capacity)
     : GasConstant(
         isobaric_heat_capacity.Value() - isochoric_heat_capacity.Value()) {}
 
+  // Constructor. Constructs a gas constant from a given isobaric heat capacity
+  // and specific heat ratio using the definition of the specific heat ratio and
+  // Mayer's relation.
   constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity,
                         const SpecificHeatRatio& specific_heat_ratio)
     : GasConstant(isobaric_heat_capacity.Value()
                   * (1.0 - 1.0 / specific_heat_ratio.Value())) {}
 
+  // Constructor. Constructs a gas constant from a given isochoric heat capacity
+  // and specific heat ratio using the definition of the specific heat ratio and
+  // Mayer's relation.
   constexpr GasConstant(const IsochoricHeatCapacity& isochoric_heat_capacity,
                         const SpecificHeatRatio& specific_heat_ratio)
     : GasConstant(
         isochoric_heat_capacity.Value() * (specific_heat_ratio.Value() - 1.0)) {
   }
 
+  // Constructor. Constructs a gas constant from a given specific gas constant
+  // and mass using the definition of the specific gas constant.
   constexpr GasConstant(
       const SpecificGasConstant& specific_gas_constant, const Mass& mass);
 
+  // Destructor. Destroys this gas constant.
+  ~GasConstant() noexcept = default;
+
+  // Copy constructor. Constructs a gas constant by copying another one.
+  constexpr GasConstant(const GasConstant& other) = default;
+
+  // Move constructor. Constructs a gas constant by moving another one.
+  constexpr GasConstant(GasConstant&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this gas constant by copying another one.
+  constexpr GasConstant& operator=(const GasConstant& other) = default;
+
+  // Move assignment operator. Assigns this gas constant by moving another one.
+  constexpr GasConstant& operator=(GasConstant&& other) noexcept = default;
+
+  // Statically creates a gas constant of zero.
   static constexpr GasConstant Zero() {
     return GasConstant{0.0};
   }
 
+  // Statically creates a gas constant with a given value expressed in a given
+  // heat capacity unit.
   template <Unit::HeatCapacity Unit>
   static constexpr GasConstant Create(const double value) {
     return GasConstant{StaticConvertCopy<Unit::HeatCapacity, Unit,
@@ -108,6 +139,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a gas constant with a given value expressed in the
+  // standard heat capacity unit.
   explicit constexpr GasConstant(const double value)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 };

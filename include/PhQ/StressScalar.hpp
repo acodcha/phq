@@ -28,15 +28,38 @@ class Stress;
 // related quantity such as principal stress or Von Mises stress.
 class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
+  // Default constructor. Constructs a stress scalar with an uninitialized
+  // value.
   StressScalar() = default;
 
+  // Constructor. Constructs a stress scalar with a given value expressed in a
+  // given pressure unit.
   StressScalar(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Destructor. Destroys this stress scalar.
+  ~StressScalar() noexcept = default;
+
+  // Copy constructor. Constructs a stress scalar by copying another one.
+  constexpr StressScalar(const StressScalar& other) = default;
+
+  // Move constructor. Constructs a stress scalar by moving another one.
+  constexpr StressScalar(StressScalar&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this stress scalar by copying another
+  // one.
+  constexpr StressScalar& operator=(const StressScalar& other) = default;
+
+  // Move assignment operator. Assigns this stress scalar by moving another one.
+  constexpr StressScalar& operator=(StressScalar&& other) noexcept = default;
+
+  // Statically creates a stress scalar of zero.
   static constexpr StressScalar Zero() {
     return StressScalar{0.0};
   }
 
+  // Statically creates a stress scalar with a given value expressed in a given
+  // pressure unit.
   template <Unit::Pressure Unit>
   static constexpr StressScalar Create(const double value) {
     return StressScalar{
@@ -81,6 +104,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a stress scalar with a given value expressed in the
+  // standard pressure unit.
   explicit constexpr StressScalar(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

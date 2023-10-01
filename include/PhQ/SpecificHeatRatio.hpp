@@ -32,35 +32,76 @@ class SpecificIsochoricHeatCapacity;
 // Ratio of the isobaric and isochoric specific heats of a material.
 class SpecificHeatRatio : public DimensionlessScalarQuantity {
 public:
+  // Default constructor. Constructs a specific heat ratio ratio with an
+  // uninitialized value.
   SpecificHeatRatio() = default;
 
+  // Constructor. Constructs a specific heat ratio with a given value.
   explicit constexpr SpecificHeatRatio(const double value)
     : DimensionlessScalarQuantity(value) {}
 
+  // Constructor. Constructs a specific heat ratio from a given specific gas
+  // constant and specific isobaric heat capacity using Mayer's relation and the
+  // definition of the specific heat ratio.
   constexpr SpecificHeatRatio(
       const SpecificGasConstant& specific_gas_constant,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
+  // Constructor. Constructs a specific heat ratio from a given specific gas
+  // constant and specific isochoric heat capacity using Mayer's relation and
+  // the definition of the specific heat ratio.
   constexpr SpecificHeatRatio(
       const SpecificGasConstant& specific_gas_constant,
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
+  // Constructor. Constructs a specific heat ratio from a given specific
+  // isobaric heat capacity and specific isochoric heat capacity using the
+  // definition of the specific heat ratio.
   constexpr SpecificHeatRatio(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
+  // Constructor. Constructs a specific heat ratio from a given gas constant and
+  // isobaric heat capacity using Mayer's relation and the definition of the
+  // specific heat ratio.
   constexpr SpecificHeatRatio(
       const GasConstant& gas_constant,
       const IsobaricHeatCapacity& isobaric_heat_capacity);
 
+  // Constructor. Constructs a specific heat ratio from a given gas constant and
+  // isochoric heat capacity using Mayer's relation and the definition of the
+  // specific heat ratio.
   constexpr SpecificHeatRatio(
       const GasConstant& gas_constant,
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
+  // Constructor. Constructs a specific heat ratio from a given isobaric heat
+  // capacity and isochoric heat capacity using the definition of the specific
+  // heat ratio.
   constexpr SpecificHeatRatio(
       const IsobaricHeatCapacity& isobaric_heat_capacity,
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
+  // Destructor. Destroys this specific heat ratio.
+  ~SpecificHeatRatio() noexcept = default;
+
+  // Copy constructor. Constructs a specific heat ratio by copying another one.
+  constexpr SpecificHeatRatio(const SpecificHeatRatio& other) = default;
+
+  // Move constructor. Constructs a specific heat ratio by moving another one.
+  constexpr SpecificHeatRatio(SpecificHeatRatio&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this specific heat ratio by copying
+  // another one.
+  constexpr SpecificHeatRatio& operator=(
+      const SpecificHeatRatio& other) = default;
+
+  // Move assignment operator. Assigns this specific heat ratio by moving
+  // another one.
+  constexpr SpecificHeatRatio& operator=(
+      SpecificHeatRatio&& other) noexcept = default;
+
+  // Statically creates a specific heat ratio of zero.
   static constexpr SpecificHeatRatio Zero() {
     return SpecificHeatRatio{0.0};
   }

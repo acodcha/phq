@@ -29,19 +29,47 @@ class MemoryRate;
 // Computer memory.
 class Memory : public DimensionalScalarQuantity<Unit::Memory> {
 public:
+  // Default constructor. Constructs a memory quantity with an uninitialized
+  // value.
   Memory() = default;
 
+  // Constructor. Constructs a memory quantity with a given value expressed in a
+  // given memory unit.
   Memory(const double value, const Unit::Memory unit)
     : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
 
+  // Constructor. Constructs a memory quantity from a given memory rate and time
+  // duration using the definition of memory rate.
   constexpr Memory(const MemoryRate& memory_rate, const Time& time);
 
+  // Constructor. Constructs a memory quantity from a given memory rate and
+  // frequency using the definition of memory rate.
   constexpr Memory(const MemoryRate& memory_rate, const Frequency& frequency);
 
+  // Destructor. Destroys this memory quantity.
+  ~Memory() noexcept = default;
+
+  // Copy constructor. Constructs a memory quantity by copying another one.
+  constexpr Memory(const Memory& other) = default;
+
+  // Move constructor. Constructs a memory quantity by moving another one.
+  constexpr Memory(Memory&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this memory quantity by copying another
+  // one.
+  constexpr Memory& operator=(const Memory& other) = default;
+
+  // Move assignment operator. Assigns this memory quantity by moving another
+  // one.
+  constexpr Memory& operator=(Memory&& other) noexcept = default;
+
+  // Statically creates a memory quantity of zero.
   static constexpr Memory Zero() {
     return Memory{0.0};
   }
 
+  // Statically creates a memory quantity with a given value expressed in a
+  // given memory unit.
   template <Unit::Memory Unit>
   static constexpr Memory Create(const double value) {
     return Memory{
@@ -91,6 +119,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a memory quantity with a given value expressed in
+  // the standard memory unit.
   explicit constexpr Memory(const double value)
     : DimensionalScalarQuantity<Unit::Memory>(value) {}
 };

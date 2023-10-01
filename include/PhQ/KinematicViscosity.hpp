@@ -30,27 +30,60 @@ class ReynoldsNumber;
 class Speed;
 class ThermalDiffusivity;
 
-// Kinematic viscosity, also known as molecular kinematic viscosity.
+// Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic
+// viscosity is defined as dynamic viscosity divided by mass density.
 class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
+  // Default constructor. Constructs a kinematic viscosity with an uninitialized
+  // value.
   KinematicViscosity() = default;
 
+  // Constructor. Constructs a kinematic viscosity with a given value expressed
+  // in a given diffusivity unit.
   KinematicViscosity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
+  // Constructor. Constructs a kinematic viscosity from a given dynamic
+  // viscosity and mass density using the definition of kinematic viscosity.
   constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity,
                                const MassDensity& mass_density);
 
+  // Constructor. Constructs a kinematic viscosity from a given Reynolds number,
+  // speed, and length using the definition of Reynolds number.
   constexpr KinematicViscosity(const ReynoldsNumber& reynolds_number,
                                const Speed& speed, const Length& length);
 
+  // Constructor. Constructs a kinematic viscosity from a given Prandtl number
+  // and thermal diffusivity using the definition of Prandtl number.
   constexpr KinematicViscosity(const PrandtlNumber& prandtl_number,
                                const ThermalDiffusivity& thermal_diffusivity);
 
+  // Destructor. Destroys this kinematic viscosity.
+  ~KinematicViscosity() noexcept = default;
+
+  // Copy constructor. Constructs a kinematic viscosity by copying another one.
+  constexpr KinematicViscosity(const KinematicViscosity& other) = default;
+
+  // Move constructor. Constructs a kinematic viscosity by moving another one.
+  constexpr KinematicViscosity(KinematicViscosity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this kinematic viscosity by copying
+  // another one.
+  constexpr KinematicViscosity& operator=(
+      const KinematicViscosity& other) = default;
+
+  // Move assignment operator. Assigns this kinematic viscosity by moving
+  // another one.
+  constexpr KinematicViscosity& operator=(
+      KinematicViscosity&& other) noexcept = default;
+
+  // Statically creates a kinematic viscosity of zero.
   static constexpr KinematicViscosity Zero() {
     return KinematicViscosity{0.0};
   }
 
+  // Statically creates a kinematic viscosity with a given value expressed in a
+  // given diffusivity unit.
   template <Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) {
     return KinematicViscosity{
@@ -102,6 +135,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a kinematic viscosity with a given value expressed
+  // in the standard diffusivity unit.
   explicit constexpr KinematicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 };

@@ -24,15 +24,36 @@ namespace PhQ {
 // Temperature.
 class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
 public:
+  // Default constructor. Constructs a temperature with an uninitialized value.
   Temperature() = default;
 
+  // Constructor. Constructs a temperature with a given value expressed in a
+  // given temperature unit.
   Temperature(const double value, const Unit::Temperature unit)
     : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
 
+  // Destructor. Destroys this temperature.
+  ~Temperature() noexcept = default;
+
+  // Copy constructor. Constructs a temperature by copying another one.
+  constexpr Temperature(const Temperature& other) = default;
+
+  // Move constructor. Constructs a temperature by moving another one.
+  constexpr Temperature(Temperature&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this temperature by copying another one.
+  constexpr Temperature& operator=(const Temperature& other) = default;
+
+  // Move assignment operator. Assigns this temperature by moving another one.
+  constexpr Temperature& operator=(Temperature&& other) noexcept = default;
+
+  // Statically creates a temperature of absolute zero.
   static constexpr Temperature Zero() {
     return Temperature{0.0};
   }
 
+  // Statically creates a temperature with a given value expressed in a given
+  // temperature unit.
   template <Unit::Temperature Unit>
   static constexpr Temperature Create(const double value) {
     return Temperature{
@@ -98,6 +119,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a temperature with a given value expressed in the
+  // standard temperature unit.
   explicit constexpr Temperature(const double value)
     : DimensionalScalarQuantity<Unit::Temperature>(value) {}
 

@@ -25,29 +25,62 @@ namespace PhQ {
 // Forward declaration for class DynamicPressure.
 class DynamicKinematicPressure;
 
-// Dynamic pressure.
+// Dynamic pressure. Dynamic pressure is the component of pressure arising from
+// a fluid's kinetic energy.
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
+  // Default constructor. Constructs a dynamic pressure with an uninitialized
+  // value.
   DynamicPressure() = default;
 
+  // Constructor. Constructs a dynamic pressure with a given value expressed in
+  // a given pressure unit.
   DynamicPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs a dynamic pressure from a given mass density and
+  // speed using the definition of dynamic pressure.
   constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed)
     : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {
   }
 
+  // Constructor. Constructs a dynamic pressure from a given total pressure and
+  // static pressure using the definition of total pressure.
   constexpr DynamicPressure(const TotalPressure& total_pressure,
                             const StaticPressure& static_pressure);
 
+  // Constructor. Constructs a dynamic pressure from a given dynamic kinematic
+  // pressure and mass density using the definition of dynamic kinematic
+  // pressure.
   constexpr DynamicPressure(
       const DynamicKinematicPressure& dynamic_kinematic_pressure,
       const MassDensity& mass_density);
 
+  // Destructor. Destroys this dynamic pressure.
+  ~DynamicPressure() noexcept = default;
+
+  // Copy constructor. Constructs a dynamic pressure by copying another one.
+  constexpr DynamicPressure(const DynamicPressure& other) = default;
+
+  // Move constructor. Constructs a dynamic pressure by moving another one.
+  constexpr DynamicPressure(DynamicPressure&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this dynamic pressure by copying another
+  // one.
+  constexpr DynamicPressure& operator=(const DynamicPressure& other) = default;
+
+  // Move assignment operator. Assigns this dynamic pressure by moving another
+  // one.
+  constexpr DynamicPressure& operator=(
+      DynamicPressure&& other) noexcept = default;
+
+  // Statically creates a dynamic pressure of zero.
   static constexpr DynamicPressure Zero() {
     return DynamicPressure{0.0};
   }
 
+  // Statically creates a dynamic pressure with a given value expressed in a
+  // given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr DynamicPressure Create(const double value) {
     return DynamicPressure{
@@ -98,6 +131,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a dynamic pressure with a given value expressed in
+  // the standard pressure unit.
   explicit constexpr DynamicPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
