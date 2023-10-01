@@ -21,9 +21,8 @@
 
 namespace PhQ {
 
-// Total kinematic pressure. Total pressure is the sum of static pressure and
-// dynamic pressure. Kinematic pressure is pressure divided by mass density, so
-// total kinematic pressure is total pressure divided by mass density.
+// Total kinematic pressure, which is the sum of static kinematic pressure and
+// dynamic kinematic pressure.
 class TotalKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:

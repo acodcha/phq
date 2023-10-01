@@ -25,8 +25,9 @@ namespace PhQ {
 // Forward declaration for class DynamicPressure.
 class DynamicKinematicPressure;
 
-// Dynamic pressure. Dynamic pressure is the component of pressure arising from
-// a fluid's kinetic energy.
+// Dynamic pressure, which is the additional pressure arising from a flowing
+// fluid's kinetic energy. Dynamic pressure can be thought of as a flowing
+// fluid's kinetic energy per unit volume.
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   // Default constructor. Constructs a dynamic pressure with an uninitialized

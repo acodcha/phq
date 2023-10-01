@@ -21,13 +21,8 @@
 
 namespace PhQ {
 
-// Forward declaration for class DynamicKinematicPressure.
-class TotalKinematicPressure;
-
-// Dynamic kinematic pressure. Dynamic pressure is the component of pressure
-// arising from a fluid's kinetic energy. Kinematic pressure is pressure divided
-// by mass density, so dynamic kinematic pressure is dynamic pressure divided by
-// mass density.
+// Dynamic kinematic pressure, which is dynamic pressure divided by mass
+// density.
 class DynamicKinematicPressure
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
