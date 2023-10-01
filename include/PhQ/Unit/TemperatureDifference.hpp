@@ -24,18 +24,25 @@ namespace Unit {
 
 // Temperature difference units. Not to be confused with temperature units. For
 // example, a temperature difference of +20 °C corresponds to a temperature
-// difference of +36 °F, while a temperature of 20 °C corresponds to a
+// difference of +36 °F, whereas a temperature of 20 °C corresponds to a
 // temperature of 68 °F.
 enum class TemperatureDifference : int8_t {
+  // Kelvin (K) temperature difference unit.
   Kelvin,
+
+  // Degree Celsius (°C) temperature difference unit.
   Celsius,
+
+  // Degree Rankine (°R) temperature difference unit.
   Rankine,
+
+  // Degree Fahrenheit (°F) temperature difference unit.
   Fahrenheit,
 };
 
 }  // namespace Unit
 
-// Standard temperature difference unit: kelvin.
+// Standard temperature difference unit: kelvin (K).
 template <>
 inline constexpr const Unit::TemperatureDifference
     Standard<Unit::TemperatureDifference>{Unit::TemperatureDifference::Kelvin};

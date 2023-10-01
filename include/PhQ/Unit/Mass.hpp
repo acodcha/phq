@@ -24,16 +24,25 @@ namespace Unit {
 
 // Mass units.
 enum class Mass : int8_t {
+  // Kilogram (kg) mass unit.
   Kilogram,
+
+  // Gram (g) mass unit.
   Gram,
+
+  // Slug (slug) mass unit.
   Slug,
+
+  // Slinch (slinch) mass unit.
   Slinch,
+
+  // Pound (lbm) mass unit.
   Pound,
 };
 
 }  // namespace Unit
 
-// Standard mass unit: kilogram.
+// Standard mass unit: kilogram (kg).
 template <>
 inline constexpr const Unit::Mass Standard<Unit::Mass>{Unit::Mass::Kilogram};
 

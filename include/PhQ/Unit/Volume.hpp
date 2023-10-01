@@ -24,25 +24,52 @@ namespace Unit {
 
 // Volume units.
 enum class Volume : int8_t {
+  // Cubic mile (mi^3) volume unit.
   CubicMile,
+
+  // Cubic kilometre (km^3) volume unit.
   CubicKilometre,
+
+  // Cubic metre (m^3) volume unit.
   CubicMetre,
+
+  // Cubic yard (yd^3) volume unit.
   CubicYard,
+
+  // Cubic foot (ft^3) volume unit.
   CubicFoot,
+
+  // Cubic decimetre (dm^3) volume unit.
   CubicDecimetre,
+
+  // Litre (L) volume unit.
   Litre,
+
+  // Cubic inch (in^3) volume unit.
   CubicInch,
+
+  // Cubic centimetre (cm^3) volume unit.
   CubicCentimetre,
+
+  // Millilitre (mL) volume unit.
   Millilitre,
+
+  // Cubic millimetre (mm^3) volume unit.
   CubicMillimetre,
+
+  // Cubic milliinch (mil^3) volume unit.
   CubicMilliinch,
+
+  // Cubic micrometre (μm^3) volume unit.
   CubicMicrometre,
+
+  // Cubic microinch (μin^3) volume unit.
   CubicMicroinch,
 };
 
 }  // namespace Unit
 
-// Standard volume unit: cubic metre.
+// Standard volume unit: cubic metre (m^3).
 template <>
 inline constexpr const Unit::Volume Standard<Unit::Volume>{
     Unit::Volume::CubicMetre};

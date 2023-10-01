@@ -24,47 +24,118 @@ namespace Unit {
 
 // Speed units.
 enum class Speed : int8_t {
+  // Mile per second (mi/s) speed unit.
   MilePerSecond,
+
+  // Mile per minute (mi/min) speed unit.
   MilePerMinute,
+
+  // Mile per hour (mi/hr) speed unit.
   MilePerHour,
+
+  // Kilometre per second (km/s) speed unit.
   KilometrePerSecond,
+
+  // Kilometre per minute (km/min) speed unit.
   KilometrePerMinute,
+
+  // Kilometre per hour (km/hr) speed unit.
   KilometrePerHour,
+
+  // Metre per second (m/s) speed unit.
   MetrePerSecond,
+
+  // Metre per minute (m/min) speed unit.
   MetrePerMinute,
+
+  // Metre per hour (m/hr) speed unit.
   MetrePerHour,
+
+  // Yard per second (yd/s) speed unit.
   YardPerSecond,
+
+  // Yard per minute (yd/min) speed unit.
   YardPerMinute,
+
+  // Yard per hour (yd/hr) speed unit.
   YardPerHour,
+
+  // Foot per second (ft/s) speed unit.
   FootPerSecond,
+
+  // Foot per minute (ft/min) speed unit.
   FootPerMinute,
+
+  // Foot per hour (ft/hr) speed unit.
   FootPerHour,
+
+  // Decimetre per second (dm/s) speed unit.
   DecimetrePerSecond,
+
+  // Decimetre per minute (dm/min) speed unit.
   DecimetrePerMinute,
+
+  // Decimetre per hour (dm/hr) speed unit.
   DecimetrePerHour,
+
+  // Inch per second (in/s) speed unit.
   InchPerSecond,
+
+  // Inch per minute (in/min) speed unit.
   InchPerMinute,
+
+  // Inch per hour (in/hr) speed unit.
   InchPerHour,
+
+  // Centimetre per second (cm/s) speed unit.
   CentimetrePerSecond,
+
+  // Centimetre per minute (cm/min) speed unit.
   CentimetrePerMinute,
+
+  // Centimetre per hour (cm/hr) speed unit.
   CentimetrePerHour,
+
+  // Millimetre per second (mm/s) speed unit.
   MillimetrePerSecond,
+
+  // Millimetre per minute (mm/min) speed unit.
   MillimetrePerMinute,
+
+  // Millimetre per hour (mm/hr) speed unit.
   MillimetrePerHour,
+
+  // Milliinch per second (mil/s) speed unit.
   MilliinchPerSecond,
+
+  // Milliinch per minute (mil/min) speed unit.
   MilliinchPerMinute,
+
+  // Milliinch per hour (mil/hr) speed unit.
   MilliinchPerHour,
+
+  // Micrometre per second (μm/s) speed unit.
   MicrometrePerSecond,
+
+  // Micrometre per minute (μm/min) speed unit.
   MicrometrePerMinute,
+
+  // Micrometre per hour (μm/hr) speed unit.
   MicrometrePerHour,
+
+  // Microinch per second (μin/s) speed unit.
   MicroinchPerSecond,
+
+  // Microinch per minute (μin/min) speed unit.
   MicroinchPerMinute,
+
+  // Microinch per hour (μin/hr) speed unit.
   MicroinchPerHour,
 };
 
 }  // namespace Unit
 
-// Standard speed unit: metre per second.
+// Standard speed unit: metre per second (m/s).
 template <>
 inline constexpr const Unit::Speed Standard<Unit::Speed>{
     Unit::Speed::MetrePerSecond};

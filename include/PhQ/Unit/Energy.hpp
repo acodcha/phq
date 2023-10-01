@@ -24,43 +24,106 @@ namespace Unit {
 
 // Energy units.
 enum class Energy : int8_t {
+  // Joule (J) energy unit.
   Joule,
+
+  // Millijoule (mJ) energy unit.
   Millijoule,
+
+  // Microjoule (μJ) energy unit.
   Microjoule,
+
+  // Nanojoule (nJ) energy unit.
   Nanojoule,
+
+  // Kilojoule (kJ) energy unit.
   Kilojoule,
+
+  // Megajoule (MJ) energy unit.
   Megajoule,
+
+  // Gigajoule (GJ) energy unit.
   Gigajoule,
+
+  // Watt-minute (W·min) energy unit.
   WattMinute,
+
+  // Watt-hour (W·hr) energy unit.
   WattHour,
+
+  // Kilowatt-minute (kW·min) energy unit.
   KilowattMinute,
+
+  // Kilowatt-hour (kW·hr) energy unit.
   KilowattHour,
+
+  // Megawatt-minute (MW·min) energy unit.
   MegawattMinute,
+
+  // Megawatt-hour (MW·hr) energy unit.
   MegawattHour,
+
+  // Gigawatt-minute (GW·min) energy unit.
   GigawattMinute,
+
+  // Gigawatt-hour (GW·hr) energy unit.
   GigawattHour,
+
+  // Foot-pound (ft·lbf) energy unit.
   FootPound,
+
+  // Inch-pound (in·lbf) energy unit.
   InchPound,
+
+  // Calorie (cal) energy unit.
   Calorie,
+
+  // Millicalorie (mcal) energy unit.
   Millicalorie,
+
+  // Microcalorie (μcal) energy unit.
   Microcalorie,
+
+  // Nanocalorie (ncal) energy unit.
   Nanocalorie,
+
+  // Kilocalorie (kcal) energy unit.
   Kilocalorie,
+
+  // Megacalorie (Mcal) energy unit.
   Megacalorie,
+
+  // Gigacalorie (Gcal) energy unit.
   Gigacalorie,
+
+  // Electronvolt (eV) energy unit.
   Electronvolt,
+
+  // Millielectronvolt (meV) energy unit.
   Millielectronvolt,
+
+  // Microelectronvolt (μeV) energy unit.
   Microelectronvolt,
+
+  // Nanoelectronvolt (neV) energy unit.
   Nanoelectronvolt,
+
+  // Kiloelectronvolt (keV) energy unit.
   Kiloelectronvolt,
+
+  // Megaelectronvolt (MeV) energy unit.
   Megaelectronvolt,
+
+  // Gigaelectronvolt (GeV) energy unit.
   Gigaelectronvolt,
+
+  // British thermal unit (BTU) energy unit.
   BritishThermalUnit,
 };
 
 }  // namespace Unit
 
-// Standard energy unit: joule.
+// Standard energy unit: joule (J).
 template <>
 inline constexpr const Unit::Energy Standard<Unit::Energy>{Unit::Energy::Joule};
 

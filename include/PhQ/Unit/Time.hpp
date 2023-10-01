@@ -24,17 +24,28 @@ namespace Unit {
 
 // Time units.
 enum class Time : int8_t {
+  // Nanosecond (ns) time unit.
   Nanosecond,
+
+  // Microsecond (μs) time unit.
   Microsecond,
+
+  // Millisecond (ms) time unit.
   Millisecond,
+
+  // Second (s) time unit.
   Second,
+
+  // Minute (min) time unit.
   Minute,
+
+  // Hour (hr) time unit.
   Hour,
 };
 
 }  // namespace Unit
 
-// Standard time unit: second.
+// Standard time unit: second (s).
 template <>
 inline constexpr const Unit::Time Standard<Unit::Time>{Unit::Time::Second};
 

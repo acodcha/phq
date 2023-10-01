@@ -24,17 +24,28 @@ namespace Unit {
 
 // Mass density units.
 enum class MassDensity : int8_t {
+  // Kilogram per cubic metre (kg/m^3) mass density unit.
   KilogramPerCubicMetre,
+
+  // Gram per cubic millimetre (g/mm^3) mass density unit.
   GramPerCubicMillimetre,
+
+  // Slug per cubic foot (slug/ft^3) mass density unit.
   SlugPerCubicFoot,
+
+  // Slinch per cubic inch (slinch/in^3) mass density unit.
   SlinchPerCubicInch,
+
+  // Pound per cubic foot (lbm/ft^3) mass density unit.
   PoundPerCubicFoot,
+
+  // Pound per cubic inch (lbm/in^3) mass density unit.
   PoundPerCubicInch,
 };
 
 }  // namespace Unit
 
-// Standard mass density unit: kilogram per cubic metre.
+// Standard mass density unit: kilogram per cubic metre (kg/m^3).
 template <>
 inline constexpr const Unit::MassDensity Standard<Unit::MassDensity>{
     Unit::MassDensity::KilogramPerCubicMetre};

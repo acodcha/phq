@@ -24,15 +24,22 @@ namespace Unit {
 
 // Mass-specific energy units.
 enum class SpecificEnergy : int8_t {
+  // Joule per kilogram (J/kg) specific energy unit.
   JoulePerKilogram,
+
+  // Nanojoule per gram (nJ/g) specific energy unit.
   NanojoulePerGram,
+
+  // Foot-pound per slug (ft·lbf/slug) specific energy unit.
   FootPoundPerSlug,
+
+  // Inch-pound per slinch (in·lbf/slinch) specific energy unit.
   InchPoundPerSlinch,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific energy unit: joule per kilogram.
+// Standard mass-specific energy unit: joule per kilogram (J/kg).
 template <>
 inline constexpr const Unit::SpecificEnergy Standard<Unit::SpecificEnergy>{
     Unit::SpecificEnergy::JoulePerKilogram};

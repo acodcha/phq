@@ -22,84 +22,216 @@ namespace PhQ {
 
 namespace Unit {
 
-// Time rate of computer memory units.
+// Computer memory rate unit. Can represent the time rate of change of memory or
+// a memory transfer speed.
 enum class MemoryRate : int8_t {
+  // Bit per second (b/s) memory rate unit.
   BitPerSecond,
+
+  // Byte per second (B/s) memory rate unit.
   BytePerSecond,
+
+  // Kilobit per second (kb/s) memory rate unit.
   KilobitPerSecond,
+
+  // Kibibit per second (kib/s) memory rate unit.
   KibibitPerSecond,
+
+  // Kilobyte per second (kB/s) memory rate unit.
   KilobytePerSecond,
+
+  // Kibibyte per second (kiB/s) memory rate unit.
   KibibytePerSecond,
+
+  // Megabit per second (Mb/s) memory rate unit.
   MegabitPerSecond,
+
+  // Mebibit per second (Mib/s) memory rate unit.
   MebibitPerSecond,
+
+  // Megabyte per second (MB/s) memory rate unit.
   MegabytePerSecond,
+
+  // Mebibyte per second (MiB/s) memory rate unit.
   MebibytePerSecond,
+
+  // Gigabit per second (Gb/s) memory rate unit.
   GigabitPerSecond,
+
+  // Gibibit per second (Gib/s) memory rate unit.
   GibibitPerSecond,
+
+  // Gigabyte per second (GB/s) memory rate unit.
   GigabytePerSecond,
+
+  // Gibibyte per second (GiB/s) memory rate unit.
   GibibytePerSecond,
+
+  // Terabit per second (Tb/s) memory rate unit.
   TerabitPerSecond,
+
+  // Tebibit per second (Tib/s) memory rate unit.
   TebibitPerSecond,
+
+  // Terabyte per second (TB/s) memory rate unit.
   TerabytePerSecond,
+
+  // Tebibyte per second (TiB/s) memory rate unit.
   TebibytePerSecond,
+
+  // Petabit per second (Pb/s) memory rate unit.
   PetabitPerSecond,
+
+  // Pebibit per second (Pib/s) memory rate unit.
   PebibitPerSecond,
+
+  // Petabyte per second (PB/s) memory rate unit.
   PetabytePerSecond,
+
+  // Pebibyte per second (PiB/s) memory rate unit.
   PebibytePerSecond,
+
+  // Bit per minute (b/min) memory rate unit.
   BitPerMinute,
+
+  // Byte per minute (B/min) memory rate unit.
   BytePerMinute,
+
+  // Kilobit per minute (kb/min) memory rate unit.
   KilobitPerMinute,
+
+  // Kibibit per minute (kib/min) memory rate unit.
   KibibitPerMinute,
+
+  // Kilobyte per minute (kB/min) memory rate unit.
   KilobytePerMinute,
+
+  // Kibibyte per minute (kiB/min) memory rate unit.
   KibibytePerMinute,
+
+  // Megabit per minute (Mb/min) memory rate unit.
   MegabitPerMinute,
+
+  // Mebibit per minute (Mib/min) memory rate unit.
   MebibitPerMinute,
+
+  // Megabyte per minute (MB/min) memory rate unit.
   MegabytePerMinute,
+
+  // Mebibyte per minute (MiB/min) memory rate unit.
   MebibytePerMinute,
+
+  // Gigabit per minute (Gb/min) memory rate unit.
   GigabitPerMinute,
+
+  // Gibibit per minute (Gib/min) memory rate unit.
   GibibitPerMinute,
+
+  // Gigabyte per minute (GB/min) memory rate unit.
   GigabytePerMinute,
+
+  // Gibibyte per minute (GiB/min) memory rate unit.
   GibibytePerMinute,
+
+  // Terabit per minute (Tb/min) memory rate unit.
   TerabitPerMinute,
+
+  // Tebibit per minute (Tib/min) memory rate unit.
   TebibitPerMinute,
+
+  // Terabyte per minute (TB/min) memory rate unit.
   TerabytePerMinute,
+
+  // Tebibyte per minute (TiB/min) memory rate unit.
   TebibytePerMinute,
+
+  // Petabit per minute (Pb/min) memory rate unit.
   PetabitPerMinute,
+
+  // Pebibit per minute (Pib/min) memory rate unit.
   PebibitPerMinute,
+
+  // Petabyte per minute (PB/min) memory rate unit.
   PetabytePerMinute,
+
+  // Pebibyte per minute (PiB/min) memory rate unit.
   PebibytePerMinute,
+
+  // Bit per hour (b/hr) memory rate unit.
   BitPerHour,
+
+  // Byte per hour (B/hr) memory rate unit.
   BytePerHour,
+
+  // Kilobit per hour (kb/hr) memory rate unit.
   KilobitPerHour,
+
+  // Kibibit per hour (kib/hr) memory rate unit.
   KibibitPerHour,
+
+  // Kilobyte per hour (kB/hr) memory rate unit.
   KilobytePerHour,
+
+  // Kibibyte per hour (kiB/hr) memory rate unit.
   KibibytePerHour,
+
+  // Megabit per hour (Mb/hr) memory rate unit.
   MegabitPerHour,
+
+  // Mebibit per hour (Mib/hr) memory rate unit.
   MebibitPerHour,
+
+  // Megabyte per hour (MB/hr) memory rate unit.
   MegabytePerHour,
+
+  // Mebibyte per hour (MiB/hr) memory rate unit.
   MebibytePerHour,
+
+  // Gigabit per hour (Gb/hr) memory rate unit.
   GigabitPerHour,
+
+  // Gibibit per hour (Gib/hr) memory rate unit.
   GibibitPerHour,
+
+  // Gigabyte per hour (GB/hr) memory rate unit.
   GigabytePerHour,
+
+  // Gibibyte per hour (GiB/hr) memory rate unit.
   GibibytePerHour,
+
+  // Terabit per hour (Tb/hr) memory rate unit.
   TerabitPerHour,
+
+  // Tebibit per hour (Tib/hr) memory rate unit.
   TebibitPerHour,
+
+  // Terabyte per hour (TB/hr) memory rate unit.
   TerabytePerHour,
+
+  // Tebibyte per hour (TiB/hr) memory rate unit.
   TebibytePerHour,
+
+  // Petabit per hour (Pb/hr) memory rate unit.
   PetabitPerHour,
+
+  // Pebibit per hour (Pib/hr) memory rate unit.
   PebibitPerHour,
+
+  // Petabyte per hour (PB/hr) memory rate unit.
   PetabytePerHour,
+
+  // Pebibyte per hour (PiB/hr) memory rate unit.
   PebibytePerHour,
 };
 
 }  // namespace Unit
 
-// Standard time rate of computer memory unit: bit per second.
+// Standard computer memory rate unit: bit per second (b/s).
 template <>
 inline constexpr const Unit::MemoryRate Standard<Unit::MemoryRate>{
     Unit::MemoryRate::BitPerSecond};
 
-// Physical dimension set of time rate of computer memory units.
+// Physical dimension set of computer memory rate units.
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MemoryRate>{
     Dimensions{Dimension::Time{-1}}};

@@ -29,10 +29,10 @@ constexpr std::array<ThermalExpansion, 4> Units = {
 };
 
 TEST(UnitThermalExpansion, Abbreviation) {
-  EXPECT_EQ(Abbreviation(ThermalExpansion::PerKelvin), "1/K");
-  EXPECT_EQ(Abbreviation(ThermalExpansion::PerCelsius), "1/°C");
-  EXPECT_EQ(Abbreviation(ThermalExpansion::PerRankine), "1/°R");
-  EXPECT_EQ(Abbreviation(ThermalExpansion::PerFahrenheit), "1/°F");
+  EXPECT_EQ(Abbreviation(ThermalExpansion::PerKelvin), "/K");
+  EXPECT_EQ(Abbreviation(ThermalExpansion::PerCelsius), "/°C");
+  EXPECT_EQ(Abbreviation(ThermalExpansion::PerRankine), "/°R");
+  EXPECT_EQ(Abbreviation(ThermalExpansion::PerFahrenheit), "/°F");
 }
 
 TEST(UnitThermalExpansion, ConsistentUnit) {
@@ -103,10 +103,10 @@ TEST(UnitThermalExpansion, ConvertVerification) {
 
 TEST(UnitThermalExpansion, Parse) {
   EXPECT_EQ(Parse<ThermalExpansion>("Hello world!"), std::nullopt);
-  EXPECT_EQ(Parse<ThermalExpansion>("1/K"), ThermalExpansion::PerKelvin);
-  EXPECT_EQ(Parse<ThermalExpansion>("1/°C"), ThermalExpansion::PerCelsius);
-  EXPECT_EQ(Parse<ThermalExpansion>("1/°R"), ThermalExpansion::PerRankine);
-  EXPECT_EQ(Parse<ThermalExpansion>("1/°F"), ThermalExpansion::PerFahrenheit);
+  EXPECT_EQ(Parse<ThermalExpansion>("/K"), ThermalExpansion::PerKelvin);
+  EXPECT_EQ(Parse<ThermalExpansion>("/°C"), ThermalExpansion::PerCelsius);
+  EXPECT_EQ(Parse<ThermalExpansion>("/°R"), ThermalExpansion::PerRankine);
+  EXPECT_EQ(Parse<ThermalExpansion>("/°F"), ThermalExpansion::PerFahrenheit);
 }
 
 TEST(UnitThermalExpansion, RelatedDimensions) {

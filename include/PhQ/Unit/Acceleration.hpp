@@ -24,47 +24,118 @@ namespace Unit {
 
 // Acceleration units.
 enum class Acceleration : int8_t {
+  // Mile per square second (mi/s^2) acceleration unit.
   MilePerSquareSecond,
+
+  // Mile per square minute (mi/min^2) acceleration unit.
   MilePerSquareMinute,
+
+  // Mile per square hour (mi/hr^2) acceleration unit.
   MilePerSquareHour,
+
+  // Kilometre per square second (km/s^2) acceleration unit.
   KilometrePerSquareSecond,
+
+  // Kilometre per square minute (km/min^2) acceleration unit.
   KilometrePerSquareMinute,
+
+  // Kilometre per square hour (km/hr^2) acceleration unit.
   KilometrePerSquareHour,
-  YardPerSquareSecond,
-  YardPerSquareMinute,
-  YardPerSquareHour,
+
+  // Metre per square second (m/s^2) acceleration unit.
   MetrePerSquareSecond,
+
+  // Metre per square minute (m/min^2) acceleration unit.
   MetrePerSquareMinute,
+
+  // Metre per square hour (m/hr^2) acceleration unit.
   MetrePerSquareHour,
+
+  // Yard per square second (yd/s^2) acceleration unit.
+  YardPerSquareSecond,
+
+  // Yard per square minute (yd/min^2) acceleration unit.
+  YardPerSquareMinute,
+
+  // Yard per square hour (yd/hr^2) acceleration unit.
+  YardPerSquareHour,
+
+  // Foot per square second (ft/s^2) acceleration unit.
   FootPerSquareSecond,
+
+  // Foot per square minute (ft/min^2) acceleration unit.
   FootPerSquareMinute,
+
+  // Foot per square hour (ft/hr^2) acceleration unit.
   FootPerSquareHour,
+
+  // Decimetre per square second (dm/s^2) acceleration unit.
   DecimetrePerSquareSecond,
+
+  // Decimetre per square minute (dm/min^2) acceleration unit.
   DecimetrePerSquareMinute,
+
+  // Decimetre per square hour (dm/hr^2) acceleration unit.
   DecimetrePerSquareHour,
+
+  // Inch per square second (in/s^2) acceleration unit.
   InchPerSquareSecond,
+
+  // Inch per square minute (in/min^2) acceleration unit.
   InchPerSquareMinute,
+
+  // Inch per square hour (in/hr^2) acceleration unit.
   InchPerSquareHour,
+
+  // Centimetre per square second (cm/s^2) acceleration unit.
   CentimetrePerSquareSecond,
+
+  // Centimetre per square minute (cm/min^2) acceleration unit.
   CentimetrePerSquareMinute,
+
+  // Centimetre per square hour (cm/hr^2) acceleration unit.
   CentimetrePerSquareHour,
+
+  // Millimetre per square second (mm/s^2) acceleration unit.
   MillimetrePerSquareSecond,
+
+  // Millimetre per square minute (mm/min^2) acceleration unit.
   MillimetrePerSquareMinute,
+
+  // Millimetre per square hour (mm/hr^2) acceleration unit.
   MillimetrePerSquareHour,
+
+  // Milliinch per square second (mil/s^2) acceleration unit.
   MilliinchPerSquareSecond,
+
+  // Milliinch per square minute (mil/min^2) acceleration unit.
   MilliinchPerSquareMinute,
+
+  // Milliinch per square hour (mil/hr^2) acceleration unit.
   MilliinchPerSquareHour,
+
+  // Micrometre per square second (μm/s^2) acceleration unit.
   MicrometrePerSquareSecond,
+
+  // Micrometre per square minute (μm/min^2) acceleration unit.
   MicrometrePerSquareMinute,
+
+  // Micrometre per square hour (μm/hr^2) acceleration unit.
   MicrometrePerSquareHour,
+
+  // Microinch per square second (μin/s^2) acceleration unit.
   MicroinchPerSquareSecond,
+
+  // Microinch per square minute (μin/min^2) acceleration unit.
   MicroinchPerSquareMinute,
+
+  // Microinch per square hour (μin/hr^2) acceleration unit.
   MicroinchPerSquareHour,
 };
 
 }  // namespace Unit
 
-// Standard acceleration unit: metre per square second.
+// Standard acceleration unit: metre per square second (m/s^2).
 template <>
 inline constexpr const Unit::Acceleration Standard<Unit::Acceleration>{
     Unit::Acceleration::MetrePerSquareSecond};

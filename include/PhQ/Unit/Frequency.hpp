@@ -24,17 +24,28 @@ namespace Unit {
 
 // Frequency units.
 enum class Frequency : int8_t {
+  // Hertz (Hz) frequency unit.
   Hertz,
+
+  // Kilohertz (kHz) frequency unit.
   Kilohertz,
+
+  // Megahertz (MHz) frequency unit.
   Megahertz,
+
+  // Gigahertz (GHz) frequency unit.
   Gigahertz,
+
+  // Per minute (/min) frequency unit.
   PerMinute,
+
+  // Per hour (/hr) frequency unit.
   PerHour,
 };
 
 }  // namespace Unit
 
-// Standard frequency unit: hertz.
+// Standard frequency unit: hertz (Hz).
 template <>
 inline constexpr const Unit::Frequency Standard<Unit::Frequency>{
     Unit::Frequency::Hertz};

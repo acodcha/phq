@@ -24,14 +24,19 @@ namespace Unit {
 
 // Thermal conductivity units.
 enum class ThermalConductivity : int8_t {
+  // Watt per metre per kelvin (W/m/K) thermal conductivity unit.
   WattPerMetrePerKelvin,
+
+  // Nanowatt per millimetre per kelvin (nW/mm/K) thermal conductivity unit.
   NanowattPerMillimetrePerKelvin,
+
+  // Pound per second per degree Rankine (lbf/s/°R) thermal conductivity unit.
   PoundPerSecondPerRankine,
 };
 
 }  // namespace Unit
 
-// Standard thermal conductivity unit: watt per metre per kelvin.
+// Standard thermal conductivity unit: watt per metre per kelvin (W/m/K).
 template <>
 inline constexpr const Unit::ThermalConductivity
     Standard<Unit::ThermalConductivity>{
