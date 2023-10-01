@@ -50,20 +50,20 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
-  // specific gas constant and specific heat ratio using the definition of the
-  // specific heat ratio and Mayer's relation.
+  // specific gas constant and heat capacity ratio using the definition of the
+  // heat capacity ratio and Mayer's relation.
   constexpr SpecificIsobaricHeatCapacity(
       const SpecificGasConstant& specific_gas_constant,
-      const SpecificHeatRatio& specific_heat_ratio);
+      const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
-  // specific isochoric heat capacity and specific heat ratio using the
-  // definition of the specific heat ratio.
+  // specific isochoric heat capacity and heat capacity ratio using the
+  // definition of the heat capacity ratio.
   constexpr SpecificIsobaricHeatCapacity(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio)
+      const HeatCapacityRatio& heat_capacity_ratio)
     : SpecificIsobaricHeatCapacity(specific_isochoric_heat_capacity.Value()
-                                   * specific_heat_ratio.Value()) {}
+                                   * heat_capacity_ratio.Value()) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
   // isobaric heat capacity and mass using the definition of the specific
@@ -160,15 +160,15 @@ public:
     return SpecificIsobaricHeatCapacity{value_ / number};
   }
 
-  constexpr SpecificHeatRatio operator/(
+  constexpr HeatCapacityRatio operator/(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
       const {
     return {*this, specific_isochoric_heat_capacity};
   }
 
   constexpr SpecificIsochoricHeatCapacity operator/(
-      const SpecificHeatRatio& specific_heat_ratio) const {
-    return {*this, specific_heat_ratio};
+      const HeatCapacityRatio& heat_capacity_ratio) const {
+    return {*this, heat_capacity_ratio};
   }
 
   constexpr double
@@ -251,10 +251,10 @@ inline constexpr SpecificIsobaricHeatCapacity operator*(
   return specific_isobaric_heat_capacity * number;
 }
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-  : SpecificHeatRatio(specific_isobaric_heat_capacity.Value()
+  : HeatCapacityRatio(specific_isobaric_heat_capacity.Value()
                       / specific_isochoric_heat_capacity.Value()) {}
 
 inline constexpr Mass::Mass(
@@ -271,16 +271,16 @@ inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
 
 inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-    const SpecificHeatRatio& specific_heat_ratio)
+    const HeatCapacityRatio& heat_capacity_ratio)
   : SpecificIsochoricHeatCapacity(
-      specific_isobaric_heat_capacity.Value() / specific_heat_ratio.Value()) {}
+      specific_isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
 
 inline constexpr IsobaricHeatCapacity Mass::operator*(
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
   return {specific_isobaric_heat_capacity, *this};
 }
 
-inline constexpr SpecificIsobaricHeatCapacity SpecificHeatRatio::operator*(
+inline constexpr SpecificIsobaricHeatCapacity HeatCapacityRatio::operator*(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const {
   return {specific_isochoric_heat_capacity, *this};
@@ -298,8 +298,8 @@ inline constexpr Mass IsobaricHeatCapacity::operator/(
 
 inline constexpr SpecificIsobaricHeatCapacity
 SpecificIsochoricHeatCapacity::operator*(
-    const SpecificHeatRatio& specific_heat_ratio) const {
-  return {*this, specific_heat_ratio};
+    const HeatCapacityRatio& heat_capacity_ratio) const {
+  return {*this, heat_capacity_ratio};
 }
 
 }  // namespace PhQ

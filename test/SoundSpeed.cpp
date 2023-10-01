@@ -99,16 +99,16 @@ TEST(SoundSpeed, Constructor) {
       256.0, Unit::Pressure::Pascal};
   const SpecificGasConstant specific_gas_constant{
       1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const SpecificHeatRatio specific_heat_ratio{4.0};
+  const HeatCapacityRatio heat_capacity_ratio{4.0};
   const StaticPressure static_pressure{64.0, Unit::Pressure::Pascal};
   const Temperature temperature{4.0, Unit::Temperature::Kelvin};
   EXPECT_EQ(SoundSpeed(mass_density, isentropic_bulk_modulus), sound_speed_1);
   EXPECT_EQ(MassDensity(isentropic_bulk_modulus, sound_speed_1), mass_density);
   EXPECT_EQ(IsentropicBulkModulus(mass_density, sound_speed_1),
             isentropic_bulk_modulus);
-  EXPECT_EQ(SoundSpeed(mass_density, static_pressure, specific_heat_ratio),
+  EXPECT_EQ(SoundSpeed(mass_density, static_pressure, heat_capacity_ratio),
             sound_speed_1);
-  EXPECT_EQ(SoundSpeed(temperature, specific_gas_constant, specific_heat_ratio),
+  EXPECT_EQ(SoundSpeed(temperature, specific_gas_constant, heat_capacity_ratio),
             sound_speed_1);
 }
 
