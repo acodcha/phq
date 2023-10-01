@@ -24,15 +24,25 @@ namespace Unit {
 
 // Mass-specific heat capacity units.
 enum class SpecificHeatCapacity : int8_t {
+  // Joule per kilogram per kelvin (J/kg/K) specific heat capacity unit.
   JoulePerKilogramPerKelvin,
+
+  // Nanojoule per gram per kelvin (nJ/g/K) specific heat capacity unit.
   NanojoulePerGramPerKelvin,
+
+  // Foot-pound per slug per degree Rankine (ft·lbf/slug/°R) specific heat
+  // capacity unit.
   FootPoundPerSlugPerRankine,
+
+  // Inch-pound per slinch per degree Rankine (in·lbf/slinch/°R) specific heat
+  // capacity unit.
   InchPoundPerSlinchPerRankine,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific heat capacity unit: joule per kilogram per kelvin.
+// Standard mass-specific heat capacity unit: joule per kilogram per kelvin
+// (J/kg/K).
 template <>
 inline constexpr const Unit::SpecificHeatCapacity
     Standard<Unit::SpecificHeatCapacity>{

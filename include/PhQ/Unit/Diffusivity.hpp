@@ -24,25 +24,52 @@ namespace Unit {
 
 // Diffusivity units.
 enum class Diffusivity : int8_t {
+  // Square mile per second (mi^2/s) diffusivity unit.
   SquareMilePerSecond,
+
+  // Square kilometre per second (km^2/s) diffusivity unit.
   SquareKilometrePerSecond,
+
+  // Hectare per second (ha/s) diffusivity unit.
   HectarePerSecond,
+
+  // Acre per second (ac/s) diffusivity unit.
   AcrePerSecond,
-  SquareYardPerSecond,
+
+  // Square metre per second (m^2/s) diffusivity unit.
   SquareMetrePerSecond,
+
+  // Square yard per second (yd^2/s) diffusivity unit.
+  SquareYardPerSecond,
+
+  // Square foot per second (ft^2/s) diffusivity unit.
   SquareFootPerSecond,
+
+  // Square decimetre per second (dm^2/s) diffusivity unit.
   SquareDecimetrePerSecond,
+
+  // Square inch per second (in^2/s) diffusivity unit.
   SquareInchPerSecond,
+
+  // Square centimetre per second (cm^2/s) diffusivity unit.
   SquareCentimetrePerSecond,
+
+  // Square millimetre per second (mm^2/s) diffusivity unit.
   SquareMillimetrePerSecond,
+
+  // Square milliinch per second (mil^2/s) diffusivity unit.
   SquareMilliinchPerSecond,
+
+  // Square micrometre per second (μm^2/s) diffusivity unit.
   SquareMicrometrePerSecond,
+
+  // Square microinch per second (μin^2/s) diffusivity unit.
   SquareMicroinchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard diffusivity unit: square metre per second.
+// Standard diffusivity unit: square metre per second (m^2/s).
 template <>
 inline constexpr const Unit::Diffusivity Standard<Unit::Diffusivity>{
     Unit::Diffusivity::SquareMetrePerSecond};

@@ -24,35 +24,82 @@ namespace Unit {
 
 // Force units.
 enum class Force : int8_t {
+  // Newton (N) force unit.
   Newton,
+
+  // Kilonewton (kN) force unit.
   Kilonewton,
+
+  // Meganewton (MN) force unit.
   Meganewton,
+
+  // Giganewton (GN) force unit.
   Giganewton,
+
+  // Millinewton (mN) force unit.
   Millinewton,
+
+  // Micronewton (μN) force unit.
   Micronewton,
+
+  // Nanonewton (nN) force unit.
   Nanonewton,
+
+  // Dyne (dyn) force unit.
   Dyne,
+
+  // Joule per mile (J/mi) force unit.
   JoulePerMile,
+
+  // Joule per kilometre (J/km) force unit.
   JoulePerKilometre,
+
+  // Kilojoule per mile (kJ/mi) force unit.
   KilojoulePerMile,
+
+  // Watt-minute per mile (W·min/mi) force unit.
   WattMinutePerMile,
+
+  // Watt-hour per mile (W·hr/mi) force unit.
   WattHourPerMile,
+
+  // Watt-minute per kilometre (W·min/km) force unit.
   WattMinutePerKilometre,
+
+  // Watt-hour per kilometre (W·hr/km) force unit.
   WattHourPerKilometre,
+
+  // Watt-minute per metre (W·min/m) force unit.
   WattMinutePerMetre,
+
+  // Watt-hour per metre (W·hr/m) force unit.
   WattHourPerMetre,
+
+  // Kilowatt-minute per mile (kW·min/mi) force unit.
   KilowattMinutePerMile,
+
+  // Kilowatt-hour per mile (kW·hr/mi) force unit.
   KilowattHourPerMile,
+
+  // Kilowatt-minute per kilometre (kW·min/km) force unit.
   KilowattMinutePerKilometre,
+
+  // Kilowatt-hour per kilometre (kW·hr/km) force unit.
   KilowattHourPerKilometre,
+
+  // Kilowatt-minute per metre (kW·min/m) force unit.
   KilowattMinutePerMetre,
+
+  // Kilowatt-hour per metre (kW·hr/m) force unit.
   KilowattHourPerMetre,
+
+  // Pound (lbf) force unit.
   Pound,
 };
 
 }  // namespace Unit
 
-// Standard force unit: newton.
+// Standard force unit: newton (N).
 template <>
 inline constexpr const Unit::Force Standard<Unit::Force>{Unit::Force::Newton};
 

@@ -24,25 +24,52 @@ namespace Unit {
 
 // Area units.
 enum class Area : int8_t {
+  // Square mile (mi^2) area unit.
   SquareMile,
+
+  // Square kilometre (km^2) area unit.
   SquareKilometre,
+
+  // Hectare (ha) area unit.
   Hectare,
+
+  // Acre (ac) area unit.
   Acre,
+
+  // Square metre (m^2) area unit.
   SquareMetre,
+
+  // Square yard (yd^2) area unit.
   SquareYard,
+
+  // Square foot (ft^2) area unit.
   SquareFoot,
+
+  // Square decimetre (dm^2) area unit.
   SquareDecimetre,
+
+  // Square inch (in^2) area unit.
   SquareInch,
+
+  // Square centimetre (cm^2) area unit.
   SquareCentimetre,
+
+  // Square millimetre (mm^2) area unit.
   SquareMillimetre,
+
+  // Square milliinch (mil^2) area unit.
   SquareMilliinch,
+
+  // Square micrometre (μm^2) area unit.
   SquareMicrometre,
+
+  // Square microinch (μin^2) area unit.
   SquareMicroinch,
 };
 
 }  // namespace Unit
 
-// Standard area unit: square metre.
+// Standard area unit: square metre (m^2).
 template <>
 inline constexpr const Unit::Area Standard<Unit::Area>{Unit::Area::SquareMetre};
 

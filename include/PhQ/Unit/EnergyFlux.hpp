@@ -24,15 +24,22 @@ namespace Unit {
 
 // Energy flux units.
 enum class EnergyFlux : int8_t {
+  // Watt per square metre (W/m^2) energy flux unit.
   WattPerSquareMetre,
+
+  // Nanowatt per square millimetre (nW/mm^2) energy flux unit.
   NanowattPerSquareMillimetre,
+
+  // Foot-pound per square foot per second (ft·lbf/ft^2/s) energy flux unit.
   FootPoundPerSquareFootPerSecond,
+
+  // Inch-pound per square inch per second (in·lbf/in^2/s) energy flux unit.
   InchPoundPerSquareInchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard energy flux unit: watt per square metre.
+// Standard energy flux unit: watt per square metre (W/m^2).
 template <>
 inline constexpr const Unit::EnergyFlux Standard<Unit::EnergyFlux>{
     Unit::EnergyFlux::WattPerSquareMetre};

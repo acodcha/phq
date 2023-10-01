@@ -24,23 +24,46 @@ namespace Unit {
 
 // Length units.
 enum class Length : int8_t {
+  // Mile (mi) length unit.
   Mile,
+
+  // Kilometre (km) length unit.
   Kilometre,
+
+  // Metre (m) length unit.
   Metre,
+
+  // Yard (yd) length unit.
   Yard,
+
+  // Foot (ft) length unit.
   Foot,
+
+  // Decimetre (dm) length unit.
   Decimetre,
+
+  // Inch (in) length unit.
   Inch,
+
+  // Centimetre (cm) length unit.
   Centimetre,
+
+  // Millimetre (mm) length unit.
   Millimetre,
+
+  // Milliinch (mil) length unit.
   Milliinch,
+
+  // Micrometre (μm) length unit.
   Micrometre,
+
+  // Microinch (μin) length unit.
   Microinch,
 };
 
 }  // namespace Unit
 
-// Standard length unit: metre.
+// Standard length unit: metre (m).
 template <>
 inline constexpr const Unit::Length Standard<Unit::Length>{Unit::Length::Metre};
 

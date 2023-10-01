@@ -24,16 +24,25 @@ namespace Unit {
 
 // Angle units.
 enum class Angle : int8_t {
+  // Radian (rad) angle unit.
   Radian,
+
+  // Degree (deg) angle unit.
   Degree,
+
+  // Arcminute (arcmin) angle unit.
   Arcminute,
+
+  // Arcsecond (arcsec) angle unit.
   Arcsecond,
+
+  // Revolution (rev) angle unit.
   Revolution,
 };
 
 }  // namespace Unit
 
-// Standard angle unit: radian.
+// Standard angle unit: radian (rad).
 template <>
 inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 

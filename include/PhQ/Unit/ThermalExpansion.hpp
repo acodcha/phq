@@ -24,15 +24,22 @@ namespace Unit {
 
 // Thermal expansion units.
 enum class ThermalExpansion : int8_t {
+  // Per kelvin (/K) thermal expansion unit.
   PerKelvin,
+
+  // Per degree Celsius (/°C) thermal expansion unit.
   PerCelsius,
+
+  // Per degree Rankine (/°R) thermal expansion unit.
   PerRankine,
+
+  // Per degree Fahrenheit (/°F) thermal expansion unit.
   PerFahrenheit
 };
 
 }  // namespace Unit
 
-// Standard thermal expansion unit: per kelvin.
+// Standard thermal expansion unit: per kelvin (/K).
 template <>
 inline constexpr const Unit::ThermalExpansion Standard<Unit::ThermalExpansion>{
     Unit::ThermalExpansion::PerKelvin};
@@ -62,10 +69,10 @@ inline const std::map<Unit::ThermalExpansion, UnitSystem>
 template <>
 inline const std::map<Unit::ThermalExpansion, std::string_view>
     Abbreviations<Unit::ThermalExpansion>{
-        {Unit::ThermalExpansion::PerKelvin,     "1/K" },
-        {Unit::ThermalExpansion::PerCelsius,    "1/°C"},
-        {Unit::ThermalExpansion::PerRankine,    "1/°R"},
-        {Unit::ThermalExpansion::PerFahrenheit, "1/°F"},
+        {Unit::ThermalExpansion::PerKelvin,     "/K" },
+        {Unit::ThermalExpansion::PerCelsius,    "/°C"},
+        {Unit::ThermalExpansion::PerRankine,    "/°R"},
+        {Unit::ThermalExpansion::PerFahrenheit, "/°F"},
 };
 
 template <>

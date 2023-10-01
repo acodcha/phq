@@ -24,19 +24,34 @@ namespace Unit {
 
 // Temperature gradient units.
 enum class TemperatureGradient : int8_t {
+  // Kelvin per metre (K/m) temperature gradient unit.
   KelvinPerMetre,
+
+  // Kelvin per millimetre (K/mm) temperature gradient unit.
   KelvinPerMillimetre,
+
+  // Degree Celsius per metre (°C/m) temperature gradient unit.
   CelsiusPerMetre,
+
+  // Degree Celsius per millimetre (°C/mm) temperature gradient unit.
   CelsiusPerMillimetre,
+
+  // Degree Rankine per foot (°R/ft) temperature gradient unit.
   RankinePerFoot,
+
+  // Degree Rankine per inch (°R/in) temperature gradient unit.
   RankinePerInch,
+
+  // Degree Fahrenheit per foot (°F/ft) temperature gradient unit.
   FahrenheitPerFoot,
+
+  // Degree Fahrenheit per inch (°F/in) temperature gradient unit.
   FahrenheitPerInch,
 };
 
 }  // namespace Unit
 
-// Standard temperature gradient unit: kelvin per metre.
+// Standard temperature gradient unit: kelvin per metre (K/m).
 template <>
 inline constexpr const Unit::TemperatureGradient
     Standard<Unit::TemperatureGradient>{

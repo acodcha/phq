@@ -24,15 +24,22 @@ namespace Unit {
 
 // Mass-specific power units.
 enum class SpecificPower : int8_t {
+  // Watt per kilogram (W/kg) specific power unit.
   WattPerKilogram,
+
+  // Nanowatt per gram (nW/g) specific power unit.
   NanowattPerGram,
+
+  // Foot-pound per slug per second (ft·lbf/slug/s) specific power unit.
   FootPoundPerSlugPerSecond,
+
+  // Inch-pound per slinch per second (in·lbf/slinch/s) specific power unit.
   InchPoundPerSlinchPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard mass-specific power unit: watt per kilogram.
+// Standard mass-specific power unit: watt per kilogram (W/kg).
 template <>
 inline constexpr const Unit::SpecificPower Standard<Unit::SpecificPower>{
     Unit::SpecificPower::WattPerKilogram};

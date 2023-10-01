@@ -24,19 +24,34 @@ namespace Unit {
 
 // Pressure units.
 enum class Pressure : int8_t {
+  // Pascal (Pa) pressure unit.
   Pascal,
+
+  // Kilopascal (kPa) pressure unit.
   Kilopascal,
+
+  // Megapascal (MPa) pressure unit.
   Megapascal,
+
+  // Gigapascal (GPa) pressure unit.
   Gigapascal,
+
+  // Bar (bar) pressure unit.
   Bar,
+
+  // Atmosphere (atm) pressure unit.
   Atmosphere,
+
+  // Pound per square foot (lbf/ft^2) pressure unit.
   PoundPerSquareFoot,
+
+  // Pound per square inch (lbf/in^2) pressure unit.
   PoundPerSquareInch,
 };
 
 }  // namespace Unit
 
-// Standard pressure unit: watt.
+// Standard pressure unit: pascal (Pa).
 template <>
 inline constexpr const Unit::Pressure Standard<Unit::Pressure>{
     Unit::Pressure::Pascal};

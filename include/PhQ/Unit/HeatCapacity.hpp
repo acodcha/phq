@@ -24,15 +24,22 @@ namespace Unit {
 
 // Heat capacity units.
 enum class HeatCapacity : int8_t {
+  // Joule per kelvin (J/K) heat capacity unit.
   JoulePerKelvin,
+
+  // Nanojoule per kelvin (nJ/K) heat capacity unit.
   NanojoulePerKelvin,
+
+  // Foot-pound per degree Rankine (ft·lbf/°R) heat capacity unit.
   FootPoundPerRankine,
+
+  // Inch-pound per degree Rankine (in·lbf/°R) heat capacity unit.
   InchPoundPerRankine,
 };
 
 }  // namespace Unit
 
-// Standard heat capacity unit: joule per kelvin.
+// Standard heat capacity unit: joule per kelvin (J/K).
 template <>
 inline constexpr const Unit::HeatCapacity Standard<Unit::HeatCapacity>{
     Unit::HeatCapacity::JoulePerKelvin};

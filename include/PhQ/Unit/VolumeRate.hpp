@@ -22,55 +22,139 @@ namespace PhQ {
 
 namespace Unit {
 
-// Time rate of volume units.
+// Volume rate units. Can represent a time rate of change of a volume or a
+// volume flow rate.
 enum class VolumeRate : int8_t {
+  // Cubic mile per second (mi^3/s) volume rate unit.
   CubicMilePerSecond,
+
+  // Cubic kilometre per second (km^3/s) volume rate unit.
   CubicKilometrePerSecond,
+
+  // Cubic metre per second (m^3/s) volume rate unit.
   CubicMetrePerSecond,
+
+  // Cubic yard per second (yd^3/s) volume rate unit.
   CubicYardPerSecond,
+
+  // Cubic foot per second (ft^3/s) volume rate unit.
   CubicFootPerSecond,
+
+  // Cubic decimetre per second (dm^3/s) volume rate unit.
   CubicDecimetrePerSecond,
+
+  // Litre per second (L/s) volume rate unit.
   LitrePerSecond,
+
+  // Cubic inch per second (in^3/s) volume rate unit.
   CubicInchPerSecond,
+
+  // Cubic centimetre per second (cm^3/s) volume rate unit.
   CubicCentimetrePerSecond,
+
+  // Millilitre per second (mL/s) volume rate unit.
   MillilitrePerSecond,
+
+  // Cubic millimetre per second (mm^3/s) volume rate unit.
   CubicMillimetrePerSecond,
+
+  // Cubic milliinch per second (mil^3/s) volume rate unit.
   CubicMilliinchPerSecond,
+
+  // Cubic micrometre per second (μm^3/s) volume rate unit.
   CubicMicrometrePerSecond,
+
+  // Cubic microinch per second (μin^3/s) volume rate unit.
   CubicMicroinchPerSecond,
+
+  // Cubic mile per minute (mi^3/min) volume rate unit.
   CubicMilePerMinute,
+
+  // Cubic kilometre per minute (km^3/min) volume rate unit.
   CubicKilometrePerMinute,
+
+  // Cubic metre per minute (m^3/min) volume rate unit.
   CubicMetrePerMinute,
+
+  // Cubic yard per minute (yd^3/min) volume rate unit.
   CubicYardPerMinute,
+
+  // Cubic foot per minute (ft^3/min) volume rate unit.
   CubicFootPerMinute,
+
+  // Cubic decimetre per minute (dm^3/min) volume rate unit.
   CubicDecimetrePerMinute,
+
+  // Litre per minute (L/min) volume rate unit.
   LitrePerMinute,
+
+  // Cubic inch per minute (in^3/min) volume rate unit.
   CubicInchPerMinute,
+
+  // Cubic centimetre per minute (cm^3/min) volume rate unit.
   CubicCentimetrePerMinute,
+
+  // Millilitre per minute (mL/min) volume rate unit.
   MillilitrePerMinute,
+
+  // Cubic millimetre per minute (mm^3/min) volume rate unit.
   CubicMillimetrePerMinute,
+
+  // Cubic milliinch per minute (mil^3/min) volume rate unit.
   CubicMilliinchPerMinute,
+
+  // Cubic micrometre per minute (μm^3/min) volume rate unit.
   CubicMicrometrePerMinute,
+
+  // Cubic microinch per minute (μin^3/min) volume rate unit.
   CubicMicroinchPerMinute,
+
+  // Cubic mile per hour (mi^3/hr) volume rate unit.
   CubicMilePerHour,
+
+  // Cubic kilometre per hour (km^3/hr) volume rate unit.
   CubicKilometrePerHour,
+
+  // Cubic metre per hour (m^3/hr) volume rate unit.
   CubicMetrePerHour,
+
+  // Cubic yard per hour (yd^3/hr) volume rate unit.
   CubicYardPerHour,
+
+  // Cubic foot per hour (ft^3/hr) volume rate unit.
   CubicFootPerHour,
+
+  // Cubic decimetre per hour (dm^3/hr) volume rate unit.
   CubicDecimetrePerHour,
+
+  // Litre per hour (L/hr) volume rate unit.
   LitrePerHour,
+
+  // Cubic inch per hour (in^3/hr) volume rate unit.
   CubicInchPerHour,
+
+  // Cubic centimetre per hour (cm^3/hr) volume rate unit.
   CubicCentimetrePerHour,
+
+  // Millilitre per hour (mL/hr) volume rate unit.
   MillilitrePerHour,
+
+  // Cubic millimetre per hour (mm^3/hr) volume rate unit.
   CubicMillimetrePerHour,
+
+  // Cubic milliinch per hour (mil^3/hr) volume rate unit.
   CubicMilliinchPerHour,
+
+  // Cubic micrometre per hour (μm^3/hr) volume rate unit.
   CubicMicrometrePerHour,
+
+  // Cubic microinch per hour (μin^3/hr) volume rate unit.
   CubicMicroinchPerHour,
 };
 
 }  // namespace Unit
 
-// Standard time-rate of volume unit: cubic metre per second.
+// Standard time-rate of volume unit: cubic metre per second (m^3/s).
 template <>
 inline constexpr const Unit::VolumeRate Standard<Unit::VolumeRate>{
     Unit::VolumeRate::CubicMetrePerSecond};

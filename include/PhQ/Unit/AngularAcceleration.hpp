@@ -24,26 +24,55 @@ namespace Unit {
 
 // Angular acceleration units.
 enum class AngularAcceleration : int8_t {
+  // Radian per square second (rad/s^2) angular acceleration unit.
   RadianPerSquareSecond,
+
+  // Radian per square minute (rad/min^2) angular acceleration unit.
   RadianPerSquareMinute,
+
+  // Radian per square hour (rad/hr^2) angular acceleration unit.
   RadianPerSquareHour,
+
+  // Degree per square second (deg/s^2) angular acceleration unit.
   DegreePerSquareSecond,
+
+  // Degree per square minute (deg/min^2) angular acceleration unit.
   DegreePerSquareMinute,
+
+  // Degree per square hour (deg/hr^2) angular acceleration unit.
   DegreePerSquareHour,
+
+  // Arcminute per square second (arcmin/s^2) angular acceleration unit.
   ArcminutePerSquareSecond,
+
+  // Arcminute per square minute (arcmin/min^2) angular acceleration unit.
   ArcminutePerSquareMinute,
+
+  // Arcminute per square hour (arcmin/hr^2) angular acceleration unit.
   ArcminutePerSquareHour,
+
+  // Arcsecond per square second (arcsec/s^2) angular acceleration unit.
   ArcsecondPerSquareSecond,
+
+  // Arcsecond per square minute (arcsec/min^2) angular acceleration unit.
   ArcsecondPerSquareMinute,
+
+  // Arcsecond per square hour (arcsec/hr^2) angular acceleration unit.
   ArcsecondPerSquareHour,
+
+  // Revolution per square second (rev/s^2) angular acceleration unit.
   RevolutionPerSquareSecond,
+
+  // Revolution per square minute (rev/min^2) angular acceleration unit.
   RevolutionPerSquareMinute,
+
+  // Revolution per square hour (rev/hr^2) angular acceleration unit.
   RevolutionPerSquareHour,
 };
 
 }  // namespace Unit
 
-// Standard angular acceleration unit: radian per square second.
+// Standard angular acceleration unit: radian per square second (rad/s^2).
 template <>
 inline constexpr const Unit::AngularAcceleration
     Standard<Unit::AngularAcceleration>{

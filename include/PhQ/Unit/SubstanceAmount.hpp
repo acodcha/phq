@@ -24,16 +24,25 @@ namespace Unit {
 
 // Amount of substance units.
 enum class SubstanceAmount : int8_t {
+  // Mole (mol) substance amount unit.
   Mole,
+
+  // Kilomole (kmol) substance amount unit.
   Kilomole,
+
+  // Megamole (Mmol) substance amount unit.
   Megamole,
+
+  // Gigamole (Gmol) substance amount unit.
   Gigamole,
+
+  // Particles (particles) substance amount unit.
   Particles,
 };
 
 }  // namespace Unit
 
-// Standard amount of substance unit: mole.
+// Standard amount of substance unit: mole (mol).
 template <>
 inline constexpr const Unit::SubstanceAmount Standard<Unit::SubstanceAmount>{
     Unit::SubstanceAmount::Mole};

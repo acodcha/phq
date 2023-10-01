@@ -24,20 +24,37 @@ namespace Unit {
 
 // Power units.
 enum class Power : int8_t {
+  // Watt (W) power unit.
   Watt,
+
+  // Milliwatt (mW) power unit.
   Milliwatt,
+
+  // Microwatt (μW) power unit.
   Microwatt,
+
+  // Nanowatt (nW) power unit.
   Nanowatt,
+
+  // Kilowatt (kW) power unit.
   Kilowatt,
+
+  // Megawatt (MW) power unit.
   Megawatt,
+
+  // Gigawatt (GW) power unit.
   Gigawatt,
+
+  // Foot-pound per second (ft·lbf/s) power unit.
   FootPoundPerSecond,
+
+  // Inch-pound per second (in·lbf/s) power unit.
   InchPoundPerSecond,
 };
 
 }  // namespace Unit
 
-// Standard power unit: watt.
+// Standard power unit: watt (W).
 template <>
 inline constexpr const Unit::Power Standard<Unit::Power>{Unit::Power::Watt};
 

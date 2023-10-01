@@ -24,18 +24,31 @@ namespace Unit {
 
 // Dynamic viscosity units.
 enum class DynamicViscosity : int8_t {
+  // Pascal-second (Pa·s) dynamic viscosity unit.
   PascalSecond,
+
+  // Kilopascal-second (kPa·s) dynamic viscosity unit.
   KilopascalSecond,
+
+  // Megapascal-second (MPa·s) dynamic viscosity unit.
   MegapascalSecond,
+
+  // Gigapascal-second (GPa·s) dynamic viscosity unit.
   GigapascalSecond,
+
+  // Poise (P) dynamic viscosity unit.
   Poise,
+
+  // Pound-second per square foot (lbf·s/ft^2) dynamic viscosity unit.
   PoundSecondPerSquareFoot,
+
+  // Pound-second per square inch (lbf·s/in^2) dynamic viscosity unit.
   PoundSecondPerSquareInch,
 };
 
 }  // namespace Unit
 
-// Standard dynamic viscosity unit: pascal-second.
+// Standard dynamic viscosity unit: pascal-second (Pa·s).
 template <>
 inline constexpr const Unit::DynamicViscosity Standard<Unit::DynamicViscosity>{
     Unit::DynamicViscosity::PascalSecond};

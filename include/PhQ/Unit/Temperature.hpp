@@ -23,19 +23,26 @@ namespace PhQ {
 namespace Unit {
 
 // Temperature units. Not to be confused with temperature difference units. For
-// example, a temperature of 20 °C corresponds to a temperature of 68 °F, while
-// a temperature difference of +20 °C corresponds to a temperature difference of
-// +36 °F.
+// example, a temperature of 20 °C corresponds to a temperature of 68 °F,
+// whereas a temperature difference of +20 °C corresponds to a temperature
+// difference of +36 °F.
 enum class Temperature : int8_t {
+  // Kelvin (K) temperature unit.
   Kelvin,
+
+  // Degree Celsius (°C) temperature unit.
   Celsius,
+
+  // Degree Rankine (°R) temperature unit.
   Rankine,
+
+  // Degree Fahrenheit (°F) temperature unit.
   Fahrenheit,
 };
 
 }  // namespace Unit
 
-// Standard temperature unit: kelvin.
+// Standard temperature unit: kelvin (K).
 template <>
 inline constexpr const Unit::Temperature Standard<Unit::Temperature>{
     Unit::Temperature::Kelvin};
