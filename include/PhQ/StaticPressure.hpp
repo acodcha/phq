@@ -17,19 +17,24 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STATIC_PRESSURE_HPP
 
 #include "ForceMagnitude.hpp"
-#include "PressureDifference.hpp"
+#include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // Forward declarations for class StaticPressure.
 class Direction;
 class DynamicPressure;
+class MassDensity;
 class StaticKinematicPressure;
 class Stress;
 class TotalPressure;
 class Traction;
 
-// Static pressure.
+// Static pressure. Pressure of a fluid at rest. Not to be confused with dynamic
+// pressure, which is the additional pressure resulting from the kinetic energy
+// of a flowing fluid, or total pressure, which is the sum of static pressure
+// and dynamic pressure. Can represent either an absolute static pressure or a
+// static pressure difference relative to another static pressure.
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
   // Default constructor. Constructs a static pressure with an uninitialized
@@ -96,27 +101,15 @@ public:
 
   constexpr PhQ::Stress Stress() const;
 
-  constexpr StaticPressure operator+(
-      const StaticPressure& static_pressure) const {
-    return StaticPressure{value_ + static_pressure.value_};
-  }
-
-  constexpr StaticPressure operator+(
-      const PressureDifference& pressure_difference) const {
-    return StaticPressure{value_ + pressure_difference.Value()};
+  constexpr StaticPressure operator+(const StaticPressure& other) const {
+    return StaticPressure{value_ + other.value_};
   }
 
   constexpr TotalPressure operator+(
       const DynamicPressure& dynamic_pressure) const;
 
-  constexpr PressureDifference operator-(
-      const StaticPressure& static_pressure) const {
-    return PressureDifference{value_ - static_pressure.value_};
-  }
-
-  constexpr StaticPressure operator-(
-      const PressureDifference& pressure_difference) const {
-    return StaticPressure{value_ - pressure_difference.Value()};
+  constexpr StaticPressure operator-(const StaticPressure& other) const {
+    return StaticPressure{value_ - other.value_};
   }
 
   constexpr StaticPressure operator*(const double number) const {
@@ -136,27 +129,16 @@ public:
   constexpr StaticKinematicPressure operator/(
       const MassDensity& mass_density) const;
 
-  constexpr double operator/(
-      const StaticPressure& static_pressure) const noexcept {
-    return value_ / static_pressure.value_;
+  constexpr double operator/(const StaticPressure& other) const noexcept {
+    return value_ / other.value_;
   }
 
-  constexpr void operator+=(const StaticPressure& static_pressure) noexcept {
-    value_ += static_pressure.value_;
+  constexpr void operator+=(const StaticPressure& other) noexcept {
+    value_ += other.value_;
   }
 
-  constexpr void operator+=(
-      const PressureDifference& pressure_difference) noexcept {
-    value_ += pressure_difference.Value();
-  }
-
-  constexpr void operator-=(const StaticPressure& static_pressure) noexcept {
-    value_ -= static_pressure.value_;
-  }
-
-  constexpr void operator-=(
-      const PressureDifference& pressure_difference) noexcept {
-    value_ -= pressure_difference.Value();
+  constexpr void operator-=(const StaticPressure& other) noexcept {
+    value_ -= other.value_;
   }
 
   constexpr void operator*=(const double number) noexcept {
@@ -172,8 +154,6 @@ private:
   // the standard pressure unit.
   explicit constexpr StaticPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
-
-  friend class PressureDifference;
 };
 
 inline constexpr bool operator==(
@@ -233,16 +213,6 @@ inline constexpr ForceMagnitude Area::operator*(
 inline constexpr StaticPressure ForceMagnitude::operator/(
     const Area& area) const {
   return {*this, area};
-}
-
-inline constexpr StaticPressure PressureDifference::operator+(
-    const StaticPressure& static_pressure) const {
-  return StaticPressure{value_ + static_pressure.Value()};
-}
-
-inline constexpr StaticPressure PressureDifference::operator-(
-    const StaticPressure& static_pressure) const {
-  return StaticPressure{value_ - static_pressure.Value()};
 }
 
 }  // namespace PhQ
