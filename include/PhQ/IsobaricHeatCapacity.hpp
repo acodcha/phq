@@ -40,19 +40,19 @@ public:
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
   // Constructor. Constructs an isobaric heat capacity from a given gas constant
-  // and specific heat ratio using the definition of the specific heat ratio and
+  // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
   constexpr IsobaricHeatCapacity(const GasConstant& gas_constant,
-                                 const SpecificHeatRatio& specific_heat_ratio);
+                                 const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs an isobaric heat capacity from a given isochoric
-  // heat capacity and specific heat ratio using the definition of the specific
+  // heat capacity and heat capacity ratio using the definition of the specific
   // heat ratio.
   constexpr IsobaricHeatCapacity(
       const IsochoricHeatCapacity& isochoric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio)
+      const HeatCapacityRatio& heat_capacity_ratio)
     : IsobaricHeatCapacity(
-        isochoric_heat_capacity.Value() * specific_heat_ratio.Value()) {}
+        isochoric_heat_capacity.Value() * heat_capacity_ratio.Value()) {}
 
   // Constructor. Constructs an isobaric heat capacity from a given specific
   // isobaric heat capacity and mass using the definition of the specific
@@ -127,14 +127,14 @@ public:
   operator/(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
       const;
 
-  constexpr SpecificHeatRatio operator/(
+  constexpr HeatCapacityRatio operator/(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const {
     return {*this, isochoric_heat_capacity};
   }
 
   constexpr IsochoricHeatCapacity operator/(
-      const SpecificHeatRatio& specific_heat_ratio) const {
-    return {*this, specific_heat_ratio};
+      const HeatCapacityRatio& heat_capacity_ratio) const {
+    return {*this, heat_capacity_ratio};
   }
 
   constexpr double operator/(
@@ -208,26 +208,26 @@ inline constexpr IsobaricHeatCapacity operator*(
   return isobaric_heat_capacity * number;
 }
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
     const IsochoricHeatCapacity& isochoric_heat_capacity)
-  : SpecificHeatRatio(
+  : HeatCapacityRatio(
       isobaric_heat_capacity.Value() / isochoric_heat_capacity.Value()) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const IsobaricHeatCapacity& isobaric_heat_capacity,
-    const SpecificHeatRatio& specific_heat_ratio)
+    const HeatCapacityRatio& heat_capacity_ratio)
   : IsochoricHeatCapacity(
-      isobaric_heat_capacity.Value() / specific_heat_ratio.Value()) {}
+      isobaric_heat_capacity.Value() / heat_capacity_ratio.Value()) {}
 
-inline constexpr IsobaricHeatCapacity SpecificHeatRatio::operator*(
+inline constexpr IsobaricHeatCapacity HeatCapacityRatio::operator*(
     const IsochoricHeatCapacity& isochoric_heat_capacity) const {
   return {isochoric_heat_capacity, *this};
 }
 
 inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(
-    const SpecificHeatRatio& specific_heat_ratio) const {
-  return {*this, specific_heat_ratio};
+    const HeatCapacityRatio& heat_capacity_ratio) const {
+  return {*this, heat_capacity_ratio};
 }
 
 }  // namespace PhQ

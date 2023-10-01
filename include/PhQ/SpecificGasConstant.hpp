@@ -44,22 +44,22 @@ public:
                           - specific_isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a specific gas constant from a given specific
-  // isobaric heat capacity and specific heat ratio using the definition of the
-  // specific heat ratio and Mayer's relation.
+  // isobaric heat capacity and heat capacity ratio using the definition of the
+  // heat capacity ratio and Mayer's relation.
   constexpr SpecificGasConstant(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio)
+      const HeatCapacityRatio& heat_capacity_ratio)
     : SpecificGasConstant(specific_isobaric_heat_capacity.Value()
-                          * (1.0 - 1.0 / specific_heat_ratio.Value())) {}
+                          * (1.0 - 1.0 / heat_capacity_ratio.Value())) {}
 
   // Constructor. Constructs a specific gas constant from a given specific
-  // isochoric heat capacity and specific heat ratio using the definition of the
-  // specific heat ratio and Mayer's relation.
+  // isochoric heat capacity and heat capacity ratio using the definition of the
+  // heat capacity ratio and Mayer's relation.
   constexpr SpecificGasConstant(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio)
+      const HeatCapacityRatio& heat_capacity_ratio)
     : SpecificGasConstant(specific_isochoric_heat_capacity.Value()
-                          * (specific_heat_ratio.Value() - 1.0)) {}
+                          * (heat_capacity_ratio.Value() - 1.0)) {}
 
   // Constructor. Constructs a specific gas constant from a given gas constant
   // and mass using the definition of the specific gas constant.
@@ -200,17 +200,17 @@ inline constexpr SpecificGasConstant operator*(
   return specific_gas_constant * number;
 }
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-  : SpecificHeatRatio(specific_isobaric_heat_capacity.Value()
+  : HeatCapacityRatio(specific_isobaric_heat_capacity.Value()
                       / (specific_isobaric_heat_capacity.Value()
                          - specific_gas_constant.Value())) {}
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const SpecificGasConstant& specific_gas_constant,
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
-  : SpecificHeatRatio(
+  : HeatCapacityRatio(
       specific_gas_constant.Value() / specific_isochoric_heat_capacity.Value()
       + 1.0) {}
 
@@ -231,9 +231,9 @@ inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
 
 inline constexpr SpecificIsochoricHeatCapacity::SpecificIsochoricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificHeatRatio& specific_heat_ratio)
+    const HeatCapacityRatio& heat_capacity_ratio)
   : SpecificIsochoricHeatCapacity(
-      specific_gas_constant.Value() / (specific_heat_ratio.Value() - 1.0)) {}
+      specific_gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
@@ -243,10 +243,10 @@ inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const SpecificGasConstant& specific_gas_constant,
-    const SpecificHeatRatio& specific_heat_ratio)
+    const HeatCapacityRatio& heat_capacity_ratio)
   : SpecificIsobaricHeatCapacity(
-      specific_gas_constant.Value() * specific_heat_ratio.Value()
-      / (specific_heat_ratio.Value() - 1.0)) {}
+      specific_gas_constant.Value() * heat_capacity_ratio.Value()
+      / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr GasConstant Mass::operator*(
     const SpecificGasConstant& specific_gas_constant) const {

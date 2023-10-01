@@ -44,18 +44,18 @@ public:
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   // Constructor. Constructs a specific isochoric heat capacity from a given
-  // specific gas constant and specific heat ratio using the definition of the
-  // specific heat ratio and Mayer's relation.
+  // specific gas constant and heat capacity ratio using the definition of the
+  // heat capacity ratio and Mayer's relation.
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificGasConstant& specific_gas_constant,
-      const SpecificHeatRatio& specific_heat_ratio);
+      const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs a specific isochoric heat capacity from a given
-  // specific isobaric heat capacity and specific heat ratio using the
-  // definition of the specific heat ratio.
+  // specific isobaric heat capacity and heat capacity ratio using the
+  // definition of the heat capacity ratio.
   constexpr SpecificIsochoricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio);
+      const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs a specific isochoric heat capacity from a given
   // isochoric heat capacity and mass using the definition of the specific
@@ -128,7 +128,7 @@ public:
   }
 
   constexpr SpecificIsobaricHeatCapacity operator*(
-      const SpecificHeatRatio& specific_heat_ratio) const;
+      const HeatCapacityRatio& heat_capacity_ratio) const;
 
   constexpr SpecificIsochoricHeatCapacity operator/(const double number) const {
     return SpecificIsochoricHeatCapacity{value_ / number};

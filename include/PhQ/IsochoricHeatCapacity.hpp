@@ -17,7 +17,7 @@
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOCHORIC_HEAT_CAPACITY_HPP
 
 #include "DimensionalScalarQuantity.hpp"
-#include "SpecificHeatRatio.hpp"
+#include "HeatCapacityRatio.hpp"
 #include "Unit/HeatCapacity.hpp"
 
 namespace PhQ {
@@ -42,17 +42,17 @@ public:
       const IsobaricHeatCapacity& isobaric_heat_capacity);
 
   // Constructor. Constructs an isochoric heat capacity from a given gas
-  // constant and specific heat ratio using the definition of the specific heat
+  // constant and heat capacity ratio using the definition of the specific heat
   // ratio and Mayer's relation.
   constexpr IsochoricHeatCapacity(const GasConstant& gas_constant,
-                                  const SpecificHeatRatio& specific_heat_ratio);
+                                  const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs an isochoric heat capacity from a given isobaric
-  // heat capacity and specific heat ratio using the definition of the specific
+  // heat capacity and heat capacity ratio using the definition of the specific
   // heat ratio.
   constexpr IsochoricHeatCapacity(
       const IsobaricHeatCapacity& isobaric_heat_capacity,
-      const SpecificHeatRatio& specific_heat_ratio);
+      const HeatCapacityRatio& heat_capacity_ratio);
 
   // Constructor. Constructs an isochoric heat capacity from a given specific
   // isochoric heat capacity and mass using the definition of the specific
@@ -115,7 +115,7 @@ public:
   }
 
   constexpr IsobaricHeatCapacity operator*(
-      const SpecificHeatRatio& specific_heat_ratio) const;
+      const HeatCapacityRatio& heat_capacity_ratio) const;
 
   constexpr IsochoricHeatCapacity operator/(const double number) const {
     return IsochoricHeatCapacity{value_ / number};

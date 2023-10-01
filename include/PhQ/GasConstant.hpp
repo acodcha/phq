@@ -43,20 +43,20 @@ public:
         isobaric_heat_capacity.Value() - isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a gas constant from a given isobaric heat capacity
-  // and specific heat ratio using the definition of the specific heat ratio and
+  // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
   constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity,
-                        const SpecificHeatRatio& specific_heat_ratio)
+                        const HeatCapacityRatio& heat_capacity_ratio)
     : GasConstant(isobaric_heat_capacity.Value()
-                  * (1.0 - 1.0 / specific_heat_ratio.Value())) {}
+                  * (1.0 - 1.0 / heat_capacity_ratio.Value())) {}
 
   // Constructor. Constructs a gas constant from a given isochoric heat capacity
-  // and specific heat ratio using the definition of the specific heat ratio and
+  // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
   constexpr GasConstant(const IsochoricHeatCapacity& isochoric_heat_capacity,
-                        const SpecificHeatRatio& specific_heat_ratio)
+                        const HeatCapacityRatio& heat_capacity_ratio)
     : GasConstant(
-        isochoric_heat_capacity.Value() * (specific_heat_ratio.Value() - 1.0)) {
+        isochoric_heat_capacity.Value() * (heat_capacity_ratio.Value() - 1.0)) {
   }
 
   // Constructor. Constructs a gas constant from a given specific gas constant
@@ -186,17 +186,17 @@ inline constexpr GasConstant operator*(
   return gas_constant * number;
 }
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const GasConstant& gas_constant,
     const IsobaricHeatCapacity& isobaric_heat_capacity)
-  : SpecificHeatRatio(
+  : HeatCapacityRatio(
       isobaric_heat_capacity.Value()
       / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
 
-inline constexpr SpecificHeatRatio::SpecificHeatRatio(
+inline constexpr HeatCapacityRatio::HeatCapacityRatio(
     const GasConstant& gas_constant,
     const IsochoricHeatCapacity& isochoric_heat_capacity)
-  : SpecificHeatRatio(
+  : HeatCapacityRatio(
       gas_constant.Value() / isochoric_heat_capacity.Value() + 1.0) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
@@ -207,9 +207,9 @@ inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
     const GasConstant& gas_constant,
-    const SpecificHeatRatio& specific_heat_ratio)
+    const HeatCapacityRatio& heat_capacity_ratio)
   : IsochoricHeatCapacity(
-      gas_constant.Value() / (specific_heat_ratio.Value() - 1.0)) {}
+      gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
     const GasConstant& gas_constant,
@@ -219,9 +219,9 @@ inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
 
 inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
     const GasConstant& gas_constant,
-    const SpecificHeatRatio& specific_heat_ratio)
-  : IsobaricHeatCapacity(gas_constant.Value() * specific_heat_ratio.Value()
-                         / (specific_heat_ratio.Value() - 1.0)) {}
+    const HeatCapacityRatio& heat_capacity_ratio)
+  : IsobaricHeatCapacity(gas_constant.Value() * heat_capacity_ratio.Value()
+                         / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator+(
     const GasConstant& gas_constant) const {

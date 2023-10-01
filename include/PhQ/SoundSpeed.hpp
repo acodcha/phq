@@ -16,10 +16,10 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_SOUND_SPEED_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_SOUND_SPEED_HPP
 
+#include "HeatCapacityRatio.hpp"
 #include "IsentropicBulkModulus.hpp"
 #include "MassDensity.hpp"
 #include "SpecificGasConstant.hpp"
-#include "SpecificHeatRatio.hpp"
 #include "Speed.hpp"
 #include "StaticPressure.hpp"
 #include "Temperature.hpp"
@@ -50,20 +50,20 @@ public:
         std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
   // Constructs a sound speed from a mass density, a static pressure, and a
-  // specific heat ratio. This relation applies only to an ideal gas.
+  // heat capacity ratio. This relation applies only to an ideal gas.
   SoundSpeed(const MassDensity& mass_density,
              const StaticPressure& static_pressure,
-             const SpecificHeatRatio& specific_heat_ratio)
-    : SoundSpeed(std::sqrt(specific_heat_ratio.Value() * static_pressure.Value()
+             const HeatCapacityRatio& heat_capacity_ratio)
+    : SoundSpeed(std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value()
                            / mass_density.Value())) {}
 
   // Constructs a sound speed from a temperature, a specific gas constant, and a
-  // specific heat ratio. This relation applies only to an ideal gas.
+  // heat capacity ratio. This relation applies only to an ideal gas.
   SoundSpeed(const Temperature& temperature,
              const SpecificGasConstant& specific_gas_constant,
-             const SpecificHeatRatio& specific_heat_ratio)
+             const HeatCapacityRatio& heat_capacity_ratio)
     : SoundSpeed(
-        std::sqrt(specific_heat_ratio.Value() * specific_gas_constant.Value()
+        std::sqrt(heat_capacity_ratio.Value() * specific_gas_constant.Value()
                   * temperature.Value())) {}
 
   // Constructs a sound speed from a speed and a Mach number. This uses the
