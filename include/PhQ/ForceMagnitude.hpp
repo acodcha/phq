@@ -29,20 +29,48 @@ class StaticPressure;
 // Force scalar. Magnitude of the force vector.
 class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
 public:
+  // Default constructor. Constructs a force magnitude with an uninitialized
+  // value.
   ForceMagnitude() = default;
 
+  // Constructor. Constructs a force magnitude with a given value expressed in a
+  // given force unit.
   ForceMagnitude(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
+  // Constructor. Constructs a force magnitude from a given force vector.
   ForceMagnitude(const Force& force);
 
+  // Constructor. Constructs a force magnitude from a given static pressure and
+  // area using the definition of pressure.
   constexpr ForceMagnitude(
       const StaticPressure& static_pressure, const Area& area);
 
+  // Destructor. Destroys this force magnitude.
+  ~ForceMagnitude() noexcept = default;
+
+  // Copy constructor. Constructs a force magnitude by copying another one.
+  constexpr ForceMagnitude(const ForceMagnitude& other) = default;
+
+  // Move constructor. Constructs a force magnitude by moving another one.
+  constexpr ForceMagnitude(ForceMagnitude&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this force magnitude by copying another
+  // one.
+  constexpr ForceMagnitude& operator=(const ForceMagnitude& other) = default;
+
+  // Move assignment operator. Assigns this force magnitude by moving another
+  // one.
+  constexpr ForceMagnitude& operator=(
+      ForceMagnitude&& other) noexcept = default;
+
+  // Statically creates a force magnitude of zero.
   static constexpr ForceMagnitude Zero() {
     return ForceMagnitude{0.0};
   }
 
+  // Statically creates a force magnitude with a given value expressed in a
+  // given force unit.
   template <Unit::Force Unit>
   static constexpr ForceMagnitude Create(const double value) {
     return ForceMagnitude{
@@ -93,6 +121,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a force magnitude with a given value expressed in
+  // the standard force unit.
   explicit constexpr ForceMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::Force>(value) {}
 };

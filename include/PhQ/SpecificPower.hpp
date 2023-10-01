@@ -24,26 +24,58 @@ namespace PhQ {
 // Specific power. Power per unit mass.
 class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
 public:
+  // Default constructor. Constructs a specific power quantity with an
+  // uninitialized value.
   SpecificPower() = default;
 
+  // Constructor. Constructs a specific power quantity with a given value
+  // expressed in a given specific power unit.
   SpecificPower(const double value, const Unit::SpecificPower unit)
     : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
 
+  // Constructor. Constructs a specific power quantity from a given specific
+  // energy and time duration using the definition of specific power.
   constexpr SpecificPower(
       const SpecificEnergy& specific_energy, const Time& time)
     : SpecificPower(specific_energy.Value() / time.Value()) {}
 
+  // Constructor. Constructs a specific power quantity from a given specific
+  // energy and frequency using the definition of specific power.
   constexpr SpecificPower(
       const SpecificEnergy& specific_energy, const Frequency& frequency)
     : SpecificPower(specific_energy.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs a specific power quantity from a given power and
+  // mass using the definition of specific power.
   constexpr SpecificPower(const Power& power, const Mass& mass)
     : SpecificPower(power.Value() / mass.Value()) {}
 
+  // Destructor. Destroys this specific power quantity.
+  ~SpecificPower() noexcept = default;
+
+  // Copy constructor. Constructs a specific power quantity by copying another
+  // one.
+  constexpr SpecificPower(const SpecificPower& other) = default;
+
+  // Move constructor. Constructs a specific power quantity by moving another
+  // one.
+  constexpr SpecificPower(SpecificPower&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this specific power quantity by copying
+  // another one.
+  constexpr SpecificPower& operator=(const SpecificPower& other) = default;
+
+  // Move assignment operator. Assigns this specific power quantity by moving
+  // another one.
+  constexpr SpecificPower& operator=(SpecificPower&& other) noexcept = default;
+
+  // Statically creates a specific power quantity of zero.
   static constexpr SpecificPower Zero() {
     return SpecificPower{0.0};
   }
 
+  // Statically creates a specific power quantity with a given value expressed
+  // in a given specific power unit.
   template <Unit::SpecificPower Unit>
   static constexpr SpecificPower Create(const double value) {
     return SpecificPower{
@@ -105,6 +137,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a specific power quantity with a given value
+  // expressed in the standard specific power unit.
   explicit constexpr SpecificPower(const double value)
     : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
 };

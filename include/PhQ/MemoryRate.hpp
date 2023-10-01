@@ -26,21 +26,46 @@ namespace PhQ {
 // memory transfer speed.
 class MemoryRate : public DimensionalScalarQuantity<Unit::MemoryRate> {
 public:
+  // Default constructor. Constructs a memory rate with an uninitialized value.
   MemoryRate() = default;
 
+  // Constructor. Constructs a memory rate with a given value expressed in a
+  // given memory rate unit.
   MemoryRate(const double value, const Unit::MemoryRate unit)
     : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
 
+  // Constructor. Constructs a memory rate from a given memory and time duration
+  // using the definition of memory rate.
   constexpr MemoryRate(const Memory& memory, const Time& time)
     : MemoryRate(memory.Value() / time.Value()) {}
 
+  // Constructor. Constructs a memory rate from a given memory and frequency
+  // using the definition of memory rate.
   constexpr MemoryRate(const Memory& memory, const Frequency& frequency)
     : MemoryRate(memory.Value() * frequency.Value()) {}
 
+  // Destructor. Destroys this memory rate.
+  ~MemoryRate() noexcept = default;
+
+  // Copy constructor. Constructs a memory rate by copying another one.
+  constexpr MemoryRate(const MemoryRate& other) = default;
+
+  // Move constructor. Constructs a memory rate by moving another one.
+  constexpr MemoryRate(MemoryRate&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this memory rate by copying another one.
+  constexpr MemoryRate& operator=(const MemoryRate& other) = default;
+
+  // Move assignment operator. Assigns this memory rate by moving another one.
+  constexpr MemoryRate& operator=(MemoryRate&& other) noexcept = default;
+
+  // Statically creates a memory rate of zero.
   static constexpr MemoryRate Zero() {
     return MemoryRate{0.0};
   }
 
+  // Statically creates a memory rate with a given value expressed in a given
+  // memory rate unit.
   template <Unit::MemoryRate Unit>
   static constexpr MemoryRate Create(const double value) {
     return MemoryRate{
@@ -97,6 +122,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a memory rate quantity with a given value expressed
+  // in the standard memory rate unit.
   explicit constexpr MemoryRate(const double value)
     : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}
 };

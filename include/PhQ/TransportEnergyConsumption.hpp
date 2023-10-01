@@ -23,26 +23,59 @@
 
 namespace PhQ {
 
-// Energy consumption in transport, which is a measure of energy use per
-// distance traveled. Note that energy per length results in units of force.
-// Energy consumption in transport is often measured in joules per metre (J/m)
-// or kilowatt-hours per kilometre (kW·hr/km).
+// Transport energy consumption, also known as energy consumption in transport.
+// A measure of energy use per distance traveled. Note that energy per length
+// results in units of force. Energy consumption in transport is often measured
+// in joules per metre (J/m), kilowatt-hours per kilometre (kW·hr/km), or
+// kilowatt-hours per mile (kW·hr/mi).
 class TransportEnergyConsumption
   : public DimensionalScalarQuantity<Unit::Force> {
 public:
+  // Default constructor. Constructs a transport energy consumption with an
+  // uninitialized value.
   TransportEnergyConsumption() = default;
 
+  // Constructor. Constructs a transport energy consumption with a given value
+  // expressed in a given force unit.
   TransportEnergyConsumption(const double value, const Unit::Force unit)
     : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
 
+  // Constructor. Constructs a transport energy consumption from a given length
+  // and energy using the definition of transport energy consumption.
   constexpr TransportEnergyConsumption(
       const Length& length, const Energy& energy)
     : TransportEnergyConsumption(energy.Value() / length.Value()) {}
 
+  // Destructor. Destroys this transport energy consumption.
+  ~TransportEnergyConsumption() noexcept = default;
+
+  // Copy constructor. Constructs a transport energy consumption by copying
+  // another one.
+  constexpr TransportEnergyConsumption(
+      const TransportEnergyConsumption& other) = default;
+
+  // Move constructor. Constructs a transport energy consumption by moving
+  // another one.
+  constexpr TransportEnergyConsumption(
+      TransportEnergyConsumption&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this transport energy consumption by
+  // copying another one.
+  constexpr TransportEnergyConsumption& operator=(
+      const TransportEnergyConsumption& other) = default;
+
+  // Move assignment operator. Assigns this transport energy consumption by
+  // moving another one.
+  constexpr TransportEnergyConsumption& operator=(
+      TransportEnergyConsumption&& other) noexcept = default;
+
+  // Statically creates a transport energy consumption of zero.
   static constexpr TransportEnergyConsumption Zero() {
     return TransportEnergyConsumption{0.0};
   }
 
+  // Statically creates a transport energy consumption with a given value
+  // expressed in a given force unit.
   template <Unit::Force Unit>
   static constexpr TransportEnergyConsumption Create(const double value) {
     return TransportEnergyConsumption{
@@ -102,6 +135,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a transport energy consumption with a given value
+  // expressed in the standard force unit.
   explicit constexpr TransportEnergyConsumption(const double value)
     : DimensionalScalarQuantity<Unit::Force>(value) {}
 };

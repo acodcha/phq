@@ -30,27 +30,59 @@ class TransportEnergyConsumption;
 // rate.
 class Power : public DimensionalScalarQuantity<Unit::Power> {
 public:
+  // Default constructor. Constructs a power quantity with an uninitialized
+  // value.
   Power() = default;
 
+  // Constructor. Constructs a power quantity with a given value expressed in a
+  // given power unit.
   Power(const double value, const Unit::Power unit)
     : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
 
+  // Constructor. Constructs a power quantity from a given energy and time
+  // duration using the definition of power.
   constexpr Power(const Energy& energy, const Time& time)
     : Power(energy.Value() / time.Value()) {}
 
+  // Constructor. Constructs a power quantity from a given energy and frequency
+  // using the definition of power.
   constexpr Power(const Energy& energy, const Frequency& frequency)
     : Power(energy.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs a power quantity from a given specific power and
+  // mass using the definition of specific power.
   constexpr Power(const SpecificPower& specific_power, const Mass& mass);
 
+  // Constructor. Constructs a power quantity from a given speed and transport
+  // energy consumption using the definition of transport energy consumption.
   constexpr Power(
       const Speed& speed,
       const TransportEnergyConsumption& transport_energy_consumption);
 
+  // Destructor. Destroys this power quantity.
+  ~Power() noexcept = default;
+
+  // Copy constructor. Constructs a power quantity by copying another one.
+  constexpr Power(const Power& other) = default;
+
+  // Move constructor. Constructs a power quantity by moving another one.
+  constexpr Power(Power&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this power quantity by copying another
+  // one.
+  constexpr Power& operator=(const Power& other) = default;
+
+  // Move assignment operator. Assigns this power quantity by moving another
+  // one.
+  constexpr Power& operator=(Power&& other) noexcept = default;
+
+  // Statically creates a power quantity of zero.
   static constexpr Power Zero() {
     return Power{0.0};
   }
 
+  // Statically creates a power quantity with a given value expressed in a given
+  // power unit.
   template <Unit::Power Unit>
   static constexpr Power Create(const double value) {
     return Power{
@@ -110,6 +142,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a power quantity with a given value expressed in
+  // the standard power unit.
   explicit constexpr Power(const double value)
     : DimensionalScalarQuantity<Unit::Power>(value) {}
 };

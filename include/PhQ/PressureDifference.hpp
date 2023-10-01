@@ -29,19 +29,48 @@ class StaticPressure;
 // Pressure difference.
 class PressureDifference : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
+  // Default constructor. Constructs a pressure difference with an uninitialized
+  // value.
   PressureDifference() = default;
 
+  // Constructor. Constructs a pressure difference with a given value expressed
+  // in a given pressure unit.
   PressureDifference(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs a pressure difference from a given kinematic
+  // pressure difference and mass density using the definition of kinematic
+  // pressure difference.
   constexpr PressureDifference(
       const KinematicPressureDifference& kinematic_pressure_difference,
       const MassDensity& mass_density);
 
+  // Destructor. Destroys this pressure difference.
+  ~PressureDifference() noexcept = default;
+
+  // Copy constructor. Constructs a pressure difference by copying another one.
+  constexpr PressureDifference(const PressureDifference& other) = default;
+
+  // Move constructor. Constructs a pressure difference by moving another one.
+  constexpr PressureDifference(PressureDifference&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this pressure difference by copying
+  // another one.
+  constexpr PressureDifference& operator=(
+      const PressureDifference& other) = default;
+
+  // Move assignment operator. Assigns this pressure difference by moving
+  // another one.
+  constexpr PressureDifference& operator=(
+      PressureDifference&& other) noexcept = default;
+
+  // Statically creates a pressure difference of zero.
   static constexpr PressureDifference Zero() {
     return PressureDifference{0.0};
   }
 
+  // Statically creates a pressure difference with a given value expressed in a
+  // given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr PressureDifference Create(const double value) {
     return PressureDifference{
@@ -100,6 +129,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a pressure difference with a given value expressed
+  // in the standard pressure unit.
   explicit constexpr PressureDifference(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

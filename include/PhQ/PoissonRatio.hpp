@@ -23,11 +23,32 @@ namespace PhQ {
 // Poisson's ratio of a deformable solid material.
 class PoissonRatio : public DimensionlessScalarQuantity {
 public:
+  // Default constructor. Constructs a Poisson's ratio with an uninitialized
+  // value.
   PoissonRatio() = default;
 
+  // Constructor. Constructs a Poisson's ratio with a given value.
   explicit constexpr PoissonRatio(const double value)
     : DimensionlessScalarQuantity(value) {}
 
+  // Destructor. Destroys this Poisson's ratio.
+  ~PoissonRatio() noexcept = default;
+
+  // Copy constructor. Constructs a Poisson's ratio by copying another one.
+  constexpr PoissonRatio(const PoissonRatio& other) = default;
+
+  // Move constructor. Constructs a Poisson's ratio by moving another one.
+  constexpr PoissonRatio(PoissonRatio&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this Poisson's ratio by copying another
+  // one.
+  constexpr PoissonRatio& operator=(const PoissonRatio& other) = default;
+
+  // Move assignment operator. Assigns this Poisson's ratio by moving another
+  // one.
+  constexpr PoissonRatio& operator=(PoissonRatio&& other) noexcept = default;
+
+  // Statically creates a Poisson's ratio of zero.
   static constexpr PoissonRatio Zero() {
     return PoissonRatio{0.0};
   }

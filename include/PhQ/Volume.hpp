@@ -31,21 +31,48 @@ class VolumeRate;
 // Volume.
 class Volume : public DimensionalScalarQuantity<Unit::Volume> {
 public:
+  // Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;
 
+  // Constructor. Constructs a volume with a given value expressed in a given
+  // volume unit.
   Volume(const double value, const Unit::Volume unit)
     : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
+  // Constructor. Constructs a volume from a given volume rate and time using
+  // the definition of volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Time& time);
 
+  // Constructor. Constructs a volume from a given volume rate and frequency
+  // using the definition of volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency);
 
+  // Constructor. Constructs a volume from a given mass density and mass using
+  // the definition of volume.
   constexpr Volume(const MassDensity& mass_density, const Mass& mass);
 
+  // Destructor. Destroys this volume.
+  ~Volume() noexcept = default;
+
+  // Copy constructor. Constructs a volume by copying another one.
+  constexpr Volume(const Volume& other) = default;
+
+  // Move constructor. Constructs a volume by moving another one.
+  constexpr Volume(Volume&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this volume by copying another one.
+  constexpr Volume& operator=(const Volume& other) = default;
+
+  // Move assignment operator. Assigns this volume by moving another one.
+  constexpr Volume& operator=(Volume&& other) noexcept = default;
+
+  // Statically creates a volume of zero.
   static constexpr Volume Zero() {
     return Volume{0.0};
   }
 
+  // Statically creates a volume with a given value expressed in a given volume
+  // unit.
   template <Unit::Volume Unit>
   static constexpr Volume Create(const double value) {
     return Volume{
@@ -105,6 +132,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a volume with a given value expressed in the
+  // standard volume unit.
   explicit constexpr Volume(const double value)
     : DimensionalScalarQuantity<Unit::Volume>(value) {}
 

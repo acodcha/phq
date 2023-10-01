@@ -34,25 +34,58 @@ class TransportEnergyConsumption;
 // Energy.
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
+  // Default constructor. Constructs an energy quantity with an uninitialized
+  // value.
   Energy() = default;
 
+  // Constructor. Constructs an energy quantity with a given value expressed in
+  // a given energy unit.
   Energy(const double value, const Unit::Energy unit)
     : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
+  // Constructor. Constructs an energy quantity from a given power and time
+  // using the definition of power.
   constexpr Energy(const Power& power, const Time& time);
 
+  // Constructor. Constructs an energy quantity from a given power and frequency
+  // using the definition of power.
   constexpr Energy(const Power& power, const Frequency& frequency);
 
+  // Constructor. Constructs an energy quantity from a given specific energy
+  // quantity and mass using the definition of specific energy.
   constexpr Energy(const SpecificEnergy& specific_energy, const Mass& mass);
 
+  // Constructor. Constructs an energy quantity from a given length and
+  // transport energy consumption using the definition of transport energy
+  // consumption.
   constexpr Energy(
       const Length& length,
       const TransportEnergyConsumption& transport_energy_consumption);
 
+  // Destructor. Destroys this energy quantity.
+  ~Energy() noexcept = default;
+
+  // Copy constructor. Constructs an energy quantity by copying another one.
+  constexpr Energy(const Energy& other) = default;
+
+  // Move constructor. Constructs an energy quantity by moving another one.
+  constexpr Energy(Energy&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this energy quantity by copying another
+  // one.
+  constexpr Energy& operator=(const Energy& other) = default;
+
+  // Move assignment operator. Assigns this energy quantity by moving another
+  // one.
+  constexpr Energy& operator=(Energy&& other) noexcept = default;
+
+  // Statically creates an energy quantity of zero.
   static constexpr Energy Zero() {
     return Energy{0.0};
   }
 
+  // Statically creates an energy quantity with a given value expressed in a
+  // given energy unit.
   template <Unit::Energy Unit>
   static constexpr Energy Create(const double value) {
     return Energy{
@@ -111,6 +144,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an energy quantity with a given value expressed in
+  // the standard energy unit.
   explicit constexpr Energy(const double value)
     : DimensionalScalarQuantity<Unit::Energy>(value) {}
 };

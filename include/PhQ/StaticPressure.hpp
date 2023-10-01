@@ -32,28 +32,61 @@ class Traction;
 // Static pressure.
 class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
+  // Default constructor. Constructs a static pressure with an uninitialized
+  // value.
   StaticPressure() = default;
 
+  // Constructor. Constructs a static pressure with a given value expressed in a
+  // given pressure unit.
   StaticPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
+  // Constructor. Constructs a static pressure from a given force magnitude and
+  // area using the definition of pressure.
   constexpr StaticPressure(
       const ForceMagnitude& force_magnitude, const Area& area)
     : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
+  // Constructor. Constructs a static pressure from a given traction vector.
   StaticPressure(const Traction& traction);
 
+  // Constructor. Constructs a static pressure from a given total pressure and
+  // dynamic pressure using the definition of total pressure.
   constexpr StaticPressure(const TotalPressure& total_pressure,
                            const DynamicPressure& dynamic_pressure);
 
+  // Constructor. Constructs a static pressure from a given static kinematic
+  // pressure and mass density using the definition of static kinematic
+  // pressure.
   constexpr StaticPressure(
       const StaticKinematicPressure& static_kinematic_pressure,
       const MassDensity& mass_density);
 
+  // Destructor. Destroys this static pressure.
+  ~StaticPressure() noexcept = default;
+
+  // Copy constructor. Constructs a static pressure by copying another one.
+  constexpr StaticPressure(const StaticPressure& other) = default;
+
+  // Move constructor. Constructs a static pressure by moving another one.
+  constexpr StaticPressure(StaticPressure&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this static pressure by copying another
+  // one.
+  constexpr StaticPressure& operator=(const StaticPressure& other) = default;
+
+  // Move assignment operator. Assigns this static pressure by moving another
+  // one.
+  constexpr StaticPressure& operator=(
+      StaticPressure&& other) noexcept = default;
+
+  // Statically creates a static pressure of zero.
   static constexpr StaticPressure Zero() {
     return StaticPressure{0.0};
   }
 
+  // Statically creates a static pressure with a given value expressed in a
+  // given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr StaticPressure Create(const double value) {
     return StaticPressure{
@@ -135,6 +168,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a static pressure with a given value expressed in
+  // the standard pressure unit.
   explicit constexpr StaticPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 

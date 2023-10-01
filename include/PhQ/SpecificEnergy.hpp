@@ -28,24 +28,57 @@ class SpecificPower;
 // Specific energy. Energy per unit mass.
 class SpecificEnergy : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
+  // Default constructor. Constructs a specific energy quantity with an
+  // uninitialized value.
   SpecificEnergy() = default;
 
+  // Constructor. Constructs a specific energy quantity with a given value
+  // expressed in a given specific energy unit.
   SpecificEnergy(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
+  // Constructor. Constructs a specific energy quantity from a given energy and
+  // mass using the definition of specific energy.
   constexpr SpecificEnergy(const Energy& energy, const Mass& mass)
     : SpecificEnergy(energy.Value() / mass.Value()) {}
 
+  // Constructor. Constructs a specific energy quantity from a given specific
+  // power and time duration using the definition of specific power.
   constexpr SpecificEnergy(
       const SpecificPower& specific_power, const Time& time);
 
+  // Constructor. Constructs a specific energy quantity from a given specific
+  // power and frequency using the definition of specific power.
   constexpr SpecificEnergy(
       const SpecificPower& specific_power, const Frequency& frequency);
 
+  // Destructor. Destroys this specific energy quantity.
+  ~SpecificEnergy() noexcept = default;
+
+  // Copy constructor. Constructs a specific energy quantity by copying another
+  // one.
+  constexpr SpecificEnergy(const SpecificEnergy& other) = default;
+
+  // Move constructor. Constructs a specific energy quantity by moving another
+  // one.
+  constexpr SpecificEnergy(SpecificEnergy&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this specific energy quantity by copying
+  // another one.
+  constexpr SpecificEnergy& operator=(const SpecificEnergy& other) = default;
+
+  // Move assignment operator. Assigns this specific energy quantity by moving
+  // another one.
+  constexpr SpecificEnergy& operator=(
+      SpecificEnergy&& other) noexcept = default;
+
+  // Statically creates a specific energy quantity of zero.
   static constexpr SpecificEnergy Zero() {
     return SpecificEnergy{0.0};
   }
 
+  // Statically creates a specific energy quantity with a given value expressed
+  // in a given specific energy unit.
   template <Unit::SpecificEnergy Unit>
   static constexpr SpecificEnergy Create(const double value) {
     return SpecificEnergy{
@@ -103,6 +136,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a specific energy quantity with a given value
+  // expressed in the standard specific energy unit.
   explicit constexpr SpecificEnergy(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 };

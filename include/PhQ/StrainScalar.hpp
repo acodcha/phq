@@ -24,18 +24,41 @@ namespace PhQ {
 class LinearThermalExpansionCoefficient;
 class TemperatureDifference;
 
-// Strain scalar. Component or resultant of the strain dyadic tensor.
+// Strain scalar. Component or resultant of the strain tensor.
 class StrainScalar : public DimensionlessScalarQuantity {
 public:
+  // Default constructor. Constructs a strain scalar with an uninitialized
+  // value.
   StrainScalar() = default;
 
+  // Constructor. Constructs a strain scalar with a given value.
   explicit constexpr StrainScalar(const double value)
     : DimensionlessScalarQuantity(value) {}
 
+  // Constructor. Constructs a strain scalar from a given linear thermal
+  // expansion coefficient and temperature difference using the definition of
+  // the linear thermal expansion coefficient.
   constexpr StrainScalar(const LinearThermalExpansionCoefficient&
                              linear_thermal_expansion_coefficient,
                          const TemperatureDifference& temperature_difference);
 
+  // Destructor. Destroys this strain scalar.
+  ~StrainScalar() noexcept = default;
+
+  // Copy constructor. Constructs a strain scalar by copying another one.
+  constexpr StrainScalar(const StrainScalar& other) = default;
+
+  // Move constructor. Constructs a strain scalar by moving another one.
+  constexpr StrainScalar(StrainScalar&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this strain scalar by copying another
+  // one.
+  constexpr StrainScalar& operator=(const StrainScalar& other) = default;
+
+  // Move assignment operator. Assigns this strain scalar by moving another one.
+  constexpr StrainScalar& operator=(StrainScalar&& other) noexcept = default;
+
+  // Statically creates a strain scalar of zero.
   static constexpr StrainScalar Zero() {
     return StrainScalar{0.0};
   }

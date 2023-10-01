@@ -33,26 +33,62 @@ class ThermalDiffusivity;
 class ThermalConductivityScalar
   : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 public:
+  // Default constructor. Constructs a thermal conductivity scalar with an
+  // uninitialized value.
   ThermalConductivityScalar() = default;
 
+  // Constructor. Constructs a thermal conductivity scalar with a given value
+  // expressed in a given thermal conductivity unit.
   ThermalConductivityScalar(
       const double value, const Unit::ThermalConductivity unit)
     : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
+  // Constructor. Constructs a thermal conductivity scalar from a given thermal
+  // diffusivity, specific isobaric heat capacity, and mass density using the
+  // definition of thermal diffusivity.
   constexpr ThermalConductivityScalar(
       const ThermalDiffusivity& thermal_diffusivity,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const MassDensity& mass_density);
 
+  // Constructor. Constructs a thermal conductivity scalar from a given Prandtl
+  // number, specific isobaric heat capacity, and dynamic viscosity using the
+  // definition of the Prandtl number.
   constexpr ThermalConductivityScalar(
       const PrandtlNumber& prandtl_number,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const DynamicViscosity& dynamic_viscosity);
 
+  // Destructor. Destroys this thermal conductivity scalar.
+  ~ThermalConductivityScalar() noexcept = default;
+
+  // Copy constructor. Constructs a thermal conductivity scalar by copying
+  // another one.
+  constexpr ThermalConductivityScalar(
+      const ThermalConductivityScalar& other) = default;
+
+  // Move constructor. Constructs a thermal conductivity scalar by moving
+  // another one.
+  constexpr ThermalConductivityScalar(
+      ThermalConductivityScalar&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this thermal conductivity scalar by
+  // copying another one.
+  constexpr ThermalConductivityScalar& operator=(
+      const ThermalConductivityScalar& other) = default;
+
+  // Move assignment operator. Assigns this thermal conductivity scalar by
+  // moving another one.
+  constexpr ThermalConductivityScalar& operator=(
+      ThermalConductivityScalar&& other) noexcept = default;
+
+  // Statically creates a thermal conductivity scalar of zero.
   static constexpr ThermalConductivityScalar Zero() {
     return ThermalConductivityScalar{0.0};
   }
 
+  // Statically creates a thermal conductivity scalar with a given value
+  // expressed in a given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivityScalar Create(const double value) {
     return ThermalConductivityScalar{
@@ -105,6 +141,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a thermal conductivity scalar with a given value
+  // expressed in the standard thermal conductivity unit.
   explicit constexpr ThermalConductivityScalar(const double value)
     : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
 };

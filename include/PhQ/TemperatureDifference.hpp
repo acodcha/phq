@@ -35,20 +35,51 @@ class VolumetricThermalExpansionCoefficient;
 class TemperatureDifference
   : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
 public:
+  // Default constructor. Constructs a temperature difference with an
+  // uninitialized value.
   TemperatureDifference() = default;
 
+  // Constructor. Constructs a temperature difference with a given value
+  // expressed in a given temperature unit.
   TemperatureDifference(
       const double value, const Unit::TemperatureDifference unit)
     : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
 
+  // Constructor. Constructs a temperature difference from a given temperature
+  // gradient magnitude and length using the definition of temperature gradient.
   constexpr TemperatureDifference(
       const TemperatureGradientMagnitude& temperature_gradient_magnitude,
       const Length& length);
 
+  // Destructor. Destroys this temperature difference.
+  ~TemperatureDifference() noexcept = default;
+
+  // Copy constructor. Constructs a temperature difference by copying another
+  // one.
+  constexpr TemperatureDifference(const TemperatureDifference& other) = default;
+
+  // Move constructor. Constructs a temperature difference by moving another
+  // one.
+  constexpr TemperatureDifference(
+      TemperatureDifference&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this temperature difference by copying
+  // another one.
+  constexpr TemperatureDifference& operator=(
+      const TemperatureDifference& other) = default;
+
+  // Move assignment operator. Assigns this temperature difference by moving
+  // another one.
+  constexpr TemperatureDifference& operator=(
+      TemperatureDifference&& other) noexcept = default;
+
+  // Statically creates a temperature difference of absolute zero.
   static constexpr TemperatureDifference Zero() {
     return TemperatureDifference{0.0};
   }
 
+  // Statically creates a temperature difference with a given value expressed in
+  // a given temperature unit.
   template <Unit::TemperatureDifference Unit>
   static constexpr TemperatureDifference Create(const double value) {
     return TemperatureDifference{
@@ -112,6 +143,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a temperature difference with a given value
+  // expressed in the standard temperature difference unit.
   explicit constexpr TemperatureDifference(const double value)
     : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
 

@@ -40,44 +40,85 @@ class Velocity;
 // Speed scalar. Magnitude of the velocity vector.
 class Speed : public DimensionalScalarQuantity<Unit::Speed> {
 public:
+  // Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;
 
+  // Constructor. Constructs a speed with a given value expressed in a given
+  // speed unit.
   Speed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
+  // Constructor. Constructs a speed from a given length and time duration using
+  // the definition of speed.
   constexpr Speed(const Length& length, const Time& time)
     : Speed(length.Value() / time.Value()) {}
 
+  // Constructor. Constructs a speed from a given length and frequency using the
+  // definition of speed.
   constexpr Speed(const Length& length, const Frequency& frequency)
     : Speed(length.Value() * frequency.Value()) {}
 
+  // Constructor. Constructs a speed from a given velocity vector.
   Speed(const Velocity& velocity);
 
+  // Constructor. Constructs a speed from a given acceleration magnitude and
+  // time duration using the definition of acceleration.
   constexpr Speed(
       const AccelerationMagnitude& acceleration_magnitude, const Time& time);
 
+  // Constructor. Constructs a speed from a given acceleration magnitude and
+  // frequency using the definition of acceleration.
   constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
                   const Frequency& frequency);
 
+  // Constructor. Constructs a speed from a given dynamic pressure and mass
+  // density using the definition of dynamic pressure.
   Speed(const DynamicPressure& dynamic_pressure,
         const MassDensity& mass_density);
 
+  // Constructor. Constructs a speed from a given dynamic kinematic pressure
+  // using the definition of dynamic kinematic pressure.
   Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure);
 
+  // Constructor. Constructs a speed from a given Reynolds number, dynamic
+  // viscosity, mass density, and length using the definition of the Reynolds
+  // number.
   constexpr Speed(const ReynoldsNumber& reynolds_number,
                   const DynamicViscosity& dynamic_viscosity,
                   const MassDensity& mass_density, const Length& length);
 
+  // Constructor. Constructs a speed from a given Reynolds number, kinematic
+  // viscosity, and length using the definition of the Reynolds number.
   constexpr Speed(
       const ReynoldsNumber& reynolds_number,
       const KinematicViscosity& kinematic_viscosity, const Length& length);
 
+  // Constructor. Constructs a speed from a given sound speed and Mach number
+  // using the definition of the Mach number.
   constexpr Speed(const SoundSpeed& sound_speed, const MachNumber& mach_number);
 
+  // Destructor. Destroys this speed.
+  ~Speed() noexcept = default;
+
+  // Copy constructor. Constructs a speed by copying another one.
+  constexpr Speed(const Speed& other) = default;
+
+  // Move constructor. Constructs a speed by moving another one.
+  constexpr Speed(Speed&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this speed by copying another one.
+  constexpr Speed& operator=(const Speed& other) = default;
+
+  // Move assignment operator. Assigns this speed by moving another one.
+  constexpr Speed& operator=(Speed&& other) noexcept = default;
+
+  // Statically creates a speed of zero.
   static constexpr Speed Zero() {
     return Speed{0.0};
   }
 
+  // Statically creates a speed with a given value expressed in a given speed
+  // unit.
   template <Unit::Speed Unit>
   static constexpr Speed Create(const double value) {
     return Speed{
@@ -153,6 +194,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a speed with a given value expressed in the
+  // standard speed unit.
   explicit constexpr Speed(const double value)
     : DimensionalScalarQuantity<Unit::Speed>(value) {}
 

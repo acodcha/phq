@@ -25,26 +25,61 @@ namespace PhQ {
 // Forward declaration for class KinematicPressureDifference.
 class StaticKinematicPressure;
 
-// Kinematic pressure difference.
+// Kinematic pressure difference. Kinematic pressure is pressure divided by mass
+// density, so kinematic pressure difference is pressure difference divided by
+// mass density.
 class KinematicPressureDifference
   : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
 public:
+  // Default constructor. Constructs a kinematic pressure difference with an
+  // uninitialized value.
   KinematicPressureDifference() = default;
 
+  // Constructor. Constructs a kinematic pressure difference with a given value
+  // expressed in a given specific energy unit.
   KinematicPressureDifference(
       const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
+  // Constructor. Constructs a kinematic pressure difference from a given
+  // pressure difference and mass density using the definition of kinematic
+  // pressure difference.
   constexpr KinematicPressureDifference(
       const PressureDifference& pressure_difference,
       const MassDensity& mass_density)
     : KinematicPressureDifference(
         pressure_difference.Value() / mass_density.Value()) {}
 
+  // Destructor. Destroys this kinematic pressure difference.
+  ~KinematicPressureDifference() noexcept = default;
+
+  // Copy constructor. Constructs a kinematic pressure difference by copying
+  // another one.
+  constexpr KinematicPressureDifference(
+      const KinematicPressureDifference& other) = default;
+
+  // Move constructor. Constructs a kinematic pressure difference by moving
+  // another one.
+  constexpr KinematicPressureDifference(
+      KinematicPressureDifference&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this kinematic pressure difference by
+  // copying another one.
+  constexpr KinematicPressureDifference& operator=(
+      const KinematicPressureDifference& other) = default;
+
+  // Move assignment operator. Assigns this kinematic pressure difference by
+  // moving another one.
+  constexpr KinematicPressureDifference& operator=(
+      KinematicPressureDifference&& other) noexcept = default;
+
+  // Statically creates a kinematic pressure difference of zero.
   static constexpr KinematicPressureDifference Zero() {
     return KinematicPressureDifference{0.0};
   }
 
+  // Statically creates a kinematic pressure difference with a given value
+  // expressed in a given specific energy unit.
   template <Unit::SpecificEnergy Unit>
   static constexpr KinematicPressureDifference Create(const double value) {
     return KinematicPressureDifference{
@@ -108,6 +143,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a kinematic pressure difference with a given value
+  // expressed in the standard specific energy unit.
   explicit constexpr KinematicPressureDifference(const double value)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
 

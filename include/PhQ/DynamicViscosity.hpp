@@ -27,32 +27,69 @@ class ReynoldsNumber;
 class ThermalConductivityScalar;
 class SpecificIsobaricHeatCapacity;
 
-// Dynamic viscosity, also known as molecular dynamic viscosity.
+// Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic
+// viscosity is the relationship between the viscous stress of a material and
+// its corresponding strain rate. Not to be confused with kinematic viscosity,
+// which is dynamic viscosity divided by mass density.
 class DynamicViscosity
   : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
 public:
+  // Default constructor. Constructs a dynamic viscosity with an uninitialized
+  // value.
   DynamicViscosity() = default;
 
+  // Constructor. Constructs a dynamic viscosity with a given value expressed in
+  // a given dynamic viscosity unit.
   DynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
+  // Constructor. Constructs a dynamic viscosity from a given kinematic
+  // viscosity and mass density using the definition of kinematic viscosity.
   constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity,
                              const MassDensity& mass_density)
     : DynamicViscosity(kinematic_viscosity.Value() * mass_density.Value()) {}
 
+  // Constructor. Constructs a dynamic viscosity from a given Reynolds number,
+  // mass density, speed, and length using the definition of the Reynolds
+  // number.
   constexpr DynamicViscosity(
       const ReynoldsNumber& reynolds_number, const MassDensity& mass_density,
       const Speed& speed, const Length& length);
 
+  // Constructor. Constructs a dynamic viscosity from a given Prandtl number,
+  // thermal conductivity, and specific isobaric heat capacity using the
+  // definition of the Prandtl number.
   constexpr DynamicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
+  // Destructor. Destroys this dynamic viscosity.
+  ~DynamicViscosity() noexcept = default;
+
+  // Copy constructor. Constructs a dynamic viscosity by copying another one.
+  constexpr DynamicViscosity(const DynamicViscosity& other) = default;
+
+  // Move constructor. Constructs a dynamic viscosity by moving another one.
+  constexpr DynamicViscosity(DynamicViscosity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this dynamic viscosity by copying another
+  // one.
+  constexpr DynamicViscosity& operator=(
+      const DynamicViscosity& other) = default;
+
+  // Move assignment operator. Assigns this dynamic viscosity by moving another
+  // one.
+  constexpr DynamicViscosity& operator=(
+      DynamicViscosity&& other) noexcept = default;
+
+  // Statically creates a dynamic viscosity of zero.
   static constexpr DynamicViscosity Zero() {
     return DynamicViscosity{0.0};
   }
 
+  // Statically creates a dynamic viscosity with a given value expressed in a
+  // given dynamic viscosity unit.
   template <Unit::DynamicViscosity Unit>
   static constexpr DynamicViscosity Create(const double value) {
     return DynamicViscosity{
@@ -112,6 +149,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a dynamic viscosity with a given value expressed in
+  // the standard dynamic viscosity unit.
   explicit constexpr DynamicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
 };

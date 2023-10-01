@@ -25,15 +25,40 @@ namespace PhQ {
 class SubstanceAmount
   : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
 public:
+  // Default constructor. Constructs a substance amount with an uninitialized
+  // value.
   SubstanceAmount() = default;
 
+  // Constructor. Constructs a substance amount with a given value expressed in
+  // a given substance amount unit.
   SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value, unit) {}
 
+  // Destructor. Destroys this substance amount.
+  ~SubstanceAmount() noexcept = default;
+
+  // Copy constructor. Constructs a substance amount by copying another one.
+  constexpr SubstanceAmount(const SubstanceAmount& other) = default;
+
+  // Move constructor. Constructs a substance amount by moving another one.
+  constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this substance amount by copying another
+  // one.
+  constexpr SubstanceAmount& operator=(const SubstanceAmount& other) = default;
+
+  // Move assignment operator. Assigns this substance amount by moving another
+  // one.
+  constexpr SubstanceAmount& operator=(
+      SubstanceAmount&& other) noexcept = default;
+
+  // Statically creates a substance amount of zero.
   static constexpr SubstanceAmount Zero() {
     return SubstanceAmount{0.0};
   }
 
+  // Statically creates a substance amount with a given value expressed in a
+  // given substance amount unit.
   template <Unit::SubstanceAmount Unit>
   static constexpr SubstanceAmount Create(const double value) {
     return SubstanceAmount{
@@ -81,6 +106,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a substance amount with a given value expressed in
+  // the standard substance amount unit.
   explicit constexpr SubstanceAmount(const double value)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value) {}
 };

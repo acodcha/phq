@@ -24,32 +24,72 @@ namespace PhQ {
 class IsobaricHeatCapacity
   : public DimensionalScalarQuantity<Unit::HeatCapacity> {
 public:
+  // Default constructor. Constructs an isobaric heat capacity with an
+  // uninitialized value.
   IsobaricHeatCapacity() = default;
 
+  // Constructor. Constructs an isobaric heat capacity with a given value
+  // expressed in a given heat capacity unit.
   IsobaricHeatCapacity(const double value, const Unit::HeatCapacity unit)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
 
+  // Constructor. Constructs an isobaric heat capacity from a given gas constant
+  // and isochoric heat capacity using Mayer's relation.
   constexpr IsobaricHeatCapacity(
       const GasConstant& gas_constant,
       const IsochoricHeatCapacity& isochoric_heat_capacity);
 
+  // Constructor. Constructs an isobaric heat capacity from a given gas constant
+  // and specific heat ratio using the definition of the specific heat ratio and
+  // Mayer's relation.
   constexpr IsobaricHeatCapacity(const GasConstant& gas_constant,
                                  const SpecificHeatRatio& specific_heat_ratio);
 
+  // Constructor. Constructs an isobaric heat capacity from a given isochoric
+  // heat capacity and specific heat ratio using the definition of the specific
+  // heat ratio.
   constexpr IsobaricHeatCapacity(
       const IsochoricHeatCapacity& isochoric_heat_capacity,
       const SpecificHeatRatio& specific_heat_ratio)
     : IsobaricHeatCapacity(
         isochoric_heat_capacity.Value() * specific_heat_ratio.Value()) {}
 
+  // Constructor. Constructs an isobaric heat capacity from a given specific
+  // isobaric heat capacity and mass using the definition of the specific
+  // isobaric heat capacity.
   constexpr IsobaricHeatCapacity(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const Mass& mass);
 
+  // Destructor. Destroys this isobaric heat capacity.
+  ~IsobaricHeatCapacity() noexcept = default;
+
+  // Copy constructor. Constructs an isobaric heat capacity by copying another
+  // one.
+  constexpr IsobaricHeatCapacity(const IsobaricHeatCapacity& other) = default;
+
+  // Move constructor. Constructs an isobaric heat capacity by moving another
+  // one.
+  constexpr IsobaricHeatCapacity(
+      IsobaricHeatCapacity&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this isobaric heat capacity by copying
+  // another one.
+  constexpr IsobaricHeatCapacity& operator=(
+      const IsobaricHeatCapacity& other) = default;
+
+  // Move assignment operator. Assigns this isobaric heat capacity by moving
+  // another one.
+  constexpr IsobaricHeatCapacity& operator=(
+      IsobaricHeatCapacity&& other) noexcept = default;
+
+  // Statically creates an isobaric heat capacity of zero.
   static constexpr IsobaricHeatCapacity Zero() {
     return IsobaricHeatCapacity{0.0};
   }
 
+  // Statically creates an isobaric heat capacity with a given value expressed
+  // in a given heat capacity unit.
   template <Unit::HeatCapacity Unit>
   static constexpr IsobaricHeatCapacity Create(const double value) {
     return IsobaricHeatCapacity{
@@ -121,6 +161,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs an isobaric heat capacity with a given value
+  // expressed in the standard heat capacity unit.
   explicit constexpr IsobaricHeatCapacity(const double value)
     : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
 };

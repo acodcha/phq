@@ -28,23 +28,54 @@ class HeatFlux;
 // Heat flux scalar. Magnitude of the heat flux vector.
 class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
 public:
+  // Default constructor. Constructs a heat flux magnitude with an uninitialized
+  // value.
   HeatFluxMagnitude() = default;
 
+  // Constructor. Constructs a heat flux magnitude with a given value expressed
+  // in a given energy flux unit.
   HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit)
     : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
 
+  // Constructor. Constructs a heat flux magnitude from a given thermal
+  // conductivity scalar and temperature gradient magnitude using Fourier's law
+  // of heat conduction.
   constexpr HeatFluxMagnitude(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradientMagnitude& temperature_gradient_magnitude)
     : HeatFluxMagnitude(-thermal_conductivity_scalar.Value()
                         * temperature_gradient_magnitude.Value()) {}
 
+  // Constructor. Constructs a heat flux magnitude from a given heat flux
+  // vector.
   HeatFluxMagnitude(const HeatFlux& heat_flux);
 
+  // Destructor. Destroys this heat flux magnitude.
+  ~HeatFluxMagnitude() noexcept = default;
+
+  // Copy constructor. Constructs a heat flux magnitude by copying another one.
+  constexpr HeatFluxMagnitude(const HeatFluxMagnitude& other) = default;
+
+  // Move constructor. Constructs a heat flux magnitude by moving another one.
+  constexpr HeatFluxMagnitude(HeatFluxMagnitude&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this heat flux magnitude by copying
+  // another one.
+  constexpr HeatFluxMagnitude& operator=(
+      const HeatFluxMagnitude& other) = default;
+
+  // Move assignment operator. Assigns this heat flux magnitude by moving
+  // another one.
+  constexpr HeatFluxMagnitude& operator=(
+      HeatFluxMagnitude&& other) noexcept = default;
+
+  // Statically creates a heat flux magnitude of zero.
   static constexpr HeatFluxMagnitude Zero() {
     return HeatFluxMagnitude{0.0};
   }
 
+  // Statically creates a heat flux magnitude with a given value expressed in a
+  // given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFluxMagnitude Create(const double value) {
     return HeatFluxMagnitude{
@@ -96,6 +127,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a heat flux magnitude with a given value expressed
+  // in the standard energy flux unit.
   explicit constexpr HeatFluxMagnitude(const double value)
     : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
 };

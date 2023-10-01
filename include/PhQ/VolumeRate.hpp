@@ -26,21 +26,46 @@ namespace PhQ {
 // rate.
 class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
 public:
+  // Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;
 
+  // Constructor. Constructs a volume rate with a given value expressed in a
+  // given volume rate unit.
   VolumeRate(const double value, const Unit::VolumeRate unit)
     : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
+  // Constructor. Constructs a volume rate from a given volume and time using
+  // the definition of volume rate.
   constexpr VolumeRate(const Volume& volume, const Time& time)
     : VolumeRate(volume.Value() / time.Value()) {}
 
+  // Constructor. Constructs a volume rate from a given volume and frequency
+  // using the definition of volume rate.
   constexpr VolumeRate(const Volume& volume, const Frequency& frequency)
     : VolumeRate(volume.Value() * frequency.Value()) {}
 
+  // Destructor. Destroys this volume rate.
+  ~VolumeRate() noexcept = default;
+
+  // Copy constructor. Constructs a volume rate by copying another one.
+  constexpr VolumeRate(const VolumeRate& other) = default;
+
+  // Move constructor. Constructs a volume rate by moving another one.
+  constexpr VolumeRate(VolumeRate&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this volume rate by copying another one.
+  constexpr VolumeRate& operator=(const VolumeRate& other) = default;
+
+  // Move assignment operator. Assigns this volume rate by moving another one.
+  constexpr VolumeRate& operator=(VolumeRate&& other) noexcept = default;
+
+  // Statically creates a volume rate of zero.
   static constexpr VolumeRate Zero() {
     return VolumeRate{0.0};
   }
 
+  // Statically creates a volume rate with a given value expressed in a given
+  // volume rate unit.
   template <Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) {
     return VolumeRate{
@@ -97,6 +122,8 @@ public:
   }
 
 private:
+  // Constructor. Constructs a volume rate with a given value expressed in the
+  // standard volume rate unit.
   explicit constexpr VolumeRate(const double value)
     : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
 };
