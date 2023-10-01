@@ -48,51 +48,6 @@ enum class Force : int8_t {
   // Dyne (dyn) force unit.
   Dyne,
 
-  // Joule per mile (J/mi) force unit.
-  JoulePerMile,
-
-  // Joule per kilometre (J/km) force unit.
-  JoulePerKilometre,
-
-  // Kilojoule per mile (kJ/mi) force unit.
-  KilojoulePerMile,
-
-  // Watt-minute per mile (W·min/mi) force unit.
-  WattMinutePerMile,
-
-  // Watt-hour per mile (W·hr/mi) force unit.
-  WattHourPerMile,
-
-  // Watt-minute per kilometre (W·min/km) force unit.
-  WattMinutePerKilometre,
-
-  // Watt-hour per kilometre (W·hr/km) force unit.
-  WattHourPerKilometre,
-
-  // Watt-minute per metre (W·min/m) force unit.
-  WattMinutePerMetre,
-
-  // Watt-hour per metre (W·hr/m) force unit.
-  WattHourPerMetre,
-
-  // Kilowatt-minute per mile (kW·min/mi) force unit.
-  KilowattMinutePerMile,
-
-  // Kilowatt-hour per mile (kW·hr/mi) force unit.
-  KilowattHourPerMile,
-
-  // Kilowatt-minute per kilometre (kW·min/km) force unit.
-  KilowattMinutePerKilometre,
-
-  // Kilowatt-hour per kilometre (kW·hr/km) force unit.
-  KilowattHourPerKilometre,
-
-  // Kilowatt-minute per metre (kW·min/m) force unit.
-  KilowattMinutePerMetre,
-
-  // Kilowatt-hour per metre (kW·hr/m) force unit.
-  KilowattHourPerMetre,
-
   // Pound (lbf) force unit.
   Pound,
 };
@@ -127,84 +82,42 @@ inline const std::map<Unit::Force, UnitSystem> RelatedUnitSystems<Unit::Force>{
 
 template <>
 inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
-    {Unit::Force::Newton,                     "N"        },
-    {Unit::Force::Kilonewton,                 "kN"       },
-    {Unit::Force::Meganewton,                 "MN"       },
-    {Unit::Force::Giganewton,                 "GN"       },
-    {Unit::Force::Millinewton,                "mN"       },
-    {Unit::Force::Micronewton,                "μN"       },
-    {Unit::Force::Nanonewton,                 "nN"       },
-    {Unit::Force::Dyne,                       "dyn"      },
-    {Unit::Force::JoulePerMile,               "J/mi"     },
-    {Unit::Force::JoulePerKilometre,          "J/km"     },
-    {Unit::Force::KilojoulePerMile,           "kJ/mi"    },
-    {Unit::Force::WattMinutePerMile,          "W·min/mi" },
-    {Unit::Force::WattHourPerMile,            "W·hr/mi"  },
-    {Unit::Force::WattMinutePerKilometre,     "W·min/km" },
-    {Unit::Force::WattHourPerKilometre,       "W·hr/km"  },
-    {Unit::Force::WattMinutePerMetre,         "W·min/m"  },
-    {Unit::Force::WattHourPerMetre,           "W·hr/m"   },
-    {Unit::Force::KilowattMinutePerMile,      "kW·min/mi"},
-    {Unit::Force::KilowattHourPerMile,        "kW·hr/mi" },
-    {Unit::Force::KilowattMinutePerKilometre, "kW·min/km"},
-    {Unit::Force::KilowattHourPerKilometre,   "kW·hr/km" },
-    {Unit::Force::KilowattMinutePerMetre,     "kW·min/m" },
-    {Unit::Force::KilowattHourPerMetre,       "kW·hr/m"  },
-    {Unit::Force::Pound,                      "lbf"      },
+    {Unit::Force::Newton,      "N"  },
+    {Unit::Force::Kilonewton,  "kN" },
+    {Unit::Force::Meganewton,  "MN" },
+    {Unit::Force::Giganewton,  "GN" },
+    {Unit::Force::Millinewton, "mN" },
+    {Unit::Force::Micronewton, "μN" },
+    {Unit::Force::Nanonewton,  "nN" },
+    {Unit::Force::Dyne,        "dyn"},
+    {Unit::Force::Pound,       "lbf"},
 };
 
 template <>
-inline const std::unordered_map<std::string_view, Unit::Force> Spellings<
-    Unit::Force>{
-    {"N",         Unit::Force::Newton                    },
-    {"J/m",       Unit::Force::Newton                    },
-    {"kJ/km",     Unit::Force::Newton                    },
-    {"kg·m/s^2",  Unit::Force::Newton                    },
-    {"kg*m/s^2",  Unit::Force::Newton                    },
-    {"kg·m/s2",   Unit::Force::Newton                    },
-    {"kg*m/s2",   Unit::Force::Newton                    },
-    {"kN",        Unit::Force::Kilonewton                },
-    {"MN",        Unit::Force::Meganewton                },
-    {"GN",        Unit::Force::Giganewton                },
-    {"mN",        Unit::Force::Millinewton               },
-    {"μN",        Unit::Force::Micronewton               },
-    {"uN",        Unit::Force::Micronewton               },
-    {"nJ/mm",     Unit::Force::Micronewton               },
-    {"g·mm/s^2",  Unit::Force::Micronewton               },
-    {"g*mm/s^2",  Unit::Force::Micronewton               },
-    {"g·mm/s2",   Unit::Force::Micronewton               },
-    {"g*mm/s2",   Unit::Force::Micronewton               },
-    {"nN",        Unit::Force::Nanonewton                },
-    {"dyn",       Unit::Force::Dyne                      },
-    {"J/mi",      Unit::Force::JoulePerMile              },
-    {"J/km",      Unit::Force::JoulePerKilometre         },
-    {"kJ/mi",     Unit::Force::KilojoulePerMile          },
-    {"W·min/mi",  Unit::Force::WattMinutePerMile         },
-    {"W*min/mi",  Unit::Force::WattMinutePerMile         },
-    {"W·hr/mi",   Unit::Force::WattHourPerMile           },
-    {"W*hr/mi",   Unit::Force::WattHourPerMile           },
-    {"W·min/km",  Unit::Force::WattMinutePerKilometre    },
-    {"W*min/km",  Unit::Force::WattMinutePerKilometre    },
-    {"W·hr/km",   Unit::Force::WattHourPerKilometre      },
-    {"W*hr/km",   Unit::Force::WattHourPerKilometre      },
-    {"W·min/m",   Unit::Force::WattMinutePerMetre        },
-    {"W*min/m",   Unit::Force::WattMinutePerMetre        },
-    {"W·hr/m",    Unit::Force::WattHourPerMetre          },
-    {"W*hr/m",    Unit::Force::WattHourPerMetre          },
-    {"kW·min/mi", Unit::Force::KilowattMinutePerMile     },
-    {"kW*min/mi", Unit::Force::KilowattMinutePerMile     },
-    {"kW·hr/mi",  Unit::Force::KilowattHourPerMile       },
-    {"kW*hr/mi",  Unit::Force::KilowattHourPerMile       },
-    {"kW·min/km", Unit::Force::KilowattMinutePerKilometre},
-    {"kW*min/km", Unit::Force::KilowattMinutePerKilometre},
-    {"kW·hr/km",  Unit::Force::KilowattHourPerKilometre  },
-    {"kW*hr/km",  Unit::Force::KilowattHourPerKilometre  },
-    {"kW·min/m",  Unit::Force::KilowattMinutePerMetre    },
-    {"kW*min/m",  Unit::Force::KilowattMinutePerMetre    },
-    {"kW·hr/m",   Unit::Force::KilowattHourPerMetre      },
-    {"kW*hr/m",   Unit::Force::KilowattHourPerMetre      },
-    {"lbf",       Unit::Force::Pound                     },
-    {"lb",        Unit::Force::Pound                     },
+inline const std::unordered_map<std::string_view, Unit::Force>
+    Spellings<Unit::Force>{
+        {"N",        Unit::Force::Newton     },
+        {"J/m",      Unit::Force::Newton     },
+        {"kJ/km",    Unit::Force::Newton     },
+        {"kg·m/s^2", Unit::Force::Newton     },
+        {"kg*m/s^2", Unit::Force::Newton     },
+        {"kg·m/s2",  Unit::Force::Newton     },
+        {"kg*m/s2",  Unit::Force::Newton     },
+        {"kN",       Unit::Force::Kilonewton },
+        {"MN",       Unit::Force::Meganewton },
+        {"GN",       Unit::Force::Giganewton },
+        {"mN",       Unit::Force::Millinewton},
+        {"μN",       Unit::Force::Micronewton},
+        {"uN",       Unit::Force::Micronewton},
+        {"nJ/mm",    Unit::Force::Micronewton},
+        {"g·mm/s^2", Unit::Force::Micronewton},
+        {"g*mm/s^2", Unit::Force::Micronewton},
+        {"g·mm/s2",  Unit::Force::Micronewton},
+        {"g*mm/s2",  Unit::Force::Micronewton},
+        {"nN",       Unit::Force::Nanonewton },
+        {"dyn",      Unit::Force::Dyne       },
+        {"lbf",      Unit::Force::Pound      },
+        {"lb",       Unit::Force::Pound      },
 };
 
 template <>
@@ -257,111 +170,6 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
   value *= 100000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::JoulePerMile>(
-    double& value) noexcept {
-  value *= 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::JoulePerKilometre>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilojoulePerMile>(
-    double& value) noexcept {
-  value *= 1.609344;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattMinutePerMile>(
-    double& value) noexcept {
-  value *= 1609.344 / 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattHourPerMile>(
-    double& value) noexcept {
-  value *= 1609.344 / 3600.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattMinutePerKilometre>(
-    double& value) noexcept {
-  value /= 0.06;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattHourPerKilometre>(
-    double& value) noexcept {
-  value /= 3.6;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattMinutePerMetre>(
-    double& value) noexcept {
-  value /= 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::WattHourPerMetre>(
-    double& value) noexcept {
-  value /= 3600.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattMinutePerMile>(
-    double& value) noexcept {
-  value *= 1609.344 / 60000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattHourPerMile>(
-    double& value) noexcept {
-  value *= 1609.344 / 3600000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattMinutePerKilometre>(
-    double& value) noexcept {
-  value /= 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattHourPerKilometre>(
-    double& value) noexcept {
-  value /= 3600.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattMinutePerMetre>(
-    double& value) noexcept {
-  value /= 60000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::KilowattHourPerMetre>(
-    double& value) noexcept {
-  value /= 3600000.0;
 }
 
 template <>
@@ -424,111 +232,6 @@ ConversionToStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::JoulePerMile>(
-    double& value) noexcept {
-  value /= 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::JoulePerKilometre>(
-    double& value) noexcept {
-  value *= 0.001;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilojoulePerMile>(
-    double& value) noexcept {
-  value /= 1.609344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattMinutePerMile>(
-    double& value) noexcept {
-  value *= 60.0 / 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattHourPerMile>(
-    double& value) noexcept {
-  value *= 3600.0 / 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattMinutePerKilometre>(
-    double& value) noexcept {
-  value *= 0.06;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattHourPerKilometre>(
-    double& value) noexcept {
-  value *= 3.6;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattMinutePerMetre>(
-    double& value) noexcept {
-  value *= 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::WattHourPerMetre>(
-    double& value) noexcept {
-  value *= 3600.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattMinutePerMile>(
-    double& value) noexcept {
-  value *= 60000.0 / 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattHourPerMile>(
-    double& value) noexcept {
-  value *= 3600000.0 / 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattMinutePerKilometre>(
-    double& value) noexcept {
-  value *= 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattHourPerKilometre>(
-    double& value) noexcept {
-  value *= 3600.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattMinutePerMetre>(
-    double& value) noexcept {
-  value *= 60000.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::KilowattHourPerMetre>(
-    double& value) noexcept {
-  value *= 3600000.0;
-}
-
-template <>
-inline constexpr void
 ConversionToStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept {
   value *= 0.45359237 * 9.80665;
 }
@@ -538,61 +241,23 @@ inline const std::map<
     Unit::Force, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Force>{
         {Unit::Force::Newton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Newton>            },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Newton>     },
         {Unit::Force::Kilonewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton>        },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton> },
         {Unit::Force::Meganewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton>        },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton> },
         {Unit::Force::Giganewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton>        },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton> },
         {Unit::Force::Millinewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>       },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>},
         {Unit::Force::Micronewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>       },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>},
         {Unit::Force::Nanonewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton>        },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton> },
         {Unit::Force::Dyne,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>              },
-        {Unit::Force::JoulePerMile,
-         ConversionsFromStandard<Unit::Force, Unit::Force::JoulePerMile>      },
-        {Unit::Force::JoulePerKilometre,
-         ConversionsFromStandard<Unit::Force, Unit::Force::JoulePerKilometre> },
-        {Unit::Force::KilojoulePerMile,
-         ConversionsFromStandard<Unit::Force, Unit::Force::KilojoulePerMile>  },
-        {Unit::Force::WattMinutePerMile,
-         ConversionsFromStandard<Unit::Force, Unit::Force::WattMinutePerMile> },
-        {Unit::Force::WattHourPerMile,
-         ConversionsFromStandard<Unit::Force, Unit::Force::WattHourPerMile>   },
-        {Unit::Force::WattMinutePerKilometre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::WattMinutePerKilometre>                                 },
-        {Unit::Force::WattHourPerKilometre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::WattHourPerKilometre>                                   },
-        {Unit::Force::WattMinutePerMetre,
-         ConversionsFromStandard<Unit::Force, Unit::Force::WattMinutePerMetre>},
-        {Unit::Force::WattHourPerMetre,
-         ConversionsFromStandard<Unit::Force, Unit::Force::WattHourPerMetre>  },
-        {Unit::Force::KilowattMinutePerMile,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerMile>                                  },
-        {Unit::Force::KilowattHourPerMile,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattHourPerMile>                                    },
-        {Unit::Force::KilowattMinutePerKilometre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerKilometre>                             },
-        {Unit::Force::KilowattHourPerKilometre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattHourPerKilometre>                               },
-        {Unit::Force::KilowattMinutePerMetre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerMetre>                                 },
-        {Unit::Force::KilowattHourPerMetre,
-         ConversionsFromStandard<Unit::Force,
-         Unit::Force::KilowattHourPerMetre>                                   },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>       },
         {Unit::Force::Pound,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Pound>             },
+         ConversionsFromStandard<Unit::Force, Unit::Force::Pound>      },
 };
 
 template <>
@@ -600,58 +265,23 @@ inline const std::map<Unit::Force, std::function<void(double* const values,
                                                       const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Force>{
         {Unit::Force::Newton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Newton>              },
+         ConversionsToStandard<Unit::Force, Unit::Force::Newton>     },
         {Unit::Force::Kilonewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton>          },
+         ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton> },
         {Unit::Force::Meganewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Meganewton>          },
+         ConversionsToStandard<Unit::Force, Unit::Force::Meganewton> },
         {Unit::Force::Giganewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Giganewton>          },
+         ConversionsToStandard<Unit::Force, Unit::Force::Giganewton> },
         {Unit::Force::Millinewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>         },
+         ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>},
         {Unit::Force::Micronewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>         },
+         ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>},
         {Unit::Force::Nanonewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton>          },
+         ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton> },
         {Unit::Force::Dyne,
-         ConversionsToStandard<Unit::Force, Unit::Force::Dyne>                },
-        {Unit::Force::JoulePerMile,
-         ConversionsToStandard<Unit::Force, Unit::Force::JoulePerMile>        },
-        {Unit::Force::JoulePerKilometre,
-         ConversionsToStandard<Unit::Force, Unit::Force::JoulePerKilometre>   },
-        {Unit::Force::KilojoulePerMile,
-         ConversionsToStandard<Unit::Force, Unit::Force::KilojoulePerMile>    },
-        {Unit::Force::WattMinutePerMile,
-         ConversionsToStandard<Unit::Force, Unit::Force::WattMinutePerMile>   },
-        {Unit::Force::WattHourPerMile,
-         ConversionsToStandard<Unit::Force, Unit::Force::WattHourPerMile>     },
-        {Unit::Force::WattMinutePerKilometre,
-         ConversionsToStandard<Unit::Force,
-         Unit::Force::WattMinutePerKilometre>                                 },
-        {Unit::Force::WattHourPerKilometre,
-         ConversionsToStandard<Unit::Force, Unit::Force::WattHourPerKilometre>},
-        {Unit::Force::WattMinutePerMetre,
-         ConversionsToStandard<Unit::Force, Unit::Force::WattMinutePerMetre>  },
-        {Unit::Force::WattHourPerMetre,
-         ConversionsToStandard<Unit::Force, Unit::Force::WattHourPerMetre>    },
-        {Unit::Force::KilowattMinutePerMile,
-         ConversionsToStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerMile>                                  },
-        {Unit::Force::KilowattHourPerMile,
-         ConversionsToStandard<Unit::Force, Unit::Force::KilowattHourPerMile> },
-        {Unit::Force::KilowattMinutePerKilometre,
-         ConversionsToStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerKilometre>                             },
-        {Unit::Force::KilowattHourPerKilometre,
-         ConversionsToStandard<Unit::Force,
-         Unit::Force::KilowattHourPerKilometre>                               },
-        {Unit::Force::KilowattMinutePerMetre,
-         ConversionsToStandard<Unit::Force,
-         Unit::Force::KilowattMinutePerMetre>                                 },
-        {Unit::Force::KilowattHourPerMetre,
-         ConversionsToStandard<Unit::Force, Unit::Force::KilowattHourPerMetre>},
+         ConversionsToStandard<Unit::Force, Unit::Force::Dyne>       },
         {Unit::Force::Pound,
-         ConversionsToStandard<Unit::Force, Unit::Force::Pound>               },
+         ConversionsToStandard<Unit::Force, Unit::Force::Pound>      },
 };
 
 }  // namespace Internal

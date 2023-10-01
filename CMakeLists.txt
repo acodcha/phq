@@ -332,6 +332,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(unit_time GTest::gtest_main)
   gtest_discover_tests(unit_time)
 
+  add_executable(unit_transport_energy_consumption ${PROJECT_SOURCE_DIR}/test/Unit/TransportEnergyConsumption.cpp)
+  target_link_libraries(unit_transport_energy_consumption GTest::gtest_main)
+  gtest_discover_tests(unit_transport_energy_consumption)
+
   add_executable(unit_volume ${PROJECT_SOURCE_DIR}/test/Unit/Volume.cpp)
   target_link_libraries(unit_volume GTest::gtest_main)
   gtest_discover_tests(unit_volume)

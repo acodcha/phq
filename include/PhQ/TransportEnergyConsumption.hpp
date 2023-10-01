@@ -19,26 +19,27 @@
 #include "Length.hpp"
 #include "Power.hpp"
 #include "Speed.hpp"
-#include "Unit/Force.hpp"
+#include "Unit/TransportEnergyConsumption.hpp"
 
 namespace PhQ {
 
 // Transport energy consumption, also known as energy consumption in transport.
-// A measure of energy use per distance traveled. Note that energy per length
-// results in units of force. Energy consumption in transport is often measured
-// in joules per metre (J/m), kilowatt-hours per kilometre (kW·hr/km), or
-// kilowatt-hours per mile (kW·hr/mi).
+// A measure of energy use per distance traveled. Energy consumption in
+// transport is often measured in joules per metre (J/m), kilowatt-hours per
+// kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
 class TransportEnergyConsumption
-  : public DimensionalScalarQuantity<Unit::Force> {
+  : public DimensionalScalarQuantity<Unit::TransportEnergyConsumption> {
 public:
   // Default constructor. Constructs a transport energy consumption with an
   // uninitialized value.
   TransportEnergyConsumption() = default;
 
   // Constructor. Constructs a transport energy consumption with a given value
-  // expressed in a given force unit.
-  TransportEnergyConsumption(const double value, const Unit::Force unit)
-    : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
+  // expressed in a given transport energy consumption unit.
+  TransportEnergyConsumption(
+      const double value, const Unit::TransportEnergyConsumption unit)
+    : DimensionalScalarQuantity<Unit::TransportEnergyConsumption>(value, unit) {
+  }
 
   // Constructor. Constructs a transport energy consumption from a given length
   // and energy using the definition of transport energy consumption.
@@ -75,11 +76,12 @@ public:
   }
 
   // Statically creates a transport energy consumption with a given value
-  // expressed in a given force unit.
-  template <Unit::Force Unit>
+  // expressed in a given transport energy consumption unit.
+  template <Unit::TransportEnergyConsumption Unit>
   static constexpr TransportEnergyConsumption Create(const double value) {
     return TransportEnergyConsumption{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+        StaticConvertCopy<Unit::TransportEnergyConsumption, Unit,
+                          Standard<Unit::TransportEnergyConsumption>>(value)};
   }
 
   constexpr TransportEnergyConsumption operator+(
@@ -136,9 +138,9 @@ public:
 
 private:
   // Constructor. Constructs a transport energy consumption with a given value
-  // expressed in the standard force unit.
+  // expressed in the standard transport energy consumption unit.
   explicit constexpr TransportEnergyConsumption(const double value)
-    : DimensionalScalarQuantity<Unit::Force>(value) {}
+    : DimensionalScalarQuantity<Unit::TransportEnergyConsumption>(value) {}
 };
 
 inline constexpr bool operator==(
