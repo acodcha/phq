@@ -17,70 +17,81 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Time, Accessor) {
-  const Time time{10.0, Unit::Time::Second};
-  EXPECT_DOUBLE_EQ(time.Value(), 10.0);
-  EXPECT_DOUBLE_EQ(time.Value(Unit::Time::Minute), 10.0 / 60.0);
+TEST(Time, ArithmeticAddition) {
+  EXPECT_EQ(Time(1.0, Unit::Time::Second) + Time(2.0, Unit::Time::Second),
+            Time(3.0, Unit::Time::Second));
+
+  Time quantity{1.0, Unit::Time::Second};
+  quantity += Time(2.0, Unit::Time::Second);
+  EXPECT_EQ(quantity, Time(3.0, Unit::Time::Second));
 }
 
-TEST(Time, Arithmetic) {
-  const Time time0{1.0, Unit::Time::Second};
-  EXPECT_EQ(time0 + time0, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(time0 - time0, Time(0.0, Unit::Time::Second));
-  EXPECT_EQ(time0 * 2.0, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(2.0 * time0, Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(time0 / 2.0, Time(0.5, Unit::Time::Second));
-  EXPECT_EQ(time0 / time0, 1.0);
+TEST(Time, ArithmeticDivision) {
+  EXPECT_EQ(Time(8.0, Unit::Time::Second) / 2.0, Time(4.0, Unit::Time::Second));
 
-  Time time1{1.0, Unit::Time::Second};
-  time1 += Time{1.0, Unit::Time::Second};
-  EXPECT_EQ(time1, Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Time(8.0, Unit::Time::Second) / Time(2.0, Unit::Time::Second), 4.0);
 
-  Time time2{2.0, Unit::Time::Second};
-  time2 -= Time{1.0, Unit::Time::Second};
-  EXPECT_EQ(time2, Time(1.0, Unit::Time::Second));
-
-  Time time3{1.0, Unit::Time::Second};
-  time3 *= 2.0;
-  EXPECT_EQ(time3, Time(2.0, Unit::Time::Second));
-
-  Time time4{2.0, Unit::Time::Second};
-  time4 /= 2.0;
-  EXPECT_EQ(time4, Time(1.0, Unit::Time::Second));
+  Time quantity{8.0, Unit::Time::Second};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Time(4.0, Unit::Time::Second));
 }
 
-TEST(Time, Comparison) {
-  const Time time0{0.1, Unit::Time::Second};
-  const Time time1{0.2, Unit::Time::Second};
-  EXPECT_EQ(time0, time0);
-  EXPECT_NE(time0, time1);
-  EXPECT_LT(time0, time1);
-  EXPECT_GT(time1, time0);
-  EXPECT_LE(time0, time0);
-  EXPECT_LE(time0, time1);
-  EXPECT_GE(time0, time0);
-  EXPECT_GE(time1, time0);
+TEST(Time, ArithmeticMultiplication) {
+  EXPECT_EQ(Time(4.0, Unit::Time::Second) * 2.0, Time(8.0, Unit::Time::Second));
+
+  EXPECT_EQ(2.0 * Time(4.0, Unit::Time::Second), Time(8.0, Unit::Time::Second));
+
+  Time quantity{4.0, Unit::Time::Second};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Time(8.0, Unit::Time::Second));
 }
 
-TEST(Time, Constructor) {
-  constexpr Time time0{};
-  const Time time1{4.0, Unit::Time::Minute};
-  constexpr Time time2{Time::Create<Unit::Time::Minute>(4.0)};
+TEST(Time, ArithmeticSubtraction) {
+  EXPECT_EQ(Time(3.0, Unit::Time::Second) - Time(2.0, Unit::Time::Second),
+            Time(1.0, Unit::Time::Second));
+
+  Time quantity{3.0, Unit::Time::Second};
+  quantity -= Time(2.0, Unit::Time::Second);
+  EXPECT_EQ(quantity, Time(1.0, Unit::Time::Second));
 }
 
-TEST(Time, Copy) {
-  const Time reference{1.11, Unit::Time::Second};
-  const Time first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Time, Comparisons) {
+  const Time first{0.1, Unit::Time::Second};
+  const Time second{0.2, Unit::Time::Second};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Time, CopyAssignment) {
+  const Time first{1.11, Unit::Time::Second};
   Time second = Time::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Time, CopyConstructor) {
+  const Time first{1.11, Unit::Time::Second};
+  const Time second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Time, Create) {
+  constexpr Time quantity = Time::Create<Unit::Time::Second>(1.11);
+  EXPECT_EQ(quantity, Time(1.11, Unit::Time::Second));
+}
+
+TEST(Time, DefaultConstructor) {
+  EXPECT_NO_THROW(Time{});
 }
 
 TEST(Time, Dimensions) {
@@ -88,73 +99,98 @@ TEST(Time, Dimensions) {
 }
 
 TEST(Time, Hash) {
-  const Time time0{10.0, Unit::Time::Second};
-  const Time time1{10.000001, Unit::Time::Second};
-  const Time time2{11.0, Unit::Time::Second};
-  const Time time3{-10.0, Unit::Time::Second};
-  const Time time4{20000.0, Unit::Time::Second};
-  const Time time5{-123.456, Unit::Time::Second};
-  const std::hash<Time> hasher;
-  EXPECT_NE(hasher(time0), hasher(time1));
-  EXPECT_NE(hasher(time0), hasher(time2));
-  EXPECT_NE(hasher(time0), hasher(time3));
-  EXPECT_NE(hasher(time0), hasher(time4));
-  EXPECT_NE(hasher(time0), hasher(time5));
-  const std::unordered_set<Time> unordered{
-      time0, time1, time2, time3, time4, time5};
+  const Time first{1.11, Unit::Time::Second};
+  const Time second{1.110001, Unit::Time::Second};
+  const Time third{-1.11, Unit::Time::Second};
+  const std::hash<Time> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Time, JSON) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"s\"}");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).JSON(Unit::Time::Minute),
-            "{\"value\":-5.000000000000000,\"unit\":\"min\"}");
+  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).JSON(Unit::Time::Minute),
+            "{\"value\":-2.220000000000000,\"unit\":\"min\"}");
 }
 
-TEST(Time, Move) {
-  const Time reference{1.11, Unit::Time::Second};
-  Time first{1.11, Unit::Time::Second};
-  Time second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Time, MoveAssignment) {
+  const Time first{1.11, Unit::Time::Second};
+  Time second{1.11, Unit::Time::Second};
   Time third = Time::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Time, MoveConstructor) {
+  const Time first{1.11, Unit::Time::Second};
+  Time second{1.11, Unit::Time::Second};
+  Time third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Time, MutableValue) {
+  Time quantity{1.11, Unit::Time::Second};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(Time, Print) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).Print(), "1.110000000000000 s");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).Print(Unit::Time::Minute),
-            "-5.000000000000000 min");
+  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).Print(Unit::Time::Minute),
+            "-2.220000000000000 min");
+}
+
+TEST(Time, SetValue) {
+  Time quantity{1.11, Unit::Time::Second};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Time, SizeOf) {
-  const Time time{1.11, Unit::Time::Second};
-  EXPECT_EQ(sizeof(time), sizeof(double));
+  EXPECT_EQ(sizeof(Time{}), sizeof(double));
+}
+
+TEST(Time, StandardConstructor) {
+  EXPECT_NO_THROW(Time(1.11, Unit::Time::Minute));
+}
+
+TEST(Time, StaticValue) {
+  constexpr Time quantity = Time::Create<Unit::Time::Minute>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::Time::Minute>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(Time, Stream) {
-  const Time time{1.11, Unit::Time::Second};
+  const Time quantity{1.11, Unit::Time::Second};
   std::ostringstream stream;
-  stream << time;
-  EXPECT_EQ(stream.str(), time.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Time, Unit) {
   EXPECT_EQ(Time::Unit(), Standard<Unit::Time>);
 }
 
+TEST(Time, Value) {
+  EXPECT_EQ(Time(1.11, Unit::Time::Second).Value(), 1.11);
+  EXPECT_EQ(Time(1.11, Unit::Time::Minute).Value(Unit::Time::Minute), 1.11);
+}
+
 TEST(Time, XML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(),
             "<value>1.110000000000000</value><unit>s</unit>");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).XML(Unit::Time::Minute),
-            "<value>-5.000000000000000</value><unit>min</unit>");
+  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).XML(Unit::Time::Minute),
+            "<value>-2.220000000000000</value><unit>min</unit>");
 }
 
 TEST(Time, YAML) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).YAML(),
             "{value:1.110000000000000,unit:\"s\"}");
-  EXPECT_EQ(Time(-5.0, Unit::Time::Minute).YAML(Unit::Time::Minute),
-            "{value:-5.000000000000000,unit:\"min\"}");
+  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).YAML(Unit::Time::Minute),
+            "{value:-2.220000000000000,unit:\"min\"}");
 }
 
 TEST(Time, Zero) {

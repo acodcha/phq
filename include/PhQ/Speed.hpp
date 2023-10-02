@@ -169,6 +169,8 @@ public:
   constexpr Time operator/(
       const AccelerationMagnitude& acceleration_magnitude) const;
 
+  constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
+
   constexpr double operator/(const Speed& speed) const noexcept {
     return value_ / speed.value_;
   }

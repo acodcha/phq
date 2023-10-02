@@ -146,9 +146,11 @@ public:
 
   constexpr double operator*(const PhQ::Frequency& frequency) const noexcept;
 
-  constexpr Mass operator*(const MassRate& mass_rate) const;
+  constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Volume operator*(const VolumeRate& volume_rate) const;
+  constexpr Speed operator*(const AccelerationMagnitude& acceleration_magnitude) const;
+
+  constexpr Mass operator*(const MassRate& mass_rate) const;
 
   constexpr Energy operator*(const Power& power) const;
 
@@ -158,7 +160,7 @@ public:
 
   constexpr Displacement operator*(const Velocity& velocity) const;
 
-  constexpr Velocity operator*(const Acceleration& acceleration) const;
+  constexpr Volume operator*(const VolumeRate& volume_rate) const;
 
   constexpr Time operator/(const double number) const {
     return Time{value_ / number};

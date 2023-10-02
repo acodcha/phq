@@ -158,6 +158,11 @@ constexpr Speed::Speed(
     const SoundSpeed& sound_speed, const MachNumber& mach_number)
   : Speed(sound_speed.Value() * mach_number.Value()) {}
 
+inline constexpr MachNumber Speed::operator/(
+    const SoundSpeed& sound_speed) const {
+  return {*this, sound_speed};
+}
+
 }  // namespace PhQ
 
 namespace std {

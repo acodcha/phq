@@ -17,75 +17,78 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(MachNumber, Accessor) {
-  const MachNumber mach_number{0.1};
-  EXPECT_DOUBLE_EQ(mach_number.Value(), 0.1);
+TEST(MachNumber, ArithmeticAddition) {
+  EXPECT_EQ(MachNumber(1.0) + MachNumber(2.0), MachNumber(3.0));
+
+  MachNumber quantity{1.0};
+  quantity += MachNumber(2.0);
+  EXPECT_EQ(quantity, MachNumber(3.0));
 }
 
-TEST(MachNumber, Arithmetic) {
-  const MachNumber mach_number_0{0.0};
-  const MachNumber mach_number_1{1.0};
-  const MachNumber mach_number_2{2.0};
-  EXPECT_EQ(mach_number_1 + mach_number_1, mach_number_2);
-  EXPECT_EQ(mach_number_1 - mach_number_1, mach_number_0);
-  EXPECT_EQ(mach_number_1 * 2.0, mach_number_2);
-  EXPECT_EQ(2.0 * mach_number_1, mach_number_2);
-  EXPECT_EQ(mach_number_2 / 2.0, mach_number_1);
-  EXPECT_EQ(mach_number_2 / mach_number_2, 1.0);
+TEST(MachNumber, ArithmeticDivision) {
+  EXPECT_EQ(MachNumber(8.0) / 2.0, MachNumber(4.0));
 
-  MachNumber mach_number_3{mach_number_1};
-  mach_number_3 += mach_number_1;
-  EXPECT_EQ(mach_number_3, mach_number_2);
+  EXPECT_EQ(MachNumber(8.0) / MachNumber(2.0), 4.0);
 
-  MachNumber mach_number_4{mach_number_1};
-  mach_number_4 -= mach_number_1;
-  EXPECT_EQ(mach_number_4, mach_number_0);
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
+                / SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
+            MachNumber(2.0));
 
-  MachNumber mach_number_5{mach_number_1};
-  mach_number_5 *= 2.0;
-  EXPECT_EQ(mach_number_5, mach_number_2);
-
-  MachNumber mach_number_6{mach_number_2};
-  mach_number_6 /= 2.0;
-  EXPECT_EQ(mach_number_6, mach_number_1);
+  MachNumber quantity{8.0};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, MachNumber(4.0));
 }
 
-TEST(MachNumber, Comparison) {
-  const MachNumber mach_number_0{0.1};
-  const MachNumber mach_number_1{0.2};
-  EXPECT_EQ(mach_number_0, mach_number_0);
-  EXPECT_NE(mach_number_0, mach_number_1);
-  EXPECT_LT(mach_number_0, mach_number_1);
-  EXPECT_GT(mach_number_1, mach_number_0);
-  EXPECT_LE(mach_number_0, mach_number_0);
-  EXPECT_LE(mach_number_0, mach_number_1);
-  EXPECT_GE(mach_number_0, mach_number_0);
-  EXPECT_GE(mach_number_1, mach_number_0);
+TEST(MachNumber, ArithmeticMultiplication) {
+  EXPECT_EQ(MachNumber(4.0) * 2.0, MachNumber(8.0));
+
+  EXPECT_EQ(2.0 * MachNumber(4.0), MachNumber(8.0));
+
+  MachNumber quantity{4.0};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, MachNumber(8.0));
 }
 
-TEST(MachNumber, Constructor) {
-  constexpr MachNumber mach_number_0{};
-  constexpr MachNumber mach_number_1{0.5};
-  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
-  const SoundSpeed sound_speed{4.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(MachNumber(speed, sound_speed), mach_number_1);
-  EXPECT_EQ(SoundSpeed(speed, mach_number_1), sound_speed);
-  EXPECT_EQ(Speed(sound_speed, mach_number_1), speed);
+TEST(MachNumber, ArithmeticSubtraction) {
+  EXPECT_EQ(MachNumber(3.0) - MachNumber(2.0), MachNumber(1.0));
+
+  MachNumber quantity{3.0};
+  quantity -= MachNumber(2.0);
+  EXPECT_EQ(quantity, MachNumber(1.0));
 }
 
-TEST(MachNumber, Copy) {
-  const MachNumber reference{1.11};
-  const MachNumber first{reference};
-  EXPECT_EQ(first, reference);
+TEST(MachNumber, Comparisons) {
+  const MachNumber first{0.1};
+  const MachNumber second{0.2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(MachNumber, CopyAssignment) {
+  const MachNumber first{1.11};
   MachNumber second = MachNumber::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(MachNumber, CopyConstructor) {
+  const MachNumber first{1.11};
+  const MachNumber second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(MachNumber, DefaultConstructor) {
+  EXPECT_NO_THROW(MachNumber{});
 }
 
 TEST(MachNumber, Dimensions) {
@@ -93,51 +96,82 @@ TEST(MachNumber, Dimensions) {
 }
 
 TEST(MachNumber, Hash) {
-  const MachNumber mach_number_0{10.0};
-  const MachNumber mach_number_1{10.000001};
-  const MachNumber mach_number_2{11.0};
-  const MachNumber mach_number_3{-10.0};
-  const MachNumber mach_number_4{20000.0};
-  const MachNumber mach_number_5{-123.456};
-  const std::hash<MachNumber> hasher;
-  EXPECT_NE(hasher(mach_number_0), hasher(mach_number_1));
-  EXPECT_NE(hasher(mach_number_0), hasher(mach_number_2));
-  EXPECT_NE(hasher(mach_number_0), hasher(mach_number_3));
-  EXPECT_NE(hasher(mach_number_0), hasher(mach_number_4));
-  EXPECT_NE(hasher(mach_number_0), hasher(mach_number_5));
-  const std::unordered_set<MachNumber> unordered{
-      mach_number_0, mach_number_1, mach_number_2,
-      mach_number_3, mach_number_4, mach_number_5};
+  const MachNumber first{1.11};
+  const MachNumber second{1.110001};
+  const MachNumber third{-1.11};
+  const std::hash<MachNumber> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(MachNumber, JSON) {
   EXPECT_EQ(MachNumber(1.11).JSON(), "1.110000000000000");
 }
 
-TEST(MachNumber, Move) {
-  const MachNumber reference{1.11};
-  MachNumber first{1.11};
-  MachNumber second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(MachNumber, MiscellaneousConstructors) {
+  EXPECT_EQ(MachNumber(Speed(8.0, Unit::Speed::MetrePerSecond),
+                       SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
+            MachNumber(2.0));
+
+  EXPECT_EQ(
+      SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
+      SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
+      Speed(8.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(MachNumber, MoveAssignment) {
+  const MachNumber first{1.11};
+  MachNumber second{1.11};
   MachNumber third = MachNumber::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(MachNumber, MoveConstructor) {
+  const MachNumber first{1.11};
+  MachNumber second{1.11};
+  MachNumber third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(MachNumber, MutableValue) {
+  MachNumber quantity{1.11};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(MachNumber, Print) {
   EXPECT_EQ(MachNumber(1.11).Print(), "1.110000000000000");
 }
 
+TEST(MachNumber, SetValue) {
+  MachNumber quantity{1.11};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
+}
+
 TEST(MachNumber, SizeOf) {
-  const MachNumber mach_number{1.11};
-  EXPECT_EQ(sizeof(mach_number), sizeof(double));
+  EXPECT_EQ(sizeof(MachNumber{}), sizeof(double));
+}
+
+TEST(MachNumber, StandardConstructor) {
+  EXPECT_NO_THROW(MachNumber(1.11));
 }
 
 TEST(MachNumber, Stream) {
-  const MachNumber mach_number{1.11};
+  const MachNumber quantity{1.11};
   std::ostringstream stream;
-  stream << mach_number;
-  EXPECT_EQ(stream.str(), mach_number.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
+}
+
+TEST(MachNumber, Value) {
+  EXPECT_EQ(MachNumber(1.11).Value(), 1.11);
 }
 
 TEST(MachNumber, XML) {
