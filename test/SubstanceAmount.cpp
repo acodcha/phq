@@ -17,82 +17,89 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(SubstanceAmount, Accessor) {
-  const SubstanceAmount substance_amount{0.1, Unit::SubstanceAmount::Mole};
-  EXPECT_DOUBLE_EQ(substance_amount.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(
-      substance_amount.Value(Unit::SubstanceAmount::Kilomole), 0.1 * 0.001);
+TEST(SubstanceAmount, ArithmeticAddition) {
+  EXPECT_EQ(SubstanceAmount(1.0, Unit::SubstanceAmount::Mole)
+                + SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
+            SubstanceAmount(3.0, Unit::SubstanceAmount::Mole));
+
+  SubstanceAmount quantity{1.0, Unit::SubstanceAmount::Mole};
+  quantity += SubstanceAmount(2.0, Unit::SubstanceAmount::Mole);
+  EXPECT_EQ(quantity, SubstanceAmount(3.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, Arithmetic) {
-  const SubstanceAmount substance_amount_0{1.0, Unit::SubstanceAmount::Mole};
-  EXPECT_EQ(substance_amount_0 + substance_amount_0,
-            SubstanceAmount(2.0, Unit::SubstanceAmount::Mole));
-  EXPECT_EQ(substance_amount_0 - substance_amount_0,
-            SubstanceAmount(0.0, Unit::SubstanceAmount::Mole));
-  EXPECT_EQ(substance_amount_0 * 2.0,
-            SubstanceAmount(2.0, Unit::SubstanceAmount::Mole));
-  EXPECT_EQ(2.0 * substance_amount_0,
-            SubstanceAmount(2.0, Unit::SubstanceAmount::Mole));
-  EXPECT_EQ(substance_amount_0 / 2.0,
-            SubstanceAmount(0.5, Unit::SubstanceAmount::Mole));
-  EXPECT_EQ(substance_amount_0 / substance_amount_0, 1.0);
+TEST(SubstanceAmount, ArithmeticDivision) {
+  EXPECT_EQ(SubstanceAmount(8.0, Unit::SubstanceAmount::Mole) / 2.0,
+            SubstanceAmount(4.0, Unit::SubstanceAmount::Mole));
 
-  SubstanceAmount substance_amount_1{1.0, Unit::SubstanceAmount::Mole};
-  substance_amount_1 += SubstanceAmount{1.0, Unit::SubstanceAmount::Mole};
-  EXPECT_EQ(
-      substance_amount_1, SubstanceAmount(2.0, Unit::SubstanceAmount::Mole));
+  EXPECT_EQ(SubstanceAmount(8.0, Unit::SubstanceAmount::Mole)
+                / SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
+            4.0);
 
-  SubstanceAmount substance_amount_2{2.0, Unit::SubstanceAmount::Mole};
-  substance_amount_2 -= SubstanceAmount{1.0, Unit::SubstanceAmount::Mole};
-  EXPECT_EQ(
-      substance_amount_2, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
-
-  SubstanceAmount substance_amount_3{1.0, Unit::SubstanceAmount::Mole};
-  substance_amount_3 *= 2.0;
-  EXPECT_EQ(
-      substance_amount_3, SubstanceAmount(2.0, Unit::SubstanceAmount::Mole));
-
-  SubstanceAmount substance_amount_4{2.0, Unit::SubstanceAmount::Mole};
-  substance_amount_4 /= 2.0;
-  EXPECT_EQ(
-      substance_amount_4, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
+  SubstanceAmount quantity{8.0, Unit::SubstanceAmount::Mole};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, SubstanceAmount(4.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, Comparison) {
-  const SubstanceAmount substance_amount_0{0.1, Unit::SubstanceAmount::Mole};
-  const SubstanceAmount substance_amount_1{0.2, Unit::SubstanceAmount::Mole};
-  EXPECT_EQ(substance_amount_0, substance_amount_0);
-  EXPECT_NE(substance_amount_0, substance_amount_1);
-  EXPECT_LT(substance_amount_0, substance_amount_1);
-  EXPECT_GT(substance_amount_1, substance_amount_0);
-  EXPECT_LE(substance_amount_0, substance_amount_0);
-  EXPECT_LE(substance_amount_0, substance_amount_1);
-  EXPECT_GE(substance_amount_0, substance_amount_0);
-  EXPECT_GE(substance_amount_1, substance_amount_0);
+TEST(SubstanceAmount, ArithmeticMultiplication) {
+  EXPECT_EQ(SubstanceAmount(4.0, Unit::SubstanceAmount::Mole) * 2.0,
+            SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
+
+  EXPECT_EQ(2.0 * SubstanceAmount(4.0, Unit::SubstanceAmount::Mole),
+            SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
+
+  SubstanceAmount quantity{4.0, Unit::SubstanceAmount::Mole};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, Constructor) {
-  constexpr SubstanceAmount substance_amount_0{};
-  const SubstanceAmount substance_amount_1{
-      2.0, Unit::SubstanceAmount::Kilomole};
-  constexpr SubstanceAmount substance_amount_2{
-      SubstanceAmount::Create<Unit::SubstanceAmount::Kilomole>(4.0)};
+TEST(SubstanceAmount, ArithmeticSubtraction) {
+  EXPECT_EQ(SubstanceAmount(3.0, Unit::SubstanceAmount::Mole)
+                - SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
+            SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
+
+  SubstanceAmount quantity{3.0, Unit::SubstanceAmount::Mole};
+  quantity -= SubstanceAmount(2.0, Unit::SubstanceAmount::Mole);
+  EXPECT_EQ(quantity, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, Copy) {
-  const SubstanceAmount reference{1.11, Unit::SubstanceAmount::Mole};
-  const SubstanceAmount first{reference};
-  EXPECT_EQ(first, reference);
+TEST(SubstanceAmount, Comparisons) {
+  const SubstanceAmount first{0.1, Unit::SubstanceAmount::Mole};
+  const SubstanceAmount second{0.2, Unit::SubstanceAmount::Mole};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(SubstanceAmount, CopyAssignment) {
+  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
   SubstanceAmount second = SubstanceAmount::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(SubstanceAmount, CopyConstructor) {
+  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  const SubstanceAmount second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(SubstanceAmount, Create) {
+  constexpr SubstanceAmount quantity =
+      SubstanceAmount::Create<Unit::SubstanceAmount::Mole>(1.11);
+  EXPECT_EQ(quantity, SubstanceAmount(1.11, Unit::SubstanceAmount::Mole));
+}
+
+TEST(SubstanceAmount, DefaultConstructor) {
+  EXPECT_NO_THROW(SubstanceAmount{});
 }
 
 TEST(SubstanceAmount, Dimensions) {
@@ -101,85 +108,107 @@ TEST(SubstanceAmount, Dimensions) {
 }
 
 TEST(SubstanceAmount, Hash) {
-  const SubstanceAmount substance_amount_0{
-      10.0, Unit::SubstanceAmount::Kilomole};
-  const SubstanceAmount substance_amount_1{
-      10.000001, Unit::SubstanceAmount::Kilomole};
-  const SubstanceAmount substance_amount_2{
-      11.0, Unit::SubstanceAmount::Kilomole};
-  const SubstanceAmount substance_amount_3{
-      -10.0, Unit::SubstanceAmount::Kilomole};
-  const SubstanceAmount substance_amount_4{
-      20000.0, Unit::SubstanceAmount::Kilomole};
-  const SubstanceAmount substance_amount_5{
-      -123.456, Unit::SubstanceAmount::Kilomole};
-  const std::hash<SubstanceAmount> hasher;
-  EXPECT_NE(hasher(substance_amount_0), hasher(substance_amount_1));
-  EXPECT_NE(hasher(substance_amount_0), hasher(substance_amount_2));
-  EXPECT_NE(hasher(substance_amount_0), hasher(substance_amount_3));
-  EXPECT_NE(hasher(substance_amount_0), hasher(substance_amount_4));
-  EXPECT_NE(hasher(substance_amount_0), hasher(substance_amount_5));
-  const std::unordered_set<SubstanceAmount> unordered{
-      substance_amount_0, substance_amount_1, substance_amount_2,
-      substance_amount_3, substance_amount_4, substance_amount_5};
+  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Kilomole};
+  const SubstanceAmount second{1.110001, Unit::SubstanceAmount::Kilomole};
+  const SubstanceAmount third{-1.11, Unit::SubstanceAmount::Kilomole};
+  const std::hash<SubstanceAmount> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(SubstanceAmount, JSON) {
   EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"mol\"}");
-  EXPECT_EQ(SubstanceAmount(-5.0, Unit::SubstanceAmount::Kilomole)
+  EXPECT_EQ(SubstanceAmount(-2.22, Unit::SubstanceAmount::Kilomole)
                 .JSON(Unit::SubstanceAmount::Kilomole),
-            "{\"value\":-5.000000000000000,\"unit\":\"kmol\"}");
+            "{\"value\":-2.220000000000000,\"unit\":\"kmol\"}");
 }
 
-TEST(SubstanceAmount, Move) {
-  const SubstanceAmount reference{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(SubstanceAmount, MoveAssignment) {
+  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount second{1.11, Unit::SubstanceAmount::Mole};
   SubstanceAmount third = SubstanceAmount::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(SubstanceAmount, MoveConstructor) {
+  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount second{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(SubstanceAmount, MutableValue) {
+  SubstanceAmount quantity{1.11, Unit::SubstanceAmount::Mole};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(SubstanceAmount, Print) {
   EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).Print(),
             "1.110000000000000 mol");
-  EXPECT_EQ(SubstanceAmount(-5.0, Unit::SubstanceAmount::Kilomole)
+  EXPECT_EQ(SubstanceAmount(-2.22, Unit::SubstanceAmount::Kilomole)
                 .Print(Unit::SubstanceAmount::Kilomole),
-            "-5.000000000000000 kmol");
+            "-2.220000000000000 kmol");
+}
+
+TEST(SubstanceAmount, SetValue) {
+  SubstanceAmount quantity{1.11, Unit::SubstanceAmount::Mole};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(SubstanceAmount, SizeOf) {
-  const SubstanceAmount substance_amount{1.11, Unit::SubstanceAmount::Mole};
-  EXPECT_EQ(sizeof(substance_amount), sizeof(double));
+  EXPECT_EQ(sizeof(SubstanceAmount{}), sizeof(double));
+}
+
+TEST(SubstanceAmount, StandardConstructor) {
+  EXPECT_NO_THROW(SubstanceAmount(1.11, Unit::SubstanceAmount::Kilomole));
+}
+
+TEST(SubstanceAmount, StaticValue) {
+  constexpr SubstanceAmount quantity =
+      SubstanceAmount::Create<Unit::SubstanceAmount::Kilomole>(1.11);
+  constexpr double value =
+      quantity.StaticValue<Unit::SubstanceAmount::Kilomole>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(SubstanceAmount, Stream) {
-  const SubstanceAmount substance_amount{1.11, Unit::SubstanceAmount::Mole};
+  const SubstanceAmount quantity{1.11, Unit::SubstanceAmount::Mole};
   std::ostringstream stream;
-  stream << substance_amount;
-  EXPECT_EQ(stream.str(), substance_amount.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(SubstanceAmount, Unit) {
   EXPECT_EQ(SubstanceAmount::Unit(), Standard<Unit::SubstanceAmount>);
 }
 
+TEST(SubstanceAmount, Value) {
+  EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).Value(), 1.11);
+  EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Kilomole)
+                .Value(Unit::SubstanceAmount::Kilomole),
+            1.11);
+}
+
 TEST(SubstanceAmount, XML) {
   EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).XML(),
             "<value>1.110000000000000</value><unit>mol</unit>");
-  EXPECT_EQ(SubstanceAmount(-5.0, Unit::SubstanceAmount::Kilomole)
+  EXPECT_EQ(SubstanceAmount(-2.22, Unit::SubstanceAmount::Kilomole)
                 .XML(Unit::SubstanceAmount::Kilomole),
-            "<value>-5.000000000000000</value><unit>kmol</unit>");
+            "<value>-2.220000000000000</value><unit>kmol</unit>");
 }
 
 TEST(SubstanceAmount, YAML) {
   EXPECT_EQ(SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).YAML(),
             "{value:1.110000000000000,unit:\"mol\"}");
-  EXPECT_EQ(SubstanceAmount(-5.0, Unit::SubstanceAmount::Kilomole)
+  EXPECT_EQ(SubstanceAmount(-2.22, Unit::SubstanceAmount::Kilomole)
                 .YAML(Unit::SubstanceAmount::Kilomole),
-            "{value:-5.000000000000000,unit:\"kmol\"}");
+            "{value:-2.220000000000000,unit:\"kmol\"}");
 }
 
 TEST(SubstanceAmount, Zero) {

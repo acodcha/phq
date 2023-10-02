@@ -17,84 +17,100 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(KinematicViscosity, Accessor) {
-  const KinematicViscosity viscosity{
-      0.1, Unit::Diffusivity::SquareMetrePerSecond};
-  EXPECT_DOUBLE_EQ(viscosity.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(viscosity.Value(Unit::Diffusivity::SquareFootPerSecond),
-                   0.1 / (0.3048 * 0.3048));
+TEST(KinematicViscosity, ArithmeticAddition) {
+  EXPECT_EQ(
+      KinematicViscosity(1.0, Unit::Diffusivity::SquareMetrePerSecond)
+          + KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond),
+      KinematicViscosity(3.0, Unit::Diffusivity::SquareMetrePerSecond));
+
+  KinematicViscosity quantity{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  quantity += KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(quantity,
+            KinematicViscosity(3.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
-TEST(KinematicViscosity, Arithmetic) {
-  const KinematicViscosity viscosity0{
-      0.0, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity1{
-      1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity2{
-      2.0, Unit::Diffusivity::SquareMetrePerSecond};
-  EXPECT_EQ(viscosity1 + viscosity1, viscosity2);
-  EXPECT_EQ(viscosity1 - viscosity1, viscosity0);
-  EXPECT_EQ(viscosity1 * 2.0, viscosity2);
-  EXPECT_EQ(2.0 * viscosity1, viscosity2);
-  EXPECT_EQ(viscosity2 / 2.0, viscosity1);
-  EXPECT_EQ(viscosity2 / viscosity2, 1.0);
+TEST(KinematicViscosity, ArithmeticDivision) {
+  EXPECT_EQ(
+      KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond) / 2.0,
+      KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond));
 
-  KinematicViscosity viscosity3{viscosity1};
-  viscosity3 += viscosity1;
-  EXPECT_EQ(viscosity3, viscosity2);
+  EXPECT_EQ(
+      KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond)
+          / KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond),
+      4.0);
 
-  KinematicViscosity viscosity4{viscosity1};
-  viscosity4 -= viscosity1;
-  EXPECT_EQ(viscosity4, viscosity0);
-
-  KinematicViscosity viscosity5{viscosity1};
-  viscosity5 *= 2.0;
-  EXPECT_EQ(viscosity5, viscosity2);
-
-  KinematicViscosity viscosity6{viscosity2};
-  viscosity6 /= 2.0;
-  EXPECT_EQ(viscosity6, viscosity1);
+  KinematicViscosity quantity{8.0, Unit::Diffusivity::SquareMetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
-TEST(KinematicViscosity, Comparison) {
-  const KinematicViscosity viscosity0{
-      0.1, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity1{
-      0.2, Unit::Diffusivity::SquareMetrePerSecond};
-  EXPECT_EQ(viscosity0, viscosity0);
-  EXPECT_NE(viscosity0, viscosity1);
-  EXPECT_LT(viscosity0, viscosity1);
-  EXPECT_GT(viscosity1, viscosity0);
-  EXPECT_LE(viscosity0, viscosity0);
-  EXPECT_LE(viscosity0, viscosity1);
-  EXPECT_GE(viscosity0, viscosity0);
-  EXPECT_GE(viscosity1, viscosity0);
+TEST(KinematicViscosity, ArithmeticMultiplication) {
+  EXPECT_EQ(
+      KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond) * 2.0,
+      KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
+
+  EXPECT_EQ(
+      2.0 * KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
+      KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
+
+  KinematicViscosity quantity{4.0, Unit::Diffusivity::SquareMetrePerSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity,
+            KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
-TEST(KinematicViscosity, Constructor) {
-  constexpr KinematicViscosity viscosity0{};
-  const KinematicViscosity viscosity1{
-      1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity viscosity2{
-      100.0, Unit::Diffusivity::SquareFootPerSecond};
-  constexpr KinematicViscosity viscosity3{
-      KinematicViscosity::Create<Unit::Diffusivity::SquareFootPerSecond>(4.0)};
+TEST(KinematicViscosity, ArithmeticSubtraction) {
+  EXPECT_EQ(
+      KinematicViscosity(3.0, Unit::Diffusivity::SquareMetrePerSecond)
+          - KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond),
+      KinematicViscosity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+
+  KinematicViscosity quantity{3.0, Unit::Diffusivity::SquareMetrePerSecond};
+  quantity -= KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(quantity,
+            KinematicViscosity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
-TEST(KinematicViscosity, Copy) {
-  const KinematicViscosity reference{
-      1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  const KinematicViscosity first{reference};
-  EXPECT_EQ(first, reference);
+TEST(KinematicViscosity, Comparisons) {
+  const KinematicViscosity first{0.1, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity second{0.2, Unit::Diffusivity::SquareMetrePerSecond};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(KinematicViscosity, CopyAssignment) {
+  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
   KinematicViscosity second = KinematicViscosity::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(KinematicViscosity, CopyConstructor) {
+  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  const KinematicViscosity second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(KinematicViscosity, Create) {
+  constexpr KinematicViscosity quantity =
+      KinematicViscosity::Create<Unit::Diffusivity::SquareMetrePerSecond>(1.11);
+  EXPECT_EQ(quantity,
+            KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
+}
+
+TEST(KinematicViscosity, DefaultConstructor) {
+  EXPECT_NO_THROW(KinematicViscosity{});
 }
 
 TEST(KinematicViscosity, Dimensions) {
@@ -103,91 +119,116 @@ TEST(KinematicViscosity, Dimensions) {
 }
 
 TEST(KinematicViscosity, Hash) {
-  const KinematicViscosity viscosity0{
-      10.0, Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity1{
-      10.000001, Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity2{
-      11.0, Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity3{
-      -10.0, Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity4{
-      20000.0, Unit::Diffusivity::SquareFootPerSecond};
-  const KinematicViscosity viscosity5{
-      -123.456, Unit::Diffusivity::SquareFootPerSecond};
-  const std::hash<KinematicViscosity> hasher;
-  EXPECT_NE(hasher(viscosity0), hasher(viscosity1));
-  EXPECT_NE(hasher(viscosity0), hasher(viscosity2));
-  EXPECT_NE(hasher(viscosity0), hasher(viscosity3));
-  EXPECT_NE(hasher(viscosity0), hasher(viscosity4));
-  EXPECT_NE(hasher(viscosity0), hasher(viscosity5));
-  const std::unordered_set<KinematicViscosity> unordered{
-      viscosity0, viscosity1, viscosity2, viscosity3, viscosity4, viscosity5};
+  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity second{
+      1.110001, Unit::Diffusivity::SquareFootPerSecond};
+  const KinematicViscosity third{-1.11, Unit::Diffusivity::SquareFootPerSecond};
+  const std::hash<KinematicViscosity> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(KinematicViscosity, JSON) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).JSON(),
       "{\"value\":1.110000000000000,\"unit\":\"m^2/s\"}");
-  EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
+  EXPECT_EQ(KinematicViscosity(-2.22, Unit::Diffusivity::SquareFootPerSecond)
                 .JSON(Unit::Diffusivity::SquareFootPerSecond),
-            "{\"value\":-5.000000000000000,\"unit\":\"ft^2/s\"}");
+            "{\"value\":-2.220000000000000,\"unit\":\"ft^2/s\"}");
 }
 
-TEST(KinematicViscosity, Move) {
-  const KinematicViscosity reference{
-      1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(KinematicViscosity, MoveAssignment) {
+  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second{1.11, Unit::Diffusivity::SquareMetrePerSecond};
   KinematicViscosity third = KinematicViscosity::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(KinematicViscosity, MoveConstructor) {
+  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(KinematicViscosity, MutableValue) {
+  KinematicViscosity quantity{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(KinematicViscosity, Print) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Print(),
       "1.110000000000000 m^2/s");
-  EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
+  EXPECT_EQ(KinematicViscosity(-2.22, Unit::Diffusivity::SquareFootPerSecond)
                 .Print(Unit::Diffusivity::SquareFootPerSecond),
-            "-5.000000000000000 ft^2/s");
+            "-2.220000000000000 ft^2/s");
+}
+
+TEST(KinematicViscosity, SetValue) {
+  KinematicViscosity quantity{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(KinematicViscosity, SizeOf) {
-  const KinematicViscosity viscosity{
-      1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  EXPECT_EQ(sizeof(viscosity), sizeof(double));
+  EXPECT_EQ(sizeof(KinematicViscosity{}), sizeof(double));
+}
+
+TEST(KinematicViscosity, StandardConstructor) {
+  EXPECT_NO_THROW(
+      KinematicViscosity(1.11, Unit::Diffusivity::SquareFootPerSecond));
+}
+
+TEST(KinematicViscosity, StaticValue) {
+  constexpr KinematicViscosity quantity =
+      KinematicViscosity::Create<Unit::Diffusivity::SquareFootPerSecond>(1.11);
+  constexpr double value =
+      quantity.StaticValue<Unit::Diffusivity::SquareFootPerSecond>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(KinematicViscosity, Stream) {
-  const KinematicViscosity viscosity{
+  const KinematicViscosity quantity{
       1.11, Unit::Diffusivity::SquareMetrePerSecond};
   std::ostringstream stream;
-  stream << viscosity;
-  EXPECT_EQ(stream.str(), viscosity.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(KinematicViscosity, Unit) {
   EXPECT_EQ(KinematicViscosity::Unit(), Standard<Unit::Diffusivity>);
 }
 
+TEST(KinematicViscosity, Value) {
+  EXPECT_EQ(
+      KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Value(),
+      1.11);
+  EXPECT_EQ(KinematicViscosity(1.11, Unit::Diffusivity::SquareFootPerSecond)
+                .Value(Unit::Diffusivity::SquareFootPerSecond),
+            1.11);
+}
+
 TEST(KinematicViscosity, XML) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).XML(),
       "<value>1.110000000000000</value><unit>m^2/s</unit>");
-  EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
+  EXPECT_EQ(KinematicViscosity(-2.22, Unit::Diffusivity::SquareFootPerSecond)
                 .XML(Unit::Diffusivity::SquareFootPerSecond),
-            "<value>-5.000000000000000</value><unit>ft^2/s</unit>");
+            "<value>-2.220000000000000</value><unit>ft^2/s</unit>");
 }
 
 TEST(KinematicViscosity, YAML) {
   EXPECT_EQ(
       KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond).YAML(),
       "{value:1.110000000000000,unit:\"m^2/s\"}");
-  EXPECT_EQ(KinematicViscosity(-5.0, Unit::Diffusivity::SquareFootPerSecond)
+  EXPECT_EQ(KinematicViscosity(-2.22, Unit::Diffusivity::SquareFootPerSecond)
                 .YAML(Unit::Diffusivity::SquareFootPerSecond),
-            "{value:-5.000000000000000,unit:\"ft^2/s\"}");
+            "{value:-2.220000000000000,unit:\"ft^2/s\"}");
 }
 
 TEST(KinematicViscosity, Zero) {

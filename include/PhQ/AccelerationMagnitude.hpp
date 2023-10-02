@@ -214,6 +214,11 @@ inline constexpr AccelerationMagnitude Frequency::operator*(
   return {speed, *this};
 }
 
+inline constexpr Speed Time::operator*(
+    const AccelerationMagnitude& acceleration_magnitude) const {
+  return {acceleration_magnitude, *this};
+}
+
 inline constexpr AccelerationMagnitude Speed::operator*(
     const Frequency& frequency) const {
   return {*this, frequency};

@@ -17,88 +17,111 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Speed, Accessor) {
-  const Speed speed{0.1, Unit::Speed::MetrePerSecond};
-  EXPECT_DOUBLE_EQ(speed.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(speed.Value(Unit::Speed::FootPerSecond), 0.1 / 0.3048);
+TEST(Speed, ArithmeticAddition) {
+  EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond)
+                + Speed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(3.0, Unit::Speed::MetrePerSecond));
+
+  Speed quantity{1.0, Unit::Speed::MetrePerSecond};
+  quantity += Speed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(quantity, Speed(3.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, Arithmetic) {
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Length length{0.5, Unit::Length::Metre};
-  const Speed speed0{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed0 + speed0, Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 - speed0, Speed(0.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 * 2.0, Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(2.0 * speed0, Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 * time, Length(0.5, Unit::Length::Metre));
-  EXPECT_EQ(length * frequency, speed0);
-  EXPECT_EQ(frequency * length, speed0);
-  EXPECT_EQ(speed0 / 2.0, Speed(0.5, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 / frequency, Length(0.5, Unit::Length::Metre));
-  EXPECT_EQ(length / speed0, time);
-  EXPECT_EQ(length / time, speed0);
-  EXPECT_EQ(speed0 / speed0, 1.0);
+TEST(Speed, ArithmeticDivision) {
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / 2.0,
+            Speed(4.0, Unit::Speed::MetrePerSecond));
 
-  Speed speed1{1.0, Unit::Speed::MetrePerSecond};
-  speed1 += Speed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed1, Speed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
+                / Speed(2.0, Unit::Speed::MetrePerSecond),
+            4.0);
 
-  Speed speed2{2.0, Unit::Speed::MetrePerSecond};
-  speed2 -= Speed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed2, Speed(1.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
+                / Frequency(2.0, Unit::Frequency::Hertz),
+            Length(4.0, Unit::Length::Metre));
 
-  Speed speed3{1.0, Unit::Speed::MetrePerSecond};
-  speed3 *= 2.0;
-  EXPECT_EQ(speed3, Speed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Length(8.0, Unit::Length::Metre)
+                / Speed(4.0, Unit::Speed::MetrePerSecond),
+            Time(2.0, Unit::Time::Second));
 
-  Speed speed4{2.0, Unit::Speed::MetrePerSecond};
-  speed4 /= 2.0;
-  EXPECT_EQ(speed4, Speed(1.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Time(4.0, Unit::Time::Second),
+            Speed(2.0, Unit::Speed::MetrePerSecond));
+
+  Speed quantity{8.0, Unit::Speed::MetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Speed(4.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, Comparison) {
-  const Speed speed0{0.1, Unit::Speed::MetrePerSecond};
-  const Speed speed1{0.2, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed0, speed0);
-  EXPECT_NE(speed0, speed1);
-  EXPECT_LT(speed0, speed1);
-  EXPECT_GT(speed1, speed0);
-  EXPECT_LE(speed0, speed0);
-  EXPECT_LE(speed0, speed1);
-  EXPECT_GE(speed0, speed0);
-  EXPECT_GE(speed1, speed0);
+TEST(Speed, ArithmeticMultiplication) {
+  EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond) * 2.0,
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(2.0 * Speed(4.0, Unit::Speed::MetrePerSecond),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Speed(4.0, Unit::Speed::MetrePerSecond) * Time(2.0, Unit::Time::Second),
+      Length(8.0, Unit::Length::Metre));
+
+  EXPECT_EQ(
+      Length(4.0, Unit::Length::Metre) * Frequency(2.0, Unit::Frequency::Hertz),
+      Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Frequency(4.0, Unit::Frequency::Hertz) * Length(2.0, Unit::Length::Metre),
+      Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  Speed quantity{4.0, Unit::Speed::MetrePerSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, Constructor) {
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Length length{2.0, Unit::Length::Metre};
-  constexpr Speed speed0{};
-  const Speed speed1{4.0, Unit::Speed::MetrePerSecond};
-  constexpr Speed speed2{Speed::Create<Unit::Speed::MetrePerSecond>(4.0)};
-  EXPECT_EQ(Speed(length, time), speed1);
-  EXPECT_EQ(Speed(length, frequency), speed1);
-  EXPECT_EQ(Length(speed1, time), length);
-  EXPECT_EQ(Length(speed1, frequency), length);
-  EXPECT_EQ(Time(speed1, length), time);
-  EXPECT_EQ(Frequency(speed1, length), frequency);
+TEST(Speed, ArithmeticSubtraction) {
+  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
+                - Speed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(1.0, Unit::Speed::MetrePerSecond));
+
+  Speed quantity{3.0, Unit::Speed::MetrePerSecond};
+  quantity -= Speed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(quantity, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, Copy) {
-  const Speed reference{1.11, Unit::Speed::MetrePerSecond};
-  const Speed first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Speed, Comparisons) {
+  const Speed first{0.1, Unit::Speed::MetrePerSecond};
+  const Speed second{0.2, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Speed, CopyAssignment) {
+  const Speed first{1.11, Unit::Speed::MetrePerSecond};
   Speed second = Speed::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Speed, CopyConstructor) {
+  const Speed first{1.11, Unit::Speed::MetrePerSecond};
+  const Speed second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Speed, Create) {
+  constexpr Speed quantity = Speed::Create<Unit::Speed::MetrePerSecond>(1.11);
+  EXPECT_EQ(quantity, Speed(1.11, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Speed, DefaultConstructor) {
+  EXPECT_NO_THROW(Speed{});
 }
 
 TEST(Speed, Dimensions) {
@@ -106,78 +129,131 @@ TEST(Speed, Dimensions) {
 }
 
 TEST(Speed, Hash) {
-  const Speed speed0{10.0, Unit::Speed::FootPerSecond};
-  const Speed speed1{10.000001, Unit::Speed::FootPerSecond};
-  const Speed speed2{11.0, Unit::Speed::FootPerSecond};
-  const Speed speed3{-10.0, Unit::Speed::FootPerSecond};
-  const Speed speed4{20000.0, Unit::Speed::FootPerSecond};
-  const Speed speed5{-123.456, Unit::Speed::FootPerSecond};
-  const std::hash<Speed> hasher;
-  EXPECT_NE(hasher(speed0), hasher(speed1));
-  EXPECT_NE(hasher(speed0), hasher(speed2));
-  EXPECT_NE(hasher(speed0), hasher(speed3));
-  EXPECT_NE(hasher(speed0), hasher(speed4));
-  EXPECT_NE(hasher(speed0), hasher(speed5));
-  const std::unordered_set<Speed> unordered{
-      speed0, speed1, speed2, speed3, speed4, speed5};
+  const Speed first{1.11, Unit::Speed::FootPerSecond};
+  const Speed second{1.110001, Unit::Speed::FootPerSecond};
+  const Speed third{-1.11, Unit::Speed::FootPerSecond};
+  const std::hash<Speed> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Speed, JSON) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"m/s\"}");
   EXPECT_EQ(
-      Speed(-5.5, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
-      "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
+      Speed(-2.22, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
+      "{\"value\":-2.220000000000000,\"unit\":\"ft/s\"}");
 }
 
-TEST(Speed, Move) {
-  const Speed reference{1.11, Unit::Speed::MetrePerSecond};
-  Speed first{1.11, Unit::Speed::MetrePerSecond};
-  Speed second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Speed, MiscellaneousConstructors) {
+  EXPECT_EQ(
+      Speed(Length(8.0, Unit::Length::Metre), Time(4.0, Unit::Time::Second)),
+      Speed(2.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Speed(Length(4.0, Unit::Length::Metre),
+                  Frequency(2.0, Unit::Frequency::Hertz)),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Length(Speed(4.0, Unit::Speed::MetrePerSecond),
+                   Time(2.0, Unit::Time::Second)),
+            Length(8.0, Unit::Length::Metre));
+
+  EXPECT_EQ(Length(Speed(8.0, Unit::Speed::MetrePerSecond),
+                   Frequency(4.0, Unit::Frequency::Hertz)),
+            Length(2.0, Unit::Length::Metre));
+
+  EXPECT_EQ(Time(Speed(4.0, Unit::Speed::MetrePerSecond),
+                 Length(8.0, Unit::Length::Metre)),
+            Time(2.0, Unit::Time::Second));
+
+  EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond),
+                      Length(4.0, Unit::Length::Metre)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+}
+
+TEST(Speed, MoveAssignment) {
+  const Speed first{1.11, Unit::Speed::MetrePerSecond};
+  Speed second{1.11, Unit::Speed::MetrePerSecond};
   Speed third = Speed::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Speed, MoveConstructor) {
+  const Speed first{1.11, Unit::Speed::MetrePerSecond};
+  Speed second{1.11, Unit::Speed::MetrePerSecond};
+  Speed third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Speed, MutableValue) {
+  Speed quantity{1.11, Unit::Speed::MetrePerSecond};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(Speed, Print) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(),
             "1.110000000000000 m/s");
-  EXPECT_EQ(
-      Speed(-5.5, Unit::Speed::FootPerSecond).Print(Unit::Speed::FootPerSecond),
-      "-5.500000000000000 ft/s");
+  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond)
+                .Print(Unit::Speed::FootPerSecond),
+            "-2.220000000000000 ft/s");
+}
+
+TEST(Speed, SetValue) {
+  Speed quantity{1.11, Unit::Speed::MetrePerSecond};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Speed, SizeOf) {
-  const Speed speed{1.11, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sizeof(speed), sizeof(double));
+  EXPECT_EQ(sizeof(Speed{}), sizeof(double));
+}
+
+TEST(Speed, StandardConstructor) {
+  EXPECT_NO_THROW(Speed(1.11, Unit::Speed::FootPerSecond));
+}
+
+TEST(Speed, StaticValue) {
+  constexpr Speed quantity = Speed::Create<Unit::Speed::FootPerSecond>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::Speed::FootPerSecond>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(Speed, Stream) {
-  const Speed speed{1.11, Unit::Speed::MetrePerSecond};
+  const Speed quantity{1.11, Unit::Speed::MetrePerSecond};
   std::ostringstream stream;
-  stream << speed;
-  EXPECT_EQ(stream.str(), speed.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Speed, Unit) {
   EXPECT_EQ(Speed::Unit(), Standard<Unit::Speed>);
 }
 
+TEST(Speed, Value) {
+  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Value(), 1.11);
+  EXPECT_EQ(
+      Speed(1.11, Unit::Speed::FootPerSecond).Value(Unit::Speed::FootPerSecond),
+      1.11);
+}
+
 TEST(Speed, XML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).XML(),
             "<value>1.110000000000000</value><unit>m/s</unit>");
   EXPECT_EQ(
-      Speed(-5.5, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
-      "<value>-5.500000000000000</value><unit>ft/s</unit>");
+      Speed(-2.22, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
+      "<value>-2.220000000000000</value><unit>ft/s</unit>");
 }
 
 TEST(Speed, YAML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).YAML(),
             "{value:1.110000000000000,unit:\"m/s\"}");
   EXPECT_EQ(
-      Speed(-5.5, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
-      "{value:-5.500000000000000,unit:\"ft/s\"}");
+      Speed(-2.22, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
+      "{value:-2.220000000000000,unit:\"ft/s\"}");
 }
 
 TEST(Speed, Zero) {

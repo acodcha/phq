@@ -17,73 +17,85 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Angle, Accessor) {
-  const Angle angle{0.1, Unit::Angle::Radian};
-  EXPECT_DOUBLE_EQ(angle.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(angle.Value(Unit::Angle::Degree), 0.1 * 180.0 / Pi);
+TEST(Angle, ArithmeticAddition) {
+  EXPECT_EQ(Angle(1.0, Unit::Angle::Radian) + Angle(2.0, Unit::Angle::Radian),
+            Angle(3.0, Unit::Angle::Radian));
+
+  Angle quantity{1.0, Unit::Angle::Radian};
+  quantity += Angle(2.0, Unit::Angle::Radian);
+  EXPECT_EQ(quantity, Angle(3.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, Arithmetic) {
-  const Angle angle0{1.0, Unit::Angle::Radian};
-  EXPECT_EQ(angle0 + angle0, Angle(2.0, Unit::Angle::Radian));
-  EXPECT_EQ(angle0 - angle0, Angle(0.0, Unit::Angle::Radian));
-  EXPECT_EQ(angle0 * 2.0, Angle(2.0, Unit::Angle::Radian));
-  EXPECT_EQ(2.0 * angle0, Angle(2.0, Unit::Angle::Radian));
-  EXPECT_EQ(angle0 / 2.0, Angle(0.5, Unit::Angle::Radian));
-  EXPECT_EQ(angle0 / angle0, 1.0);
+TEST(Angle, ArithmeticDivision) {
+  EXPECT_EQ(
+      Angle(8.0, Unit::Angle::Radian) / 2.0, Angle(4.0, Unit::Angle::Radian));
 
-  Angle angle1{1.0, Unit::Angle::Radian};
-  angle1 += Angle{1.0, Unit::Angle::Radian};
-  EXPECT_EQ(angle1, Angle(2.0, Unit::Angle::Radian));
+  EXPECT_EQ(
+      Angle(8.0, Unit::Angle::Radian) / Angle(2.0, Unit::Angle::Radian), 4.0);
 
-  Angle angle2{2.0, Unit::Angle::Radian};
-  angle2 -= Angle{1.0, Unit::Angle::Radian};
-  EXPECT_EQ(angle2, Angle(1.0, Unit::Angle::Radian));
-
-  Angle angle3{1.0, Unit::Angle::Radian};
-  angle3 *= 2.0;
-  EXPECT_EQ(angle3, Angle(2.0, Unit::Angle::Radian));
-
-  Angle angle4{2.0, Unit::Angle::Radian};
-  angle4 /= 2.0;
-  EXPECT_EQ(angle4, Angle(1.0, Unit::Angle::Radian));
+  Angle quantity{8.0, Unit::Angle::Radian};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Angle(4.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, Comparison) {
-  const Angle angle0{0.1, Unit::Angle::Radian};
-  const Angle angle1{0.2, Unit::Angle::Radian};
-  EXPECT_EQ(angle0, angle0);
-  EXPECT_NE(angle0, angle1);
-  EXPECT_LT(angle0, angle1);
-  EXPECT_GT(angle1, angle0);
-  EXPECT_LE(angle0, angle0);
-  EXPECT_LE(angle0, angle1);
-  EXPECT_GE(angle0, angle0);
-  EXPECT_GE(angle1, angle0);
+TEST(Angle, ArithmeticMultiplication) {
+  EXPECT_EQ(
+      Angle(4.0, Unit::Angle::Radian) * 2.0, Angle(8.0, Unit::Angle::Radian));
+
+  EXPECT_EQ(
+      2.0 * Angle(4.0, Unit::Angle::Radian), Angle(8.0, Unit::Angle::Radian));
+
+  Angle quantity{4.0, Unit::Angle::Radian};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Angle(8.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, Constructor) {
-  constexpr Angle angle0{};
-  const Angle angle1{90.0, Unit::Angle::Degree};
-  constexpr Angle angle2{Angle::Create<Unit::Angle::Degree>(90.0)};
-  const Value::Vector vector0{1.0, 0.0, 0.0};
-  const Value::Vector vector1{0.0, 0.0, -1.0};
-  EXPECT_DOUBLE_EQ(vector0.Angle(vector1).Value(), angle1.Value());
+TEST(Angle, ArithmeticSubtraction) {
+  EXPECT_EQ(Angle(3.0, Unit::Angle::Radian) - Angle(2.0, Unit::Angle::Radian),
+            Angle(1.0, Unit::Angle::Radian));
+
+  Angle quantity{3.0, Unit::Angle::Radian};
+  quantity -= Angle(2.0, Unit::Angle::Radian);
+  EXPECT_EQ(quantity, Angle(1.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, Copy) {
-  const Angle reference{1.11, Unit::Angle::Radian};
-  const Angle first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Angle, Comparisons) {
+  const Angle first{1.11, Unit::Angle::Radian};
+  const Angle second{2.22, Unit::Angle::Radian};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Angle, CopyAssignment) {
+  const Angle first{1.11, Unit::Angle::Radian};
   Angle second = Angle::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Angle, CopyConstructor) {
+  const Angle first{1.11, Unit::Angle::Radian};
+  const Angle second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Angle, Create) {
+  constexpr Angle quantity = Angle::Create<Unit::Angle::Radian>(1.11);
+  EXPECT_EQ(quantity, Angle(1.11, Unit::Angle::Radian));
+}
+
+TEST(Angle, DefaultConstructor) {
+  EXPECT_NO_THROW(Angle{});
 }
 
 TEST(Angle, Dimensions) {
@@ -91,73 +103,112 @@ TEST(Angle, Dimensions) {
 }
 
 TEST(Angle, Hash) {
-  const Angle angle0{10.0, Unit::Angle::Degree};
-  const Angle angle1{10.000001, Unit::Angle::Degree};
-  const Angle angle2{11.0, Unit::Angle::Degree};
-  const Angle angle3{-10.0, Unit::Angle::Degree};
-  const Angle angle4{20000.0, Unit::Angle::Degree};
-  const Angle angle5{-123.456, Unit::Angle::Degree};
-  const std::hash<Angle> hasher;
-  EXPECT_NE(hasher(angle0), hasher(angle1));
-  EXPECT_NE(hasher(angle0), hasher(angle2));
-  EXPECT_NE(hasher(angle0), hasher(angle3));
-  EXPECT_NE(hasher(angle0), hasher(angle4));
-  EXPECT_NE(hasher(angle0), hasher(angle5));
-  const std::unordered_set<Angle> unordered{
-      angle0, angle1, angle2, angle3, angle4, angle5};
+  const Angle first{1.11, Unit::Angle::Degree};
+  const Angle second{1.110001, Unit::Angle::Degree};
+  const Angle third{-1.11, Unit::Angle::Degree};
+  const std::hash<Angle> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Angle, JSON) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"rad\"}");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).JSON(Unit::Angle::Degree),
-            "{\"value\":-5.000000000000000,\"unit\":\"deg\"}");
+  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).JSON(Unit::Angle::Degree),
+            "{\"value\":-2.220000000000000,\"unit\":\"deg\"}");
 }
 
-TEST(Angle, Move) {
-  const Angle reference{1.11, Unit::Angle::Radian};
-  Angle first{1.11, Unit::Angle::Radian};
-  Angle second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Angle, MiscellaneousConstructors) {
+  const Value::Vector first{1.0, 0.0, 0.0};
+  const Value::Vector second{0.0, 0.0, -1.0};
+  EXPECT_DOUBLE_EQ(
+      Angle(first, second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+}
+
+TEST(Angle, MiscellaneousMethods) {
+  const Value::Vector first{1.0, 0.0, 0.0};
+  const Value::Vector second{0.0, 0.0, -1.0};
+  EXPECT_DOUBLE_EQ(
+      first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+}
+
+TEST(Angle, MoveAssignment) {
+  const Angle first{1.11, Unit::Angle::Radian};
+  Angle second{1.11, Unit::Angle::Radian};
   Angle third = Angle::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Angle, MoveConstructor) {
+  const Angle first{1.11, Unit::Angle::Radian};
+  Angle second{1.11, Unit::Angle::Radian};
+  Angle third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Angle, MutableValue) {
+  Angle quantity{1.11, Unit::Angle::Radian};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(Angle, Print) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).Print(), "1.110000000000000 rad");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).Print(Unit::Angle::Degree),
-            "-5.000000000000000 deg");
+  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).Print(Unit::Angle::Degree),
+            "-2.220000000000000 deg");
+}
+
+TEST(Angle, SetValue) {
+  Angle quantity{1.11, Unit::Angle::Radian};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Angle, SizeOf) {
-  const Angle angle{1.11, Unit::Angle::Radian};
-  EXPECT_EQ(sizeof(angle), sizeof(double));
+  EXPECT_EQ(sizeof(Angle{}), sizeof(double));
+}
+
+TEST(Angle, StandardConstructor) {
+  EXPECT_NO_THROW(Angle(1.11, Unit::Angle::Degree));
+}
+
+TEST(Angle, StaticValue) {
+  constexpr Angle quantity = Angle::Create<Unit::Angle::Degree>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::Angle::Degree>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(Angle, Stream) {
-  const Angle angle{1.11, Unit::Angle::Radian};
+  const Angle quantity{1.11, Unit::Angle::Radian};
   std::ostringstream stream;
-  stream << angle;
-  EXPECT_EQ(stream.str(), angle.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Angle, Unit) {
   EXPECT_EQ(Angle::Unit(), Standard<Unit::Angle>);
 }
 
+TEST(Angle, Value) {
+  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).Value(), 1.11);
+  EXPECT_EQ(Angle(1.11, Unit::Angle::Degree).Value(Unit::Angle::Degree), 1.11);
+}
+
 TEST(Angle, XML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).XML(),
             "<value>1.110000000000000</value><unit>rad</unit>");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).XML(Unit::Angle::Degree),
-            "<value>-5.000000000000000</value><unit>deg</unit>");
+  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).XML(Unit::Angle::Degree),
+            "<value>-2.220000000000000</value><unit>deg</unit>");
 }
 
 TEST(Angle, YAML) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).YAML(),
             "{value:1.110000000000000,unit:\"rad\"}");
-  EXPECT_EQ(Angle(-5.0, Unit::Angle::Degree).YAML(Unit::Angle::Degree),
-            "{value:-5.000000000000000,unit:\"deg\"}");
+  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).YAML(Unit::Angle::Degree),
+            "{value:-2.220000000000000,unit:\"deg\"}");
 }
 
 TEST(Angle, Zero) {

@@ -17,101 +17,149 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(AccelerationMagnitude, Accessor) {
-  const AccelerationMagnitude acceleration{
-      0.1, Unit::Acceleration::MetrePerSquareSecond};
-  EXPECT_DOUBLE_EQ(acceleration.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(acceleration.Value(Unit::Acceleration::FootPerSquareSecond),
-                   0.1 / 0.3048);
+TEST(AccelerationMagnitude, ArithmeticAddition) {
+  EXPECT_EQ(
+      AccelerationMagnitude(1.0, Unit::Acceleration::MetrePerSquareSecond)
+          + AccelerationMagnitude(
+              2.0, Unit::Acceleration::MetrePerSquareSecond),
+      AccelerationMagnitude(3.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  AccelerationMagnitude quantity{1.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity +=
+      AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          3.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, Arithmetic) {
-  const Time time0p5{0.5, Unit::Time::Second};
-  const Frequency frequency2{2.0, Unit::Frequency::Hertz};
-  const Speed speed2{2.0, Unit::Speed::MetrePerSecond};
-  const AccelerationMagnitude acceleration0{
-      0.0, Unit::Acceleration::MetrePerSquareSecond};
-  const AccelerationMagnitude acceleration4{
-      4.0, Unit::Acceleration::MetrePerSquareSecond};
-  const AccelerationMagnitude acceleration8{
-      8.0, Unit::Acceleration::MetrePerSquareSecond};
-  EXPECT_EQ(acceleration4 + acceleration4, acceleration8);
-  EXPECT_EQ(acceleration4 - acceleration4, acceleration0);
-  EXPECT_EQ(acceleration4 * 2.0, acceleration8);
-  EXPECT_EQ(2.0 * acceleration4, acceleration8);
-  EXPECT_EQ(acceleration4 * time0p5, speed2);
-  EXPECT_EQ(speed2 * frequency2, acceleration4);
-  EXPECT_EQ(frequency2 * speed2, acceleration4);
-  EXPECT_EQ(acceleration8 / 2.0, acceleration4);
-  EXPECT_EQ(acceleration4 / frequency2, speed2);
-  EXPECT_EQ(speed2 / acceleration4, time0p5);
-  EXPECT_EQ(speed2 / time0p5, acceleration4);
-  EXPECT_EQ(acceleration4 / acceleration4, 1.0);
+TEST(AccelerationMagnitude, ArithmeticDivision) {
+  EXPECT_EQ(
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond)
+          / 2.0,
+      AccelerationMagnitude(4.0, Unit::Acceleration::MetrePerSquareSecond));
 
-  AccelerationMagnitude a{acceleration4};
-  a += acceleration4;
-  EXPECT_EQ(a, acceleration8);
+  EXPECT_EQ(AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond)
+                / AccelerationMagnitude(
+                    2.0, Unit::Acceleration::MetrePerSquareSecond),
+            4.0);
 
-  AccelerationMagnitude b{acceleration4};
-  b -= acceleration4;
-  EXPECT_EQ(b, acceleration0);
+  EXPECT_EQ(AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond)
+                / Frequency(2.0, Unit::Frequency::Hertz),
+            Speed(4.0, Unit::Speed::MetrePerSecond));
 
-  AccelerationMagnitude c{acceleration4};
-  c *= 2.0;
-  EXPECT_EQ(c, acceleration8);
+  EXPECT_EQ(AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond)
+                / Speed(2.0, Unit::Speed::MetrePerSecond),
+            Frequency(4.0, Unit::Frequency::Hertz));
 
-  AccelerationMagnitude d{acceleration8};
-  d /= 2.0;
-  EXPECT_EQ(d, acceleration4);
+  EXPECT_EQ(
+      Speed(8.0, Unit::Speed::MetrePerSecond) / Time(2.0, Unit::Time::Second),
+      AccelerationMagnitude(4.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
+                / AccelerationMagnitude(
+                    2.0, Unit::Acceleration::MetrePerSquareSecond),
+            Time(4.0, Unit::Time::Second));
+
+  AccelerationMagnitude quantity{8.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          4.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, Comparison) {
-  const AccelerationMagnitude acceleration0{
+TEST(AccelerationMagnitude, ArithmeticMultiplication) {
+  EXPECT_EQ(
+      AccelerationMagnitude(4.0, Unit::Acceleration::MetrePerSquareSecond)
+          * 2.0,
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      2.0
+          * AccelerationMagnitude(
+              4.0, Unit::Acceleration::MetrePerSquareSecond),
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond)
+                * Time(4.0, Unit::Time::Second),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Time(2.0, Unit::Time::Second)
+                * AccelerationMagnitude(
+                    4.0, Unit::Acceleration::MetrePerSquareSecond),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Speed(2.0, Unit::Speed::MetrePerSecond)
+          * Frequency(4.0, Unit::Frequency::Hertz),
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      Frequency(2.0, Unit::Frequency::Hertz)
+          * Speed(4.0, Unit::Speed::MetrePerSecond),
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  AccelerationMagnitude quantity{4.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          8.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, ArithmeticSubtraction) {
+  EXPECT_EQ(
+      AccelerationMagnitude(3.0, Unit::Acceleration::MetrePerSquareSecond)
+          - AccelerationMagnitude(
+              2.0, Unit::Acceleration::MetrePerSquareSecond),
+      AccelerationMagnitude(1.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  AccelerationMagnitude quantity{3.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity -=
+      AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          1.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, Comparisons) {
+  const AccelerationMagnitude first{
       0.1, Unit::Acceleration::MetrePerSquareSecond};
-  const AccelerationMagnitude acceleration1{
+  const AccelerationMagnitude second{
       0.2, Unit::Acceleration::MetrePerSquareSecond};
-  EXPECT_EQ(acceleration0, acceleration0);
-  EXPECT_NE(acceleration0, acceleration1);
-  EXPECT_LT(acceleration0, acceleration1);
-  EXPECT_GT(acceleration1, acceleration0);
-  EXPECT_LE(acceleration0, acceleration0);
-  EXPECT_LE(acceleration0, acceleration1);
-  EXPECT_GE(acceleration0, acceleration0);
-  EXPECT_GE(acceleration1, acceleration0);
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
 }
 
-TEST(AccelerationMagnitude, Constructor) {
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
-  constexpr AccelerationMagnitude acceleration0{};
-  const AccelerationMagnitude acceleration1{
-      4.0, Unit::Acceleration::MetrePerSquareSecond};
-  constexpr AccelerationMagnitude acceleration2{
-      AccelerationMagnitude::Create<Unit::Acceleration::MetrePerSquareSecond>(
-          4.0)};
-  EXPECT_EQ(AccelerationMagnitude(speed, time), acceleration1);
-  EXPECT_EQ(AccelerationMagnitude(speed, frequency), acceleration1);
-  EXPECT_EQ(Speed(acceleration1, time), speed);
-  EXPECT_EQ(Speed(acceleration1, frequency), speed);
-  EXPECT_EQ(Time(acceleration1, speed), time);
-  EXPECT_EQ(Frequency(acceleration1, speed), frequency);
-}
-
-TEST(AccelerationMagnitude, Copy) {
-  const AccelerationMagnitude reference{
+TEST(AccelerationMagnitude, CopyAssignment) {
+  const AccelerationMagnitude first{
       1.11, Unit::Acceleration::MetrePerSquareSecond};
-  const AccelerationMagnitude first{reference};
-  EXPECT_EQ(first, reference);
   AccelerationMagnitude second = AccelerationMagnitude::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(AccelerationMagnitude, CopyConstructor) {
+  const AccelerationMagnitude first{
+      1.11, Unit::Acceleration::MetrePerSquareSecond};
+  const AccelerationMagnitude second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Angle, Create) {
+  constexpr AccelerationMagnitude quantity =
+      AccelerationMagnitude::Create<Unit::Acceleration::MetrePerSquareSecond>(
+          1.11);
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          1.11, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, DefaultConstructor) {
+  EXPECT_NO_THROW(AccelerationMagnitude{});
 }
 
 TEST(AccelerationMagnitude, Dimensions) {
@@ -120,27 +168,16 @@ TEST(AccelerationMagnitude, Dimensions) {
 }
 
 TEST(AccelerationMagnitude, Hash) {
-  const AccelerationMagnitude acceleration0{
-      10.0, Unit::Acceleration::FootPerSquareSecond};
-  const AccelerationMagnitude acceleration1{
-      10.000001, Unit::Acceleration::FootPerSquareSecond};
-  const AccelerationMagnitude acceleration2{
-      11.0, Unit::Acceleration::FootPerSquareSecond};
-  const AccelerationMagnitude acceleration3{
-      -10.0, Unit::Acceleration::FootPerSquareSecond};
-  const AccelerationMagnitude acceleration4{
-      20000.0, Unit::Acceleration::FootPerSquareSecond};
-  const AccelerationMagnitude acceleration5{
-      -123.456, Unit::Acceleration::FootPerSquareSecond};
-  const std::hash<AccelerationMagnitude> hasher;
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration1));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration2));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration3));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration4));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration5));
-  const std::unordered_set<AccelerationMagnitude> unordered{
-      acceleration0, acceleration1, acceleration2,
-      acceleration3, acceleration4, acceleration5};
+  const AccelerationMagnitude first{
+      1.11, Unit::Acceleration::FootPerSquareSecond};
+  const AccelerationMagnitude second{
+      1.110001, Unit::Acceleration::FootPerSquareSecond};
+  const AccelerationMagnitude third{
+      -1.11, Unit::Acceleration::FootPerSquareSecond};
+  const std::hash<AccelerationMagnitude> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(AccelerationMagnitude, JSON) {
@@ -148,20 +185,67 @@ TEST(AccelerationMagnitude, JSON) {
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .JSON(),
       "{\"value\":1.110000000000000,\"unit\":\"m/s^2\"}");
-  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
-                .JSON(Unit::Acceleration::FootPerSquareSecond),
-            "{\"value\":-5.500000000000000,\"unit\":\"ft/s^2\"}");
+  EXPECT_EQ(
+      AccelerationMagnitude(-2.22, Unit::Acceleration::FootPerSquareSecond)
+          .JSON(Unit::Acceleration::FootPerSquareSecond),
+      "{\"value\":-2.220000000000000,\"unit\":\"ft/s^2\"}");
 }
 
-TEST(AccelerationMagnitude, Move) {
-  const AccelerationMagnitude reference{
+TEST(AccelerationMagnitude, MiscellaneousConstructors) {
+  EXPECT_EQ(
+      AccelerationMagnitude(Speed(8.0, Unit::Speed::MetrePerSecond),
+                            Time(2.0, Unit::Time::Second)),
+      AccelerationMagnitude(4.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      AccelerationMagnitude(Speed(4.0, Unit::Speed::MetrePerSecond),
+                            Frequency(2.0, Unit::Frequency::Hertz)),
+      AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(Speed(AccelerationMagnitude(
+                      4.0, Unit::Acceleration::MetrePerSquareSecond),
+                  Time(2.0, Unit::Time::Second)),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Speed(AccelerationMagnitude(
+                      8.0, Unit::Acceleration::MetrePerSquareSecond),
+                  Frequency(2.0, Unit::Frequency::Hertz)),
+            Speed(4.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Time(AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond),
+           Speed(8.0, Unit::Speed::MetrePerSecond)),
+      Time(4.0, Unit::Time::Second));
+
+  EXPECT_EQ(Frequency(AccelerationMagnitude(
+                          8.0, Unit::Acceleration::MetrePerSquareSecond),
+                      Speed(2.0, Unit::Speed::MetrePerSecond)),
+            Frequency(4.0, Unit::Frequency::Hertz));
+}
+
+TEST(AccelerationMagnitude, MoveAssignment) {
+  const AccelerationMagnitude first{
       1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude first{1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude second{std::move(first)};
-  EXPECT_EQ(second, reference);
+  AccelerationMagnitude second{1.11, Unit::Acceleration::MetrePerSquareSecond};
   AccelerationMagnitude third = AccelerationMagnitude::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(AccelerationMagnitude, MoveConstructor) {
+  const AccelerationMagnitude first{
+      1.11, Unit::Acceleration::MetrePerSquareSecond};
+  AccelerationMagnitude second{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  AccelerationMagnitude third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(AccelerationMagnitude, MutableValue) {
+  AccelerationMagnitude quantity{
+      1.11, Unit::Acceleration::MetrePerSquareSecond};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(AccelerationMagnitude, Print) {
@@ -169,27 +253,57 @@ TEST(AccelerationMagnitude, Print) {
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .Print(),
       "1.110000000000000 m/s^2");
-  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
-                .Print(Unit::Acceleration::FootPerSquareSecond),
-            "-5.500000000000000 ft/s^2");
+  EXPECT_EQ(
+      AccelerationMagnitude(-2.22, Unit::Acceleration::FootPerSquareSecond)
+          .Print(Unit::Acceleration::FootPerSquareSecond),
+      "-2.220000000000000 ft/s^2");
+}
+
+TEST(AccelerationMagnitude, SetValue) {
+  AccelerationMagnitude quantity{
+      1.11, Unit::Acceleration::MetrePerSquareSecond};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(AccelerationMagnitude, SizeOf) {
-  const AccelerationMagnitude acceleration{
-      1.11, Unit::Acceleration::MetrePerSquareSecond};
-  EXPECT_EQ(sizeof(acceleration), sizeof(double));
+  EXPECT_EQ(sizeof(AccelerationMagnitude{}), sizeof(double));
+}
+
+TEST(AccelerationMagnitude, StandardConstructor) {
+  EXPECT_NO_THROW(
+      AccelerationMagnitude(1.11, Unit::Acceleration::FootPerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, StaticValue) {
+  constexpr AccelerationMagnitude quantity =
+      AccelerationMagnitude::Create<Unit::Acceleration::FootPerSquareSecond>(
+          1.11);
+  constexpr double value =
+      quantity.StaticValue<Unit::Acceleration::FootPerSquareSecond>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(AccelerationMagnitude, Stream) {
-  const AccelerationMagnitude acceleration{
+  const AccelerationMagnitude quantity{
       1.11, Unit::Acceleration::MetrePerSquareSecond};
   std::ostringstream stream;
-  stream << acceleration;
-  EXPECT_EQ(stream.str(), acceleration.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(AccelerationMagnitude, Unit) {
   EXPECT_EQ(AccelerationMagnitude::Unit(), Standard<Unit::Acceleration>);
+}
+
+TEST(AccelerationMagnitude, Value) {
+  EXPECT_EQ(
+      AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
+          .Value(),
+      1.11);
+  EXPECT_EQ(AccelerationMagnitude(1.11, Unit::Acceleration::FootPerSquareSecond)
+                .Value(Unit::Acceleration::FootPerSquareSecond),
+            1.11);
 }
 
 TEST(AccelerationMagnitude, XML) {
@@ -197,9 +311,10 @@ TEST(AccelerationMagnitude, XML) {
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .XML(),
       "<value>1.110000000000000</value><unit>m/s^2</unit>");
-  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
-                .XML(Unit::Acceleration::FootPerSquareSecond),
-            "<value>-5.500000000000000</value><unit>ft/s^2</unit>");
+  EXPECT_EQ(
+      AccelerationMagnitude(-2.22, Unit::Acceleration::FootPerSquareSecond)
+          .XML(Unit::Acceleration::FootPerSquareSecond),
+      "<value>-2.220000000000000</value><unit>ft/s^2</unit>");
 }
 
 TEST(AccelerationMagnitude, YAML) {
@@ -207,9 +322,10 @@ TEST(AccelerationMagnitude, YAML) {
       AccelerationMagnitude(1.11, Unit::Acceleration::MetrePerSquareSecond)
           .YAML(),
       "{value:1.110000000000000,unit:\"m/s^2\"}");
-  EXPECT_EQ(AccelerationMagnitude(-5.5, Unit::Acceleration::FootPerSquareSecond)
-                .YAML(Unit::Acceleration::FootPerSquareSecond),
-            "{value:-5.500000000000000,unit:\"ft/s^2\"}");
+  EXPECT_EQ(
+      AccelerationMagnitude(-2.22, Unit::Acceleration::FootPerSquareSecond)
+          .YAML(Unit::Acceleration::FootPerSquareSecond),
+      "{value:-2.220000000000000,unit:\"ft/s^2\"}");
 }
 
 TEST(AccelerationMagnitude, Zero) {
