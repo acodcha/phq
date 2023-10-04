@@ -17,141 +17,91 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Displacement, Accessor) {
-  const Displacement displacement{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  EXPECT_DOUBLE_EQ(displacement.Value().x(), 1.0);
-  EXPECT_DOUBLE_EQ(displacement.Value().y(), 2.0);
-  EXPECT_DOUBLE_EQ(displacement.Value().z(), 4.0);
-  EXPECT_DOUBLE_EQ(
-      displacement.Value(Unit::Length::Millimetre).x(), 1.0 * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      displacement.Value(Unit::Length::Millimetre).y(), 2.0 * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      displacement.Value(Unit::Length::Millimetre).z(), 4.0 * 1000.0);
+TEST(Displacement, Angle) {
+  EXPECT_EQ(Displacement({0.0, 2.0, 0.0}, Unit::Length::Metre)
+                .Angle(Displacement({0.0, 0.0, 3.0}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Displacement, AngleAndMagnitude) {
-  const Displacement displacement0{
-      {0.0, 2.0, 0.0},
-      Unit::Length::Metre
-  };
-  const Displacement displacement1{
-      {0.0, 0.0, 4.0},
-      Unit::Length::Metre
-  };
-  EXPECT_DOUBLE_EQ(
-      displacement0.Angle(displacement1).Value(Unit::Angle::Degree), 90.0);
-  EXPECT_DOUBLE_EQ(displacement0.Magnitude().Value(), 2.0);
+TEST(Displacement, ArithmeticAddition) {
+  EXPECT_EQ(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)
+                + Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
+            Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre));
+
+  Displacement quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  quantity += Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  EXPECT_EQ(quantity, Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, Arithmetic) {
-  const Length length{2.0, Unit::Length::Metre};
-  const Direction direction{0.0, -1.0, 0.0};
-  const Displacement displacement0{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  EXPECT_EQ(displacement0 + displacement0,
-            Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(displacement0 - displacement0,
-            Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
-  EXPECT_EQ(
-      displacement0 * 2.0, Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(
-      2.0 * displacement0, Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
-  EXPECT_EQ(
-      displacement0 / 2.0, Displacement({0.5, 1.0, 2.0}, Unit::Length::Metre));
+TEST(Displacement, ArithmeticDivision) {
+  EXPECT_EQ(Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre) / 2.0,
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 
-  Displacement displacement1{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  displacement1 += Displacement{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  EXPECT_EQ(displacement1, Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
-
-  Displacement displacement2{
-      {2.0, 4.0, 8.0},
-      Unit::Length::Metre
-  };
-  displacement2 -= Displacement{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  EXPECT_EQ(displacement2, Displacement({1.0, 2.0, 4.0}, Unit::Length::Metre));
-
-  Displacement displacement3{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  displacement3 *= 2.0;
-  EXPECT_EQ(displacement3, Displacement({2.0, 4.0, 8.0}, Unit::Length::Metre));
-
-  Displacement displacement4{
-      {2.0, 4.0, 8.0},
-      Unit::Length::Metre
-  };
-  displacement4 /= 2.0;
-  EXPECT_EQ(displacement4, Displacement({1.0, 2.0, 4.0}, Unit::Length::Metre));
+  Displacement quantity({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, Comparison) {
-  const Displacement displacement0{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Metre
-  };
-  const Displacement displacement1{
-      {1.0, 2.0, 8.0},
-      Unit::Length::Metre
-  };
-  EXPECT_EQ(displacement0, displacement0);
-  EXPECT_NE(displacement0, displacement1);
-  EXPECT_LT(displacement0, displacement1);
-  EXPECT_GT(displacement1, displacement0);
-  EXPECT_LE(displacement0, displacement0);
-  EXPECT_LE(displacement0, displacement1);
-  EXPECT_GE(displacement0, displacement0);
-  EXPECT_GE(displacement1, displacement0);
+TEST(Displacement, ArithmeticMultiplication) {
+  EXPECT_EQ(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre) * 2.0,
+            Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
+
+  EXPECT_EQ(2.0 * Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre),
+            Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
+
+  Displacement quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, Constructor) {
-  constexpr Displacement displacement0{};
-  const Displacement displacement1{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement2{
-      {-1.0, -2.0, -4.0},
-      Unit::Length::Millimetre
-  };
-  constexpr Displacement displacement3{
-      Displacement::Create<Unit::Length::Millimetre>({-1.0, -2.0, -4.0})};
-  const Direction direction{displacement1};
-  const Angle angle{displacement1, displacement2};
-  const Length length{displacement1};
+TEST(Displacement, ArithmeticSubtraction) {
+  EXPECT_EQ(Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre)
+                - Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+
+  Displacement quantity({3.0, -6.0, 9.0}, Unit::Length::Metre);
+  quantity -= Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  EXPECT_EQ(quantity, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, Copy) {
-  const Displacement reference{
-      {1.11, 2.22, 3.33},
-      Unit::Length::Metre
-  };
-  const Displacement first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Displacement, Comparisons) {
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  const Displacement second({1.11, -2.22, 3.330001}, Unit::Length::Metre);
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Displacement, CopyAssignment) {
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
   Displacement second = Displacement::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Displacement, CopyConstructor) {
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  const Displacement second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Displacement, Create) {
+  constexpr Displacement quantity =
+      Displacement::Create<Unit::Length::Metre>({1.11, -2.22, 3.33});
+  EXPECT_EQ(quantity, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
+}
+
+TEST(Displacement, DefaultConstructor) {
+  EXPECT_NO_THROW(Displacement{});
 }
 
 TEST(Displacement, Dimensions) {
@@ -159,114 +109,131 @@ TEST(Displacement, Dimensions) {
 }
 
 TEST(Displacement, Hash) {
-  const Displacement displacement0{
-      {1.0, 2.0, 4.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement1{
-      {1.0, 2.000001, 4.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement2{
-      {1.0, 2.0, 5.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement3{
-      {1.0, 2.0, -4.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement4{
-      {1000000.0, 2000000.0, 4000000.0},
-      Unit::Length::Millimetre
-  };
-  const Displacement displacement5{
-      {-1.0, -2.0, -4.0},
-      Unit::Length::Millimetre
-  };
-  const std::hash<Displacement> hasher;
-  EXPECT_NE(hasher(displacement0), hasher(displacement1));
-  EXPECT_NE(hasher(displacement0), hasher(displacement2));
-  EXPECT_NE(hasher(displacement0), hasher(displacement3));
-  EXPECT_NE(hasher(displacement0), hasher(displacement4));
-  EXPECT_NE(hasher(displacement0), hasher(displacement5));
-  const std::unordered_set<Displacement> unordered{
-      displacement0, displacement1, displacement2,
-      displacement3, displacement4, displacement5};
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Millimetre);
+  const Displacement second({1.11, -2.22, 3.330001}, Unit::Length::Millimetre);
+  const Displacement third({1.11, 2.22, 3.33}, Unit::Length::Millimetre);
+  const std::hash<Displacement> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Displacement, JSON) {
-  EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":2.220000000000000,\"z\":"
-            "4.440000000000000},\"unit\":\"m\"}");
-  EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).JSON(),
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
+            "\"z\":"
+            "3.330000000000000},\"unit\":\"m\"}");
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
                 .JSON(Unit::Length::Millimetre),
-            "{\"value\":{\"x\":0,\"y\":-5.000000000000000,\"z\":0},\"unit\":"
+            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
             "\"mm\"}");
 }
 
-TEST(Displacement, Move) {
-  const Displacement reference{
-      {1.11, 2.22, 4.44},
-      Unit::Length::Metre
-  };
-  Displacement first{
-      {1.11, 2.22, 4.44},
-      Unit::Length::Metre
-  };
-  Displacement second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Displacement, Magnitude) {
+  EXPECT_EQ(Displacement({3.0, 0.0, -4.0}, Unit::Length::Metre).Magnitude(),
+            Length(5.0, Unit::Length::Metre));
+}
+
+TEST(Displacement, MiscellaneousConstructors) {
+  EXPECT_EQ(Direction(Displacement({0.0, -2.22, 0.0}, Unit::Length::Metre)),
+            Direction(0.0, -1.0, 0.0));
+
+  EXPECT_EQ(Angle(Displacement({0.0, 2.22, 0.0}, Unit::Length::Metre),
+                  Displacement({0.0, 0.0, 4.44}, Unit::Length::Metre)),
+            Angle(90.0, Unit::Angle::Degree));
+
+  EXPECT_EQ(Length(Displacement({3.0, 0.0, -4.0}, Unit::Length::Metre)),
+            Length(5.0, Unit::Length::Metre));
+}
+
+TEST(Displacement, MoveAssignment) {
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Displacement second({1.11, -2.22, 3.33}, Unit::Length::Metre);
   Displacement third = Displacement::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Displacement, MoveConstructor) {
+  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Displacement second({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Displacement third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Displacement, MutableValue) {
+  Displacement quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Value::Vector& value = quantity.MutableValue();
+  value = Value::Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(value, Value::Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Displacement, Print) {
-  EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).Print(),
-            "(1.110000000000000, 2.220000000000000, 4.440000000000000) m");
-  EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Print(),
+            "(1.110000000000000, -2.220000000000000, 3.330000000000000) m");
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
                 .Print(Unit::Length::Millimetre),
-            "(0, -5.000000000000000, 0) mm");
+            "(0, -2.220000000000000, 0) mm");
+}
+
+TEST(Displacement, SetValue) {
+  Displacement quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  quantity.SetValue({-4.44, 5.55, -6.66});
+  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Displacement, SizeOf) {
-  const Displacement displacement{
-      {1.11, 2.22, 4.44},
-      Unit::Length::Metre
-  };
-  EXPECT_EQ(sizeof(displacement), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Displacement{}), 3 * sizeof(double));
+}
+
+TEST(Displacement, StandardConstructor) {
+  EXPECT_NO_THROW(Displacement({1.11, -2.22, 3.33}, Unit::Length::Millimetre));
+}
+
+TEST(Displacement, StaticValue) {
+  constexpr Displacement quantity =
+      Displacement::Create<Unit::Length::Millimetre>({1.11, -2.22, 3.33});
+  constexpr Value::Vector value =
+      quantity.StaticValue<Unit::Length::Millimetre>();
+  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Displacement, Stream) {
-  const Displacement displacement{
-      {1.11, 2.22, 4.44},
-      Unit::Length::Metre
-  };
+  const Displacement quantity({1.11, 2.22, 4.44}, Unit::Length::Metre);
   std::ostringstream stream;
-  stream << displacement;
-  EXPECT_EQ(stream.str(), displacement.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Displacement, Unit) {
   EXPECT_EQ(Displacement::Unit(), Standard<Unit::Length>);
 }
 
+TEST(Displacement, Value) {
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(),
+            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Millimetre)
+                .Value(Unit::Length::Millimetre),
+            Value::Vector(1.11, -2.22, 3.33));
+}
+
 TEST(Displacement, XML) {
-  EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).XML(),
-            "<value><x>1.110000000000000</x><y>2.220000000000000</"
-            "y><z>4.440000000000000</z></value><unit>m</unit>");
-  EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).XML(),
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
+            "y><z>3.330000000000000</z></value><unit>m</unit>");
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
                 .XML(Unit::Length::Millimetre),
-            "<value><x>0</x><y>-5.000000000000000</y><z>0</z></value><unit>mm</"
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</"
             "unit>");
 }
 
 TEST(Displacement, YAML) {
-  EXPECT_EQ(Displacement({1.11, 2.22, 4.44}, Unit::Length::Metre).YAML(),
-            "{value:{x:1.110000000000000,y:2.220000000000000,z:4."
-            "440000000000000},unit:\"m\"}");
-  EXPECT_EQ(Displacement({0.0, -5.0, 0.0}, Unit::Length::Millimetre)
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).YAML(),
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
+            "330000000000000},unit:\"m\"}");
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
                 .YAML(Unit::Length::Millimetre),
-            "{value:{x:0,y:-5.000000000000000,z:0},unit:\"mm\"}");
+            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm\"}");
 }
 
 TEST(Displacement, Zero) {

@@ -17,73 +17,95 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Area, Accessor) {
-  const Area area{0.1, Unit::Area::SquareMetre};
-  EXPECT_DOUBLE_EQ(area.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(area.Value(Unit::Area::SquareMillimetre), 0.1 * 1000000.0);
+TEST(Area, ArithmeticAddition) {
+  EXPECT_EQ(
+      Area(1.0, Unit::Area::SquareMetre) + Area(2.0, Unit::Area::SquareMetre),
+      Area(3.0, Unit::Area::SquareMetre));
+
+  Area quantity{1.0, Unit::Area::SquareMetre};
+  quantity += Area(2.0, Unit::Area::SquareMetre);
+  EXPECT_EQ(quantity, Area(3.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, Arithmetic) {
-  const Length length{2.0, Unit::Length::Metre};
-  const Area area0{1.0, Unit::Area::SquareMetre};
-  EXPECT_EQ(area0 + area0, Area(2.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(area0 - area0, Area(0.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(area0 * 2.0, Area(2.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(2.0 * area0, Area(2.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(length * length, Area(4.0, Unit::Area::SquareMetre));
-  EXPECT_EQ(area0 / 2.0, Area(0.5, Unit::Area::SquareMetre));
-  EXPECT_EQ(area0 / length, Length(0.5, Unit::Length::Metre));
-  EXPECT_EQ(area0 / area0, 1.0);
+TEST(Area, ArithmeticDivision) {
+  EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / 2.0,
+            Area(4.0, Unit::Area::SquareMetre));
 
-  Area area1{1.0, Unit::Area::SquareMetre};
-  area1 += Area{1.0, Unit::Area::SquareMetre};
-  EXPECT_EQ(area1, Area(2.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(
+      Area(8.0, Unit::Area::SquareMetre) / Area(2.0, Unit::Area::SquareMetre),
+      4.0);
 
-  Area area2{2.0, Unit::Area::SquareMetre};
-  area2 -= Area{1.0, Unit::Area::SquareMetre};
-  EXPECT_EQ(area2, Area(1.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(
+      Area(8.0, Unit::Area::SquareMetre) / Length(4.0, Unit::Length::Metre),
+      Length(2.0, Unit::Length::Metre));
 
-  Area area3{1.0, Unit::Area::SquareMetre};
-  area3 *= 2.0;
-  EXPECT_EQ(area3, Area(2.0, Unit::Area::SquareMetre));
-
-  Area area4{2.0, Unit::Area::SquareMetre};
-  area4 /= 2.0;
-  EXPECT_EQ(area4, Area(1.0, Unit::Area::SquareMetre));
+  Area quantity{8.0, Unit::Area::SquareMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Area(4.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, Comparison) {
-  const Area area0{0.1, Unit::Area::SquareMetre};
-  const Area area1{0.2, Unit::Area::SquareMetre};
-  EXPECT_EQ(area0, area0);
-  EXPECT_NE(area0, area1);
-  EXPECT_LT(area0, area1);
-  EXPECT_GT(area1, area0);
-  EXPECT_LE(area0, area0);
-  EXPECT_LE(area0, area1);
-  EXPECT_GE(area0, area0);
-  EXPECT_GE(area1, area0);
+TEST(Area, ArithmeticMultiplication) {
+  EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * 2.0,
+            Area(8.0, Unit::Area::SquareMetre));
+
+  EXPECT_EQ(2.0 * Area(4.0, Unit::Area::SquareMetre),
+            Area(8.0, Unit::Area::SquareMetre));
+
+  EXPECT_EQ(Length(4.0, Unit::Length::Metre) * Length(2.0, Unit::Length::Metre),
+            Area(8.0, Unit::Area::SquareMetre));
+
+  Area quantity{4.0, Unit::Area::SquareMetre};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Area(8.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, Constructor) {
-  constexpr Area area0{};
-  const Area area1{100.0, Unit::Area::SquareMillimetre};
-  constexpr Area area2{Area::Create<Unit::Area::SquareMillimetre>(90.0)};
+TEST(Area, ArithmeticSubtraction) {
+  EXPECT_EQ(
+      Area(3.0, Unit::Area::SquareMetre) - Area(2.0, Unit::Area::SquareMetre),
+      Area(1.0, Unit::Area::SquareMetre));
+
+  Area quantity{3.0, Unit::Area::SquareMetre};
+  quantity -= Area(2.0, Unit::Area::SquareMetre);
+  EXPECT_EQ(quantity, Area(1.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, Copy) {
-  const Area reference{1.11, Unit::Area::SquareMetre};
-  const Area first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Area, Comparisons) {
+  const Area first{1.11, Unit::Area::SquareMetre};
+  const Area second{2.22, Unit::Area::SquareMetre};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Area, CopyAssignment) {
+  const Area first{1.11, Unit::Area::SquareMetre};
   Area second = Area::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Area, CopyConstructor) {
+  const Area first{1.11, Unit::Area::SquareMetre};
+  const Area second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Area, Create) {
+  constexpr Area quantity = Area::Create<Unit::Area::SquareMetre>(1.11);
+  EXPECT_EQ(quantity, Area(1.11, Unit::Area::SquareMetre));
+}
+
+TEST(Area, DefaultConstructor) {
+  EXPECT_NO_THROW(Area{});
 }
 
 TEST(Area, Dimensions) {
@@ -91,78 +113,105 @@ TEST(Area, Dimensions) {
 }
 
 TEST(Area, Hash) {
-  const Area area0{10.0, Unit::Area::SquareMillimetre};
-  const Area area1{10.000001, Unit::Area::SquareMillimetre};
-  const Area area2{11.0, Unit::Area::SquareMillimetre};
-  const Area area3{-10.0, Unit::Area::SquareMillimetre};
-  const Area area4{20000.0, Unit::Area::SquareMillimetre};
-  const Area area5{-123.456, Unit::Area::SquareMillimetre};
-  const std::hash<Area> hasher;
-  EXPECT_NE(hasher(area0), hasher(area1));
-  EXPECT_NE(hasher(area0), hasher(area2));
-  EXPECT_NE(hasher(area0), hasher(area3));
-  EXPECT_NE(hasher(area0), hasher(area4));
-  EXPECT_NE(hasher(area0), hasher(area5));
-  const std::unordered_set<Area> unordered{
-      area0, area1, area2, area3, area4, area5};
+  const Area first{1.11, Unit::Area::SquareMetre};
+  const Area second{1.110001, Unit::Area::SquareMetre};
+  const Area third{-1.11, Unit::Area::SquareMetre};
+  const std::hash<Area> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Area, JSON) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"m^2\"}");
-  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
                 .JSON(Unit::Area::SquareMillimetre),
-            "{\"value\":-5.000000000000000,\"unit\":\"mm^2\"}");
+            "{\"value\":-2.220000000000000,\"unit\":\"mm^2\"}");
 }
 
-TEST(Area, Move) {
-  const Area reference{1.11, Unit::Area::SquareMetre};
-  Area first{1.11, Unit::Area::SquareMetre};
-  Area second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Area, MoveAssignment) {
+  const Area first{1.11, Unit::Area::SquareMetre};
+  Area second{1.11, Unit::Area::SquareMetre};
   Area third = Area::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Area, MoveConstructor) {
+  const Area first{1.11, Unit::Area::SquareMetre};
+  Area second{1.11, Unit::Area::SquareMetre};
+  Area third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Area, MutableValue) {
+  Area quantity{1.11, Unit::Area::SquareMetre};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(Area, Print) {
   EXPECT_EQ(
       Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000000000000 m^2");
-  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
                 .Print(Unit::Area::SquareMillimetre),
-            "-5.000000000000000 mm^2");
+            "-2.220000000000000 mm^2");
+}
+
+TEST(Area, SetValue) {
+  Area quantity{1.11, Unit::Area::SquareMetre};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Area, SizeOf) {
-  const Area area{1.11, Unit::Area::SquareMetre};
-  EXPECT_EQ(sizeof(area), sizeof(double));
+  EXPECT_EQ(sizeof(Area{}), sizeof(double));
+}
+
+TEST(Area, StandardConstructor) {
+  EXPECT_NO_THROW(Area(1.11, Unit::Area::SquareMillimetre));
+}
+
+TEST(Area, StaticValue) {
+  constexpr Area quantity = Area::Create<Unit::Area::SquareMetre>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::Area::SquareMetre>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(Area, Stream) {
-  const Area area{1.11, Unit::Area::SquareMetre};
+  const Area quantity{1.11, Unit::Area::SquareMetre};
   std::ostringstream stream;
-  stream << area;
-  EXPECT_EQ(stream.str(), area.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Area, Unit) {
   EXPECT_EQ(Area::Unit(), Standard<Unit::Area>);
 }
 
+TEST(Area, Value) {
+  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).Value(), 1.11);
+  EXPECT_EQ(Area(2.0, Unit::Area::SquareMillimetre)
+                .Value(Unit::Area::SquareMillimetre),
+            2.0);
+}
+
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
             "<value>1.110000000000000</value><unit>m^2</unit>");
-  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
                 .XML(Unit::Area::SquareMillimetre),
-            "<value>-5.000000000000000</value><unit>mm^2</unit>");
+            "<value>-2.220000000000000</value><unit>mm^2</unit>");
 }
 
 TEST(Area, YAML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).YAML(),
             "{value:1.110000000000000,unit:\"m^2\"}");
-  EXPECT_EQ(Area(-5.0, Unit::Area::SquareMillimetre)
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
                 .YAML(Unit::Area::SquareMillimetre),
-            "{value:-5.000000000000000,unit:\"mm^2\"}");
+            "{value:-2.220000000000000,unit:\"mm^2\"}");
 }
 
 TEST(Area, Zero) {
