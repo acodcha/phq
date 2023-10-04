@@ -17,108 +17,121 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(SoundSpeed, Accessor) {
-  const SoundSpeed sound_speed{343.0, Unit::Speed::MetrePerSecond};
-  EXPECT_DOUBLE_EQ(sound_speed.Value(), 343.0);
-  EXPECT_DOUBLE_EQ(
-      sound_speed.Value(Unit::Speed::FootPerSecond), 343.0 / 0.3048);
-}
+TEST(SoundSpeed, ArithmeticAddition) {
+  EXPECT_EQ(SoundSpeed(1.0, Unit::Speed::MetrePerSecond)
+                + SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
+            SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
 
-TEST(SoundSpeed, Arithmetic) {
-  const SoundSpeed sound_speed_0{1.0, Unit::Speed::MetrePerSecond};
-  const Speed speed0{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_0 + sound_speed_0,
-            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 + speed0, Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 + sound_speed_0, Speed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 - sound_speed_0,
-            SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 - speed0, Speed(0.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(speed0 - sound_speed_0, Speed(0.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 * 2.0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(2.0 * sound_speed_0, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 / 2.0, SoundSpeed(0.5, Unit::Speed::MetrePerSecond));
-  EXPECT_EQ(sound_speed_0 / sound_speed_0, 1.0);
+  EXPECT_EQ(SoundSpeed(1.0, Unit::Speed::MetrePerSecond)
+                + Speed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(3.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond)
+                + SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(3.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed sound_speed_0{1.0, Unit::Speed::MetrePerSecond};
+  sound_speed_0 += SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(sound_speed_0, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
 
   SoundSpeed sound_speed_1{1.0, Unit::Speed::MetrePerSecond};
-  sound_speed_1 += SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_1, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-  sound_speed_1 += Speed{1.0, Unit::Speed::MetrePerSecond};
+  sound_speed_1 += Speed{2.0, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(sound_speed_1, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
 
-  SoundSpeed sound_speed_2{2.0, Unit::Speed::MetrePerSecond};
-  sound_speed_2 -= SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_2, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
-  sound_speed_2 -= Speed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_2, SoundSpeed(0.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_3{1.0, Unit::Speed::MetrePerSecond};
-  sound_speed_3 *= 2.0;
-  EXPECT_EQ(sound_speed_3, SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_4{2.0, Unit::Speed::MetrePerSecond};
-  sound_speed_4 /= 2.0;
-  EXPECT_EQ(sound_speed_4, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
-
-  Speed speed1{1.0, Unit::Speed::MetrePerSecond};
-  speed1 += SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed1, Speed(2.0, Unit::Speed::MetrePerSecond));
-
-  Speed speed2{2.0, Unit::Speed::MetrePerSecond};
-  speed2 -= SoundSpeed{1.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed2, Speed(1.0, Unit::Speed::MetrePerSecond));
+  Speed speed{1.0, Unit::Speed::MetrePerSecond};
+  speed += SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(speed, Speed(3.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, Comparison) {
-  const SoundSpeed sound_speed_0{0.1, Unit::Speed::MetrePerSecond};
-  const SoundSpeed sound_speed_1{0.2, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_0, sound_speed_0);
-  EXPECT_NE(sound_speed_0, sound_speed_1);
-  EXPECT_LT(sound_speed_0, sound_speed_1);
-  EXPECT_GT(sound_speed_1, sound_speed_0);
-  EXPECT_LE(sound_speed_0, sound_speed_0);
-  EXPECT_LE(sound_speed_0, sound_speed_1);
-  EXPECT_GE(sound_speed_0, sound_speed_0);
-  EXPECT_GE(sound_speed_1, sound_speed_0);
+TEST(SoundSpeed, ArithmeticDivision) {
+  EXPECT_EQ(SoundSpeed(8.0, Unit::Speed::MetrePerSecond) / 2.0,
+            SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(SoundSpeed(8.0, Unit::Speed::MetrePerSecond)
+                / SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
+            4.0);
+
+  SoundSpeed quantity{8.0, Unit::Speed::MetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, Constructor) {
-  constexpr SoundSpeed sound_speed_0{};
-  const SoundSpeed sound_speed_1{4.0, Unit::Speed::MetrePerSecond};
-  constexpr SoundSpeed sound_speed_2{
-      SoundSpeed::Create<Unit::Speed::MetrePerSecond>(4.0)};
-  const MassDensity mass_density{
-      16.0, Unit::MassDensity::KilogramPerCubicMetre};
-  const IsentropicBulkModulus isentropic_bulk_modulus{
-      256.0, Unit::Pressure::Pascal};
-  const SpecificGasConstant specific_gas_constant{
-      1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const HeatCapacityRatio heat_capacity_ratio{4.0};
-  const StaticPressure static_pressure{64.0, Unit::Pressure::Pascal};
-  const Temperature temperature{4.0, Unit::Temperature::Kelvin};
-  EXPECT_EQ(SoundSpeed(mass_density, isentropic_bulk_modulus), sound_speed_1);
-  EXPECT_EQ(MassDensity(isentropic_bulk_modulus, sound_speed_1), mass_density);
-  EXPECT_EQ(IsentropicBulkModulus(mass_density, sound_speed_1),
-            isentropic_bulk_modulus);
-  EXPECT_EQ(SoundSpeed(mass_density, static_pressure, heat_capacity_ratio),
-            sound_speed_1);
-  EXPECT_EQ(SoundSpeed(temperature, specific_gas_constant, heat_capacity_ratio),
-            sound_speed_1);
+TEST(SoundSpeed, ArithmeticMultiplication) {
+  EXPECT_EQ(SoundSpeed(4.0, Unit::Speed::MetrePerSecond) * 2.0,
+            SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(2.0 * SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
+            SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed quantity{4.0, Unit::Speed::MetrePerSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, Copy) {
-  const SoundSpeed reference{1.11, Unit::Speed::MetrePerSecond};
-  const SoundSpeed first{reference};
-  EXPECT_EQ(first, reference);
+TEST(SoundSpeed, ArithmeticSubtraction) {
+  EXPECT_EQ(SoundSpeed(3.0, Unit::Speed::MetrePerSecond)
+                - SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
+            SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(SoundSpeed(3.0, Unit::Speed::MetrePerSecond)
+                - Speed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(1.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
+                - SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(1.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed sound_speed_0{3.0, Unit::Speed::MetrePerSecond};
+  sound_speed_0 -= SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(sound_speed_0, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed sound_speed_1{3.0, Unit::Speed::MetrePerSecond};
+  sound_speed_1 -= Speed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(sound_speed_1, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  Speed speed{3.0, Unit::Speed::MetrePerSecond};
+  speed -= SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(speed, Speed(1.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, Comparisons) {
+  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  const SoundSpeed second{2.22, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(SoundSpeed, CopyAssignment) {
+  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
   SoundSpeed second = SoundSpeed::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(SoundSpeed, CopyConstructor) {
+  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  const SoundSpeed second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(SoundSpeed, Create) {
+  constexpr SoundSpeed quantity =
+      SoundSpeed::Create<Unit::Speed::MetrePerSecond>(1.11);
+  EXPECT_EQ(quantity, SoundSpeed(1.11, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, DefaultConstructor) {
+  EXPECT_NO_THROW(SoundSpeed{});
 }
 
 TEST(SoundSpeed, Dimensions) {
@@ -126,79 +139,135 @@ TEST(SoundSpeed, Dimensions) {
 }
 
 TEST(SoundSpeed, Hash) {
-  const SoundSpeed sound_speed_0{10.0, Unit::Speed::FootPerSecond};
-  const SoundSpeed sound_speed_1{10.000001, Unit::Speed::FootPerSecond};
-  const SoundSpeed sound_speed_2{11.0, Unit::Speed::FootPerSecond};
-  const SoundSpeed sound_speed_3{-10.0, Unit::Speed::FootPerSecond};
-  const SoundSpeed sound_speed_4{20000.0, Unit::Speed::FootPerSecond};
-  const SoundSpeed sound_speed_5{-123.456, Unit::Speed::FootPerSecond};
-  const std::hash<SoundSpeed> hasher;
-  EXPECT_NE(hasher(sound_speed_0), hasher(sound_speed_1));
-  EXPECT_NE(hasher(sound_speed_0), hasher(sound_speed_2));
-  EXPECT_NE(hasher(sound_speed_0), hasher(sound_speed_3));
-  EXPECT_NE(hasher(sound_speed_0), hasher(sound_speed_4));
-  EXPECT_NE(hasher(sound_speed_0), hasher(sound_speed_5));
-  const std::unordered_set<SoundSpeed> unordered{
-      sound_speed_0, sound_speed_1, sound_speed_2,
-      sound_speed_3, sound_speed_4, sound_speed_5};
+  const SoundSpeed first{1.11, Unit::Speed::FootPerSecond};
+  const SoundSpeed second{1.110001, Unit::Speed::FootPerSecond};
+  const SoundSpeed third{-1.11, Unit::Speed::FootPerSecond};
+  const std::hash<SoundSpeed> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(SoundSpeed, JSON) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"m/s\"}");
-  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
+  EXPECT_EQ(SoundSpeed(-2.22, Unit::Speed::FootPerSecond)
                 .JSON(Unit::Speed::FootPerSecond),
-            "{\"value\":-5.500000000000000,\"unit\":\"ft/s\"}");
+            "{\"value\":-2.220000000000000,\"unit\":\"ft/s\"}");
 }
 
-TEST(SoundSpeed, Move) {
-  const SoundSpeed reference{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(SoundSpeed, MiscellaneousConstructors) {
+  EXPECT_EQ(
+      SoundSpeed(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                 IsentropicBulkModulus(32.0, Unit::Pressure::Pascal)),
+      SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(MassDensity(IsentropicBulkModulus(16.0, Unit::Pressure::Pascal),
+                        SoundSpeed(2.0, Unit::Speed::MetrePerSecond)),
+            MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
+
+  EXPECT_EQ(IsentropicBulkModulus(
+                MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
+            IsentropicBulkModulus(32.0, Unit::Pressure::Pascal));
+
+  EXPECT_EQ(
+      SoundSpeed(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+                 StaticPressure(8.0, Unit::Pressure::Pascal),
+                 HeatCapacityRatio(2.0)),
+      SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(SoundSpeed(
+                Temperature(8.0, Unit::Temperature::Kelvin),
+                SpecificGasConstant(
+                    4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
+                HeatCapacityRatio(2.0)),
+            SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, MoveAssignment) {
+  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed second{1.11, Unit::Speed::MetrePerSecond};
   SoundSpeed third = SoundSpeed::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(SoundSpeed, MoveConstructor) {
+  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed second{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(SoundSpeed, MutableValue) {
+  SoundSpeed quantity{1.11, Unit::Speed::MetrePerSecond};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(SoundSpeed, Print) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Print(),
             "1.110000000000000 m/s");
-  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
+  EXPECT_EQ(SoundSpeed(-2.22, Unit::Speed::FootPerSecond)
                 .Print(Unit::Speed::FootPerSecond),
-            "-5.500000000000000 ft/s");
+            "-2.220000000000000 ft/s");
+}
+
+TEST(SoundSpeed, SetValue) {
+  SoundSpeed quantity{1.11, Unit::Speed::MetrePerSecond};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(SoundSpeed, SizeOf) {
-  const SoundSpeed sound_speed{1.11, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sizeof(sound_speed), sizeof(double));
+  EXPECT_EQ(sizeof(SoundSpeed{}), sizeof(double));
+}
+
+TEST(SoundSpeed, StandardConstructor) {
+  EXPECT_NO_THROW(SoundSpeed(1.11, Unit::Speed::FootPerSecond));
+}
+
+TEST(SoundSpeed, StaticValue) {
+  constexpr SoundSpeed quantity =
+      SoundSpeed::Create<Unit::Speed::FootPerSecond>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::Speed::FootPerSecond>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(SoundSpeed, Stream) {
-  const SoundSpeed sound_speed{1.11, Unit::Speed::MetrePerSecond};
+  const SoundSpeed quantity{1.11, Unit::Speed::MetrePerSecond};
   std::ostringstream stream;
-  stream << sound_speed;
-  EXPECT_EQ(stream.str(), sound_speed.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(SoundSpeed, Unit) {
   EXPECT_EQ(SoundSpeed::Unit(), Standard<Unit::Speed>);
 }
 
+TEST(SoundSpeed, Value) {
+  EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Value(), 1.11);
+  EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::FootPerSecond)
+                .Value(Unit::Speed::FootPerSecond),
+            1.11);
+}
+
 TEST(SoundSpeed, XML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).XML(),
             "<value>1.110000000000000</value><unit>m/s</unit>");
-  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
+  EXPECT_EQ(SoundSpeed(-2.22, Unit::Speed::FootPerSecond)
                 .XML(Unit::Speed::FootPerSecond),
-            "<value>-5.500000000000000</value><unit>ft/s</unit>");
+            "<value>-2.220000000000000</value><unit>ft/s</unit>");
 }
 
 TEST(SoundSpeed, YAML) {
   EXPECT_EQ(SoundSpeed(1.11, Unit::Speed::MetrePerSecond).YAML(),
             "{value:1.110000000000000,unit:\"m/s\"}");
-  EXPECT_EQ(SoundSpeed(-5.5, Unit::Speed::FootPerSecond)
+  EXPECT_EQ(SoundSpeed(-2.22, Unit::Speed::FootPerSecond)
                 .YAML(Unit::Speed::FootPerSecond),
-            "{value:-5.500000000000000,unit:\"ft/s\"}");
+            "{value:-2.220000000000000,unit:\"ft/s\"}");
 }
 
 TEST(SoundSpeed, Zero) {

@@ -17,90 +17,113 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(VolumeRate, Accessor) {
-  const VolumeRate rate{0.1, Unit::VolumeRate::CubicMetrePerSecond};
-  EXPECT_DOUBLE_EQ(rate.Value(), 0.1);
-  EXPECT_DOUBLE_EQ(rate.Value(Unit::VolumeRate::CubicFootPerSecond),
-                   0.1 / std::pow(0.3048, 3));
+TEST(VolumeRate, ArithmeticAddition) {
+  EXPECT_EQ(VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond)
+                + VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond));
+
+  VolumeRate quantity{1.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity += VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond);
+  EXPECT_EQ(quantity, VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, Arithmetic) {
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Volume volume{0.5, Unit::Volume::CubicMetre};
-  const VolumeRate rate0{0.0, Unit::VolumeRate::CubicMetrePerSecond};
-  const VolumeRate rate1{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  const VolumeRate rate2{2.0, Unit::VolumeRate::CubicMetrePerSecond};
-  EXPECT_EQ(rate1 + rate1, rate2);
-  EXPECT_EQ(rate1 - rate1, rate0);
-  EXPECT_EQ(rate1 * 2.0, rate2);
-  EXPECT_EQ(2.0 * rate1, rate2);
-  EXPECT_EQ(rate1 * time, volume);
-  EXPECT_EQ(time * rate1, volume);
-  EXPECT_EQ(rate2 / 2.0, rate1);
-  EXPECT_EQ(rate1 / frequency, volume);
-  EXPECT_EQ(rate1 / volume, frequency);
-  EXPECT_EQ(volume / rate1, time);
-  EXPECT_EQ(volume / time, rate1);
-  EXPECT_EQ(rate2 / rate2, 1.0);
+TEST(VolumeRate, ArithmeticDivision) {
+  EXPECT_EQ(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond) / 2.0,
+            VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond));
 
-  VolumeRate rate3{rate1};
-  rate3 += rate1;
-  EXPECT_EQ(rate3, rate2);
+  EXPECT_EQ(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond)
+                / VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            4.0);
 
-  VolumeRate rate4{rate1};
-  rate4 -= rate1;
-  EXPECT_EQ(rate4, rate0);
+  EXPECT_EQ(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond)
+                / Frequency(4.0, Unit::Frequency::Hertz),
+            Volume(2.0, Unit::Volume::CubicMetre));
 
-  VolumeRate rate5{rate1};
-  rate5 *= 2.0;
-  EXPECT_EQ(rate5, rate2);
+  EXPECT_EQ(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond)
+                / Volume(4.0, Unit::Volume::CubicMetre),
+            Frequency(2.0, Unit::Frequency::Hertz));
 
-  VolumeRate rate6{rate2};
-  rate6 /= 2.0;
-  EXPECT_EQ(rate6, rate1);
+  EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre)
+                / VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
+            Time(2.0, Unit::Time::Second));
+
+  EXPECT_EQ(
+      Volume(8.0, Unit::Volume::CubicMetre) / Time(4.0, Unit::Time::Second),
+      VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
+
+  VolumeRate quantity{8.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, Comparison) {
-  const VolumeRate rate0{0.1, Unit::VolumeRate::CubicMetrePerSecond};
-  const VolumeRate rate1{0.2, Unit::VolumeRate::CubicMetrePerSecond};
-  EXPECT_EQ(rate0, rate0);
-  EXPECT_NE(rate0, rate1);
-  EXPECT_LT(rate0, rate1);
-  EXPECT_GT(rate1, rate0);
-  EXPECT_LE(rate0, rate0);
-  EXPECT_LE(rate0, rate1);
-  EXPECT_GE(rate0, rate0);
-  EXPECT_GE(rate1, rate0);
+TEST(VolumeRate, ArithmeticMultiplication) {
+  EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond) * 2.0,
+            VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
+
+  EXPECT_EQ(2.0 * VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
+            VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
+
+  EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)
+                * Time(2.0, Unit::Time::Second),
+            Volume(8.0, Unit::Volume::CubicMetre));
+
+  EXPECT_EQ(Time(4.0, Unit::Time::Second)
+                * VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            Volume(8.0, Unit::Volume::CubicMetre));
+
+  VolumeRate quantity{4.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, Constructor) {
-  const Time time0{0.5, Unit::Time::Second};
-  const Frequency frequency0{2.0, Unit::Frequency::Hertz};
-  const Volume volume0{0.5, Unit::Volume::CubicMetre};
-  constexpr VolumeRate rate0{};
-  const VolumeRate rate1{100.0, Unit::VolumeRate::CubicFootPerSecond};
-  constexpr VolumeRate rate2{
-      VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(100.0)};
-  const Volume volume1{rate1, time0};
-  const Volume volume2{rate1, frequency0};
-  const Time time1{rate1, volume0};
-  const Frequency frequency1{rate1, volume0};
+TEST(VolumeRate, ArithmeticSubtraction) {
+  EXPECT_EQ(VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond)
+                - VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+
+  VolumeRate quantity{3.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity -= VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond);
+  EXPECT_EQ(quantity, VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, Copy) {
-  const VolumeRate reference{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  const VolumeRate first{reference};
-  EXPECT_EQ(first, reference);
+TEST(VolumeRate, Comparisons) {
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  const VolumeRate second{2.22, Unit::VolumeRate::CubicMetrePerSecond};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(VolumeRate, CopyAssignment) {
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   VolumeRate second = VolumeRate::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(VolumeRate, CopyConstructor) {
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  const VolumeRate second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(VolumeRate, Create) {
+  constexpr VolumeRate quantity =
+      VolumeRate::Create<Unit::VolumeRate::CubicMetrePerSecond>(1.11);
+  EXPECT_EQ(quantity, VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
+TEST(VolumeRate, DefaultConstructor) {
+  EXPECT_NO_THROW(VolumeRate{});
 }
 
 TEST(VolumeRate, Dimensions) {
@@ -108,78 +131,126 @@ TEST(VolumeRate, Dimensions) {
 }
 
 TEST(VolumeRate, Hash) {
-  const VolumeRate rate0{10.0, Unit::VolumeRate::CubicFootPerSecond};
-  const VolumeRate rate1{10.000001, Unit::VolumeRate::CubicFootPerSecond};
-  const VolumeRate rate2{11.0, Unit::VolumeRate::CubicFootPerSecond};
-  const VolumeRate rate3{-10.0, Unit::VolumeRate::CubicFootPerSecond};
-  const VolumeRate rate4{20000.0, Unit::VolumeRate::CubicFootPerSecond};
-  const VolumeRate rate5{-123.456, Unit::VolumeRate::CubicFootPerSecond};
-  const std::hash<VolumeRate> hasher;
-  EXPECT_NE(hasher(rate0), hasher(rate1));
-  EXPECT_NE(hasher(rate0), hasher(rate2));
-  EXPECT_NE(hasher(rate0), hasher(rate3));
-  EXPECT_NE(hasher(rate0), hasher(rate4));
-  EXPECT_NE(hasher(rate0), hasher(rate5));
-  const std::unordered_set<VolumeRate> unordered{
-      rate0, rate1, rate2, rate3, rate4, rate5};
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicFootPerSecond};
+  const VolumeRate second{1.110001, Unit::VolumeRate::CubicFootPerSecond};
+  const VolumeRate third{-1.11, Unit::VolumeRate::CubicFootPerSecond};
+  const std::hash<VolumeRate> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(VolumeRate, JSON) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"m^3/s\"}");
-  EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
+  EXPECT_EQ(VolumeRate(-2.22, Unit::VolumeRate::CubicFootPerSecond)
                 .JSON(Unit::VolumeRate::CubicFootPerSecond),
-            "{\"value\":-5.000000000000000,\"unit\":\"ft^3/s\"}");
+            "{\"value\":-2.220000000000000,\"unit\":\"ft^3/s\"}");
 }
 
-TEST(VolumeRate, Move) {
-  const VolumeRate reference{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(VolumeRate, MiscellaneousConstructors) {
+  EXPECT_EQ(Volume(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
+                   Time(2.0, Unit::Time::Second)),
+            Volume(8.0, Unit::Volume::CubicMetre));
+
+  EXPECT_EQ(Volume(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
+                   Frequency(4.0, Unit::Frequency::Hertz)),
+            Volume(2.0, Unit::Volume::CubicMetre));
+
+  EXPECT_EQ(Time(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
+                 Volume(8.0, Unit::Volume::CubicMetre)),
+            Time(2.0, Unit::Time::Second));
+
+  EXPECT_EQ(Frequency(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
+                      Volume(4.0, Unit::Volume::CubicMetre)),
+            Frequency(2.0, Unit::Frequency::Hertz));
+}
+
+TEST(VolumeRate, MoveAssignment) {
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   VolumeRate third = VolumeRate::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(VolumeRate, MoveConstructor) {
+  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(VolumeRate, MutableValue) {
+  VolumeRate quantity{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(VolumeRate, Print) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print(),
             "1.110000000000000 m^3/s");
-  EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
+  EXPECT_EQ(VolumeRate(-2.22, Unit::VolumeRate::CubicFootPerSecond)
                 .Print(Unit::VolumeRate::CubicFootPerSecond),
-            "-5.000000000000000 ft^3/s");
+            "-2.220000000000000 ft^3/s");
+}
+
+TEST(VolumeRate, SetValue) {
+  VolumeRate quantity{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(VolumeRate, SizeOf) {
-  const VolumeRate rate{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  EXPECT_EQ(sizeof(rate), sizeof(double));
+  EXPECT_EQ(sizeof(VolumeRate{}), sizeof(double));
+}
+
+TEST(VolumeRate, StandardConstructor) {
+  EXPECT_NO_THROW(VolumeRate(1.11, Unit::VolumeRate::CubicFootPerSecond));
+}
+
+TEST(VolumeRate, StaticValue) {
+  constexpr VolumeRate quantity =
+      VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(1.11);
+  constexpr double value =
+      quantity.StaticValue<Unit::VolumeRate::CubicFootPerSecond>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(VolumeRate, Stream) {
-  const VolumeRate rate{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  const VolumeRate quantity{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   std::ostringstream stream;
-  stream << rate;
-  EXPECT_EQ(stream.str(), rate.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(VolumeRate, Unit) {
   EXPECT_EQ(VolumeRate::Unit(), Standard<Unit::VolumeRate>);
 }
 
+TEST(VolumeRate, Value) {
+  EXPECT_EQ(
+      VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Value(), 1.11);
+  EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicFootPerSecond)
+                .Value(Unit::VolumeRate::CubicFootPerSecond),
+            1.11);
+}
+
 TEST(VolumeRate, XML) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).XML(),
             "<value>1.110000000000000</value><unit>m^3/s</unit>");
-  EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
+  EXPECT_EQ(VolumeRate(-2.22, Unit::VolumeRate::CubicFootPerSecond)
                 .XML(Unit::VolumeRate::CubicFootPerSecond),
-            "<value>-5.000000000000000</value><unit>ft^3/s</unit>");
+            "<value>-2.220000000000000</value><unit>ft^3/s</unit>");
 }
 
 TEST(VolumeRate, YAML) {
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).YAML(),
             "{value:1.110000000000000,unit:\"m^3/s\"}");
-  EXPECT_EQ(VolumeRate(-5.0, Unit::VolumeRate::CubicFootPerSecond)
+  EXPECT_EQ(VolumeRate(-2.22, Unit::VolumeRate::CubicFootPerSecond)
                 .YAML(Unit::VolumeRate::CubicFootPerSecond),
-            "{value:-5.000000000000000,unit:\"ft^3/s\"}");
+            "{value:-2.220000000000000,unit:\"ft^3/s\"}");
 }
 
 TEST(VolumeRate, Zero) {

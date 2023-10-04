@@ -17,16 +17,12 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Dimensions, Accessor) {
-  const Dimensions dimensions{
+TEST(Dimensions, Accessors) {
+  constexpr Dimensions dimensions{
       Dimension::Time{-3},
       Dimension::Length{-2},
       Dimension::Mass{-1},
@@ -43,30 +39,8 @@ TEST(Dimensions, Accessor) {
   EXPECT_EQ(dimensions.LuminousIntensity(), Dimension::LuminousIntensity{3});
 }
 
-TEST(Dimensions, Comparison) {
-  const Dimensions set0{
-      Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-      Dimension::ElectricCurrent{0}, Dimension::Temperature{-1}};
-  const Dimensions set1{
-      Dimension::Time{-2},       Dimension::Length{2},
-      Dimension::Mass{1},        Dimension::ElectricCurrent{0},
-      Dimension::Temperature{0}, Dimension::SubstanceAmount{1}};
-  EXPECT_EQ(set0, set0);
-  EXPECT_NE(set0, set1);
-  EXPECT_LT(set0, set1);
-  EXPECT_LE(set0, set0);
-  EXPECT_LE(set0, set1);
-  EXPECT_GT(set1, set0);
-  EXPECT_GE(set1, set0);
-  EXPECT_GE(set0, set0);
-  const std::set<Dimensions> increasing{set0, set1};
-  EXPECT_EQ(*increasing.begin(), set0);
-  const std::set<Dimensions, std::greater<Dimensions>> decreasing{set0, set1};
-  EXPECT_EQ(*decreasing.begin(), set1);
-}
-
-TEST(Dimensions, Constructor) {
-  constexpr Dimensions reference{
+TEST(Dimensions, Comparisons) {
+  constexpr Dimensions first{
       Dimension::Time{-3},
       Dimension::Length{-2},
       Dimension::Mass{-1},
@@ -74,68 +48,62 @@ TEST(Dimensions, Constructor) {
       Dimension::Temperature{1},
       Dimension::SubstanceAmount{2},
       Dimension::LuminousIntensity{3}};
+  constexpr Dimensions second{
+      Dimension::Time{-3},
+      Dimension::Length{-2},
+      Dimension::Mass{-1},
+      Dimension::ElectricCurrent{0},
+      Dimension::Temperature{1},
+      Dimension::SubstanceAmount{2},
+      Dimension::LuminousIntensity{4}};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
+}
 
-  // Default constructor.
-  constexpr Dimensions default_;
-  EXPECT_EQ(default_,
+TEST(Dimensions, CopyAssignment) {
+  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  Dimensions second;
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Dimensions, CopyConstructor) {
+  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  constexpr Dimensions second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Dimensions, DefaultConstructor) {
+  constexpr Dimensions first;
+  EXPECT_EQ(first,
             Dimensions(Dimension::Time{0}, Dimension::Length{0},
                        Dimension::Mass{0}, Dimension::ElectricCurrent{0},
                        Dimension::Temperature{0}, Dimension::SubstanceAmount{0},
                        Dimension::LuminousIntensity{0}));
-
-  // Copy constructor.
-  constexpr Dimensions copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  Dimensions copy_assigned;
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  Dimensions to_move_construct{reference};
-  Dimensions move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  Dimensions to_move_assign{reference};
-  Dimensions move_assigned;
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
 }
 
 TEST(Dimensions, Hash) {
-  const Dimensions set0;
-  const Dimensions set1{Dimension::Time{2}};
-  const Dimensions set2{Dimension::Time{-3}, Dimension::Length{1}};
-  const Dimensions set3{
+  constexpr Dimensions first;
+  constexpr Dimensions second{
       Dimension::Time{3}, Dimension::Length{0}, Dimension::Mass{-1}};
-  const Dimensions set4{Dimension::Time{-2}, Dimension::Length{-1},
-                        Dimension::Mass{2}, Dimension::ElectricCurrent{1}};
-  const Dimensions set5{
-      Dimension::Time{2}, Dimension::Length{1}, Dimension::Mass{-2},
-      Dimension::ElectricCurrent{0}, Dimension::Temperature{-1}};
-  const Dimensions set6{
-      Dimension::Time{0},        Dimension::Length{1},
-      Dimension::Mass{0},        Dimension::ElectricCurrent{0},
-      Dimension::Temperature{0}, Dimension::SubstanceAmount{-1}};
-  const Dimensions set7{
-      Dimension::Time{0},
+  constexpr Dimensions third{
+      Dimension::Time{3},
       Dimension::Length{0},
-      Dimension::Mass{0},
+      Dimension::Mass{-1},
       Dimension::ElectricCurrent{0},
-      Dimension::Temperature{-1},
+      Dimension::Temperature{0},
       Dimension::SubstanceAmount{0},
       Dimension::LuminousIntensity{1}};
   const std::hash<Dimensions> hasher;
-  EXPECT_NE(hasher(set0), hasher(set1));
-  EXPECT_NE(hasher(set0), hasher(set2));
-  EXPECT_NE(hasher(set0), hasher(set3));
-  EXPECT_NE(hasher(set0), hasher(set4));
-  EXPECT_NE(hasher(set0), hasher(set5));
-  EXPECT_NE(hasher(set0), hasher(set6));
-  const std::unordered_set<Dimensions> unordered{
-      set0, set1, set2, set3, set4, set5, set6, set7};
+  EXPECT_NE(hasher(first), hasher(second));
+  EXPECT_NE(hasher(first), hasher(third));
+  EXPECT_NE(hasher(second), hasher(third));
 }
 
 TEST(Dimensions, JSON) {
@@ -150,6 +118,21 @@ TEST(Dimensions, JSON) {
                  Dimension::SubstanceAmount{-1})
           .JSON(),
       "{\"mass\":1,\"substance_amount\":-1}");
+}
+
+TEST(Dimensions, MoveAssignment) {
+  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  Dimensions second{Dimension::Time{-2}, Dimension::Length{1}};
+  Dimensions third;
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Dimensions, MoveConstructor) {
+  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  Dimensions second{Dimension::Time{-2}, Dimension::Length{1}};
+  Dimensions third{std::move(second)};
+  EXPECT_EQ(third, first);
 }
 
 TEST(Dimensions, Print) {
@@ -185,14 +168,11 @@ TEST(Dimensions, Print) {
 }
 
 TEST(Dimensions, SizeOf) {
-  const Dimensions dimensions{
-      Dimension::Time{2}, Dimension::Length{-2}, Dimension::Mass{-1},
-      Dimension::ElectricCurrent{1}};
-  EXPECT_EQ(sizeof(dimensions), 7 * sizeof(int8_t));
+  EXPECT_EQ(sizeof(Dimensions{}), 7 * sizeof(int8_t));
 }
 
 TEST(Dimensions, Stream) {
-  const Dimensions dimensions{
+  constexpr Dimensions dimensions{
       Dimension::Time{2}, Dimension::Length{-2}, Dimension::Mass{-1},
       Dimension::ElectricCurrent{1}};
   std::ostringstream stream;

@@ -17,123 +17,156 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(TransportEnergyConsumption, Accessor) {
-  const TransportEnergyConsumption consumption{
-      10.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  EXPECT_DOUBLE_EQ(consumption.Value(), 10.0);
-  EXPECT_DOUBLE_EQ(
-      consumption.Value(
-          Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
-      10.0 / 3600.0);
+TEST(TransportEnergyConsumption, ArithmeticAddition) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                1.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                + TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            TransportEnergyConsumption(
+                3.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+
+  TransportEnergyConsumption quantity{
+      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity += TransportEnergyConsumption(
+      2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                3.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, Arithmetic) {
-  const TransportEnergyConsumption consumption0{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const Energy energy{2.0, Unit::Energy::Joule};
-  const Length length{2.0, Unit::Length::Metre};
-  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
-  const Power power{2.0, Unit::Power::Watt};
-  EXPECT_EQ(consumption0 + consumption0,
+TEST(TransportEnergyConsumption, ArithmeticDivision) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                8.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                / 2.0,
             TransportEnergyConsumption(
-                2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(consumption0 - consumption0,
-            TransportEnergyConsumption(
-                0.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(consumption0 * 2.0,
-            TransportEnergyConsumption(
-                2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(2.0 * consumption0,
-            TransportEnergyConsumption(
-                2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(consumption0 * length, energy);
-  EXPECT_EQ(length * consumption0, energy);
-  EXPECT_EQ(consumption0 * speed, power);
-  EXPECT_EQ(speed * consumption0, power);
-  EXPECT_EQ(consumption0 / 2.0,
-            TransportEnergyConsumption(
-                0.5, Unit::TransportEnergyConsumption::JoulePerMetre));
-  EXPECT_EQ(energy / length, consumption0);
-  EXPECT_EQ(energy / consumption0, length);
-  EXPECT_EQ(consumption0 / consumption0, 1.0);
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 
-  TransportEnergyConsumption consumption1{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  consumption1 += TransportEnergyConsumption{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  EXPECT_EQ(consumption1,
+  EXPECT_EQ(TransportEnergyConsumption(
+                8.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                / TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            4.0);
+
+  EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / Length(4.0, Unit::Length::Metre),
             TransportEnergyConsumption(
                 2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 
-  TransportEnergyConsumption consumption2{
-      2.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  consumption2 -= TransportEnergyConsumption{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  EXPECT_EQ(consumption2,
-            TransportEnergyConsumption(
-                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+  EXPECT_EQ(Energy(8.0, Unit::Energy::Joule)
+                / TransportEnergyConsumption(
+                    4.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            Length(2.0, Unit::Length::Metre));
 
-  TransportEnergyConsumption consumption3{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  consumption3 *= 2.0;
-  EXPECT_EQ(consumption3,
+  TransportEnergyConsumption quantity{
+      8.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
             TransportEnergyConsumption(
-                2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-
-  TransportEnergyConsumption consumption4{
-      2.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  consumption4 /= 2.0;
-  EXPECT_EQ(consumption4,
-            TransportEnergyConsumption(
-                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, Comparison) {
-  const TransportEnergyConsumption consumption0{
-      0.1, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption1{
-      0.2, Unit::TransportEnergyConsumption::JoulePerMetre};
-  EXPECT_EQ(consumption0, consumption0);
-  EXPECT_NE(consumption0, consumption1);
-  EXPECT_LT(consumption0, consumption1);
-  EXPECT_GT(consumption1, consumption0);
-  EXPECT_LE(consumption0, consumption0);
-  EXPECT_LE(consumption0, consumption1);
-  EXPECT_GE(consumption0, consumption0);
-  EXPECT_GE(consumption1, consumption0);
-}
+TEST(TransportEnergyConsumption, ArithmeticMultiplication) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                * 2.0,
+            TransportEnergyConsumption(
+                8.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 
-TEST(TransportEnergyConsumption, Constructor) {
-  constexpr TransportEnergyConsumption consumption0{};
-  const TransportEnergyConsumption consumption1{
+  EXPECT_EQ(2.0
+                * TransportEnergyConsumption(
+                    4.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            TransportEnergyConsumption(
+                8.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+
+  EXPECT_EQ(TransportEnergyConsumption(
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                * Length(2.0, Unit::Length::Metre),
+            Energy(8.0, Unit::Energy::Joule));
+
+  EXPECT_EQ(Length(4.0, Unit::Length::Metre)
+                * TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            Energy(8.0, Unit::Energy::Joule));
+
+  EXPECT_EQ(TransportEnergyConsumption(
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                * Speed(2.0, Unit::Speed::MetrePerSecond),
+            Power(8.0, Unit::Power::Watt));
+
+  EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond)
+                * TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            Power(8.0, Unit::Power::Watt));
+
+  TransportEnergyConsumption quantity{
       4.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  constexpr TransportEnergyConsumption consumption2{
-      TransportEnergyConsumption::Create<
-          Unit::TransportEnergyConsumption::JoulePerMetre>(4.0)};
-  const Energy energy{8.0, Unit::Energy::Joule};
-  const Length length{2.0, Unit::Length::Metre};
-  const Speed speed{2.0, Unit::Speed::MetrePerSecond};
-  const Power power{8.0, Unit::Power::Watt};
-  EXPECT_EQ(TransportEnergyConsumption(length, energy), consumption1);
-  EXPECT_EQ(Energy(length, consumption1), energy);
-  EXPECT_EQ(Length(energy, consumption1), length);
-  EXPECT_EQ(Power(speed, consumption1), power);
+  quantity *= 2.0;
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                8.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, Copy) {
-  const TransportEnergyConsumption reference{
+TEST(TransportEnergyConsumption, ArithmeticSubtraction) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                3.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                - TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            TransportEnergyConsumption(
+                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+
+  TransportEnergyConsumption quantity{
+      3.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity -= TransportEnergyConsumption(
+      2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+}
+
+TEST(TransportEnergyConsumption, Comparisons) {
+  const TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption first{reference};
-  EXPECT_EQ(first, reference);
+  const TransportEnergyConsumption second{
+      2.22, Unit::TransportEnergyConsumption::JoulePerMetre};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(TransportEnergyConsumption, CopyAssignment) {
+  const TransportEnergyConsumption first{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(TransportEnergyConsumption, CopyConstructor) {
+  const TransportEnergyConsumption first{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  const TransportEnergyConsumption second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(TransportEnergyConsumption, Create) {
+  constexpr TransportEnergyConsumption quantity =
+      TransportEnergyConsumption::Create<
+          Unit::TransportEnergyConsumption::JoulePerMetre>(1.11);
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                1.11, Unit::TransportEnergyConsumption::JoulePerMetre));
+}
+
+TEST(TransportEnergyConsumption, DefaultConstructor) {
+  EXPECT_NO_THROW(TransportEnergyConsumption{});
 }
 
 TEST(TransportEnergyConsumption, Dimensions) {
@@ -142,27 +175,16 @@ TEST(TransportEnergyConsumption, Dimensions) {
 }
 
 TEST(TransportEnergyConsumption, Hash) {
-  const TransportEnergyConsumption consumption0{
-      10.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption1{
-      10.000001, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption2{
-      11.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption3{
-      -10.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption4{
-      20000.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const TransportEnergyConsumption consumption5{
-      -123.456, Unit::TransportEnergyConsumption::JoulePerMetre};
-  const std::hash<TransportEnergyConsumption> hasher;
-  EXPECT_NE(hasher(consumption0), hasher(consumption1));
-  EXPECT_NE(hasher(consumption0), hasher(consumption2));
-  EXPECT_NE(hasher(consumption0), hasher(consumption3));
-  EXPECT_NE(hasher(consumption0), hasher(consumption4));
-  EXPECT_NE(hasher(consumption0), hasher(consumption5));
-  const std::unordered_set<TransportEnergyConsumption> unordered{
-      consumption0, consumption1, consumption2,
-      consumption3, consumption4, consumption5};
+  const TransportEnergyConsumption first{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  const TransportEnergyConsumption second{
+      1.110001, Unit::TransportEnergyConsumption::JoulePerMetre};
+  const TransportEnergyConsumption third{
+      -1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  const std::hash<TransportEnergyConsumption> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(TransportEnergyConsumption, JSON) {
@@ -172,21 +194,58 @@ TEST(TransportEnergyConsumption, JSON) {
             "{\"value\":1.110000000000000,\"unit\":\"J/m\"}");
   EXPECT_EQ(
       TransportEnergyConsumption(
-          -5.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          -2.22, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
           .JSON(Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
-      "{\"value\":-5.000000000000000,\"unit\":\"kW·hr/km\"}");
+      "{\"value\":-2.220000000000000,\"unit\":\"kW·hr/km\"}");
 }
 
-TEST(TransportEnergyConsumption, Move) {
-  const TransportEnergyConsumption reference{
+TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
+  EXPECT_EQ(TransportEnergyConsumption(Length(4.0, Unit::Length::Metre),
+                                       Energy(8.0, Unit::Energy::Joule)),
+            TransportEnergyConsumption(
+                2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+
+  EXPECT_EQ(Energy(Length(4.0, Unit::Length::Metre),
+                   TransportEnergyConsumption(
+                       2.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+            Energy(8.0, Unit::Energy::Joule));
+
+  EXPECT_EQ(Length(Energy(8.0, Unit::Energy::Joule),
+                   TransportEnergyConsumption(
+                       4.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+            Length(2.0, Unit::Length::Metre));
+
+  EXPECT_EQ(Power(Speed(4.0, Unit::Speed::MetrePerSecond),
+                  TransportEnergyConsumption(
+                      2.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+            Power(8.0, Unit::Power::Watt));
+}
+
+TEST(TransportEnergyConsumption, MoveAssignment) {
+  const TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption first{
+  TransportEnergyConsumption second{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second{std::move(first)};
-  EXPECT_EQ(second, reference);
   TransportEnergyConsumption third = TransportEnergyConsumption::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(TransportEnergyConsumption, MoveConstructor) {
+  const TransportEnergyConsumption first{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  TransportEnergyConsumption second{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  TransportEnergyConsumption third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(TransportEnergyConsumption, MutableValue) {
+  TransportEnergyConsumption quantity{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  double& value = quantity.MutableValue();
+  value = 2.22;
+  EXPECT_EQ(value, 2.22);
 }
 
 TEST(TransportEnergyConsumption, Print) {
@@ -196,28 +255,59 @@ TEST(TransportEnergyConsumption, Print) {
             "1.110000000000000 J/m");
   EXPECT_EQ(
       TransportEnergyConsumption(
-          -5.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          -2.22, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
           .Print(Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
-      "-5.000000000000000 kW·hr/km");
+      "-2.220000000000000 kW·hr/km");
+}
+
+TEST(TransportEnergyConsumption, SetValue) {
+  TransportEnergyConsumption quantity{
+      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity.SetValue(2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(TransportEnergyConsumption, SizeOf) {
-  const TransportEnergyConsumption consumption{
-      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  EXPECT_EQ(sizeof(consumption), sizeof(double));
+  EXPECT_EQ(sizeof(TransportEnergyConsumption{}), sizeof(double));
+}
+
+TEST(TransportEnergyConsumption, StandardConstructor) {
+  EXPECT_NO_THROW(TransportEnergyConsumption(
+      1.11, Unit::TransportEnergyConsumption::KilowattHourPerKilometre));
+}
+
+TEST(TransportEnergyConsumption, StaticValue) {
+  constexpr TransportEnergyConsumption quantity =
+      TransportEnergyConsumption::Create<
+          Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(1.11);
+  constexpr double value = quantity.StaticValue<
+      Unit::TransportEnergyConsumption::KilowattHourPerKilometre>();
+  EXPECT_EQ(value, 1.11);
 }
 
 TEST(TransportEnergyConsumption, Stream) {
-  const TransportEnergyConsumption consumption{
+  const TransportEnergyConsumption quantity{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   std::ostringstream stream;
-  stream << consumption;
-  EXPECT_EQ(stream.str(), consumption.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(TransportEnergyConsumption, Unit) {
   EXPECT_EQ(TransportEnergyConsumption::Unit(),
             Standard<Unit::TransportEnergyConsumption>);
+}
+
+TEST(TransportEnergyConsumption, Value) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                1.11, Unit::TransportEnergyConsumption::JoulePerMetre)
+                .Value(),
+            1.11);
+  EXPECT_EQ(
+      TransportEnergyConsumption(
+          1.11, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          .Value(Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
+      1.11);
 }
 
 TEST(TransportEnergyConsumption, XML) {
@@ -227,9 +317,9 @@ TEST(TransportEnergyConsumption, XML) {
             "<value>1.110000000000000</value><unit>J/m</unit>");
   EXPECT_EQ(
       TransportEnergyConsumption(
-          -5.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          -2.22, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
           .XML(Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
-      "<value>-5.000000000000000</value><unit>kW·hr/km</unit>");
+      "<value>-2.220000000000000</value><unit>kW·hr/km</unit>");
 }
 
 TEST(TransportEnergyConsumption, YAML) {
@@ -239,9 +329,9 @@ TEST(TransportEnergyConsumption, YAML) {
             "{value:1.110000000000000,unit:\"J/m\"}");
   EXPECT_EQ(
       TransportEnergyConsumption(
-          -5.0, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          -2.22, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
           .YAML(Unit::TransportEnergyConsumption::KilowattHourPerKilometre),
-      "{value:-5.000000000000000,unit:\"kW·hr/km\"}");
+      "{value:-2.220000000000000,unit:\"kW·hr/km\"}");
 }
 
 TEST(TransportEnergyConsumption, Zero) {
