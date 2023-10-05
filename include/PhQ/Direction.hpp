@@ -128,7 +128,7 @@ public:
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  void SetValue(const double x, const double y, const double z) {
+  constexpr void SetValue(const double x, const double y, const double z) {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
@@ -141,7 +141,7 @@ public:
   // Sets the value of this direction by normalizing the given x, y, and z
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  void SetValue(const std::array<double, 3>& x_y_z) {
+  constexpr void SetValue(const std::array<double, 3>& x_y_z) {
     const double magnitude_squared{
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
@@ -156,7 +156,7 @@ public:
   // Sets the value of this direction by normalizing the given x-y-z vector to a
   // unit vector. If the given vector is a zero vector, sets the direction to
   // the zero vector.
-  void SetValue(const Value::Vector& value) {
+  constexpr void SetValue(const Value::Vector& value) {
     SetValue(value.x_y_z());
   }
 

@@ -39,17 +39,6 @@ public:
     return value_;
   }
 
-  // Returns the value of this dimensionless physical quantity as a mutable
-  // value.
-  constexpr Value::Vector& MutableValue() noexcept {
-    return value_;
-  }
-
-  // Sets the value of this dimensionless physical quantity to the given value.
-  constexpr void SetValue(const Value::Vector& value) noexcept {
-    value_ = value;
-  }
-
   // Prints this dimensionless physical quantity as a string. This dimensionless
   // physical quantity's value is printed to double floating point precision.
   std::string Print() const {
