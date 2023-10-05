@@ -17,152 +17,156 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
 
-TEST(Acceleration, Accessor) {
-  const Acceleration acceleration{
-      {1.0, 2.0, 4.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  EXPECT_DOUBLE_EQ(acceleration.Value().x(), 1.0);
-  EXPECT_DOUBLE_EQ(acceleration.Value().y(), 2.0);
-  EXPECT_DOUBLE_EQ(acceleration.Value().z(), 4.0);
-  EXPECT_DOUBLE_EQ(
-      acceleration.Value(Unit::Acceleration::FootPerSquareSecond).x(),
-      1.0 / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      acceleration.Value(Unit::Acceleration::FootPerSquareSecond).y(),
-      2.0 / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      acceleration.Value(Unit::Acceleration::FootPerSquareSecond).z(),
-      4.0 / 0.3048);
-}
-
-TEST(Acceleration, AngleAndMagnitude) {
-  const Acceleration acceleration0{
-      {0.0, 2.0, 0.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  const Acceleration acceleration1{
-      {0.0, 0.0, 4.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  EXPECT_DOUBLE_EQ(
-      acceleration0.Angle(acceleration1).Value(Unit::Angle::Degree), 90.0);
-  EXPECT_DOUBLE_EQ(acceleration0.Magnitude().Value(), 2.0);
-}
-
-TEST(Acceleration, Arithmetic) {
-  const AccelerationMagnitude magnitude{
-      2.0, Unit::Acceleration::MetrePerSquareSecond};
-  const Direction direction{0.0, -1.0, 0.0};
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Velocity velocity{
-      {0.5, 1.0, 2.0},
-      Unit::Speed::MetrePerSecond
-  };
-  const Acceleration acceleration0{
-      {0.0, 0.0, 0.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  const Acceleration acceleration1{
-      {1.0, 2.0, 4.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  const Acceleration acceleration2{
-      {2.0, 4.0, 8.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  EXPECT_EQ(acceleration1 + acceleration1, acceleration2);
-  EXPECT_EQ(acceleration1 - acceleration1, acceleration0);
-  EXPECT_EQ(acceleration1 * 2.0, acceleration2);
-  EXPECT_EQ(2.0 * acceleration1, acceleration2);
+TEST(Acceleration, Angle) {
   EXPECT_EQ(
-      direction * magnitude,
-      Acceleration({0.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
+      Acceleration({0.0, -2.22, 0.0}, Unit::Acceleration::MetrePerSquareSecond)
+          .Angle(Acceleration(
+              {0.0, 0.0, 3.33}, Unit::Acceleration::MetrePerSquareSecond)),
+      Angle(90.0, Unit::Angle::Degree));
+}
+
+TEST(Acceleration, ArithmeticAddition) {
   EXPECT_EQ(
-      magnitude * direction,
-      Acceleration({0.0, -2.0, 0.0}, Unit::Acceleration::MetrePerSquareSecond));
-  EXPECT_EQ(acceleration1 * time, velocity);
-  EXPECT_EQ(time * acceleration1, velocity);
-  EXPECT_EQ(velocity * frequency, acceleration1);
-  EXPECT_EQ(acceleration2 / 2.0, acceleration1);
-  EXPECT_EQ(acceleration1 / frequency, velocity);
-  EXPECT_EQ(velocity / time, acceleration1);
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)
+          + Acceleration(
+              {2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond),
+      Acceleration({3.0, -6.0, 9.0}, Unit::Acceleration::MetrePerSquareSecond));
 
-  Acceleration acceleration3{acceleration1};
-  acceleration3 += acceleration1;
-  EXPECT_EQ(acceleration3, acceleration2);
-
-  Acceleration acceleration4{acceleration1};
-  acceleration4 -= acceleration1;
-  EXPECT_EQ(acceleration4, acceleration0);
-
-  Acceleration acceleration5{acceleration1};
-  acceleration5 *= 2.0;
-  EXPECT_EQ(acceleration5, acceleration2);
-
-  Acceleration acceleration6{acceleration2};
-  acceleration6 /= 2.0;
-  EXPECT_EQ(acceleration6, acceleration1);
+  Acceleration quantity(
+      {1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
+  quantity +=
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(quantity, Acceleration({3.0, -6.0, 9.0},
+                                   Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(Acceleration, Comparison) {
-  const Acceleration acceleration0{
-      {1.0, 2.0, 4.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  const Acceleration acceleration1{
-      {1.0, 2.0, 8.0},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  EXPECT_EQ(acceleration0, acceleration0);
-  EXPECT_NE(acceleration0, acceleration1);
-  EXPECT_LT(acceleration0, acceleration1);
-  EXPECT_GT(acceleration1, acceleration0);
-  EXPECT_LE(acceleration0, acceleration0);
-  EXPECT_LE(acceleration0, acceleration1);
-  EXPECT_GE(acceleration0, acceleration0);
-  EXPECT_GE(acceleration1, acceleration0);
+TEST(Acceleration, ArithmeticDivision) {
+  EXPECT_EQ(
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)
+          / 2.0,
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)
+          / Frequency(2.0, Unit::Frequency::Hertz),
+      Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond)
+          / Time(2.0, Unit::Time::Second),
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  Acceleration quantity(
+      {2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Acceleration({1.0, -2.0, 3.0},
+                                   Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(Acceleration, Constructor) {
-  constexpr Acceleration acceleration0{};
-  const Acceleration acceleration1{
-      {1.0, 2.0, 4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration2{
-      {-1.0, -2.0, -4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  constexpr Acceleration acceleration3{
-      Acceleration::Create<Unit::Acceleration::FootPerSquareSecond>(
-          {-1.0, -2.0, -4.0})};
-  const Direction direction{acceleration1};
-  const Angle angle{acceleration1, acceleration2};
-  const AccelerationMagnitude magnitude{acceleration1};
-  const Time time{0.5, Unit::Time::Second};
-  const Frequency frequency{2.0, Unit::Frequency::Hertz};
-  const Velocity velocity0{acceleration1, time};
-  const Velocity velocity1{acceleration1, frequency};
+TEST(Acceleration, ArithmeticMultiplication) {
+  EXPECT_EQ(
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)
+          * 2.0,
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      2.0
+          * Acceleration(
+              {1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      Direction(2.0, -3.0, 6.0)
+          * AccelerationMagnitude(
+              7.0, Unit::Acceleration::MetrePerSquareSecond),
+      Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond)
+          * Direction(2.0, -3.0, 6.0),
+      Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)
+          * Time(2.0, Unit::Time::Second),
+      Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Time(2.0, Unit::Time::Second)
+                * Acceleration(
+                    {1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
+            Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(
+      Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)
+          * Frequency(2.0, Unit::Frequency::Hertz),
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  Acceleration quantity(
+      {1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, Acceleration({2.0, -4.0, 6.0},
+                                   Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(Acceleration, Copy) {
-  const Acceleration reference{
-      {1.11, 2.22, 3.33},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  const Acceleration first{reference};
-  EXPECT_EQ(first, reference);
+TEST(Acceleration, ArithmeticSubtraction) {
+  EXPECT_EQ(
+      Acceleration({3.0, -6.0, 9.0}, Unit::Acceleration::MetrePerSquareSecond)
+          - Acceleration(
+              {2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond),
+      Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond));
+
+  Acceleration quantity(
+      {3.0, -6.0, 9.0}, Unit::Acceleration::MetrePerSquareSecond);
+  quantity -=
+      Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(quantity, Acceleration({1.0, -2.0, 3.0},
+                                   Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(Acceleration, Comparisons) {
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  const Acceleration second(
+      {1.11, -2.22, 3.330001}, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+}
+
+TEST(Acceleration, CopyAssignment) {
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
   Acceleration second = Acceleration::Zero();
-  second = reference;
-  EXPECT_EQ(second, reference);
+  second = first;
+  EXPECT_EQ(second, first);
+}
+
+TEST(Acceleration, CopyConstructor) {
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  const Acceleration second{first};
+  EXPECT_EQ(second, first);
+}
+
+TEST(Acceleration, Create) {
+  constexpr Acceleration quantity =
+      Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
+          {1.11, -2.22, 3.33});
+  EXPECT_EQ(quantity, Acceleration({1.11, -2.22, 3.33},
+                                   Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(Acceleration, DefaultConstructor) {
+  EXPECT_NO_THROW(Acceleration{});
 }
 
 TEST(Acceleration, Dimensions) {
@@ -170,126 +174,174 @@ TEST(Acceleration, Dimensions) {
 }
 
 TEST(Acceleration, Hash) {
-  const Acceleration acceleration0{
-      {1.0, 2.0, 4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration1{
-      {1.0, 2.000001, 4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration2{
-      {1.0, 2.0, 5.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration3{
-      {1.0, 2.0, -4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration4{
-      {1000000.0, 2000000.0, 4000000.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const Acceleration acceleration5{
-      {-1.0, -2.0, -4.0},
-      Unit::Acceleration::FootPerSquareSecond
-  };
-  const std::hash<Acceleration> hasher;
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration1));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration2));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration3));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration4));
-  EXPECT_NE(hasher(acceleration0), hasher(acceleration5));
-  const std::unordered_set<Acceleration> unordered{
-      acceleration0, acceleration1, acceleration2,
-      acceleration3, acceleration4, acceleration5};
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond);
+  const Acceleration second(
+      {1.11, -2.22, 3.330001}, Unit::Acceleration::MillimetrePerSquareSecond);
+  const Acceleration third(
+      {1.11, 2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond);
+  const std::hash<Acceleration> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(Acceleration, JSON) {
-  EXPECT_EQ(
-      Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .JSON(),
-      "{\"value\":{\"x\":1.110000000000000,\"y\":2.220000000000000,\"z\":4."
-      "440000000000000},\"unit\":\"m/s^2\"}");
-  EXPECT_EQ(
-      Acceleration({0.0, -5.5, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .JSON(Unit::Acceleration::FootPerSquareSecond),
-      "{\"value\":{\"x\":0,\"y\":-5.500000000000000,\"z\":0},\"unit\":\"ft/"
-      "s^2\"}");
+  EXPECT_EQ(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)
+                .JSON(),
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
+            "\"z\":3.330000000000000},\"unit\":\"m/s^2\"}");
+  EXPECT_EQ(Acceleration({0.0, -2.22, 0.0},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .JSON(Unit::Acceleration::MillimetrePerSquareSecond),
+            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
+            "\"mm/s^2\"}");
 }
 
-TEST(Acceleration, Move) {
-  const Acceleration reference{
-      {1.11, 2.22, 4.44},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  Acceleration first{
-      {1.11, 2.22, 4.44},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  Acceleration second{std::move(first)};
-  EXPECT_EQ(second, reference);
+TEST(Acceleration, Magnitude) {
+  EXPECT_EQ(
+      Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)
+          .Magnitude(),
+      AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(Acceleration, MiscellaneousConstructors) {
+  EXPECT_EQ(Direction(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)),
+            Direction(1.11, -2.22, 3.33));
+
+  EXPECT_EQ(Angle(Acceleration({0.0, -2.22, 0.0},
+                               Unit::Acceleration::MetrePerSquareSecond),
+                  Acceleration({0.0, 0.0, 3.33},
+                               Unit::Acceleration::MetrePerSquareSecond)),
+            Angle(90.0, Unit::Angle::Degree));
+
+  EXPECT_EQ(
+      AccelerationMagnitude(Acceleration(
+          {2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)),
+      AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond));
+
+  EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0},
+                                  Unit::Acceleration::MetrePerSquareSecond),
+                     Time(2.0, Unit::Time::Second)),
+            Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Velocity(Acceleration({2.0, -4.0, 6.0},
+                                  Unit::Acceleration::MetrePerSquareSecond),
+                     Frequency(2.0, Unit::Frequency::Hertz)),
+            Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Acceleration, MoveAssignment) {
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  Acceleration second(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
   Acceleration third = Acceleration::Zero();
   third = std::move(second);
-  EXPECT_EQ(third, reference);
+  EXPECT_EQ(third, first);
+}
+
+TEST(Acceleration, MoveConstructor) {
+  const Acceleration first(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  Acceleration second(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  Acceleration third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(Acceleration, MutableValue) {
+  Acceleration quantity(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  Value::Vector& value = quantity.MutableValue();
+  value = Value::Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(value, Value::Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Acceleration, Print) {
-  EXPECT_EQ(
-      Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .Print(),
-      "(1.110000000000000, 2.220000000000000, 4.440000000000000) m/s^2");
-  EXPECT_EQ(
-      Acceleration({0.0, -5.5, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .Print(Unit::Acceleration::FootPerSquareSecond),
-      "(0, -5.500000000000000, 0) ft/s^2");
+  EXPECT_EQ(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)
+                .Print(),
+            "(1.110000000000000, -2.220000000000000, 3.330000000000000) m/s^2");
+  EXPECT_EQ(Acceleration({0.0, -2.22, 0.0},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .Print(Unit::Acceleration::MillimetrePerSquareSecond),
+            "(0, -2.220000000000000, 0) mm/s^2");
+}
+
+TEST(Acceleration, SetValue) {
+  Acceleration quantity(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
+  quantity.SetValue({-4.44, 5.55, -6.66});
+  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Acceleration, SizeOf) {
-  const Acceleration acceleration{
-      {1.11, 2.22, 4.44},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
-  EXPECT_EQ(sizeof(acceleration), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Acceleration{}), 3 * sizeof(double));
+}
+
+TEST(Acceleration, StandardConstructor) {
+  EXPECT_NO_THROW(Acceleration(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond));
+}
+
+TEST(Acceleration, StaticValue) {
+  constexpr Acceleration quantity =
+      Acceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(
+          {1.11, -2.22, 3.33});
+  constexpr Value::Vector value =
+      quantity.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
+  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Acceleration, Stream) {
-  const Acceleration acceleration{
-      {1.11, 2.22, 4.44},
-      Unit::Acceleration::MetrePerSquareSecond
-  };
+  const Acceleration quantity(
+      {1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond);
   std::ostringstream stream;
-  stream << acceleration;
-  EXPECT_EQ(stream.str(), acceleration.Print());
+  stream << quantity;
+  EXPECT_EQ(stream.str(), quantity.Print());
 }
 
 TEST(Acceleration, Unit) {
   EXPECT_EQ(Acceleration::Unit(), Standard<Unit::Acceleration>);
 }
 
+TEST(Acceleration, Value) {
+  EXPECT_EQ(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)
+                .Value(),
+            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Acceleration({1.11, -2.22, 3.33},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .Value(Unit::Acceleration::MillimetrePerSquareSecond),
+            Value::Vector(1.11, -2.22, 3.33));
+}
+
 TEST(Acceleration, XML) {
-  EXPECT_EQ(
-      Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .XML(),
-      "<value><x>1.110000000000000</x><y>2.220000000000000</"
-      "y><z>4.440000000000000</z></value><unit>m/s^2</unit>");
-  EXPECT_EQ(
-      Acceleration({0.0, -5.5, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .XML(Unit::Acceleration::FootPerSquareSecond),
-      "<value><x>0</x><y>-5.500000000000000</y><z>0</z></value><unit>ft/s^2</"
-      "unit>");
+  EXPECT_EQ(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)
+                .XML(),
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
+            "y><z>3.330000000000000</z></value><unit>m/s^2</unit>");
+  EXPECT_EQ(Acceleration({0.0, -2.22, 0.0},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .XML(Unit::Acceleration::MillimetrePerSquareSecond),
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm/"
+            "s^2</unit>");
 }
 
 TEST(Acceleration, YAML) {
-  EXPECT_EQ(
-      Acceleration({1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond)
-          .YAML(),
-      "{value:{x:1.110000000000000,y:2.220000000000000,z:4.440000000000000},"
-      "unit:\"m/s^2\"}");
-  EXPECT_EQ(
-      Acceleration({0.0, -5.5, 0.0}, Unit::Acceleration::FootPerSquareSecond)
-          .YAML(Unit::Acceleration::FootPerSquareSecond),
-      "{value:{x:0,y:-5.500000000000000,z:0},unit:\"ft/s^2\"}");
+  EXPECT_EQ(Acceleration(
+                {1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond)
+                .YAML(),
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
+            "330000000000000},unit:\"m/s^2\"}");
+  EXPECT_EQ(Acceleration({0.0, -2.22, 0.0},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .YAML(Unit::Acceleration::MillimetrePerSquareSecond),
+            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm/s^2\"}");
 }
 
 TEST(Acceleration, Zero) {

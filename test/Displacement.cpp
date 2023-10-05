@@ -22,8 +22,8 @@ namespace PhQ {
 namespace {
 
 TEST(Displacement, Angle) {
-  EXPECT_EQ(Displacement({0.0, 2.0, 0.0}, Unit::Length::Metre)
-                .Angle(Displacement({0.0, 0.0, 3.0}, Unit::Length::Metre)),
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Metre)
+                .Angle(Displacement({0.0, 0.0, 3.33}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
 }
 
@@ -130,20 +130,20 @@ TEST(Displacement, JSON) {
 }
 
 TEST(Displacement, Magnitude) {
-  EXPECT_EQ(Displacement({3.0, 0.0, -4.0}, Unit::Length::Metre).Magnitude(),
-            Length(5.0, Unit::Length::Metre));
+  EXPECT_EQ(Displacement({2.0, -3.0, 6.0}, Unit::Length::Metre).Magnitude(),
+            Length(7.0, Unit::Length::Metre));
 }
 
 TEST(Displacement, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Displacement({0.0, -2.22, 0.0}, Unit::Length::Metre)),
-            Direction(0.0, -1.0, 0.0));
+  EXPECT_EQ(Direction(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre)),
+            Direction(1.11, -2.22, 3.33));
 
-  EXPECT_EQ(Angle(Displacement({0.0, 2.22, 0.0}, Unit::Length::Metre),
-                  Displacement({0.0, 0.0, 4.44}, Unit::Length::Metre)),
+  EXPECT_EQ(Angle(Displacement({0.0, -2.22, 0.0}, Unit::Length::Metre),
+                  Displacement({0.0, 0.0, 3.33}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Length(Displacement({3.0, 0.0, -4.0}, Unit::Length::Metre)),
-            Length(5.0, Unit::Length::Metre));
+  EXPECT_EQ(Length(Displacement({2.0, -3.0, 6.0}, Unit::Length::Metre)),
+            Length(7.0, Unit::Length::Metre));
 }
 
 TEST(Displacement, MoveAssignment) {
