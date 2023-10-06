@@ -50,12 +50,12 @@ public:
   constexpr DynamicPressure(const TotalPressure& total_pressure,
                             const StaticPressure& static_pressure);
 
-  // Constructor. Constructs a dynamic pressure from a given dynamic kinematic
-  // pressure and mass density using the definition of dynamic kinematic
+  // Constructor. Constructs a dynamic pressure from a given mass density and
+  // dynamic kinematic pressure using the definition of dynamic kinematic
   // pressure.
   constexpr DynamicPressure(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure,
-      const MassDensity& mass_density);
+      const MassDensity& mass_density,
+      const DynamicKinematicPressure& dynamic_kinematic_pressure);
 
   // Destructor. Destroys this dynamic pressure.
   ~DynamicPressure() noexcept = default;

@@ -193,25 +193,9 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline constexpr HeatCapacityRatio operator+(
-    const double number, const HeatCapacityRatio& heat_capacity_ratio) {
-  return HeatCapacityRatio{number + heat_capacity_ratio.Value()};
-}
-
-inline constexpr HeatCapacityRatio operator-(
-    const double number, const HeatCapacityRatio& heat_capacity_ratio) {
-  return HeatCapacityRatio{number - heat_capacity_ratio.Value()};
-}
-
 inline constexpr HeatCapacityRatio operator*(
     const double number, const HeatCapacityRatio& heat_capacity_ratio) {
   return HeatCapacityRatio{number * heat_capacity_ratio.Value()};
-}
-
-inline constexpr double operator/(
-    const double number,
-    const HeatCapacityRatio& heat_capacity_ratio) noexcept {
-  return number / heat_capacity_ratio.Value();
 }
 
 }  // namespace PhQ

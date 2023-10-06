@@ -158,8 +158,8 @@ TEST(SoundSpeed, JSON) {
 
 TEST(SoundSpeed, MiscellaneousConstructors) {
   EXPECT_EQ(
-      SoundSpeed(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                 IsentropicBulkModulus(32.0, Unit::Pressure::Pascal)),
+      SoundSpeed(IsentropicBulkModulus(32.0, Unit::Pressure::Pascal),
+                 MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
       SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
 
   EXPECT_EQ(MassDensity(IsentropicBulkModulus(16.0, Unit::Pressure::Pascal),
@@ -172,16 +172,16 @@ TEST(SoundSpeed, MiscellaneousConstructors) {
             IsentropicBulkModulus(32.0, Unit::Pressure::Pascal));
 
   EXPECT_EQ(
-      SoundSpeed(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+      SoundSpeed(HeatCapacityRatio(2.0),
                  StaticPressure(8.0, Unit::Pressure::Pascal),
-                 HeatCapacityRatio(2.0)),
+                 MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
       SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
 
   EXPECT_EQ(SoundSpeed(
-                Temperature(8.0, Unit::Temperature::Kelvin),
+                HeatCapacityRatio(2.0),
                 SpecificGasConstant(
                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-                HeatCapacityRatio(2.0)),
+                Temperature(8.0, Unit::Temperature::Kelvin)),
             SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
 }
 

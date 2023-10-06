@@ -43,10 +43,10 @@ public:
   // Constructor. Constructs an area from a given vector area.
   Area(const AreaVector& area_vector);
 
-  // Constructor. Constructs an area from a given static pressure and force
-  // magnitude using the definition of pressure.
-  constexpr Area(const StaticPressure& static_pressure,
-                 const ForceMagnitude& force_magnitude);
+  // Constructor. Constructs an area from a given force magnitude and static
+  // pressure using the definition of pressure.
+  constexpr Area(const ForceMagnitude& force_magnitude,
+                 const StaticPressure& static_pressure);
 
   // Destructor. Destroys this area.
   ~Area() noexcept = default;

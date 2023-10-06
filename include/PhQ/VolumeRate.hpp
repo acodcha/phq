@@ -176,7 +176,7 @@ inline constexpr Volume::Volume(
     const VolumeRate& volume_rate, const Frequency& frequency)
   : Volume(volume_rate.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const VolumeRate& volume_rate, const Volume& volume)
+inline constexpr Time::Time(const Volume& volume, const VolumeRate& volume_rate)
   : Time(volume.Value() / volume_rate.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -193,7 +193,7 @@ inline constexpr VolumeRate Volume::operator*(
 }
 
 inline constexpr Time Volume::operator/(const VolumeRate& volume_rate) const {
-  return {volume_rate, *this};
+  return {*this, volume_rate};
 }
 
 inline constexpr VolumeRate Frequency::operator*(const Volume& volume) const {

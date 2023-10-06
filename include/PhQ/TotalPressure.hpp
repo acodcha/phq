@@ -35,17 +35,17 @@ public:
   TotalPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  // Constructor. Constructs a total pressure from a given dynamic pressure and
-  // static pressure using the definition of total pressure.
-  constexpr TotalPressure(const DynamicPressure& dynamic_pressure,
-                          const StaticPressure& static_pressure)
-    : TotalPressure(dynamic_pressure.Value() + static_pressure.Value()) {}
+  // Constructor. Constructs a total pressure from a given static pressure and
+  // dynamic pressure using the definition of total pressure.
+  constexpr TotalPressure(const StaticPressure& static_pressure,
+                          const DynamicPressure& dynamic_pressure)
+    : TotalPressure(static_pressure.Value() + dynamic_pressure.Value()) {}
 
-  // Constructor. Constructs a total pressure from a given total kinematic
-  // pressure and mass density using the definition of total kinematic pressure.
+  // Constructor. Constructs a total pressure from a given mass density and
+  // total kinematic pressure using the definition of total kinematic pressure.
   constexpr TotalPressure(
-      const TotalKinematicPressure& total_kinematic_pressure,
-      const MassDensity& mass_density);
+      const MassDensity& mass_density,
+      const TotalKinematicPressure& total_kinematic_pressure);
 
   // Destructor. Destroys this total pressure.
   ~TotalPressure() noexcept = default;
@@ -184,12 +184,12 @@ inline constexpr DynamicPressure::DynamicPressure(
 
 inline constexpr TotalPressure StaticPressure::operator+(
     const DynamicPressure& dynamic_pressure) const {
-  return {dynamic_pressure, *this};
+  return {*this, dynamic_pressure};
 }
 
 inline constexpr TotalPressure DynamicPressure::operator+(
     const StaticPressure& static_pressure) const {
-  return {*this, static_pressure};
+  return {static_pressure, *this};
 }
 
 }  // namespace PhQ

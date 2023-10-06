@@ -41,27 +41,27 @@ public:
   SoundSpeed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
-  // Constructs a sound speed from a mass density and an isentropic bulk
-  // modulus. This is the definition of the sound speed; this relation always
+  // Constructs a sound speed from an isentropic bulk modulus and a mass
+  // density. This is the definition of the sound speed; this relation always
   // holds true.
-  SoundSpeed(const MassDensity& mass_density,
-             const IsentropicBulkModulus& isentropic_bulk_modulus)
+  SoundSpeed(const IsentropicBulkModulus& isentropic_bulk_modulus,
+             const MassDensity& mass_density)
     : SoundSpeed(
         std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
-  // Constructs a sound speed from a mass density, a static pressure, and a
-  // heat capacity ratio. This relation applies only to an ideal gas.
-  SoundSpeed(const MassDensity& mass_density,
+  // Constructs a sound speed from a heat capacity ratio, a static pressure, and
+  // a mass density. This relation applies only to an ideal gas.
+  SoundSpeed(const HeatCapacityRatio& heat_capacity_ratio,
              const StaticPressure& static_pressure,
-             const HeatCapacityRatio& heat_capacity_ratio)
+             const MassDensity& mass_density)
     : SoundSpeed(std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value()
                            / mass_density.Value())) {}
 
-  // Constructs a sound speed from a temperature, a specific gas constant, and a
-  // heat capacity ratio. This relation applies only to an ideal gas.
-  SoundSpeed(const Temperature& temperature,
+  // Constructs a sound speed from a heat capacity ratio, a specific gas
+  // constant, and a temperature. This relation applies only to an ideal gas.
+  SoundSpeed(const HeatCapacityRatio& heat_capacity_ratio,
              const SpecificGasConstant& specific_gas_constant,
-             const HeatCapacityRatio& heat_capacity_ratio)
+             const Temperature& temperature)
     : SoundSpeed(
         std::sqrt(heat_capacity_ratio.Value() * specific_gas_constant.Value()
                   * temperature.Value())) {}

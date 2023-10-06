@@ -203,7 +203,7 @@ inline constexpr Angle::Angle(
   : Angle(angular_speed.Value() / frequency.Value()) {}
 
 inline constexpr Time::Time(
-    const AngularSpeed& angular_speed, const Angle& angle)
+    const Angle& angle, const AngularSpeed& angular_speed)
   : Time(angle.Value() / angular_speed.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -225,7 +225,7 @@ inline constexpr AngularSpeed Angle::operator/(const Time& time) const {
 
 inline constexpr Time Angle::operator/(
     const AngularSpeed& angular_speed) const {
-  return {angular_speed, *this};
+  return {*this, angular_speed};
 }
 
 }  // namespace PhQ

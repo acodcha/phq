@@ -62,8 +62,8 @@ TEST(MachNumber, ArithmeticSubtraction) {
 }
 
 TEST(MachNumber, Comparisons) {
-  const MachNumber first{0.1};
-  const MachNumber second{0.2};
+  const MachNumber first{1.11};
+  const MachNumber second{2.22};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);

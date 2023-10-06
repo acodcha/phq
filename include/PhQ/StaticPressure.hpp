@@ -60,12 +60,12 @@ public:
   constexpr StaticPressure(const TotalPressure& total_pressure,
                            const DynamicPressure& dynamic_pressure);
 
-  // Constructor. Constructs a static pressure from a given static kinematic
-  // pressure and mass density using the definition of static kinematic
+  // Constructor. Constructs a static pressure from a given mass density and
+  // static kinematic pressure using the definition of static kinematic
   // pressure.
   constexpr StaticPressure(
-      const StaticKinematicPressure& static_kinematic_pressure,
-      const MassDensity& mass_density);
+      const MassDensity& mass_density,
+      const StaticKinematicPressure& static_kinematic_pressure);
 
   // Destructor. Destroys this static pressure.
   ~StaticPressure() noexcept = default;
@@ -197,8 +197,8 @@ inline constexpr StaticPressure operator*(
   return static_pressure * number;
 }
 
-inline constexpr Area::Area(const StaticPressure& static_pressure,
-                            const ForceMagnitude& force_magnitude)
+inline constexpr Area::Area(const ForceMagnitude& force_magnitude,
+                            const StaticPressure& static_pressure)
   : Area(force_magnitude.Value() / static_pressure.Value()) {}
 
 inline constexpr ForceMagnitude::ForceMagnitude(

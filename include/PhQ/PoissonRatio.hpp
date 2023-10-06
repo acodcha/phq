@@ -126,24 +126,9 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline constexpr PoissonRatio operator+(
-    const double number, const PoissonRatio& poisson_ratio) {
-  return PoissonRatio{number + poisson_ratio.Value()};
-}
-
-inline constexpr PoissonRatio operator-(
-    const double number, const PoissonRatio& poisson_ratio) {
-  return PoissonRatio{number - poisson_ratio.Value()};
-}
-
 inline constexpr PoissonRatio operator*(
     const double number, const PoissonRatio& poisson_ratio) {
   return PoissonRatio{number * poisson_ratio.Value()};
-}
-
-inline constexpr double operator/(
-    const double number, const PoissonRatio& poisson_ratio) noexcept {
-  return number / poisson_ratio.Value();
 }
 
 }  // namespace PhQ

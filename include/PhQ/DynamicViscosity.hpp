@@ -43,18 +43,18 @@ public:
   DynamicViscosity(const double value, const Unit::DynamicViscosity unit)
     : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
 
-  // Constructor. Constructs a dynamic viscosity from a given kinematic
-  // viscosity and mass density using the definition of kinematic viscosity.
-  constexpr DynamicViscosity(const KinematicViscosity& kinematic_viscosity,
-                             const MassDensity& mass_density)
-    : DynamicViscosity(kinematic_viscosity.Value() * mass_density.Value()) {}
+  // Constructor. Constructs a dynamic viscosity from a given mass density and
+  // kinematic viscosity using the definition of kinematic viscosity.
+  constexpr DynamicViscosity(const MassDensity& mass_density,
+                             const KinematicViscosity& kinematic_viscosity)
+    : DynamicViscosity(mass_density.Value() * kinematic_viscosity.Value()) {}
 
-  // Constructor. Constructs a dynamic viscosity from a given Reynolds number,
-  // mass density, speed, and length using the definition of the Reynolds
+  // Constructor. Constructs a dynamic viscosity from a given mass density,
+  // speed, length, and Reynolds number using the definition of the Reynolds
   // number.
   constexpr DynamicViscosity(
-      const ReynoldsNumber& reynolds_number, const MassDensity& mass_density,
-      const Speed& speed, const Length& length);
+      const MassDensity& mass_density, const Speed& speed, const Length& length,
+      const ReynoldsNumber& reynolds_number);
 
   // Constructor. Constructs a dynamic viscosity from a given Prandtl number,
   // thermal conductivity, and specific isobaric heat capacity using the
@@ -62,7 +62,7 @@ public:
   constexpr DynamicViscosity(
       const PrandtlNumber& prandtl_number,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
-      SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   // Destructor. Destroys this dynamic viscosity.
   ~DynamicViscosity() noexcept = default;
@@ -207,12 +207,12 @@ inline constexpr KinematicViscosity::KinematicViscosity(
 
 inline constexpr DynamicViscosity KinematicViscosity::operator*(
     const MassDensity& mass_density) const {
-  return {*this, mass_density};
+  return {mass_density, *this};
 }
 
 inline constexpr DynamicViscosity MassDensity::operator*(
     const KinematicViscosity& kinematic_viscosity) const {
-  return {kinematic_viscosity, *this};
+  return {*this, kinematic_viscosity};
 }
 
 }  // namespace PhQ

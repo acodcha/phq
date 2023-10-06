@@ -55,12 +55,12 @@ public:
   constexpr MassDensity(const DynamicViscosity& dynamic_viscosity,
                         const KinematicViscosity& kinematic_viscosity);
 
-  // Constructor. Constructs a mass density from a given thermal diffusivity,
-  // thermal conductivity, and specific isobaric heat capacity using the
+  // Constructor. Constructs a mass density from a given thermal conductivity,
+  // thermal diffusivity, and specific isobaric heat capacity using the
   // definition of thermal diffusivity.
   constexpr MassDensity(
-      const ThermalDiffusivity& thermal_diffusivity,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
+      const ThermalDiffusivity& thermal_diffusivity,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   // Constructor. Constructs a mass density from a given dynamic pressure and
@@ -201,7 +201,7 @@ inline constexpr MassDensity operator*(
 }
 
 inline constexpr Volume::Volume(
-    const MassDensity& mass_density, const Mass& mass)
+    const Mass& mass, const MassDensity& mass_density)
   : Volume(mass.Value() / mass_density.Value()) {}
 
 inline constexpr Mass::Mass(
@@ -210,6 +210,10 @@ inline constexpr Mass::Mass(
 
 inline constexpr MassDensity Mass::operator/(const Volume& volume) const {
   return MassDensity{*this, volume};
+}
+
+inline constexpr Volume Mass::operator/(const MassDensity& mass_density) const {
+  return Volume{*this, mass_density};
 }
 
 inline constexpr Mass Volume::operator*(const MassDensity& mass_density) const {

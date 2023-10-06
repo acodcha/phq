@@ -156,8 +156,8 @@ TEST(MassRate, MiscellaneousConstructors) {
                  Frequency(4.0, Unit::Frequency::Hertz)),
             Mass(2.0, Unit::Mass::Kilogram));
 
-  EXPECT_EQ(Time(MassRate(4.0, Unit::MassRate::KilogramPerSecond),
-                 Mass(8.0, Unit::Mass::Kilogram)),
+  EXPECT_EQ(Time(Mass(8.0, Unit::Mass::Kilogram),
+                 MassRate(4.0, Unit::MassRate::KilogramPerSecond)),
             Time(2.0, Unit::Time::Second));
 
   EXPECT_EQ(Frequency(MassRate(8.0, Unit::MassRate::KilogramPerSecond),

@@ -200,14 +200,14 @@ TEST(TransportEnergyConsumption, JSON) {
 }
 
 TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
-  EXPECT_EQ(TransportEnergyConsumption(Length(4.0, Unit::Length::Metre),
-                                       Energy(8.0, Unit::Energy::Joule)),
+  EXPECT_EQ(TransportEnergyConsumption(Energy(8.0, Unit::Energy::Joule),
+                                       Length(4.0, Unit::Length::Metre)),
             TransportEnergyConsumption(
                 2.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 
-  EXPECT_EQ(Energy(Length(4.0, Unit::Length::Metre),
-                   TransportEnergyConsumption(
-                       2.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+  EXPECT_EQ(Energy(TransportEnergyConsumption(
+                       2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+                   Length(4.0, Unit::Length::Metre)),
             Energy(8.0, Unit::Energy::Joule));
 
   EXPECT_EQ(Length(Energy(8.0, Unit::Energy::Joule),
@@ -215,9 +215,9 @@ TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
                        4.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
             Length(2.0, Unit::Length::Metre));
 
-  EXPECT_EQ(Power(Speed(4.0, Unit::Speed::MetrePerSecond),
-                  TransportEnergyConsumption(
-                      2.0, Unit::TransportEnergyConsumption::JoulePerMetre)),
+  EXPECT_EQ(Power(TransportEnergyConsumption(
+                      2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+                  Speed(4.0, Unit::Speed::MetrePerSecond)),
             Power(8.0, Unit::Power::Watt));
 }
 

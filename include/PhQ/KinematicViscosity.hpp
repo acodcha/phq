@@ -48,10 +48,10 @@ public:
   constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity,
                                const MassDensity& mass_density);
 
-  // Constructor. Constructs a kinematic viscosity from a given Reynolds number,
-  // speed, and length using the definition of Reynolds number.
-  constexpr KinematicViscosity(const ReynoldsNumber& reynolds_number,
-                               const Speed& speed, const Length& length);
+  // Constructor. Constructs a kinematic viscosity from a given speed, length,
+  // and Reynolds number using the definition of the Reynolds number.
+  constexpr KinematicViscosity(const Speed& speed, const Length& length,
+                               const ReynoldsNumber& reynolds_number);
 
   // Constructor. Constructs a kinematic viscosity from a given Prandtl number
   // and thermal diffusivity using the definition of Prandtl number.

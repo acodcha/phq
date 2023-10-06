@@ -55,12 +55,12 @@ public:
   // quantity and mass using the definition of specific energy.
   constexpr Energy(const SpecificEnergy& specific_energy, const Mass& mass);
 
-  // Constructor. Constructs an energy quantity from a given length and
-  // transport energy consumption using the definition of transport energy
+  // Constructor. Constructs an energy quantity from a given transport energy
+  // consumption and length using the definition of transport energy
   // consumption.
   constexpr Energy(
-      const Length& length,
-      const TransportEnergyConsumption& transport_energy_consumption);
+      const TransportEnergyConsumption& transport_energy_consumption,
+      const Length& length);
 
   // Destructor. Destroys this energy quantity.
   ~Energy() noexcept = default;

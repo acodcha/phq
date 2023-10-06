@@ -249,7 +249,7 @@ inline constexpr Length::Length(const Speed& speed, const Time& time)
 inline constexpr Length::Length(const Speed& speed, const Frequency& frequency)
   : Length(speed.Value() / frequency.Value()) {}
 
-inline constexpr Time::Time(const Speed& speed, const Length& length)
+inline constexpr Time::Time(const Length& length, const Speed& speed)
   : Time(length.Value() / speed.Value()) {}
 
 inline constexpr Frequency::Frequency(const Speed& speed, const Length& length)
@@ -260,7 +260,7 @@ inline constexpr Speed Length::operator*(const Frequency& frequency) const {
 }
 
 inline constexpr Time Length::operator/(const Speed& speed) const {
-  return {speed, *this};
+  return {*this, speed};
 }
 
 inline constexpr Speed Length::operator/(const Time& time) const {

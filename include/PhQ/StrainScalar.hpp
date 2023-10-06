@@ -136,24 +136,9 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline constexpr StrainScalar operator+(
-    const double number, const StrainScalar& strain_scalar) {
-  return StrainScalar{number + strain_scalar.Value()};
-}
-
-inline constexpr StrainScalar operator-(
-    const double number, const StrainScalar& strain_scalar) {
-  return StrainScalar{number - strain_scalar.Value()};
-}
-
 inline constexpr StrainScalar operator*(
     const double number, const StrainScalar& strain_scalar) {
   return StrainScalar{number * strain_scalar.Value()};
-}
-
-inline constexpr double operator/(
-    const double number, const StrainScalar& strain_scalar) {
-  return number / strain_scalar.Value();
 }
 
 }  // namespace PhQ

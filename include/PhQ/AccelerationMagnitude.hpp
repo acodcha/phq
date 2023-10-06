@@ -193,7 +193,7 @@ inline constexpr AccelerationMagnitude operator*(
 }
 
 inline constexpr Time::Time(
-    const AccelerationMagnitude& acceleration_magnitude, const Speed& speed)
+    const Speed& speed, const AccelerationMagnitude& acceleration_magnitude)
   : Time(speed.Value() / acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -231,7 +231,7 @@ inline constexpr AccelerationMagnitude Speed::operator/(
 
 inline constexpr Time Speed::operator/(
     const AccelerationMagnitude& acceleration_magnitude) const {
-  return {acceleration_magnitude, *this};
+  return {*this, acceleration_magnitude};
 }
 
 }  // namespace PhQ

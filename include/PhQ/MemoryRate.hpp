@@ -169,7 +169,7 @@ inline constexpr MemoryRate operator*(
   return memory_rate * number;
 }
 
-inline constexpr Time::Time(const MemoryRate& memory_rate, const Memory& memory)
+inline constexpr Time::Time(const Memory& memory, const MemoryRate& memory_rate)
   : Time(memory.Value() / memory_rate.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -197,7 +197,7 @@ inline constexpr MemoryRate Memory::operator/(const Time& time) const {
 }
 
 inline constexpr Time Memory::operator/(const MemoryRate& memory_rate) const {
-  return {memory_rate, *this};
+  return {*this, memory_rate};
 }
 
 }  // namespace PhQ

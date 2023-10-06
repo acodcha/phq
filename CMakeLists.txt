@@ -156,6 +156,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
 
+  add_executable(heat_capacity_ratio ${PROJECT_SOURCE_DIR}/test/HeatCapacityRatio.cpp)
+  target_link_libraries(heat_capacity_ratio GTest::gtest_main)
+  gtest_discover_tests(heat_capacity_ratio)
+
   add_executable(kinematic_viscosity ${PROJECT_SOURCE_DIR}/test/KinematicViscosity.cpp)
   target_link_libraries(kinematic_viscosity GTest::gtest_main)
   gtest_discover_tests(kinematic_viscosity)
@@ -180,9 +184,21 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(mass_rate GTest::gtest_main)
   gtest_discover_tests(mass_rate)
 
+  add_executable(poisson_ratio ${PROJECT_SOURCE_DIR}/test/PoissonRatio.cpp)
+  target_link_libraries(poisson_ratio GTest::gtest_main)
+  gtest_discover_tests(poisson_ratio)
+
   add_executable(position ${PROJECT_SOURCE_DIR}/test/Position.cpp)
   target_link_libraries(position GTest::gtest_main)
   gtest_discover_tests(position)
+
+  add_executable(prandtl_number ${PROJECT_SOURCE_DIR}/test/PrandtlNumber.cpp)
+  target_link_libraries(prandtl_number GTest::gtest_main)
+  gtest_discover_tests(prandtl_number)
+
+  add_executable(reynolds_number ${PROJECT_SOURCE_DIR}/test/ReynoldsNumber.cpp)
+  target_link_libraries(reynolds_number GTest::gtest_main)
+  gtest_discover_tests(reynolds_number)
 
   add_executable(sound_speed ${PROJECT_SOURCE_DIR}/test/SoundSpeed.cpp)
   target_link_libraries(sound_speed GTest::gtest_main)
@@ -191,6 +207,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)
+
+  add_executable(strain_scalar ${PROJECT_SOURCE_DIR}/test/StrainScalar.cpp)
+  target_link_libraries(strain_scalar GTest::gtest_main)
+  gtest_discover_tests(strain_scalar)
 
   add_executable(substance_amount ${PROJECT_SOURCE_DIR}/test/SubstanceAmount.cpp)
   target_link_libraries(substance_amount GTest::gtest_main)

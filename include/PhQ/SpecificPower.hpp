@@ -185,7 +185,7 @@ inline constexpr SpecificPower operator*(
 }
 
 inline constexpr Time::Time(
-    const SpecificPower& specific_power, const SpecificEnergy& specific_energy)
+    const SpecificEnergy& specific_energy, const SpecificPower& specific_power)
   : Time(specific_energy.Value() / specific_power.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -244,7 +244,7 @@ inline constexpr SpecificPower SpecificEnergy::operator/(
 
 inline constexpr Time SpecificEnergy::operator/(
     const SpecificPower& specific_power) const {
-  return {specific_power, *this};
+  return {*this, specific_power};
 }
 
 }  // namespace PhQ
