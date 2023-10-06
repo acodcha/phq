@@ -151,6 +151,8 @@ public:
 
   constexpr MassDensity operator/(const Volume& volume) const;
 
+  constexpr Volume operator/(const MassDensity& mass_density) const;
+
   constexpr MassRate operator/(const Time& time) const;
 
   constexpr Time operator/(const MassRate& mass_rate) const;

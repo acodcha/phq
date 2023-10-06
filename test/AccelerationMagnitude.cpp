@@ -212,10 +212,10 @@ TEST(AccelerationMagnitude, MiscellaneousConstructors) {
                   Frequency(2.0, Unit::Frequency::Hertz)),
             Speed(4.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(
-      Time(AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond),
-           Speed(8.0, Unit::Speed::MetrePerSecond)),
-      Time(4.0, Unit::Time::Second));
+  EXPECT_EQ(Time(Speed(8.0, Unit::Speed::MetrePerSecond),
+                 AccelerationMagnitude(
+                     2.0, Unit::Acceleration::MetrePerSquareSecond)),
+            Time(4.0, Unit::Time::Second));
 
   EXPECT_EQ(Frequency(AccelerationMagnitude(
                           8.0, Unit::Acceleration::MetrePerSquareSecond),

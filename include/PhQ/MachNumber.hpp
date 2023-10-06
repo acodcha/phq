@@ -130,24 +130,9 @@ inline std::ostream& operator<<(
   return stream;
 }
 
-inline constexpr MachNumber operator+(
-    const double number, const MachNumber& mach_number) {
-  return MachNumber{number + mach_number.Value()};
-}
-
-inline constexpr MachNumber operator-(
-    const double number, const MachNumber& mach_number) {
-  return MachNumber{number - mach_number.Value()};
-}
-
 inline constexpr MachNumber operator*(
     const double number, const MachNumber& mach_number) {
   return MachNumber{number * mach_number.Value()};
-}
-
-inline constexpr double operator/(
-    const double number, const MachNumber& mach_number) noexcept {
-  return number / mach_number.Value();
 }
 
 constexpr SoundSpeed::SoundSpeed(

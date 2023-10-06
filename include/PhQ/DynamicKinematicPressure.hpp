@@ -197,9 +197,9 @@ inline Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure)
   : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
 inline constexpr DynamicPressure::DynamicPressure(
-    const DynamicKinematicPressure& dynamic_kinematic_pressure,
-    const MassDensity& mass_density)
-  : DynamicPressure(dynamic_kinematic_pressure.Value() * mass_density.Value()) {
+    const MassDensity& mass_density,
+    const DynamicKinematicPressure& dynamic_kinematic_pressure)
+  : DynamicPressure(mass_density.Value() * dynamic_kinematic_pressure.Value()) {
 }
 
 }  // namespace PhQ

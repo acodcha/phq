@@ -108,7 +108,7 @@ public:
   }
 
   constexpr StaticPressure operator*(const MassDensity& mass_density) const {
-    return {*this, mass_density};
+    return {mass_density, *this};
   }
 
   constexpr StaticKinematicPressure operator/(const double number) const {
@@ -191,9 +191,9 @@ inline constexpr StaticKinematicPressure operator*(
 }
 
 inline constexpr StaticPressure::StaticPressure(
-    const StaticKinematicPressure& static_kinematic_pressure,
-    const MassDensity& mass_density)
-  : StaticPressure(static_kinematic_pressure.Value() * mass_density.Value()) {}
+    const MassDensity& mass_density,
+    const StaticKinematicPressure& static_kinematic_pressure)
+  : StaticPressure(mass_density.Value() * static_kinematic_pressure.Value()) {}
 
 inline constexpr StaticKinematicPressure StaticPressure::operator/(
     const MassDensity& mass_density) const {

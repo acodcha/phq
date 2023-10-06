@@ -201,8 +201,8 @@ inline constexpr AngularAccelerationMagnitude operator*(
 }
 
 inline constexpr Time::Time(
-    const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-    const AngularSpeed& angular_speed)
+    const AngularSpeed& angular_speed,
+    const AngularAccelerationMagnitude& angular_acceleration_magnitude)
   : Time(angular_speed.Value() / angular_acceleration_magnitude.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -237,7 +237,7 @@ inline constexpr AngularAccelerationMagnitude AngularSpeed::operator/(
 
 inline constexpr Time AngularSpeed::operator/(
     const AngularAccelerationMagnitude& angular_acceleration_magnitude) const {
-  return {angular_acceleration_magnitude, *this};
+  return {*this, angular_acceleration_magnitude};
 }
 
 }  // namespace PhQ

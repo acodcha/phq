@@ -74,13 +74,13 @@ public:
         isobaric_heat_capacity.Value() / mass.Value()) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
-  // thermal diffusivity, thermal conductivity scalar, and mass density using
+  // thermal conductivity scalar, mass density, and thermal diffusivity using
   // the definition of the specific isobaric heat capacity and Fourier's law of
   // heat conduction.
   constexpr SpecificIsobaricHeatCapacity(
-      const ThermalDiffusivity& thermal_diffusivity,
       const ThermalConductivityScalar& thermal_conductivity_scalar,
-      const MassDensity& mass_density);
+      const MassDensity& mass_density,
+      const ThermalDiffusivity& thermal_diffusivity);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
   // Prandtl number, thermal conductivity scalar, and dynamic viscosity using

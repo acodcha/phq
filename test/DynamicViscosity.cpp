@@ -152,8 +152,8 @@ TEST(DynamicViscosity, JSON) {
 TEST(DynamicViscosity, MiscellaneousConstructors) {
   EXPECT_EQ(
       DynamicViscosity(
-          KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
-          MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
+          MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+          KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
       DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
 
   EXPECT_EQ(KinematicViscosity(

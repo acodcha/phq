@@ -35,14 +35,14 @@ public:
   TotalKinematicPressure(const double value, const Unit::SpecificEnergy unit)
     : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
 
-  // Constructor. Constructs a total kinematic pressure from a given dynamic
-  // kinematic pressure and static kinematic pressure using the definition of
+  // Constructor. Constructs a total kinematic pressure from a given static
+  // kinematic pressure and dynamic kinematic pressure using the definition of
   // total kinematic pressure.
   constexpr TotalKinematicPressure(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure,
-      const StaticKinematicPressure& static_kinematic_pressure)
-    : TotalKinematicPressure(dynamic_kinematic_pressure.Value()
-                             + static_kinematic_pressure.Value()) {}
+      const StaticKinematicPressure& static_kinematic_pressure,
+      const DynamicKinematicPressure& dynamic_kinematic_pressure)
+    : TotalKinematicPressure(static_kinematic_pressure.Value()
+                             + dynamic_kinematic_pressure.Value()) {}
 
   // Constructor. Constructs a total kinematic pressure from a given total
   // pressure and mass density using the definition of total kinematic pressure.
@@ -189,9 +189,9 @@ inline constexpr TotalKinematicPressure operator*(
 }
 
 inline constexpr TotalPressure::TotalPressure(
-    const TotalKinematicPressure& total_kinematic_pressure,
-    const MassDensity& mass_density)
-  : TotalPressure(total_kinematic_pressure.Value() * mass_density.Value()) {}
+    const MassDensity& mass_density,
+    const TotalKinematicPressure& total_kinematic_pressure)
+  : TotalPressure(mass_density.Value() * total_kinematic_pressure.Value()) {}
 
 inline constexpr StaticKinematicPressure::StaticKinematicPressure(
     const TotalKinematicPressure& total_kinematic_pressure,
@@ -207,12 +207,12 @@ inline constexpr DynamicKinematicPressure::DynamicKinematicPressure(
 
 inline constexpr TotalKinematicPressure StaticKinematicPressure::operator+(
     const DynamicKinematicPressure& dynamic_kinematic_pressure) const {
-  return {dynamic_kinematic_pressure, *this};
+  return {*this, dynamic_kinematic_pressure};
 }
 
 inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
     const StaticKinematicPressure& static_kinematic_pressure) const {
-  return {*this, static_kinematic_pressure};
+  return {static_kinematic_pressure, *this};
 }
 
 }  // namespace PhQ

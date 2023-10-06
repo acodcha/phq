@@ -41,10 +41,10 @@ public:
     : DimensionalScalarQuantity<Unit::TransportEnergyConsumption>(value, unit) {
   }
 
-  // Constructor. Constructs a transport energy consumption from a given length
-  // and energy using the definition of transport energy consumption.
+  // Constructor. Constructs a transport energy consumption from a given energy
+  // and length using the definition of transport energy consumption.
   constexpr TransportEnergyConsumption(
-      const Length& length, const Energy& energy)
+      const Energy& energy, const Length& length)
     : TransportEnergyConsumption(energy.Value() / length.Value()) {}
 
   // Destructor. Destroys this transport energy consumption.
@@ -101,11 +101,11 @@ public:
   }
 
   constexpr Energy operator*(const Length length) const {
-    return Energy{length, *this};
+    return Energy{*this, length};
   }
 
   constexpr Power operator*(const Speed speed) const {
-    return Power{speed, *this};
+    return Power{*this, speed};
   }
 
   constexpr TransportEnergyConsumption operator/(const double number) const {
@@ -198,28 +198,28 @@ inline constexpr Length::Length(
   : Length(energy.Value() / transport_energy_consumption.Value()) {}
 
 inline constexpr Energy::Energy(
-    const Length& length,
-    const TransportEnergyConsumption& transport_energy_consumption)
+    const TransportEnergyConsumption& transport_energy_consumption,
+    const Length& length)
   : Energy(transport_energy_consumption.Value() * length.Value()) {}
 
 inline constexpr Power::Power(
-    const Speed& speed,
-    const TransportEnergyConsumption& transport_energy_consumption)
+    const TransportEnergyConsumption& transport_energy_consumption,
+    const Speed& speed)
   : Power(speed.Value() * transport_energy_consumption.Value()) {}
 
 inline constexpr Energy Length::operator*(
     const TransportEnergyConsumption& transport_energy_consumption) const {
-  return {*this, transport_energy_consumption};
+  return {transport_energy_consumption, *this};
 }
 
 inline constexpr Power Speed::operator*(
     const TransportEnergyConsumption& transport_energy_consumption) const {
-  return {*this, transport_energy_consumption};
+  return {transport_energy_consumption, *this};
 }
 
 inline constexpr TransportEnergyConsumption Energy::operator/(
     const Length& length) const {
-  return {length, *this};
+  return {*this, length};
 }
 
 inline constexpr Length Energy::operator/(

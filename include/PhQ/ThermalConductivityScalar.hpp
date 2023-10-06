@@ -43,21 +43,21 @@ public:
       const double value, const Unit::ThermalConductivity unit)
     : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal conductivity scalar from a given thermal
-  // diffusivity, specific isobaric heat capacity, and mass density using the
+  // Constructor. Constructs a thermal conductivity scalar from a given mass
+  // density, specific isobaric heat capacity, and thermal diffusivity using the
   // definition of thermal diffusivity.
   constexpr ThermalConductivityScalar(
-      const ThermalDiffusivity& thermal_diffusivity,
+      const MassDensity& mass_density,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const MassDensity& mass_density);
+      const ThermalDiffusivity& thermal_diffusivity);
 
-  // Constructor. Constructs a thermal conductivity scalar from a given Prandtl
-  // number, specific isobaric heat capacity, and dynamic viscosity using the
+  // Constructor. Constructs a thermal conductivity scalar from a given specific
+  // isobaric heat capacity, dynamic viscosity, and Prandtl number using the
   // definition of the Prandtl number.
   constexpr ThermalConductivityScalar(
-      const PrandtlNumber& prandtl_number,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const DynamicViscosity& dynamic_viscosity);
+      const DynamicViscosity& dynamic_viscosity,
+      const PrandtlNumber& prandtl_number);
 
   // Destructor. Destroys this thermal conductivity scalar.
   ~ThermalConductivityScalar() noexcept = default;

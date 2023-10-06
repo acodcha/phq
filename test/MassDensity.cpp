@@ -44,6 +44,10 @@ TEST(MassDensity, ArithmeticDivision) {
       Mass(8.0, Unit::Mass::Kilogram) / Volume(4.0, Unit::Volume::CubicMetre),
       MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
 
+  EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram)
+                / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+            Volume(2.0, Unit::Volume::CubicMetre));
+
   MassDensity quantity{8.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity /= 2.0;
   EXPECT_EQ(
@@ -150,8 +154,8 @@ TEST(MassDensity, MiscellaneousConstructor) {
                  Volume(2.0, Unit::Volume::CubicMetre)),
             Mass(8.0, Unit::Mass::Kilogram));
 
-  EXPECT_EQ(Volume(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-                   Mass(8.0, Unit::Mass::Kilogram)),
+  EXPECT_EQ(Volume(Mass(8.0, Unit::Mass::Kilogram),
+                   MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)),
             Volume(2.0, Unit::Volume::CubicMetre));
 }
 

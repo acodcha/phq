@@ -164,8 +164,8 @@ TEST(AngularSpeed, MiscellaneousConstructors) {
                   Frequency(2.0, Unit::Frequency::Hertz)),
             Angle(4.0, Unit::Angle::Radian));
 
-  EXPECT_EQ(Time(AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
-                 Angle(8.0, Unit::Angle::Radian)),
+  EXPECT_EQ(Time(Angle(8.0, Unit::Angle::Radian),
+                 AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond)),
             Time(4.0, Unit::Time::Second));
 
   EXPECT_EQ(Frequency(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond),

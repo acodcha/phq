@@ -53,11 +53,11 @@ public:
   // mass using the definition of specific power.
   constexpr Power(const SpecificPower& specific_power, const Mass& mass);
 
-  // Constructor. Constructs a power quantity from a given speed and transport
-  // energy consumption using the definition of transport energy consumption.
+  // Constructor. Constructs a power quantity from a given transport energy
+  // consumption and speed using the definition of transport energy consumption.
   constexpr Power(
-      const Speed& speed,
-      const TransportEnergyConsumption& transport_energy_consumption);
+      const TransportEnergyConsumption& transport_energy_consumption,
+      const Speed& speed);
 
   // Destructor. Destroys this power quantity.
   ~Power() noexcept = default;
@@ -187,7 +187,7 @@ inline constexpr Power operator*(const double number, const Power& power) {
   return power * number;
 }
 
-inline constexpr Time::Time(const Power& power, const Energy& energy)
+inline constexpr Time::Time(const Energy& energy, const Power& power)
   : Time(energy.Value() / power.Value()) {}
 
 inline constexpr Frequency::Frequency(const Power& power, const Energy& energy)
@@ -216,7 +216,7 @@ inline constexpr Power Energy::operator/(const Time& time) const {
 }
 
 inline constexpr Time Energy::operator/(const Power& power) const {
-  return {power, *this};
+  return {*this, power};
 }
 
 }  // namespace PhQ

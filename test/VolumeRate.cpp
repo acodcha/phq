@@ -157,8 +157,8 @@ TEST(VolumeRate, MiscellaneousConstructors) {
                    Frequency(4.0, Unit::Frequency::Hertz)),
             Volume(2.0, Unit::Volume::CubicMetre));
 
-  EXPECT_EQ(Time(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
-                 Volume(8.0, Unit::Volume::CubicMetre)),
+  EXPECT_EQ(Time(Volume(8.0, Unit::Volume::CubicMetre),
+                 VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)),
             Time(2.0, Unit::Time::Second));
 
   EXPECT_EQ(Frequency(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),

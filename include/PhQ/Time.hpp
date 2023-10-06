@@ -61,45 +61,46 @@ public:
   // definition of frequency.
   constexpr Time(const PhQ::Frequency& frequency);
 
-  // Constructor. Constructs a time quantity from a given acceleration magnitude
-  // and speed using the definition of acceleration.
+  // Constructor. Constructs a time quantity from a given speed and acceleration
+  // magnitude using the definition of acceleration.
   constexpr Time(
-      const AccelerationMagnitude& acceleration_magnitude, const Speed& speed);
-
-  // Constructor. Constructs a time quantity from a given angular acceleration
-  // magnitude and angular speed using the definition of angular acceleration.
-  constexpr Time(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-      const AngularSpeed& angular_speed);
+      const Speed& speed, const AccelerationMagnitude& acceleration_magnitude);
 
   // Constructor. Constructs a time quantity from a given angular speed and
-  // angle using the definition of angular speed.
-  constexpr Time(const AngularSpeed& angular_speed, const Angle& angle);
+  // angular acceleration magnitude using the definition of angular
+  // acceleration.
+  constexpr Time(
+      const AngularSpeed& angular_speed,
+      const AngularAccelerationMagnitude& angular_acceleration_magnitude);
 
-  // Constructor. Constructs a time quantity from a given mass rate and mass
+  // Constructor. Constructs a time quantity from a given angle and angular
+  // speed using the definition of angular speed.
+  constexpr Time(const Angle& angle, const AngularSpeed& angular_speed);
+
+  // Constructor. Constructs a time quantity from a given mass and mass rate
   // using the definition of mass rate.
-  constexpr Time(const MassRate& mass_rate, const Mass& mass);
+  constexpr Time(const Mass& mass, const MassRate& mass_rate);
 
-  // Constructor. Constructs a time quantity from a given memory rate and memory
+  // Constructor. Constructs a time quantity from a given memory and memory rate
   // using the definition of memory rate.
-  constexpr Time(const MemoryRate& memory_rate, const Memory& memory);
+  constexpr Time(const Memory& memory, const MemoryRate& memory_rate);
 
-  // Constructor. Constructs a time quantity from a given power and energy using
+  // Constructor. Constructs a time quantity from a given energy and power using
   // the definition of power.
-  constexpr Time(const Power& power, const Energy& energy);
+  constexpr Time(const Energy& energy, const Power& power);
 
-  // Constructor. Constructs a time quantity from a given specific power and
-  // specific energy using the definition of specific power.
-  constexpr Time(const SpecificPower& specific_power,
-                 const SpecificEnergy& specific_energy);
+  // Constructor. Constructs a time quantity from a given specific energy and
+  // specific power using the definition of specific power.
+  constexpr Time(const SpecificEnergy& specific_energy,
+                 const SpecificPower& specific_power);
 
-  // Constructor. Constructs a time quantity from a given speed and length using
+  // Constructor. Constructs a time quantity from a given length and speed using
   // the definition of speed.
-  constexpr Time(const Speed& speed, const Length& length);
+  constexpr Time(const Length& length, const Speed& speed);
 
-  // Constructor. Constructs a time quantity from a given volume rate and volume
+  // Constructor. Constructs a time quantity from a given volume and volume rate
   // using the definition of volume rate.
-  constexpr Time(const VolumeRate& volume_rate, const Volume& volume);
+  constexpr Time(const Volume& volume, const VolumeRate& volume_rate);
 
   // Destructor. Destroys this time quantity.
   ~Time() noexcept = default;
@@ -148,7 +149,8 @@ public:
 
   constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Speed operator*(const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Speed operator*(
+      const AccelerationMagnitude& acceleration_magnitude) const;
 
   constexpr Mass operator*(const MassRate& mass_rate) const;
 

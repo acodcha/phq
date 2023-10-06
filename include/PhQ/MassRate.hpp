@@ -169,7 +169,7 @@ inline constexpr MassRate operator*(
   return mass_rate * number;
 }
 
-inline constexpr Time::Time(const MassRate& mass_rate, const Mass& mass)
+inline constexpr Time::Time(const Mass& mass, const MassRate& mass_rate)
   : Time(mass.Value() / mass_rate.Value()) {}
 
 inline constexpr Frequency::Frequency(
@@ -200,7 +200,7 @@ inline constexpr MassRate Mass::operator/(const Time& time) const {
 }
 
 inline constexpr Time Mass::operator/(const MassRate& mass_rate) const {
-  return {mass_rate, *this};
+  return {*this, mass_rate};
 }
 
 }  // namespace PhQ

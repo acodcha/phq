@@ -163,8 +163,8 @@ TEST(Speed, MiscellaneousConstructors) {
                    Frequency(4.0, Unit::Frequency::Hertz)),
             Length(2.0, Unit::Length::Metre));
 
-  EXPECT_EQ(Time(Speed(4.0, Unit::Speed::MetrePerSecond),
-                 Length(8.0, Unit::Length::Metre)),
+  EXPECT_EQ(Time(Length(8.0, Unit::Length::Metre),
+                 Speed(4.0, Unit::Speed::MetrePerSecond)),
             Time(2.0, Unit::Time::Second));
 
   EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond),

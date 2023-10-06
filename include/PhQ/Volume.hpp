@@ -47,9 +47,9 @@ public:
   // using the definition of volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency);
 
-  // Constructor. Constructs a volume from a given mass density and mass using
+  // Constructor. Constructs a volume from a given mass and mass density using
   // the definition of volume.
-  constexpr Volume(const MassDensity& mass_density, const Mass& mass);
+  constexpr Volume(const Mass& mass, const MassDensity& mass_density);
 
   // Destructor. Destroys this volume.
   ~Volume() noexcept = default;
