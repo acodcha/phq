@@ -165,7 +165,7 @@ TEST(Displacement, MutableValue) {
   Displacement quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
   Value::Vector& value = quantity.MutableValue();
   value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(value, Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Displacement, Print) {

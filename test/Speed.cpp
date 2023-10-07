@@ -191,7 +191,7 @@ TEST(Speed, MutableValue) {
   Speed quantity{1.11, Unit::Speed::MetrePerSecond};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Speed, Print) {

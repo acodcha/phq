@@ -142,7 +142,7 @@ TEST(MachNumber, MutableValue) {
   MachNumber quantity{1.11};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(MachNumber, Print) {

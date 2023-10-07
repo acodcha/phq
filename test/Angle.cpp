@@ -152,7 +152,7 @@ TEST(Angle, MutableValue) {
   Angle quantity{1.11, Unit::Angle::Radian};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Angle, Print) {

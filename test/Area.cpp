@@ -149,7 +149,7 @@ TEST(Area, MutableValue) {
   Area quantity{1.11, Unit::Area::SquareMetre};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Area, Print) {

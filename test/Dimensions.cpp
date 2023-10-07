@@ -23,39 +23,39 @@ namespace {
 
 TEST(Dimensions, Accessors) {
   constexpr Dimensions dimensions{
-      Dimension::Time{-3},
-      Dimension::Length{-2},
-      Dimension::Mass{-1},
-      Dimension::ElectricCurrent{0},
-      Dimension::Temperature{1},
-      Dimension::SubstanceAmount{2},
-      Dimension::LuminousIntensity{3}};
-  EXPECT_EQ(dimensions.Time(), Dimension::Time{-3});
-  EXPECT_EQ(dimensions.Length(), Dimension::Length{-2});
-  EXPECT_EQ(dimensions.Mass(), Dimension::Mass{-1});
-  EXPECT_EQ(dimensions.ElectricCurrent(), Dimension::ElectricCurrent{0});
-  EXPECT_EQ(dimensions.Temperature(), Dimension::Temperature{1});
-  EXPECT_EQ(dimensions.SubstanceAmount(), Dimension::SubstanceAmount{2});
-  EXPECT_EQ(dimensions.LuminousIntensity(), Dimension::LuminousIntensity{3});
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(3)};
+  EXPECT_EQ(dimensions.Time(), Dimension::Time(-3));
+  EXPECT_EQ(dimensions.Length(), Dimension::Length(-2));
+  EXPECT_EQ(dimensions.Mass(), Dimension::Mass(-1));
+  EXPECT_EQ(dimensions.ElectricCurrent(), Dimension::ElectricCurrent(0));
+  EXPECT_EQ(dimensions.Temperature(), Dimension::Temperature(1));
+  EXPECT_EQ(dimensions.SubstanceAmount(), Dimension::SubstanceAmount(2));
+  EXPECT_EQ(dimensions.LuminousIntensity(), Dimension::LuminousIntensity(3));
 }
 
 TEST(Dimensions, Comparisons) {
   constexpr Dimensions first{
-      Dimension::Time{-3},
-      Dimension::Length{-2},
-      Dimension::Mass{-1},
-      Dimension::ElectricCurrent{0},
-      Dimension::Temperature{1},
-      Dimension::SubstanceAmount{2},
-      Dimension::LuminousIntensity{3}};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(3)};
   constexpr Dimensions second{
-      Dimension::Time{-3},
-      Dimension::Length{-2},
-      Dimension::Mass{-1},
-      Dimension::ElectricCurrent{0},
-      Dimension::Temperature{1},
-      Dimension::SubstanceAmount{2},
-      Dimension::LuminousIntensity{4}};
+      Dimension::Time(-3),
+      Dimension::Length(-2),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(1),
+      Dimension::SubstanceAmount(2),
+      Dimension::LuminousIntensity(4)};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -67,39 +67,38 @@ TEST(Dimensions, Comparisons) {
 }
 
 TEST(Dimensions, CopyAssignment) {
-  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
   Dimensions second;
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Dimensions, CopyConstructor) {
-  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
+  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
   constexpr Dimensions second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Dimensions, DefaultConstructor) {
-  constexpr Dimensions first;
-  EXPECT_EQ(first,
-            Dimensions(Dimension::Time{0}, Dimension::Length{0},
-                       Dimension::Mass{0}, Dimension::ElectricCurrent{0},
-                       Dimension::Temperature{0}, Dimension::SubstanceAmount{0},
-                       Dimension::LuminousIntensity{0}));
+  EXPECT_EQ(Dimensions{},
+            Dimensions(Dimension::Time(0), Dimension::Length(0),
+                       Dimension::Mass(0), Dimension::ElectricCurrent(0),
+                       Dimension::Temperature(0), Dimension::SubstanceAmount(0),
+                       Dimension::LuminousIntensity(0)));
 }
 
 TEST(Dimensions, Hash) {
   constexpr Dimensions first;
   constexpr Dimensions second{
-      Dimension::Time{3}, Dimension::Length{0}, Dimension::Mass{-1}};
+      Dimension::Time(3), Dimension::Length(0), Dimension::Mass(-1)};
   constexpr Dimensions third{
-      Dimension::Time{3},
-      Dimension::Length{0},
-      Dimension::Mass{-1},
-      Dimension::ElectricCurrent{0},
-      Dimension::Temperature{0},
-      Dimension::SubstanceAmount{0},
-      Dimension::LuminousIntensity{1}};
+      Dimension::Time(3),
+      Dimension::Length(0),
+      Dimension::Mass(-1),
+      Dimension::ElectricCurrent(0),
+      Dimension::Temperature(0),
+      Dimension::SubstanceAmount(0),
+      Dimension::LuminousIntensity(1)};
   const std::hash<Dimensions> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -108,61 +107,61 @@ TEST(Dimensions, Hash) {
 
 TEST(Dimensions, JSON) {
   EXPECT_EQ(
-      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
+      Dimensions(Dimension::Time(-2), Dimension::Length(2), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(-1))
           .JSON(),
       "{\"time\":-2,\"length\":2,\"mass\":1,\"temperature\":-1}");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                 Dimension::SubstanceAmount{-1})
+      Dimensions(Dimension::Time(0), Dimension::Length(0), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(0),
+                 Dimension::SubstanceAmount(-1))
           .JSON(),
       "{\"mass\":1,\"substance_amount\":-1}");
 }
 
 TEST(Dimensions, MoveAssignment) {
-  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
-  Dimensions second{Dimension::Time{-2}, Dimension::Length{1}};
+  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
+  Dimensions second{Dimension::Time(-2), Dimension::Length(1)};
   Dimensions third;
   third = std::move(second);
   EXPECT_EQ(third, first);
 }
 
 TEST(Dimensions, MoveConstructor) {
-  constexpr Dimensions first{Dimension::Time{-2}, Dimension::Length{1}};
-  Dimensions second{Dimension::Time{-2}, Dimension::Length{1}};
+  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
+  Dimensions second{Dimension::Time(-2), Dimension::Length(1)};
   Dimensions third{std::move(second)};
   EXPECT_EQ(third, first);
 }
 
 TEST(Dimensions, Print) {
   EXPECT_EQ(Dimensions{}.Print(), "1");
-  EXPECT_EQ(Dimensions{Dimension::Time{2}}.Print(), "T^2");
-  EXPECT_EQ(Dimensions(Dimension::Time{1}, Dimension::Length{-3}).Print(),
+  EXPECT_EQ(Dimensions{Dimension::Time(2)}.Print(), "T^2");
+  EXPECT_EQ(Dimensions(Dimension::Time(1), Dimension::Length(-3)).Print(),
             "T·L^(-3)");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{-1}, Dimension::Length{3}, Dimension::Mass{0})
+      Dimensions(Dimension::Time(-1), Dimension::Length(3), Dimension::Mass(0))
           .Print(),
       "T^(-1)·L^3");
-  EXPECT_EQ(Dimensions(Dimension::Time{2}, Dimension::Length{-2},
-                       Dimension::Mass{-1}, Dimension::ElectricCurrent{1})
+  EXPECT_EQ(Dimensions(Dimension::Time(2), Dimension::Length(-2),
+                       Dimension::Mass(-1), Dimension::ElectricCurrent(1))
                 .Print(),
             "T^2·L^(-2)·M^(-1)·I");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
+      Dimensions(Dimension::Time(-2), Dimension::Length(2), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(-1))
           .Print(),
       "T^(-2)·L^2·M·Θ^(-1)");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                 Dimension::SubstanceAmount{-1})
+      Dimensions(Dimension::Time(0), Dimension::Length(0), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(0),
+                 Dimension::SubstanceAmount(-1))
           .Print(),
       "M·N^(-1)");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{-1},
-                 Dimension::SubstanceAmount{0}, Dimension::LuminousIntensity{1})
+      Dimensions(Dimension::Time(0), Dimension::Length(0), Dimension::Mass(0),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(-1),
+                 Dimension::SubstanceAmount(0), Dimension::LuminousIntensity(1))
           .Print(),
       "Θ^(-1)·J");
 }
@@ -173,8 +172,8 @@ TEST(Dimensions, SizeOf) {
 
 TEST(Dimensions, Stream) {
   constexpr Dimensions dimensions{
-      Dimension::Time{2}, Dimension::Length{-2}, Dimension::Mass{-1},
-      Dimension::ElectricCurrent{1}};
+      Dimension::Time(2), Dimension::Length(-2), Dimension::Mass(-1),
+      Dimension::ElectricCurrent(1)};
   std::ostringstream stream;
   stream << dimensions;
   EXPECT_EQ(stream.str(), dimensions.Print());
@@ -182,29 +181,29 @@ TEST(Dimensions, Stream) {
 
 TEST(Dimensions, XML) {
   EXPECT_EQ(
-      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
+      Dimensions(Dimension::Time(-2), Dimension::Length(2), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(-1))
           .XML(),
       "<time>-2</time><length>2</length><mass>1</mass><temperature>-1</"
       "temperature>");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                 Dimension::SubstanceAmount{-1})
+      Dimensions(Dimension::Time(0), Dimension::Length(0), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(0),
+                 Dimension::SubstanceAmount(-1))
           .XML(),
       "<mass>1</mass><substance_amount>-1</substance_amount>");
 }
 
 TEST(Dimensions, YAML) {
   EXPECT_EQ(
-      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{-1})
+      Dimensions(Dimension::Time(-2), Dimension::Length(2), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(-1))
           .YAML(),
       "{time:-2,length:2,mass:1,temperature:-1}");
   EXPECT_EQ(
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                 Dimension::SubstanceAmount{-1})
+      Dimensions(Dimension::Time(0), Dimension::Length(0), Dimension::Mass(1),
+                 Dimension::ElectricCurrent(0), Dimension::Temperature(0),
+                 Dimension::SubstanceAmount(-1))
           .YAML(),
       "{mass:1,substance_amount:-1}");
 }

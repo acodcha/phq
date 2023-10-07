@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,103 +25,90 @@ TEST(DimensionElectricCurrent, Abbreviation) {
   EXPECT_EQ(ElectricCurrent::Abbreviation(), "I");
 }
 
-TEST(DimensionElectricCurrent, Accessor) {
-  EXPECT_EQ(ElectricCurrent{}.Value(), 0);
-  EXPECT_EQ(ElectricCurrent{-2}.Value(), -2);
-  EXPECT_EQ(ElectricCurrent{-1}.Value(), -1);
-  EXPECT_EQ(ElectricCurrent{0}.Value(), 0);
-  EXPECT_EQ(ElectricCurrent{1}.Value(), 1);
-  EXPECT_EQ(ElectricCurrent{2}.Value(), 2);
-  EXPECT_EQ(ElectricCurrent{3}.Value(), 3);
+TEST(DimensionElectricCurrent, Comparisons) {
+  constexpr ElectricCurrent first{-1};
+  constexpr ElectricCurrent second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionElectricCurrent, Comparison) {
-  const ElectricCurrent current0{-1};
-  const ElectricCurrent current1{2};
-  EXPECT_EQ(current0, current0);
-  EXPECT_NE(current0, current1);
-  EXPECT_LT(current0, current1);
-  EXPECT_LE(current0, current0);
-  EXPECT_LE(current0, current1);
-  EXPECT_GT(current1, current0);
-  EXPECT_GE(current1, current0);
-  EXPECT_GE(current0, current0);
-  const std::set<ElectricCurrent> increasing{current0, current1};
-  EXPECT_EQ(*increasing.begin(), current0);
-  const std::set<ElectricCurrent, std::greater<ElectricCurrent>> decreasing{
-      current0, current1};
-  EXPECT_EQ(*decreasing.begin(), current1);
+TEST(DimensionElectricCurrent, CopyAssignment) {
+  constexpr ElectricCurrent first{3};
+  ElectricCurrent second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionElectricCurrent, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr ElectricCurrent reference{1};
+TEST(DimensionElectricCurrent, CopyConstructor) {
+  constexpr ElectricCurrent first{3};
+  constexpr ElectricCurrent second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr ElectricCurrent default_;
-
-  // Copy constructor.
-  constexpr ElectricCurrent copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  ElectricCurrent copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  ElectricCurrent to_move_construct{value_reference};
-  ElectricCurrent move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  ElectricCurrent to_move_assign{value_reference};
-  ElectricCurrent move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionElectricCurrent, DefaultConstructor) {
+  EXPECT_NO_THROW(ElectricCurrent{});
 }
 
 TEST(DimensionElectricCurrent, Hash) {
-  const ElectricCurrent current0{-2};
-  const ElectricCurrent current1{-1};
-  const ElectricCurrent current2{0};
-  const ElectricCurrent current3{1};
-  const ElectricCurrent current4{2};
-  const ElectricCurrent current5{3};
-  const std::hash<ElectricCurrent> hasher;
-  EXPECT_NE(hasher(current0), hasher(current1));
-  EXPECT_NE(hasher(current0), hasher(current2));
-  EXPECT_NE(hasher(current0), hasher(current3));
-  EXPECT_NE(hasher(current0), hasher(current4));
-  EXPECT_NE(hasher(current0), hasher(current5));
-  const std::unordered_set<ElectricCurrent> unordered{
-      current0, current1, current2, current3, current4, current5};
+  constexpr ElectricCurrent first{0};
+  constexpr ElectricCurrent second{2};
+  constexpr ElectricCurrent third{-1};
+  constexpr std::hash<ElectricCurrent> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionElectricCurrent, Label) {
   EXPECT_EQ(ElectricCurrent::Label(), "Electric Current");
 }
 
+TEST(DimensionElectricCurrent, MoveAssignment) {
+  constexpr ElectricCurrent first{3};
+  ElectricCurrent second{3};
+  ElectricCurrent third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionElectricCurrent, MoveConstructor) {
+  constexpr ElectricCurrent first{3};
+  ElectricCurrent second{3};
+  ElectricCurrent third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionElectricCurrent, Print) {
-  EXPECT_EQ(ElectricCurrent{}.Print(), "");
-  EXPECT_EQ(ElectricCurrent{-2}.Print(), "I^(-2)");
-  EXPECT_EQ(ElectricCurrent{-1}.Print(), "I^(-1)");
-  EXPECT_EQ(ElectricCurrent{0}.Print(), "");
-  EXPECT_EQ(ElectricCurrent{1}.Print(), "I");
-  EXPECT_EQ(ElectricCurrent{2}.Print(), "I^2");
-  EXPECT_EQ(ElectricCurrent{3}.Print(), "I^3");
+  EXPECT_EQ(ElectricCurrent().Print(), "");
+  EXPECT_EQ(ElectricCurrent(-1).Print(), "I^(-1)");
+  EXPECT_EQ(ElectricCurrent(0).Print(), "");
+  EXPECT_EQ(ElectricCurrent(1).Print(), "I");
+  EXPECT_EQ(ElectricCurrent(2).Print(), "I^2");
 }
 
 TEST(DimensionElectricCurrent, SizeOf) {
-  const ElectricCurrent current{3};
-  EXPECT_EQ(sizeof(current), sizeof(int8_t));
+  EXPECT_EQ(sizeof(ElectricCurrent{}), sizeof(int8_t));
 }
 
 TEST(DimensionElectricCurrent, Stream) {
-  const ElectricCurrent current{3};
+  constexpr ElectricCurrent dimension{3};
   std::ostringstream stream;
-  stream << current;
-  EXPECT_EQ(stream.str(), current.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionElectricCurrent, Value) {
+  EXPECT_EQ(ElectricCurrent().Value(), 0);
+  EXPECT_EQ(ElectricCurrent(-1).Value(), -1);
+  EXPECT_EQ(ElectricCurrent(0).Value(), 0);
+  EXPECT_EQ(ElectricCurrent(1).Value(), 1);
+  EXPECT_EQ(ElectricCurrent(2).Value(), 2);
 }
 
 }  // namespace

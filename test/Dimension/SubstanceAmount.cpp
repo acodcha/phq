@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,103 +25,90 @@ TEST(DimensionSubstanceAmount, Abbreviation) {
   EXPECT_EQ(SubstanceAmount::Abbreviation(), "N");
 }
 
-TEST(DimensionSubstanceAmount, Accessor) {
-  EXPECT_EQ(SubstanceAmount{}.Value(), 0);
-  EXPECT_EQ(SubstanceAmount{-2}.Value(), -2);
-  EXPECT_EQ(SubstanceAmount{-1}.Value(), -1);
-  EXPECT_EQ(SubstanceAmount{0}.Value(), 0);
-  EXPECT_EQ(SubstanceAmount{1}.Value(), 1);
-  EXPECT_EQ(SubstanceAmount{2}.Value(), 2);
-  EXPECT_EQ(SubstanceAmount{3}.Value(), 3);
+TEST(DimensionSubstanceAmount, Comparisons) {
+  constexpr SubstanceAmount first{-1};
+  constexpr SubstanceAmount second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionSubstanceAmount, Comparison) {
-  const SubstanceAmount amount0{-1};
-  const SubstanceAmount amount1{2};
-  EXPECT_EQ(amount0, amount0);
-  EXPECT_NE(amount0, amount1);
-  EXPECT_LT(amount0, amount1);
-  EXPECT_LE(amount0, amount0);
-  EXPECT_LE(amount0, amount1);
-  EXPECT_GT(amount1, amount0);
-  EXPECT_GE(amount1, amount0);
-  EXPECT_GE(amount0, amount0);
-  const std::set<SubstanceAmount> increasing{amount0, amount1};
-  EXPECT_EQ(*increasing.begin(), amount0);
-  const std::set<SubstanceAmount, std::greater<SubstanceAmount>> decreasing{
-      amount0, amount1};
-  EXPECT_EQ(*decreasing.begin(), amount1);
+TEST(DimensionSubstanceAmount, CopyAssignment) {
+  constexpr SubstanceAmount first{3};
+  SubstanceAmount second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionSubstanceAmount, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr SubstanceAmount reference{1};
+TEST(DimensionSubstanceAmount, CopyConstructor) {
+  constexpr SubstanceAmount first{3};
+  constexpr SubstanceAmount second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr SubstanceAmount default_;
-
-  // Copy constructor.
-  constexpr SubstanceAmount copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  SubstanceAmount copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  SubstanceAmount to_move_construct{value_reference};
-  SubstanceAmount move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  SubstanceAmount to_move_assign{value_reference};
-  SubstanceAmount move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionSubstanceAmount, DefaultConstructor) {
+  EXPECT_NO_THROW(SubstanceAmount{});
 }
 
 TEST(DimensionSubstanceAmount, Hash) {
-  const SubstanceAmount amount0{-2};
-  const SubstanceAmount amount1{-1};
-  const SubstanceAmount amount2{0};
-  const SubstanceAmount amount3{1};
-  const SubstanceAmount amount4{2};
-  const SubstanceAmount amount5{3};
-  const std::hash<SubstanceAmount> hasher;
-  EXPECT_NE(hasher(amount0), hasher(amount1));
-  EXPECT_NE(hasher(amount0), hasher(amount2));
-  EXPECT_NE(hasher(amount0), hasher(amount3));
-  EXPECT_NE(hasher(amount0), hasher(amount4));
-  EXPECT_NE(hasher(amount0), hasher(amount5));
-  const std::unordered_set<SubstanceAmount> unordered{
-      amount0, amount1, amount2, amount3, amount4, amount5};
+  constexpr SubstanceAmount first{0};
+  constexpr SubstanceAmount second{2};
+  constexpr SubstanceAmount third{-1};
+  constexpr std::hash<SubstanceAmount> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionSubstanceAmount, Label) {
   EXPECT_EQ(SubstanceAmount::Label(), "Substance Amount");
 }
 
+TEST(DimensionSubstanceAmount, MoveAssignment) {
+  constexpr SubstanceAmount first{3};
+  SubstanceAmount second{3};
+  SubstanceAmount third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionSubstanceAmount, MoveConstructor) {
+  constexpr SubstanceAmount first{3};
+  SubstanceAmount second{3};
+  SubstanceAmount third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionSubstanceAmount, Print) {
-  EXPECT_EQ(SubstanceAmount{}.Print(), "");
-  EXPECT_EQ(SubstanceAmount{-2}.Print(), "N^(-2)");
-  EXPECT_EQ(SubstanceAmount{-1}.Print(), "N^(-1)");
-  EXPECT_EQ(SubstanceAmount{0}.Print(), "");
-  EXPECT_EQ(SubstanceAmount{1}.Print(), "N");
-  EXPECT_EQ(SubstanceAmount{2}.Print(), "N^2");
-  EXPECT_EQ(SubstanceAmount{3}.Print(), "N^3");
+  EXPECT_EQ(SubstanceAmount().Print(), "");
+  EXPECT_EQ(SubstanceAmount(-1).Print(), "N^(-1)");
+  EXPECT_EQ(SubstanceAmount(0).Print(), "");
+  EXPECT_EQ(SubstanceAmount(1).Print(), "N");
+  EXPECT_EQ(SubstanceAmount(2).Print(), "N^2");
 }
 
 TEST(DimensionSubstanceAmount, SizeOf) {
-  const SubstanceAmount amount{3};
-  EXPECT_EQ(sizeof(amount), sizeof(int8_t));
+  EXPECT_EQ(sizeof(SubstanceAmount{}), sizeof(int8_t));
 }
 
 TEST(DimensionSubstanceAmount, Stream) {
-  const SubstanceAmount amount{3};
+  constexpr SubstanceAmount dimension{3};
   std::ostringstream stream;
-  stream << amount;
-  EXPECT_EQ(stream.str(), amount.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionSubstanceAmount, Value) {
+  EXPECT_EQ(SubstanceAmount().Value(), 0);
+  EXPECT_EQ(SubstanceAmount(-1).Value(), -1);
+  EXPECT_EQ(SubstanceAmount(0).Value(), 0);
+  EXPECT_EQ(SubstanceAmount(1).Value(), 1);
+  EXPECT_EQ(SubstanceAmount(2).Value(), 2);
 }
 
 }  // namespace

@@ -195,7 +195,7 @@ TEST(Velocity, MutableValue) {
   Velocity quantity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
   Value::Vector& value = quantity.MutableValue();
   value = Value::Vector{-4.44, 2.225, -6.66};
-  EXPECT_EQ(value, Value::Vector(-4.44, 2.225, -6.66));
+  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 2.225, -6.66));
 }
 
 TEST(Velocity, Print) {

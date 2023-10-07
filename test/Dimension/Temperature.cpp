@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,104 +25,90 @@ TEST(DimensionTemperature, Abbreviation) {
   EXPECT_EQ(Temperature::Abbreviation(), "Θ");
 }
 
-TEST(DimensionTemperature, Accessor) {
-  EXPECT_EQ(Temperature{}.Value(), 0);
-  EXPECT_EQ(Temperature{-2}.Value(), -2);
-  EXPECT_EQ(Temperature{-1}.Value(), -1);
-  EXPECT_EQ(Temperature{0}.Value(), 0);
-  EXPECT_EQ(Temperature{1}.Value(), 1);
-  EXPECT_EQ(Temperature{2}.Value(), 2);
-  EXPECT_EQ(Temperature{3}.Value(), 3);
+TEST(DimensionTemperature, Comparisons) {
+  constexpr Temperature first{-1};
+  constexpr Temperature second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionTemperature, Comparison) {
-  const Temperature temperature0{-1};
-  const Temperature temperature1{2};
-  EXPECT_EQ(temperature0, temperature0);
-  EXPECT_NE(temperature0, temperature1);
-  EXPECT_LT(temperature0, temperature1);
-  EXPECT_LE(temperature0, temperature0);
-  EXPECT_LE(temperature0, temperature1);
-  EXPECT_GT(temperature1, temperature0);
-  EXPECT_GE(temperature1, temperature0);
-  EXPECT_GE(temperature0, temperature0);
-  const std::set<Temperature> increasing{temperature0, temperature1};
-  EXPECT_EQ(*increasing.begin(), temperature0);
-  const std::set<Temperature, std::greater<Temperature>> decreasing{
-      temperature0, temperature1};
-  EXPECT_EQ(*decreasing.begin(), temperature1);
+TEST(DimensionTemperature, CopyAssignment) {
+  constexpr Temperature first{3};
+  Temperature second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionTemperature, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr Temperature reference{1};
+TEST(DimensionTemperature, CopyConstructor) {
+  constexpr Temperature first{3};
+  constexpr Temperature second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr Temperature default_;
-
-  // Copy constructor.
-  constexpr Temperature copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  Temperature copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  Temperature to_move_construct{value_reference};
-  Temperature move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  Temperature to_move_assign{value_reference};
-  Temperature move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionTemperature, DefaultConstructor) {
+  EXPECT_NO_THROW(Temperature{});
 }
 
 TEST(DimensionTemperature, Hash) {
-  const Temperature temperature0{-2};
-  const Temperature temperature1{-1};
-  const Temperature temperature2{0};
-  const Temperature temperature3{1};
-  const Temperature temperature4{2};
-  const Temperature temperature5{3};
-  const std::hash<Temperature> hasher;
-  EXPECT_NE(hasher(temperature0), hasher(temperature1));
-  EXPECT_NE(hasher(temperature0), hasher(temperature2));
-  EXPECT_NE(hasher(temperature0), hasher(temperature3));
-  EXPECT_NE(hasher(temperature0), hasher(temperature4));
-  EXPECT_NE(hasher(temperature0), hasher(temperature5));
-  const std::unordered_set<Temperature> unordered{
-      temperature0, temperature1, temperature2,
-      temperature3, temperature4, temperature5};
+  constexpr Temperature first{0};
+  constexpr Temperature second{2};
+  constexpr Temperature third{-1};
+  constexpr std::hash<Temperature> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionTemperature, Label) {
   EXPECT_EQ(Temperature::Label(), "Temperature");
 }
 
+TEST(DimensionTemperature, MoveAssignment) {
+  constexpr Temperature first{3};
+  Temperature second{3};
+  Temperature third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionTemperature, MoveConstructor) {
+  constexpr Temperature first{3};
+  Temperature second{3};
+  Temperature third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionTemperature, Print) {
-  EXPECT_EQ(Temperature{}.Print(), "");
-  EXPECT_EQ(Temperature{-2}.Print(), "Θ^(-2)");
-  EXPECT_EQ(Temperature{-1}.Print(), "Θ^(-1)");
-  EXPECT_EQ(Temperature{0}.Print(), "");
-  EXPECT_EQ(Temperature{1}.Print(), "Θ");
-  EXPECT_EQ(Temperature{2}.Print(), "Θ^2");
-  EXPECT_EQ(Temperature{3}.Print(), "Θ^3");
+  EXPECT_EQ(Temperature().Print(), "");
+  EXPECT_EQ(Temperature(-1).Print(), "Θ^(-1)");
+  EXPECT_EQ(Temperature(0).Print(), "");
+  EXPECT_EQ(Temperature(1).Print(), "Θ");
+  EXPECT_EQ(Temperature(2).Print(), "Θ^2");
 }
 
 TEST(DimensionTemperature, SizeOf) {
-  const Temperature temperature{3};
-  EXPECT_EQ(sizeof(temperature), sizeof(int8_t));
+  EXPECT_EQ(sizeof(Temperature{}), sizeof(int8_t));
 }
 
 TEST(DimensionTemperature, Stream) {
-  const Temperature temperature{3};
+  constexpr Temperature dimension{3};
   std::ostringstream stream;
-  stream << temperature;
-  EXPECT_EQ(stream.str(), temperature.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionTemperature, Value) {
+  EXPECT_EQ(Temperature().Value(), 0);
+  EXPECT_EQ(Temperature(-1).Value(), -1);
+  EXPECT_EQ(Temperature(0).Value(), 0);
+  EXPECT_EQ(Temperature(1).Value(), 1);
+  EXPECT_EQ(Temperature(2).Value(), 2);
 }
 
 }  // namespace

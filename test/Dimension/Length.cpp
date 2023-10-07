@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,102 +25,90 @@ TEST(DimensionLength, Abbreviation) {
   EXPECT_EQ(Length::Abbreviation(), "L");
 }
 
-TEST(DimensionLength, Accessor) {
-  EXPECT_EQ(Length{}.Value(), 0);
-  EXPECT_EQ(Length{-2}.Value(), -2);
-  EXPECT_EQ(Length{-1}.Value(), -1);
-  EXPECT_EQ(Length{0}.Value(), 0);
-  EXPECT_EQ(Length{1}.Value(), 1);
-  EXPECT_EQ(Length{2}.Value(), 2);
-  EXPECT_EQ(Length{3}.Value(), 3);
+TEST(DimensionLength, Comparisons) {
+  constexpr Length first{-1};
+  constexpr Length second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionLength, Comparison) {
-  const Length length0{-1};
-  const Length length1{2};
-  EXPECT_EQ(length0, length0);
-  EXPECT_NE(length0, length1);
-  EXPECT_LT(length0, length1);
-  EXPECT_LE(length0, length0);
-  EXPECT_LE(length0, length1);
-  EXPECT_GT(length1, length0);
-  EXPECT_GE(length1, length0);
-  EXPECT_GE(length0, length0);
-  const std::set<Length> increasing{length0, length1};
-  EXPECT_EQ(*increasing.begin(), length0);
-  const std::set<Length, std::greater<Length>> decreasing{length0, length1};
-  EXPECT_EQ(*decreasing.begin(), length1);
+TEST(DimensionLength, CopyAssignment) {
+  constexpr Length first{3};
+  Length second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionLength, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr Length reference{1};
+TEST(DimensionLength, CopyConstructor) {
+  constexpr Length first{3};
+  constexpr Length second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr Length default_;
-
-  // Copy constructor.
-  constexpr Length copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  Length copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  Length to_move_construct{value_reference};
-  Length move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  Length to_move_assign{value_reference};
-  Length move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionLength, DefaultConstructor) {
+  EXPECT_NO_THROW(Length{});
 }
 
 TEST(DimensionLength, Hash) {
-  const Length length0{-2};
-  const Length length1{-1};
-  const Length length2{0};
-  const Length length3{1};
-  const Length length4{2};
-  const Length length5{3};
-  const std::hash<Length> hasher;
-  EXPECT_NE(hasher(length0), hasher(length1));
-  EXPECT_NE(hasher(length0), hasher(length2));
-  EXPECT_NE(hasher(length0), hasher(length3));
-  EXPECT_NE(hasher(length0), hasher(length4));
-  EXPECT_NE(hasher(length0), hasher(length5));
-  const std::unordered_set<Length> unordered{
-      length0, length1, length2, length3, length4, length5};
+  constexpr Length first{0};
+  constexpr Length second{2};
+  constexpr Length third{-1};
+  constexpr std::hash<Length> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionLength, Label) {
   EXPECT_EQ(Length::Label(), "Length");
 }
 
+TEST(DimensionLength, MoveAssignment) {
+  constexpr Length first{3};
+  Length second{3};
+  Length third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionLength, MoveConstructor) {
+  constexpr Length first{3};
+  Length second{3};
+  Length third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionLength, Print) {
-  EXPECT_EQ(Length{}.Print(), "");
-  EXPECT_EQ(Length{-2}.Print(), "L^(-2)");
-  EXPECT_EQ(Length{-1}.Print(), "L^(-1)");
-  EXPECT_EQ(Length{0}.Print(), "");
-  EXPECT_EQ(Length{1}.Print(), "L");
-  EXPECT_EQ(Length{2}.Print(), "L^2");
-  EXPECT_EQ(Length{3}.Print(), "L^3");
+  EXPECT_EQ(Length().Print(), "");
+  EXPECT_EQ(Length(-1).Print(), "L^(-1)");
+  EXPECT_EQ(Length(0).Print(), "");
+  EXPECT_EQ(Length(1).Print(), "L");
+  EXPECT_EQ(Length(2).Print(), "L^2");
 }
 
 TEST(DimensionLength, SizeOf) {
-  const Length length{3};
-  EXPECT_EQ(sizeof(length), sizeof(int8_t));
+  EXPECT_EQ(sizeof(Length{}), sizeof(int8_t));
 }
 
 TEST(DimensionLength, Stream) {
-  const Length length{3};
+  constexpr Length dimension{3};
   std::ostringstream stream;
-  stream << length;
-  EXPECT_EQ(stream.str(), length.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionLength, Value) {
+  EXPECT_EQ(Length().Value(), 0);
+  EXPECT_EQ(Length(-1).Value(), -1);
+  EXPECT_EQ(Length(0).Value(), 0);
+  EXPECT_EQ(Length(1).Value(), 1);
+  EXPECT_EQ(Length(2).Value(), 2);
 }
 
 }  // namespace

@@ -17,154 +17,58 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ::Value {
 
 namespace {
-
-TEST(ValueSymmetricDyad, Accessor) {
-  constexpr std::array<double, 6> value0{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  constexpr SymmetricDyad symdyad0{value0};
-  EXPECT_EQ(symdyad0.xx_xy_xz_yy_yz_zz(), value0);
-  EXPECT_EQ(symdyad0.xx(), 1.11);
-  EXPECT_EQ(symdyad0.xy(), 2.22);
-  EXPECT_EQ(symdyad0.xz(), 3.33);
-  EXPECT_EQ(symdyad0.yx(), 2.22);
-  EXPECT_EQ(symdyad0.yy(), 4.44);
-  EXPECT_EQ(symdyad0.yz(), 5.55);
-  EXPECT_EQ(symdyad0.zx(), 3.33);
-  EXPECT_EQ(symdyad0.zy(), 5.55);
-  EXPECT_EQ(symdyad0.zz(), 6.66);
-
-  SymmetricDyad symdyad1{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  std::array<double, 6>& value1{symdyad1.Mutable_xx_xy_xz_yy_yz_zz()};
-  value1 = {0.11, 0.22, 0.33, 0.44, 0.55, 0.66};
-  EXPECT_EQ(symdyad1.xx(), 0.11);
-  EXPECT_EQ(symdyad1.xy(), 0.22);
-  EXPECT_EQ(symdyad1.xz(), 0.33);
-  EXPECT_EQ(symdyad1.yy(), 0.44);
-  EXPECT_EQ(symdyad1.yz(), 0.55);
-  EXPECT_EQ(symdyad1.zz(), 0.66);
-
-  SymmetricDyad symdyad2{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  double& xx{symdyad2.Mutable_xx()};
-  xx = 0.11;
-  double& xy{symdyad2.Mutable_xy()};
-  xy = 0.22;
-  double& xz{symdyad2.Mutable_xz()};
-  xz = 0.33;
-  double& yy{symdyad2.Mutable_yy()};
-  yy = 0.44;
-  double& yz{symdyad2.Mutable_yz()};
-  yz = 0.55;
-  double& zz{symdyad2.Mutable_zz()};
-  zz = 0.66;
-  EXPECT_EQ(symdyad2.xx(), 0.11);
-  EXPECT_EQ(symdyad2.xy(), 0.22);
-  EXPECT_EQ(symdyad2.xz(), 0.33);
-  EXPECT_EQ(symdyad2.yy(), 0.44);
-  EXPECT_EQ(symdyad2.yz(), 0.55);
-  EXPECT_EQ(symdyad2.zz(), 0.66);
-
-  SymmetricDyad symdyad3{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  double& yx{symdyad3.Mutable_yx()};
-  yx = 0.11;
-  double& zx{symdyad3.Mutable_zx()};
-  zx = 0.22;
-  double& zy{symdyad3.Mutable_zy()};
-  zy = 0.33;
-  EXPECT_EQ(symdyad3.yx(), 0.11);
-  EXPECT_EQ(symdyad3.zx(), 0.22);
-  EXPECT_EQ(symdyad3.zy(), 0.33);
-
-  SymmetricDyad symdyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad4.Set_xx_xy_xz_yy_yz_zz({0.11, 0.22, 0.33, 0.44, 0.55, 0.66});
-  EXPECT_EQ(symdyad4.xx(), 0.11);
-  EXPECT_EQ(symdyad4.xy(), 0.22);
-  EXPECT_EQ(symdyad4.xz(), 0.33);
-  EXPECT_EQ(symdyad4.yy(), 0.44);
-  EXPECT_EQ(symdyad4.yz(), 0.55);
-  EXPECT_EQ(symdyad4.zz(), 0.66);
-
-  SymmetricDyad symdyad5{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad5.Set_xx(0.11);
-  symdyad5.Set_xy(0.22);
-  symdyad5.Set_xz(0.33);
-  symdyad5.Set_yy(0.44);
-  symdyad5.Set_yz(0.55);
-  symdyad5.Set_zz(0.66);
-  EXPECT_EQ(symdyad5.xx(), 0.11);
-  EXPECT_EQ(symdyad5.xy(), 0.22);
-  EXPECT_EQ(symdyad5.xz(), 0.33);
-  EXPECT_EQ(symdyad5.yy(), 0.44);
-  EXPECT_EQ(symdyad5.yz(), 0.55);
-  EXPECT_EQ(symdyad5.zz(), 0.66);
-
-  SymmetricDyad symdyad6{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  symdyad6.Set_yx(0.11);
-  symdyad6.Set_zx(0.22);
-  symdyad6.Set_zy(0.33);
-  EXPECT_EQ(symdyad6.yx(), 0.11);
-  EXPECT_EQ(symdyad6.zx(), 0.22);
-  EXPECT_EQ(symdyad6.zy(), 0.33);
-}
 
 TEST(ValueSymmetricDyad, Adjugate) {
   EXPECT_EQ(SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Adjugate(),
             SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
-TEST(ValueSymmetricDyad, Arithmetic) {
-  constexpr SymmetricDyad symdyad0{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(
-      symdyad0 + symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(symdyad0 - symdyad0, SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(symdyad0 * 2.0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(2.0 * symdyad0, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-  EXPECT_EQ(symdyad0 * Vector(1.0, 2.0, 3.0), Vector(17.0, 66.0, 132.0));
-  EXPECT_EQ(symdyad0 / 2.0, SymmetricDyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
+TEST(ValueSymmetricDyad, ArithmeticAddition) {
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0)
+                + SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+            SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
 
-  SymmetricDyad symdyad1{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  symdyad1 += SymmetricDyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(symdyad1, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-
-  SymmetricDyad symdyad2{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  symdyad2 -= SymmetricDyad{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  EXPECT_EQ(symdyad2, SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-
-  SymmetricDyad symdyad3{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  symdyad3 *= 2.0;
-  EXPECT_EQ(symdyad3, SymmetricDyad(2.0, 4.0, 8.0, 16.0, 32.0, 64.0));
-
-  SymmetricDyad symdyad4{1.0, 2.0, 4.0, 8.0, 16.0, 32.0};
-  symdyad4 /= 2.0;
-  EXPECT_EQ(symdyad4, SymmetricDyad(0.5, 1.0, 2.0, 4.0, 8.0, 16.0));
+  SymmetricDyad value{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+  value += SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
+  EXPECT_EQ(value, SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
 }
 
-TEST(ValueSymmetricDyad, Assignment) {
-  constexpr SymmetricDyad reference{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+TEST(ValueSymmetricDyad, ArithmeticDivision) {
+  EXPECT_EQ(SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / 2.0,
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 
-  constexpr SymmetricDyad to_copy{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad copy_assigned = SymmetricDyad::Zero();
-  copy_assigned = to_copy;
-  EXPECT_EQ(copy_assigned, reference);
+  SymmetricDyad value{2.0, -4.0, 6.0, -8.0, 10.0, -12.0};
+  value /= 2.0;
+  EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
 
-  SymmetricDyad to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_assigned = SymmetricDyad::Zero();
-  move_assigned = std::move(to_move);
-  EXPECT_EQ(move_assigned, reference);
+TEST(ValueSymmetricDyad, ArithmeticMultiplication) {
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * 2.0,
+            SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
-  constexpr std::array<double, 6> array_to_copy{
-      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad assigned_by_copying_an_array = SymmetricDyad::Zero();
-  assigned_by_copying_an_array = array_to_copy;
-  EXPECT_EQ(assigned_by_copying_an_array, reference);
+  EXPECT_EQ(2.0 * SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0),
+            SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
-  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad assigned_by_moving_an_array = SymmetricDyad::Zero();
-  assigned_by_moving_an_array = std::move(array_to_move);
-  EXPECT_EQ(assigned_by_moving_an_array, reference);
+  EXPECT_EQ(
+      SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * Vector(1.0, -2.0, 3.0),
+      Vector(14.0, 21.0, -25.0));
+
+  SymmetricDyad value{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+  value *= 2.0;
+  EXPECT_EQ(value, SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
+}
+
+TEST(ValueSymmetricDyad, ArithmeticSubtraction) {
+  EXPECT_EQ(SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
+                - SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+
+  SymmetricDyad value{3.0, -6.0, 9.0, -12.0, 15.0, -18.0};
+  value -= SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
+  EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(ValueSymmetricDyad, Cofactors) {
@@ -172,45 +76,39 @@ TEST(ValueSymmetricDyad, Cofactors) {
             SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
-TEST(ValueSymmetricDyad, Comparison) {
-  constexpr SymmetricDyad symdyad0{1.1, 2.2, 3.3, 4.4, 5.5, 6.6};
-  constexpr SymmetricDyad symdyad1{1.1, 2.2, 3.4, 4.4, 5.5, 6.6};
-  constexpr SymmetricDyad symdyad2{1.1, 2.2, 3.4, 4.4, 5.5, 6.7};
-  EXPECT_EQ(symdyad0, symdyad0);
-  EXPECT_NE(symdyad0, symdyad1);
-  EXPECT_LT(symdyad0, symdyad1);
-  EXPECT_LT(symdyad1, symdyad2);
-  EXPECT_GT(symdyad1, symdyad0);
-  EXPECT_GT(symdyad2, symdyad1);
-  EXPECT_LE(symdyad0, symdyad0);
-  EXPECT_LE(symdyad0, symdyad1);
-  EXPECT_LE(symdyad1, symdyad2);
-  EXPECT_GE(symdyad0, symdyad0);
-  EXPECT_GE(symdyad1, symdyad0);
-  EXPECT_GE(symdyad2, symdyad1);
+TEST(ValueSymmetricDyad, Comparisons) {
+  constexpr SymmetricDyad first{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad second{1.11, 2.22, 3.34, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad third{1.11, 2.22, 3.34, 4.44, 5.55, 6.67};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LT(second, third);
+  EXPECT_GT(second, first);
+  EXPECT_GT(third, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_LE(second, third);
+  EXPECT_GE(first, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(third, second);
 }
 
-TEST(ValueSymmetricDyad, Constructor) {
-  constexpr SymmetricDyad reference{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+TEST(ValueSymmetricDyad, CopyAssignment) {
+  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad second = SymmetricDyad::Zero();
+  second = first;
+  EXPECT_EQ(second, first);
+}
 
-  constexpr SymmetricDyad default_constructed{};
+TEST(ValueSymmetricDyad, CopyConstructor) {
+  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  constexpr SymmetricDyad second{first};
+  EXPECT_EQ(second, first);
+}
 
-  constexpr std::array<double, 6> array_to_copy{
-      1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  constexpr SymmetricDyad constructed_by_copying_an_array(array_to_copy);
-  EXPECT_EQ(constructed_by_copying_an_array, reference);
-
-  std::array<double, 6> array_to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad constructed_by_moving_an_array(std::move(array_to_move));
-  EXPECT_EQ(constructed_by_moving_an_array, reference);
-
-  constexpr SymmetricDyad to_copy{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  constexpr SymmetricDyad copy_constructed(to_copy);
-  EXPECT_EQ(copy_constructed, reference);
-
-  SymmetricDyad to_move{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  SymmetricDyad move_constructed(std::move(to_move));
-  EXPECT_EQ(move_constructed, reference);
+TEST(ValueSymmetricDyad, DefaultConstructor) {
+  EXPECT_NO_THROW(SymmetricDyad{});
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
@@ -219,42 +117,91 @@ TEST(ValueSymmetricDyad, Determinant) {
 }
 
 TEST(ValueSymmetricDyad, Hash) {
-  constexpr SymmetricDyad symdyad0{10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  constexpr SymmetricDyad symdyad1{0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
-  constexpr SymmetricDyad symdyad2{0.0, 0.0, 10.0, 0.0, 0.0, 0.0};
-  constexpr SymmetricDyad symdyad3{-10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  constexpr SymmetricDyad symdyad4{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  constexpr SymmetricDyad symdyad5{1.99, 2.88, 3.77, 4.66, 5.55, 6.44};
+  constexpr SymmetricDyad first{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  constexpr SymmetricDyad second{1.11, -2.22, 3.33, -4.44, 5.55, -6.660001};
+  constexpr SymmetricDyad third{1.11, -2.22, 3.33, 4.44, 5.55, -6.66};
   constexpr std::hash<SymmetricDyad> hasher;
-  EXPECT_NE(hasher(symdyad0), hasher(symdyad1));
-  EXPECT_NE(hasher(symdyad0), hasher(symdyad2));
-  EXPECT_NE(hasher(symdyad0), hasher(symdyad3));
-  EXPECT_NE(hasher(symdyad0), hasher(symdyad4));
-  EXPECT_NE(hasher(symdyad0), hasher(symdyad5));
-  const std::unordered_set<SymmetricDyad> unordered{
-      symdyad0, symdyad1, symdyad2, symdyad3, symdyad4, symdyad5};
+  EXPECT_NE(hasher(first), hasher(second));
+  EXPECT_NE(hasher(first), hasher(third));
+  EXPECT_NE(hasher(second), hasher(third));
 }
 
 TEST(ValueSymmetricDyad, Inverse) {
-  constexpr SymmetricDyad symdyad0{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
-  const std::optional<SymmetricDyad> inverse0{symdyad0.Inverse()};
-  EXPECT_TRUE(inverse0.has_value());
-  EXPECT_DOUBLE_EQ(inverse0.value().xx(), 496.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse0.value().xy(), -60.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse0.value().xz(), -8.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse0.value().yy(), 255.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse0.value().yz(), -30.0 / 3840.0);
-  EXPECT_DOUBLE_EQ(inverse0.value().zz(), 124.0 / 3840.0);
+  constexpr SymmetricDyad first{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
+  const std::optional<SymmetricDyad> first_inverse{first.Inverse()};
+  EXPECT_TRUE(first_inverse.has_value());
+  EXPECT_DOUBLE_EQ(first_inverse.value().xx(), 496.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(first_inverse.value().xy(), -60.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(first_inverse.value().xz(), -8.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(first_inverse.value().yy(), 255.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(first_inverse.value().yz(), -30.0 / 3840.0);
+  EXPECT_DOUBLE_EQ(first_inverse.value().zz(), 124.0 / 3840.0);
 
-  constexpr SymmetricDyad symdyad1{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  const std::optional<SymmetricDyad> inverse1{symdyad1.Inverse()};
-  EXPECT_FALSE(inverse1.has_value());
+  constexpr SymmetricDyad second{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+  const std::optional<SymmetricDyad> second_inverse{second.Inverse()};
+  EXPECT_FALSE(second_inverse.has_value());
 }
 
 TEST(ValueSymmetricDyad, JSON) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).JSON(),
             "{\"xx\":1.000000000000000,\"xy\":-2.000000000000000,\"xz\":4."
             "000000000000000,\"yy\":0,\"yz\":-4.000000000000000,\"zz\":0}");
+}
+
+TEST(ValueSymmetricDyad, MoveAssignment) {
+  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad third = SymmetricDyad::Zero();
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(ValueSymmetricDyad, MoveConstructor) {
+  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
+TEST(ValueSymmetricDyad, Mutable) {
+  SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz =
+      first.Mutable_xx_xy_xz_yy_yz_zz();
+  mutable_xx_xy_xz_yy_yz_zz = {-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  constexpr std::array<double, 6> result{
+      -7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  EXPECT_EQ(first.xx_xy_xz_yy_yz_zz(), result);
+
+  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  double& mutable_xx = second.Mutable_xx();
+  mutable_xx = -7.77;
+  double& mutable_xy = second.Mutable_xy();
+  mutable_xy = 8.88;
+  double& mutable_xz = second.Mutable_xz();
+  mutable_xz = -9.99;
+  double& mutable_yy = second.Mutable_yy();
+  mutable_yy = 10.10;
+  double& mutable_yz = second.Mutable_yz();
+  mutable_yz = -11.11;
+  double& mutable_zz = second.Mutable_zz();
+  mutable_zz = 12.12;
+  EXPECT_EQ(second.xx(), -7.77);
+  EXPECT_EQ(second.xy(), 8.88);
+  EXPECT_EQ(second.xz(), -9.99);
+  EXPECT_EQ(second.yy(), 10.10);
+  EXPECT_EQ(second.yz(), -11.11);
+  EXPECT_EQ(second.zz(), 12.12);
+
+  SymmetricDyad third(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  double& mutable_yx = third.Mutable_yx();
+  mutable_yx = -13.13;
+  double& mutable_zx = third.Mutable_zx();
+  mutable_zx = 14.14;
+  double& mutable_zy = third.Mutable_zy();
+  mutable_zy = -15.15;
+  EXPECT_EQ(third.yx(), -13.13);
+  EXPECT_EQ(third.zx(), 14.14);
+  EXPECT_EQ(third.zy(), -15.15);
 }
 
 TEST(ValueSymmetricDyad, Print) {
@@ -270,16 +217,58 @@ TEST(ValueSymmetricDyad, Print) {
       "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
 }
 
+TEST(ValueSymmetricDyad, Set) {
+  SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  first.Set_xx_xy_xz_yy_yz_zz(
+      std::array<double, 6>{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12});
+  EXPECT_EQ(first, SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+
+  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  second.Set_xx_xy_xz_yy_yz_zz(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12);
+  EXPECT_EQ(second, SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+
+  SymmetricDyad third(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  third.Set_xx(-7.77);
+  third.Set_xy(8.88);
+  third.Set_xz(-9.99);
+  third.Set_yy(10.10);
+  third.Set_yz(-11.11);
+  third.Set_zz(12.12);
+  EXPECT_EQ(third, SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+}
+
 TEST(ValueSymmetricDyad, SizeOf) {
-  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  EXPECT_EQ(sizeof(symdyad), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(SymmetricDyad{}), 6 * sizeof(double));
+}
+
+TEST(ValueSymmetricDyad, StandardConstructor) {
+  EXPECT_EQ(SymmetricDyad(
+                std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+
+  std::array<double, 6> first_xx_xy_xz_yy_yz_zz{
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  EXPECT_EQ(SymmetricDyad(first_xx_xy_xz_yy_yz_zz),
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+
+  constexpr std::array<double, 6> second_xx_xy_xz_yy_yz_zz{
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  SymmetricDyad second = SymmetricDyad::Zero();
+  second = second_xx_xy_xz_yy_yz_zz;
+  EXPECT_EQ(second, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+
+  std::array<double, 6> third_xx_xy_xz_yy_yz_zz{
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  SymmetricDyad third = SymmetricDyad::Zero();
+  third = std::move(third_xx_xy_xz_yy_yz_zz);
+  EXPECT_EQ(third, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, Stream) {
-  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
+  constexpr SymmetricDyad value{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
   std::ostringstream stream;
-  stream << symdyad;
-  EXPECT_EQ(stream.str(), symdyad.Print());
+  stream << value;
+  EXPECT_EQ(stream.str(), value.Print());
 }
 
 TEST(ValueSymmetricDyad, Trace) {
@@ -287,8 +276,8 @@ TEST(ValueSymmetricDyad, Trace) {
 }
 
 TEST(ValueSymmetricDyad, Transpose) {
-  constexpr SymmetricDyad symdyad{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
-  EXPECT_EQ(symdyad.Transpose(), symdyad);
+  EXPECT_EQ(SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).Transpose(),
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, XML) {

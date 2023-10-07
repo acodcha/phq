@@ -153,6 +153,15 @@ public:
     x_y_z_ = x_y_z;
   }
 
+  // Sets this three-dimensional vector value's x, y, and z Cartesian components
+  // to the given values.
+  constexpr void Set_x_y_z(
+      const double x, const double y, const double z) noexcept {
+    x_y_z_[0] = x;
+    x_y_z_[1] = y;
+    x_y_z_[2] = z;
+  }
+
   // Sets this three-dimensional vector value's x Cartesian component to a given
   // value.
   constexpr void Set_x(const double x) noexcept {

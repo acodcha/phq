@@ -134,7 +134,7 @@ TEST(Time, MutableValue) {
   Time quantity{1.11, Unit::Time::Second};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Time, Print) {
