@@ -152,6 +152,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(dynamic_viscosity)
 
+  add_executable(force ${PROJECT_SOURCE_DIR}/test/Force.cpp)
+  target_link_libraries(force GTest::gtest_main)
+  gtest_discover_tests(force)
+
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
@@ -159,6 +163,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(heat_capacity_ratio ${PROJECT_SOURCE_DIR}/test/HeatCapacityRatio.cpp)
   target_link_libraries(heat_capacity_ratio GTest::gtest_main)
   gtest_discover_tests(heat_capacity_ratio)
+
+  add_executable(heat_flux ${PROJECT_SOURCE_DIR}/test/HeatFlux.cpp)
+  target_link_libraries(heat_flux GTest::gtest_main)
+  gtest_discover_tests(heat_flux)
 
   add_executable(kinematic_viscosity ${PROJECT_SOURCE_DIR}/test/KinematicViscosity.cpp)
   target_link_libraries(kinematic_viscosity GTest::gtest_main)
@@ -216,9 +224,17 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(substance_amount GTest::gtest_main)
   gtest_discover_tests(substance_amount)
 
+  add_executable(temperature_gradient ${PROJECT_SOURCE_DIR}/test/TemperatureGradient.cpp)
+  target_link_libraries(temperature_gradient GTest::gtest_main)
+  gtest_discover_tests(temperature_gradient)
+
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
+
+  add_executable(traction ${PROJECT_SOURCE_DIR}/test/Traction.cpp)
+  target_link_libraries(traction GTest::gtest_main)
+  gtest_discover_tests(traction)
 
   add_executable(transport_energy_consumption ${PROJECT_SOURCE_DIR}/test/TransportEnergyConsumption.cpp)
   target_link_libraries(transport_energy_consumption GTest::gtest_main)
