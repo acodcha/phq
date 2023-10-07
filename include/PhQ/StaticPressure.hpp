@@ -53,6 +53,8 @@ public:
     : StaticPressure(force_magnitude.Value() / area.Value()) {}
 
   // Constructor. Constructs a static pressure from a given traction vector.
+  // Since pressure is compressive, the static pressure that corresponds to the
+  // magnitude of a traction is negative.
   StaticPressure(const Traction& traction);
 
   // Constructor. Constructs a static pressure from a given total pressure and
@@ -120,6 +122,8 @@ public:
     return {*this, area};
   }
 
+  // Since pressure is compressive, the negative of this static pressure
+  // contributes to the traction.
   constexpr Traction operator*(const Direction& direction) const;
 
   constexpr StaticPressure operator/(const double number) const {

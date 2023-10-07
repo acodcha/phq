@@ -33,7 +33,8 @@ public:
     : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a traction from a given static pressure and
-  // direction.
+  // direction. Since pressure is compressive, the negative of the static
+  // pressure contributes to the traction.
   constexpr Traction(
       const StaticPressure& static_pressure, const Direction& direction)
     : Traction(-static_pressure.Value() * direction.Value()) {}
@@ -76,7 +77,9 @@ public:
             value)};
   }
 
-  // Returns the magnitude of this traction.
+  // Returns the magnitude of this traction. Since pressure is compressive, the
+  // static pressure that corresponds to the magnitude of this traction is
+  // negative.
   StaticPressure Magnitude() const {
     return {*this};
   }
@@ -177,7 +180,7 @@ inline Angle::Angle(const Traction& traction_1, const Traction& traction_2)
   : Angle(traction_1.Value(), traction_2.Value()) {}
 
 inline StaticPressure::StaticPressure(const Traction& traction)
-  : StaticPressure(traction.Value().Magnitude()) {}
+  : StaticPressure(-traction.Value().Magnitude()) {}
 
 inline constexpr Force::Force(const Traction& traction, const Area& area)
   : Force(traction.Value() * area.Value()) {}
