@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,102 +25,90 @@ TEST(DimensionTime, Abbreviation) {
   EXPECT_EQ(Time::Abbreviation(), "T");
 }
 
-TEST(DimensionTime, Accessor) {
-  EXPECT_EQ(Time{}.Value(), 0);
-  EXPECT_EQ(Time{-2}.Value(), -2);
-  EXPECT_EQ(Time{-1}.Value(), -1);
-  EXPECT_EQ(Time{0}.Value(), 0);
-  EXPECT_EQ(Time{1}.Value(), 1);
-  EXPECT_EQ(Time{2}.Value(), 2);
-  EXPECT_EQ(Time{3}.Value(), 3);
+TEST(DimensionTime, Comparisons) {
+  constexpr Time first{-1};
+  constexpr Time second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionTime, Comparison) {
-  const Time time0{-1};
-  const Time time1{2};
-  EXPECT_EQ(time0, time0);
-  EXPECT_NE(time0, time1);
-  EXPECT_LT(time0, time1);
-  EXPECT_LE(time0, time0);
-  EXPECT_LE(time0, time1);
-  EXPECT_GT(time1, time0);
-  EXPECT_GE(time1, time0);
-  EXPECT_GE(time0, time0);
-  const std::set<Time> increasing{time0, time1};
-  EXPECT_EQ(*increasing.begin(), time0);
-  const std::set<Time, std::greater<Time>> decreasing{time0, time1};
-  EXPECT_EQ(*decreasing.begin(), time1);
+TEST(DimensionTime, CopyAssignment) {
+  constexpr Time first{3};
+  Time second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionTime, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr Time reference{1};
+TEST(DimensionTime, CopyConstructor) {
+  constexpr Time first{3};
+  constexpr Time second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr Time default_;
-
-  // Copy constructor.
-  constexpr Time copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  Time copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  Time to_move_construct{value_reference};
-  Time move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  Time to_move_assign{value_reference};
-  Time move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionTime, DefaultConstructor) {
+  EXPECT_NO_THROW(Time{});
 }
 
 TEST(DimensionTime, Hash) {
-  const Time time0{-2};
-  const Time time1{-1};
-  const Time time2{0};
-  const Time time3{1};
-  const Time time4{2};
-  const Time time5{3};
-  const std::hash<Time> hasher;
-  EXPECT_NE(hasher(time0), hasher(time1));
-  EXPECT_NE(hasher(time0), hasher(time2));
-  EXPECT_NE(hasher(time0), hasher(time3));
-  EXPECT_NE(hasher(time0), hasher(time4));
-  EXPECT_NE(hasher(time0), hasher(time5));
-  const std::unordered_set<Time> unordered{
-      time0, time1, time2, time3, time4, time5};
+  constexpr Time first{0};
+  constexpr Time second{2};
+  constexpr Time third{-1};
+  constexpr std::hash<Time> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionTime, Label) {
   EXPECT_EQ(Time::Label(), "Time");
 }
 
+TEST(DimensionTime, MoveAssignment) {
+  constexpr Time first{3};
+  Time second{3};
+  Time third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionTime, MoveConstructor) {
+  constexpr Time first{3};
+  Time second{3};
+  Time third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionTime, Print) {
-  EXPECT_EQ(Time{}.Print(), "");
-  EXPECT_EQ(Time{-2}.Print(), "T^(-2)");
-  EXPECT_EQ(Time{-1}.Print(), "T^(-1)");
-  EXPECT_EQ(Time{0}.Print(), "");
-  EXPECT_EQ(Time{1}.Print(), "T");
-  EXPECT_EQ(Time{2}.Print(), "T^2");
-  EXPECT_EQ(Time{3}.Print(), "T^3");
+  EXPECT_EQ(Time().Print(), "");
+  EXPECT_EQ(Time(-1).Print(), "T^(-1)");
+  EXPECT_EQ(Time(0).Print(), "");
+  EXPECT_EQ(Time(1).Print(), "T");
+  EXPECT_EQ(Time(2).Print(), "T^2");
 }
 
 TEST(DimensionTime, SizeOf) {
-  const Time time{3};
-  EXPECT_EQ(sizeof(time), sizeof(int8_t));
+  EXPECT_EQ(sizeof(Time{}), sizeof(int8_t));
 }
 
 TEST(DimensionTime, Stream) {
-  const Time time{3};
+  constexpr Time dimension{3};
   std::ostringstream stream;
-  stream << time;
-  EXPECT_EQ(stream.str(), time.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionTime, Value) {
+  EXPECT_EQ(Time().Value(), 0);
+  EXPECT_EQ(Time(-1).Value(), -1);
+  EXPECT_EQ(Time(0).Value(), 0);
+  EXPECT_EQ(Time(1).Value(), 1);
+  EXPECT_EQ(Time(2).Value(), 2);
 }
 
 }  // namespace

@@ -17,10 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <set>
-#include <sstream>
-#include <unordered_set>
-
 namespace PhQ::Dimension {
 
 namespace {
@@ -29,103 +25,90 @@ TEST(DimensionLuminousIntensity, Abbreviation) {
   EXPECT_EQ(LuminousIntensity::Abbreviation(), "J");
 }
 
-TEST(DimensionLuminousIntensity, Accessor) {
-  EXPECT_EQ(LuminousIntensity{}.Value(), 0);
-  EXPECT_EQ(LuminousIntensity{-2}.Value(), -2);
-  EXPECT_EQ(LuminousIntensity{-1}.Value(), -1);
-  EXPECT_EQ(LuminousIntensity{0}.Value(), 0);
-  EXPECT_EQ(LuminousIntensity{1}.Value(), 1);
-  EXPECT_EQ(LuminousIntensity{2}.Value(), 2);
-  EXPECT_EQ(LuminousIntensity{3}.Value(), 3);
+TEST(DimensionLuminousIntensity, Comparisons) {
+  constexpr LuminousIntensity first{-1};
+  constexpr LuminousIntensity second{2};
+  EXPECT_EQ(first, first);
+  EXPECT_NE(first, second);
+  EXPECT_LT(first, second);
+  EXPECT_LE(first, first);
+  EXPECT_LE(first, second);
+  EXPECT_GT(second, first);
+  EXPECT_GE(second, first);
+  EXPECT_GE(first, first);
 }
 
-TEST(DimensionLuminousIntensity, Comparison) {
-  const LuminousIntensity intensity0{-1};
-  const LuminousIntensity intensity1{2};
-  EXPECT_EQ(intensity0, intensity0);
-  EXPECT_NE(intensity0, intensity1);
-  EXPECT_LT(intensity0, intensity1);
-  EXPECT_LE(intensity0, intensity0);
-  EXPECT_LE(intensity0, intensity1);
-  EXPECT_GT(intensity1, intensity0);
-  EXPECT_GE(intensity1, intensity0);
-  EXPECT_GE(intensity0, intensity0);
-  const std::set<LuminousIntensity> increasing{intensity0, intensity1};
-  EXPECT_EQ(*increasing.begin(), intensity0);
-  const std::set<LuminousIntensity, std::greater<LuminousIntensity>> decreasing{
-      intensity0, intensity1};
-  EXPECT_EQ(*decreasing.begin(), intensity1);
+TEST(DimensionLuminousIntensity, CopyAssignment) {
+  constexpr LuminousIntensity first{3};
+  LuminousIntensity second{0};
+  second = first;
+  EXPECT_EQ(second, first);
 }
 
-TEST(DimensionLuminousIntensity, Constructor) {
-  constexpr int8_t value_reference{1};
-  constexpr LuminousIntensity reference{1};
+TEST(DimensionLuminousIntensity, CopyConstructor) {
+  constexpr LuminousIntensity first{3};
+  constexpr LuminousIntensity second{first};
+  EXPECT_EQ(second, first);
+}
 
-  // Default constructor.
-  constexpr LuminousIntensity default_;
-
-  // Copy constructor.
-  constexpr LuminousIntensity copy_constructed{reference};
-  EXPECT_EQ(copy_constructed, reference);
-
-  // Copy assignment operator.
-  LuminousIntensity copy_assigned{-1};
-  copy_assigned = reference;
-  EXPECT_EQ(copy_assigned, reference);
-
-  // Move constructor.
-  LuminousIntensity to_move_construct{value_reference};
-  LuminousIntensity move_constructed{std::move(to_move_construct)};
-  EXPECT_EQ(move_constructed, reference);
-
-  // Move assignment operator.
-  LuminousIntensity to_move_assign{value_reference};
-  LuminousIntensity move_assigned{-1};
-  move_assigned = std::move(to_move_assign);
-  EXPECT_EQ(move_assigned, reference);
+TEST(DimensionLuminousIntensity, DefaultConstructor) {
+  EXPECT_NO_THROW(LuminousIntensity{});
 }
 
 TEST(DimensionLuminousIntensity, Hash) {
-  const LuminousIntensity intensity0{-2};
-  const LuminousIntensity intensity1{-1};
-  const LuminousIntensity intensity2{0};
-  const LuminousIntensity intensity3{1};
-  const LuminousIntensity intensity4{2};
-  const LuminousIntensity intensity5{3};
-  const std::hash<LuminousIntensity> hasher;
-  EXPECT_NE(hasher(intensity0), hasher(intensity1));
-  EXPECT_NE(hasher(intensity0), hasher(intensity2));
-  EXPECT_NE(hasher(intensity0), hasher(intensity3));
-  EXPECT_NE(hasher(intensity0), hasher(intensity4));
-  EXPECT_NE(hasher(intensity0), hasher(intensity5));
-  const std::unordered_set<LuminousIntensity> unordered{
-      intensity0, intensity1, intensity2, intensity3, intensity4, intensity5};
+  constexpr LuminousIntensity first{0};
+  constexpr LuminousIntensity second{2};
+  constexpr LuminousIntensity third{-1};
+  constexpr std::hash<LuminousIntensity> hash;
+  EXPECT_NE(hash(first), hash(second));
+  EXPECT_NE(hash(first), hash(third));
+  EXPECT_NE(hash(second), hash(third));
 }
 
 TEST(DimensionLuminousIntensity, Label) {
   EXPECT_EQ(LuminousIntensity::Label(), "Luminous Intensity");
 }
 
+TEST(DimensionLuminousIntensity, MoveAssignment) {
+  constexpr LuminousIntensity first{3};
+  LuminousIntensity second{3};
+  LuminousIntensity third{-1};
+  third = std::move(second);
+  EXPECT_EQ(third, first);
+}
+
+TEST(DimensionLuminousIntensity, MoveConstructor) {
+  constexpr LuminousIntensity first{3};
+  LuminousIntensity second{3};
+  LuminousIntensity third{std::move(second)};
+  EXPECT_EQ(third, first);
+}
+
 TEST(DimensionLuminousIntensity, Print) {
-  EXPECT_EQ(LuminousIntensity{}.Print(), "");
-  EXPECT_EQ(LuminousIntensity{-2}.Print(), "J^(-2)");
-  EXPECT_EQ(LuminousIntensity{-1}.Print(), "J^(-1)");
-  EXPECT_EQ(LuminousIntensity{0}.Print(), "");
-  EXPECT_EQ(LuminousIntensity{1}.Print(), "J");
-  EXPECT_EQ(LuminousIntensity{2}.Print(), "J^2");
-  EXPECT_EQ(LuminousIntensity{3}.Print(), "J^3");
+  EXPECT_EQ(LuminousIntensity().Print(), "");
+  EXPECT_EQ(LuminousIntensity(-1).Print(), "J^(-1)");
+  EXPECT_EQ(LuminousIntensity(0).Print(), "");
+  EXPECT_EQ(LuminousIntensity(1).Print(), "J");
+  EXPECT_EQ(LuminousIntensity(2).Print(), "J^2");
 }
 
 TEST(DimensionLuminousIntensity, SizeOf) {
-  const LuminousIntensity intensity{3};
-  EXPECT_EQ(sizeof(intensity), sizeof(int8_t));
+  EXPECT_EQ(sizeof(LuminousIntensity{}), sizeof(int8_t));
 }
 
 TEST(DimensionLuminousIntensity, Stream) {
-  const LuminousIntensity intensity{3};
+  constexpr LuminousIntensity dimension{3};
   std::ostringstream stream;
-  stream << intensity;
-  EXPECT_EQ(stream.str(), intensity.Print());
+  stream << dimension;
+  EXPECT_EQ(stream.str(), dimension.Print());
+}
+
+TEST(DimensionLuminousIntensity, Value) {
+  EXPECT_EQ(LuminousIntensity().Value(), 0);
+  EXPECT_EQ(LuminousIntensity(-1).Value(), -1);
+  EXPECT_EQ(LuminousIntensity(0).Value(), 0);
+  EXPECT_EQ(LuminousIntensity(1).Value(), 1);
+  EXPECT_EQ(LuminousIntensity(2).Value(), 2);
 }
 
 }  // namespace

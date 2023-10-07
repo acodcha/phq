@@ -246,6 +246,23 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
   }
 
+  // Sets this three-dimensional dyadic tensor value's xx, xy, xz, yx, yy, yz,
+  // zx, zy, and zz Cartesian components to the given values.
+  constexpr void Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
+      const double xx, const double xy, const double xz, const double yx,
+      const double yy, const double yz, const double zx, const double zy,
+      const double zz) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = xx;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = xy;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = xz;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = yx;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = yy;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = yz;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = zx;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = zy;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = zz;
+  }
+
   // Sets this three-dimensional dyadic tensor value's xx Cartesian component to
   // a given value.
   constexpr void Set_xx(const double xx) noexcept {

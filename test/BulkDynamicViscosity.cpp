@@ -160,7 +160,7 @@ TEST(BulkDynamicViscosity, MutableValue) {
   BulkDynamicViscosity quantity{1.11, Unit::DynamicViscosity::PascalSecond};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(BulkDynamicViscosity, Print) {

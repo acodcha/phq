@@ -163,7 +163,7 @@ TEST(Frequency, MutableValue) {
   Frequency quantity{1.11, Unit::Frequency::Hertz};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Frequency, Print) {

@@ -17,8 +17,6 @@
 
 #include <gtest/gtest.h>
 
-#include <unordered_set>
-
 namespace PhQ {
 
 namespace {
@@ -141,7 +139,7 @@ TEST(Length, MutableValue) {
   Length quantity{1.11, Unit::Length::Metre};
   double& value = quantity.MutableValue();
   value = 2.22;
-  EXPECT_EQ(value, 2.22);
+  EXPECT_EQ(quantity.Value(), 2.22);
 }
 
 TEST(Length, Print) {
