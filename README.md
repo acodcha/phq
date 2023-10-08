@@ -4,7 +4,7 @@
 
 C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
-If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the inch-pound-second system?", "how do I compute a stress field given a strain field?", or "what the heck is a slug unit?" then this library is for you!
+If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the inch-pound-second system?", "how do I compute a stress field given a strain field?", or "what the heck is a slug unit?", then this library is for you!
 
 - Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data.
 - Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data.
@@ -23,6 +23,7 @@ Contents:
   - [Units](#usage-units)
   - [Unit Systems](#usage-unit-systems)
   - [Physical Models](#usage-physical-models)
+  - [Physical Dimensions](#usage-physical-dimensions)
   - [Divisions by Zero](#usage-divisions-by-zero)
   - [Exceptions](#usage-exceptions)
 - [Installation](#installation)
@@ -80,6 +81,7 @@ To use the Physical Quantities library in your source code, simply include this 
 - [Units](#usage-units)
 - [Unit Systems](#usage-unit-systems)
 - [Physical Models](#usage-physical-models)
+- [Physical Dimensions](#usage-physical-dimensions)
 - [Divisions by Zero](#usage-divisions-by-zero)
 - [Exceptions](#usage-exceptions)
 
@@ -90,10 +92,10 @@ To use the Physical Quantities library in your source code, simply include this 
 Physical quantities are constructed from a value and a unit. For example:
 
 ```C++
-PhQ::Temperature low{10.0, PhQ::Unit::Temperature::Celsius};
-PhQ::Temperature high{68.0, PhQ::Unit::Temperature::Fahrenheit};
-PhQ::Temperature average = 0.5 * (low + high);
-std::cout << "Average: " << average << std::endl;
+const PhQ::Temperature low{10.0, PhQ::Unit::Temperature::Celsius};
+const PhQ::Temperature high{68.0, PhQ::Unit::Temperature::Fahrenheit};
+const PhQ::Temperature average = 0.5 * (low + high);
+std::cout << "Average temperature: " << average << std::endl;
 ```
 
 The above example creates two temperature quantities, computes their average, and prints the result, which is 15 °C.
@@ -101,10 +103,10 @@ The above example creates two temperature quantities, computes their average, an
 Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data. For example:
 
 ```C++
-PhQ::Area area{10.0, PhQ::Unit::Area::Hectare};
+const PhQ::Area area{10.0, PhQ::Unit::Area::Hectare};
 assert(sizeof(area) == sizeof(double));
 
-PhQ::Position position{{-1.11, 2.22, -3.33}, PhQ::Unit::Length::Mile};
+const PhQ::Position position{{-1.11, 2.22, -3.33}, PhQ::Unit::Length::Mile};
 assert(sizeof(position) == 3 * sizeof(double));
 ```
 
@@ -117,19 +119,20 @@ Values can be scalars, vectors, or dyadic tensors. Vectors and dyadic tensors ar
 ```C++
 PhQ::Force force{{/*x=*/300.0, /*y=*/0.0, /*z=*/-400.0}, PhQ::Unit::Force::Pound};
 force /= 5.0;
-PhQ::ForceMagnitude magnitude = force.Magnitude();
+const PhQ::ForceMagnitude magnitude = force.Magnitude();
 std::cout << "Magnitude: " << magnitude.Print(PhQ::Unit::Force::Pound) << std::endl;
 ```
 
 The above example creates a force quantity of (300, 0, -400) lbf, divides it by 5, computes its magnitude, and prints the magnitude in pounds, which results in 100 lbf.
 
-Some dyadic tensor quantities are symmetric. For example:
+Many dyadic tensor quantities are symmetric. For example:
 
 ```C++
-PhQ::Stress stress{
+const PhQ::Stress stress{
     {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0},
     PhQ::Unit::Pressure::Megapascal};
-std::cout << "Von Mises stress: " << stress.VonMises() << std::endl;
+assert(stress.Value().xy() == stress.Value().yx());
+std::cout << "Equivalent von Mises stress: " << stress.VonMises() << std::endl;
 ```
 
 The above example creates a stress quantity and computes and prints its equivalent von Mises stress.
@@ -141,9 +144,9 @@ The above example creates a stress quantity and computes and prints its equivale
 Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data. For example:
 
 ```C++
-PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
-PhQ::Time time{10.0, PhQ::Unit::Time::Second};
-PhQ::Acceleration acceleration = velocity / time;
+const PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
+const PhQ::Time time{10.0, PhQ::Unit::Time::Second};
+const PhQ::Acceleration acceleration = velocity / time;
 std::cout << "Acceleration: " << acceleration << std::endl;
 ```
 
@@ -152,37 +155,41 @@ The above example creates a velocity quantity of (50, -10, 20) m/s and a time qu
 Similarly, other meaningful mathematical operations are supported via member methods. For example:
 
 ```C++
-PhQ::Displacement displacement{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
-PhQ::Length length = displacement.Magnitude();
-PhQ::Direction direction = displacement.Direction();
-std::cout << "Length: " << length << ", Direction: " << direction << std::endl;
+const PhQ::Displacement displacement{{0.0, 6.0, 0.0}, PhQ::Unit::Length::Inch};
+const PhQ::Length length = displacement.Magnitude();
+const PhQ::Direction direction = displacement.Direction();
+std::cout << "Length: " << length << ", direction: " << direction << std::endl;
 
-PhQ::Displacement other_displacement{{0.0, 0.0, -3.0}, PhQ::Unit::Length::Inch};
-PhQ::Angle angle{displacement, other_displacement};
+const PhQ::Displacement other_displacement{{0.0, 0.0, -3.0}, PhQ::Unit::Length::Foot};
+const PhQ::Angle angle{displacement, other_displacement};
 std::cout << "Angle: " << angle.Print(PhQ::Unit::Angle::Degree) << std::endl;
 ```
 
-The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) in, and computes and prints the angle between the two displacements, which is 90 deg.
+The above example creates a displacement quantity of (0, 6, 0) in, computes and prints its magnitude and direction, then creates a second displacement of (0, 0, -3) ft, and computes and prints the angle between the two displacements, which is 90 deg.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Units
 
-Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin (m·kg·s·K) system. This approach minimizes the number of unit conversions during program execution; when a physical quantity is constructed, it is immediately converted to its standard unit of measure in the standard unit system. The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure.
+The Physical Quantities library handles unit conversions automatically, and all unit conversions are exact to within floating point arithmetic precision.
+
+When a physical quantity object is constructed, its value is immediately converted to the standard unit of measure in a standard unit system: the metre-kilogram-second-kelvin (m·kg·s·K) system. This way, all physical quantities maintain their values in a consistent system of units. This approach greatly minimizes the number of unit conversions during program execution; when arithmetic operations are performed between physical quantities, no unit conversion is needed.
+
+The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure. These cases are illustrated in the following examples.
 
 A physical quantity's value can be expressed in any unit of measure through its `Value` method. For example:
 
 ```C++
-PhQ::Mass mass{10.0, PhQ::Unit::Mass::Pound};
+const PhQ::Mass mass{10.0, PhQ::Unit::Mass::Pound};
 
-double standard_value = mass.Value();
-PhQ::Unit::Mass standard_unit = PhQ::Mass::Unit();  // PhQ::Unit::Mass::Kilogram
-std::string standard_abbreviation = PhQ::Abbreviation(standard_unit);
+const double standard_value = mass.Value();
+const PhQ::Unit::Mass standard_unit = PhQ::Mass::Unit();
+const std::string standard_abbreviation = PhQ::Abbreviation(standard_unit);
 std::cout << standard_value << " " << standard_abbreviation << std::endl;
 
-PhQ::Unit::Mass other_unit = PhQ::Unit::Mass::Gram;
-std::string other_abbreviation = PhQ::Abbreviation(other_unit);
-double other_value = mass.Value(other_unit);
+const PhQ::Unit::Mass other_unit = PhQ::Unit::Mass::Gram;
+const std::string other_abbreviation = PhQ::Abbreviation(other_unit);
+const double other_value = mass.Value(other_unit);
 std::cout << other_value << " " << other_abbreviation << std::endl;
 ```
 
@@ -191,37 +198,43 @@ The above example creates a 10 lbm mass and prints its value as 4.535924 kg and 
 A physical quantity can be expressed in any unit of measure through its `Print` method. For example:
 
 ```C++
-PhQ::Frequency frequency{10.0, PhQ::Unit::Frequency::Hertz};
-std::string standard = frequency.Print();
-std::string kilohertz = frequency.Print(PhQ::Unit::Frequency::Kilohertz);
+const PhQ::Frequency frequency{10.0, PhQ::Unit::Frequency::Hertz};
+const std::string standard = frequency.Print();
+const std::string kilohertz = frequency.Print(PhQ::Unit::Frequency::Kilohertz);
 std::cout << standard << " = " << kilohertz << std::endl;
 ```
 
 The above example creates a 10 Hz frequency and prints it both in hertz and in kilohertz.
 
-Unit conversions can also be done explicitly without the use of physical quantities through the `PhQ::Convert` function, which takes a value, an original unit, and a new unit. For example:
+Unit conversions can also be performed explicitly on raw floating point numbers without the use of physical quantities through the `PhQ::Convert` function, which takes one or more floating point values, an original unit, and a new unit. For example:
 
 ```C++
-double value = 10.0;
-PhQ::Convert(value, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound)
-std::cout << value << std::endl;
+std::vector<double> values = {10.0, 20.0, 30.0, 40.0};
+PhQ::Convert(values, PhQ::Unit::Energy::Joule, PhQ::Unit::Energy::FootPound);
+for (const double value : values) {
+  std::cout << value << std::endl;
+}
 ```
 
-The above example converts 10 J to 7.375621 ft·lbf. The same can also be achieved with:
+The above example converts a collection of values from joules to foot-pounds. The same can also be achieved with:
 
 ```C++
-PhQ::Energy energy{10.0, PhQ::Unit::Energy::Joule};
-double foot_pounds = energy.Value(PhQ::Unit::Energy::FootPound);
-std::cout << foot_pounds << std::endl;
+const std::vector<PhQ::Energy> quantities = {
+  {10.0, PhQ::Unit::Energy::Joule}, {20.0, PhQ::Unit::Energy::Joule},
+  {30.0, PhQ::Unit::Energy::Joule}, {40.0, PhQ::Unit::Energy::Joule},
+};
+for (const PhQ::Energy quantity : quantities) {
+  std::cout << quantity.Value(PhQ::Unit::Energy::FootPound) << std::endl;
+}
 ```
 
-In general, it is easier to use physical quantities instead of manually invoking the `PhQ::Convert` function.
+In general, it is easier to use the member methods of physical quantities rather than explicitly invoking the `PhQ::Convert` function.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Unit Systems
 
-Internally, all data is stored in the metre-kilogram-second-kelvin (m·kg·s·K) system. However, other common systems of units of measure are also defined:
+Internally, physical quantities store their values in the metre-kilogram-second-kelvin (m·kg·s·K) system. Unit conversions are performed automatically when physical quantity objects are constructed. Other common systems of units of measure are also defined:
 
 - Metre-kilogram-second-kelvin (m·kg·s·K) system
 - Millimetre-gram-second-kelvin (mm·g·s·K) system
@@ -231,11 +244,11 @@ Internally, all data is stored in the metre-kilogram-second-kelvin (m·kg·s·K)
 Data can be expressed in the consistent units of any of these unit systems. The unit of measure of a given type that corresponds to a given unit system can be obtained with the `PhQ::ConsistentUnit` function. For example:
 
 ```C++
-PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
-PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
-PhQ::Unit::SpecificEnergy unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
+const PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
+const PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
+const PhQ::Unit::SpecificEnergy unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
 std::cout << unit << std::endl;  // ft·lbf/slug
-double value = energy.Value(unit);
+const double value = energy.Value(unit);
 std::cout << value << std::endl;
 ```
 
@@ -244,8 +257,8 @@ The above example creates a mass-specific energy quantity of 10 J/kg. Then, the 
 Given a unit, it is also possible to obtain its related unit system, if any, with the `PhQ::RelatedUnitSystem` function. For example:
 
 ```C++
-PhQ::Unit::Mass unit = PhQ::Unit::Mass::Slug;
-std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
+const PhQ::Unit::Mass unit = PhQ::Unit::Mass::Slug;
+const std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
 assert(optional_system.has_value());
 std::cout << optional_system.value() << std::endl;  // ft·lbf·s·°R
 ```
@@ -255,8 +268,8 @@ The above example obtains the related unit system of the slug mass unit, which i
 However, not all units have a corresponding unit system. For example:
 
 ```C++
-PhQ::Unit::Mass unit = PhQ::Unit::Mass::Pound;
-std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
+const PhQ::Unit::Mass unit = PhQ::Unit::Mass::Pound;
+const std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
 assert(!optional_system.has_value());
 ```
 
@@ -266,35 +279,84 @@ The above example shows that the pound (lbm) mass unit does not belong to any un
 
 ### Usage: Physical Models
 
-Some physical models and related operations are also supported. Physical models allow complex mathematical calculations to be performed easily. For example:
+Some physical models and related operations are supported. Physical models allow complex mathematical calculations to be performed easily. For example:
 
 ```C++
-PhQ::YoungModulus young_modulus{70.0, PhQ::Unit::Pressure::Gigapascal};
-PhQ::PoissonRatio poisson_ratio{0.33};
+const PhQ::YoungModulus young_modulus{70.0, PhQ::Unit::Pressure::Gigapascal};
+const PhQ::PoissonRatio poisson_ratio{0.33};
 
-std::unique_ptr<ConstitutiveModel> constitutive_model =
-    std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(young_modulus, poisson_ratio);
+const std::unique_ptr<const ConstitutiveModel> constitutive_model =
+    std::make_unique<const ConstitutiveModel::ElasticIsotropicSolid>(
+        young_modulus, poisson_ratio);
 
-PhQ::Strain strain{
+const PhQ::Strain strain{
     {/*xx=*/32.0, /*xy=*/-4.0, /*xz=*/-2.0, /*yy=*/16.0, /*yz=*/-1.0, /*zz=*/8.0}};
 
-PhQ::Stress stress = constitutive_model->Stress(strain);
+const PhQ::Stress stress = constitutive_model->Stress(strain);
 std::cout << stress << std::endl;
 ```
 
-The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor given a strain tensor.
+The above example creates an elastic isotropic solid constitutive model from a Young's modulus and a Poisson's ratio, and then uses it to compute the stress tensor resulting from a strain tensor.
+
+[(Back to Usage)](#usage)
+
+### Usage: Physical Dimensions
+
+Seven independent base physical dimensions form the physical dimension set of any unit of measure or physical quantity. These seven independent base physical dimensions are: time (T), length (L), mass (M), electric current (I), temperature (Θ), amount of substance (N), and luminous intensity (J). Units of measure that share the same physical dimension set are of the same type and can be converted between one another.
+
+For example, the metre per second and the mile per hour are both units of measure that have the same physical dimension set of T^(-1)·L, which is the physical dimension set of speed, so these two units of measure can be converted between one another.
+
+On the other hand, the kilogram per cubic metre is a unit of measure with physical dimension set L^(-3)·M, which is the physical dimension set of mass density, so this unit of measure cannot be converted to either the metre per second or the mile per hour, which have a different physical dimension set.
+
+The Physical Quantities library organizes units of measure into types, where each type roughly corresponds to a given physical dimension set.
+
+The physical dimension set of a unit of measure can be obtained with the `PhQ::RelatedDimensions` global variable. For example:
+
+```C++
+const PhQ::Dimensions dimensions = PhQ::RelatedDimensions<Unit::Speed>;
+assert(dimensions.Time(), PhQ::Dimension::Time(-1));
+assert(dimensions.Length(), PhQ::Dimension::Length(1));
+assert(dimensions.Mass(), PhQ::Dimension::Mass(0));
+assert(dimensions.ElectricCurrent(), PhQ::Dimension::ElectricCurrent(0));
+assert(dimensions.Temperature(), PhQ::Dimension::Temperature(0));
+assert(dimensions.SubstanceAmount(), PhQ::Dimension::SubstanceAmount(0));
+assert(dimensions.LuminousIntensity(), PhQ::Dimension::LuminousIntensity(0));
+std::cout << dimensions << std::endl;
+```
+
+The above example obtains the physical dimension set of speed, which is T^(-1)·L.
+
+The physical dimension set of a physical quantity is simply the physical dimension set of its unit of measure and can be obtained with the `Dimensions` method. For example:
+
+```C++
+const PhQ::Dimensions dimensions = PhQ::MassDensity::Dimensions();
+assert(dimensions.Time(), PhQ::Dimension::Time(0));
+assert(dimensions.Length(), PhQ::Dimension::Length(-3));
+assert(dimensions.Mass(), PhQ::Dimension::Mass(1));
+assert(dimensions.ElectricCurrent(), PhQ::Dimension::ElectricCurrent(0));
+assert(dimensions.Temperature(), PhQ::Dimension::Temperature(0));
+assert(dimensions.SubstanceAmount(), PhQ::Dimension::SubstanceAmount(0));
+assert(dimensions.LuminousIntensity(), PhQ::Dimension::LuminousIntensity(0));
+std::cout << dimensions << std::endl;
+```
+
+The above example obtains the physical dimension set of mass density, which is L^(-3)·M.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Divisions by Zero
 
-The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for a zero determinant when computing their inverse. However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
+The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
+
+However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 
 [(Back to Usage)](#usage)
 
 ### Usage: Exceptions
 
-The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object, which throws a `std::bad_alloc` exception. If maintaining a strong exception guarantee is a concern, use try-catch blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. As a result, many of this library's functions and methods are marked `noexcept`.
+The only circumstance in which the Physical Quantities library throws an exception is a memory allocation failure due to running out of memory on your system when instantiating a new object. In this case, C++ throws a `std::bad_alloc` exception.
+
+If maintaining a strong exception guarantee is a concern, use `try` and `catch` blocks when instantiating new objects to handle this exception. Other than this case, the Physical Quantities library does not throw exceptions. Where applicable, this library's functions and methods are marked `noexcept`.
 
 [(Back to Usage)](#usage)
 
