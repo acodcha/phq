@@ -27,20 +27,20 @@
 namespace PhQ {
 
 // Physical dimension set of a unit of measure or physical quantity. Composed of
-// the seven independent base physical dimensions: time, length, mass, electric
-// current, temperature, amount of substance, and luminous intensity. Units of
-// measure that share the same physical dimension set are of the same type and
-// can be converted between one another.
+// the seven independent base physical dimensions: time (T), length (L), mass
+// (M), electric current (I), temperature (Θ), amount of substance (N), and
+// luminous intensity (J). Units of measure that share the same physical
+// dimension set are of the same type and can be converted between one another.
 //
 // For example, the metre per second and the mile per hour are both units of
-// measure that have the same physical dimension set of T·L^(-1), which is the
+// measure that have the same physical dimension set of T^(-1)·L, which is the
 // physical dimension set of speed, so these two units of measure can be
 // converted between one another.
 //
 // On the other hand, the kilogram per cubic metre is a unit of measure with
-// physical dimension set M·L^(-3), which is the physical dimension set of mass
+// physical dimension set L^(-3)·M, which is the physical dimension set of mass
 // density, so this unit of measure cannot be converted to either the metre per
-// second or the mile per hour.
+// second or the mile per hour, which have a different physical dimension set.
 class Dimensions {
 public:
   // Constructor. Constructs a physical dimension set from the given base
