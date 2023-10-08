@@ -149,6 +149,13 @@ TEST(UnitSpecificHeatCapacity, Standard) {
             SpecificHeatCapacity::JoulePerKilogramPerKelvin);
 }
 
+TEST(UnitSpecificHeatCapacity, Stream) {
+  std::ostringstream stream;
+  stream << SpecificHeatCapacity::JoulePerKilogramPerKelvin;
+  EXPECT_EQ(stream.str(),
+            Abbreviation(SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

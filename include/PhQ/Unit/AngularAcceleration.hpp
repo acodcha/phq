@@ -83,6 +83,12 @@ template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::AngularAcceleration>{
     Dimensions{Dimension::Time{-2}}};
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::AngularAcceleration unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

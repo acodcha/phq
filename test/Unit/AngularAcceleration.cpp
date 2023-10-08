@@ -310,6 +310,13 @@ TEST(UnitAngularAcceleration, Standard) {
             AngularAcceleration::RadianPerSquareSecond);
 }
 
+TEST(UnitAngularAcceleration, Stream) {
+  std::ostringstream stream;
+  stream << AngularAcceleration::RadianPerSquareSecond;
+  EXPECT_EQ(
+      stream.str(), Abbreviation(AngularAcceleration::RadianPerSquareSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

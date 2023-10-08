@@ -226,10 +226,10 @@ TEST(AngularSpeed, StaticValue) {
 }
 
 TEST(AngularSpeed, Stream) {
-  const AngularSpeed quantity{1.11, Unit::AngularSpeed::RadianPerSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(stream.str(),
+            AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Print());
 }
 
 TEST(AngularSpeed, Unit) {

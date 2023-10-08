@@ -202,6 +202,12 @@ TEST(UnitVolume, Standard) {
   EXPECT_EQ(Standard<Volume>, Volume::CubicMetre);
 }
 
+TEST(UnitVolume, Stream) {
+  std::ostringstream stream;
+  stream << Volume::CubicMetre;
+  EXPECT_EQ(stream.str(), Abbreviation(Volume::CubicMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

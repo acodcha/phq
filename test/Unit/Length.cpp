@@ -171,6 +171,12 @@ TEST(UnitLength, Standard) {
   EXPECT_EQ(Standard<Length>, Length::Metre);
 }
 
+TEST(UnitLength, Stream) {
+  std::ostringstream stream;
+  stream << Length::Metre;
+  EXPECT_EQ(stream.str(), Abbreviation(Length::Metre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

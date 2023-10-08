@@ -207,10 +207,10 @@ TEST(AreaVector, StaticValue) {
 }
 
 TEST(AreaVector, Stream) {
-  const AreaVector quantity({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
+  EXPECT_EQ(stream.str(),
+            AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).Print());
 }
 
 TEST(AreaVector, Unit) {

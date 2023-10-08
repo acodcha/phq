@@ -133,6 +133,12 @@ TEST(UnitEnergyFlux, Standard) {
   EXPECT_EQ(Standard<EnergyFlux>, EnergyFlux::WattPerSquareMetre);
 }
 
+TEST(UnitEnergyFlux, Stream) {
+  std::ostringstream stream;
+  stream << EnergyFlux::WattPerSquareMetre;
+  EXPECT_EQ(stream.str(), Abbreviation(EnergyFlux::WattPerSquareMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

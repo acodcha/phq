@@ -427,6 +427,12 @@ TEST(UnitSpeed, Standard) {
   EXPECT_EQ(Standard<Speed>, Speed::MetrePerSecond);
 }
 
+TEST(UnitSpeed, Stream) {
+  std::ostringstream stream;
+  stream << Speed::MetrePerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(Speed::MetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

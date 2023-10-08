@@ -488,6 +488,12 @@ TEST(UnitAcceleration, Standard) {
   EXPECT_EQ(Standard<Acceleration>, Acceleration::MetrePerSquareSecond);
 }
 
+TEST(UnitAcceleration, Stream) {
+  std::ostringstream stream;
+  stream << Acceleration::MetrePerSquareSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(Acceleration::MetrePerSquareSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

@@ -707,6 +707,12 @@ TEST(UnitMemoryRate, Standard) {
   EXPECT_EQ(Standard<MemoryRate>, MemoryRate::BitPerSecond);
 }
 
+TEST(UnitMemoryRate, Stream) {
+  std::ostringstream stream;
+  stream << MemoryRate::BitPerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(MemoryRate::BitPerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

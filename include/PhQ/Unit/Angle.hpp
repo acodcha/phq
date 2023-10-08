@@ -50,6 +50,11 @@ inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensions{}};
 
+inline std::ostream& operator<<(std::ostream& stream, const Unit::Angle unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

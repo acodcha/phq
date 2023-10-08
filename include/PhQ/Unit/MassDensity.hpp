@@ -56,6 +56,12 @@ inline constexpr const Dimensions RelatedDimensions<Unit::MassDensity>{
     Dimensions{Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::MassDensity unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

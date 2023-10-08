@@ -170,10 +170,9 @@ TEST(Length, StaticValue) {
 }
 
 TEST(Length, Stream) {
-  const Length quantity{1.11, Unit::Length::Metre};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Length(1.11, Unit::Length::Metre);
+  EXPECT_EQ(stream.str(), Length(1.11, Unit::Length::Metre).Print());
 }
 
 TEST(Length, Unit) {

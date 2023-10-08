@@ -223,10 +223,11 @@ TEST(DynamicViscosity, StaticValue) {
 }
 
 TEST(DynamicViscosity, Stream) {
-  const DynamicViscosity quantity{1.11, Unit::DynamicViscosity::PascalSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(
+      stream.str(),
+      DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print());
 }
 
 TEST(DynamicViscosity, Unit) {

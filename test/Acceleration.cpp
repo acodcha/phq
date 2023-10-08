@@ -297,11 +297,13 @@ TEST(Acceleration, StaticValue) {
 }
 
 TEST(Acceleration, Stream) {
-  const Acceleration quantity(
-      {1.11, 2.22, 4.44}, Unit::Acceleration::MetrePerSquareSecond);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Acceleration(
+      {1.11, -2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond);
+  EXPECT_EQ(stream.str(),
+            Acceleration({1.11, -2.22, 3.33},
+                         Unit::Acceleration::MillimetrePerSquareSecond)
+                .Print());
 }
 
 TEST(Acceleration, Unit) {

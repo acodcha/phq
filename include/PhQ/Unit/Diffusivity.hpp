@@ -80,6 +80,12 @@ inline constexpr const Dimensions RelatedDimensions<Unit::Diffusivity>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{2}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::Diffusivity unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

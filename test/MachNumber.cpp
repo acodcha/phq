@@ -164,10 +164,9 @@ TEST(MachNumber, StandardConstructor) {
 }
 
 TEST(MachNumber, Stream) {
-  const MachNumber quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << MachNumber(1.11);
+  EXPECT_EQ(stream.str(), MachNumber(1.11).Print());
 }
 
 TEST(MachNumber, Value) {

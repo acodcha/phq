@@ -181,10 +181,9 @@ TEST(Area, StaticValue) {
 }
 
 TEST(Area, Stream) {
-  const Area quantity{1.11, Unit::Area::SquareMetre};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Area(1.11, Unit::Area::SquareMetre);
+  EXPECT_EQ(stream.str(), Area(1.11, Unit::Area::SquareMetre).Print());
 }
 
 TEST(Area, Unit) {

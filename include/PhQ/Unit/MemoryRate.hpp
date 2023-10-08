@@ -236,6 +236,12 @@ template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::MemoryRate>{
     Dimensions{Dimension::Time{-1}}};
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::MemoryRate unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

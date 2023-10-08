@@ -115,6 +115,12 @@ TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<Angle>, Angle::Radian);
 }
 
+TEST(UnitAngle, Stream) {
+  std::ostringstream stream;
+  stream << Angle::Radian;
+  EXPECT_EQ(stream.str(), Abbreviation(Angle::Radian));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

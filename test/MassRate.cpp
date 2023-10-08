@@ -218,10 +218,10 @@ TEST(MassRate, StaticValue) {
 }
 
 TEST(MassRate, Stream) {
-  const MassRate quantity{1.11, Unit::MassRate::KilogramPerSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << MassRate(1.11, Unit::MassRate::KilogramPerSecond);
+  EXPECT_EQ(
+      stream.str(), MassRate(1.11, Unit::MassRate::KilogramPerSecond).Print());
 }
 
 TEST(MassRate, Unit) {

@@ -119,6 +119,12 @@ TEST(UnitMass, Standard) {
   EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
 }
 
+TEST(UnitMass, Stream) {
+  std::ostringstream stream;
+  stream << Mass::Kilogram;
+  EXPECT_EQ(stream.str(), Abbreviation(Mass::Kilogram));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

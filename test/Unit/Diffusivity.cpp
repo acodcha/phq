@@ -238,6 +238,12 @@ TEST(UnitDiffusivity, Standard) {
   EXPECT_EQ(Standard<Diffusivity>, Diffusivity::SquareMetrePerSecond);
 }
 
+TEST(UnitDiffusivity, Stream) {
+  std::ostringstream stream;
+  stream << Diffusivity::SquareMetrePerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(Diffusivity::SquareMetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

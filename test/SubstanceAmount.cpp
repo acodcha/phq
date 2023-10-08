@@ -178,10 +178,10 @@ TEST(SubstanceAmount, StaticValue) {
 }
 
 TEST(SubstanceAmount, Stream) {
-  const SubstanceAmount quantity{1.11, Unit::SubstanceAmount::Mole};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << SubstanceAmount(1.11, Unit::SubstanceAmount::Mole);
+  EXPECT_EQ(
+      stream.str(), SubstanceAmount(1.11, Unit::SubstanceAmount::Mole).Print());
 }
 
 TEST(SubstanceAmount, Unit) {

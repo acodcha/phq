@@ -165,6 +165,12 @@ inline constexpr const Dimensions RelatedDimensions<Unit::VolumeRate>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{3}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::VolumeRate unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

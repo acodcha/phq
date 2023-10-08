@@ -231,10 +231,9 @@ TEST(PrandtlNumber, StandardConstructor) {
 }
 
 TEST(PrandtlNumber, Stream) {
-  const PrandtlNumber quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << PrandtlNumber(1.11);
+  EXPECT_EQ(stream.str(), PrandtlNumber(1.11).Print());
 }
 
 TEST(PrandtlNumber, Value) {

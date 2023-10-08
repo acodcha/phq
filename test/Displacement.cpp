@@ -199,10 +199,10 @@ TEST(Displacement, StaticValue) {
 }
 
 TEST(Displacement, Stream) {
-  const Displacement quantity({1.11, 2.22, 4.44}, Unit::Length::Metre);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  EXPECT_EQ(stream.str(),
+            Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
 }
 
 TEST(Displacement, Unit) {

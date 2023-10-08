@@ -153,12 +153,21 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StandardConstructors) {
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Stream) {
-  const ConstitutiveModel::CompressibleNewtonianFluid model{
+  const ConstitutiveModel::CompressibleNewtonianFluid first_model{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
       BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)};
-  std::ostringstream stream;
-  stream << model;
-  EXPECT_EQ(stream.str(), model.Print());
+  std::ostringstream first_stream;
+  first_stream << first_model;
+  EXPECT_EQ(first_stream.str(), first_model.Print());
+
+  const std::unique_ptr<const ConstitutiveModel> second_model =
+      std::make_unique<const ConstitutiveModel::CompressibleNewtonianFluid>(
+          DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
+          BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond));
+  ASSERT_NE(second_model, nullptr);
+  std::ostringstream second_stream;
+  second_stream << *second_model;
+  EXPECT_EQ(second_stream.str(), second_model->Print());
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrain) {

@@ -253,11 +253,11 @@ TEST(HeatFlux, StaticValue) {
 }
 
 TEST(HeatFlux, Stream) {
-  const HeatFlux quantity(
-      {1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(stream.str(),
+            HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)
+                .Print());
 }
 
 TEST(HeatFlux, Unit) {

@@ -247,10 +247,9 @@ TEST(ReynoldsNumber, StandardConstructor) {
 }
 
 TEST(ReynoldsNumber, Stream) {
-  const ReynoldsNumber quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << ReynoldsNumber(1.11);
+  EXPECT_EQ(stream.str(), ReynoldsNumber(1.11).Print());
 }
 
 TEST(ReynoldsNumber, Value) {

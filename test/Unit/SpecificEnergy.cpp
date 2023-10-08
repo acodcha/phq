@@ -129,6 +129,12 @@ TEST(UnitSpecificEnergy, Standard) {
   EXPECT_EQ(Standard<SpecificEnergy>, SpecificEnergy::JoulePerKilogram);
 }
 
+TEST(UnitSpecificEnergy, Stream) {
+  std::ostringstream stream;
+  stream << SpecificEnergy::JoulePerKilogram;
+  EXPECT_EQ(stream.str(), Abbreviation(SpecificEnergy::JoulePerKilogram));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

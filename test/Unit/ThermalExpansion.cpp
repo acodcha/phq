@@ -127,6 +127,12 @@ TEST(UnitThermalExpansion, Standard) {
   EXPECT_EQ(Standard<ThermalExpansion>, ThermalExpansion::PerKelvin);
 }
 
+TEST(UnitThermalExpansion, Stream) {
+  std::ostringstream stream;
+  stream << ThermalExpansion::PerKelvin;
+  EXPECT_EQ(stream.str(), Abbreviation(ThermalExpansion::PerKelvin));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

@@ -55,6 +55,12 @@ inline constexpr const Dimensions RelatedDimensions<Unit::SpecificHeatCapacity>{
                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::SpecificHeatCapacity unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

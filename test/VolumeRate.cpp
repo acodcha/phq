@@ -219,10 +219,10 @@ TEST(VolumeRate, StaticValue) {
 }
 
 TEST(VolumeRate, Stream) {
-  const VolumeRate quantity{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond);
+  EXPECT_EQ(stream.str(),
+            VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print());
 }
 
 TEST(VolumeRate, Unit) {

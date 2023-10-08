@@ -146,10 +146,9 @@ TEST(PoissonRatio, StandardConstructor) {
 }
 
 TEST(PoissonRatio, Stream) {
-  const PoissonRatio quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << PoissonRatio(1.11);
+  EXPECT_EQ(stream.str(), PoissonRatio(1.11).Print());
 }
 
 TEST(PoissonRatio, Value) {

@@ -132,6 +132,12 @@ TEST(UnitSpecificPower, Standard) {
   EXPECT_EQ(Standard<SpecificPower>, SpecificPower::WattPerKilogram);
 }
 
+TEST(UnitSpecificPower, Stream) {
+  std::ostringstream stream;
+  stream << SpecificPower::WattPerKilogram;
+  EXPECT_EQ(stream.str(), Abbreviation(SpecificPower::WattPerKilogram));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

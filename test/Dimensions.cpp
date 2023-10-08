@@ -171,12 +171,13 @@ TEST(Dimensions, SizeOf) {
 }
 
 TEST(Dimensions, Stream) {
-  constexpr Dimensions dimensions{
-      Dimension::Time(2), Dimension::Length(-2), Dimension::Mass(-1),
-      Dimension::ElectricCurrent(1)};
   std::ostringstream stream;
-  stream << dimensions;
-  EXPECT_EQ(stream.str(), dimensions.Print());
+  stream << Dimensions(Dimension::Time(2), Dimension::Length(-2),
+                       Dimension::Mass(-1), Dimension::ElectricCurrent(1));
+  EXPECT_EQ(stream.str(),
+            Dimensions(Dimension::Time(2), Dimension::Length(-2),
+                       Dimension::Mass(-1), Dimension::ElectricCurrent(1))
+                .Print());
 }
 
 TEST(Dimensions, XML) {

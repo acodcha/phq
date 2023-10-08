@@ -193,11 +193,11 @@ TEST(KinematicViscosity, StaticValue) {
 }
 
 TEST(KinematicViscosity, Stream) {
-  const KinematicViscosity quantity{
-      1.11, Unit::Diffusivity::SquareMetrePerSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(stream.str(),
+            KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond)
+                .Print());
 }
 
 TEST(KinematicViscosity, Unit) {

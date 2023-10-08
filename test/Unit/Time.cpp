@@ -169,6 +169,12 @@ TEST(UnitTime, StaticConvertCopy) {
   StaticConvertCopy<Time, Time::Minute, Time::Millisecond>(dyad);
 }
 
+TEST(UnitTime, Stream) {
+  std::ostringstream stream;
+  stream << Time::Second;
+  EXPECT_EQ(stream.str(), Abbreviation(Time::Second));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

@@ -374,6 +374,13 @@ TEST(UnitTransportEnergyConsumption, Standard) {
             TransportEnergyConsumption::JoulePerMetre);
 }
 
+TEST(UnitTransportEnergyConsumption, Stream) {
+  std::ostringstream stream;
+  stream << TransportEnergyConsumption::JoulePerMetre;
+  EXPECT_EQ(
+      stream.str(), Abbreviation(TransportEnergyConsumption::JoulePerMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

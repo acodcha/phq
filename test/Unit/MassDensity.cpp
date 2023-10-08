@@ -143,6 +143,12 @@ TEST(UnitMassDensity, Standard) {
   EXPECT_EQ(Standard<MassDensity>, MassDensity::KilogramPerCubicMetre);
 }
 
+TEST(UnitMassDensity, Stream) {
+  std::ostringstream stream;
+  stream << MassDensity::KilogramPerCubicMetre;
+  EXPECT_EQ(stream.str(), Abbreviation(MassDensity::KilogramPerCubicMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

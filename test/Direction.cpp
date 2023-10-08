@@ -186,10 +186,9 @@ TEST(Direction, StandardConstructor) {
 }
 
 TEST(Direction, Stream) {
-  const Direction quantity{1.11, 2.22, 3.33};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Direction(1.11, -2.22, 3.33);
+  EXPECT_EQ(stream.str(), Direction(1.11, -2.22, 3.33).Print());
 }
 
 TEST(Direction, Valid) {

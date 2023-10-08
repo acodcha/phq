@@ -121,6 +121,12 @@ TEST(UnitTemperature, Standard) {
   EXPECT_EQ(Standard<Temperature>, Temperature::Kelvin);
 }
 
+TEST(UnitTemperature, Stream) {
+  std::ostringstream stream;
+  stream << Temperature::Kelvin;
+  EXPECT_EQ(stream.str(), Abbreviation(Temperature::Kelvin));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

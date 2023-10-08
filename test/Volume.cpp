@@ -192,10 +192,9 @@ TEST(Volume, StaticValue) {
 }
 
 TEST(Volume, Stream) {
-  const Volume quantity{1.11, Unit::Volume::CubicMetre};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Volume(1.11, Unit::Volume::CubicMetre);
+  EXPECT_EQ(stream.str(), Volume(1.11, Unit::Volume::CubicMetre).Print());
 }
 
 TEST(Volume, Unit) {

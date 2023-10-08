@@ -237,10 +237,10 @@ TEST(SoundSpeed, StaticValue) {
 }
 
 TEST(SoundSpeed, Stream) {
-  const SoundSpeed quantity{1.11, Unit::Speed::MetrePerSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << SoundSpeed(1.11, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(
+      stream.str(), SoundSpeed(1.11, Unit::Speed::MetrePerSecond).Print());
 }
 
 TEST(SoundSpeed, Unit) {

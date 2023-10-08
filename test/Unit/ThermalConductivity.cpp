@@ -133,6 +133,13 @@ TEST(UnitThermalConductivity, Standard) {
             ThermalConductivity::WattPerMetrePerKelvin);
 }
 
+TEST(UnitThermalConductivity, Stream) {
+  std::ostringstream stream;
+  stream << ThermalConductivity::WattPerMetrePerKelvin;
+  EXPECT_EQ(
+      stream.str(), Abbreviation(ThermalConductivity::WattPerMetrePerKelvin));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

@@ -198,11 +198,11 @@ TEST(BulkDynamicViscosity, StaticValue) {
 }
 
 TEST(BulkDynamicViscosity, Stream) {
-  const BulkDynamicViscosity viscosity{
-      1.11, Unit::DynamicViscosity::PascalSecond};
   std::ostringstream stream;
-  stream << viscosity;
-  EXPECT_EQ(stream.str(), viscosity.Print());
+  stream << BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(
+      stream.str(),
+      BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print());
 }
 
 TEST(BulkDynamicViscosity, Unit) {

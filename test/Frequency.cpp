@@ -196,10 +196,9 @@ TEST(Frequency, StaticValue) {
 }
 
 TEST(Frequency, Stream) {
-  const Frequency quantity{1.11, Unit::Frequency::Hertz};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Frequency(1.11, Unit::Frequency::Hertz);
+  EXPECT_EQ(stream.str(), Frequency(1.11, Unit::Frequency::Hertz).Print());
 }
 
 TEST(Frequency, Unit) {

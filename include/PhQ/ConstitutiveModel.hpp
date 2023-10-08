@@ -139,6 +139,12 @@ inline const std::unordered_map<std::string_view, ConstitutiveModel::Type>
          ConstitutiveModel::Type::CompressibleNewtonianFluid  },
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const ConstitutiveModel& model) {
+  stream << model.Print();
+  return stream;
+}
+
 }  // namespace PhQ
 
 #endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_CONSTITUTIVE_MODEL_HPP

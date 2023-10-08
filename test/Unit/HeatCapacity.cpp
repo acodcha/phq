@@ -130,6 +130,12 @@ TEST(UnitHeatCapacity, Standard) {
   EXPECT_EQ(Standard<HeatCapacity>, HeatCapacity::JoulePerKelvin);
 }
 
+TEST(UnitHeatCapacity, Stream) {
+  std::ostringstream stream;
+  stream << HeatCapacity::JoulePerKelvin;
+  EXPECT_EQ(stream.str(), Abbreviation(HeatCapacity::JoulePerKelvin));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit
