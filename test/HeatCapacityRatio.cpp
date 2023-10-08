@@ -148,10 +148,9 @@ TEST(HeatCapacityRatio, StandardConstructor) {
 }
 
 TEST(HeatCapacityRatio, Stream) {
-  const HeatCapacityRatio quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << HeatCapacityRatio(1.11);
+  EXPECT_EQ(stream.str(), HeatCapacityRatio(1.11).Print());
 }
 
 TEST(HeatCapacityRatio, Value) {

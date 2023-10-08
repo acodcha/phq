@@ -226,6 +226,12 @@ TEST(UnitAngularSpeed, Standard) {
   EXPECT_EQ(Standard<AngularSpeed>, AngularSpeed::RadianPerSecond);
 }
 
+TEST(UnitAngularSpeed, Stream) {
+  std::ostringstream stream;
+  stream << AngularSpeed::RadianPerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(AngularSpeed::RadianPerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

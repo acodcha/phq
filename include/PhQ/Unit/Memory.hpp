@@ -101,6 +101,11 @@ inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 template <>
 inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensions{}};
 
+inline std::ostream& operator<<(std::ostream& stream, const Unit::Memory unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

@@ -231,6 +231,12 @@ inline std::optional<UnitSystem> RelatedUnitSystem(const Unit& unit) {
   }
 }
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const UnitSystem unit_system) {
+  stream << Abbreviation(unit_system);
+  return stream;
+}
+
 }  // namespace PhQ
 
 #endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP

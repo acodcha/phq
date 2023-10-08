@@ -168,10 +168,9 @@ TEST(Mass, StaticValue) {
 }
 
 TEST(Mass, Stream) {
-  const Mass quantity{1.11, Unit::Mass::Kilogram};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Mass(1.11, Unit::Mass::Kilogram);
+  EXPECT_EQ(stream.str(), Mass(1.11, Unit::Mass::Kilogram).Print());
 }
 
 TEST(Mass, Unit) {

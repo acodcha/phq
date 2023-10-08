@@ -146,10 +146,9 @@ TEST(StrainScalar, StandardConstructor) {
 }
 
 TEST(StrainScalar, Stream) {
-  const StrainScalar quantity{1.11};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << StrainScalar(1.11);
+  EXPECT_EQ(stream.str(), StrainScalar(1.11).Print());
 }
 
 TEST(StrainScalar, Value) {

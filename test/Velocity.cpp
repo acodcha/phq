@@ -230,10 +230,10 @@ TEST(Velocity, StaticValue) {
 }
 
 TEST(Velocity, Stream) {
-  const Velocity quantity({1.11, 2.22, 4.44}, Unit::Speed::MetrePerSecond);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(stream.str(),
+            Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond).Print());
 }
 
 TEST(Velocity, Unit) {

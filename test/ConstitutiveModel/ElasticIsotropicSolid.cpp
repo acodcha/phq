@@ -220,12 +220,21 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StandardConstructors) {
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Stream) {
-  const ConstitutiveModel::ElasticIsotropicSolid model{
+  const ConstitutiveModel::ElasticIsotropicSolid first_model{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
-  std::ostringstream stream;
-  stream << model;
-  EXPECT_EQ(stream.str(), model.Print());
+  std::ostringstream first_stream;
+  first_stream << first_model;
+  EXPECT_EQ(first_stream.str(), first_model.Print());
+
+  const std::unique_ptr<ConstitutiveModel> second_model =
+      std::make_unique<ConstitutiveModel::ElasticIsotropicSolid>(
+          ShearModulus(4.0, Unit::Pressure::Pascal),
+          LameFirstModulus(-2.0, Unit::Pressure::Pascal));
+  ASSERT_NE(second_model, nullptr);
+  std::ostringstream second_stream;
+  second_stream << *second_model;
+  EXPECT_EQ(second_stream.str(), second_model->Print());
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrain) {

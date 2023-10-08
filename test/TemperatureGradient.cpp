@@ -279,11 +279,13 @@ TEST(TemperatureGradient, StaticValue) {
 }
 
 TEST(TemperatureGradient, Stream) {
-  const TemperatureGradient quantity(
-      {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << TemperatureGradient(
+      {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
+  EXPECT_EQ(stream.str(),
+            TemperatureGradient(
+                {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre)
+                .Print());
 }
 
 TEST(TemperatureGradient, Unit) {

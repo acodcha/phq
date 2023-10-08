@@ -334,6 +334,12 @@ TEST(UnitEnergy, Standard) {
   EXPECT_EQ(Standard<Energy>, Energy::Joule);
 }
 
+TEST(UnitEnergy, Stream) {
+  std::ostringstream stream;
+  stream << Energy::Joule;
+  EXPECT_EQ(stream.str(), Abbreviation(Energy::Joule));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

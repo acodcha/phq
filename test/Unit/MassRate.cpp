@@ -229,6 +229,12 @@ TEST(UnitMassRate, Standard) {
   EXPECT_EQ(Standard<MassRate>, MassRate::KilogramPerSecond);
 }
 
+TEST(UnitMassRate, Stream) {
+  std::ostringstream stream;
+  stream << MassRate::KilogramPerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(MassRate::KilogramPerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

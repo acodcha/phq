@@ -205,10 +205,10 @@ TEST(Force, StaticValue) {
 }
 
 TEST(Force, Stream) {
-  const Force quantity({1.11, 2.22, 4.44}, Unit::Force::Newton);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Force({1.11, -2.22, 3.33}, Unit::Force::Newton);
+  EXPECT_EQ(
+      stream.str(), Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Print());
 }
 
 TEST(Force, Unit) {

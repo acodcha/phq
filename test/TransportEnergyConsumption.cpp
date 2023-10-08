@@ -286,11 +286,14 @@ TEST(TransportEnergyConsumption, StaticValue) {
 }
 
 TEST(TransportEnergyConsumption, Stream) {
-  const TransportEnergyConsumption quantity{
-      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << TransportEnergyConsumption(
+      1.11, Unit::TransportEnergyConsumption::KilowattHourPerKilometre);
+  EXPECT_EQ(
+      stream.str(),
+      TransportEnergyConsumption(
+          1.11, Unit::TransportEnergyConsumption::KilowattHourPerKilometre)
+          .Print());
 }
 
 TEST(TransportEnergyConsumption, Unit) {

@@ -232,10 +232,10 @@ TEST(Position, StaticValue) {
 }
 
 TEST(Position, Stream) {
-  const Position quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Position({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  EXPECT_EQ(
+      stream.str(), Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
 }
 
 TEST(Position, Unit) {

@@ -55,6 +55,12 @@ inline constexpr const Dimensions
                    Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::TemperatureDifference unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

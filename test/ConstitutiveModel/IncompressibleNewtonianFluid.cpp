@@ -123,11 +123,19 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, StandardConstructor) {
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Stream) {
-  const ConstitutiveModel::IncompressibleNewtonianFluid model{
+  const ConstitutiveModel::IncompressibleNewtonianFluid first_model{
       DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
-  std::ostringstream stream;
-  stream << model;
-  EXPECT_EQ(stream.str(), model.Print());
+  std::ostringstream first_stream;
+  first_stream << first_model;
+  EXPECT_EQ(first_stream.str(), first_model.Print());
+
+  const std::unique_ptr<ConstitutiveModel> second_model =
+      std::make_unique<ConstitutiveModel::IncompressibleNewtonianFluid>(
+          DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
+  ASSERT_NE(second_model, nullptr);
+  std::ostringstream second_stream;
+  second_stream << *second_model;
+  EXPECT_EQ(second_stream.str(), second_model->Print());
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, StressAndStrain) {

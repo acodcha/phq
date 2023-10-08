@@ -526,6 +526,12 @@ TEST(UnitVolumeRate, Standard) {
   EXPECT_EQ(Standard<VolumeRate>, VolumeRate::CubicMetrePerSecond);
 }
 
+TEST(UnitVolumeRate, Stream) {
+  std::ostringstream stream;
+  stream << VolumeRate::CubicMetrePerSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(VolumeRate::CubicMetrePerSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

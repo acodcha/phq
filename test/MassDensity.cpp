@@ -212,10 +212,11 @@ TEST(MassDensity, StaticValue) {
 }
 
 TEST(MassDensity, Stream) {
-  const MassDensity quantity{1.11, Unit::MassDensity::KilogramPerCubicMetre};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre);
+  EXPECT_EQ(
+      stream.str(),
+      MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Print());
 }
 
 TEST(MassDensity, Unit) {

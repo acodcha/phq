@@ -182,10 +182,9 @@ TEST(Angle, StaticValue) {
 }
 
 TEST(Angle, Stream) {
-  const Angle quantity{1.11, Unit::Angle::Radian};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Angle(1.11, Unit::Angle::Radian);
+  EXPECT_EQ(stream.str(), Angle(1.11, Unit::Angle::Radian).Print());
 }
 
 TEST(Angle, Unit) {

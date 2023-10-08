@@ -183,6 +183,12 @@ TEST(UnitTemperatureGradient, Standard) {
   EXPECT_EQ(Standard<TemperatureGradient>, TemperatureGradient::KelvinPerMetre);
 }
 
+TEST(UnitTemperatureGradient, Stream) {
+  std::ostringstream stream;
+  stream << TemperatureGradient::KelvinPerMetre;
+  EXPECT_EQ(stream.str(), Abbreviation(TemperatureGradient::KelvinPerMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

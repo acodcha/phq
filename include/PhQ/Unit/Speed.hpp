@@ -146,6 +146,11 @@ inline constexpr const Dimensions RelatedDimensions<Unit::Speed>{
     Dimensions{Dimension::Time{-1}, Dimension::Length{1}}
 };
 
+inline std::ostream& operator<<(std::ostream& stream, const Unit::Speed unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

@@ -170,6 +170,12 @@ TEST(UnitDynamicViscosity, Standard) {
   EXPECT_EQ(Standard<DynamicViscosity>, DynamicViscosity::PascalSecond);
 }
 
+TEST(UnitDynamicViscosity, Stream) {
+  std::ostringstream stream;
+  stream << DynamicViscosity::PascalSecond;
+  EXPECT_EQ(stream.str(), Abbreviation(DynamicViscosity::PascalSecond));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

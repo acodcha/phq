@@ -72,4 +72,11 @@ TEST(UnitSystem, Standard) {
             PhQ::UnitSystem::MetreKilogramSecondKelvin);
 }
 
+TEST(UnitSystem, Stream) {
+  std::ostringstream stream;
+  stream << PhQ::UnitSystem::MetreKilogramSecondKelvin;
+  EXPECT_EQ(stream.str(),
+            PhQ::Abbreviation(PhQ::UnitSystem::MetreKilogramSecondKelvin));
+}
+
 }  // namespace

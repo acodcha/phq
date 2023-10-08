@@ -150,6 +150,12 @@ TEST(UnitPower, Standard) {
   EXPECT_EQ(Standard<Power>, Power::Watt);
 }
 
+TEST(UnitPower, Stream) {
+  std::ostringstream stream;
+  stream << Power::Watt;
+  EXPECT_EQ(stream.str(), Abbreviation(Power::Watt));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

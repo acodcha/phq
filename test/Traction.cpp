@@ -218,10 +218,10 @@ TEST(Traction, StaticValue) {
 }
 
 TEST(Traction, Stream) {
-  const Traction quantity({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(),
+            Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Print());
 }
 
 TEST(Traction, Unit) {

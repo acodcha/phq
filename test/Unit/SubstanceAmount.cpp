@@ -132,6 +132,12 @@ TEST(UnitSubstanceAmount, Standard) {
   EXPECT_EQ(Standard<SubstanceAmount>, SubstanceAmount::Mole);
 }
 
+TEST(UnitSubstanceAmount, Stream) {
+  std::ostringstream stream;
+  stream << SubstanceAmount::Mole;
+  EXPECT_EQ(stream.str(), Abbreviation(SubstanceAmount::Mole));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

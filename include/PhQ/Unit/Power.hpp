@@ -64,6 +64,11 @@ inline constexpr const Dimensions RelatedDimensions<Unit::Power>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{2}, Dimension::Mass{1}}
 };
 
+inline std::ostream& operator<<(std::ostream& stream, const Unit::Power unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

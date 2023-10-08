@@ -4,13 +4,24 @@
 
 C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
+If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the inch-pound-second system?", "how do I compute a stress field given a strain field?", or "what the heck is a slug unit?" then this library is for you!
+
+- Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data.
+- Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data.
+- Unit conversions are handled automatically. Never again will you make a unit conversion error!
+- Physical models allow complex mathematical calculations to be performed easily. Never again will you make a tensor-vector multiplication error!
+- Unit systems allow scientific data to be expressed in a consistent system of units for use in other applications. Never again will you accidentally use pounds when you should have used slugs!
+
+Contents:
+
 - [Requirements](#requirements)
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Basics](#usage-basics)
   - [Vectors and Tensors](#usage-vectors-and-tensors)
   - [Operations](#usage-operations)
-  - [Unit Conversions](#usage-unit-conversions)
+  - [Units](#usage-units)
+  - [Unit Systems](#usage-unit-systems)
   - [Physical Models](#usage-physical-models)
   - [Divisions by Zero](#usage-divisions-by-zero)
   - [Exceptions](#usage-exceptions)
@@ -66,7 +77,8 @@ To use the Physical Quantities library in your source code, simply include this 
 - [Basics](#usage-basics)
 - [Vectors and Tensors](#usage-vectors-and-tensors)
 - [Operations](#usage-operations)
-- [Unit Conversions](#usage-unit-conversions)
+- [Units](#usage-units)
+- [Unit Systems](#usage-unit-systems)
 - [Physical Models](#usage-physical-models)
 - [Divisions by Zero](#usage-divisions-by-zero)
 - [Exceptions](#usage-exceptions)
@@ -86,7 +98,7 @@ std::cout << "Average: " << average << std::endl;
 
 The above example creates two temperature quantities, computes their average, and prints the result, which is 15 °C.
 
-Physical quantities have no memory overhead compared to using `double` variables to store data. For example:
+Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data. For example:
 
 ```C++
 PhQ::Area area{10.0, PhQ::Unit::Area::Hectare};
@@ -126,7 +138,7 @@ The above example creates a stress quantity and computes and prints its equivale
 
 ### Usage: Operations
 
-Meaningful arithmetic operations between different physical quantities are supported via operator overloading. For example:
+Meaningful arithmetic operations between different physical quantities are supported via operator overloading. Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data. For example:
 
 ```C++
 PhQ::Velocity velocity{{50.0, -10.0, 20.0}, PhQ::Unit::Speed::MetrePerSecond};
@@ -154,22 +166,24 @@ The above example creates a displacement quantity of (0, 6, 0) in, computes and 
 
 [(Back to Usage)](#usage)
 
-### Usage: Unit Conversions
+### Usage: Units
 
-Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin system. This approach minimizes the number of unit conversions during program execution; when a physical quantity is constructed, it is immediately converted to its standard unit of measure in the standard unit system. The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure.
+Unit conversions are handled automatically. Internally, physical quantities maintain their values in a consistent unit system: the metre-kilogram-second-kelvin (m·kg·s·K) system. This approach minimizes the number of unit conversions during program execution; when a physical quantity is constructed, it is immediately converted to its standard unit of measure in the standard unit system. The only other instances where a physical quantity undergoes a unit conversion is when its value is expressed in a different unit of measure or when the physical quantity itself is printed as a string expressed in a different unit of measure.
 
 A physical quantity's value can be expressed in any unit of measure through its `Value` method. For example:
 
 ```C++
-
 PhQ::Mass mass{10.0, PhQ::Unit::Mass::Pound};
-double standard_value = mass.Value();
-PhQ::Unit::Mass standard_unit = PhQ::Mass::Unit();
-std::string abbreviation = PhQ::Abbreviation(standard_unit);
-std::cout << standard_value << " " << abbreviation << std::endl;
 
-double grams = mass.Value(PhQ::Unit::Mass::Gram);
-std::cout << grams << " grams" << std::endl;
+double standard_value = mass.Value();
+PhQ::Unit::Mass standard_unit = PhQ::Mass::Unit();  // PhQ::Unit::Mass::Kilogram
+std::string standard_abbreviation = PhQ::Abbreviation(standard_unit);
+std::cout << standard_value << " " << standard_abbreviation << std::endl;
+
+PhQ::Unit::Mass other_unit = PhQ::Unit::Mass::Gram;
+std::string other_abbreviation = PhQ::Abbreviation(other_unit);
+double other_value = mass.Value(other_unit);
+std::cout << other_value << " " << other_abbreviation << std::endl;
 ```
 
 The above example creates a 10 lbm mass and prints its value as 4.535924 kg and 4535.924 g.
@@ -205,9 +219,54 @@ In general, it is easier to use physical quantities instead of manually invoking
 
 [(Back to Usage)](#usage)
 
+### Usage: Unit Systems
+
+Internally, all data is stored in the metre-kilogram-second-kelvin (m·kg·s·K) system. However, other common systems of units of measure are also defined:
+
+- Metre-kilogram-second-kelvin (m·kg·s·K) system
+- Millimetre-gram-second-kelvin (mm·g·s·K) system
+- Foot-pound-second-rankine (ft·lbf·s·°R) system
+- Inch-pound-second-rankine (in·lbf·s·°R) system
+
+Data can be expressed in the consistent units of any of these unit systems. The unit of measure of a given type that corresponds to a given unit system can be obtained with the `PhQ::ConsistentUnit` function. For example:
+
+```C++
+PhQ::SpecificEnergy specific_energy{10.0, PhQ::Unit::SpecificEnergy::JoulePerKilogram};
+PhQ::UnitSystem system = PhQ::UnitSystem::FootPoundSecondRankine;
+PhQ::Unit::SpecificEnergy unit = PhQ::ConsistentUnit<PhQ::Unit::SpecificEnergy>(system);
+std::cout << unit << std::endl;  // ft·lbf/slug
+double value = energy.Value(unit);
+std::cout << value << std::endl;
+```
+
+The above example creates a mass-specific energy quantity of 10 J/kg. Then, the mass-specific energy unit corresponding to the foot-pound-second-rankine (ft·lbf·s·°R) system is obtained, and the mass-specific energy value is expressed in this unit of measure.
+
+Given a unit, it is also possible to obtain its related unit system, if any, with the `PhQ::RelatedUnitSystem` function. For example:
+
+```C++
+PhQ::Unit::Mass unit = PhQ::Unit::Mass::Slug;
+std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
+assert(optional_system.has_value());
+std::cout << optional_system.value() << std::endl;  // ft·lbf·s·°R
+```
+
+The above example obtains the related unit system of the slug mass unit, which is the foot-pound-second-rankine (ft·lbf·s·°R) system.
+
+However, not all units have a corresponding unit system. For example:
+
+```C++
+PhQ::Unit::Mass unit = PhQ::Unit::Mass::Pound;
+std::optional<PhQ::UnitSystem> optional_system = PhQ::RelatedUnitSystem(unit);
+assert(!optional_system.has_value());
+```
+
+The above example shows that the pound (lbm) mass unit does not belong to any unit system.
+
+[(Back to Usage)](#usage)
+
 ### Usage: Physical Models
 
-Some physical models and related operations are also supported. For example:
+Some physical models and related operations are also supported. Physical models allow complex mathematical calculations to be performed easily. For example:
 
 ```C++
 PhQ::YoungModulus young_modulus{70.0, PhQ::Unit::Pressure::Gigapascal};

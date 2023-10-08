@@ -148,6 +148,12 @@ TEST(UnitForce, Standard) {
   EXPECT_EQ(Standard<Force>, Force::Newton);
 }
 
+TEST(UnitForce, Stream) {
+  std::ostringstream stream;
+  stream << Force::Newton;
+  EXPECT_EQ(stream.str(), Abbreviation(Force::Newton));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

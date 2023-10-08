@@ -236,6 +236,12 @@ TEST(UnitMemory, Standard) {
   EXPECT_EQ(Standard<Memory>, Memory::Bit);
 }
 
+TEST(UnitMemory, Stream) {
+  std::ostringstream stream;
+  stream << Memory::Bit;
+  EXPECT_EQ(stream.str(), Abbreviation(Memory::Bit));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

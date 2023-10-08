@@ -99,6 +99,12 @@ inline constexpr const Dimensions
                    Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
 };
 
+inline std::ostream& operator<<(
+    std::ostream& stream, const Unit::TransportEnergyConsumption unit) {
+  stream << Abbreviation(unit);
+  return stream;
+}
+
 namespace Internal {
 
 template <>

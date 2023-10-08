@@ -196,6 +196,12 @@ TEST(UnitArea, Standard) {
   EXPECT_EQ(Standard<Area>, Area::SquareMetre);
 }
 
+TEST(UnitArea, Stream) {
+  std::ostringstream stream;
+  stream << Area::SquareMetre;
+  EXPECT_EQ(stream.str(), Abbreviation(Area::SquareMetre));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

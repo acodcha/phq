@@ -164,10 +164,9 @@ TEST(Time, StaticValue) {
 }
 
 TEST(Time, Stream) {
-  const Time quantity{1.11, Unit::Time::Second};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << Time(1.11, Unit::Time::Second);
+  EXPECT_EQ(stream.str(), Time(1.11, Unit::Time::Second).Print());
 }
 
 TEST(Time, Unit) {

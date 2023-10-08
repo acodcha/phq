@@ -152,6 +152,12 @@ TEST(UnitPressure, Standard) {
   EXPECT_EQ(Standard<Pressure>, Pressure::Pascal);
 }
 
+TEST(UnitPressure, Stream) {
+  std::ostringstream stream;
+  stream << Pressure::Pascal;
+  EXPECT_EQ(stream.str(), Abbreviation(Pressure::Pascal));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit

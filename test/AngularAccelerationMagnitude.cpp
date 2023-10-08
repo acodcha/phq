@@ -300,11 +300,13 @@ TEST(AngularAccelerationMagnitude, StaticValue) {
 }
 
 TEST(AngularAccelerationMagnitude, Stream) {
-  const AngularAccelerationMagnitude quantity{
-      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
   std::ostringstream stream;
-  stream << quantity;
-  EXPECT_EQ(stream.str(), quantity.Print());
+  stream << AngularAccelerationMagnitude(
+      1.11, Unit::AngularAcceleration::RadianPerSquareSecond);
+  EXPECT_EQ(stream.str(),
+            AngularAccelerationMagnitude(
+                1.11, Unit::AngularAcceleration::RadianPerSquareSecond)
+                .Print());
 }
 
 TEST(AngularAccelerationMagnitude, Unit) {

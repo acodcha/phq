@@ -122,6 +122,12 @@ TEST(UnitFrequency, Standard) {
   EXPECT_EQ(Standard<Frequency>, Frequency::Hertz);
 }
 
+TEST(UnitFrequency, Stream) {
+  std::ostringstream stream;
+  stream << Frequency::Hertz;
+  EXPECT_EQ(stream.str(), Abbreviation(Frequency::Hertz));
+}
+
 }  // namespace
 
 }  // namespace PhQ::Unit
