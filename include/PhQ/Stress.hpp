@@ -35,7 +35,8 @@ public:
     : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a stress tensor from a given static pressure using
-  // the definition of stress due to pressure.
+  // the definition of stress due to pressure. Since pressure is compressive,
+  // the negative of the static pressure contributes to the stress.
   constexpr Stress(const StaticPressure& static_pressure)
     : Stress({-1.0 * static_pressure.Value(), 0.0, 0.0,
               -1.0 * static_pressure.Value(), 0.0,

@@ -224,9 +224,17 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(strain GTest::gtest_main)
   gtest_discover_tests(strain)
 
+  add_executable(strain_rate ${PROJECT_SOURCE_DIR}/test/StrainRate.cpp)
+  target_link_libraries(strain_rate GTest::gtest_main)
+  gtest_discover_tests(strain_rate)
+
   add_executable(strain_scalar ${PROJECT_SOURCE_DIR}/test/StrainScalar.cpp)
   target_link_libraries(strain_scalar GTest::gtest_main)
   gtest_discover_tests(strain_scalar)
+
+  add_executable(stress ${PROJECT_SOURCE_DIR}/test/Stress.cpp)
+  target_link_libraries(stress GTest::gtest_main)
+  gtest_discover_tests(stress)
 
   add_executable(substance_amount ${PROJECT_SOURCE_DIR}/test/SubstanceAmount.cpp)
   target_link_libraries(substance_amount GTest::gtest_main)
@@ -235,6 +243,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(temperature_gradient ${PROJECT_SOURCE_DIR}/test/TemperatureGradient.cpp)
   target_link_libraries(temperature_gradient GTest::gtest_main)
   gtest_discover_tests(temperature_gradient)
+
+  add_executable(thermal_conductivity ${PROJECT_SOURCE_DIR}/test/ThermalConductivity.cpp)
+  target_link_libraries(thermal_conductivity GTest::gtest_main)
+  gtest_discover_tests(thermal_conductivity)
 
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
@@ -403,6 +415,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(velocity ${PROJECT_SOURCE_DIR}/test/Velocity.cpp)
   target_link_libraries(velocity GTest::gtest_main)
   gtest_discover_tests(velocity)
+
+  add_executable(velocity_gradient ${PROJECT_SOURCE_DIR}/test/VelocityGradient.cpp)
+  target_link_libraries(velocity_gradient GTest::gtest_main)
+  gtest_discover_tests(velocity_gradient)
 
   add_executable(volume ${PROJECT_SOURCE_DIR}/test/Volume.cpp)
   target_link_libraries(volume GTest::gtest_main)
