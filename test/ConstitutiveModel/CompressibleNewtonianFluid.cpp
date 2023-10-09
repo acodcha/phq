@@ -176,29 +176,16 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, StressAndStrain) {
           DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
           BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond));
   ASSERT_NE(model, nullptr);
-  const Strain zero_strain{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-  };
-  const StrainRate zero_strain_rate{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      Unit::Frequency::Hertz
-  };
-  const Stress zero_stress{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      Unit::Pressure::Pascal
-  };
-  const Strain strain{
-      {32.0, -4.0, -2.0, 16.0, -1.0, 8.0}
-  };
+  const Strain strain{32.0, -4.0, -2.0, 16.0, -1.0, 8.0};
   const StrainRate strain_rate{
       {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
       Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain_rate);
-  EXPECT_EQ(model->Strain(stress), zero_strain);
-  EXPECT_EQ(model->StrainRate(zero_stress), zero_strain_rate);
+  EXPECT_EQ(model->Strain(stress), Strain::Zero());
+  EXPECT_EQ(model->StrainRate(Stress::Zero()), StrainRate::Zero());
   EXPECT_EQ(model->StrainRate(stress), strain_rate);
-  EXPECT_EQ(model->Stress(strain), zero_stress);
+  EXPECT_EQ(model->Stress(strain), Stress::Zero());
   EXPECT_EQ(model->Stress(strain_rate), stress);
   EXPECT_EQ(model->Stress(strain, strain_rate), stress);
 }

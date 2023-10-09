@@ -34,8 +34,28 @@ public:
   // value.
   Strain() = default;
 
+  // Constructor. Constructs a strain tensor whose value has the given xx, xy,
+  // xz, yy, yz, and zz Cartesian/ components.
+  constexpr Strain(const double xx, const double xy, const double xz,
+                   const double yy, const double yz, const double zz)
+    : DimensionlessSymmetricDyadQuantity(xx, xy, xz, yy, yz, zz) {}
+
+  // Constructor. Constructs a strain tensor from a given array representing its
+  // value's xx, xy, xz, yy, yz, and zz Cartesian components.
+  explicit constexpr Strain(const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
+    : DimensionlessSymmetricDyadQuantity(xx_xy_xz_yy_yz_zz) {}
+
+  // Constructor. Constructs a strain tensor by moving a given array
+  // representing its value's xx, xy, xz, yy, yz, and zz Cartesian components.
+  constexpr Strain(std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
+    : DimensionlessSymmetricDyadQuantity(std::move(xx_xy_xz_yy_yz_zz)) {}
+
   // Constructor. Constructs a strain tensor with a given value.
   explicit constexpr Strain(const Value::SymmetricDyad& value)
+    : DimensionlessSymmetricDyadQuantity(value) {}
+
+  // Constructor. Constructs a strain tensor by moving a given value.
+  constexpr Strain(Value::SymmetricDyad&& value)
     : DimensionlessSymmetricDyadQuantity(value) {}
 
   // Constructor. Constructs a strain tensor from a given strain rate tensor and

@@ -52,21 +52,24 @@ public:
   // Constructor. Constructs a direction by normalizing the given [x, y, z]
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
   // direction to the zero vector.
-  Direction(const double x, const double y, const double z) {
+  Direction(const double x, const double y, const double z)
+    : DimensionlessVectorQuantity() {
     SetValue(x, y, z);
   }
 
   // Constructor. Constructs a direction by normalizing the given [x, y, z]
   // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
   // direction to the zero vector.
-  explicit Direction(const std::array<double, 3>& x_y_z) {
+  explicit Direction(const std::array<double, 3>& x_y_z)
+    : DimensionlessVectorQuantity() {
     SetValue(x_y_z);
   }
 
   // Constructor. Constructs a direction by normalizing the given x-y-z vector
   // to a unit vector. If the given vector is a zero vector, initializes the
   // direction to the zero vector.
-  explicit Direction(const Value::Vector& value) {
+  explicit Direction(const Value::Vector& value)
+    : DimensionlessVectorQuantity() {
     SetValue(value);
   }
 

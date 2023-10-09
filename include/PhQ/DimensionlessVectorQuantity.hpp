@@ -71,6 +71,23 @@ protected:
   // with an uninitialized value.
   DimensionlessVectorQuantity() = default;
 
+  // Constructor. Constructs a dimensionless vector physical quantity whose
+  // value has the given x, y, and z Cartesian components.
+  constexpr DimensionlessVectorQuantity(
+      const double x, const double y, const double z)
+    : value_(x, y, z) {}
+
+  // Constructor. Constructs a dimensionless vector physical quantity from a
+  // given array representing its value's x, y, and z Cartesian components.
+  explicit constexpr DimensionlessVectorQuantity(
+      const std::array<double, 3>& x_y_z)
+    : value_(x_y_z) {}
+
+  // Constructor. Constructs a dimensionless vector physical quantity by moving
+  // a given array representing its value's x, y, and z Cartesian components.
+  constexpr DimensionlessVectorQuantity(std::array<double, 3>&& x_y_z) noexcept
+    : value_(std::move(x_y_z)) {}
+
   // Constructor. Constructs a dimensionless vector physical quantity with a
   // given value.
   explicit constexpr DimensionlessVectorQuantity(const Value::Vector& value)

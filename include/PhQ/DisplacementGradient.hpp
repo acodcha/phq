@@ -29,8 +29,35 @@ public:
   // uninitialized value.
   DisplacementGradient() = default;
 
+  // Constructor. Constructs a displacement gradient tensor whose value has the
+  // given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian/ components.
+  constexpr DisplacementGradient(
+      const double xx, const double xy, const double xz, const double yx,
+      const double yy, const double yz, const double zx, const double zy,
+      const double zz)
+    : DimensionlessDyadQuantity(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
+
+  // Constructor. Constructs a displacement gradient tensor from a given array
+  // representing its value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
+  // components.
+  explicit constexpr DisplacementGradient(
+      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
+    : DimensionlessDyadQuantity(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+
+  // Constructor. Constructs a displacement gradient tensor by moving a given
+  // array representing its value's xx, xy, xz, yx, yy, yz, zx, zy, and zz
+  // Cartesian components.
+  constexpr DisplacementGradient(
+      std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
+    : DimensionlessDyadQuantity(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
+
   // Constructor. Constructs a displacement gradient tensor with a given value.
   explicit constexpr DisplacementGradient(const Value::Dyad& value)
+    : DimensionlessDyadQuantity(value) {}
+
+  // Constructor. Constructs a displacement gradient tensor by moving a given
+  // value.
+  constexpr DisplacementGradient(Value::Dyad&& value)
     : DimensionlessDyadQuantity(value) {}
 
   // Destructor. Destroys this displacement gradient tensor.
@@ -146,18 +173,18 @@ inline constexpr DisplacementGradient operator*(
 
 inline constexpr Strain::Strain(
     const DisplacementGradient& displacement_gradient)
-  : Strain({displacement_gradient.Value().xx(),
-            0.5
-                * (displacement_gradient.Value().xy()
-                   + displacement_gradient.Value().yx()),
-            0.5
-                * (displacement_gradient.Value().xz()
-                   + displacement_gradient.Value().zx()),
-            displacement_gradient.Value().yy(),
-            0.5
-                * (displacement_gradient.Value().yz()
-                   + displacement_gradient.Value().zy()),
-            displacement_gradient.Value().zz()}) {}
+  : Strain(displacement_gradient.Value().xx(),
+           0.5
+               * (displacement_gradient.Value().xy()
+                  + displacement_gradient.Value().yx()),
+           0.5
+               * (displacement_gradient.Value().xz()
+                  + displacement_gradient.Value().zx()),
+           displacement_gradient.Value().yy(),
+           0.5
+               * (displacement_gradient.Value().yz()
+                  + displacement_gradient.Value().zy()),
+           displacement_gradient.Value().zz()) {}
 
 }  // namespace PhQ
 
