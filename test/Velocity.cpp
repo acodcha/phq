@@ -177,18 +177,16 @@ TEST(Velocity, MiscellaneousConstructors) {
 }
 
 TEST(Velocity, MoveAssignment) {
-  const Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
-  Velocity second({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
-  Velocity third = Velocity::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
+  Velocity second = Velocity::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, MoveConstructor) {
-  const Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
-  Velocity second({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
-  Velocity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
+  Velocity second{std::move(first)};
+  EXPECT_EQ(second, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, MutableValue) {

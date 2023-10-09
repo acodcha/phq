@@ -124,18 +124,16 @@ TEST(MachNumber, MiscellaneousConstructors) {
 }
 
 TEST(MachNumber, MoveAssignment) {
-  const MachNumber first{1.11};
-  MachNumber second{1.11};
-  MachNumber third = MachNumber::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  MachNumber first{1.11};
+  MachNumber second = MachNumber::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, MachNumber(1.11));
 }
 
 TEST(MachNumber, MoveConstructor) {
-  const MachNumber first{1.11};
-  MachNumber second{1.11};
-  MachNumber third{std::move(second)};
-  EXPECT_EQ(third, first);
+  MachNumber first{1.11};
+  MachNumber second{std::move(first)};
+  EXPECT_EQ(second, MachNumber(1.11));
 }
 
 TEST(MachNumber, MutableValue) {

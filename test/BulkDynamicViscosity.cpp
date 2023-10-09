@@ -142,18 +142,18 @@ TEST(BulkDynamicViscosity, JSON) {
 }
 
 TEST(BulkDynamicViscosity, MoveAssignment) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity second{1.11, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity third = BulkDynamicViscosity::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  BulkDynamicViscosity second = BulkDynamicViscosity::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, MoveConstructor) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity second{1.11, Unit::DynamicViscosity::PascalSecond};
-  BulkDynamicViscosity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  BulkDynamicViscosity second{std::move(first)};
+  EXPECT_EQ(
+      second, BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, MutableValue) {

@@ -126,18 +126,16 @@ TEST(SubstanceAmount, JSON) {
 }
 
 TEST(SubstanceAmount, MoveAssignment) {
-  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount third = SubstanceAmount::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount second = SubstanceAmount::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, SubstanceAmount(1.11, Unit::SubstanceAmount::Mole));
 }
 
 TEST(SubstanceAmount, MoveConstructor) {
-  const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount second{1.11, Unit::SubstanceAmount::Mole};
-  SubstanceAmount third{std::move(second)};
-  EXPECT_EQ(third, first);
+  SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
+  SubstanceAmount second{std::move(first)};
+  EXPECT_EQ(second, SubstanceAmount(1.11, Unit::SubstanceAmount::Mole));
 }
 
 TEST(SubstanceAmount, MutableValue) {

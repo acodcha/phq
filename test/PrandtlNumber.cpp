@@ -191,18 +191,16 @@ TEST(PrandtlNumber, MiscellaneousMethods) {
 }
 
 TEST(PrandtlNumber, MoveAssignment) {
-  const PrandtlNumber first{1.11};
-  PrandtlNumber second{1.11};
-  PrandtlNumber third = PrandtlNumber::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  PrandtlNumber first{1.11};
+  PrandtlNumber second = PrandtlNumber::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, PrandtlNumber(1.11));
 }
 
 TEST(PrandtlNumber, MoveConstructor) {
-  const PrandtlNumber first{1.11};
-  PrandtlNumber second{1.11};
-  PrandtlNumber third{std::move(second)};
-  EXPECT_EQ(third, first);
+  PrandtlNumber first{1.11};
+  PrandtlNumber second{std::move(first)};
+  EXPECT_EQ(second, PrandtlNumber(1.11));
 }
 
 TEST(PrandtlNumber, MutableValue) {

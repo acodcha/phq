@@ -195,20 +195,18 @@ TEST(HeatFlux, MiscellaneousConstructors) {
 }
 
 TEST(HeatFlux, MoveAssignment) {
-  const HeatFlux first(
-      {1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux second({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux third = HeatFlux::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  HeatFlux second = HeatFlux::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33},
+                             Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MoveConstructor) {
-  const HeatFlux first(
-      {1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux second({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  HeatFlux third{std::move(second)};
-  EXPECT_EQ(third, first);
+  HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  HeatFlux second{std::move(first)};
+  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33},
+                             Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MutableValue) {

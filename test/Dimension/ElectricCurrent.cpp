@@ -70,18 +70,16 @@ TEST(DimensionElectricCurrent, Label) {
 }
 
 TEST(DimensionElectricCurrent, MoveAssignment) {
-  constexpr ElectricCurrent first{3};
-  ElectricCurrent second{3};
-  ElectricCurrent third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  ElectricCurrent first{3};
+  ElectricCurrent second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, ElectricCurrent(3));
 }
 
 TEST(DimensionElectricCurrent, MoveConstructor) {
-  constexpr ElectricCurrent first{3};
-  ElectricCurrent second{3};
-  ElectricCurrent third{std::move(second)};
-  EXPECT_EQ(third, first);
+  ElectricCurrent first{3};
+  ElectricCurrent second{std::move(first)};
+  EXPECT_EQ(second, ElectricCurrent(3));
 }
 
 TEST(DimensionElectricCurrent, Print) {

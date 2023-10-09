@@ -85,23 +85,23 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, JSON) {
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveAssignment) {
-  const ConstitutiveModel::IncompressibleNewtonianFluid first{
+  ConstitutiveModel::IncompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::IncompressibleNewtonianFluid second{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::IncompressibleNewtonianFluid third{
       DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond)};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  second = std::move(first);
+  EXPECT_EQ(
+      second, ConstitutiveModel::IncompressibleNewtonianFluid(
+                  DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)));
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveConstructor) {
-  const ConstitutiveModel::IncompressibleNewtonianFluid first{
+  ConstitutiveModel::IncompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::IncompressibleNewtonianFluid second{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::IncompressibleNewtonianFluid third{std::move(second)};
-  EXPECT_EQ(third, first);
+  ConstitutiveModel::IncompressibleNewtonianFluid second{std::move(first)};
+  EXPECT_EQ(
+      second, ConstitutiveModel::IncompressibleNewtonianFluid(
+                  DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)));
 }
 
 TEST(ConstitutiveModelIncompressibleNewtonianFluid, Print) {

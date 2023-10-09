@@ -180,18 +180,16 @@ TEST(Position, MiscellaneousConstructors) {
 }
 
 TEST(Position, MoveAssignment) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Position second({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Position third = Position::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Position second = Position::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Position, MoveConstructor) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Position second({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Position third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Position second{std::move(first)};
+  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Position, MutableValue) {

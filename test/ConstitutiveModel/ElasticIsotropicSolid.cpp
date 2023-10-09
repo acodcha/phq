@@ -95,28 +95,26 @@ TEST(ConstitutiveModelElasticIsotropicSolid, JSON) {
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, MoveAssignment) {
-  const ConstitutiveModel::ElasticIsotropicSolid first{
+  ConstitutiveModel::ElasticIsotropicSolid first{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
   ConstitutiveModel::ElasticIsotropicSolid second{
-      ShearModulus(4.0, Unit::Pressure::Pascal),
-      LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
-  ConstitutiveModel::ElasticIsotropicSolid third{
       ShearModulus(16.0, Unit::Pressure::Pascal),
       LameFirstModulus(-8.0, Unit::Pressure::Pascal)};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  second = std::move(first);
+  EXPECT_EQ(second, ConstitutiveModel::ElasticIsotropicSolid(
+                        ShearModulus(4.0, Unit::Pressure::Pascal),
+                        LameFirstModulus(-2.0, Unit::Pressure::Pascal)));
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, MoveConstructor) {
-  const ConstitutiveModel::ElasticIsotropicSolid first{
+  ConstitutiveModel::ElasticIsotropicSolid first{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
-  ConstitutiveModel::ElasticIsotropicSolid second{
-      ShearModulus(4.0, Unit::Pressure::Pascal),
-      LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
-  ConstitutiveModel::ElasticIsotropicSolid third{std::move(second)};
-  EXPECT_EQ(third, first);
+  ConstitutiveModel::ElasticIsotropicSolid second{std::move(first)};
+  EXPECT_EQ(second, ConstitutiveModel::ElasticIsotropicSolid(
+                        ShearModulus(4.0, Unit::Pressure::Pascal),
+                        LameFirstModulus(-2.0, Unit::Pressure::Pascal)));
 }
 
 TEST(ConstitutiveModelElasticIsotropicSolid, Print) {

@@ -116,18 +116,16 @@ TEST(Time, JSON) {
 }
 
 TEST(Time, MoveAssignment) {
-  const Time first{1.11, Unit::Time::Second};
-  Time second{1.11, Unit::Time::Second};
-  Time third = Time::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Time first{1.11, Unit::Time::Second};
+  Time second = Time::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Time(1.11, Unit::Time::Second));
 }
 
 TEST(Time, MoveConstructor) {
-  const Time first{1.11, Unit::Time::Second};
-  Time second{1.11, Unit::Time::Second};
-  Time third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Time first{1.11, Unit::Time::Second};
+  Time second{std::move(first)};
+  EXPECT_EQ(second, Time(1.11, Unit::Time::Second));
 }
 
 TEST(Time, MutableValue) {

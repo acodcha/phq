@@ -142,18 +142,16 @@ TEST(Direction, MiscellaneousMethods) {
 }
 
 TEST(Direction, MoveAssignment) {
-  const Direction first(1.11, -2.22, 3.33);
-  Direction second(1.11, -2.22, 3.33);
-  Direction third = Direction::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Direction first(1.11, -2.22, 3.33);
+  Direction second = Direction::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Direction(1.11, -2.22, 3.33));
 }
 
 TEST(Direction, MoveConstructor) {
-  const Direction first(1.11, -2.22, 3.33);
-  Direction second(1.11, -2.22, 3.33);
-  Direction third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Direction first(1.11, -2.22, 3.33);
+  Direction second{std::move(first)};
+  EXPECT_EQ(second, Direction(1.11, -2.22, 3.33));
 }
 
 TEST(Direction, Print) {

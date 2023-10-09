@@ -139,18 +139,18 @@ TEST(KinematicViscosity, JSON) {
 }
 
 TEST(KinematicViscosity, MoveAssignment) {
-  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity second{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity third = KinematicViscosity::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second = KinematicViscosity::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second,
+            KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(KinematicViscosity, MoveConstructor) {
-  const KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity second{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  KinematicViscosity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  KinematicViscosity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  KinematicViscosity second{std::move(first)};
+  EXPECT_EQ(second,
+            KinematicViscosity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(KinematicViscosity, MutableValue) {

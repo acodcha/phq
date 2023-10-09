@@ -96,28 +96,30 @@ TEST(ConstitutiveModelCompressibleNewtonianFluid, JSON) {
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, MoveAssignment) {
-  const ConstitutiveModel::CompressibleNewtonianFluid first{
+  ConstitutiveModel::CompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
       BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::CompressibleNewtonianFluid second{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
-      BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::CompressibleNewtonianFluid third{
       DynamicViscosity(12.0, Unit::DynamicViscosity::PascalSecond),
       BulkDynamicViscosity(-8.0, Unit::DynamicViscosity::PascalSecond)};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  second = std::move(first);
+  EXPECT_EQ(
+      second,
+      ConstitutiveModel::CompressibleNewtonianFluid(
+          DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
+          BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)));
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, MoveConstructor) {
-  const ConstitutiveModel::CompressibleNewtonianFluid first{
+  ConstitutiveModel::CompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
       BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::CompressibleNewtonianFluid second{
-      DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
-      BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)};
-  ConstitutiveModel::CompressibleNewtonianFluid third{std::move(second)};
-  EXPECT_EQ(third, first);
+  ConstitutiveModel::CompressibleNewtonianFluid second{std::move(first)};
+  EXPECT_EQ(
+      second,
+      ConstitutiveModel::CompressibleNewtonianFluid(
+          DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond),
+          BulkDynamicViscosity(-4.0, Unit::DynamicViscosity::PascalSecond)));
 }
 
 TEST(ConstitutiveModelCompressibleNewtonianFluid, Print) {

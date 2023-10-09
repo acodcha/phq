@@ -217,22 +217,22 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
 }
 
 TEST(TemperatureGradient, MoveAssignment) {
-  const TemperatureGradient first(
+  TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient second(
-      {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient third = TemperatureGradient::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  TemperatureGradient second = TemperatureGradient::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, TemperatureGradient({1.11, -2.22, 3.33},
+                                  Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MoveConstructor) {
-  const TemperatureGradient first(
+  TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient second(
-      {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
-  TemperatureGradient third{std::move(second)};
-  EXPECT_EQ(third, first);
+  TemperatureGradient second{std::move(first)};
+  EXPECT_EQ(
+      second, TemperatureGradient({1.11, -2.22, 3.33},
+                                  Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MutableValue) {

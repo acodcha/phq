@@ -70,18 +70,16 @@ TEST(DimensionTemperature, Label) {
 }
 
 TEST(DimensionTemperature, MoveAssignment) {
-  constexpr Temperature first{3};
-  Temperature second{3};
-  Temperature third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Temperature first{3};
+  Temperature second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, Temperature(3));
 }
 
 TEST(DimensionTemperature, MoveConstructor) {
-  constexpr Temperature first{3};
-  Temperature second{3};
-  Temperature third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Temperature first{3};
+  Temperature second{std::move(first)};
+  EXPECT_EQ(second, Temperature(3));
 }
 
 TEST(DimensionTemperature, Print) {

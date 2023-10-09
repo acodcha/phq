@@ -174,18 +174,16 @@ TEST(AngularSpeed, MiscellaneousConstructors) {
 }
 
 TEST(AngularSpeed, MoveAssignment) {
-  const AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed second{1.11, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed third = AngularSpeed::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed second = AngularSpeed::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, MoveConstructor) {
-  const AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed second{1.11, Unit::AngularSpeed::RadianPerSecond};
-  AngularSpeed third{std::move(second)};
-  EXPECT_EQ(third, first);
+  AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed second{std::move(first)};
+  EXPECT_EQ(second, AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, MutableValue) {

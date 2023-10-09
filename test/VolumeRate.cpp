@@ -167,18 +167,16 @@ TEST(VolumeRate, MiscellaneousConstructors) {
 }
 
 TEST(VolumeRate, MoveAssignment) {
-  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate third = VolumeRate::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second = VolumeRate::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 TEST(VolumeRate, MoveConstructor) {
-  const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate third{std::move(second)};
-  EXPECT_EQ(third, first);
+  VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
+  VolumeRate second{std::move(first)};
+  EXPECT_EQ(second, VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 TEST(VolumeRate, MutableValue) {

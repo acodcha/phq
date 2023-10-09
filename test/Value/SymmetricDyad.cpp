@@ -149,18 +149,16 @@ TEST(ValueSymmetricDyad, JSON) {
 }
 
 TEST(ValueSymmetricDyad, MoveAssignment) {
-  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  SymmetricDyad third = SymmetricDyad::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad second = SymmetricDyad::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, MoveConstructor) {
-  constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  SymmetricDyad third{std::move(second)};
-  EXPECT_EQ(third, first);
+  SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  SymmetricDyad second{std::move(first)};
+  EXPECT_EQ(second, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, Mutable) {

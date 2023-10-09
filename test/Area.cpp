@@ -131,18 +131,16 @@ TEST(Area, JSON) {
 }
 
 TEST(Area, MoveAssignment) {
-  const Area first{1.11, Unit::Area::SquareMetre};
-  Area second{1.11, Unit::Area::SquareMetre};
-  Area third = Area::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Area first{1.11, Unit::Area::SquareMetre};
+  Area second = Area::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Area(1.11, Unit::Area::SquareMetre));
 }
 
 TEST(Area, MoveConstructor) {
-  const Area first{1.11, Unit::Area::SquareMetre};
-  Area second{1.11, Unit::Area::SquareMetre};
-  Area third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Area first{1.11, Unit::Area::SquareMetre};
+  Area second{std::move(first)};
+  EXPECT_EQ(second, Area(1.11, Unit::Area::SquareMetre));
 }
 
 TEST(Area, MutableValue) {

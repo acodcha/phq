@@ -186,18 +186,16 @@ TEST(SoundSpeed, MiscellaneousConstructors) {
 }
 
 TEST(SoundSpeed, MoveAssignment) {
-  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed second{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed third = SoundSpeed::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed second = SoundSpeed::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, SoundSpeed(1.11, Unit::Speed::MetrePerSecond));
 }
 
 TEST(SoundSpeed, MoveConstructor) {
-  const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed second{1.11, Unit::Speed::MetrePerSecond};
-  SoundSpeed third{std::move(second)};
-  EXPECT_EQ(third, first);
+  SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
+  SoundSpeed second{std::move(first)};
+  EXPECT_EQ(second, SoundSpeed(1.11, Unit::Speed::MetrePerSecond));
 }
 
 TEST(SoundSpeed, MutableValue) {

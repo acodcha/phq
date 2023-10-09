@@ -222,22 +222,20 @@ TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
 }
 
 TEST(TransportEnergyConsumption, MoveAssignment) {
-  const TransportEnergyConsumption first{
+  TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second{
-      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption third = TransportEnergyConsumption::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, TransportEnergyConsumption(
+                        1.11, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
 TEST(TransportEnergyConsumption, MoveConstructor) {
-  const TransportEnergyConsumption first{
+  TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption second{
-      1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
-  TransportEnergyConsumption third{std::move(second)};
-  EXPECT_EQ(third, first);
+  TransportEnergyConsumption second{std::move(first)};
+  EXPECT_EQ(second, TransportEnergyConsumption(
+                        1.11, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
 TEST(TransportEnergyConsumption, MutableValue) {

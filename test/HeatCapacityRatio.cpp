@@ -108,18 +108,16 @@ TEST(HeatCapacityRatio, JSON) {
 }
 
 TEST(HeatCapacityRatio, MoveAssignment) {
-  const HeatCapacityRatio first{1.11};
-  HeatCapacityRatio second{1.11};
-  HeatCapacityRatio third = HeatCapacityRatio::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  HeatCapacityRatio first{1.11};
+  HeatCapacityRatio second = HeatCapacityRatio::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, HeatCapacityRatio(1.11));
 }
 
 TEST(HeatCapacityRatio, MoveConstructor) {
-  const HeatCapacityRatio first{1.11};
-  HeatCapacityRatio second{1.11};
-  HeatCapacityRatio third{std::move(second)};
-  EXPECT_EQ(third, first);
+  HeatCapacityRatio first{1.11};
+  HeatCapacityRatio second{std::move(first)};
+  EXPECT_EQ(second, HeatCapacityRatio(1.11));
 }
 
 TEST(HeatCapacityRatio, MutableValue) {

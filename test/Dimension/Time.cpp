@@ -70,18 +70,16 @@ TEST(DimensionTime, Label) {
 }
 
 TEST(DimensionTime, MoveAssignment) {
-  constexpr Time first{3};
-  Time second{3};
-  Time third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Time first{3};
+  Time second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, Time(3));
 }
 
 TEST(DimensionTime, MoveConstructor) {
-  constexpr Time first{3};
-  Time second{3};
-  Time third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Time first{3};
+  Time second{std::move(first)};
+  EXPECT_EQ(second, Time(3));
 }
 
 TEST(DimensionTime, Print) {

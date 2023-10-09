@@ -160,18 +160,18 @@ TEST(MassDensity, MiscellaneousConstructor) {
 }
 
 TEST(MassDensity, MoveAssignment) {
-  const MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second{1.11, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity third = MassDensity::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  MassDensity second = MassDensity::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, MoveConstructor) {
-  const MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second{1.11, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
+  MassDensity second{std::move(first)};
+  EXPECT_EQ(
+      second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, MutableValue) {
