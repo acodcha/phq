@@ -106,18 +106,16 @@ TEST(PoissonRatio, JSON) {
 }
 
 TEST(PoissonRatio, MoveAssignment) {
-  const PoissonRatio first{1.11};
-  PoissonRatio second{1.11};
-  PoissonRatio third = PoissonRatio::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  PoissonRatio first{1.11};
+  PoissonRatio second = PoissonRatio::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, PoissonRatio(1.11));
 }
 
 TEST(PoissonRatio, MoveConstructor) {
-  const PoissonRatio first{1.11};
-  PoissonRatio second{1.11};
-  PoissonRatio third{std::move(second)};
-  EXPECT_EQ(third, first);
+  PoissonRatio first{1.11};
+  PoissonRatio second{std::move(first)};
+  EXPECT_EQ(second, PoissonRatio(1.11));
 }
 
 TEST(PoissonRatio, MutableValue) {

@@ -70,18 +70,16 @@ TEST(DimensionLength, Label) {
 }
 
 TEST(DimensionLength, MoveAssignment) {
-  constexpr Length first{3};
-  Length second{3};
-  Length third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Length first{3};
+  Length second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, Length(3));
 }
 
 TEST(DimensionLength, MoveConstructor) {
-  constexpr Length first{3};
-  Length second{3};
-  Length third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Length first{3};
+  Length second{std::move(first)};
+  EXPECT_EQ(second, Length(3));
 }
 
 TEST(DimensionLength, Print) {

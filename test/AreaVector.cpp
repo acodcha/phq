@@ -154,18 +154,16 @@ TEST(AreaVector, MiscellaneousConstructors) {
 }
 
 TEST(AreaVector, MoveAssignment) {
-  const AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  AreaVector second({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  AreaVector third = AreaVector::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
+  AreaVector second = AreaVector::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
 TEST(AreaVector, MoveConstructor) {
-  const AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  AreaVector second({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  AreaVector third{std::move(second)};
-  EXPECT_EQ(third, first);
+  AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
+  AreaVector second{std::move(first)};
+  EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
 TEST(AreaVector, MutableValue) {

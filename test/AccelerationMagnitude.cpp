@@ -224,20 +224,18 @@ TEST(AccelerationMagnitude, MiscellaneousConstructors) {
 }
 
 TEST(AccelerationMagnitude, MoveAssignment) {
-  const AccelerationMagnitude first{
-      1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude second{1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude third = AccelerationMagnitude::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  AccelerationMagnitude first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  AccelerationMagnitude second = AccelerationMagnitude::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, AccelerationMagnitude(
+                        1.11, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(AccelerationMagnitude, MoveConstructor) {
-  const AccelerationMagnitude first{
-      1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude second{1.11, Unit::Acceleration::MetrePerSquareSecond};
-  AccelerationMagnitude third{std::move(second)};
-  EXPECT_EQ(third, first);
+  AccelerationMagnitude first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  AccelerationMagnitude second{std::move(first)};
+  EXPECT_EQ(second, AccelerationMagnitude(
+                        1.11, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(AccelerationMagnitude, MutableValue) {

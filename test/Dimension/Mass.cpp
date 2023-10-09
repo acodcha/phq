@@ -70,18 +70,16 @@ TEST(DimensionMass, Label) {
 }
 
 TEST(DimensionMass, MoveAssignment) {
-  constexpr Mass first{3};
-  Mass second{3};
-  Mass third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Mass first{3};
+  Mass second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, Mass(3));
 }
 
 TEST(DimensionMass, MoveConstructor) {
-  constexpr Mass first{3};
-  Mass second{3};
-  Mass third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Mass first{3};
+  Mass second{std::move(first)};
+  EXPECT_EQ(second, Mass(3));
 }
 
 TEST(DimensionMass, Print) {

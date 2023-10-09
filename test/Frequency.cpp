@@ -145,18 +145,16 @@ TEST(Frequency, MiscellaneousMethods) {
 }
 
 TEST(Frequency, MoveAssignment) {
-  const Frequency first{1.11, Unit::Frequency::Hertz};
-  Frequency second{1.11, Unit::Frequency::Hertz};
-  Frequency third = Frequency::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Frequency first{1.11, Unit::Frequency::Hertz};
+  Frequency second = Frequency::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Frequency(1.11, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, MoveConstructor) {
-  const Frequency first{1.11, Unit::Frequency::Hertz};
-  Frequency second{1.11, Unit::Frequency::Hertz};
-  Frequency third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Frequency first{1.11, Unit::Frequency::Hertz};
+  Frequency second{std::move(first)};
+  EXPECT_EQ(second, Frequency(1.11, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, MutableValue) {

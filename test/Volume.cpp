@@ -140,18 +140,16 @@ TEST(Volume, JSON) {
 }
 
 TEST(Volume, MoveAssignment) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
-  Volume second{1.11, Unit::Volume::CubicMetre};
-  Volume third = Volume::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Volume first{1.11, Unit::Volume::CubicMetre};
+  Volume second = Volume::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Volume(1.11, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, MoveConstructor) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
-  Volume second{1.11, Unit::Volume::CubicMetre};
-  Volume third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Volume first{1.11, Unit::Volume::CubicMetre};
+  Volume second{std::move(first)};
+  EXPECT_EQ(second, Volume(1.11, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, MutableValue) {

@@ -125,18 +125,16 @@ TEST(ValueVector, Magnitude) {
 }
 
 TEST(ValueVector, MoveAssignment) {
-  constexpr Vector first(1.11, -2.22, 3.33);
-  Vector second(1.11, -2.22, 3.33);
-  Vector third = Vector::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Vector first(1.11, -2.22, 3.33);
+  Vector second = Vector::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(ValueVector, MoveConstructor) {
-  constexpr Vector first(1.11, -2.22, 3.33);
-  Vector second(1.11, -2.22, 3.33);
-  Vector third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Vector first(1.11, -2.22, 3.33);
+  Vector second{std::move(first)};
+  EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(ValueVector, Mutable) {

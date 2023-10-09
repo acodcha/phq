@@ -166,18 +166,16 @@ TEST(Traction, MiscellaneousConstructors) {
 }
 
 TEST(Traction, MoveAssignment) {
-  const Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Traction second({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Traction third = Traction::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
+  Traction second = Traction::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, MoveConstructor) {
-  const Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Traction second({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Traction third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
+  Traction second{std::move(first)};
+  EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, MutableValue) {

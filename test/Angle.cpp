@@ -134,18 +134,16 @@ TEST(Angle, MiscellaneousMethods) {
 }
 
 TEST(Angle, MoveAssignment) {
-  const Angle first{1.11, Unit::Angle::Radian};
-  Angle second{1.11, Unit::Angle::Radian};
-  Angle third = Angle::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Angle first{1.11, Unit::Angle::Radian};
+  Angle second = Angle::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Angle(1.11, Unit::Angle::Radian));
 }
 
 TEST(Angle, MoveConstructor) {
-  const Angle first{1.11, Unit::Angle::Radian};
-  Angle second{1.11, Unit::Angle::Radian};
-  Angle third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Angle first{1.11, Unit::Angle::Radian};
+  Angle second{std::move(first)};
+  EXPECT_EQ(second, Angle(1.11, Unit::Angle::Radian));
 }
 
 TEST(Angle, MutableValue) {

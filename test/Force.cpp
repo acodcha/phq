@@ -154,18 +154,16 @@ TEST(Force, MiscellaneousConstructors) {
 }
 
 TEST(Force, MoveAssignment) {
-  const Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Force second({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Force third = Force::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
+  Force second = Force::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
 TEST(Force, MoveConstructor) {
-  const Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Force second({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Force third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
+  Force second{std::move(first)};
+  EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
 TEST(Force, MutableValue) {

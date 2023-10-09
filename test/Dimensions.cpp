@@ -120,18 +120,16 @@ TEST(Dimensions, JSON) {
 }
 
 TEST(Dimensions, MoveAssignment) {
-  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
-  Dimensions second{Dimension::Time(-2), Dimension::Length(1)};
-  Dimensions third;
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
+  Dimensions second;
+  second = std::move(first);
+  EXPECT_EQ(second, Dimensions(Dimension::Time(-2), Dimension::Length(1)));
 }
 
 TEST(Dimensions, MoveConstructor) {
-  constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
-  Dimensions second{Dimension::Time(-2), Dimension::Length(1)};
-  Dimensions third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
+  Dimensions second{std::move(first)};
+  EXPECT_EQ(second, Dimensions(Dimension::Time(-2), Dimension::Length(1)));
 }
 
 TEST(Dimensions, Print) {

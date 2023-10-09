@@ -121,18 +121,16 @@ TEST(Length, JSON) {
 }
 
 TEST(Length, MoveAssignment) {
-  const Length first{1.11, Unit::Length::Metre};
-  Length second{1.11, Unit::Length::Metre};
-  Length third = Length::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Length first{1.11, Unit::Length::Metre};
+  Length second = Length::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Length(1.11, Unit::Length::Metre));
 }
 
 TEST(Length, MoveConstructor) {
-  const Length first{1.11, Unit::Length::Metre};
-  Length second{1.11, Unit::Length::Metre};
-  Length third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Length first{1.11, Unit::Length::Metre};
+  Length second{std::move(first)};
+  EXPECT_EQ(second, Length(1.11, Unit::Length::Metre));
 }
 
 TEST(Length, MutableValue) {

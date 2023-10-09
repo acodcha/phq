@@ -70,18 +70,16 @@ TEST(DimensionSubstanceAmount, Label) {
 }
 
 TEST(DimensionSubstanceAmount, MoveAssignment) {
-  constexpr SubstanceAmount first{3};
-  SubstanceAmount second{3};
-  SubstanceAmount third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  SubstanceAmount first{3};
+  SubstanceAmount second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, SubstanceAmount(3));
 }
 
 TEST(DimensionSubstanceAmount, MoveConstructor) {
-  constexpr SubstanceAmount first{3};
-  SubstanceAmount second{3};
-  SubstanceAmount third{std::move(second)};
-  EXPECT_EQ(third, first);
+  SubstanceAmount first{3};
+  SubstanceAmount second{std::move(first)};
+  EXPECT_EQ(second, SubstanceAmount(3));
 }
 
 TEST(DimensionSubstanceAmount, Print) {

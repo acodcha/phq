@@ -169,18 +169,18 @@ TEST(DynamicViscosity, MiscellaneousConstructors) {
 }
 
 TEST(DynamicViscosity, MoveAssignment) {
-  const DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
-  DynamicViscosity second{1.11, Unit::DynamicViscosity::PascalSecond};
-  DynamicViscosity third = DynamicViscosity::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  DynamicViscosity second = DynamicViscosity::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(DynamicViscosity, MoveConstructor) {
-  const DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
-  DynamicViscosity second{1.11, Unit::DynamicViscosity::PascalSecond};
-  DynamicViscosity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  DynamicViscosity second{std::move(first)};
+  EXPECT_EQ(
+      second, DynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(DynamicViscosity, MutableValue) {

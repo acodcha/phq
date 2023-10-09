@@ -190,20 +190,18 @@ TEST(ValueDyad, JSON) {
 }
 
 TEST(ValueDyad, MoveAssignment) {
-  constexpr Dyad first(
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Dyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Dyad third = Dyad::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Dyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  Dyad second = Dyad::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, Dyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
 }
 
 TEST(ValueDyad, MoveConstructor) {
-  constexpr Dyad first(
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Dyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Dyad third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Dyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  Dyad second{std::move(first)};
+  EXPECT_EQ(
+      second, Dyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
 }
 
 TEST(ValueDyad, Mutable) {

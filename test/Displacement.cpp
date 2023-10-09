@@ -147,18 +147,16 @@ TEST(Displacement, MiscellaneousConstructors) {
 }
 
 TEST(Displacement, MoveAssignment) {
-  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Displacement second({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Displacement third = Displacement::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Displacement second = Displacement::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Displacement, MoveConstructor) {
-  const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Displacement second({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Displacement third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Displacement second{std::move(first)};
+  EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Displacement, MutableValue) {

@@ -106,18 +106,16 @@ TEST(StrainScalar, JSON) {
 }
 
 TEST(StrainScalar, MoveAssignment) {
-  const StrainScalar first{1.11};
-  StrainScalar second{1.11};
-  StrainScalar third = StrainScalar::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  StrainScalar first{1.11};
+  StrainScalar second = StrainScalar::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, StrainScalar(1.11));
 }
 
 TEST(StrainScalar, MoveConstructor) {
-  const StrainScalar first{1.11};
-  StrainScalar second{1.11};
-  StrainScalar third{std::move(second)};
-  EXPECT_EQ(third, first);
+  StrainScalar first{1.11};
+  StrainScalar second{std::move(first)};
+  EXPECT_EQ(second, StrainScalar(1.11));
 }
 
 TEST(StrainScalar, MutableValue) {

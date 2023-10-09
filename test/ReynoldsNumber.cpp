@@ -207,18 +207,16 @@ TEST(ReynoldsNumber, MiscellaneousMethods) {
 }
 
 TEST(ReynoldsNumber, MoveAssignment) {
-  const ReynoldsNumber first{1.11};
-  ReynoldsNumber second{1.11};
-  ReynoldsNumber third = ReynoldsNumber::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  ReynoldsNumber first{1.11};
+  ReynoldsNumber second = ReynoldsNumber::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, ReynoldsNumber(1.11));
 }
 
 TEST(ReynoldsNumber, MoveConstructor) {
-  const ReynoldsNumber first{1.11};
-  ReynoldsNumber second{1.11};
-  ReynoldsNumber third{std::move(second)};
-  EXPECT_EQ(third, first);
+  ReynoldsNumber first{1.11};
+  ReynoldsNumber second{std::move(first)};
+  EXPECT_EQ(second, ReynoldsNumber(1.11));
 }
 
 TEST(ReynoldsNumber, MutableValue) {

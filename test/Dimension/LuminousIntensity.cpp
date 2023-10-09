@@ -70,18 +70,16 @@ TEST(DimensionLuminousIntensity, Label) {
 }
 
 TEST(DimensionLuminousIntensity, MoveAssignment) {
-  constexpr LuminousIntensity first{3};
-  LuminousIntensity second{3};
-  LuminousIntensity third{-1};
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  LuminousIntensity first{3};
+  LuminousIntensity second{-1};
+  second = std::move(first);
+  EXPECT_EQ(second, LuminousIntensity(3));
 }
 
 TEST(DimensionLuminousIntensity, MoveConstructor) {
-  constexpr LuminousIntensity first{3};
-  LuminousIntensity second{3};
-  LuminousIntensity third{std::move(second)};
-  EXPECT_EQ(third, first);
+  LuminousIntensity first{3};
+  LuminousIntensity second{std::move(first)};
+  EXPECT_EQ(second, LuminousIntensity(3));
 }
 
 TEST(DimensionLuminousIntensity, Print) {

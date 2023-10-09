@@ -166,18 +166,16 @@ TEST(MassRate, MiscellaneousConstructors) {
 }
 
 TEST(MassRate, MoveAssignment) {
-  const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
-  MassRate second{1.11, Unit::MassRate::KilogramPerSecond};
-  MassRate third = MassRate::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate second = MassRate::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, MassRate(1.11, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, MoveConstructor) {
-  const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
-  MassRate second{1.11, Unit::MassRate::KilogramPerSecond};
-  MassRate third{std::move(second)};
-  EXPECT_EQ(third, first);
+  MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate second{std::move(first)};
+  EXPECT_EQ(second, MassRate(1.11, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, MutableValue) {

@@ -120,18 +120,16 @@ TEST(Mass, JSON) {
 }
 
 TEST(Mass, MoveAssignment) {
-  const Mass first{1.11, Unit::Mass::Kilogram};
-  Mass second{1.11, Unit::Mass::Kilogram};
-  Mass third = Mass::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  Mass first{1.11, Unit::Mass::Kilogram};
+  Mass second = Mass::Zero();
+  second = std::move(first);
+  EXPECT_EQ(second, Mass(1.11, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, MoveConstructor) {
-  const Mass first{1.11, Unit::Mass::Kilogram};
-  Mass second{1.11, Unit::Mass::Kilogram};
-  Mass third{std::move(second)};
-  EXPECT_EQ(third, first);
+  Mass first{1.11, Unit::Mass::Kilogram};
+  Mass second{std::move(first)};
+  EXPECT_EQ(second, Mass(1.11, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, MutableValue) {

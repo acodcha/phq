@@ -237,22 +237,22 @@ TEST(AngularAccelerationMagnitude, MiscellaneousConstructors) {
 }
 
 TEST(AngularAccelerationMagnitude, MoveAssignment) {
-  const AngularAccelerationMagnitude first{
+  AngularAccelerationMagnitude first{
       1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  AngularAccelerationMagnitude second{
-      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  AngularAccelerationMagnitude third = AngularAccelerationMagnitude::Zero();
-  third = std::move(second);
-  EXPECT_EQ(third, first);
+  AngularAccelerationMagnitude second = AngularAccelerationMagnitude::Zero();
+  second = std::move(first);
+  EXPECT_EQ(
+      second, AngularAccelerationMagnitude(
+                  1.11, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(AngularAccelerationMagnitude, MoveConstructor) {
-  const AngularAccelerationMagnitude first{
+  AngularAccelerationMagnitude first{
       1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  AngularAccelerationMagnitude second{
-      1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  AngularAccelerationMagnitude third{std::move(second)};
-  EXPECT_EQ(third, first);
+  AngularAccelerationMagnitude second{std::move(first)};
+  EXPECT_EQ(
+      second, AngularAccelerationMagnitude(
+                  1.11, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(AngularAccelerationMagnitude, MutableValue) {
