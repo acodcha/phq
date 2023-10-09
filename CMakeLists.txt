@@ -148,6 +148,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(displacement GTest::gtest_main)
   gtest_discover_tests(displacement)
 
+  add_executable(displacement_gradient ${PROJECT_SOURCE_DIR}/test/DisplacementGradient.cpp)
+  target_link_libraries(displacement_gradient GTest::gtest_main)
+  gtest_discover_tests(displacement_gradient)
+
   add_executable(dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/DynamicViscosity.cpp)
   target_link_libraries(dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(dynamic_viscosity)
@@ -215,6 +219,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)
+
+  add_executable(strain ${PROJECT_SOURCE_DIR}/test/Strain.cpp)
+  target_link_libraries(strain GTest::gtest_main)
+  gtest_discover_tests(strain)
 
   add_executable(strain_scalar ${PROJECT_SOURCE_DIR}/test/StrainScalar.cpp)
   target_link_libraries(strain_scalar GTest::gtest_main)

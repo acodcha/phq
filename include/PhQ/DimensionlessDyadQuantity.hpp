@@ -84,6 +84,29 @@ protected:
   DimensionlessDyadQuantity() = default;
 
   // Constructor. Constructs a dimensionless dyadic tensor physical quantity
+  // whose value has the given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
+  // components.
+  constexpr DimensionlessDyadQuantity(
+      const double xx, const double xy, const double xz, const double yx,
+      const double yy, const double yz, const double zx, const double zy,
+      const double zz)
+    : value_(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
+
+  // Constructor. Constructs a dimensionless dyadic tensor physical quantity
+  // from a given array representing its value's xx, xy, xz, yx, yy, yz, zx, zy,
+  // and zz Cartesian components.
+  explicit constexpr DimensionlessDyadQuantity(
+      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
+    : value_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+
+  // Constructor. Constructs a dimensionless dyadic tensor physical quantity by
+  // moving a given array representing its value's xx, xy, xz, yx, yy, yz, zx,
+  // zy, and zz Cartesian components.
+  constexpr DimensionlessDyadQuantity(
+      std::array<double, 9>&& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept
+    : value_(std::move(xx_xy_xz_yx_yy_yz_zx_zy_zz)) {}
+
+  // Constructor. Constructs a dimensionless dyadic tensor physical quantity
   // with a given value.
   explicit constexpr DimensionlessDyadQuantity(const Value::Dyad& value)
     : value_(value) {}

@@ -83,6 +83,28 @@ protected:
   DimensionlessSymmetricDyadQuantity() = default;
 
   // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
+  // quantity whose value has the given xx, xy, xz, yy, yz, and zz Cartesian
+  // components.
+  constexpr DimensionlessSymmetricDyadQuantity(
+      const double xx, const double xy, const double xz, const double yy,
+      const double yz, const double zz)
+    : value_(xx, xy, xz, yy, yz, zz) {}
+
+  // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
+  // quantity from a given array representing its value's xx, xy, xz, yy, yz,
+  // and zz Cartesian components.
+  explicit constexpr DimensionlessSymmetricDyadQuantity(
+      const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
+    : value_(xx_xy_xz_yy_yz_zz) {}
+
+  // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
+  // quantity by moving a given array representing its value's xx, xy, xz, yy,
+  // yz, and zz Cartesian components.
+  constexpr DimensionlessSymmetricDyadQuantity(
+      std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
+    : value_(std::move(xx_xy_xz_yy_yz_zz)) {}
+
+  // Constructor. Constructs a dimensionless symmetric dyadic tensor physical
   // quantity with a given value.
   explicit constexpr DimensionlessSymmetricDyadQuantity(
       const Value::SymmetricDyad& value)

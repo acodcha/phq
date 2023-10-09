@@ -243,30 +243,17 @@ TEST(ConstitutiveModelElasticIsotropicSolid, StressAndStrain) {
           ShearModulus(4.0, Unit::Pressure::Pascal),
           LameFirstModulus(-2.0, Unit::Pressure::Pascal));
   ASSERT_NE(model, nullptr);
-  const Strain zero_strain{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-  };
-  const StrainRate zero_strain_rate{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      Unit::Frequency::Hertz
-  };
-  const Stress zero_stress{
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      Unit::Pressure::Pascal
-  };
-  const Strain strain{
-      {32.0, -4.0, -2.0, 16.0, -1.0, 8.0}
-  };
+  const Strain strain{32.0, -4.0, -2.0, 16.0, -1.0, 8.0};
   const StrainRate strain_rate{
       {32.0, -4.0, -2.0, 16.0, -1.0, 8.0},
       Unit::Frequency::Hertz
   };
   const Stress stress = model->Stress(strain);
   EXPECT_EQ(model->Strain(stress), strain);
-  EXPECT_EQ(model->Strain(zero_stress), zero_strain);
-  EXPECT_EQ(model->StrainRate(stress), zero_strain_rate);
+  EXPECT_EQ(model->Strain(Stress::Zero()), Strain::Zero());
+  EXPECT_EQ(model->StrainRate(stress), StrainRate::Zero());
   EXPECT_EQ(model->Stress(strain), stress);
-  EXPECT_EQ(model->Stress(strain_rate), zero_stress);
+  EXPECT_EQ(model->Stress(strain_rate), Stress::Zero());
   EXPECT_EQ(model->Stress(strain, strain_rate), stress);
 }
 
