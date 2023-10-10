@@ -21,7 +21,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(SoundSpeed, ArithmeticAddition) {
+TEST(SoundSpeed, ArithmeticOperatorAddition) {
   EXPECT_EQ(SoundSpeed(1.0, Unit::Speed::MetrePerSecond)
                 + SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
             SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
@@ -33,46 +33,26 @@ TEST(SoundSpeed, ArithmeticAddition) {
   EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond)
                 + SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
             Speed(3.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_0{1.0, Unit::Speed::MetrePerSecond};
-  sound_speed_0 += SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
-  EXPECT_EQ(sound_speed_0, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_1{1.0, Unit::Speed::MetrePerSecond};
-  sound_speed_1 += Speed{2.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_1, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
-
-  Speed speed{1.0, Unit::Speed::MetrePerSecond};
-  speed += SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed, Speed(3.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, ArithmeticDivision) {
+TEST(SoundSpeed, ArithmeticOperatorDivision) {
   EXPECT_EQ(SoundSpeed(8.0, Unit::Speed::MetrePerSecond) / 2.0,
             SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
 
   EXPECT_EQ(SoundSpeed(8.0, Unit::Speed::MetrePerSecond)
                 / SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
             4.0);
-
-  SoundSpeed quantity{8.0, Unit::Speed::MetrePerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, ArithmeticMultiplication) {
+TEST(SoundSpeed, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(SoundSpeed(4.0, Unit::Speed::MetrePerSecond) * 2.0,
             SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
 
   EXPECT_EQ(2.0 * SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
             SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed quantity{4.0, Unit::Speed::MetrePerSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, ArithmeticSubtraction) {
+TEST(SoundSpeed, ArithmeticOperatorSubtraction) {
   EXPECT_EQ(SoundSpeed(3.0, Unit::Speed::MetrePerSecond)
                 - SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
             SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
@@ -84,21 +64,49 @@ TEST(SoundSpeed, ArithmeticSubtraction) {
   EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
                 - SoundSpeed(2.0, Unit::Speed::MetrePerSecond),
             Speed(1.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_0{3.0, Unit::Speed::MetrePerSecond};
-  sound_speed_0 -= SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
-  EXPECT_EQ(sound_speed_0, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
-
-  SoundSpeed sound_speed_1{3.0, Unit::Speed::MetrePerSecond};
-  sound_speed_1 -= Speed{2.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(sound_speed_1, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
-
-  Speed speed{3.0, Unit::Speed::MetrePerSecond};
-  speed -= SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
-  EXPECT_EQ(speed, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, Comparisons) {
+TEST(SoundSpeed, AssignmentOperatorAddition) {
+  SoundSpeed first{1.0, Unit::Speed::MetrePerSecond};
+  first += SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(first, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed second{1.0, Unit::Speed::MetrePerSecond};
+  second += Speed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(second, SoundSpeed(3.0, Unit::Speed::MetrePerSecond));
+
+  Speed third{1.0, Unit::Speed::MetrePerSecond};
+  third += SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(third, Speed(3.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, AssignmentOperatorDivision) {
+  SoundSpeed quantity{8.0, Unit::Speed::MetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, SoundSpeed(4.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, AssignmentOperatorMultiplication) {
+  SoundSpeed quantity{4.0, Unit::Speed::MetrePerSecond};
+  quantity *= 2.0;
+  EXPECT_EQ(quantity, SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, AssignmentOperatorSubtraction) {
+  SoundSpeed first{3.0, Unit::Speed::MetrePerSecond};
+  first -= SoundSpeed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(first, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  SoundSpeed second{3.0, Unit::Speed::MetrePerSecond};
+  second -= Speed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(second, SoundSpeed(1.0, Unit::Speed::MetrePerSecond));
+
+  Speed third{3.0, Unit::Speed::MetrePerSecond};
+  third -= SoundSpeed{2.0, Unit::Speed::MetrePerSecond};
+  EXPECT_EQ(third, Speed(1.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(SoundSpeed, ComparisonOperators) {
   const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
   const SoundSpeed second{2.22, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(first, first);
@@ -111,7 +119,7 @@ TEST(SoundSpeed, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(SoundSpeed, CopyAssignment) {
+TEST(SoundSpeed, CopyAssignmentOperator) {
   const SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
   SoundSpeed second = SoundSpeed::Zero();
   second = first;
@@ -185,7 +193,7 @@ TEST(SoundSpeed, MiscellaneousConstructors) {
             SoundSpeed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(SoundSpeed, MoveAssignment) {
+TEST(SoundSpeed, MoveAssignmentOperator) {
   SoundSpeed first{1.11, Unit::Speed::MetrePerSecond};
   SoundSpeed second = SoundSpeed::Zero();
   second = std::move(first);

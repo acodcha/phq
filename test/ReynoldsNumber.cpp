@@ -21,43 +21,51 @@ namespace PhQ {
 
 namespace {
 
-TEST(ReynoldsNumber, ArithmeticAddition) {
+TEST(ReynoldsNumber, ArithmeticOperatorAddition) {
   EXPECT_EQ(ReynoldsNumber(1.0) + ReynoldsNumber(2.0), ReynoldsNumber(3.0));
+}
 
+TEST(ReynoldsNumber, ArithmeticOperatorDivision) {
+  EXPECT_EQ(ReynoldsNumber(8.0) / 2.0, ReynoldsNumber(4.0));
+
+  EXPECT_EQ(ReynoldsNumber(8.0) / ReynoldsNumber(2.0), 4.0);
+}
+
+TEST(ReynoldsNumber, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(ReynoldsNumber(4.0) * 2.0, ReynoldsNumber(8.0));
+
+  EXPECT_EQ(2.0 * ReynoldsNumber(4.0), ReynoldsNumber(8.0));
+}
+
+TEST(ReynoldsNumber, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(ReynoldsNumber(3.0) - ReynoldsNumber(2.0), ReynoldsNumber(1.0));
+}
+
+TEST(ReynoldsNumber, AssignmentOperatorAddition) {
   ReynoldsNumber quantity{1.0};
   quantity += ReynoldsNumber(2.0);
   EXPECT_EQ(quantity, ReynoldsNumber(3.0));
 }
 
-TEST(ReynoldsNumber, ArithmeticDivision) {
-  EXPECT_EQ(ReynoldsNumber(8.0) / 2.0, ReynoldsNumber(4.0));
-
-  EXPECT_EQ(ReynoldsNumber(8.0) / ReynoldsNumber(2.0), 4.0);
-
+TEST(ReynoldsNumber, AssignmentOperatorDivision) {
   ReynoldsNumber quantity{8.0};
   quantity /= 2.0;
   EXPECT_EQ(quantity, ReynoldsNumber(4.0));
 }
 
-TEST(ReynoldsNumber, ArithmeticMultiplication) {
-  EXPECT_EQ(ReynoldsNumber(4.0) * 2.0, ReynoldsNumber(8.0));
-
-  EXPECT_EQ(2.0 * ReynoldsNumber(4.0), ReynoldsNumber(8.0));
-
+TEST(ReynoldsNumber, AssignmentOperatorMultiplication) {
   ReynoldsNumber quantity{4.0};
   quantity *= 2.0;
   EXPECT_EQ(quantity, ReynoldsNumber(8.0));
 }
 
-TEST(ReynoldsNumber, ArithmeticSubtraction) {
-  EXPECT_EQ(ReynoldsNumber(3.0) - ReynoldsNumber(2.0), ReynoldsNumber(1.0));
-
+TEST(ReynoldsNumber, AssignmentOperatorSubtraction) {
   ReynoldsNumber quantity{3.0};
   quantity -= ReynoldsNumber(2.0);
   EXPECT_EQ(quantity, ReynoldsNumber(1.0));
 }
 
-TEST(ReynoldsNumber, Comparisons) {
+TEST(ReynoldsNumber, ComparisonOperators) {
   const ReynoldsNumber first{1.11};
   const ReynoldsNumber second{2.22};
   EXPECT_EQ(first, first);
@@ -70,7 +78,7 @@ TEST(ReynoldsNumber, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(ReynoldsNumber, CopyAssignment) {
+TEST(ReynoldsNumber, CopyAssignmentOperator) {
   const ReynoldsNumber first{1.11};
   ReynoldsNumber second = ReynoldsNumber::Zero();
   second = first;
@@ -206,7 +214,7 @@ TEST(ReynoldsNumber, MiscellaneousMethods) {
       Speed(16.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(ReynoldsNumber, MoveAssignment) {
+TEST(ReynoldsNumber, MoveAssignmentOperator) {
   ReynoldsNumber first{1.11};
   ReynoldsNumber second = ReynoldsNumber::Zero();
   second = std::move(first);

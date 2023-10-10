@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(Speed, ArithmeticAddition) {
+TEST(Speed, ArithmeticOperatorAddition) {
   EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond)
                 + Speed(2.0, Unit::Speed::MetrePerSecond),
             Speed(3.0, Unit::Speed::MetrePerSecond));
-
-  Speed quantity{1.0, Unit::Speed::MetrePerSecond};
-  quantity += Speed(2.0, Unit::Speed::MetrePerSecond);
-  EXPECT_EQ(quantity, Speed(3.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, ArithmeticDivision) {
+TEST(Speed, ArithmeticOperatorDivision) {
   EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / 2.0,
             Speed(4.0, Unit::Speed::MetrePerSecond));
 
@@ -49,13 +45,9 @@ TEST(Speed, ArithmeticDivision) {
 
   EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Time(4.0, Unit::Time::Second),
             Speed(2.0, Unit::Speed::MetrePerSecond));
-
-  Speed quantity{8.0, Unit::Speed::MetrePerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Speed(4.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, ArithmeticMultiplication) {
+TEST(Speed, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond) * 2.0,
             Speed(8.0, Unit::Speed::MetrePerSecond));
 
@@ -73,23 +65,39 @@ TEST(Speed, ArithmeticMultiplication) {
   EXPECT_EQ(
       Frequency(4.0, Unit::Frequency::Hertz) * Length(2.0, Unit::Length::Metre),
       Speed(8.0, Unit::Speed::MetrePerSecond));
+}
 
+TEST(Speed, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
+                - Speed(2.0, Unit::Speed::MetrePerSecond),
+            Speed(1.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Speed, AssignmentOperatorAddition) {
+  Speed quantity{1.0, Unit::Speed::MetrePerSecond};
+  quantity += Speed(2.0, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(quantity, Speed(3.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Speed, AssignmentOperatorDivision) {
+  Speed quantity{8.0, Unit::Speed::MetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Speed(4.0, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Speed, AssignmentOperatorMultiplication) {
   Speed quantity{4.0, Unit::Speed::MetrePerSecond};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, ArithmeticSubtraction) {
-  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
-                - Speed(2.0, Unit::Speed::MetrePerSecond),
-            Speed(1.0, Unit::Speed::MetrePerSecond));
-
+TEST(Speed, AssignmentOperatorSubtraction) {
   Speed quantity{3.0, Unit::Speed::MetrePerSecond};
   quantity -= Speed(2.0, Unit::Speed::MetrePerSecond);
   EXPECT_EQ(quantity, Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Speed, Comparisons) {
+TEST(Speed, ComparisonOperators) {
   const Speed first{0.1, Unit::Speed::MetrePerSecond};
   const Speed second{0.2, Unit::Speed::MetrePerSecond};
   EXPECT_EQ(first, first);
@@ -102,7 +110,7 @@ TEST(Speed, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Speed, CopyAssignment) {
+TEST(Speed, CopyAssignmentOperator) {
   const Speed first{1.11, Unit::Speed::MetrePerSecond};
   Speed second = Speed::Zero();
   second = first;
@@ -172,7 +180,7 @@ TEST(Speed, MiscellaneousConstructors) {
             Frequency(2.0, Unit::Frequency::Hertz));
 }
 
-TEST(Speed, MoveAssignment) {
+TEST(Speed, MoveAssignmentOperator) {
   Speed first{1.11, Unit::Speed::MetrePerSecond};
   Speed second = Speed::Zero();
   second = std::move(first);

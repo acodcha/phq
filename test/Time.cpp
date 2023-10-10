@@ -21,45 +21,53 @@ namespace PhQ {
 
 namespace {
 
-TEST(Time, ArithmeticAddition) {
+TEST(Time, ArithmeticOperatorAddition) {
   EXPECT_EQ(Time(1.0, Unit::Time::Second) + Time(2.0, Unit::Time::Second),
             Time(3.0, Unit::Time::Second));
+}
 
+TEST(Time, ArithmeticOperatorDivision) {
+  EXPECT_EQ(Time(8.0, Unit::Time::Second) / 2.0, Time(4.0, Unit::Time::Second));
+
+  EXPECT_EQ(Time(8.0, Unit::Time::Second) / Time(2.0, Unit::Time::Second), 4.0);
+}
+
+TEST(Time, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(Time(4.0, Unit::Time::Second) * 2.0, Time(8.0, Unit::Time::Second));
+
+  EXPECT_EQ(2.0 * Time(4.0, Unit::Time::Second), Time(8.0, Unit::Time::Second));
+}
+
+TEST(Time, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Time(3.0, Unit::Time::Second) - Time(2.0, Unit::Time::Second),
+            Time(1.0, Unit::Time::Second));
+}
+
+TEST(Time, AssignmentOperatorAddition) {
   Time quantity{1.0, Unit::Time::Second};
   quantity += Time(2.0, Unit::Time::Second);
   EXPECT_EQ(quantity, Time(3.0, Unit::Time::Second));
 }
 
-TEST(Time, ArithmeticDivision) {
-  EXPECT_EQ(Time(8.0, Unit::Time::Second) / 2.0, Time(4.0, Unit::Time::Second));
-
-  EXPECT_EQ(Time(8.0, Unit::Time::Second) / Time(2.0, Unit::Time::Second), 4.0);
-
+TEST(Time, AssignmentOperatorDivision) {
   Time quantity{8.0, Unit::Time::Second};
   quantity /= 2.0;
   EXPECT_EQ(quantity, Time(4.0, Unit::Time::Second));
 }
 
-TEST(Time, ArithmeticMultiplication) {
-  EXPECT_EQ(Time(4.0, Unit::Time::Second) * 2.0, Time(8.0, Unit::Time::Second));
-
-  EXPECT_EQ(2.0 * Time(4.0, Unit::Time::Second), Time(8.0, Unit::Time::Second));
-
+TEST(Time, AssignmentOperatorMultiplication) {
   Time quantity{4.0, Unit::Time::Second};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Time(8.0, Unit::Time::Second));
 }
 
-TEST(Time, ArithmeticSubtraction) {
-  EXPECT_EQ(Time(3.0, Unit::Time::Second) - Time(2.0, Unit::Time::Second),
-            Time(1.0, Unit::Time::Second));
-
+TEST(Time, AssignmentOperatorSubtraction) {
   Time quantity{3.0, Unit::Time::Second};
   quantity -= Time(2.0, Unit::Time::Second);
   EXPECT_EQ(quantity, Time(1.0, Unit::Time::Second));
 }
 
-TEST(Time, Comparisons) {
+TEST(Time, ComparisonOperators) {
   const Time first{0.1, Unit::Time::Second};
   const Time second{0.2, Unit::Time::Second};
   EXPECT_EQ(first, first);
@@ -72,7 +80,7 @@ TEST(Time, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Time, CopyAssignment) {
+TEST(Time, CopyAssignmentOperator) {
   const Time first{1.11, Unit::Time::Second};
   Time second = Time::Zero();
   second = first;
@@ -115,7 +123,7 @@ TEST(Time, JSON) {
             "{\"value\":-2.220000000000000,\"unit\":\"min\"}");
 }
 
-TEST(Time, MoveAssignment) {
+TEST(Time, MoveAssignmentOperator) {
   Time first{1.11, Unit::Time::Second};
   Time second = Time::Zero();
   second = std::move(first);

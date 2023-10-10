@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(MassRate, ArithmeticAddition) {
+TEST(MassRate, ArithmeticOperatorAddition) {
   EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond)
                 + MassRate(2.0, Unit::MassRate::KilogramPerSecond),
             MassRate(3.0, Unit::MassRate::KilogramPerSecond));
-
-  MassRate quantity{1.0, Unit::MassRate::KilogramPerSecond};
-  quantity += MassRate(2.0, Unit::MassRate::KilogramPerSecond);
-  EXPECT_EQ(quantity, MassRate(3.0, Unit::MassRate::KilogramPerSecond));
 }
 
-TEST(MassRate, ArithmeticDivision) {
+TEST(MassRate, ArithmeticOperatorDivision) {
   EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond) / 2.0,
             MassRate(4.0, Unit::MassRate::KilogramPerSecond));
 
@@ -53,13 +49,9 @@ TEST(MassRate, ArithmeticDivision) {
 
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / Time(4.0, Unit::Time::Second),
             MassRate(2.0, Unit::MassRate::KilogramPerSecond));
-
-  MassRate quantity{8.0, Unit::MassRate::KilogramPerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, MassRate(4.0, Unit::MassRate::KilogramPerSecond));
 }
 
-TEST(MassRate, ArithmeticMultiplication) {
+TEST(MassRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(MassRate(4.0, Unit::MassRate::KilogramPerSecond) * 2.0,
             MassRate(8.0, Unit::MassRate::KilogramPerSecond));
 
@@ -73,23 +65,39 @@ TEST(MassRate, ArithmeticMultiplication) {
   EXPECT_EQ(Time(4.0, Unit::Time::Second)
                 * MassRate(2.0, Unit::MassRate::KilogramPerSecond),
             Mass(8.0, Unit::Mass::Kilogram));
+}
 
+TEST(MassRate, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(MassRate(3.0, Unit::MassRate::KilogramPerSecond)
+                - MassRate(2.0, Unit::MassRate::KilogramPerSecond),
+            MassRate(1.0, Unit::MassRate::KilogramPerSecond));
+}
+
+TEST(MassRate, AssignmentOperatorAddition) {
+  MassRate quantity{1.0, Unit::MassRate::KilogramPerSecond};
+  quantity += MassRate(2.0, Unit::MassRate::KilogramPerSecond);
+  EXPECT_EQ(quantity, MassRate(3.0, Unit::MassRate::KilogramPerSecond));
+}
+
+TEST(MassRate, AssignmentOperatorDivision) {
+  MassRate quantity{8.0, Unit::MassRate::KilogramPerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, MassRate(4.0, Unit::MassRate::KilogramPerSecond));
+}
+
+TEST(MassRate, AssignmentOperatorMultiplication) {
   MassRate quantity{4.0, Unit::MassRate::KilogramPerSecond};
   quantity *= 2.0;
   EXPECT_EQ(quantity, MassRate(8.0, Unit::MassRate::KilogramPerSecond));
 }
 
-TEST(MassRate, ArithmeticSubtraction) {
-  EXPECT_EQ(MassRate(3.0, Unit::MassRate::KilogramPerSecond)
-                - MassRate(2.0, Unit::MassRate::KilogramPerSecond),
-            MassRate(1.0, Unit::MassRate::KilogramPerSecond));
-
+TEST(MassRate, AssignmentOperatorSubtraction) {
   MassRate quantity{3.0, Unit::MassRate::KilogramPerSecond};
   quantity -= MassRate(2.0, Unit::MassRate::KilogramPerSecond);
   EXPECT_EQ(quantity, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
-TEST(MassRate, Comparisons) {
+TEST(MassRate, ComparisonOperators) {
   const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
   const MassRate second{2.22, Unit::MassRate::KilogramPerSecond};
   EXPECT_EQ(first, first);
@@ -102,7 +110,7 @@ TEST(MassRate, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(MassRate, CopyAssignment) {
+TEST(MassRate, CopyAssignmentOperator) {
   const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
   MassRate second = MassRate::Zero();
   second = first;
@@ -165,7 +173,7 @@ TEST(MassRate, MiscellaneousConstructors) {
             Frequency(2.0, Unit::Frequency::Hertz));
 }
 
-TEST(MassRate, MoveAssignment) {
+TEST(MassRate, MoveAssignmentOperator) {
   MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
   MassRate second = MassRate::Zero();
   second = std::move(first);

@@ -21,49 +21,57 @@ namespace PhQ {
 
 namespace {
 
-TEST(Mass, ArithmeticAddition) {
+TEST(Mass, ArithmeticOperatorAddition) {
   EXPECT_EQ(Mass(1.0, Unit::Mass::Kilogram) + Mass(2.0, Unit::Mass::Kilogram),
             Mass(3.0, Unit::Mass::Kilogram));
-
-  Mass quantity{1.0, Unit::Mass::Kilogram};
-  quantity += Mass(2.0, Unit::Mass::Kilogram);
-  EXPECT_EQ(quantity, Mass(3.0, Unit::Mass::Kilogram));
 }
 
-TEST(Mass, ArithmeticDivision) {
+TEST(Mass, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       Mass(8.0, Unit::Mass::Kilogram) / 2.0, Mass(4.0, Unit::Mass::Kilogram));
 
   EXPECT_EQ(
       Mass(8.0, Unit::Mass::Kilogram) / Mass(2.0, Unit::Mass::Kilogram), 4.0);
-
-  Mass quantity{8.0, Unit::Mass::Kilogram};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Mass(4.0, Unit::Mass::Kilogram));
 }
 
-TEST(Mass, ArithmeticMultiplication) {
+TEST(Mass, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       Mass(4.0, Unit::Mass::Kilogram) * 2.0, Mass(8.0, Unit::Mass::Kilogram));
 
   EXPECT_EQ(
       2.0 * Mass(4.0, Unit::Mass::Kilogram), Mass(8.0, Unit::Mass::Kilogram));
+}
 
+TEST(Mass, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Mass(3.0, Unit::Mass::Kilogram) - Mass(2.0, Unit::Mass::Kilogram),
+            Mass(1.0, Unit::Mass::Kilogram));
+}
+
+TEST(Mass, AssignmentOperatorAddition) {
+  Mass quantity{1.0, Unit::Mass::Kilogram};
+  quantity += Mass(2.0, Unit::Mass::Kilogram);
+  EXPECT_EQ(quantity, Mass(3.0, Unit::Mass::Kilogram));
+}
+
+TEST(Mass, AssignmentOperatorDivision) {
+  Mass quantity{8.0, Unit::Mass::Kilogram};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Mass(4.0, Unit::Mass::Kilogram));
+}
+
+TEST(Mass, AssignmentOperatorMultiplication) {
   Mass quantity{4.0, Unit::Mass::Kilogram};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Mass(8.0, Unit::Mass::Kilogram));
 }
 
-TEST(Mass, ArithmeticSubtraction) {
-  EXPECT_EQ(Mass(3.0, Unit::Mass::Kilogram) - Mass(2.0, Unit::Mass::Kilogram),
-            Mass(1.0, Unit::Mass::Kilogram));
-
+TEST(Mass, AssignmentOperatorSubtraction) {
   Mass quantity{3.0, Unit::Mass::Kilogram};
   quantity -= Mass(2.0, Unit::Mass::Kilogram);
   EXPECT_EQ(quantity, Mass(1.0, Unit::Mass::Kilogram));
 }
 
-TEST(Mass, Comparisons) {
+TEST(Mass, ComparisonOperators) {
   const Mass first{0.1, Unit::Mass::Kilogram};
   const Mass second{0.2, Unit::Mass::Kilogram};
   EXPECT_EQ(first, first);
@@ -76,7 +84,7 @@ TEST(Mass, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Mass, CopyAssignment) {
+TEST(Mass, CopyAssignmentOperator) {
   const Mass first{1.11, Unit::Mass::Kilogram};
   Mass second = Mass::Zero();
   second = first;
@@ -119,7 +127,7 @@ TEST(Mass, JSON) {
             "{\"value\":-2.220000000000000,\"unit\":\"g\"}");
 }
 
-TEST(Mass, MoveAssignment) {
+TEST(Mass, MoveAssignmentOperator) {
   Mass first{1.11, Unit::Mass::Kilogram};
   Mass second = Mass::Zero();
   second = std::move(first);

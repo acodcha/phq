@@ -25,7 +25,7 @@ TEST(DimensionLuminousIntensity, Abbreviation) {
   EXPECT_EQ(LuminousIntensity::Abbreviation(), "J");
 }
 
-TEST(DimensionLuminousIntensity, Comparisons) {
+TEST(DimensionLuminousIntensity, ComparisonOperators) {
   constexpr LuminousIntensity first{-1};
   constexpr LuminousIntensity second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionLuminousIntensity, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionLuminousIntensity, CopyAssignment) {
+TEST(DimensionLuminousIntensity, CopyAssignmentOperator) {
   constexpr LuminousIntensity first{3};
   LuminousIntensity second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionLuminousIntensity, Label) {
   EXPECT_EQ(LuminousIntensity::Label(), "Luminous Intensity");
 }
 
-TEST(DimensionLuminousIntensity, MoveAssignment) {
+TEST(DimensionLuminousIntensity, MoveAssignmentOperator) {
   LuminousIntensity first{3};
   LuminousIntensity second{-1};
   second = std::move(first);

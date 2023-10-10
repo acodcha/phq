@@ -21,15 +21,11 @@ namespace PhQ {
 
 namespace {
 
-TEST(MachNumber, ArithmeticAddition) {
+TEST(MachNumber, ArithmeticOperatorAddition) {
   EXPECT_EQ(MachNumber(1.0) + MachNumber(2.0), MachNumber(3.0));
-
-  MachNumber quantity{1.0};
-  quantity += MachNumber(2.0);
-  EXPECT_EQ(quantity, MachNumber(3.0));
 }
 
-TEST(MachNumber, ArithmeticDivision) {
+TEST(MachNumber, ArithmeticOperatorDivision) {
   EXPECT_EQ(MachNumber(8.0) / 2.0, MachNumber(4.0));
 
   EXPECT_EQ(MachNumber(8.0) / MachNumber(2.0), 4.0);
@@ -37,31 +33,43 @@ TEST(MachNumber, ArithmeticDivision) {
   EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
                 / SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
             MachNumber(2.0));
+}
 
+TEST(MachNumber, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(MachNumber(4.0) * 2.0, MachNumber(8.0));
+
+  EXPECT_EQ(2.0 * MachNumber(4.0), MachNumber(8.0));
+}
+
+TEST(MachNumber, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(MachNumber(3.0) - MachNumber(2.0), MachNumber(1.0));
+}
+
+TEST(MachNumber, AssignmentOperatorAddition) {
+  MachNumber quantity{1.0};
+  quantity += MachNumber(2.0);
+  EXPECT_EQ(quantity, MachNumber(3.0));
+}
+
+TEST(MachNumber, AssignmentOperatorDivision) {
   MachNumber quantity{8.0};
   quantity /= 2.0;
   EXPECT_EQ(quantity, MachNumber(4.0));
 }
 
-TEST(MachNumber, ArithmeticMultiplication) {
-  EXPECT_EQ(MachNumber(4.0) * 2.0, MachNumber(8.0));
-
-  EXPECT_EQ(2.0 * MachNumber(4.0), MachNumber(8.0));
-
+TEST(MachNumber, AssignmentOperatorMultiplication) {
   MachNumber quantity{4.0};
   quantity *= 2.0;
   EXPECT_EQ(quantity, MachNumber(8.0));
 }
 
-TEST(MachNumber, ArithmeticSubtraction) {
-  EXPECT_EQ(MachNumber(3.0) - MachNumber(2.0), MachNumber(1.0));
-
+TEST(MachNumber, AssignmentOperatorSubtraction) {
   MachNumber quantity{3.0};
   quantity -= MachNumber(2.0);
   EXPECT_EQ(quantity, MachNumber(1.0));
 }
 
-TEST(MachNumber, Comparisons) {
+TEST(MachNumber, ComparisonOperators) {
   const MachNumber first{1.11};
   const MachNumber second{2.22};
   EXPECT_EQ(first, first);
@@ -74,7 +82,7 @@ TEST(MachNumber, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(MachNumber, CopyAssignment) {
+TEST(MachNumber, CopyAssignmentOperator) {
   const MachNumber first{1.11};
   MachNumber second = MachNumber::Zero();
   second = first;
@@ -123,7 +131,7 @@ TEST(MachNumber, MiscellaneousConstructors) {
       Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
-TEST(MachNumber, MoveAssignment) {
+TEST(MachNumber, MoveAssignmentOperator) {
   MachNumber first{1.11};
   MachNumber second = MachNumber::Zero();
   second = std::move(first);

@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(Area, ArithmeticAddition) {
+TEST(Area, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       Area(1.0, Unit::Area::SquareMetre) + Area(2.0, Unit::Area::SquareMetre),
       Area(3.0, Unit::Area::SquareMetre));
-
-  Area quantity{1.0, Unit::Area::SquareMetre};
-  quantity += Area(2.0, Unit::Area::SquareMetre);
-  EXPECT_EQ(quantity, Area(3.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, ArithmeticDivision) {
+TEST(Area, ArithmeticOperatorDivision) {
   EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / 2.0,
             Area(4.0, Unit::Area::SquareMetre));
 
@@ -42,13 +38,9 @@ TEST(Area, ArithmeticDivision) {
   EXPECT_EQ(
       Area(8.0, Unit::Area::SquareMetre) / Length(4.0, Unit::Length::Metre),
       Length(2.0, Unit::Length::Metre));
-
-  Area quantity{8.0, Unit::Area::SquareMetre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Area(4.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, ArithmeticMultiplication) {
+TEST(Area, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * 2.0,
             Area(8.0, Unit::Area::SquareMetre));
 
@@ -57,23 +49,39 @@ TEST(Area, ArithmeticMultiplication) {
 
   EXPECT_EQ(Length(4.0, Unit::Length::Metre) * Length(2.0, Unit::Length::Metre),
             Area(8.0, Unit::Area::SquareMetre));
+}
 
+TEST(Area, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      Area(3.0, Unit::Area::SquareMetre) - Area(2.0, Unit::Area::SquareMetre),
+      Area(1.0, Unit::Area::SquareMetre));
+}
+
+TEST(Area, AssignmentOperatorAddition) {
+  Area quantity{1.0, Unit::Area::SquareMetre};
+  quantity += Area(2.0, Unit::Area::SquareMetre);
+  EXPECT_EQ(quantity, Area(3.0, Unit::Area::SquareMetre));
+}
+
+TEST(Area, AssignmentOperatorDivision) {
+  Area quantity{8.0, Unit::Area::SquareMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Area(4.0, Unit::Area::SquareMetre));
+}
+
+TEST(Area, AssignmentOperatorMultiplication) {
   Area quantity{4.0, Unit::Area::SquareMetre};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Area(8.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      Area(3.0, Unit::Area::SquareMetre) - Area(2.0, Unit::Area::SquareMetre),
-      Area(1.0, Unit::Area::SquareMetre));
-
+TEST(Area, AssignmentOperatorSubtraction) {
   Area quantity{3.0, Unit::Area::SquareMetre};
   quantity -= Area(2.0, Unit::Area::SquareMetre);
   EXPECT_EQ(quantity, Area(1.0, Unit::Area::SquareMetre));
 }
 
-TEST(Area, Comparisons) {
+TEST(Area, ComparisonOperators) {
   const Area first{1.11, Unit::Area::SquareMetre};
   const Area second{2.22, Unit::Area::SquareMetre};
   EXPECT_EQ(first, first);
@@ -86,7 +94,7 @@ TEST(Area, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Area, CopyAssignment) {
+TEST(Area, CopyAssignmentOperator) {
   const Area first{1.11, Unit::Area::SquareMetre};
   Area second = Area::Zero();
   second = first;
@@ -130,7 +138,7 @@ TEST(Area, JSON) {
             "{\"value\":-2.220000000000000,\"unit\":\"mm^2\"}");
 }
 
-TEST(Area, MoveAssignment) {
+TEST(Area, MoveAssignmentOperator) {
   Area first{1.11, Unit::Area::SquareMetre};
   Area second = Area::Zero();
   second = std::move(first);

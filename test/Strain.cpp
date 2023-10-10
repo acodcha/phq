@@ -21,48 +21,56 @@ namespace PhQ {
 
 namespace {
 
-TEST(Strain, ArithmeticAddition) {
+TEST(Strain, ArithmeticOperatorAddition) {
   EXPECT_EQ(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0)
                 + Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
             Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
-
-  Strain quantity(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  quantity += Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
-  EXPECT_EQ(quantity, Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
 }
 
-TEST(Strain, ArithmeticDivision) {
+TEST(Strain, ArithmeticOperatorDivision) {
   EXPECT_EQ(Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / 2.0,
             Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-
-  Strain quantity(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
-TEST(Strain, ArithmeticMultiplication) {
+TEST(Strain, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * 2.0,
             Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
   EXPECT_EQ(2.0 * Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0),
             Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
+}
 
+TEST(Strain, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
+                - Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
+TEST(Strain, AssignmentOperatorAddition) {
+  Strain quantity(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+  quantity += Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
+  EXPECT_EQ(quantity, Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
+}
+
+TEST(Strain, AssignmentOperatorDivision) {
+  Strain quantity(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
+TEST(Strain, AssignmentOperatorMultiplication) {
   Strain quantity(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 }
 
-TEST(Strain, ArithmeticSubtraction) {
-  EXPECT_EQ(Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
-                - Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
-            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-
+TEST(Strain, AssignmentOperatorSubtraction) {
   Strain quantity(3.0, -6.0, 9.0, -12.0, 15.0, -18.0);
   quantity -= Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
   EXPECT_EQ(quantity, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
-TEST(Strain, Comparisons) {
+TEST(Strain, ComparisonOperators) {
   constexpr Strain first(1.11, -2.22, 3.33, -4.44, 5.55, -6.660001);
   constexpr Strain second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   EXPECT_EQ(first, first);
@@ -75,7 +83,7 @@ TEST(Strain, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Strain, CopyAssignment) {
+TEST(Strain, CopyAssignmentOperator) {
   constexpr Strain first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   Strain second = Strain::Zero();
   second = first;
@@ -113,7 +121,7 @@ TEST(Strain, JSON) {
             "550000000000000,\"zz\":-6.660000000000000}");
 }
 
-TEST(Strain, MoveAssignment) {
+TEST(Strain, MoveAssignmentOperator) {
   Strain first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   Strain second = Strain::Zero();
   second = std::move(first);

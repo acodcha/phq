@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(AngularSpeed, ArithmeticAddition) {
+TEST(AngularSpeed, ArithmeticOperatorAddition) {
   EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond)
                 + AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
             AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond));
-
-  AngularSpeed quantity{1.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity += AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(quantity, AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
-TEST(AngularSpeed, ArithmeticDivision) {
+TEST(AngularSpeed, ArithmeticOperatorDivision) {
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond) / 2.0,
             AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
 
@@ -53,13 +49,9 @@ TEST(AngularSpeed, ArithmeticDivision) {
   EXPECT_EQ(Angle(8.0, Unit::Angle::Radian)
                 / AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
             Time(4.0, Unit::Time::Second));
-
-  AngularSpeed quantity{8.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
-TEST(AngularSpeed, ArithmeticMultiplication) {
+TEST(AngularSpeed, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond) * 2.0,
             AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
 
@@ -73,23 +65,39 @@ TEST(AngularSpeed, ArithmeticMultiplication) {
   EXPECT_EQ(
       Frequency(4.0, Unit::Frequency::Hertz) * Angle(2.0, Unit::Angle::Radian),
       AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
+}
 
+TEST(AngularSpeed, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond)
+                - AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
+            AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
+}
+
+TEST(AngularSpeed, AssignmentOperatorAddition) {
+  AngularSpeed quantity{1.0, Unit::AngularSpeed::RadianPerSecond};
+  quantity += AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(quantity, AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond));
+}
+
+TEST(AngularSpeed, AssignmentOperatorDivision) {
+  AngularSpeed quantity{8.0, Unit::AngularSpeed::RadianPerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
+}
+
+TEST(AngularSpeed, AssignmentOperatorMultiplication) {
   AngularSpeed quantity{4.0, Unit::AngularSpeed::RadianPerSecond};
   quantity *= 2.0;
   EXPECT_EQ(quantity, AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
-TEST(AngularSpeed, ArithmeticSubtraction) {
-  EXPECT_EQ(AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond)
-                - AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
-            AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
-
+TEST(AngularSpeed, AssignmentOperatorSubtraction) {
   AngularSpeed quantity{3.0, Unit::AngularSpeed::RadianPerSecond};
   quantity -= AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
   EXPECT_EQ(quantity, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
-TEST(AngularSpeed, Comparisons) {
+TEST(AngularSpeed, ComparisonOperators) {
   const AngularSpeed first{0.1, Unit::AngularSpeed::RadianPerSecond};
   const AngularSpeed second{0.2, Unit::AngularSpeed::RadianPerSecond};
   EXPECT_EQ(first, first);
@@ -102,7 +110,7 @@ TEST(AngularSpeed, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(AngularSpeed, CopyAssignment) {
+TEST(AngularSpeed, CopyAssignmentOperator) {
   const AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
   AngularSpeed second = AngularSpeed::Zero();
   second = first;
@@ -173,7 +181,7 @@ TEST(AngularSpeed, MiscellaneousConstructors) {
             Frequency(4.0, Unit::Frequency::Hertz));
 }
 
-TEST(AngularSpeed, MoveAssignment) {
+TEST(AngularSpeed, MoveAssignmentOperator) {
   AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
   AngularSpeed second = AngularSpeed::Zero();
   second = std::move(first);

@@ -21,7 +21,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(ThermalConductivity, ArithmeticAddition) {
+TEST(ThermalConductivity, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin)
@@ -30,36 +30,18 @@ TEST(ThermalConductivity, ArithmeticAddition) {
               Unit::ThermalConductivity::WattPerMetrePerKelvin),
       ThermalConductivity({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
-  ThermalConductivity quantity(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-      Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  quantity +=
-      ThermalConductivity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  EXPECT_EQ(quantity, ThermalConductivity(
-                          {3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
-TEST(ThermalConductivity, ArithmeticDivision) {
+TEST(ThermalConductivity, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       ThermalConductivity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin)
           / 2.0,
       ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
-  ThermalConductivity quantity(
-      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
-      Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, ThermalConductivity(
-                          {1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
-TEST(ThermalConductivity, ArithmeticMultiplication) {
+TEST(ThermalConductivity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin)
@@ -74,7 +56,42 @@ TEST(ThermalConductivity, ArithmeticMultiplication) {
               Unit::ThermalConductivity::WattPerMetrePerKelvin),
       ThermalConductivity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
 
+TEST(ThermalConductivity, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      ThermalConductivity({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
+                          Unit::ThermalConductivity::WattPerMetrePerKelvin)
+          - ThermalConductivity(
+              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
+              Unit::ThermalConductivity::WattPerMetrePerKelvin),
+      ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
+
+TEST(ThermalConductivity, AssignmentOperatorAddition) {
+  ThermalConductivity quantity(
+      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+      Unit::ThermalConductivity::WattPerMetrePerKelvin);
+  quantity +=
+      ThermalConductivity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
+                          Unit::ThermalConductivity::WattPerMetrePerKelvin);
+  EXPECT_EQ(quantity, ThermalConductivity(
+                          {3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
+                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
+
+TEST(ThermalConductivity, AssignmentOperatorDivision) {
+  ThermalConductivity quantity(
+      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
+      Unit::ThermalConductivity::WattPerMetrePerKelvin);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, ThermalConductivity(
+                          {1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
+
+TEST(ThermalConductivity, AssignmentOperatorMultiplication) {
   ThermalConductivity quantity(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
       Unit::ThermalConductivity::WattPerMetrePerKelvin);
@@ -84,16 +101,7 @@ TEST(ThermalConductivity, ArithmeticMultiplication) {
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
-TEST(ThermalConductivity, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      ThermalConductivity({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin)
-          - ThermalConductivity(
-              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
-              Unit::ThermalConductivity::WattPerMetrePerKelvin),
-      ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
+TEST(ThermalConductivity, AssignmentOperatorSubtraction) {
   ThermalConductivity quantity(
       {3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
       Unit::ThermalConductivity::WattPerMetrePerKelvin);
@@ -105,7 +113,7 @@ TEST(ThermalConductivity, ArithmeticSubtraction) {
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
-TEST(ThermalConductivity, Comparisons) {
+TEST(ThermalConductivity, ComparisonOperators) {
   const ThermalConductivity first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.660001},
       Unit::ThermalConductivity::WattPerMetrePerKelvin);
@@ -122,7 +130,7 @@ TEST(ThermalConductivity, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(ThermalConductivity, CopyAssignment) {
+TEST(ThermalConductivity, CopyAssignmentOperator) {
   const ThermalConductivity first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
       Unit::ThermalConductivity::WattPerMetrePerKelvin);
@@ -203,7 +211,7 @@ TEST(ThermalConductivity, MiscellaneousConstructors) {
                           Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
-TEST(ThermalConductivity, MoveAssignment) {
+TEST(ThermalConductivity, MoveAssignmentOperator) {
   ThermalConductivity first({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
                             Unit::ThermalConductivity::WattPerMetrePerKelvin);
   ThermalConductivity second = ThermalConductivity::Zero();

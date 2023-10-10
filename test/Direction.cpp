@@ -32,17 +32,19 @@ TEST(Direction, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Direction, ArithmeticMultiplication) {
+TEST(Direction, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0)
                 * Direction(0.0, -1.0, 0.0),
             Value::Vector(-2.0, -8.0, -16.0));
+}
 
+TEST(Direction, AssignmentOperatorMultiplication) {
   EXPECT_EQ(Value::Dyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0)
                 * Direction(0.0, -1.0, 0.0),
             Value::Vector(-2.0, -16.0, -128.0));
 }
 
-TEST(Direction, Comparisons) {
+TEST(Direction, ComparisonOperators) {
   const Direction first{0.0, 0.0, 1.0};
   const Direction second{1.0, 1.0, 1.0};
   EXPECT_EQ(first, first);
@@ -55,7 +57,7 @@ TEST(Direction, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Direction, CopyAssignment) {
+TEST(Direction, CopyAssignmentOperator) {
   const Direction first(1.11, -2.22, 3.33);
   Direction second = Direction::Zero();
   second = first;
@@ -141,7 +143,7 @@ TEST(Direction, MiscellaneousMethods) {
       Value::Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
 }
 
-TEST(Direction, MoveAssignment) {
+TEST(Direction, MoveAssignmentOperator) {
   Direction first(1.11, -2.22, 3.33);
   Direction second = Direction::Zero();
   second = std::move(first);

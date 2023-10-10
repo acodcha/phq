@@ -21,49 +21,57 @@ namespace PhQ {
 
 namespace {
 
-TEST(Angle, ArithmeticAddition) {
+TEST(Angle, ArithmeticOperatorAddition) {
   EXPECT_EQ(Angle(1.0, Unit::Angle::Radian) + Angle(2.0, Unit::Angle::Radian),
             Angle(3.0, Unit::Angle::Radian));
-
-  Angle quantity{1.0, Unit::Angle::Radian};
-  quantity += Angle(2.0, Unit::Angle::Radian);
-  EXPECT_EQ(quantity, Angle(3.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, ArithmeticDivision) {
+TEST(Angle, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       Angle(8.0, Unit::Angle::Radian) / 2.0, Angle(4.0, Unit::Angle::Radian));
 
   EXPECT_EQ(
       Angle(8.0, Unit::Angle::Radian) / Angle(2.0, Unit::Angle::Radian), 4.0);
-
-  Angle quantity{8.0, Unit::Angle::Radian};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Angle(4.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, ArithmeticMultiplication) {
+TEST(Angle, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       Angle(4.0, Unit::Angle::Radian) * 2.0, Angle(8.0, Unit::Angle::Radian));
 
   EXPECT_EQ(
       2.0 * Angle(4.0, Unit::Angle::Radian), Angle(8.0, Unit::Angle::Radian));
+}
 
+TEST(Angle, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Angle(3.0, Unit::Angle::Radian) - Angle(2.0, Unit::Angle::Radian),
+            Angle(1.0, Unit::Angle::Radian));
+}
+
+TEST(Angle, AssignmentOperatorAddition) {
+  Angle quantity{1.0, Unit::Angle::Radian};
+  quantity += Angle(2.0, Unit::Angle::Radian);
+  EXPECT_EQ(quantity, Angle(3.0, Unit::Angle::Radian));
+}
+
+TEST(Angle, AssignmentOperatorDivision) {
+  Angle quantity{8.0, Unit::Angle::Radian};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Angle(4.0, Unit::Angle::Radian));
+}
+
+TEST(Angle, AssignmentOperatorMultiplication) {
   Angle quantity{4.0, Unit::Angle::Radian};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Angle(8.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, ArithmeticSubtraction) {
-  EXPECT_EQ(Angle(3.0, Unit::Angle::Radian) - Angle(2.0, Unit::Angle::Radian),
-            Angle(1.0, Unit::Angle::Radian));
-
+TEST(Angle, AssignmentOperatorSubtraction) {
   Angle quantity{3.0, Unit::Angle::Radian};
   quantity -= Angle(2.0, Unit::Angle::Radian);
   EXPECT_EQ(quantity, Angle(1.0, Unit::Angle::Radian));
 }
 
-TEST(Angle, Comparisons) {
+TEST(Angle, ComparisonOperators) {
   const Angle first{1.11, Unit::Angle::Radian};
   const Angle second{2.22, Unit::Angle::Radian};
   EXPECT_EQ(first, first);
@@ -76,7 +84,7 @@ TEST(Angle, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Angle, CopyAssignment) {
+TEST(Angle, CopyAssignmentOperator) {
   const Angle first{1.11, Unit::Angle::Radian};
   Angle second = Angle::Zero();
   second = first;
@@ -133,7 +141,7 @@ TEST(Angle, MiscellaneousMethods) {
       first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
 }
 
-TEST(Angle, MoveAssignment) {
+TEST(Angle, MoveAssignmentOperator) {
   Angle first{1.11, Unit::Angle::Radian};
   Angle second = Angle::Zero();
   second = std::move(first);

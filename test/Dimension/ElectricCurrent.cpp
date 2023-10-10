@@ -25,7 +25,7 @@ TEST(DimensionElectricCurrent, Abbreviation) {
   EXPECT_EQ(ElectricCurrent::Abbreviation(), "I");
 }
 
-TEST(DimensionElectricCurrent, Comparisons) {
+TEST(DimensionElectricCurrent, ComparisonOperators) {
   constexpr ElectricCurrent first{-1};
   constexpr ElectricCurrent second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionElectricCurrent, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionElectricCurrent, CopyAssignment) {
+TEST(DimensionElectricCurrent, CopyAssignmentOperator) {
   constexpr ElectricCurrent first{3};
   ElectricCurrent second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionElectricCurrent, Label) {
   EXPECT_EQ(ElectricCurrent::Label(), "Electric Current");
 }
 
-TEST(DimensionElectricCurrent, MoveAssignment) {
+TEST(DimensionElectricCurrent, MoveAssignmentOperator) {
   ElectricCurrent first{3};
   ElectricCurrent second{-1};
   second = std::move(first);

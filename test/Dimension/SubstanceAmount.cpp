@@ -25,7 +25,7 @@ TEST(DimensionSubstanceAmount, Abbreviation) {
   EXPECT_EQ(SubstanceAmount::Abbreviation(), "N");
 }
 
-TEST(DimensionSubstanceAmount, Comparisons) {
+TEST(DimensionSubstanceAmount, ComparisonOperators) {
   constexpr SubstanceAmount first{-1};
   constexpr SubstanceAmount second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionSubstanceAmount, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionSubstanceAmount, CopyAssignment) {
+TEST(DimensionSubstanceAmount, CopyAssignmentOperator) {
   constexpr SubstanceAmount first{3};
   SubstanceAmount second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionSubstanceAmount, Label) {
   EXPECT_EQ(SubstanceAmount::Label(), "Substance Amount");
 }
 
-TEST(DimensionSubstanceAmount, MoveAssignment) {
+TEST(DimensionSubstanceAmount, MoveAssignmentOperator) {
   SubstanceAmount first{3};
   SubstanceAmount second{-1};
   second = std::move(first);

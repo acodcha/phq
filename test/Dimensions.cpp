@@ -39,7 +39,7 @@ TEST(Dimensions, Accessors) {
   EXPECT_EQ(dimensions.LuminousIntensity(), Dimension::LuminousIntensity(3));
 }
 
-TEST(Dimensions, Comparisons) {
+TEST(Dimensions, ComparisonOperators) {
   constexpr Dimensions first{
       Dimension::Time(-3),
       Dimension::Length(-2),
@@ -66,7 +66,7 @@ TEST(Dimensions, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(Dimensions, CopyAssignment) {
+TEST(Dimensions, CopyAssignmentOperator) {
   constexpr Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
   Dimensions second;
   second = first;
@@ -119,7 +119,7 @@ TEST(Dimensions, JSON) {
       "{\"mass\":1,\"substance_amount\":-1}");
 }
 
-TEST(Dimensions, MoveAssignment) {
+TEST(Dimensions, MoveAssignmentOperator) {
   Dimensions first{Dimension::Time(-2), Dimension::Length(1)};
   Dimensions second;
   second = std::move(first);

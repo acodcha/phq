@@ -23,7 +23,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(ConstitutiveModelElasticIsotropicSolid, Comparisons) {
+TEST(ConstitutiveModelElasticIsotropicSolid, ComparisonOperators) {
   const ConstitutiveModel::ElasticIsotropicSolid first{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
@@ -40,7 +40,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(ConstitutiveModelElasticIsotropicSolid, CopyAssignment) {
+TEST(ConstitutiveModelElasticIsotropicSolid, CopyAssignmentOperator) {
   const ConstitutiveModel::ElasticIsotropicSolid first{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};
@@ -94,7 +94,7 @@ TEST(ConstitutiveModelElasticIsotropicSolid, JSON) {
                 + LameFirstModulus(-2.0, Unit::Pressure::Pascal).JSON() + "}");
 }
 
-TEST(ConstitutiveModelElasticIsotropicSolid, MoveAssignment) {
+TEST(ConstitutiveModelElasticIsotropicSolid, MoveAssignmentOperator) {
   ConstitutiveModel::ElasticIsotropicSolid first{
       ShearModulus(4.0, Unit::Pressure::Pascal),
       LameFirstModulus(-2.0, Unit::Pressure::Pascal)};

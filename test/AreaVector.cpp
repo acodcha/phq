@@ -27,26 +27,18 @@ TEST(AreaVector, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(AreaVector, ArithmeticAddition) {
+TEST(AreaVector, ArithmeticOperatorAddition) {
   EXPECT_EQ(AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre)
                 + AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre),
             AreaVector({3.0, -6.0, 9.0}, Unit::Area::SquareMetre));
-
-  AreaVector quantity({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  quantity += AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre);
-  EXPECT_EQ(quantity, AreaVector({3.0, -6.0, 9.0}, Unit::Area::SquareMetre));
 }
 
-TEST(AreaVector, ArithmeticDivision) {
+TEST(AreaVector, ArithmeticOperatorDivision) {
   EXPECT_EQ(AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre) / 2.0,
             AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
-
-  AreaVector quantity({2.0, -4.0, 6.0}, Unit::Area::SquareMetre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
 }
 
-TEST(AreaVector, ArithmeticMultiplication) {
+TEST(AreaVector, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre) * 2.0,
             AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre));
 
@@ -58,23 +50,39 @@ TEST(AreaVector, ArithmeticMultiplication) {
 
   EXPECT_EQ(Area(7.0, Unit::Area::SquareMetre) * Direction(2.0, -3.0, 6.0),
             AreaVector({2.0, -3.0, 6.0}, Unit::Area::SquareMetre));
+}
 
+TEST(AreaVector, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(AreaVector({3.0, -6.0, 9.0}, Unit::Area::SquareMetre)
+                - AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre),
+            AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+}
+
+TEST(AreaVector, AssignmentOperatorAddition) {
+  AreaVector quantity({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
+  quantity += AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre);
+  EXPECT_EQ(quantity, AreaVector({3.0, -6.0, 9.0}, Unit::Area::SquareMetre));
+}
+
+TEST(AreaVector, AssignmentOperatorDivision) {
+  AreaVector quantity({2.0, -4.0, 6.0}, Unit::Area::SquareMetre);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
+}
+
+TEST(AreaVector, AssignmentOperatorMultiplication) {
   AreaVector quantity({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
   quantity *= 2.0;
   EXPECT_EQ(quantity, AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre));
 }
 
-TEST(AreaVector, ArithmeticSubtraction) {
-  EXPECT_EQ(AreaVector({3.0, -6.0, 9.0}, Unit::Area::SquareMetre)
-                - AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre),
-            AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
-
+TEST(AreaVector, AssignmentOperatorSubtraction) {
   AreaVector quantity({3.0, -6.0, 9.0}, Unit::Area::SquareMetre);
   quantity -= AreaVector({2.0, -4.0, 6.0}, Unit::Area::SquareMetre);
   EXPECT_EQ(quantity, AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMetre));
 }
 
-TEST(AreaVector, Comparisons) {
+TEST(AreaVector, ComparisonOperators) {
   const AreaVector first({1.0, 2.0, 4.0}, Unit::Area::SquareMetre);
   const AreaVector second({1.0, 2.0, 8.0}, Unit::Area::SquareMetre);
   EXPECT_EQ(first, first);
@@ -87,7 +95,7 @@ TEST(AreaVector, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(AreaVector, CopyAssignment) {
+TEST(AreaVector, CopyAssignmentOperator) {
   const AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
   AreaVector second = AreaVector::Zero();
   second = first;
@@ -153,7 +161,7 @@ TEST(AreaVector, MiscellaneousConstructors) {
             Area(7.0, Unit::Area::SquareMetre));
 }
 
-TEST(AreaVector, MoveAssignment) {
+TEST(AreaVector, MoveAssignmentOperator) {
   AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
   AreaVector second = AreaVector::Zero();
   second = std::move(first);

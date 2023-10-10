@@ -25,7 +25,7 @@ TEST(DimensionLength, Abbreviation) {
   EXPECT_EQ(Length::Abbreviation(), "L");
 }
 
-TEST(DimensionLength, Comparisons) {
+TEST(DimensionLength, ComparisonOperators) {
   constexpr Length first{-1};
   constexpr Length second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionLength, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionLength, CopyAssignment) {
+TEST(DimensionLength, CopyAssignmentOperator) {
   constexpr Length first{3};
   Length second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionLength, Label) {
   EXPECT_EQ(Length::Label(), "Length");
 }
 
-TEST(DimensionLength, MoveAssignment) {
+TEST(DimensionLength, MoveAssignmentOperator) {
   Length first{3};
   Length second{-1};
   second = std::move(first);

@@ -21,36 +21,23 @@ namespace PhQ {
 
 namespace {
 
-TEST(DisplacementGradient, ArithmeticAddition) {
+TEST(DisplacementGradient, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0)
           + DisplacementGradient(
               2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0),
       DisplacementGradient(
           3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0));
-
-  DisplacementGradient quantity(
-      1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  quantity += DisplacementGradient(
-      2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
-  EXPECT_EQ(quantity, DisplacementGradient(3.0, -6.0, 9.0, -12.0, 15.0, -18.0,
-                                           21.0, -24.0, 27.0));
 }
 
-TEST(DisplacementGradient, ArithmeticDivision) {
+TEST(DisplacementGradient, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0)
           / 2.0,
       DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
-
-  DisplacementGradient quantity(
-      2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, DisplacementGradient(
-                          1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
-TEST(DisplacementGradient, ArithmeticMultiplication) {
+TEST(DisplacementGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0)
           * 2.0,
@@ -62,7 +49,35 @@ TEST(DisplacementGradient, ArithmeticMultiplication) {
                     1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0),
             DisplacementGradient(
                 2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
+}
 
+TEST(DisplacementGradient, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      DisplacementGradient(
+          3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0)
+          - DisplacementGradient(
+              2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0),
+      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+}
+
+TEST(DisplacementGradient, AssignmentOperatorAddition) {
+  DisplacementGradient quantity(
+      1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  quantity += DisplacementGradient(
+      2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
+  EXPECT_EQ(quantity, DisplacementGradient(3.0, -6.0, 9.0, -12.0, 15.0, -18.0,
+                                           21.0, -24.0, 27.0));
+}
+
+TEST(DisplacementGradient, AssignmentOperatorDivision) {
+  DisplacementGradient quantity(
+      2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, DisplacementGradient(
+                          1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+}
+
+TEST(DisplacementGradient, AssignmentOperatorMultiplication) {
   DisplacementGradient quantity(
       1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   quantity *= 2.0;
@@ -70,14 +85,7 @@ TEST(DisplacementGradient, ArithmeticMultiplication) {
                                            14.0, -16.0, 18.0));
 }
 
-TEST(DisplacementGradient, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      DisplacementGradient(
-          3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0)
-          - DisplacementGradient(
-              2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0),
-      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
-
+TEST(DisplacementGradient, AssignmentOperatorSubtraction) {
   DisplacementGradient quantity(
       3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0);
   quantity -= DisplacementGradient(
@@ -86,7 +94,7 @@ TEST(DisplacementGradient, ArithmeticSubtraction) {
                           1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
-TEST(DisplacementGradient, Comparisons) {
+TEST(DisplacementGradient, ComparisonOperators) {
   constexpr DisplacementGradient first(
       1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
   constexpr DisplacementGradient second(
@@ -101,7 +109,7 @@ TEST(DisplacementGradient, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(DisplacementGradient, CopyAssignment) {
+TEST(DisplacementGradient, CopyAssignmentOperator) {
   constexpr DisplacementGradient first(
       1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
   DisplacementGradient second = DisplacementGradient::Zero();
@@ -156,7 +164,7 @@ TEST(DisplacementGradient, MiscellaneousConstructors) {
             Strain(1.0, -3.0, 5.0, 5.0, -7.0, 9.0));
 }
 
-TEST(DisplacementGradient, MoveAssignment) {
+TEST(DisplacementGradient, MoveAssignmentOperator) {
   DisplacementGradient first(
       1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
   DisplacementGradient second = DisplacementGradient::Zero();

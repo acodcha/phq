@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(Volume, ArithmeticAddition) {
+TEST(Volume, ArithmeticOperatorAddition) {
   EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMetre)
                 + Volume(2.0, Unit::Volume::CubicMetre),
             Volume(3.0, Unit::Volume::CubicMetre));
-
-  Volume quantity{1.0, Unit::Volume::CubicMetre};
-  quantity += Volume(2.0, Unit::Volume::CubicMetre);
-  EXPECT_EQ(quantity, Volume(3.0, Unit::Volume::CubicMetre));
 }
 
-TEST(Volume, ArithmeticDivision) {
+TEST(Volume, ArithmeticOperatorDivision) {
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / 2.0,
             Volume(4.0, Unit::Volume::CubicMetre));
 
@@ -46,13 +42,9 @@ TEST(Volume, ArithmeticDivision) {
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre)
                 / Area(4.0, Unit::Area::SquareMetre),
             Length(2.0, Unit::Length::Metre));
-
-  Volume quantity{8.0, Unit::Volume::CubicMetre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Volume(4.0, Unit::Volume::CubicMetre));
 }
 
-TEST(Volume, ArithmeticMultiplication) {
+TEST(Volume, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Volume(4.0, Unit::Volume::CubicMetre) * 2.0,
             Volume(8.0, Unit::Volume::CubicMetre));
 
@@ -66,23 +58,39 @@ TEST(Volume, ArithmeticMultiplication) {
   EXPECT_EQ(
       Area(4.0, Unit::Area::SquareMetre) * Length(2.0, Unit::Length::Metre),
       Volume(8.0, Unit::Volume::CubicMetre));
+}
 
+TEST(Volume, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Volume(3.0, Unit::Volume::CubicMetre)
+                - Volume(2.0, Unit::Volume::CubicMetre),
+            Volume(1.0, Unit::Volume::CubicMetre));
+}
+
+TEST(Volume, AssignmentOperatorAddition) {
+  Volume quantity{1.0, Unit::Volume::CubicMetre};
+  quantity += Volume(2.0, Unit::Volume::CubicMetre);
+  EXPECT_EQ(quantity, Volume(3.0, Unit::Volume::CubicMetre));
+}
+
+TEST(Volume, AssignmentOperatorDivision) {
+  Volume quantity{8.0, Unit::Volume::CubicMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Volume(4.0, Unit::Volume::CubicMetre));
+}
+
+TEST(Volume, AssignmentOperatorMultiplication) {
   Volume quantity{4.0, Unit::Volume::CubicMetre};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Volume(8.0, Unit::Volume::CubicMetre));
 }
 
-TEST(Volume, ArithmeticSubtraction) {
-  EXPECT_EQ(Volume(3.0, Unit::Volume::CubicMetre)
-                - Volume(2.0, Unit::Volume::CubicMetre),
-            Volume(1.0, Unit::Volume::CubicMetre));
-
+TEST(Volume, AssignmentOperatorSubtraction) {
   Volume quantity{3.0, Unit::Volume::CubicMetre};
   quantity -= Volume(2.0, Unit::Volume::CubicMetre);
   EXPECT_EQ(quantity, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
-TEST(Volume, Comparisons) {
+TEST(Volume, ComparisonOperators) {
   const Volume first{1.11, Unit::Volume::CubicMetre};
   const Volume second{2.22, Unit::Volume::CubicMetre};
   EXPECT_EQ(first, first);
@@ -95,7 +103,7 @@ TEST(Volume, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Volume, CopyAssignment) {
+TEST(Volume, CopyAssignmentOperator) {
   const Volume first{1.11, Unit::Volume::CubicMetre};
   Volume second = Volume::Zero();
   second = first;
@@ -139,7 +147,7 @@ TEST(Volume, JSON) {
             "{\"value\":-2.220000000000000,\"unit\":\"mm^3\"}");
 }
 
-TEST(Volume, MoveAssignment) {
+TEST(Volume, MoveAssignmentOperator) {
   Volume first{1.11, Unit::Volume::CubicMetre};
   Volume second = Volume::Zero();
   second = std::move(first);

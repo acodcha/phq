@@ -21,49 +21,57 @@ namespace PhQ {
 
 namespace {
 
-TEST(Length, ArithmeticAddition) {
+TEST(Length, ArithmeticOperatorAddition) {
   EXPECT_EQ(Length(1.0, Unit::Length::Metre) + Length(2.0, Unit::Length::Metre),
             Length(3.0, Unit::Length::Metre));
-
-  Length quantity{1.0, Unit::Length::Metre};
-  quantity += Length(2.0, Unit::Length::Metre);
-  EXPECT_EQ(quantity, Length(3.0, Unit::Length::Metre));
 }
 
-TEST(Length, ArithmeticDivision) {
+TEST(Length, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       Length(8.0, Unit::Length::Metre) / 2.0, Length(4.0, Unit::Length::Metre));
 
   EXPECT_EQ(
       Length(8.0, Unit::Length::Metre) / Length(2.0, Unit::Length::Metre), 4.0);
-
-  Length quantity{8.0, Unit::Length::Metre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Length(4.0, Unit::Length::Metre));
 }
 
-TEST(Length, ArithmeticMultiplication) {
+TEST(Length, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       Length(4.0, Unit::Length::Metre) * 2.0, Length(8.0, Unit::Length::Metre));
 
   EXPECT_EQ(
       2.0 * Length(4.0, Unit::Length::Metre), Length(8.0, Unit::Length::Metre));
+}
 
+TEST(Length, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Length(3.0, Unit::Length::Metre) - Length(2.0, Unit::Length::Metre),
+            Length(1.0, Unit::Length::Metre));
+}
+
+TEST(Length, AssignmentOperatorAddition) {
+  Length quantity{1.0, Unit::Length::Metre};
+  quantity += Length(2.0, Unit::Length::Metre);
+  EXPECT_EQ(quantity, Length(3.0, Unit::Length::Metre));
+}
+
+TEST(Length, AssignmentOperatorDivision) {
+  Length quantity{8.0, Unit::Length::Metre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Length(4.0, Unit::Length::Metre));
+}
+
+TEST(Length, AssignmentOperatorMultiplication) {
   Length quantity{4.0, Unit::Length::Metre};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Length(8.0, Unit::Length::Metre));
 }
 
-TEST(Length, ArithmeticSubtraction) {
-  EXPECT_EQ(Length(3.0, Unit::Length::Metre) - Length(2.0, Unit::Length::Metre),
-            Length(1.0, Unit::Length::Metre));
-
+TEST(Length, AssignmentOperatorSubtraction) {
   Length quantity{3.0, Unit::Length::Metre};
   quantity -= Length(2.0, Unit::Length::Metre);
   EXPECT_EQ(quantity, Length(1.0, Unit::Length::Metre));
 }
 
-TEST(Length, Comparisons) {
+TEST(Length, ComparisonOperators) {
   const Length first{0.1, Unit::Length::Metre};
   const Length second{0.2, Unit::Length::Metre};
   EXPECT_EQ(first, first);
@@ -76,7 +84,7 @@ TEST(Length, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Length, CopyAssignment) {
+TEST(Length, CopyAssignmentOperator) {
   const Length first{1.11, Unit::Length::Metre};
   Length second = Length::Zero();
   second = first;
@@ -120,7 +128,7 @@ TEST(Length, JSON) {
       "{\"value\":-2.220000000000000,\"unit\":\"mm\"}");
 }
 
-TEST(Length, MoveAssignment) {
+TEST(Length, MoveAssignmentOperator) {
   Length first{1.11, Unit::Length::Metre};
   Length second = Length::Zero();
   second = std::move(first);
