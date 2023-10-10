@@ -23,7 +23,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(ConstitutiveModelIncompressibleNewtonianFluid, Comparisons) {
+TEST(ConstitutiveModelIncompressibleNewtonianFluid, ComparisonOperators) {
   const ConstitutiveModel::IncompressibleNewtonianFluid first{
       DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)};
   const ConstitutiveModel::IncompressibleNewtonianFluid second{
@@ -38,7 +38,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(ConstitutiveModelIncompressibleNewtonianFluid, CopyAssignment) {
+TEST(ConstitutiveModelIncompressibleNewtonianFluid, CopyAssignmentOperator) {
   const ConstitutiveModel::IncompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::IncompressibleNewtonianFluid second{
@@ -84,7 +84,7 @@ TEST(ConstitutiveModelIncompressibleNewtonianFluid, JSON) {
           + "}");
 }
 
-TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveAssignment) {
+TEST(ConstitutiveModelIncompressibleNewtonianFluid, MoveAssignmentOperator) {
   ConstitutiveModel::IncompressibleNewtonianFluid first{
       DynamicViscosity(6.0, Unit::DynamicViscosity::PascalSecond)};
   ConstitutiveModel::IncompressibleNewtonianFluid second{

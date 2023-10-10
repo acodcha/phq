@@ -27,26 +27,18 @@ TEST(Force, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Force, ArithmeticAddition) {
+TEST(Force, ArithmeticOperatorAddition) {
   EXPECT_EQ(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)
                 + Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
             Force({3.0, -6.0, 9.0}, Unit::Force::Newton));
-
-  Force quantity({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  quantity += Force({2.0, -4.0, 6.0}, Unit::Force::Newton);
-  EXPECT_EQ(quantity, Force({3.0, -6.0, 9.0}, Unit::Force::Newton));
 }
 
-TEST(Force, ArithmeticDivision) {
+TEST(Force, ArithmeticOperatorDivision) {
   EXPECT_EQ(Force({2.0, -4.0, 6.0}, Unit::Force::Newton) / 2.0,
             Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
-
-  Force quantity({2.0, -4.0, 6.0}, Unit::Force::Newton);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
 
-TEST(Force, ArithmeticMultiplication) {
+TEST(Force, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Force({1.0, -2.0, 3.0}, Unit::Force::Newton) * 2.0,
             Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 
@@ -60,23 +52,39 @@ TEST(Force, ArithmeticMultiplication) {
   EXPECT_EQ(
       ForceMagnitude(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
       Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
+}
 
+TEST(Force, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Force({3.0, -6.0, 9.0}, Unit::Force::Newton)
+                - Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
+            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
+}
+
+TEST(Force, AssignmentOperatorAddition) {
+  Force quantity({1.0, -2.0, 3.0}, Unit::Force::Newton);
+  quantity += Force({2.0, -4.0, 6.0}, Unit::Force::Newton);
+  EXPECT_EQ(quantity, Force({3.0, -6.0, 9.0}, Unit::Force::Newton));
+}
+
+TEST(Force, AssignmentOperatorDivision) {
+  Force quantity({2.0, -4.0, 6.0}, Unit::Force::Newton);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
+}
+
+TEST(Force, AssignmentOperatorMultiplication) {
   Force quantity({1.0, -2.0, 3.0}, Unit::Force::Newton);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 }
 
-TEST(Force, ArithmeticSubtraction) {
-  EXPECT_EQ(Force({3.0, -6.0, 9.0}, Unit::Force::Newton)
-                - Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
-            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
-
+TEST(Force, AssignmentOperatorSubtraction) {
   Force quantity({3.0, -6.0, 9.0}, Unit::Force::Newton);
   quantity -= Force({2.0, -4.0, 6.0}, Unit::Force::Newton);
   EXPECT_EQ(quantity, Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
 
-TEST(Force, Comparisons) {
+TEST(Force, ComparisonOperators) {
   const Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
   const Force second({1.11, -2.22, 3.330001}, Unit::Force::Newton);
   EXPECT_EQ(first, first);
@@ -89,7 +97,7 @@ TEST(Force, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Force, CopyAssignment) {
+TEST(Force, CopyAssignmentOperator) {
   const Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
   Force second = Force::Zero();
   second = first;
@@ -153,7 +161,7 @@ TEST(Force, MiscellaneousConstructors) {
             ForceMagnitude(7.0, Unit::Force::Newton));
 }
 
-TEST(Force, MoveAssignment) {
+TEST(Force, MoveAssignmentOperator) {
   Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
   Force second = Force::Zero();
   second = std::move(first);

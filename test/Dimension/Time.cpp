@@ -25,7 +25,7 @@ TEST(DimensionTime, Abbreviation) {
   EXPECT_EQ(Time::Abbreviation(), "T");
 }
 
-TEST(DimensionTime, Comparisons) {
+TEST(DimensionTime, ComparisonOperators) {
   constexpr Time first{-1};
   constexpr Time second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionTime, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionTime, CopyAssignment) {
+TEST(DimensionTime, CopyAssignmentOperator) {
   constexpr Time first{3};
   Time second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionTime, Label) {
   EXPECT_EQ(Time::Label(), "Time");
 }
 
-TEST(DimensionTime, MoveAssignment) {
+TEST(DimensionTime, MoveAssignmentOperator) {
   Time first{3};
   Time second{-1};
   second = std::move(first);

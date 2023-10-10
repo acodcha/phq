@@ -25,7 +25,7 @@ TEST(DimensionMass, Abbreviation) {
   EXPECT_EQ(Mass::Abbreviation(), "M");
 }
 
-TEST(DimensionMass, Comparisons) {
+TEST(DimensionMass, ComparisonOperators) {
   constexpr Mass first{-1};
   constexpr Mass second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionMass, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionMass, CopyAssignment) {
+TEST(DimensionMass, CopyAssignmentOperator) {
   constexpr Mass first{3};
   Mass second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionMass, Label) {
   EXPECT_EQ(Mass::Label(), "Mass");
 }
 
-TEST(DimensionMass, MoveAssignment) {
+TEST(DimensionMass, MoveAssignmentOperator) {
   Mass first{3};
   Mass second{-1};
   second = std::move(first);

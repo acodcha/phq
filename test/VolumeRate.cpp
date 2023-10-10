@@ -21,17 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(VolumeRate, ArithmeticAddition) {
+TEST(VolumeRate, ArithmeticOperatorAddition) {
   EXPECT_EQ(VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond)
                 + VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
             VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond));
-
-  VolumeRate quantity{1.0, Unit::VolumeRate::CubicMetrePerSecond};
-  quantity += VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond);
-  EXPECT_EQ(quantity, VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, ArithmeticDivision) {
+TEST(VolumeRate, ArithmeticOperatorDivision) {
   EXPECT_EQ(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond) / 2.0,
             VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond));
 
@@ -54,13 +50,9 @@ TEST(VolumeRate, ArithmeticDivision) {
   EXPECT_EQ(
       Volume(8.0, Unit::Volume::CubicMetre) / Time(4.0, Unit::Time::Second),
       VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
-
-  VolumeRate quantity{8.0, Unit::VolumeRate::CubicMetrePerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, ArithmeticMultiplication) {
+TEST(VolumeRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond) * 2.0,
             VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
 
@@ -74,23 +66,39 @@ TEST(VolumeRate, ArithmeticMultiplication) {
   EXPECT_EQ(Time(4.0, Unit::Time::Second)
                 * VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
             Volume(8.0, Unit::Volume::CubicMetre));
+}
 
+TEST(VolumeRate, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond)
+                - VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+            VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
+TEST(VolumeRate, AssignmentOperatorAddition) {
+  VolumeRate quantity{1.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity += VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond);
+  EXPECT_EQ(quantity, VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
+TEST(VolumeRate, AssignmentOperatorDivision) {
+  VolumeRate quantity{8.0, Unit::VolumeRate::CubicMetrePerSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond));
+}
+
+TEST(VolumeRate, AssignmentOperatorMultiplication) {
   VolumeRate quantity{4.0, Unit::VolumeRate::CubicMetrePerSecond};
   quantity *= 2.0;
   EXPECT_EQ(quantity, VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, ArithmeticSubtraction) {
-  EXPECT_EQ(VolumeRate(3.0, Unit::VolumeRate::CubicMetrePerSecond)
-                - VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
-            VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
-
+TEST(VolumeRate, AssignmentOperatorSubtraction) {
   VolumeRate quantity{3.0, Unit::VolumeRate::CubicMetrePerSecond};
   quantity -= VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond);
   EXPECT_EQ(quantity, VolumeRate(1.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
-TEST(VolumeRate, Comparisons) {
+TEST(VolumeRate, ComparisonOperators) {
   const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   const VolumeRate second{2.22, Unit::VolumeRate::CubicMetrePerSecond};
   EXPECT_EQ(first, first);
@@ -103,7 +111,7 @@ TEST(VolumeRate, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(VolumeRate, CopyAssignment) {
+TEST(VolumeRate, CopyAssignmentOperator) {
   const VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   VolumeRate second = VolumeRate::Zero();
   second = first;
@@ -166,7 +174,7 @@ TEST(VolumeRate, MiscellaneousConstructors) {
             Frequency(2.0, Unit::Frequency::Hertz));
 }
 
-TEST(VolumeRate, MoveAssignment) {
+TEST(VolumeRate, MoveAssignmentOperator) {
   VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
   VolumeRate second = VolumeRate::Zero();
   second = std::move(first);

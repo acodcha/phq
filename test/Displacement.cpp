@@ -27,48 +27,56 @@ TEST(Displacement, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Displacement, ArithmeticAddition) {
+TEST(Displacement, ArithmeticOperatorAddition) {
   EXPECT_EQ(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)
                 + Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre));
-
-  Displacement quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  quantity += Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  EXPECT_EQ(quantity, Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, ArithmeticDivision) {
+TEST(Displacement, ArithmeticOperatorDivision) {
   EXPECT_EQ(Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre) / 2.0,
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
-  Displacement quantity({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, ArithmeticMultiplication) {
+TEST(Displacement, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre) * 2.0,
             Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
 
   EXPECT_EQ(2.0 * Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre),
             Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
+}
 
+TEST(Displacement, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre)
+                - Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+}
+
+TEST(Displacement, AssignmentOperatorAddition) {
+  Displacement quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  quantity += Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  EXPECT_EQ(quantity, Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre));
+}
+
+TEST(Displacement, AssignmentOperatorDivision) {
+  Displacement quantity({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
+}
+
+TEST(Displacement, AssignmentOperatorMultiplication) {
   Displacement quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, ArithmeticSubtraction) {
-  EXPECT_EQ(Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre)
-                - Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
-            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
+TEST(Displacement, AssignmentOperatorSubtraction) {
   Displacement quantity({3.0, -6.0, 9.0}, Unit::Length::Metre);
   quantity -= Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
   EXPECT_EQ(quantity, Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
-TEST(Displacement, Comparisons) {
+TEST(Displacement, ComparisonOperators) {
   const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
   const Displacement second({1.11, -2.22, 3.330001}, Unit::Length::Metre);
   EXPECT_EQ(first, first);
@@ -81,7 +89,7 @@ TEST(Displacement, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Displacement, CopyAssignment) {
+TEST(Displacement, CopyAssignmentOperator) {
   const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
   Displacement second = Displacement::Zero();
   second = first;
@@ -146,7 +154,7 @@ TEST(Displacement, MiscellaneousConstructors) {
             Length(7.0, Unit::Length::Metre));
 }
 
-TEST(Displacement, MoveAssignment) {
+TEST(Displacement, MoveAssignmentOperator) {
   Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
   Displacement second = Displacement::Zero();
   second = std::move(first);

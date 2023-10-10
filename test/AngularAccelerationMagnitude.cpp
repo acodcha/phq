@@ -21,24 +21,16 @@ namespace PhQ {
 
 namespace {
 
-TEST(AngularAccelerationMagnitude, ArithmeticAddition) {
+TEST(AngularAccelerationMagnitude, ArithmeticOperatorAddition) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 1.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 + AngularAccelerationMagnitude(
                     2.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             AngularAccelerationMagnitude(
                 3.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
-  AngularAccelerationMagnitude quantity{
-      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity += AngularAccelerationMagnitude(
-      2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
-  EXPECT_EQ(quantity,
-            AngularAccelerationMagnitude(
-                3.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
-TEST(AngularAccelerationMagnitude, ArithmeticDivision) {
+TEST(AngularAccelerationMagnitude, ArithmeticOperatorDivision) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 8.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 / 2.0,
@@ -70,16 +62,9 @@ TEST(AngularAccelerationMagnitude, ArithmeticDivision) {
                 / AngularAccelerationMagnitude(
                     4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             Time(2.0, Unit::Time::Second));
-
-  AngularAccelerationMagnitude quantity{
-      8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            AngularAccelerationMagnitude(
-                4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
-TEST(AngularAccelerationMagnitude, ArithmeticMultiplication) {
+TEST(AngularAccelerationMagnitude, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(AngularAccelerationMagnitude(
                 4.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 * 2.0,
@@ -101,7 +86,37 @@ TEST(AngularAccelerationMagnitude, ArithmeticMultiplication) {
                 * AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
             AngularAccelerationMagnitude(
                 8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+}
 
+TEST(AngularAccelerationMagnitude, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(AngularAccelerationMagnitude(
+                3.0, Unit::AngularAcceleration::RadianPerSquareSecond)
+                - AngularAccelerationMagnitude(
+                    2.0, Unit::AngularAcceleration::RadianPerSquareSecond),
+            AngularAccelerationMagnitude(
+                1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+}
+
+TEST(AngularAccelerationMagnitude, AssignmentOperatorAddition) {
+  AngularAccelerationMagnitude quantity{
+      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  quantity += AngularAccelerationMagnitude(
+      2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
+  EXPECT_EQ(quantity,
+            AngularAccelerationMagnitude(
+                3.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+}
+
+TEST(AngularAccelerationMagnitude, AssignmentOperatorDivision) {
+  AngularAccelerationMagnitude quantity{
+      8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            AngularAccelerationMagnitude(
+                4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+}
+
+TEST(AngularAccelerationMagnitude, AssignmentOperatorMultiplication) {
   AngularAccelerationMagnitude quantity{
       4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   quantity *= 2.0;
@@ -110,14 +125,7 @@ TEST(AngularAccelerationMagnitude, ArithmeticMultiplication) {
                 8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
-TEST(AngularAccelerationMagnitude, ArithmeticSubtraction) {
-  EXPECT_EQ(AngularAccelerationMagnitude(
-                3.0, Unit::AngularAcceleration::RadianPerSquareSecond)
-                - AngularAccelerationMagnitude(
-                    2.0, Unit::AngularAcceleration::RadianPerSquareSecond),
-            AngularAccelerationMagnitude(
-                1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
+TEST(AngularAccelerationMagnitude, AssignmentOperatorSubtraction) {
   AngularAccelerationMagnitude quantity{
       3.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   quantity -= AngularAccelerationMagnitude(
@@ -127,7 +135,7 @@ TEST(AngularAccelerationMagnitude, ArithmeticSubtraction) {
                 1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
-TEST(AngularAccelerationMagnitude, Comparisons) {
+TEST(AngularAccelerationMagnitude, ComparisonOperators) {
   const AngularAccelerationMagnitude first{
       0.1, Unit::AngularAcceleration::RadianPerSquareSecond};
   const AngularAccelerationMagnitude second{
@@ -142,7 +150,7 @@ TEST(AngularAccelerationMagnitude, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(AngularAccelerationMagnitude, CopyAssignment) {
+TEST(AngularAccelerationMagnitude, CopyAssignmentOperator) {
   const AngularAccelerationMagnitude first{
       1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
   AngularAccelerationMagnitude second = AngularAccelerationMagnitude::Zero();
@@ -236,7 +244,7 @@ TEST(AngularAccelerationMagnitude, MiscellaneousConstructors) {
       Frequency(2.0, Unit::Frequency::Hertz));
 }
 
-TEST(AngularAccelerationMagnitude, MoveAssignment) {
+TEST(AngularAccelerationMagnitude, MoveAssignmentOperator) {
   AngularAccelerationMagnitude first{
       1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
   AngularAccelerationMagnitude second = AngularAccelerationMagnitude::Zero();

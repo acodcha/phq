@@ -21,21 +21,15 @@ namespace PhQ {
 
 namespace {
 
-TEST(AccelerationMagnitude, ArithmeticAddition) {
+TEST(AccelerationMagnitude, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       AccelerationMagnitude(1.0, Unit::Acceleration::MetrePerSquareSecond)
           + AccelerationMagnitude(
               2.0, Unit::Acceleration::MetrePerSquareSecond),
       AccelerationMagnitude(3.0, Unit::Acceleration::MetrePerSquareSecond));
-
-  AccelerationMagnitude quantity{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity +=
-      AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(quantity, AccelerationMagnitude(
-                          3.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, ArithmeticDivision) {
+TEST(AccelerationMagnitude, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond)
           / 2.0,
@@ -62,14 +56,9 @@ TEST(AccelerationMagnitude, ArithmeticDivision) {
                 / AccelerationMagnitude(
                     2.0, Unit::Acceleration::MetrePerSquareSecond),
             Time(4.0, Unit::Time::Second));
-
-  AccelerationMagnitude quantity{8.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, AccelerationMagnitude(
-                          4.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, ArithmeticMultiplication) {
+TEST(AccelerationMagnitude, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       AccelerationMagnitude(4.0, Unit::Acceleration::MetrePerSquareSecond)
           * 2.0,
@@ -99,20 +88,39 @@ TEST(AccelerationMagnitude, ArithmeticMultiplication) {
       Frequency(2.0, Unit::Frequency::Hertz)
           * Speed(4.0, Unit::Speed::MetrePerSecond),
       AccelerationMagnitude(8.0, Unit::Acceleration::MetrePerSquareSecond));
+}
 
+TEST(AccelerationMagnitude, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      AccelerationMagnitude(3.0, Unit::Acceleration::MetrePerSquareSecond)
+          - AccelerationMagnitude(
+              2.0, Unit::Acceleration::MetrePerSquareSecond),
+      AccelerationMagnitude(1.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, AssignmentOperatorAddition) {
+  AccelerationMagnitude quantity{1.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity +=
+      AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          3.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, AssignmentOperatorDivision) {
+  AccelerationMagnitude quantity{8.0, Unit::Acceleration::MetrePerSquareSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, AccelerationMagnitude(
+                          4.0, Unit::Acceleration::MetrePerSquareSecond));
+}
+
+TEST(AccelerationMagnitude, AssignmentOperatorMultiplication) {
   AccelerationMagnitude quantity{4.0, Unit::Acceleration::MetrePerSquareSecond};
   quantity *= 2.0;
   EXPECT_EQ(quantity, AccelerationMagnitude(
                           8.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      AccelerationMagnitude(3.0, Unit::Acceleration::MetrePerSquareSecond)
-          - AccelerationMagnitude(
-              2.0, Unit::Acceleration::MetrePerSquareSecond),
-      AccelerationMagnitude(1.0, Unit::Acceleration::MetrePerSquareSecond));
-
+TEST(AccelerationMagnitude, AssignmentOperatorSubtraction) {
   AccelerationMagnitude quantity{3.0, Unit::Acceleration::MetrePerSquareSecond};
   quantity -=
       AccelerationMagnitude(2.0, Unit::Acceleration::MetrePerSquareSecond);
@@ -120,7 +128,7 @@ TEST(AccelerationMagnitude, ArithmeticSubtraction) {
                           1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
-TEST(AccelerationMagnitude, Comparisons) {
+TEST(AccelerationMagnitude, ComparisonOperators) {
   const AccelerationMagnitude first{
       0.1, Unit::Acceleration::MetrePerSquareSecond};
   const AccelerationMagnitude second{
@@ -135,7 +143,7 @@ TEST(AccelerationMagnitude, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(AccelerationMagnitude, CopyAssignment) {
+TEST(AccelerationMagnitude, CopyAssignmentOperator) {
   const AccelerationMagnitude first{
       1.11, Unit::Acceleration::MetrePerSquareSecond};
   AccelerationMagnitude second = AccelerationMagnitude::Zero();
@@ -223,7 +231,7 @@ TEST(AccelerationMagnitude, MiscellaneousConstructors) {
             Frequency(4.0, Unit::Frequency::Hertz));
 }
 
-TEST(AccelerationMagnitude, MoveAssignment) {
+TEST(AccelerationMagnitude, MoveAssignmentOperator) {
   AccelerationMagnitude first{1.11, Unit::Acceleration::MetrePerSquareSecond};
   AccelerationMagnitude second = AccelerationMagnitude::Zero();
   second = std::move(first);

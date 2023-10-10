@@ -21,22 +21,15 @@ namespace PhQ {
 
 namespace {
 
-TEST(StrainRate, ArithmeticAddition) {
+TEST(StrainRate, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz)
           + StrainRate(
               {2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz),
       StrainRate({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Frequency::Hertz));
-
-  StrainRate quantity(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
-  quantity +=
-      StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz);
-  EXPECT_EQ(quantity, StrainRate({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
-                                 Unit::Frequency::Hertz));
 }
 
-TEST(StrainRate, ArithmeticDivision) {
+TEST(StrainRate, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz)
           / 2.0,
@@ -50,15 +43,9 @@ TEST(StrainRate, ArithmeticDivision) {
   EXPECT_EQ(
       Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / Time(2.0, Unit::Time::Second),
       StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
-
-  StrainRate quantity(
-      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
-                                 Unit::Frequency::Hertz));
 }
 
-TEST(StrainRate, ArithmeticMultiplication) {
+TEST(StrainRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz)
           * 2.0,
@@ -89,7 +76,34 @@ TEST(StrainRate, ArithmeticMultiplication) {
       Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0)
           * Frequency(2.0, Unit::Frequency::Hertz),
       StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz));
+}
 
+TEST(StrainRate, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      StrainRate({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Frequency::Hertz)
+          - StrainRate(
+              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz),
+      StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
+}
+
+TEST(StrainRate, AssignmentOperatorAddition) {
+  StrainRate quantity(
+      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
+  quantity +=
+      StrainRate({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz);
+  EXPECT_EQ(quantity, StrainRate({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
+                                 Unit::Frequency::Hertz));
+}
+
+TEST(StrainRate, AssignmentOperatorDivision) {
+  StrainRate quantity(
+      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
+                                 Unit::Frequency::Hertz));
+}
+
+TEST(StrainRate, AssignmentOperatorMultiplication) {
   StrainRate quantity(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz);
   quantity *= 2.0;
@@ -97,13 +111,7 @@ TEST(StrainRate, ArithmeticMultiplication) {
                                  Unit::Frequency::Hertz));
 }
 
-TEST(StrainRate, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      StrainRate({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Frequency::Hertz)
-          - StrainRate(
-              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Frequency::Hertz),
-      StrainRate({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Frequency::Hertz));
-
+TEST(StrainRate, AssignmentOperatorSubtraction) {
   StrainRate quantity(
       {3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Frequency::Hertz);
   quantity -=
@@ -112,7 +120,7 @@ TEST(StrainRate, ArithmeticSubtraction) {
                                  Unit::Frequency::Hertz));
 }
 
-TEST(StrainRate, Comparisons) {
+TEST(StrainRate, ComparisonOperators) {
   const StrainRate first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.660001}, Unit::Frequency::Hertz);
   const StrainRate second(
@@ -127,7 +135,7 @@ TEST(StrainRate, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(StrainRate, CopyAssignment) {
+TEST(StrainRate, CopyAssignmentOperator) {
   const StrainRate first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz);
   StrainRate second = StrainRate::Zero();
@@ -209,7 +217,7 @@ TEST(StrainRate, MiscellaneousConstructors) {
             Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
-TEST(StrainRate, MoveAssignment) {
+TEST(StrainRate, MoveAssignmentOperator) {
   StrainRate first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz);
   StrainRate second = StrainRate::Zero();

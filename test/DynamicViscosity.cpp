@@ -21,18 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(DynamicViscosity, ArithmeticAddition) {
+TEST(DynamicViscosity, ArithmeticOperatorAddition) {
   EXPECT_EQ(DynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond)
                 + DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond),
             DynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond));
-
-  DynamicViscosity quantity{1.0, Unit::DynamicViscosity::PascalSecond};
-  quantity += DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
-  EXPECT_EQ(
-      quantity, DynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond));
 }
 
-TEST(DynamicViscosity, ArithmeticDivision) {
+TEST(DynamicViscosity, ArithmeticOperatorDivision) {
   EXPECT_EQ(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond) / 2.0,
             DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
 
@@ -48,14 +43,9 @@ TEST(DynamicViscosity, ArithmeticDivision) {
       DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond)
           / KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
       MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-
-  DynamicViscosity quantity{8.0, Unit::DynamicViscosity::PascalSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
 }
 
-TEST(DynamicViscosity, ArithmeticMultiplication) {
+TEST(DynamicViscosity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond) * 2.0,
             DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
 
@@ -70,25 +60,43 @@ TEST(DynamicViscosity, ArithmeticMultiplication) {
       MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre)
           * KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond),
       DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
+}
 
+TEST(DynamicViscosity, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(DynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond)
+                - DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond),
+            DynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
+}
+
+TEST(DynamicViscosity, AssignmentOperatorAddition) {
+  DynamicViscosity quantity{1.0, Unit::DynamicViscosity::PascalSecond};
+  quantity += DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(
+      quantity, DynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond));
+}
+
+TEST(DynamicViscosity, AssignmentOperatorDivision) {
+  DynamicViscosity quantity{8.0, Unit::DynamicViscosity::PascalSecond};
+  quantity /= 2.0;
+  EXPECT_EQ(
+      quantity, DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
+}
+
+TEST(DynamicViscosity, AssignmentOperatorMultiplication) {
   DynamicViscosity quantity{4.0, Unit::DynamicViscosity::PascalSecond};
   quantity *= 2.0;
   EXPECT_EQ(
       quantity, DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
 }
 
-TEST(DynamicViscosity, ArithmeticSubtraction) {
-  EXPECT_EQ(DynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond)
-                - DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond),
-            DynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
-
+TEST(DynamicViscosity, AssignmentOperatorSubtraction) {
   DynamicViscosity quantity{3.0, Unit::DynamicViscosity::PascalSecond};
   quantity -= DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
   EXPECT_EQ(
       quantity, DynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
 
-TEST(DynamicViscosity, Comparisons) {
+TEST(DynamicViscosity, ComparisonOperators) {
   const DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
   const DynamicViscosity second{2.22, Unit::DynamicViscosity::PascalSecond};
   EXPECT_EQ(first, first);
@@ -101,7 +109,7 @@ TEST(DynamicViscosity, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(DynamicViscosity, CopyAssignment) {
+TEST(DynamicViscosity, CopyAssignmentOperator) {
   const DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
   DynamicViscosity second = DynamicViscosity::Zero();
   second = first;
@@ -168,7 +176,7 @@ TEST(DynamicViscosity, MiscellaneousConstructors) {
       MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
-TEST(DynamicViscosity, MoveAssignment) {
+TEST(DynamicViscosity, MoveAssignmentOperator) {
   DynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
   DynamicViscosity second = DynamicViscosity::Zero();
   second = std::move(first);

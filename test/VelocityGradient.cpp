@@ -21,7 +21,7 @@ namespace PhQ {
 
 namespace {
 
-TEST(VelocityGradient, ArithmeticAddition) {
+TEST(VelocityGradient, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                        Unit::Frequency::Hertz)
@@ -30,36 +30,18 @@ TEST(VelocityGradient, ArithmeticAddition) {
               Unit::Frequency::Hertz),
       VelocityGradient({3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
                        Unit::Frequency::Hertz));
-
-  VelocityGradient quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
-                            Unit::Frequency::Hertz);
-  quantity +=
-      VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
-                       Unit::Frequency::Hertz);
-  EXPECT_EQ(
-      quantity,
-      VelocityGradient({3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
-                       Unit::Frequency::Hertz));
 }
 
-TEST(VelocityGradient, ArithmeticDivision) {
+TEST(VelocityGradient, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
                        Unit::Frequency::Hertz)
           / 2.0,
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                        Unit::Frequency::Hertz));
-
-  VelocityGradient quantity(
-      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
-      Unit::Frequency::Hertz);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
-                             Unit::Frequency::Hertz));
 }
 
-TEST(VelocityGradient, ArithmeticMultiplication) {
+TEST(VelocityGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                        Unit::Frequency::Hertz)
@@ -73,7 +55,42 @@ TEST(VelocityGradient, ArithmeticMultiplication) {
                              Unit::Frequency::Hertz),
       VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
                        Unit::Frequency::Hertz));
+}
 
+TEST(VelocityGradient, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      VelocityGradient({3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
+                       Unit::Frequency::Hertz)
+          - VelocityGradient(
+              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
+              Unit::Frequency::Hertz),
+      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                       Unit::Frequency::Hertz));
+}
+
+TEST(VelocityGradient, AssignmentOperatorAddition) {
+  VelocityGradient quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                            Unit::Frequency::Hertz);
+  quantity +=
+      VelocityGradient({2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
+                       Unit::Frequency::Hertz);
+  EXPECT_EQ(
+      quantity,
+      VelocityGradient({3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
+                       Unit::Frequency::Hertz));
+}
+
+TEST(VelocityGradient, AssignmentOperatorDivision) {
+  VelocityGradient quantity(
+      {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
+      Unit::Frequency::Hertz);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
+                             Unit::Frequency::Hertz));
+}
+
+TEST(VelocityGradient, AssignmentOperatorMultiplication) {
   VelocityGradient quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
                             Unit::Frequency::Hertz);
   quantity *= 2.0;
@@ -83,16 +100,7 @@ TEST(VelocityGradient, ArithmeticMultiplication) {
                        Unit::Frequency::Hertz));
 }
 
-TEST(VelocityGradient, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      VelocityGradient({3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
-                       Unit::Frequency::Hertz)
-          - VelocityGradient(
-              {2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0},
-              Unit::Frequency::Hertz),
-      VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0},
-                       Unit::Frequency::Hertz));
-
+TEST(VelocityGradient, AssignmentOperatorSubtraction) {
   VelocityGradient quantity(
       {3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0},
       Unit::Frequency::Hertz);
@@ -104,7 +112,7 @@ TEST(VelocityGradient, ArithmeticSubtraction) {
                              Unit::Frequency::Hertz));
 }
 
-TEST(VelocityGradient, Comparisons) {
+TEST(VelocityGradient, ComparisonOperators) {
   const VelocityGradient first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99},
       Unit::Frequency::Hertz);
@@ -121,7 +129,7 @@ TEST(VelocityGradient, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(VelocityGradient, CopyAssignment) {
+TEST(VelocityGradient, CopyAssignmentOperator) {
   const VelocityGradient first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99},
       Unit::Frequency::Hertz);
@@ -210,7 +218,7 @@ TEST(VelocityGradient, MiscellaneousMethods) {
       StrainRate({1.0, -3.0, 5.0, 5.0, -7.0, 9.0}, Unit::Frequency::Hertz));
 }
 
-TEST(VelocityGradient, MoveAssignment) {
+TEST(VelocityGradient, MoveAssignmentOperator) {
   VelocityGradient first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99},
       Unit::Frequency::Hertz);

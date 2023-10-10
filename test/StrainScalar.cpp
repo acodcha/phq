@@ -21,43 +21,51 @@ namespace PhQ {
 
 namespace {
 
-TEST(StrainScalar, ArithmeticAddition) {
+TEST(StrainScalar, ArithmeticOperatorAddition) {
   EXPECT_EQ(StrainScalar(1.0) + StrainScalar(2.0), StrainScalar(3.0));
+}
 
+TEST(StrainScalar, ArithmeticOperatorDivision) {
+  EXPECT_EQ(StrainScalar(8.0) / 2.0, StrainScalar(4.0));
+
+  EXPECT_EQ(StrainScalar(8.0) / StrainScalar(2.0), 4.0);
+}
+
+TEST(StrainScalar, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(StrainScalar(4.0) * 2.0, StrainScalar(8.0));
+
+  EXPECT_EQ(2.0 * StrainScalar(4.0), StrainScalar(8.0));
+}
+
+TEST(StrainScalar, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(StrainScalar(3.0) - StrainScalar(2.0), StrainScalar(1.0));
+}
+
+TEST(StrainScalar, AssignmentOperatorAddition) {
   StrainScalar quantity{1.0};
   quantity += StrainScalar(2.0);
   EXPECT_EQ(quantity, StrainScalar(3.0));
 }
 
-TEST(StrainScalar, ArithmeticDivision) {
-  EXPECT_EQ(StrainScalar(8.0) / 2.0, StrainScalar(4.0));
-
-  EXPECT_EQ(StrainScalar(8.0) / StrainScalar(2.0), 4.0);
-
+TEST(StrainScalar, AssignmentOperatorDivision) {
   StrainScalar quantity{8.0};
   quantity /= 2.0;
   EXPECT_EQ(quantity, StrainScalar(4.0));
 }
 
-TEST(StrainScalar, ArithmeticMultiplication) {
-  EXPECT_EQ(StrainScalar(4.0) * 2.0, StrainScalar(8.0));
-
-  EXPECT_EQ(2.0 * StrainScalar(4.0), StrainScalar(8.0));
-
+TEST(StrainScalar, AssignmentOperatorMultiplication) {
   StrainScalar quantity{4.0};
   quantity *= 2.0;
   EXPECT_EQ(quantity, StrainScalar(8.0));
 }
 
-TEST(StrainScalar, ArithmeticSubtraction) {
-  EXPECT_EQ(StrainScalar(3.0) - StrainScalar(2.0), StrainScalar(1.0));
-
+TEST(StrainScalar, AssignmentOperatorSubtraction) {
   StrainScalar quantity{3.0};
   quantity -= StrainScalar(2.0);
   EXPECT_EQ(quantity, StrainScalar(1.0));
 }
 
-TEST(StrainScalar, Comparisons) {
+TEST(StrainScalar, ComparisonOperators) {
   const StrainScalar first{1.11};
   const StrainScalar second{2.22};
   EXPECT_EQ(first, first);
@@ -70,7 +78,7 @@ TEST(StrainScalar, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(StrainScalar, CopyAssignment) {
+TEST(StrainScalar, CopyAssignmentOperator) {
   const StrainScalar first{1.11};
   StrainScalar second = StrainScalar::Zero();
   second = first;
@@ -105,7 +113,7 @@ TEST(StrainScalar, JSON) {
   EXPECT_EQ(StrainScalar(1.11).JSON(), "1.110000000000000");
 }
 
-TEST(StrainScalar, MoveAssignment) {
+TEST(StrainScalar, MoveAssignmentOperator) {
   StrainScalar first{1.11};
   StrainScalar second = StrainScalar::Zero();
   second = std::move(first);

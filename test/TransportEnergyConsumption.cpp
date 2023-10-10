@@ -21,24 +21,16 @@ namespace PhQ {
 
 namespace {
 
-TEST(TransportEnergyConsumption, ArithmeticAddition) {
+TEST(TransportEnergyConsumption, ArithmeticOperatorAddition) {
   EXPECT_EQ(TransportEnergyConsumption(
                 1.0, Unit::TransportEnergyConsumption::JoulePerMetre)
                 + TransportEnergyConsumption(
                     2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
             TransportEnergyConsumption(
                 3.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-
-  TransportEnergyConsumption quantity{
-      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  quantity += TransportEnergyConsumption(
-      2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
-  EXPECT_EQ(quantity,
-            TransportEnergyConsumption(
-                3.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, ArithmeticDivision) {
+TEST(TransportEnergyConsumption, ArithmeticOperatorDivision) {
   EXPECT_EQ(TransportEnergyConsumption(
                 8.0, Unit::TransportEnergyConsumption::JoulePerMetre)
                 / 2.0,
@@ -59,16 +51,9 @@ TEST(TransportEnergyConsumption, ArithmeticDivision) {
                 / TransportEnergyConsumption(
                     4.0, Unit::TransportEnergyConsumption::JoulePerMetre),
             Length(2.0, Unit::Length::Metre));
-
-  TransportEnergyConsumption quantity{
-      8.0, Unit::TransportEnergyConsumption::JoulePerMetre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            TransportEnergyConsumption(
-                4.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, ArithmeticMultiplication) {
+TEST(TransportEnergyConsumption, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(TransportEnergyConsumption(
                 4.0, Unit::TransportEnergyConsumption::JoulePerMetre)
                 * 2.0,
@@ -100,7 +85,37 @@ TEST(TransportEnergyConsumption, ArithmeticMultiplication) {
                 * TransportEnergyConsumption(
                     2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
             Power(8.0, Unit::Power::Watt));
+}
 
+TEST(TransportEnergyConsumption, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(TransportEnergyConsumption(
+                3.0, Unit::TransportEnergyConsumption::JoulePerMetre)
+                - TransportEnergyConsumption(
+                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
+            TransportEnergyConsumption(
+                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+}
+
+TEST(TransportEnergyConsumption, AssignmentOperatorAddition) {
+  TransportEnergyConsumption quantity{
+      1.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity += TransportEnergyConsumption(
+      2.0, Unit::TransportEnergyConsumption::JoulePerMetre);
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                3.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+}
+
+TEST(TransportEnergyConsumption, AssignmentOperatorDivision) {
+  TransportEnergyConsumption quantity{
+      8.0, Unit::TransportEnergyConsumption::JoulePerMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            TransportEnergyConsumption(
+                4.0, Unit::TransportEnergyConsumption::JoulePerMetre));
+}
+
+TEST(TransportEnergyConsumption, AssignmentOperatorMultiplication) {
   TransportEnergyConsumption quantity{
       4.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   quantity *= 2.0;
@@ -109,14 +124,7 @@ TEST(TransportEnergyConsumption, ArithmeticMultiplication) {
                 8.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, ArithmeticSubtraction) {
-  EXPECT_EQ(TransportEnergyConsumption(
-                3.0, Unit::TransportEnergyConsumption::JoulePerMetre)
-                - TransportEnergyConsumption(
-                    2.0, Unit::TransportEnergyConsumption::JoulePerMetre),
-            TransportEnergyConsumption(
-                1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
-
+TEST(TransportEnergyConsumption, AssignmentOperatorSubtraction) {
   TransportEnergyConsumption quantity{
       3.0, Unit::TransportEnergyConsumption::JoulePerMetre};
   quantity -= TransportEnergyConsumption(
@@ -126,7 +134,7 @@ TEST(TransportEnergyConsumption, ArithmeticSubtraction) {
                 1.0, Unit::TransportEnergyConsumption::JoulePerMetre));
 }
 
-TEST(TransportEnergyConsumption, Comparisons) {
+TEST(TransportEnergyConsumption, ComparisonOperators) {
   const TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   const TransportEnergyConsumption second{
@@ -141,7 +149,7 @@ TEST(TransportEnergyConsumption, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(TransportEnergyConsumption, CopyAssignment) {
+TEST(TransportEnergyConsumption, CopyAssignmentOperator) {
   const TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   TransportEnergyConsumption second = TransportEnergyConsumption::Zero();
@@ -221,7 +229,7 @@ TEST(TransportEnergyConsumption, MiscellaneousConstructors) {
             Power(8.0, Unit::Power::Watt));
 }
 
-TEST(TransportEnergyConsumption, MoveAssignment) {
+TEST(TransportEnergyConsumption, MoveAssignmentOperator) {
   TransportEnergyConsumption first{
       1.11, Unit::TransportEnergyConsumption::JoulePerMetre};
   TransportEnergyConsumption second = TransportEnergyConsumption::Zero();

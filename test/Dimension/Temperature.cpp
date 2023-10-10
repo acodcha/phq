@@ -25,7 +25,7 @@ TEST(DimensionTemperature, Abbreviation) {
   EXPECT_EQ(Temperature::Abbreviation(), "Θ");
 }
 
-TEST(DimensionTemperature, Comparisons) {
+TEST(DimensionTemperature, ComparisonOperators) {
   constexpr Temperature first{-1};
   constexpr Temperature second{2};
   EXPECT_EQ(first, first);
@@ -38,7 +38,7 @@ TEST(DimensionTemperature, Comparisons) {
   EXPECT_GE(first, first);
 }
 
-TEST(DimensionTemperature, CopyAssignment) {
+TEST(DimensionTemperature, CopyAssignmentOperator) {
   constexpr Temperature first{3};
   Temperature second{0};
   second = first;
@@ -69,7 +69,7 @@ TEST(DimensionTemperature, Label) {
   EXPECT_EQ(Temperature::Label(), "Temperature");
 }
 
-TEST(DimensionTemperature, MoveAssignment) {
+TEST(DimensionTemperature, MoveAssignmentOperator) {
   Temperature first{3};
   Temperature second{-1};
   second = std::move(first);

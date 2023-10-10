@@ -30,7 +30,7 @@ TEST(TemperatureGradient, Angle) {
       Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(TemperatureGradient, ArithmeticAddition) {
+TEST(TemperatureGradient, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       TemperatureGradient(
           {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)
@@ -38,32 +38,17 @@ TEST(TemperatureGradient, ArithmeticAddition) {
               {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre),
       TemperatureGradient(
           {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre));
-
-  TemperatureGradient quantity(
-      {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  quantity += TemperatureGradient(
-      {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  EXPECT_EQ(quantity,
-            TemperatureGradient(
-                {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, ArithmeticDivision) {
+TEST(TemperatureGradient, ArithmeticOperatorDivision) {
   EXPECT_EQ(TemperatureGradient(
                 {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre)
                 / 2.0,
             TemperatureGradient(
                 {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
-
-  TemperatureGradient quantity(
-      {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            TemperatureGradient(
-                {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, ArithmeticMultiplication) {
+TEST(TemperatureGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(TemperatureGradient(
                 {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)
                 * 2.0,
@@ -88,7 +73,38 @@ TEST(TemperatureGradient, ArithmeticMultiplication) {
                 * Direction(2.0, -3.0, 6.0),
             TemperatureGradient(
                 {2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
+}
 
+TEST(TemperatureGradient, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      TemperatureGradient(
+          {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre)
+          - TemperatureGradient(
+              {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre),
+      TemperatureGradient(
+          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+}
+
+TEST(TemperatureGradient, AssignmentOperatorAddition) {
+  TemperatureGradient quantity(
+      {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
+  quantity += TemperatureGradient(
+      {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre);
+  EXPECT_EQ(quantity,
+            TemperatureGradient(
+                {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre));
+}
+
+TEST(TemperatureGradient, AssignmentOperatorDivision) {
+  TemperatureGradient quantity(
+      {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            TemperatureGradient(
+                {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
+}
+
+TEST(TemperatureGradient, AssignmentOperatorMultiplication) {
   TemperatureGradient quantity(
       {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
   quantity *= 2.0;
@@ -97,15 +113,7 @@ TEST(TemperatureGradient, ArithmeticMultiplication) {
                 {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      TemperatureGradient(
-          {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre)
-          - TemperatureGradient(
-              {2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre),
-      TemperatureGradient(
-          {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
-
+TEST(TemperatureGradient, AssignmentOperatorSubtraction) {
   TemperatureGradient quantity(
       {3.0, -6.0, 9.0}, Unit::TemperatureGradient::KelvinPerMetre);
   quantity -= TemperatureGradient(
@@ -115,7 +123,7 @@ TEST(TemperatureGradient, ArithmeticSubtraction) {
                 {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, Comparisons) {
+TEST(TemperatureGradient, ComparisonOperators) {
   const TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
   const TemperatureGradient second(
@@ -130,7 +138,7 @@ TEST(TemperatureGradient, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(TemperatureGradient, CopyAssignment) {
+TEST(TemperatureGradient, CopyAssignmentOperator) {
   const TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
   TemperatureGradient second = TemperatureGradient::Zero();
@@ -216,7 +224,7 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
                 7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
-TEST(TemperatureGradient, MoveAssignment) {
+TEST(TemperatureGradient, MoveAssignmentOperator) {
   TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
   TemperatureGradient second = TemperatureGradient::Zero();

@@ -21,43 +21,51 @@ namespace PhQ {
 
 namespace {
 
-TEST(PrandtlNumber, ArithmeticAddition) {
+TEST(PrandtlNumber, ArithmeticOperatorAddition) {
   EXPECT_EQ(PrandtlNumber(1.0) + PrandtlNumber(2.0), PrandtlNumber(3.0));
+}
 
+TEST(PrandtlNumber, ArithmeticOperatorDivision) {
+  EXPECT_EQ(PrandtlNumber(8.0) / 2.0, PrandtlNumber(4.0));
+
+  EXPECT_EQ(PrandtlNumber(8.0) / PrandtlNumber(2.0), 4.0);
+}
+
+TEST(PrandtlNumber, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(PrandtlNumber(4.0) * 2.0, PrandtlNumber(8.0));
+
+  EXPECT_EQ(2.0 * PrandtlNumber(4.0), PrandtlNumber(8.0));
+}
+
+TEST(PrandtlNumber, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(PrandtlNumber(3.0) - PrandtlNumber(2.0), PrandtlNumber(1.0));
+}
+
+TEST(PrandtlNumber, AssignmentOperatorAddition) {
   PrandtlNumber quantity{1.0};
   quantity += PrandtlNumber(2.0);
   EXPECT_EQ(quantity, PrandtlNumber(3.0));
 }
 
-TEST(PrandtlNumber, ArithmeticDivision) {
-  EXPECT_EQ(PrandtlNumber(8.0) / 2.0, PrandtlNumber(4.0));
-
-  EXPECT_EQ(PrandtlNumber(8.0) / PrandtlNumber(2.0), 4.0);
-
+TEST(PrandtlNumber, AssignmentOperatorDivision) {
   PrandtlNumber quantity{8.0};
   quantity /= 2.0;
   EXPECT_EQ(quantity, PrandtlNumber(4.0));
 }
 
-TEST(PrandtlNumber, ArithmeticMultiplication) {
-  EXPECT_EQ(PrandtlNumber(4.0) * 2.0, PrandtlNumber(8.0));
-
-  EXPECT_EQ(2.0 * PrandtlNumber(4.0), PrandtlNumber(8.0));
-
+TEST(PrandtlNumber, AssignmentOperatorMultiplication) {
   PrandtlNumber quantity{4.0};
   quantity *= 2.0;
   EXPECT_EQ(quantity, PrandtlNumber(8.0));
 }
 
-TEST(PrandtlNumber, ArithmeticSubtraction) {
-  EXPECT_EQ(PrandtlNumber(3.0) - PrandtlNumber(2.0), PrandtlNumber(1.0));
-
+TEST(PrandtlNumber, AssignmentOperatorSubtraction) {
   PrandtlNumber quantity{3.0};
   quantity -= PrandtlNumber(2.0);
   EXPECT_EQ(quantity, PrandtlNumber(1.0));
 }
 
-TEST(PrandtlNumber, Comparisons) {
+TEST(PrandtlNumber, ComparisonOperators) {
   const PrandtlNumber first{1.11};
   const PrandtlNumber second{2.22};
   EXPECT_EQ(first, first);
@@ -70,7 +78,7 @@ TEST(PrandtlNumber, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(PrandtlNumber, CopyAssignment) {
+TEST(PrandtlNumber, CopyAssignmentOperator) {
   const PrandtlNumber first{1.11};
   PrandtlNumber second = PrandtlNumber::Zero();
   second = first;
@@ -190,7 +198,7 @@ TEST(PrandtlNumber, MiscellaneousMethods) {
             ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
-TEST(PrandtlNumber, MoveAssignment) {
+TEST(PrandtlNumber, MoveAssignmentOperator) {
   PrandtlNumber first{1.11};
   PrandtlNumber second = PrandtlNumber::Zero();
   second = std::move(first);

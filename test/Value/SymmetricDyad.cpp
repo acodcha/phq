@@ -26,26 +26,18 @@ TEST(ValueSymmetricDyad, Adjugate) {
             SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
-TEST(ValueSymmetricDyad, ArithmeticAddition) {
+TEST(ValueSymmetricDyad, ArithmeticOperatorAddition) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0)
                 + SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
             SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
-
-  SymmetricDyad value{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
-  value += SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
-  EXPECT_EQ(value, SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
 }
 
-TEST(ValueSymmetricDyad, ArithmeticDivision) {
+TEST(ValueSymmetricDyad, ArithmeticOperatorDivision) {
   EXPECT_EQ(SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / 2.0,
             SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-
-  SymmetricDyad value{2.0, -4.0, 6.0, -8.0, 10.0, -12.0};
-  value /= 2.0;
-  EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
-TEST(ValueSymmetricDyad, ArithmeticMultiplication) {
+TEST(ValueSymmetricDyad, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * 2.0,
             SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
@@ -55,17 +47,33 @@ TEST(ValueSymmetricDyad, ArithmeticMultiplication) {
   EXPECT_EQ(
       SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * Vector(1.0, -2.0, 3.0),
       Vector(14.0, 21.0, -25.0));
+}
 
+TEST(ValueSymmetricDyad, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
+                - SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
+TEST(ValueSymmetricDyad, AssignmentOperatorAddition) {
+  SymmetricDyad value{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+  value += SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
+  EXPECT_EQ(value, SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
+}
+
+TEST(ValueSymmetricDyad, AssignmentOperatorDivision) {
+  SymmetricDyad value{2.0, -4.0, 6.0, -8.0, 10.0, -12.0};
+  value /= 2.0;
+  EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+}
+
+TEST(ValueSymmetricDyad, AssignmentOperatorMultiplication) {
   SymmetricDyad value{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
   value *= 2.0;
   EXPECT_EQ(value, SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 }
 
-TEST(ValueSymmetricDyad, ArithmeticSubtraction) {
-  EXPECT_EQ(SymmetricDyad(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
-                - SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
-            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
-
+TEST(ValueSymmetricDyad, AssignmentOperatorSubtraction) {
   SymmetricDyad value{3.0, -6.0, 9.0, -12.0, 15.0, -18.0};
   value -= SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0);
   EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
@@ -76,7 +84,7 @@ TEST(ValueSymmetricDyad, Cofactors) {
             SymmetricDyad(496.0, -60.0, -8.0, 255.0, -30.0, 124.0));
 }
 
-TEST(ValueSymmetricDyad, Comparisons) {
+TEST(ValueSymmetricDyad, ComparisonOperators) {
   constexpr SymmetricDyad first{1.11, 2.22, 3.33, 4.44, 5.55, 6.66};
   constexpr SymmetricDyad second{1.11, 2.22, 3.34, 4.44, 5.55, 6.66};
   constexpr SymmetricDyad third{1.11, 2.22, 3.34, 4.44, 5.55, 6.67};
@@ -94,7 +102,7 @@ TEST(ValueSymmetricDyad, Comparisons) {
   EXPECT_GE(third, second);
 }
 
-TEST(ValueSymmetricDyad, CopyAssignment) {
+TEST(ValueSymmetricDyad, CopyAssignmentOperator) {
   constexpr SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   SymmetricDyad second = SymmetricDyad::Zero();
   second = first;
@@ -148,7 +156,7 @@ TEST(ValueSymmetricDyad, JSON) {
             "000000000000000,\"yy\":0,\"yz\":-4.000000000000000,\"zz\":0}");
 }
 
-TEST(ValueSymmetricDyad, MoveAssignment) {
+TEST(ValueSymmetricDyad, MoveAssignmentOperator) {
   SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   SymmetricDyad second = SymmetricDyad::Zero();
   second = std::move(first);

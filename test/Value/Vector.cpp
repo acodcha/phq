@@ -21,43 +21,51 @@ namespace PhQ::Value {
 
 namespace {
 
-TEST(ValueVector, ArithmeticAddition) {
+TEST(ValueVector, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       Vector(1.0, -2.0, 3.0) + Vector(2.0, -4.0, 6.0), Vector(3.0, -6.0, 9.0));
+}
 
+TEST(ValueVector, ArithmeticOperatorDivision) {
+  EXPECT_EQ(Vector(2.0, -4.0, 6.0) / 2.0, Vector(1.0, -2.0, 3.0));
+}
+
+TEST(ValueVector, ArithmeticOperatorMultiplication) {
+  EXPECT_EQ(Vector(1.0, -2.0, 3.0) * 2.0, Vector(2.0, -4.0, 6.0));
+
+  EXPECT_EQ(2.0 * Vector(1.0, -2.0, 3.0), Vector(2.0, -4.0, 6.0));
+}
+
+TEST(ValueVector, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      Vector(3.0, -6.0, 9.0) - Vector(2.0, -4.0, 6.0), Vector(1.0, -2.0, 3.0));
+}
+
+TEST(ValueVector, AssignmentOperatorAddition) {
   Vector value{1.0, -2.0, 3.0};
   value += Vector(2.0, -4.0, 6.0);
   EXPECT_EQ(value, Vector(3.0, -6.0, 9.0));
 }
 
-TEST(ValueVector, ArithmeticDivision) {
-  EXPECT_EQ(Vector(2.0, -4.0, 6.0) / 2.0, Vector(1.0, -2.0, 3.0));
-
+TEST(ValueVector, AssignmentOperatorDivision) {
   Vector value{2.0, -4.0, 6.0};
   value /= 2.0;
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, ArithmeticMultiplication) {
-  EXPECT_EQ(Vector(1.0, -2.0, 3.0) * 2.0, Vector(2.0, -4.0, 6.0));
-
-  EXPECT_EQ(2.0 * Vector(1.0, -2.0, 3.0), Vector(2.0, -4.0, 6.0));
-
+TEST(ValueVector, AssignmentOperatorMultiplication) {
   Vector value{1.0, -2.0, 3.0};
   value *= 2.0;
   EXPECT_EQ(value, Vector(2.0, -4.0, 6.0));
 }
 
-TEST(ValueVector, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      Vector(3.0, -6.0, 9.0) - Vector(2.0, -4.0, 6.0), Vector(1.0, -2.0, 3.0));
-
+TEST(ValueVector, AssignmentOperatorSubtraction) {
   Vector value{3.0, -6.0, 9.0};
   value -= Vector(2.0, -4.0, 6.0);
   EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, Comparisons) {
+TEST(ValueVector, ComparisonOperators) {
   constexpr Vector first{1.11, 2.22, 3.33};
   constexpr Vector second{1.11, 2.23, 3.33};
   constexpr Vector third{1.11, 2.23, 3.34};
@@ -75,7 +83,7 @@ TEST(ValueVector, Comparisons) {
   EXPECT_GE(third, second);
 }
 
-TEST(ValueVector, CopyAssignment) {
+TEST(ValueVector, CopyAssignmentOperator) {
   constexpr Vector first(1.11, -2.22, 3.33);
   Vector second = Vector::Zero();
   second = first;
@@ -124,7 +132,7 @@ TEST(ValueVector, Magnitude) {
   EXPECT_EQ(Vector(-1.0, 2.0, -3.0).MagnitudeSquared(), 14.0);
 }
 
-TEST(ValueVector, MoveAssignment) {
+TEST(ValueVector, MoveAssignmentOperator) {
   Vector first(1.11, -2.22, 3.33);
   Vector second = Vector::Zero();
   second = std::move(first);

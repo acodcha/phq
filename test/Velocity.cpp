@@ -27,30 +27,22 @@ TEST(Velocity, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Velocity, ArithmeticAddition) {
+TEST(Velocity, ArithmeticOperatorAddition) {
   EXPECT_EQ(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond)
                 + Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
             Velocity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond));
-
-  Velocity quantity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  quantity += Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond);
-  EXPECT_EQ(quantity, Velocity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Velocity, ArithmeticDivision) {
+TEST(Velocity, ArithmeticOperatorDivision) {
   EXPECT_EQ(Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond) / 2.0,
             Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 
   EXPECT_EQ(Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond)
                 / Frequency(2.0, Unit::Frequency::Hertz),
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
-  Velocity quantity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Velocity, ArithmeticMultiplication) {
+TEST(Velocity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond) * 2.0,
             Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
 
@@ -70,23 +62,39 @@ TEST(Velocity, ArithmeticMultiplication) {
   EXPECT_EQ(Time(2.0, Unit::Time::Second)
                 * Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
             Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));
+}
 
+TEST(Velocity, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Velocity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond)
+                - Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
+            Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Velocity, AssignmentOperatorAddition) {
+  Velocity quantity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
+  quantity += Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond);
+  EXPECT_EQ(quantity, Velocity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Velocity, AssignmentOperatorDivision) {
+  Velocity quantity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
+}
+
+TEST(Velocity, AssignmentOperatorMultiplication) {
   Velocity quantity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Velocity, ArithmeticSubtraction) {
-  EXPECT_EQ(Velocity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond)
-                - Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond),
-            Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
-
+TEST(Velocity, AssignmentOperatorSubtraction) {
   Velocity quantity({3.0, -6.0, 9.0}, Unit::Speed::MetrePerSecond);
   quantity -= Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond);
   EXPECT_EQ(quantity, Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond));
 }
 
-TEST(Velocity, Comparisons) {
+TEST(Velocity, ComparisonOperators) {
   const Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
   const Velocity second({1.11, -2.22, 3.330001}, Unit::Speed::MetrePerSecond);
   EXPECT_EQ(first, first);
@@ -99,7 +107,7 @@ TEST(Velocity, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Velocity, CopyAssignment) {
+TEST(Velocity, CopyAssignmentOperator) {
   const Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
   Velocity second = Velocity::Zero();
   second = first;
@@ -176,7 +184,7 @@ TEST(Velocity, MiscellaneousConstructors) {
       Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
-TEST(Velocity, MoveAssignment) {
+TEST(Velocity, MoveAssignmentOperator) {
   Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
   Velocity second = Velocity::Zero();
   second = std::move(first);

@@ -21,30 +21,22 @@ namespace PhQ {
 
 namespace {
 
-TEST(Frequency, ArithmeticAddition) {
+TEST(Frequency, ArithmeticOperatorAddition) {
   EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz)
                 + Frequency(2.0, Unit::Frequency::Hertz),
             Frequency(3.0, Unit::Frequency::Hertz));
-
-  Frequency quantity{1.0, Unit::Frequency::Hertz};
-  quantity += Frequency(2.0, Unit::Frequency::Hertz);
-  EXPECT_EQ(quantity, Frequency(3.0, Unit::Frequency::Hertz));
 }
 
-TEST(Frequency, ArithmeticDivision) {
+TEST(Frequency, ArithmeticOperatorDivision) {
   EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / 2.0,
             Frequency(4.0, Unit::Frequency::Hertz));
 
   EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz)
                 / Frequency(2.0, Unit::Frequency::Hertz),
             4.0);
-
-  Frequency quantity{8.0, Unit::Frequency::Hertz};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Frequency(4.0, Unit::Frequency::Hertz));
 }
 
-TEST(Frequency, ArithmeticMultiplication) {
+TEST(Frequency, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * 2.0,
             Frequency(8.0, Unit::Frequency::Hertz));
 
@@ -58,23 +50,39 @@ TEST(Frequency, ArithmeticMultiplication) {
   EXPECT_EQ(
       Time(4.0, Unit::Time::Second) * Frequency(2.0, Unit::Frequency::Hertz),
       8.0);
+}
 
+TEST(Frequency, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Frequency(3.0, Unit::Frequency::Hertz)
+                - Frequency(2.0, Unit::Frequency::Hertz),
+            Frequency(1.0, Unit::Frequency::Hertz));
+}
+
+TEST(Frequency, AssignmentOperatorAddition) {
+  Frequency quantity{1.0, Unit::Frequency::Hertz};
+  quantity += Frequency(2.0, Unit::Frequency::Hertz);
+  EXPECT_EQ(quantity, Frequency(3.0, Unit::Frequency::Hertz));
+}
+
+TEST(Frequency, AssignmentOperatorDivision) {
+  Frequency quantity{8.0, Unit::Frequency::Hertz};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Frequency(4.0, Unit::Frequency::Hertz));
+}
+
+TEST(Frequency, AssignmentOperatorMultiplication) {
   Frequency quantity{4.0, Unit::Frequency::Hertz};
   quantity *= 2.0;
   EXPECT_EQ(quantity, Frequency(8.0, Unit::Frequency::Hertz));
 }
 
-TEST(Frequency, ArithmeticSubtraction) {
-  EXPECT_EQ(Frequency(3.0, Unit::Frequency::Hertz)
-                - Frequency(2.0, Unit::Frequency::Hertz),
-            Frequency(1.0, Unit::Frequency::Hertz));
-
+TEST(Frequency, AssignmentOperatorSubtraction) {
   Frequency quantity{3.0, Unit::Frequency::Hertz};
   quantity -= Frequency(2.0, Unit::Frequency::Hertz);
   EXPECT_EQ(quantity, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
-TEST(Frequency, Comparisons) {
+TEST(Frequency, ComparisonOperators) {
   const Frequency first{0.1, Unit::Frequency::Hertz};
   const Frequency second{0.2, Unit::Frequency::Hertz};
   EXPECT_EQ(first, first);
@@ -87,7 +95,7 @@ TEST(Frequency, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Frequency, CopyAssignment) {
+TEST(Frequency, CopyAssignmentOperator) {
   const Frequency first{1.11, Unit::Frequency::Hertz};
   Frequency second = Frequency::Zero();
   second = first;
@@ -144,7 +152,7 @@ TEST(Frequency, MiscellaneousMethods) {
             Frequency(2.0, Unit::Frequency::Hertz));
 }
 
-TEST(Frequency, MoveAssignment) {
+TEST(Frequency, MoveAssignmentOperator) {
   Frequency first{1.11, Unit::Frequency::Hertz};
   Frequency second = Frequency::Zero();
   second = std::move(first);

@@ -21,31 +21,20 @@ namespace PhQ {
 
 namespace {
 
-TEST(Stress, ArithmeticAddition) {
+TEST(Stress, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal)
           + Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal),
       Stress({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Pressure::Pascal));
-
-  Stress quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  quantity +=
-      Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, Stress({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
-                             Unit::Pressure::Pascal));
 }
 
-TEST(Stress, ArithmeticDivision) {
+TEST(Stress, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal) / 2.0,
       Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
-
-  Stress quantity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Stress, ArithmeticMultiplication) {
+TEST(Stress, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal) * 2.0,
       Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal));
@@ -53,19 +42,38 @@ TEST(Stress, ArithmeticMultiplication) {
   EXPECT_EQ(
       2.0 * Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal),
       Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal));
+}
 
+TEST(Stress, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      Stress({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Pressure::Pascal)
+          - Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal),
+      Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+}
+
+TEST(Stress, AssignmentOperatorAddition) {
+  Stress quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
+  quantity +=
+      Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal);
+  EXPECT_EQ(quantity, Stress({3.0, -6.0, 9.0, -12.0, 15.0, -18.0},
+                             Unit::Pressure::Pascal));
+}
+
+TEST(Stress, AssignmentOperatorDivision) {
+  Stress quantity({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
+}
+
+TEST(Stress, AssignmentOperatorMultiplication) {
   Stress quantity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0},
                              Unit::Pressure::Pascal));
 }
 
-TEST(Stress, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      Stress({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Pressure::Pascal)
-          - Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal),
-      Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
-
+TEST(Stress, AssignmentOperatorSubtraction) {
   Stress quantity({3.0, -6.0, 9.0, -12.0, 15.0, -18.0}, Unit::Pressure::Pascal);
   quantity -=
       Stress({2.0, -4.0, 6.0, -8.0, 10.0, -12.0}, Unit::Pressure::Pascal);
@@ -73,7 +81,7 @@ TEST(Stress, ArithmeticSubtraction) {
             Stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Stress, Comparisons) {
+TEST(Stress, ComparisonOperators) {
   const Stress first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.660001}, Unit::Pressure::Pascal);
   const Stress second(
@@ -88,7 +96,7 @@ TEST(Stress, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Stress, CopyAssignment) {
+TEST(Stress, CopyAssignmentOperator) {
   const Stress first(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal);
   Stress second = Stress::Zero();
@@ -178,7 +186,7 @@ TEST(Stress, MiscellaneousMethods) {
                 Unit::Pressure::Pascal));
 }
 
-TEST(Stress, MoveAssignment) {
+TEST(Stress, MoveAssignmentOperator) {
   Stress first({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal);
   Stress second = Stress::Zero();
   second = std::move(first);

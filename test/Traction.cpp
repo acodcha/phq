@@ -27,30 +27,22 @@ TEST(Traction, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(Traction, ArithmeticAddition) {
+TEST(Traction, ArithmeticOperatorAddition) {
   EXPECT_EQ(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal)
                 + Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal),
             Traction({3.0, -6.0, 9.0}, Unit::Pressure::Pascal));
-
-  Traction quantity({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  quantity += Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, Traction({3.0, -6.0, 9.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Traction, ArithmeticDivision) {
+TEST(Traction, ArithmeticOperatorDivision) {
   EXPECT_EQ(Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal) / 2.0,
             Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 
   EXPECT_EQ(Force({2.0, -4.0, 6.0}, Unit::Force::Newton)
                 / Area(2.0, Unit::Area::SquareMetre),
             Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
-
-  Traction quantity({2.0, -4.0, 6.0}, Unit::Pressure::Pascal);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Traction, ArithmeticMultiplication) {
+TEST(Traction, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal) * 2.0,
             Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal));
 
@@ -64,23 +56,39 @@ TEST(Traction, ArithmeticMultiplication) {
   EXPECT_EQ(
       StaticPressure(7.0, Unit::Pressure::Pascal) * Direction(2.0, -3.0, 6.0),
       Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
+}
 
+TEST(Traction, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(Traction({3.0, -6.0, 9.0}, Unit::Pressure::Pascal)
+                - Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal),
+            Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+}
+
+TEST(Traction, AssignmentOperatorAddition) {
+  Traction quantity({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
+  quantity += Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal);
+  EXPECT_EQ(quantity, Traction({3.0, -6.0, 9.0}, Unit::Pressure::Pascal));
+}
+
+TEST(Traction, AssignmentOperatorDivision) {
+  Traction quantity({2.0, -4.0, 6.0}, Unit::Pressure::Pascal);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+}
+
+TEST(Traction, AssignmentOperatorMultiplication) {
   Traction quantity({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
   quantity *= 2.0;
   EXPECT_EQ(quantity, Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Traction, ArithmeticSubtraction) {
-  EXPECT_EQ(Traction({3.0, -6.0, 9.0}, Unit::Pressure::Pascal)
-                - Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal),
-            Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
-
+TEST(Traction, AssignmentOperatorSubtraction) {
   Traction quantity({3.0, -6.0, 9.0}, Unit::Pressure::Pascal);
   quantity -= Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal);
   EXPECT_EQ(quantity, Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 }
 
-TEST(Traction, Comparisons) {
+TEST(Traction, ComparisonOperators) {
   const Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
   const Traction second({1.11, -2.22, 3.330001}, Unit::Pressure::Pascal);
   EXPECT_EQ(first, first);
@@ -93,7 +101,7 @@ TEST(Traction, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(Traction, CopyAssignment) {
+TEST(Traction, CopyAssignmentOperator) {
   const Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
   Traction second = Traction::Zero();
   second = first;
@@ -165,7 +173,7 @@ TEST(Traction, MiscellaneousConstructors) {
             Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 }
 
-TEST(Traction, MoveAssignment) {
+TEST(Traction, MoveAssignmentOperator) {
   Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
   Traction second = Traction::Zero();
   second = std::move(first);

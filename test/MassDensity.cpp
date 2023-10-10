@@ -21,18 +21,13 @@ namespace PhQ {
 
 namespace {
 
-TEST(MassDensity, ArithmeticAddition) {
+TEST(MassDensity, ArithmeticOperatorAddition) {
   EXPECT_EQ(MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre)
                 + MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
             MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre));
-
-  MassDensity quantity{1.0, Unit::MassDensity::KilogramPerCubicMetre};
-  quantity += MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(
-      quantity, MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
-TEST(MassDensity, ArithmeticDivision) {
+TEST(MassDensity, ArithmeticOperatorDivision) {
   EXPECT_EQ(MassDensity(8.0, Unit::MassDensity::KilogramPerCubicMetre) / 2.0,
             MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
 
@@ -47,14 +42,9 @@ TEST(MassDensity, ArithmeticDivision) {
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram)
                 / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
             Volume(2.0, Unit::Volume::CubicMetre));
-
-  MassDensity quantity{8.0, Unit::MassDensity::KilogramPerCubicMetre};
-  quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
-TEST(MassDensity, ArithmeticMultiplication) {
+TEST(MassDensity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre) * 2.0,
             MassDensity(8.0, Unit::MassDensity::KilogramPerCubicMetre));
 
@@ -68,25 +58,43 @@ TEST(MassDensity, ArithmeticMultiplication) {
   EXPECT_EQ(Volume(4.0, Unit::Volume::CubicMetre)
                 * MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
             Mass(8.0, Unit::Mass::Kilogram));
+}
 
+TEST(MassDensity, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre)
+                - MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+            MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+}
+
+TEST(MassDensity, AssignmentOperatorAddition) {
+  MassDensity quantity{1.0, Unit::MassDensity::KilogramPerCubicMetre};
+  quantity += MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre);
+  EXPECT_EQ(
+      quantity, MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre));
+}
+
+TEST(MassDensity, AssignmentOperatorDivision) {
+  MassDensity quantity{8.0, Unit::MassDensity::KilogramPerCubicMetre};
+  quantity /= 2.0;
+  EXPECT_EQ(
+      quantity, MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
+}
+
+TEST(MassDensity, AssignmentOperatorMultiplication) {
   MassDensity quantity{4.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity *= 2.0;
   EXPECT_EQ(
       quantity, MassDensity(8.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
-TEST(MassDensity, ArithmeticSubtraction) {
-  EXPECT_EQ(MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre)
-                - MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-            MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
-
+TEST(MassDensity, AssignmentOperatorSubtraction) {
   MassDensity quantity{3.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity -= MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre);
   EXPECT_EQ(
       quantity, MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
-TEST(MassDensity, Comparisons) {
+TEST(MassDensity, ComparisonOperators) {
   const MassDensity first{0.1, Unit::MassDensity::KilogramPerCubicMetre};
   const MassDensity second{0.2, Unit::MassDensity::KilogramPerCubicMetre};
   EXPECT_EQ(first, first);
@@ -99,7 +107,7 @@ TEST(MassDensity, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(MassDensity, CopyAssignment) {
+TEST(MassDensity, CopyAssignmentOperator) {
   const MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
   MassDensity second = MassDensity::Zero();
   second = first;
@@ -159,7 +167,7 @@ TEST(MassDensity, MiscellaneousConstructor) {
             Volume(2.0, Unit::Volume::CubicMetre));
 }
 
-TEST(MassDensity, MoveAssignment) {
+TEST(MassDensity, MoveAssignmentOperator) {
   MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
   MassDensity second = MassDensity::Zero();
   second = std::move(first);

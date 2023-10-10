@@ -21,52 +21,60 @@ namespace PhQ {
 
 namespace {
 
-TEST(SubstanceAmount, ArithmeticAddition) {
+TEST(SubstanceAmount, ArithmeticOperatorAddition) {
   EXPECT_EQ(SubstanceAmount(1.0, Unit::SubstanceAmount::Mole)
                 + SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
             SubstanceAmount(3.0, Unit::SubstanceAmount::Mole));
-
-  SubstanceAmount quantity{1.0, Unit::SubstanceAmount::Mole};
-  quantity += SubstanceAmount(2.0, Unit::SubstanceAmount::Mole);
-  EXPECT_EQ(quantity, SubstanceAmount(3.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, ArithmeticDivision) {
+TEST(SubstanceAmount, ArithmeticOperatorDivision) {
   EXPECT_EQ(SubstanceAmount(8.0, Unit::SubstanceAmount::Mole) / 2.0,
             SubstanceAmount(4.0, Unit::SubstanceAmount::Mole));
 
   EXPECT_EQ(SubstanceAmount(8.0, Unit::SubstanceAmount::Mole)
                 / SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
             4.0);
-
-  SubstanceAmount quantity{8.0, Unit::SubstanceAmount::Mole};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, SubstanceAmount(4.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, ArithmeticMultiplication) {
+TEST(SubstanceAmount, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(SubstanceAmount(4.0, Unit::SubstanceAmount::Mole) * 2.0,
             SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
 
   EXPECT_EQ(2.0 * SubstanceAmount(4.0, Unit::SubstanceAmount::Mole),
             SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
+}
 
+TEST(SubstanceAmount, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(SubstanceAmount(3.0, Unit::SubstanceAmount::Mole)
+                - SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
+            SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
+}
+
+TEST(SubstanceAmount, AssignmentOperatorAddition) {
+  SubstanceAmount quantity{1.0, Unit::SubstanceAmount::Mole};
+  quantity += SubstanceAmount(2.0, Unit::SubstanceAmount::Mole);
+  EXPECT_EQ(quantity, SubstanceAmount(3.0, Unit::SubstanceAmount::Mole));
+}
+
+TEST(SubstanceAmount, AssignmentOperatorDivision) {
+  SubstanceAmount quantity{8.0, Unit::SubstanceAmount::Mole};
+  quantity /= 2.0;
+  EXPECT_EQ(quantity, SubstanceAmount(4.0, Unit::SubstanceAmount::Mole));
+}
+
+TEST(SubstanceAmount, AssignmentOperatorMultiplication) {
   SubstanceAmount quantity{4.0, Unit::SubstanceAmount::Mole};
   quantity *= 2.0;
   EXPECT_EQ(quantity, SubstanceAmount(8.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, ArithmeticSubtraction) {
-  EXPECT_EQ(SubstanceAmount(3.0, Unit::SubstanceAmount::Mole)
-                - SubstanceAmount(2.0, Unit::SubstanceAmount::Mole),
-            SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
-
+TEST(SubstanceAmount, AssignmentOperatorSubtraction) {
   SubstanceAmount quantity{3.0, Unit::SubstanceAmount::Mole};
   quantity -= SubstanceAmount(2.0, Unit::SubstanceAmount::Mole);
   EXPECT_EQ(quantity, SubstanceAmount(1.0, Unit::SubstanceAmount::Mole));
 }
 
-TEST(SubstanceAmount, Comparisons) {
+TEST(SubstanceAmount, ComparisonOperators) {
   const SubstanceAmount first{0.1, Unit::SubstanceAmount::Mole};
   const SubstanceAmount second{0.2, Unit::SubstanceAmount::Mole};
   EXPECT_EQ(first, first);
@@ -79,7 +87,7 @@ TEST(SubstanceAmount, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(SubstanceAmount, CopyAssignment) {
+TEST(SubstanceAmount, CopyAssignmentOperator) {
   const SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
   SubstanceAmount second = SubstanceAmount::Zero();
   second = first;
@@ -125,7 +133,7 @@ TEST(SubstanceAmount, JSON) {
             "{\"value\":-2.220000000000000,\"unit\":\"kmol\"}");
 }
 
-TEST(SubstanceAmount, MoveAssignment) {
+TEST(SubstanceAmount, MoveAssignmentOperator) {
   SubstanceAmount first{1.11, Unit::SubstanceAmount::Mole};
   SubstanceAmount second = SubstanceAmount::Zero();
   second = std::move(first);

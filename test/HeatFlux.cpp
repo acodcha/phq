@@ -28,30 +28,20 @@ TEST(HeatFlux, Angle) {
             Angle(90.0, Unit::Angle::Degree));
 }
 
-TEST(HeatFlux, ArithmeticAddition) {
+TEST(HeatFlux, ArithmeticOperatorAddition) {
   EXPECT_EQ(
       HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre)
           + HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre),
       HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
-  HeatFlux quantity({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity += HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(quantity,
-            HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
-TEST(HeatFlux, ArithmeticDivision) {
+TEST(HeatFlux, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre) / 2.0,
       HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
-  HeatFlux quantity({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity,
-            HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
-TEST(HeatFlux, ArithmeticMultiplication) {
+TEST(HeatFlux, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre) * 2.0,
       HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
@@ -67,26 +57,44 @@ TEST(HeatFlux, ArithmeticMultiplication) {
   EXPECT_EQ(HeatFluxMagnitude(7.0, Unit::EnergyFlux::WattPerSquareMetre)
                 * Direction(2.0, -3.0, 6.0),
             HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
+}
 
+TEST(HeatFlux, ArithmeticOperatorSubtraction) {
+  EXPECT_EQ(
+      HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre)
+          - HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre),
+      HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+}
+
+TEST(HeatFlux, AssignmentOperatorAddition) {
+  HeatFlux quantity({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  quantity += HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(quantity,
+            HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre));
+}
+
+TEST(HeatFlux, AssignmentOperatorDivision) {
+  HeatFlux quantity({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  quantity /= 2.0;
+  EXPECT_EQ(quantity,
+            HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+}
+
+TEST(HeatFlux, AssignmentOperatorMultiplication) {
   HeatFlux quantity({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
   quantity *= 2.0;
   EXPECT_EQ(quantity,
             HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
-TEST(HeatFlux, ArithmeticSubtraction) {
-  EXPECT_EQ(
-      HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre)
-          - HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre),
-      HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
+TEST(HeatFlux, AssignmentOperatorSubtraction) {
   HeatFlux quantity({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre);
   quantity -= HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
   EXPECT_EQ(quantity,
             HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
-TEST(HeatFlux, Comparisons) {
+TEST(HeatFlux, ComparisonOperators) {
   const HeatFlux first(
       {1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
   const HeatFlux second(
@@ -101,7 +109,7 @@ TEST(HeatFlux, Comparisons) {
   EXPECT_GE(second, first);
 }
 
-TEST(HeatFlux, CopyAssignment) {
+TEST(HeatFlux, CopyAssignmentOperator) {
   const HeatFlux first(
       {1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
   HeatFlux second = HeatFlux::Zero();
@@ -194,7 +202,7 @@ TEST(HeatFlux, MiscellaneousConstructors) {
       HeatFlux({-14.0, -21.0, 25.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
-TEST(HeatFlux, MoveAssignment) {
+TEST(HeatFlux, MoveAssignmentOperator) {
   HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
   HeatFlux second = HeatFlux::Zero();
   second = std::move(first);
