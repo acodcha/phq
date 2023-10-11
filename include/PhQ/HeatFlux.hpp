@@ -41,6 +41,8 @@ public:
 
   // Constructor. Constructs a heat flux from a given thermal conductivity
   // scalar and temperature gradient using Fourier's law of heat conduction.
+  // Since heat flows opposite the temperature gradient, the resulting heat flux
+  // direction is opposite the temperature gradient direction.
   constexpr HeatFlux(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradient& temperature_gradient)
@@ -48,7 +50,9 @@ public:
         -thermal_conductivity_scalar.Value() * temperature_gradient.Value()) {}
 
   // Constructor. Constructs a heat flux from a given thermal conductivity and
-  // temperature gradient using Fourier's law of heat conduction.
+  // temperature gradient using Fourier's law of heat conduction. Since heat
+  // flows opposite the temperature gradient, the resulting heat flux direction
+  // is opposite the temperature gradient direction.
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity,
                      const TemperatureGradient& temperature_gradient)
     : HeatFlux(

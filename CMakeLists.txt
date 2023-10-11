@@ -152,17 +152,37 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(displacement_gradient GTest::gtest_main)
   gtest_discover_tests(displacement_gradient)
 
+  add_executable(dynamic_kinematic_pressure ${PROJECT_SOURCE_DIR}/test/DynamicKinematicPressure.cpp)
+  target_link_libraries(dynamic_kinematic_pressure GTest::gtest_main)
+  gtest_discover_tests(dynamic_kinematic_pressure)
+
+  add_executable(dynamic_pressure ${PROJECT_SOURCE_DIR}/test/DynamicPressure.cpp)
+  target_link_libraries(dynamic_pressure GTest::gtest_main)
+  gtest_discover_tests(dynamic_pressure)
+
   add_executable(dynamic_viscosity ${PROJECT_SOURCE_DIR}/test/DynamicViscosity.cpp)
   target_link_libraries(dynamic_viscosity GTest::gtest_main)
   gtest_discover_tests(dynamic_viscosity)
+
+  add_executable(energy ${PROJECT_SOURCE_DIR}/test/Energy.cpp)
+  target_link_libraries(energy GTest::gtest_main)
+  gtest_discover_tests(energy)
 
   add_executable(force ${PROJECT_SOURCE_DIR}/test/Force.cpp)
   target_link_libraries(force GTest::gtest_main)
   gtest_discover_tests(force)
 
+  add_executable(force_magnitude ${PROJECT_SOURCE_DIR}/test/ForceMagnitude.cpp)
+  target_link_libraries(force_magnitude GTest::gtest_main)
+  gtest_discover_tests(force_magnitude)
+
   add_executable(frequency ${PROJECT_SOURCE_DIR}/test/Frequency.cpp)
   target_link_libraries(frequency GTest::gtest_main)
   gtest_discover_tests(frequency)
+
+  add_executable(gas_constant ${PROJECT_SOURCE_DIR}/test/GasConstant.cpp)
+  target_link_libraries(gas_constant GTest::gtest_main)
+  gtest_discover_tests(gas_constant)
 
   add_executable(heat_capacity_ratio ${PROJECT_SOURCE_DIR}/test/HeatCapacityRatio.cpp)
   target_link_libraries(heat_capacity_ratio GTest::gtest_main)
@@ -172,13 +192,41 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(heat_flux GTest::gtest_main)
   gtest_discover_tests(heat_flux)
 
+  add_executable(heat_flux_magnitude ${PROJECT_SOURCE_DIR}/test/HeatFluxMagnitude.cpp)
+  target_link_libraries(heat_flux_magnitude GTest::gtest_main)
+  gtest_discover_tests(heat_flux_magnitude)
+
+  add_executable(isentropic_bulk_modulus ${PROJECT_SOURCE_DIR}/test/IsentropicBulkModulus.cpp)
+  target_link_libraries(isentropic_bulk_modulus GTest::gtest_main)
+  gtest_discover_tests(isentropic_bulk_modulus)
+
+  add_executable(isobaric_heat_capacity ${PROJECT_SOURCE_DIR}/test/IsobaricHeatCapacity.cpp)
+  target_link_libraries(isobaric_heat_capacity GTest::gtest_main)
+  gtest_discover_tests(isobaric_heat_capacity)
+
+  add_executable(isochoric_heat_capacity ${PROJECT_SOURCE_DIR}/test/IsochoricHeatCapacity.cpp)
+  target_link_libraries(isochoric_heat_capacity GTest::gtest_main)
+  gtest_discover_tests(isochoric_heat_capacity)
+
+  add_executable(isothermal_bulk_modulus ${PROJECT_SOURCE_DIR}/test/IsothermalBulkModulus.cpp)
+  target_link_libraries(isothermal_bulk_modulus GTest::gtest_main)
+  gtest_discover_tests(isothermal_bulk_modulus)
+
   add_executable(kinematic_viscosity ${PROJECT_SOURCE_DIR}/test/KinematicViscosity.cpp)
   target_link_libraries(kinematic_viscosity GTest::gtest_main)
   gtest_discover_tests(kinematic_viscosity)
 
+  add_executable(lame_first_modulus ${PROJECT_SOURCE_DIR}/test/LameFirstModulus.cpp)
+  target_link_libraries(lame_first_modulus GTest::gtest_main)
+  gtest_discover_tests(lame_first_modulus)
+
   add_executable(length ${PROJECT_SOURCE_DIR}/test/Length.cpp)
   target_link_libraries(length GTest::gtest_main)
   gtest_discover_tests(length)
+
+  add_executable(linear_thermal_expansion_coefficient ${PROJECT_SOURCE_DIR}/test/LinearThermalExpansionCoefficient.cpp)
+  target_link_libraries(linear_thermal_expansion_coefficient GTest::gtest_main)
+  gtest_discover_tests(linear_thermal_expansion_coefficient)
 
   add_executable(mach_number ${PROJECT_SOURCE_DIR}/test/MachNumber.cpp)
   target_link_libraries(mach_number GTest::gtest_main)

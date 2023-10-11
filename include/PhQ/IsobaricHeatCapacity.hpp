@@ -36,23 +36,23 @@ public:
   // Constructor. Constructs an isobaric heat capacity from a given gas constant
   // and isochoric heat capacity using Mayer's relation.
   constexpr IsobaricHeatCapacity(
-      const GasConstant& gas_constant,
-      const IsochoricHeatCapacity& isochoric_heat_capacity);
+      const IsochoricHeatCapacity& isochoric_heat_capacity,
+      const GasConstant& gas_constant);
 
   // Constructor. Constructs an isobaric heat capacity from a given gas constant
   // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
-  constexpr IsobaricHeatCapacity(const GasConstant& gas_constant,
-                                 const HeatCapacityRatio& heat_capacity_ratio);
+  constexpr IsobaricHeatCapacity(const HeatCapacityRatio& heat_capacity_ratio,
+                                 const GasConstant& gas_constant);
 
   // Constructor. Constructs an isobaric heat capacity from a given isochoric
   // heat capacity and heat capacity ratio using the definition of the specific
   // heat ratio.
   constexpr IsobaricHeatCapacity(
-      const IsochoricHeatCapacity& isochoric_heat_capacity,
-      const HeatCapacityRatio& heat_capacity_ratio)
+      const HeatCapacityRatio& heat_capacity_ratio,
+      const IsochoricHeatCapacity& isochoric_heat_capacity)
     : IsobaricHeatCapacity(
-        isochoric_heat_capacity.Value() * heat_capacity_ratio.Value()) {}
+        heat_capacity_ratio.Value() * isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs an isobaric heat capacity from a given specific
   // isobaric heat capacity and mass using the definition of the specific
@@ -222,12 +222,12 @@ inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
 
 inline constexpr IsobaricHeatCapacity HeatCapacityRatio::operator*(
     const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-  return {isochoric_heat_capacity, *this};
+  return {*this, isochoric_heat_capacity};
 }
 
 inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator*(
     const HeatCapacityRatio& heat_capacity_ratio) const {
-  return {*this, heat_capacity_ratio};
+  return {heat_capacity_ratio, *this};
 }
 
 }  // namespace PhQ

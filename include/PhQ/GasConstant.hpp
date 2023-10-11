@@ -45,18 +45,18 @@ public:
   // Constructor. Constructs a gas constant from a given isobaric heat capacity
   // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
-  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity,
-                        const HeatCapacityRatio& heat_capacity_ratio)
-    : GasConstant(isobaric_heat_capacity.Value()
-                  * (1.0 - 1.0 / heat_capacity_ratio.Value())) {}
+  constexpr GasConstant(const HeatCapacityRatio& heat_capacity_ratio,
+                        const IsobaricHeatCapacity& isobaric_heat_capacity)
+    : GasConstant((1.0 - 1.0 / heat_capacity_ratio.Value())
+                  * isobaric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a gas constant from a given isochoric heat capacity
   // and heat capacity ratio using the definition of the heat capacity ratio and
   // Mayer's relation.
-  constexpr GasConstant(const IsochoricHeatCapacity& isochoric_heat_capacity,
-                        const HeatCapacityRatio& heat_capacity_ratio)
+  constexpr GasConstant(const HeatCapacityRatio& heat_capacity_ratio,
+                        const IsochoricHeatCapacity& isochoric_heat_capacity)
     : GasConstant(
-        isochoric_heat_capacity.Value() * (heat_capacity_ratio.Value() - 1.0)) {
+        (heat_capacity_ratio.Value() - 1.0) * isochoric_heat_capacity.Value()) {
   }
 
   // Constructor. Constructs a gas constant from a given specific gas constant
@@ -98,7 +98,7 @@ public:
 
   constexpr IsobaricHeatCapacity operator+(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    return {*this, isochoric_heat_capacity};
+    return {isochoric_heat_capacity, *this};
   }
 
   constexpr GasConstant operator-(const GasConstant& gas_constant) const {
@@ -187,8 +187,8 @@ inline constexpr GasConstant operator*(
 }
 
 inline constexpr HeatCapacityRatio::HeatCapacityRatio(
-    const GasConstant& gas_constant,
-    const IsobaricHeatCapacity& isobaric_heat_capacity)
+    const IsobaricHeatCapacity& isobaric_heat_capacity,
+    const GasConstant& gas_constant)
   : HeatCapacityRatio(
       isobaric_heat_capacity.Value()
       / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
@@ -200,8 +200,8 @@ inline constexpr HeatCapacityRatio::HeatCapacityRatio(
       gas_constant.Value() / isochoric_heat_capacity.Value() + 1.0) {}
 
 inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
-    const GasConstant& gas_constant,
-    const IsobaricHeatCapacity& isobaric_heat_capacity)
+    const IsobaricHeatCapacity& isobaric_heat_capacity,
+    const GasConstant& gas_constant)
   : IsochoricHeatCapacity(
       isobaric_heat_capacity.Value() - gas_constant.Value()) {}
 
@@ -212,20 +212,20 @@ inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
       gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
-    const GasConstant& gas_constant,
-    const IsochoricHeatCapacity& isochoric_heat_capacity)
+    const IsochoricHeatCapacity& isochoric_heat_capacity,
+    const GasConstant& gas_constant)
   : IsobaricHeatCapacity(
-      gas_constant.Value() + isochoric_heat_capacity.Value()) {}
+      isochoric_heat_capacity.Value() + gas_constant.Value()) {}
 
 inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
-    const GasConstant& gas_constant,
-    const HeatCapacityRatio& heat_capacity_ratio)
-  : IsobaricHeatCapacity(gas_constant.Value() * heat_capacity_ratio.Value()
+    const HeatCapacityRatio& heat_capacity_ratio,
+    const GasConstant& gas_constant)
+  : IsobaricHeatCapacity(heat_capacity_ratio.Value() * gas_constant.Value()
                          / (heat_capacity_ratio.Value() - 1.0)) {}
 
 inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator+(
     const GasConstant& gas_constant) const {
-  return {gas_constant, *this};
+  return {*this, gas_constant};
 }
 
 inline constexpr GasConstant IsobaricHeatCapacity::operator-(
@@ -235,7 +235,7 @@ inline constexpr GasConstant IsobaricHeatCapacity::operator-(
 
 inline constexpr IsochoricHeatCapacity IsobaricHeatCapacity::operator-(
     const GasConstant& gas_constant) const {
-  return {gas_constant, *this};
+  return {*this, gas_constant};
 }
 
 }  // namespace PhQ

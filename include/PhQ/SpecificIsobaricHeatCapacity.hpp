@@ -46,24 +46,25 @@ public:
   // specific gas constant and specific isochoric heat capacity using Mayer's
   // relation.
   constexpr SpecificIsobaricHeatCapacity(
-      const SpecificGasConstant& specific_gas_constant,
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
+      const SpecificGasConstant& specific_gas_constant);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
   // specific gas constant and heat capacity ratio using the definition of the
   // heat capacity ratio and Mayer's relation.
   constexpr SpecificIsobaricHeatCapacity(
-      const SpecificGasConstant& specific_gas_constant,
-      const HeatCapacityRatio& heat_capacity_ratio);
+      const HeatCapacityRatio& heat_capacity_ratio,
+      const SpecificGasConstant& specific_gas_constant);
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
   // specific isochoric heat capacity and heat capacity ratio using the
   // definition of the heat capacity ratio.
   constexpr SpecificIsobaricHeatCapacity(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const HeatCapacityRatio& heat_capacity_ratio)
-    : SpecificIsobaricHeatCapacity(specific_isochoric_heat_capacity.Value()
-                                   * heat_capacity_ratio.Value()) {}
+      const HeatCapacityRatio& heat_capacity_ratio,
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
+    : SpecificIsobaricHeatCapacity(heat_capacity_ratio.Value()
+                                   * specific_isochoric_heat_capacity.Value()) {
+  }
 
   // Constructor. Constructs a specific isobaric heat capacity from a given
   // isobaric heat capacity and mass using the definition of the specific
@@ -283,7 +284,7 @@ inline constexpr IsobaricHeatCapacity Mass::operator*(
 inline constexpr SpecificIsobaricHeatCapacity HeatCapacityRatio::operator*(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const {
-  return {specific_isochoric_heat_capacity, *this};
+  return {*this, specific_isochoric_heat_capacity};
 }
 
 inline constexpr SpecificIsobaricHeatCapacity IsobaricHeatCapacity::operator/(
@@ -299,7 +300,7 @@ inline constexpr Mass IsobaricHeatCapacity::operator/(
 inline constexpr SpecificIsobaricHeatCapacity
 SpecificIsochoricHeatCapacity::operator*(
     const HeatCapacityRatio& heat_capacity_ratio) const {
-  return {*this, heat_capacity_ratio};
+  return {heat_capacity_ratio, *this};
 }
 
 }  // namespace PhQ
