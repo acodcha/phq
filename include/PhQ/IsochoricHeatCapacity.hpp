@@ -38,8 +38,8 @@ public:
   // Constructor. Constructs an isochoric heat capacity from a given gas
   // constant and isobaric heat capacity using Mayer's relation.
   constexpr IsochoricHeatCapacity(
-      const GasConstant& gas_constant,
-      const IsobaricHeatCapacity& isobaric_heat_capacity);
+      const IsobaricHeatCapacity& isobaric_heat_capacity,
+      const GasConstant& gas_constant);
 
   // Constructor. Constructs an isochoric heat capacity from a given gas
   // constant and heat capacity ratio using the definition of the specific heat

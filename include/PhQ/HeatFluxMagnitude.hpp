@@ -39,7 +39,8 @@ public:
 
   // Constructor. Constructs a heat flux magnitude from a given thermal
   // conductivity scalar and temperature gradient magnitude using Fourier's law
-  // of heat conduction.
+  // of heat conduction. Since heat flows opposite the temperature gradient, the
+  // resulting heat flux magnitude is negative.
   constexpr HeatFluxMagnitude(
       const ThermalConductivityScalar& thermal_conductivity_scalar,
       const TemperatureGradientMagnitude& temperature_gradient_magnitude)

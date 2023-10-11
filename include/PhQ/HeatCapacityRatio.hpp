@@ -46,8 +46,8 @@ public:
   // constant and specific isobaric heat capacity using Mayer's relation and the
   // definition of the heat capacity ratio.
   constexpr HeatCapacityRatio(
-      const SpecificGasConstant& specific_gas_constant,
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
+      const SpecificGasConstant& specific_gas_constant);
 
   // Constructor. Constructs a heat capacity ratio from a given specific gas
   // constant and specific isochoric heat capacity using Mayer's relation and
@@ -67,8 +67,8 @@ public:
   // isobaric heat capacity using Mayer's relation and the definition of the
   // heat capacity ratio.
   constexpr HeatCapacityRatio(
-      const GasConstant& gas_constant,
-      const IsobaricHeatCapacity& isobaric_heat_capacity);
+      const IsobaricHeatCapacity& isobaric_heat_capacity,
+      const GasConstant& gas_constant);
 
   // Constructor. Constructs a heat capacity ratio from a given gas constant and
   // isochoric heat capacity using Mayer's relation and the definition of the
