@@ -214,8 +214,8 @@ inline constexpr HeatCapacityRatio::HeatCapacityRatio(
       specific_gas_constant.Value() / specific_isochoric_heat_capacity.Value()
       + 1.0) {}
 
-inline constexpr Mass::Mass(const SpecificGasConstant& specific_gas_constant,
-                            const GasConstant& gas_constant)
+inline constexpr Mass::Mass(const GasConstant& gas_constant,
+                            const SpecificGasConstant& specific_gas_constant)
   : Mass(gas_constant.Value() / specific_gas_constant.Value()) {}
 
 inline constexpr GasConstant::GasConstant(
@@ -248,21 +248,6 @@ inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
       heat_capacity_ratio.Value() * specific_gas_constant.Value()
       / (heat_capacity_ratio.Value() - 1.0)) {}
 
-inline constexpr GasConstant Mass::operator*(
-    const SpecificGasConstant& specific_gas_constant) const {
-  return {specific_gas_constant, *this};
-}
-
-inline constexpr SpecificGasConstant GasConstant::operator/(
-    const Mass& mass) const {
-  return {*this, mass};
-}
-
-inline constexpr Mass GasConstant::operator/(
-    const SpecificGasConstant& specific_gas_constant) const {
-  return {specific_gas_constant, *this};
-}
-
 inline constexpr SpecificIsobaricHeatCapacity
 SpecificIsochoricHeatCapacity::operator+(
     const SpecificGasConstant& specific_gas_constant) const {
@@ -277,6 +262,21 @@ inline constexpr SpecificGasConstant SpecificIsobaricHeatCapacity::operator-(
 
 inline constexpr SpecificIsochoricHeatCapacity
 SpecificIsobaricHeatCapacity::operator-(
+    const SpecificGasConstant& specific_gas_constant) const {
+  return {*this, specific_gas_constant};
+}
+
+inline constexpr GasConstant Mass::operator*(
+    const SpecificGasConstant& specific_gas_constant) const {
+  return {specific_gas_constant, *this};
+}
+
+inline constexpr SpecificGasConstant GasConstant::operator/(
+    const Mass& mass) const {
+  return {*this, mass};
+}
+
+inline constexpr Mass GasConstant::operator/(
     const SpecificGasConstant& specific_gas_constant) const {
   return {*this, specific_gas_constant};
 }

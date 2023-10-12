@@ -61,32 +61,32 @@ public:
   // the definition of mass rate.
   constexpr Mass(const MassRate& mass_rate, const Frequency& frequency);
 
-  // Constructor. Constructs a mass from a given specific energy and energy
+  // Constructor. Constructs a mass from a given energy and specific energy
   // using the definition of specific energy.
-  constexpr Mass(const SpecificEnergy& specific_energy, const Energy& energy);
+  constexpr Mass(const Energy& energy, const SpecificEnergy& specific_energy);
 
-  // Constructor. Constructs a mass from a given specific power and power using
+  // Constructor. Constructs a mass from a given power and specific power using
   // the definition of specific power.
-  constexpr Mass(const SpecificPower& specific_power, const Power& power);
+  constexpr Mass(const Power& power, const SpecificPower& specific_power);
 
-  // Constructor. Constructs a mass from a given specific gas constant and gas
+  // Constructor. Constructs a mass from a given gas constant and specific gas
   // constant using the definition of the specific gas constant.
-  constexpr Mass(const SpecificGasConstant& specific_gas_constant,
-                 const GasConstant& gas_constant);
+  constexpr Mass(const GasConstant& gas_constant,
+                 const SpecificGasConstant& specific_gas_constant);
 
-  // Constructor. Constructs a mass from a given specific isobaric heat capacity
-  // and isobaric heat capacity using the definition of the specific isobaric
-  // heat capacity.
+  // Constructor. Constructs a mass from a given isobaric heat capacity and
+  // specific isobaric heat capacity using the definition of the specific
+  // isobaric heat capacity.
   constexpr Mass(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const IsobaricHeatCapacity& isobaric_heat_capacity);
+      const IsobaricHeatCapacity& isobaric_heat_capacity,
+      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
-  // Constructor. Constructs a mass from a given specific isochoric heat
-  // capacity and isochoric heat capacity using the definition of the specific
+  // Constructor. Constructs a mass from a given isochoric heat capacity and
+  // specific isochoric heat capacity using the definition of the specific
   // isochoric heat capacity.
   constexpr Mass(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-      const IsochoricHeatCapacity& isochoric_heat_capacity);
+      const IsochoricHeatCapacity& isochoric_heat_capacity,
+      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
 
   // Destructor. Destroys this mass.
   ~Mass() noexcept = default;

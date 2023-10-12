@@ -244,6 +244,14 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(mass_rate GTest::gtest_main)
   gtest_discover_tests(mass_rate)
 
+  add_executable(memory ${PROJECT_SOURCE_DIR}/test/Memory.cpp)
+  target_link_libraries(memory GTest::gtest_main)
+  gtest_discover_tests(memory)
+
+  add_executable(memory_rate ${PROJECT_SOURCE_DIR}/test/MemoryRate.cpp)
+  target_link_libraries(memory_rate GTest::gtest_main)
+  gtest_discover_tests(memory_rate)
+
   add_executable(poisson_ratio ${PROJECT_SOURCE_DIR}/test/PoissonRatio.cpp)
   target_link_libraries(poisson_ratio GTest::gtest_main)
   gtest_discover_tests(poisson_ratio)
@@ -252,21 +260,61 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(position GTest::gtest_main)
   gtest_discover_tests(position)
 
+  add_executable(power ${PROJECT_SOURCE_DIR}/test/Power.cpp)
+  target_link_libraries(power GTest::gtest_main)
+  gtest_discover_tests(power)
+
   add_executable(prandtl_number ${PROJECT_SOURCE_DIR}/test/PrandtlNumber.cpp)
   target_link_libraries(prandtl_number GTest::gtest_main)
   gtest_discover_tests(prandtl_number)
+
+  add_executable(p_wave_modulus ${PROJECT_SOURCE_DIR}/test/PWaveModulus.cpp)
+  target_link_libraries(p_wave_modulus GTest::gtest_main)
+  gtest_discover_tests(p_wave_modulus)
 
   add_executable(reynolds_number ${PROJECT_SOURCE_DIR}/test/ReynoldsNumber.cpp)
   target_link_libraries(reynolds_number GTest::gtest_main)
   gtest_discover_tests(reynolds_number)
 
+  add_executable(shear_modulus ${PROJECT_SOURCE_DIR}/test/ShearModulus.cpp)
+  target_link_libraries(shear_modulus GTest::gtest_main)
+  gtest_discover_tests(shear_modulus)
+
   add_executable(sound_speed ${PROJECT_SOURCE_DIR}/test/SoundSpeed.cpp)
   target_link_libraries(sound_speed GTest::gtest_main)
   gtest_discover_tests(sound_speed)
 
+  add_executable(specific_energy ${PROJECT_SOURCE_DIR}/test/SpecificEnergy.cpp)
+  target_link_libraries(specific_energy GTest::gtest_main)
+  gtest_discover_tests(specific_energy)
+
+  add_executable(specific_gas_constant ${PROJECT_SOURCE_DIR}/test/SpecificGasConstant.cpp)
+  target_link_libraries(specific_gas_constant GTest::gtest_main)
+  gtest_discover_tests(specific_gas_constant)
+
+  add_executable(specific_isobaric_heat_capacity ${PROJECT_SOURCE_DIR}/test/SpecificIsobaricHeatCapacity.cpp)
+  target_link_libraries(specific_isobaric_heat_capacity GTest::gtest_main)
+  gtest_discover_tests(specific_isobaric_heat_capacity)
+
+  add_executable(specific_isochoric_heat_capacity ${PROJECT_SOURCE_DIR}/test/SpecificIsochoricHeatCapacity.cpp)
+  target_link_libraries(specific_isochoric_heat_capacity GTest::gtest_main)
+  gtest_discover_tests(specific_isochoric_heat_capacity)
+
+  add_executable(specific_power ${PROJECT_SOURCE_DIR}/test/SpecificPower.cpp)
+  target_link_libraries(specific_power GTest::gtest_main)
+  gtest_discover_tests(specific_power)
+
   add_executable(speed ${PROJECT_SOURCE_DIR}/test/Speed.cpp)
   target_link_libraries(speed GTest::gtest_main)
   gtest_discover_tests(speed)
+
+  add_executable(static_kinematic_pressure ${PROJECT_SOURCE_DIR}/test/StaticKinematicPressure.cpp)
+  target_link_libraries(static_kinematic_pressure GTest::gtest_main)
+  gtest_discover_tests(static_kinematic_pressure)
+
+  add_executable(static_pressure ${PROJECT_SOURCE_DIR}/test/StaticPressure.cpp)
+  target_link_libraries(static_pressure GTest::gtest_main)
+  gtest_discover_tests(static_pressure)
 
   add_executable(strain ${PROJECT_SOURCE_DIR}/test/Strain.cpp)
   target_link_libraries(strain GTest::gtest_main)
@@ -283,6 +331,10 @@ if(TEST_PHQ_LIBRARY)
   add_executable(stress ${PROJECT_SOURCE_DIR}/test/Stress.cpp)
   target_link_libraries(stress GTest::gtest_main)
   gtest_discover_tests(stress)
+
+  add_executable(stress_scalar ${PROJECT_SOURCE_DIR}/test/StressScalar.cpp)
+  target_link_libraries(stress_scalar GTest::gtest_main)
+  gtest_discover_tests(stress_scalar)
 
   add_executable(substance_amount ${PROJECT_SOURCE_DIR}/test/SubstanceAmount.cpp)
   target_link_libraries(substance_amount GTest::gtest_main)
@@ -475,6 +527,14 @@ if(TEST_PHQ_LIBRARY)
   add_executable(volume_rate ${PROJECT_SOURCE_DIR}/test/VolumeRate.cpp)
   target_link_libraries(volume_rate GTest::gtest_main)
   gtest_discover_tests(volume_rate)
+
+  add_executable(volumetric_thermal_expansion_coefficient ${PROJECT_SOURCE_DIR}/test/VolumetricThermalExpansionCoefficient.cpp)
+  target_link_libraries(volumetric_thermal_expansion_coefficient GTest::gtest_main)
+  gtest_discover_tests(volumetric_thermal_expansion_coefficient)
+
+  add_executable(young_modulus ${PROJECT_SOURCE_DIR}/test/YoungModulus.cpp)
+  target_link_libraries(young_modulus GTest::gtest_main)
+  gtest_discover_tests(young_modulus)
 
   message(STATUS "The Physical Quantities (PhQ) library tests were configured. Build the tests with \"make --jobs=16\" and run them with \"make test\"")
 else()
