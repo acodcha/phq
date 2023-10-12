@@ -121,6 +121,11 @@ public:
     return IsobaricHeatCapacity{value_ / number};
   }
 
+  constexpr double operator/(
+      const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
+    return value_ / isobaric_heat_capacity.value_;
+  }
+
   constexpr SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
 
   constexpr Mass
@@ -135,11 +140,6 @@ public:
   constexpr IsochoricHeatCapacity operator/(
       const HeatCapacityRatio& heat_capacity_ratio) const {
     return {*this, heat_capacity_ratio};
-  }
-
-  constexpr double operator/(
-      const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
-    return value_ / isobaric_heat_capacity.value_;
   }
 
   constexpr void operator+=(

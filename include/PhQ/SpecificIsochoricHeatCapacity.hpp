@@ -215,8 +215,8 @@ inline constexpr SpecificIsochoricHeatCapacity operator*(
 }
 
 inline constexpr Mass::Mass(
-    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity,
-    const IsochoricHeatCapacity& isochoric_heat_capacity)
+    const IsochoricHeatCapacity& isochoric_heat_capacity,
+    const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
   : Mass(isochoric_heat_capacity.Value()
          / specific_isochoric_heat_capacity.Value()) {}
 
@@ -240,7 +240,7 @@ inline constexpr SpecificIsochoricHeatCapacity IsochoricHeatCapacity::operator/(
 inline constexpr Mass IsochoricHeatCapacity::operator/(
     const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity)
     const {
-  return {specific_isochoric_heat_capacity, *this};
+  return {*this, specific_isochoric_heat_capacity};
 }
 
 }  // namespace PhQ

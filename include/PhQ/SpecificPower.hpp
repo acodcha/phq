@@ -193,7 +193,7 @@ inline constexpr Frequency::Frequency(
   : Frequency(specific_power.Value() / specific_energy.Value()) {}
 
 inline constexpr Mass::Mass(
-    const SpecificPower& specific_power, const Power& power)
+    const Power& power, const SpecificPower& specific_power)
   : Mass(power.Value() / specific_power.Value()) {}
 
 inline constexpr Power::Power(
@@ -213,11 +213,6 @@ inline constexpr Power Mass::operator*(
   return {specific_power, *this};
 }
 
-inline constexpr Mass Power::operator/(
-    const SpecificPower& specific_power) const {
-  return {specific_power, *this};
-}
-
 inline constexpr SpecificEnergy Time::operator*(
     const SpecificPower& specific_power) const {
   return {specific_power, *this};
@@ -228,13 +223,18 @@ inline constexpr SpecificPower Frequency::operator*(
   return {specific_energy, *this};
 }
 
-inline constexpr SpecificPower Power::operator/(const Mass& mass) const {
-  return {*this, mass};
-}
-
 inline constexpr SpecificPower SpecificEnergy::operator*(
     const Frequency& frequency) const {
   return {*this, frequency};
+}
+
+inline constexpr Mass Power::operator/(
+    const SpecificPower& specific_power) const {
+  return {*this, specific_power};
+}
+
+inline constexpr SpecificPower Power::operator/(const Mass& mass) const {
+  return {*this, mass};
 }
 
 inline constexpr SpecificPower SpecificEnergy::operator/(

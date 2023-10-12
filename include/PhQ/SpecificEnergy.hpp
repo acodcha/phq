@@ -184,7 +184,7 @@ inline constexpr SpecificEnergy operator*(
 }
 
 inline constexpr Mass::Mass(
-    const SpecificEnergy& specific_energy, const Energy& energy)
+    const Energy& energy, const SpecificEnergy& specific_energy)
   : Mass(energy.Value() / specific_energy.Value()) {}
 
 inline constexpr Energy::Energy(
@@ -198,7 +198,7 @@ inline constexpr Energy Mass::operator*(
 
 inline constexpr Mass Energy::operator/(
     const SpecificEnergy& specific_energy) const {
-  return {specific_energy, *this};
+  return {*this, specific_energy};
 }
 
 inline constexpr SpecificEnergy Energy::operator/(const Mass& mass) const {
