@@ -109,6 +109,9 @@ public:
     return value_ / total_pressure.value_;
   }
 
+  constexpr TotalKinematicPressure operator/(
+      const MassDensity& mass_density) const;
+
   constexpr void operator+=(const TotalPressure& total_pressure) noexcept {
     value_ += total_pressure.value_;
   }

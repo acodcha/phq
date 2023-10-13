@@ -202,6 +202,11 @@ inline constexpr DynamicPressure::DynamicPressure(
   : DynamicPressure(mass_density.Value() * dynamic_kinematic_pressure.Value()) {
 }
 
+inline constexpr DynamicKinematicPressure DynamicPressure::operator/(
+    const MassDensity& mass_density) const {
+  return {*this, mass_density};
+}
+
 }  // namespace PhQ
 
 namespace std {

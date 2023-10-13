@@ -215,6 +215,11 @@ inline constexpr TotalKinematicPressure DynamicKinematicPressure::operator+(
   return {static_kinematic_pressure, *this};
 }
 
+inline constexpr TotalKinematicPressure TotalPressure::operator/(
+    const MassDensity& mass_density) const {
+  return {*this, mass_density};
+}
+
 }  // namespace PhQ
 
 namespace std {
