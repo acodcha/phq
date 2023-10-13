@@ -115,6 +115,9 @@ public:
     return value_ / dynamic_pressure.value_;
   }
 
+  constexpr DynamicKinematicPressure operator/(
+      const MassDensity& mass_density) const;
+
   constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
     value_ += dynamic_pressure.value_;
   }

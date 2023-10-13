@@ -40,6 +40,11 @@ TEST(DynamicKinematicPressure, ArithmeticOperatorDivision) {
           / DynamicKinematicPressure(
               2.0, Unit::SpecificEnergy::JoulePerKilogram),
       4.0);
+
+  EXPECT_EQ(
+      DynamicPressure(8.0, Unit::Pressure::Pascal)
+          / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+      DynamicKinematicPressure(2.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(DynamicKinematicPressure, ArithmeticOperatorMultiplication) {

@@ -340,17 +340,45 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(substance_amount GTest::gtest_main)
   gtest_discover_tests(substance_amount)
 
+  add_executable(temperature ${PROJECT_SOURCE_DIR}/test/Temperature.cpp)
+  target_link_libraries(temperature GTest::gtest_main)
+  gtest_discover_tests(temperature)
+
+  add_executable(temperature_difference ${PROJECT_SOURCE_DIR}/test/TemperatureDifference.cpp)
+  target_link_libraries(temperature_difference GTest::gtest_main)
+  gtest_discover_tests(temperature_difference)
+
   add_executable(temperature_gradient ${PROJECT_SOURCE_DIR}/test/TemperatureGradient.cpp)
   target_link_libraries(temperature_gradient GTest::gtest_main)
   gtest_discover_tests(temperature_gradient)
+
+  add_executable(temperature_gradient_magnitude ${PROJECT_SOURCE_DIR}/test/TemperatureGradientMagnitude.cpp)
+  target_link_libraries(temperature_gradient_magnitude GTest::gtest_main)
+  gtest_discover_tests(temperature_gradient_magnitude)
 
   add_executable(thermal_conductivity ${PROJECT_SOURCE_DIR}/test/ThermalConductivity.cpp)
   target_link_libraries(thermal_conductivity GTest::gtest_main)
   gtest_discover_tests(thermal_conductivity)
 
+  add_executable(thermal_conductivity_scalar ${PROJECT_SOURCE_DIR}/test/ThermalConductivityScalar.cpp)
+  target_link_libraries(thermal_conductivity_scalar GTest::gtest_main)
+  gtest_discover_tests(thermal_conductivity_scalar)
+
+  add_executable(thermal_diffusivity ${PROJECT_SOURCE_DIR}/test/ThermalDiffusivity.cpp)
+  target_link_libraries(thermal_diffusivity GTest::gtest_main)
+  gtest_discover_tests(thermal_diffusivity)
+
   add_executable(time ${PROJECT_SOURCE_DIR}/test/Time.cpp)
   target_link_libraries(time GTest::gtest_main)
   gtest_discover_tests(time)
+
+  add_executable(total_kinematic_pressure ${PROJECT_SOURCE_DIR}/test/TotalKinematicPressure.cpp)
+  target_link_libraries(total_kinematic_pressure GTest::gtest_main)
+  gtest_discover_tests(total_kinematic_pressure)
+
+  add_executable(total_pressure ${PROJECT_SOURCE_DIR}/test/TotalPressure.cpp)
+  target_link_libraries(total_pressure GTest::gtest_main)
+  gtest_discover_tests(total_pressure)
 
   add_executable(traction ${PROJECT_SOURCE_DIR}/test/Traction.cpp)
   target_link_libraries(traction GTest::gtest_main)
