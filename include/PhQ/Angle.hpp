@@ -187,8 +187,6 @@ private:
   // standard angle unit.
   explicit constexpr Angle(const double value)
     : DimensionalScalarQuantity<Unit::Angle>(value) {}
-
-  friend class Direction;
 };
 
 inline constexpr bool operator==(

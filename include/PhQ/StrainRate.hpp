@@ -106,11 +106,11 @@ public:
   }
 
   constexpr StrainRate operator+(const StrainRate& strain_rate) const {
-    return {value_ + strain_rate.value_};
+    return StrainRate{value_ + strain_rate.value_};
   }
 
   constexpr StrainRate operator-(const StrainRate& strain_rate) const {
-    return {value_ - strain_rate.value_};
+    return StrainRate{value_ - strain_rate.value_};
   }
 
   constexpr StrainRate operator*(const double number) const {
@@ -148,7 +148,7 @@ public:
 private:
   // Constructor. Constructs a strain rate tensor with a given value expressed
   // in the standard frequency unit.
-  constexpr StrainRate(const Value::SymmetricDyad& value)
+  explicit constexpr StrainRate(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::Frequency>(value) {}
 };
 
