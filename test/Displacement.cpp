@@ -103,9 +103,17 @@ TEST(Displacement, CopyConstructor) {
 }
 
 TEST(Displacement, Create) {
-  constexpr Displacement quantity =
-      Displacement::Create<Unit::Length::Metre>({1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  constexpr Displacement first =
+      Displacement::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
+
+  constexpr Displacement second = Displacement::Create<Unit::Length::Metre>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
+
+  constexpr Displacement third = Displacement::Create<Unit::Length::Metre>(
+      Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Displacement, DefaultConstructor) {
@@ -198,7 +206,7 @@ TEST(Displacement, StandardConstructor) {
 
 TEST(Displacement, StaticValue) {
   constexpr Displacement quantity =
-      Displacement::Create<Unit::Length::Millimetre>({1.11, -2.22, 3.33});
+      Displacement::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

@@ -75,6 +75,27 @@ public:
     return StrainRate{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz,
+  // and zz Cartesian components expressed in a given frequency unit.
+  template <Unit::Frequency Unit>
+  static constexpr StrainRate
+  Create(const double xx, const double xy, const double xz, const double yy,
+         const double yz, const double zz) {
+    return StrainRate{
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+  }
+
+  // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz,
+  // and zz Cartesian components expressed in a given frequency unit.
+  template <Unit::Frequency Unit>
+  static constexpr StrainRate
+  Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
+    return StrainRate{
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+  }
+
   // Statically creates a strain rate tensor with a given value expressed in a
   // given frequency unit.
   template <Unit::Frequency Unit>

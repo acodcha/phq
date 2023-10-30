@@ -111,9 +111,16 @@ TEST(Force, CopyConstructor) {
 }
 
 TEST(Force, Create) {
-  constexpr Force quantity =
-      Force::Create<Unit::Force::Newton>({1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
+  constexpr Force first = Force::Create<Unit::Force::Newton>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
+
+  constexpr Force second = Force::Create<Unit::Force::Newton>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
+
+  constexpr Force third =
+      Force::Create<Unit::Force::Newton>(Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
 TEST(Force, DefaultConstructor) {
@@ -205,7 +212,7 @@ TEST(Force, StandardConstructor) {
 
 TEST(Force, StaticValue) {
   constexpr Force quantity =
-      Force::Create<Unit::Force::Pound>({1.11, -2.22, 3.33});
+      Force::Create<Unit::Force::Pound>(1.11, -2.22, 3.33);
   constexpr Value::Vector value = quantity.StaticValue<Unit::Force::Pound>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }

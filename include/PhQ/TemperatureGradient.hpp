@@ -69,6 +69,26 @@ public:
     return TemperatureGradient{Value::Vector::Zero()};
   }
 
+  // Statically creates a temperature gradient from the given x, y, and z
+  // Cartesian components expressed in a given temperature gradient unit.
+  template <Unit::TemperatureGradient Unit>
+  static constexpr TemperatureGradient
+  Create(const double x, const double y, const double z) {
+    return TemperatureGradient{StaticConvertCopy<
+        Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a temperature gradient from the given x, y, and z
+  // Cartesian components expressed in a given temperature gradient unit.
+  template <Unit::TemperatureGradient Unit>
+  static constexpr TemperatureGradient
+  Create(const std::array<double, 3>& x_y_z) {
+    return TemperatureGradient{StaticConvertCopy<
+        Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
+        Value::Vector{x_y_z})};
+  }
+
   // Statically creates a temperature gradient with a given value expressed in a
   // given temperature gradient unit.
   template <Unit::TemperatureGradient Unit>

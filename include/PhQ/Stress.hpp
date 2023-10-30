@@ -63,6 +63,27 @@ public:
     return Stress{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and
+  // zz Cartesian components expressed in a given pressure unit.
+  template <Unit::Pressure Unit>
+  static constexpr Stress
+  Create(const double xx, const double xy, const double xz, const double yy,
+         const double yz, const double zz) {
+    return Stress{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+  }
+
+  // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and
+  // zz Cartesian components expressed in a given pressure unit.
+  template <Unit::Pressure Unit>
+  static constexpr Stress
+  Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
+    return Stress{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+  }
+
   // Statically creates a stress tensor with a given value expressed in a given
   // pressure unit.
   template <Unit::Pressure Unit>

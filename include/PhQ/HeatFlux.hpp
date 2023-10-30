@@ -78,6 +78,25 @@ public:
     return HeatFlux{Value::Vector::Zero()};
   }
 
+  // Statically creates a heat flux from the given x, y, and z Cartesian
+  // components expressed in a given energy flux unit.
+  template <Unit::EnergyFlux Unit>
+  static constexpr HeatFlux
+  Create(const double x, const double y, const double z) {
+    return HeatFlux{
+        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+            Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a heat flux from the given x, y, and z Cartesian
+  // components expressed in a given energy flux unit.
+  template <Unit::EnergyFlux Unit>
+  static constexpr HeatFlux Create(const std::array<double, 3>& x_y_z) {
+    return HeatFlux{
+        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+            Value::Vector{x_y_z})};
+  }
+
   // Statically creates a heat flux with a given value expressed in a given
   // energy flux unit.
   template <Unit::EnergyFlux Unit>

@@ -76,6 +76,25 @@ public:
     return Displacement{Value::Vector::Zero()};
   }
 
+  // Statically creates a displacement from the given x, y, and z Cartesian
+  // components expressed in a given length unit.
+  template <Unit::Length Unit>
+  static constexpr Displacement
+  Create(const double x, const double y, const double z) {
+    return Displacement{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+            Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a displacement from the given x, y, and z Cartesian
+  // components expressed in a given length unit.
+  template <Unit::Length Unit>
+  static constexpr Displacement Create(const std::array<double, 3>& x_y_z) {
+    return Displacement{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
+            Value::Vector{x_y_z})};
+  }
+
   // Statically creates a displacement with a given value expressed in a given
   // length unit.
   template <Unit::Length Unit>

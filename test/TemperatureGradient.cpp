@@ -154,12 +154,26 @@ TEST(TemperatureGradient, CopyConstructor) {
 }
 
 TEST(TemperatureGradient, Create) {
-  constexpr TemperatureGradient quantity =
+  constexpr TemperatureGradient first =
       TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          {1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity,
-            TemperatureGradient({1.11, -2.22, 3.33},
-                                Unit::TemperatureGradient::KelvinPerMetre));
+          1.11, -2.22, 3.33);
+  EXPECT_EQ(
+      first, TemperatureGradient({1.11, -2.22, 3.33},
+                                 Unit::TemperatureGradient::KelvinPerMetre));
+
+  constexpr TemperatureGradient second =
+      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
+          std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(
+      second, TemperatureGradient({1.11, -2.22, 3.33},
+                                  Unit::TemperatureGradient::KelvinPerMetre));
+
+  constexpr TemperatureGradient third =
+      TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
+          Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(
+      third, TemperatureGradient({1.11, -2.22, 3.33},
+                                 Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, DefaultConstructor) {
@@ -280,7 +294,7 @@ TEST(TemperatureGradient, StandardConstructor) {
 
 TEST(TemperatureGradient, StaticValue) {
   constexpr TemperatureGradient quantity = TemperatureGradient::Create<
-      Unit::TemperatureGradient::KelvinPerMillimetre>({1.11, -2.22, 3.33});
+      Unit::TemperatureGradient::KelvinPerMillimetre>(1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

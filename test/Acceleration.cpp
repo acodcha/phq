@@ -166,11 +166,23 @@ TEST(Acceleration, CopyConstructor) {
 }
 
 TEST(Acceleration, Create) {
-  constexpr Acceleration quantity =
+  constexpr Acceleration first =
       Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
-          {1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, Acceleration({1.11, -2.22, 3.33},
-                                   Unit::Acceleration::MetrePerSquareSecond));
+          1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Acceleration({1.11, -2.22, 3.33},
+                                Unit::Acceleration::MetrePerSquareSecond));
+
+  constexpr Acceleration second =
+      Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
+          std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Acceleration({1.11, -2.22, 3.33},
+                                 Unit::Acceleration::MetrePerSquareSecond));
+
+  constexpr Acceleration third =
+      Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
+          Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Acceleration({1.11, -2.22, 3.33},
+                                Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, DefaultConstructor) {
@@ -296,7 +308,7 @@ TEST(Acceleration, StandardConstructor) {
 TEST(Acceleration, StaticValue) {
   constexpr Acceleration quantity =
       Acceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(
-          {1.11, -2.22, 3.33});
+          1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

@@ -60,6 +60,30 @@ public:
     return VelocityGradient{Value::Dyad::Zero()};
   }
 
+  // Statically creates a velocity gradient tensor from the given xx, xy, xz,
+  // yx, yy, yz, zx,zy, and zz Cartesian components expressed in a given
+  // frequency unit.
+  template <Unit::Frequency Unit>
+  static constexpr VelocityGradient
+  Create(const double xx, const double xy, const double xz, const double yx,
+         const double yy, const double yz, const double zx, const double zy,
+         const double zz) {
+    return VelocityGradient{
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Value::Dyad{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
+  }
+
+  // Statically creates a velocity gradient tensor from the given xx, xy, xz,
+  // yx, yy, yz, zx,zy, and zz Cartesian components expressed in a given
+  // frequency unit.
+  template <Unit::Frequency Unit>
+  static constexpr VelocityGradient
+  Create(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
+    return VelocityGradient{
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
+            Value::Dyad{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
+  }
+
   // Statically creates a velocity gradient tensor with a given value expressed
   // in a given frequency unit.
   template <Unit::Frequency Unit>

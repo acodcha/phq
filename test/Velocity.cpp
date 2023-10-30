@@ -121,10 +121,17 @@ TEST(Velocity, CopyConstructor) {
 }
 
 TEST(Velocity, Create) {
-  constexpr Velocity quantity =
-      Velocity::Create<Unit::Speed::MetrePerSecond>({1.11, -2.22, 3.33});
-  EXPECT_EQ(
-      quantity, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
+  constexpr Velocity first =
+      Velocity::Create<Unit::Speed::MetrePerSecond>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
+
+  constexpr Velocity second = Velocity::Create<Unit::Speed::MetrePerSecond>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
+
+  constexpr Velocity third = Velocity::Create<Unit::Speed::MetrePerSecond>(
+      Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, DefaultConstructor) {
@@ -229,7 +236,7 @@ TEST(Velocity, StandardConstructor) {
 
 TEST(Velocity, StaticValue) {
   constexpr Velocity quantity =
-      Velocity::Create<Unit::Speed::MillimetrePerSecond>({1.11, -2.22, 3.33});
+      Velocity::Create<Unit::Speed::MillimetrePerSecond>(1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Speed::MillimetrePerSecond>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

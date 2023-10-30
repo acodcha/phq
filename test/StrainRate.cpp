@@ -153,10 +153,20 @@ TEST(StrainRate, CopyConstructor) {
 }
 
 TEST(StrainRate, Create) {
-  constexpr StrainRate quantity = StrainRate::Create<Unit::Frequency::Hertz>(
-      {1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
-                                 Unit::Frequency::Hertz));
+  constexpr StrainRate first = StrainRate::Create<Unit::Frequency::Hertz>(
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  EXPECT_EQ(first, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                              Unit::Frequency::Hertz));
+
+  constexpr StrainRate second = StrainRate::Create<Unit::Frequency::Hertz>(
+      std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(second, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                               Unit::Frequency::Hertz));
+
+  constexpr StrainRate third = StrainRate::Create<Unit::Frequency::Hertz>(
+      Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(third, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                              Unit::Frequency::Hertz));
 }
 
 TEST(StrainRate, DefaultConstructor) {
@@ -277,7 +287,7 @@ TEST(StrainRate, StandardConstructor) {
 TEST(StrainRate, StaticValue) {
   constexpr StrainRate quantity =
       StrainRate::Create<Unit::Frequency::Kilohertz>(
-          {1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+          1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   constexpr Value::SymmetricDyad value =
       quantity.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));

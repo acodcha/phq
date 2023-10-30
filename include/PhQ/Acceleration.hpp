@@ -71,6 +71,25 @@ public:
     return Acceleration{Value::Vector::Zero()};
   }
 
+  // Statically creates an acceleration vector from the given x, y, and z
+  // Cartesian components expressed in a given acceleration unit.
+  template <Unit::Acceleration Unit>
+  static constexpr Acceleration
+  Create(const double x, const double y, const double z) {
+    return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit,
+                                          Standard<Unit::Acceleration>>(
+        Value::Vector{x, y, z})};
+  }
+
+  // Statically creates an acceleration vector from the given x, y, and z
+  // Cartesian components expressed in a given acceleration unit.
+  template <Unit::Acceleration Unit>
+  static constexpr Acceleration Create(const std::array<double, 3>& x_y_z) {
+    return Acceleration{
+        StaticConvertCopy<Unit::Acceleration, Unit,
+                          Standard<Unit::Acceleration>>(Value::Vector{x_y_z})};
+  }
+
   // Statically creates an acceleration vector with a given value expressed in a
   // given acceleration unit.
   template <Unit::Acceleration Unit>

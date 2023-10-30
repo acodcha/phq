@@ -58,8 +58,25 @@ public:
     return AreaVector{Value::Vector::Zero()};
   }
 
-  // Statically creates vector area with a given value expressed in a given area
-  // unit.
+  // Statically creates a vector area from the given x, y, and z Cartesian
+  // components expressed in a given area unit.
+  template <Unit::Area Unit>
+  static constexpr AreaVector
+  Create(const double x, const double y, const double z) {
+    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(
+        Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a vector area from the given x, y, and z Cartesian
+  // components expressed in a given area unit.
+  template <Unit::Area Unit>
+  static constexpr AreaVector Create(const std::array<double, 3>& x_y_z) {
+    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(
+        Value::Vector{x_y_z})};
+  }
+
+  // Statically creates a vector area with a given value expressed in a given
+  // area unit.
   template <Unit::Area Unit>
   static constexpr AreaVector Create(const Value::Vector& value) {
     return AreaVector{

@@ -151,12 +151,26 @@ TEST(VelocityGradient, CopyConstructor) {
 }
 
 TEST(VelocityGradient, Create) {
-  constexpr VelocityGradient quantity =
+  constexpr VelocityGradient first =
       VelocityGradient::Create<Unit::Frequency::Hertz>(
-          {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99});
-  EXPECT_EQ(quantity, VelocityGradient({1.11, -2.22, 3.33, -4.44, 5.55, -6.66,
-                                        7.77, -8.88, 9.99},
-                                       Unit::Frequency::Hertz));
+          1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  EXPECT_EQ(first, VelocityGradient({1.11, -2.22, 3.33, -4.44, 5.55, -6.66,
+                                     7.77, -8.88, 9.99},
+                                    Unit::Frequency::Hertz));
+
+  constexpr VelocityGradient second =
+      VelocityGradient::Create<Unit::Frequency::Hertz>(std::array<double, 9>{
+          1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99});
+  EXPECT_EQ(second, VelocityGradient({1.11, -2.22, 3.33, -4.44, 5.55, -6.66,
+                                      7.77, -8.88, 9.99},
+                                     Unit::Frequency::Hertz));
+
+  constexpr VelocityGradient third =
+      VelocityGradient::Create<Unit::Frequency::Hertz>(Value::Dyad{
+          1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99});
+  EXPECT_EQ(third, VelocityGradient({1.11, -2.22, 3.33, -4.44, 5.55, -6.66,
+                                     7.77, -8.88, 9.99},
+                                    Unit::Frequency::Hertz));
 }
 
 TEST(VelocityGradient, DefaultConstructor) {
@@ -289,7 +303,7 @@ TEST(VelocityGradient, StandardConstructor) {
 TEST(VelocityGradient, StaticValue) {
   constexpr VelocityGradient quantity =
       VelocityGradient::Create<Unit::Frequency::Kilohertz>(
-          {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0});
+          1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   constexpr Value::Dyad value =
       quantity.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(
