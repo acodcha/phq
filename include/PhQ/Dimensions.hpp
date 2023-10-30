@@ -318,16 +318,24 @@ private:
   // Base physical dimension of time of this physical dimension set.
   Dimension::Time time_;
 
+  // Base physical dimension of length of this physical dimension set.
   Dimension::Length length_;
 
+  // Base physical dimension of mass of this physical dimension set.
   Dimension::Mass mass_;
 
+  // Base physical dimension of electric current of this physical dimension set.
   Dimension::ElectricCurrent electric_current_;
 
+  // Base physical dimension of temperature of this physical dimension set.
   Dimension::Temperature temperature_;
 
+  // Base physical dimension of amount of substance of this physical dimension
+  // set.
   Dimension::SubstanceAmount substance_amount_;
 
+  // Base physical dimension of luminous intensity of this physical dimension
+  // set.
   Dimension::LuminousIntensity luminous_intensity_;
 };
 

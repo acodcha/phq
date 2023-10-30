@@ -39,6 +39,10 @@ public:
   Volume(const double value, const Unit::Volume unit)
     : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
+  // Constructor. Constructs a volume from a given area and length.
+  constexpr Volume(const Area& area, const Length& length)
+    : Volume(area.Value() * length.Value()) {}
+
   // Constructor. Constructs a volume from a given volume rate and time using
   // the definition of volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Time& time);
@@ -100,11 +104,11 @@ public:
   }
 
   constexpr Area operator/(const Length& length) const {
-    return Area{value_ / length.Value()};
+    return Area{*this, length};
   }
 
   constexpr Length operator/(const Area& area) const {
-    return Length{value_ / area.Value()};
+    return Length{*this, area};
   }
 
   constexpr VolumeRate operator/(const Time& time) const;
@@ -136,9 +140,6 @@ private:
   // standard volume unit.
   explicit constexpr Volume(const double value)
     : DimensionalScalarQuantity<Unit::Volume>(value) {}
-
-  friend class Length;
-  friend class Area;
 };
 
 inline constexpr bool operator==(
@@ -180,12 +181,18 @@ inline constexpr Volume operator*(const double number, const Volume& volume) {
   return volume * number;
 }
 
+inline constexpr Length::Length(const Volume& volume, const Area& area)
+  : Length(volume.Value() / area.Value()) {}
+
+inline constexpr Area::Area(const Volume& volume, const Length& length)
+  : Area(volume.Value() / length.Value()) {}
+
 inline constexpr Volume Length::operator*(const Area& area) const {
-  return Volume{value_ * area.Value()};
+  return Volume{area, *this};
 }
 
 inline constexpr Volume Area::operator*(const Length& length) const {
-  return Volume{value_ * length.Value()};
+  return Volume{*this, length};
 }
 
 }  // namespace PhQ

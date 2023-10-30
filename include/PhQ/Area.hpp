@@ -43,6 +43,13 @@ public:
   // Constructor. Constructs an area from a given vector area.
   Area(const AreaVector& area_vector);
 
+  // Constructor. Constructs an area from two given lengths.
+  constexpr Area(const Length& length1, const Length& length2)
+    : Area(length1.Value() * length2.Value()) {}
+
+  // Constructor. Constructs an area from a given volume and length.
+  constexpr Area(const Volume& volume, const Length& length);
+
   // Constructor. Constructs an area from a given force magnitude and static
   // pressure using the definition of pressure.
   constexpr Area(const ForceMagnitude& force_magnitude,
@@ -100,7 +107,7 @@ public:
   }
 
   constexpr Length operator/(const Length& length) const {
-    return Length{value_ / length.Value()};
+    return Length{*this, length};
   }
 
   constexpr double operator/(const Area& area) const noexcept {
@@ -128,9 +135,6 @@ private:
   // standard area unit.
   explicit constexpr Area(const double value)
     : DimensionalScalarQuantity<Unit::Area>(value) {}
-
-  friend class Length;
-  friend class Volume;
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {
@@ -166,8 +170,11 @@ inline constexpr Area operator*(const double number, const Area& area) {
   return area * number;
 }
 
+inline constexpr Length::Length(const Area& area, const Length& length)
+  : Length(area.Value() / length.Value()) {}
+
 inline constexpr Area Length::operator*(const Length& length) const {
-  return Area{value_ * length.Value()};
+  return Area{*this, length};
 }
 
 }  // namespace PhQ

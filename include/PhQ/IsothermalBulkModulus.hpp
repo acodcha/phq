@@ -71,12 +71,12 @@ public:
 
   constexpr IsothermalBulkModulus operator+(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return {value_ + isothermal_bulk_modulus.value_};
+    return IsothermalBulkModulus{value_ + isothermal_bulk_modulus.value_};
   }
 
   constexpr IsothermalBulkModulus operator-(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return {value_ - isothermal_bulk_modulus.value_};
+    return IsothermalBulkModulus{value_ - isothermal_bulk_modulus.value_};
   }
 
   constexpr IsothermalBulkModulus operator*(const double number) const {
@@ -113,7 +113,7 @@ public:
 private:
   // Constructor. Constructs an isothermal bulk modulus with a given value
   // expressed in the standard pressure unit.
-  constexpr IsothermalBulkModulus(const double value)
+  explicit constexpr IsothermalBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 

@@ -56,6 +56,12 @@ public:
   // Constructor. Constructs a length from the magnitude of a given position.
   Length(const Position& position);
 
+  // Constructor. Constructs a length from a given area and length.
+  constexpr Length(const Area& area, const Length& length);
+
+  // Constructor. Constructs a length from a given volume and area.
+  constexpr Length(const Volume& volume, const Area& area);
+
   // Constructor. Constructs a length from a given speed and time using the
   // definition of speed.
   constexpr Length(const Speed& speed, const Time& time);
@@ -167,9 +173,6 @@ private:
   // standard length unit.
   explicit constexpr Length(const double value)
     : DimensionalScalarQuantity<Unit::Length>(value) {}
-
-  friend class Area;
-  friend class Volume;
 };
 
 inline constexpr bool operator==(
