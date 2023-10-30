@@ -133,9 +133,17 @@ TEST(Position, CopyConstructor) {
 }
 
 TEST(Position, Create) {
-  constexpr Position quantity =
-      Position::Create<Unit::Length::Metre>({1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  constexpr Position first =
+      Position::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+
+  constexpr Position second = Position::Create<Unit::Length::Metre>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+
+  constexpr Position third =
+      Position::Create<Unit::Length::Metre>(Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
 TEST(Position, DefaultConstructor) {
@@ -231,7 +239,7 @@ TEST(Position, StandardConstructor) {
 
 TEST(Position, StaticValue) {
   constexpr Position quantity =
-      Position::Create<Unit::Length::Millimetre>({1.11, -2.22, 3.33});
+      Position::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

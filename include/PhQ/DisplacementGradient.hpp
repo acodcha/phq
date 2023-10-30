@@ -30,7 +30,7 @@ public:
   DisplacementGradient() = default;
 
   // Constructor. Constructs a displacement gradient tensor whose value has the
-  // given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian/ components.
+  // given xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr DisplacementGradient(
       const double xx, const double xy, const double xz, const double yx,
       const double yy, const double yz, const double zx, const double zy,

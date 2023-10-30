@@ -68,6 +68,25 @@ public:
     return Traction{Value::Vector::Zero()};
   }
 
+  // Statically creates a traction from the given x, y, and z Cartesian
+  // components expressed in a given pressure unit.
+  template <Unit::Pressure Unit>
+  static constexpr Traction
+  Create(const double x, const double y, const double z) {
+    return Traction{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a traction from the given x, y, and z Cartesian
+  // components expressed in a given pressure unit.
+  template <Unit::Pressure Unit>
+  static constexpr Traction Create(const std::array<double, 3>& x_y_z) {
+    return Traction{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
+            Value::Vector{x_y_z})};
+  }
+
   // Statically creates a traction with a given value expressed in a given
   // pressure unit.
   template <Unit::Pressure Unit>

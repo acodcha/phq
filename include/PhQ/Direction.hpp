@@ -49,28 +49,28 @@ public:
   // Default constructor. Initializes the direction to the zero vector.
   constexpr Direction() : DimensionlessVectorQuantity(Value::Vector::Zero()) {}
 
-  // Constructor. Constructs a direction by normalizing the given [x, y, z]
-  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
-  // direction to the zero vector.
+  // Constructor. Constructs a direction by normalizing the given x, y, and z
+  // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0,
+  // initializes the direction to the zero vector.
   Direction(const double x, const double y, const double z)
     : DimensionlessVectorQuantity() {
-    SetValue(x, y, z);
+    Set(x, y, z);
   }
 
-  // Constructor. Constructs a direction by normalizing the given [x, y, z]
-  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, initializes the
-  // direction to the zero vector.
-  explicit Direction(const std::array<double, 3>& x_y_z)
+  // Constructor. Constructs a direction by normalizing a given array
+  // representing x, y, and z Cartesian components to a unit vector. If x = 0, y
+  // = 0, and z = 0, initializes the direction to the zero vector.
+  Direction(const std::array<double, 3>& x_y_z)
     : DimensionlessVectorQuantity() {
-    SetValue(x_y_z);
+    Set(x_y_z);
   }
 
-  // Constructor. Constructs a direction by normalizing the given x-y-z vector
-  // to a unit vector. If the given vector is a zero vector, initializes the
+  // Constructor. Constructs a direction by normalizing the given vector to a
+  // unit vector. If the given vector is a zero vector, initializes the
   // direction to the zero vector.
   explicit Direction(const Value::Vector& value)
     : DimensionlessVectorQuantity() {
-    SetValue(value);
+    Set(value);
   }
 
   // Constructor. Constructs a direction from an acceleration.
@@ -129,9 +129,9 @@ public:
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z
-  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
+  // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  constexpr void SetValue(const double x, const double y, const double z) {
+  constexpr void Set(const double x, const double y, const double z) {
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
@@ -142,9 +142,9 @@ public:
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z
-  // coordinates to a unit vector. If x = 0, y = 0, and z = 0, sets the
+  // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, sets the
   // direction to the zero vector.
-  constexpr void SetValue(const std::array<double, 3>& x_y_z) {
+  constexpr void Set(const std::array<double, 3>& x_y_z) {
     const double magnitude_squared{
         x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
@@ -156,11 +156,11 @@ public:
     }
   }
 
-  // Sets the value of this direction by normalizing the given x-y-z vector to a
-  // unit vector. If the given vector is a zero vector, sets the direction to
-  // the zero vector.
-  constexpr void SetValue(const Value::Vector& value) {
-    SetValue(value.x_y_z());
+  // Sets the value of this direction by normalizing the given vector to a unit
+  // vector. If the given vector is a zero vector, sets the direction to the
+  // zero vector.
+  constexpr void Set(const Value::Vector& value) {
+    Set(value.x_y_z());
   }
 
   // Returns true if the direction is a unit vector, or false if it is the zero

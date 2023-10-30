@@ -35,7 +35,7 @@ public:
   Strain() = default;
 
   // Constructor. Constructs a strain tensor whose value has the given xx, xy,
-  // xz, yy, yz, and zz Cartesian/ components.
+  // xz, yy, yz, and zz Cartesian components.
   constexpr Strain(const double xx, const double xy, const double xz,
                    const double yy, const double yz, const double zz)
     : DimensionlessSymmetricDyadQuantity(xx, xy, xz, yy, yz, zz) {}

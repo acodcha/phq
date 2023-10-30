@@ -125,11 +125,22 @@ TEST(HeatFlux, CopyConstructor) {
 }
 
 TEST(HeatFlux, Create) {
-  constexpr HeatFlux quantity =
+  constexpr HeatFlux first =
+      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, HeatFlux({1.11, -2.22, 3.33},
+                            Unit::EnergyFlux::WattPerSquareMetre));
+
+  constexpr HeatFlux second =
       HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(
-          {1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, HeatFlux({1.11, -2.22, 3.33},
-                               Unit::EnergyFlux::WattPerSquareMetre));
+          std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33},
+                             Unit::EnergyFlux::WattPerSquareMetre));
+
+  constexpr HeatFlux third =
+      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(
+          Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, HeatFlux({1.11, -2.22, 3.33},
+                            Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, DefaultConstructor) {
@@ -252,7 +263,7 @@ TEST(HeatFlux, StandardConstructor) {
 TEST(HeatFlux, StaticValue) {
   constexpr HeatFlux quantity =
       HeatFlux::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(
-          {1.11, -2.22, 3.33});
+          1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

@@ -152,12 +152,26 @@ TEST(ThermalConductivity, CopyConstructor) {
 }
 
 TEST(ThermalConductivity, Create) {
-  constexpr ThermalConductivity quantity = ThermalConductivity::Create<
+  constexpr ThermalConductivity first = ThermalConductivity::Create<
       Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-      {1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity, ThermalConductivity(
-                          {1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
-                          Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  EXPECT_EQ(first, ThermalConductivity(
+                       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                       Unit::ThermalConductivity::WattPerMetrePerKelvin));
+
+  constexpr ThermalConductivity second = ThermalConductivity::Create<
+      Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+      std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(second, ThermalConductivity(
+                        {1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                        Unit::ThermalConductivity::WattPerMetrePerKelvin));
+
+  constexpr ThermalConductivity third = ThermalConductivity::Create<
+      Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+      Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(third, ThermalConductivity(
+                       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                       Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
 TEST(ThermalConductivity, DefaultConstructor) {
@@ -279,7 +293,7 @@ TEST(ThermalConductivity, StandardConstructor) {
 TEST(ThermalConductivity, StaticValue) {
   constexpr ThermalConductivity quantity = ThermalConductivity::Create<
       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
-      {1.0, -2.0, 3.0, -4.0, 5.0, -6.0});
+      1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
   constexpr Value::SymmetricDyad value = quantity.StaticValue<
       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>();
   EXPECT_EQ(value, Value::SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));

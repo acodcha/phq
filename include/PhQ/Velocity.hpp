@@ -79,6 +79,23 @@ public:
     return Velocity{Value::Vector::Zero()};
   }
 
+  // Statically creates a velocity from the given x, y, and z Cartesian
+  // components expressed in a given speed unit.
+  template <Unit::Speed Unit>
+  static constexpr Velocity
+  Create(const double x, const double y, const double z) {
+    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(
+        Value::Vector{x, y, z})};
+  }
+
+  // Statically creates a velocity from the given x, y, and z Cartesian
+  // components expressed in a given speed unit.
+  template <Unit::Speed Unit>
+  static constexpr Velocity Create(const std::array<double, 3>& x_y_z) {
+    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(
+        Value::Vector{x_y_z})};
+  }
+
   // Statically creates a velocity with a given value expressed in a given speed
   // unit.
   template <Unit::Speed Unit>

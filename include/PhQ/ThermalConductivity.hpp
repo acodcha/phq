@@ -70,6 +70,27 @@ public:
     return ThermalConductivity{Value::SymmetricDyad::Zero()};
   }
 
+  // Statically creates a thermal conductivity tensor from the given xx, xy, xz,
+  // yy, yz, and zz Cartesian components expressed in a given pressure unit.
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity
+  Create(const double xx, const double xy, const double xz, const double yy,
+         const double yz, const double zz) {
+    return ThermalConductivity{StaticConvertCopy<
+        Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+  }
+
+  // Statically creates a thermal conductivity tensor from the given xx, xy, xz,
+  // yy, yz, and zz Cartesian components expressed in a given pressure unit.
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity
+  Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
+    return ThermalConductivity{StaticConvertCopy<
+        Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+        Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+  }
+
   // Statically creates a thermal conductivity tensor with a given value
   // expressed in a given thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>

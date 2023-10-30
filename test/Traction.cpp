@@ -115,9 +115,17 @@ TEST(Traction, CopyConstructor) {
 }
 
 TEST(Traction, Create) {
-  constexpr Traction quantity =
-      Traction::Create<Unit::Pressure::Pascal>({1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
+  constexpr Traction first =
+      Traction::Create<Unit::Pressure::Pascal>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
+
+  constexpr Traction second = Traction::Create<Unit::Pressure::Pascal>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
+
+  constexpr Traction third = Traction::Create<Unit::Pressure::Pascal>(
+      Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, DefaultConstructor) {
@@ -217,7 +225,7 @@ TEST(Traction, StandardConstructor) {
 
 TEST(Traction, StaticValue) {
   constexpr Traction quantity =
-      Traction::Create<Unit::Pressure::Kilopascal>({1.11, -2.22, 3.33});
+      Traction::Create<Unit::Pressure::Kilopascal>(1.11, -2.22, 3.33);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));

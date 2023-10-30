@@ -114,10 +114,20 @@ TEST(Stress, CopyConstructor) {
 }
 
 TEST(Stress, Create) {
-  constexpr Stress quantity = Stress::Create<Unit::Pressure::Pascal>(
-      {1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
-                             Unit::Pressure::Pascal));
+  constexpr Stress first = Stress::Create<Unit::Pressure::Pascal>(
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
+  EXPECT_EQ(first, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                          Unit::Pressure::Pascal));
+
+  constexpr Stress second = Stress::Create<Unit::Pressure::Pascal>(
+      std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(second, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                           Unit::Pressure::Pascal));
+
+  constexpr Stress third = Stress::Create<Unit::Pressure::Pascal>(
+      Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  EXPECT_EQ(third, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                          Unit::Pressure::Pascal));
 }
 
 TEST(Stress, DefaultConstructor) {
@@ -243,7 +253,7 @@ TEST(Stress, StandardConstructor) {
 
 TEST(Stress, StaticValue) {
   constexpr Stress quantity = Stress::Create<Unit::Pressure::Kilopascal>(
-      {1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+      1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   constexpr Value::SymmetricDyad value =
       quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));

@@ -109,9 +109,17 @@ TEST(AreaVector, CopyConstructor) {
 }
 
 TEST(AreaVector, Create) {
-  constexpr AreaVector quantity =
-      AreaVector::Create<Unit::Area::SquareMetre>({1.11, -2.22, 3.33});
-  EXPECT_EQ(quantity, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
+  constexpr AreaVector first =
+      AreaVector::Create<Unit::Area::SquareMetre>(1.11, -2.22, 3.33);
+  EXPECT_EQ(first, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
+
+  constexpr AreaVector second = AreaVector::Create<Unit::Area::SquareMetre>(
+      std::array<double, 3>{1.11, -2.22, 3.33});
+  EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
+
+  constexpr AreaVector third = AreaVector::Create<Unit::Area::SquareMetre>(
+      Value::Vector{1.11, -2.22, 3.33});
+  EXPECT_EQ(third, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
 TEST(AreaVector, DefaultConstructor) {
@@ -136,8 +144,7 @@ TEST(AreaVector, Hash) {
 TEST(AreaVector, JSON) {
   EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).JSON(),
             "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
-            "\"z\":"
-            "3.330000000000000},\"unit\":\"m^2\"}");
+            "\"z\":3.330000000000000},\"unit\":\"m^2\"}");
   EXPECT_EQ(AreaVector({0.0, -2.22, 0.0}, Unit::Area::SquareMillimetre)
                 .JSON(Unit::Area::SquareMillimetre),
             "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
@@ -206,7 +213,7 @@ TEST(AreaVector, StandardConstructor) {
 
 TEST(AreaVector, StaticValue) {
   constexpr AreaVector quantity =
-      AreaVector::Create<Unit::Area::SquareMillimetre>({1.0, -2.0, 3.0});
+      AreaVector::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
   constexpr Value::Vector value =
       quantity.StaticValue<Unit::Area::SquareMillimetre>();
   EXPECT_EQ(value, Value::Vector(1.0, -2.0, 3.0));
