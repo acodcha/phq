@@ -350,6 +350,8 @@ The Physical Quantities library carefully handles divisions by zero in its inter
 
 However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 
+Similarly, floating point overflows and underflows can occur during arithmetic operations between physical quantities. If this is a concern, query the status of the C++ floating point environment with `std::fetestexcept`.
+
 [(Back to Usage)](#usage)
 
 ### Usage: Exceptions
