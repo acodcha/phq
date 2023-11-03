@@ -41,6 +41,8 @@ class SpecificPower;
 class Speed;
 class Strain;
 class StrainRate;
+class StrainRateScalar;
+class StrainScalar;
 class Velocity;
 class Volume;
 class VolumeRate;
@@ -159,6 +161,9 @@ public:
   constexpr SpecificEnergy operator*(const SpecificPower& specific_power) const;
 
   constexpr Strain operator*(const StrainRate& strain_rate) const;
+
+  constexpr StrainScalar operator*(
+      const StrainRateScalar& strain_rate_scalar) const;
 
   constexpr Displacement operator*(const Velocity& velocity) const;
 
