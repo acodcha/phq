@@ -21,12 +21,6 @@
 
 namespace PhQ {
 
-// Forward declarations for class Frequency.
-class Acceleration;
-class Displacement;
-class Length;
-class Velocity;
-
 // Frequency.
 class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
@@ -160,6 +154,8 @@ public:
       const SpecificEnergy& specific_energy) const;
 
   constexpr StrainRate operator*(const Strain& strain) const;
+
+  constexpr StrainRateScalar operator*(const StrainScalar& strain_scalar) const;
 
   constexpr double operator/(const Frequency& frequency) const noexcept {
     return value_ / frequency.value_;

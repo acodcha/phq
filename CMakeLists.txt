@@ -324,6 +324,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(strain_rate GTest::gtest_main)
   gtest_discover_tests(strain_rate)
 
+  add_executable(strain_rate_scalar ${PROJECT_SOURCE_DIR}/test/StrainRateScalar.cpp)
+  target_link_libraries(strain_rate_scalar GTest::gtest_main)
+  gtest_discover_tests(strain_rate_scalar)
+
   add_executable(strain_scalar ${PROJECT_SOURCE_DIR}/test/StrainScalar.cpp)
   target_link_libraries(strain_scalar GTest::gtest_main)
   gtest_discover_tests(strain_scalar)

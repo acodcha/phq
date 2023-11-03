@@ -21,44 +21,57 @@
 namespace PhQ {
 
 // Forward declarations for class StrainScalar.
+class Frequency;
 class LinearThermalExpansionCoefficient;
+class StrainRateScalar;
 class TemperatureDifference;
+class Time;
 
-// Strain scalar. Component or resultant of the strain tensor.
+// Scalar strain component or resultant of the strain tensor.
 class StrainScalar : public DimensionlessScalarQuantity {
 public:
-  // Default constructor. Constructs a strain scalar with an uninitialized
+  // Default constructor. Constructs a scalar strain with an uninitialized
   // value.
   StrainScalar() = default;
 
-  // Constructor. Constructs a strain scalar with a given value.
+  // Constructor. Constructs a scalar strain with a given value.
   explicit constexpr StrainScalar(const double value)
     : DimensionlessScalarQuantity(value) {}
 
-  // Constructor. Constructs a strain scalar from a given linear thermal
+  // Constructor. Constructs a scalar strain from a given scalar strain rate and
+  // time using the definition of strain rate.
+  constexpr StrainScalar(
+      const StrainRateScalar& strain_rate_scalar, const Time& time);
+
+  // Constructor. Constructs a scalar strain from a given scalar strain rate and
+  // frequency using the definition of strain rate.
+  constexpr StrainScalar(
+      const StrainRateScalar& strain_rate_scalar, const Frequency& frequency);
+
+  // Constructor. Constructs a scalar strain from a given linear thermal
   // expansion coefficient and temperature difference using the definition of
   // the linear thermal expansion coefficient.
   constexpr StrainScalar(const LinearThermalExpansionCoefficient&
                              linear_thermal_expansion_coefficient,
                          const TemperatureDifference& temperature_difference);
 
-  // Destructor. Destroys this strain scalar.
+  // Destructor. Destroys this scalar strain.
   ~StrainScalar() noexcept = default;
 
-  // Copy constructor. Constructs a strain scalar by copying another one.
+  // Copy constructor. Constructs a scalar strain by copying another one.
   constexpr StrainScalar(const StrainScalar& other) = default;
 
-  // Move constructor. Constructs a strain scalar by moving another one.
+  // Move constructor. Constructs a scalar strain by moving another one.
   constexpr StrainScalar(StrainScalar&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this strain scalar by copying another
+  // Copy assignment operator. Assigns this scalar strain by copying another
   // one.
   constexpr StrainScalar& operator=(const StrainScalar& other) = default;
 
-  // Move assignment operator. Assigns this strain scalar by moving another one.
+  // Move assignment operator. Assigns this scalar strain by moving another one.
   constexpr StrainScalar& operator=(StrainScalar&& other) noexcept = default;
 
-  // Statically creates a strain scalar of zero.
+  // Statically creates a scalar strain of zero.
   static constexpr StrainScalar Zero() {
     return StrainScalar{0.0};
   }
@@ -75,9 +88,13 @@ public:
     return StrainScalar{value_ * number};
   }
 
+  constexpr StrainRateScalar operator*(const Frequency& frequency) const;
+
   constexpr StrainScalar operator/(const double number) const {
     return StrainScalar{value_ / number};
   }
+
+  constexpr StrainRateScalar operator/(const Time& time) const;
 
   constexpr double operator/(const StrainScalar& strain_scalar) const noexcept {
     return value_ / strain_scalar.value_;
