@@ -22,311 +22,169 @@
 
 namespace PhQ::Internal {
 
-// Tests single-value unit conversion functions. Verifies that a given original
-// value expressed in a given original unit correctly converts to a given new
-// value expressed in a given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionSingle(
-    const double original_value, const double reference_value) {
-  {
-    double new_value = original_value;
-    PhQ::Convert(new_value, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_value, reference_value);
-  }
-
-  {
-    const double new_value =
-        PhQ::ConvertCopy(original_value, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_value, reference_value);
-  }
-
-  {
-    double new_value = original_value;
-    PhQ::StaticConvert<Unit, OriginalUnit, NewUnit>(new_value);
-    EXPECT_DOUBLE_EQ(new_value, reference_value);
-  }
-
-  {
-    const double new_value =
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_value);
-    EXPECT_DOUBLE_EQ(new_value, reference_value);
-  }
-}
-
-// Tests unit conversion functions for std::array. Verifies that an array
-// composed of repeated original values expressed in a given original unit
-// correctly converts to an array composed of repeated new values expressed in a
-// given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionArray(
-    const double original_value, const double reference_value) {
-  const std::array<double, 4> original_values{
-      original_value, original_value, original_value, original_value};
-
-  const std::array<double, 4> reference_values{
-      reference_value, reference_value, reference_value, reference_value};
-
-  {
-    std::array<double, 4> new_values = original_values;
-    PhQ::Convert(new_values, OriginalUnit, NewUnit);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-
-  {
-    const std::array<double, 4> new_values =
-        PhQ::ConvertCopy(original_values, OriginalUnit, NewUnit);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-
-  {
-    std::array<double, 4> new_values = original_values;
-    PhQ::StaticConvert<Unit, OriginalUnit, NewUnit>(new_values);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-
-  {
-    const std::array<double, 4> new_values =
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-}
-
-// Tests unit conversion functions for std::vector. Verifies that a vector
-// composed of repeated original values expressed in a given original unit
-// correctly converts to a vector composed of repeated new values expressed in a
-// given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionVector(
-    const double original_value, const double reference_value) {
-  const std::vector<double> original_values{
-      original_value, original_value, original_value, original_value};
-
-  const std::vector<double> reference_values{
-      reference_value, reference_value, reference_value, reference_value};
-
-  {
-    std::vector<double> new_values = original_values;
-    PhQ::Convert(new_values, OriginalUnit, NewUnit);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-
-  {
-    const std::vector<double> new_values =
-        PhQ::ConvertCopy(original_values, OriginalUnit, NewUnit);
-    for (std::size_t index = 0; index < 4; ++index) {
-      EXPECT_DOUBLE_EQ(new_values[index], reference_values[index]);
-    }
-  }
-}
-
-// Tests unit conversion functions for three-dimensional Cartesian vector
-// values. Verifies that a vector composed of repeated original values expressed
-// in a given original unit correctly converts to a vector composed of repeated
-// new values expressed in a given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionValueVector(
-    const double original_value, const double reference_value) {
-  const PhQ::Value::Vector original_values{
-      original_value, original_value, original_value};
-
-  const PhQ::Value::Vector reference_values{
-      reference_value, reference_value, reference_value};
-
-  {
-    PhQ::Value::Vector new_values = original_values;
-    PhQ::Convert(new_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.x(), reference_values.x());
-    EXPECT_DOUBLE_EQ(new_values.y(), reference_values.y());
-    EXPECT_DOUBLE_EQ(new_values.z(), reference_values.z());
-  }
-
-  {
-    const PhQ::Value::Vector new_values =
-        PhQ::ConvertCopy(original_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.x(), reference_values.x());
-    EXPECT_DOUBLE_EQ(new_values.y(), reference_values.y());
-    EXPECT_DOUBLE_EQ(new_values.z(), reference_values.z());
-  }
-
-  {
-    PhQ::Value::Vector new_values = original_values;
-    PhQ::StaticConvert<Unit, OriginalUnit, NewUnit>(new_values);
-    EXPECT_DOUBLE_EQ(new_values.x(), reference_values.x());
-    EXPECT_DOUBLE_EQ(new_values.y(), reference_values.y());
-    EXPECT_DOUBLE_EQ(new_values.z(), reference_values.z());
-  }
-
-  {
-    const PhQ::Value::Vector new_values =
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
-    EXPECT_DOUBLE_EQ(new_values.x(), reference_values.x());
-    EXPECT_DOUBLE_EQ(new_values.y(), reference_values.y());
-    EXPECT_DOUBLE_EQ(new_values.z(), reference_values.z());
-  }
-}
-
-// Tests unit conversion functions for three-dimensional Cartesian symmetric
-// dyadic tensor values. Verifies that a symmetric dyadic tensor composed of
-// repeated original values expressed in a given original unit correctly
-// converts to a symmetric dyadic tensor composed of repeated new values
-// expressed in a given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionValueSymmetricDyad(
-    const double original_value, const double reference_value) {
-  const PhQ::Value::SymmetricDyad original_values{
-      original_value, original_value, original_value,
-      original_value, original_value, original_value};
-
-  const PhQ::Value::SymmetricDyad reference_values{
-      reference_value, reference_value, reference_value,
-      reference_value, reference_value, reference_value};
-
-  {
-    PhQ::Value::SymmetricDyad new_values = original_values;
-    PhQ::Convert(new_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    const PhQ::Value::SymmetricDyad new_values =
-        PhQ::ConvertCopy(original_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    PhQ::Value::SymmetricDyad new_values = original_values;
-    PhQ::StaticConvert<Unit, OriginalUnit, NewUnit>(new_values);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    const PhQ::Value::SymmetricDyad new_values =
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-}
-
-// Tests unit conversion functions for three-dimensional Cartesian dyadic tensor
-// values. Verifies that a dyadic tensor composed of repeated original values
-// expressed in a given original unit correctly converts to a dyadic tensor
-// composed of repeated new values expressed in a given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestUnitConversionValueDyad(
-    const double original_value, const double reference_value) {
-  const PhQ::Value::Dyad original_values{
-      original_value, original_value, original_value,
-      original_value, original_value, original_value,
-      original_value, original_value, original_value};
-
-  const PhQ::Value::Dyad reference_values{
-      reference_value, reference_value, reference_value,
-      reference_value, reference_value, reference_value,
-      reference_value, reference_value, reference_value};
-
-  {
-    PhQ::Value::Dyad new_values = original_values;
-    PhQ::Convert(new_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yx(), reference_values.yx());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zx(), reference_values.zx());
-    EXPECT_DOUBLE_EQ(new_values.zy(), reference_values.zy());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    const PhQ::Value::Dyad new_values =
-        PhQ::ConvertCopy(original_values, OriginalUnit, NewUnit);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yx(), reference_values.yx());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zx(), reference_values.zx());
-    EXPECT_DOUBLE_EQ(new_values.zy(), reference_values.zy());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    PhQ::Value::Dyad new_values = original_values;
-    PhQ::StaticConvert<Unit, OriginalUnit, NewUnit>(new_values);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yx(), reference_values.yx());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zx(), reference_values.zx());
-    EXPECT_DOUBLE_EQ(new_values.zy(), reference_values.zy());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-
-  {
-    const PhQ::Value::Dyad new_values =
-        PhQ::StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
-    EXPECT_DOUBLE_EQ(new_values.xx(), reference_values.xx());
-    EXPECT_DOUBLE_EQ(new_values.xy(), reference_values.xy());
-    EXPECT_DOUBLE_EQ(new_values.xz(), reference_values.xz());
-    EXPECT_DOUBLE_EQ(new_values.yx(), reference_values.yx());
-    EXPECT_DOUBLE_EQ(new_values.yy(), reference_values.yy());
-    EXPECT_DOUBLE_EQ(new_values.yz(), reference_values.yz());
-    EXPECT_DOUBLE_EQ(new_values.zx(), reference_values.zx());
-    EXPECT_DOUBLE_EQ(new_values.zy(), reference_values.zy());
-    EXPECT_DOUBLE_EQ(new_values.zz(), reference_values.zz());
-  }
-}
-
 // Tests unit conversion functions. Verifies that a given original value
 // expressed in a given original unit correctly converts to a given new value
 // expressed in a given new unit.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
 void TestUnitConversions(const double original_value, const double new_value) {
-  PhQ::Internal::TestUnitConversionSingle<Unit, OriginalUnit, NewUnit>(
-      original_value, new_value);
-  PhQ::Internal::TestUnitConversionArray<Unit, OriginalUnit, NewUnit>(
-      original_value, new_value);
-  PhQ::Internal::TestUnitConversionVector<Unit, OriginalUnit, NewUnit>(
-      original_value, new_value);
-  PhQ::Internal::TestUnitConversionValueVector<Unit, OriginalUnit, NewUnit>(
-      original_value, new_value);
-  PhQ::Internal::TestUnitConversionValueSymmetricDyad<
-      Unit, OriginalUnit, NewUnit>(original_value, new_value);
-  PhQ::Internal::TestUnitConversionValueDyad<Unit, OriginalUnit, NewUnit>(
-      original_value, new_value);
+  // double
+  {
+    double converted_value = original_value;
+    Convert(converted_value, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_value, new_value);
+
+    const double copied_converted_value =
+        ConvertCopy(original_value, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_value, new_value);
+
+    const double statically_copied_converted_value =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_value, new_value);
+  }
+
+  // std::array
+  {
+    const std::array<double, 3> original_values{
+        original_value, original_value, original_value};
+
+    std::array<double, 3> converted_values = original_values;
+    Convert(converted_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_values[0], new_value);
+    EXPECT_DOUBLE_EQ(converted_values[1], new_value);
+    EXPECT_DOUBLE_EQ(converted_values[2], new_value);
+
+    const std::array<double, 3> copied_converted_values =
+        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_values[0], new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values[1], new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values[2], new_value);
+
+    const std::array<double, 3> statically_copied_converted_values =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values[0], new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values[1], new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values[2], new_value);
+  }
+
+  // std::vector
+  {
+    const std::vector<double> original_values{
+        original_value, original_value, original_value};
+
+    std::vector<double> converted_values = original_values;
+    Convert(converted_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_values[0], new_value);
+    EXPECT_DOUBLE_EQ(converted_values[1], new_value);
+    EXPECT_DOUBLE_EQ(converted_values[2], new_value);
+
+    const std::vector<double> copied_converted_values =
+        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_values[0], new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values[1], new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values[2], new_value);
+  }
+
+  // Value::Vector
+  {
+    const Value::Vector original_values{
+        original_value, original_value, original_value};
+
+    Value::Vector converted_values = original_values;
+    Convert(converted_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_values.x(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.y(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.z(), new_value);
+
+    const Value::Vector copied_converted_values =
+        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_values.x(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.y(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.z(), new_value);
+
+    const Value::Vector statically_copied_converted_values =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.x(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.y(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.z(), new_value);
+  }
+
+  // Value::SymmetricDyad
+  {
+    const Value::SymmetricDyad original_values{
+        original_value, original_value, original_value,
+        original_value, original_value, original_value};
+
+    Value::SymmetricDyad converted_values = original_values;
+    Convert(converted_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.zz(), new_value);
+
+    const Value::SymmetricDyad copied_converted_values =
+        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.zz(), new_value);
+
+    const Value::SymmetricDyad statically_copied_converted_values =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.zz(), new_value);
+  }
+
+  // Value::Dyad
+  {
+    const Value::Dyad original_values{
+        original_value, original_value, original_value,
+        original_value, original_value, original_value,
+        original_value, original_value, original_value};
+
+    Value::Dyad converted_values = original_values;
+    Convert(converted_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.yx(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.zx(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.zy(), new_value);
+    EXPECT_DOUBLE_EQ(converted_values.zz(), new_value);
+
+    const Value::Dyad copied_converted_values =
+        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.yx(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.zx(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.zy(), new_value);
+    EXPECT_DOUBLE_EQ(copied_converted_values.zz(), new_value);
+
+    const Value::Dyad statically_copied_converted_values =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_values);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xx(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xy(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.xz(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.yx(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.yy(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.yz(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.zx(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.zy(), new_value);
+    EXPECT_DOUBLE_EQ(statically_copied_converted_values.zz(), new_value);
+  }
 }
 
 }  // namespace PhQ::Internal

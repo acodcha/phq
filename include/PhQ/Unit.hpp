@@ -52,8 +52,7 @@ inline constexpr void ConversionToStandard(double& value) noexcept;
 // Function for converting a series of values expressed in the standard unit of
 // measure of a given type to any given unit of measure of that type. Internal
 // implementation detail not intended to be used outside of the functions:
-// PhQ::Convert, PhQ::ConvertCopy, PhQ::StaticConvert, and
-// PhQ::StaticConvertCopy.
+// PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
 template <typename Unit, Unit NewUnit>
 inline constexpr void
 ConversionsFromStandard(double* values, const std::size_t size) noexcept {
@@ -66,8 +65,7 @@ ConversionsFromStandard(double* values, const std::size_t size) noexcept {
 // Function for converting a series of values expressed in any given unit of
 // measure of a given type to the standard unit of measure of that type.
 // Internal implementation detail not intended to be used outside of the
-// functions: PhQ::Convert, PhQ::ConvertCopy, PhQ::StaticConvert, and
-// PhQ::StaticConvertCopy.
+// functions: PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
 template <typename Unit, Unit OriginalUnit>
 inline constexpr void
 ConversionsToStandard(double* values, const std::size_t size) noexcept {
@@ -80,8 +78,7 @@ ConversionsToStandard(double* values, const std::size_t size) noexcept {
 // Abstract map of functions for converting a series of values expressed in the
 // standard unit of measure of a given type to any given unit of measure of that
 // type. Internal implementation detail not intended to be used outside of the
-// functions: PhQ::Convert, PhQ::ConvertCopy, PhQ::StaticConvert, and
-// PhQ::StaticConvertCopy.
+// functions: PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
 template <typename Unit>
 inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
@@ -90,8 +87,7 @@ inline const std::map<
 // Abstract map of functions for converting a series of values expressed in any
 // given unit of measure of a given type to the standard unit of measure of that
 // type. Internal implementation detail not intended to be used outside of the
-// functions: PhQ::Convert, PhQ::ConvertCopy, PhQ::StaticConvert, and
-// PhQ::StaticConvertCopy.
+// functions: PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
 template <typename Unit>
 inline const std::map<
     Unit, std::function<void(double* values, const std::size_t size)>>
@@ -231,50 +227,6 @@ inline Value::Dyad ConvertCopy(
     const Value::Dyad& value, const Unit original_unit, const Unit new_unit) {
   return Value::Dyad{ConvertCopy<Unit, 9>(
       value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
-}
-
-// Converts a value expressed in a given unit of measure to a new unit of
-// measure. The conversion is performed in-place. This function can be evaluated
-// at compile time.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(double& value) {
-  Internal::ConversionToStandard<Unit, OriginalUnit>(value);
-  Internal::ConversionFromStandard<Unit, NewUnit>(value);
-}
-
-// Converts an array of values expressed in a given unit of measure to a new
-// unit of measure. The conversion is performed in-place. This function can be
-// evaluated at compile time.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size>
-inline constexpr void StaticConvert(std::array<double, Size>& values) {
-  Internal::ConversionsToStandard<Unit, OriginalUnit>(&values[0], Size);
-  Internal::ConversionsFromStandard<Unit, NewUnit>(&values[0], Size);
-}
-
-// Converts a three-dimensional vector value expressed in a given unit of
-// measure to a new unit of measure. The conversion is performed in-place. This
-// function can be evaluated at compile time.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::Vector& value) {
-  StaticConvert<Unit, OriginalUnit, NewUnit, 3>(value.Mutable_x_y_z());
-}
-
-// Converts a symmetric dyadic tensor value expressed in a given unit of measure
-// to a new unit of measure. The conversion is performed in-place. This function
-// can be evaluated at compile time.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::SymmetricDyad& value) {
-  StaticConvert<Unit, OriginalUnit, NewUnit, 6>(
-      value.Mutable_xx_xy_xz_yy_yz_zz());
-}
-
-// Converts a dyadic tensor value expressed in a given unit of measure to a new
-// unit of measure. The conversion is performed in-place. This function can be
-// evaluated at compile time.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr void StaticConvert(Value::Dyad& value) {
-  StaticConvert<Unit, OriginalUnit, NewUnit, 9>(
-      value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz());
 }
 
 // Converts a value expressed in a given unit of measure to a new unit of
