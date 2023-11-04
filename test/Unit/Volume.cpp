@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -59,99 +61,80 @@ TEST(UnitVolume, ConsistentUnit) {
 
 TEST(UnitVolume, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicMile),
-                   value / std::pow(1609.344, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicKilometre),
-      value * std::pow(0.001, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicYard),
-                   value / std::pow(0.9144, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicFoot),
-                   value / std::pow(0.3048, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicDecimetre),
-      value * std::pow(10.0, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::Litre),
-                   value * std::pow(10.0, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::CubicInch),
-                   value / std::pow(0.0254, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicCentimetre),
-      value * std::pow(100.0, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMetre, Volume::Millilitre),
-                   value * std::pow(100.0, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMillimetre),
-      value * std::pow(1000.0, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMilliinch),
-      value / std::pow(0.0000254, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMicrometre),
-      value * std::pow(1000000.0, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMicroinch),
-      value / std::pow(0.0000000254, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMile>(
+      value, value / std::pow(1609.344, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicKilometre>(
+      value, value * std::pow(0.001, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMetre>(
+      value, value);
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicYard>(
+      value, value / std::pow(0.9144, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicFoot>(
+      value, value / std::pow(0.3048, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicDecimetre>(
+      value, value * std::pow(10.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::Litre>(
+      value, value * std::pow(10.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicInch>(
+      value, value / std::pow(0.0254, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicCentimetre>(
+      value, value * std::pow(100.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::Millilitre>(
+      value, value * std::pow(100.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicMillimetre>(
+      value, value * std::pow(1000.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicMilliinch>(
+      value, value / std::pow(0.0000254, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicMicrometre>(
+      value, value * std::pow(1000000.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre,
+                                Volume::CubicMicroinch>(
+      value, value / std::pow(0.0000000254, 3));
 }
 
 TEST(UnitVolume, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicMile, Volume::CubicMetre),
-                   value * std::pow(1609.344, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicKilometre, Volume::CubicMetre),
-      value * std::pow(1000.0, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMetre, Volume::CubicMetre), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicYard, Volume::CubicMetre),
-                   value * std::pow(0.9144, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicFoot, Volume::CubicMetre),
-                   value * std::pow(0.3048, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicDecimetre, Volume::CubicMetre),
-      value * std::pow(0.1, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::Litre, Volume::CubicMetre),
-                   value * std::pow(0.1, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::CubicInch, Volume::CubicMetre),
-                   value * std::pow(0.0254, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicCentimetre, Volume::CubicMetre),
-      value * std::pow(0.01, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Volume::Millilitre, Volume::CubicMetre),
-                   value * std::pow(0.01, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMillimetre, Volume::CubicMetre),
-      value * std::pow(0.001, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMilliinch, Volume::CubicMetre),
-      value * std::pow(0.0000254, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMicrometre, Volume::CubicMetre),
-      value * std::pow(0.000001, 3));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Volume::CubicMicroinch, Volume::CubicMetre),
-      value * std::pow(0.0000000254, 3));
-}
-
-TEST(UnitVolume, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Volume old_unit : Units) {
-    for (const Volume new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Volume, Volume::CubicMile, Volume::CubicMetre>(
+      value, value * std::pow(1609.344, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicKilometre,
+                                Volume::CubicMetre>(
+      value, value * std::pow(1000.0, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMetre>(
+      value, value);
+  Internal::TestUnitConversions<Volume, Volume::CubicYard, Volume::CubicMetre>(
+      value, value * std::pow(0.9144, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicFoot, Volume::CubicMetre>(
+      value, value * std::pow(0.3048, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicDecimetre,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.1, 3));
+  Internal::TestUnitConversions<Volume, Volume::Litre, Volume::CubicMetre>(
+      value, value * std::pow(0.1, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicInch, Volume::CubicMetre>(
+      value, value * std::pow(0.0254, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicCentimetre,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.01, 3));
+  Internal::TestUnitConversions<Volume, Volume::Millilitre, Volume::CubicMetre>(
+      value, value * std::pow(0.01, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMillimetre,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.001, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMilliinch,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.0000254, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMicrometre,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.000001, 3));
+  Internal::TestUnitConversions<Volume, Volume::CubicMicroinch,
+                                Volume::CubicMetre>(
+      value, value * std::pow(0.0000000254, 3));
 }
 
 TEST(UnitVolume, Parse) {

@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -56,61 +58,39 @@ TEST(UnitSpecificHeatCapacity, ConsistentUnit) {
 
 TEST(UnitSpecificHeatCapacity, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                  SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-      value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                  SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-      value * 1000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                  SpecificHeatCapacity::FootPoundPerSlugPerRankine),
-      value / (1.8 * std::pow(0.3048, 2)));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                  SpecificHeatCapacity::InchPoundPerSlinchPerRankine),
-      value / (1.8 * std::pow(0.0254, 2)));
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value);
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+      SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+      SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
+      value, value / (1.8 * std::pow(0.3048, 2)));
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+      SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
+      value, value / (1.8 * std::pow(0.0254, 2)));
 }
 
 TEST(UnitSpecificHeatCapacity, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                  SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-      value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::NanojoulePerGramPerKelvin,
-                  SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-      value * 0.000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-                  SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-      value * 1.8 * std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
-                  SpecificHeatCapacity::JoulePerKilogramPerKelvin),
-      value * 1.8 * std::pow(0.0254, 2));
-}
-
-TEST(UnitSpecificHeatCapacity, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const SpecificHeatCapacity old_unit : Units) {
-    for (const SpecificHeatCapacity new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value);
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::NanojoulePerGramPerKelvin,
+      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value * 0.000001);
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::FootPoundPerSlugPerRankine,
+      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      value, value * 1.8 * std::pow(0.3048, 2));
+  Internal::TestUnitConversions<
+      SpecificHeatCapacity, SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
+      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      value, value * 1.8 * std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificHeatCapacity, Parse) {

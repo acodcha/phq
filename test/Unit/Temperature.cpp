@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -48,51 +50,28 @@ TEST(UnitTemperature, ConsistentUnit) {
 
 TEST(UnitTemperature, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Kelvin, Temperature::Celsius),
-      value - 273.15);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Kelvin, Temperature::Rankine),
-      value * 1.8);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Kelvin, Temperature::Fahrenheit),
-      (value * 1.8) - 459.67);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
+                                Temperature::Kelvin>(value, value);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
+                                Temperature::Celsius>(value, value - 273.15);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
+                                Temperature::Rankine>(value, value * 1.8);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
+                                Temperature::Fahrenheit>(
+      value, (value * 1.8) - 459.67);
 }
 
 TEST(UnitTemperature, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Kelvin, Temperature::Kelvin), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Celsius, Temperature::Kelvin),
-      value + 273.15);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Rankine, Temperature::Kelvin),
-      value / 1.8);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Temperature::Fahrenheit, Temperature::Kelvin),
-      (value + 459.67) / 1.8);
-}
-
-TEST(UnitTemperature, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Temperature old_unit : Units) {
-    for (const Temperature new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
+                                Temperature::Kelvin>(value, value);
+  Internal::TestUnitConversions<Temperature, Temperature::Celsius,
+                                Temperature::Kelvin>(value, value + 273.15);
+  Internal::TestUnitConversions<Temperature, Temperature::Rankine,
+                                Temperature::Kelvin>(value, value / 1.8);
+  Internal::TestUnitConversions<Temperature, Temperature::Fahrenheit,
+                                Temperature::Kelvin>(
+      value, (value + 459.67) / 1.8);
 }
 
 TEST(UnitTemperature, Parse) {

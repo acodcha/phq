@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -52,54 +54,32 @@ TEST(UnitSpecificPower, ConsistentUnit) {
 
 TEST(UnitSpecificPower, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::WattPerKilogram,
-                               SpecificPower::WattPerKilogram),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::WattPerKilogram,
-                               SpecificPower::NanowattPerGram),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::WattPerKilogram,
-                               SpecificPower::FootPoundPerSlugPerSecond),
-                   value / std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::WattPerKilogram,
-                               SpecificPower::InchPoundPerSlinchPerSecond),
-                   value / std::pow(0.0254, 2));
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                SpecificPower::WattPerKilogram>(value, value);
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                SpecificPower::NanowattPerGram>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                SpecificPower::FootPoundPerSlugPerSecond>(
+      value, value / std::pow(0.3048, 2));
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                SpecificPower::InchPoundPerSlinchPerSecond>(
+      value, value / std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificPower, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::WattPerKilogram,
-                               SpecificPower::WattPerKilogram),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::NanowattPerGram,
-                               SpecificPower::WattPerKilogram),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, SpecificPower::FootPoundPerSlugPerSecond,
-                               SpecificPower::WattPerKilogram),
-                   value * std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SpecificPower::InchPoundPerSlinchPerSecond,
-                  SpecificPower::WattPerKilogram),
-      value * std::pow(0.0254, 2));
-}
-
-TEST(UnitSpecificPower, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const SpecificPower old_unit : Units) {
-    for (const SpecificPower new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                SpecificPower::WattPerKilogram>(value, value);
+  Internal::TestUnitConversions<SpecificPower, SpecificPower::NanowattPerGram,
+                                SpecificPower::WattPerKilogram>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<
+      SpecificPower, SpecificPower::FootPoundPerSlugPerSecond,
+      SpecificPower::WattPerKilogram>(value, value * std::pow(0.3048, 2));
+  Internal::TestUnitConversions<
+      SpecificPower, SpecificPower::InchPoundPerSlinchPerSecond,
+      SpecificPower::WattPerKilogram>(value, value * std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificPower, Parse) {

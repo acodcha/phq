@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -56,75 +58,58 @@ TEST(UnitLength, ConsistentUnit) {
 
 TEST(UnitLength, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Mile), value / 1609.344);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Kilometre), value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Yard), value / 0.9144);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Foot), value / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Decimetre), value * 10.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Inch), value / 0.0254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Centimetre), value * 100.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Millimetre), value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Milliinch), value / 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Metre, Length::Micrometre), value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Microinch),
-                   value / 0.0000000254);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Mile>(
+      value, value / 1609.344);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Kilometre>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(
+      value, value);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Yard>(
+      value, value / 0.9144);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Foot>(
+      value, value / 0.3048);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Decimetre>(
+      value, value * 10.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Inch>(
+      value, value / 0.0254);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Centimetre>(
+      value, value * 100.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Millimetre>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Milliinch>(
+      value, value / 0.0000254);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Micrometre>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Microinch>(
+      value, value / 0.0000000254);
 }
 
 TEST(UnitLength, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Mile, Length::Metre), value * 1609.344);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Kilometre, Length::Metre), value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Metre, Length::Metre), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Yard, Length::Metre), value * 0.9144);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Foot, Length::Metre), value * 0.3048);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Decimetre, Length::Metre), value * 0.1);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Inch, Length::Metre), value * 0.0254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Centimetre, Length::Metre), value * 0.01);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Millimetre, Length::Metre), value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Milliinch, Length::Metre), value * 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Length::Micrometre, Length::Metre), value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Length::Microinch, Length::Metre),
-                   value * 0.0000000254);
-}
-
-TEST(UnitLength, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Length old_unit : Units) {
-    for (const Length new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Length, Length::Mile, Length::Metre>(
+      value, value * 1609.344);
+  Internal::TestUnitConversions<Length, Length::Kilometre, Length::Metre>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(
+      value, value);
+  Internal::TestUnitConversions<Length, Length::Yard, Length::Metre>(
+      value, value * 0.9144);
+  Internal::TestUnitConversions<Length, Length::Foot, Length::Metre>(
+      value, value * 0.3048);
+  Internal::TestUnitConversions<Length, Length::Decimetre, Length::Metre>(
+      value, value * 0.1);
+  Internal::TestUnitConversions<Length, Length::Inch, Length::Metre>(
+      value, value * 0.0254);
+  Internal::TestUnitConversions<Length, Length::Centimetre, Length::Metre>(
+      value, value * 0.01);
+  Internal::TestUnitConversions<Length, Length::Millimetre, Length::Metre>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<Length, Length::Milliinch, Length::Metre>(
+      value, value * 0.0000254);
+  Internal::TestUnitConversions<Length, Length::Micrometre, Length::Metre>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<Length, Length::Microinch, Length::Metre>(
+      value, value * 0.0000000254);
 }
 
 TEST(UnitLength, Parse) {

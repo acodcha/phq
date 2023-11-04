@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -60,73 +62,56 @@ TEST(UnitDynamicViscosity, ConsistentUnit) {
 
 TEST(UnitDynamicViscosity, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::PascalSecond),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::KilopascalSecond),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::MegapascalSecond),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::GigapascalSecond),
-                   value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::Poise),
-                   value * 10.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::PoundSecondPerSquareFoot),
-                   value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::PoundSecondPerSquareInch),
-                   value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PascalSecond,
+                                DynamicViscosity::PascalSecond>(value, value);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::PascalSecond,
+      DynamicViscosity::KilopascalSecond>(value, value * 0.001);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::PascalSecond,
+      DynamicViscosity::MegapascalSecond>(value, value * 0.000001);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::PascalSecond,
+      DynamicViscosity::GigapascalSecond>(value, value * 0.000000001);
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PascalSecond,
+                                DynamicViscosity::Poise>(value, value * 10.0);
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PascalSecond,
+                                DynamicViscosity::PoundSecondPerSquareFoot>(
+      value, value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PascalSecond,
+                                DynamicViscosity::PoundSecondPerSquareInch>(
+      value, value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
 }
 
 TEST(UnitDynamicViscosity, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::PascalSecond,
-                               DynamicViscosity::PascalSecond),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::KilopascalSecond,
-                               DynamicViscosity::PascalSecond),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::MegapascalSecond,
-                               DynamicViscosity::PascalSecond),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::GigapascalSecond,
-                               DynamicViscosity::PascalSecond),
-                   value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, DynamicViscosity::Poise,
-                               DynamicViscosity::PascalSecond),
-                   value * 0.1);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, DynamicViscosity::PoundSecondPerSquareFoot,
-                  DynamicViscosity::PascalSecond),
-      value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, DynamicViscosity::PoundSecondPerSquareInch,
-                  DynamicViscosity::PascalSecond),
-      value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
-}
-
-TEST(UnitDynamicViscosity, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const DynamicViscosity old_unit : Units) {
-    for (const DynamicViscosity new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PascalSecond,
+                                DynamicViscosity::PascalSecond>(value, value);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::KilopascalSecond,
+      DynamicViscosity::PascalSecond>(value, value * 1000.0);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::MegapascalSecond,
+      DynamicViscosity::PascalSecond>(value, value * 1000000.0);
+  Internal::TestUnitConversions<
+      DynamicViscosity, DynamicViscosity::GigapascalSecond,
+      DynamicViscosity::PascalSecond>(value, value * 1000000000.0);
+  Internal::TestUnitConversions<DynamicViscosity, DynamicViscosity::Poise,
+                                DynamicViscosity::PascalSecond>(
+      value, value * 0.1);
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PoundSecondPerSquareFoot,
+                                DynamicViscosity::PascalSecond>(
+      value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
+  Internal::TestUnitConversions<DynamicViscosity,
+                                DynamicViscosity::PoundSecondPerSquareInch,
+                                DynamicViscosity::PascalSecond>(
+      value, value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
 }
 
 TEST(UnitDynamicViscosity, Parse) {
