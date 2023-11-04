@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -61,91 +63,72 @@ TEST(UnitArea, ConsistentUnit) {
 
 TEST(UnitArea, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareMile),
-                   value / std::pow(1609.344, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareKilometre),
-                   value * std::pow(0.001, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::Hectare), value * 0.0001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::Acre),
-                   value * 640.0 / std::pow(1609.344, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::SquareMetre), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareYard),
-                   value / std::pow(0.9144, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareFoot),
-                   value / std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareDecimetre),
-                   value * std::pow(10.0, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareInch),
-                   value / std::pow(0.0254, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::SquareCentimetre),
-      value * std::pow(100.0, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::SquareMillimetre),
-      value * std::pow(1000.0, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareMilliinch),
-                   value / std::pow(0.0000254, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::SquareMicrometre),
-      value * std::pow(1000000.0, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMetre, Area::SquareMicroinch),
-                   value / std::pow(0.0000000254, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMile>(
+      value, value / std::pow(1609.344, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareKilometre>(
+      value, value * std::pow(0.001, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Hectare>(
+      value, value * 0.0001);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Acre>(
+      value, value * 640.0 / std::pow(1609.344, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(
+      value, value);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareYard>(
+      value, value / std::pow(0.9144, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareFoot>(
+      value, value / std::pow(0.3048, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareDecimetre>(
+      value, value * std::pow(10.0, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareInch>(
+      value, value / std::pow(0.0254, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre,
+                                Area::SquareCentimetre>(
+      value, value * std::pow(100.0, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre,
+                                Area::SquareMillimetre>(
+      value, value * std::pow(1000.0, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMilliinch>(
+      value, value / std::pow(0.0000254, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre,
+                                Area::SquareMicrometre>(
+      value, value * std::pow(1000000.0, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMicroinch>(
+      value, value / std::pow(0.0000000254, 2));
 }
 
 TEST(UnitArea, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMile, Area::SquareMetre),
-                   value * std::pow(1609.344, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareKilometre, Area::SquareMetre),
-                   value * std::pow(1000.0, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::Hectare, Area::SquareMetre), value * 10000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::Acre, Area::SquareMetre),
-                   value * std::pow(1609.344, 2) / 640.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMetre, Area::SquareMetre), value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareYard, Area::SquareMetre),
-                   value * std::pow(0.9144, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareFoot, Area::SquareMetre),
-                   value * std::pow(0.3048, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareDecimetre, Area::SquareMetre),
-                   value * std::pow(0.1, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareInch, Area::SquareMetre),
-                   value * std::pow(0.0254, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareCentimetre, Area::SquareMetre),
-      value * std::pow(0.01, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMillimetre, Area::SquareMetre),
-      value * std::pow(0.001, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMilliinch, Area::SquareMetre),
-                   value * std::pow(0.0000254, 2));
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Area::SquareMicrometre, Area::SquareMetre),
-      value * std::pow(0.000001, 2));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Area::SquareMicroinch, Area::SquareMetre),
-                   value * std::pow(0.0000000254, 2));
-}
-
-TEST(UnitArea, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Area old_unit : Units) {
-    for (const Area new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Area, Area::SquareMile, Area::SquareMetre>(
+      value, value * std::pow(1609.344, 2));
+  Internal::TestUnitConversions<Area, Area::SquareKilometre, Area::SquareMetre>(
+      value, value * std::pow(1000.0, 2));
+  Internal::TestUnitConversions<Area, Area::Hectare, Area::SquareMetre>(
+      value, value * 10000.0);
+  Internal::TestUnitConversions<Area, Area::Acre, Area::SquareMetre>(
+      value, value * std::pow(1609.344, 2) / 640.0);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(
+      value, value);
+  Internal::TestUnitConversions<Area, Area::SquareYard, Area::SquareMetre>(
+      value, value * std::pow(0.9144, 2));
+  Internal::TestUnitConversions<Area, Area::SquareFoot, Area::SquareMetre>(
+      value, value * std::pow(0.3048, 2));
+  Internal::TestUnitConversions<Area, Area::SquareDecimetre, Area::SquareMetre>(
+      value, value * std::pow(0.1, 2));
+  Internal::TestUnitConversions<Area, Area::SquareInch, Area::SquareMetre>(
+      value, value * std::pow(0.0254, 2));
+  Internal::TestUnitConversions<Area, Area::SquareCentimetre,
+                                Area::SquareMetre>(
+      value, value * std::pow(0.01, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMillimetre,
+                                Area::SquareMetre>(
+      value, value * std::pow(0.001, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMilliinch, Area::SquareMetre>(
+      value, value * std::pow(0.0000254, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMicrometre,
+                                Area::SquareMetre>(
+      value, value * std::pow(0.000001, 2));
+  Internal::TestUnitConversions<Area, Area::SquareMicroinch, Area::SquareMetre>(
+      value, value * std::pow(0.0000000254, 2));
 }
 
 TEST(UnitArea, Parse) {

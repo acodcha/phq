@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -47,47 +49,30 @@ TEST(UnitAngle, ConsistentUnit) {
 
 TEST(UnitAngle, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Angle::Radian, Angle::Degree), value * 180.0 / Pi);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Arcminute),
-                   value * 10800.0 / Pi);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Arcsecond),
-                   value * 648000.0 / Pi);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Angle::Radian, Angle::Revolution), value / (2.0 * Pi));
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Radian>(
+      value, value);
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Degree>(
+      value, value * 180.0 / Pi);
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Arcminute>(
+      value, value * 10800.0 / Pi);
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Arcsecond>(
+      value, value * 648000.0 / Pi);
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Revolution>(
+      value, value / (2.0 * Pi));
 }
 
 TEST(UnitAngle, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Radian, Angle::Radian), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Angle::Degree, Angle::Radian), value * Pi / 180.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Arcminute, Angle::Radian),
-                   value * Pi / 10800.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Angle::Arcsecond, Angle::Radian),
-                   value * Pi / 648000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Angle::Revolution, Angle::Radian), value * 2.0 * Pi);
-}
-
-TEST(UnitAngle, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Angle old_unit : Units) {
-    for (const Angle new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Angle, Angle::Radian, Angle::Radian>(
+      value, value);
+  Internal::TestUnitConversions<Angle, Angle::Degree, Angle::Radian>(
+      value, value * Pi / 180.0);
+  Internal::TestUnitConversions<Angle, Angle::Arcminute, Angle::Radian>(
+      value, value * Pi / 10800.0);
+  Internal::TestUnitConversions<Angle, Angle::Arcsecond, Angle::Radian>(
+      value, value * Pi / 648000.0);
+  Internal::TestUnitConversions<Angle, Angle::Revolution, Angle::Radian>(
+      value, value * 2.0 * Pi);
 }
 
 TEST(UnitAngle, Parse) {

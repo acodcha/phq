@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -49,65 +51,46 @@ TEST(UnitMassDensity, ConsistentUnit) {
 
 TEST(UnitMassDensity, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::KilogramPerCubicMetre),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::GramPerCubicMillimetre),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::SlugPerCubicFoot),
-                   value * std::pow(0.3048, 4) / (0.45359237 * 9.80665));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::SlinchPerCubicInch),
-                   value * std::pow(0.0254, 4) / (0.45359237 * 9.80665));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::PoundPerCubicFoot),
-                   value * std::pow(0.3048, 3) / 0.45359237);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::PoundPerCubicInch),
-                   value * std::pow(0.0254, 3) / 0.45359237);
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value);
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::GramPerCubicMillimetre>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::SlugPerCubicFoot>(
+      value, value * std::pow(0.3048, 4) / (0.45359237 * 9.80665));
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::SlinchPerCubicInch>(
+      value, value * std::pow(0.0254, 4) / (0.45359237 * 9.80665));
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::PoundPerCubicFoot>(
+      value, value * std::pow(0.3048, 3) / 0.45359237);
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::PoundPerCubicInch>(
+      value, value * std::pow(0.0254, 3) / 0.45359237);
 }
 
 TEST(UnitMassDensity, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::KilogramPerCubicMetre,
-                               MassDensity::KilogramPerCubicMetre),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::GramPerCubicMillimetre,
-                               MassDensity::KilogramPerCubicMetre),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::SlugPerCubicFoot,
-                               MassDensity::KilogramPerCubicMetre),
-                   value * 0.45359237 * 9.80665 / std::pow(0.3048, 4));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::SlinchPerCubicInch,
-                               MassDensity::KilogramPerCubicMetre),
-                   value * 0.45359237 * 9.80665 / std::pow(0.0254, 4));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::PoundPerCubicFoot,
-                               MassDensity::KilogramPerCubicMetre),
-                   value * 0.45359237 / std::pow(0.3048, 3));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, MassDensity::PoundPerCubicInch,
-                               MassDensity::KilogramPerCubicMetre),
-                   value * 0.45359237 / std::pow(0.0254, 3));
-}
-
-TEST(UnitMassDensity, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const MassDensity old_unit : Units) {
-    for (const MassDensity new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value);
+  Internal::TestUnitConversions<
+      MassDensity, MassDensity::GramPerCubicMillimetre,
+      MassDensity::KilogramPerCubicMetre>(value, value * 1000000.0);
+  Internal::TestUnitConversions<MassDensity, MassDensity::SlugPerCubicFoot,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 4));
+  Internal::TestUnitConversions<MassDensity, MassDensity::SlinchPerCubicInch,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value * 0.45359237 * 9.80665 / std::pow(0.0254, 4));
+  Internal::TestUnitConversions<MassDensity, MassDensity::PoundPerCubicFoot,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value * 0.45359237 / std::pow(0.3048, 3));
+  Internal::TestUnitConversions<MassDensity, MassDensity::PoundPerCubicInch,
+                                MassDensity::KilogramPerCubicMetre>(
+      value, value * 0.45359237 / std::pow(0.0254, 3));
 }
 
 TEST(UnitMassDensity, Parse) {

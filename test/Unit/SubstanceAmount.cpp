@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -50,57 +52,37 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
 
 TEST(UnitSubstanceAmount, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Mole), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Kilomole),
-      value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Megamole),
-      value * 0.000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Gigamole),
-      value * 0.000000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Particles),
-      value * 6.02214076e23);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Mole>(value, value);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Kilomole>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Megamole>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Gigamole>(
+      value, value * 0.000000001);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Particles>(
+      value, value * 6.02214076e23);
 }
 
 TEST(UnitSubstanceAmount, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Mole, SubstanceAmount::Mole), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Kilomole, SubstanceAmount::Mole),
-      value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Megamole, SubstanceAmount::Mole),
-      value * 1000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Gigamole, SubstanceAmount::Mole),
-      value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, SubstanceAmount::Particles, SubstanceAmount::Mole),
-      value / 6.02214076e23);
-}
-
-TEST(UnitSubstanceAmount, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const SubstanceAmount old_unit : Units) {
-    for (const SubstanceAmount new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                SubstanceAmount::Mole>(value, value);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Kilomole,
+                                SubstanceAmount::Mole>(value, value * 1000.0);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Megamole,
+                                SubstanceAmount::Mole>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Gigamole,
+                                SubstanceAmount::Mole>(
+      value, value * 1000000000.0);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Particles,
+                                SubstanceAmount::Mole>(
+      value, value / 6.02214076e23);
 }
 
 TEST(UnitSubstanceAmount, Parse) {

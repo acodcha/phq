@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -52,63 +54,44 @@ TEST(UnitPower, ConsistentUnit) {
 
 TEST(UnitPower, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Watt), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Milliwatt), value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Microwatt), value * 1000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Nanowatt), value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Kilowatt), value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Megawatt), value * 0.000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Watt, Power::Gigawatt), value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::FootPoundPerSecond),
-                   value / (0.3048 * 0.45359237 * 9.80665));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::InchPoundPerSecond),
-                   value / (0.0254 * 0.45359237 * 9.80665));
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Watt>(value, value);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Milliwatt>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Microwatt>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Nanowatt>(
+      value, value * 1000000000.0);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Kilowatt>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Megawatt>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Gigawatt>(
+      value, value * 0.000000001);
+  Internal::TestUnitConversions<Power, Power::Watt, Power::FootPoundPerSecond>(
+      value, value / (0.3048 * 0.45359237 * 9.80665));
+  Internal::TestUnitConversions<Power, Power::Watt, Power::InchPoundPerSecond>(
+      value, value / (0.0254 * 0.45359237 * 9.80665));
 }
 
 TEST(UnitPower, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::Watt, Power::Watt), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Milliwatt, Power::Watt), value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Microwatt, Power::Watt), value * 0.000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Nanowatt, Power::Watt), value * 0.000000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Kilowatt, Power::Watt), value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Megawatt, Power::Watt), value * 1000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Power::Gigawatt, Power::Watt), value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::FootPoundPerSecond, Power::Watt),
-                   value * 0.3048 * 0.45359237 * 9.80665);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Power::InchPoundPerSecond, Power::Watt),
-                   value * 0.0254 * 0.45359237 * 9.80665);
-}
-
-TEST(UnitPower, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Power old_unit : Units) {
-    for (const Power new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Power, Power::Watt, Power::Watt>(value, value);
+  Internal::TestUnitConversions<Power, Power::Milliwatt, Power::Watt>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<Power, Power::Microwatt, Power::Watt>(
+      value, value * 0.000001);
+  Internal::TestUnitConversions<Power, Power::Nanowatt, Power::Watt>(
+      value, value * 0.000000001);
+  Internal::TestUnitConversions<Power, Power::Kilowatt, Power::Watt>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<Power, Power::Megawatt, Power::Watt>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<Power, Power::Gigawatt, Power::Watt>(
+      value, value * 1000000000.0);
+  Internal::TestUnitConversions<Power, Power::FootPoundPerSecond, Power::Watt>(
+      value, value * 0.3048 * 0.45359237 * 9.80665);
+  Internal::TestUnitConversions<Power, Power::InchPoundPerSecond, Power::Watt>(
+      value, value * 0.0254 * 0.45359237 * 9.80665);
 }
 
 TEST(UnitPower, Parse) {

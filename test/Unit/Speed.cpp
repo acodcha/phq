@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -94,245 +96,206 @@ TEST(UnitSpeed, ConsistentUnit) {
 
 TEST(UnitSpeed, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilePerSecond),
-      value / 1609.344);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::KilometrePerSecond),
-      value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MetrePerSecond), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::YardPerSecond),
-      value / 0.9144);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::FootPerSecond),
-      value / 0.3048);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::DecimetrePerSecond),
-      value * 10.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::InchPerSecond),
-      value / 0.0254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::CentimetrePerSecond),
-      value * 100.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MillimetrePerSecond),
-      value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilliinchPerSecond),
-      value / 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicrometrePerSecond),
-      value * 1000000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicroinchPerSecond),
-      value / 0.0000000254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilePerMinute),
-      value / 1609.344 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::KilometrePerMinute),
-      value * 0.001 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MetrePerMinute),
-      value * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::YardPerMinute),
-      value / 0.9144 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::FootPerMinute),
-      value / 0.3048 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::DecimetrePerMinute),
-      value * 10.0 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::InchPerMinute),
-      value / 0.0254 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::CentimetrePerMinute),
-      value * 100.0 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MillimetrePerMinute),
-      value * 1000.0 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilliinchPerMinute),
-      value / 0.0000254 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicrometrePerMinute),
-      value * 1000000.0 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicroinchPerMinute),
-      value / 0.0000000254 * 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilePerHour),
-      value / 1609.344 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::KilometrePerHour),
-      value * 0.001 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MetrePerHour),
-      value * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::YardPerHour),
-      value / 0.9144 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::FootPerHour),
-      value / 0.3048 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::DecimetrePerHour),
-      value * 10.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::InchPerHour),
-      value / 0.0254 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::CentimetrePerHour),
-      value * 100.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MillimetrePerHour),
-      value * 1000.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MilliinchPerHour),
-      value / 0.0000254 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicrometrePerHour),
-      value * 1000000.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MicroinchPerHour),
-      value / 0.0000000254 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilePerSecond>(value, value / 1609.344);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::KilometrePerSecond>(
+      value, value * 0.001);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MetrePerSecond>(value, value);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::YardPerSecond>(value, value / 0.9144);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::FootPerSecond>(value, value / 0.3048);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::DecimetrePerSecond>(value, value * 10.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::InchPerSecond>(value, value / 0.0254);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::CentimetrePerSecond>(
+      value, value * 100.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MillimetrePerSecond>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilliinchPerSecond>(
+      value, value / 0.0000254);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicrometrePerSecond>(
+      value, value * 1000000.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicroinchPerSecond>(
+      value, value / 0.0000000254);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilePerMinute>(
+      value, value / 1609.344 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::KilometrePerMinute>(
+      value, value * 0.001 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MetrePerMinute>(value, value * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::YardPerMinute>(
+      value, value / 0.9144 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::FootPerMinute>(
+      value, value / 0.3048 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::DecimetrePerMinute>(
+      value, value * 10.0 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::InchPerMinute>(
+      value, value / 0.0254 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::CentimetrePerMinute>(
+      value, value * 100.0 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MillimetrePerMinute>(
+      value, value * 1000.0 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilliinchPerMinute>(
+      value, value / 0.0000254 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicrometrePerMinute>(
+      value, value * 1000000.0 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicroinchPerMinute>(
+      value, value / 0.0000000254 * 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilePerHour>(
+      value, value / 1609.344 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::KilometrePerHour>(
+      value, value * 0.001 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MetrePerHour>(value, value * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::YardPerHour>(
+      value, value / 0.9144 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::FootPerHour>(
+      value, value / 0.3048 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::DecimetrePerHour>(
+      value, value * 10.0 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::InchPerHour>(
+      value, value / 0.0254 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::CentimetrePerHour>(
+      value, value * 100.0 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MillimetrePerHour>(
+      value, value * 1000.0 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MilliinchPerHour>(
+      value, value / 0.0000254 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicrometrePerHour>(
+      value, value * 1000000.0 * 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MicroinchPerHour>(
+      value, value / 0.0000000254 * 3600.0);
 }
 
 TEST(UnitSpeed, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilePerSecond, Speed::MetrePerSecond),
-      value * 1609.344);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::KilometrePerSecond, Speed::MetrePerSecond),
-      value * 1000.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerSecond, Speed::MetrePerSecond), value);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::YardPerSecond, Speed::MetrePerSecond),
-      value * 0.9144);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::FootPerSecond, Speed::MetrePerSecond),
-      value * 0.3048);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::DecimetrePerSecond, Speed::MetrePerSecond),
-      value * 0.1);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::InchPerSecond, Speed::MetrePerSecond),
-      value * 0.0254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::CentimetrePerSecond, Speed::MetrePerSecond),
-      value * 0.01);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MillimetrePerSecond, Speed::MetrePerSecond),
-      value * 0.001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilliinchPerSecond, Speed::MetrePerSecond),
-      value * 0.0000254);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicrometrePerSecond, Speed::MetrePerSecond),
-      value * 0.000001);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicroinchPerSecond, Speed::MetrePerSecond),
-      value * 0.0000000254);
-
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilePerMinute, Speed::MetrePerSecond),
-      value * 1609.344 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::KilometrePerMinute, Speed::MetrePerSecond),
-      value * 1000.0 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerMinute, Speed::MetrePerSecond),
-      value / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::YardPerMinute, Speed::MetrePerSecond),
-      value * 0.9144 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::FootPerMinute, Speed::MetrePerSecond),
-      value * 0.3048 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::DecimetrePerMinute, Speed::MetrePerSecond),
-      value * 0.1 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::InchPerMinute, Speed::MetrePerSecond),
-      value * 0.0254 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::CentimetrePerMinute, Speed::MetrePerSecond),
-      value * 0.01 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MillimetrePerMinute, Speed::MetrePerSecond),
-      value * 0.001 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilliinchPerMinute, Speed::MetrePerSecond),
-      value * 0.0000254 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicrometrePerMinute, Speed::MetrePerSecond),
-      value * 0.000001 / 60.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicroinchPerMinute, Speed::MetrePerSecond),
-      value * 0.0000000254 / 60.0);
-
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilePerHour, Speed::MetrePerSecond),
-      value * 1609.344 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::KilometrePerHour, Speed::MetrePerSecond),
-      value * 1000.0 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MetrePerHour, Speed::MetrePerSecond),
-      value / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::YardPerHour, Speed::MetrePerSecond),
-      value * 0.9144 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::FootPerHour, Speed::MetrePerSecond),
-      value * 0.3048 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::DecimetrePerHour, Speed::MetrePerSecond),
-      value * 0.1 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::InchPerHour, Speed::MetrePerSecond),
-      value * 0.0254 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::CentimetrePerHour, Speed::MetrePerSecond),
-      value * 0.01 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MillimetrePerHour, Speed::MetrePerSecond),
-      value * 0.001 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MilliinchPerHour, Speed::MetrePerSecond),
-      value * 0.0000254 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicrometrePerHour, Speed::MetrePerSecond),
-      value * 0.000001 / 3600.0);
-  EXPECT_DOUBLE_EQ(
-      ConvertCopy(value, Speed::MicroinchPerHour, Speed::MetrePerSecond),
-      value * 0.0000000254 / 3600.0);
-}
-
-TEST(UnitSpeed, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Speed old_unit : Units) {
-    for (const Speed new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Speed, Speed::MilePerSecond,
+                                Speed::MetrePerSecond>(value, value * 1609.344);
+  Internal::TestUnitConversions<Speed, Speed::KilometrePerSecond,
+                                Speed::MetrePerSecond>(value, value * 1000.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerSecond,
+                                Speed::MetrePerSecond>(value, value);
+  Internal::TestUnitConversions<Speed, Speed::YardPerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.9144);
+  Internal::TestUnitConversions<Speed, Speed::FootPerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.3048);
+  Internal::TestUnitConversions<Speed, Speed::DecimetrePerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.1);
+  Internal::TestUnitConversions<Speed, Speed::InchPerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.0254);
+  Internal::TestUnitConversions<Speed, Speed::CentimetrePerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.01);
+  Internal::TestUnitConversions<Speed, Speed::MillimetrePerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.001);
+  Internal::TestUnitConversions<Speed, Speed::MilliinchPerSecond,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000254);
+  Internal::TestUnitConversions<Speed, Speed::MicrometrePerSecond,
+                                Speed::MetrePerSecond>(value, value * 0.000001);
+  Internal::TestUnitConversions<Speed, Speed::MicroinchPerSecond,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000000254);
+  Internal::TestUnitConversions<Speed, Speed::MilePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 1609.344 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::KilometrePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 1000.0 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerMinute,
+                                Speed::MetrePerSecond>(value, value / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::YardPerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.9144 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::FootPerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.3048 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::DecimetrePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.1 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::InchPerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0254 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::CentimetrePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.01 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MillimetrePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.001 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MilliinchPerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000254 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MicrometrePerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.000001 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MicroinchPerMinute,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000000254 / 60.0);
+  Internal::TestUnitConversions<Speed, Speed::MilePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 1609.344 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::KilometrePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 1000.0 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MetrePerHour,
+                                Speed::MetrePerSecond>(value, value / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::YardPerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.9144 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::FootPerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.3048 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::DecimetrePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.1 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::InchPerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0254 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::CentimetrePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.01 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MillimetrePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.001 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MilliinchPerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000254 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MicrometrePerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.000001 / 3600.0);
+  Internal::TestUnitConversions<Speed, Speed::MicroinchPerHour,
+                                Speed::MetrePerSecond>(
+      value, value * 0.0000000254 / 3600.0);
 }
 
 TEST(UnitSpeed, Parse) {

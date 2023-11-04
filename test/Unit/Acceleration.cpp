@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -113,245 +115,235 @@ TEST(UnitAcceleration, ConsistentUnit) {
 
 TEST(UnitAcceleration, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilePerSquareSecond),
-                   value / 1609.344);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::KilometrePerSquareSecond),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::YardPerSquareSecond),
-                   value / 0.9144);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::FootPerSquareSecond),
-                   value / 0.3048);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::DecimetrePerSquareSecond),
-                   value * 10.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::InchPerSquareSecond),
-                   value / 0.0254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::CentimetrePerSquareSecond),
-                   value * 100.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MillimetrePerSquareSecond),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilliinchPerSquareSecond),
-                   value / 0.0000254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicrometrePerSquareSecond),
-                   value * 1000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicroinchPerSquareSecond),
-                   value / 0.0000000254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilePerSquareMinute),
-                   value / 1609.344 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::KilometrePerSquareMinute),
-                   value * 0.001 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::YardPerSquareMinute),
-                   value / 0.9144 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MetrePerSquareMinute),
-                   value * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::FootPerSquareMinute),
-                   value / 0.3048 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::DecimetrePerSquareMinute),
-                   value * 10.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::InchPerSquareMinute),
-                   value / 0.0254 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::CentimetrePerSquareMinute),
-                   value * 100.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MillimetrePerSquareMinute),
-                   value * 1000.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilliinchPerSquareMinute),
-                   value / 0.0000254 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicrometrePerSquareMinute),
-                   value * 1000000.0 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicroinchPerSquareMinute),
-                   value / 0.0000000254 * 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilePerSquareHour),
-                   value / 1609.344 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::KilometrePerSquareHour),
-                   value * 0.001 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::YardPerSquareHour),
-                   value / 0.9144 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MetrePerSquareHour),
-                   value * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::FootPerSquareHour),
-                   value / 0.3048 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::DecimetrePerSquareHour),
-                   value * 10.0 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::InchPerSquareHour),
-                   value / 0.0254 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::CentimetrePerSquareHour),
-                   value * 100.0 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MillimetrePerSquareHour),
-                   value * 1000.0 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MilliinchPerSquareHour),
-                   value / 0.0000254 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicrometrePerSquareHour),
-                   value * 1000000.0 * 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MicroinchPerSquareHour),
-                   value / 0.0000000254 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MilePerSquareSecond>(value, value / 1609.344);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::KilometrePerSquareSecond>(value, value * 0.001);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::YardPerSquareSecond>(value, value / 0.9144);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::FootPerSquareSecond>(value, value / 0.3048);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::DecimetrePerSquareSecond>(value, value * 10.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::InchPerSquareSecond>(value, value / 0.0254);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::CentimetrePerSquareSecond>(value, value * 100.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MillimetrePerSquareSecond>(value, value * 1000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MilliinchPerSquareSecond>(value, value / 0.0000254);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MicrometrePerSquareSecond>(value, value * 1000000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MicroinchPerSquareSecond>(value, value / 0.0000000254);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MilePerSquareMinute>(value, value / 1609.344 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::KilometrePerSquareMinute>(value, value * 0.001 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MetrePerSquareMinute>(value, value * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::YardPerSquareMinute>(value, value / 0.9144 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::FootPerSquareMinute>(value, value / 0.3048 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::DecimetrePerSquareMinute>(value, value * 10.0 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::InchPerSquareMinute>(value, value / 0.0254 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::CentimetrePerSquareMinute>(value, value * 100.0 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MillimetrePerSquareMinute>(value, value * 1000.0 * 3600.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MilliinchPerSquareMinute>(
+      value, value / 0.0000254 * 3600.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MicrometrePerSquareMinute>(
+      value, value * 1000000.0 * 3600.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MicroinchPerSquareMinute>(
+      value, value / 0.0000000254 * 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MilePerSquareHour>(value, value / 1609.344 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::KilometrePerSquareHour>(value, value * 0.001 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MetrePerSquareHour>(value, value * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::YardPerSquareHour>(value, value / 0.9144 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::FootPerSquareHour>(value, value / 0.3048 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::DecimetrePerSquareHour>(value, value * 10.0 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::InchPerSquareHour>(value, value / 0.0254 * 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::CentimetrePerSquareHour>(value, value * 100.0 * 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MillimetrePerSquareHour>(
+      value, value * 1000.0 * 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MilliinchPerSquareHour>(
+      value, value / 0.0000254 * 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MicrometrePerSquareHour>(
+      value, value * 1000000.0 * 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MetrePerSquareSecond,
+                                Acceleration::MicroinchPerSquareHour>(
+      value, value / 0.0000000254 * 12960000.0);
 }
 
 TEST(UnitAcceleration, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1609.344);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::KilometrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::YardPerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.9144);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::FootPerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.3048);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::DecimetrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.1);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::InchPerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::CentimetrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.01);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MillimetrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilliinchPerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicrometrePerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicroinchPerSquareSecond,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000000254);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1609.344 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::KilometrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1000.0 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::YardPerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.9144 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::FootPerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.3048 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::DecimetrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.1 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::InchPerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0254 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::CentimetrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.01 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MillimetrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.001 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilliinchPerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000254 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicrometrePerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.000001 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicroinchPerSquareMinute,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000000254 / 3600.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1609.344 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::KilometrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 1000.0 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::YardPerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.9144 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MetrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::FootPerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.3048 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::DecimetrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.1 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::InchPerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0254 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::CentimetrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.01 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MillimetrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.001 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MilliinchPerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000254 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicrometrePerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.000001 / 12960000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, Acceleration::MicroinchPerSquareHour,
-                               Acceleration::MetrePerSquareSecond),
-                   value * 0.0000000254 / 12960000.0);
-}
-
-TEST(UnitAcceleration, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const Acceleration old_unit : Units) {
-    for (const Acceleration new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<Acceleration, Acceleration::MilePerSquareSecond,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 1609.344);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::KilometrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 1000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value);
+  Internal::TestUnitConversions<Acceleration, Acceleration::YardPerSquareSecond,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.9144);
+  Internal::TestUnitConversions<Acceleration, Acceleration::FootPerSquareSecond,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.3048);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::DecimetrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.1);
+  Internal::TestUnitConversions<Acceleration, Acceleration::InchPerSquareSecond,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0254);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::CentimetrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.01);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MillimetrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.001);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MilliinchPerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.0000254);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MicrometrePerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.000001);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MicroinchPerSquareSecond,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.0000000254);
+  Internal::TestUnitConversions<Acceleration, Acceleration::MilePerSquareMinute,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 1609.344 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::KilometrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 1000.0 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MetrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value / 3600.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::YardPerSquareMinute,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.9144 / 3600.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::FootPerSquareMinute,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.3048 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::DecimetrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.1 / 3600.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::InchPerSquareMinute,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0254 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::CentimetrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.01 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MillimetrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.001 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MilliinchPerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.0000254 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MicrometrePerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.000001 / 3600.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MicroinchPerSquareMinute,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.0000000254 / 3600.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::MilePerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 1609.344 / 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::KilometrePerSquareHour,
+      Acceleration::MetrePerSquareSecond>(value, value * 1000.0 / 12960000.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::MetrePerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value / 12960000.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::YardPerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.9144 / 12960000.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::FootPerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.3048 / 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::DecimetrePerSquareHour,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.1 / 12960000.0);
+  Internal::TestUnitConversions<Acceleration, Acceleration::InchPerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0254 / 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::CentimetrePerSquareHour,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.01 / 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MillimetrePerSquareHour,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.001 / 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MilliinchPerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0000254 / 12960000.0);
+  Internal::TestUnitConversions<
+      Acceleration, Acceleration::MicrometrePerSquareHour,
+      Acceleration::MetrePerSquareSecond>(value, value * 0.000001 / 12960000.0);
+  Internal::TestUnitConversions<Acceleration,
+                                Acceleration::MicroinchPerSquareHour,
+                                Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0000000254 / 12960000.0);
 }
 
 TEST(UnitAcceleration, Parse) {

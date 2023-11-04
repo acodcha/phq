@@ -17,6 +17,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../Unit.hpp"
+
 namespace PhQ::Unit {
 
 namespace {
@@ -49,53 +51,32 @@ TEST(UnitHeatCapacity, ConsistentUnit) {
 
 TEST(UnitHeatCapacity, ConvertFromStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
-                               HeatCapacity::JoulePerKelvin),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
-                               HeatCapacity::NanojoulePerKelvin),
-                   value * 1000000000.0);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
-                               HeatCapacity::FootPoundPerRankine),
-                   value / (0.3048 * 0.45359237 * 9.80665 * 1.8));
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
-                               HeatCapacity::InchPoundPerRankine),
-                   value / (0.0254 * 0.45359237 * 9.80665 * 1.8));
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                HeatCapacity::JoulePerKelvin>(value, value);
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                HeatCapacity::NanojoulePerKelvin>(
+      value, value * 1000000000.0);
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                HeatCapacity::FootPoundPerRankine>(
+      value, value / (0.3048 * 0.45359237 * 9.80665 * 1.8));
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                HeatCapacity::InchPoundPerRankine>(
+      value, value / (0.0254 * 0.45359237 * 9.80665 * 1.8));
 }
 
 TEST(UnitHeatCapacity, ConvertToStandard) {
   constexpr double value{10.0};
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::JoulePerKelvin,
-                               HeatCapacity::JoulePerKelvin),
-                   value);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::NanojoulePerKelvin,
-                               HeatCapacity::JoulePerKelvin),
-                   value * 0.000000001);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::FootPoundPerRankine,
-                               HeatCapacity::JoulePerKelvin),
-                   value * 0.3048 * 0.45359237 * 9.80665 * 1.8);
-  EXPECT_DOUBLE_EQ(ConvertCopy(value, HeatCapacity::InchPoundPerRankine,
-                               HeatCapacity::JoulePerKelvin),
-                   value * 0.0254 * 0.45359237 * 9.80665 * 1.8);
-}
-
-TEST(UnitHeatCapacity, ConvertVerification) {
-  double value{10.0};
-  std::array<double, 3> array{10.0, -20.0, 30.0};
-  std::vector<double> std_vector{10.0, -20.0, 30.0, -40.0};
-  Value::Vector value_vector{10.0, -20.0, 30.0};
-  Value::SymmetricDyad symdyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0};
-  Value::Dyad dyad{10.0, -20.0, 30.0, -40.0, 50.0, -60.0, 70.0, -80.0, 90.0};
-  for (const HeatCapacity old_unit : Units) {
-    for (const HeatCapacity new_unit : Units) {
-      Convert(value, old_unit, new_unit);
-      Convert(array, old_unit, new_unit);
-      Convert(std_vector, old_unit, new_unit);
-      Convert(value_vector, old_unit, new_unit);
-      Convert(symdyad, old_unit, new_unit);
-      Convert(dyad, old_unit, new_unit);
-    }
-  }
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                                HeatCapacity::JoulePerKelvin>(value, value);
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::NanojoulePerKelvin,
+                                HeatCapacity::JoulePerKelvin>(
+      value, value * 0.000000001);
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::FootPoundPerRankine,
+                                HeatCapacity::JoulePerKelvin>(
+      value, value * 0.3048 * 0.45359237 * 9.80665 * 1.8);
+  Internal::TestUnitConversions<HeatCapacity, HeatCapacity::InchPoundPerRankine,
+                                HeatCapacity::JoulePerKelvin>(
+      value, value * 0.0254 * 0.45359237 * 9.80665 * 1.8);
 }
 
 TEST(UnitHeatCapacity, Parse) {
