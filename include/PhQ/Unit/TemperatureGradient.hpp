@@ -1,22 +1,36 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TEMPERATURE_GRADIENT_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TEMPERATURE_GRADIENT_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/ElectricCurrent.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Temperature.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -53,9 +67,8 @@ enum class TemperatureGradient : int8_t {
 
 // Standard temperature gradient unit: kelvin per metre (K/m).
 template <>
-inline constexpr const Unit::TemperatureGradient
-    Standard<Unit::TemperatureGradient>{
-        Unit::TemperatureGradient::KelvinPerMetre};
+inline constexpr const Unit::TemperatureGradient Standard<Unit::TemperatureGradient>{
+    Unit::TemperatureGradient::KelvinPerMetre};
 
 // Physical dimension set of temperature gradient units.
 template <>
@@ -64,8 +77,7 @@ inline constexpr const Dimensions RelatedDimensions<Unit::TemperatureGradient>{
                Dimension::ElectricCurrent{}, Dimension::Temperature{1}}
 };
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Unit::TemperatureGradient unit) {
+inline std::ostream& operator<<(std::ostream& stream, const Unit::TemperatureGradient unit) {
   stream << Abbreviation(unit);
   return stream;
 }
@@ -75,27 +87,19 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::TemperatureGradient>
     ConsistentUnits<Unit::TemperatureGradient>{
-        {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::TemperatureGradient::KelvinPerMetre     },
-        {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::TemperatureGradient::KelvinPerMillimetre},
-        {UnitSystem::FootPoundSecondRankine,
-         Unit::TemperatureGradient::RankinePerFoot     },
-        {UnitSystem::InchPoundSecondRankine,
-         Unit::TemperatureGradient::RankinePerInch     },
+        {UnitSystem::MetreKilogramSecondKelvin,  Unit::TemperatureGradient::KelvinPerMetre     },
+        {UnitSystem::MillimetreGramSecondKelvin, Unit::TemperatureGradient::KelvinPerMillimetre},
+        {UnitSystem::FootPoundSecondRankine,     Unit::TemperatureGradient::RankinePerFoot     },
+        {UnitSystem::InchPoundSecondRankine,     Unit::TemperatureGradient::RankinePerInch     },
 };
 
 template <>
 inline const std::map<Unit::TemperatureGradient, UnitSystem>
     RelatedUnitSystems<Unit::TemperatureGradient>{
-        {Unit::TemperatureGradient::KelvinPerMetre,
-         UnitSystem::MetreKilogramSecondKelvin },
-        {Unit::TemperatureGradient::KelvinPerMillimetre,
-         UnitSystem::MillimetreGramSecondKelvin},
-        {Unit::TemperatureGradient::RankinePerFoot,
-         UnitSystem::FootPoundSecondRankine    },
-        {Unit::TemperatureGradient::RankinePerInch,
-         UnitSystem::InchPoundSecondRankine    },
+        {Unit::TemperatureGradient::KelvinPerMetre,      UnitSystem::MetreKilogramSecondKelvin },
+        {Unit::TemperatureGradient::KelvinPerMillimetre, UnitSystem::MillimetreGramSecondKelvin},
+        {Unit::TemperatureGradient::RankinePerFoot,      UnitSystem::FootPoundSecondRankine    },
+        {Unit::TemperatureGradient::RankinePerInch,      UnitSystem::InchPoundSecondRankine    },
 };
 
 template <>
@@ -142,142 +146,123 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureGradient>
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::KelvinPerMetre>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
     double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::KelvinPerMillimetre>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::CelsiusPerMetre>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
     double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::CelsiusPerMillimetre>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::RankinePerFoot>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
     double& value) noexcept {
   value *= 1.8 * 0.3048;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::RankinePerInch>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
     double& value) noexcept {
   value *= 1.8 * 0.0254;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::FahrenheitPerFoot>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
     double& value) noexcept {
   value *= 1.8 * 0.3048;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::TemperatureGradient,
-                       Unit::TemperatureGradient::FahrenheitPerInch>(
+ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
     double& value) noexcept {
   value *= 1.8 * 0.0254;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::KelvinPerMetre>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
     double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::KelvinPerMillimetre>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::CelsiusPerMetre>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
     double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::CelsiusPerMillimetre>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::RankinePerFoot>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
     double& value) noexcept {
   value /= 1.8 * 0.3048;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::RankinePerInch>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
     double& value) noexcept {
   value /= 1.8 * 0.0254;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::FahrenheitPerFoot>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
     double& value) noexcept {
   value /= 1.8 * 0.3048;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient,
-                     Unit::TemperatureGradient::FahrenheitPerInch>(
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
     double& value) noexcept {
   value /= 1.8 * 0.0254;
 }
 
 template <>
-inline const std::map<
-    Unit::TemperatureGradient,
-    std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::TemperatureGradient,
+                      std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TemperatureGradient>{
         {Unit::TemperatureGradient::KelvinPerMetre,
          ConversionsFromStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::KelvinPerMetre>      },
         {Unit::TemperatureGradient::KelvinPerMillimetre,
-         ConversionsFromStandard<
-             Unit::TemperatureGradient,
+         ConversionsFromStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::KelvinPerMillimetre> },
         {Unit::TemperatureGradient::CelsiusPerMetre,
          ConversionsFromStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::CelsiusPerMetre>     },
         {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         ConversionsFromStandard<
-             Unit::TemperatureGradient,
+         ConversionsFromStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::CelsiusPerMillimetre>},
         {Unit::TemperatureGradient::RankinePerFoot,
          ConversionsFromStandard<Unit::TemperatureGradient,
@@ -294,9 +279,8 @@ inline const std::map<
 };
 
 template <>
-inline const std::map<
-    Unit::TemperatureGradient,
-    std::function<void(double* const values, const std::size_t size)>>
+inline const std::map<Unit::TemperatureGradient,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TemperatureGradient>{
         {Unit::TemperatureGradient::KelvinPerMetre,
          ConversionsToStandard<Unit::TemperatureGradient,
@@ -308,8 +292,7 @@ inline const std::map<
          ConversionsToStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::CelsiusPerMetre>     },
         {Unit::TemperatureGradient::CelsiusPerMillimetre,
-         ConversionsToStandard<
-             Unit::TemperatureGradient,
+         ConversionsToStandard<Unit::TemperatureGradient,
          Unit::TemperatureGradient::CelsiusPerMillimetre>},
         {Unit::TemperatureGradient::RankinePerFoot,
          ConversionsToStandard<Unit::TemperatureGradient,

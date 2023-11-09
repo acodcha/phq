@@ -1,22 +1,34 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_FORCE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_FORCE_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -99,75 +111,67 @@ inline const std::map<Unit::Force, std::string_view> Abbreviations<Unit::Force>{
 };
 
 template <>
-inline const std::unordered_map<std::string_view, Unit::Force>
-    Spellings<Unit::Force>{
-        {"N",        Unit::Force::Newton     },
-        {"J/m",      Unit::Force::Newton     },
-        {"kJ/km",    Unit::Force::Newton     },
-        {"kg·m/s^2", Unit::Force::Newton     },
-        {"kg*m/s^2", Unit::Force::Newton     },
-        {"kg·m/s2",  Unit::Force::Newton     },
-        {"kg*m/s2",  Unit::Force::Newton     },
-        {"kN",       Unit::Force::Kilonewton },
-        {"MN",       Unit::Force::Meganewton },
-        {"GN",       Unit::Force::Giganewton },
-        {"mN",       Unit::Force::Millinewton},
-        {"μN",       Unit::Force::Micronewton},
-        {"uN",       Unit::Force::Micronewton},
-        {"nJ/mm",    Unit::Force::Micronewton},
-        {"g·mm/s^2", Unit::Force::Micronewton},
-        {"g*mm/s^2", Unit::Force::Micronewton},
-        {"g·mm/s2",  Unit::Force::Micronewton},
-        {"g*mm/s2",  Unit::Force::Micronewton},
-        {"nN",       Unit::Force::Nanonewton },
-        {"dyn",      Unit::Force::Dyne       },
-        {"lbf",      Unit::Force::Pound      },
-        {"lb",       Unit::Force::Pound      },
+inline const std::unordered_map<std::string_view, Unit::Force> Spellings<Unit::Force>{
+    {"N",        Unit::Force::Newton     },
+    {"J/m",      Unit::Force::Newton     },
+    {"kJ/km",    Unit::Force::Newton     },
+    {"kg·m/s^2", Unit::Force::Newton     },
+    {"kg*m/s^2", Unit::Force::Newton     },
+    {"kg·m/s2",  Unit::Force::Newton     },
+    {"kg*m/s2",  Unit::Force::Newton     },
+    {"kN",       Unit::Force::Kilonewton },
+    {"MN",       Unit::Force::Meganewton },
+    {"GN",       Unit::Force::Giganewton },
+    {"mN",       Unit::Force::Millinewton},
+    {"μN",       Unit::Force::Micronewton},
+    {"uN",       Unit::Force::Micronewton},
+    {"nJ/mm",    Unit::Force::Micronewton},
+    {"g·mm/s^2", Unit::Force::Micronewton},
+    {"g*mm/s^2", Unit::Force::Micronewton},
+    {"g·mm/s2",  Unit::Force::Micronewton},
+    {"g*mm/s2",  Unit::Force::Micronewton},
+    {"nN",       Unit::Force::Nanonewton },
+    {"dyn",      Unit::Force::Dyne       },
+    {"lbf",      Unit::Force::Pound      },
+    {"lb",       Unit::Force::Pound      },
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Kilonewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Kilonewton>(double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Meganewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Meganewton>(double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Giganewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Giganewton>(double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Millinewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Millinewton>(double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Nanonewton>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Force, Unit::Force::Nanonewton>(double& value) noexcept {
   value *= 1000000000.0;
 }
 
@@ -178,60 +182,52 @@ ConversionFromStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Pound>(
-    double& value) noexcept {
+inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept {
   value /= 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Kilonewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Kilonewton>(double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Meganewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Meganewton>(double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Giganewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Giganewton>(double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Millinewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Millinewton>(double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Nanonewton>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Force, Unit::Force::Nanonewton>(double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
   value *= 0.00001;
 }
 
@@ -242,51 +238,32 @@ ConversionToStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept {
 }
 
 template <>
-inline const std::map<
-    Unit::Force, std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::Force, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Force>{
-        {Unit::Force::Newton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Newton>     },
-        {Unit::Force::Kilonewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton> },
-        {Unit::Force::Meganewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton> },
-        {Unit::Force::Giganewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton> },
-        {Unit::Force::Millinewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>},
-        {Unit::Force::Micronewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>},
-        {Unit::Force::Nanonewton,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton> },
-        {Unit::Force::Dyne,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>       },
-        {Unit::Force::Pound,
-         ConversionsFromStandard<Unit::Force, Unit::Force::Pound>      },
+        {Unit::Force::Newton,      ConversionsFromStandard<Unit::Force, Unit::Force::Newton>     },
+        {Unit::Force::Kilonewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton> },
+        {Unit::Force::Meganewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton> },
+        {Unit::Force::Giganewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton> },
+        {Unit::Force::Millinewton, ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>},
+        {Unit::Force::Micronewton, ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>},
+        {Unit::Force::Nanonewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton> },
+        {Unit::Force::Dyne,        ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>       },
+        {Unit::Force::Pound,       ConversionsFromStandard<Unit::Force, Unit::Force::Pound>      },
 };
 
 template <>
-inline const std::map<Unit::Force, std::function<void(double* const values,
-                                                      const std::size_t size)>>
+inline const std::map<Unit::Force,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Force>{
-        {Unit::Force::Newton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Newton>     },
-        {Unit::Force::Kilonewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton> },
-        {Unit::Force::Meganewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Meganewton> },
-        {Unit::Force::Giganewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Giganewton> },
-        {Unit::Force::Millinewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>},
-        {Unit::Force::Micronewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>},
-        {Unit::Force::Nanonewton,
-         ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton> },
-        {Unit::Force::Dyne,
-         ConversionsToStandard<Unit::Force, Unit::Force::Dyne>       },
-        {Unit::Force::Pound,
-         ConversionsToStandard<Unit::Force, Unit::Force::Pound>      },
+        {Unit::Force::Newton,      ConversionsToStandard<Unit::Force, Unit::Force::Newton>     },
+        {Unit::Force::Kilonewton,  ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton> },
+        {Unit::Force::Meganewton,  ConversionsToStandard<Unit::Force, Unit::Force::Meganewton> },
+        {Unit::Force::Giganewton,  ConversionsToStandard<Unit::Force, Unit::Force::Giganewton> },
+        {Unit::Force::Millinewton, ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>},
+        {Unit::Force::Micronewton, ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>},
+        {Unit::Force::Nanonewton,  ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton> },
+        {Unit::Force::Dyne,        ConversionsToStandard<Unit::Force, Unit::Force::Dyne>       },
+        {Unit::Force::Pound,       ConversionsToStandard<Unit::Force, Unit::Force::Pound>      },
 };
 
 }  // namespace Internal
