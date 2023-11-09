@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_DIFFUSIVITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_DIFFUSIVITY_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "MassDensity.hpp"
 #include "SpecificIsobaricHeatCapacity.hpp"
 #include "ThermalConductivityScalar.hpp"
@@ -29,30 +32,27 @@ class PrandtlNumber;
 // Thermal diffusivity.
 class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
-  // Default constructor. Constructs a thermal diffusivity with an uninitialized
-  // value.
+  // Default constructor. Constructs a thermal diffusivity with an uninitialized value.
   ThermalDiffusivity() = default;
 
-  // Constructor. Constructs a thermal diffusivity with a given value expressed
-  // in a given diffusivity unit.
+  // Constructor. Constructs a thermal diffusivity with a given value expressed in a given
+  // diffusivity unit.
   ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal diffusivity from a given thermal
-  // conductivity scalar, specific isobaric heat capacity, and mass density
-  // using the definition of the thermal diffusivity.
+  // Constructor. Constructs a thermal diffusivity from a given thermal conductivity scalar,
+  // specific isobaric heat capacity, and mass density using the definition of the thermal
+  // diffusivity.
   constexpr ThermalDiffusivity(
-      const ThermalConductivityScalar& thermal_conductivity_scalar,
-      const MassDensity& mass_density,
+      const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-    : ThermalDiffusivity(
-        thermal_conductivity_scalar.Value()
-        / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
+    : ThermalDiffusivity(thermal_conductivity_scalar.Value()
+                         / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
-  // Constructor. Constructs a thermal diffusivity from a given kinematic
-  // viscosity and Prandtl number using the definition of the Prandtl number.
-  constexpr ThermalDiffusivity(const KinematicViscosity& kinematic_viscosity,
-                               const PrandtlNumber& prandtl_number);
+  // Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and Prandtl
+  // number using the definition of the Prandtl number.
+  constexpr ThermalDiffusivity(
+      const KinematicViscosity& kinematic_viscosity, const PrandtlNumber& prandtl_number);
 
   // Destructor. Destroys this thermal diffusivity.
   ~ThermalDiffusivity() noexcept = default;
@@ -63,37 +63,30 @@ public:
   // Move constructor. Constructs a thermal diffusivity by moving another one.
   constexpr ThermalDiffusivity(ThermalDiffusivity&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this thermal diffusivity by copying
-  // another one.
-  constexpr ThermalDiffusivity& operator=(
-      const ThermalDiffusivity& other) = default;
+  // Copy assignment operator. Assigns this thermal diffusivity by copying another one.
+  constexpr ThermalDiffusivity& operator=(const ThermalDiffusivity& other) = default;
 
-  // Move assignment operator. Assigns this thermal diffusivity by moving
-  // another one.
-  constexpr ThermalDiffusivity& operator=(
-      ThermalDiffusivity&& other) noexcept = default;
+  // Move assignment operator. Assigns this thermal diffusivity by moving another one.
+  constexpr ThermalDiffusivity& operator=(ThermalDiffusivity&& other) noexcept = default;
 
   // Statically creates a thermal diffusivity of zero.
   static constexpr ThermalDiffusivity Zero() {
     return ThermalDiffusivity{0.0};
   }
 
-  // Statically creates a thermal diffusivity with a given value expressed in a
-  // given diffusivity unit.
+  // Statically creates a thermal diffusivity with a given value expressed in a given diffusivity
+  // unit.
   template <Unit::Diffusivity Unit>
   static constexpr ThermalDiffusivity Create(const double value) {
     return ThermalDiffusivity{
-        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
-            value)};
+        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
-  constexpr ThermalDiffusivity operator+(
-      const ThermalDiffusivity& thermal_diffusivity) const {
+  constexpr ThermalDiffusivity operator+(const ThermalDiffusivity& thermal_diffusivity) const {
     return ThermalDiffusivity{value_ + thermal_diffusivity.value_};
   }
 
-  constexpr ThermalDiffusivity operator-(
-      const ThermalDiffusivity& thermal_diffusivity) const {
+  constexpr ThermalDiffusivity operator-(const ThermalDiffusivity& thermal_diffusivity) const {
     return ThermalDiffusivity{value_ - thermal_diffusivity.value_};
   }
 
@@ -105,18 +98,15 @@ public:
     return ThermalDiffusivity{value_ / number};
   }
 
-  constexpr double operator/(
-      const ThermalDiffusivity& thermal_diffusivity) const noexcept {
+  constexpr double operator/(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
     return value_ / thermal_diffusivity.value_;
   }
 
-  constexpr void operator+=(
-      const ThermalDiffusivity& thermal_diffusivity) noexcept {
+  constexpr void operator+=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
     value_ += thermal_diffusivity.value_;
   }
 
-  constexpr void operator-=(
-      const ThermalDiffusivity& thermal_diffusivity) noexcept {
+  constexpr void operator-=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
     value_ -= thermal_diffusivity.value_;
   }
 
@@ -129,8 +119,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a thermal diffusivity with a given value expressed
-  // in the standard diffusivity unit.
+  // Constructor. Constructs a thermal diffusivity with a given value expressed in the standard
+  // diffusivity unit.
   explicit constexpr ThermalDiffusivity(const double value)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 };
@@ -180,25 +170,21 @@ inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
     const MassDensity& mass_density,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
     const ThermalDiffusivity& thermal_diffusivity)
-  : ThermalConductivityScalar(
-      mass_density.Value() * specific_isobaric_heat_capacity.Value()
-      * thermal_diffusivity.Value()) {}
+  : ThermalConductivityScalar(mass_density.Value() * specific_isobaric_heat_capacity.Value()
+                              * thermal_diffusivity.Value()) {}
 
 inline constexpr MassDensity::MassDensity(
     const ThermalConductivityScalar& thermal_conductivity_scalar,
     const ThermalDiffusivity& thermal_diffusivity,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
   : MassDensity(thermal_conductivity_scalar.Value()
-                / (thermal_diffusivity.Value()
-                   * specific_isobaric_heat_capacity.Value())) {}
+                / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
-    const ThermalConductivityScalar& thermal_conductivity_scalar,
-    const MassDensity& mass_density,
+    const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density,
     const ThermalDiffusivity& thermal_diffusivity)
   : SpecificIsobaricHeatCapacity(
-      thermal_conductivity_scalar.Value()
-      / (mass_density.Value() * thermal_diffusivity.Value())) {}
+      thermal_conductivity_scalar.Value() / (mass_density.Value() * thermal_diffusivity.Value())) {}
 
 }  // namespace PhQ
 
@@ -206,8 +192,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::ThermalDiffusivity> {
-  inline size_t operator()(
-      const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
+  inline size_t operator()(const PhQ::ThermalDiffusivity& thermal_diffusivity) const {
     return hash<double>()(thermal_diffusivity.Value());
   }
 };

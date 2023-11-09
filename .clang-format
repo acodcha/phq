@@ -1,36 +1,26 @@
 ---
 # Copyright © 2023 Alexandre Coderre-Chabot
 #
-# This file is licensed under the MIT license. For more information, visit:
-#     https://mit-license.org
+# https://github.com/acodcha/clang-format-tidy
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#   - The above copyright notice and this permission notice shall be included in
-#     all copies or substantial portions of the Software.
-#   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-#     THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-#     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-#     DEALINGS IN THE SOFTWARE.
+# This file is licensed under the MIT license (https://mit-license.org). Permission is hereby
+# granted, free of charge, to any person obtaining a copy of this software and associated
+# documentation files (the "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#   - The above copyright notice and this permission notice shall be included in all copies or
+#     substantial portions of the Software.
+#   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+#     BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+#     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+#     DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-# This file was originally obtained from:
-#     https://github.com/acodcha/clang-format
-#
-# This is a style configuration file for use with LLVM's ClangFormat automatic
-# source code formatter. For more information about ClangFormat, visit:
-#     https://clang.llvm.org/docs/ClangFormat.html
-#
-# This file is compatible with ClangFormat version 14.0.0 or any later version.
-# To format your source code files, copy this file to the root directory of your
-# source code repository, name it either '.clang-format' or '_clang-format', and
-# run:
+# This is a configuration file for use with LLVM's "clang-format" automatic source code formatter
+# (https://clang.llvm.org/docs/ClangFormat.html). This file is compatible with "clang-format"
+# version 14.0.0 or any later version. To format your source code files, copy this file to the root
+# directory of your source code repository, name it ".clang-format", and run:
 #     clang-format --style=file path/to/source/code/files
 #
 AccessModifierOffset: -2
@@ -57,7 +47,7 @@ AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: Yes
-AttributeMacros: ['__capability']
+AttributeMacros: ["__capability"]
 BinPackArguments: true
 BinPackParameters: true
 BitFieldColonSpacing: Both
@@ -88,8 +78,8 @@ BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
-ColumnLimit: 80
-CommentPragmas: '^ IWYU pragma:'
+ColumnLimit: 100
+CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 2
@@ -102,24 +92,20 @@ EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: Always
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
-ForEachMacros: ['BOOST_FOREACH', 'FOREACH', 'foreach', 'Q_FOREACH']
-IfMacros: ['IF', 'KJ_IF_MAYBE']
+ForEachMacros: ["BOOST_FOREACH", "FOREACH", "foreach", "Q_FOREACH"]
+IfMacros: ["IF", "KJ_IF_MAYBE"]
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex:           '^<.*\.h>' # C standard template library headers
-    Priority:        1
-    SortPriority:    1
-    CaseSensitive:   false
-  - Regex:           '^<.*' # C++ standard template library headers
-    Priority:        2
-    SortPriority:    2
-    CaseSensitive:   false
-  - Regex:           '.*' # All other headers
-    Priority:        3
-    SortPriority:    3
-    CaseSensitive:   false
-IncludeIsMainRegex: '([-_](test|unittest))?$'
-IncludeIsMainSourceRegex: ''
+  - Regex: "^<.*"
+    Priority: 1
+    SortPriority: 1
+    CaseSensitive: false
+  - Regex: ".*"
+    Priority: 2
+    SortPriority: 2
+    CaseSensitive: false
+IncludeIsMainRegex: "([-_](test|unittest))?$"
+IncludeIsMainSourceRegex: ""
 IndentAccessModifiers: false
 IndentCaseBlocks: true
 IndentCaseLabels: true
@@ -135,8 +121,8 @@ JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
-MacroBlockBegin: ''
-MacroBlockEnd: ''
+MacroBlockBegin: ""
+MacroBlockEnd: ""
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
 NamespaceMacros: []
@@ -149,10 +135,10 @@ PPIndentWidth: 2
 PackConstructorInitializers: BinPack
 PenaltyBreakAssignment: 4
 PenaltyBreakBeforeFirstCallParameter: 4
-PenaltyBreakComment: 16
+PenaltyBreakComment: 8
 PenaltyBreakFirstLessLess: 4
 PenaltyBreakOpenParenthesis: 4
-PenaltyBreakString: 32
+PenaltyBreakString: 16
 PenaltyBreakTemplateDeclaration: 0
 PenaltyExcessCharacter: 1024
 PenaltyIndentedWhitespace: 1
@@ -161,21 +147,21 @@ PointerAlignment: Left
 QualifierAlignment: Left
 RawStringFormats:
   - Language: Cpp
-    Delimiters: ['cc', 'CC', 'cpp', 'Cpp', 'CPP', 'c++', 'C++']
-    CanonicalDelimiter: ''
+    Delimiters: ["cc", "CC", "cpp", "Cpp", "CPP", "c++", "C++"]
+    CanonicalDelimiter: ""
     BasedOnStyle: Google
   - Language: TextProto
-    Delimiters: ['pb', 'PB', 'proto', 'PROTO']
+    Delimiters: ["pb", "PB", "proto", "PROTO"]
     EnclosingFunctions:
-      - 'EqualsProto'
-      - 'EquivToProto'
-      - 'PARSE_PARTIAL_TEXT_PROTO'
-      - 'PARSE_TEST_PROTO'
-      - 'PARSE_TEXT_PROTO'
-      - 'ParseTextOrDie'
-      - 'ParseTextProtoOrDie'
-      - 'ParseTestProto'
-      - 'ParsePartialTestProto'
+      - "EqualsProto"
+      - "EquivToProto"
+      - "PARSE_PARTIAL_TEXT_PROTO"
+      - "PARSE_TEST_PROTO"
+      - "PARSE_TEXT_PROTO"
+      - "ParseTextOrDie"
+      - "ParseTextProtoOrDie"
+      - "ParseTestProto"
+      - "ParsePartialTestProto"
     CanonicalDelimiter: pb
     BasedOnStyle: Google
 ReferenceAlignment: Left
@@ -219,15 +205,15 @@ SpacesInLineCommentPrefix:
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: Latest
-StatementAttributeLikeMacros: ['Q_EMIT']
-StatementMacros: ['Q_UNUSED', 'QT_REQUIRE_VERSION']
+StatementAttributeLikeMacros: ["Q_EMIT"]
+StatementMacros: ["Q_UNUSED", "QT_REQUIRE_VERSION"]
 TabWidth: 8
-TypenameMacros: ['STACK_OF', 'LIST']
+TypenameMacros: ["STACK_OF", "LIST"]
 UseCRLF: false
 UseTab: Never
 WhitespaceSensitiveMacros:
-  - 'STRINGIZE'
-  - 'PP_STRINGIZE'
-  - 'BOOST_PP_STRINGIZE'
-  - 'NS_SWIFT_NAME'
-  - 'CF_SWIFT_NAME'
+  - "STRINGIZE"
+  - "PP_STRINGIZE"
+  - "BOOST_PP_STRINGIZE"
+  - "NS_SWIFT_NAME"
+  - "CF_SWIFT_NAME"

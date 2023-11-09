@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Diffusivity.hpp"
@@ -30,33 +32,32 @@ class ReynoldsNumber;
 class Speed;
 class ThermalDiffusivity;
 
-// Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic
-// viscosity is defined as dynamic viscosity divided by mass density.
+// Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic viscosity is defined
+// as dynamic viscosity divided by mass density.
 class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
 public:
-  // Default constructor. Constructs a kinematic viscosity with an uninitialized
-  // value.
+  // Default constructor. Constructs a kinematic viscosity with an uninitialized value.
   KinematicViscosity() = default;
 
-  // Constructor. Constructs a kinematic viscosity with a given value expressed
-  // in a given diffusivity unit.
+  // Constructor. Constructs a kinematic viscosity with a given value expressed in a given
+  // diffusivity unit.
   KinematicViscosity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
 
-  // Constructor. Constructs a kinematic viscosity from a given dynamic
-  // viscosity and mass density using the definition of kinematic viscosity.
-  constexpr KinematicViscosity(const DynamicViscosity& dynamic_viscosity,
-                               const MassDensity& mass_density);
+  // Constructor. Constructs a kinematic viscosity from a given dynamic viscosity and mass density
+  // using the definition of kinematic viscosity.
+  constexpr KinematicViscosity(
+      const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density);
 
-  // Constructor. Constructs a kinematic viscosity from a given speed, length,
-  // and Reynolds number using the definition of the Reynolds number.
-  constexpr KinematicViscosity(const Speed& speed, const Length& length,
-                               const ReynoldsNumber& reynolds_number);
+  // Constructor. Constructs a kinematic viscosity from a given speed, length, and Reynolds number
+  // using the definition of the Reynolds number.
+  constexpr KinematicViscosity(
+      const Speed& speed, const Length& length, const ReynoldsNumber& reynolds_number);
 
-  // Constructor. Constructs a kinematic viscosity from a given Prandtl number
-  // and thermal diffusivity using the definition of Prandtl number.
-  constexpr KinematicViscosity(const PrandtlNumber& prandtl_number,
-                               const ThermalDiffusivity& thermal_diffusivity);
+  // Constructor. Constructs a kinematic viscosity from a given Prandtl number and thermal
+  // diffusivity using the definition of Prandtl number.
+  constexpr KinematicViscosity(
+      const PrandtlNumber& prandtl_number, const ThermalDiffusivity& thermal_diffusivity);
 
   // Destructor. Destroys this kinematic viscosity.
   ~KinematicViscosity() noexcept = default;
@@ -67,37 +68,30 @@ public:
   // Move constructor. Constructs a kinematic viscosity by moving another one.
   constexpr KinematicViscosity(KinematicViscosity&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this kinematic viscosity by copying
-  // another one.
-  constexpr KinematicViscosity& operator=(
-      const KinematicViscosity& other) = default;
+  // Copy assignment operator. Assigns this kinematic viscosity by copying another one.
+  constexpr KinematicViscosity& operator=(const KinematicViscosity& other) = default;
 
-  // Move assignment operator. Assigns this kinematic viscosity by moving
-  // another one.
-  constexpr KinematicViscosity& operator=(
-      KinematicViscosity&& other) noexcept = default;
+  // Move assignment operator. Assigns this kinematic viscosity by moving another one.
+  constexpr KinematicViscosity& operator=(KinematicViscosity&& other) noexcept = default;
 
   // Statically creates a kinematic viscosity of zero.
   static constexpr KinematicViscosity Zero() {
     return KinematicViscosity{0.0};
   }
 
-  // Statically creates a kinematic viscosity with a given value expressed in a
-  // given diffusivity unit.
+  // Statically creates a kinematic viscosity with a given value expressed in a given diffusivity
+  // unit.
   template <Unit::Diffusivity Unit>
   static constexpr KinematicViscosity Create(const double value) {
     return KinematicViscosity{
-        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(
-            value)};
+        StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
-  constexpr KinematicViscosity operator+(
-      const KinematicViscosity& kinematic_viscosity) const {
+  constexpr KinematicViscosity operator+(const KinematicViscosity& kinematic_viscosity) const {
     return KinematicViscosity{value_ + kinematic_viscosity.value_};
   }
 
-  constexpr KinematicViscosity operator-(
-      const KinematicViscosity& kinematic_viscosity) const {
+  constexpr KinematicViscosity operator-(const KinematicViscosity& kinematic_viscosity) const {
     return KinematicViscosity{value_ - kinematic_viscosity.value_};
   }
 
@@ -111,18 +105,15 @@ public:
     return KinematicViscosity{value_ / number};
   }
 
-  constexpr double operator/(
-      const KinematicViscosity& kinematic_viscosity) const noexcept {
+  constexpr double operator/(const KinematicViscosity& kinematic_viscosity) const noexcept {
     return value_ / kinematic_viscosity.value_;
   }
 
-  constexpr void operator+=(
-      const KinematicViscosity& kinematic_viscosity) noexcept {
+  constexpr void operator+=(const KinematicViscosity& kinematic_viscosity) noexcept {
     value_ += kinematic_viscosity.value_;
   }
 
-  constexpr void operator-=(
-      const KinematicViscosity& kinematic_viscosity) noexcept {
+  constexpr void operator-=(const KinematicViscosity& kinematic_viscosity) noexcept {
     value_ -= kinematic_viscosity.value_;
   }
 
@@ -135,8 +126,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a kinematic viscosity with a given value expressed
-  // in the standard diffusivity unit.
+  // Constructor. Constructs a kinematic viscosity with a given value expressed in the standard
+  // diffusivity unit.
   explicit constexpr KinematicViscosity(const double value)
     : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
 };
@@ -188,8 +179,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::KinematicViscosity> {
-  inline size_t operator()(
-      const PhQ::KinematicViscosity& kinematic_viscosity) const {
+  inline size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
     return hash<double>()(kinematic_viscosity.Value());
   }
 };

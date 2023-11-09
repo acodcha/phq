@@ -1,113 +1,101 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_HPP
 
+#include <array>
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
 #include "DimensionalSymmetricDyadQuantity.hpp"
 #include "ThermalConductivityScalar.hpp"
+#include "Unit/ThermalConductivity.hpp"
 
 namespace PhQ {
 
 // Thermal conductivity symmetric dyadic tensor.
-class ThermalConductivity
-  : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
+class ThermalConductivity : public DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity> {
 public:
-  // Default constructor. Constructs a thermal conductivity tensor with an
-  // uninitialized value.
+  // Default constructor. Constructs a thermal conductivity tensor with an uninitialized value.
   ThermalConductivity() = default;
 
-  // Constructor. Constructs a thermal conductivity tensor with a given value
-  // expressed in a given thermal conductivity unit.
-  ThermalConductivity(
-      const Value::SymmetricDyad& value, const Unit::ThermalConductivity unit)
-    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value, unit) {
-  }
+  // Constructor. Constructs a thermal conductivity tensor with a given value expressed in a given
+  // thermal conductivity unit.
+  ThermalConductivity(const Value::SymmetricDyad& value, const Unit::ThermalConductivity unit)
+    : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal conductivity tensor from a given thermal
-  // conductivity scalar.
-  constexpr ThermalConductivity(
+  // Constructor. Constructs a thermal conductivity tensor from a given thermal conductivity scalar.
+  explicit constexpr ThermalConductivity(
       const ThermalConductivityScalar& thermal_conductivity_scalar)
-    : ThermalConductivity({thermal_conductivity_scalar.Value(), 0.0, 0.0,
-                           thermal_conductivity_scalar.Value(), 0.0,
-                           thermal_conductivity_scalar.Value()}) {}
+    : ThermalConductivity(
+        {thermal_conductivity_scalar.Value(), 0.0, 0.0, thermal_conductivity_scalar.Value(), 0.0,
+         thermal_conductivity_scalar.Value()}) {}
 
   // Destructor. Destroys this thermal conductivity tensor.
   ~ThermalConductivity() noexcept = default;
 
-  // Copy constructor. Constructs a thermal conductivity tensor by copying
-  // another one.
+  // Copy constructor. Constructs a thermal conductivity tensor by copying another one.
   constexpr ThermalConductivity(const ThermalConductivity& other) = default;
 
-  // Move constructor. Constructs a thermal conductivity tensor by moving
-  // another one.
+  // Move constructor. Constructs a thermal conductivity tensor by moving another one.
   constexpr ThermalConductivity(ThermalConductivity&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this thermal conductivity tensor by
-  // copying another one.
-  constexpr ThermalConductivity& operator=(
-      const ThermalConductivity& other) = default;
+  // Copy assignment operator. Assigns this thermal conductivity tensor by copying another one.
+  constexpr ThermalConductivity& operator=(const ThermalConductivity& other) = default;
 
-  // Move assignment operator. Assigns this thermal conductivity tensor by
-  // moving another one.
-  constexpr ThermalConductivity& operator=(
-      ThermalConductivity&& other) noexcept = default;
+  // Move assignment operator. Assigns this thermal conductivity tensor by moving another one.
+  constexpr ThermalConductivity& operator=(ThermalConductivity&& other) noexcept = default;
 
   // Statically creates a thermal conductivity tensor of zero.
   static constexpr ThermalConductivity Zero() {
     return ThermalConductivity{Value::SymmetricDyad::Zero()};
   }
 
-  // Statically creates a thermal conductivity tensor from the given xx, xy, xz,
-  // yy, yz, and zz Cartesian components expressed in a given pressure unit.
+  // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
+  // Cartesian components expressed in a given pressure unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity
-  Create(const double xx, const double xy, const double xz, const double yy,
-         const double yz, const double zz) {
-    return ThermalConductivity{StaticConvertCopy<
-        Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-        Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
-  }
-
-  // Statically creates a thermal conductivity tensor from the given xx, xy, xz,
-  // yy, yz, and zz Cartesian components expressed in a given pressure unit.
-  template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity
-  Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
-    return ThermalConductivity{StaticConvertCopy<
-        Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-        Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
-  }
-
-  // Statically creates a thermal conductivity tensor with a given value
-  // expressed in a given thermal conductivity unit.
-  template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity
-  Create(const Value::SymmetricDyad& value) {
+  static constexpr ThermalConductivity Create(const double xx, const double xy, const double xz,
+                                              const double yy, const double yz, const double zz) {
     return ThermalConductivity{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit,
-                          Standard<Unit::ThermalConductivity>>(value)};
+        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+            Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
   }
 
-  constexpr ThermalConductivity operator+(
-      const ThermalConductivity& thermal_conductivity) const {
+  // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
+  // Cartesian components expressed in a given pressure unit.
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
+    return ThermalConductivity{
+        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+            Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+  }
+
+  // Statically creates a thermal conductivity tensor with a given value expressed in a given
+  // thermal conductivity unit.
+  template <Unit::ThermalConductivity Unit>
+  static constexpr ThermalConductivity Create(const Value::SymmetricDyad& value) {
+    return ThermalConductivity{
+        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+            value)};
+  }
+
+  constexpr ThermalConductivity operator+(const ThermalConductivity& thermal_conductivity) const {
     return ThermalConductivity{value_ + thermal_conductivity.value_};
   }
 
-  constexpr ThermalConductivity operator-(
-      const ThermalConductivity& thermal_conductivity) const {
+  constexpr ThermalConductivity operator-(const ThermalConductivity& thermal_conductivity) const {
     return ThermalConductivity{value_ - thermal_conductivity.value_};
   }
 
@@ -119,13 +107,11 @@ public:
     return ThermalConductivity{value_ / number};
   }
 
-  constexpr void operator+=(
-      const ThermalConductivity& thermal_conductivity) noexcept {
+  constexpr void operator+=(const ThermalConductivity& thermal_conductivity) noexcept {
     value_ += thermal_conductivity.value_;
   }
 
-  constexpr void operator-=(
-      const ThermalConductivity& thermal_conductivity) noexcept {
+  constexpr void operator-=(const ThermalConductivity& thermal_conductivity) noexcept {
     value_ -= thermal_conductivity.value_;
   }
 
@@ -138,39 +124,39 @@ public:
   }
 
 private:
-  // Constructor. Constructs a thermal conductivity tensor with a given value
-  // expressed in the standard thermal conductivity unit.
+  // Constructor. Constructs a thermal conductivity tensor with a given value expressed in the
+  // standard thermal conductivity unit.
   explicit constexpr ThermalConductivity(const Value::SymmetricDyad& value)
     : DimensionalSymmetricDyadQuantity<Unit::ThermalConductivity>(value) {}
 };
 
-inline constexpr bool operator==(const ThermalConductivity& left,
-                                 const ThermalConductivity& right) noexcept {
+inline constexpr bool operator==(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ThermalConductivity& left,
-                                 const ThermalConductivity& right) noexcept {
+inline constexpr bool operator!=(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ThermalConductivity& left,
-                                const ThermalConductivity& right) noexcept {
+inline constexpr bool operator<(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ThermalConductivity& left,
-                                const ThermalConductivity& right) noexcept {
+inline constexpr bool operator>(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ThermalConductivity& left,
-                                 const ThermalConductivity& right) noexcept {
+inline constexpr bool operator<=(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ThermalConductivity& left,
-                                 const ThermalConductivity& right) noexcept {
+inline constexpr bool operator>=(
+    const ThermalConductivity& left, const ThermalConductivity& right) noexcept {
   return left.Value() >= right.Value();
 }
 
@@ -191,8 +177,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::ThermalConductivity> {
-  inline size_t operator()(
-      const PhQ::ThermalConductivity& thermal_conductivity) const {
+  inline size_t operator()(const PhQ::ThermalConductivity& thermal_conductivity) const {
     return hash<PhQ::Value::SymmetricDyad>()(thermal_conductivity.Value());
   }
 };

@@ -1,25 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DISPLACEMENT_HPP
+
+#include <array>
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "Angle.hpp"
 #include "DimensionalVectorQuantity.hpp"
 #include "Direction.hpp"
 #include "Length.hpp"
+#include "Unit/Length.hpp"
+#include "Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -35,8 +40,7 @@ public:
   // Default constructor. Constructs a displacement with an uninitialized value.
   Displacement() = default;
 
-  // Constructor. Constructs a displacement with a given value expressed in a
-  // given length unit.
+  // Constructor. Constructs a displacement with a given value expressed in a given length unit.
   Displacement(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
@@ -44,16 +48,15 @@ public:
   constexpr Displacement(const Length& length, const Direction& direction)
     : Displacement(length.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a displacement from a given velocity and time using
-  // the definition of velocity.
+  // Constructor. Constructs a displacement from a given velocity and time using the definition of
+  // velocity.
   constexpr Displacement(const Velocity& velocity, const Time& time);
 
-  // Constructor. Constructs a displacement from a given velocity and frequency
-  // using the definition of velocity.
+  // Constructor. Constructs a displacement from a given velocity and frequency using the definition
+  // of velocity.
   constexpr Displacement(const Velocity& velocity, const Frequency& frequency);
 
-  // Constructor. Constructs a displacement between a given position and the
-  // origin.
+  // Constructor. Constructs a displacement between a given position and the origin.
   explicit constexpr Displacement(const Position& position);
 
   // Destructor. Destroys this displacement.
@@ -76,40 +79,35 @@ public:
     return Displacement{Value::Vector::Zero()};
   }
 
-  // Statically creates a displacement from the given x, y, and z Cartesian
-  // components expressed in a given length unit.
+  // Statically creates a displacement from the given x, y, and z Cartesian components expressed in
+  // a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement
-  Create(const double x, const double y, const double z) {
+  static constexpr Displacement Create(const double x, const double y, const double z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
-            Value::Vector{x, y, z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x, y, z})};
   }
 
-  // Statically creates a displacement from the given x, y, and z Cartesian
-  // components expressed in a given length unit.
+  // Statically creates a displacement from the given x, y, and z Cartesian components expressed in
+  // a given length unit.
   template <Unit::Length Unit>
   static constexpr Displacement Create(const std::array<double, 3>& x_y_z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
-            Value::Vector{x_y_z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x_y_z})};
   }
 
-  // Statically creates a displacement with a given value expressed in a given
-  // length unit.
+  // Statically creates a displacement with a given value expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Displacement Create(const Value::Vector& value) {
-    return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+    return Displacement{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   // Returns the magnitude of this displacement.
-  Length Magnitude() const {
-    return {*this};
+  [[nodiscard]] Length Magnitude() const {
+    return Length{*this};
   }
 
   // Returns the angle between this displacement and another one.
-  PhQ::Angle Angle(const Displacement& displacement) const {
+  [[nodiscard]] PhQ::Angle Angle(const Displacement& displacement) const {
     return {*this, displacement};
   }
 
@@ -154,60 +152,50 @@ public:
   }
 
 private:
-  // Constructor. Constructs a displacement with a given value expressed in the
-  // standard length unit.
+  // Constructor. Constructs a displacement with a given value expressed in the standard length
+  // unit.
   explicit constexpr Displacement(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Position;
 };
 
-inline constexpr bool operator==(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator==(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator!=(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator<(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator>(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator<=(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Displacement& left, const Displacement& right) noexcept {
+inline constexpr bool operator>=(const Displacement& left, const Displacement& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Displacement& displacement) {
+inline std::ostream& operator<<(std::ostream& stream, const Displacement& displacement) {
   stream << displacement.Print();
   return stream;
 }
 
-inline constexpr Displacement operator*(
-    const double number, const Displacement& displacement) {
+inline constexpr Displacement operator*(const double number, const Displacement& displacement) {
   return displacement * number;
 }
 
-inline Direction::Direction(const Displacement& displacement)
-  : Direction(displacement.Value()) {}
+inline Direction::Direction(const Displacement& displacement) : Direction(displacement.Value()) {}
 
-inline Angle::Angle(
-    const Displacement& displacement1, const Displacement& displacement2)
+inline Angle::Angle(const Displacement& displacement1, const Displacement& displacement2)
   : Angle(displacement1.Value(), displacement2.Value()) {}
 
 inline Length::Length(const Displacement& displacement)

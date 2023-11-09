@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_PWAVE_MODULUS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_PWAVE_MODULUS_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Frequency.hpp"
@@ -24,29 +26,26 @@
 
 namespace PhQ {
 
-// Scalar component or resultant of the strain rate tensor. Time rate of change
-// of a scalar strain component.
+// Scalar component or resultant of the strain rate tensor. Time rate of change of a scalar strain
+// component.
 class StrainRateScalar : public DimensionalScalarQuantity<Unit::Frequency> {
 public:
-  // Default constructor. Constructs a scalar strain rate with an uninitialized
-  // value.
+  // Default constructor. Constructs a scalar strain rate with an uninitialized value.
   StrainRateScalar() = default;
 
-  // Constructor. Constructs a scalar strain rate with a given value expressed
-  // in a given frequency unit.
+  // Constructor. Constructs a scalar strain rate with a given value expressed in a given frequency
+  // unit.
   StrainRateScalar(const double value, const Unit::Frequency unit)
     : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
 
-  // Constructor. Constructs a scalar strain rate from a given scalar strain and
-  // time using the definition of strain rate.
-  constexpr StrainRateScalar(
-      const StrainScalar& strain_scalar, const Time& time)
+  // Constructor. Constructs a scalar strain rate from a given scalar strain and time using the
+  // definition of strain rate.
+  constexpr StrainRateScalar(const StrainScalar& strain_scalar, const Time& time)
     : StrainRateScalar(strain_scalar.Value() / time.Value()) {}
 
-  // Constructor. Constructs a scalar strain rate from a given scalar strain and
-  // frequency using the definition of strain rate.
-  constexpr StrainRateScalar(
-      const StrainScalar& strain_scalar, const Frequency& frequency)
+  // Constructor. Constructs a scalar strain rate from a given scalar strain and frequency using the
+  // definition of strain rate.
+  constexpr StrainRateScalar(const StrainScalar& strain_scalar, const Frequency& frequency)
     : StrainRateScalar(strain_scalar.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this scalar strain rate.
@@ -58,28 +57,22 @@ public:
   // Move constructor. Constructs a scalar strain rate by moving another one.
   constexpr StrainRateScalar(StrainRateScalar&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this scalar strain rate by copying
-  // another one.
-  constexpr StrainRateScalar& operator=(
-      const StrainRateScalar& other) = default;
+  // Copy assignment operator. Assigns this scalar strain rate by copying another one.
+  constexpr StrainRateScalar& operator=(const StrainRateScalar& other) = default;
 
-  // Move assignment operator. Assigns this scalar strain rate by moving another
-  // one.
-  constexpr StrainRateScalar& operator=(
-      StrainRateScalar&& other) noexcept = default;
+  // Move assignment operator. Assigns this scalar strain rate by moving another one.
+  constexpr StrainRateScalar& operator=(StrainRateScalar&& other) noexcept = default;
 
   // Statically creates a scalar strain rate of zero.
   static constexpr StrainRateScalar Zero() {
     return StrainRateScalar{0.0};
   }
 
-  // Statically creates a scalar strain rate with a given value expressed in a
-  // given frequency unit.
+  // Statically creates a scalar strain rate with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
   static constexpr StrainRateScalar Create(const double value) {
     return StrainRateScalar{
-        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-            value)};
+        StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
   constexpr StrainRateScalar operator+(const StrainRateScalar& other) const {
@@ -127,8 +120,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a scalar strain rate with a given value expressed
-  // in the standard frequency unit.
+  // Constructor. Constructs a scalar strain rate with a given value expressed in the standard
+  // frequency unit.
   explicit constexpr StrainRateScalar(const double value)
     : DimensionalScalarQuantity<Unit::Frequency>(value) {}
 };
@@ -163,8 +156,7 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const StrainRateScalar& strain_rate_scalar) {
+inline std::ostream& operator<<(std::ostream& stream, const StrainRateScalar& strain_rate_scalar) {
   stream << strain_rate_scalar.Print();
   return stream;
 }
@@ -182,23 +174,19 @@ inline constexpr StrainScalar::StrainScalar(
     const StrainRateScalar& strain_rate_scalar, const Frequency& frequency)
   : StrainScalar(strain_rate_scalar.Value() / frequency.Value()) {}
 
-inline constexpr StrainRateScalar StrainScalar::operator*(
-    const Frequency& frequency) const {
+inline constexpr StrainRateScalar StrainScalar::operator*(const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr StrainRateScalar StrainScalar::operator/(
-    const Time& time) const {
+inline constexpr StrainRateScalar StrainScalar::operator/(const Time& time) const {
   return {*this, time};
 }
 
-inline constexpr StrainScalar Time::operator*(
-    const StrainRateScalar& strain_rate_scalar) const {
+inline constexpr StrainScalar Time::operator*(const StrainRateScalar& strain_rate_scalar) const {
   return {strain_rate_scalar, *this};
 }
 
-inline constexpr StrainRateScalar Frequency::operator*(
-    const StrainScalar& strain_scalar) const {
+inline constexpr StrainRateScalar Frequency::operator*(const StrainScalar& strain_scalar) const {
   return {strain_scalar, *this};
 }
 
@@ -208,8 +196,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::StrainRateScalar> {
-  inline size_t operator()(
-      const PhQ::StrainRateScalar& strain_rate_scalar) const {
+  inline size_t operator()(const PhQ::StrainRateScalar& strain_rate_scalar) const {
     return hash<double>()(strain_rate_scalar.Value());
   }
 };

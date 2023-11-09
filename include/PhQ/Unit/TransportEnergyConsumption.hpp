@@ -1,22 +1,34 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TRANSPORT_ENERGY_CONSUMPTION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_TRANSPORT_ENERGY_CONSUMPTION_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -87,20 +99,16 @@ enum class TransportEnergyConsumption : int8_t {
 
 // Standard transport energy consumption unit: joule per metre (J/m).
 template <>
-inline constexpr const Unit::TransportEnergyConsumption
-    Standard<Unit::TransportEnergyConsumption>{
-        Unit::TransportEnergyConsumption::JoulePerMetre};
+inline constexpr const Unit::TransportEnergyConsumption Standard<Unit::TransportEnergyConsumption>{
+    Unit::TransportEnergyConsumption::JoulePerMetre};
 
 // Physical dimension set of transport energy consumption units.
 template <>
-inline constexpr const Dimensions
-    RelatedDimensions<Unit::TransportEnergyConsumption>{
-        Dimensions{
-                   Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
+inline constexpr const Dimensions RelatedDimensions<Unit::TransportEnergyConsumption>{
+    Dimensions{Dimension::Time{-2}, Dimension::Length{1}, Dimension::Mass{1}}
 };
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Unit::TransportEnergyConsumption unit) {
+inline std::ostream& operator<<(std::ostream& stream, const Unit::TransportEnergyConsumption unit) {
   stream << Abbreviation(unit);
   return stream;
 }
@@ -110,27 +118,21 @@ namespace Internal {
 template <>
 inline const std::map<UnitSystem, Unit::TransportEnergyConsumption>
     ConsistentUnits<Unit::TransportEnergyConsumption>{
-        {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::TransportEnergyConsumption::JoulePerMetre         },
+        {UnitSystem::MetreKilogramSecondKelvin,  Unit::TransportEnergyConsumption::JoulePerMetre   },
         {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::TransportEnergyConsumption::NanojoulePerMillimetre},
-        {UnitSystem::FootPoundSecondRankine,
-         Unit::TransportEnergyConsumption::FootPoundPerFoot      },
-        {UnitSystem::InchPoundSecondRankine,
-         Unit::TransportEnergyConsumption::InchPoundPerInch      },
+         Unit::TransportEnergyConsumption::NanojoulePerMillimetre                                  },
+        {UnitSystem::FootPoundSecondRankine,     Unit::TransportEnergyConsumption::FootPoundPerFoot},
+        {UnitSystem::InchPoundSecondRankine,     Unit::TransportEnergyConsumption::InchPoundPerInch},
 };
 
 template <>
 inline const std::map<Unit::TransportEnergyConsumption, UnitSystem>
     RelatedUnitSystems<Unit::TransportEnergyConsumption>{
-        {Unit::TransportEnergyConsumption::JoulePerMetre,
-         UnitSystem::MetreKilogramSecondKelvin },
+        {Unit::TransportEnergyConsumption::JoulePerMetre,          UnitSystem::MetreKilogramSecondKelvin},
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
-         UnitSystem::MillimetreGramSecondKelvin},
-        {Unit::TransportEnergyConsumption::FootPoundPerFoot,
-         UnitSystem::FootPoundSecondRankine    },
-        {Unit::TransportEnergyConsumption::InchPoundPerInch,
-         UnitSystem::InchPoundSecondRankine    },
+         UnitSystem::MillimetreGramSecondKelvin                                                         },
+        {Unit::TransportEnergyConsumption::FootPoundPerFoot,       UnitSystem::FootPoundSecondRankine   },
+        {Unit::TransportEnergyConsumption::InchPoundPerInch,       UnitSystem::InchPoundSecondRankine   },
 };
 
 template <>
@@ -149,11 +151,8 @@ inline const std::map<Unit::TransportEnergyConsumption, std::string_view>
         {Unit::TransportEnergyConsumption::WattHourPerMetre,           "W·hr/m"   },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMile,      "kW·min/mi"},
         {Unit::TransportEnergyConsumption::KilowattHourPerMile,        "kW·hr/mi" },
-        {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
-         "kW·min/km"                                                              },
-        {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,
-         "kW·hr/"
-         "km"                                                                     },
+        {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre, "kW·min/km"},
+        {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,   "kW·hr/km" },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMetre,     "kW·min/m" },
         {Unit::TransportEnergyConsumption::KilowattHourPerMetre,       "kW·hr/m"  },
         {Unit::TransportEnergyConsumption::FootPoundPerFoot,           "ft·lbf/ft"},
@@ -161,60 +160,53 @@ inline const std::map<Unit::TransportEnergyConsumption, std::string_view>
 };
 
 template <>
-inline const std::unordered_map<std::string_view,
-                                Unit::TransportEnergyConsumption>
+inline const std::unordered_map<std::string_view, Unit::TransportEnergyConsumption>
     Spellings<Unit::TransportEnergyConsumption>{
-        {"J/mi",      Unit::TransportEnergyConsumption::JoulePerMile          },
-        {"J/km",      Unit::TransportEnergyConsumption::JoulePerKilometre     },
-        {"J/m",       Unit::TransportEnergyConsumption::JoulePerMetre         },
-        {"nJ/mm",     Unit::TransportEnergyConsumption::NanojoulePerMillimetre},
-        {"kJ/mi",     Unit::TransportEnergyConsumption::KilojoulePerMile      },
-        {"W·min/mi",  Unit::TransportEnergyConsumption::WattMinutePerMile     },
-        {"W*min/mi",  Unit::TransportEnergyConsumption::WattMinutePerMile     },
-        {"W·hr/mi",   Unit::TransportEnergyConsumption::WattHourPerMile       },
-        {"W*hr/mi",   Unit::TransportEnergyConsumption::WattHourPerMile       },
-        {"W·min/km",  Unit::TransportEnergyConsumption::WattMinutePerKilometre},
-        {"W*min/km",  Unit::TransportEnergyConsumption::WattMinutePerKilometre},
-        {"W·hr/km",   Unit::TransportEnergyConsumption::WattHourPerKilometre  },
-        {"W*hr/km",   Unit::TransportEnergyConsumption::WattHourPerKilometre  },
-        {"W·min/m",   Unit::TransportEnergyConsumption::WattMinutePerMetre    },
-        {"W*min/m",   Unit::TransportEnergyConsumption::WattMinutePerMetre    },
-        {"W·hr/m",    Unit::TransportEnergyConsumption::WattHourPerMetre      },
-        {"W*hr/m",    Unit::TransportEnergyConsumption::WattHourPerMetre      },
-        {"kW·min/mi", Unit::TransportEnergyConsumption::KilowattMinutePerMile },
-        {"kW*min/mi", Unit::TransportEnergyConsumption::KilowattMinutePerMile },
-        {"kW·hr/mi",  Unit::TransportEnergyConsumption::KilowattHourPerMile   },
-        {"kW*hr/mi",  Unit::TransportEnergyConsumption::KilowattHourPerMile   },
-        {"kW·min/km",
-         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre         },
-        {"kW*min/km",
-         Unit::TransportEnergyConsumption::KilowattMinutePerKilometre         },
-        {"kW·hr/km",
-         Unit::TransportEnergyConsumption::KilowattHourPerKilometre           },
-        {"kW*hr/km",
-         Unit::TransportEnergyConsumption::KilowattHourPerKilometre           },
-        {"kW·min/m",  Unit::TransportEnergyConsumption::KilowattMinutePerMetre},
-        {"kW*min/m",  Unit::TransportEnergyConsumption::KilowattMinutePerMetre},
-        {"kW·hr/m",   Unit::TransportEnergyConsumption::KilowattHourPerMetre  },
-        {"kW*hr/m",   Unit::TransportEnergyConsumption::KilowattHourPerMetre  },
-        {"ft·lbf/ft", Unit::TransportEnergyConsumption::FootPoundPerFoot      },
-        {"ft·lb/ft",  Unit::TransportEnergyConsumption::FootPoundPerFoot      },
-        {"in·lbf/in", Unit::TransportEnergyConsumption::InchPoundPerInch      },
-        {"in·lb/in",  Unit::TransportEnergyConsumption::InchPoundPerInch      },
+        {"J/mi",      Unit::TransportEnergyConsumption::JoulePerMile              },
+        {"J/km",      Unit::TransportEnergyConsumption::JoulePerKilometre         },
+        {"J/m",       Unit::TransportEnergyConsumption::JoulePerMetre             },
+        {"nJ/mm",     Unit::TransportEnergyConsumption::NanojoulePerMillimetre    },
+        {"kJ/mi",     Unit::TransportEnergyConsumption::KilojoulePerMile          },
+        {"W·min/mi",  Unit::TransportEnergyConsumption::WattMinutePerMile         },
+        {"W*min/mi",  Unit::TransportEnergyConsumption::WattMinutePerMile         },
+        {"W·hr/mi",   Unit::TransportEnergyConsumption::WattHourPerMile           },
+        {"W*hr/mi",   Unit::TransportEnergyConsumption::WattHourPerMile           },
+        {"W·min/km",  Unit::TransportEnergyConsumption::WattMinutePerKilometre    },
+        {"W*min/km",  Unit::TransportEnergyConsumption::WattMinutePerKilometre    },
+        {"W·hr/km",   Unit::TransportEnergyConsumption::WattHourPerKilometre      },
+        {"W*hr/km",   Unit::TransportEnergyConsumption::WattHourPerKilometre      },
+        {"W·min/m",   Unit::TransportEnergyConsumption::WattMinutePerMetre        },
+        {"W*min/m",   Unit::TransportEnergyConsumption::WattMinutePerMetre        },
+        {"W·hr/m",    Unit::TransportEnergyConsumption::WattHourPerMetre          },
+        {"W*hr/m",    Unit::TransportEnergyConsumption::WattHourPerMetre          },
+        {"kW·min/mi", Unit::TransportEnergyConsumption::KilowattMinutePerMile     },
+        {"kW*min/mi", Unit::TransportEnergyConsumption::KilowattMinutePerMile     },
+        {"kW·hr/mi",  Unit::TransportEnergyConsumption::KilowattHourPerMile       },
+        {"kW*hr/mi",  Unit::TransportEnergyConsumption::KilowattHourPerMile       },
+        {"kW·min/km", Unit::TransportEnergyConsumption::KilowattMinutePerKilometre},
+        {"kW*min/km", Unit::TransportEnergyConsumption::KilowattMinutePerKilometre},
+        {"kW·hr/km",  Unit::TransportEnergyConsumption::KilowattHourPerKilometre  },
+        {"kW*hr/km",  Unit::TransportEnergyConsumption::KilowattHourPerKilometre  },
+        {"kW·min/m",  Unit::TransportEnergyConsumption::KilowattMinutePerMetre    },
+        {"kW*min/m",  Unit::TransportEnergyConsumption::KilowattMinutePerMetre    },
+        {"kW·hr/m",   Unit::TransportEnergyConsumption::KilowattHourPerMetre      },
+        {"kW*hr/m",   Unit::TransportEnergyConsumption::KilowattHourPerMetre      },
+        {"ft·lbf/ft", Unit::TransportEnergyConsumption::FootPoundPerFoot          },
+        {"ft·lb/ft",  Unit::TransportEnergyConsumption::FootPoundPerFoot          },
+        {"in·lbf/in", Unit::TransportEnergyConsumption::InchPoundPerInch          },
+        {"in·lb/in",  Unit::TransportEnergyConsumption::InchPoundPerInch          },
 };
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::JoulePerMile>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::JoulePerMile>(double& value) noexcept {
   value *= 1609.344;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::JoulePerKilometre>(
+inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
+                                             Unit::TransportEnergyConsumption::JoulePerKilometre>(
     double& value) noexcept {
   value *= 1000.0;
 }
@@ -222,13 +214,12 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::JoulePerMetre>(
-    double&) noexcept {}
+                       Unit::TransportEnergyConsumption::JoulePerMetre>(double&) noexcept {}
 
 template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::NanojoulePerMillimetre>(
+inline constexpr void
+ConversionFromStandard<Unit::TransportEnergyConsumption,
+                       Unit::TransportEnergyConsumption::NanojoulePerMillimetre>(
     double& value) noexcept {
   value *= 1000000.0;
 }
@@ -236,15 +227,13 @@ inline constexpr void ConversionFromStandard<
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::KilojoulePerMile>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::KilojoulePerMile>(double& value) noexcept {
   value *= 1.609344;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::WattMinutePerMile>(
+inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
+                                             Unit::TransportEnergyConsumption::WattMinutePerMile>(
     double& value) noexcept {
   value *= 1609.344 / 60.0;
 }
@@ -252,15 +241,14 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::WattHourPerMile>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::WattHourPerMile>(double& value) noexcept {
   value *= 1609.344 / 3600.0;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::WattMinutePerKilometre>(
+inline constexpr void
+ConversionFromStandard<Unit::TransportEnergyConsumption,
+                       Unit::TransportEnergyConsumption::WattMinutePerKilometre>(
     double& value) noexcept {
   value /= 0.06;
 }
@@ -274,9 +262,8 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::WattMinutePerMetre>(
+inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
+                                             Unit::TransportEnergyConsumption::WattMinutePerMetre>(
     double& value) noexcept {
   value /= 60.0;
 }
@@ -284,8 +271,7 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::WattHourPerMetre>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::WattHourPerMetre>(double& value) noexcept {
   value /= 3600.0;
 }
 
@@ -298,33 +284,32 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::KilowattHourPerMile>(
+inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
+                                             Unit::TransportEnergyConsumption::KilowattHourPerMile>(
     double& value) noexcept {
   value *= 1609.344 / 3600000.0;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>(
+inline constexpr void
+ConversionFromStandard<Unit::TransportEnergyConsumption,
+                       Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>(
     double& value) noexcept {
   value /= 60.0;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(
+inline constexpr void
+ConversionFromStandard<Unit::TransportEnergyConsumption,
+                       Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(
     double& value) noexcept {
   value /= 3600.0;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerMetre>(
+inline constexpr void
+ConversionFromStandard<Unit::TransportEnergyConsumption,
+                       Unit::TransportEnergyConsumption::KilowattMinutePerMetre>(
     double& value) noexcept {
   value /= 60000.0;
 }
@@ -340,40 +325,35 @@ ConversionFromStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::FootPoundPerFoot>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::FootPoundPerFoot>(double& value) noexcept {
   value /= 0.45359237 * 9.80665;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::InchPoundPerInch>(
-    double& value) noexcept {
+                       Unit::TransportEnergyConsumption::InchPoundPerInch>(double& value) noexcept {
   value /= 0.45359237 * 9.80665;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::JoulePerMile>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::JoulePerMile>(double& value) noexcept {
   value /= 1609.344;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::JoulePerKilometre>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::JoulePerKilometre>(double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::JoulePerMetre>(
-    double&) noexcept {}
+                     Unit::TransportEnergyConsumption::JoulePerMetre>(double&) noexcept {}
 
 template <>
 inline constexpr void
@@ -386,24 +366,21 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::KilojoulePerMile>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::KilojoulePerMile>(double& value) noexcept {
   value /= 1.609344;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::WattMinutePerMile>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::WattMinutePerMile>(double& value) noexcept {
   value *= 60.0 / 1609.344;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::WattHourPerMile>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::WattHourPerMile>(double& value) noexcept {
   value *= 3600.0 / 1609.344;
 }
 
@@ -416,9 +393,8 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::WattHourPerKilometre>(
+inline constexpr void ConversionToStandard<Unit::TransportEnergyConsumption,
+                                           Unit::TransportEnergyConsumption::WattHourPerKilometre>(
     double& value) noexcept {
   value *= 3.6;
 }
@@ -426,47 +402,43 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::WattMinutePerMetre>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::WattMinutePerMetre>(double& value) noexcept {
   value *= 60.0;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::WattHourPerMetre>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::WattHourPerMetre>(double& value) noexcept {
   value *= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::KilowattMinutePerMile>(
+inline constexpr void ConversionToStandard<Unit::TransportEnergyConsumption,
+                                           Unit::TransportEnergyConsumption::KilowattMinutePerMile>(
     double& value) noexcept {
   value *= 60000.0 / 1609.344;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::KilowattHourPerMile>(
+inline constexpr void ConversionToStandard<Unit::TransportEnergyConsumption,
+                                           Unit::TransportEnergyConsumption::KilowattHourPerMile>(
     double& value) noexcept {
   value *= 3600000.0 / 1609.344;
 }
 
 template <>
-inline constexpr void ConversionToStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>(
+inline constexpr void
+ConversionToStandard<Unit::TransportEnergyConsumption,
+                     Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>(
     double& value) noexcept {
   value *= 60.0;
 }
 
 template <>
-inline constexpr void ConversionToStandard<
-    Unit::TransportEnergyConsumption,
-    Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(
+inline constexpr void
+ConversionToStandard<Unit::TransportEnergyConsumption,
+                     Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(
     double& value) noexcept {
   value *= 3600.0;
 }
@@ -480,9 +452,8 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::KilowattHourPerMetre>(
+inline constexpr void ConversionToStandard<Unit::TransportEnergyConsumption,
+                                           Unit::TransportEnergyConsumption::KilowattHourPerMetre>(
     double& value) noexcept {
   value *= 3600000.0;
 }
@@ -490,181 +461,140 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::FootPoundPerFoot>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::FootPoundPerFoot>(double& value) noexcept {
   value *= 0.45359237 * 9.80665;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::InchPoundPerInch>(
-    double& value) noexcept {
+                     Unit::TransportEnergyConsumption::InchPoundPerInch>(double& value) noexcept {
   value *= 0.45359237 * 9.80665;
 }
 
 template <>
-inline const std::map<
-    Unit::TransportEnergyConsumption,
-    std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::TransportEnergyConsumption,
+                      std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::TransportEnergyConsumption>{
         {Unit::TransportEnergyConsumption::JoulePerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMile>              },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerKilometre>         },
         {Unit::TransportEnergyConsumption::JoulePerMetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMetre>             },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::NanojoulePerMillimetre>    },
         {Unit::TransportEnergyConsumption::KilojoulePerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilojoulePerMile>          },
         {Unit::TransportEnergyConsumption::WattMinutePerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerMile>         },
         {Unit::TransportEnergyConsumption::WattHourPerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerMile>           },
         {Unit::TransportEnergyConsumption::WattMinutePerKilometre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerKilometre>    },
         {Unit::TransportEnergyConsumption::WattHourPerKilometre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerKilometre>      },
         {Unit::TransportEnergyConsumption::WattMinutePerMetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerMetre>        },
         {Unit::TransportEnergyConsumption::WattHourPerMetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerMetre>          },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerMile>     },
         {Unit::TransportEnergyConsumption::KilowattHourPerMile,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerMile>       },
         {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>},
         {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerKilometre>  },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerMetre>    },
         {Unit::TransportEnergyConsumption::KilowattHourPerMetre,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerMetre>      },
         {Unit::TransportEnergyConsumption::FootPoundPerFoot,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::FootPoundPerFoot>          },
         {Unit::TransportEnergyConsumption::InchPoundPerInch,
-         ConversionsFromStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsFromStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::InchPoundPerInch>          },
 };
 
 template <>
-inline const std::map<
-    Unit::TransportEnergyConsumption,
-    std::function<void(double* const values, const std::size_t size)>>
+inline const std::map<Unit::TransportEnergyConsumption,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::TransportEnergyConsumption>{
         {Unit::TransportEnergyConsumption::JoulePerMile,
          ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMile>              },
         {Unit::TransportEnergyConsumption::JoulePerKilometre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerKilometre>         },
         {Unit::TransportEnergyConsumption::JoulePerMetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::JoulePerMetre>             },
         {Unit::TransportEnergyConsumption::NanojoulePerMillimetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::NanojoulePerMillimetre>    },
         {Unit::TransportEnergyConsumption::KilojoulePerMile,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilojoulePerMile>          },
         {Unit::TransportEnergyConsumption::WattMinutePerMile,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerMile>         },
         {Unit::TransportEnergyConsumption::WattHourPerMile,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerMile>           },
         {Unit::TransportEnergyConsumption::WattMinutePerKilometre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerKilometre>    },
         {Unit::TransportEnergyConsumption::WattHourPerKilometre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerKilometre>      },
         {Unit::TransportEnergyConsumption::WattMinutePerMetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattMinutePerMetre>        },
         {Unit::TransportEnergyConsumption::WattHourPerMetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::WattHourPerMetre>          },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMile,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerMile>     },
         {Unit::TransportEnergyConsumption::KilowattHourPerMile,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerMile>       },
         {Unit::TransportEnergyConsumption::KilowattMinutePerKilometre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>},
         {Unit::TransportEnergyConsumption::KilowattHourPerKilometre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerKilometre>  },
         {Unit::TransportEnergyConsumption::KilowattMinutePerMetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattMinutePerMetre>    },
         {Unit::TransportEnergyConsumption::KilowattHourPerMetre,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::KilowattHourPerMetre>      },
         {Unit::TransportEnergyConsumption::FootPoundPerFoot,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::FootPoundPerFoot>          },
         {Unit::TransportEnergyConsumption::InchPoundPerInch,
-         ConversionsToStandard<
-             Unit::TransportEnergyConsumption,
+         ConversionsToStandard<Unit::TransportEnergyConsumption,
          Unit::TransportEnergyConsumption::InchPoundPerInch>          },
 };
 

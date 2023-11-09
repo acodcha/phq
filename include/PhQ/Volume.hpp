@@ -1,22 +1,26 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
 #include "Area.hpp"
+#include "DimensionalScalarQuantity.hpp"
+#include "Length.hpp"
 #include "Unit/Volume.hpp"
 
 namespace PhQ {
@@ -34,8 +38,7 @@ public:
   // Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;
 
-  // Constructor. Constructs a volume with a given value expressed in a given
-  // volume unit.
+  // Constructor. Constructs a volume with a given value expressed in a given volume unit.
   Volume(const double value, const Unit::Volume unit)
     : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
 
@@ -43,16 +46,16 @@ public:
   constexpr Volume(const Area& area, const Length& length)
     : Volume(area.Value() * length.Value()) {}
 
-  // Constructor. Constructs a volume from a given volume rate and time using
-  // the definition of volume rate.
+  // Constructor. Constructs a volume from a given volume rate and time using the definition of
+  // volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Time& time);
 
-  // Constructor. Constructs a volume from a given volume rate and frequency
-  // using the definition of volume rate.
+  // Constructor. Constructs a volume from a given volume rate and frequency using the definition of
+  // volume rate.
   constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency);
 
-  // Constructor. Constructs a volume from a given mass and mass density using
-  // the definition of volume.
+  // Constructor. Constructs a volume from a given mass and mass density using the definition of
+  // volume.
   constexpr Volume(const Mass& mass, const MassDensity& mass_density);
 
   // Destructor. Destroys this volume.
@@ -75,12 +78,10 @@ public:
     return Volume{0.0};
   }
 
-  // Statically creates a volume with a given value expressed in a given volume
-  // unit.
+  // Statically creates a volume with a given value expressed in a given volume unit.
   template <Unit::Volume Unit>
   static constexpr Volume Create(const double value) {
-    return Volume{
-        StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
+    return Volume{StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
   constexpr Volume operator+(const Volume& volume) const {
@@ -136,39 +137,31 @@ public:
   }
 
 private:
-  // Constructor. Constructs a volume with a given value expressed in the
-  // standard volume unit.
-  explicit constexpr Volume(const double value)
-    : DimensionalScalarQuantity<Unit::Volume>(value) {}
+  // Constructor. Constructs a volume with a given value expressed in the standard volume unit.
+  explicit constexpr Volume(const double value) : DimensionalScalarQuantity<Unit::Volume>(value) {}
 };
 
-inline constexpr bool operator==(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator==(const Volume& left, const Volume& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator!=(const Volume& left, const Volume& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator<(const Volume& left, const Volume& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator>(const Volume& left, const Volume& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator<=(const Volume& left, const Volume& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Volume& left, const Volume& right) noexcept {
+inline constexpr bool operator>=(const Volume& left, const Volume& right) noexcept {
   return left.Value() >= right.Value();
 }
 

@@ -1,36 +1,37 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_YOUNG_MODULUS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_YOUNG_MODULUS_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
-// Young's modulus of elasticity of a deformable solid material. A measure of a
-// deformable solid material's elastic modulus.
+// Young's modulus of elasticity of a deformable solid material. A measure of a deformable solid
+// material's elastic modulus.
 class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  // Default constructor. Constructs a Young's modulus with an uninitialized
-  // value.
+  // Default constructor. Constructs a Young's modulus with an uninitialized value.
   YoungModulus() = default;
 
-  // Constructor. Constructs a Young's modulus with a given value expressed in a
-  // given pressure unit.
+  // Constructor. Constructs a Young's modulus with a given value expressed in a given pressure
+  // unit.
   YoungModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
@@ -43,12 +44,10 @@ public:
   // Move constructor. Constructs a Young's modulus by moving another one.
   constexpr YoungModulus(YoungModulus&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Young's modulus by copying another
-  // one.
+  // Copy assignment operator. Assigns this Young's modulus by copying another one.
   constexpr YoungModulus& operator=(const YoungModulus& other) = default;
 
-  // Move assignment operator. Assigns this Young's modulus by moving another
-  // one.
+  // Move assignment operator. Assigns this Young's modulus by moving another one.
   constexpr YoungModulus& operator=(YoungModulus&& other) noexcept = default;
 
   // Statically creates a Young's modulus of zero.
@@ -56,13 +55,10 @@ public:
     return YoungModulus{0.0};
   }
 
-  // Statically creates a Young's modulus with a given value expressed in a
-  // given pressure unit.
+  // Statically creates a Young's modulus with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr YoungModulus Create(const double value) {
-    return YoungModulus{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            value)};
+    return YoungModulus{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr YoungModulus operator+(const YoungModulus& young_modulus) const {
@@ -102,50 +98,42 @@ public:
   }
 
 private:
-  // Constructor. Constructs a Young's modulus with a given value expressed in
-  // the standard pressure unit.
+  // Constructor. Constructs a Young's modulus with a given value expressed in the standard pressure
+  // unit.
   explicit constexpr YoungModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator==(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator!=(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator<(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator>(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator<=(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const YoungModulus& left, const YoungModulus& right) noexcept {
+inline constexpr bool operator>=(const YoungModulus& left, const YoungModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const YoungModulus& young_modulus) {
+inline std::ostream& operator<<(std::ostream& stream, const YoungModulus& young_modulus) {
   stream << young_modulus.Print();
   return stream;
 }
 
-inline constexpr YoungModulus operator*(
-    const double number, const YoungModulus& young_modulus) {
+inline constexpr YoungModulus operator*(const double number, const YoungModulus& young_modulus) {
   return young_modulus * number;
 }
 

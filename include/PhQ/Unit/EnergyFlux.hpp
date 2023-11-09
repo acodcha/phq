@@ -1,22 +1,34 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ENERGY_FLUX_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_ENERGY_FLUX_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -50,8 +62,7 @@ inline constexpr const Dimensions RelatedDimensions<Unit::EnergyFlux>{
     Dimensions{Dimension::Time{-3}, Dimension::Length{0}, Dimension::Mass{1}}
 };
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Unit::EnergyFlux unit) {
+inline std::ostream& operator<<(std::ostream& stream, const Unit::EnergyFlux unit) {
   stream << Abbreviation(unit);
   return stream;
 }
@@ -59,43 +70,31 @@ inline std::ostream& operator<<(
 namespace Internal {
 
 template <>
-inline const std::map<UnitSystem, Unit::EnergyFlux>
-    ConsistentUnits<Unit::EnergyFlux>{
-        {UnitSystem::MetreKilogramSecondKelvin,
-         Unit::EnergyFlux::WattPerSquareMetre             },
-        {UnitSystem::MillimetreGramSecondKelvin,
-         Unit::EnergyFlux::NanowattPerSquareMillimetre    },
-        {UnitSystem::FootPoundSecondRankine,
-         Unit::EnergyFlux::FootPoundPerSquareFootPerSecond},
-        {UnitSystem::InchPoundSecondRankine,
-         Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
+inline const std::map<UnitSystem, Unit::EnergyFlux> ConsistentUnits<Unit::EnergyFlux>{
+    {UnitSystem::MetreKilogramSecondKelvin,  Unit::EnergyFlux::WattPerSquareMetre             },
+    {UnitSystem::MillimetreGramSecondKelvin, Unit::EnergyFlux::NanowattPerSquareMillimetre    },
+    {UnitSystem::FootPoundSecondRankine,     Unit::EnergyFlux::FootPoundPerSquareFootPerSecond},
+    {UnitSystem::InchPoundSecondRankine,     Unit::EnergyFlux::InchPoundPerSquareInchPerSecond},
 };
 
 template <>
-inline const std::map<Unit::EnergyFlux, UnitSystem>
-    RelatedUnitSystems<Unit::EnergyFlux>{
-        {Unit::EnergyFlux::WattPerSquareMetre,
-         UnitSystem::MetreKilogramSecondKelvin },
-        {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         UnitSystem::MillimetreGramSecondKelvin},
-        {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         UnitSystem::FootPoundSecondRankine    },
-        {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         UnitSystem::InchPoundSecondRankine    },
+inline const std::map<Unit::EnergyFlux, UnitSystem> RelatedUnitSystems<Unit::EnergyFlux>{
+    {Unit::EnergyFlux::WattPerSquareMetre,              UnitSystem::MetreKilogramSecondKelvin },
+    {Unit::EnergyFlux::NanowattPerSquareMillimetre,     UnitSystem::MillimetreGramSecondKelvin},
+    {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, UnitSystem::FootPoundSecondRankine    },
+    {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, UnitSystem::InchPoundSecondRankine    },
 };
 
 template <>
-inline const std::map<Unit::EnergyFlux, std::string_view>
-    Abbreviations<Unit::EnergyFlux>{
-        {Unit::EnergyFlux::WattPerSquareMetre,              "W/m^2"        },
-        {Unit::EnergyFlux::NanowattPerSquareMillimetre,     "nW/mm^2"      },
-        {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, "ft·lbf/ft^2/s"},
-        {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, "in·lbf/in^2/s"},
+inline const std::map<Unit::EnergyFlux, std::string_view> Abbreviations<Unit::EnergyFlux>{
+    {Unit::EnergyFlux::WattPerSquareMetre,              "W/m^2"        },
+    {Unit::EnergyFlux::NanowattPerSquareMillimetre,     "nW/mm^2"      },
+    {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond, "ft·lbf/ft^2/s"},
+    {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond, "in·lbf/in^2/s"},
 };
 
 template <>
-inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
-    Unit::EnergyFlux>{
+inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<Unit::EnergyFlux>{
     {"W/m^2",           Unit::EnergyFlux::WattPerSquareMetre             },
     {"W/m2",            Unit::EnergyFlux::WattPerSquareMetre             },
     {"J/(m^2·s)",       Unit::EnergyFlux::WattPerSquareMetre             },
@@ -155,102 +154,83 @@ inline const std::unordered_map<std::string_view, Unit::EnergyFlux> Spellings<
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
-    double&) noexcept {}
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::EnergyFlux,
-                       Unit::EnergyFlux::NanowattPerSquareMillimetre>(
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
     double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::EnergyFlux,
-                       Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::EnergyFlux,
-                       Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
     double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
-    double&) noexcept {}
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::EnergyFlux,
-                     Unit::EnergyFlux::NanowattPerSquareMillimetre>(
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
     double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::EnergyFlux,
-                     Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::EnergyFlux,
-                     Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
 }
 
 template <>
-inline const std::map<
-    Unit::EnergyFlux,
-    std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::EnergyFlux, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
-         ConversionsFromStandard<Unit::EnergyFlux,
-         Unit::EnergyFlux::WattPerSquareMetre>                                                   },
+         ConversionsFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>         },
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         ConversionsFromStandard<
-             Unit::EnergyFlux,                     Unit::EnergyFlux::NanowattPerSquareMillimetre>},
+         ConversionsFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>},
         {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         ConversionsFromStandard<
-             Unit::EnergyFlux,
+         ConversionsFromStandard<Unit::EnergyFlux,
          Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>                                      },
         {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         ConversionsFromStandard<
-             Unit::EnergyFlux,
+         ConversionsFromStandard<Unit::EnergyFlux,
          Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>                                      },
 };
 
 template <>
-inline const std::map<
-    Unit::EnergyFlux,
-    std::function<void(double* const values, const std::size_t size)>>
+inline const std::map<Unit::EnergyFlux,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::EnergyFlux>{
         {Unit::EnergyFlux::WattPerSquareMetre,
-         ConversionsToStandard<Unit::EnergyFlux,
-         Unit::EnergyFlux::WattPerSquareMetre>             },
+         ConversionsToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>         },
         {Unit::EnergyFlux::NanowattPerSquareMillimetre,
-         ConversionsToStandard<Unit::EnergyFlux,
-         Unit::EnergyFlux::NanowattPerSquareMillimetre>    },
+         ConversionsToStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>},
         {Unit::EnergyFlux::FootPoundPerSquareFootPerSecond,
-         ConversionsToStandard<
-             Unit::EnergyFlux,
-         Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>},
+         ConversionsToStandard<Unit::EnergyFlux,
+         Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>                                    },
         {Unit::EnergyFlux::InchPoundPerSquareInchPerSecond,
-         ConversionsToStandard<
-             Unit::EnergyFlux,
-         Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>},
+         ConversionsToStandard<Unit::EnergyFlux,
+         Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>                                    },
 };
 
 }  // namespace Internal

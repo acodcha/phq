@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISENTROPIC_BULK_MODULUS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISENTROPIC_BULK_MODULUS_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Pressure.hpp"
@@ -28,55 +30,44 @@ class SoundSpeed;
 // Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
 class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  // Default constructor. Constructs an isentropic bulk modulus with an
-  // uninitialized value.
+  // Default constructor. Constructs an isentropic bulk modulus with an uninitialized value.
   IsentropicBulkModulus() = default;
 
-  // Constructor. Constructs an isentropic bulk modulus with a given value
-  // expressed in a given pressure unit.
+  // Constructor. Constructs an isentropic bulk modulus with a given value expressed in a given
+  // pressure unit.
   IsentropicBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  // Constructor. Constructs an isentropic bulk modulus from a given mass
-  // density and sound speed using the definition of the isentropic bulk
-  // modulus.
-  constexpr IsentropicBulkModulus(
-      const MassDensity& mass_density, const SoundSpeed& sound_speed);
+  // Constructor. Constructs an isentropic bulk modulus from a given mass density and sound speed
+  // using the definition of the isentropic bulk modulus.
+  constexpr IsentropicBulkModulus(const MassDensity& mass_density, const SoundSpeed& sound_speed);
 
   // Destructor. Destroys this isentropic bulk modulus.
   ~IsentropicBulkModulus() noexcept = default;
 
-  // Copy constructor. Constructs an isentropic bulk modulus by copying another
-  // one.
+  // Copy constructor. Constructs an isentropic bulk modulus by copying another one.
   constexpr IsentropicBulkModulus(const IsentropicBulkModulus& other) = default;
 
-  // Move constructor. Constructs an isentropic bulk modulus by moving another
-  // one.
-  constexpr IsentropicBulkModulus(
-      IsentropicBulkModulus&& other) noexcept = default;
+  // Move constructor. Constructs an isentropic bulk modulus by moving another one.
+  constexpr IsentropicBulkModulus(IsentropicBulkModulus&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this isentropic bulk modulus by copying
-  // another one.
-  constexpr IsentropicBulkModulus& operator=(
-      const IsentropicBulkModulus& other) = default;
+  // Copy assignment operator. Assigns this isentropic bulk modulus by copying another one.
+  constexpr IsentropicBulkModulus& operator=(const IsentropicBulkModulus& other) = default;
 
-  // Move assignment operator. Assigns this isentropic bulk modulus by moving
-  // another one.
-  constexpr IsentropicBulkModulus& operator=(
-      IsentropicBulkModulus&& other) noexcept = default;
+  // Move assignment operator. Assigns this isentropic bulk modulus by moving another one.
+  constexpr IsentropicBulkModulus& operator=(IsentropicBulkModulus&& other) noexcept = default;
 
   // Statically creates an isentropic bulk modulus of zero.
   static constexpr IsentropicBulkModulus Zero() {
     return IsentropicBulkModulus{0.0};
   }
 
-  // Statically creates an isentropic bulk modulus with a given value expressed
-  // in a given pressure unit.
+  // Statically creates an isentropic bulk modulus with a given value expressed in a given pressure
+  // unit.
   template <Unit::Pressure Unit>
   static constexpr IsentropicBulkModulus Create(const double value) {
     return IsentropicBulkModulus{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            value)};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr IsentropicBulkModulus operator+(
@@ -97,18 +88,15 @@ public:
     return IsentropicBulkModulus{value_ / number};
   }
 
-  constexpr double operator/(
-      const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
+  constexpr double operator/(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
     return value_ / isentropic_bulk_modulus.value_;
   }
 
-  constexpr void operator+=(
-      const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+  constexpr void operator+=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
     value_ += isentropic_bulk_modulus.value_;
   }
 
-  constexpr void operator-=(
-      const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
+  constexpr void operator-=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
     value_ -= isentropic_bulk_modulus.value_;
   }
 
@@ -121,45 +109,44 @@ public:
   }
 
 private:
-  // Constructor. Constructs an isentropic bulk modulus with a given value
-  // expressed in the standard pressure unit.
+  // Constructor. Constructs an isentropic bulk modulus with a given value expressed in the standard
+  // pressure unit.
   explicit constexpr IsentropicBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const IsentropicBulkModulus& left,
-                                 const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator==(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const IsentropicBulkModulus& left,
-                                 const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const IsentropicBulkModulus& left,
-                                const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator<(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const IsentropicBulkModulus& left,
-                                const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator>(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const IsentropicBulkModulus& left,
-                                 const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const IsentropicBulkModulus& left,
-                                 const IsentropicBulkModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const IsentropicBulkModulus& left, const IsentropicBulkModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const IsentropicBulkModulus& isentropic_bulk_modulus) {
+    std::ostream& stream, const IsentropicBulkModulus& isentropic_bulk_modulus) {
   stream << isentropic_bulk_modulus.Print();
   return stream;
 }
@@ -175,8 +162,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::IsentropicBulkModulus> {
-  inline size_t operator()(
-      const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
+  inline size_t operator()(const PhQ::IsentropicBulkModulus& isentropic_bulk_modulus) const {
     return hash<double>()(isentropic_bulk_modulus.Value());
   }
 };

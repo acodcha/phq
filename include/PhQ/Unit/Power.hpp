@@ -1,22 +1,34 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_POWER_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_POWER_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -101,8 +113,7 @@ inline const std::map<Unit::Power, std::string_view> Abbreviations<Unit::Power>{
 };
 
 template <>
-inline const std::unordered_map<std::string_view, Unit::Power> Spellings<
-    Unit::Power>{
+inline const std::unordered_map<std::string_view, Unit::Power> Spellings<Unit::Power>{
     {"W",          Unit::Power::Watt              },
     {"J/s",        Unit::Power::Watt              },
     {"N·m/s",      Unit::Power::Watt              },
@@ -144,165 +155,138 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(double& value) noexcept {
   value /= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
-    double& value) noexcept {
+ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(double& value) noexcept {
   value /= 0.0254 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Watt>(double&) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
-    double& value) noexcept {
+inline constexpr void
+ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
-    double& value) noexcept {
+ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(double& value) noexcept {
   value *= 0.0254 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline const std::map<
-    Unit::Power, std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::Power, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Power>{
-        {Unit::Power::Watt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Watt>              },
-        {Unit::Power::Milliwatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Milliwatt>         },
-        {Unit::Power::Microwatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Microwatt>         },
-        {Unit::Power::Nanowatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Nanowatt>          },
-        {Unit::Power::Kilowatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Kilowatt>          },
-        {Unit::Power::Megawatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Megawatt>          },
-        {Unit::Power::Gigawatt,
-         ConversionsFromStandard<Unit::Power, Unit::Power::Gigawatt>          },
+        {Unit::Power::Watt,               ConversionsFromStandard<Unit::Power, Unit::Power::Watt>              },
+        {Unit::Power::Milliwatt,          ConversionsFromStandard<Unit::Power, Unit::Power::Milliwatt>         },
+        {Unit::Power::Microwatt,          ConversionsFromStandard<Unit::Power, Unit::Power::Microwatt>         },
+        {Unit::Power::Nanowatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Nanowatt>          },
+        {Unit::Power::Kilowatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Kilowatt>          },
+        {Unit::Power::Megawatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Megawatt>          },
+        {Unit::Power::Gigawatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Gigawatt>          },
         {Unit::Power::FootPoundPerSecond,
-         ConversionsFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>},
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>},
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond>},
 };
 
 template <>
-inline const std::map<Unit::Power, std::function<void(double* const values,
-                                                      const std::size_t size)>>
+inline const std::map<Unit::Power,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Power>{
-        {Unit::Power::Watt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Watt>              },
-        {Unit::Power::Milliwatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Milliwatt>         },
-        {Unit::Power::Microwatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Microwatt>         },
-        {Unit::Power::Nanowatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt>          },
-        {Unit::Power::Kilowatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt>          },
-        {Unit::Power::Megawatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Megawatt>          },
-        {Unit::Power::Gigawatt,
-         ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt>          },
+        {Unit::Power::Watt,               ConversionsToStandard<Unit::Power, Unit::Power::Watt>              },
+        {Unit::Power::Milliwatt,          ConversionsToStandard<Unit::Power, Unit::Power::Milliwatt>         },
+        {Unit::Power::Microwatt,          ConversionsToStandard<Unit::Power, Unit::Power::Microwatt>         },
+        {Unit::Power::Nanowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt>          },
+        {Unit::Power::Kilowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt>          },
+        {Unit::Power::Megawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Megawatt>          },
+        {Unit::Power::Gigawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt>          },
         {Unit::Power::FootPoundPerSecond,
-         ConversionsToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>},
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>},
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond>},
 };
 
 }  // namespace Internal

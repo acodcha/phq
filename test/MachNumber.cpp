@@ -39,6 +39,12 @@ TEST(MachNumber, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(MachNumber(4.0) * 2.0, MachNumber(8.0));
 
   EXPECT_EQ(2.0 * MachNumber(4.0), MachNumber(8.0));
+
+  EXPECT_EQ(MachNumber(2.0) * SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(SoundSpeed(2.0, Unit::Speed::MetrePerSecond) * MachNumber(4.0),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(MachNumber, ArithmeticOperatorSubtraction) {

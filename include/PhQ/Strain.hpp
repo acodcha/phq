@@ -1,23 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_HPP
 
+#include <array>
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
 #include "DimensionlessSymmetricDyadQuantity.hpp"
 #include "StrainScalar.hpp"
+#include "Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -30,44 +34,34 @@ class StrainRate;
 // Strain symmetric dyadic tensor.
 class Strain : public DimensionlessSymmetricDyadQuantity {
 public:
-  // Default constructor. Constructs a strain tensor with an uninitialized
-  // value.
+  // Default constructor. Constructs a strain tensor with an uninitialized value.
   Strain() = default;
 
-  // Constructor. Constructs a strain tensor whose value has the given xx, xy,
-  // xz, yy, yz, and zz Cartesian components.
-  constexpr Strain(const double xx, const double xy, const double xz,
-                   const double yy, const double yz, const double zz)
+  // Constructor. Constructs a strain tensor whose value has the given xx, xy, xz, yy, yz, and zz
+  // Cartesian components.
+  constexpr Strain(const double xx, const double xy, const double xz, const double yy,
+                   const double yz, const double zz)
     : DimensionlessSymmetricDyadQuantity(xx, xy, xz, yy, yz, zz) {}
 
-  // Constructor. Constructs a strain tensor from a given array representing its
-  // value's xx, xy, xz, yy, yz, and zz Cartesian components.
+  // Constructor. Constructs a strain tensor from a given array representing its value's xx, xy, xz,
+  // yy, yz, and zz Cartesian components.
   explicit constexpr Strain(const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
     : DimensionlessSymmetricDyadQuantity(xx_xy_xz_yy_yz_zz) {}
-
-  // Constructor. Constructs a strain tensor by moving a given array
-  // representing its value's xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr Strain(std::array<double, 6>&& xx_xy_xz_yy_yz_zz) noexcept
-    : DimensionlessSymmetricDyadQuantity(std::move(xx_xy_xz_yy_yz_zz)) {}
 
   // Constructor. Constructs a strain tensor with a given value.
   explicit constexpr Strain(const Value::SymmetricDyad& value)
     : DimensionlessSymmetricDyadQuantity(value) {}
 
-  // Constructor. Constructs a strain tensor by moving a given value.
-  constexpr Strain(Value::SymmetricDyad&& value)
-    : DimensionlessSymmetricDyadQuantity(value) {}
-
-  // Constructor. Constructs a strain tensor from a given strain rate tensor and
-  // time using the definition of the strain rate tensor.
+  // Constructor. Constructs a strain tensor from a given strain rate tensor and time using the
+  // definition of the strain rate tensor.
   constexpr Strain(const StrainRate& strain_rate, const Time& time);
 
-  // Constructor. Constructs a strain tensor from a given strain rate tensor and
-  // frequency using the definition of the strain rate tensor.
+  // Constructor. Constructs a strain tensor from a given strain rate tensor and frequency using the
+  // definition of the strain rate tensor.
   constexpr Strain(const StrainRate& strain_rate, const Frequency& frequency);
 
-  // Constructor. Constructs a strain tensor from a given displacement gradient
-  // using the definition of the strain tensor.
+  // Constructor. Constructs a strain tensor from a given displacement gradient using the definition
+  // of the strain tensor.
   explicit constexpr Strain(const DisplacementGradient& displacement_gradient);
 
   // Destructor. Destroys this strain tensor.
@@ -79,8 +73,7 @@ public:
   // Move constructor. Constructs a strain tensor by moving another one.
   constexpr Strain(Strain&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this strain tensor by copying another
-  // one.
+  // Copy assignment operator. Assigns this strain tensor by copying another one.
   constexpr Strain& operator=(const Strain& other) = default;
 
   // Move assignment operator. Assigns this strain tensor by moving another one.
@@ -128,33 +121,27 @@ public:
   }
 };
 
-inline constexpr bool operator==(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator==(const Strain& left, const Strain& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator!=(const Strain& left, const Strain& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator<(const Strain& left, const Strain& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator>(const Strain& left, const Strain& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator<=(const Strain& left, const Strain& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Strain& left, const Strain& right) noexcept {
+inline constexpr bool operator>=(const Strain& left, const Strain& right) noexcept {
   return left.Value() >= right.Value();
 }
 

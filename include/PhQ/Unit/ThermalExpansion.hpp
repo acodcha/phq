@@ -1,22 +1,36 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_THERMAL_EXPANSION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_THERMAL_EXPANSION_HPP
 
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <ostream>
+#include <string_view>
+#include <unordered_map>
+
+#include "../Base.hpp"
+#include "../Dimension/ElectricCurrent.hpp"
+#include "../Dimension/Length.hpp"
+#include "../Dimension/Mass.hpp"
+#include "../Dimension/Temperature.hpp"
+#include "../Dimension/Time.hpp"
+#include "../Dimensions.hpp"
 #include "../Unit.hpp"
+#include "../UnitSystem.hpp"
 
 namespace PhQ {
 
@@ -51,8 +65,7 @@ inline constexpr const Dimensions RelatedDimensions<Unit::ThermalExpansion>{
                Dimension::ElectricCurrent{}, Dimension::Temperature{-1}}
 };
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Unit::ThermalExpansion unit) {
+inline std::ostream& operator<<(std::ostream& stream, const Unit::ThermalExpansion unit) {
   stream << Abbreviation(unit);
   return stream;
 }
@@ -60,8 +73,7 @@ inline std::ostream& operator<<(
 namespace Internal {
 
 template <>
-inline const std::map<UnitSystem, Unit::ThermalExpansion> ConsistentUnits<
-    Unit::ThermalExpansion>{
+inline const std::map<UnitSystem, Unit::ThermalExpansion> ConsistentUnits<Unit::ThermalExpansion>{
     {UnitSystem::MetreKilogramSecondKelvin,  Unit::ThermalExpansion::PerKelvin },
     {UnitSystem::MillimetreGramSecondKelvin, Unit::ThermalExpansion::PerKelvin },
     {UnitSystem::FootPoundSecondRankine,     Unit::ThermalExpansion::PerRankine},
@@ -112,91 +124,77 @@ inline const std::unordered_map<std::string_view, Unit::ThermalExpansion>
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerKelvin>(double&) noexcept {}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerCelsius>(double&) noexcept {}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerRankine>(
-    double& value) noexcept {
-  value /= 1.8;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion,
-                       Unit::ThermalExpansion::PerFahrenheit>(
-    double& value) noexcept {
-  value /= 1.8;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
     double&) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion,
-                     Unit::ThermalExpansion::PerCelsius>(double&) noexcept {}
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(
+    double&) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::ThermalExpansion,
-                                           Unit::ThermalExpansion::PerRankine>(
+inline constexpr void
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
+    double& value) noexcept {
+  value /= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(double&) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(double&) noexcept {
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
     double& value) noexcept {
   value *= 1.8;
 }
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion,
-                     Unit::ThermalExpansion::PerFahrenheit>(
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
     double& value) noexcept {
   value *= 1.8;
 }
 
 template <>
-inline const std::map<
-    Unit::ThermalExpansion,
-    std::function<void(double* values, const std::size_t size)>>
+inline const std::map<Unit::ThermalExpansion,
+                      std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::ThermalExpansion>{
         {Unit::ThermalExpansion::PerKelvin,
-         ConversionsFromStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerKelvin>    },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>    },
         {Unit::ThermalExpansion::PerCelsius,
-         ConversionsFromStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerCelsius>   },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>   },
         {Unit::ThermalExpansion::PerRankine,
-         ConversionsFromStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerRankine>   },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>   },
         {Unit::ThermalExpansion::PerFahrenheit,
-         ConversionsFromStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerFahrenheit>},
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>},
 };
 
 template <>
-inline const std::map<
-    Unit::ThermalExpansion,
-    std::function<void(double* const values, const std::size_t size)>>
+inline const std::map<Unit::ThermalExpansion,
+                      std::function<void(double* const values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::ThermalExpansion>{
         {Unit::ThermalExpansion::PerKelvin,
-         ConversionsToStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerKelvin>    },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>    },
         {Unit::ThermalExpansion::PerCelsius,
-         ConversionsToStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerCelsius>   },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>   },
         {Unit::ThermalExpansion::PerRankine,
-         ConversionsToStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerRankine>   },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>   },
         {Unit::ThermalExpansion::PerFahrenheit,
-         ConversionsToStandard<Unit::ThermalExpansion,
-         Unit::ThermalExpansion::PerFahrenheit>},
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>},
 };
 
 }  // namespace Internal
