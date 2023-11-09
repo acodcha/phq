@@ -1,46 +1,48 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_RATE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_RATE_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "Frequency.hpp"
+#include "Time.hpp"
 #include "Unit/VolumeRate.hpp"
 #include "Volume.hpp"
 
 namespace PhQ {
 
-// Volume rate. Can represent a time rate of change of a volume or a volume flow
-// rate.
+// Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
 class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
 public:
   // Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;
 
-  // Constructor. Constructs a volume rate with a given value expressed in a
-  // given volume rate unit.
+  // Constructor. Constructs a volume rate with a given value expressed in a given volume rate unit.
   VolumeRate(const double value, const Unit::VolumeRate unit)
     : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
 
-  // Constructor. Constructs a volume rate from a given volume and time using
-  // the definition of volume rate.
+  // Constructor. Constructs a volume rate from a given volume and time using the definition of
+  // volume rate.
   constexpr VolumeRate(const Volume& volume, const Time& time)
     : VolumeRate(volume.Value() / time.Value()) {}
 
-  // Constructor. Constructs a volume rate from a given volume and frequency
-  // using the definition of volume rate.
+  // Constructor. Constructs a volume rate from a given volume and frequency using the definition of
+  // volume rate.
   constexpr VolumeRate(const Volume& volume, const Frequency& frequency)
     : VolumeRate(volume.Value() * frequency.Value()) {}
 
@@ -64,13 +66,10 @@ public:
     return VolumeRate{0.0};
   }
 
-  // Statically creates a volume rate with a given value expressed in a given
-  // volume rate unit.
+  // Statically creates a volume rate with a given value expressed in a given volume rate unit.
   template <Unit::VolumeRate Unit>
   static constexpr VolumeRate Create(const double value) {
-    return VolumeRate{
-        StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(
-            value)};
+    return VolumeRate{StaticConvertCopy<Unit::VolumeRate, Unit, Standard<Unit::VolumeRate>>(value)};
   }
 
   constexpr VolumeRate operator+(const VolumeRate& volume_rate) const {
@@ -122,73 +121,62 @@ public:
   }
 
 private:
-  // Constructor. Constructs a volume rate with a given value expressed in the
-  // standard volume rate unit.
+  // Constructor. Constructs a volume rate with a given value expressed in the standard volume rate
+  // unit.
   explicit constexpr VolumeRate(const double value)
     : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
 };
 
-inline constexpr bool operator==(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator==(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator!=(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator<(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator>(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator<=(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const VolumeRate& left, const VolumeRate& right) noexcept {
+inline constexpr bool operator>=(const VolumeRate& left, const VolumeRate& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const VolumeRate& volume_rate) {
+inline std::ostream& operator<<(std::ostream& stream, const VolumeRate& volume_rate) {
   stream << volume_rate.Print();
   return stream;
 }
 
-inline constexpr VolumeRate operator*(
-    const double number, const VolumeRate& volume_rate) {
+inline constexpr VolumeRate operator*(const double number, const VolumeRate& volume_rate) {
   return volume_rate * number;
 }
 
 inline constexpr Volume::Volume(const VolumeRate& volume_rate, const Time& time)
   : Volume(volume_rate.Value() * time.Value()) {}
 
-inline constexpr Volume::Volume(
-    const VolumeRate& volume_rate, const Frequency& frequency)
+inline constexpr Volume::Volume(const VolumeRate& volume_rate, const Frequency& frequency)
   : Volume(volume_rate.Value() / frequency.Value()) {}
 
 inline constexpr Time::Time(const Volume& volume, const VolumeRate& volume_rate)
   : Time(volume.Value() / volume_rate.Value()) {}
 
-inline constexpr Frequency::Frequency(
-    const VolumeRate& volume_rate, const Volume& volume)
+inline constexpr Frequency::Frequency(const VolumeRate& volume_rate, const Volume& volume)
   : Frequency(volume_rate.Value() / volume.Value()) {}
 
 inline constexpr Volume Time::operator*(const VolumeRate& volume_rate) const {
   return {volume_rate, *this};
 }
 
-inline constexpr VolumeRate Volume::operator*(
-    const Frequency& frequency) const {
+inline constexpr VolumeRate Volume::operator*(const Frequency& frequency) const {
   return {*this, frequency};
 }
 

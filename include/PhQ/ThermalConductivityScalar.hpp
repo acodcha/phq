@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_SCALAR_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_THERMAL_CONDUCTIVITY_SCALAR_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/ThermalConductivity.hpp"
@@ -28,57 +30,44 @@ class PrandtlNumber;
 class SpecificIsobaricHeatCapacity;
 class ThermalDiffusivity;
 
-// Thermal conductivity scalar. For materials that are isotropic, thermal
-// conductivity can be represented by a scalar rather than a dyadic tensor.
-class ThermalConductivityScalar
-  : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
+// Thermal conductivity scalar. For materials that are isotropic, thermal conductivity can be
+// represented by a scalar rather than a dyadic tensor.
+class ThermalConductivityScalar : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
 public:
-  // Default constructor. Constructs a thermal conductivity scalar with an
-  // uninitialized value.
+  // Default constructor. Constructs a thermal conductivity scalar with an uninitialized value.
   ThermalConductivityScalar() = default;
 
-  // Constructor. Constructs a thermal conductivity scalar with a given value
-  // expressed in a given thermal conductivity unit.
-  ThermalConductivityScalar(
-      const double value, const Unit::ThermalConductivity unit)
+  // Constructor. Constructs a thermal conductivity scalar with a given value expressed in a given
+  // thermal conductivity unit.
+  ThermalConductivityScalar(const double value, const Unit::ThermalConductivity unit)
     : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal conductivity scalar from a given mass
-  // density, specific isobaric heat capacity, and thermal diffusivity using the
-  // definition of thermal diffusivity.
+  // Constructor. Constructs a thermal conductivity scalar from a given mass density, specific
+  // isobaric heat capacity, and thermal diffusivity using the definition of thermal diffusivity.
   constexpr ThermalConductivityScalar(
       const MassDensity& mass_density,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const ThermalDiffusivity& thermal_diffusivity);
 
-  // Constructor. Constructs a thermal conductivity scalar from a given specific
-  // isobaric heat capacity, dynamic viscosity, and Prandtl number using the
-  // definition of the Prandtl number.
+  // Constructor. Constructs a thermal conductivity scalar from a given specific isobaric heat
+  // capacity, dynamic viscosity, and Prandtl number using the definition of the Prandtl number.
   constexpr ThermalConductivityScalar(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
-      const DynamicViscosity& dynamic_viscosity,
-      const PrandtlNumber& prandtl_number);
+      const DynamicViscosity& dynamic_viscosity, const PrandtlNumber& prandtl_number);
 
   // Destructor. Destroys this thermal conductivity scalar.
   ~ThermalConductivityScalar() noexcept = default;
 
-  // Copy constructor. Constructs a thermal conductivity scalar by copying
-  // another one.
-  constexpr ThermalConductivityScalar(
-      const ThermalConductivityScalar& other) = default;
+  // Copy constructor. Constructs a thermal conductivity scalar by copying another one.
+  constexpr ThermalConductivityScalar(const ThermalConductivityScalar& other) = default;
 
-  // Move constructor. Constructs a thermal conductivity scalar by moving
-  // another one.
-  constexpr ThermalConductivityScalar(
-      ThermalConductivityScalar&& other) noexcept = default;
+  // Move constructor. Constructs a thermal conductivity scalar by moving another one.
+  constexpr ThermalConductivityScalar(ThermalConductivityScalar&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this thermal conductivity scalar by
-  // copying another one.
-  constexpr ThermalConductivityScalar& operator=(
-      const ThermalConductivityScalar& other) = default;
+  // Copy assignment operator. Assigns this thermal conductivity scalar by copying another one.
+  constexpr ThermalConductivityScalar& operator=(const ThermalConductivityScalar& other) = default;
 
-  // Move assignment operator. Assigns this thermal conductivity scalar by
-  // moving another one.
+  // Move assignment operator. Assigns this thermal conductivity scalar by moving another one.
   constexpr ThermalConductivityScalar& operator=(
       ThermalConductivityScalar&& other) noexcept = default;
 
@@ -87,25 +76,23 @@ public:
     return ThermalConductivityScalar{0.0};
   }
 
-  // Statically creates a thermal conductivity scalar with a given value
-  // expressed in a given thermal conductivity unit.
+  // Statically creates a thermal conductivity scalar with a given value expressed in a given
+  // thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
   static constexpr ThermalConductivityScalar Create(const double value) {
     return ThermalConductivityScalar{
-        StaticConvertCopy<Unit::ThermalConductivity, Unit,
-                          Standard<Unit::ThermalConductivity>>(value)};
+        StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
+            value)};
   }
 
   constexpr ThermalConductivityScalar operator+(
       const ThermalConductivityScalar& thermal_conductivity_scalar) const {
-    return ThermalConductivityScalar{
-        value_ + thermal_conductivity_scalar.value_};
+    return ThermalConductivityScalar{value_ + thermal_conductivity_scalar.value_};
   }
 
   constexpr ThermalConductivityScalar operator-(
       const ThermalConductivityScalar& thermal_conductivity_scalar) const {
-    return ThermalConductivityScalar{
-        value_ - thermal_conductivity_scalar.value_};
+    return ThermalConductivityScalar{value_ - thermal_conductivity_scalar.value_};
   }
 
   constexpr ThermalConductivityScalar operator*(const double number) const {
@@ -116,19 +103,16 @@ public:
     return ThermalConductivityScalar{value_ / number};
   }
 
-  constexpr double
-  operator/(const ThermalConductivityScalar& thermal_conductivity_scalar)
-      const noexcept {
+  constexpr double operator/(
+      const ThermalConductivityScalar& thermal_conductivity_scalar) const noexcept {
     return value_ / thermal_conductivity_scalar.value_;
   }
 
-  constexpr void operator+=(
-      const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
+  constexpr void operator+=(const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
     value_ += thermal_conductivity_scalar.value_;
   }
 
-  constexpr void operator-=(
-      const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
+  constexpr void operator-=(const ThermalConductivityScalar& thermal_conductivity_scalar) noexcept {
     value_ -= thermal_conductivity_scalar.value_;
   }
 
@@ -141,58 +125,50 @@ public:
   }
 
 private:
-  // Constructor. Constructs a thermal conductivity scalar with a given value
-  // expressed in the standard thermal conductivity unit.
+  // Constructor. Constructs a thermal conductivity scalar with a given value expressed in the
+  // standard thermal conductivity unit.
   explicit constexpr ThermalConductivityScalar(const double value)
     : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
 };
 
 inline constexpr bool operator==(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() == right.Value();
 }
 
 inline constexpr bool operator!=(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() != right.Value();
 }
 
 inline constexpr bool operator<(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() < right.Value();
 }
 
 inline constexpr bool operator>(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() > right.Value();
 }
 
 inline constexpr bool operator<=(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() <= right.Value();
 }
 
 inline constexpr bool operator>=(
-    const ThermalConductivityScalar& left,
-    const ThermalConductivityScalar& right) noexcept {
+    const ThermalConductivityScalar& left, const ThermalConductivityScalar& right) noexcept {
   return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const ThermalConductivityScalar& thermal_conductivity_scalar) {
+    std::ostream& stream, const ThermalConductivityScalar& thermal_conductivity_scalar) {
   stream << thermal_conductivity_scalar.Print();
   return stream;
 }
 
 inline constexpr ThermalConductivityScalar operator*(
-    const double number,
-    const ThermalConductivityScalar& thermal_conductivity_scalar) {
+    const double number, const ThermalConductivityScalar& thermal_conductivity_scalar) {
   return thermal_conductivity_scalar * number;
 }
 

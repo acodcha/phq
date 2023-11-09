@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ENERGY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ENERGY_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Energy.hpp"
@@ -31,36 +33,33 @@ class SpecificPower;
 class Time;
 class TransportEnergyConsumption;
 
-// Energy.
+// Energy physical quantity. Can represent any kind of energy, such as kinetic energy, potential
+// energy, internal energy, and so on.
 class Energy : public DimensionalScalarQuantity<Unit::Energy> {
 public:
-  // Default constructor. Constructs an energy quantity with an uninitialized
-  // value.
+  // Default constructor. Constructs an energy quantity with an uninitialized value.
   Energy() = default;
 
-  // Constructor. Constructs an energy quantity with a given value expressed in
-  // a given energy unit.
+  // Constructor. Constructs an energy quantity with a given value expressed in a given energy unit.
   Energy(const double value, const Unit::Energy unit)
     : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
 
-  // Constructor. Constructs an energy quantity from a given power and time
-  // using the definition of power.
+  // Constructor. Constructs an energy quantity from a given power and time using the definition of
+  // power.
   constexpr Energy(const Power& power, const Time& time);
 
-  // Constructor. Constructs an energy quantity from a given power and frequency
-  // using the definition of power.
+  // Constructor. Constructs an energy quantity from a given power and frequency using the
+  // definition of power.
   constexpr Energy(const Power& power, const Frequency& frequency);
 
-  // Constructor. Constructs an energy quantity from a given specific energy
-  // quantity and mass using the definition of specific energy.
+  // Constructor. Constructs an energy quantity from a given specific energy quantity and mass using
+  // the definition of specific energy.
   constexpr Energy(const SpecificEnergy& specific_energy, const Mass& mass);
 
-  // Constructor. Constructs an energy quantity from a given transport energy
-  // consumption and length using the definition of transport energy
-  // consumption.
+  // Constructor. Constructs an energy quantity from a given transport energy consumption and length
+  // using the definition of transport energy consumption.
   constexpr Energy(
-      const TransportEnergyConsumption& transport_energy_consumption,
-      const Length& length);
+      const TransportEnergyConsumption& transport_energy_consumption, const Length& length);
 
   // Destructor. Destroys this energy quantity.
   ~Energy() noexcept = default;
@@ -71,12 +70,10 @@ public:
   // Move constructor. Constructs an energy quantity by moving another one.
   constexpr Energy(Energy&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this energy quantity by copying another
-  // one.
+  // Copy assignment operator. Assigns this energy quantity by copying another one.
   constexpr Energy& operator=(const Energy& other) = default;
 
-  // Move assignment operator. Assigns this energy quantity by moving another
-  // one.
+  // Move assignment operator. Assigns this energy quantity by moving another one.
   constexpr Energy& operator=(Energy&& other) noexcept = default;
 
   // Statically creates an energy quantity of zero.
@@ -84,12 +81,10 @@ public:
     return Energy{0.0};
   }
 
-  // Statically creates an energy quantity with a given value expressed in a
-  // given energy unit.
+  // Statically creates an energy quantity with a given value expressed in a given energy unit.
   template <Unit::Energy Unit>
   static constexpr Energy Create(const double value) {
-    return Energy{
-        StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
+    return Energy{StaticConvertCopy<Unit::Energy, Unit, Standard<Unit::Energy>>(value)};
   }
 
   constexpr Energy operator+(const Energy& energy) const {
@@ -120,8 +115,7 @@ public:
 
   constexpr TransportEnergyConsumption operator/(const Length& length) const;
 
-  constexpr Length operator/(
-      const TransportEnergyConsumption& transport_energy_consumption) const;
+  constexpr Length operator/(const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr double operator/(const Energy& energy) const noexcept {
     return value_ / energy.value_;
@@ -144,39 +138,32 @@ public:
   }
 
 private:
-  // Constructor. Constructs an energy quantity with a given value expressed in
-  // the standard energy unit.
-  explicit constexpr Energy(const double value)
-    : DimensionalScalarQuantity<Unit::Energy>(value) {}
+  // Constructor. Constructs an energy quantity with a given value expressed in the standard energy
+  // unit.
+  explicit constexpr Energy(const double value) : DimensionalScalarQuantity<Unit::Energy>(value) {}
 };
 
-inline constexpr bool operator==(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator==(const Energy& left, const Energy& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator!=(const Energy& left, const Energy& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator<(const Energy& left, const Energy& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator>(const Energy& left, const Energy& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator<=(const Energy& left, const Energy& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Energy& left, const Energy& right) noexcept {
+inline constexpr bool operator>=(const Energy& left, const Energy& right) noexcept {
   return left.Value() >= right.Value();
 }
 

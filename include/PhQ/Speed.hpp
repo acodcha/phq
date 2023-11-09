@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_SPEED_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_SPEED_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "Frequency.hpp"
 #include "Length.hpp"
 #include "Unit/Speed.hpp"
@@ -43,58 +46,50 @@ public:
   // Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;
 
-  // Constructor. Constructs a speed with a given value expressed in a given
-  // speed unit.
+  // Constructor. Constructs a speed with a given value expressed in a given speed unit.
   Speed(const double value, const Unit::Speed unit)
     : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
 
-  // Constructor. Constructs a speed from a given length and time duration using
-  // the definition of speed.
-  constexpr Speed(const Length& length, const Time& time)
-    : Speed(length.Value() / time.Value()) {}
+  // Constructor. Constructs a speed from a given length and time duration using the definition of
+  // speed.
+  constexpr Speed(const Length& length, const Time& time) : Speed(length.Value() / time.Value()) {}
 
-  // Constructor. Constructs a speed from a given length and frequency using the
-  // definition of speed.
+  // Constructor. Constructs a speed from a given length and frequency using the definition of
+  // speed.
   constexpr Speed(const Length& length, const Frequency& frequency)
     : Speed(length.Value() * frequency.Value()) {}
 
   // Constructor. Constructs a speed from a given velocity vector.
-  Speed(const Velocity& velocity);
+  explicit Speed(const Velocity& velocity);
 
-  // Constructor. Constructs a speed from a given acceleration magnitude and
-  // time duration using the definition of acceleration.
-  constexpr Speed(
-      const AccelerationMagnitude& acceleration_magnitude, const Time& time);
+  // Constructor. Constructs a speed from a given acceleration magnitude and time duration using the
+  // definition of acceleration.
+  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Time& time);
 
-  // Constructor. Constructs a speed from a given acceleration magnitude and
-  // frequency using the definition of acceleration.
-  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude,
-                  const Frequency& frequency);
+  // Constructor. Constructs a speed from a given acceleration magnitude and frequency using the
+  // definition of acceleration.
+  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency);
 
-  // Constructor. Constructs a speed from a given dynamic pressure and mass
-  // density using the definition of dynamic pressure.
-  Speed(const DynamicPressure& dynamic_pressure,
-        const MassDensity& mass_density);
+  // Constructor. Constructs a speed from a given dynamic pressure and mass density using the
+  // definition of dynamic pressure.
+  Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density);
 
-  // Constructor. Constructs a speed from a given dynamic kinematic pressure
-  // using the definition of dynamic kinematic pressure.
-  Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure);
+  // Constructor. Constructs a speed from a given dynamic kinematic pressure using the definition of
+  // dynamic kinematic pressure.
+  explicit Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure);
 
-  // Constructor. Constructs a speed from a given Reynolds number, dynamic
-  // viscosity, mass density, and length using the definition of the Reynolds
-  // number.
-  constexpr Speed(const ReynoldsNumber& reynolds_number,
-                  const DynamicViscosity& dynamic_viscosity,
+  // Constructor. Constructs a speed from a given Reynolds number, dynamic viscosity, mass density,
+  // and length using the definition of the Reynolds number.
+  constexpr Speed(const ReynoldsNumber& reynolds_number, const DynamicViscosity& dynamic_viscosity,
                   const MassDensity& mass_density, const Length& length);
 
-  // Constructor. Constructs a speed from a given Reynolds number, kinematic
-  // viscosity, and length using the definition of the Reynolds number.
-  constexpr Speed(
-      const ReynoldsNumber& reynolds_number,
-      const KinematicViscosity& kinematic_viscosity, const Length& length);
+  // Constructor. Constructs a speed from a given Reynolds number, kinematic viscosity, and length
+  // using the definition of the Reynolds number.
+  constexpr Speed(const ReynoldsNumber& reynolds_number,
+                  const KinematicViscosity& kinematic_viscosity, const Length& length);
 
-  // Constructor. Constructs a speed from a given sound speed and Mach number
-  // using the definition of the Mach number.
+  // Constructor. Constructs a speed from a given sound speed and Mach number using the definition
+  // of the Mach number.
   constexpr Speed(const SoundSpeed& sound_speed, const MachNumber& mach_number);
 
   // Destructor. Destroys this speed.
@@ -117,12 +112,10 @@ public:
     return Speed{0.0};
   }
 
-  // Statically creates a speed with a given value expressed in a given speed
-  // unit.
+  // Statically creates a speed with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Speed Create(const double value) {
-    return Speed{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+    return Speed{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
   constexpr Speed operator+(const Speed& speed) const {
@@ -149,8 +142,7 @@ public:
 
   constexpr Velocity operator*(const Direction& direction) const;
 
-  constexpr Power operator*(
-      const TransportEnergyConsumption& transport_energy_consumption) const;
+  constexpr Power operator*(const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr Speed operator/(const double number) const {
     return Speed{value_ / number};
@@ -166,8 +158,7 @@ public:
 
   constexpr AccelerationMagnitude operator/(const Time& time) const;
 
-  constexpr Time operator/(
-      const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Time operator/(const AccelerationMagnitude& acceleration_magnitude) const;
 
   constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
 
@@ -196,41 +187,33 @@ public:
   }
 
 private:
-  // Constructor. Constructs a speed with a given value expressed in the
-  // standard speed unit.
-  explicit constexpr Speed(const double value)
-    : DimensionalScalarQuantity<Unit::Speed>(value) {}
+  // Constructor. Constructs a speed with a given value expressed in the standard speed unit.
+  explicit constexpr Speed(const double value) : DimensionalScalarQuantity<Unit::Speed>(value) {}
 
   friend SoundSpeed;
 };
 
-inline constexpr bool operator==(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator==(const Speed& left, const Speed& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator!=(const Speed& left, const Speed& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator<(const Speed& left, const Speed& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator>(const Speed& left, const Speed& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator<=(const Speed& left, const Speed& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Speed& left, const Speed& right) noexcept {
+inline constexpr bool operator>=(const Speed& left, const Speed& right) noexcept {
   return left.Value() >= right.Value();
 }
 

@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_SUBSTANCE_AMOUNT_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_SUBSTANCE_AMOUNT_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/SubstanceAmount.hpp"
@@ -22,15 +24,13 @@
 namespace PhQ {
 
 // Amount of substance scalar quantity.
-class SubstanceAmount
-  : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
+class SubstanceAmount : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
 public:
-  // Default constructor. Constructs a substance amount with an uninitialized
-  // value.
+  // Default constructor. Constructs a substance amount with an uninitialized value.
   SubstanceAmount() = default;
 
-  // Constructor. Constructs a substance amount with a given value expressed in
-  // a given substance amount unit.
+  // Constructor. Constructs a substance amount with a given value expressed in a given substance
+  // amount unit.
   SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value, unit) {}
 
@@ -43,36 +43,30 @@ public:
   // Move constructor. Constructs a substance amount by moving another one.
   constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this substance amount by copying another
-  // one.
+  // Copy assignment operator. Assigns this substance amount by copying another one.
   constexpr SubstanceAmount& operator=(const SubstanceAmount& other) = default;
 
-  // Move assignment operator. Assigns this substance amount by moving another
-  // one.
-  constexpr SubstanceAmount& operator=(
-      SubstanceAmount&& other) noexcept = default;
+  // Move assignment operator. Assigns this substance amount by moving another one.
+  constexpr SubstanceAmount& operator=(SubstanceAmount&& other) noexcept = default;
 
   // Statically creates a substance amount of zero.
   static constexpr SubstanceAmount Zero() {
     return SubstanceAmount{0.0};
   }
 
-  // Statically creates a substance amount with a given value expressed in a
-  // given substance amount unit.
+  // Statically creates a substance amount with a given value expressed in a given substance amount
+  // unit.
   template <Unit::SubstanceAmount Unit>
   static constexpr SubstanceAmount Create(const double value) {
     return SubstanceAmount{
-        StaticConvertCopy<Unit::SubstanceAmount, Unit,
-                          Standard<Unit::SubstanceAmount>>(value)};
+        StaticConvertCopy<Unit::SubstanceAmount, Unit, Standard<Unit::SubstanceAmount>>(value)};
   }
 
-  constexpr SubstanceAmount operator+(
-      const SubstanceAmount& substance_amount) const {
+  constexpr SubstanceAmount operator+(const SubstanceAmount& substance_amount) const {
     return SubstanceAmount{value_ + substance_amount.value_};
   }
 
-  constexpr SubstanceAmount operator-(
-      const SubstanceAmount& substance_amount) const {
+  constexpr SubstanceAmount operator-(const SubstanceAmount& substance_amount) const {
     return SubstanceAmount{value_ - substance_amount.value_};
   }
 
@@ -84,8 +78,7 @@ public:
     return SubstanceAmount{value_ / number};
   }
 
-  constexpr double operator/(
-      const SubstanceAmount& substance_amount) const noexcept {
+  constexpr double operator/(const SubstanceAmount& substance_amount) const noexcept {
     return value_ / substance_amount.value_;
   }
 
@@ -106,8 +99,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a substance amount with a given value expressed in
-  // the standard substance amount unit.
+  // Constructor. Constructs a substance amount with a given value expressed in the standard
+  // substance amount unit.
   explicit constexpr SubstanceAmount(const double value)
     : DimensionalScalarQuantity<Unit::SubstanceAmount>(value) {}
 };
@@ -142,8 +135,7 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const SubstanceAmount& substance_amount) {
+inline std::ostream& operator<<(std::ostream& stream, const SubstanceAmount& substance_amount) {
   stream << substance_amount.Print();
   return stream;
 }

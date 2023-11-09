@@ -1,22 +1,31 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_POSITION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_POSITION_HPP
 
+#include <array>
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "Angle.hpp"
+#include "DimensionalVectorQuantity.hpp"
+#include "Direction.hpp"
 #include "Displacement.hpp"
+#include "Length.hpp"
+#include "Unit/Length.hpp"
+#include "Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -26,8 +35,7 @@ public:
   // Default constructor. Constructs a position with an uninitialized value.
   Position() = default;
 
-  // Constructor. Constructs a position with a given value expressed in a given
-  // length unit.
+  // Constructor. Constructs a position with a given value expressed in a given length unit.
   Position(const Value::Vector& value, const Unit::Length unit)
     : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
 
@@ -35,10 +43,8 @@ public:
   constexpr Position(const Length& length, const Direction& direction)
     : Position(length.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a position from a given displacement from the
-  // origin.
-  explicit constexpr Position(const Displacement& displacement)
-    : Position(displacement.Value()) {}
+  // Constructor. Constructs a position from a given displacement from the origin.
+  explicit constexpr Position(const Displacement& displacement) : Position(displacement.Value()) {}
 
   // Destructor. Destroys this position.
   ~Position() noexcept = default;
@@ -60,40 +66,35 @@ public:
     return Position{Value::Vector::Zero()};
   }
 
-  // Statically creates a position from the given x, y, and z Cartesian
-  // components expressed in a given length unit.
+  // Statically creates a position from the given x, y, and z Cartesian components expressed in a
+  // given length unit.
   template <Unit::Length Unit>
-  static constexpr Position
-  Create(const double x, const double y, const double z) {
+  static constexpr Position Create(const double x, const double y, const double z) {
     return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
-            Value::Vector{x, y, z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x, y, z})};
   }
 
-  // Statically creates a position from the given x, y, and z Cartesian
-  // components expressed in a given length unit.
+  // Statically creates a position from the given x, y, and z Cartesian components expressed in a
+  // given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const std::array<double, 3>& x_y_z) {
     return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(
-            Value::Vector{x_y_z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x_y_z})};
   }
 
-  // Statically creates a position with a given value expressed in a given
-  // length unit.
+  // Statically creates a position with a given value expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const Value::Vector& value) {
-    return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   // Returns the magnitude of this position.
-  Length Magnitude() const {
-    return {*this};
+  [[nodiscard]] Length Magnitude() const {
+    return Length{*this};
   }
 
   // Returns the angle between this position and another one.
-  PhQ::Angle Angle(const Position& position) const {
+  [[nodiscard]] PhQ::Angle Angle(const Position& position) const {
     return {*this, position};
   }
 
@@ -146,74 +147,61 @@ public:
   }
 
 private:
-  // Constructor. Constructs a position with a given value expressed in the
-  // standard length unit.
+  // Constructor. Constructs a position with a given value expressed in the standard length unit.
   explicit constexpr Position(const Value::Vector& value)
     : DimensionalVectorQuantity<Unit::Length>(value) {}
 
   friend class Displacement;
 };
 
-inline constexpr bool operator==(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator==(const Position& left, const Position& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator!=(const Position& left, const Position& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator<(const Position& left, const Position& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator>(const Position& left, const Position& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator<=(const Position& left, const Position& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Position& left, const Position& right) noexcept {
+inline constexpr bool operator>=(const Position& left, const Position& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const Position& position) {
+inline std::ostream& operator<<(std::ostream& stream, const Position& position) {
   stream << position.Print();
   return stream;
 }
 
-inline constexpr Position operator*(
-    const double number, const Position& position) {
+inline constexpr Position operator*(const double number, const Position& position) {
   return position * number;
 }
 
-inline Direction::Direction(const Position& position)
-  : Direction(position.Value()) {}
+inline Direction::Direction(const Position& position) : Direction(position.Value()) {}
 
-inline Angle::Angle(const Position& position_1, const Position& position_2)
-  : Angle(position_1.Value(), position_2.Value()) {}
+inline Angle::Angle(const Position& position1, const Position& position2)
+  : Angle(position1.Value(), position2.Value()) {}
 
-inline Length::Length(const Position& position)
-  : Length(position.Value().Magnitude()) {}
+inline Length::Length(const Position& position) : Length(position.Value().Magnitude()) {}
 
 inline constexpr Displacement::Displacement(const Position& position)
   : Displacement(position.Value()) {}
 
-inline constexpr Position Displacement::operator+(
-    const Position& position) const {
+inline constexpr Position Displacement::operator+(const Position& position) const {
   return Position{value_ + position.Value()};
 }
 
-inline constexpr Position Displacement::operator-(
-    const Position& position) const {
+inline constexpr Position Displacement::operator-(const Position& position) const {
   return Position{value_ - position.Value()};
 }
 

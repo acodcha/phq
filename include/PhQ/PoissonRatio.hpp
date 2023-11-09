@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_POISSON_RATIO_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_POISSON_RATIO_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionlessScalarQuantity.hpp"
 
@@ -23,13 +25,11 @@ namespace PhQ {
 // Poisson's ratio of a deformable solid material.
 class PoissonRatio : public DimensionlessScalarQuantity {
 public:
-  // Default constructor. Constructs a Poisson's ratio with an uninitialized
-  // value.
+  // Default constructor. Constructs a Poisson's ratio with an uninitialized value.
   PoissonRatio() = default;
 
   // Constructor. Constructs a Poisson's ratio with a given value.
-  explicit constexpr PoissonRatio(const double value)
-    : DimensionlessScalarQuantity(value) {}
+  explicit constexpr PoissonRatio(const double value) : DimensionlessScalarQuantity(value) {}
 
   // Destructor. Destroys this Poisson's ratio.
   ~PoissonRatio() noexcept = default;
@@ -40,12 +40,10 @@ public:
   // Move constructor. Constructs a Poisson's ratio by moving another one.
   constexpr PoissonRatio(PoissonRatio&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this Poisson's ratio by copying another
-  // one.
+  // Copy assignment operator. Assigns this Poisson's ratio by copying another one.
   constexpr PoissonRatio& operator=(const PoissonRatio& other) = default;
 
-  // Move assignment operator. Assigns this Poisson's ratio by moving another
-  // one.
+  // Move assignment operator. Assigns this Poisson's ratio by moving another one.
   constexpr PoissonRatio& operator=(PoissonRatio&& other) noexcept = default;
 
   // Statically creates a Poisson's ratio of zero.
@@ -90,44 +88,36 @@ public:
   }
 };
 
-inline constexpr bool operator==(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator==(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator!=(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator<(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator>(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator<=(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const PoissonRatio& left, const PoissonRatio& right) noexcept {
+inline constexpr bool operator>=(const PoissonRatio& left, const PoissonRatio& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const PoissonRatio& poisson_ratio) {
+inline std::ostream& operator<<(std::ostream& stream, const PoissonRatio& poisson_ratio) {
   stream << poisson_ratio.Print();
   return stream;
 }
 
-inline constexpr PoissonRatio operator*(
-    const double number, const PoissonRatio& poisson_ratio) {
+inline constexpr PoissonRatio operator*(const double number, const PoissonRatio& poisson_ratio) {
   return PoissonRatio{number * poisson_ratio.Value()};
 }
 

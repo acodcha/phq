@@ -1,22 +1,28 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_TOTAL_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_TOTAL_PRESSURE_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "DynamicPressure.hpp"
+#include "MassDensity.hpp"
+#include "StaticPressure.hpp"
+#include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
@@ -26,26 +32,23 @@ class TotalKinematicPressure;
 // Total pressure, which is the sum of static pressure and dynamic pressure.
 class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  // Default constructor. Constructs a total pressure with an uninitialized
-  // value.
+  // Default constructor. Constructs a total pressure with an uninitialized value.
   TotalPressure() = default;
 
-  // Constructor. Constructs a total pressure with a given value expressed in a
-  // given pressure unit.
+  // Constructor. Constructs a total pressure with a given value expressed in a given pressure unit.
   TotalPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  // Constructor. Constructs a total pressure from a given static pressure and
-  // dynamic pressure using the definition of total pressure.
-  constexpr TotalPressure(const StaticPressure& static_pressure,
-                          const DynamicPressure& dynamic_pressure)
+  // Constructor. Constructs a total pressure from a given static pressure and dynamic pressure
+  // using the definition of total pressure.
+  constexpr TotalPressure(
+      const StaticPressure& static_pressure, const DynamicPressure& dynamic_pressure)
     : TotalPressure(static_pressure.Value() + dynamic_pressure.Value()) {}
 
-  // Constructor. Constructs a total pressure from a given mass density and
-  // total kinematic pressure using the definition of total kinematic pressure.
+  // Constructor. Constructs a total pressure from a given mass density and total kinematic pressure
+  // using the definition of total kinematic pressure.
   constexpr TotalPressure(
-      const MassDensity& mass_density,
-      const TotalKinematicPressure& total_kinematic_pressure);
+      const MassDensity& mass_density, const TotalKinematicPressure& total_kinematic_pressure);
 
   // Destructor. Destroys this total pressure.
   ~TotalPressure() noexcept = default;
@@ -56,12 +59,10 @@ public:
   // Move constructor. Constructs a total pressure by moving another one.
   constexpr TotalPressure(TotalPressure&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this total pressure by copying another
-  // one.
+  // Copy assignment operator. Assigns this total pressure by copying another one.
   constexpr TotalPressure& operator=(const TotalPressure& other) = default;
 
-  // Move assignment operator. Assigns this total pressure by moving another
-  // one.
+  // Move assignment operator. Assigns this total pressure by moving another one.
   constexpr TotalPressure& operator=(TotalPressure&& other) noexcept = default;
 
   // Statically creates a total pressure of zero.
@@ -69,13 +70,10 @@ public:
     return TotalPressure{0.0};
   }
 
-  // Statically creates a total pressure with a given value expressed in a given
-  // pressure unit.
+  // Statically creates a total pressure with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr TotalPressure Create(const double value) {
-    return TotalPressure{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            value)};
+    return TotalPressure{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr TotalPressure operator+(const TotalPressure& total_pressure) const {
@@ -86,13 +84,11 @@ public:
     return TotalPressure{value_ - total_pressure.value_};
   }
 
-  constexpr DynamicPressure operator-(
-      const StaticPressure& static_pressure) const {
+  constexpr DynamicPressure operator-(const StaticPressure& static_pressure) const {
     return {*this, static_pressure};
   }
 
-  constexpr StaticPressure operator-(
-      const DynamicPressure& dynamic_pressure) const {
+  constexpr StaticPressure operator-(const DynamicPressure& dynamic_pressure) const {
     return {*this, dynamic_pressure};
   }
 
@@ -104,13 +100,11 @@ public:
     return TotalPressure{value_ / number};
   }
 
-  constexpr double operator/(
-      const TotalPressure& total_pressure) const noexcept {
+  constexpr double operator/(const TotalPressure& total_pressure) const noexcept {
     return value_ / total_pressure.value_;
   }
 
-  constexpr TotalKinematicPressure operator/(
-      const MassDensity& mass_density) const;
+  constexpr TotalKinematicPressure operator/(const MassDensity& mass_density) const;
 
   constexpr void operator+=(const TotalPressure& total_pressure) noexcept {
     value_ += total_pressure.value_;
@@ -129,56 +123,47 @@ public:
   }
 
 private:
-  // Constructor. Constructs a total pressure with a given value expressed in
-  // the standard pressure unit.
+  // Constructor. Constructs a total pressure with a given value expressed in the standard pressure
+  // unit.
   explicit constexpr TotalPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator==(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator!=(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator<(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator>(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator<=(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const TotalPressure& left, const TotalPressure& right) noexcept {
+inline constexpr bool operator>=(const TotalPressure& left, const TotalPressure& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const TotalPressure& total_pressure) {
+inline std::ostream& operator<<(std::ostream& stream, const TotalPressure& total_pressure) {
   stream << total_pressure.Print();
   return stream;
 }
 
-inline constexpr TotalPressure operator*(
-    const double number, const TotalPressure& total_pressure) {
+inline constexpr TotalPressure operator*(const double number, const TotalPressure& total_pressure) {
   return total_pressure * number;
 }
 
 inline constexpr StaticPressure::StaticPressure(
-    const TotalPressure& total_pressure,
-    const DynamicPressure& dynamic_pressure)
+    const TotalPressure& total_pressure, const DynamicPressure& dynamic_pressure)
   : StaticPressure(total_pressure.Value() - dynamic_pressure.Value()) {}
 
 inline constexpr DynamicPressure::DynamicPressure(

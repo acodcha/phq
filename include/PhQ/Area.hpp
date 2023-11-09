@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_AREA_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_AREA_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "Length.hpp"
 #include "Unit/Area.hpp"
 
@@ -35,13 +38,12 @@ public:
   // Default constructor. Constructs an area with an uninitialized value.
   Area() = default;
 
-  // Constructor. Constructs an area with a given value expressed in a given
-  // area unit.
+  // Constructor. Constructs an area with a given value expressed in a given area unit.
   Area(const double value, const Unit::Area unit)
     : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
 
   // Constructor. Constructs an area from a given vector area.
-  Area(const AreaVector& area_vector);
+  explicit Area(const AreaVector& area_vector);
 
   // Constructor. Constructs an area from two given lengths.
   constexpr Area(const Length& length1, const Length& length2)
@@ -50,10 +52,9 @@ public:
   // Constructor. Constructs an area from a given volume and length.
   constexpr Area(const Volume& volume, const Length& length);
 
-  // Constructor. Constructs an area from a given force magnitude and static
-  // pressure using the definition of pressure.
-  constexpr Area(const ForceMagnitude& force_magnitude,
-                 const StaticPressure& static_pressure);
+  // Constructor. Constructs an area from a given force magnitude and static pressure using the
+  // definition of pressure.
+  constexpr Area(const ForceMagnitude& force_magnitude, const StaticPressure& static_pressure);
 
   // Destructor. Destroys this area.
   ~Area() noexcept = default;
@@ -75,12 +76,10 @@ public:
     return Area{0.0};
   }
 
-  // Statically creates an area with a given value expressed in a given area
-  // unit.
+  // Statically creates an area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
   static constexpr Area Create(const double value) {
-    return Area{
-        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+    return Area{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   constexpr Area operator+(const Area& area) const {
@@ -97,8 +96,7 @@ public:
 
   constexpr Volume operator*(const Length& length) const;
 
-  constexpr ForceMagnitude operator*(
-      const StaticPressure& static_pressure) const;
+  constexpr ForceMagnitude operator*(const StaticPressure& static_pressure) const;
 
   constexpr AreaVector operator*(const Direction& direction) const;
 
@@ -131,10 +129,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs an area with a given value expressed in the
-  // standard area unit.
-  explicit constexpr Area(const double value)
-    : DimensionalScalarQuantity<Unit::Area>(value) {}
+  // Constructor. Constructs an area with a given value expressed in the standard area unit.
+  explicit constexpr Area(const double value) : DimensionalScalarQuantity<Unit::Area>(value) {}
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {

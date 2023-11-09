@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DURATION_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DURATION_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Time.hpp"
@@ -50,58 +52,52 @@ class VolumeRate;
 // Time. Can represent either a point in time, a time duration, or a period.
 class Time : public DimensionalScalarQuantity<Unit::Time> {
 public:
-  // Default constructor. Constructs a time quantity with an uninitialized
-  // value.
+  // Default constructor. Constructs a time quantity with an uninitialized value.
   Time() = default;
 
-  // Constructor. Constructs a time quantity with a given value expressed in a
-  // given time unit.
+  // Constructor. Constructs a time quantity with a given value expressed in a given time unit.
   Time(const double value, const Unit::Time unit)
     : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
 
-  // Constructor. Constructs a time quantity from a given frequency using the
-  // definition of frequency.
-  constexpr Time(const PhQ::Frequency& frequency);
+  // Constructor. Constructs a time quantity from a given frequency using the definition of
+  // frequency.
+  explicit constexpr Time(const PhQ::Frequency& frequency);
 
-  // Constructor. Constructs a time quantity from a given speed and acceleration
-  // magnitude using the definition of acceleration.
-  constexpr Time(
-      const Speed& speed, const AccelerationMagnitude& acceleration_magnitude);
+  // Constructor. Constructs a time quantity from a given speed and acceleration magnitude using the
+  // definition of acceleration.
+  constexpr Time(const Speed& speed, const AccelerationMagnitude& acceleration_magnitude);
 
-  // Constructor. Constructs a time quantity from a given angular speed and
-  // angular acceleration magnitude using the definition of angular
-  // acceleration.
-  constexpr Time(
-      const AngularSpeed& angular_speed,
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude);
+  // Constructor. Constructs a time quantity from a given angular speed and angular acceleration
+  // magnitude using the definition of angular acceleration.
+  constexpr Time(const AngularSpeed& angular_speed,
+                 const AngularAccelerationMagnitude& angular_acceleration_magnitude);
 
-  // Constructor. Constructs a time quantity from a given angle and angular
-  // speed using the definition of angular speed.
+  // Constructor. Constructs a time quantity from a given angle and angular speed using the
+  // definition of angular speed.
   constexpr Time(const Angle& angle, const AngularSpeed& angular_speed);
 
-  // Constructor. Constructs a time quantity from a given mass and mass rate
-  // using the definition of mass rate.
+  // Constructor. Constructs a time quantity from a given mass and mass rate using the definition of
+  // mass rate.
   constexpr Time(const Mass& mass, const MassRate& mass_rate);
 
-  // Constructor. Constructs a time quantity from a given memory and memory rate
-  // using the definition of memory rate.
+  // Constructor. Constructs a time quantity from a given memory and memory rate using the
+  // definition of memory rate.
   constexpr Time(const Memory& memory, const MemoryRate& memory_rate);
 
-  // Constructor. Constructs a time quantity from a given energy and power using
-  // the definition of power.
+  // Constructor. Constructs a time quantity from a given energy and power using the definition of
+  // power.
   constexpr Time(const Energy& energy, const Power& power);
 
-  // Constructor. Constructs a time quantity from a given specific energy and
-  // specific power using the definition of specific power.
-  constexpr Time(const SpecificEnergy& specific_energy,
-                 const SpecificPower& specific_power);
+  // Constructor. Constructs a time quantity from a given specific energy and specific power using
+  // the definition of specific power.
+  constexpr Time(const SpecificEnergy& specific_energy, const SpecificPower& specific_power);
 
-  // Constructor. Constructs a time quantity from a given length and speed using
-  // the definition of speed.
+  // Constructor. Constructs a time quantity from a given length and speed using the definition of
+  // speed.
   constexpr Time(const Length& length, const Speed& speed);
 
-  // Constructor. Constructs a time quantity from a given volume and volume rate
-  // using the definition of volume rate.
+  // Constructor. Constructs a time quantity from a given volume and volume rate using the
+  // definition of volume rate.
   constexpr Time(const Volume& volume, const VolumeRate& volume_rate);
 
   // Destructor. Destroys this time quantity.
@@ -113,8 +109,7 @@ public:
   // Move constructor. Constructs a time quantity by moving another one.
   constexpr Time(Time&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this time quantity by copying another
-  // one.
+  // Copy assignment operator. Assigns this time quantity by copying another one.
   constexpr Time& operator=(const Time& other) = default;
 
   // Move assignment operator. Assigns this time quantity by moving another one.
@@ -125,15 +120,13 @@ public:
     return Time{0.0};
   }
 
-  // Statically creates a time quantity with a given value expressed in a given
-  // time unit.
+  // Statically creates a time quantity with a given value expressed in a given time unit.
   template <Unit::Time Unit>
   static constexpr Time Create(const double value) {
-    return Time{
-        StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
+    return Time{StaticConvertCopy<Unit::Time, Unit, Standard<Unit::Time>>(value)};
   }
 
-  constexpr PhQ::Frequency Frequency() const;
+  [[nodiscard]] constexpr PhQ::Frequency Frequency() const;
 
   constexpr Time operator+(const Time& time) const {
     return Time{value_ + time.value_};
@@ -151,8 +144,7 @@ public:
 
   constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Speed operator*(
-      const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Speed operator*(const AccelerationMagnitude& acceleration_magnitude) const;
 
   constexpr Mass operator*(const MassRate& mass_rate) const;
 
@@ -162,8 +154,7 @@ public:
 
   constexpr Strain operator*(const StrainRate& strain_rate) const;
 
-  constexpr StrainScalar operator*(
-      const StrainRateScalar& strain_rate_scalar) const;
+  constexpr StrainScalar operator*(const StrainRateScalar& strain_rate_scalar) const;
 
   constexpr Displacement operator*(const Velocity& velocity) const;
 
@@ -194,10 +185,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a time quantity with a given value expressed in the
-  // standard time unit.
-  explicit constexpr Time(const double value)
-    : DimensionalScalarQuantity<Unit::Time>(value) {}
+  // Constructor. Constructs a time quantity with a given value expressed in the standard time unit.
+  explicit constexpr Time(const double value) : DimensionalScalarQuantity<Unit::Time>(value) {}
 };
 
 inline constexpr bool operator==(const Time& left, const Time& right) noexcept {

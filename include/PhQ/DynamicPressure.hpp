@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_PRESSURE_HPP
 
+#include <cstddef>
+#include <functional>
+#include <ostream>
+
+#include "DimensionalScalarQuantity.hpp"
 #include "MassDensity.hpp"
 #include "Speed.hpp"
 #include "StaticPressure.hpp"
@@ -25,37 +28,32 @@ namespace PhQ {
 // Forward declaration for class DynamicPressure.
 class DynamicKinematicPressure;
 
-// Dynamic pressure, which is the additional pressure arising from a flowing
-// fluid's kinetic energy. Dynamic pressure can be thought of as a flowing
-// fluid's kinetic energy per unit volume.
+// Dynamic pressure, which is the additional pressure arising from a flowing fluid's kinetic energy.
+// Dynamic pressure can be thought of as a flowing fluid's kinetic energy per unit volume.
 class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  // Default constructor. Constructs a dynamic pressure with an uninitialized
-  // value.
+  // Default constructor. Constructs a dynamic pressure with an uninitialized value.
   DynamicPressure() = default;
 
-  // Constructor. Constructs a dynamic pressure with a given value expressed in
-  // a given pressure unit.
+  // Constructor. Constructs a dynamic pressure with a given value expressed in a given pressure
+  // unit.
   DynamicPressure(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
-  // Constructor. Constructs a dynamic pressure from a given mass density and
-  // speed using the definition of dynamic pressure.
+  // Constructor. Constructs a dynamic pressure from a given mass density and speed using the
+  // definition of dynamic pressure.
   constexpr DynamicPressure(const MassDensity& mass_density, const Speed& speed)
-    : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {
-  }
+    : DynamicPressure(0.5 * mass_density.Value() * std::pow(speed.Value(), 2)) {}
 
-  // Constructor. Constructs a dynamic pressure from a given total pressure and
-  // static pressure using the definition of total pressure.
-  constexpr DynamicPressure(const TotalPressure& total_pressure,
-                            const StaticPressure& static_pressure);
-
-  // Constructor. Constructs a dynamic pressure from a given mass density and
-  // dynamic kinematic pressure using the definition of dynamic kinematic
-  // pressure.
+  // Constructor. Constructs a dynamic pressure from a given total pressure and static pressure
+  // using the definition of total pressure.
   constexpr DynamicPressure(
-      const MassDensity& mass_density,
-      const DynamicKinematicPressure& dynamic_kinematic_pressure);
+      const TotalPressure& total_pressure, const StaticPressure& static_pressure);
+
+  // Constructor. Constructs a dynamic pressure from a given mass density and dynamic kinematic
+  // pressure using the definition of dynamic kinematic pressure.
+  constexpr DynamicPressure(
+      const MassDensity& mass_density, const DynamicKinematicPressure& dynamic_kinematic_pressure);
 
   // Destructor. Destroys this dynamic pressure.
   ~DynamicPressure() noexcept = default;
@@ -66,39 +64,31 @@ public:
   // Move constructor. Constructs a dynamic pressure by moving another one.
   constexpr DynamicPressure(DynamicPressure&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this dynamic pressure by copying another
-  // one.
+  // Copy assignment operator. Assigns this dynamic pressure by copying another one.
   constexpr DynamicPressure& operator=(const DynamicPressure& other) = default;
 
-  // Move assignment operator. Assigns this dynamic pressure by moving another
-  // one.
-  constexpr DynamicPressure& operator=(
-      DynamicPressure&& other) noexcept = default;
+  // Move assignment operator. Assigns this dynamic pressure by moving another one.
+  constexpr DynamicPressure& operator=(DynamicPressure&& other) noexcept = default;
 
   // Statically creates a dynamic pressure of zero.
   static constexpr DynamicPressure Zero() {
     return DynamicPressure{0.0};
   }
 
-  // Statically creates a dynamic pressure with a given value expressed in a
-  // given pressure unit.
+  // Statically creates a dynamic pressure with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr DynamicPressure Create(const double value) {
     return DynamicPressure{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            value)};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr DynamicPressure operator+(
-      const DynamicPressure& dynamic_pressure) const {
+  constexpr DynamicPressure operator+(const DynamicPressure& dynamic_pressure) const {
     return DynamicPressure{value_ + dynamic_pressure.value_};
   }
 
-  constexpr TotalPressure operator+(
-      const StaticPressure& static_pressure) const;
+  constexpr TotalPressure operator+(const StaticPressure& static_pressure) const;
 
-  constexpr DynamicPressure operator-(
-      const DynamicPressure& dynamic_pressure) const {
+  constexpr DynamicPressure operator-(const DynamicPressure& dynamic_pressure) const {
     return DynamicPressure{value_ - dynamic_pressure.value_};
   }
 
@@ -110,13 +100,11 @@ public:
     return DynamicPressure{value_ / number};
   }
 
-  constexpr double operator/(
-      const DynamicPressure& dynamic_pressure) const noexcept {
+  constexpr double operator/(const DynamicPressure& dynamic_pressure) const noexcept {
     return value_ / dynamic_pressure.value_;
   }
 
-  constexpr DynamicKinematicPressure operator/(
-      const MassDensity& mass_density) const;
+  constexpr DynamicKinematicPressure operator/(const MassDensity& mass_density) const;
 
   constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
     value_ += dynamic_pressure.value_;
@@ -135,8 +123,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a dynamic pressure with a given value expressed in
-  // the standard pressure unit.
+  // Constructor. Constructs a dynamic pressure with a given value expressed in the standard
+  // pressure unit.
   explicit constexpr DynamicPressure(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
@@ -171,8 +159,7 @@ inline constexpr bool operator>=(
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(
-    std::ostream& stream, const DynamicPressure& dynamic_pressure) {
+inline std::ostream& operator<<(std::ostream& stream, const DynamicPressure& dynamic_pressure) {
   stream << dynamic_pressure.Print();
   return stream;
 }
@@ -184,11 +171,9 @@ inline constexpr DynamicPressure operator*(
 
 inline constexpr MassDensity::MassDensity(
     const DynamicPressure& dynamic_pressure, const Speed& speed)
-  : MassDensity(
-      2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
+  : MassDensity(2.0 * dynamic_pressure.Value() / (speed.Value() * speed.Value())) {}
 
-inline Speed::Speed(
-    const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
+inline Speed::Speed(const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
   : Speed(std::sqrt(2.0 * dynamic_pressure.Value() / mass_density.Value())) {}
 
 }  // namespace PhQ

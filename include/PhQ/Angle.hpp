@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Angle.hpp"
@@ -43,73 +45,61 @@ public:
   // Default constructor. Constructs an angle with an uninitialized value.
   Angle() = default;
 
-  // Constructor. Constructs an angle with a given value expressed in a given
-  // angle unit.
+  // Constructor. Constructs an angle with a given value expressed in a given angle unit.
   Angle(const double value, const Unit::Angle unit)
     : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // vector values.
+  // Constructor. Constructs an angle by computing the angle between two given vector values.
   Angle(const Value::Vector& vector1, const Value::Vector& vector2)
-    : DimensionalScalarQuantity<Unit::Angle>(std::acos(
-        vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
+    : DimensionalScalarQuantity<Unit::Angle>(
+        std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
-  // Constructor. Constructs an angle by computing the angle between a given
-  // vector value and direction.
+  // Constructor. Constructs an angle by computing the angle between a given vector value and
+  // direction.
   Angle(const Value::Vector& vector, const Direction& direction);
 
-  // Constructor. Constructs an angle by computing the angle between a given
-  // direction and vector value.
+  // Constructor. Constructs an angle by computing the angle between a given direction and vector
+  // value.
   Angle(const Direction& direction, const Value::Vector& vector);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // directions.
+  // Constructor. Constructs an angle by computing the angle between two given directions.
   Angle(const Direction& direction1, const Direction& direction2);
 
-  // Constructor. Constructs an angle from a given angular speed and time using
-  // the definition of angular speed.
+  // Constructor. Constructs an angle from a given angular speed and time using the definition of
+  // angular speed.
   constexpr Angle(const AngularSpeed& angular_speed, const Time& time);
 
-  // Constructor. Constructs an angle from a given angular speed and frequency
-  // using the definition of angular speed.
-  constexpr Angle(
-      const AngularSpeed& angular_speed, const Frequency& frequency);
+  // Constructor. Constructs an angle from a given angular speed and frequency using the definition
+  // of angular speed.
+  constexpr Angle(const AngularSpeed& angular_speed, const Frequency& frequency);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // acceleration vectors.
+  // Constructor. Constructs an angle by computing the angle between two given acceleration vectors.
   Angle(const Acceleration& acceleration1, const Acceleration& acceleration2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // vector areas.
+  // Constructor. Constructs an angle by computing the angle between two given vector areas.
   Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // displacements.
+  // Constructor. Constructs an angle by computing the angle between two given displacements.
   Angle(const Displacement& displacement1, const Displacement& displacement2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // forces.
+  // Constructor. Constructs an angle by computing the angle between two given forces.
   Angle(const Force& force1, const Force& force2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // heat fluxes.
+  // Constructor. Constructs an angle by computing the angle between two given heat fluxes.
   Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // positions.
+  // Constructor. Constructs an angle by computing the angle between two given positions.
   Angle(const Position& position1, const Position& position2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // temperature gradients.
+  // Constructor. Constructs an angle by computing the angle between two given temperature
+  // gradients.
   Angle(const TemperatureGradient& temperature_gradient_1,
         const TemperatureGradient& temperature_gradient_2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // tractions.
+  // Constructor. Constructs an angle by computing the angle between two given tractions.
   Angle(const Traction& traction1, const Traction& traction2);
 
-  // Constructor. Constructs an angle by computing the angle between two given
-  // velocities.
+  // Constructor. Constructs an angle by computing the angle between two given velocities.
   Angle(const Velocity& velocity1, const Velocity& velocity2);
 
   // Destructor. Destroys this angle.
@@ -132,12 +122,10 @@ public:
     return Angle{0.0};
   }
 
-  // Statically creates an angle with a given value expressed in a given angle
-  // unit.
+  // Statically creates an angle with a given value expressed in a given angle unit.
   template <Unit::Angle Unit>
   static constexpr Angle Create(const double value) {
-    return Angle{
-        StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
+    return Angle{StaticConvertCopy<Unit::Angle, Unit, Standard<Unit::Angle>>(value)};
   }
 
   constexpr Angle operator+(const Angle& other) const {
@@ -183,39 +171,31 @@ public:
   }
 
 private:
-  // Constructor. Constructs an angle with a given value expressed in the
-  // standard angle unit.
-  explicit constexpr Angle(const double value)
-    : DimensionalScalarQuantity<Unit::Angle>(value) {}
+  // Constructor. Constructs an angle with a given value expressed in the standard angle unit.
+  explicit constexpr Angle(const double value) : DimensionalScalarQuantity<Unit::Angle>(value) {}
 };
 
-inline constexpr bool operator==(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator==(const Angle& left, const Angle& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator!=(const Angle& left, const Angle& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator<(const Angle& left, const Angle& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator>(const Angle& left, const Angle& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator<=(const Angle& left, const Angle& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const Angle& left, const Angle& right) noexcept {
+inline constexpr bool operator>=(const Angle& left, const Angle& right) noexcept {
   return left.Value() >= right.Value();
 }
 

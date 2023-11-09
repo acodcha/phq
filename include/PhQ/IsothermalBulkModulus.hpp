@@ -1,20 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOTHERMAL_BULK_MODULUS_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ISOTHERMAL_BULK_MODULUS_HPP
+
+#include <cstddef>
+#include <functional>
+#include <ostream>
 
 #include "DimensionalScalarQuantity.hpp"
 #include "Unit/Pressure.hpp"
@@ -24,49 +26,40 @@ namespace PhQ {
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
 class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
 public:
-  // Default constructor. Constructs an isothermal bulk modulus with an
-  // uninitialized value.
+  // Default constructor. Constructs an isothermal bulk modulus with an uninitialized value.
   IsothermalBulkModulus() = default;
 
-  // Constructor. Constructs an isothermal bulk modulus with a given value
-  // expressed in a given pressure unit.
+  // Constructor. Constructs an isothermal bulk modulus with a given value expressed in a given
+  // pressure unit.
   IsothermalBulkModulus(const double value, const Unit::Pressure unit)
     : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this isothermal bulk modulus.
   ~IsothermalBulkModulus() noexcept = default;
 
-  // Copy constructor. Constructs an isothermal bulk modulus by copying another
-  // one.
+  // Copy constructor. Constructs an isothermal bulk modulus by copying another one.
   constexpr IsothermalBulkModulus(const IsothermalBulkModulus& other) = default;
 
-  // Move constructor. Constructs an isothermal bulk modulus by moving another
-  // one.
-  constexpr IsothermalBulkModulus(
-      IsothermalBulkModulus&& other) noexcept = default;
+  // Move constructor. Constructs an isothermal bulk modulus by moving another one.
+  constexpr IsothermalBulkModulus(IsothermalBulkModulus&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this isothermal bulk modulus by copying
-  // another one.
-  constexpr IsothermalBulkModulus& operator=(
-      const IsothermalBulkModulus& other) = default;
+  // Copy assignment operator. Assigns this isothermal bulk modulus by copying another one.
+  constexpr IsothermalBulkModulus& operator=(const IsothermalBulkModulus& other) = default;
 
-  // Move assignment operator. Assigns this isothermal bulk modulus by moving
-  // another one.
-  constexpr IsothermalBulkModulus& operator=(
-      IsothermalBulkModulus&& other) noexcept = default;
+  // Move assignment operator. Assigns this isothermal bulk modulus by moving another one.
+  constexpr IsothermalBulkModulus& operator=(IsothermalBulkModulus&& other) noexcept = default;
 
   // Statically creates an isothermal bulk modulus of zero.
   static constexpr IsothermalBulkModulus Zero() {
     return IsothermalBulkModulus{0.0};
   }
 
-  // Statically creates an isothermal bulk modulus with a given value expressed
-  // in a given pressure unit.
+  // Statically creates an isothermal bulk modulus with a given value expressed in a given pressure
+  // unit.
   template <Unit::Pressure Unit>
   static constexpr IsothermalBulkModulus Create(const double value) {
     return IsothermalBulkModulus{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-            value)};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
   constexpr IsothermalBulkModulus operator+(
@@ -87,18 +80,15 @@ public:
     return IsothermalBulkModulus{value_ / number};
   }
 
-  constexpr double operator/(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
+  constexpr double operator/(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
     return value_ / isothermal_bulk_modulus.value_;
   }
 
-  constexpr void operator+=(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+  constexpr void operator+=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
     value_ += isothermal_bulk_modulus.value_;
   }
 
-  constexpr void operator-=(
-      const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
+  constexpr void operator-=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
     value_ -= isothermal_bulk_modulus.value_;
   }
 
@@ -111,45 +101,44 @@ public:
   }
 
 private:
-  // Constructor. Constructs an isothermal bulk modulus with a given value
-  // expressed in the standard pressure unit.
+  // Constructor. Constructs an isothermal bulk modulus with a given value expressed in the standard
+  // pressure unit.
   explicit constexpr IsothermalBulkModulus(const double value)
     : DimensionalScalarQuantity<Unit::Pressure>(value) {}
 };
 
-inline constexpr bool operator==(const IsothermalBulkModulus& left,
-                                 const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator==(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const IsothermalBulkModulus& left,
-                                 const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator!=(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const IsothermalBulkModulus& left,
-                                const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator<(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const IsothermalBulkModulus& left,
-                                const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator>(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const IsothermalBulkModulus& left,
-                                 const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator<=(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const IsothermalBulkModulus& left,
-                                 const IsothermalBulkModulus& right) noexcept {
+inline constexpr bool operator>=(
+    const IsothermalBulkModulus& left, const IsothermalBulkModulus& right) noexcept {
   return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream,
-    const IsothermalBulkModulus& isothermal_bulk_modulus) {
+    std::ostream& stream, const IsothermalBulkModulus& isothermal_bulk_modulus) {
   stream << isothermal_bulk_modulus.Print();
   return stream;
 }
@@ -165,8 +154,7 @@ namespace std {
 
 template <>
 struct hash<PhQ::IsothermalBulkModulus> {
-  inline size_t operator()(
-      const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
+  inline size_t operator()(const PhQ::IsothermalBulkModulus& isothermal_bulk_modulus) const {
     return hash<double>()(isothermal_bulk_modulus.Value());
   }
 };
