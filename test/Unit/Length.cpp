@@ -1,22 +1,28 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/Length.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -24,10 +30,9 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Length, 12> Units = {
-    Length::Mile,      Length::Kilometre,  Length::Metre,
-    Length::Yard,      Length::Foot,       Length::Decimetre,
-    Length::Inch,      Length::Centimetre, Length::Millimetre,
-    Length::Milliinch, Length::Micrometre, Length::Microinch,
+    Length::Mile,       Length::Kilometre, Length::Metre,      Length::Yard,
+    Length::Foot,       Length::Decimetre, Length::Inch,       Length::Centimetre,
+    Length::Millimetre, Length::Milliinch, Length::Micrometre, Length::Microinch,
 };
 
 TEST(UnitLength, Abbreviation) {
@@ -46,38 +51,24 @@ TEST(UnitLength, Abbreviation) {
 }
 
 TEST(UnitLength, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MetreKilogramSecondKelvin),
-            Length::Metre);
-  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MillimetreGramSecondKelvin),
-            Length::Millimetre);
-  EXPECT_EQ(
-      ConsistentUnit<Length>(UnitSystem::FootPoundSecondRankine), Length::Foot);
-  EXPECT_EQ(
-      ConsistentUnit<Length>(UnitSystem::InchPoundSecondRankine), Length::Inch);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MetreKilogramSecondKelvin), Length::Metre);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::MillimetreGramSecondKelvin), Length::Millimetre);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::FootPoundSecondRankine), Length::Foot);
+  EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::InchPoundSecondRankine), Length::Inch);
 }
 
 TEST(UnitLength, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Mile>(
-      value, value / 1609.344);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Kilometre>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(
-      value, value);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Yard>(
-      value, value / 0.9144);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Foot>(
-      value, value / 0.3048);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Decimetre>(
-      value, value * 10.0);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Inch>(
-      value, value / 0.0254);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Centimetre>(
-      value, value * 100.0);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Millimetre>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Milliinch>(
-      value, value / 0.0000254);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Mile>(value, value / 1609.344);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Kilometre>(value, value * 0.001);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(value, value);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Yard>(value, value / 0.9144);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Foot>(value, value / 0.3048);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Decimetre>(value, value * 10.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Inch>(value, value / 0.0254);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Centimetre>(value, value * 100.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Millimetre>(value, value * 1000.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Milliinch>(value, value / 0.0000254);
   Internal::TestUnitConversions<Length, Length::Metre, Length::Micrometre>(
       value, value * 1000000.0);
   Internal::TestUnitConversions<Length, Length::Metre, Length::Microinch>(
@@ -86,28 +77,17 @@ TEST(UnitLength, ConvertFromStandard) {
 
 TEST(UnitLength, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Length, Length::Mile, Length::Metre>(
-      value, value * 1609.344);
-  Internal::TestUnitConversions<Length, Length::Kilometre, Length::Metre>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(
-      value, value);
-  Internal::TestUnitConversions<Length, Length::Yard, Length::Metre>(
-      value, value * 0.9144);
-  Internal::TestUnitConversions<Length, Length::Foot, Length::Metre>(
-      value, value * 0.3048);
-  Internal::TestUnitConversions<Length, Length::Decimetre, Length::Metre>(
-      value, value * 0.1);
-  Internal::TestUnitConversions<Length, Length::Inch, Length::Metre>(
-      value, value * 0.0254);
-  Internal::TestUnitConversions<Length, Length::Centimetre, Length::Metre>(
-      value, value * 0.01);
-  Internal::TestUnitConversions<Length, Length::Millimetre, Length::Metre>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Length, Length::Milliinch, Length::Metre>(
-      value, value * 0.0000254);
-  Internal::TestUnitConversions<Length, Length::Micrometre, Length::Metre>(
-      value, value * 0.000001);
+  Internal::TestUnitConversions<Length, Length::Mile, Length::Metre>(value, value * 1609.344);
+  Internal::TestUnitConversions<Length, Length::Kilometre, Length::Metre>(value, value * 1000.0);
+  Internal::TestUnitConversions<Length, Length::Metre, Length::Metre>(value, value);
+  Internal::TestUnitConversions<Length, Length::Yard, Length::Metre>(value, value * 0.9144);
+  Internal::TestUnitConversions<Length, Length::Foot, Length::Metre>(value, value * 0.3048);
+  Internal::TestUnitConversions<Length, Length::Decimetre, Length::Metre>(value, value * 0.1);
+  Internal::TestUnitConversions<Length, Length::Inch, Length::Metre>(value, value * 0.0254);
+  Internal::TestUnitConversions<Length, Length::Centimetre, Length::Metre>(value, value * 0.01);
+  Internal::TestUnitConversions<Length, Length::Millimetre, Length::Metre>(value, value * 0.001);
+  Internal::TestUnitConversions<Length, Length::Milliinch, Length::Metre>(value, value * 0.0000254);
+  Internal::TestUnitConversions<Length, Length::Micrometre, Length::Metre>(value, value * 0.000001);
   Internal::TestUnitConversions<Length, Length::Microinch, Length::Metre>(
       value, value * 0.0000000254);
 }
@@ -129,24 +109,19 @@ TEST(UnitLength, Parse) {
 }
 
 TEST(UnitLength, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Length>,
-            Dimensions(Dimension::Time{0}, Dimension::Length{1}));
+  EXPECT_EQ(RelatedDimensions<Length>, Dimensions(Dimension::Time{0}, Dimension::Length{1}));
 }
 
 TEST(UnitLength, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Length::Mile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Kilometre), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Length::Metre), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Length::Metre), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Length::Yard), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Length::Foot), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Length::Foot), UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Length::Decimetre), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Length::Inch), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Length::Inch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Length::Centimetre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Length::Millimetre),
-            UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Length::Millimetre), UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Length::Milliinch), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Micrometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Microinch), std::nullopt);

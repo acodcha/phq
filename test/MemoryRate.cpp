@@ -1,21 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/MemoryRate.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/Memory.hpp"
+#include "../include/PhQ/Time.hpp"
+#include "../include/PhQ/Unit/Frequency.hpp"
+#include "../include/PhQ/Unit/Memory.hpp"
+#include "../include/PhQ/Unit/MemoryRate.hpp"
+#include "../include/PhQ/Unit/Time.hpp"
 
 namespace PhQ {
 
@@ -35,19 +44,17 @@ TEST(MemoryRate, ArithmeticOperatorDivision) {
                 / MemoryRate(2.0, Unit::MemoryRate::BitPerSecond),
             4.0);
 
-  EXPECT_EQ(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond)
-                / Frequency(4.0, Unit::Frequency::Hertz),
-            Memory(2.0, Unit::Memory::Bit));
+  EXPECT_EQ(
+      MemoryRate(8.0, Unit::MemoryRate::BitPerSecond) / Frequency(4.0, Unit::Frequency::Hertz),
+      Memory(2.0, Unit::Memory::Bit));
 
-  EXPECT_EQ(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond)
-                / Memory(4.0, Unit::Memory::Bit),
+  EXPECT_EQ(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond) / Memory(4.0, Unit::Memory::Bit),
             Frequency(2.0, Unit::Frequency::Hertz));
 
   EXPECT_EQ(Memory(8.0, Unit::Memory::Bit) / Time(4.0, Unit::Time::Second),
             MemoryRate(2.0, Unit::MemoryRate::BitPerSecond));
 
-  EXPECT_EQ(Memory(8.0, Unit::Memory::Bit)
-                / MemoryRate(4.0, Unit::MemoryRate::BitPerSecond),
+  EXPECT_EQ(Memory(8.0, Unit::Memory::Bit) / MemoryRate(4.0, Unit::MemoryRate::BitPerSecond),
             Time(2.0, Unit::Time::Second));
 }
 
@@ -58,17 +65,14 @@ TEST(MemoryRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * MemoryRate(4.0, Unit::MemoryRate::BitPerSecond),
             MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
 
-  EXPECT_EQ(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond)
-                * Time(2.0, Unit::Time::Second),
+  EXPECT_EQ(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond) * Time(2.0, Unit::Time::Second),
             Memory(8.0, Unit::Memory::Bit));
 
-  EXPECT_EQ(
-      Frequency(4.0, Unit::Frequency::Hertz) * Memory(2.0, Unit::Memory::Bit),
-      MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Memory(2.0, Unit::Memory::Bit),
+            MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
 
-  EXPECT_EQ(
-      Memory(4.0, Unit::Memory::Bit) * Frequency(2.0, Unit::Frequency::Hertz),
-      MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(Memory(4.0, Unit::Memory::Bit) * Frequency(2.0, Unit::Frequency::Hertz),
+            MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
 }
 
 TEST(MemoryRate, ArithmeticOperatorSubtraction) {
@@ -128,8 +132,7 @@ TEST(MemoryRate, CopyConstructor) {
 }
 
 TEST(MemoryRate, Create) {
-  constexpr MemoryRate quantity =
-      MemoryRate::Create<Unit::MemoryRate::BitPerSecond>(1.11);
+  constexpr MemoryRate quantity = MemoryRate::Create<Unit::MemoryRate::BitPerSecond>(1.11);
   EXPECT_EQ(quantity, MemoryRate(1.11, Unit::MemoryRate::BitPerSecond));
 }
 
@@ -154,26 +157,23 @@ TEST(MemoryRate, Hash) {
 TEST(MemoryRate, JSON) {
   EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"b/s\"}");
-  EXPECT_EQ(MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond)
-                .JSON(Unit::MemoryRate::BytePerSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"B/s\"}");
+  EXPECT_EQ(
+      MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond).JSON(Unit::MemoryRate::BytePerSecond),
+      "{\"value\":-2.220000000000000,\"unit\":\"B/s\"}");
 }
 
 TEST(MemoryRate, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      MemoryRate(Memory(8.0, Unit::Memory::Bit), Time(4.0, Unit::Time::Second)),
-      MemoryRate(2.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(MemoryRate(Memory(8.0, Unit::Memory::Bit), Time(4.0, Unit::Time::Second)),
+            MemoryRate(2.0, Unit::MemoryRate::BitPerSecond));
 
-  EXPECT_EQ(MemoryRate(Memory(4.0, Unit::Memory::Bit),
-                       Frequency(2.0, Unit::Frequency::Hertz)),
+  EXPECT_EQ(MemoryRate(Memory(4.0, Unit::Memory::Bit), Frequency(2.0, Unit::Frequency::Hertz)),
             MemoryRate(8.0, Unit::MemoryRate::BitPerSecond));
 
-  EXPECT_EQ(Frequency(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond),
-                      Memory(4.0, Unit::Memory::Bit)),
-            Frequency(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(
+      Frequency(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond), Memory(4.0, Unit::Memory::Bit)),
+      Frequency(2.0, Unit::Frequency::Hertz));
 
-  EXPECT_EQ(Memory(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond),
-                   Time(2.0, Unit::Time::Second)),
+  EXPECT_EQ(Memory(MemoryRate(4.0, Unit::MemoryRate::BitPerSecond), Time(2.0, Unit::Time::Second)),
             Memory(8.0, Unit::Memory::Bit));
 
   EXPECT_EQ(Memory(MemoryRate(8.0, Unit::MemoryRate::BitPerSecond),
@@ -190,7 +190,7 @@ TEST(MemoryRate, MoveAssignmentOperator) {
 
 TEST(MemoryRate, MoveConstructor) {
   MemoryRate first{1.11, Unit::MemoryRate::BitPerSecond};
-  MemoryRate second{std::move(first)};
+  const MemoryRate second{std::move(first)};
   EXPECT_EQ(second, MemoryRate(1.11, Unit::MemoryRate::BitPerSecond));
 }
 
@@ -202,11 +202,10 @@ TEST(MemoryRate, MutableValue) {
 }
 
 TEST(MemoryRate, Print) {
-  EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).Print(),
-            "1.110000000000000 b/s");
-  EXPECT_EQ(MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond)
-                .Print(Unit::MemoryRate::BytePerSecond),
-            "-2.220000000000000 B/s");
+  EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).Print(), "1.110000000000000 b/s");
+  EXPECT_EQ(
+      MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond).Print(Unit::MemoryRate::BytePerSecond),
+      "-2.220000000000000 B/s");
 }
 
 TEST(MemoryRate, SetValue) {
@@ -224,18 +223,15 @@ TEST(MemoryRate, StandardConstructor) {
 }
 
 TEST(MemoryRate, StaticValue) {
-  constexpr MemoryRate quantity =
-      MemoryRate::Create<Unit::MemoryRate::BytePerSecond>(1.11);
-  constexpr double value =
-      quantity.StaticValue<Unit::MemoryRate::BytePerSecond>();
+  constexpr MemoryRate quantity = MemoryRate::Create<Unit::MemoryRate::BytePerSecond>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::MemoryRate::BytePerSecond>();
   EXPECT_EQ(value, 1.11);
 }
 
 TEST(MemoryRate, Stream) {
   std::ostringstream stream;
   stream << MemoryRate(1.11, Unit::MemoryRate::BitPerSecond);
-  EXPECT_EQ(
-      stream.str(), MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).Print());
+  EXPECT_EQ(stream.str(), MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).Print());
 }
 
 TEST(MemoryRate, Unit) {
@@ -244,30 +240,28 @@ TEST(MemoryRate, Unit) {
 
 TEST(MemoryRate, Value) {
   EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).Value(), 1.11);
-  EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BytePerSecond)
-                .Value(Unit::MemoryRate::BytePerSecond),
-            1.11);
+  EXPECT_EQ(
+      MemoryRate(1.11, Unit::MemoryRate::BytePerSecond).Value(Unit::MemoryRate::BytePerSecond),
+      1.11);
 }
 
 TEST(MemoryRate, XML) {
   EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).XML(),
             "<value>1.110000000000000</value><unit>b/s</unit>");
-  EXPECT_EQ(MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond)
-                .XML(Unit::MemoryRate::BytePerSecond),
+  EXPECT_EQ(MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond).XML(Unit::MemoryRate::BytePerSecond),
             "<value>-2.220000000000000</value><unit>B/s</unit>");
 }
 
 TEST(MemoryRate, YAML) {
   EXPECT_EQ(MemoryRate(1.11, Unit::MemoryRate::BitPerSecond).YAML(),
             "{value:1.110000000000000,unit:\"b/s\"}");
-  EXPECT_EQ(MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond)
-                .YAML(Unit::MemoryRate::BytePerSecond),
-            "{value:-2.220000000000000,unit:\"B/s\"}");
+  EXPECT_EQ(
+      MemoryRate(-2.22, Unit::MemoryRate::BytePerSecond).YAML(Unit::MemoryRate::BytePerSecond),
+      "{value:-2.220000000000000,unit:\"B/s\"}");
 }
 
 TEST(MemoryRate, Zero) {
-  EXPECT_EQ(
-      MemoryRate::Zero(), MemoryRate(0.0, Unit::MemoryRate::BitPerSecond));
+  EXPECT_EQ(MemoryRate::Zero(), MemoryRate(0.0, Unit::MemoryRate::BitPerSecond));
 }
 
 }  // namespace

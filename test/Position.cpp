@@ -1,21 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Position.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Length.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Unit/Length.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -133,12 +141,11 @@ TEST(Position, CopyConstructor) {
 }
 
 TEST(Position, Create) {
-  constexpr Position first =
-      Position::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
+  constexpr Position first = Position::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
   EXPECT_EQ(first, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
-  constexpr Position second = Position::Create<Unit::Length::Metre>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
+  constexpr Position second =
+      Position::Create<Unit::Length::Metre>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
   constexpr Position third =
@@ -166,13 +173,10 @@ TEST(Position, Hash) {
 
 TEST(Position, JSON) {
   EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
-            "\"z\":"
-            "3.330000000000000},\"unit\":\"m\"}");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .JSON(Unit::Length::Millimetre),
-            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
-            "\"mm\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
+            "\"unit\":\"m\"}");
+  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
+            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"mm\"}");
 }
 
 TEST(Position, Magnitude) {
@@ -181,15 +185,15 @@ TEST(Position, Magnitude) {
 }
 
 TEST(Position, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)),
-            Direction(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Direction(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)), Direction(1.11, -2.22, 3.33));
 
   EXPECT_EQ(Angle(Position({0.0, -2.22, 0.0}, Unit::Length::Metre),
                   Position({0.0, 0.0, 3.33}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Length(Position({2.0, -3.0, 6.0}, Unit::Length::Metre)),
-            Length(7.0, Unit::Length::Metre));
+  EXPECT_EQ(
+      Length(Position({2.0, -3.0, 6.0}, Unit::Length::Metre)), Length(7.0, Unit::Length::Metre));
 
   EXPECT_EQ(Displacement(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)),
             Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
@@ -204,7 +208,7 @@ TEST(Position, MoveAssignmentOperator) {
 
 TEST(Position, MoveConstructor) {
   Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Position second{std::move(first)};
+  const Position second{std::move(first)};
   EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
@@ -218,8 +222,7 @@ TEST(Position, MutableValue) {
 TEST(Position, Print) {
   EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print(),
             "(1.110000000000000, -2.220000000000000, 3.330000000000000) m");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .Print(Unit::Length::Millimetre),
+  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
             "(0, -2.220000000000000, 0) mm");
 }
 
@@ -238,18 +241,15 @@ TEST(Position, StandardConstructor) {
 }
 
 TEST(Position, StaticValue) {
-  constexpr Position quantity =
-      Position::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::Length::Millimetre>();
+  constexpr Position quantity = Position::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
+  constexpr Value::Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Position, Stream) {
   std::ostringstream stream;
   stream << Position({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  EXPECT_EQ(
-      stream.str(), Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
+  EXPECT_EQ(stream.str(), Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
 }
 
 TEST(Position, Unit) {
@@ -257,29 +257,24 @@ TEST(Position, Unit) {
 }
 
 TEST(Position, Value) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Millimetre)
-                .Value(Unit::Length::Millimetre),
+  EXPECT_EQ(
+      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(), Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
             Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Position, XML) {
   EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
-            "y><z>3.330000000000000</z></value><unit>m</unit>");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .XML(Unit::Length::Millimetre),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</"
-            "unit>");
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
+            "value><unit>m</unit>");
+  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</unit>");
 }
 
 TEST(Position, YAML) {
   EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).YAML(),
-            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
-            "330000000000000},unit:\"m\"}");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .YAML(Unit::Length::Millimetre),
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"m\"}");
+  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
             "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm\"}");
 }
 

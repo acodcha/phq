@@ -1,21 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/VolumeRate.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/Time.hpp"
+#include "../include/PhQ/Unit/Frequency.hpp"
+#include "../include/PhQ/Unit/Time.hpp"
+#include "../include/PhQ/Unit/Volume.hpp"
+#include "../include/PhQ/Unit/VolumeRate.hpp"
+#include "../include/PhQ/Volume.hpp"
 
 namespace PhQ {
 
@@ -47,9 +56,8 @@ TEST(VolumeRate, ArithmeticOperatorDivision) {
                 / VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
             Time(2.0, Unit::Time::Second));
 
-  EXPECT_EQ(
-      Volume(8.0, Unit::Volume::CubicMetre) / Time(4.0, Unit::Time::Second),
-      VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
+  EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / Time(4.0, Unit::Time::Second),
+            VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 TEST(VolumeRate, ArithmeticOperatorMultiplication) {
@@ -59,12 +67,10 @@ TEST(VolumeRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
             VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond));
 
-  EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond)
-                * Time(2.0, Unit::Time::Second),
+  EXPECT_EQ(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond) * Time(2.0, Unit::Time::Second),
             Volume(8.0, Unit::Volume::CubicMetre));
 
-  EXPECT_EQ(Time(4.0, Unit::Time::Second)
-                * VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
+  EXPECT_EQ(Time(4.0, Unit::Time::Second) * VolumeRate(2.0, Unit::VolumeRate::CubicMetrePerSecond),
             Volume(8.0, Unit::Volume::CubicMetre));
 }
 
@@ -125,8 +131,7 @@ TEST(VolumeRate, CopyConstructor) {
 }
 
 TEST(VolumeRate, Create) {
-  constexpr VolumeRate quantity =
-      VolumeRate::Create<Unit::VolumeRate::CubicMetrePerSecond>(1.11);
+  constexpr VolumeRate quantity = VolumeRate::Create<Unit::VolumeRate::CubicMetrePerSecond>(1.11);
   EXPECT_EQ(quantity, VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
@@ -157,9 +162,9 @@ TEST(VolumeRate, JSON) {
 }
 
 TEST(VolumeRate, MiscellaneousConstructors) {
-  EXPECT_EQ(Volume(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond),
-                   Time(2.0, Unit::Time::Second)),
-            Volume(8.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(
+      Volume(VolumeRate(4.0, Unit::VolumeRate::CubicMetrePerSecond), Time(2.0, Unit::Time::Second)),
+      Volume(8.0, Unit::Volume::CubicMetre));
 
   EXPECT_EQ(Volume(VolumeRate(8.0, Unit::VolumeRate::CubicMetrePerSecond),
                    Frequency(4.0, Unit::Frequency::Hertz)),
@@ -183,7 +188,7 @@ TEST(VolumeRate, MoveAssignmentOperator) {
 
 TEST(VolumeRate, MoveConstructor) {
   VolumeRate first{1.11, Unit::VolumeRate::CubicMetrePerSecond};
-  VolumeRate second{std::move(first)};
+  const VolumeRate second{std::move(first)};
   EXPECT_EQ(second, VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
@@ -195,8 +200,8 @@ TEST(VolumeRate, MutableValue) {
 }
 
 TEST(VolumeRate, Print) {
-  EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print(),
-            "1.110000000000000 m^3/s");
+  EXPECT_EQ(
+      VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print(), "1.110000000000000 m^3/s");
   EXPECT_EQ(VolumeRate(-2.22, Unit::VolumeRate::CubicFootPerSecond)
                 .Print(Unit::VolumeRate::CubicFootPerSecond),
             "-2.220000000000000 ft^3/s");
@@ -217,18 +222,15 @@ TEST(VolumeRate, StandardConstructor) {
 }
 
 TEST(VolumeRate, StaticValue) {
-  constexpr VolumeRate quantity =
-      VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(1.11);
-  constexpr double value =
-      quantity.StaticValue<Unit::VolumeRate::CubicFootPerSecond>();
+  constexpr VolumeRate quantity = VolumeRate::Create<Unit::VolumeRate::CubicFootPerSecond>(1.11);
+  constexpr double value = quantity.StaticValue<Unit::VolumeRate::CubicFootPerSecond>();
   EXPECT_EQ(value, 1.11);
 }
 
 TEST(VolumeRate, Stream) {
   std::ostringstream stream;
   stream << VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond);
-  EXPECT_EQ(stream.str(),
-            VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print());
+  EXPECT_EQ(stream.str(), VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Print());
 }
 
 TEST(VolumeRate, Unit) {
@@ -236,8 +238,7 @@ TEST(VolumeRate, Unit) {
 }
 
 TEST(VolumeRate, Value) {
-  EXPECT_EQ(
-      VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Value(), 1.11);
+  EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicMetrePerSecond).Value(), 1.11);
   EXPECT_EQ(VolumeRate(1.11, Unit::VolumeRate::CubicFootPerSecond)
                 .Value(Unit::VolumeRate::CubicFootPerSecond),
             1.11);
@@ -260,8 +261,7 @@ TEST(VolumeRate, YAML) {
 }
 
 TEST(VolumeRate, Zero) {
-  EXPECT_EQ(VolumeRate::Zero(),
-            VolumeRate(0.0, Unit::VolumeRate::CubicMetrePerSecond));
+  EXPECT_EQ(VolumeRate::Zero(), VolumeRate(0.0, Unit::VolumeRate::CubicMetrePerSecond));
 }
 
 }  // namespace

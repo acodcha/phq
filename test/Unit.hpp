@@ -1,17 +1,15 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #ifndef PHYSICAL_QUANTITIES_TEST_UNIT_HPP
 #define PHYSICAL_QUANTITIES_TEST_UNIT_HPP
@@ -22,9 +20,8 @@
 
 namespace PhQ::Internal {
 
-// Tests unit conversion functions. Verifies that a given original value
-// expressed in a given original unit correctly converts to a given new value
-// expressed in a given new unit.
+// Tests unit conversion functions. Verifies that a given original value expressed in a given
+// original unit correctly converts to a given new value expressed in a given new unit.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
 void TestUnitConversions(const double original_value, const double new_value) {
   // double
@@ -33,8 +30,7 @@ void TestUnitConversions(const double original_value, const double new_value) {
     Convert(converted_value, OriginalUnit, NewUnit);
     EXPECT_DOUBLE_EQ(converted_value, new_value);
 
-    const double copied_converted_value =
-        ConvertCopy(original_value, OriginalUnit, NewUnit);
+    const double copied_converted_value = ConvertCopy(original_value, OriginalUnit, NewUnit);
     EXPECT_DOUBLE_EQ(copied_converted_value, new_value);
 
     const double statically_copied_converted_value =
@@ -44,8 +40,7 @@ void TestUnitConversions(const double original_value, const double new_value) {
 
   // std::array
   {
-    const std::array<double, 3> original_values{
-        original_value, original_value, original_value};
+    const std::array<double, 3> original_values{original_value, original_value, original_value};
 
     std::array<double, 3> converted_values = original_values;
     Convert(converted_values, OriginalUnit, NewUnit);
@@ -68,8 +63,7 @@ void TestUnitConversions(const double original_value, const double new_value) {
 
   // std::vector
   {
-    const std::vector<double> original_values{
-        original_value, original_value, original_value};
+    const std::vector<double> original_values{original_value, original_value, original_value};
 
     std::vector<double> converted_values = original_values;
     Convert(converted_values, OriginalUnit, NewUnit);
@@ -86,8 +80,7 @@ void TestUnitConversions(const double original_value, const double new_value) {
 
   // Value::Vector
   {
-    const Value::Vector original_values{
-        original_value, original_value, original_value};
+    const Value::Vector original_values{original_value, original_value, original_value};
 
     Value::Vector converted_values = original_values;
     Convert(converted_values, OriginalUnit, NewUnit);
@@ -110,9 +103,8 @@ void TestUnitConversions(const double original_value, const double new_value) {
 
   // Value::SymmetricDyad
   {
-    const Value::SymmetricDyad original_values{
-        original_value, original_value, original_value,
-        original_value, original_value, original_value};
+    const Value::SymmetricDyad original_values{original_value, original_value, original_value,
+                                               original_value, original_value, original_value};
 
     Value::SymmetricDyad converted_values = original_values;
     Convert(converted_values, OriginalUnit, NewUnit);
@@ -145,9 +137,8 @@ void TestUnitConversions(const double original_value, const double new_value) {
   // Value::Dyad
   {
     const Value::Dyad original_values{
-        original_value, original_value, original_value,
-        original_value, original_value, original_value,
-        original_value, original_value, original_value};
+        original_value, original_value, original_value, original_value, original_value,
+        original_value, original_value, original_value, original_value};
 
     Value::Dyad converted_values = original_values;
     Convert(converted_values, OriginalUnit, NewUnit);
@@ -161,8 +152,7 @@ void TestUnitConversions(const double original_value, const double new_value) {
     EXPECT_DOUBLE_EQ(converted_values.zy(), new_value);
     EXPECT_DOUBLE_EQ(converted_values.zz(), new_value);
 
-    const Value::Dyad copied_converted_values =
-        ConvertCopy(original_values, OriginalUnit, NewUnit);
+    const Value::Dyad copied_converted_values = ConvertCopy(original_values, OriginalUnit, NewUnit);
     EXPECT_DOUBLE_EQ(copied_converted_values.xx(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_values.xy(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_values.xz(), new_value);

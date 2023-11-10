@@ -1,21 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Displacement.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Length.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Unit/Length.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -103,16 +111,15 @@ TEST(Displacement, CopyConstructor) {
 }
 
 TEST(Displacement, Create) {
-  constexpr Displacement first =
-      Displacement::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
+  constexpr Displacement first = Displacement::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
   EXPECT_EQ(first, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
-  constexpr Displacement second = Displacement::Create<Unit::Length::Metre>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
+  constexpr Displacement second =
+      Displacement::Create<Unit::Length::Metre>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
-  constexpr Displacement third = Displacement::Create<Unit::Length::Metre>(
-      Value::Vector{1.11, -2.22, 3.33});
+  constexpr Displacement third =
+      Displacement::Create<Unit::Length::Metre>(Value::Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
@@ -136,13 +143,11 @@ TEST(Displacement, Hash) {
 
 TEST(Displacement, JSON) {
   EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
-            "\"z\":"
-            "3.330000000000000},\"unit\":\"m\"}");
-  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .JSON(Unit::Length::Millimetre),
-            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
-            "\"mm\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
+            "\"unit\":\"m\"}");
+  EXPECT_EQ(
+      Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
+      "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"mm\"}");
 }
 
 TEST(Displacement, Magnitude) {
@@ -171,7 +176,7 @@ TEST(Displacement, MoveAssignmentOperator) {
 
 TEST(Displacement, MoveConstructor) {
   Displacement first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Displacement second{std::move(first)};
+  const Displacement second{std::move(first)};
   EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
@@ -185,9 +190,9 @@ TEST(Displacement, MutableValue) {
 TEST(Displacement, Print) {
   EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Print(),
             "(1.110000000000000, -2.220000000000000, 3.330000000000000) m");
-  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .Print(Unit::Length::Millimetre),
-            "(0, -2.220000000000000, 0) mm");
+  EXPECT_EQ(
+      Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
+      "(0, -2.220000000000000, 0) mm");
 }
 
 TEST(Displacement, SetValue) {
@@ -207,16 +212,14 @@ TEST(Displacement, StandardConstructor) {
 TEST(Displacement, StaticValue) {
   constexpr Displacement quantity =
       Displacement::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::Length::Millimetre>();
+  constexpr Value::Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Displacement, Stream) {
   std::ostringstream stream;
   stream << Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  EXPECT_EQ(stream.str(),
-            Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
+  EXPECT_EQ(stream.str(), Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
 }
 
 TEST(Displacement, Unit) {
@@ -226,33 +229,29 @@ TEST(Displacement, Unit) {
 TEST(Displacement, Value) {
   EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(),
             Value::Vector(1.11, -2.22, 3.33));
-  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Millimetre)
-                .Value(Unit::Length::Millimetre),
-            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Displacement({1.11, -2.22, 3.33}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
+      Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Displacement, XML) {
   EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
-            "y><z>3.330000000000000</z></value><unit>m</unit>");
-  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .XML(Unit::Length::Millimetre),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</"
-            "unit>");
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
+            "value><unit>m</unit>");
+  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</unit>");
 }
 
 TEST(Displacement, YAML) {
   EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).YAML(),
-            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
-            "330000000000000},unit:\"m\"}");
-  EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre)
-                .YAML(Unit::Length::Millimetre),
-            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm\"}");
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"m\"}");
+  EXPECT_EQ(
+      Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
+      "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm\"}");
 }
 
 TEST(Displacement, Zero) {
-  EXPECT_EQ(
-      Displacement::Zero(), Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
+  EXPECT_EQ(Displacement::Zero(), Displacement({0.0, 0.0, 0.0}, Unit::Length::Metre));
 }
 
 }  // namespace

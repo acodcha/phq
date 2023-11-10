@@ -1,21 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Force.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/ForceMagnitude.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Unit/Force.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -28,9 +36,9 @@ TEST(Force, Angle) {
 }
 
 TEST(Force, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Force({1.0, -2.0, 3.0}, Unit::Force::Newton)
-                + Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
-            Force({3.0, -6.0, 9.0}, Unit::Force::Newton));
+  EXPECT_EQ(
+      Force({1.0, -2.0, 3.0}, Unit::Force::Newton) + Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
+      Force({3.0, -6.0, 9.0}, Unit::Force::Newton));
 }
 
 TEST(Force, ArithmeticOperatorDivision) {
@@ -45,19 +53,17 @@ TEST(Force, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * Force({1.0, -2.0, 3.0}, Unit::Force::Newton),
             Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(
-      Direction(2.0, -3.0, 6.0) * ForceMagnitude(7.0, Unit::Force::Newton),
-      Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ForceMagnitude(7.0, Unit::Force::Newton),
+            Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(
-      ForceMagnitude(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
-      Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
+  EXPECT_EQ(ForceMagnitude(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
+            Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 }
 
 TEST(Force, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Force({3.0, -6.0, 9.0}, Unit::Force::Newton)
-                - Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
-            Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
+  EXPECT_EQ(
+      Force({3.0, -6.0, 9.0}, Unit::Force::Newton) - Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
+      Force({1.0, -2.0, 3.0}, Unit::Force::Newton));
 }
 
 TEST(Force, AssignmentOperatorAddition) {
@@ -114,12 +120,11 @@ TEST(Force, Create) {
   constexpr Force first = Force::Create<Unit::Force::Newton>(1.11, -2.22, 3.33);
   EXPECT_EQ(first, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 
-  constexpr Force second = Force::Create<Unit::Force::Newton>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
+  constexpr Force second =
+      Force::Create<Unit::Force::Newton>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 
-  constexpr Force third =
-      Force::Create<Unit::Force::Newton>(Value::Vector{1.11, -2.22, 3.33});
+  constexpr Force third = Force::Create<Unit::Force::Newton>(Value::Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
@@ -143,12 +148,10 @@ TEST(Force, Hash) {
 
 TEST(Force, JSON) {
   EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
-            "\"z\":3.330000000000000},\"unit\":\"N\"}");
-  EXPECT_EQ(
-      Force({0.0, -2.22, 0.0}, Unit::Force::Pound).JSON(Unit::Force::Pound),
-      "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
-      "\"lbf\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
+            "\"unit\":\"N\"}");
+  EXPECT_EQ(Force({0.0, -2.22, 0.0}, Unit::Force::Pound).JSON(Unit::Force::Pound),
+            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"lbf\"}");
 }
 
 TEST(Force, Magnitude) {
@@ -157,8 +160,8 @@ TEST(Force, Magnitude) {
 }
 
 TEST(Force, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(Force({1.11, -2.22, 3.33}, Unit::Force::Newton)),
-            Direction(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Direction(Force({1.11, -2.22, 3.33}, Unit::Force::Newton)), Direction(1.11, -2.22, 3.33));
 
   EXPECT_EQ(Angle(Force({0.0, -2.22, 0.0}, Unit::Force::Newton),
                   Force({0.0, 0.0, 3.33}, Unit::Force::Newton)),
@@ -177,7 +180,7 @@ TEST(Force, MoveAssignmentOperator) {
 
 TEST(Force, MoveConstructor) {
   Force first({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Force second{std::move(first)};
+  const Force second{std::move(first)};
   EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
@@ -191,9 +194,8 @@ TEST(Force, MutableValue) {
 TEST(Force, Print) {
   EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Print(),
             "(1.110000000000000, -2.220000000000000, 3.330000000000000) N");
-  EXPECT_EQ(
-      Force({0.0, -2.22, 0.0}, Unit::Force::Pound).Print(Unit::Force::Pound),
-      "(0, -2.220000000000000, 0) lbf");
+  EXPECT_EQ(Force({0.0, -2.22, 0.0}, Unit::Force::Pound).Print(Unit::Force::Pound),
+            "(0, -2.220000000000000, 0) lbf");
 }
 
 TEST(Force, SetValue) {
@@ -211,8 +213,7 @@ TEST(Force, StandardConstructor) {
 }
 
 TEST(Force, StaticValue) {
-  constexpr Force quantity =
-      Force::Create<Unit::Force::Pound>(1.11, -2.22, 3.33);
+  constexpr Force quantity = Force::Create<Unit::Force::Pound>(1.11, -2.22, 3.33);
   constexpr Value::Vector value = quantity.StaticValue<Unit::Force::Pound>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
@@ -220,8 +221,7 @@ TEST(Force, StaticValue) {
 TEST(Force, Stream) {
   std::ostringstream stream;
   stream << Force({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  EXPECT_EQ(
-      stream.str(), Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Print());
+  EXPECT_EQ(stream.str(), Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Print());
 }
 
 TEST(Force, Unit) {
@@ -229,30 +229,25 @@ TEST(Force, Unit) {
 }
 
 TEST(Force, Value) {
-  EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(
-      Force({1.11, -2.22, 3.33}, Unit::Force::Pound).Value(Unit::Force::Pound),
-      Value::Vector(1.11, -2.22, 3.33));
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Value(), Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Pound).Value(Unit::Force::Pound),
+            Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Force, XML) {
   EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
-            "y><z>3.330000000000000</z></value><unit>N</unit>");
-  EXPECT_EQ(
-      Force({0.0, -2.22, 0.0}, Unit::Force::Pound).XML(Unit::Force::Pound),
-      "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>lbf</"
-      "unit>");
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
+            "value><unit>N</unit>");
+  EXPECT_EQ(Force({0.0, -2.22, 0.0}, Unit::Force::Pound).XML(Unit::Force::Pound),
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>lbf</unit>");
 }
 
 TEST(Force, YAML) {
   EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).YAML(),
-            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
-            "330000000000000},unit:\"N\"}");
-  EXPECT_EQ(
-      Force({0.0, -2.22, 0.0}, Unit::Force::Pound).YAML(Unit::Force::Pound),
-      "{value:{x:0,y:-2.220000000000000,z:0},unit:\"lbf\"}");
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"N\"}");
+  EXPECT_EQ(Force({0.0, -2.22, 0.0}, Unit::Force::Pound).YAML(Unit::Force::Pound),
+            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"lbf\"}");
 }
 
 TEST(Force, Zero) {

@@ -1,22 +1,31 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/ThermalExpansion.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/ElectricCurrent.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Temperature.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -38,18 +47,14 @@ TEST(UnitThermalExpansion, Abbreviation) {
 }
 
 TEST(UnitThermalExpansion, ConsistentUnit) {
-  EXPECT_EQ(
-      ConsistentUnit<ThermalExpansion>(UnitSystem::MetreKilogramSecondKelvin),
-      ThermalExpansion::PerKelvin);
-  EXPECT_EQ(
-      ConsistentUnit<ThermalExpansion>(UnitSystem::MillimetreGramSecondKelvin),
-      ThermalExpansion::PerKelvin);
-  EXPECT_EQ(
-      ConsistentUnit<ThermalExpansion>(UnitSystem::FootPoundSecondRankine),
-      ThermalExpansion::PerRankine);
-  EXPECT_EQ(
-      ConsistentUnit<ThermalExpansion>(UnitSystem::InchPoundSecondRankine),
-      ThermalExpansion::PerRankine);
+  EXPECT_EQ(ConsistentUnit<ThermalExpansion>(UnitSystem::MetreKilogramSecondKelvin),
+            ThermalExpansion::PerKelvin);
+  EXPECT_EQ(ConsistentUnit<ThermalExpansion>(UnitSystem::MillimetreGramSecondKelvin),
+            ThermalExpansion::PerKelvin);
+  EXPECT_EQ(ConsistentUnit<ThermalExpansion>(UnitSystem::FootPoundSecondRankine),
+            ThermalExpansion::PerRankine);
+  EXPECT_EQ(ConsistentUnit<ThermalExpansion>(UnitSystem::InchPoundSecondRankine),
+            ThermalExpansion::PerRankine);
 }
 
 TEST(UnitThermalExpansion, ConvertFromStandard) {
@@ -59,11 +64,9 @@ TEST(UnitThermalExpansion, ConvertFromStandard) {
   Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
                                 ThermalExpansion::PerCelsius>(value, value);
   Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
-                                ThermalExpansion::PerRankine>(
-      value, value / 1.8);
+                                ThermalExpansion::PerRankine>(value, value / 1.8);
   Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
-                                ThermalExpansion::PerFahrenheit>(
-      value, value / 1.8);
+                                ThermalExpansion::PerFahrenheit>(value, value / 1.8);
 }
 
 TEST(UnitThermalExpansion, ConvertToStandard) {
@@ -73,11 +76,9 @@ TEST(UnitThermalExpansion, ConvertToStandard) {
   Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerCelsius,
                                 ThermalExpansion::PerKelvin>(value, value);
   Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerRankine,
-                                ThermalExpansion::PerKelvin>(
-      value, value * 1.8);
-  Internal::TestUnitConversions<
-      ThermalExpansion, ThermalExpansion::PerFahrenheit,
-      ThermalExpansion::PerKelvin>(value, value * 1.8);
+                                ThermalExpansion::PerKelvin>(value, value * 1.8);
+  Internal::TestUnitConversions<ThermalExpansion, ThermalExpansion::PerFahrenheit,
+                                ThermalExpansion::PerKelvin>(value, value * 1.8);
 }
 
 TEST(UnitThermalExpansion, Parse) {
@@ -89,10 +90,9 @@ TEST(UnitThermalExpansion, Parse) {
 }
 
 TEST(UnitThermalExpansion, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<ThermalExpansion>,
-      Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                 Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
+  EXPECT_EQ(RelatedDimensions<ThermalExpansion>,
+            Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitThermalExpansion, RelatedUnitSystem) {

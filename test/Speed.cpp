@@ -1,46 +1,49 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Speed.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/Length.hpp"
+#include "../include/PhQ/Time.hpp"
+#include "../include/PhQ/Unit/Frequency.hpp"
+#include "../include/PhQ/Unit/Length.hpp"
+#include "../include/PhQ/Unit/Speed.hpp"
+#include "../include/PhQ/Unit/Time.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Speed, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond)
-                + Speed(2.0, Unit::Speed::MetrePerSecond),
+  EXPECT_EQ(Speed(1.0, Unit::Speed::MetrePerSecond) + Speed(2.0, Unit::Speed::MetrePerSecond),
             Speed(3.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Speed, ArithmeticOperatorDivision) {
-  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / 2.0,
-            Speed(4.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / 2.0, Speed(4.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
-                / Speed(2.0, Unit::Speed::MetrePerSecond),
-            4.0);
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / Speed(2.0, Unit::Speed::MetrePerSecond), 4.0);
 
-  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
-                / Frequency(2.0, Unit::Frequency::Hertz),
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / Frequency(2.0, Unit::Frequency::Hertz),
             Length(4.0, Unit::Length::Metre));
 
-  EXPECT_EQ(Length(8.0, Unit::Length::Metre)
-                / Speed(4.0, Unit::Speed::MetrePerSecond),
+  EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Speed(4.0, Unit::Speed::MetrePerSecond),
             Time(2.0, Unit::Time::Second));
 
   EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Time(4.0, Unit::Time::Second),
@@ -48,28 +51,22 @@ TEST(Speed, ArithmeticOperatorDivision) {
 }
 
 TEST(Speed, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond) * 2.0,
+  EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond) * 2.0, Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(2.0 * Speed(4.0, Unit::Speed::MetrePerSecond), Speed(8.0, Unit::Speed::MetrePerSecond));
+
+  EXPECT_EQ(Speed(4.0, Unit::Speed::MetrePerSecond) * Time(2.0, Unit::Time::Second),
+            Length(8.0, Unit::Length::Metre));
+
+  EXPECT_EQ(Length(4.0, Unit::Length::Metre) * Frequency(2.0, Unit::Frequency::Hertz),
             Speed(8.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(2.0 * Speed(4.0, Unit::Speed::MetrePerSecond),
+  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Length(2.0, Unit::Length::Metre),
             Speed(8.0, Unit::Speed::MetrePerSecond));
-
-  EXPECT_EQ(
-      Speed(4.0, Unit::Speed::MetrePerSecond) * Time(2.0, Unit::Time::Second),
-      Length(8.0, Unit::Length::Metre));
-
-  EXPECT_EQ(
-      Length(4.0, Unit::Length::Metre) * Frequency(2.0, Unit::Frequency::Hertz),
-      Speed(8.0, Unit::Speed::MetrePerSecond));
-
-  EXPECT_EQ(
-      Frequency(4.0, Unit::Frequency::Hertz) * Length(2.0, Unit::Length::Metre),
-      Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Speed, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond)
-                - Speed(2.0, Unit::Speed::MetrePerSecond),
+  EXPECT_EQ(Speed(3.0, Unit::Speed::MetrePerSecond) - Speed(2.0, Unit::Speed::MetrePerSecond),
             Speed(1.0, Unit::Speed::MetrePerSecond));
 }
 
@@ -149,34 +146,27 @@ TEST(Speed, Hash) {
 TEST(Speed, JSON) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"m/s\"}");
-  EXPECT_EQ(
-      Speed(-2.22, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
-      "{\"value\":-2.220000000000000,\"unit\":\"ft/s\"}");
+  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond).JSON(Unit::Speed::FootPerSecond),
+            "{\"value\":-2.220000000000000,\"unit\":\"ft/s\"}");
 }
 
 TEST(Speed, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Speed(Length(8.0, Unit::Length::Metre), Time(4.0, Unit::Time::Second)),
-      Speed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(Length(8.0, Unit::Length::Metre), Time(4.0, Unit::Time::Second)),
+            Speed(2.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(Speed(Length(4.0, Unit::Length::Metre),
-                  Frequency(2.0, Unit::Frequency::Hertz)),
+  EXPECT_EQ(Speed(Length(4.0, Unit::Length::Metre), Frequency(2.0, Unit::Frequency::Hertz)),
             Speed(8.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(Length(Speed(4.0, Unit::Speed::MetrePerSecond),
-                   Time(2.0, Unit::Time::Second)),
+  EXPECT_EQ(Length(Speed(4.0, Unit::Speed::MetrePerSecond), Time(2.0, Unit::Time::Second)),
             Length(8.0, Unit::Length::Metre));
 
-  EXPECT_EQ(Length(Speed(8.0, Unit::Speed::MetrePerSecond),
-                   Frequency(4.0, Unit::Frequency::Hertz)),
+  EXPECT_EQ(Length(Speed(8.0, Unit::Speed::MetrePerSecond), Frequency(4.0, Unit::Frequency::Hertz)),
             Length(2.0, Unit::Length::Metre));
 
-  EXPECT_EQ(Time(Length(8.0, Unit::Length::Metre),
-                 Speed(4.0, Unit::Speed::MetrePerSecond)),
+  EXPECT_EQ(Time(Length(8.0, Unit::Length::Metre), Speed(4.0, Unit::Speed::MetrePerSecond)),
             Time(2.0, Unit::Time::Second));
 
-  EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond),
-                      Length(4.0, Unit::Length::Metre)),
+  EXPECT_EQ(Frequency(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre)),
             Frequency(2.0, Unit::Frequency::Hertz));
 }
 
@@ -189,7 +179,7 @@ TEST(Speed, MoveAssignmentOperator) {
 
 TEST(Speed, MoveConstructor) {
   Speed first{1.11, Unit::Speed::MetrePerSecond};
-  Speed second{std::move(first)};
+  const Speed second{std::move(first)};
   EXPECT_EQ(second, Speed(1.11, Unit::Speed::MetrePerSecond));
 }
 
@@ -201,10 +191,8 @@ TEST(Speed, MutableValue) {
 }
 
 TEST(Speed, Print) {
-  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(),
-            "1.110000000000000 m/s");
-  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond)
-                .Print(Unit::Speed::FootPerSecond),
+  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Print(), "1.110000000000000 m/s");
+  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond).Print(Unit::Speed::FootPerSecond),
             "-2.220000000000000 ft/s");
 }
 
@@ -240,25 +228,21 @@ TEST(Speed, Unit) {
 
 TEST(Speed, Value) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).Value(), 1.11);
-  EXPECT_EQ(
-      Speed(1.11, Unit::Speed::FootPerSecond).Value(Unit::Speed::FootPerSecond),
-      1.11);
+  EXPECT_EQ(Speed(1.11, Unit::Speed::FootPerSecond).Value(Unit::Speed::FootPerSecond), 1.11);
 }
 
 TEST(Speed, XML) {
   EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).XML(),
             "<value>1.110000000000000</value><unit>m/s</unit>");
-  EXPECT_EQ(
-      Speed(-2.22, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
-      "<value>-2.220000000000000</value><unit>ft/s</unit>");
+  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond).XML(Unit::Speed::FootPerSecond),
+            "<value>-2.220000000000000</value><unit>ft/s</unit>");
 }
 
 TEST(Speed, YAML) {
-  EXPECT_EQ(Speed(1.11, Unit::Speed::MetrePerSecond).YAML(),
-            "{value:1.110000000000000,unit:\"m/s\"}");
   EXPECT_EQ(
-      Speed(-2.22, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
-      "{value:-2.220000000000000,unit:\"ft/s\"}");
+      Speed(1.11, Unit::Speed::MetrePerSecond).YAML(), "{value:1.110000000000000,unit:\"m/s\"}");
+  EXPECT_EQ(Speed(-2.22, Unit::Speed::FootPerSecond).YAML(Unit::Speed::FootPerSecond),
+            "{value:-2.220000000000000,unit:\"ft/s\"}");
 }
 
 TEST(Speed, Zero) {

@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Length.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Length.hpp"
 
 namespace PhQ {
 
@@ -27,19 +30,15 @@ TEST(Length, ArithmeticOperatorAddition) {
 }
 
 TEST(Length, ArithmeticOperatorDivision) {
-  EXPECT_EQ(
-      Length(8.0, Unit::Length::Metre) / 2.0, Length(4.0, Unit::Length::Metre));
+  EXPECT_EQ(Length(8.0, Unit::Length::Metre) / 2.0, Length(4.0, Unit::Length::Metre));
 
-  EXPECT_EQ(
-      Length(8.0, Unit::Length::Metre) / Length(2.0, Unit::Length::Metre), 4.0);
+  EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Length(2.0, Unit::Length::Metre), 4.0);
 }
 
 TEST(Length, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(
-      Length(4.0, Unit::Length::Metre) * 2.0, Length(8.0, Unit::Length::Metre));
+  EXPECT_EQ(Length(4.0, Unit::Length::Metre) * 2.0, Length(8.0, Unit::Length::Metre));
 
-  EXPECT_EQ(
-      2.0 * Length(4.0, Unit::Length::Metre), Length(8.0, Unit::Length::Metre));
+  EXPECT_EQ(2.0 * Length(4.0, Unit::Length::Metre), Length(8.0, Unit::Length::Metre));
 }
 
 TEST(Length, ArithmeticOperatorSubtraction) {
@@ -121,11 +120,10 @@ TEST(Length, Hash) {
 }
 
 TEST(Length, JSON) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"m\"}");
   EXPECT_EQ(
-      Length(-2.22, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
-      "{\"value\":-2.220000000000000,\"unit\":\"mm\"}");
+      Length(1.11, Unit::Length::Metre).JSON(), "{\"value\":1.110000000000000,\"unit\":\"m\"}");
+  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
+            "{\"value\":-2.220000000000000,\"unit\":\"mm\"}");
 }
 
 TEST(Length, MoveAssignmentOperator) {
@@ -137,7 +135,7 @@ TEST(Length, MoveAssignmentOperator) {
 
 TEST(Length, MoveConstructor) {
   Length first{1.11, Unit::Length::Metre};
-  Length second{std::move(first)};
+  const Length second{std::move(first)};
   EXPECT_EQ(second, Length(1.11, Unit::Length::Metre));
 }
 
@@ -150,9 +148,8 @@ TEST(Length, MutableValue) {
 
 TEST(Length, Print) {
   EXPECT_EQ(Length(1.11, Unit::Length::Metre).Print(), "1.110000000000000 m");
-  EXPECT_EQ(
-      Length(-2.22, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
-      "-2.220000000000000 mm");
+  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
+            "-2.220000000000000 mm");
 }
 
 TEST(Length, SetValue) {
@@ -187,25 +184,20 @@ TEST(Length, Unit) {
 
 TEST(Length, Value) {
   EXPECT_EQ(Length(1.11, Unit::Length::Metre).Value(), 1.11);
-  EXPECT_EQ(
-      Length(1.11, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
-      1.11);
+  EXPECT_EQ(Length(1.11, Unit::Length::Millimetre).Value(Unit::Length::Millimetre), 1.11);
 }
 
 TEST(Length, XML) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).XML(),
-            "<value>1.110000000000000</value><unit>m</unit>");
   EXPECT_EQ(
-      Length(-2.22, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
-      "<value>-2.220000000000000</value><unit>mm</unit>");
+      Length(1.11, Unit::Length::Metre).XML(), "<value>1.110000000000000</value><unit>m</unit>");
+  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
+            "<value>-2.220000000000000</value><unit>mm</unit>");
 }
 
 TEST(Length, YAML) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).YAML(),
-            "{value:1.110000000000000,unit:\"m\"}");
-  EXPECT_EQ(
-      Length(-2.22, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
-      "{value:-2.220000000000000,unit:\"mm\"}");
+  EXPECT_EQ(Length(1.11, Unit::Length::Metre).YAML(), "{value:1.110000000000000,unit:\"m\"}");
+  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
+            "{value:-2.220000000000000,unit:\"mm\"}");
 }
 
 TEST(Length, Zero) {

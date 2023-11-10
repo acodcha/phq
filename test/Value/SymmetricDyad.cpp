@@ -1,21 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Value/SymmetricDyad.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
+#include <utility>
+
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ::Value {
 
@@ -44,9 +50,8 @@ TEST(ValueSymmetricDyad, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0),
             SymmetricDyad(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
-  EXPECT_EQ(
-      SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * Vector(1.0, -2.0, 3.0),
-      Vector(14.0, 21.0, -25.0));
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * Vector(1.0, -2.0, 3.0),
+            Vector(14.0, 21.0, -25.0));
 }
 
 TEST(ValueSymmetricDyad, ArithmeticOperatorSubtraction) {
@@ -120,8 +125,7 @@ TEST(ValueSymmetricDyad, DefaultConstructor) {
 }
 
 TEST(ValueSymmetricDyad, Determinant) {
-  EXPECT_EQ(
-      SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Determinant(), 3840.0);
+  EXPECT_EQ(SymmetricDyad(8.0, 2.0, 1.0, 16.0, 4.0, 32.0).Determinant(), 3840.0);
 }
 
 TEST(ValueSymmetricDyad, Hash) {
@@ -137,7 +141,7 @@ TEST(ValueSymmetricDyad, Hash) {
 TEST(ValueSymmetricDyad, Inverse) {
   constexpr SymmetricDyad first{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
   const std::optional<SymmetricDyad> first_inverse{first.Inverse()};
-  EXPECT_TRUE(first_inverse.has_value());
+  ASSERT_TRUE(first_inverse.has_value());
   EXPECT_DOUBLE_EQ(first_inverse.value().xx(), 496.0 / 3840.0);
   EXPECT_DOUBLE_EQ(first_inverse.value().xy(), -60.0 / 3840.0);
   EXPECT_DOUBLE_EQ(first_inverse.value().xz(), -8.0 / 3840.0);
@@ -152,8 +156,8 @@ TEST(ValueSymmetricDyad, Inverse) {
 
 TEST(ValueSymmetricDyad, JSON) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).JSON(),
-            "{\"xx\":1.000000000000000,\"xy\":-2.000000000000000,\"xz\":4."
-            "000000000000000,\"yy\":0,\"yz\":-4.000000000000000,\"zz\":0}");
+            "{\"xx\":1.000000000000000,\"xy\":-2.000000000000000,\"xz\":4.000000000000000,\"yy\":0,"
+            "\"yz\":-4.000000000000000,\"zz\":0}");
 }
 
 TEST(ValueSymmetricDyad, MoveAssignmentOperator) {
@@ -165,17 +169,15 @@ TEST(ValueSymmetricDyad, MoveAssignmentOperator) {
 
 TEST(ValueSymmetricDyad, MoveConstructor) {
   SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  SymmetricDyad second{std::move(first)};
+  const SymmetricDyad second{std::move(first)};
   EXPECT_EQ(second, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, Mutable) {
   SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz =
-      first.Mutable_xx_xy_xz_yy_yz_zz();
+  std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz = first.Mutable_xx_xy_xz_yy_yz_zz();
   mutable_xx_xy_xz_yy_yz_zz = {-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  constexpr std::array<double, 6> result{
-      -7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  constexpr std::array<double, 6> result{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
   EXPECT_EQ(first.xx_xy_xz_yy_yz_zz(), result);
 
   SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
@@ -212,21 +214,16 @@ TEST(ValueSymmetricDyad, Mutable) {
 
 TEST(ValueSymmetricDyad, Print) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(),
-            "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, "
-            "-4.000000000000000; 0)");
-  EXPECT_EQ(
-      SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Double),
-      "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, "
-      "-4.000000000000000; 0)");
-  EXPECT_EQ(
-      SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Single),
-      "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
+            "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, -4.000000000000000; 0)");
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Double),
+            "(1.000000000000000, -2.000000000000000, 4.000000000000000; 0, -4.000000000000000; 0)");
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(Precision::Single),
+            "(1.000000, -2.000000, 4.000000; 0, -4.000000; 0)");
 }
 
 TEST(ValueSymmetricDyad, Set) {
   SymmetricDyad first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  first.Set_xx_xy_xz_yy_yz_zz(
-      std::array<double, 6>{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12});
+  first.Set_xx_xy_xz_yy_yz_zz(std::array<double, 6>{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12});
   EXPECT_EQ(first, SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 
   SymmetricDyad second(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
@@ -248,26 +245,17 @@ TEST(ValueSymmetricDyad, SizeOf) {
 }
 
 TEST(ValueSymmetricDyad, StandardConstructor) {
-  EXPECT_EQ(SymmetricDyad(
-                std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
+  EXPECT_EQ(SymmetricDyad(std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
             SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 
-  std::array<double, 6> first_xx_xy_xz_yy_yz_zz{
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  EXPECT_EQ(SymmetricDyad(first_xx_xy_xz_yy_yz_zz),
-            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+  constexpr std::array<double, 6> first_xx_xy_xz_yy_yz_zz{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  EXPECT_EQ(
+      SymmetricDyad(first_xx_xy_xz_yy_yz_zz), SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 
-  constexpr std::array<double, 6> second_xx_xy_xz_yy_yz_zz{
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
+  constexpr std::array<double, 6> second_xx_xy_xz_yy_yz_zz{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
   SymmetricDyad second = SymmetricDyad::Zero();
   second = second_xx_xy_xz_yy_yz_zz;
   EXPECT_EQ(second, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
-
-  std::array<double, 6> third_xx_xy_xz_yy_yz_zz{
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  SymmetricDyad third = SymmetricDyad::Zero();
-  third = std::move(third_xx_xy_xz_yy_yz_zz);
-  EXPECT_EQ(third, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(ValueSymmetricDyad, Stream) {
@@ -288,15 +276,14 @@ TEST(ValueSymmetricDyad, Transpose) {
 
 TEST(ValueSymmetricDyad, XML) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).XML(),
-            "<xx>1.000000000000000</xx><xy>-2.000000000000000</"
-            "xy><xz>4.000000000000000</xz><yy>0</yy><yz>-4.000000000000000</"
-            "yz><zz>0</zz>");
+            "<xx>1.000000000000000</xx><xy>-2.000000000000000</xy><xz>4.000000000000000</xz><yy>0</"
+            "yy><yz>-4.000000000000000</yz><zz>0</zz>");
 }
 
 TEST(ValueSymmetricDyad, YAML) {
   EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).YAML(),
-            "{xx:1.000000000000000,xy:-2.000000000000000,xz:4.000000000000000,"
-            "yy:0,yz:-4.000000000000000,zz:0}");
+            "{xx:1.000000000000000,xy:-2.000000000000000,xz:4.000000000000000,yy:0,yz:-4."
+            "000000000000000,zz:0}");
 }
 
 TEST(ValueSymmetricDyad, Zero) {

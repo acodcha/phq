@@ -17,6 +17,17 @@
 
 #include <gtest/gtest.h>
 
+#include <functional>
+#include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Area.hpp"
+#include "../include/PhQ/Length.hpp"
+#include "../include/PhQ/Unit/Area.hpp"
+#include "../include/PhQ/Unit/Length.hpp"
+#include "../include/PhQ/Unit/Volume.hpp"
+
 namespace PhQ {
 
 namespace {

@@ -1,21 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/GasConstant.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/HeatCapacityRatio.hpp"
+#include "../include/PhQ/IsobaricHeatCapacity.hpp"
+#include "../include/PhQ/IsochoricHeatCapacity.hpp"
+#include "../include/PhQ/Unit/HeatCapacity.hpp"
 
 namespace PhQ {
 
@@ -26,10 +32,9 @@ TEST(GasConstant, ArithmeticOperatorAddition) {
                 + GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin),
             GasConstant(3.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(
-      GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin)
-          + IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
-      IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin)
+                + IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
+            IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin));
 
   EXPECT_EQ(IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin)
                 + GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin),
@@ -58,10 +63,9 @@ TEST(GasConstant, ArithmeticOperatorSubtraction) {
                 - GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin),
             GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(
-      IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin)
-          - IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
-      GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin)
+                - IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
+            GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin));
 
   EXPECT_EQ(IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin)
                 - GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin),
@@ -119,8 +123,7 @@ TEST(GasConstant, CopyConstructor) {
 }
 
 TEST(GasConstant, Create) {
-  constexpr GasConstant quantity =
-      GasConstant::Create<Unit::HeatCapacity::JoulePerKelvin>(1.11);
+  constexpr GasConstant quantity = GasConstant::Create<Unit::HeatCapacity::JoulePerKelvin>(1.11);
   EXPECT_EQ(quantity, GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin));
 }
 
@@ -151,49 +154,40 @@ TEST(GasConstant, JSON) {
 }
 
 TEST(GasConstant, MiscellaneousConstructors) {
-  EXPECT_EQ(GasConstant(
-                IsobaricHeatCapacity(6.0, Unit::HeatCapacity::JoulePerKelvin),
-                IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(GasConstant(IsobaricHeatCapacity(6.0, Unit::HeatCapacity::JoulePerKelvin),
+                        IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin)),
             GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(GasConstant(
-                HeatCapacityRatio(2.0),
-                IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(GasConstant(HeatCapacityRatio(2.0),
+                        IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
             GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(GasConstant(
-                HeatCapacityRatio(2.0),
-                IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(GasConstant(HeatCapacityRatio(2.0),
+                        IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
             GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(HeatCapacityRatio(
-                IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin),
-                GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(HeatCapacityRatio(IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin),
+                              GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin)),
             HeatCapacityRatio(2.0));
 
-  EXPECT_EQ(HeatCapacityRatio(
-                GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin),
-                IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(HeatCapacityRatio(GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin),
+                              IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin)),
             HeatCapacityRatio(3.0));
 
-  EXPECT_EQ(IsochoricHeatCapacity(
-                IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin),
-                GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(IsochoricHeatCapacity(IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin),
+                                  GasConstant(2.0, Unit::HeatCapacity::JoulePerKelvin)),
             IsochoricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 
   EXPECT_EQ(IsochoricHeatCapacity(
-                GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin),
-                HeatCapacityRatio(2.0)),
+                GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin), HeatCapacityRatio(2.0)),
             IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
 
-  EXPECT_EQ(IsobaricHeatCapacity(
-                IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
-                GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin)),
+  EXPECT_EQ(IsobaricHeatCapacity(IsochoricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
+                                 GasConstant(1.0, Unit::HeatCapacity::JoulePerKelvin)),
             IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin));
 
   EXPECT_EQ(IsobaricHeatCapacity(
-                HeatCapacityRatio(2.0),
-                GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin)),
+                HeatCapacityRatio(2.0), GasConstant(4.0, Unit::HeatCapacity::JoulePerKelvin)),
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
@@ -206,7 +200,7 @@ TEST(GasConstant, MoveAssignmentOperator) {
 
 TEST(GasConstant, MoveConstructor) {
   GasConstant first{1.11, Unit::HeatCapacity::JoulePerKelvin};
-  GasConstant second{std::move(first)};
+  const GasConstant second{std::move(first)};
   EXPECT_EQ(second, GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin));
 }
 
@@ -218,8 +212,7 @@ TEST(GasConstant, MutableValue) {
 }
 
 TEST(GasConstant, Print) {
-  EXPECT_EQ(GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Print(),
-            "1.110000000000000 J/K");
+  EXPECT_EQ(GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Print(), "1.110000000000000 J/K");
   EXPECT_EQ(GasConstant(-2.22, Unit::HeatCapacity::NanojoulePerKelvin)
                 .Print(Unit::HeatCapacity::NanojoulePerKelvin),
             "-2.220000000000000 nJ/K");
@@ -242,16 +235,14 @@ TEST(GasConstant, StandardConstructor) {
 TEST(GasConstant, StaticValue) {
   constexpr GasConstant quantity =
       GasConstant::Create<Unit::HeatCapacity::NanojoulePerKelvin>(1.11);
-  constexpr double value =
-      quantity.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
+  constexpr double value = quantity.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
   EXPECT_EQ(value, 1.11);
 }
 
 TEST(GasConstant, Stream) {
   std::ostringstream stream;
   stream << GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(stream.str(),
-            GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Print());
+  EXPECT_EQ(stream.str(), GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Print());
 }
 
 TEST(GasConstant, Unit) {
@@ -259,8 +250,7 @@ TEST(GasConstant, Unit) {
 }
 
 TEST(GasConstant, Value) {
-  EXPECT_EQ(
-      GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Value(), 1.11);
+  EXPECT_EQ(GasConstant(1.11, Unit::HeatCapacity::JoulePerKelvin).Value(), 1.11);
   EXPECT_EQ(GasConstant(1.11, Unit::HeatCapacity::NanojoulePerKelvin)
                 .Value(Unit::HeatCapacity::NanojoulePerKelvin),
             1.11);
@@ -283,8 +273,7 @@ TEST(GasConstant, YAML) {
 }
 
 TEST(GasConstant, Zero) {
-  EXPECT_EQ(GasConstant::Zero(),
-            GasConstant(0.0, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(GasConstant::Zero(), GasConstant(0.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 }  // namespace

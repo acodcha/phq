@@ -1,21 +1,22 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Base.hpp"
 
 #include <gtest/gtest.h>
+#include <optional>
+#include <string>
+#include <vector>
 
 namespace PhQ {
 
@@ -101,28 +102,21 @@ TEST(Base, PrintDefault) {
             "-0."
             "001234567890123457");
   EXPECT_EQ(Print(-0.001), "-0.001000000000000000");
-  EXPECT_EQ(
-      Print(-0.000123456789012345678901234567890), "-1.234567890123457e-04");
+  EXPECT_EQ(Print(-0.000123456789012345678901234567890), "-1.234567890123457e-04");
   EXPECT_EQ(Print(-0.0001), "-1.000000000000000e-04");
-  EXPECT_EQ(
-      Print(-0.0000123456789012345678901234567890), "-1.234567890123457e-05");
+  EXPECT_EQ(Print(-0.0000123456789012345678901234567890), "-1.234567890123457e-05");
   EXPECT_EQ(Print(-0.00001), "-1.000000000000000e-05");
-  EXPECT_EQ(
-      Print(-0.00000123456789012345678901234567890), "-1.234567890123457e-06");
+  EXPECT_EQ(Print(-0.00000123456789012345678901234567890), "-1.234567890123457e-06");
   EXPECT_EQ(Print(-0.000001), "-1.000000000000000e-06");
-  EXPECT_EQ(
-      Print(-0.000000123456789012345678901234567890), "-1.234567890123457e-07");
+  EXPECT_EQ(Print(-0.000000123456789012345678901234567890), "-1.234567890123457e-07");
   EXPECT_EQ(Print(-0.0000001), "-1.000000000000000e-07");
   EXPECT_EQ(Print(0.0), "0");
   EXPECT_EQ(Print(0.0000001), "1.000000000000000e-07");
-  EXPECT_EQ(
-      Print(0.000000123456789012345678901234567890), "1.234567890123457e-07");
+  EXPECT_EQ(Print(0.000000123456789012345678901234567890), "1.234567890123457e-07");
   EXPECT_EQ(Print(0.000001), "1.000000000000000e-06");
-  EXPECT_EQ(
-      Print(0.00000123456789012345678901234567890), "1.234567890123457e-06");
+  EXPECT_EQ(Print(0.00000123456789012345678901234567890), "1.234567890123457e-06");
   EXPECT_EQ(Print(0.00001), "1.000000000000000e-05");
-  EXPECT_EQ(
-      Print(0.0000123456789012345678901234567890), "1.234567890123457e-05");
+  EXPECT_EQ(Print(0.0000123456789012345678901234567890), "1.234567890123457e-05");
   EXPECT_EQ(Print(0.0001), "1.000000000000000e-04");
   EXPECT_EQ(Print(0.000123456789012345678901234567890),
             "1.234567890123457e-"
@@ -152,191 +146,138 @@ TEST(Base, PrintDefault) {
 }
 
 TEST(Base, PrintDoublePrecision) {
-  EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Double),
-            "-1.234567890123457e+07");
+  EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Double), "-1.234567890123457e+07");
   EXPECT_EQ(Print(-10000000.0, Precision::Double), "-1.000000000000000e+07");
-  EXPECT_EQ(Print(-1234567.89012345678901234567890, Precision::Double),
-            "-1.234567890123457e+06");
+  EXPECT_EQ(Print(-1234567.89012345678901234567890, Precision::Double), "-1.234567890123457e+06");
   EXPECT_EQ(Print(-1000000.0, Precision::Double), "-1.000000000000000e+06");
-  EXPECT_EQ(Print(-123456.789012345678901234567890, Precision::Double),
-            "-1.234567890123457e+05");
+  EXPECT_EQ(Print(-123456.789012345678901234567890, Precision::Double), "-1.234567890123457e+05");
   EXPECT_EQ(Print(-100000.0, Precision::Double), "-1.000000000000000e+05");
-  EXPECT_EQ(Print(-12345.6789012345678901234567890, Precision::Double),
-            "-1.234567890123457e+04");
+  EXPECT_EQ(Print(-12345.6789012345678901234567890, Precision::Double), "-1.234567890123457e+04");
   EXPECT_EQ(Print(-10000.0, Precision::Double), "-1.000000000000000e+04");
-  EXPECT_EQ(Print(-1234.56789012345678901234567890, Precision::Double),
-            "-1234.567890123457");
+  EXPECT_EQ(Print(-1234.56789012345678901234567890, Precision::Double), "-1234.567890123457");
   EXPECT_EQ(Print(-1000.0, Precision::Double), "-1000.000000000000");
-  EXPECT_EQ(Print(-123.456789012345678901234567890, Precision::Double),
-            "-123.4567890123457");
+  EXPECT_EQ(Print(-123.456789012345678901234567890, Precision::Double), "-123.4567890123457");
   EXPECT_EQ(Print(-100.0, Precision::Double), "-100.0000000000000");
-  EXPECT_EQ(Print(-12.3456789012345678901234567890, Precision::Double),
-            "-12.34567890123457");
+  EXPECT_EQ(Print(-12.3456789012345678901234567890, Precision::Double), "-12.34567890123457");
   EXPECT_EQ(Print(-10.0, Precision::Double), "-10.00000000000000");
-  EXPECT_EQ(Print(-1.23456789012345678901234567890, Precision::Double),
-            "-1.234567890123457");
+  EXPECT_EQ(Print(-1.23456789012345678901234567890, Precision::Double), "-1.234567890123457");
   EXPECT_EQ(Print(-1.0, Precision::Double), "-1.000000000000000");
-  EXPECT_EQ(Print(-0.123456789012345678901234567890, Precision::Double),
-            "-0.1234567890123457");
+  EXPECT_EQ(Print(-0.123456789012345678901234567890, Precision::Double), "-0.1234567890123457");
   EXPECT_EQ(Print(-0.1, Precision::Double), "-0.1000000000000000");
-  EXPECT_EQ(Print(-0.0123456789012345678901234567890, Precision::Double),
-            "-0.01234567890123457");
+  EXPECT_EQ(Print(-0.0123456789012345678901234567890, Precision::Double), "-0.01234567890123457");
   EXPECT_EQ(Print(-0.01, Precision::Double), "-0.01000000000000000");
-  EXPECT_EQ(Print(-0.00123456789012345678901234567890, Precision::Double),
-            "-0.001234567890123457");
+  EXPECT_EQ(Print(-0.00123456789012345678901234567890, Precision::Double), "-0.001234567890123457");
   EXPECT_EQ(Print(-0.001, Precision::Double), "-0.001000000000000000");
-  EXPECT_EQ(Print(-0.000123456789012345678901234567890, Precision::Double),
-            "-1.234567890123457e-04");
+  EXPECT_EQ(
+      Print(-0.000123456789012345678901234567890, Precision::Double), "-1.234567890123457e-04");
   EXPECT_EQ(Print(-0.0001, Precision::Double), "-1.000000000000000e-04");
-  EXPECT_EQ(Print(-0.0000123456789012345678901234567890, Precision::Double),
-            "-1.234567890123457e-05");
+  EXPECT_EQ(
+      Print(-0.0000123456789012345678901234567890, Precision::Double), "-1.234567890123457e-05");
   EXPECT_EQ(Print(-0.00001, Precision::Double), "-1.000000000000000e-05");
-  EXPECT_EQ(Print(-0.00000123456789012345678901234567890, Precision::Double),
-            "-1.234567890123457e-06");
+  EXPECT_EQ(
+      Print(-0.00000123456789012345678901234567890, Precision::Double), "-1.234567890123457e-06");
   EXPECT_EQ(Print(-0.000001, Precision::Double), "-1.000000000000000e-06");
-  EXPECT_EQ(Print(-0.000000123456789012345678901234567890, Precision::Double),
-            "-1.234567890123457e-07");
+  EXPECT_EQ(
+      Print(-0.000000123456789012345678901234567890, Precision::Double), "-1.234567890123457e-07");
   EXPECT_EQ(Print(-0.0000001, Precision::Double), "-1.000000000000000e-07");
   EXPECT_EQ(Print(0.0, Precision::Double), "0");
   EXPECT_EQ(Print(0.0000001, Precision::Double), "1.000000000000000e-07");
-  EXPECT_EQ(Print(0.000000123456789012345678901234567890, Precision::Double),
-            "1.234567890123457e-07");
+  EXPECT_EQ(
+      Print(0.000000123456789012345678901234567890, Precision::Double), "1.234567890123457e-07");
   EXPECT_EQ(Print(0.000001, Precision::Double), "1.000000000000000e-06");
-  EXPECT_EQ(Print(0.00000123456789012345678901234567890, Precision::Double),
-            "1.234567890123457e-06");
+  EXPECT_EQ(
+      Print(0.00000123456789012345678901234567890, Precision::Double), "1.234567890123457e-06");
   EXPECT_EQ(Print(0.00001, Precision::Double), "1.000000000000000e-05");
-  EXPECT_EQ(Print(0.0000123456789012345678901234567890, Precision::Double),
-            "1.234567890123457e-05");
+  EXPECT_EQ(
+      Print(0.0000123456789012345678901234567890, Precision::Double), "1.234567890123457e-05");
   EXPECT_EQ(Print(0.0001, Precision::Double), "1.000000000000000e-04");
-  EXPECT_EQ(Print(0.000123456789012345678901234567890, Precision::Double),
-            "1.234567890123457e-04");
+  EXPECT_EQ(Print(0.000123456789012345678901234567890, Precision::Double), "1.234567890123457e-04");
   EXPECT_EQ(Print(0.001, Precision::Double), "0.001000000000000000");
-  EXPECT_EQ(Print(0.00123456789012345678901234567890, Precision::Double),
-            "0.001234567890123457");
+  EXPECT_EQ(Print(0.00123456789012345678901234567890, Precision::Double), "0.001234567890123457");
   EXPECT_EQ(Print(0.01, Precision::Double), "0.01000000000000000");
-  EXPECT_EQ(Print(0.0123456789012345678901234567890, Precision::Double),
-            "0.01234567890123457");
+  EXPECT_EQ(Print(0.0123456789012345678901234567890, Precision::Double), "0.01234567890123457");
   EXPECT_EQ(Print(0.1, Precision::Double), "0.1000000000000000");
-  EXPECT_EQ(Print(0.123456789012345678901234567890, Precision::Double),
-            "0.1234567890123457");
+  EXPECT_EQ(Print(0.123456789012345678901234567890, Precision::Double), "0.1234567890123457");
   EXPECT_EQ(Print(1.0, Precision::Double), "1.000000000000000");
-  EXPECT_EQ(Print(1.23456789012345678901234567890, Precision::Double),
-            "1.234567890123457");
+  EXPECT_EQ(Print(1.23456789012345678901234567890, Precision::Double), "1.234567890123457");
   EXPECT_EQ(Print(10.0, Precision::Double), "10.00000000000000");
-  EXPECT_EQ(Print(12.3456789012345678901234567890, Precision::Double),
-            "12.34567890123457");
+  EXPECT_EQ(Print(12.3456789012345678901234567890, Precision::Double), "12.34567890123457");
   EXPECT_EQ(Print(100.0, Precision::Double), "100.0000000000000");
-  EXPECT_EQ(Print(123.456789012345678901234567890, Precision::Double),
-            "123.4567890123457");
+  EXPECT_EQ(Print(123.456789012345678901234567890, Precision::Double), "123.4567890123457");
   EXPECT_EQ(Print(1000.0, Precision::Double), "1000.000000000000");
-  EXPECT_EQ(Print(1234.56789012345678901234567890, Precision::Double),
-            "1234.567890123457");
+  EXPECT_EQ(Print(1234.56789012345678901234567890, Precision::Double), "1234.567890123457");
   EXPECT_EQ(Print(10000.0, Precision::Double), "1.000000000000000e+04");
-  EXPECT_EQ(Print(12345.6789012345678901234567890, Precision::Double),
-            "1.234567890123457e+04");
+  EXPECT_EQ(Print(12345.6789012345678901234567890, Precision::Double), "1.234567890123457e+04");
   EXPECT_EQ(Print(100000.0, Precision::Double), "1.000000000000000e+05");
-  EXPECT_EQ(Print(123456.789012345678901234567890, Precision::Double),
-            "1.234567890123457e+05");
+  EXPECT_EQ(Print(123456.789012345678901234567890, Precision::Double), "1.234567890123457e+05");
   EXPECT_EQ(Print(1000000.0, Precision::Double), "1.000000000000000e+06");
-  EXPECT_EQ(Print(1234567.89012345678901234567890, Precision::Double),
-            "1.234567890123457e+06");
+  EXPECT_EQ(Print(1234567.89012345678901234567890, Precision::Double), "1.234567890123457e+06");
   EXPECT_EQ(Print(10000000.0, Precision::Double), "1.000000000000000e+07");
-  EXPECT_EQ(Print(12345678.9012345678901234567890, Precision::Double),
-            "1.234567890123457e+07");
+  EXPECT_EQ(Print(12345678.9012345678901234567890, Precision::Double), "1.234567890123457e+07");
 }
 
 TEST(Base, PrintSinglePrecision) {
-  EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Single),
-            "-1.234568e+07");
+  EXPECT_EQ(Print(-12345678.9012345678901234567890, Precision::Single), "-1.234568e+07");
   EXPECT_EQ(Print(-10000000.0, Precision::Single), "-1.000000e+07");
-  EXPECT_EQ(Print(-1234567.89012345678901234567890, Precision::Single),
-            "-1.234568e+06");
+  EXPECT_EQ(Print(-1234567.89012345678901234567890, Precision::Single), "-1.234568e+06");
   EXPECT_EQ(Print(-1000000.0, Precision::Single), "-1.000000e+06");
-  EXPECT_EQ(Print(-123456.789012345678901234567890, Precision::Single),
-            "-1.234568e+05");
+  EXPECT_EQ(Print(-123456.789012345678901234567890, Precision::Single), "-1.234568e+05");
   EXPECT_EQ(Print(-100000.0, Precision::Single), "-1.000000e+05");
-  EXPECT_EQ(Print(-12345.6789012345678901234567890, Precision::Single),
-            "-1.234568e+04");
+  EXPECT_EQ(Print(-12345.6789012345678901234567890, Precision::Single), "-1.234568e+04");
   EXPECT_EQ(Print(-10000.0, Precision::Single), "-1.000000e+04");
-  EXPECT_EQ(
-      Print(-1234.56789012345678901234567890, Precision::Single), "-1234.568");
+  EXPECT_EQ(Print(-1234.56789012345678901234567890, Precision::Single), "-1234.568");
   EXPECT_EQ(Print(-1000.0, Precision::Single), "-1000.000");
-  EXPECT_EQ(
-      Print(-123.456789012345678901234567890, Precision::Single), "-123.4568");
+  EXPECT_EQ(Print(-123.456789012345678901234567890, Precision::Single), "-123.4568");
   EXPECT_EQ(Print(-100.0, Precision::Single), "-100.0000");
-  EXPECT_EQ(
-      Print(-12.3456789012345678901234567890, Precision::Single), "-12.34568");
+  EXPECT_EQ(Print(-12.3456789012345678901234567890, Precision::Single), "-12.34568");
   EXPECT_EQ(Print(-10.0, Precision::Single), "-10.00000");
-  EXPECT_EQ(
-      Print(-1.23456789012345678901234567890, Precision::Single), "-1.234568");
+  EXPECT_EQ(Print(-1.23456789012345678901234567890, Precision::Single), "-1.234568");
   EXPECT_EQ(Print(-1.0, Precision::Single), "-1.000000");
-  EXPECT_EQ(Print(-0.123456789012345678901234567890, Precision::Single),
-            "-0.1234568");
+  EXPECT_EQ(Print(-0.123456789012345678901234567890, Precision::Single), "-0.1234568");
   EXPECT_EQ(Print(-0.1, Precision::Single), "-0.1000000");
-  EXPECT_EQ(Print(-0.0123456789012345678901234567890, Precision::Single),
-            "-0.01234568");
+  EXPECT_EQ(Print(-0.0123456789012345678901234567890, Precision::Single), "-0.01234568");
   EXPECT_EQ(Print(-0.01, Precision::Single), "-0.01000000");
-  EXPECT_EQ(Print(-0.00123456789012345678901234567890, Precision::Single),
-            "-0.001234568");
+  EXPECT_EQ(Print(-0.00123456789012345678901234567890, Precision::Single), "-0.001234568");
   EXPECT_EQ(Print(-0.001, Precision::Single), "-0.001000000");
-  EXPECT_EQ(Print(-0.000123456789012345678901234567890, Precision::Single),
-            "-1.234568e-04");
+  EXPECT_EQ(Print(-0.000123456789012345678901234567890, Precision::Single), "-1.234568e-04");
   EXPECT_EQ(Print(-0.0001, Precision::Single), "-1.000000e-04");
-  EXPECT_EQ(Print(-0.0000123456789012345678901234567890, Precision::Single),
-            "-1.234568e-05");
+  EXPECT_EQ(Print(-0.0000123456789012345678901234567890, Precision::Single), "-1.234568e-05");
   EXPECT_EQ(Print(-0.00001, Precision::Single), "-1.000000e-05");
-  EXPECT_EQ(Print(-0.00000123456789012345678901234567890, Precision::Single),
-            "-1.234568e-06");
+  EXPECT_EQ(Print(-0.00000123456789012345678901234567890, Precision::Single), "-1.234568e-06");
   EXPECT_EQ(Print(-0.000001, Precision::Single), "-1.000000e-06");
-  EXPECT_EQ(Print(-0.000000123456789012345678901234567890, Precision::Single),
-            "-1.234568e-07");
+  EXPECT_EQ(Print(-0.000000123456789012345678901234567890, Precision::Single), "-1.234568e-07");
   EXPECT_EQ(Print(-0.0000001, Precision::Single), "-1.000000e-07");
   EXPECT_EQ(Print(0.0, Precision::Single), "0");
   EXPECT_EQ(Print(0.0000001, Precision::Single), "1.000000e-07");
-  EXPECT_EQ(Print(0.000000123456789012345678901234567890, Precision::Single),
-            "1.234568e-07");
+  EXPECT_EQ(Print(0.000000123456789012345678901234567890, Precision::Single), "1.234568e-07");
   EXPECT_EQ(Print(0.000001, Precision::Single), "1.000000e-06");
-  EXPECT_EQ(Print(0.00000123456789012345678901234567890, Precision::Single),
-            "1.234568e-06");
+  EXPECT_EQ(Print(0.00000123456789012345678901234567890, Precision::Single), "1.234568e-06");
   EXPECT_EQ(Print(0.00001, Precision::Single), "1.000000e-05");
-  EXPECT_EQ(Print(0.0000123456789012345678901234567890, Precision::Single),
-            "1.234568e-05");
+  EXPECT_EQ(Print(0.0000123456789012345678901234567890, Precision::Single), "1.234568e-05");
   EXPECT_EQ(Print(0.0001, Precision::Single), "1.000000e-04");
-  EXPECT_EQ(Print(0.000123456789012345678901234567890, Precision::Single),
-            "1.234568e-04");
+  EXPECT_EQ(Print(0.000123456789012345678901234567890, Precision::Single), "1.234568e-04");
   EXPECT_EQ(Print(0.001, Precision::Single), "0.001000000");
-  EXPECT_EQ(Print(0.00123456789012345678901234567890, Precision::Single),
-            "0.001234568");
+  EXPECT_EQ(Print(0.00123456789012345678901234567890, Precision::Single), "0.001234568");
   EXPECT_EQ(Print(0.01, Precision::Single), "0.01000000");
-  EXPECT_EQ(Print(0.0123456789012345678901234567890, Precision::Single),
-            "0.01234568");
+  EXPECT_EQ(Print(0.0123456789012345678901234567890, Precision::Single), "0.01234568");
   EXPECT_EQ(Print(0.1, Precision::Single), "0.1000000");
-  EXPECT_EQ(
-      Print(0.123456789012345678901234567890, Precision::Single), "0.1234568");
+  EXPECT_EQ(Print(0.123456789012345678901234567890, Precision::Single), "0.1234568");
   EXPECT_EQ(Print(1.0, Precision::Single), "1.000000");
-  EXPECT_EQ(
-      Print(1.23456789012345678901234567890, Precision::Single), "1.234568");
+  EXPECT_EQ(Print(1.23456789012345678901234567890, Precision::Single), "1.234568");
   EXPECT_EQ(Print(10.0, Precision::Single), "10.00000");
-  EXPECT_EQ(
-      Print(12.3456789012345678901234567890, Precision::Single), "12.34568");
+  EXPECT_EQ(Print(12.3456789012345678901234567890, Precision::Single), "12.34568");
   EXPECT_EQ(Print(100.0, Precision::Single), "100.0000");
-  EXPECT_EQ(
-      Print(123.456789012345678901234567890, Precision::Single), "123.4568");
+  EXPECT_EQ(Print(123.456789012345678901234567890, Precision::Single), "123.4568");
   EXPECT_EQ(Print(1000.0, Precision::Single), "1000.000");
-  EXPECT_EQ(
-      Print(1234.56789012345678901234567890, Precision::Single), "1234.568");
+  EXPECT_EQ(Print(1234.56789012345678901234567890, Precision::Single), "1234.568");
   EXPECT_EQ(Print(10000.0, Precision::Single), "1.000000e+04");
-  EXPECT_EQ(Print(12345.6789012345678901234567890, Precision::Single),
-            "1.234568e+04");
+  EXPECT_EQ(Print(12345.6789012345678901234567890, Precision::Single), "1.234568e+04");
   EXPECT_EQ(Print(100000.0, Precision::Single), "1.000000e+05");
-  EXPECT_EQ(Print(123456.789012345678901234567890, Precision::Single),
-            "1.234568e+05");
+  EXPECT_EQ(Print(123456.789012345678901234567890, Precision::Single), "1.234568e+05");
   EXPECT_EQ(Print(1000000.0, Precision::Single), "1.000000e+06");
-  EXPECT_EQ(Print(1234567.89012345678901234567890, Precision::Single),
-            "1.234568e+06");
+  EXPECT_EQ(Print(1234567.89012345678901234567890, Precision::Single), "1.234568e+06");
   EXPECT_EQ(Print(10000000.0, Precision::Single), "1.000000e+07");
-  EXPECT_EQ(Print(12345678.9012345678901234567890, Precision::Single),
-            "1.234568e+07");
+  EXPECT_EQ(Print(12345678.9012345678901234567890, Precision::Single), "1.234568e+07");
 }
 
 TEST(Base, Replace) {
@@ -373,9 +314,8 @@ TEST(Base, SnakeCaseCopy) {
 TEST(Base, SplitByWhitespace) {
   EXPECT_EQ(SplitByWhitespace(""), std::vector<std::string>());
   EXPECT_EQ(SplitByWhitespace("aaa bbb   ccc\t\tddd\neee"),
-            std::vector<std::string>(
-                {std::string("aaa"), std::string("bbb"), std::string("ccc"),
-                 std::string("ddd"), std::string("eee")}));
+            std::vector<std::string>({std::string("aaa"), std::string("bbb"), std::string("ccc"),
+                                      std::string("ddd"), std::string("eee")}));
 }
 
 TEST(Base, Uppercase) {

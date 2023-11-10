@@ -1,22 +1,31 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/HeatCapacity.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/ElectricCurrent.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Temperature.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -40,9 +49,8 @@ TEST(UnitHeatCapacity, Abbreviation) {
 TEST(UnitHeatCapacity, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<HeatCapacity>(UnitSystem::MetreKilogramSecondKelvin),
             HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(
-      ConsistentUnit<HeatCapacity>(UnitSystem::MillimetreGramSecondKelvin),
-      HeatCapacity::NanojoulePerKelvin);
+  EXPECT_EQ(ConsistentUnit<HeatCapacity>(UnitSystem::MillimetreGramSecondKelvin),
+            HeatCapacity::NanojoulePerKelvin);
   EXPECT_EQ(ConsistentUnit<HeatCapacity>(UnitSystem::FootPoundSecondRankine),
             HeatCapacity::FootPoundPerRankine);
   EXPECT_EQ(ConsistentUnit<HeatCapacity>(UnitSystem::InchPoundSecondRankine),
@@ -54,8 +62,7 @@ TEST(UnitHeatCapacity, ConvertFromStandard) {
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
                                 HeatCapacity::JoulePerKelvin>(value, value);
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
-                                HeatCapacity::NanojoulePerKelvin>(
-      value, value * 1000000000.0);
+                                HeatCapacity::NanojoulePerKelvin>(value, value * 1000000000.0);
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
                                 HeatCapacity::FootPoundPerRankine>(
       value, value / (0.3048 * 0.45359237 * 9.80665 * 1.8));
@@ -69,8 +76,7 @@ TEST(UnitHeatCapacity, ConvertToStandard) {
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
                                 HeatCapacity::JoulePerKelvin>(value, value);
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::NanojoulePerKelvin,
-                                HeatCapacity::JoulePerKelvin>(
-      value, value * 0.000000001);
+                                HeatCapacity::JoulePerKelvin>(value, value * 0.000000001);
   Internal::TestUnitConversions<HeatCapacity, HeatCapacity::FootPoundPerRankine,
                                 HeatCapacity::JoulePerKelvin>(
       value, value * 0.3048 * 0.45359237 * 9.80665 * 1.8);
@@ -83,28 +89,24 @@ TEST(UnitHeatCapacity, Parse) {
   EXPECT_EQ(Parse<HeatCapacity>("Hello world!"), std::nullopt);
   EXPECT_EQ(Parse<HeatCapacity>("J/K"), HeatCapacity::JoulePerKelvin);
   EXPECT_EQ(Parse<HeatCapacity>("nJ/K"), HeatCapacity::NanojoulePerKelvin);
-  EXPECT_EQ(
-      Parse<HeatCapacity>("ft·lbf/°R"), HeatCapacity::FootPoundPerRankine);
-  EXPECT_EQ(
-      Parse<HeatCapacity>("in·lbf/°R"), HeatCapacity::InchPoundPerRankine);
+  EXPECT_EQ(Parse<HeatCapacity>("ft·lbf/°R"), HeatCapacity::FootPoundPerRankine);
+  EXPECT_EQ(Parse<HeatCapacity>("in·lbf/°R"), HeatCapacity::InchPoundPerRankine);
 }
 
 TEST(UnitHeatCapacity, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<HeatCapacity>,
-      Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
-                 Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
+  EXPECT_EQ(RelatedDimensions<HeatCapacity>,
+            Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1},
+                       Dimension::ElectricCurrent{}, Dimension::Temperature{-1}));
 }
 
 TEST(UnitHeatCapacity, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(HeatCapacity::JoulePerKelvin),
-            UnitSystem::MetreKilogramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(HeatCapacity::NanojoulePerKelvin),
-            UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(HeatCapacity::FootPoundPerRankine),
-            UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(HeatCapacity::InchPoundPerRankine),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(HeatCapacity::JoulePerKelvin), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(HeatCapacity::NanojoulePerKelvin), UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(HeatCapacity::FootPoundPerRankine), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(
+      RelatedUnitSystem(HeatCapacity::InchPoundPerRankine), UnitSystem::InchPoundSecondRankine);
 }
 
 TEST(UnitHeatCapacity, Standard) {

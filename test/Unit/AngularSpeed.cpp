@@ -1,22 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/AngularSpeed.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -55,9 +60,8 @@ TEST(UnitAngularSpeed, Abbreviation) {
 TEST(UnitAngularSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<AngularSpeed>(UnitSystem::MetreKilogramSecondKelvin),
             AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(
-      ConsistentUnit<AngularSpeed>(UnitSystem::MillimetreGramSecondKelvin),
-      AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(ConsistentUnit<AngularSpeed>(UnitSystem::MillimetreGramSecondKelvin),
+            AngularSpeed::RadianPerSecond);
   EXPECT_EQ(ConsistentUnit<AngularSpeed>(UnitSystem::FootPoundSecondRankine),
             AngularSpeed::RadianPerSecond);
   EXPECT_EQ(ConsistentUnit<AngularSpeed>(UnitSystem::InchPoundSecondRankine),
@@ -69,47 +73,33 @@ TEST(UnitAngularSpeed, ConvertFromStandard) {
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
                                 AngularSpeed::RadianPerSecond>(value, value);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::RadianPerMinute>(
-      value, value * 60.0);
+                                AngularSpeed::RadianPerMinute>(value, value * 60.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::RadianPerHour>(
-      value, value * 3600.0);
+                                AngularSpeed::RadianPerHour>(value, value * 3600.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::DegreePerSecond>(
-      value, value * 180.0 / Pi);
+                                AngularSpeed::DegreePerSecond>(value, value * 180.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::DegreePerMinute>(
-      value, value * 10800.0 / Pi);
+                                AngularSpeed::DegreePerMinute>(value, value * 10800.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::DegreePerHour>(
-      value, value * 648000.0 / Pi);
+                                AngularSpeed::DegreePerHour>(value, value * 648000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcminutePerSecond>(
-      value, value * 10800.0 / Pi);
+                                AngularSpeed::ArcminutePerSecond>(value, value * 10800.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcminutePerMinute>(
-      value, value * 648000.0 / Pi);
+                                AngularSpeed::ArcminutePerMinute>(value, value * 648000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcminutePerHour>(
-      value, value * 38880000.0 / Pi);
+                                AngularSpeed::ArcminutePerHour>(value, value * 38880000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcsecondPerSecond>(
-      value, value * 648000.0 / Pi);
+                                AngularSpeed::ArcsecondPerSecond>(value, value * 648000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcsecondPerMinute>(
-      value, value * 38880000.0 / Pi);
+                                AngularSpeed::ArcsecondPerMinute>(value, value * 38880000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::ArcsecondPerHour>(
-      value, value * 2332800000.0 / Pi);
+                                AngularSpeed::ArcsecondPerHour>(value, value * 2332800000.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::RevolutionPerSecond>(
-      value, value * 0.5 / Pi);
+                                AngularSpeed::RevolutionPerSecond>(value, value * 0.5 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::RevolutionPerMinute>(
-      value, value * 30.0 / Pi);
+                                AngularSpeed::RevolutionPerMinute>(value, value * 30.0 / Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
-                                AngularSpeed::RevolutionPerHour>(
-      value, value * 1800.0 / Pi);
+                                AngularSpeed::RevolutionPerHour>(value, value * 1800.0 / Pi);
 }
 
 TEST(UnitAngularSpeed, ConvertToStandard) {
@@ -117,47 +107,33 @@ TEST(UnitAngularSpeed, ConvertToStandard) {
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerSecond,
                                 AngularSpeed::RadianPerSecond>(value, value);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerMinute,
-                                AngularSpeed::RadianPerSecond>(
-      value, value / 60.0);
+                                AngularSpeed::RadianPerSecond>(value, value / 60.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RadianPerHour,
-                                AngularSpeed::RadianPerSecond>(
-      value, value / 3600.0);
+                                AngularSpeed::RadianPerSecond>(value, value / 3600.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::DegreePerSecond,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 180.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 180.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::DegreePerMinute,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 10800.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 10800.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::DegreePerHour,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 648000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 648000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcminutePerSecond,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 10800.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 10800.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcminutePerMinute,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 648000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 648000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcminutePerHour,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 38880000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 38880000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcsecondPerSecond,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 648000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 648000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcsecondPerMinute,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 38880000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 38880000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::ArcsecondPerHour,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 2332800000.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 2332800000.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RevolutionPerSecond,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * 2.0 * Pi);
+                                AngularSpeed::RadianPerSecond>(value, value * 2.0 * Pi);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RevolutionPerMinute,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 30.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 30.0);
   Internal::TestUnitConversions<AngularSpeed, AngularSpeed::RevolutionPerHour,
-                                AngularSpeed::RadianPerSecond>(
-      value, value * Pi / 1800.0);
+                                AngularSpeed::RadianPerSecond>(value, value * Pi / 1800.0);
 }
 
 TEST(UnitAngularSpeed, Parse) {
@@ -169,12 +145,10 @@ TEST(UnitAngularSpeed, Parse) {
   EXPECT_EQ(Parse<AngularSpeed>("deg/min"), AngularSpeed::DegreePerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("deg/hr"), AngularSpeed::DegreePerHour);
   EXPECT_EQ(Parse<AngularSpeed>("arcmin/s"), AngularSpeed::ArcminutePerSecond);
-  EXPECT_EQ(
-      Parse<AngularSpeed>("arcmin/min"), AngularSpeed::ArcminutePerMinute);
+  EXPECT_EQ(Parse<AngularSpeed>("arcmin/min"), AngularSpeed::ArcminutePerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("arcmin/hr"), AngularSpeed::ArcminutePerHour);
   EXPECT_EQ(Parse<AngularSpeed>("arcsec/s"), AngularSpeed::ArcsecondPerSecond);
-  EXPECT_EQ(
-      Parse<AngularSpeed>("arcsec/min"), AngularSpeed::ArcsecondPerMinute);
+  EXPECT_EQ(Parse<AngularSpeed>("arcsec/min"), AngularSpeed::ArcsecondPerMinute);
   EXPECT_EQ(Parse<AngularSpeed>("arcsec/hr"), AngularSpeed::ArcsecondPerHour);
   EXPECT_EQ(Parse<AngularSpeed>("rev/s"), AngularSpeed::RevolutionPerSecond);
   EXPECT_EQ(Parse<AngularSpeed>("rev/min"), AngularSpeed::RevolutionPerMinute);

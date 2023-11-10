@@ -1,21 +1,28 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/MassDensity.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Mass.hpp"
+#include "../include/PhQ/Unit/Mass.hpp"
+#include "../include/PhQ/Unit/MassDensity.hpp"
+#include "../include/PhQ/Unit/Volume.hpp"
+#include "../include/PhQ/Volume.hpp"
 
 namespace PhQ {
 
@@ -35,13 +42,12 @@ TEST(MassDensity, ArithmeticOperatorDivision) {
                 / MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
             4.0);
 
-  EXPECT_EQ(
-      Mass(8.0, Unit::Mass::Kilogram) / Volume(4.0, Unit::Volume::CubicMetre),
-      MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / Volume(4.0, Unit::Volume::CubicMetre),
+            MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
 
-  EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram)
-                / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
-            Volume(2.0, Unit::Volume::CubicMetre));
+  EXPECT_EQ(
+      Mass(8.0, Unit::Mass::Kilogram) / MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
+      Volume(2.0, Unit::Volume::CubicMetre));
 }
 
 TEST(MassDensity, ArithmeticOperatorMultiplication) {
@@ -69,29 +75,25 @@ TEST(MassDensity, ArithmeticOperatorSubtraction) {
 TEST(MassDensity, AssignmentOperatorAddition) {
   MassDensity quantity{1.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity += MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(
-      quantity, MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(quantity, MassDensity(3.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, AssignmentOperatorDivision) {
   MassDensity quantity{8.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(quantity, MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, AssignmentOperatorMultiplication) {
   MassDensity quantity{4.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity *= 2.0;
-  EXPECT_EQ(
-      quantity, MassDensity(8.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(quantity, MassDensity(8.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, AssignmentOperatorSubtraction) {
   MassDensity quantity{3.0, Unit::MassDensity::KilogramPerCubicMetre};
   quantity -= MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(
-      quantity, MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(quantity, MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, ComparisonOperators) {
@@ -123,8 +125,7 @@ TEST(MassDensity, CopyConstructor) {
 TEST(MassDensity, Create) {
   constexpr MassDensity quantity =
       MassDensity::Create<Unit::MassDensity::KilogramPerCubicMetre>(1.11);
-  EXPECT_EQ(
-      quantity, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(quantity, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, DefaultConstructor) {
@@ -154,8 +155,7 @@ TEST(MassDensity, JSON) {
 }
 
 TEST(MassDensity, MiscellaneousConstructor) {
-  EXPECT_EQ(MassDensity(Mass(8.0, Unit::Mass::Kilogram),
-                        Volume(4.0, Unit::Volume::CubicMetre)),
+  EXPECT_EQ(MassDensity(Mass(8.0, Unit::Mass::Kilogram), Volume(4.0, Unit::Volume::CubicMetre)),
             MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
 
   EXPECT_EQ(Mass(MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
@@ -171,15 +171,13 @@ TEST(MassDensity, MoveAssignmentOperator) {
   MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
   MassDensity second = MassDensity::Zero();
   second = std::move(first);
-  EXPECT_EQ(
-      second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, MoveConstructor) {
   MassDensity first{1.11, Unit::MassDensity::KilogramPerCubicMetre};
-  MassDensity second{std::move(first)};
-  EXPECT_EQ(
-      second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
+  const MassDensity second{std::move(first)};
+  EXPECT_EQ(second, MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 TEST(MassDensity, MutableValue) {
@@ -214,17 +212,14 @@ TEST(MassDensity, StandardConstructor) {
 TEST(MassDensity, StaticValue) {
   constexpr MassDensity quantity =
       MassDensity::Create<Unit::MassDensity::GramPerCubicMillimetre>(2.0);
-  constexpr double value =
-      quantity.StaticValue<Unit::MassDensity::GramPerCubicMillimetre>();
+  constexpr double value = quantity.StaticValue<Unit::MassDensity::GramPerCubicMillimetre>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(MassDensity, Stream) {
   std::ostringstream stream;
   stream << MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre);
-  EXPECT_EQ(
-      stream.str(),
-      MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Print());
+  EXPECT_EQ(stream.str(), MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Print());
 }
 
 TEST(MassDensity, Unit) {
@@ -232,8 +227,7 @@ TEST(MassDensity, Unit) {
 }
 
 TEST(MassDensity, Value) {
-  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Value(),
-            1.11);
+  EXPECT_EQ(MassDensity(1.11, Unit::MassDensity::KilogramPerCubicMetre).Value(), 1.11);
   EXPECT_EQ(MassDensity(2.0, Unit::MassDensity::GramPerCubicMillimetre)
                 .Value(Unit::MassDensity::GramPerCubicMillimetre),
             2.0);
@@ -256,8 +250,7 @@ TEST(MassDensity, YAML) {
 }
 
 TEST(MassDensity, Zero) {
-  EXPECT_EQ(MassDensity::Zero(),
-            MassDensity(0.0, Unit::MassDensity::KilogramPerCubicMetre));
+  EXPECT_EQ(MassDensity::Zero(), MassDensity(0.0, Unit::MassDensity::KilogramPerCubicMetre));
 }
 
 }  // namespace

@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/IsothermalBulkModulus.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Pressure.hpp"
 
 namespace PhQ {
 
@@ -111,8 +114,7 @@ TEST(IsothermalBulkModulus, DefaultConstructor) {
 }
 
 TEST(IsothermalBulkModulus, Dimensions) {
-  EXPECT_EQ(
-      IsothermalBulkModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
+  EXPECT_EQ(IsothermalBulkModulus::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
 TEST(IsothermalBulkModulus, Hash) {
@@ -128,9 +130,9 @@ TEST(IsothermalBulkModulus, Hash) {
 TEST(IsothermalBulkModulus, JSON) {
   EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(
+      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+      "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
 }
 
 TEST(IsothermalBulkModulus, MoveAssignmentOperator) {
@@ -142,7 +144,7 @@ TEST(IsothermalBulkModulus, MoveAssignmentOperator) {
 
 TEST(IsothermalBulkModulus, MoveConstructor) {
   IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
-  IsothermalBulkModulus second{std::move(first)};
+  const IsothermalBulkModulus second{std::move(first)};
   EXPECT_EQ(second, IsothermalBulkModulus(1.11, Unit::Pressure::Pascal));
 }
 
@@ -154,11 +156,10 @@ TEST(IsothermalBulkModulus, MutableValue) {
 }
 
 TEST(IsothermalBulkModulus, Print) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print(),
-            "1.110000000000000 Pa");
-  EXPECT_EQ(IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
-            "-2.220000000000000 kPa");
+  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(
+      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+      "-2.220000000000000 kPa");
 }
 
 TEST(IsothermalBulkModulus, SetValue) {
@@ -185,8 +186,7 @@ TEST(IsothermalBulkModulus, StaticValue) {
 TEST(IsothermalBulkModulus, Stream) {
   std::ostringstream stream;
   stream << IsothermalBulkModulus(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(),
-            IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print());
+  EXPECT_EQ(stream.str(), IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print());
 }
 
 TEST(IsothermalBulkModulus, Unit) {
@@ -195,30 +195,29 @@ TEST(IsothermalBulkModulus, Unit) {
 
 TEST(IsothermalBulkModulus, Value) {
   EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(IsothermalBulkModulus(2.0, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            2.0);
+  EXPECT_EQ(
+      IsothermalBulkModulus(2.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal),
+      2.0);
 }
 
 TEST(IsothermalBulkModulus, XML) {
   EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).XML(),
             "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
-            "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(
+      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+      "<value>-2.220000000000000</value><unit>kPa</unit>");
 }
 
 TEST(IsothermalBulkModulus, YAML) {
   EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).YAML(),
             "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
-            "{value:-2.220000000000000,unit:\"kPa\"}");
+  EXPECT_EQ(
+      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+      "{value:-2.220000000000000,unit:\"kPa\"}");
 }
 
 TEST(IsothermalBulkModulus, Zero) {
-  EXPECT_EQ(IsothermalBulkModulus::Zero(),
-            IsothermalBulkModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(IsothermalBulkModulus::Zero(), IsothermalBulkModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

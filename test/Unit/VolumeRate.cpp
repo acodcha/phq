@@ -1,22 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/VolumeRate.hpp"
 
+#include <array>
+#include <cmath>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -135,26 +142,21 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicMetrePerSecond>(value, value);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::CubicYardPerSecond>(
-      value, value / std::pow(0.9144, 3));
+                                VolumeRate::CubicYardPerSecond>(value, value / std::pow(0.9144, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::CubicFootPerSecond>(
-      value, value / std::pow(0.3048, 3));
+                                VolumeRate::CubicFootPerSecond>(value, value / std::pow(0.3048, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicDecimetrePerSecond>(
       value, value * std::pow(10.0, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::LitrePerSecond>(
-      value, value * std::pow(10.0, 3));
+                                VolumeRate::LitrePerSecond>(value, value * std::pow(10.0, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::CubicInchPerSecond>(
-      value, value / std::pow(0.0254, 3));
+                                VolumeRate::CubicInchPerSecond>(value, value / std::pow(0.0254, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicCentimetrePerSecond>(
       value, value * std::pow(100.0, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::MillilitrePerSecond>(
-      value, value * std::pow(100.0, 3));
+                                VolumeRate::MillilitrePerSecond>(value, value * std::pow(100.0, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicMillimetrePerSecond>(
       value, value * std::pow(1000.0, 3));
@@ -174,8 +176,7 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
                                 VolumeRate::CubicKilometrePerMinute>(
       value, value * 60.0 * std::pow(0.001, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::CubicMetrePerMinute>(
-      value, value * 60.0);
+                                VolumeRate::CubicMetrePerMinute>(value, value * 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicYardPerMinute>(
       value, value * 60.0 / std::pow(0.9144, 3));
@@ -216,8 +217,7 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
                                 VolumeRate::CubicKilometrePerHour>(
       value, value * 3600.0 * std::pow(0.001, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
-                                VolumeRate::CubicMetrePerHour>(
-      value, value * 3600.0);
+                                VolumeRate::CubicMetrePerHour>(value, value * 3600.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerSecond,
                                 VolumeRate::CubicYardPerHour>(
       value, value * 3600.0 / std::pow(0.9144, 3));
@@ -270,29 +270,24 @@ TEST(UnitVolumeRate, ConvertToStandard) {
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.3048, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicDecimetrePerSecond,
-                                VolumeRate::CubicMetrePerSecond>(
-      value, value * std::pow(0.1, 3));
+                                VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.1, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::LitrePerSecond,
-                                VolumeRate::CubicMetrePerSecond>(
-      value, value * std::pow(0.1, 3));
+                                VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.1, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicInchPerSecond,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.0254, 3));
-  Internal::TestUnitConversions<
-      VolumeRate, VolumeRate::CubicCentimetrePerSecond,
-      VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.01, 3));
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicCentimetrePerSecond,
+                                VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.01, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::MillilitrePerSecond,
-                                VolumeRate::CubicMetrePerSecond>(
-      value, value * std::pow(0.01, 3));
-  Internal::TestUnitConversions<
-      VolumeRate, VolumeRate::CubicMillimetrePerSecond,
-      VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.001, 3));
+                                VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.01, 3));
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMillimetrePerSecond,
+                                VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.001, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMilliinchPerSecond,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.0000254, 3));
-  Internal::TestUnitConversions<
-      VolumeRate, VolumeRate::CubicMicrometrePerSecond,
-      VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.000001, 3));
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMicrometrePerSecond,
+                                VolumeRate::CubicMetrePerSecond>(
+      value, value * std::pow(0.000001, 3));
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMicroinchPerSecond,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.0000000254, 3));
@@ -303,8 +298,7 @@ TEST(UnitVolumeRate, ConvertToStandard) {
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(1000.0, 3) / 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerMinute,
-                                VolumeRate::CubicMetrePerSecond>(
-      value, value / 60.0);
+                                VolumeRate::CubicMetrePerSecond>(value, value / 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicYardPerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.9144, 3) / 60.0);
@@ -320,21 +314,19 @@ TEST(UnitVolumeRate, ConvertToStandard) {
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicInchPerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.0254, 3) / 60.0);
-  Internal::TestUnitConversions<
-      VolumeRate, VolumeRate::CubicCentimetrePerMinute,
-      VolumeRate::CubicMetrePerSecond>(value, value * std::pow(0.01, 3) / 60.0);
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicCentimetrePerMinute,
+                                VolumeRate::CubicMetrePerSecond>(
+      value, value * std::pow(0.01, 3) / 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::MillilitrePerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.01, 3) / 60.0);
-  Internal::TestUnitConversions<VolumeRate,
-                                VolumeRate::CubicMillimetrePerMinute,
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMillimetrePerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.001, 3) / 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMilliinchPerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.0000254, 3) / 60.0);
-  Internal::TestUnitConversions<VolumeRate,
-                                VolumeRate::CubicMicrometrePerMinute,
+  Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMicrometrePerMinute,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.000001, 3) / 60.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMicroinchPerMinute,
@@ -347,8 +339,7 @@ TEST(UnitVolumeRate, ConvertToStandard) {
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(1000.0, 3) / 3600.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicMetrePerHour,
-                                VolumeRate::CubicMetrePerSecond>(
-      value, value / 3600.0);
+                                VolumeRate::CubicMetrePerSecond>(value, value / 3600.0);
   Internal::TestUnitConversions<VolumeRate, VolumeRate::CubicYardPerHour,
                                 VolumeRate::CubicMetrePerSecond>(
       value, value * std::pow(0.9144, 3) / 3600.0);
@@ -408,17 +399,12 @@ TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("dm^3/min"), VolumeRate::CubicDecimetrePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("L/min"), VolumeRate::LitrePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("in^3/min"), VolumeRate::CubicInchPerMinute);
-  EXPECT_EQ(
-      Parse<VolumeRate>("cm^3/min"), VolumeRate::CubicCentimetrePerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("cm^3/min"), VolumeRate::CubicCentimetrePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("mL/min"), VolumeRate::MillilitrePerMinute);
-  EXPECT_EQ(
-      Parse<VolumeRate>("mm^3/min"), VolumeRate::CubicMillimetrePerMinute);
-  EXPECT_EQ(
-      Parse<VolumeRate>("mil^3/min"), VolumeRate::CubicMilliinchPerMinute);
-  EXPECT_EQ(
-      Parse<VolumeRate>("μm^3/min"), VolumeRate::CubicMicrometrePerMinute);
-  EXPECT_EQ(
-      Parse<VolumeRate>("μin^3/min"), VolumeRate::CubicMicroinchPerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("mm^3/min"), VolumeRate::CubicMillimetrePerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("mil^3/min"), VolumeRate::CubicMilliinchPerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("μm^3/min"), VolumeRate::CubicMicrometrePerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("μin^3/min"), VolumeRate::CubicMicroinchPerMinute);
   EXPECT_EQ(Parse<VolumeRate>("mi^3/hr"), VolumeRate::CubicMilePerHour);
   EXPECT_EQ(Parse<VolumeRate>("km^3/hr"), VolumeRate::CubicKilometrePerHour);
   EXPECT_EQ(Parse<VolumeRate>("m^3/hr"), VolumeRate::CubicMetrePerHour);
@@ -436,56 +422,40 @@ TEST(UnitVolumeRate, Parse) {
 }
 
 TEST(UnitVolumeRate, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<VolumeRate>,
-            Dimensions(Dimension::Time{-1}, Dimension::Length{3}));
+  EXPECT_EQ(RelatedDimensions<VolumeRate>, Dimensions(Dimension::Time{-1}, Dimension::Length{3}));
 }
 
 TEST(UnitVolumeRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerSecond), std::nullopt);
   EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicKilometrePerSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerSecond),
-            UnitSystem::MetreKilogramSecondKelvin);
+      RelatedUnitSystem(VolumeRate::CubicMetrePerSecond), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicYardPerSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicFootPerSecond),
-            UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicDecimetrePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicFootPerSecond), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicDecimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::LitrePerSecond), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicInchPerSecond),
-            UnitSystem::InchPoundSecondRankine);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicCentimetrePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicInchPerSecond), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicCentimetrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::MillilitrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMillimetrePerSecond),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMilliinchPerSecond), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMicrometrePerSecond), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicKilometrePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicYardPerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicFootPerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicDecimetrePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicDecimetrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::LitrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicInchPerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicCentimetrePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicCentimetrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::MillilitrePerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMillimetrePerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMilliinchPerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMicrometrePerMinute), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMicroinchPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMillimetrePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerHour), std::nullopt);
@@ -494,14 +464,11 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicDecimetrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::LitrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicInchPerHour), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicCentimetrePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicCentimetrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::MillilitrePerHour), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMillimetrePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMillimetrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerHour), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(VolumeRate::CubicMicrometrePerHour), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerHour), std::nullopt);
 }
 
