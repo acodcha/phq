@@ -1,21 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/AreaVector.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Area.hpp"
+#include "../include/PhQ/Direction.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Unit/Area.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -109,16 +118,15 @@ TEST(AreaVector, CopyConstructor) {
 }
 
 TEST(AreaVector, Create) {
-  constexpr AreaVector first =
-      AreaVector::Create<Unit::Area::SquareMetre>(1.11, -2.22, 3.33);
+  constexpr AreaVector first = AreaVector::Create<Unit::Area::SquareMetre>(1.11, -2.22, 3.33);
   EXPECT_EQ(first, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 
-  constexpr AreaVector second = AreaVector::Create<Unit::Area::SquareMetre>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
+  constexpr AreaVector second =
+      AreaVector::Create<Unit::Area::SquareMetre>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 
-  constexpr AreaVector third = AreaVector::Create<Unit::Area::SquareMetre>(
-      Value::Vector{1.11, -2.22, 3.33});
+  constexpr AreaVector third =
+      AreaVector::Create<Unit::Area::SquareMetre>(Value::Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
@@ -132,8 +140,7 @@ TEST(AreaVector, Dimensions) {
 
 TEST(AreaVector, Hash) {
   const AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMillimetre);
-  const AreaVector second(
-      {1.11, -2.22, 3.330001}, Unit::Area::SquareMillimetre);
+  const AreaVector second({1.11, -2.22, 3.330001}, Unit::Area::SquareMillimetre);
   const AreaVector third({1.11, 2.22, 3.33}, Unit::Area::SquareMillimetre);
   const std::hash<AreaVector> hash;
   EXPECT_NE(hash(first), hash(second));
@@ -177,7 +184,7 @@ TEST(AreaVector, MoveAssignmentOperator) {
 
 TEST(AreaVector, MoveConstructor) {
   AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  AreaVector second{std::move(first)};
+  const AreaVector second{std::move(first)};
   EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
@@ -207,23 +214,19 @@ TEST(AreaVector, SizeOf) {
 }
 
 TEST(AreaVector, StandardConstructor) {
-  EXPECT_NO_THROW(
-      AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMillimetre));
+  EXPECT_NO_THROW(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMillimetre));
 }
 
 TEST(AreaVector, StaticValue) {
-  constexpr AreaVector quantity =
-      AreaVector::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::Area::SquareMillimetre>();
+  constexpr AreaVector quantity = AreaVector::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
+  constexpr Value::Vector value = quantity.StaticValue<Unit::Area::SquareMillimetre>();
   EXPECT_EQ(value, Value::Vector(1.0, -2.0, 3.0));
 }
 
 TEST(AreaVector, Stream) {
   std::ostringstream stream;
   stream << AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  EXPECT_EQ(stream.str(),
-            AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).Print());
+  EXPECT_EQ(stream.str(), AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).Print());
 }
 
 TEST(AreaVector, Unit) {
@@ -242,10 +245,10 @@ TEST(AreaVector, XML) {
   EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).XML(),
             "<value><x>1.110000000000000</x><y>-2.220000000000000</"
             "y><z>3.330000000000000</z></value><unit>m^2</unit>");
-  EXPECT_EQ(AreaVector({0.0, -2.22, 0.0}, Unit::Area::SquareMillimetre)
-                .XML(Unit::Area::SquareMillimetre),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></"
-            "value><unit>mm^2</unit>");
+  EXPECT_EQ(
+      AreaVector({0.0, -2.22, 0.0}, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
+      "<value><x>0</x><y>-2.220000000000000</y><z>0</z></"
+      "value><unit>mm^2</unit>");
 }
 
 TEST(AreaVector, YAML) {
@@ -258,8 +261,7 @@ TEST(AreaVector, YAML) {
 }
 
 TEST(AreaVector, Zero) {
-  EXPECT_EQ(
-      AreaVector::Zero(), AreaVector({0.0, 0.0, 0.0}, Unit::Area::SquareMetre));
+  EXPECT_EQ(AreaVector::Zero(), AreaVector({0.0, 0.0, 0.0}, Unit::Area::SquareMetre));
 }
 
 }  // namespace

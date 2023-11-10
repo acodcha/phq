@@ -1,22 +1,31 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/Temperature.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/ElectricCurrent.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Temperature.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -38,39 +47,35 @@ TEST(UnitTemperature, Abbreviation) {
 }
 
 TEST(UnitTemperature, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::MetreKilogramSecondKelvin),
-            Temperature::Kelvin);
-  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::MillimetreGramSecondKelvin),
-            Temperature::Kelvin);
-  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::FootPoundSecondRankine),
-            Temperature::Rankine);
-  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::InchPoundSecondRankine),
-            Temperature::Rankine);
+  EXPECT_EQ(
+      ConsistentUnit<Temperature>(UnitSystem::MetreKilogramSecondKelvin), Temperature::Kelvin);
+  EXPECT_EQ(
+      ConsistentUnit<Temperature>(UnitSystem::MillimetreGramSecondKelvin), Temperature::Kelvin);
+  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::FootPoundSecondRankine), Temperature::Rankine);
+  EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::InchPoundSecondRankine), Temperature::Rankine);
 }
 
 TEST(UnitTemperature, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
-                                Temperature::Kelvin>(value, value);
-  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
-                                Temperature::Celsius>(value, value - 273.15);
-  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
-                                Temperature::Rankine>(value, value * 1.8);
-  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
-                                Temperature::Fahrenheit>(
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(
+      value, value);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin, Temperature::Celsius>(
+      value, value - 273.15);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin, Temperature::Rankine>(
+      value, value * 1.8);
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
       value, (value * 1.8) - 459.67);
 }
 
 TEST(UnitTemperature, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Temperature, Temperature::Kelvin,
-                                Temperature::Kelvin>(value, value);
-  Internal::TestUnitConversions<Temperature, Temperature::Celsius,
-                                Temperature::Kelvin>(value, value + 273.15);
-  Internal::TestUnitConversions<Temperature, Temperature::Rankine,
-                                Temperature::Kelvin>(value, value / 1.8);
-  Internal::TestUnitConversions<Temperature, Temperature::Fahrenheit,
-                                Temperature::Kelvin>(
+  Internal::TestUnitConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(
+      value, value);
+  Internal::TestUnitConversions<Temperature, Temperature::Celsius, Temperature::Kelvin>(
+      value, value + 273.15);
+  Internal::TestUnitConversions<Temperature, Temperature::Rankine, Temperature::Kelvin>(
+      value, value / 1.8);
+  Internal::TestUnitConversions<Temperature, Temperature::Fahrenheit, Temperature::Kelvin>(
       value, (value + 459.67) / 1.8);
 }
 
@@ -83,10 +88,9 @@ TEST(UnitTemperature, Parse) {
 }
 
 TEST(UnitTemperature, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<Temperature>,
-      Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
-                 Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
+  EXPECT_EQ(RelatedDimensions<Temperature>,
+            Dimensions(Dimension::Time{}, Dimension::Length{}, Dimension::Mass{},
+                       Dimension::ElectricCurrent{}, Dimension::Temperature{1}));
 }
 
 TEST(UnitTemperature, RelatedUnitSystem) {

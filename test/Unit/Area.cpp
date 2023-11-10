@@ -1,22 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/Area.hpp"
 
+#include <array>
+#include <cmath>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -24,12 +31,9 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<Area, 14> Units = {
-    Area::SquareMile,       Area::SquareKilometre,
-    Area::Hectare,          Area::Acre,
-    Area::SquareMetre,      Area::SquareYard,
-    Area::SquareFoot,       Area::SquareDecimetre,
-    Area::SquareInch,       Area::SquareCentimetre,
-    Area::SquareMillimetre, Area::SquareMilliinch,
+    Area::SquareMile,       Area::SquareKilometre,  Area::Hectare,          Area::Acre,
+    Area::SquareMetre,      Area::SquareYard,       Area::SquareFoot,       Area::SquareDecimetre,
+    Area::SquareInch,       Area::SquareCentimetre, Area::SquareMillimetre, Area::SquareMilliinch,
     Area::SquareMicrometre, Area::SquareMicroinch,
 };
 
@@ -51,14 +55,10 @@ TEST(UnitArea, Abbreviation) {
 }
 
 TEST(UnitArea, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::MetreKilogramSecondKelvin),
-            Area::SquareMetre);
-  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::MillimetreGramSecondKelvin),
-            Area::SquareMillimetre);
-  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::FootPoundSecondRankine),
-            Area::SquareFoot);
-  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::InchPoundSecondRankine),
-            Area::SquareInch);
+  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::MetreKilogramSecondKelvin), Area::SquareMetre);
+  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::MillimetreGramSecondKelvin), Area::SquareMillimetre);
+  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::FootPoundSecondRankine), Area::SquareFoot);
+  EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::InchPoundSecondRankine), Area::SquareInch);
 }
 
 TEST(UnitArea, ConvertFromStandard) {
@@ -67,12 +67,10 @@ TEST(UnitArea, ConvertFromStandard) {
       value, value / std::pow(1609.344, 2));
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareKilometre>(
       value, value * std::pow(0.001, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Hectare>(
-      value, value * 0.0001);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Hectare>(value, value * 0.0001);
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Acre>(
       value, value * 640.0 / std::pow(1609.344, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(
-      value, value);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(value, value);
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareYard>(
       value, value / std::pow(0.9144, 2));
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareFoot>(
@@ -81,16 +79,13 @@ TEST(UnitArea, ConvertFromStandard) {
       value, value * std::pow(10.0, 2));
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareInch>(
       value, value / std::pow(0.0254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre,
-                                Area::SquareCentimetre>(
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareCentimetre>(
       value, value * std::pow(100.0, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre,
-                                Area::SquareMillimetre>(
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMillimetre>(
       value, value * std::pow(1000.0, 2));
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMilliinch>(
       value, value / std::pow(0.0000254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre,
-                                Area::SquareMicrometre>(
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMicrometre>(
       value, value * std::pow(1000000.0, 2));
   Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMicroinch>(
       value, value / std::pow(0.0000000254, 2));
@@ -102,12 +97,10 @@ TEST(UnitArea, ConvertToStandard) {
       value, value * std::pow(1609.344, 2));
   Internal::TestUnitConversions<Area, Area::SquareKilometre, Area::SquareMetre>(
       value, value * std::pow(1000.0, 2));
-  Internal::TestUnitConversions<Area, Area::Hectare, Area::SquareMetre>(
-      value, value * 10000.0);
+  Internal::TestUnitConversions<Area, Area::Hectare, Area::SquareMetre>(value, value * 10000.0);
   Internal::TestUnitConversions<Area, Area::Acre, Area::SquareMetre>(
       value, value * std::pow(1609.344, 2) / 640.0);
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(
-      value, value);
+  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(value, value);
   Internal::TestUnitConversions<Area, Area::SquareYard, Area::SquareMetre>(
       value, value * std::pow(0.9144, 2));
   Internal::TestUnitConversions<Area, Area::SquareFoot, Area::SquareMetre>(
@@ -116,16 +109,13 @@ TEST(UnitArea, ConvertToStandard) {
       value, value * std::pow(0.1, 2));
   Internal::TestUnitConversions<Area, Area::SquareInch, Area::SquareMetre>(
       value, value * std::pow(0.0254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareCentimetre,
-                                Area::SquareMetre>(
+  Internal::TestUnitConversions<Area, Area::SquareCentimetre, Area::SquareMetre>(
       value, value * std::pow(0.01, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMillimetre,
-                                Area::SquareMetre>(
+  Internal::TestUnitConversions<Area, Area::SquareMillimetre, Area::SquareMetre>(
       value, value * std::pow(0.001, 2));
   Internal::TestUnitConversions<Area, Area::SquareMilliinch, Area::SquareMetre>(
       value, value * std::pow(0.0000254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMicrometre,
-                                Area::SquareMetre>(
+  Internal::TestUnitConversions<Area, Area::SquareMicrometre, Area::SquareMetre>(
       value, value * std::pow(0.000001, 2));
   Internal::TestUnitConversions<Area, Area::SquareMicroinch, Area::SquareMetre>(
       value, value * std::pow(0.0000000254, 2));
@@ -150,8 +140,7 @@ TEST(UnitArea, Parse) {
 }
 
 TEST(UnitArea, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Area>,
-            Dimensions(Dimension::Time{0}, Dimension::Length{2}));
+  EXPECT_EQ(RelatedDimensions<Area>, Dimensions(Dimension::Time{0}, Dimension::Length{2}));
 }
 
 TEST(UnitArea, RelatedUnitSystem) {
@@ -159,17 +148,13 @@ TEST(UnitArea, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(Area::SquareKilometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::Hectare), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::Acre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Area::SquareMetre),
-            UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Area::SquareMetre), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareYard), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Area::SquareFoot), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Area::SquareFoot), UnitSystem::FootPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareDecimetre), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Area::SquareInch), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Area::SquareInch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareCentimetre), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Area::SquareMillimetre),
-            UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Area::SquareMillimetre), UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMilliinch), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMicrometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMicroinch), std::nullopt);

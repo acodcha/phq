@@ -1,21 +1,33 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Traction.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Area.hpp"
+#include "../include/PhQ/Force.hpp"
+#include "../include/PhQ/StaticPressure.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Unit/Area.hpp"
+#include "../include/PhQ/Unit/Force.hpp"
+#include "../include/PhQ/Unit/Pressure.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -37,8 +49,7 @@ TEST(Traction, ArithmeticOperatorDivision) {
   EXPECT_EQ(Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal) / 2.0,
             Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(Force({2.0, -4.0, 6.0}, Unit::Force::Newton)
-                / Area(2.0, Unit::Area::SquareMetre),
+  EXPECT_EQ(Force({2.0, -4.0, 6.0}, Unit::Force::Newton) / Area(2.0, Unit::Area::SquareMetre),
             Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 }
 
@@ -49,13 +60,11 @@ TEST(Traction, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal),
             Traction({2.0, -4.0, 6.0}, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(
-      Direction(2.0, -3.0, 6.0) * StaticPressure(7.0, Unit::Pressure::Pascal),
-      Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * StaticPressure(7.0, Unit::Pressure::Pascal),
+            Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(
-      StaticPressure(7.0, Unit::Pressure::Pascal) * Direction(2.0, -3.0, 6.0),
-      Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(StaticPressure(7.0, Unit::Pressure::Pascal) * Direction(2.0, -3.0, 6.0),
+            Traction({-2.0, 3.0, -6.0}, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, ArithmeticOperatorSubtraction) {
@@ -115,16 +124,15 @@ TEST(Traction, CopyConstructor) {
 }
 
 TEST(Traction, Create) {
-  constexpr Traction first =
-      Traction::Create<Unit::Pressure::Pascal>(1.11, -2.22, 3.33);
+  constexpr Traction first = Traction::Create<Unit::Pressure::Pascal>(1.11, -2.22, 3.33);
   EXPECT_EQ(first, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 
-  constexpr Traction second = Traction::Create<Unit::Pressure::Pascal>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
+  constexpr Traction second =
+      Traction::Create<Unit::Pressure::Pascal>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 
-  constexpr Traction third = Traction::Create<Unit::Pressure::Pascal>(
-      Value::Vector{1.11, -2.22, 3.33});
+  constexpr Traction third =
+      Traction::Create<Unit::Pressure::Pascal>(Value::Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
@@ -148,12 +156,11 @@ TEST(Traction, Hash) {
 
 TEST(Traction, JSON) {
   EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,"
-            "\"z\":3.330000000000000},\"unit\":\"Pa\"}");
-  EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":"
-            "\"kPa\"}");
+            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
+            "\"unit\":\"Pa\"}");
+  EXPECT_EQ(
+      Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+      "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"kPa\"}");
 }
 
 TEST(Traction, Magnitude) {
@@ -172,13 +179,13 @@ TEST(Traction, MiscellaneousConstructors) {
   EXPECT_EQ(StaticPressure(Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal)),
             StaticPressure(-7.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(Traction(Force({2.0, -4.0, 6.0}, Unit::Force::Newton),
-                     Area(2.0, Unit::Area::SquareMetre)),
-            Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      Traction(Force({2.0, -4.0, 6.0}, Unit::Force::Newton), Area(2.0, Unit::Area::SquareMetre)),
+      Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(Force(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal),
-                  Area(2.0, Unit::Area::SquareMetre)),
-            Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
+  EXPECT_EQ(
+      Force(Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
+      Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 }
 
 TEST(Traction, MoveAssignmentOperator) {
@@ -190,7 +197,7 @@ TEST(Traction, MoveAssignmentOperator) {
 
 TEST(Traction, MoveConstructor) {
   Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Traction second{std::move(first)};
+  const Traction second{std::move(first)};
   EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
@@ -204,9 +211,9 @@ TEST(Traction, MutableValue) {
 TEST(Traction, Print) {
   EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Print(),
             "(1.110000000000000, -2.220000000000000, 3.330000000000000) Pa");
-  EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
-            "(0, -2.220000000000000, 0) kPa");
+  EXPECT_EQ(
+      Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+      "(0, -2.220000000000000, 0) kPa");
 }
 
 TEST(Traction, SetValue) {
@@ -224,18 +231,15 @@ TEST(Traction, StandardConstructor) {
 }
 
 TEST(Traction, StaticValue) {
-  constexpr Traction quantity =
-      Traction::Create<Unit::Pressure::Kilopascal>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::Pressure::Kilopascal>();
+  constexpr Traction quantity = Traction::Create<Unit::Pressure::Kilopascal>(1.11, -2.22, 3.33);
+  constexpr Value::Vector value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Traction, Stream) {
   std::ostringstream stream;
   stream << Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(),
-            Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Print());
+  EXPECT_EQ(stream.str(), Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Print());
 }
 
 TEST(Traction, Unit) {
@@ -245,33 +249,29 @@ TEST(Traction, Unit) {
 TEST(Traction, Value) {
   EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Value(),
             Value::Vector(1.11, -2.22, 3.33));
-  EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Traction({1.11, -2.22, 3.33}, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal),
+      Value::Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Traction, XML) {
   EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</"
-            "y><z>3.330000000000000</z></value><unit>Pa</unit>");
-  EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></"
-            "value><unit>kPa</unit>");
+            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
+            "value><unit>Pa</unit>");
+  EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>kPa</unit>");
 }
 
 TEST(Traction, YAML) {
   EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).YAML(),
-            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3."
-            "330000000000000},unit:\"Pa\"}");
-  EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
-            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"kPa\"}");
+            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"Pa\"}");
+  EXPECT_EQ(
+      Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+      "{value:{x:0,y:-2.220000000000000,z:0},unit:\"kPa\"}");
 }
 
 TEST(Traction, Zero) {
-  EXPECT_EQ(
-      Traction::Zero(), Traction({0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
+  EXPECT_EQ(Traction::Zero(), Traction({0.0, 0.0, 0.0}, Unit::Pressure::Pascal));
 }
 
 }  // namespace

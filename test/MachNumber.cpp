@@ -1,21 +1,27 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/MachNumber.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/SoundSpeed.hpp"
+#include "../include/PhQ/Speed.hpp"
+#include "../include/PhQ/Unit/Speed.hpp"
 
 namespace PhQ {
 
@@ -30,8 +36,7 @@ TEST(MachNumber, ArithmeticOperatorDivision) {
 
   EXPECT_EQ(MachNumber(8.0) / MachNumber(2.0), 4.0);
 
-  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
-                / SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
+  EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
             MachNumber(2.0));
 }
 
@@ -128,13 +133,11 @@ TEST(MachNumber, MiscellaneousConstructors) {
                        SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
             MachNumber(2.0));
 
-  EXPECT_EQ(
-      SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
-      SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
+            SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
 
-  EXPECT_EQ(
-      Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
-      Speed(8.0, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
+            Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(MachNumber, MoveAssignmentOperator) {
@@ -146,7 +149,7 @@ TEST(MachNumber, MoveAssignmentOperator) {
 
 TEST(MachNumber, MoveConstructor) {
   MachNumber first{1.11};
-  MachNumber second{std::move(first)};
+  const MachNumber second{std::move(first)};
   EXPECT_EQ(second, MachNumber(1.11));
 }
 

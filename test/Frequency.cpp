@@ -1,60 +1,54 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Frequency.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Time.hpp"
+#include "../include/PhQ/Unit/Frequency.hpp"
+#include "../include/PhQ/Unit/Time.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Frequency, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz)
-                + Frequency(2.0, Unit::Frequency::Hertz),
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz) + Frequency(2.0, Unit::Frequency::Hertz),
             Frequency(3.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, ArithmeticOperatorDivision) {
-  EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / 2.0,
-            Frequency(4.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / 2.0, Frequency(4.0, Unit::Frequency::Hertz));
 
-  EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz)
-                / Frequency(2.0, Unit::Frequency::Hertz),
-            4.0);
+  EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / Frequency(2.0, Unit::Frequency::Hertz), 4.0);
 }
 
 TEST(Frequency, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * 2.0,
-            Frequency(8.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * 2.0, Frequency(8.0, Unit::Frequency::Hertz));
 
-  EXPECT_EQ(2.0 * Frequency(4.0, Unit::Frequency::Hertz),
-            Frequency(8.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(2.0 * Frequency(4.0, Unit::Frequency::Hertz), Frequency(8.0, Unit::Frequency::Hertz));
 
-  EXPECT_EQ(
-      Frequency(4.0, Unit::Frequency::Hertz) * Time(2.0, Unit::Time::Second),
-      8.0);
+  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Time(2.0, Unit::Time::Second), 8.0);
 
-  EXPECT_EQ(
-      Time(4.0, Unit::Time::Second) * Frequency(2.0, Unit::Frequency::Hertz),
-      8.0);
+  EXPECT_EQ(Time(4.0, Unit::Time::Second) * Frequency(2.0, Unit::Frequency::Hertz), 8.0);
 }
 
 TEST(Frequency, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Frequency(3.0, Unit::Frequency::Hertz)
-                - Frequency(2.0, Unit::Frequency::Hertz),
+  EXPECT_EQ(Frequency(3.0, Unit::Frequency::Hertz) - Frequency(2.0, Unit::Frequency::Hertz),
             Frequency(1.0, Unit::Frequency::Hertz));
 }
 
@@ -109,8 +103,7 @@ TEST(Frequency, CopyConstructor) {
 }
 
 TEST(Frequency, Create) {
-  constexpr Frequency quantity =
-      Frequency::Create<Unit::Frequency::Hertz>(1.11);
+  constexpr Frequency quantity = Frequency::Create<Unit::Frequency::Hertz>(1.11);
   EXPECT_EQ(quantity, Frequency(1.11, Unit::Frequency::Hertz));
 }
 
@@ -135,21 +128,17 @@ TEST(Frequency, Hash) {
 TEST(Frequency, JSON) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Hz\"}");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz)
-                .JSON(Unit::Frequency::Kilohertz),
+  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).JSON(Unit::Frequency::Kilohertz),
             "{\"value\":-2.220000000000000,\"unit\":\"kHz\"}");
 }
 
 TEST(Frequency, MiscellaneousConstructors) {
-  EXPECT_EQ(Time(Frequency(0.5, Unit::Frequency::Hertz)),
-            Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Time(Frequency(0.5, Unit::Frequency::Hertz)), Time(2.0, Unit::Time::Second));
 }
 
 TEST(Frequency, MiscellaneousMethods) {
-  EXPECT_EQ(Frequency(0.5, Unit::Frequency::Hertz).Period(),
-            Time(2.0, Unit::Time::Second));
-  EXPECT_EQ(Time(0.5, Unit::Time::Second).Frequency(),
-            Frequency(2.0, Unit::Frequency::Hertz));
+  EXPECT_EQ(Frequency(0.5, Unit::Frequency::Hertz).Period(), Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Time(0.5, Unit::Time::Second).Frequency(), Frequency(2.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, MoveAssignmentOperator) {
@@ -161,7 +150,7 @@ TEST(Frequency, MoveAssignmentOperator) {
 
 TEST(Frequency, MoveConstructor) {
   Frequency first{1.11, Unit::Frequency::Hertz};
-  Frequency second{std::move(first)};
+  const Frequency second{std::move(first)};
   EXPECT_EQ(second, Frequency(1.11, Unit::Frequency::Hertz));
 }
 
@@ -173,10 +162,8 @@ TEST(Frequency, MutableValue) {
 }
 
 TEST(Frequency, Print) {
-  EXPECT_EQ(
-      Frequency(1.11, Unit::Frequency::Hertz).Print(), "1.110000000000000 Hz");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz)
-                .Print(Unit::Frequency::Kilohertz),
+  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).Print(), "1.110000000000000 Hz");
+  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).Print(Unit::Frequency::Kilohertz),
             "-2.220000000000000 kHz");
 }
 
@@ -195,8 +182,7 @@ TEST(Frequency, StandardConstructor) {
 }
 
 TEST(Frequency, StaticValue) {
-  constexpr Frequency quantity =
-      Frequency::Create<Unit::Frequency::Kilohertz>(1.11);
+  constexpr Frequency quantity = Frequency::Create<Unit::Frequency::Kilohertz>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
   EXPECT_EQ(value, 1.11);
 }
@@ -213,24 +199,20 @@ TEST(Frequency, Unit) {
 
 TEST(Frequency, Value) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).Value(), 1.11);
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Kilohertz)
-                .Value(Unit::Frequency::Kilohertz),
-            1.11);
+  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Kilohertz).Value(Unit::Frequency::Kilohertz), 1.11);
 }
 
 TEST(Frequency, XML) {
   EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).XML(),
             "<value>1.110000000000000</value><unit>Hz</unit>");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz)
-                .XML(Unit::Frequency::Kilohertz),
+  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).XML(Unit::Frequency::Kilohertz),
             "<value>-2.220000000000000</value><unit>kHz</unit>");
 }
 
 TEST(Frequency, YAML) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).YAML(),
-            "{value:1.110000000000000,unit:\"Hz\"}");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz)
-                .YAML(Unit::Frequency::Kilohertz),
+  EXPECT_EQ(
+      Frequency(1.11, Unit::Frequency::Hertz).YAML(), "{value:1.110000000000000,unit:\"Hz\"}");
+  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).YAML(Unit::Frequency::Kilohertz),
             "{value:-2.220000000000000,unit:\"kHz\"}");
 }
 

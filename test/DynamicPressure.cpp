@@ -1,39 +1,46 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/DynamicPressure.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/MassDensity.hpp"
+#include "../include/PhQ/Speed.hpp"
+#include "../include/PhQ/Unit/MassDensity.hpp"
+#include "../include/PhQ/Unit/Pressure.hpp"
+#include "../include/PhQ/Unit/Speed.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(DynamicPressure, ArithmeticOperatorAddition) {
-  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal)
-                + DynamicPressure(2.0, Unit::Pressure::Pascal),
-            DynamicPressure(3.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      DynamicPressure(1.0, Unit::Pressure::Pascal) + DynamicPressure(2.0, Unit::Pressure::Pascal),
+      DynamicPressure(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, ArithmeticOperatorDivision) {
   EXPECT_EQ(DynamicPressure(8.0, Unit::Pressure::Pascal) / 2.0,
             DynamicPressure(4.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(DynamicPressure(8.0, Unit::Pressure::Pascal)
-                / DynamicPressure(2.0, Unit::Pressure::Pascal),
-            4.0);
+  EXPECT_EQ(
+      DynamicPressure(8.0, Unit::Pressure::Pascal) / DynamicPressure(2.0, Unit::Pressure::Pascal),
+      4.0);
 }
 
 TEST(DynamicPressure, ArithmeticOperatorMultiplication) {
@@ -45,9 +52,9 @@ TEST(DynamicPressure, ArithmeticOperatorMultiplication) {
 }
 
 TEST(DynamicPressure, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(DynamicPressure(3.0, Unit::Pressure::Pascal)
-                - DynamicPressure(2.0, Unit::Pressure::Pascal),
-            DynamicPressure(1.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      DynamicPressure(3.0, Unit::Pressure::Pascal) - DynamicPressure(2.0, Unit::Pressure::Pascal),
+      DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, AssignmentOperatorAddition) {
@@ -101,8 +108,7 @@ TEST(DynamicPressure, CopyConstructor) {
 }
 
 TEST(DynamicPressure, Create) {
-  constexpr DynamicPressure quantity =
-      DynamicPressure::Create<Unit::Pressure::Pascal>(1.11);
+  constexpr DynamicPressure quantity = DynamicPressure::Create<Unit::Pressure::Pascal>(1.11);
   EXPECT_EQ(quantity, DynamicPressure(1.11, Unit::Pressure::Pascal));
 }
 
@@ -127,15 +133,13 @@ TEST(DynamicPressure, Hash) {
 TEST(DynamicPressure, JSON) {
   EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
             "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
 }
 
 TEST(DynamicPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(DynamicPressure(
-                MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
-                Speed(4.0, Unit::Speed::MetrePerSecond)),
+  EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
+                            Speed(4.0, Unit::Speed::MetrePerSecond)),
             DynamicPressure(16.0, Unit::Pressure::Pascal));
 
   EXPECT_EQ(MassDensity(DynamicPressure(16.0, Unit::Pressure::Pascal),
@@ -156,7 +160,7 @@ TEST(DynamicPressure, MoveAssignmentOperator) {
 
 TEST(DynamicPressure, MoveConstructor) {
   DynamicPressure first{1.11, Unit::Pressure::Pascal};
-  DynamicPressure second{std::move(first)};
+  const DynamicPressure second{std::move(first)};
   EXPECT_EQ(second, DynamicPressure(1.11, Unit::Pressure::Pascal));
 }
 
@@ -168,10 +172,8 @@ TEST(DynamicPressure, MutableValue) {
 }
 
 TEST(DynamicPressure, Print) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).Print(),
-            "1.110000000000000 Pa");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
             "-2.220000000000000 kPa");
 }
 
@@ -190,8 +192,7 @@ TEST(DynamicPressure, StandardConstructor) {
 }
 
 TEST(DynamicPressure, StaticValue) {
-  constexpr DynamicPressure quantity =
-      DynamicPressure::Create<Unit::Pressure::Kilopascal>(1.11);
+  constexpr DynamicPressure quantity = DynamicPressure::Create<Unit::Pressure::Kilopascal>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.11);
 }
@@ -199,8 +200,7 @@ TEST(DynamicPressure, StaticValue) {
 TEST(DynamicPressure, Stream) {
   std::ostringstream stream;
   stream << DynamicPressure(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(
-      stream.str(), DynamicPressure(1.11, Unit::Pressure::Pascal).Print());
+  EXPECT_EQ(stream.str(), DynamicPressure(1.11, Unit::Pressure::Pascal).Print());
 }
 
 TEST(DynamicPressure, Unit) {
@@ -209,30 +209,26 @@ TEST(DynamicPressure, Unit) {
 
 TEST(DynamicPressure, Value) {
   EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            1.11);
+  EXPECT_EQ(
+      DynamicPressure(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
 }
 
 TEST(DynamicPressure, XML) {
   EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).XML(),
             "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
             "<value>-2.220000000000000</value><unit>kPa</unit>");
 }
 
 TEST(DynamicPressure, YAML) {
   EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).YAML(),
             "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
             "{value:-2.220000000000000,unit:\"kPa\"}");
 }
 
 TEST(DynamicPressure, Zero) {
-  EXPECT_EQ(
-      DynamicPressure::Zero(), DynamicPressure(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(DynamicPressure::Zero(), DynamicPressure(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

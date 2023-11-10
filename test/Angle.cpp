@@ -1,21 +1,25 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Angle.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -27,19 +31,15 @@ TEST(Angle, ArithmeticOperatorAddition) {
 }
 
 TEST(Angle, ArithmeticOperatorDivision) {
-  EXPECT_EQ(
-      Angle(8.0, Unit::Angle::Radian) / 2.0, Angle(4.0, Unit::Angle::Radian));
+  EXPECT_EQ(Angle(8.0, Unit::Angle::Radian) / 2.0, Angle(4.0, Unit::Angle::Radian));
 
-  EXPECT_EQ(
-      Angle(8.0, Unit::Angle::Radian) / Angle(2.0, Unit::Angle::Radian), 4.0);
+  EXPECT_EQ(Angle(8.0, Unit::Angle::Radian) / Angle(2.0, Unit::Angle::Radian), 4.0);
 }
 
 TEST(Angle, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(
-      Angle(4.0, Unit::Angle::Radian) * 2.0, Angle(8.0, Unit::Angle::Radian));
+  EXPECT_EQ(Angle(4.0, Unit::Angle::Radian) * 2.0, Angle(8.0, Unit::Angle::Radian));
 
-  EXPECT_EQ(
-      2.0 * Angle(4.0, Unit::Angle::Radian), Angle(8.0, Unit::Angle::Radian));
+  EXPECT_EQ(2.0 * Angle(4.0, Unit::Angle::Radian), Angle(8.0, Unit::Angle::Radian));
 }
 
 TEST(Angle, ArithmeticOperatorSubtraction) {
@@ -121,8 +121,8 @@ TEST(Angle, Hash) {
 }
 
 TEST(Angle, JSON) {
-  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"rad\"}");
+  EXPECT_EQ(
+      Angle(1.11, Unit::Angle::Radian).JSON(), "{\"value\":1.110000000000000,\"unit\":\"rad\"}");
   EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).JSON(Unit::Angle::Degree),
             "{\"value\":-2.220000000000000,\"unit\":\"deg\"}");
 }
@@ -130,15 +130,13 @@ TEST(Angle, JSON) {
 TEST(Angle, MiscellaneousConstructors) {
   const Value::Vector first{1.0, 0.0, 0.0};
   const Value::Vector second{0.0, 0.0, -1.0};
-  EXPECT_DOUBLE_EQ(
-      Angle(first, second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(Angle(first, second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
 }
 
 TEST(Angle, MiscellaneousMethods) {
   const Value::Vector first{1.0, 0.0, 0.0};
   const Value::Vector second{0.0, 0.0, -1.0};
-  EXPECT_DOUBLE_EQ(
-      first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
+  EXPECT_DOUBLE_EQ(first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
 }
 
 TEST(Angle, MoveAssignmentOperator) {
@@ -150,7 +148,7 @@ TEST(Angle, MoveAssignmentOperator) {
 
 TEST(Angle, MoveConstructor) {
   Angle first{1.11, Unit::Angle::Radian};
-  Angle second{std::move(first)};
+  const Angle second{std::move(first)};
   EXPECT_EQ(second, Angle(1.11, Unit::Angle::Radian));
 }
 
@@ -163,8 +161,7 @@ TEST(Angle, MutableValue) {
 
 TEST(Angle, Print) {
   EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).Print(), "1.110000000000000 rad");
-  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).Print(Unit::Angle::Degree),
-            "-2.220000000000000 deg");
+  EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).Print(Unit::Angle::Degree), "-2.220000000000000 deg");
 }
 
 TEST(Angle, SetValue) {
@@ -203,15 +200,14 @@ TEST(Angle, Value) {
 }
 
 TEST(Angle, XML) {
-  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).XML(),
-            "<value>1.110000000000000</value><unit>rad</unit>");
+  EXPECT_EQ(
+      Angle(1.11, Unit::Angle::Radian).XML(), "<value>1.110000000000000</value><unit>rad</unit>");
   EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).XML(Unit::Angle::Degree),
             "<value>-2.220000000000000</value><unit>deg</unit>");
 }
 
 TEST(Angle, YAML) {
-  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).YAML(),
-            "{value:1.110000000000000,unit:\"rad\"}");
+  EXPECT_EQ(Angle(1.11, Unit::Angle::Radian).YAML(), "{value:1.110000000000000,unit:\"rad\"}");
   EXPECT_EQ(Angle(-2.22, Unit::Angle::Degree).YAML(Unit::Angle::Degree),
             "{value:-2.220000000000000,unit:\"deg\"}");
 }

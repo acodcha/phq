@@ -1,29 +1,32 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Time.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Time.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Time, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Time(1.0, Unit::Time::Second) + Time(2.0, Unit::Time::Second),
-            Time(3.0, Unit::Time::Second));
+  EXPECT_EQ(
+      Time(1.0, Unit::Time::Second) + Time(2.0, Unit::Time::Second), Time(3.0, Unit::Time::Second));
 }
 
 TEST(Time, ArithmeticOperatorDivision) {
@@ -39,8 +42,8 @@ TEST(Time, ArithmeticOperatorMultiplication) {
 }
 
 TEST(Time, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Time(3.0, Unit::Time::Second) - Time(2.0, Unit::Time::Second),
-            Time(1.0, Unit::Time::Second));
+  EXPECT_EQ(
+      Time(3.0, Unit::Time::Second) - Time(2.0, Unit::Time::Second), Time(1.0, Unit::Time::Second));
 }
 
 TEST(Time, AssignmentOperatorAddition) {
@@ -117,8 +120,7 @@ TEST(Time, Hash) {
 }
 
 TEST(Time, JSON) {
-  EXPECT_EQ(Time(1.11, Unit::Time::Second).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"s\"}");
+  EXPECT_EQ(Time(1.11, Unit::Time::Second).JSON(), "{\"value\":1.110000000000000,\"unit\":\"s\"}");
   EXPECT_EQ(Time(-2.22, Unit::Time::Minute).JSON(Unit::Time::Minute),
             "{\"value\":-2.220000000000000,\"unit\":\"min\"}");
 }
@@ -132,7 +134,7 @@ TEST(Time, MoveAssignmentOperator) {
 
 TEST(Time, MoveConstructor) {
   Time first{1.11, Unit::Time::Second};
-  Time second{std::move(first)};
+  const Time second{std::move(first)};
   EXPECT_EQ(second, Time(1.11, Unit::Time::Second));
 }
 
@@ -145,8 +147,7 @@ TEST(Time, MutableValue) {
 
 TEST(Time, Print) {
   EXPECT_EQ(Time(1.11, Unit::Time::Second).Print(), "1.110000000000000 s");
-  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).Print(Unit::Time::Minute),
-            "-2.220000000000000 min");
+  EXPECT_EQ(Time(-2.22, Unit::Time::Minute).Print(Unit::Time::Minute), "-2.220000000000000 min");
 }
 
 TEST(Time, SetValue) {
@@ -185,15 +186,13 @@ TEST(Time, Value) {
 }
 
 TEST(Time, XML) {
-  EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(),
-            "<value>1.110000000000000</value><unit>s</unit>");
+  EXPECT_EQ(Time(1.11, Unit::Time::Second).XML(), "<value>1.110000000000000</value><unit>s</unit>");
   EXPECT_EQ(Time(-2.22, Unit::Time::Minute).XML(Unit::Time::Minute),
             "<value>-2.220000000000000</value><unit>min</unit>");
 }
 
 TEST(Time, YAML) {
-  EXPECT_EQ(Time(1.11, Unit::Time::Second).YAML(),
-            "{value:1.110000000000000,unit:\"s\"}");
+  EXPECT_EQ(Time(1.11, Unit::Time::Second).YAML(), "{value:1.110000000000000,unit:\"s\"}");
   EXPECT_EQ(Time(-2.22, Unit::Time::Minute).YAML(Unit::Time::Minute),
             "{value:-2.220000000000000,unit:\"min\"}");
 }

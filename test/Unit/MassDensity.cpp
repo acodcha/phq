@@ -1,22 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/MassDensity.hpp"
 
+#include <array>
+#include <cmath>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -52,11 +60,9 @@ TEST(UnitMassDensity, ConsistentUnit) {
 TEST(UnitMassDensity, ConvertFromStandard) {
   constexpr double value{10.0};
   Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
-                                MassDensity::KilogramPerCubicMetre>(
-      value, value);
+                                MassDensity::KilogramPerCubicMetre>(value, value);
   Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
-                                MassDensity::GramPerCubicMillimetre>(
-      value, value * 0.000001);
+                                MassDensity::GramPerCubicMillimetre>(value, value * 0.000001);
   Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
                                 MassDensity::SlugPerCubicFoot>(
       value, value * std::pow(0.3048, 4) / (0.45359237 * 9.80665));
@@ -74,11 +80,9 @@ TEST(UnitMassDensity, ConvertFromStandard) {
 TEST(UnitMassDensity, ConvertToStandard) {
   constexpr double value{10.0};
   Internal::TestUnitConversions<MassDensity, MassDensity::KilogramPerCubicMetre,
-                                MassDensity::KilogramPerCubicMetre>(
-      value, value);
-  Internal::TestUnitConversions<
-      MassDensity, MassDensity::GramPerCubicMillimetre,
-      MassDensity::KilogramPerCubicMetre>(value, value * 1000000.0);
+                                MassDensity::KilogramPerCubicMetre>(value, value);
+  Internal::TestUnitConversions<MassDensity, MassDensity::GramPerCubicMillimetre,
+                                MassDensity::KilogramPerCubicMetre>(value, value * 1000000.0);
   Internal::TestUnitConversions<MassDensity, MassDensity::SlugPerCubicFoot,
                                 MassDensity::KilogramPerCubicMetre>(
       value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 4));
@@ -104,20 +108,17 @@ TEST(UnitMassDensity, Parse) {
 }
 
 TEST(UnitMassDensity, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<MassDensity>,
-      Dimensions(Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
+  EXPECT_EQ(RelatedDimensions<MassDensity>,
+            Dimensions(Dimension::Time{}, Dimension::Length{-3}, Dimension::Mass{1}));
 }
 
 TEST(UnitMassDensity, RelatedUnitSystem) {
-  EXPECT_EQ(RelatedUnitSystem(MassDensity::KilogramPerCubicMetre),
-            UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(
+      RelatedUnitSystem(MassDensity::KilogramPerCubicMetre), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(MassDensity::GramPerCubicMillimetre),
             UnitSystem::MillimetreGramSecondKelvin);
-  EXPECT_EQ(RelatedUnitSystem(MassDensity::SlugPerCubicFoot),
-            UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(RelatedUnitSystem(MassDensity::SlinchPerCubicInch),
-            UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(MassDensity::SlugPerCubicFoot), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(MassDensity::SlinchPerCubicInch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(MassDensity::PoundPerCubicFoot), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(MassDensity::PoundPerCubicInch), std::nullopt);
 }

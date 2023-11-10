@@ -1,48 +1,51 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Strain.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Strain, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0)
-                + Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+  EXPECT_EQ(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) + Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
             Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0));
 }
 
 TEST(Strain, ArithmeticOperatorDivision) {
-  EXPECT_EQ(Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / 2.0,
-            Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  EXPECT_EQ(
+      Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0) / 2.0, Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(Strain, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * 2.0,
-            Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
+  EXPECT_EQ(
+      Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0) * 2.0, Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 
-  EXPECT_EQ(2.0 * Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0),
-            Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
+  EXPECT_EQ(
+      2.0 * Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0), Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0));
 }
 
 TEST(Strain, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0)
-                - Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
+  EXPECT_EQ(Strain(3.0, -6.0, 9.0, -12.0, 15.0, -18.0) - Strain(2.0, -4.0, 6.0, -8.0, 10.0, -12.0),
             Strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
@@ -116,9 +119,8 @@ TEST(Strain, Hash) {
 
 TEST(Strain, JSON) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).JSON(),
-            "{\"xx\":1.110000000000000,\"xy\":-2.220000000000000,\"xz\":3."
-            "330000000000000,\"yy\":-4.440000000000000,\"yz\":5."
-            "550000000000000,\"zz\":-6.660000000000000}");
+            "{\"xx\":1.110000000000000,\"xy\":-2.220000000000000,\"xz\":3.330000000000000,\"yy\":-"
+            "4.440000000000000,\"yz\":5.550000000000000,\"zz\":-6.660000000000000}");
 }
 
 TEST(Strain, MoveAssignmentOperator) {
@@ -130,7 +132,7 @@ TEST(Strain, MoveAssignmentOperator) {
 
 TEST(Strain, MoveConstructor) {
   Strain first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  Strain second{std::move(first)};
+  const Strain second{std::move(first)};
   EXPECT_EQ(second, Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
@@ -138,22 +140,19 @@ TEST(Strain, MutableValue) {
   Strain quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
   Value::SymmetricDyad& value = quantity.MutableValue();
   value = Value::SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  EXPECT_EQ(quantity.Value(),
-            Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Strain, Print) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).Print(),
-            "(1.110000000000000, -2.220000000000000, 3.330000000000000; "
-            "-4.440000000000000, 5.550000000000000; -6.660000000000000)");
+            "(1.110000000000000, -2.220000000000000, 3.330000000000000; -4.440000000000000, "
+            "5.550000000000000; -6.660000000000000)");
 }
 
 TEST(Strain, SetValue) {
   Strain quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  quantity.SetValue(
-      Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
-  EXPECT_EQ(quantity.Value(),
-            Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  quantity.SetValue(Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Strain, SizeOf) {
@@ -161,26 +160,16 @@ TEST(Strain, SizeOf) {
 }
 
 TEST(Strain, StandardConstructor) {
-  constexpr std::array<double, 6> array{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  EXPECT_EQ(Strain(array), Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
-
-  std::array<double, 6> movable_array{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  EXPECT_EQ(Strain(std::move(movable_array)),
+  EXPECT_EQ(Strain(std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
             Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
-
-  constexpr Value::SymmetricDyad value{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  EXPECT_EQ(Strain(value), Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
-
-  Value::SymmetricDyad movable_value{1.11, -2.22, 3.33, -4.44, 5.55, -6.66};
-  EXPECT_EQ(Strain(std::move(movable_value)),
+  EXPECT_EQ(Strain(Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
             Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(Strain, Stream) {
   std::ostringstream stream;
   stream << Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  EXPECT_EQ(
-      stream.str(), Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).Print());
+  EXPECT_EQ(stream.str(), Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).Print());
 }
 
 TEST(Strain, Value) {
@@ -190,16 +179,14 @@ TEST(Strain, Value) {
 
 TEST(Strain, XML) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).XML(),
-            "<xx>1.110000000000000</xx><xy>-2.220000000000000</"
-            "xy><xz>3.330000000000000</xz><yy>-4.440000000000000</"
-            "yy><yz>5.550000000000000</yz><zz>-6.660000000000000</zz>");
+            "<xx>1.110000000000000</xx><xy>-2.220000000000000</xy><xz>3.330000000000000</"
+            "xz><yy>-4.440000000000000</yy><yz>5.550000000000000</yz><zz>-6.660000000000000</zz>");
 }
 
 TEST(Strain, YAML) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).YAML(),
-            "{xx:1.110000000000000,xy:-2.220000000000000,xz:3.330000000000000,"
-            "yy:-4.440000000000000,yz:5.550000000000000,zz:-6."
-            "660000000000000}");
+            "{xx:1.110000000000000,xy:-2.220000000000000,xz:3.330000000000000,yy:-4."
+            "440000000000000,yz:5.550000000000000,zz:-6.660000000000000}");
 }
 
 TEST(Strain, Zero) {

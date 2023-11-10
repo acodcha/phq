@@ -1,22 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/Mass.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -36,42 +43,32 @@ TEST(UnitMass, Abbreviation) {
 }
 
 TEST(UnitMass, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::MetreKilogramSecondKelvin),
-            Mass::Kilogram);
-  EXPECT_EQ(
-      ConsistentUnit<Mass>(UnitSystem::MillimetreGramSecondKelvin), Mass::Gram);
-  EXPECT_EQ(
-      ConsistentUnit<Mass>(UnitSystem::FootPoundSecondRankine), Mass::Slug);
-  EXPECT_EQ(
-      ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
+  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::MetreKilogramSecondKelvin), Mass::Kilogram);
+  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::MillimetreGramSecondKelvin), Mass::Gram);
+  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::FootPoundSecondRankine), Mass::Slug);
+  EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
 TEST(UnitMass, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Kilogram>(
-      value, value);
-  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Gram>(
-      value, value * 1000.0);
+  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
+  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Gram>(value, value * 1000.0);
   Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Slug>(
       value, value * 0.3048 / (0.45359237 * 9.80665));
   Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Slinch>(
       value, value * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Pound>(
-      value, value / 0.45359237);
+  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Pound>(value, value / 0.45359237);
 }
 
 TEST(UnitMass, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Kilogram>(
-      value, value);
-  Internal::TestUnitConversions<Mass, Mass::Gram, Mass::Kilogram>(
-      value, value * 0.001);
+  Internal::TestUnitConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
+  Internal::TestUnitConversions<Mass, Mass::Gram, Mass::Kilogram>(value, value * 0.001);
   Internal::TestUnitConversions<Mass, Mass::Slug, Mass::Kilogram>(
       value, value * 0.45359237 * 9.80665 / 0.3048);
   Internal::TestUnitConversions<Mass, Mass::Slinch, Mass::Kilogram>(
       value, value * 0.45359237 * 9.80665 / 0.0254);
-  Internal::TestUnitConversions<Mass, Mass::Pound, Mass::Kilogram>(
-      value, value * 0.45359237);
+  Internal::TestUnitConversions<Mass, Mass::Pound, Mass::Kilogram>(value, value * 0.45359237);
 }
 
 TEST(UnitMass, Parse) {
@@ -84,19 +81,15 @@ TEST(UnitMass, Parse) {
 }
 
 TEST(UnitMass, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<Mass>,
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
+  EXPECT_EQ(RelatedDimensions<Mass>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{1}));
 }
 
 TEST(UnitMass, RelatedUnitSystem) {
-  EXPECT_EQ(
-      RelatedUnitSystem(Mass::Kilogram), UnitSystem::MetreKilogramSecondKelvin);
-  EXPECT_EQ(
-      RelatedUnitSystem(Mass::Gram), UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Mass::Kilogram), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Mass::Gram), UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Mass::Slug), UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(
-      RelatedUnitSystem(Mass::Slinch), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Mass::Slinch), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Mass::Pound), std::nullopt);
 }
 

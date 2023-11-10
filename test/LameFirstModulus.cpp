@@ -1,39 +1,42 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/LameFirstModulus.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Pressure.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(LameFirstModulus, ArithmeticOperatorAddition) {
-  EXPECT_EQ(LameFirstModulus(1.0, Unit::Pressure::Pascal)
-                + LameFirstModulus(2.0, Unit::Pressure::Pascal),
-            LameFirstModulus(3.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      LameFirstModulus(1.0, Unit::Pressure::Pascal) + LameFirstModulus(2.0, Unit::Pressure::Pascal),
+      LameFirstModulus(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(LameFirstModulus, ArithmeticOperatorDivision) {
   EXPECT_EQ(LameFirstModulus(8.0, Unit::Pressure::Pascal) / 2.0,
             LameFirstModulus(4.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(LameFirstModulus(8.0, Unit::Pressure::Pascal)
-                / LameFirstModulus(2.0, Unit::Pressure::Pascal),
-            4.0);
+  EXPECT_EQ(
+      LameFirstModulus(8.0, Unit::Pressure::Pascal) / LameFirstModulus(2.0, Unit::Pressure::Pascal),
+      4.0);
 }
 
 TEST(LameFirstModulus, ArithmeticOperatorMultiplication) {
@@ -45,9 +48,9 @@ TEST(LameFirstModulus, ArithmeticOperatorMultiplication) {
 }
 
 TEST(LameFirstModulus, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(LameFirstModulus(3.0, Unit::Pressure::Pascal)
-                - LameFirstModulus(2.0, Unit::Pressure::Pascal),
-            LameFirstModulus(1.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      LameFirstModulus(3.0, Unit::Pressure::Pascal) - LameFirstModulus(2.0, Unit::Pressure::Pascal),
+      LameFirstModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(LameFirstModulus, AssignmentOperatorAddition) {
@@ -101,8 +104,7 @@ TEST(LameFirstModulus, CopyConstructor) {
 }
 
 TEST(LameFirstModulus, Create) {
-  constexpr LameFirstModulus quantity =
-      LameFirstModulus::Create<Unit::Pressure::Pascal>(1.11);
+  constexpr LameFirstModulus quantity = LameFirstModulus::Create<Unit::Pressure::Pascal>(1.11);
   EXPECT_EQ(quantity, LameFirstModulus(1.11, Unit::Pressure::Pascal));
 }
 
@@ -127,8 +129,7 @@ TEST(LameFirstModulus, Hash) {
 TEST(LameFirstModulus, JSON) {
   EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
             "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
 }
 
@@ -141,7 +142,7 @@ TEST(LameFirstModulus, MoveAssignmentOperator) {
 
 TEST(LameFirstModulus, MoveConstructor) {
   LameFirstModulus first{1.11, Unit::Pressure::Pascal};
-  LameFirstModulus second{std::move(first)};
+  const LameFirstModulus second{std::move(first)};
   EXPECT_EQ(second, LameFirstModulus(1.11, Unit::Pressure::Pascal));
 }
 
@@ -153,10 +154,8 @@ TEST(LameFirstModulus, MutableValue) {
 }
 
 TEST(LameFirstModulus, Print) {
-  EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).Print(),
-            "1.110000000000000 Pa");
-  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
             "-2.220000000000000 kPa");
 }
 
@@ -175,8 +174,7 @@ TEST(LameFirstModulus, StandardConstructor) {
 }
 
 TEST(LameFirstModulus, StaticValue) {
-  constexpr LameFirstModulus quantity =
-      LameFirstModulus::Create<Unit::Pressure::Kilopascal>(1.11);
+  constexpr LameFirstModulus quantity = LameFirstModulus::Create<Unit::Pressure::Kilopascal>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.11);
 }
@@ -184,8 +182,7 @@ TEST(LameFirstModulus, StaticValue) {
 TEST(LameFirstModulus, Stream) {
   std::ostringstream stream;
   stream << LameFirstModulus(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(
-      stream.str(), LameFirstModulus(1.11, Unit::Pressure::Pascal).Print());
+  EXPECT_EQ(stream.str(), LameFirstModulus(1.11, Unit::Pressure::Pascal).Print());
 }
 
 TEST(LameFirstModulus, Unit) {
@@ -194,30 +191,26 @@ TEST(LameFirstModulus, Unit) {
 
 TEST(LameFirstModulus, Value) {
   EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            1.11);
+  EXPECT_EQ(
+      LameFirstModulus(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
 }
 
 TEST(LameFirstModulus, XML) {
   EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).XML(),
             "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
             "<value>-2.220000000000000</value><unit>kPa</unit>");
 }
 
 TEST(LameFirstModulus, YAML) {
   EXPECT_EQ(LameFirstModulus(1.11, Unit::Pressure::Pascal).YAML(),
             "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(LameFirstModulus(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
             "{value:-2.220000000000000,unit:\"kPa\"}");
 }
 
 TEST(LameFirstModulus, Zero) {
-  EXPECT_EQ(
-      LameFirstModulus::Zero(), LameFirstModulus(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(LameFirstModulus::Zero(), LameFirstModulus(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

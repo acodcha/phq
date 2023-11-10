@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Mass.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Mass.hpp"
 
 namespace PhQ {
 
@@ -27,19 +30,15 @@ TEST(Mass, ArithmeticOperatorAddition) {
 }
 
 TEST(Mass, ArithmeticOperatorDivision) {
-  EXPECT_EQ(
-      Mass(8.0, Unit::Mass::Kilogram) / 2.0, Mass(4.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / 2.0, Mass(4.0, Unit::Mass::Kilogram));
 
-  EXPECT_EQ(
-      Mass(8.0, Unit::Mass::Kilogram) / Mass(2.0, Unit::Mass::Kilogram), 4.0);
+  EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / Mass(2.0, Unit::Mass::Kilogram), 4.0);
 }
 
 TEST(Mass, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(
-      Mass(4.0, Unit::Mass::Kilogram) * 2.0, Mass(8.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(Mass(4.0, Unit::Mass::Kilogram) * 2.0, Mass(8.0, Unit::Mass::Kilogram));
 
-  EXPECT_EQ(
-      2.0 * Mass(4.0, Unit::Mass::Kilogram), Mass(8.0, Unit::Mass::Kilogram));
+  EXPECT_EQ(2.0 * Mass(4.0, Unit::Mass::Kilogram), Mass(8.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, ArithmeticOperatorSubtraction) {
@@ -121,8 +120,8 @@ TEST(Mass, Hash) {
 }
 
 TEST(Mass, JSON) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"kg\"}");
+  EXPECT_EQ(
+      Mass(1.11, Unit::Mass::Kilogram).JSON(), "{\"value\":1.110000000000000,\"unit\":\"kg\"}");
   EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).JSON(Unit::Mass::Gram),
             "{\"value\":-2.220000000000000,\"unit\":\"g\"}");
 }
@@ -136,7 +135,7 @@ TEST(Mass, MoveAssignmentOperator) {
 
 TEST(Mass, MoveConstructor) {
   Mass first{1.11, Unit::Mass::Kilogram};
-  Mass second{std::move(first)};
+  const Mass second{std::move(first)};
   EXPECT_EQ(second, Mass(1.11, Unit::Mass::Kilogram));
 }
 
@@ -149,8 +148,7 @@ TEST(Mass, MutableValue) {
 
 TEST(Mass, Print) {
   EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Print(), "1.110000000000000 kg");
-  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).Print(Unit::Mass::Gram),
-            "-2.220000000000000 g");
+  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).Print(Unit::Mass::Gram), "-2.220000000000000 g");
 }
 
 TEST(Mass, SetValue) {
@@ -189,15 +187,14 @@ TEST(Mass, Value) {
 }
 
 TEST(Mass, XML) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).XML(),
-            "<value>1.110000000000000</value><unit>kg</unit>");
+  EXPECT_EQ(
+      Mass(1.11, Unit::Mass::Kilogram).XML(), "<value>1.110000000000000</value><unit>kg</unit>");
   EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).XML(Unit::Mass::Gram),
             "<value>-2.220000000000000</value><unit>g</unit>");
 }
 
 TEST(Mass, YAML) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).YAML(),
-            "{value:1.110000000000000,unit:\"kg\"}");
+  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).YAML(), "{value:1.110000000000000,unit:\"kg\"}");
   EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).YAML(Unit::Mass::Gram),
             "{value:-2.220000000000000,unit:\"g\"}");
 }

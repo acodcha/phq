@@ -1,60 +1,57 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Area.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Length.hpp"
+#include "../include/PhQ/Unit/Area.hpp"
+#include "../include/PhQ/Unit/Length.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Area, ArithmeticOperatorAddition) {
-  EXPECT_EQ(
-      Area(1.0, Unit::Area::SquareMetre) + Area(2.0, Unit::Area::SquareMetre),
-      Area(3.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(Area(1.0, Unit::Area::SquareMetre) + Area(2.0, Unit::Area::SquareMetre),
+            Area(3.0, Unit::Area::SquareMetre));
 }
 
 TEST(Area, ArithmeticOperatorDivision) {
-  EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / 2.0,
-            Area(4.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / 2.0, Area(4.0, Unit::Area::SquareMetre));
 
-  EXPECT_EQ(
-      Area(8.0, Unit::Area::SquareMetre) / Area(2.0, Unit::Area::SquareMetre),
-      4.0);
+  EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / Area(2.0, Unit::Area::SquareMetre), 4.0);
 
-  EXPECT_EQ(
-      Area(8.0, Unit::Area::SquareMetre) / Length(4.0, Unit::Length::Metre),
-      Length(2.0, Unit::Length::Metre));
+  EXPECT_EQ(Area(8.0, Unit::Area::SquareMetre) / Length(4.0, Unit::Length::Metre),
+            Length(2.0, Unit::Length::Metre));
 }
 
 TEST(Area, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * 2.0,
-            Area(8.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * 2.0, Area(8.0, Unit::Area::SquareMetre));
 
-  EXPECT_EQ(2.0 * Area(4.0, Unit::Area::SquareMetre),
-            Area(8.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(2.0 * Area(4.0, Unit::Area::SquareMetre), Area(8.0, Unit::Area::SquareMetre));
 
   EXPECT_EQ(Length(4.0, Unit::Length::Metre) * Length(2.0, Unit::Length::Metre),
             Area(8.0, Unit::Area::SquareMetre));
 }
 
 TEST(Area, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(
-      Area(3.0, Unit::Area::SquareMetre) - Area(2.0, Unit::Area::SquareMetre),
-      Area(1.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(Area(3.0, Unit::Area::SquareMetre) - Area(2.0, Unit::Area::SquareMetre),
+            Area(1.0, Unit::Area::SquareMetre));
 }
 
 TEST(Area, AssignmentOperatorAddition) {
@@ -131,10 +128,9 @@ TEST(Area, Hash) {
 }
 
 TEST(Area, JSON) {
-  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"m^2\"}");
-  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
-                .JSON(Unit::Area::SquareMillimetre),
+  EXPECT_EQ(
+      Area(1.11, Unit::Area::SquareMetre).JSON(), "{\"value\":1.110000000000000,\"unit\":\"m^2\"}");
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre).JSON(Unit::Area::SquareMillimetre),
             "{\"value\":-2.220000000000000,\"unit\":\"mm^2\"}");
 }
 
@@ -147,7 +143,7 @@ TEST(Area, MoveAssignmentOperator) {
 
 TEST(Area, MoveConstructor) {
   Area first{1.11, Unit::Area::SquareMetre};
-  Area second{std::move(first)};
+  const Area second{std::move(first)};
   EXPECT_EQ(second, Area(1.11, Unit::Area::SquareMetre));
 }
 
@@ -159,10 +155,8 @@ TEST(Area, MutableValue) {
 }
 
 TEST(Area, Print) {
-  EXPECT_EQ(
-      Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000000000000 m^2");
-  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
-                .Print(Unit::Area::SquareMillimetre),
+  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).Print(), "1.110000000000000 m^2");
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre).Print(Unit::Area::SquareMillimetre),
             "-2.220000000000000 mm^2");
 }
 
@@ -198,24 +192,19 @@ TEST(Area, Unit) {
 
 TEST(Area, Value) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).Value(), 1.11);
-  EXPECT_EQ(Area(2.0, Unit::Area::SquareMillimetre)
-                .Value(Unit::Area::SquareMillimetre),
-            2.0);
+  EXPECT_EQ(Area(2.0, Unit::Area::SquareMillimetre).Value(Unit::Area::SquareMillimetre), 2.0);
 }
 
 TEST(Area, XML) {
   EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).XML(),
             "<value>1.110000000000000</value><unit>m^2</unit>");
-  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
-                .XML(Unit::Area::SquareMillimetre),
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
             "<value>-2.220000000000000</value><unit>mm^2</unit>");
 }
 
 TEST(Area, YAML) {
-  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).YAML(),
-            "{value:1.110000000000000,unit:\"m^2\"}");
-  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre)
-                .YAML(Unit::Area::SquareMillimetre),
+  EXPECT_EQ(Area(1.11, Unit::Area::SquareMetre).YAML(), "{value:1.110000000000000,unit:\"m^2\"}");
+  EXPECT_EQ(Area(-2.22, Unit::Area::SquareMillimetre).YAML(Unit::Area::SquareMillimetre),
             "{value:-2.220000000000000,unit:\"mm^2\"}");
 }
 

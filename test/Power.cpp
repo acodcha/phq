@@ -1,29 +1,38 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Power.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Energy.hpp"
+#include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/Time.hpp"
+#include "../include/PhQ/Unit/Energy.hpp"
+#include "../include/PhQ/Unit/Frequency.hpp"
+#include "../include/PhQ/Unit/Power.hpp"
+#include "../include/PhQ/Unit/Time.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Power, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Power(1.0, Unit::Power::Watt) + Power(2.0, Unit::Power::Watt),
-            Power(3.0, Unit::Power::Watt));
+  EXPECT_EQ(
+      Power(1.0, Unit::Power::Watt) + Power(2.0, Unit::Power::Watt), Power(3.0, Unit::Power::Watt));
 }
 
 TEST(Power, ArithmeticOperatorDivision) {
@@ -31,9 +40,8 @@ TEST(Power, ArithmeticOperatorDivision) {
 
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Power(2.0, Unit::Power::Watt), 4.0);
 
-  EXPECT_EQ(
-      Power(8.0, Unit::Power::Watt) / Frequency(4.0, Unit::Frequency::Hertz),
-      Energy(2.0, Unit::Energy::Joule));
+  EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Frequency(4.0, Unit::Frequency::Hertz),
+            Energy(2.0, Unit::Energy::Joule));
 
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Energy(4.0, Unit::Energy::Joule),
             Frequency(2.0, Unit::Frequency::Hertz));
@@ -56,18 +64,16 @@ TEST(Power, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * Power(2.0, Unit::Power::Watt),
             Energy(8.0, Unit::Energy::Joule));
 
-  EXPECT_EQ(
-      Frequency(4.0, Unit::Frequency::Hertz) * Energy(2.0, Unit::Energy::Joule),
-      Power(8.0, Unit::Power::Watt));
+  EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Energy(2.0, Unit::Energy::Joule),
+            Power(8.0, Unit::Power::Watt));
 
-  EXPECT_EQ(
-      Energy(4.0, Unit::Energy::Joule) * Frequency(2.0, Unit::Frequency::Hertz),
-      Power(8.0, Unit::Power::Watt));
+  EXPECT_EQ(Energy(4.0, Unit::Energy::Joule) * Frequency(2.0, Unit::Frequency::Hertz),
+            Power(8.0, Unit::Power::Watt));
 }
 
 TEST(Power, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Power(3.0, Unit::Power::Watt) - Power(2.0, Unit::Power::Watt),
-            Power(1.0, Unit::Power::Watt));
+  EXPECT_EQ(
+      Power(3.0, Unit::Power::Watt) - Power(2.0, Unit::Power::Watt), Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, AssignmentOperatorAddition) {
@@ -144,35 +150,28 @@ TEST(Power, Hash) {
 }
 
 TEST(Power, JSON) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"W\"}");
+  EXPECT_EQ(Power(1.11, Unit::Power::Watt).JSON(), "{\"value\":1.110000000000000,\"unit\":\"W\"}");
   EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).JSON(Unit::Power::Kilowatt),
             "{\"value\":-2.220000000000000,\"unit\":\"kW\"}");
 }
 
 TEST(Power, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Power(Energy(8.0, Unit::Energy::Joule), Time(4.0, Unit::Time::Second)),
-      Power(2.0, Unit::Power::Watt));
+  EXPECT_EQ(Power(Energy(8.0, Unit::Energy::Joule), Time(4.0, Unit::Time::Second)),
+            Power(2.0, Unit::Power::Watt));
 
-  EXPECT_EQ(Power(Energy(4.0, Unit::Energy::Joule),
-                  Frequency(2.0, Unit::Frequency::Hertz)),
+  EXPECT_EQ(Power(Energy(4.0, Unit::Energy::Joule), Frequency(2.0, Unit::Frequency::Hertz)),
             Power(8.0, Unit::Power::Watt));
 
-  EXPECT_EQ(
-      Time(Energy(8.0, Unit::Energy::Joule), Power(4.0, Unit::Power::Watt)),
-      Time(2.0, Unit::Time::Second));
+  EXPECT_EQ(Time(Energy(8.0, Unit::Energy::Joule), Power(4.0, Unit::Power::Watt)),
+            Time(2.0, Unit::Time::Second));
 
-  EXPECT_EQ(Frequency(Power(8.0, Unit::Power::Watt),
-                      Energy(4.0, Unit::Energy::Joule)),
+  EXPECT_EQ(Frequency(Power(8.0, Unit::Power::Watt), Energy(4.0, Unit::Energy::Joule)),
             Frequency(2.0, Unit::Frequency::Hertz));
 
-  EXPECT_EQ(
-      Energy(Power(4.0, Unit::Power::Watt), Time(2.0, Unit::Time::Second)),
-      Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(Energy(Power(4.0, Unit::Power::Watt), Time(2.0, Unit::Time::Second)),
+            Energy(8.0, Unit::Energy::Joule));
 
-  EXPECT_EQ(Energy(Power(8.0, Unit::Power::Watt),
-                   Frequency(4.0, Unit::Frequency::Hertz)),
+  EXPECT_EQ(Energy(Power(8.0, Unit::Power::Watt), Frequency(4.0, Unit::Frequency::Hertz)),
             Energy(2.0, Unit::Energy::Joule));
 }
 
@@ -185,7 +184,7 @@ TEST(Power, MoveAssignmentOperator) {
 
 TEST(Power, MoveConstructor) {
   Power first{1.11, Unit::Power::Watt};
-  Power second{std::move(first)};
+  const Power second{std::move(first)};
   EXPECT_EQ(second, Power(1.11, Unit::Power::Watt));
 }
 
@@ -198,8 +197,8 @@ TEST(Power, MutableValue) {
 
 TEST(Power, Print) {
   EXPECT_EQ(Power(1.11, Unit::Power::Watt).Print(), "1.110000000000000 W");
-  EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).Print(Unit::Power::Kilowatt),
-            "-2.220000000000000 kW");
+  EXPECT_EQ(
+      Power(-2.22, Unit::Power::Kilowatt).Print(Unit::Power::Kilowatt), "-2.220000000000000 kW");
 }
 
 TEST(Power, SetValue) {
@@ -234,20 +233,17 @@ TEST(Power, Unit) {
 
 TEST(Power, Value) {
   EXPECT_EQ(Power(1.11, Unit::Power::Watt).Value(), 1.11);
-  EXPECT_EQ(
-      Power(1.11, Unit::Power::Kilowatt).Value(Unit::Power::Kilowatt), 1.11);
+  EXPECT_EQ(Power(1.11, Unit::Power::Kilowatt).Value(Unit::Power::Kilowatt), 1.11);
 }
 
 TEST(Power, XML) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).XML(),
-            "<value>1.110000000000000</value><unit>W</unit>");
+  EXPECT_EQ(Power(1.11, Unit::Power::Watt).XML(), "<value>1.110000000000000</value><unit>W</unit>");
   EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).XML(Unit::Power::Kilowatt),
             "<value>-2.220000000000000</value><unit>kW</unit>");
 }
 
 TEST(Power, YAML) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).YAML(),
-            "{value:1.110000000000000,unit:\"W\"}");
+  EXPECT_EQ(Power(1.11, Unit::Power::Watt).YAML(), "{value:1.110000000000000,unit:\"W\"}");
   EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).YAML(Unit::Power::Kilowatt),
             "{value:-2.220000000000000,unit:\"kW\"}");
 }

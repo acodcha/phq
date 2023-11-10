@@ -1,29 +1,32 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Value/Vector.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../../include/PhQ/Base.hpp"
 
 namespace PhQ::Value {
 
 namespace {
 
 TEST(ValueVector, ArithmeticOperatorAddition) {
-  EXPECT_EQ(
-      Vector(1.0, -2.0, 3.0) + Vector(2.0, -4.0, 6.0), Vector(3.0, -6.0, 9.0));
+  EXPECT_EQ(Vector(1.0, -2.0, 3.0) + Vector(2.0, -4.0, 6.0), Vector(3.0, -6.0, 9.0));
 }
 
 TEST(ValueVector, ArithmeticOperatorDivision) {
@@ -37,8 +40,7 @@ TEST(ValueVector, ArithmeticOperatorMultiplication) {
 }
 
 TEST(ValueVector, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(
-      Vector(3.0, -6.0, 9.0) - Vector(2.0, -4.0, 6.0), Vector(1.0, -2.0, 3.0));
+  EXPECT_EQ(Vector(3.0, -6.0, 9.0) - Vector(2.0, -4.0, 6.0), Vector(1.0, -2.0, 3.0));
 }
 
 TEST(ValueVector, AssignmentOperatorAddition) {
@@ -97,8 +99,7 @@ TEST(ValueVector, CopyConstructor) {
 }
 
 TEST(ValueVector, Cross) {
-  EXPECT_EQ(Vector(10.0, 0.0, 0.0).Cross(Vector(0.0, 20.0, 0.0)),
-            Vector(0.0, 0.0, 200.0));
+  EXPECT_EQ(Vector(10.0, 0.0, 0.0).Cross(Vector(0.0, 20.0, 0.0)), Vector(0.0, 0.0, 200.0));
 }
 
 TEST(ValueVector, DefaultConstructor) {
@@ -123,8 +124,8 @@ TEST(ValueVector, Hash) {
 }
 
 TEST(ValueVector, JSON) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).JSON(),
-            "{\"x\":1.000000000000000,\"y\":-2.000000000000000,\"z\":0}");
+  EXPECT_EQ(
+      Vector(1.0, -2.0, 0.0).JSON(), "{\"x\":1.000000000000000,\"y\":-2.000000000000000,\"z\":0}");
 }
 
 TEST(ValueVector, Magnitude) {
@@ -141,7 +142,7 @@ TEST(ValueVector, MoveAssignmentOperator) {
 
 TEST(ValueVector, MoveConstructor) {
   Vector first(1.11, -2.22, 3.33);
-  Vector second{std::move(first)};
+  const Vector second{std::move(first)};
   EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
 }
 
@@ -165,12 +166,10 @@ TEST(ValueVector, Mutable) {
 }
 
 TEST(ValueVector, Print) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(),
-            "(1.000000000000000, -2.000000000000000, 0)");
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(), "(1.000000000000000, -2.000000000000000, 0)");
   EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(Precision::Double),
             "(1.000000000000000, -2.000000000000000, 0)");
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(Precision::Single),
-            "(1.000000, -2.000000, 0)");
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(Precision::Single), "(1.000000, -2.000000, 0)");
 }
 
 TEST(ValueVector, Set) {
@@ -194,21 +193,15 @@ TEST(ValueVector, SizeOf) {
 }
 
 TEST(ValueVector, StandardConstructor) {
-  EXPECT_EQ(Vector(std::array<double, 3>{1.11, -2.22, 3.33}),
-            Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Vector(std::array<double, 3>{1.11, -2.22, 3.33}), Vector(1.11, -2.22, 3.33));
 
-  std::array<double, 3> first_x_y_z{1.11, -2.22, 3.33};
+  constexpr std::array<double, 3> first_x_y_z{1.11, -2.22, 3.33};
   EXPECT_EQ(Vector(first_x_y_z), Vector(1.11, -2.22, 3.33));
 
   constexpr std::array<double, 3> second_x_y_z{1.11, -2.22, 3.33};
   Vector second = Vector::Zero();
   second = second_x_y_z;
   EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
-
-  std::array<double, 3> third_x_y_z{1.11, -2.22, 3.33};
-  Vector third = Vector::Zero();
-  third = std::move(third_x_y_z);
-  EXPECT_EQ(third, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(ValueVector, Stream) {
@@ -219,13 +212,12 @@ TEST(ValueVector, Stream) {
 }
 
 TEST(ValueVector, XML) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).XML(),
-            "<x>1.000000000000000</x><y>-2.000000000000000</y><z>0</z>");
+  EXPECT_EQ(
+      Vector(1.0, -2.0, 0.0).XML(), "<x>1.000000000000000</x><y>-2.000000000000000</y><z>0</z>");
 }
 
 TEST(ValueVector, YAML) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).YAML(),
-            "{x:1.000000000000000,y:-2.000000000000000,z:0}");
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).YAML(), "{x:1.000000000000000,y:-2.000000000000000,z:0}");
 }
 
 TEST(ValueVector, Zero) {

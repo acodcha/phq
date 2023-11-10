@@ -1,52 +1,52 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/StressScalar.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Pressure.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(StressScalar, ArithmeticOperatorAddition) {
-  EXPECT_EQ(StressScalar(1.0, Unit::Pressure::Pascal)
-                + StressScalar(2.0, Unit::Pressure::Pascal),
+  EXPECT_EQ(StressScalar(1.0, Unit::Pressure::Pascal) + StressScalar(2.0, Unit::Pressure::Pascal),
             StressScalar(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(StressScalar, ArithmeticOperatorDivision) {
-  EXPECT_EQ(StressScalar(8.0, Unit::Pressure::Pascal) / 2.0,
-            StressScalar(4.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      StressScalar(8.0, Unit::Pressure::Pascal) / 2.0, StressScalar(4.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(StressScalar(8.0, Unit::Pressure::Pascal)
-                / StressScalar(2.0, Unit::Pressure::Pascal),
-            4.0);
+  EXPECT_EQ(
+      StressScalar(8.0, Unit::Pressure::Pascal) / StressScalar(2.0, Unit::Pressure::Pascal), 4.0);
 }
 
 TEST(StressScalar, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(StressScalar(4.0, Unit::Pressure::Pascal) * 2.0,
-            StressScalar(8.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      StressScalar(4.0, Unit::Pressure::Pascal) * 2.0, StressScalar(8.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(2.0 * StressScalar(4.0, Unit::Pressure::Pascal),
-            StressScalar(8.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      2.0 * StressScalar(4.0, Unit::Pressure::Pascal), StressScalar(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(StressScalar, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(StressScalar(3.0, Unit::Pressure::Pascal)
-                - StressScalar(2.0, Unit::Pressure::Pascal),
+  EXPECT_EQ(StressScalar(3.0, Unit::Pressure::Pascal) - StressScalar(2.0, Unit::Pressure::Pascal),
             StressScalar(1.0, Unit::Pressure::Pascal));
 }
 
@@ -101,8 +101,7 @@ TEST(StressScalar, CopyConstructor) {
 }
 
 TEST(StressScalar, Create) {
-  constexpr StressScalar quantity =
-      StressScalar::Create<Unit::Pressure::Pascal>(1.11);
+  constexpr StressScalar quantity = StressScalar::Create<Unit::Pressure::Pascal>(1.11);
   EXPECT_EQ(quantity, StressScalar(1.11, Unit::Pressure::Pascal));
 }
 
@@ -127,8 +126,7 @@ TEST(StressScalar, Hash) {
 TEST(StressScalar, JSON) {
   EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
             "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
 }
 
@@ -141,7 +139,7 @@ TEST(StressScalar, MoveAssignmentOperator) {
 
 TEST(StressScalar, MoveConstructor) {
   StressScalar first{1.11, Unit::Pressure::Pascal};
-  StressScalar second{std::move(first)};
+  const StressScalar second{std::move(first)};
   EXPECT_EQ(second, StressScalar(1.11, Unit::Pressure::Pascal));
 }
 
@@ -153,10 +151,8 @@ TEST(StressScalar, MutableValue) {
 }
 
 TEST(StressScalar, Print) {
-  EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).Print(),
-            "1.110000000000000 Pa");
-  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
             "-2.220000000000000 kPa");
 }
 
@@ -175,8 +171,7 @@ TEST(StressScalar, StandardConstructor) {
 }
 
 TEST(StressScalar, StaticValue) {
-  constexpr StressScalar quantity =
-      StressScalar::Create<Unit::Pressure::Kilopascal>(1.11);
+  constexpr StressScalar quantity = StressScalar::Create<Unit::Pressure::Kilopascal>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.11);
 }
@@ -193,24 +188,20 @@ TEST(StressScalar, Unit) {
 
 TEST(StressScalar, Value) {
   EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            1.11);
+  EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
 }
 
 TEST(StressScalar, XML) {
   EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).XML(),
             "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
             "<value>-2.220000000000000</value><unit>kPa</unit>");
 }
 
 TEST(StressScalar, YAML) {
-  EXPECT_EQ(StressScalar(1.11, Unit::Pressure::Pascal).YAML(),
-            "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(
+      StressScalar(1.11, Unit::Pressure::Pascal).YAML(), "{value:1.110000000000000,unit:\"Pa\"}");
+  EXPECT_EQ(StressScalar(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
             "{value:-2.220000000000000,unit:\"kPa\"}");
 }
 

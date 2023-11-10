@@ -1,21 +1,24 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Energy.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Unit/Energy.hpp"
 
 namespace PhQ {
 
@@ -27,19 +30,15 @@ TEST(Energy, ArithmeticOperatorAddition) {
 }
 
 TEST(Energy, ArithmeticOperatorDivision) {
-  EXPECT_EQ(
-      Energy(8.0, Unit::Energy::Joule) / 2.0, Energy(4.0, Unit::Energy::Joule));
+  EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / 2.0, Energy(4.0, Unit::Energy::Joule));
 
-  EXPECT_EQ(
-      Energy(8.0, Unit::Energy::Joule) / Energy(2.0, Unit::Energy::Joule), 4.0);
+  EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / Energy(2.0, Unit::Energy::Joule), 4.0);
 }
 
 TEST(Energy, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(
-      Energy(4.0, Unit::Energy::Joule) * 2.0, Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(Energy(4.0, Unit::Energy::Joule) * 2.0, Energy(8.0, Unit::Energy::Joule));
 
-  EXPECT_EQ(
-      2.0 * Energy(4.0, Unit::Energy::Joule), Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(2.0 * Energy(4.0, Unit::Energy::Joule), Energy(8.0, Unit::Energy::Joule));
 }
 
 TEST(Energy, ArithmeticOperatorSubtraction) {
@@ -121,11 +120,10 @@ TEST(Energy, Hash) {
 }
 
 TEST(Energy, JSON) {
-  EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"J\"}");
   EXPECT_EQ(
-      Energy(-2.22, Unit::Energy::Nanojoule).JSON(Unit::Energy::Nanojoule),
-      "{\"value\":-2.220000000000000,\"unit\":\"nJ\"}");
+      Energy(1.11, Unit::Energy::Joule).JSON(), "{\"value\":1.110000000000000,\"unit\":\"J\"}");
+  EXPECT_EQ(Energy(-2.22, Unit::Energy::Nanojoule).JSON(Unit::Energy::Nanojoule),
+            "{\"value\":-2.220000000000000,\"unit\":\"nJ\"}");
 }
 
 TEST(Energy, MoveAssignmentOperator) {
@@ -137,7 +135,7 @@ TEST(Energy, MoveAssignmentOperator) {
 
 TEST(Energy, MoveConstructor) {
   Energy first{1.11, Unit::Energy::Joule};
-  Energy second{std::move(first)};
+  const Energy second{std::move(first)};
   EXPECT_EQ(second, Energy(1.11, Unit::Energy::Joule));
 }
 
@@ -150,9 +148,8 @@ TEST(Energy, MutableValue) {
 
 TEST(Energy, Print) {
   EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).Print(), "1.110000000000000 J");
-  EXPECT_EQ(
-      Energy(-2.22, Unit::Energy::Nanojoule).Print(Unit::Energy::Nanojoule),
-      "-2.220000000000000 nJ");
+  EXPECT_EQ(Energy(-2.22, Unit::Energy::Nanojoule).Print(Unit::Energy::Nanojoule),
+            "-2.220000000000000 nJ");
 }
 
 TEST(Energy, SetValue) {
@@ -187,24 +184,20 @@ TEST(Energy, Unit) {
 
 TEST(Energy, Value) {
   EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).Value(), 1.11);
-  EXPECT_EQ(
-      Energy(1.11, Unit::Energy::Nanojoule).Value(Unit::Energy::Nanojoule),
-      1.11);
+  EXPECT_EQ(Energy(1.11, Unit::Energy::Nanojoule).Value(Unit::Energy::Nanojoule), 1.11);
 }
 
 TEST(Energy, XML) {
-  EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).XML(),
-            "<value>1.110000000000000</value><unit>J</unit>");
+  EXPECT_EQ(
+      Energy(1.11, Unit::Energy::Joule).XML(), "<value>1.110000000000000</value><unit>J</unit>");
   EXPECT_EQ(Energy(-2.22, Unit::Energy::Nanojoule).XML(Unit::Energy::Nanojoule),
             "<value>-2.220000000000000</value><unit>nJ</unit>");
 }
 
 TEST(Energy, YAML) {
-  EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).YAML(),
-            "{value:1.110000000000000,unit:\"J\"}");
-  EXPECT_EQ(
-      Energy(-2.22, Unit::Energy::Nanojoule).YAML(Unit::Energy::Nanojoule),
-      "{value:-2.220000000000000,unit:\"nJ\"}");
+  EXPECT_EQ(Energy(1.11, Unit::Energy::Joule).YAML(), "{value:1.110000000000000,unit:\"J\"}");
+  EXPECT_EQ(Energy(-2.22, Unit::Energy::Nanojoule).YAML(Unit::Energy::Nanojoule),
+            "{value:-2.220000000000000,unit:\"nJ\"}");
 }
 
 TEST(Energy, Zero) {

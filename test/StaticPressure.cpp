@@ -1,42 +1,48 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/StaticPressure.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Area.hpp"
+#include "../include/PhQ/ForceMagnitude.hpp"
+#include "../include/PhQ/Unit/Area.hpp"
+#include "../include/PhQ/Unit/Force.hpp"
+#include "../include/PhQ/Unit/Pressure.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(StaticPressure, ArithmeticOperatorAddition) {
-  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Pascal)
-                + StaticPressure(2.0, Unit::Pressure::Pascal),
-            StaticPressure(3.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      StaticPressure(1.0, Unit::Pressure::Pascal) + StaticPressure(2.0, Unit::Pressure::Pascal),
+      StaticPressure(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(StaticPressure, ArithmeticOperatorDivision) {
   EXPECT_EQ(StaticPressure(8.0, Unit::Pressure::Pascal) / 2.0,
             StaticPressure(4.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(StaticPressure(8.0, Unit::Pressure::Pascal)
-                / StaticPressure(2.0, Unit::Pressure::Pascal),
-            4.0);
+  EXPECT_EQ(
+      StaticPressure(8.0, Unit::Pressure::Pascal) / StaticPressure(2.0, Unit::Pressure::Pascal),
+      4.0);
 
-  EXPECT_EQ(ForceMagnitude(8.0, Unit::Force::Newton)
-                / Area(4.0, Unit::Area::SquareMetre),
+  EXPECT_EQ(ForceMagnitude(8.0, Unit::Force::Newton) / Area(4.0, Unit::Area::SquareMetre),
             StaticPressure(2.0, Unit::Pressure::Pascal));
 }
 
@@ -47,19 +53,17 @@ TEST(StaticPressure, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * StaticPressure(4.0, Unit::Pressure::Pascal),
             StaticPressure(8.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(StaticPressure(4.0, Unit::Pressure::Pascal)
-                * Area(2.0, Unit::Area::SquareMetre),
+  EXPECT_EQ(StaticPressure(4.0, Unit::Pressure::Pascal) * Area(2.0, Unit::Area::SquareMetre),
             ForceMagnitude(8.0, Unit::Force::Newton));
 
-  EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre)
-                * StaticPressure(2.0, Unit::Pressure::Pascal),
+  EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * StaticPressure(2.0, Unit::Pressure::Pascal),
             ForceMagnitude(8.0, Unit::Force::Newton));
 }
 
 TEST(StaticPressure, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(StaticPressure(3.0, Unit::Pressure::Pascal)
-                - StaticPressure(2.0, Unit::Pressure::Pascal),
-            StaticPressure(1.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      StaticPressure(3.0, Unit::Pressure::Pascal) - StaticPressure(2.0, Unit::Pressure::Pascal),
+      StaticPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(StaticPressure, AssignmentOperatorAddition) {
@@ -113,8 +117,7 @@ TEST(StaticPressure, CopyConstructor) {
 }
 
 TEST(StaticPressure, Create) {
-  constexpr StaticPressure quantity =
-      StaticPressure::Create<Unit::Pressure::Pascal>(1.11);
+  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Pascal>(1.11);
   EXPECT_EQ(quantity, StaticPressure(1.11, Unit::Pressure::Pascal));
 }
 
@@ -139,22 +142,21 @@ TEST(StaticPressure, Hash) {
 TEST(StaticPressure, JSON) {
   EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal)
-                .JSON(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
             "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
 }
 
 TEST(StaticPressure, MiscellaneousConstructors) {
-  EXPECT_EQ(StaticPressure(ForceMagnitude(8.0, Unit::Force::Newton),
-                           Area(4.0, Unit::Area::SquareMetre)),
-            StaticPressure(2.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(
+      StaticPressure(ForceMagnitude(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
+      StaticPressure(2.0, Unit::Pressure::Pascal));
 
-  EXPECT_EQ(Area(ForceMagnitude(8.0, Unit::Force::Newton),
-                 StaticPressure(4.0, Unit::Pressure::Pascal)),
-            Area(2.0, Unit::Area::SquareMetre));
+  EXPECT_EQ(
+      Area(ForceMagnitude(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
+      Area(2.0, Unit::Area::SquareMetre));
 
-  EXPECT_EQ(ForceMagnitude(StaticPressure(4.0, Unit::Pressure::Pascal),
-                           Area(2.0, Unit::Area::SquareMetre)),
+  EXPECT_EQ(ForceMagnitude(
+                StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
             ForceMagnitude(8.0, Unit::Force::Newton));
 }
 
@@ -167,7 +169,7 @@ TEST(StaticPressure, MoveAssignmentOperator) {
 
 TEST(StaticPressure, MoveConstructor) {
   StaticPressure first{1.11, Unit::Pressure::Pascal};
-  StaticPressure second{std::move(first)};
+  const StaticPressure second{std::move(first)};
   EXPECT_EQ(second, StaticPressure(1.11, Unit::Pressure::Pascal));
 }
 
@@ -179,10 +181,8 @@ TEST(StaticPressure, MutableValue) {
 }
 
 TEST(StaticPressure, Print) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).Print(),
-            "1.110000000000000 Pa");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal)
-                .Print(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
             "-2.220000000000000 kPa");
 }
 
@@ -201,8 +201,7 @@ TEST(StaticPressure, StandardConstructor) {
 }
 
 TEST(StaticPressure, StaticValue) {
-  constexpr StaticPressure quantity =
-      StaticPressure::Create<Unit::Pressure::Kilopascal>(1.11);
+  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Kilopascal>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 1.11);
 }
@@ -219,30 +218,26 @@ TEST(StaticPressure, Unit) {
 
 TEST(StaticPressure, Value) {
   EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Kilopascal)
-                .Value(Unit::Pressure::Kilopascal),
-            1.11);
+  EXPECT_EQ(
+      StaticPressure(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
 }
 
 TEST(StaticPressure, XML) {
   EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).XML(),
             "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal)
-                .XML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
             "<value>-2.220000000000000</value><unit>kPa</unit>");
 }
 
 TEST(StaticPressure, YAML) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).YAML(),
-            "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal)
-                .YAML(Unit::Pressure::Kilopascal),
+  EXPECT_EQ(
+      StaticPressure(1.11, Unit::Pressure::Pascal).YAML(), "{value:1.110000000000000,unit:\"Pa\"}");
+  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
             "{value:-2.220000000000000,unit:\"kPa\"}");
 }
 
 TEST(StaticPressure, Zero) {
-  EXPECT_EQ(
-      StaticPressure::Zero(), StaticPressure(0.0, Unit::Pressure::Pascal));
+  EXPECT_EQ(StaticPressure::Zero(), StaticPressure(0.0, Unit::Pressure::Pascal));
 }
 
 }  // namespace

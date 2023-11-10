@@ -1,21 +1,28 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/SpecificEnergy.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Energy.hpp"
+#include "../include/PhQ/Mass.hpp"
+#include "../include/PhQ/Unit/Energy.hpp"
+#include "../include/PhQ/Unit/Mass.hpp"
+#include "../include/PhQ/Unit/SpecificEnergy.hpp"
 
 namespace PhQ {
 
@@ -50,13 +57,13 @@ TEST(SpecificEnergy, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
             SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
 
-  EXPECT_EQ(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)
-                * Mass(2.0, Unit::Mass::Kilogram),
-            Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(
+      SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram) * Mass(2.0, Unit::Mass::Kilogram),
+      Energy(8.0, Unit::Energy::Joule));
 
-  EXPECT_EQ(Mass(4.0, Unit::Mass::Kilogram)
-                * SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram),
-            Energy(8.0, Unit::Energy::Joule));
+  EXPECT_EQ(
+      Mass(4.0, Unit::Mass::Kilogram) * SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram),
+      Energy(8.0, Unit::Energy::Joule));
 }
 
 TEST(SpecificEnergy, ArithmeticOperatorSubtraction) {
@@ -68,29 +75,25 @@ TEST(SpecificEnergy, ArithmeticOperatorSubtraction) {
 TEST(SpecificEnergy, AssignmentOperatorAddition) {
   SpecificEnergy quantity{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   quantity += SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram);
-  EXPECT_EQ(
-      quantity, SpecificEnergy(3.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(quantity, SpecificEnergy(3.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, AssignmentOperatorDivision) {
   SpecificEnergy quantity{8.0, Unit::SpecificEnergy::JoulePerKilogram};
   quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(quantity, SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, AssignmentOperatorMultiplication) {
   SpecificEnergy quantity{4.0, Unit::SpecificEnergy::JoulePerKilogram};
   quantity *= 2.0;
-  EXPECT_EQ(
-      quantity, SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(quantity, SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, AssignmentOperatorSubtraction) {
   SpecificEnergy quantity{3.0, Unit::SpecificEnergy::JoulePerKilogram};
   quantity -= SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram);
-  EXPECT_EQ(
-      quantity, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(quantity, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, ComparisonOperators) {
@@ -122,8 +125,7 @@ TEST(SpecificEnergy, CopyConstructor) {
 TEST(SpecificEnergy, Create) {
   constexpr SpecificEnergy quantity =
       SpecificEnergy::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.11);
-  EXPECT_EQ(
-      quantity, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(quantity, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, DefaultConstructor) {
@@ -131,8 +133,7 @@ TEST(SpecificEnergy, DefaultConstructor) {
 }
 
 TEST(SpecificEnergy, Dimensions) {
-  EXPECT_EQ(
-      SpecificEnergy::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
+  EXPECT_EQ(SpecificEnergy::Dimensions(), RelatedDimensions<Unit::SpecificEnergy>);
 }
 
 TEST(SpecificEnergy, Hash) {
@@ -154,8 +155,7 @@ TEST(SpecificEnergy, JSON) {
 }
 
 TEST(SpecificEnergy, MiscellaneousConstructors) {
-  EXPECT_EQ(SpecificEnergy(Energy(8.0, Unit::Energy::Joule),
-                           Mass(4.0, Unit::Mass::Kilogram)),
+  EXPECT_EQ(SpecificEnergy(Energy(8.0, Unit::Energy::Joule), Mass(4.0, Unit::Mass::Kilogram)),
             SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram));
 
   EXPECT_EQ(Mass(Energy(8.0, Unit::Energy::Joule),
@@ -171,15 +171,13 @@ TEST(SpecificEnergy, MoveAssignmentOperator) {
   SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
   SpecificEnergy second = SpecificEnergy::Zero();
   second = std::move(first);
-  EXPECT_EQ(
-      second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, MoveConstructor) {
   SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
-  SpecificEnergy second{std::move(first)};
-  EXPECT_EQ(
-      second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+  const SpecificEnergy second{std::move(first)};
+  EXPECT_EQ(second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, MutableValue) {
@@ -190,9 +188,8 @@ TEST(SpecificEnergy, MutableValue) {
 }
 
 TEST(SpecificEnergy, Print) {
-  EXPECT_EQ(
-      SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print(),
-      "1.110000000000000 J/kg");
+  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print(),
+            "1.110000000000000 J/kg");
   EXPECT_EQ(SpecificEnergy(-2.22, Unit::SpecificEnergy::NanojoulePerGram)
                 .Print(Unit::SpecificEnergy::NanojoulePerGram),
             "-2.220000000000000 nJ/g");
@@ -215,17 +212,14 @@ TEST(SpecificEnergy, StandardConstructor) {
 TEST(SpecificEnergy, StaticValue) {
   constexpr SpecificEnergy quantity =
       SpecificEnergy::Create<Unit::SpecificEnergy::NanojoulePerGram>(2.0);
-  constexpr double value =
-      quantity.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
+  constexpr double value = quantity.StaticValue<Unit::SpecificEnergy::NanojoulePerGram>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(SpecificEnergy, Stream) {
   std::ostringstream stream;
   stream << SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram);
-  EXPECT_EQ(
-      stream.str(),
-      SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print());
+  EXPECT_EQ(stream.str(), SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print());
 }
 
 TEST(SpecificEnergy, Unit) {
@@ -233,9 +227,7 @@ TEST(SpecificEnergy, Unit) {
 }
 
 TEST(SpecificEnergy, Value) {
-  EXPECT_EQ(
-      SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Value(),
-      1.11);
+  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Value(), 1.11);
   EXPECT_EQ(SpecificEnergy(2.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .Value(Unit::SpecificEnergy::NanojoulePerGram),
             2.0);
@@ -258,8 +250,7 @@ TEST(SpecificEnergy, YAML) {
 }
 
 TEST(SpecificEnergy, Zero) {
-  EXPECT_EQ(SpecificEnergy::Zero(),
-            SpecificEnergy(0.0, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(SpecificEnergy::Zero(), SpecificEnergy(0.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 }  // namespace

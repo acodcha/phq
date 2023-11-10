@@ -1,35 +1,39 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Temperature.hpp"
 
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/TemperatureDifference.hpp"
+#include "../include/PhQ/Unit/Temperature.hpp"
+#include "../include/PhQ/Unit/TemperatureDifference.hpp"
 
 namespace PhQ {
 
 namespace {
 
 TEST(Temperature, ArithmeticOperatorAddition) {
-  EXPECT_EQ(Temperature(1.0, Unit::Temperature::Kelvin)
-                + Temperature(2.0, Unit::Temperature::Kelvin),
-            Temperature(3.0, Unit::Temperature::Kelvin));
-
   EXPECT_EQ(
-      Temperature(1.0, Unit::Temperature::Kelvin)
-          + TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
+      Temperature(1.0, Unit::Temperature::Kelvin) + Temperature(2.0, Unit::Temperature::Kelvin),
       Temperature(3.0, Unit::Temperature::Kelvin));
+
+  EXPECT_EQ(Temperature(1.0, Unit::Temperature::Kelvin)
+                + TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
+            Temperature(3.0, Unit::Temperature::Kelvin));
 
   EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin)
                 + Temperature(2.0, Unit::Temperature::Kelvin),
@@ -40,9 +44,9 @@ TEST(Temperature, ArithmeticOperatorDivision) {
   EXPECT_EQ(Temperature(8.0, Unit::Temperature::Kelvin) / 2.0,
             Temperature(4.0, Unit::Temperature::Kelvin));
 
-  EXPECT_EQ(Temperature(8.0, Unit::Temperature::Kelvin)
-                / Temperature(2.0, Unit::Temperature::Kelvin),
-            4.0);
+  EXPECT_EQ(
+      Temperature(8.0, Unit::Temperature::Kelvin) / Temperature(2.0, Unit::Temperature::Kelvin),
+      4.0);
 }
 
 TEST(Temperature, ArithmeticOperatorMultiplication) {
@@ -54,14 +58,13 @@ TEST(Temperature, ArithmeticOperatorMultiplication) {
 }
 
 TEST(Temperature, ArithmeticOperatorSubtraction) {
-  EXPECT_EQ(Temperature(3.0, Unit::Temperature::Kelvin)
-                - Temperature(2.0, Unit::Temperature::Kelvin),
-            TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
-
   EXPECT_EQ(
-      Temperature(3.0, Unit::Temperature::Kelvin)
-          - TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
-      Temperature(1.0, Unit::Temperature::Kelvin));
+      Temperature(3.0, Unit::Temperature::Kelvin) - Temperature(2.0, Unit::Temperature::Kelvin),
+      TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
+
+  EXPECT_EQ(Temperature(3.0, Unit::Temperature::Kelvin)
+                - TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
+            Temperature(1.0, Unit::Temperature::Kelvin));
 
   EXPECT_EQ(TemperatureDifference(3.0, Unit::TemperatureDifference::Kelvin)
                 - Temperature(2.0, Unit::Temperature::Kelvin),
@@ -127,8 +130,7 @@ TEST(Temperature, CopyConstructor) {
 }
 
 TEST(Temperature, Create) {
-  constexpr Temperature quantity =
-      Temperature::Create<Unit::Temperature::Kelvin>(1.11);
+  constexpr Temperature quantity = Temperature::Create<Unit::Temperature::Kelvin>(1.11);
   EXPECT_EQ(quantity, Temperature(1.11, Unit::Temperature::Kelvin));
 }
 
@@ -153,8 +155,7 @@ TEST(Temperature, Hash) {
 TEST(Temperature, JSON) {
   EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).JSON(),
             "{\"value\":1.110000000000000,\"unit\":\"K\"}");
-  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine)
-                .JSON(Unit::Temperature::Rankine),
+  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine).JSON(Unit::Temperature::Rankine),
             "{\"value\":-2.220000000000000,\"unit\":\"°R\"}");
 }
 
@@ -167,7 +168,7 @@ TEST(Temperature, MoveAssignmentOperator) {
 
 TEST(Temperature, MoveConstructor) {
   Temperature first{1.11, Unit::Temperature::Kelvin};
-  Temperature second{std::move(first)};
+  const Temperature second{std::move(first)};
   EXPECT_EQ(second, Temperature(1.11, Unit::Temperature::Kelvin));
 }
 
@@ -179,10 +180,8 @@ TEST(Temperature, MutableValue) {
 }
 
 TEST(Temperature, Print) {
-  EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).Print(),
-            "1.110000000000000 K");
-  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine)
-                .Print(Unit::Temperature::Rankine),
+  EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).Print(), "1.110000000000000 K");
+  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine).Print(Unit::Temperature::Rankine),
             "-2.220000000000000 °R");
 }
 
@@ -201,8 +200,7 @@ TEST(Temperature, StandardConstructor) {
 }
 
 TEST(Temperature, StaticValue) {
-  constexpr Temperature quantity =
-      Temperature::Create<Unit::Temperature::Rankine>(1.11);
+  constexpr Temperature quantity = Temperature::Create<Unit::Temperature::Rankine>(1.11);
   constexpr double value = quantity.StaticValue<Unit::Temperature::Rankine>();
   EXPECT_EQ(value, 1.11);
 }
@@ -219,24 +217,20 @@ TEST(Temperature, Unit) {
 
 TEST(Temperature, Value) {
   EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).Value(), 1.11);
-  EXPECT_EQ(Temperature(1.11, Unit::Temperature::Rankine)
-                .Value(Unit::Temperature::Rankine),
-            1.11);
+  EXPECT_EQ(Temperature(1.11, Unit::Temperature::Rankine).Value(Unit::Temperature::Rankine), 1.11);
 }
 
 TEST(Temperature, XML) {
   EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).XML(),
             "<value>1.110000000000000</value><unit>K</unit>");
-  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine)
-                .XML(Unit::Temperature::Rankine),
+  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine).XML(Unit::Temperature::Rankine),
             "<value>-2.220000000000000</value><unit>°R</unit>");
 }
 
 TEST(Temperature, YAML) {
-  EXPECT_EQ(Temperature(1.11, Unit::Temperature::Kelvin).YAML(),
-            "{value:1.110000000000000,unit:\"K\"}");
-  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine)
-                .YAML(Unit::Temperature::Rankine),
+  EXPECT_EQ(
+      Temperature(1.11, Unit::Temperature::Kelvin).YAML(), "{value:1.110000000000000,unit:\"K\"}");
+  EXPECT_EQ(Temperature(-2.22, Unit::Temperature::Rankine).YAML(Unit::Temperature::Rankine),
             "{value:-2.220000000000000,unit:\"°R\"}");
 }
 

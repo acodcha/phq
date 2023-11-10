@@ -138,9 +138,9 @@ PenaltyBreakBeforeFirstCallParameter: 4
 PenaltyBreakComment: 8
 PenaltyBreakFirstLessLess: 4
 PenaltyBreakOpenParenthesis: 4
-PenaltyBreakString: 16
+PenaltyBreakString: 100
 PenaltyBreakTemplateDeclaration: 0
-PenaltyExcessCharacter: 1024
+PenaltyExcessCharacter: 10000
 PenaltyIndentedWhitespace: 1
 PenaltyReturnTypeOnItsOwnLine: 32
 PointerAlignment: Left

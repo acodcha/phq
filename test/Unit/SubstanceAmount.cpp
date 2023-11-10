@@ -1,22 +1,32 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/SubstanceAmount.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/ElectricCurrent.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/SubstanceAmount.hpp"
+#include "../../include/PhQ/Dimension/Temperature.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -24,9 +34,8 @@ namespace PhQ::Unit {
 namespace {
 
 constexpr std::array<SubstanceAmount, 5> Units = {
-    SubstanceAmount::Mole,      SubstanceAmount::Kilomole,
-    SubstanceAmount::Megamole,  SubstanceAmount::Gigamole,
-    SubstanceAmount::Particles,
+    SubstanceAmount::Mole,     SubstanceAmount::Kilomole,  SubstanceAmount::Megamole,
+    SubstanceAmount::Gigamole, SubstanceAmount::Particles,
 };
 
 TEST(UnitSubstanceAmount, Abbreviation) {
@@ -38,50 +47,41 @@ TEST(UnitSubstanceAmount, Abbreviation) {
 }
 
 TEST(UnitSubstanceAmount, ConsistentUnit) {
-  EXPECT_EQ(
-      ConsistentUnit<SubstanceAmount>(UnitSystem::MetreKilogramSecondKelvin),
-      SubstanceAmount::Mole);
-  EXPECT_EQ(
-      ConsistentUnit<SubstanceAmount>(UnitSystem::MillimetreGramSecondKelvin),
-      SubstanceAmount::Mole);
-  EXPECT_EQ(ConsistentUnit<SubstanceAmount>(UnitSystem::FootPoundSecondRankine),
+  EXPECT_EQ(ConsistentUnit<SubstanceAmount>(UnitSystem::MetreKilogramSecondKelvin),
             SubstanceAmount::Mole);
-  EXPECT_EQ(ConsistentUnit<SubstanceAmount>(UnitSystem::InchPoundSecondRankine),
+  EXPECT_EQ(ConsistentUnit<SubstanceAmount>(UnitSystem::MillimetreGramSecondKelvin),
             SubstanceAmount::Mole);
+  EXPECT_EQ(
+      ConsistentUnit<SubstanceAmount>(UnitSystem::FootPoundSecondRankine), SubstanceAmount::Mole);
+  EXPECT_EQ(
+      ConsistentUnit<SubstanceAmount>(UnitSystem::InchPoundSecondRankine), SubstanceAmount::Mole);
 }
 
 TEST(UnitSubstanceAmount, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Mole>(value, value);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Kilomole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
+      value, value);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Kilomole>(
       value, value * 0.001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Megamole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Megamole>(
       value, value * 0.000001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Gigamole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Gigamole>(
       value, value * 0.000000001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Particles>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Particles>(
       value, value * 6.02214076e23);
 }
 
 TEST(UnitSubstanceAmount, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole,
-                                SubstanceAmount::Mole>(value, value);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Kilomole,
-                                SubstanceAmount::Mole>(value, value * 1000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Megamole,
-                                SubstanceAmount::Mole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
+      value, value);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Kilomole, SubstanceAmount::Mole>(
+      value, value * 1000.0);
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Megamole, SubstanceAmount::Mole>(
       value, value * 1000000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Gigamole,
-                                SubstanceAmount::Mole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Gigamole, SubstanceAmount::Mole>(
       value, value * 1000000000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Particles,
-                                SubstanceAmount::Mole>(
+  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Particles, SubstanceAmount::Mole>(
       value, value / 6.02214076e23);
 }
 
@@ -95,11 +95,10 @@ TEST(UnitSubstanceAmount, Parse) {
 }
 
 TEST(UnitSubstanceAmount, RelatedDimensions) {
-  EXPECT_EQ(
-      RelatedDimensions<SubstanceAmount>,
-      Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
-                 Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
-                 Dimension::SubstanceAmount{1}));
+  EXPECT_EQ(RelatedDimensions<SubstanceAmount>,
+            Dimensions(Dimension::Time{0}, Dimension::Length{0}, Dimension::Mass{0},
+                       Dimension::ElectricCurrent{0}, Dimension::Temperature{0},
+                       Dimension::SubstanceAmount{1}));
 }
 
 TEST(UnitSubstanceAmount, RelatedUnitSystem) {

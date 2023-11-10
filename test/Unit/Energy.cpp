@@ -1,22 +1,29 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../../include/PhQ/Unit/Energy.hpp"
 
+#include <array>
 #include <gtest/gtest.h>
+#include <optional>
+#include <sstream>
 
+#include "../../include/PhQ/Base.hpp"
+#include "../../include/PhQ/Dimension/Length.hpp"
+#include "../../include/PhQ/Dimension/Mass.hpp"
+#include "../../include/PhQ/Dimension/Time.hpp"
+#include "../../include/PhQ/Dimensions.hpp"
+#include "../../include/PhQ/UnitSystem.hpp"
 #include "../Unit.hpp"
 
 namespace PhQ::Unit {
@@ -94,36 +101,26 @@ TEST(UnitEnergy, Abbreviation) {
 }
 
 TEST(UnitEnergy, ConsistentUnit) {
-  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::MetreKilogramSecondKelvin),
-            Energy::Joule);
-  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::MillimetreGramSecondKelvin),
-            Energy::Nanojoule);
-  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::FootPoundSecondRankine),
-            Energy::FootPound);
-  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine),
-            Energy::InchPound);
+  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::MetreKilogramSecondKelvin), Energy::Joule);
+  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::MillimetreGramSecondKelvin), Energy::Nanojoule);
+  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::FootPoundSecondRankine), Energy::FootPound);
+  EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine), Energy::InchPound);
 }
 
 TEST(UnitEnergy, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Joule>(
-      value, value);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Millijoule>(
-      value, value * 1000.0);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Millijoule>(value, value * 1000.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Microjoule>(
       value, value * 1000000.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Nanojoule>(
       value, value * 1000000000.0);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Kilojoule>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Megajoule>(
-      value, value * 0.000001);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Kilojoule>(value, value * 0.001);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Megajoule>(value, value * 0.000001);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Gigajoule>(
       value, value * 0.000000001);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::WattMinute>(
-      value, value / 60.0);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::WattHour>(
-      value, value / 3600.0);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::WattMinute>(value, value / 60.0);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::WattHour>(value, value / 3600.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::KilowattMinute>(
       value, value / 60000.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::KilowattHour>(
@@ -140,65 +137,49 @@ TEST(UnitEnergy, ConvertFromStandard) {
       value, value / (0.3048 * 0.45359237 * 9.80665));
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::InchPound>(
       value, value / (0.0254 * 0.45359237 * 9.80665));
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Calorie>(
-      value, value / 4.184);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Calorie>(value, value / 4.184);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Millicalorie>(
       value, value / 0.004184);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Microcalorie>(
       value, value / 0.000004184);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Nanocalorie>(
       value, value / 0.000000004184);
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Kilocalorie>(
-      value, value / 4184.0);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Kilocalorie>(value, value / 4184.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Megacalorie>(
       value, value / 4184000.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Gigacalorie>(
       value, value / 4184000000.0);
   Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Electronvolt>(
       value, value / 1.602176634e-19);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Millielectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Millielectronvolt>(
       value, value / 1.602176634e-22);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Microelectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Microelectronvolt>(
       value, value / 1.602176634e-25);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Nanoelectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Nanoelectronvolt>(
       value, value / 1.602176634e-28);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Kiloelectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Kiloelectronvolt>(
       value, value / 1.602176634e-16);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Megaelectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Megaelectronvolt>(
       value, value / 1.602176634e-13);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::Gigaelectronvolt>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Gigaelectronvolt>(
       value, value / 1.602176634e-10);
-  Internal::TestUnitConversions<Energy, Energy::Joule,
-                                Energy::BritishThermalUnit>(
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::BritishThermalUnit>(
       value, value * 1.8 / (4.1868 * 453.59237));
 }
 
 TEST(UnitEnergy, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Joule>(
-      value, value);
-  Internal::TestUnitConversions<Energy, Energy::Millijoule, Energy::Joule>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Energy, Energy::Microjoule, Energy::Joule>(
-      value, value * 0.000001);
+  Internal::TestUnitConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
+  Internal::TestUnitConversions<Energy, Energy::Millijoule, Energy::Joule>(value, value * 0.001);
+  Internal::TestUnitConversions<Energy, Energy::Microjoule, Energy::Joule>(value, value * 0.000001);
   Internal::TestUnitConversions<Energy, Energy::Nanojoule, Energy::Joule>(
       value, value * 0.000000001);
-  Internal::TestUnitConversions<Energy, Energy::Kilojoule, Energy::Joule>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<Energy, Energy::Megajoule, Energy::Joule>(
-      value, value * 1000000.0);
+  Internal::TestUnitConversions<Energy, Energy::Kilojoule, Energy::Joule>(value, value * 1000.0);
+  Internal::TestUnitConversions<Energy, Energy::Megajoule, Energy::Joule>(value, value * 1000000.0);
   Internal::TestUnitConversions<Energy, Energy::Gigajoule, Energy::Joule>(
       value, value * 1000000000.0);
-  Internal::TestUnitConversions<Energy, Energy::WattMinute, Energy::Joule>(
-      value, value * 60.0);
-  Internal::TestUnitConversions<Energy, Energy::WattHour, Energy::Joule>(
-      value, value * 3600.0);
+  Internal::TestUnitConversions<Energy, Energy::WattMinute, Energy::Joule>(value, value * 60.0);
+  Internal::TestUnitConversions<Energy, Energy::WattHour, Energy::Joule>(value, value * 3600.0);
   Internal::TestUnitConversions<Energy, Energy::KilowattMinute, Energy::Joule>(
       value, value * 60000.0);
   Internal::TestUnitConversions<Energy, Energy::KilowattHour, Energy::Joule>(
@@ -215,36 +196,33 @@ TEST(UnitEnergy, ConvertToStandard) {
       value, value * (0.3048 * 0.45359237 * 9.80665));
   Internal::TestUnitConversions<Energy, Energy::InchPound, Energy::Joule>(
       value, value * (0.0254 * 0.45359237 * 9.80665));
-  Internal::TestUnitConversions<Energy, Energy::Calorie, Energy::Joule>(
-      value, value * 4.184);
+  Internal::TestUnitConversions<Energy, Energy::Calorie, Energy::Joule>(value, value * 4.184);
   Internal::TestUnitConversions<Energy, Energy::Millicalorie, Energy::Joule>(
       value, value * 0.004184);
   Internal::TestUnitConversions<Energy, Energy::Microcalorie, Energy::Joule>(
       value, value * 0.000004184);
   Internal::TestUnitConversions<Energy, Energy::Nanocalorie, Energy::Joule>(
       value, value * 0.000000004184);
-  Internal::TestUnitConversions<Energy, Energy::Kilocalorie, Energy::Joule>(
-      value, value * 4184.0);
+  Internal::TestUnitConversions<Energy, Energy::Kilocalorie, Energy::Joule>(value, value * 4184.0);
   Internal::TestUnitConversions<Energy, Energy::Megacalorie, Energy::Joule>(
       value, value * 4184000.0);
   Internal::TestUnitConversions<Energy, Energy::Gigacalorie, Energy::Joule>(
       value, value * 4184000000.0);
   Internal::TestUnitConversions<Energy, Energy::Electronvolt, Energy::Joule>(
       value, value * 1.602176634e-19);
-  Internal::TestUnitConversions<Energy, Energy::Millielectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-22);
-  Internal::TestUnitConversions<Energy, Energy::Microelectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-25);
-  Internal::TestUnitConversions<Energy, Energy::Nanoelectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-28);
-  Internal::TestUnitConversions<Energy, Energy::Kiloelectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-16);
-  Internal::TestUnitConversions<Energy, Energy::Megaelectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-13);
-  Internal::TestUnitConversions<Energy, Energy::Gigaelectronvolt,
-                                Energy::Joule>(value, value * 1.602176634e-10);
-  Internal::TestUnitConversions<Energy, Energy::BritishThermalUnit,
-                                Energy::Joule>(
+  Internal::TestUnitConversions<Energy, Energy::Millielectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-22);
+  Internal::TestUnitConversions<Energy, Energy::Microelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-25);
+  Internal::TestUnitConversions<Energy, Energy::Nanoelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-28);
+  Internal::TestUnitConversions<Energy, Energy::Kiloelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-16);
+  Internal::TestUnitConversions<Energy, Energy::Megaelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-13);
+  Internal::TestUnitConversions<Energy, Energy::Gigaelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-10);
+  Internal::TestUnitConversions<Energy, Energy::BritishThermalUnit, Energy::Joule>(
       value, value * 4.1868 * 453.59237 / 1.8);
 }
 
@@ -286,24 +264,19 @@ TEST(UnitEnergy, Parse) {
 
 TEST(UnitEnergy, RelatedDimensions) {
   EXPECT_EQ(RelatedDimensions<Energy>,
-            Dimensions(
-                Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
+            Dimensions(Dimension::Time{-2}, Dimension::Length{2}, Dimension::Mass{1}));
 }
 
 TEST(UnitEnergy, RelatedUnitSystem) {
-  EXPECT_EQ(
-      RelatedUnitSystem(Energy::Joule), UnitSystem::MetreKilogramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Joule), UnitSystem::MetreKilogramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Energy::Millijoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Microjoule), std::nullopt);
-  EXPECT_EQ(RelatedUnitSystem(Energy::Nanojoule),
-            UnitSystem::MillimetreGramSecondKelvin);
+  EXPECT_EQ(RelatedUnitSystem(Energy::Nanojoule), UnitSystem::MillimetreGramSecondKelvin);
   EXPECT_EQ(RelatedUnitSystem(Energy::Kilojoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Megajoule), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Gigajoule), std::nullopt);
-  EXPECT_EQ(
-      RelatedUnitSystem(Energy::FootPound), UnitSystem::FootPoundSecondRankine);
-  EXPECT_EQ(
-      RelatedUnitSystem(Energy::InchPound), UnitSystem::InchPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Energy::FootPound), UnitSystem::FootPoundSecondRankine);
+  EXPECT_EQ(RelatedUnitSystem(Energy::InchPound), UnitSystem::InchPoundSecondRankine);
   EXPECT_EQ(RelatedUnitSystem(Energy::Calorie), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Millicalorie), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Energy::Microcalorie), std::nullopt);

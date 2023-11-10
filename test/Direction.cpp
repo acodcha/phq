@@ -1,21 +1,30 @@
 // Copyright 2020-2023 Alexandre Coderre-Chabot
 //
-// This file is part of Physical Quantities (PhQ), a C++ library of physical
-// quantities, physical models, and units of measure for scientific computation.
+// Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
+// measure for scientific computation. https://github.com/acodcha/physical-quantities
 //
-// Physical Quantities is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or (at your
-// option) any later version. Physical Quantities is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details. You should have received a
-// copy of the GNU Lesser General Public License along with Physical Quantities.
-// If not, see <https://www.gnu.org/licenses/>.
+// Physical Quantities (PhQ) is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version. Physical Quantities (PhQ)
+// is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+// General Public License for more details. You should have received a copy of the GNU Lesser
+// General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
 #include "../include/PhQ/Direction.hpp"
 
+#include <array>
+#include <functional>
 #include <gtest/gtest.h>
+#include <sstream>
+#include <utility>
+
+#include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/Unit/Angle.hpp"
+#include "../include/PhQ/Value/Dyad.hpp"
+#include "../include/PhQ/Value/SymmetricDyad.hpp"
+#include "../include/PhQ/Value/Vector.hpp"
 
 namespace PhQ {
 
@@ -33,15 +42,14 @@ TEST(Direction, Angle) {
 }
 
 TEST(Direction, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0)
-                * Direction(0.0, -1.0, 0.0),
+  EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0) * Direction(0.0, -1.0, 0.0),
             Value::Vector(-2.0, -8.0, -16.0));
 }
 
 TEST(Direction, AssignmentOperatorMultiplication) {
-  EXPECT_EQ(Value::Dyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0)
-                * Direction(0.0, -1.0, 0.0),
-            Value::Vector(-2.0, -16.0, -128.0));
+  EXPECT_EQ(
+      Value::Dyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0) * Direction(0.0, -1.0, 0.0),
+      Value::Vector(-2.0, -16.0, -128.0));
 }
 
 TEST(Direction, ComparisonOperators) {
@@ -71,12 +79,11 @@ TEST(Direction, CopyConstructor) {
 }
 
 TEST(Direction, Cross) {
-  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)),
-            Direction(0.0, 0.0, 1.0));
-  EXPECT_EQ(Value::Vector(2.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)),
-            Value::Vector(0.0, 0.0, 2.0));
-  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Value::Vector(0.0, 2.0, 0.0)),
-            Value::Vector(0.0, 0.0, 2.0));
+  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Direction(0.0, 0.0, 1.0));
+  EXPECT_EQ(
+      Value::Vector(2.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Value::Vector(0.0, 0.0, 2.0));
+  EXPECT_EQ(
+      Direction(1.0, 0.0, 0.0).Cross(Value::Vector(0.0, 2.0, 0.0)), Value::Vector(0.0, 0.0, 2.0));
 }
 
 TEST(Direction, DefaultConstructor) {
@@ -115,8 +122,7 @@ TEST(Direction, Hash) {
 }
 
 TEST(Direction, JSON) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).JSON(),
-            "{\"x\":0,\"y\":-1.000000000000000,\"z\":0}");
+  EXPECT_EQ(Direction(0.0, -2.22, 0.0).JSON(), "{\"x\":0,\"y\":-1.000000000000000,\"z\":0}");
 }
 
 TEST(Direction, Magnitude) {
@@ -125,8 +131,7 @@ TEST(Direction, Magnitude) {
 }
 
 TEST(Direction, MiscellaneousConstructors) {
-  EXPECT_EQ(Value::Vector(7.0, Direction(2.0, -3.0, 6.0)),
-            Value::Vector(2.0, -3.0, 6.0));
+  EXPECT_EQ(Value::Vector(7.0, Direction(2.0, -3.0, 6.0)), Value::Vector(2.0, -3.0, 6.0));
 
   EXPECT_EQ(Angle(Direction(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)),
             Angle(90.0, Unit::Angle::Degree));
@@ -139,8 +144,7 @@ TEST(Direction, MiscellaneousConstructors) {
 }
 
 TEST(Direction, MiscellaneousMethods) {
-  EXPECT_EQ(
-      Value::Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
+  EXPECT_EQ(Value::Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
 }
 
 TEST(Direction, MoveAssignmentOperator) {
@@ -152,7 +156,7 @@ TEST(Direction, MoveAssignmentOperator) {
 
 TEST(Direction, MoveConstructor) {
   Direction first(1.11, -2.22, 3.33);
-  Direction second{std::move(first)};
+  const Direction second{std::move(first)};
   EXPECT_EQ(second, Direction(1.11, -2.22, 3.33));
 }
 
@@ -201,14 +205,11 @@ TEST(Direction, Value) {
 }
 
 TEST(Direction, XML) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).XML(),
-            "<x>0</x><y>-1.000000000000000</y><z>0</z>");
+  EXPECT_EQ(Direction(0.0, -2.22, 0.0).XML(), "<x>0</x><y>-1.000000000000000</y><z>0</z>");
 }
 
 TEST(Direction, YAML) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).YAML(),
-            "{x:0,y:-1.000000000000000,z:"
-            "0}");
+  EXPECT_EQ(Direction(0.0, -2.22, 0.0).YAML(), "{x:0,y:-1.000000000000000,z:0}");
 }
 
 TEST(Direction, Zero) {
