@@ -422,7 +422,7 @@ ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquar
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -672,7 +672,7 @@ ConversionToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareH
 template <>
 inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

@@ -185,7 +185,7 @@ ConversionFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>(double& value
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(double&) noexcept {}
+ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -267,7 +267,7 @@ ConversionToStandard<Unit::Volume, Unit::Volume::CubicKilometre>(double& value) 
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(double&) noexcept {}
+ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

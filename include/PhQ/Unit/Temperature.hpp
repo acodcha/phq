@@ -110,7 +110,7 @@ inline const std::unordered_map<std::string_view, Unit::Temperature> Spellings<U
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double&) noexcept {}
+ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -132,7 +132,7 @@ ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(double&
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double&) noexcept {}
+ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

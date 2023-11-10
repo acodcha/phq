@@ -196,7 +196,7 @@ inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::Acre>(doubl
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(double&) noexcept {}
+ConversionFromStandard<Unit::Area, Unit::Area::SquareMetre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -276,7 +276,8 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::Acre>(double&
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(double&) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

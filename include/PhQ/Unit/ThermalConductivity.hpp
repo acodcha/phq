@@ -223,7 +223,7 @@ inline const std::unordered_map<std::string_view, Unit::ThermalConductivity> Spe
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -243,7 +243,7 @@ inline constexpr void ConversionFromStandard<Unit::ThermalConductivity,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

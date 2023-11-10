@@ -276,7 +276,8 @@ inline const std::unordered_map<std::string_view, Unit::Energy> Spellings<Unit::
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(double&) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -465,7 +466,8 @@ ConversionFromStandard<Unit::Energy, Unit::Energy::BritishThermalUnit>(double& v
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Joule>(double&) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Energy, Unit::Energy::Joule>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

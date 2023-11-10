@@ -138,7 +138,7 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy> Spelling
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -164,7 +164,7 @@ ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerS
 template <>
 inline constexpr void
 ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

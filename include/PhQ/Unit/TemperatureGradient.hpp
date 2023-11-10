@@ -147,7 +147,7 @@ inline const std::unordered_map<std::string_view, Unit::TemperatureGradient>
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -159,7 +159,7 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Kel
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -199,7 +199,7 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Fah
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -211,7 +211,7 @@ ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Kelvi
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

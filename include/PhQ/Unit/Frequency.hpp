@@ -108,7 +108,7 @@ inline const std::unordered_map<std::string_view, Unit::Frequency> Spellings<Uni
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(double&) noexcept {}
+ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -142,7 +142,7 @@ ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerHour>(double& value)
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(double&) noexcept {}
+ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

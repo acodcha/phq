@@ -17,9 +17,9 @@
 #     DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 #     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-# This is a configuration file for use with LLVM's "clang-format" automatic source code formatter
-# (https://clang.llvm.org/docs/ClangFormat.html). This file is compatible with "clang-format"
-# version 14.0.0 or any later version. To format your source code files, copy this file to the root
+# This is a configuration file for use with LLVM's ClangFormat automatic source code formatter
+# (https://clang.llvm.org/docs/ClangFormat.html). This file is compatible with ClangFormat version
+# 14.0.0 or any later version. To format your source code files, copy this file to the root
 # directory of your source code repository, name it ".clang-format", and run:
 #     clang-format --style=file path/to/source/code/files
 #
