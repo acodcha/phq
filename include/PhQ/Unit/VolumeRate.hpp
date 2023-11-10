@@ -373,7 +373,8 @@ ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSeco
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(double&) noexcept {}
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -653,8 +654,8 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(

@@ -212,9 +212,9 @@ inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::TransportEnergyConsumption,
-                       Unit::TransportEnergyConsumption::JoulePerMetre>(double&) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
+                                             Unit::TransportEnergyConsumption::JoulePerMetre>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -353,7 +353,7 @@ ConversionToStandard<Unit::TransportEnergyConsumption,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
-                     Unit::TransportEnergyConsumption::JoulePerMetre>(double&) noexcept {}
+                     Unit::TransportEnergyConsumption::JoulePerMetre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

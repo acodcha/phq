@@ -153,7 +153,8 @@ inline const std::unordered_map<std::string_view, Unit::AngularSpeed> Spellings<
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(double&) noexcept {}
+ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -252,8 +253,8 @@ ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(

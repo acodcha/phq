@@ -194,7 +194,7 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spe
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -297,7 +297,7 @@ ConversionFromStandard<Unit::AngularAcceleration,
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

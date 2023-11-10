@@ -222,7 +222,7 @@ inline const std::unordered_map<std::string_view, Unit::SpecificPower> Spellings
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -247,7 +247,8 @@ ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSli
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(double&) noexcept {}
+ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

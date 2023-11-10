@@ -14,6 +14,7 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_MASS_DENSITY_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_MASS_DENSITY_HPP
 
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -132,7 +133,7 @@ inline const std::unordered_map<std::string_view, Unit::MassDensity> Spellings<U
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -172,7 +173,7 @@ ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
 template <>
 inline constexpr void
 ConversionToStandard<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

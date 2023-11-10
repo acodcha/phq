@@ -135,7 +135,8 @@ ConversionFromStandard<Unit::Time, Unit::Time::Millisecond>(double& value) noexc
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Second>(double&) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Time, Unit::Time::Second>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -167,7 +168,8 @@ ConversionToStandard<Unit::Time, Unit::Time::Millisecond>(double& value) noexcep
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Second>(double&) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Time, Unit::Time::Second>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Minute>(double& value) noexcept {

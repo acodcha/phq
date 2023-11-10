@@ -137,7 +137,8 @@ inline const std::unordered_map<std::string_view, Unit::Force> Spellings<Unit::F
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Force, Unit::Force::Newton>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -188,7 +189,8 @@ ConversionFromStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept 
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Newton>(double&) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Force, Unit::Force::Newton>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

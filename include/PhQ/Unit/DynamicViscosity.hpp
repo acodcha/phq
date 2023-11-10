@@ -169,7 +169,7 @@ inline const std::unordered_map<std::string_view, Unit::DynamicViscosity> Spelli
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -215,7 +215,7 @@ ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSeco
 template <>
 inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
-    double&) noexcept {}
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

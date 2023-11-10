@@ -147,7 +147,7 @@ inline const std::unordered_map<std::string_view, Unit::Pressure> Spellings<Unit
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(double&) noexcept {}
+ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -193,7 +193,7 @@ ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(doubl
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(double&) noexcept {}
+ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

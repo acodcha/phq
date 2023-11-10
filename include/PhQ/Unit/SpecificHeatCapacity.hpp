@@ -410,9 +410,9 @@ inline const std::unordered_map<std::string_view, Unit::SpecificHeatCapacity> Sp
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::SpecificHeatCapacity,
-                       Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(double&) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::SpecificHeatCapacity,
+                                             Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::SpecificHeatCapacity,
@@ -438,9 +438,9 @@ ConversionFromStandard<Unit::SpecificHeatCapacity,
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::SpecificHeatCapacity,
-                     Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
+                                           Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,

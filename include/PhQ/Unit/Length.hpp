@@ -198,7 +198,8 @@ ConversionFromStandard<Unit::Length, Unit::Length::Kilometre>(double& value) noe
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Metre>(double&) noexcept {}
+inline constexpr void
+ConversionFromStandard<Unit::Length, Unit::Length::Metre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -267,7 +268,8 @@ ConversionToStandard<Unit::Length, Unit::Length::Kilometre>(double& value) noexc
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Metre>(double&) noexcept {}
+inline constexpr void
+ConversionToStandard<Unit::Length, Unit::Length::Metre>(double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void

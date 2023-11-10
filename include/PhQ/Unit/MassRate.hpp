@@ -160,8 +160,8 @@ inline const std::unordered_map<std::string_view, Unit::MassRate> Spellings<Unit
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(double&) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -248,8 +248,8 @@ ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(double& val
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(double&) noexcept {}
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
