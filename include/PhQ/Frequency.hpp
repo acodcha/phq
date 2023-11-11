@@ -37,13 +37,13 @@ public:
   // Constructor. Constructs a frequency from a given time period using the definition of frequency.
   constexpr explicit Frequency(const Time& time) : Frequency(1.0 / time.Value()) {}
 
-  // Constructor. Constructs a frequency from a given acceleration magnitude and speed using the
+  // Constructor. Constructs a frequency from a given scalar acceleration and speed using the
   // definitions of acceleration and frequency.
-  constexpr Frequency(const AccelerationMagnitude& acceleration_magnitude, const Speed& speed);
+  constexpr Frequency(const AccelerationScalar& acceleration_scalar, const Speed& speed);
 
-  // Constructor. Constructs a frequency from a given angular acceleration magnitude and angular
-  // speed using the definitions of angular acceleration and frequency.
-  constexpr Frequency(const AngularAccelerationMagnitude& angular_acceleration_magnitude,
+  // Constructor. Constructs a frequency from a given scalar angular acceleration and angular speed
+  // using the definitions of angular acceleration and frequency.
+  constexpr Frequency(const AngularAccelerationScalar& angular_acceleration_scalar,
                       const AngularSpeed& angular_speed);
 
   // Constructor. Constructs a frequency from a given angular speed and angle using the definitions
@@ -133,9 +133,9 @@ public:
 
   constexpr MemoryRate operator*(const Memory& memory) const;
 
-  constexpr AccelerationMagnitude operator*(const Speed& speed) const;
+  constexpr AccelerationScalar operator*(const Speed& speed) const;
 
-  constexpr AngularAccelerationMagnitude operator*(const AngularSpeed& angular_speed) const;
+  constexpr AngularAccelerationScalar operator*(const AngularSpeed& angular_speed) const;
 
   constexpr MassRate operator*(const Mass& mass) const;
 

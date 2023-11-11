@@ -22,7 +22,7 @@
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
-#include "TemperatureGradientMagnitude.hpp"
+#include "TemperatureGradientScalar.hpp"
 #include "Unit/TemperatureGradient.hpp"
 #include "Vector.hpp"
 
@@ -39,11 +39,11 @@ public:
   TemperatureGradient(const Vector& value, const Unit::TemperatureGradient unit)
     : DimensionalVector<Unit::TemperatureGradient>(value, unit) {}
 
-  // Constructor. Constructs a temperature gradient from a given temperature gradient magnitude and
-  // direction.
-  constexpr TemperatureGradient(const TemperatureGradientMagnitude& temperature_gradient_magnitude,
-                                const Direction& direction)
-    : TemperatureGradient(temperature_gradient_magnitude.Value() * direction.Value()) {}
+  // Constructor. Constructs a temperature gradient from a given scalar temperature gradient
+  // magnitude and direction.
+  constexpr TemperatureGradient(
+      const TemperatureGradientScalar& temperature_gradient_scalar, const Direction& direction)
+    : TemperatureGradient(temperature_gradient_scalar.Value() * direction.Value()) {}
 
   // Destructor. Destroys this temperature gradient.
   ~TemperatureGradient() noexcept = default;
@@ -93,8 +93,8 @@ public:
   }
 
   // Returns the magnitude of this temperature gradient.
-  [[nodiscard]] TemperatureGradientMagnitude Magnitude() const {
-    return TemperatureGradientMagnitude{*this};
+  [[nodiscard]] TemperatureGradientScalar Magnitude() const {
+    return TemperatureGradientScalar{*this};
   }
 
   // Returns the angle between this temperature gradient and another one.
@@ -189,16 +189,16 @@ inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
                     const TemperatureGradient& temperature_gradient_2)
   : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
-inline TemperatureGradientMagnitude::TemperatureGradientMagnitude(
+inline TemperatureGradientScalar::TemperatureGradientScalar(
     const TemperatureGradient& temperature_gradient)
-  : TemperatureGradientMagnitude(temperature_gradient.Value().Magnitude()) {}
+  : TemperatureGradientScalar(temperature_gradient.Value().Magnitude()) {}
 
 inline constexpr TemperatureGradient Direction::operator*(
-    const TemperatureGradientMagnitude& temperature_gradient_magnitude) const {
-  return {temperature_gradient_magnitude, *this};
+    const TemperatureGradientScalar& temperature_gradient_scalar) const {
+  return {temperature_gradient_scalar, *this};
 }
 
-inline constexpr TemperatureGradient TemperatureGradientMagnitude::operator*(
+inline constexpr TemperatureGradient TemperatureGradientScalar::operator*(
     const Direction& direction) const {
   return {*this, direction};
 }

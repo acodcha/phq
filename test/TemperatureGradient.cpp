@@ -20,7 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
-#include "../include/PhQ/TemperatureGradientMagnitude.hpp"
+#include "../include/PhQ/TemperatureGradientScalar.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -55,10 +55,10 @@ TEST(TemperatureGradient, ArithmeticOperatorMultiplication) {
             TemperatureGradient({2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
   EXPECT_EQ(Direction(2.0, -3.0, 6.0)
-                * TemperatureGradientMagnitude(7.0, Unit::TemperatureGradient::KelvinPerMetre),
+                * TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre),
             TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  EXPECT_EQ(TemperatureGradientMagnitude(7.0, Unit::TemperatureGradient::KelvinPerMetre)
+  EXPECT_EQ(TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre)
                 * Direction(2.0, -3.0, 6.0),
             TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -177,7 +177,7 @@ TEST(TemperatureGradient, JSON) {
 TEST(TemperatureGradient, Magnitude) {
   EXPECT_EQ(
       TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre).Magnitude(),
-      TemperatureGradientMagnitude(7.0, Unit::TemperatureGradient::KelvinPerMetre));
+      TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MiscellaneousConstructors) {
@@ -189,9 +189,9 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
                   TemperatureGradient({0.0, 0.0, 3.33}, Unit::TemperatureGradient::KelvinPerMetre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(TemperatureGradientMagnitude(
+  EXPECT_EQ(TemperatureGradientScalar(
                 TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-            TemperatureGradientMagnitude(7.0, Unit::TemperatureGradient::KelvinPerMetre));
+            TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MoveAssignmentOperator) {

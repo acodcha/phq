@@ -25,9 +25,9 @@ namespace PhQ {
 
 // Forward declarations for class Time.
 class Acceleration;
-class AccelerationMagnitude;
+class AccelerationScalar;
 class Angle;
-class AngularAccelerationMagnitude;
+class AngularAccelerationScalar;
 class AngularSpeed;
 class Displacement;
 class Energy;
@@ -62,14 +62,14 @@ public:
   // frequency.
   explicit constexpr Time(const PhQ::Frequency& frequency);
 
-  // Constructor. Constructs a time quantity from a given speed and acceleration magnitude using the
+  // Constructor. Constructs a time quantity from a given speed and scalar acceleration using the
   // definition of acceleration.
-  constexpr Time(const Speed& speed, const AccelerationMagnitude& acceleration_magnitude);
+  constexpr Time(const Speed& speed, const AccelerationScalar& acceleration_scalar);
 
-  // Constructor. Constructs a time quantity from a given angular speed and angular acceleration
-  // magnitude using the definition of angular acceleration.
+  // Constructor. Constructs a time quantity from a given angular speed and scalar angular
+  // acceleration using the definition of angular acceleration.
   constexpr Time(const AngularSpeed& angular_speed,
-                 const AngularAccelerationMagnitude& angular_acceleration_magnitude);
+                 const AngularAccelerationScalar& angular_acceleration_scalar);
 
   // Constructor. Constructs a time quantity from a given angle and angular speed using the
   // definition of angular speed.
@@ -143,7 +143,7 @@ public:
 
   constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Speed operator*(const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Speed operator*(const AccelerationScalar& acceleration_scalar) const;
 
   constexpr Mass operator*(const MassRate& mass_rate) const;
 

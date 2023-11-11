@@ -26,7 +26,7 @@
 namespace PhQ {
 
 // Forward declarations for class Speed.
-class AccelerationMagnitude;
+class AccelerationScalar;
 class Direction;
 class DynamicKinematicPressure;
 class DynamicPressure;
@@ -61,13 +61,13 @@ public:
   // Constructor. Constructs a speed from a given velocity vector.
   explicit Speed(const Velocity& velocity);
 
-  // Constructor. Constructs a speed from a given acceleration magnitude and time duration using the
+  // Constructor. Constructs a speed from a given scalar acceleration and time duration using the
   // definition of acceleration.
-  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Time& time);
+  constexpr Speed(const AccelerationScalar& acceleration_scalar, const Time& time);
 
-  // Constructor. Constructs a speed from a given acceleration magnitude and frequency using the
+  // Constructor. Constructs a speed from a given scalar acceleration and frequency using the
   // definition of acceleration.
-  constexpr Speed(const AccelerationMagnitude& acceleration_magnitude, const Frequency& frequency);
+  constexpr Speed(const AccelerationScalar& acceleration_scalar, const Frequency& frequency);
 
   // Constructor. Constructs a speed from a given dynamic pressure and mass density using the
   // definition of dynamic pressure.
@@ -137,7 +137,7 @@ public:
     return {*this, time};
   }
 
-  constexpr AccelerationMagnitude operator*(const Frequency& frequency) const;
+  constexpr AccelerationScalar operator*(const Frequency& frequency) const;
 
   constexpr Velocity operator*(const Direction& direction) const;
 
@@ -155,9 +155,9 @@ public:
     return {*this, length};
   }
 
-  constexpr AccelerationMagnitude operator/(const Time& time) const;
+  constexpr AccelerationScalar operator/(const Time& time) const;
 
-  constexpr Time operator/(const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Time operator/(const AccelerationScalar& acceleration_scalar) const;
 
   constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
 

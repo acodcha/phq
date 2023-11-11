@@ -20,7 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
-#include "../include/PhQ/HeatFluxMagnitude.hpp"
+#include "../include/PhQ/HeatFluxScalar.hpp"
 #include "../include/PhQ/TemperatureGradient.hpp"
 #include "../include/PhQ/ThermalConductivity.hpp"
 #include "../include/PhQ/ThermalConductivityScalar.hpp"
@@ -58,13 +58,11 @@ TEST(HeatFlux, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre),
             HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 
-  EXPECT_EQ(
-      Direction(2.0, -3.0, 6.0) * HeatFluxMagnitude(7.0, Unit::EnergyFlux::WattPerSquareMetre),
-      HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre),
+            HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 
-  EXPECT_EQ(
-      HeatFluxMagnitude(7.0, Unit::EnergyFlux::WattPerSquareMetre) * Direction(2.0, -3.0, 6.0),
-      HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre) * Direction(2.0, -3.0, 6.0),
+            HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, ArithmeticOperatorSubtraction) {
@@ -166,7 +164,7 @@ TEST(HeatFlux, JSON) {
 
 TEST(HeatFlux, Magnitude) {
   EXPECT_EQ(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre).Magnitude(),
-            HeatFluxMagnitude(7.0, Unit::EnergyFlux::WattPerSquareMetre));
+            HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MiscellaneousConstructors) {
@@ -177,8 +175,8 @@ TEST(HeatFlux, MiscellaneousConstructors) {
                   HeatFlux({0.0, 0.0, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(HeatFluxMagnitude(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre)),
-            HeatFluxMagnitude(7.0, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFluxScalar(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre)),
+            HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre));
 
   EXPECT_EQ(
       HeatFlux(ThermalConductivityScalar(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),

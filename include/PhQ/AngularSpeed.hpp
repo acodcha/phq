@@ -27,10 +27,10 @@
 namespace PhQ {
 
 // Forward declaration for class AngularSpeed.
-class AngularAccelerationMagnitude;
+class AngularAccelerationScalar;
 
-// Planar angular speed. Magnitude of angular velocity. Time rate of change of an angle. Typically
-// measured in radians per second. Can also represent a circular frequency.
+// Planar angular speed component or magnitude of an angular velocity vector. Time rate of change of
+// an angle. Typically measured in radians per second. Can also represent a circular frequency.
 class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed> {
 public:
   // Default constructor. Constructs an angular speed with an uninitialized value.
@@ -51,15 +51,15 @@ public:
   constexpr AngularSpeed(const Angle& angle, const Frequency& frequency)
     : AngularSpeed(angle.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs an angular speed from a given angular acceleration magnitude and time
+  // Constructor. Constructs an angular speed from a given scalar angular acceleration and time
   // using the definition of angular acceleration.
   constexpr AngularSpeed(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude, const Time& time);
+      const AngularAccelerationScalar& angular_acceleration_scalar, const Time& time);
 
-  // Constructor. Constructs an angular speed from a given angular acceleration magnitude and
-  // frequency using the definition of angular acceleration.
-  constexpr AngularSpeed(const AngularAccelerationMagnitude& angular_acceleration_magnitude,
-                         const Frequency& frequency);
+  // Constructor. Constructs an angular speed from a given scalar angular acceleration and frequency
+  // using the definition of angular acceleration.
+  constexpr AngularSpeed(
+      const AngularAccelerationScalar& angular_acceleration_scalar, const Frequency& frequency);
 
   // Destructor. Destroys this angular speed.
   ~AngularSpeed() noexcept = default;
@@ -104,7 +104,7 @@ public:
     return {*this, time};
   }
 
-  constexpr AngularAccelerationMagnitude operator*(const Frequency& frequency) const;
+  constexpr AngularAccelerationScalar operator*(const Frequency& frequency) const;
 
   constexpr AngularSpeed operator/(const double number) const {
     return AngularSpeed{value_ / number};
@@ -118,10 +118,9 @@ public:
     return {*this, angle};
   }
 
-  constexpr AngularAccelerationMagnitude operator/(const Time& time) const;
+  constexpr AngularAccelerationScalar operator/(const Time& time) const;
 
-  constexpr Time operator/(
-      const AngularAccelerationMagnitude& angular_acceleration_magnitude) const;
+  constexpr Time operator/(const AngularAccelerationScalar& angular_acceleration_scalar) const;
 
   constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
     return value_ / angular_speed.value_;

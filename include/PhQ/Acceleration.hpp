@@ -19,7 +19,7 @@
 #include <functional>
 #include <ostream>
 
-#include "AccelerationMagnitude.hpp"
+#include "AccelerationScalar.hpp"
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Frequency.hpp"
@@ -41,11 +41,10 @@ public:
   Acceleration(const Vector& value, const Unit::Acceleration unit)
     : DimensionalVector<Unit::Acceleration>(value, unit) {}
 
-  // Constructor. Constructs an acceleration vector from a given acceleration magnitude and
+  // Constructor. Constructs an acceleration vector from a given scalar acceleration magnitude and
   // direction.
-  constexpr Acceleration(
-      const AccelerationMagnitude& acceleration_magnitude, const Direction& direction)
-    : Acceleration(acceleration_magnitude.Value() * direction.Value()) {}
+  constexpr Acceleration(const AccelerationScalar& acceleration_scalar, const Direction& direction)
+    : Acceleration(acceleration_scalar.Value() * direction.Value()) {}
 
   // Constructor. Constructs an acceleration vector from a given velocity and time using the
   // definition of acceleration.
@@ -102,8 +101,8 @@ public:
   }
 
   // Returns the magnitude of this acceleration vector.
-  [[nodiscard]] AccelerationMagnitude Magnitude() const {
-    return AccelerationMagnitude{*this};
+  [[nodiscard]] AccelerationScalar Magnitude() const {
+    return AccelerationScalar{*this};
   }
 
   // Returns the angle between this acceleration vector and another one.
@@ -196,8 +195,8 @@ inline Direction::Direction(const Acceleration& acceleration) : Direction(accele
 inline Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2)
   : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
 
-inline AccelerationMagnitude::AccelerationMagnitude(const Acceleration& acceleration)
-  : AccelerationMagnitude(acceleration.Value().Magnitude()) {}
+inline AccelerationScalar::AccelerationScalar(const Acceleration& acceleration)
+  : AccelerationScalar(acceleration.Value().Magnitude()) {}
 
 inline constexpr Velocity::Velocity(const Acceleration& acceleration, const Time& time)
   : Velocity(acceleration.Value() * time.Value()) {}
@@ -206,15 +205,15 @@ inline constexpr Velocity::Velocity(const Acceleration& acceleration, const Freq
   : Velocity(acceleration.Value() / frequency.Value()) {}
 
 inline constexpr Acceleration Direction::operator*(
-    const AccelerationMagnitude& acceleration_magnitude) const {
-  return {acceleration_magnitude, *this};
+    const AccelerationScalar& acceleration_scalar) const {
+  return {acceleration_scalar, *this};
 }
 
 inline constexpr Velocity Time::operator*(const Acceleration& acceleration) const {
   return {acceleration, *this};
 }
 
-inline constexpr Acceleration AccelerationMagnitude::operator*(const Direction& direction) const {
+inline constexpr Acceleration AccelerationScalar::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

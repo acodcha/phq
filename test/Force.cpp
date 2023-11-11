@@ -20,7 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
-#include "../include/PhQ/ForceMagnitude.hpp"
+#include "../include/PhQ/ForceScalar.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -53,10 +53,10 @@ TEST(Force, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * Force({1.0, -2.0, 3.0}, Unit::Force::Newton),
             Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ForceMagnitude(7.0, Unit::Force::Newton),
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ForceScalar(7.0, Unit::Force::Newton),
             Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(ForceMagnitude(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
+  EXPECT_EQ(ForceScalar(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
             Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 }
 
@@ -156,7 +156,7 @@ TEST(Force, JSON) {
 
 TEST(Force, Magnitude) {
   EXPECT_EQ(Force({2.0, -3.0, 6.0}, Unit::Force::Newton).Magnitude(),
-            ForceMagnitude(7.0, Unit::Force::Newton));
+            ForceScalar(7.0, Unit::Force::Newton));
 }
 
 TEST(Force, MiscellaneousConstructors) {
@@ -167,8 +167,8 @@ TEST(Force, MiscellaneousConstructors) {
                   Force({0.0, 0.0, 3.33}, Unit::Force::Newton)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(ForceMagnitude(Force({2.0, -3.0, 6.0}, Unit::Force::Newton)),
-            ForceMagnitude(7.0, Unit::Force::Newton));
+  EXPECT_EQ(ForceScalar(Force({2.0, -3.0, 6.0}, Unit::Force::Newton)),
+            ForceScalar(7.0, Unit::Force::Newton));
 }
 
 TEST(Force, MoveAssignmentOperator) {

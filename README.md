@@ -346,7 +346,7 @@ The above example obtains the physical dimension set of mass density, which is L
 
 ### Usage: Divisions by Zero
 
-The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Value::Dyad` and `PhQ::Value::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
+The Physical Quantities library carefully handles divisions by zero in its internal arithmetic operations. For example, `PhQ::Direction` carefully checks for the zero vector case when normalizing its magnitude, and `PhQ::Dyad` and `PhQ::SymmetricDyad` carefully check for a zero determinant when computing their inverse.
 
 However, in general, divisions by zero can occur during arithmetic operations between physical quantities. For example, `PhQ::Length::Zero() / PhQ::Time::Zero()` results in a `PhQ::Speed` with a value of "not-a-number" (`NaN`). C++ uses the IEEE 754 floating point arithmetic standard, which supports divisions by zero such as `1.0/0.0 = inf`, `-1.0/0.0 = -inf`, and `0.0/0.0 = NaN`. If any of these special cases are a concern, use try-catch blocks or standard C++ utilities such as `std::isfinite`.
 

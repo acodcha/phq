@@ -28,11 +28,11 @@ namespace PhQ {
 class AreaVector;
 class Direction;
 class Force;
-class ForceMagnitude;
+class ForceScalar;
 class StaticPressure;
 class Traction;
 
-// Area. Scalar quantity. Can also represent the magnitude of a vector area.
+// Scalar area. Can also represent a component or the magnitude of a vector area.
 class Area : public DimensionalScalar<Unit::Area> {
 public:
   // Default constructor. Constructs an area with an uninitialized value.
@@ -51,9 +51,9 @@ public:
   // Constructor. Constructs an area from a given volume and length.
   constexpr Area(const Volume& volume, const Length& length);
 
-  // Constructor. Constructs an area from a given force magnitude and static pressure using the
-  // definition of pressure.
-  constexpr Area(const ForceMagnitude& force_magnitude, const StaticPressure& static_pressure);
+  // Constructor. Constructs an area from a given scalar force magnitude and static pressure using
+  // the definition of pressure.
+  constexpr Area(const ForceScalar& force_scalar, const StaticPressure& static_pressure);
 
   // Destructor. Destroys this area.
   ~Area() noexcept = default;
@@ -95,7 +95,7 @@ public:
 
   constexpr Volume operator*(const Length& length) const;
 
-  constexpr ForceMagnitude operator*(const StaticPressure& static_pressure) const;
+  constexpr ForceScalar operator*(const StaticPressure& static_pressure) const;
 
   constexpr AreaVector operator*(const Direction& direction) const;
 
