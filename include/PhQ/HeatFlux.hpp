@@ -21,7 +21,7 @@
 
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
-#include "HeatFluxMagnitude.hpp"
+#include "HeatFluxScalar.hpp"
 #include "TemperatureGradient.hpp"
 #include "ThermalConductivity.hpp"
 #include "ThermalConductivityScalar.hpp"
@@ -40,9 +40,9 @@ public:
   HeatFlux(const Vector& value, const Unit::EnergyFlux unit)
     : DimensionalVector<Unit::EnergyFlux>(value, unit) {}
 
-  // Constructor. Constructs a heat flux from a given heat flux magnitude and direction.
-  constexpr HeatFlux(const HeatFluxMagnitude& heat_flux_magnitude, const Direction& direction)
-    : HeatFlux(heat_flux_magnitude.Value() * direction.Value()) {}
+  // Constructor. Constructs a heat flux from a given scalar heat flux magnitude and direction.
+  constexpr HeatFlux(const HeatFluxScalar& heat_flux_scalar, const Direction& direction)
+    : HeatFlux(heat_flux_scalar.Value() * direction.Value()) {}
 
   // Constructor. Constructs a heat flux from a given thermal conductivity scalar and temperature
   // gradient using Fourier's law of heat conduction. Since heat flows opposite the temperature
@@ -101,8 +101,8 @@ public:
   }
 
   // Returns the magnitude of this heat flux.
-  [[nodiscard]] HeatFluxMagnitude Magnitude() const {
-    return HeatFluxMagnitude{*this};
+  [[nodiscard]] HeatFluxScalar Magnitude() const {
+    return HeatFluxScalar{value_.Magnitude()};
   }
 
   // Returns the angle between this heat flux and another one.
@@ -186,14 +186,11 @@ inline Direction::Direction(const HeatFlux& heat_flux) : Direction(heat_flux.Val
 inline Angle::Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2)
   : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
 
-inline HeatFluxMagnitude::HeatFluxMagnitude(const HeatFlux& heat_flux)
-  : HeatFluxMagnitude(heat_flux.Value().Magnitude()) {}
-
-inline constexpr HeatFlux Direction::operator*(const HeatFluxMagnitude& heat_flux_magnitude) const {
-  return {heat_flux_magnitude, *this};
+inline constexpr HeatFlux Direction::operator*(const HeatFluxScalar& heat_flux_scalar) const {
+  return {heat_flux_scalar, *this};
 }
 
-inline constexpr HeatFlux HeatFluxMagnitude::operator*(const Direction& direction) const {
+inline constexpr HeatFlux HeatFluxScalar::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

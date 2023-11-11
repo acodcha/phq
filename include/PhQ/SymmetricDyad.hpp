@@ -381,7 +381,7 @@ private:
   // Cartesian components of this three-dimensional symmetric dyadic tensor.
   std::array<double, 6> xx_xy_xz_yy_yz_zz_;
 
-  friend Dyad;
+  friend class Dyad;
 };
 
 inline constexpr bool operator==(const SymmetricDyad& left, const SymmetricDyad& right) noexcept {

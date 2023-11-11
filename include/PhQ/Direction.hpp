@@ -31,20 +31,20 @@ namespace PhQ {
 
 // Forward declarations for class Direction.
 class Acceleration;
-class AccelerationMagnitude;
+class AccelerationScalar;
 class Area;
 class AreaVector;
 class Displacement;
 class Force;
-class ForceMagnitude;
+class ForceScalar;
 class HeatFlux;
-class HeatFluxMagnitude;
+class HeatFluxScalar;
 class Length;
 class Position;
 class Speed;
 class StaticPressure;
 class TemperatureGradient;
-class TemperatureGradientMagnitude;
+class TemperatureGradientScalar;
 class Traction;
 class Velocity;
 
@@ -210,18 +210,18 @@ public:
     return PhQ::Angle{*this, direction};
   }
 
-  constexpr Acceleration operator*(const AccelerationMagnitude& acceleration_magnitude) const;
+  constexpr Acceleration operator*(const AccelerationScalar& acceleration_scalar) const;
 
   constexpr AreaVector operator*(const Area& area) const;
 
   constexpr Position operator*(const Length& length) const;
 
-  constexpr Force operator*(const ForceMagnitude& force_magnitude) const;
+  constexpr Force operator*(const ForceScalar& force_scalar) const;
 
-  constexpr HeatFlux operator*(const HeatFluxMagnitude& heat_flux_magnitude) const;
+  constexpr HeatFlux operator*(const HeatFluxScalar& heat_flux_scalar) const;
 
   constexpr TemperatureGradient operator*(
-      const TemperatureGradientMagnitude& temperature_gradient_magnitude) const;
+      const TemperatureGradientScalar& temperature_gradient_scalar) const;
 
   constexpr Traction operator*(const StaticPressure& static_pressure) const;
 

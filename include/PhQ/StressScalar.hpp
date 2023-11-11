@@ -104,7 +104,7 @@ private:
   // unit.
   explicit constexpr StressScalar(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 
-  friend Stress;
+  friend class Stress;
 };
 
 inline constexpr bool operator==(const StressScalar& left, const StressScalar& right) noexcept {

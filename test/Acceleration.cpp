@@ -19,6 +19,7 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/AccelerationScalar.hpp"
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Time.hpp"
@@ -65,13 +66,13 @@ TEST(Acceleration, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
             Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
-  EXPECT_EQ(Direction(2.0, -3.0, 6.0)
-                * AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond),
-            Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(
+      Direction(2.0, -3.0, 6.0) * AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond),
+      Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
-  EXPECT_EQ(AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond)
-                * Direction(2.0, -3.0, 6.0),
-            Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(
+      AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond) * Direction(2.0, -3.0, 6.0),
+      Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
   EXPECT_EQ(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)
                 * Time(2.0, Unit::Time::Second),
@@ -186,7 +187,7 @@ TEST(Acceleration, JSON) {
 
 TEST(Acceleration, Magnitude) {
   EXPECT_EQ(Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond).Magnitude(),
-            AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond));
+            AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, MiscellaneousConstructors) {
@@ -196,10 +197,6 @@ TEST(Acceleration, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(Acceleration({0.0, -2.22, 0.0}, Unit::Acceleration::MetrePerSquareSecond),
                   Acceleration({0.0, 0.0, 3.33}, Unit::Acceleration::MetrePerSquareSecond)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(AccelerationMagnitude(
-                Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)),
-            AccelerationMagnitude(7.0, Unit::Acceleration::MetrePerSquareSecond));
 
   EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
                      Time(2.0, Unit::Time::Second)),

@@ -191,9 +191,6 @@ TEST(Position, MiscellaneousConstructors) {
                   Position({0.0, 0.0, 3.33}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(
-      Length(Position({2.0, -3.0, 6.0}, Unit::Length::Metre)), Length(7.0, Unit::Length::Metre));
-
   EXPECT_EQ(Displacement(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)),
             Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }

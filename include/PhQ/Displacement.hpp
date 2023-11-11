@@ -103,7 +103,7 @@ public:
 
   // Returns the magnitude of this displacement.
   [[nodiscard]] Length Magnitude() const {
-    return Length{*this};
+    return Length{value_.Magnitude()};
   }
 
   // Returns the angle between this displacement and another one.
@@ -196,9 +196,6 @@ inline Direction::Direction(const Displacement& displacement) : Direction(displa
 
 inline Angle::Angle(const Displacement& displacement1, const Displacement& displacement2)
   : Angle(displacement1.Value(), displacement2.Value()) {}
-
-inline Length::Length(const Displacement& displacement)
-  : Length(displacement.Value().Magnitude()) {}
 
 }  // namespace PhQ
 

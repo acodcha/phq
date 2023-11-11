@@ -162,9 +162,6 @@ TEST(Displacement, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(Displacement({0.0, -2.22, 0.0}, Unit::Length::Metre),
                   Displacement({0.0, 0.0, 3.33}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(Length(Displacement({2.0, -3.0, 6.0}, Unit::Length::Metre)),
-            Length(7.0, Unit::Length::Metre));
 }
 
 TEST(Displacement, MoveAssignmentOperator) {

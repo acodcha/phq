@@ -175,9 +175,6 @@ TEST(Traction, MiscellaneousConstructors) {
                   Traction({0.0, 0.0, 3.33}, Unit::Pressure::Pascal)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(StaticPressure(Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal)),
-            StaticPressure(-7.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       Traction(Force({2.0, -4.0, 6.0}, Unit::Force::Newton), Area(2.0, Unit::Area::SquareMetre)),
       Traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal));

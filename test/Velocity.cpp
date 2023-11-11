@@ -184,9 +184,6 @@ TEST(Velocity, MiscellaneousConstructors) {
                   Velocity({0.0, 0.0, 3.33}, Unit::Speed::MetrePerSecond)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Speed(Velocity({2.0, -3.0, 6.0}, Unit::Speed::MetrePerSecond)),
-            Speed(7.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Displacement(Velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond),
                          Time(2.0, Unit::Time::Second)),
             Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre));

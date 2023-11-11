@@ -88,7 +88,7 @@ public:
 
   // Returns the magnitude of this position.
   [[nodiscard]] Length Magnitude() const {
-    return Length{*this};
+    return Length{value_.Magnitude()};
   }
 
   // Returns the angle between this position and another one.
@@ -188,8 +188,6 @@ inline Direction::Direction(const Position& position) : Direction(position.Value
 
 inline Angle::Angle(const Position& position1, const Position& position2)
   : Angle(position1.Value(), position2.Value()) {}
-
-inline Length::Length(const Position& position) : Length(position.Value().Magnitude()) {}
 
 inline constexpr Displacement::Displacement(const Position& position)
   : Displacement(position.Value()) {}

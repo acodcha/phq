@@ -28,7 +28,7 @@ class Length;
 class LinearThermalExpansionCoefficient;
 class StrainScalar;
 class Temperature;
-class TemperatureGradientMagnitude;
+class TemperatureGradientScalar;
 class VolumetricThermalExpansionCoefficient;
 
 // Temperature difference. Not to be confused with temperature. For example, a temperature
@@ -43,10 +43,10 @@ public:
   TemperatureDifference(const double value, const Unit::TemperatureDifference unit)
     : DimensionalScalar<Unit::TemperatureDifference>(value, unit) {}
 
-  // Constructor. Constructs a temperature difference from a given temperature gradient magnitude
-  // and length using the definition of temperature gradient.
+  // Constructor. Constructs a temperature difference from a given scalar temperature gradient and
+  // length using the definition of temperature gradient.
   constexpr TemperatureDifference(
-      const TemperatureGradientMagnitude& temperature_gradient_magnitude, const Length& length);
+      const TemperatureGradientScalar& temperature_gradient_scalar, const Length& length);
 
   // Destructor. Destroys this temperature difference.
   ~TemperatureDifference() noexcept = default;
@@ -105,7 +105,7 @@ public:
     return TemperatureDifference{value_ / number};
   }
 
-  constexpr TemperatureGradientMagnitude operator/(const Length& length) const;
+  constexpr TemperatureGradientScalar operator/(const Length& length) const;
 
   constexpr double operator/(const TemperatureDifference& temperature_difference) const noexcept {
     return value_ / temperature_difference.value_;
