@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_HPP
 
 #include <cstddef>
 #include <functional>
@@ -28,7 +28,7 @@ namespace PhQ {
 // Abstract base class that represents any dimensional scalar physical quantity. Such a physical
 // quantity is composed of a value and a unit of measure where the value is a scalar number.
 template <typename U>
-class DimensionalScalarQuantity {
+class DimensionalScalar {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() {
@@ -159,43 +159,41 @@ public:
 protected:
   // Default constructor. Constructs a dimensional scalar physical quantity with an uninitialized
   // value expressed in its standard unit of measure.
-  DimensionalScalarQuantity() = default;
+  DimensionalScalar() = default;
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given value expressed in
   // its standard unit of measure.
-  explicit constexpr DimensionalScalarQuantity(const double value) : value_(value) {}
+  explicit constexpr DimensionalScalar(const double value) : value_(value) {}
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given value expressed in
   // a given unit of measure.
-  DimensionalScalarQuantity(const double value, const U unit) : value_(value) {
+  DimensionalScalar(const double value, const U unit) : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
   // Destructor. Destroys this dimensional scalar physical quantity.
-  ~DimensionalScalarQuantity() noexcept = default;
+  ~DimensionalScalar() noexcept = default;
 
   // Copy constructor. Constructs a dimensional scalar physical quantity by copying another one.
-  constexpr DimensionalScalarQuantity(const DimensionalScalarQuantity& other) = default;
+  constexpr DimensionalScalar(const DimensionalScalar& other) = default;
 
   // Move constructor. Constructs a dimensional scalar physical quantity by moving another one.
-  constexpr DimensionalScalarQuantity(DimensionalScalarQuantity&& other) noexcept = default;
+  constexpr DimensionalScalar(DimensionalScalar&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensional scalar physical quantity by copying another
   // one.
-  constexpr DimensionalScalarQuantity& operator=(const DimensionalScalarQuantity& other) = default;
+  constexpr DimensionalScalar& operator=(const DimensionalScalar& other) = default;
 
   // Move assignment operator. Assigns this dimensional scalar physical quantity by moving another
   // one.
-  constexpr DimensionalScalarQuantity& operator=(
-      DimensionalScalarQuantity&& other) noexcept = default;
+  constexpr DimensionalScalar& operator=(DimensionalScalar&& other) noexcept = default;
 
   // Value of this dimensional scalar physical quantity expressed in its standard unit of measure.
   double value_;
 };
 
 template <typename U>
-inline std::ostream&
-operator<<(std::ostream& stream, const DimensionalScalarQuantity<U>& quantity) {
+inline std::ostream& operator<<(std::ostream& stream, const DimensionalScalar<U>& quantity) {
   stream << quantity.Print();
   return stream;
 }
@@ -205,12 +203,12 @@ operator<<(std::ostream& stream, const DimensionalScalarQuantity<U>& quantity) {
 namespace std {
 
 template <typename U>
-struct hash<PhQ::DimensionalScalarQuantity<U>> {
-  inline size_t operator()(const PhQ::DimensionalScalarQuantity<U>& quantity) const {
+struct hash<PhQ::DimensionalScalar<U>> {
+  inline size_t operator()(const PhQ::DimensionalScalar<U>& quantity) const {
     return hash<double>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_QUANTITY_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_SCALAR_HPP

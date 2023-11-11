@@ -18,14 +18,14 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // Lamé's first modulus of elasticity of a deformable solid material. First of the two Lamé
 // parameters. A measure of a deformable solid material's elastic modulus.
-class LameFirstModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class LameFirstModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a Lamé's first modulus with an uninitialized value.
   LameFirstModulus() = default;
@@ -33,7 +33,7 @@ public:
   // Constructor. Constructs a Lamé's first modulus with a given value expressed in a given pressure
   // unit.
   LameFirstModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this Lamé's first modulus.
   ~LameFirstModulus() noexcept = default;
@@ -103,7 +103,7 @@ private:
   // Constructor. Constructs a Lamé's first modulus with a given value expressed in the standard
   // pressure unit.
   explicit constexpr LameFirstModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalar<Unit::Pressure>(value) {}
 
   friend class ConstitutiveModel;
 };

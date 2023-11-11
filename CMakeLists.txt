@@ -152,6 +152,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(displacement_gradient GTest::gtest_main)
   gtest_discover_tests(displacement_gradient)
 
+  add_executable(dyad ${PROJECT_SOURCE_DIR}/test/Dyad.cpp)
+  target_link_libraries(dyad GTest::gtest_main)
+  gtest_discover_tests(dyad)
+
   add_executable(dynamic_kinematic_pressure ${PROJECT_SOURCE_DIR}/test/DynamicKinematicPressure.cpp)
   target_link_libraries(dynamic_kinematic_pressure GTest::gtest_main)
   gtest_discover_tests(dynamic_kinematic_pressure)
@@ -344,6 +348,10 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(substance_amount GTest::gtest_main)
   gtest_discover_tests(substance_amount)
 
+  add_executable(symmetric_dyad ${PROJECT_SOURCE_DIR}/test/SymmetricDyad.cpp)
+  target_link_libraries(symmetric_dyad GTest::gtest_main)
+  gtest_discover_tests(symmetric_dyad)
+
   add_executable(temperature ${PROJECT_SOURCE_DIR}/test/Temperature.cpp)
   target_link_libraries(temperature GTest::gtest_main)
   gtest_discover_tests(temperature)
@@ -532,17 +540,9 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(unit_volume_rate GTest::gtest_main)
   gtest_discover_tests(unit_volume_rate)
 
-  add_executable(value_dyad ${PROJECT_SOURCE_DIR}/test/Value/Dyad.cpp)
-  target_link_libraries(value_dyad GTest::gtest_main)
-  gtest_discover_tests(value_dyad)
-
-  add_executable(value_symmetric_dyad ${PROJECT_SOURCE_DIR}/test/Value/SymmetricDyad.cpp)
-  target_link_libraries(value_symmetric_dyad GTest::gtest_main)
-  gtest_discover_tests(value_symmetric_dyad)
-
-  add_executable(value_vector ${PROJECT_SOURCE_DIR}/test/Value/Vector.cpp)
-  target_link_libraries(value_vector GTest::gtest_main)
-  gtest_discover_tests(value_vector)
+  add_executable(vector ${PROJECT_SOURCE_DIR}/test/Vector.cpp)
+  target_link_libraries(vector GTest::gtest_main)
+  gtest_discover_tests(vector)
 
   add_executable(velocity ${PROJECT_SOURCE_DIR}/test/Velocity.cpp)
   target_link_libraries(velocity GTest::gtest_main)

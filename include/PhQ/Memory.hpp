@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Memory.hpp"
 
 namespace PhQ {
@@ -29,14 +29,14 @@ class Frequency;
 class MemoryRate;
 
 // Computer memory.
-class Memory : public DimensionalScalarQuantity<Unit::Memory> {
+class Memory : public DimensionalScalar<Unit::Memory> {
 public:
   // Default constructor. Constructs a memory quantity with an uninitialized value.
   Memory() = default;
 
   // Constructor. Constructs a memory quantity with a given value expressed in a given memory unit.
   Memory(const double value, const Unit::Memory unit)
-    : DimensionalScalarQuantity<Unit::Memory>(value, unit) {}
+    : DimensionalScalar<Unit::Memory>(value, unit) {}
 
   // Constructor. Constructs a memory quantity from a given memory rate and time duration using the
   // definition of memory rate.
@@ -117,7 +117,7 @@ public:
 private:
   // Constructor. Constructs a memory quantity with a given value expressed in the standard memory
   // unit.
-  explicit constexpr Memory(const double value) : DimensionalScalarQuantity<Unit::Memory>(value) {}
+  explicit constexpr Memory(const double value) : DimensionalScalar<Unit::Memory>(value) {}
 };
 
 inline constexpr bool operator==(const Memory& left, const Memory& right) noexcept {

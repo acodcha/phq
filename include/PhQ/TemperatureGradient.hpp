@@ -20,24 +20,24 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "TemperatureGradientMagnitude.hpp"
 #include "Unit/TemperatureGradient.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Temperature gradient vector.
-class TemperatureGradient : public DimensionalVectorQuantity<Unit::TemperatureGradient> {
+class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient> {
 public:
   // Default constructor. Constructs a temperature gradient with an uninitialized value.
   TemperatureGradient() = default;
 
   // Constructor. Constructs a temperature gradient with a given value expressed in a given
   // temperature gradient unit.
-  TemperatureGradient(const Value::Vector& value, const Unit::TemperatureGradient unit)
-    : DimensionalVectorQuantity<Unit::TemperatureGradient>(value, unit) {}
+  TemperatureGradient(const Vector& value, const Unit::TemperatureGradient unit)
+    : DimensionalVector<Unit::TemperatureGradient>(value, unit) {}
 
   // Constructor. Constructs a temperature gradient from a given temperature gradient magnitude and
   // direction.
@@ -62,7 +62,7 @@ public:
 
   // Statically creates a temperature gradient of zero.
   static constexpr TemperatureGradient Zero() {
-    return TemperatureGradient{Value::Vector::Zero()};
+    return TemperatureGradient{Vector::Zero()};
   }
 
   // Statically creates a temperature gradient from the given x, y, and z Cartesian components
@@ -71,7 +71,7 @@ public:
   static constexpr TemperatureGradient Create(const double x, const double y, const double z) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Value::Vector{x, y, z})};
+            Vector{x, y, z})};
   }
 
   // Statically creates a temperature gradient from the given x, y, and z Cartesian components
@@ -80,13 +80,13 @@ public:
   static constexpr TemperatureGradient Create(const std::array<double, 3>& x_y_z) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Value::Vector{x_y_z})};
+            Vector{x_y_z})};
   }
 
   // Statically creates a temperature gradient with a given value expressed in a given temperature
   // gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient Create(const Value::Vector& value) {
+  static constexpr TemperatureGradient Create(const Vector& value) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
@@ -137,8 +137,8 @@ public:
 private:
   // Constructor. Constructs a temperature gradient with a given value expressed in the standard
   // temperature gradient unit.
-  explicit constexpr TemperatureGradient(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::TemperatureGradient>(value) {}
+  explicit constexpr TemperatureGradient(const Vector& value)
+    : DimensionalVector<Unit::TemperatureGradient>(value) {}
 };
 
 inline constexpr bool operator==(
@@ -210,7 +210,7 @@ namespace std {
 template <>
 struct hash<PhQ::TemperatureGradient> {
   inline size_t operator()(const PhQ::TemperatureGradient& temperature_gradient) const {
-    return hash<PhQ::Value::Vector>()(temperature_gradient.Value());
+    return hash<PhQ::Vector>()(temperature_gradient.Value());
   }
 };
 

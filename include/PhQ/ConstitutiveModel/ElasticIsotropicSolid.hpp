@@ -33,8 +33,8 @@
 #include "../Strain.hpp"
 #include "../StrainRate.hpp"
 #include "../Stress.hpp"
+#include "../SymmetricDyad.hpp"
 #include "../Unit/Pressure.hpp"
-#include "../Value/SymmetricDyad.hpp"
 #include "../YoungModulus.hpp"
 
 namespace PhQ {
@@ -312,7 +312,7 @@ public:
     const double temporary = lame_first_modulus_.Value() * strain.Value().Trace();
     return {
         2.0 * shear_modulus_.Value() * strain.Value()
-            + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
+            + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
         Standard<Unit::Pressure>
     };
   }
@@ -336,7 +336,7 @@ public:
                         * (2.0 * shear_modulus_.Value() + 3.0 * lame_first_modulus_.Value()));
     const double temporary = b * stress.Value().Trace();
     return PhQ::Strain{
-        a * stress.Value() + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}
+        a * stress.Value() + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}
     };
   }
 

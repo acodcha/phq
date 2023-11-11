@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_HPP
 
 #include <cstddef>
 #include <functional>
@@ -22,15 +22,15 @@
 #include "Base.hpp"
 #include "Dimensions.hpp"
 #include "Unit.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Abstract base class that represents any dimensional vector physical quantity. Such a physical
-// quantity is composed of a value and a unit of measure where the value is a vector of dimension
-// three.
+// quantity is composed of a value and a unit of measure where the value is a three-dimensional
+// vector.
 template <typename U>
-class DimensionalVectorQuantity {
+class DimensionalVector {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() {
@@ -44,13 +44,13 @@ public:
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const Value::Vector& Value() const noexcept {
+  [[nodiscard]] constexpr const Vector& Value() const noexcept {
     return value_;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] Value::Vector Value(const U unit) const {
-    Value::Vector result{value_};
+  [[nodiscard]] Vector Value(const U unit) const {
+    Vector result{value_};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -58,19 +58,19 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
   template <U NewUnit>
-  [[nodiscard]] constexpr Value::Vector StaticValue() const {
+  [[nodiscard]] constexpr Vector StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr Value::Vector& MutableValue() noexcept {
+  constexpr Vector& MutableValue() noexcept {
     return value_;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const Value::Vector& value) noexcept {
+  constexpr void SetValue(const Vector& value) noexcept {
     value_ = value;
   }
 
@@ -161,43 +161,41 @@ public:
 protected:
   // Default constructor. Constructs a dimensional vector physical quantity with an uninitialized
   // value expressed in its standard unit of measure.
-  DimensionalVectorQuantity() = default;
+  DimensionalVector() = default;
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // its standard unit of measure.
-  explicit constexpr DimensionalVectorQuantity(const Value::Vector& value) : value_(value) {}
+  explicit constexpr DimensionalVector(const Vector& value) : value_(value) {}
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // a given unit of measure.
-  DimensionalVectorQuantity(const Value::Vector& value, const U unit) : value_(value) {
+  DimensionalVector(const Vector& value, const U unit) : value_(value) {
     Convert(value_, unit, Standard<U>);
   }
 
   // Destructor. Destroys this dimensional vector physical quantity.
-  ~DimensionalVectorQuantity() noexcept = default;
+  ~DimensionalVector() noexcept = default;
 
   // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
-  constexpr DimensionalVectorQuantity(const DimensionalVectorQuantity& other) = default;
+  constexpr DimensionalVector(const DimensionalVector& other) = default;
 
   // Move constructor. Constructs a dimensional vector physical quantity by moving another one.
-  constexpr DimensionalVectorQuantity(DimensionalVectorQuantity&& other) noexcept = default;
+  constexpr DimensionalVector(DimensionalVector&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensional vector physical quantity by copying another
   // one.
-  constexpr DimensionalVectorQuantity& operator=(const DimensionalVectorQuantity& other) = default;
+  constexpr DimensionalVector& operator=(const DimensionalVector& other) = default;
 
   // Move assignment operator. Assigns this dimensional vector physical quantity by moving another
   // one.
-  constexpr DimensionalVectorQuantity& operator=(
-      DimensionalVectorQuantity&& other) noexcept = default;
+  constexpr DimensionalVector& operator=(DimensionalVector&& other) noexcept = default;
 
   // Value of this dimensional vector physical quantity expressed in its standard unit of measure.
-  Value::Vector value_;
+  Vector value_;
 };
 
 template <typename U>
-inline std::ostream&
-operator<<(std::ostream& stream, const DimensionalVectorQuantity<U>& quantity) {
+inline std::ostream& operator<<(std::ostream& stream, const DimensionalVector<U>& quantity) {
   stream << quantity.Print();
   return stream;
 }
@@ -207,12 +205,12 @@ operator<<(std::ostream& stream, const DimensionalVectorQuantity<U>& quantity) {
 namespace std {
 
 template <typename U>
-struct hash<PhQ::DimensionalVectorQuantity<U>> {
-  inline size_t operator()(const PhQ::DimensionalVectorQuantity<U>& quantity) const {
-    return hash<PhQ::Value::Vector>()(quantity.Value());
+struct hash<PhQ::DimensionalVector<U>> {
+  inline size_t operator()(const PhQ::DimensionalVector<U>& quantity) const {
+    return hash<PhQ::Vector>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_QUANTITY_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONAL_VECTOR_HPP

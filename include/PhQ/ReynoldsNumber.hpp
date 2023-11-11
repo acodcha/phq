@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 #include "DynamicViscosity.hpp"
 #include "KinematicViscosity.hpp"
 #include "Length.hpp"
@@ -28,13 +28,13 @@
 namespace PhQ {
 
 // Reynolds number of a fluid flow.
-class ReynoldsNumber : public DimensionlessScalarQuantity {
+class ReynoldsNumber : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a Reynolds number with an uninitialized value.
   ReynoldsNumber() = default;
 
   // Constructor. Constructs a Reynolds number with a given value.
-  explicit constexpr ReynoldsNumber(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr ReynoldsNumber(const double value) : DimensionlessScalar(value) {}
 
   // Constructor. Constructs a Reynolds number from a given mass density, speed, length, and dynamic
   // viscosity using the definition of the Reynolds number.

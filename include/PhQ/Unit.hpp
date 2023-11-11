@@ -18,10 +18,10 @@
 #include <vector>
 
 #include "Dimensions.hpp"
+#include "Dyad.hpp"
+#include "SymmetricDyad.hpp"
 #include "UnitSystem.hpp"
-#include "Value/Dyad.hpp"
-#include "Value/SymmetricDyad.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -125,24 +125,24 @@ inline void Convert(std::vector<double>& values, const Unit original_unit, const
   }
 }
 
-// Converts a three-dimensional vector value expressed in a given unit of measure to a new unit of
+// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
 // measure. The conversion is performed in-place.
 template <typename Unit>
-inline void Convert(Value::Vector& value, const Unit original_unit, const Unit new_unit) {
+inline void Convert(Vector& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 3>(value.Mutable_x_y_z(), original_unit, new_unit);
 }
 
-// Converts a symmetric dyadic tensor value expressed in a given unit of measure to a new unit of
-// measure. The conversion is performed in-place.
+// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
+// new unit of measure. The conversion is performed in-place.
 template <typename Unit>
-inline void Convert(Value::SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
+inline void Convert(SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 6>(value.Mutable_xx_xy_xz_yy_yz_zz(), original_unit, new_unit);
 }
 
-// Converts a dyadic tensor value expressed in a given unit of measure to a new unit of measure. The
-// conversion is performed in-place.
+// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
+// measure. The conversion is performed in-place.
 template <typename Unit>
-inline void Convert(Value::Dyad& value, const Unit original_unit, const Unit new_unit) {
+inline void Convert(Dyad& value, const Unit original_unit, const Unit new_unit) {
   Convert<Unit, 9>(value.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit);
 }
 
@@ -175,30 +175,26 @@ ConvertCopy(const std::vector<double>& values, const Unit original_unit, const U
   return result;
 }
 
-// Converts a three-dimensional vector value expressed in a given unit of measure to a new unit of
+// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
 // measure. Returns a copy of the converted value. The original value remains unchanged.
 template <typename Unit>
-inline Value::Vector
-ConvertCopy(const Value::Vector& value, const Unit original_unit, const Unit new_unit) {
-  return Value::Vector{ConvertCopy<Unit, 3>(value.x_y_z(), original_unit, new_unit)};
+inline Vector ConvertCopy(const Vector& value, const Unit original_unit, const Unit new_unit) {
+  return Vector{ConvertCopy<Unit, 3>(value.x_y_z(), original_unit, new_unit)};
 }
 
-// Converts a symmetric dyadic tensor value expressed in a given unit of measure to a new unit of
+// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
+// new unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+template <typename Unit>
+inline SymmetricDyad
+ConvertCopy(const SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
+  return SymmetricDyad{ConvertCopy<Unit, 6>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
+}
+
+// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
 // measure. Returns a copy of the converted value. The original value remains unchanged.
 template <typename Unit>
-inline Value::SymmetricDyad
-ConvertCopy(const Value::SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
-  return Value::SymmetricDyad{
-      ConvertCopy<Unit, 6>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
-}
-
-// Converts a dyadic tensor value expressed in a given unit of measure to a new unit of measure.
-// Returns a copy of the converted value. The original value remains unchanged.
-template <typename Unit>
-inline Value::Dyad
-ConvertCopy(const Value::Dyad& value, const Unit original_unit, const Unit new_unit) {
-  return Value::Dyad{
-      ConvertCopy<Unit, 9>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
+inline Dyad ConvertCopy(const Dyad& value, const Unit original_unit, const Unit new_unit) {
+  return Dyad{ConvertCopy<Unit, 9>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz(), original_unit, new_unit)};
 }
 
 // Converts a value expressed in a given unit of measure to a new unit of measure. Returns a copy of
@@ -224,29 +220,29 @@ StaticConvertCopy(const std::array<double, Size>& values) {
   return result;
 }
 
-// Converts a three-dimensional vector value expressed in a given unit of measure to a new unit of
+// Converts a three-dimensional vector expressed in a given unit of measure to a new unit of
 // measure. Returns a copy of the converted value. The original value remains unchanged. This
 // function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr Value::Vector StaticConvertCopy(const Value::Vector& value) {
-  return Value::Vector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 3>(value.x_y_z())};
+inline constexpr Vector StaticConvertCopy(const Vector& value) {
+  return Vector{StaticConvertCopy<Unit, OriginalUnit, NewUnit, 3>(value.x_y_z())};
 }
 
-// Converts a symmetric dyadic tensor value expressed in a given unit of measure to a new unit of
-// measure. Returns a copy of the converted value. The original value remains unchanged. This
-// function can be evaluated at compile time.
+// Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
+// new unit of measure. Returns a copy of the converted value. The original value remains unchanged.
+// This function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr Value::SymmetricDyad StaticConvertCopy(const Value::SymmetricDyad& value) {
-  return Value::SymmetricDyad{
+inline constexpr SymmetricDyad StaticConvertCopy(const SymmetricDyad& value) {
+  return SymmetricDyad{
       StaticConvertCopy<Unit, OriginalUnit, NewUnit, 6>(value.xx_xy_xz_yy_yz_zz())};
 }
 
-// Converts a dyadic tensor value expressed in a given unit of measure to a new unit of measure.
-// Returns a copy of the converted value. The original value remains unchanged. This function can be
-// evaluated at compile time.
+// Converts a three-dimensional dyadic tensor expressed in a given unit of measure to a new unit of
+// measure. Returns a copy of the converted value. The original value remains unchanged. This
+// function can be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-inline constexpr Value::Dyad StaticConvertCopy(const Value::Dyad& value) {
-  return Value::Dyad{
+inline constexpr Dyad StaticConvertCopy(const Dyad& value) {
+  return Dyad{
       StaticConvertCopy<Unit, OriginalUnit, NewUnit, 9>(value.xx_xy_xz_yx_yy_yz_zx_zy_zz())};
 }
 

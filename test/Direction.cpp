@@ -21,10 +21,10 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/Dyad.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
-#include "../include/PhQ/Value/Dyad.hpp"
-#include "../include/PhQ/Value/SymmetricDyad.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -34,22 +34,21 @@ TEST(Direction, Angle) {
   EXPECT_EQ(Direction(0.0, -2.22, 0.0).Angle(Direction(0.0, 0.0, 3.33)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Angle(Value::Vector(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Direction(0.0, -2.22, 0.0).Angle(Vector(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Value::Vector(0.0, -2.22, 0.0).Angle(Direction(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Vector(0.0, -2.22, 0.0).Angle(Direction(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
 }
 
 TEST(Direction, ArithmeticOperatorMultiplication) {
-  EXPECT_EQ(Value::SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0) * Direction(0.0, -1.0, 0.0),
-            Value::Vector(-2.0, -8.0, -16.0));
+  EXPECT_EQ(SymmetricDyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0) * Direction(0.0, -1.0, 0.0),
+            Vector(-2.0, -8.0, -16.0));
 }
 
 TEST(Direction, AssignmentOperatorMultiplication) {
-  EXPECT_EQ(
-      Value::Dyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0) * Direction(0.0, -1.0, 0.0),
-      Value::Vector(-2.0, -16.0, -128.0));
+  EXPECT_EQ(Dyad(1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0, 256.0) * Direction(0.0, -1.0, 0.0),
+            Vector(-2.0, -16.0, -128.0));
 }
 
 TEST(Direction, ComparisonOperators) {
@@ -80,10 +79,8 @@ TEST(Direction, CopyConstructor) {
 
 TEST(Direction, Cross) {
   EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Direction(0.0, 0.0, 1.0));
-  EXPECT_EQ(
-      Value::Vector(2.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Value::Vector(0.0, 0.0, 2.0));
-  EXPECT_EQ(
-      Direction(1.0, 0.0, 0.0).Cross(Value::Vector(0.0, 2.0, 0.0)), Value::Vector(0.0, 0.0, 2.0));
+  EXPECT_EQ(Vector(2.0, 0.0, 0.0).Cross(Direction(0.0, 1.0, 0.0)), Vector(0.0, 0.0, 2.0));
+  EXPECT_EQ(Direction(1.0, 0.0, 0.0).Cross(Vector(0.0, 2.0, 0.0)), Vector(0.0, 0.0, 2.0));
 }
 
 TEST(Direction, DefaultConstructor) {
@@ -91,24 +88,24 @@ TEST(Direction, DefaultConstructor) {
 }
 
 TEST(Direction, Dimensions) {
-  EXPECT_EQ(Direction::Dimensions(), Dimensions{});
+  EXPECT_EQ(Direction::Dimensions(), Dimensionless);
 }
 
 TEST(Direction, Dot) {
   EXPECT_EQ(Direction(0.0, -1.0, 0.0).Dot(Direction(0.0, -1.0, 0.0)), 1.0);
   EXPECT_EQ(Direction(0.0, -1.0, 0.0).Dot(Direction(0.0, 1.0, 0.0)), -1.0);
   EXPECT_EQ(Direction(0.0, 1.0, 0.0).Dot(Direction(-1.0, 0.0, 0.0)), 0.0);
-  EXPECT_EQ(Direction(0.0, -1.0, 0.0).Dot(Value::Vector(2.0, -3.0, 6.0)), 3.0);
-  EXPECT_EQ(Value::Vector(2.0, -3.0, 6.0).Dot(Direction(0.0, 0.0, 1.0)), 6.0);
+  EXPECT_EQ(Direction(0.0, -1.0, 0.0).Dot(Vector(2.0, -3.0, 6.0)), 3.0);
+  EXPECT_EQ(Vector(2.0, -3.0, 6.0).Dot(Direction(0.0, 0.0, 1.0)), 6.0);
 }
 
 TEST(Direction, Dyadic) {
   EXPECT_EQ(Direction(1.0, 0.0, 0.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Value::Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Value::Vector(1.0, 2.0, 4.0)),
-            Value::Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
-  EXPECT_EQ(Value::Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
-            Value::Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
+            Dyad(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Direction(0.0, 0.0, -1.0).Dyadic(Vector(1.0, 2.0, 4.0)),
+            Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0, -2.0, -4.0));
+  EXPECT_EQ(Vector(1.0, 2.0, 4.0).Dyadic(Direction(0.0, -1.0, 0.0)),
+            Dyad(0.0, -1.0, 0.0, 0.0, -2.0, 0.0, 0.0, -4.0, 0.0));
 }
 
 TEST(Direction, Hash) {
@@ -131,20 +128,20 @@ TEST(Direction, Magnitude) {
 }
 
 TEST(Direction, MiscellaneousConstructors) {
-  EXPECT_EQ(Value::Vector(7.0, Direction(2.0, -3.0, 6.0)), Value::Vector(2.0, -3.0, 6.0));
+  EXPECT_EQ(Vector(7.0, Direction(2.0, -3.0, 6.0)), Vector(2.0, -3.0, 6.0));
 
   EXPECT_EQ(Angle(Direction(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Angle(Direction(0.0, -2.22, 0.0), Value::Vector(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(Direction(0.0, -2.22, 0.0), Vector(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(Angle(Value::Vector(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(Vector(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
 }
 
 TEST(Direction, MiscellaneousMethods) {
-  EXPECT_EQ(Value::Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
+  EXPECT_EQ(Vector(2.0, -3.0, 6.0).Direction(), Direction(2.0, -3.0, 6.0));
 }
 
 TEST(Direction, MoveAssignmentOperator) {
@@ -168,15 +165,15 @@ TEST(Direction, Print) {
 TEST(Direction, Set) {
   Direction first(1.11, -2.22, 3.33);
   first.Set(0.0, -2.22, 0.0);
-  EXPECT_EQ(first.Value(), Value::Vector(0, -1.0, 0.0));
+  EXPECT_EQ(first.Value(), Vector(0, -1.0, 0.0));
 
   Direction second(1.11, -2.22, 3.33);
   second.Set(std::array<double, 3>{0.0, -2.22, 0.0});
-  EXPECT_EQ(second.Value(), Value::Vector(0, -1.0, 0.0));
+  EXPECT_EQ(second.Value(), Vector(0, -1.0, 0.0));
 
   Direction third(1.11, -2.22, 3.33);
-  third.Set(Value::Vector{0.0, -2.22, 0.0});
-  EXPECT_EQ(third.Value(), Value::Vector(0, -1.0, 0.0));
+  third.Set(Vector{0.0, -2.22, 0.0});
+  EXPECT_EQ(third.Value(), Vector(0, -1.0, 0.0));
 }
 
 TEST(Direction, SizeOf) {
@@ -186,7 +183,7 @@ TEST(Direction, SizeOf) {
 TEST(Direction, StandardConstructor) {
   EXPECT_NO_THROW(Direction(1.11, -2.22, 3.33));
   EXPECT_NO_THROW(Direction(std::array<double, 3>{1.11, -2.22, 3.33}));
-  EXPECT_NO_THROW(Direction(Value::Vector{1.11, -2.22, 3.33}));
+  EXPECT_NO_THROW(Direction(Vector{1.11, -2.22, 3.33}));
 }
 
 TEST(Direction, Stream) {
@@ -201,7 +198,7 @@ TEST(Direction, Valid) {
 }
 
 TEST(Direction, Value) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Value(), Value::Vector(0.0, -1.0, 0.0));
+  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Value(), Vector(0.0, -1.0, 0.0));
 }
 
 TEST(Direction, XML) {

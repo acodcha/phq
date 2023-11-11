@@ -19,15 +19,15 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessDyadQuantity.hpp"
+#include "DimensionlessDyad.hpp"
+#include "Dyad.hpp"
 #include "Strain.hpp"
-#include "Value/Dyad.hpp"
 
 namespace PhQ {
 
 // Displacement gradient dyadic tensor. Gradient of the displacement vector. In general, this dyadic
 // tensor is asymmetric.
-class DisplacementGradient : public DimensionlessDyadQuantity {
+class DisplacementGradient : public DimensionlessDyad {
 public:
   // Default constructor. Constructs a displacement gradient tensor with an uninitialized value.
   DisplacementGradient() = default;
@@ -37,16 +37,15 @@ public:
   constexpr DisplacementGradient(
       const double xx, const double xy, const double xz, const double yx, const double yy,
       const double yz, const double zx, const double zy, const double zz)
-    : DimensionlessDyadQuantity(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
+    : DimensionlessDyad(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
 
   // Constructor. Constructs a displacement gradient tensor from a given array representing its
   // value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   explicit constexpr DisplacementGradient(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
-    : DimensionlessDyadQuantity(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+    : DimensionlessDyad(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Constructor. Constructs a displacement gradient tensor with a given value.
-  explicit constexpr DisplacementGradient(const Value::Dyad& value)
-    : DimensionlessDyadQuantity(value) {}
+  explicit constexpr DisplacementGradient(const Dyad& value) : DimensionlessDyad(value) {}
 
   // Destructor. Destroys this displacement gradient tensor.
   ~DisplacementGradient() noexcept = default;
@@ -65,7 +64,7 @@ public:
 
   // Statically creates a displacement gradient tensor of zero.
   static constexpr DisplacementGradient Zero() {
-    return DisplacementGradient{Value::Dyad::Zero()};
+    return DisplacementGradient{Dyad::Zero()};
   }
 
   // Creates a strain tensor from this displacement gradient tensor using the definition of the
@@ -165,7 +164,7 @@ namespace std {
 template <>
 struct hash<PhQ::DisplacementGradient> {
   inline size_t operator()(const PhQ::DisplacementGradient& displacement_gradient) const {
-    return hash<PhQ::Value::Dyad>()(displacement_gradient.Value());
+    return hash<PhQ::Dyad>()(displacement_gradient.Value());
   }
 };
 

@@ -11,7 +11,7 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#include "../../include/PhQ/Value/SymmetricDyad.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 
 #include <array>
 #include <functional>
@@ -20,10 +20,10 @@
 #include <sstream>
 #include <utility>
 
-#include "../../include/PhQ/Base.hpp"
-#include "../../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Base.hpp"
+#include "../include/PhQ/Vector.hpp"
 
-namespace PhQ::Value {
+namespace PhQ {
 
 namespace {
 
@@ -292,4 +292,4 @@ TEST(ValueSymmetricDyad, Zero) {
 
 }  // namespace
 
-}  // namespace PhQ::Value
+}  // namespace PhQ

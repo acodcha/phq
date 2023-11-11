@@ -111,7 +111,7 @@ TEST(MachNumber, DefaultConstructor) {
 }
 
 TEST(MachNumber, Dimensions) {
-  EXPECT_EQ(MachNumber::Dimensions(), Dimensions{});
+  EXPECT_EQ(MachNumber::Dimensions(), Dimensionless);
 }
 
 TEST(MachNumber, Hash) {

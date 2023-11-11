@@ -18,21 +18,21 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // Shear modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class ShearModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class ShearModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a shear modulus with an uninitialized value.
   ShearModulus() = default;
 
   // Constructor. Constructs a shear modulus with a given value expressed in a given pressure unit.
   ShearModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this shear modulus.
   ~ShearModulus() noexcept = default;
@@ -99,8 +99,7 @@ public:
 private:
   // Constructor. Constructs a shear modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr ShearModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr ShearModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 
   friend class ConstitutiveModel;
 };

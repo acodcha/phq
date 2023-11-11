@@ -109,7 +109,7 @@ TEST(ReynoldsNumber, DefaultConstructor) {
 }
 
 TEST(ReynoldsNumber, Dimensions) {
-  EXPECT_EQ(ReynoldsNumber::Dimensions(), Dimensions{});
+  EXPECT_EQ(ReynoldsNumber::Dimensions(), Dimensionless);
 }
 
 TEST(ReynoldsNumber, Hash) {

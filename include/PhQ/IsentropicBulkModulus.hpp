@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
@@ -28,7 +28,7 @@ class MassDensity;
 class SoundSpeed;
 
 // Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
-class IsentropicBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class IsentropicBulkModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs an isentropic bulk modulus with an uninitialized value.
   IsentropicBulkModulus() = default;
@@ -36,7 +36,7 @@ public:
   // Constructor. Constructs an isentropic bulk modulus with a given value expressed in a given
   // pressure unit.
   IsentropicBulkModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs an isentropic bulk modulus from a given mass density and sound speed
   // using the definition of the isentropic bulk modulus.
@@ -112,7 +112,7 @@ private:
   // Constructor. Constructs an isentropic bulk modulus with a given value expressed in the standard
   // pressure unit.
   explicit constexpr IsentropicBulkModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(

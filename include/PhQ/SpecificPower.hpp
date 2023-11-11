@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Mass.hpp"
 #include "Power.hpp"
@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Specific power. Power per unit mass.
-class SpecificPower : public DimensionalScalarQuantity<Unit::SpecificPower> {
+class SpecificPower : public DimensionalScalar<Unit::SpecificPower> {
 public:
   // Default constructor. Constructs a specific power quantity with an uninitialized value.
   SpecificPower() = default;
@@ -37,7 +37,7 @@ public:
   // Constructor. Constructs a specific power quantity with a given value expressed in a given
   // specific power unit.
   SpecificPower(const double value, const Unit::SpecificPower unit)
-    : DimensionalScalarQuantity<Unit::SpecificPower>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificPower>(value, unit) {}
 
   // Constructor. Constructs a specific power quantity from a given specific energy and time
   // duration using the definition of specific power.
@@ -138,7 +138,7 @@ private:
   // Constructor. Constructs a specific power quantity with a given value expressed in the standard
   // specific power unit.
   explicit constexpr SpecificPower(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificPower>(value) {}
+    : DimensionalScalar<Unit::SpecificPower>(value) {}
 };
 
 inline constexpr bool operator==(const SpecificPower& left, const SpecificPower& right) noexcept {

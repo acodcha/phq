@@ -23,7 +23,7 @@
 #include "../include/PhQ/ForceMagnitude.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -124,7 +124,7 @@ TEST(Force, Create) {
       Force::Create<Unit::Force::Newton>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 
-  constexpr Force third = Force::Create<Unit::Force::Newton>(Value::Vector{1.11, -2.22, 3.33});
+  constexpr Force third = Force::Create<Unit::Force::Newton>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Force({1.11, -2.22, 3.33}, Unit::Force::Newton));
 }
 
@@ -186,9 +186,9 @@ TEST(Force, MoveConstructor) {
 
 TEST(Force, MutableValue) {
   Force quantity({1.11, -2.22, 3.33}, Unit::Force::Newton);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Force, Print) {
@@ -201,7 +201,7 @@ TEST(Force, Print) {
 TEST(Force, SetValue) {
   Force quantity({1.11, -2.22, 3.33}, Unit::Force::Newton);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Force, SizeOf) {
@@ -214,8 +214,8 @@ TEST(Force, StandardConstructor) {
 
 TEST(Force, StaticValue) {
   constexpr Force quantity = Force::Create<Unit::Force::Pound>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Force::Pound>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Force::Pound>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Force, Stream) {
@@ -229,10 +229,9 @@ TEST(Force, Unit) {
 }
 
 TEST(Force, Value) {
-  EXPECT_EQ(
-      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Value(), Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Newton).Value(), Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(Force({1.11, -2.22, 3.33}, Unit::Force::Pound).Value(Unit::Force::Pound),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Force, XML) {

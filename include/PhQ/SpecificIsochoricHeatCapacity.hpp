@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "HeatCapacityRatio.hpp"
 #include "IsochoricHeatCapacity.hpp"
 #include "Mass.hpp"
@@ -27,7 +27,7 @@
 namespace PhQ {
 
 // Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
-class SpecificIsochoricHeatCapacity : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
+class SpecificIsochoricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity> {
 public:
   // Default constructor. Constructs a specific isochoric heat capacity with an uninitialized value.
   SpecificIsochoricHeatCapacity() = default;
@@ -35,7 +35,7 @@ public:
   // Constructor. Constructs a specific isochoric heat capacity with a given value expressed in a
   // given specific heat capacity unit.
   SpecificIsochoricHeatCapacity(const double value, const Unit::SpecificHeatCapacity unit)
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificHeatCapacity>(value, unit) {}
 
   // Constructor. Constructs a specific isochoric heat capacity from a given specific gas constant
   // and specific isobaric heat capacity using Mayer's relation.
@@ -146,7 +146,7 @@ private:
   // Constructor. Constructs a specific isochoric heat capacity with a given value expressed in the
   // standard specific heat capacity unit.
   explicit constexpr SpecificIsochoricHeatCapacity(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
+    : DimensionalScalar<Unit::SpecificHeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(const SpecificIsochoricHeatCapacity& left,

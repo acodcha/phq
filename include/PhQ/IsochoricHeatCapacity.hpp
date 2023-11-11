@@ -18,14 +18,14 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "HeatCapacityRatio.hpp"
 #include "Unit/HeatCapacity.hpp"
 
 namespace PhQ {
 
 // Isochoric heat capacity, also known as heat capacity at constant volume.
-class IsochoricHeatCapacity : public DimensionalScalarQuantity<Unit::HeatCapacity> {
+class IsochoricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity> {
 public:
   // Default constructor. Constructs an isochoric heat capacity with an uninitialized value.
   IsochoricHeatCapacity() = default;
@@ -33,7 +33,7 @@ public:
   // Constructor. Constructs an isochoric heat capacity with a given value expressed in a given heat
   // capacity unit.
   IsochoricHeatCapacity(const double value, const Unit::HeatCapacity unit)
-    : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
+    : DimensionalScalar<Unit::HeatCapacity>(value, unit) {}
 
   // Constructor. Constructs an isochoric heat capacity from a given gas constant and isobaric heat
   // capacity using Mayer's relation.
@@ -134,7 +134,7 @@ private:
   // Constructor. Constructs an isochoric heat capacity with a given value expressed in the standard
   // heat capacity unit.
   explicit constexpr IsochoricHeatCapacity(const double value)
-    : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
+    : DimensionalScalar<Unit::HeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(

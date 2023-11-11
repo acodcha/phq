@@ -18,14 +18,14 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // Young's modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class YoungModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class YoungModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a Young's modulus with an uninitialized value.
   YoungModulus() = default;
@@ -33,7 +33,7 @@ public:
   // Constructor. Constructs a Young's modulus with a given value expressed in a given pressure
   // unit.
   YoungModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this Young's modulus.
   ~YoungModulus() noexcept = default;
@@ -100,8 +100,7 @@ public:
 private:
   // Constructor. Constructs a Young's modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr YoungModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr YoungModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const YoungModulus& left, const YoungModulus& right) noexcept {

@@ -99,7 +99,7 @@ TEST(PoissonRatio, DefaultConstructor) {
 }
 
 TEST(PoissonRatio, Dimensions) {
-  EXPECT_EQ(PoissonRatio::Dimensions(), Dimensions{});
+  EXPECT_EQ(PoissonRatio::Dimensions(), Dimensionless);
 }
 
 TEST(PoissonRatio, Hash) {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Energy.hpp"
 #include "Frequency.hpp"
 #include "Mass.hpp"
@@ -32,7 +32,7 @@ namespace PhQ {
 class SpecificPower;
 
 // Specific energy. Energy per unit mass.
-class SpecificEnergy : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
+class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy> {
 public:
   // Default constructor. Constructs a specific energy quantity with an uninitialized value.
   SpecificEnergy() = default;
@@ -40,7 +40,7 @@ public:
   // Constructor. Constructs a specific energy quantity with a given value expressed in a given
   // specific energy unit.
   SpecificEnergy(const double value, const Unit::SpecificEnergy unit)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value, unit) {}
 
   // Constructor. Constructs a specific energy quantity from a given energy and mass using the
   // definition of specific energy.
@@ -133,7 +133,7 @@ private:
   // Constructor. Constructs a specific energy quantity with a given value expressed in the standard
   // specific energy unit.
   explicit constexpr SpecificEnergy(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value) {}
 };
 
 inline constexpr bool operator==(const SpecificEnergy& left, const SpecificEnergy& right) noexcept {

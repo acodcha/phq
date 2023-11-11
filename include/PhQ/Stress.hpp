@@ -20,25 +20,25 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalSymmetricDyadQuantity.hpp"
+#include "DimensionalSymmetricDyad.hpp"
 #include "Direction.hpp"
 #include "StaticPressure.hpp"
 #include "StressScalar.hpp"
+#include "SymmetricDyad.hpp"
 #include "Traction.hpp"
 #include "Unit/Pressure.hpp"
-#include "Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
 // Cauchy stress symmetric dyadic tensor.
-class Stress : public DimensionalSymmetricDyadQuantity<Unit::Pressure> {
+class Stress : public DimensionalSymmetricDyad<Unit::Pressure> {
 public:
   // Default constructor. Constructs a stress tensor with an uninitialized value.
   Stress() = default;
 
   // Constructor. Constructs a stress tensor with a given value expressed in a given pressure unit.
-  Stress(const Value::SymmetricDyad& value, const Unit::Pressure unit)
-    : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value, unit) {}
+  Stress(const SymmetricDyad& value, const Unit::Pressure unit)
+    : DimensionalSymmetricDyad<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a stress tensor from a given static pressure using the definition of
   // stress due to pressure. Since pressure is compressive, the negative of the static pressure
@@ -64,7 +64,7 @@ public:
 
   // Statically creates a stress tensor of zero.
   static constexpr Stress Zero() {
-    return Stress{Value::SymmetricDyad::Zero()};
+    return Stress{SymmetricDyad::Zero()};
   }
 
   // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
@@ -73,7 +73,7 @@ public:
   static constexpr Stress Create(const double xx, const double xy, const double xz, const double yy,
                                  const double yz, const double zz) {
     return Stress{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-        Value::SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+        SymmetricDyad{xx, xy, xz, yy, yz, zz})};
   }
 
   // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
@@ -81,12 +81,12 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Stress Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
     return Stress{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(
-        Value::SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+        SymmetricDyad{xx_xy_xz_yy_yz_zz})};
   }
 
   // Statically creates a stress tensor with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Stress Create(const Value::SymmetricDyad& value) {
+  static constexpr Stress Create(const SymmetricDyad& value) {
     return Stress{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
@@ -141,8 +141,8 @@ public:
 private:
   // Constructor. Constructs a stress tensor with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr Stress(const Value::SymmetricDyad& value)
-    : DimensionalSymmetricDyadQuantity<Unit::Pressure>(value) {}
+  explicit constexpr Stress(const SymmetricDyad& value)
+    : DimensionalSymmetricDyad<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const Stress& left, const Stress& right) noexcept {
@@ -192,7 +192,7 @@ namespace std {
 template <>
 struct hash<PhQ::Stress> {
   inline size_t operator()(const PhQ::Stress& stress) const {
-    return hash<PhQ::Value::SymmetricDyad>()(stress.Value());
+    return hash<PhQ::SymmetricDyad>()(stress.Value());
   }
 };
 

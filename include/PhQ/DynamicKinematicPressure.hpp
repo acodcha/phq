@@ -19,7 +19,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "DynamicPressure.hpp"
 #include "MassDensity.hpp"
 #include "Speed.hpp"
@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Dynamic kinematic pressure, which is dynamic pressure divided by mass density.
-class DynamicKinematicPressure : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
+class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy> {
 public:
   // Default constructor. Constructs a dynamic kinematic pressure with an uninitialized value.
   DynamicKinematicPressure() = default;
@@ -37,7 +37,7 @@ public:
   // Constructor. Constructs a dynamic kinematic pressure with a given value expressed in a given
   // specific energy unit.
   DynamicKinematicPressure(const double value, const Unit::SpecificEnergy unit)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value, unit) {}
 
   // Constructor. Constructs a dynamic kinematic pressure from a given speed using the definition of
   // dynamic kinematic pressure.
@@ -130,7 +130,7 @@ private:
   // Constructor. Constructs a dynamic kinematic pressure with a given value expressed in the
   // standard specific energy unit.
   explicit constexpr DynamicKinematicPressure(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value) {}
 };
 
 inline constexpr bool operator==(

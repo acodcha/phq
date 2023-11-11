@@ -18,13 +18,13 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/DynamicViscosity.hpp"
 
 namespace PhQ {
 
 // Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic viscosity.
-class BulkDynamicViscosity : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
+class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity> {
 public:
   // Default constructor. Constructs a bulk dynamic viscosity with an uninitialized value.
   BulkDynamicViscosity() = default;
@@ -32,7 +32,7 @@ public:
   // Constructor. Constructs a bulk dynamic viscosity with a given value expressed in a given
   // dynamic viscosity unit.
   BulkDynamicViscosity(const double value, const Unit::DynamicViscosity unit)
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+    : DimensionalScalar<Unit::DynamicViscosity>(value, unit) {}
 
   // Destructor. Destroys this bulk dynamic viscosity.
   ~BulkDynamicViscosity() noexcept = default;
@@ -104,7 +104,7 @@ private:
   // Constructor. Constructs a bulk dynamic viscosity with a given value expressed in the standard
   // dynamic viscosity unit.
   explicit constexpr BulkDynamicViscosity(const double value)
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
+    : DimensionalScalar<Unit::DynamicViscosity>(value) {}
 
   friend class ConstitutiveModel;
 };

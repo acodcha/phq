@@ -19,9 +19,9 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessSymmetricDyadQuantity.hpp"
+#include "DimensionlessSymmetricDyad.hpp"
 #include "StrainScalar.hpp"
-#include "Value/SymmetricDyad.hpp"
+#include "SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -32,7 +32,7 @@ class Frequency;
 class StrainRate;
 
 // Strain symmetric dyadic tensor.
-class Strain : public DimensionlessSymmetricDyadQuantity {
+class Strain : public DimensionlessSymmetricDyad {
 public:
   // Default constructor. Constructs a strain tensor with an uninitialized value.
   Strain() = default;
@@ -41,16 +41,15 @@ public:
   // Cartesian components.
   constexpr Strain(const double xx, const double xy, const double xz, const double yy,
                    const double yz, const double zz)
-    : DimensionlessSymmetricDyadQuantity(xx, xy, xz, yy, yz, zz) {}
+    : DimensionlessSymmetricDyad(xx, xy, xz, yy, yz, zz) {}
 
   // Constructor. Constructs a strain tensor from a given array representing its value's xx, xy, xz,
   // yy, yz, and zz Cartesian components.
   explicit constexpr Strain(const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
-    : DimensionlessSymmetricDyadQuantity(xx_xy_xz_yy_yz_zz) {}
+    : DimensionlessSymmetricDyad(xx_xy_xz_yy_yz_zz) {}
 
   // Constructor. Constructs a strain tensor with a given value.
-  explicit constexpr Strain(const Value::SymmetricDyad& value)
-    : DimensionlessSymmetricDyadQuantity(value) {}
+  explicit constexpr Strain(const SymmetricDyad& value) : DimensionlessSymmetricDyad(value) {}
 
   // Constructor. Constructs a strain tensor from a given strain rate tensor and time using the
   // definition of the strain rate tensor.
@@ -81,7 +80,7 @@ public:
 
   // Statically creates a strain tensor of zero.
   static constexpr Strain Zero() {
-    return Strain{Value::SymmetricDyad::Zero()};
+    return Strain{SymmetricDyad::Zero()};
   }
 
   constexpr Strain operator+(const Strain& strain) const {
@@ -161,7 +160,7 @@ namespace std {
 template <>
 struct hash<PhQ::Strain> {
   inline size_t operator()(const PhQ::Strain& strain) const {
-    return hash<PhQ::Value::SymmetricDyad>()(strain.Value());
+    return hash<PhQ::SymmetricDyad>()(strain.Value());
   }
 };
 

@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "Area.hpp"
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Force.hpp"
 
 namespace PhQ {
@@ -30,14 +30,14 @@ class Force;
 class StaticPressure;
 
 // Force scalar. Magnitude of the force vector.
-class ForceMagnitude : public DimensionalScalarQuantity<Unit::Force> {
+class ForceMagnitude : public DimensionalScalar<Unit::Force> {
 public:
   // Default constructor. Constructs a force magnitude with an uninitialized value.
   ForceMagnitude() = default;
 
   // Constructor. Constructs a force magnitude with a given value expressed in a given force unit.
   ForceMagnitude(const double value, const Unit::Force unit)
-    : DimensionalScalarQuantity<Unit::Force>(value, unit) {}
+    : DimensionalScalar<Unit::Force>(value, unit) {}
 
   // Constructor. Constructs a force magnitude from a given force vector.
   explicit ForceMagnitude(const Force& force);
@@ -115,8 +115,7 @@ public:
 private:
   // Constructor. Constructs a force magnitude with a given value expressed in the standard force
   // unit.
-  explicit constexpr ForceMagnitude(const double value)
-    : DimensionalScalarQuantity<Unit::Force>(value) {}
+  explicit constexpr ForceMagnitude(const double value) : DimensionalScalar<Unit::Force>(value) {}
 };
 
 inline constexpr bool operator==(const ForceMagnitude& left, const ForceMagnitude& right) noexcept {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Length.hpp"
 #include "Unit/Speed.hpp"
@@ -41,14 +41,13 @@ class TransportEnergyConsumption;
 class Velocity;
 
 // Speed scalar. Magnitude of the velocity vector.
-class Speed : public DimensionalScalarQuantity<Unit::Speed> {
+class Speed : public DimensionalScalar<Unit::Speed> {
 public:
   // Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;
 
   // Constructor. Constructs a speed with a given value expressed in a given speed unit.
-  Speed(const double value, const Unit::Speed unit)
-    : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
+  Speed(const double value, const Unit::Speed unit) : DimensionalScalar<Unit::Speed>(value, unit) {}
 
   // Constructor. Constructs a speed from a given length and time duration using the definition of
   // speed.
@@ -188,7 +187,7 @@ public:
 
 private:
   // Constructor. Constructs a speed with a given value expressed in the standard speed unit.
-  explicit constexpr Speed(const double value) : DimensionalScalarQuantity<Unit::Speed>(value) {}
+  explicit constexpr Speed(const double value) : DimensionalScalar<Unit::Speed>(value) {}
 
   friend SoundSpeed;
 };

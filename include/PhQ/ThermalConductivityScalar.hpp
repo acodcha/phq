@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/ThermalConductivity.hpp"
 
 namespace PhQ {
@@ -32,7 +32,7 @@ class ThermalDiffusivity;
 
 // Thermal conductivity scalar. For materials that are isotropic, thermal conductivity can be
 // represented by a scalar rather than a dyadic tensor.
-class ThermalConductivityScalar : public DimensionalScalarQuantity<Unit::ThermalConductivity> {
+class ThermalConductivityScalar : public DimensionalScalar<Unit::ThermalConductivity> {
 public:
   // Default constructor. Constructs a thermal conductivity scalar with an uninitialized value.
   ThermalConductivityScalar() = default;
@@ -40,7 +40,7 @@ public:
   // Constructor. Constructs a thermal conductivity scalar with a given value expressed in a given
   // thermal conductivity unit.
   ThermalConductivityScalar(const double value, const Unit::ThermalConductivity unit)
-    : DimensionalScalarQuantity<Unit::ThermalConductivity>(value, unit) {}
+    : DimensionalScalar<Unit::ThermalConductivity>(value, unit) {}
 
   // Constructor. Constructs a thermal conductivity scalar from a given mass density, specific
   // isobaric heat capacity, and thermal diffusivity using the definition of thermal diffusivity.
@@ -128,7 +128,7 @@ private:
   // Constructor. Constructs a thermal conductivity scalar with a given value expressed in the
   // standard thermal conductivity unit.
   explicit constexpr ThermalConductivityScalar(const double value)
-    : DimensionalScalarQuantity<Unit::ThermalConductivity>(value) {}
+    : DimensionalScalar<Unit::ThermalConductivity>(value) {}
 };
 
 inline constexpr bool operator==(

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "StrainScalar.hpp"
 #include "Time.hpp"
@@ -28,7 +28,7 @@ namespace PhQ {
 
 // Scalar component or resultant of the strain rate tensor. Time rate of change of a scalar strain
 // component.
-class StrainRateScalar : public DimensionalScalarQuantity<Unit::Frequency> {
+class StrainRateScalar : public DimensionalScalar<Unit::Frequency> {
 public:
   // Default constructor. Constructs a scalar strain rate with an uninitialized value.
   StrainRateScalar() = default;
@@ -36,7 +36,7 @@ public:
   // Constructor. Constructs a scalar strain rate with a given value expressed in a given frequency
   // unit.
   StrainRateScalar(const double value, const Unit::Frequency unit)
-    : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
+    : DimensionalScalar<Unit::Frequency>(value, unit) {}
 
   // Constructor. Constructs a scalar strain rate from a given scalar strain and time using the
   // definition of strain rate.
@@ -123,7 +123,7 @@ private:
   // Constructor. Constructs a scalar strain rate with a given value expressed in the standard
   // frequency unit.
   explicit constexpr StrainRateScalar(const double value)
-    : DimensionalScalarQuantity<Unit::Frequency>(value) {}
+    : DimensionalScalar<Unit::Frequency>(value) {}
 };
 
 inline constexpr bool operator==(

@@ -27,7 +27,7 @@
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -131,8 +131,7 @@ TEST(Traction, Create) {
       Traction::Create<Unit::Pressure::Pascal>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 
-  constexpr Traction third =
-      Traction::Create<Unit::Pressure::Pascal>(Value::Vector{1.11, -2.22, 3.33});
+  constexpr Traction third = Traction::Create<Unit::Pressure::Pascal>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal));
 }
 
@@ -203,9 +202,9 @@ TEST(Traction, MoveConstructor) {
 
 TEST(Traction, MutableValue) {
   Traction quantity({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Traction, Print) {
@@ -219,7 +218,7 @@ TEST(Traction, Print) {
 TEST(Traction, SetValue) {
   Traction quantity({1.11, -2.22, 3.33}, Unit::Pressure::Pascal);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Traction, SizeOf) {
@@ -232,8 +231,8 @@ TEST(Traction, StandardConstructor) {
 
 TEST(Traction, StaticValue) {
   constexpr Traction quantity = Traction::Create<Unit::Pressure::Kilopascal>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Traction, Stream) {
@@ -247,11 +246,11 @@ TEST(Traction, Unit) {
 }
 
 TEST(Traction, Value) {
-  EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).Value(), Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(
       Traction({1.11, -2.22, 3.33}, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal),
-      Value::Vector(1.11, -2.22, 3.33));
+      Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Traction, XML) {

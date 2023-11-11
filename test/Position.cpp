@@ -23,7 +23,7 @@
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -148,8 +148,7 @@ TEST(Position, Create) {
       Position::Create<Unit::Length::Metre>(std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
-  constexpr Position third =
-      Position::Create<Unit::Length::Metre>(Value::Vector{1.11, -2.22, 3.33});
+  constexpr Position third = Position::Create<Unit::Length::Metre>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
@@ -214,9 +213,9 @@ TEST(Position, MoveConstructor) {
 
 TEST(Position, MutableValue) {
   Position quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Position, Print) {
@@ -229,7 +228,7 @@ TEST(Position, Print) {
 TEST(Position, SetValue) {
   Position quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Position, SizeOf) {
@@ -242,8 +241,8 @@ TEST(Position, StandardConstructor) {
 
 TEST(Position, StaticValue) {
   constexpr Position quantity = Position::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Position, Stream) {
@@ -257,10 +256,9 @@ TEST(Position, Unit) {
 }
 
 TEST(Position, Value) {
-  EXPECT_EQ(
-      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(), Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(), Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Position, XML) {

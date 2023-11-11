@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Energy.hpp"
 #include "Frequency.hpp"
 #include "Time.hpp"
@@ -31,14 +31,13 @@ class Speed;
 class TransportEnergyConsumption;
 
 // Power. Time rate of change of energy. Can also represent an energy transfer rate.
-class Power : public DimensionalScalarQuantity<Unit::Power> {
+class Power : public DimensionalScalar<Unit::Power> {
 public:
   // Default constructor. Constructs a power quantity with an uninitialized value.
   Power() = default;
 
   // Constructor. Constructs a power quantity with a given value expressed in a given power unit.
-  Power(const double value, const Unit::Power unit)
-    : DimensionalScalarQuantity<Unit::Power>(value, unit) {}
+  Power(const double value, const Unit::Power unit) : DimensionalScalar<Unit::Power>(value, unit) {}
 
   // Constructor. Constructs a power quantity from a given energy and time duration using the
   // definition of power.
@@ -139,7 +138,7 @@ public:
 private:
   // Constructor. Constructs a power quantity with a given value expressed in the standard power
   // unit.
-  explicit constexpr Power(const double value) : DimensionalScalarQuantity<Unit::Power>(value) {}
+  explicit constexpr Power(const double value) : DimensionalScalar<Unit::Power>(value) {}
 };
 
 inline constexpr bool operator==(const Power& left, const Power& right) noexcept {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Energy.hpp"
 
 namespace PhQ {
@@ -35,14 +35,14 @@ class TransportEnergyConsumption;
 
 // Energy physical quantity. Can represent any kind of energy, such as kinetic energy, potential
 // energy, internal energy, and so on.
-class Energy : public DimensionalScalarQuantity<Unit::Energy> {
+class Energy : public DimensionalScalar<Unit::Energy> {
 public:
   // Default constructor. Constructs an energy quantity with an uninitialized value.
   Energy() = default;
 
   // Constructor. Constructs an energy quantity with a given value expressed in a given energy unit.
   Energy(const double value, const Unit::Energy unit)
-    : DimensionalScalarQuantity<Unit::Energy>(value, unit) {}
+    : DimensionalScalar<Unit::Energy>(value, unit) {}
 
   // Constructor. Constructs an energy quantity from a given power and time using the definition of
   // power.
@@ -140,7 +140,7 @@ public:
 private:
   // Constructor. Constructs an energy quantity with a given value expressed in the standard energy
   // unit.
-  explicit constexpr Energy(const double value) : DimensionalScalarQuantity<Unit::Energy>(value) {}
+  explicit constexpr Energy(const double value) : DimensionalScalar<Unit::Energy>(value) {}
 };
 
 inline constexpr bool operator==(const Energy& left, const Energy& right) noexcept {

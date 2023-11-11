@@ -23,7 +23,7 @@
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -119,7 +119,7 @@ TEST(Displacement, Create) {
   EXPECT_EQ(second, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 
   constexpr Displacement third =
-      Displacement::Create<Unit::Length::Metre>(Value::Vector{1.11, -2.22, 3.33});
+      Displacement::Create<Unit::Length::Metre>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
 }
 
@@ -182,9 +182,9 @@ TEST(Displacement, MoveConstructor) {
 
 TEST(Displacement, MutableValue) {
   Displacement quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Displacement, Print) {
@@ -198,7 +198,7 @@ TEST(Displacement, Print) {
 TEST(Displacement, SetValue) {
   Displacement quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Displacement, SizeOf) {
@@ -212,8 +212,8 @@ TEST(Displacement, StandardConstructor) {
 TEST(Displacement, StaticValue) {
   constexpr Displacement quantity =
       Displacement::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Displacement, Stream) {
@@ -227,11 +227,11 @@ TEST(Displacement, Unit) {
 }
 
 TEST(Displacement, Value) {
-  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(), Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(
       Displacement({1.11, -2.22, 3.33}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
-      Value::Vector(1.11, -2.22, 3.33));
+      Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Displacement, XML) {

@@ -18,13 +18,13 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/SubstanceAmount.hpp"
 
 namespace PhQ {
 
 // Amount of substance scalar quantity.
-class SubstanceAmount : public DimensionalScalarQuantity<Unit::SubstanceAmount> {
+class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount> {
 public:
   // Default constructor. Constructs a substance amount with an uninitialized value.
   SubstanceAmount() = default;
@@ -32,7 +32,7 @@ public:
   // Constructor. Constructs a substance amount with a given value expressed in a given substance
   // amount unit.
   SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
-    : DimensionalScalarQuantity<Unit::SubstanceAmount>(value, unit) {}
+    : DimensionalScalar<Unit::SubstanceAmount>(value, unit) {}
 
   // Destructor. Destroys this substance amount.
   ~SubstanceAmount() noexcept = default;
@@ -102,7 +102,7 @@ private:
   // Constructor. Constructs a substance amount with a given value expressed in the standard
   // substance amount unit.
   explicit constexpr SubstanceAmount(const double value)
-    : DimensionalScalarQuantity<Unit::SubstanceAmount>(value) {}
+    : DimensionalScalar<Unit::SubstanceAmount>(value) {}
 };
 
 inline constexpr bool operator==(

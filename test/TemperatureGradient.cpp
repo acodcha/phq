@@ -23,7 +23,7 @@
 #include "../include/PhQ/TemperatureGradientMagnitude.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -138,7 +138,7 @@ TEST(TemperatureGradient, Create) {
 
   constexpr TemperatureGradient third =
       TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(
-          Value::Vector{1.11, -2.22, 3.33});
+          Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(
       third, TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -211,9 +211,9 @@ TEST(TemperatureGradient, MoveConstructor) {
 
 TEST(TemperatureGradient, MutableValue) {
   TemperatureGradient quantity({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(TemperatureGradient, Print) {
@@ -228,7 +228,7 @@ TEST(TemperatureGradient, Print) {
 TEST(TemperatureGradient, SetValue) {
   TemperatureGradient quantity({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(TemperatureGradient, SizeOf) {
@@ -244,9 +244,8 @@ TEST(TemperatureGradient, StaticValue) {
   constexpr TemperatureGradient quantity =
       TemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(
           1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(TemperatureGradient, Stream) {
@@ -264,10 +263,10 @@ TEST(TemperatureGradient, Unit) {
 TEST(TemperatureGradient, Value) {
   EXPECT_EQ(
       TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).Value(),
-      Value::Vector(1.11, -2.22, 3.33));
+      Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .Value(Unit::TemperatureGradient::KelvinPerMillimetre),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(TemperatureGradient, XML) {

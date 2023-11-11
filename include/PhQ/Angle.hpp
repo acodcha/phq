@@ -14,13 +14,14 @@
 #ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 #define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ANGLE_HPP
 
+#include <cmath>
 #include <cstddef>
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Angle.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -40,27 +41,23 @@ class Traction;
 class Velocity;
 
 // Planar angle.
-class Angle : public DimensionalScalarQuantity<Unit::Angle> {
+class Angle : public DimensionalScalar<Unit::Angle> {
 public:
   // Default constructor. Constructs an angle with an uninitialized value.
   Angle() = default;
 
   // Constructor. Constructs an angle with a given value expressed in a given angle unit.
-  Angle(const double value, const Unit::Angle unit)
-    : DimensionalScalarQuantity<Unit::Angle>(value, unit) {}
+  Angle(const double value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
 
   // Constructor. Constructs an angle by computing the angle between two given vector values.
-  Angle(const Value::Vector& vector1, const Value::Vector& vector2)
-    : DimensionalScalarQuantity<Unit::Angle>(
-        std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
+  Angle(const Vector& vector1, const Vector& vector2)
+    : Angle(std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
-  // Constructor. Constructs an angle by computing the angle between a given vector value and
-  // direction.
-  Angle(const Value::Vector& vector, const Direction& direction);
+  // Constructor. Constructs an angle by computing the angle between a given vector and direction.
+  Angle(const Vector& vector, const Direction& direction);
 
-  // Constructor. Constructs an angle by computing the angle between a given direction and vector
-  // value.
-  Angle(const Direction& direction, const Value::Vector& vector);
+  // Constructor. Constructs an angle by computing the angle between a given direction and vector.
+  Angle(const Direction& direction, const Vector& vector);
 
   // Constructor. Constructs an angle by computing the angle between two given directions.
   Angle(const Direction& direction1, const Direction& direction2);
@@ -172,7 +169,7 @@ public:
 
 private:
   // Constructor. Constructs an angle with a given value expressed in the standard angle unit.
-  explicit constexpr Angle(const double value) : DimensionalScalarQuantity<Unit::Angle>(value) {}
+  explicit constexpr Angle(const double value) : DimensionalScalar<Unit::Angle>(value) {}
 };
 
 inline constexpr bool operator==(const Angle& left, const Angle& right) noexcept {
@@ -208,7 +205,7 @@ inline constexpr Angle operator*(const double number, const Angle& angle) {
   return angle * number;
 }
 
-inline PhQ::Angle Value::Vector::Angle(const Value::Vector& vector) const {
+inline PhQ::Angle Vector::Angle(const Vector& vector) const {
   return PhQ::Angle{*this, vector};
 }
 

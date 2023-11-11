@@ -19,9 +19,9 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/Dyad.hpp"
 #include "../include/PhQ/StrainRate.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
-#include "../include/PhQ/Value/Dyad.hpp"
 
 namespace PhQ {
 
@@ -145,7 +145,7 @@ TEST(VelocityGradient, Create) {
                                      Unit::Frequency::Hertz));
 
   constexpr VelocityGradient third = VelocityGradient::Create<Unit::Frequency::Hertz>(
-      Value::Dyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99});
+      Dyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99});
   EXPECT_EQ(third, VelocityGradient({1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99},
                                     Unit::Frequency::Hertz));
 }
@@ -220,10 +220,10 @@ TEST(VelocityGradient, MoveConstructor) {
 TEST(VelocityGradient, MutableValue) {
   VelocityGradient quantity(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}, Unit::Frequency::Hertz);
-  Value::Dyad& value = quantity.MutableValue();
-  value = Value::Dyad{-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
-  EXPECT_EQ(quantity.Value(),
-            Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  Dyad& value = quantity.MutableValue();
+  value = Dyad{-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
+  EXPECT_EQ(
+      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(VelocityGradient, Print) {
@@ -244,10 +244,9 @@ TEST(VelocityGradient, Print) {
 TEST(VelocityGradient, SetValue) {
   VelocityGradient quantity(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}, Unit::Frequency::Hertz);
-  quantity.SetValue(
-      Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
-  EXPECT_EQ(quantity.Value(),
-            Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  quantity.SetValue(Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  EXPECT_EQ(
+      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(VelocityGradient, SizeOf) {
@@ -262,8 +261,8 @@ TEST(VelocityGradient, StandardConstructor) {
 TEST(VelocityGradient, StaticValue) {
   constexpr VelocityGradient quantity = VelocityGradient::Create<Unit::Frequency::Kilohertz>(
       1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  constexpr Value::Dyad value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
-  EXPECT_EQ(value, Value::Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  constexpr Dyad value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
+  EXPECT_EQ(value, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(VelocityGradient, Stream) {
@@ -280,11 +279,11 @@ TEST(VelocityGradient, Value) {
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .Value(),
-      Value::Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+      Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
   EXPECT_EQ(VelocityGradient(
                 {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Kilohertz)
                 .Value(Unit::Frequency::Kilohertz),
-            Value::Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+            Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(VelocityGradient, XML) {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 
 namespace PhQ {
 
@@ -30,13 +30,13 @@ class TemperatureDifference;
 class Time;
 
 // Scalar strain component or resultant of the strain tensor.
-class StrainScalar : public DimensionlessScalarQuantity {
+class StrainScalar : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a scalar strain with an uninitialized value.
   StrainScalar() = default;
 
   // Constructor. Constructs a scalar strain with a given value.
-  explicit constexpr StrainScalar(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr StrainScalar(const double value) : DimensionlessScalar(value) {}
 
   // Constructor. Constructs a scalar strain from a given scalar strain rate and time using the
   // definition of strain rate.

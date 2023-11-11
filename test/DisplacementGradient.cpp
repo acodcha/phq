@@ -20,8 +20,8 @@
 #include <utility>
 
 #include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/Dyad.hpp"
 #include "../include/PhQ/Strain.hpp"
-#include "../include/PhQ/Value/Dyad.hpp"
 
 namespace PhQ {
 
@@ -149,10 +149,10 @@ TEST(DisplacementGradient, MoveConstructor) {
 
 TEST(DisplacementGradient, MutableValue) {
   DisplacementGradient quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Value::Dyad& value = quantity.MutableValue();
-  value = Value::Dyad{-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
-  EXPECT_EQ(quantity.Value(),
-            Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  Dyad& value = quantity.MutableValue();
+  value = Dyad{-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
+  EXPECT_EQ(
+      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(DisplacementGradient, Print) {
@@ -164,10 +164,9 @@ TEST(DisplacementGradient, Print) {
 
 TEST(DisplacementGradient, SetValue) {
   DisplacementGradient quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  quantity.SetValue(
-      Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
-  EXPECT_EQ(quantity.Value(),
-            Value::Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  quantity.SetValue(Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  EXPECT_EQ(
+      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(DisplacementGradient, SizeOf) {
@@ -178,9 +177,8 @@ TEST(DisplacementGradient, StandardConstructor) {
   EXPECT_EQ(DisplacementGradient(
                 std::array<double, 9>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}),
             DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
-  EXPECT_EQ(
-      DisplacementGradient(Value::Dyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}),
-      DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(DisplacementGradient(Dyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}),
+            DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
 }
 
 TEST(DisplacementGradient, Stream) {
@@ -192,7 +190,7 @@ TEST(DisplacementGradient, Stream) {
 
 TEST(DisplacementGradient, Value) {
   EXPECT_EQ(DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99).Value(),
-            Value::Dyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+            Dyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
 }
 
 TEST(DisplacementGradient, XML) {

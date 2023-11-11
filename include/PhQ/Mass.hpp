@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Mass.hpp"
 
 namespace PhQ {
@@ -41,14 +41,13 @@ class SpecificPower;
 class Volume;
 
 // Mass.
-class Mass : public DimensionalScalarQuantity<Unit::Mass> {
+class Mass : public DimensionalScalar<Unit::Mass> {
 public:
   // Default constructor. Constructs a mass with an uninitialized value.
   Mass() = default;
 
   // Constructor. Constructs a mass with a given value expressed in a given mass unit.
-  Mass(const double value, const Unit::Mass unit)
-    : DimensionalScalarQuantity<Unit::Mass>(value, unit) {}
+  Mass(const double value, const Unit::Mass unit) : DimensionalScalar<Unit::Mass>(value, unit) {}
 
   // Constructor. Constructs a mass from a given mass density and volume using the definition of
   // mass density.
@@ -170,7 +169,7 @@ public:
 
 private:
   // Constructor. Constructs a mass with a given value expressed in the standard mass unit.
-  explicit constexpr Mass(const double value) : DimensionalScalarQuantity<Unit::Mass>(value) {}
+  explicit constexpr Mass(const double value) : DimensionalScalar<Unit::Mass>(value) {}
 };
 
 inline constexpr bool operator==(const Mass& left, const Mass& right) noexcept {

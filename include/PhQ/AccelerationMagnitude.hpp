@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Speed.hpp"
 #include "Time.hpp"
@@ -31,7 +31,7 @@ class Acceleration;
 class Direction;
 
 // Acceleration scalar. Magnitude of the acceleration vector.
-class AccelerationMagnitude : public DimensionalScalarQuantity<Unit::Acceleration> {
+class AccelerationMagnitude : public DimensionalScalar<Unit::Acceleration> {
 public:
   // Default constructor. Constructs an acceleration magnitude with an uninitialized value.
   AccelerationMagnitude() = default;
@@ -39,7 +39,7 @@ public:
   // Constructor. Constructs an acceleration magnitude with a given value expressed in a given
   // acceleration unit.
   AccelerationMagnitude(const double value, const Unit::Acceleration unit)
-    : DimensionalScalarQuantity<Unit::Acceleration>(value, unit) {}
+    : DimensionalScalar<Unit::Acceleration>(value, unit) {}
 
   // Constructor. Constructs an acceleration magnitude from a given acceleration.
   explicit AccelerationMagnitude(const Acceleration& acceleration);
@@ -138,7 +138,7 @@ private:
   // Constructor. Constructs an acceleration magnitude with a given value expressed in the standard
   // acceleration unit.
   explicit constexpr AccelerationMagnitude(const double value)
-    : DimensionalScalarQuantity<Unit::Acceleration>(value) {}
+    : DimensionalScalar<Unit::Acceleration>(value) {}
 };
 
 inline constexpr bool operator==(

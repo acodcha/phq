@@ -28,7 +28,7 @@
 #include "../include/PhQ/Unit/EnergyFlux.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -133,7 +133,7 @@ TEST(HeatFlux, Create) {
   EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
 
   constexpr HeatFlux third =
-      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(Value::Vector{1.11, -2.22, 3.33});
+      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
@@ -207,9 +207,9 @@ TEST(HeatFlux, MoveConstructor) {
 
 TEST(HeatFlux, MutableValue) {
   HeatFlux quantity({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(HeatFlux, Print) {
@@ -223,7 +223,7 @@ TEST(HeatFlux, Print) {
 TEST(HeatFlux, SetValue) {
   HeatFlux quantity({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(HeatFlux, SizeOf) {
@@ -237,9 +237,8 @@ TEST(HeatFlux, StandardConstructor) {
 TEST(HeatFlux, StaticValue) {
   constexpr HeatFlux quantity =
       HeatFlux::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(HeatFlux, Stream) {
@@ -255,10 +254,10 @@ TEST(HeatFlux, Unit) {
 
 TEST(HeatFlux, Value) {
   EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .Value(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(HeatFlux, XML) {

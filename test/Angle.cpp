@@ -19,7 +19,7 @@
 #include <utility>
 
 #include "../include/PhQ/Unit/Angle.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -128,14 +128,14 @@ TEST(Angle, JSON) {
 }
 
 TEST(Angle, MiscellaneousConstructors) {
-  const Value::Vector first{1.0, 0.0, 0.0};
-  const Value::Vector second{0.0, 0.0, -1.0};
+  const Vector first{1.0, 0.0, 0.0};
+  const Vector second{0.0, 0.0, -1.0};
   EXPECT_DOUBLE_EQ(Angle(first, second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
 }
 
 TEST(Angle, MiscellaneousMethods) {
-  const Value::Vector first{1.0, 0.0, 0.0};
-  const Value::Vector second{0.0, 0.0, -1.0};
+  const Vector first{1.0, 0.0, 0.0};
+  const Vector second{0.0, 0.0, -1.0};
   EXPECT_DOUBLE_EQ(first.Angle(second).Value(), Angle(90.0, Unit::Angle::Degree).Value());
 }
 

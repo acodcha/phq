@@ -18,21 +18,21 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Time.hpp"
 #include "Unit/Frequency.hpp"
 
 namespace PhQ {
 
 // Frequency.
-class Frequency : public DimensionalScalarQuantity<Unit::Frequency> {
+class Frequency : public DimensionalScalar<Unit::Frequency> {
 public:
   // Default constructor. Constructs a frequency with an uninitialized value.
   Frequency() = default;
 
   // Constructor. Constructs a frequency with a given value expressed in a given frequency unit.
   Frequency(const double value, const Unit::Frequency unit)
-    : DimensionalScalarQuantity<Unit::Frequency>(value, unit) {}
+    : DimensionalScalar<Unit::Frequency>(value, unit) {}
 
   // Constructor. Constructs a frequency from a given time period using the definition of frequency.
   constexpr explicit Frequency(const Time& time) : Frequency(1.0 / time.Value()) {}
@@ -172,8 +172,7 @@ public:
 private:
   // Constructor. Constructs a frequency with a given value expressed in the standard frequency
   // unit.
-  explicit constexpr Frequency(const double value)
-    : DimensionalScalarQuantity<Unit::Frequency>(value) {}
+  explicit constexpr Frequency(const double value) : DimensionalScalar<Unit::Frequency>(value) {}
 };
 
 inline constexpr bool operator==(const Frequency& left, const Frequency& right) noexcept {

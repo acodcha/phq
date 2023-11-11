@@ -20,24 +20,24 @@
 #include <ostream>
 
 #include "Area.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Force.hpp"
 #include "StaticPressure.hpp"
 #include "Unit/Pressure.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Traction vector.
-class Traction : public DimensionalVectorQuantity<Unit::Pressure> {
+class Traction : public DimensionalVector<Unit::Pressure> {
 public:
   // Default constructor. Constructs a traction with an uninitialized value.
   Traction() = default;
 
   // Constructor. Constructs a traction with a given value expressed in a given pressure unit.
-  Traction(const Value::Vector& value, const Unit::Pressure unit)
-    : DimensionalVectorQuantity<Unit::Pressure>(value, unit) {}
+  Traction(const Vector& value, const Unit::Pressure unit)
+    : DimensionalVector<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a traction from a given static pressure and direction. Since pressure
   // is compressive, the negative of the static pressure contributes to the traction.
@@ -70,7 +70,7 @@ public:
 
   // Statically creates a traction of zero.
   static constexpr Traction Zero() {
-    return Traction{Value::Vector::Zero()};
+    return Traction{Vector::Zero()};
   }
 
   // Statically creates a traction from the given x, y, and z Cartesian components expressed in a
@@ -78,7 +78,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const double x, const double y, const double z) {
     return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Value::Vector{x, y, z})};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x, y, z})};
   }
 
   // Statically creates a traction from the given x, y, and z Cartesian components expressed in a
@@ -86,12 +86,12 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const std::array<double, 3>& x_y_z) {
     return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Value::Vector{x_y_z})};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x_y_z})};
   }
 
   // Statically creates a traction with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction Create(const Value::Vector& value) {
+  static constexpr Traction Create(const Vector& value) {
     return Traction{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
@@ -144,8 +144,7 @@ public:
 
 private:
   // Constructor. Constructs a traction with a given value expressed in the standard pressure unit.
-  explicit constexpr Traction(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Pressure>(value) {}
+  explicit constexpr Traction(const Vector& value) : DimensionalVector<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const Traction& left, const Traction& right) noexcept {
@@ -211,7 +210,7 @@ namespace std {
 template <>
 struct hash<PhQ::Traction> {
   inline size_t operator()(const PhQ::Traction& traction) const {
-    return hash<PhQ::Value::Vector>()(traction.Value());
+    return hash<PhQ::Vector>()(traction.Value());
   }
 };
 

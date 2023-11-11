@@ -171,7 +171,7 @@ TEST(UnitMemory, Parse) {
 }
 
 TEST(UnitMemory, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Memory>, Dimensions{});
+  EXPECT_EQ(RelatedDimensions<Memory>, Dimensionless);
 }
 
 TEST(UnitMemory, RelatedUnitSystem) {

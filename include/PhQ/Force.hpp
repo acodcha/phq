@@ -20,10 +20,11 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "ForceMagnitude.hpp"
 #include "Unit/Force.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -31,14 +32,14 @@ namespace PhQ {
 class Traction;
 
 // Force vector.
-class Force : public DimensionalVectorQuantity<Unit::Force> {
+class Force : public DimensionalVector<Unit::Force> {
 public:
   // Default constructor. Constructs a force with an uninitialized value.
   Force() = default;
 
   // Constructor. Constructs a force with a given value expressed in a given force unit.
-  Force(const Value::Vector& value, const Unit::Force unit)
-    : DimensionalVectorQuantity<Unit::Force>(value, unit) {}
+  Force(const Vector& value, const Unit::Force unit)
+    : DimensionalVector<Unit::Force>(value, unit) {}
 
   // Constructor. Constructs a force from a given force magnitude and direction.
   constexpr Force(const ForceMagnitude& force_magnitude, const Direction& direction)
@@ -65,27 +66,26 @@ public:
 
   // Statically creates a force of zero.
   static constexpr Force Zero() {
-    return Force{Value::Vector::Zero()};
+    return Force{Vector::Zero()};
   }
 
   // Statically creates a force from the given x, y, and z Cartesian components expressed in a given
   // force unit.
   template <Unit::Force Unit>
   static constexpr Force Create(const double x, const double y, const double z) {
-    return Force{
-        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Value::Vector{x, y, z})};
+    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector{x, y, z})};
   }
 
   // Statically creates a force from the given x, y, and z Cartesian components expressed in a given
   // force unit.
   template <Unit::Force Unit>
   static constexpr Force Create(const std::array<double, 3>& x_y_z) {
-    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Value::Vector{x_y_z})};
+    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector{x_y_z})};
   }
 
   // Statically creates a force with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force Create(const Value::Vector& value) {
+  static constexpr Force Create(const Vector& value) {
     return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
@@ -135,8 +135,7 @@ public:
 
 private:
   // Constructor. Constructs a force with a given value expressed in the standard force unit.
-  explicit constexpr Force(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Force>(value) {}
+  explicit constexpr Force(const Vector& value) : DimensionalVector<Unit::Force>(value) {}
 };
 
 inline constexpr bool operator==(const Force& left, const Force& right) noexcept {
@@ -195,7 +194,7 @@ namespace std {
 template <>
 struct hash<PhQ::Force> {
   inline size_t operator()(const PhQ::Force& force) const {
-    return hash<PhQ::Value::Vector>()(force.Value());
+    return hash<PhQ::Vector>()(force.Value());
   }
 };
 

@@ -18,21 +18,21 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/Temperature.hpp"
 
 namespace PhQ {
 
 // Temperature.
-class Temperature : public DimensionalScalarQuantity<Unit::Temperature> {
+class Temperature : public DimensionalScalar<Unit::Temperature> {
 public:
   // Default constructor. Constructs a temperature with an uninitialized value.
   Temperature() = default;
 
   // Constructor. Constructs a temperature with a given value expressed in a given temperature unit.
   Temperature(const double value, const Unit::Temperature unit)
-    : DimensionalScalarQuantity<Unit::Temperature>(value, unit) {}
+    : DimensionalScalar<Unit::Temperature>(value, unit) {}
 
   // Destructor. Destroys this temperature.
   ~Temperature() noexcept = default;
@@ -117,7 +117,7 @@ private:
   // Constructor. Constructs a temperature with a given value expressed in the standard temperature
   // unit.
   explicit constexpr Temperature(const double value)
-    : DimensionalScalarQuantity<Unit::Temperature>(value) {}
+    : DimensionalScalar<Unit::Temperature>(value) {}
 
   friend class TemperatureDifference;
 };

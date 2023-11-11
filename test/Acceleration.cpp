@@ -27,7 +27,7 @@
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 #include "../include/PhQ/Velocity.hpp"
 
 namespace PhQ {
@@ -151,8 +151,8 @@ TEST(Acceleration, Create) {
       std::array<double, 3>{1.11, -2.22, 3.33});
   EXPECT_EQ(second, Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond));
 
-  constexpr Acceleration third = Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(
-      Value::Vector{1.11, -2.22, 3.33});
+  constexpr Acceleration third =
+      Acceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond));
 }
 
@@ -225,9 +225,9 @@ TEST(Acceleration, MoveConstructor) {
 
 TEST(Acceleration, MutableValue) {
   Acceleration quantity({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Acceleration, Print) {
@@ -241,7 +241,7 @@ TEST(Acceleration, Print) {
 TEST(Acceleration, SetValue) {
   Acceleration quantity({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Acceleration, SizeOf) {
@@ -255,9 +255,8 @@ TEST(Acceleration, StandardConstructor) {
 TEST(Acceleration, StaticValue) {
   constexpr Acceleration quantity =
       Acceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value =
-      quantity.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Acceleration, Stream) {
@@ -274,10 +273,10 @@ TEST(Acceleration, Unit) {
 
 TEST(Acceleration, Value) {
   EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond)
                 .Value(Unit::Acceleration::MillimetrePerSquareSecond),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Acceleration, XML) {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Diffusivity.hpp"
 
 namespace PhQ {
@@ -34,7 +34,7 @@ class ThermalDiffusivity;
 
 // Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic viscosity is defined
 // as dynamic viscosity divided by mass density.
-class KinematicViscosity : public DimensionalScalarQuantity<Unit::Diffusivity> {
+class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity> {
 public:
   // Default constructor. Constructs a kinematic viscosity with an uninitialized value.
   KinematicViscosity() = default;
@@ -42,7 +42,7 @@ public:
   // Constructor. Constructs a kinematic viscosity with a given value expressed in a given
   // diffusivity unit.
   KinematicViscosity(const double value, const Unit::Diffusivity unit)
-    : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
+    : DimensionalScalar<Unit::Diffusivity>(value, unit) {}
 
   // Constructor. Constructs a kinematic viscosity from a given dynamic viscosity and mass density
   // using the definition of kinematic viscosity.
@@ -129,7 +129,7 @@ private:
   // Constructor. Constructs a kinematic viscosity with a given value expressed in the standard
   // diffusivity unit.
   explicit constexpr KinematicViscosity(const double value)
-    : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
+    : DimensionalScalar<Unit::Diffusivity>(value) {}
 };
 
 inline constexpr bool operator==(
