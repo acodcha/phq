@@ -175,9 +175,6 @@ TEST(HeatFlux, MiscellaneousConstructors) {
                   HeatFlux({0.0, 0.0, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(HeatFluxScalar(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre)),
-            HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(
       HeatFlux(ThermalConductivityScalar(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),

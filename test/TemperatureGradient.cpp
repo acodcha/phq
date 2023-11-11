@@ -188,10 +188,6 @@ TEST(TemperatureGradient, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(TemperatureGradient({0.0, -2.22, 0.0}, Unit::TemperatureGradient::KelvinPerMetre),
                   TemperatureGradient({0.0, 0.0, 3.33}, Unit::TemperatureGradient::KelvinPerMetre)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(TemperatureGradientScalar(
-                TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre)),
-            TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MoveAssignmentOperator) {

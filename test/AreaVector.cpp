@@ -170,9 +170,6 @@ TEST(AreaVector, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(AreaVector({0.0, -2.22, 0.0}, Unit::Area::SquareMetre),
                   AreaVector({0.0, 0.0, 3.33}, Unit::Area::SquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(Area(AreaVector({2.0, -3.0, 6.0}, Unit::Area::SquareMetre)),
-            Area(7.0, Unit::Area::SquareMetre));
 }
 
 TEST(AreaVector, MoveAssignmentOperator) {

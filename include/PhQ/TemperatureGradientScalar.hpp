@@ -40,10 +40,6 @@ public:
   TemperatureGradientScalar(const double value, const Unit::TemperatureGradient unit)
     : DimensionalScalar<Unit::TemperatureGradient>(value, unit) {}
 
-  // Constructor. Constructs a scalar temperature gradient from the magnitude of a given temperature
-  // gradient vector.
-  explicit TemperatureGradientScalar(const TemperatureGradient& temperature_gradient);
-
   // Constructor. Constructs a scalar temperature gradient from a given temperature difference and
   // length using the definition of temperature gradient.
   constexpr TemperatureGradientScalar(
@@ -131,6 +127,8 @@ private:
   // standard temperature gradient unit.
   explicit constexpr TemperatureGradientScalar(const double value)
     : DimensionalScalar<Unit::TemperatureGradient>(value) {}
+
+  friend class TemperatureGradient;
 };
 
 inline constexpr bool operator==(

@@ -46,9 +46,6 @@ public:
                            const TemperatureGradientScalar& temperature_gradient_scalar)
     : HeatFluxScalar(-thermal_conductivity_scalar.Value() * temperature_gradient_scalar.Value()) {}
 
-  // Constructor. Constructs a scalar heat flux from the magnitude of a given heat flux vector.
-  explicit HeatFluxScalar(const HeatFlux& heat_flux);
-
   // Destructor. Destroys this scalar heat flux.
   ~HeatFluxScalar() noexcept = default;
 
@@ -119,6 +116,8 @@ private:
   // flux unit.
   explicit constexpr HeatFluxScalar(const double value)
     : DimensionalScalar<Unit::EnergyFlux>(value) {}
+
+  friend class HeatFlux;
 };
 
 inline constexpr bool operator==(const HeatFluxScalar& left, const HeatFluxScalar& right) noexcept {

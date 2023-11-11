@@ -94,7 +94,7 @@ public:
 
   // Returns the magnitude of this temperature gradient.
   [[nodiscard]] TemperatureGradientScalar Magnitude() const {
-    return TemperatureGradientScalar{*this};
+    return TemperatureGradientScalar{value_.Magnitude()};
   }
 
   // Returns the angle between this temperature gradient and another one.
@@ -188,10 +188,6 @@ inline Direction::Direction(const TemperatureGradient& temperature_gradient)
 inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
                     const TemperatureGradient& temperature_gradient_2)
   : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
-
-inline TemperatureGradientScalar::TemperatureGradientScalar(
-    const TemperatureGradient& temperature_gradient)
-  : TemperatureGradientScalar(temperature_gradient.Value().Magnitude()) {}
 
 inline constexpr TemperatureGradient Direction::operator*(
     const TemperatureGradientScalar& temperature_gradient_scalar) const {

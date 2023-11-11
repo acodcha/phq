@@ -53,10 +53,6 @@ public:
   constexpr StaticPressure(const ForceScalar& force_scalar, const Area& area)
     : StaticPressure(force_scalar.Value() / area.Value()) {}
 
-  // Constructor. Constructs a static pressure from a given traction vector. Since pressure is
-  // compressive, the static pressure that corresponds to the magnitude of a traction is negative.
-  explicit StaticPressure(const Traction& traction);
-
   // Constructor. Constructs a static pressure from a given total pressure and dynamic pressure
   // using the definition of total pressure.
   constexpr StaticPressure(
@@ -148,6 +144,8 @@ private:
   // unit.
   explicit constexpr StaticPressure(const double value)
     : DimensionalScalar<Unit::Pressure>(value) {}
+
+  friend class Traction;
 };
 
 inline constexpr bool operator==(const StaticPressure& left, const StaticPressure& right) noexcept {

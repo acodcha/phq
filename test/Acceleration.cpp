@@ -198,10 +198,6 @@ TEST(Acceleration, MiscellaneousConstructors) {
                   Acceleration({0.0, 0.0, 3.33}, Unit::Acceleration::MetrePerSquareSecond)),
             Angle(90.0, Unit::Angle::Degree));
 
-  EXPECT_EQ(
-      AccelerationScalar(Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond)),
-      AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(Velocity(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond),
                      Time(2.0, Unit::Time::Second)),
             Velocity({2.0, -4.0, 6.0}, Unit::Speed::MetrePerSecond));

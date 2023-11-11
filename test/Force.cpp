@@ -166,9 +166,6 @@ TEST(Force, MiscellaneousConstructors) {
   EXPECT_EQ(Angle(Force({0.0, -2.22, 0.0}, Unit::Force::Newton),
                   Force({0.0, 0.0, 3.33}, Unit::Force::Newton)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(ForceScalar(Force({2.0, -3.0, 6.0}, Unit::Force::Newton)),
-            ForceScalar(7.0, Unit::Force::Newton));
 }
 
 TEST(Force, MoveAssignmentOperator) {

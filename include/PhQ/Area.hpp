@@ -41,9 +41,6 @@ public:
   // Constructor. Constructs an area with a given value expressed in a given area unit.
   Area(const double value, const Unit::Area unit) : DimensionalScalar<Unit::Area>(value, unit) {}
 
-  // Constructor. Constructs an area from a given vector area.
-  explicit Area(const AreaVector& area_vector);
-
   // Constructor. Constructs an area from two given lengths.
   constexpr Area(const Length& length1, const Length& length2)
     : Area(length1.Value() * length2.Value()) {}
@@ -130,6 +127,8 @@ public:
 private:
   // Constructor. Constructs an area with a given value expressed in the standard area unit.
   explicit constexpr Area(const double value) : DimensionalScalar<Unit::Area>(value) {}
+
+  friend class AreaVector;
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {

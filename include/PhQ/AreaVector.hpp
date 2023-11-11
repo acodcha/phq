@@ -84,7 +84,7 @@ public:
 
   // Returns the magnitude of this vector area.
   [[nodiscard]] Area Magnitude() const {
-    return Area{*this};
+    return Area{value_.Magnitude()};
   }
 
   // Returns the angle between this vector area and another one.
@@ -166,8 +166,6 @@ inline Direction::Direction(const AreaVector& area_vector) : Direction(area_vect
 
 inline Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2)
   : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
-
-inline Area::Area(const AreaVector& area_vector) : Area(area_vector.Value().Magnitude()) {}
 
 inline constexpr AreaVector Direction::operator*(const Area& area) const {
   return {area, *this};

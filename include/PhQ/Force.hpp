@@ -91,7 +91,7 @@ public:
 
   // Returns the magnitude of this force vector.
   [[nodiscard]] ForceScalar Magnitude() const {
-    return ForceScalar{*this};
+    return ForceScalar{value_.Magnitude()};
   }
 
   // Returns the angle between this force vector and another one.
@@ -175,8 +175,6 @@ inline Direction::Direction(const Force& force) : Direction(force.Value()) {}
 
 inline Angle::Angle(const Force& force1, const Force& force2)
   : Angle(force1.Value(), force2.Value()) {}
-
-inline ForceScalar::ForceScalar(const Force& force) : ForceScalar(force.Value().Magnitude()) {}
 
 inline constexpr Force Direction::operator*(const ForceScalar& force_scalar) const {
   return {force_scalar, *this};

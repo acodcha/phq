@@ -107,7 +107,7 @@ public:
 
   // Returns the magnitude of this velocity.
   [[nodiscard]] Speed Magnitude() const {
-    return Speed{*this};
+    return Speed{value_.Magnitude()};
   }
 
   // Returns the angle between this velocity and another one.
@@ -207,8 +207,6 @@ inline constexpr Displacement::Displacement(const Velocity& velocity, const Time
 
 inline constexpr Displacement::Displacement(const Velocity& velocity, const Frequency& frequency)
   : Displacement(velocity.Value() / frequency.Value()) {}
-
-inline Speed::Speed(const Velocity& velocity) : Speed(velocity.Value().Magnitude()) {}
 
 inline constexpr Velocity Direction::operator*(const Speed& speed) const {
   return {speed, *this};

@@ -98,7 +98,7 @@ public:
   // Returns the magnitude of this traction. Since pressure is compressive, the static pressure that
   // corresponds to the magnitude of this traction is negative.
   [[nodiscard]] StaticPressure Magnitude() const {
-    return StaticPressure{*this};
+    return StaticPressure{-value_.Magnitude()};
   }
 
   // Returns the angle between this traction and another one.
@@ -184,9 +184,6 @@ inline Direction::Direction(const Traction& traction) : Direction(traction.Value
 
 inline Angle::Angle(const Traction& traction1, const Traction& traction2)
   : Angle(traction1.Value(), traction2.Value()) {}
-
-inline StaticPressure::StaticPressure(const Traction& traction)
-  : StaticPressure(-traction.Value().Magnitude()) {}
 
 inline constexpr Force::Force(const Traction& traction, const Area& area)
   : Force(traction.Value() * area.Value()) {}

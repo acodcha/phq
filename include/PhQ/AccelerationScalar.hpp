@@ -41,10 +41,6 @@ public:
   AccelerationScalar(const double value, const Unit::Acceleration unit)
     : DimensionalScalar<Unit::Acceleration>(value, unit) {}
 
-  // Constructor. Constructs a scalar acceleration from the magnitude of a given acceleration
-  // vector.
-  explicit AccelerationScalar(const Acceleration& acceleration);
-
   // Constructor. Constructs a scalar acceleration from a given speed and time using the definition
   // of acceleration.
   constexpr AccelerationScalar(const Speed& speed, const Time& time)
@@ -138,6 +134,8 @@ private:
   // acceleration unit.
   explicit constexpr AccelerationScalar(const double value)
     : DimensionalScalar<Unit::Acceleration>(value) {}
+
+  friend class Acceleration;
 };
 
 inline constexpr bool operator==(

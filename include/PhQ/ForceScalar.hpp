@@ -39,9 +39,6 @@ public:
   ForceScalar(const double value, const Unit::Force unit)
     : DimensionalScalar<Unit::Force>(value, unit) {}
 
-  // Constructor. Constructs a scalar force from the magnitude of a given force vector.
-  explicit ForceScalar(const Force& force);
-
   // Constructor. Constructs a scalar force from a given static pressure and area using the
   // definition of pressure.
   constexpr ForceScalar(const StaticPressure& static_pressure, const Area& area);
@@ -116,6 +113,8 @@ private:
   // Constructor. Constructs a scalar force with a given value expressed in the standard force
   // unit.
   explicit constexpr ForceScalar(const double value) : DimensionalScalar<Unit::Force>(value) {}
+
+  friend class Force;
 };
 
 inline constexpr bool operator==(const ForceScalar& left, const ForceScalar& right) noexcept {

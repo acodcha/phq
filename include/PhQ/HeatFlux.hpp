@@ -102,7 +102,7 @@ public:
 
   // Returns the magnitude of this heat flux.
   [[nodiscard]] HeatFluxScalar Magnitude() const {
-    return HeatFluxScalar{*this};
+    return HeatFluxScalar{value_.Magnitude()};
   }
 
   // Returns the angle between this heat flux and another one.
@@ -185,9 +185,6 @@ inline Direction::Direction(const HeatFlux& heat_flux) : Direction(heat_flux.Val
 
 inline Angle::Angle(const HeatFlux& heat_flux_1, const HeatFlux& heat_flux_2)
   : Angle(heat_flux_1.Value(), heat_flux_2.Value()) {}
-
-inline HeatFluxScalar::HeatFluxScalar(const HeatFlux& heat_flux)
-  : HeatFluxScalar(heat_flux.Value().Magnitude()) {}
 
 inline constexpr HeatFlux Direction::operator*(const HeatFluxScalar& heat_flux_scalar) const {
   return {heat_flux_scalar, *this};

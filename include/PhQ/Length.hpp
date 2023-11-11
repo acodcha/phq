@@ -50,12 +50,6 @@ public:
   Length(const double value, const Unit::Length unit)
     : DimensionalScalar<Unit::Length>(value, unit) {}
 
-  // Constructor. Constructs a length from the magnitude of a given displacement.
-  explicit Length(const Displacement& displacement);
-
-  // Constructor. Constructs a length from the magnitude of a given position.
-  explicit Length(const Position& position);
-
   // Constructor. Constructs a length from a given area and length.
   constexpr Length(const Area& area, const Length& length);
 
@@ -163,6 +157,10 @@ public:
 private:
   // Constructor. Constructs a length with a given value expressed in the standard length unit.
   explicit constexpr Length(const double value) : DimensionalScalar<Unit::Length>(value) {}
+
+  friend class Displacement;
+
+  friend class Position;
 };
 
 inline constexpr bool operator==(const Length& left, const Length& right) noexcept {

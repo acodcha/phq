@@ -102,7 +102,7 @@ public:
 
   // Returns the magnitude of this acceleration vector.
   [[nodiscard]] AccelerationScalar Magnitude() const {
-    return AccelerationScalar{*this};
+    return AccelerationScalar{value_.Magnitude()};
   }
 
   // Returns the angle between this acceleration vector and another one.
@@ -194,9 +194,6 @@ inline Direction::Direction(const Acceleration& acceleration) : Direction(accele
 
 inline Angle::Angle(const Acceleration& acceleration_1, const Acceleration& acceleration_2)
   : Angle(acceleration_1.Value(), acceleration_2.Value()) {}
-
-inline AccelerationScalar::AccelerationScalar(const Acceleration& acceleration)
-  : AccelerationScalar(acceleration.Value().Magnitude()) {}
 
 inline constexpr Velocity::Velocity(const Acceleration& acceleration, const Time& time)
   : Velocity(acceleration.Value() * time.Value()) {}
