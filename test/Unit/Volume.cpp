@@ -65,64 +65,70 @@ TEST(UnitVolume, ConsistentUnit) {
 
 TEST(UnitVolume, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMile>(
-      value, value / std::pow(1609.344, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicKilometre>(
-      value, value * std::pow(0.001, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMetre>(value, value);
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicYard>(
-      value, value / std::pow(0.9144, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicFoot>(
+
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicMile, value, value / std::pow(1609.344, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicKilometre, value, value * std::pow(0.001, 3));
+  Internal::TestConversions(Volume::CubicMetre, Volume::CubicMetre, value, value);
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicYard, value, value / std::pow(0.9144, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicFoot, value, value / std::pow(0.3048, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicDecimetre, value, value * std::pow(10.0, 3));
+  Internal::TestConversions(Volume::CubicMetre, Volume::Litre, value, value * std::pow(10.0, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicInch, value, value / std::pow(0.0254, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicCentimetre, value, value * std::pow(100.0, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::Millilitre, value, value * std::pow(100.0, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicMillimetre, value, value * std::pow(1000.0, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicMilliinch, value, value / std::pow(0.0000254, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicMicrometre, value, value * std::pow(1000000.0, 3));
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicMicroinch, value, value / std::pow(0.0000000254, 3));
+
+  Internal::TestStaticConversions<Volume, Volume::CubicMetre, Volume::CubicFoot>(
       value, value / std::pow(0.3048, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicDecimetre>(
-      value, value * std::pow(10.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::Litre>(
-      value, value * std::pow(10.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicInch>(
-      value, value / std::pow(0.0254, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicCentimetre>(
-      value, value * std::pow(100.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::Millilitre>(
-      value, value * std::pow(100.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMillimetre>(
-      value, value * std::pow(1000.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMilliinch>(
-      value, value / std::pow(0.0000254, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMicrometre>(
-      value, value * std::pow(1000000.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMicroinch>(
-      value, value / std::pow(0.0000000254, 3));
 }
 
 TEST(UnitVolume, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Volume, Volume::CubicMile, Volume::CubicMetre>(
-      value, value * std::pow(1609.344, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicKilometre, Volume::CubicMetre>(
-      value, value * std::pow(1000.0, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMetre, Volume::CubicMetre>(value, value);
-  Internal::TestUnitConversions<Volume, Volume::CubicYard, Volume::CubicMetre>(
-      value, value * std::pow(0.9144, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicFoot, Volume::CubicMetre>(
+
+  Internal::TestConversions(
+      Volume::CubicMile, Volume::CubicMetre, value, value * std::pow(1609.344, 3));
+  Internal::TestConversions(
+      Volume::CubicKilometre, Volume::CubicMetre, value, value * std::pow(1000.0, 3));
+  Internal::TestConversions(Volume::CubicMetre, Volume::CubicMetre, value, value);
+  Internal::TestConversions(
+      Volume::CubicYard, Volume::CubicMetre, value, value * std::pow(0.9144, 3));
+  Internal::TestConversions(
+      Volume::CubicFoot, Volume::CubicMetre, value, value * std::pow(0.3048, 3));
+  Internal::TestConversions(
+      Volume::CubicDecimetre, Volume::CubicMetre, value, value * std::pow(0.1, 3));
+  Internal::TestConversions(Volume::Litre, Volume::CubicMetre, value, value * std::pow(0.1, 3));
+  Internal::TestConversions(
+      Volume::CubicInch, Volume::CubicMetre, value, value * std::pow(0.0254, 3));
+  Internal::TestConversions(
+      Volume::CubicCentimetre, Volume::CubicMetre, value, value * std::pow(0.01, 3));
+  Internal::TestConversions(
+      Volume::Millilitre, Volume::CubicMetre, value, value * std::pow(0.01, 3));
+  Internal::TestConversions(
+      Volume::CubicMillimetre, Volume::CubicMetre, value, value * std::pow(0.001, 3));
+  Internal::TestConversions(
+      Volume::CubicMilliinch, Volume::CubicMetre, value, value * std::pow(0.0000254, 3));
+  Internal::TestConversions(
+      Volume::CubicMicrometre, Volume::CubicMetre, value, value * std::pow(0.000001, 3));
+  Internal::TestConversions(
+      Volume::CubicMicroinch, Volume::CubicMetre, value, value * std::pow(0.0000000254, 3));
+
+  Internal::TestStaticConversions<Volume, Volume::CubicFoot, Volume::CubicMetre>(
       value, value * std::pow(0.3048, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicDecimetre, Volume::CubicMetre>(
-      value, value * std::pow(0.1, 3));
-  Internal::TestUnitConversions<Volume, Volume::Litre, Volume::CubicMetre>(
-      value, value * std::pow(0.1, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicInch, Volume::CubicMetre>(
-      value, value * std::pow(0.0254, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicCentimetre, Volume::CubicMetre>(
-      value, value * std::pow(0.01, 3));
-  Internal::TestUnitConversions<Volume, Volume::Millilitre, Volume::CubicMetre>(
-      value, value * std::pow(0.01, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMillimetre, Volume::CubicMetre>(
-      value, value * std::pow(0.001, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMilliinch, Volume::CubicMetre>(
-      value, value * std::pow(0.0000254, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMicrometre, Volume::CubicMetre>(
-      value, value * std::pow(0.000001, 3));
-  Internal::TestUnitConversions<Volume, Volume::CubicMicroinch, Volume::CubicMetre>(
-      value, value * std::pow(0.0000000254, 3));
 }
 
 TEST(UnitVolume, Parse) {

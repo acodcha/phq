@@ -59,30 +59,35 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
 
 TEST(UnitSubstanceAmount, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
-      value, value);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Kilomole>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Megamole>(
-      value, value * 0.000001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Gigamole>(
-      value, value * 0.000000001);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Particles>(
-      value, value * 6.02214076e23);
+
+  Internal::TestConversions(SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);
+  Internal::TestConversions(SubstanceAmount::Mole, SubstanceAmount::Kilomole, value, value * 0.001);
+  Internal::TestConversions(
+      SubstanceAmount::Mole, SubstanceAmount::Megamole, value, value * 0.000001);
+  Internal::TestConversions(
+      SubstanceAmount::Mole, SubstanceAmount::Gigamole, value, value * 0.000000001);
+  Internal::TestConversions(
+      SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076e23);
+
+  Internal::TestStaticConversions<SubstanceAmount, SubstanceAmount::Mole,
+                                  SubstanceAmount::Particles>(value, value * 6.02214076e23);
 }
 
 TEST(UnitSubstanceAmount, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
-      value, value);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Kilomole, SubstanceAmount::Mole>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Megamole, SubstanceAmount::Mole>(
-      value, value * 1000000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Gigamole, SubstanceAmount::Mole>(
-      value, value * 1000000000.0);
-  Internal::TestUnitConversions<SubstanceAmount, SubstanceAmount::Particles, SubstanceAmount::Mole>(
-      value, value / 6.02214076e23);
+
+  Internal::TestConversions(SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);
+  Internal::TestConversions(
+      SubstanceAmount::Kilomole, SubstanceAmount::Mole, value, value * 1000.0);
+  Internal::TestConversions(
+      SubstanceAmount::Megamole, SubstanceAmount::Mole, value, value * 1000000.0);
+  Internal::TestConversions(
+      SubstanceAmount::Gigamole, SubstanceAmount::Mole, value, value * 1000000000.0);
+  Internal::TestConversions(
+      SubstanceAmount::Particles, SubstanceAmount::Mole, value, value / 6.02214076e23);
+
+  Internal::TestStaticConversions<SubstanceAmount, SubstanceAmount::Particles,
+                                  SubstanceAmount::Mole>(value, value / 6.02214076e23);
 }
 
 TEST(UnitSubstanceAmount, Parse) {
