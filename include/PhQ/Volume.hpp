@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "Area.hpp"
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Length.hpp"
 #include "Unit/Volume.hpp"
 
@@ -33,14 +33,14 @@ class MassDensity;
 class VolumeRate;
 
 // Volume.
-class Volume : public DimensionalScalarQuantity<Unit::Volume> {
+class Volume : public DimensionalScalar<Unit::Volume> {
 public:
   // Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;
 
   // Constructor. Constructs a volume with a given value expressed in a given volume unit.
   Volume(const double value, const Unit::Volume unit)
-    : DimensionalScalarQuantity<Unit::Volume>(value, unit) {}
+    : DimensionalScalar<Unit::Volume>(value, unit) {}
 
   // Constructor. Constructs a volume from a given area and length.
   constexpr Volume(const Area& area, const Length& length)
@@ -138,7 +138,7 @@ public:
 
 private:
   // Constructor. Constructs a volume with a given value expressed in the standard volume unit.
-  explicit constexpr Volume(const double value) : DimensionalScalarQuantity<Unit::Volume>(value) {}
+  explicit constexpr Volume(const double value) : DimensionalScalar<Unit::Volume>(value) {}
 };
 
 inline constexpr bool operator==(const Volume& left, const Volume& right) noexcept {

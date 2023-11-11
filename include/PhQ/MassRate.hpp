@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Mass.hpp"
 #include "Time.hpp"
@@ -28,14 +28,14 @@ namespace PhQ {
 
 // Mass rate. Can represent the time rate of change of a mass or a mass flow
 // rate.
-class MassRate : public DimensionalScalarQuantity<Unit::MassRate> {
+class MassRate : public DimensionalScalar<Unit::MassRate> {
 public:
   // Default constructor. Constructs a mass rate with an uninitialized value.
   MassRate() = default;
 
   // Constructor. Constructs a mass rate with a given value expressed in a given mass rate unit.
   MassRate(const double value, const Unit::MassRate unit)
-    : DimensionalScalarQuantity<Unit::MassRate>(value, unit) {}
+    : DimensionalScalar<Unit::MassRate>(value, unit) {}
 
   // Constructor. Constructs a mass rate from a given mass and time using the definition of mass
   // rate.
@@ -123,8 +123,7 @@ public:
 private:
   // Constructor. Constructs a mass rate with a given value expressed in the standard mass rate
   // unit.
-  explicit constexpr MassRate(const double value)
-    : DimensionalScalarQuantity<Unit::MassRate>(value) {}
+  explicit constexpr MassRate(const double value) : DimensionalScalar<Unit::MassRate>(value) {}
 };
 
 inline constexpr bool operator==(const MassRate& left, const MassRate& right) noexcept {

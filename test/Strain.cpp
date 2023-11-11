@@ -20,7 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Dimensions.hpp"
-#include "../include/PhQ/Value/SymmetricDyad.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -138,9 +138,9 @@ TEST(Strain, MoveConstructor) {
 
 TEST(Strain, MutableValue) {
   Strain quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  Value::SymmetricDyad& value = quantity.MutableValue();
-  value = Value::SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  SymmetricDyad& value = quantity.MutableValue();
+  value = SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Strain, Print) {
@@ -151,8 +151,8 @@ TEST(Strain, Print) {
 
 TEST(Strain, SetValue) {
   Strain quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  quantity.SetValue(Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  quantity.SetValue(SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Strain, SizeOf) {
@@ -162,7 +162,7 @@ TEST(Strain, SizeOf) {
 TEST(Strain, StandardConstructor) {
   EXPECT_EQ(Strain(std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
             Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
-  EXPECT_EQ(Strain(Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
+  EXPECT_EQ(Strain(SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66}),
             Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
@@ -174,7 +174,7 @@ TEST(Strain, Stream) {
 
 TEST(Strain, Value) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).Value(),
-            Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(Strain, XML) {

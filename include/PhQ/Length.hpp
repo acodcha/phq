@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Length.hpp"
 
 namespace PhQ {
@@ -41,14 +41,14 @@ class Volume;
 
 // Length, size, or distance. Can also represent the magnitude of a position vector or displacement
 // vector.
-class Length : public DimensionalScalarQuantity<Unit::Length> {
+class Length : public DimensionalScalar<Unit::Length> {
 public:
   // Default constructor. Constructs a length with an uninitialized value.
   Length() = default;
 
   // Constructor. Constructs a length with a given value expressed in a given length unit.
   Length(const double value, const Unit::Length unit)
-    : DimensionalScalarQuantity<Unit::Length>(value, unit) {}
+    : DimensionalScalar<Unit::Length>(value, unit) {}
 
   // Constructor. Constructs a length from the magnitude of a given displacement.
   explicit Length(const Displacement& displacement);
@@ -162,7 +162,7 @@ public:
 
 private:
   // Constructor. Constructs a length with a given value expressed in the standard length unit.
-  explicit constexpr Length(const double value) : DimensionalScalarQuantity<Unit::Length>(value) {}
+  explicit constexpr Length(const double value) : DimensionalScalar<Unit::Length>(value) {}
 };
 
 inline constexpr bool operator==(const Length& left, const Length& right) noexcept {

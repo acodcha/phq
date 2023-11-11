@@ -20,24 +20,24 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Displacement.hpp"
 #include "Length.hpp"
 #include "Unit/Length.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Position vector. Not to be confused with displacement vector.
-class Position : public DimensionalVectorQuantity<Unit::Length> {
+class Position : public DimensionalVector<Unit::Length> {
 public:
   // Default constructor. Constructs a position with an uninitialized value.
   Position() = default;
 
   // Constructor. Constructs a position with a given value expressed in a given length unit.
-  Position(const Value::Vector& value, const Unit::Length unit)
-    : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
+  Position(const Vector& value, const Unit::Length unit)
+    : DimensionalVector<Unit::Length>(value, unit) {}
 
   // Constructor. Constructs a position from a given length and direction.
   constexpr Position(const Length& length, const Direction& direction)
@@ -63,28 +63,26 @@ public:
 
   // Statically creates a position of zero.
   static constexpr Position Zero() {
-    return Position{Value::Vector::Zero()};
+    return Position{Vector::Zero()};
   }
 
   // Statically creates a position from the given x, y, and z Cartesian components expressed in a
   // given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const double x, const double y, const double z) {
-    return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x, y, z})};
+    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x, y, z})};
   }
 
   // Statically creates a position from the given x, y, and z Cartesian components expressed in a
   // given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const std::array<double, 3>& x_y_z) {
-    return Position{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x_y_z})};
+    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x_y_z})};
   }
 
   // Statically creates a position with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Position Create(const Value::Vector& value) {
+  static constexpr Position Create(const Vector& value) {
     return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
@@ -148,8 +146,7 @@ public:
 
 private:
   // Constructor. Constructs a position with a given value expressed in the standard length unit.
-  explicit constexpr Position(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Length>(value) {}
+  explicit constexpr Position(const Vector& value) : DimensionalVector<Unit::Length>(value) {}
 
   friend class Displacement;
 };
@@ -220,7 +217,7 @@ namespace std {
 template <>
 struct hash<PhQ::Position> {
   inline size_t operator()(const PhQ::Position& position) const {
-    return hash<PhQ::Value::Vector>()(position.Value());
+    return hash<PhQ::Vector>()(position.Value());
   }
 };
 

@@ -99,7 +99,7 @@ TEST(HeatCapacityRatio, DefaultConstructor) {
 }
 
 TEST(HeatCapacityRatio, Dimensions) {
-  EXPECT_EQ(HeatCapacityRatio::Dimensions(), Dimensions{});
+  EXPECT_EQ(HeatCapacityRatio::Dimensions(), Dimensionless);
 }
 
 TEST(HeatCapacityRatio, Hash) {

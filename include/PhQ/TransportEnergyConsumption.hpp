@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Length.hpp"
 #include "Power.hpp"
 #include "Speed.hpp"
@@ -29,8 +29,7 @@ namespace PhQ {
 // Transport energy consumption, also known as energy consumption in transport. A measure of energy
 // use per distance traveled. Energy consumption in transport is often measured in joules per metre
 // (J/m), kilowatt-hours per kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
-class TransportEnergyConsumption
-  : public DimensionalScalarQuantity<Unit::TransportEnergyConsumption> {
+class TransportEnergyConsumption : public DimensionalScalar<Unit::TransportEnergyConsumption> {
 public:
   // Default constructor. Constructs a transport energy consumption with an uninitialized value.
   TransportEnergyConsumption() = default;
@@ -38,7 +37,7 @@ public:
   // Constructor. Constructs a transport energy consumption with a given value expressed in a given
   // transport energy consumption unit.
   TransportEnergyConsumption(const double value, const Unit::TransportEnergyConsumption unit)
-    : DimensionalScalarQuantity<Unit::TransportEnergyConsumption>(value, unit) {}
+    : DimensionalScalar<Unit::TransportEnergyConsumption>(value, unit) {}
 
   // Constructor. Constructs a transport energy consumption from a given energy and length using the
   // definition of transport energy consumption.
@@ -129,7 +128,7 @@ private:
   // Constructor. Constructs a transport energy consumption with a given value expressed in the
   // standard transport energy consumption unit.
   explicit constexpr TransportEnergyConsumption(const double value)
-    : DimensionalScalarQuantity<Unit::TransportEnergyConsumption>(value) {}
+    : DimensionalScalar<Unit::TransportEnergyConsumption>(value) {}
 };
 
 inline constexpr bool operator==(

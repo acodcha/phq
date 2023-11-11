@@ -18,21 +18,21 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // P-wave modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class PWaveModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class PWaveModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a P-wave modulus with an uninitialized value.
   PWaveModulus() = default;
 
   // Constructor. Constructs a P-wave modulus with a given value expressed in a given pressure unit.
   PWaveModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this P-wave modulus.
   ~PWaveModulus() noexcept = default;
@@ -99,8 +99,7 @@ public:
 private:
   // Constructor. Constructs a P-wave modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr PWaveModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr PWaveModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const PWaveModulus& left, const PWaveModulus& right) noexcept {

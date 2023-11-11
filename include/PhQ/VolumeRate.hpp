@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Time.hpp"
 #include "Unit/VolumeRate.hpp"
@@ -27,14 +27,14 @@
 namespace PhQ {
 
 // Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
-class VolumeRate : public DimensionalScalarQuantity<Unit::VolumeRate> {
+class VolumeRate : public DimensionalScalar<Unit::VolumeRate> {
 public:
   // Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;
 
   // Constructor. Constructs a volume rate with a given value expressed in a given volume rate unit.
   VolumeRate(const double value, const Unit::VolumeRate unit)
-    : DimensionalScalarQuantity<Unit::VolumeRate>(value, unit) {}
+    : DimensionalScalar<Unit::VolumeRate>(value, unit) {}
 
   // Constructor. Constructs a volume rate from a given volume and time using the definition of
   // volume rate.
@@ -123,8 +123,7 @@ public:
 private:
   // Constructor. Constructs a volume rate with a given value expressed in the standard volume rate
   // unit.
-  explicit constexpr VolumeRate(const double value)
-    : DimensionalScalarQuantity<Unit::VolumeRate>(value) {}
+  explicit constexpr VolumeRate(const double value) : DimensionalScalar<Unit::VolumeRate>(value) {}
 };
 
 inline constexpr bool operator==(const VolumeRate& left, const VolumeRate& right) noexcept {

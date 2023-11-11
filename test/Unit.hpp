@@ -16,7 +16,10 @@
 
 #include <gtest/gtest.h>
 
+#include "../include/PhQ/Dyad.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ::Internal {
 
@@ -72,7 +75,7 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    Value::Vector converted_vector{original_value, original_value, original_value};
+    Vector converted_vector{original_value, original_value, original_value};
     Convert(converted_vector, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(converted_vector.x(), new_value);
     EXPECT_DOUBLE_EQ(converted_vector.y(), new_value);
@@ -80,16 +83,16 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    const Value::Vector copied_converted_vector = ConvertCopy(
-        Value::Vector{original_value, original_value, original_value}, original_unit, new_unit);
+    const Vector copied_converted_vector = ConvertCopy(
+        Vector{original_value, original_value, original_value}, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_vector.x(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_vector.y(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_vector.z(), new_value);
   }
 
   {
-    Value::SymmetricDyad converted_symmetric_dyad{original_value, original_value, original_value,
-                                                  original_value, original_value, original_value};
+    SymmetricDyad converted_symmetric_dyad{original_value, original_value, original_value,
+                                           original_value, original_value, original_value};
     Convert(converted_symmetric_dyad, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), new_value);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), new_value);
@@ -100,9 +103,9 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    const Value::SymmetricDyad copied_converted_symmetric_dyad = ConvertCopy(
-        Value::SymmetricDyad{original_value, original_value, original_value, original_value,
-                             original_value, original_value},
+    const SymmetricDyad copied_converted_symmetric_dyad = ConvertCopy(
+        SymmetricDyad{original_value, original_value, original_value, original_value,
+                      original_value, original_value},
         original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_symmetric_dyad.xx(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_symmetric_dyad.xy(), new_value);
@@ -113,7 +116,7 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    Value::Dyad converted_dyad{
+    Dyad converted_dyad{
         original_value, original_value, original_value, original_value, original_value,
         original_value, original_value, original_value, original_value};
     Convert(converted_dyad, original_unit, new_unit);
@@ -129,9 +132,9 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    const Value::Dyad copied_converted_dyad = ConvertCopy(
-        Value::Dyad{original_value, original_value, original_value, original_value, original_value,
-                    original_value, original_value, original_value, original_value},
+    const Dyad copied_converted_dyad = ConvertCopy(
+        Dyad{original_value, original_value, original_value, original_value, original_value,
+             original_value, original_value, original_value, original_value},
         original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_dyad.xx(), new_value);
     EXPECT_DOUBLE_EQ(copied_converted_dyad.xy(), new_value);
@@ -164,18 +167,17 @@ void TestStaticConversions(const double original_value, const double new_value) 
   }
 
   {
-    const Value::Vector converted_vector = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
-        Value::Vector{original_value, original_value, original_value});
+    const Vector converted_vector = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+        Vector{original_value, original_value, original_value});
     EXPECT_DOUBLE_EQ(converted_vector.x(), new_value);
     EXPECT_DOUBLE_EQ(converted_vector.y(), new_value);
     EXPECT_DOUBLE_EQ(converted_vector.z(), new_value);
   }
 
   {
-    const Value::SymmetricDyad converted_symmetric_dyad =
-        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(Value::SymmetricDyad{
-            original_value, original_value, original_value, original_value, original_value,
-            original_value});
+    const SymmetricDyad converted_symmetric_dyad = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+        SymmetricDyad{original_value, original_value, original_value, original_value,
+                      original_value, original_value});
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xx(), new_value);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xy(), new_value);
     EXPECT_DOUBLE_EQ(converted_symmetric_dyad.xz(), new_value);
@@ -185,9 +187,9 @@ void TestStaticConversions(const double original_value, const double new_value) 
   }
 
   {
-    const Value::Dyad converted_dyad = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
-        Value::Dyad{original_value, original_value, original_value, original_value, original_value,
-                    original_value, original_value, original_value, original_value});
+    const Dyad converted_dyad = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+        Dyad{original_value, original_value, original_value, original_value, original_value,
+             original_value, original_value, original_value, original_value});
     EXPECT_DOUBLE_EQ(converted_dyad.xx(), new_value);
     EXPECT_DOUBLE_EQ(converted_dyad.xy(), new_value);
     EXPECT_DOUBLE_EQ(converted_dyad.xz(), new_value);

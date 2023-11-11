@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Mass.hpp"
 #include "Unit/MassDensity.hpp"
 #include "Volume.hpp"
@@ -38,7 +38,7 @@ class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
 // Mass density.
-class MassDensity : public DimensionalScalarQuantity<Unit::MassDensity> {
+class MassDensity : public DimensionalScalar<Unit::MassDensity> {
 public:
   // Default constructor. Constructs a mass density with an uninitialized value.
   MassDensity() = default;
@@ -46,7 +46,7 @@ public:
   // Constructor. Constructs a mass density with a given value expressed in a given mass density
   // unit.
   MassDensity(const double value, const Unit::MassDensity unit)
-    : DimensionalScalarQuantity<Unit::MassDensity>(value, unit) {}
+    : DimensionalScalar<Unit::MassDensity>(value, unit) {}
 
   // Constructor. Constructs a mass density from a given mass and volume using the definition of
   // mass density.
@@ -152,7 +152,7 @@ private:
   // Constructor. Constructs a mass density with a given value expressed in the standard mass
   // density unit.
   explicit constexpr MassDensity(const double value)
-    : DimensionalScalarQuantity<Unit::MassDensity>(value) {}
+    : DimensionalScalar<Unit::MassDensity>(value) {}
 };
 
 inline constexpr bool operator==(const MassDensity& left, const MassDensity& right) noexcept {

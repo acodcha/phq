@@ -108,7 +108,7 @@ inline constexpr const Unit::Memory Standard<Unit::Memory>{Unit::Memory::Bit};
 
 // Physical dimension set of computer memory units.
 template <>
-inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensions{}};
+inline constexpr const Dimensions RelatedDimensions<Unit::Memory>{Dimensionless};
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Memory unit) {
   stream << Abbreviation(unit);

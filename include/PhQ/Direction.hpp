@@ -21,12 +21,11 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalScalarQuantity.hpp"
-#include "DimensionlessVectorQuantity.hpp"
+#include "DimensionlessVector.hpp"
+#include "Dyad.hpp"
+#include "SymmetricDyad.hpp"
 #include "Unit/Angle.hpp"
-#include "Value/Dyad.hpp"
-#include "Value/SymmetricDyad.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -51,27 +50,27 @@ class Velocity;
 
 // Direction. This is guaranteed to be either a unit vector or the zero vector [0, 0, 0]. Use the
 // Valid() method to check whether the direction is a unit vector or the zero vector.
-class Direction : public DimensionlessVectorQuantity {
+class Direction : public DimensionlessVector {
 public:
   // Default constructor. Initializes the direction to the zero vector.
-  constexpr Direction() : DimensionlessVectorQuantity(Value::Vector::Zero()) {}
+  constexpr Direction() : DimensionlessVector(Vector::Zero()) {}
 
   // Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian components
   // to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero vector.
-  Direction(const double x, const double y, const double z) : DimensionlessVectorQuantity() {
+  Direction(const double x, const double y, const double z) : DimensionlessVector() {
     Set(x, y, z);
   }
 
   // Constructor. Constructs a direction by normalizing a given array representing x, y, and z
   // Cartesian components to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to
   // the zero vector.
-  explicit Direction(const std::array<double, 3>& x_y_z) : DimensionlessVectorQuantity() {
+  explicit Direction(const std::array<double, 3>& x_y_z) : DimensionlessVector() {
     Set(x_y_z);
   }
 
   // Constructor. Constructs a direction by normalizing the given vector to a unit vector. If the
   // given vector is a zero vector, initializes the direction to the zero vector.
-  explicit Direction(const Value::Vector& value) : DimensionlessVectorQuantity() {
+  explicit Direction(const Vector& value) : DimensionlessVector() {
     Set(value);
   }
 
@@ -128,9 +127,9 @@ public:
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = Value::Vector{x / magnitude, y / magnitude, z / magnitude};
+      value_ = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value_ = Value::Vector::Zero();
+      value_ = Vector::Zero();
     }
   }
 
@@ -140,15 +139,15 @@ public:
     const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = Value::Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
+      value_ = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value_ = Value::Vector::Zero();
+      value_ = Vector::Zero();
     }
   }
 
   // Sets the value of this direction by normalizing the given vector to a unit vector. If the given
   // vector is a zero vector, sets the direction to the zero vector.
-  constexpr void Set(const Value::Vector& value) {
+  constexpr void Set(const Vector& value) {
     Set(value.x_y_z());
   }
 
@@ -171,7 +170,7 @@ public:
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given vector.
-  [[nodiscard]] constexpr double Dot(const Value::Vector& vector) const noexcept {
+  [[nodiscard]] constexpr double Dot(const Vector& vector) const noexcept {
     return value_.Dot(vector);
   }
 
@@ -182,7 +181,7 @@ public:
   }
 
   // Returns the cross product of the direction with the given vector.
-  [[nodiscard]] constexpr Value::Vector Cross(const Value::Vector& vector) const {
+  [[nodiscard]] constexpr Vector Cross(const Vector& vector) const {
     return value_.Cross(vector);
   }
 
@@ -192,17 +191,17 @@ public:
   }
 
   // Returns the dyadic product of the direction with the given vector.
-  [[nodiscard]] constexpr Value::Dyad Dyadic(const Value::Vector& vector) const {
+  [[nodiscard]] constexpr Dyad Dyadic(const Vector& vector) const {
     return value_.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
-  [[nodiscard]] constexpr Value::Dyad Dyadic(const Direction& direction) const {
+  [[nodiscard]] constexpr Dyad Dyadic(const Direction& direction) const {
     return value_.Dyadic(direction.value_);
   }
 
   // Returns the angle between the direction and the given vector.
-  [[nodiscard]] PhQ::Angle Angle(const Value::Vector& vector) const {
+  [[nodiscard]] PhQ::Angle Angle(const Vector& vector) const {
     return PhQ::Angle{*this, vector};
   }
 
@@ -258,56 +257,45 @@ inline std::ostream& operator<<(std::ostream& stream, const Direction& direction
   return stream;
 }
 
-// Constructs a vector from a magnitude and a direction.
-inline constexpr Value::Vector::Vector(const double magnitude, const PhQ::Direction& direction)
+inline constexpr Vector::Vector(const double magnitude, const PhQ::Direction& direction)
   : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
-// Returns the direction of the vector.
-inline PhQ::Direction Value::Vector::Direction() const {
+inline PhQ::Direction Vector::Direction() const {
   return PhQ::Direction{*this};
 }
 
-// Returns the dot product (also known as the scalar product or the inner
-// product) of the vector with the given direction.
-inline constexpr double Value::Vector::Dot(const PhQ::Direction& direction) const noexcept {
+inline constexpr double Vector::Dot(const PhQ::Direction& direction) const noexcept {
   return Dot(direction.Value());
 }
 
-// Returns the cross product of the vector with the given direction.
-inline constexpr Value::Vector Value::Vector::Cross(const PhQ::Direction& direction) const {
+inline constexpr Vector Vector::Cross(const PhQ::Direction& direction) const {
   return Cross(direction.Value());
 }
 
-// Returns the dyadic product of the vector with the given direction.
-inline constexpr Value::Dyad Value::Vector::Dyadic(const PhQ::Direction& direction) const {
+inline constexpr Dyad Vector::Dyadic(const PhQ::Direction& direction) const {
   return Dyadic(direction.Value());
 }
 
-inline constexpr Value::Vector operator*(
-    const Value::SymmetricDyad& symdyad, const Direction& direction) {
+inline constexpr Vector operator*(const SymmetricDyad& symdyad, const Direction& direction) {
   return symdyad * direction.Value();
 }
 
-inline constexpr Value::Vector operator*(const Value::Dyad& dyad, const Direction& direction) {
+inline constexpr Vector operator*(const Dyad& dyad, const Direction& direction) {
   return dyad * direction.Value();
 }
 
-// Returns the angle between the vector and the given direction.
-inline Angle Value::Vector::Angle(const PhQ::Direction& direction) const {
+inline Angle Vector::Angle(const PhQ::Direction& direction) const {
   return PhQ::Angle{*this, direction};
 }
 
-// Constructs an angle formed from the angle between a vector and a direction.
-inline Angle::Angle(const Value::Vector& vector, const Direction& direction)
-  : DimensionalScalarQuantity<Unit::Angle>(std::acos(vector.Dot(direction) / vector.Magnitude())) {}
+inline Angle::Angle(const Vector& vector, const Direction& direction)
+  : Angle(std::acos(vector.Dot(direction) / vector.Magnitude())) {}
 
-// Constructs an angle formed from the angle between a direction and a vector.
-inline Angle::Angle(const Direction& direction, const Value::Vector& vector)
-  : DimensionalScalarQuantity<Unit::Angle>(std::acos(direction.Dot(vector) / vector.Magnitude())) {}
+inline Angle::Angle(const Direction& direction, const Vector& vector)
+  : Angle(std::acos(direction.Dot(vector) / vector.Magnitude())) {}
 
-// Constructs an angle formed from the angle between two directions.
 inline Angle::Angle(const Direction& direction1, const Direction& direction2)
-  : DimensionalScalarQuantity<Unit::Angle>(std::acos(direction1.Dot(direction2))) {}
+  : Angle(std::acos(direction1.Dot(direction2))) {}
 
 }  // namespace PhQ
 
@@ -316,7 +304,7 @@ namespace std {
 template <>
 struct hash<PhQ::Direction> {
   inline size_t operator()(const PhQ::Direction& direction) const {
-    return hash<PhQ::Value::Vector>()(direction.Value());
+    return hash<PhQ::Vector>()(direction.Value());
   }
 };
 

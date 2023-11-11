@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "MassDensity.hpp"
 #include "StaticPressure.hpp"
 #include "Unit/SpecificEnergy.hpp"
@@ -30,7 +30,7 @@ class DynamicKinematicPressure;
 class TotalKinematicPressure;
 
 // Static kinematic pressure, which is static pressure divided by mass density.
-class StaticKinematicPressure : public DimensionalScalarQuantity<Unit::SpecificEnergy> {
+class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy> {
 public:
   // Default constructor. Constructs a static kinematic pressure with an uninitialized value.
   StaticKinematicPressure() = default;
@@ -38,7 +38,7 @@ public:
   // Constructor. Constructs a static kinematic pressure with a given value expressed in a given
   // specific energy unit.
   StaticKinematicPressure(const double value, const Unit::SpecificEnergy unit)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value, unit) {}
 
   // Constructor. Constructs a static kinematic pressure from a given total kinematic pressure and
   // dynamic kinematic pressure using the definition of total kinematic pressure.
@@ -126,7 +126,7 @@ private:
   // Constructor. Constructs a static kinematic pressure with a given value expressed in the
   // standard specific energy unit.
   explicit constexpr StaticKinematicPressure(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificEnergy>(value) {}
+    : DimensionalScalar<Unit::SpecificEnergy>(value) {}
 };
 
 inline constexpr bool operator==(

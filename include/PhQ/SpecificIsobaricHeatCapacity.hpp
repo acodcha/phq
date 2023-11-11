@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "HeatCapacityRatio.hpp"
 #include "IsobaricHeatCapacity.hpp"
 #include "SpecificIsochoricHeatCapacity.hpp"
@@ -34,7 +34,7 @@ class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
 // Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
-class SpecificIsobaricHeatCapacity : public DimensionalScalarQuantity<Unit::SpecificHeatCapacity> {
+class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity> {
 public:
   // Default constructor. Constructs a specific isobaric heat capacity with an uninitialized value.
   SpecificIsobaricHeatCapacity() = default;
@@ -42,7 +42,7 @@ public:
   // Constructor. Constructs a specific isobaric heat capacity with a given value expressed in a
   // given specific heat capacity unit.
   SpecificIsobaricHeatCapacity(const double value, const Unit::SpecificHeatCapacity unit)
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value, unit) {}
+    : DimensionalScalar<Unit::SpecificHeatCapacity>(value, unit) {}
 
   // Constructor. Constructs a specific isobaric heat capacity from a given specific gas constant
   // and specific isochoric heat capacity using Mayer's relation.
@@ -179,7 +179,7 @@ private:
   // Constructor. Constructs a specific isobaric heat capacity with a given value expressed in the
   // standard specific heat capacity unit.
   explicit constexpr SpecificIsobaricHeatCapacity(const double value)
-    : DimensionalScalarQuantity<Unit::SpecificHeatCapacity>(value) {}
+    : DimensionalScalar<Unit::SpecificHeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(

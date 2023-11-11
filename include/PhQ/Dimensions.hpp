@@ -396,6 +396,10 @@ inline std::ostream& operator<<(std::ostream& stream, const Dimensions& dimensio
   return stream;
 }
 
+// Dimensionless physical dimension set. This dimension set has all base dimensions of zero. Applies
+// to all dimensionless units of measure and dimensionless physical quantities.
+inline constexpr Dimensions Dimensionless;
+
 }  // namespace PhQ
 
 namespace std {

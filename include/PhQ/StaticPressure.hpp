@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "Area.hpp"
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "ForceMagnitude.hpp"
 #include "Unit/Pressure.hpp"
 
@@ -38,7 +38,7 @@ class Traction;
 // the additional pressure resulting from the kinetic energy of a flowing fluid, or total pressure,
 // which is the sum of static pressure and dynamic pressure. Can represent either an absolute static
 // pressure or a static pressure difference relative to another static pressure.
-class StaticPressure : public DimensionalScalarQuantity<Unit::Pressure> {
+class StaticPressure : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a static pressure with an uninitialized value.
   StaticPressure() = default;
@@ -46,7 +46,7 @@ public:
   // Constructor. Constructs a static pressure with a given value expressed in a given pressure
   // unit.
   StaticPressure(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a static pressure from a given force magnitude and area using the
   // definition of pressure.
@@ -147,7 +147,7 @@ private:
   // Constructor. Constructs a static pressure with a given value expressed in the standard pressure
   // unit.
   explicit constexpr StaticPressure(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const StaticPressure& left, const StaticPressure& right) noexcept {

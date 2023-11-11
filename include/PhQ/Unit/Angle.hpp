@@ -57,7 +57,7 @@ inline constexpr const Unit::Angle Standard<Unit::Angle>{Unit::Angle::Radian};
 
 // Physical dimension set of angle units.
 template <>
-inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensions{}};
+inline constexpr const Dimensions RelatedDimensions<Unit::Angle>{Dimensionless};
 
 inline std::ostream& operator<<(std::ostream& stream, const Unit::Angle unit) {
   stream << Abbreviation(unit);
@@ -94,7 +94,7 @@ inline const std::unordered_map<std::string_view, Unit::Angle> Spellings<Unit::A
     {"deg",         Unit::Angle::Degree    },
     {"degree",      Unit::Angle::Degree    },
     {"degrees",     Unit::Angle::Degree    },
-    {"°",           Unit::Angle::Degree    },
+    {"°",          Unit::Angle::Degree    },
     {"'",           Unit::Angle::Arcminute },
     {"am",          Unit::Angle::Arcminute },
     {"arcmin",      Unit::Angle::Arcminute },

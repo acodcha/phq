@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "HeatCapacityRatio.hpp"
 #include "IsentropicBulkModulus.hpp"
 #include "MassDensity.hpp"
@@ -34,14 +34,14 @@ class MachNumber;
 class Speed;
 
 // Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
-class SoundSpeed : public DimensionalScalarQuantity<Unit::Speed> {
+class SoundSpeed : public DimensionalScalar<Unit::Speed> {
 public:
   // Default constructor. Constructs a sound speed with an uninitialized value.
   SoundSpeed() = default;
 
   // Constructs a sound speed from a given value and speed unit.
   SoundSpeed(const double value, const Unit::Speed unit)
-    : DimensionalScalarQuantity<Unit::Speed>(value, unit) {}
+    : DimensionalScalar<Unit::Speed>(value, unit) {}
 
   // Constructs a sound speed from an isentropic bulk modulus and a mass density. This is the
   // definition of the sound speed; this relation always holds true.
@@ -132,8 +132,7 @@ public:
 
 private:
   // Constructor. Constructs a sound speed with a given value expressed in the standard speed unit.
-  explicit constexpr SoundSpeed(const double value)
-    : DimensionalScalarQuantity<Unit::Speed>(value) {}
+  explicit constexpr SoundSpeed(const double value) : DimensionalScalar<Unit::Speed>(value) {}
 };
 
 inline constexpr bool operator==(const SoundSpeed& left, const SoundSpeed& right) noexcept {

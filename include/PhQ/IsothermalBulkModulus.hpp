@@ -18,13 +18,13 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
-class IsothermalBulkModulus : public DimensionalScalarQuantity<Unit::Pressure> {
+class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs an isothermal bulk modulus with an uninitialized value.
   IsothermalBulkModulus() = default;
@@ -32,7 +32,7 @@ public:
   // Constructor. Constructs an isothermal bulk modulus with a given value expressed in a given
   // pressure unit.
   IsothermalBulkModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this isothermal bulk modulus.
   ~IsothermalBulkModulus() noexcept = default;
@@ -104,7 +104,7 @@ private:
   // Constructor. Constructs an isothermal bulk modulus with a given value expressed in the standard
   // pressure unit.
   explicit constexpr IsothermalBulkModulus(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(

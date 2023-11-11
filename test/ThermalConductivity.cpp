@@ -19,9 +19,9 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/ThermalConductivityScalar.hpp"
 #include "../include/PhQ/Unit/ThermalConductivity.hpp"
-#include "../include/PhQ/Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -148,7 +148,7 @@ TEST(ThermalConductivity, Create) {
 
   constexpr ThermalConductivity third =
       ThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-          Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+          SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
   EXPECT_EQ(third, ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
                                        Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
@@ -216,9 +216,9 @@ TEST(ThermalConductivity, MoveConstructor) {
 TEST(ThermalConductivity, MutableValue) {
   ThermalConductivity quantity(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  Value::SymmetricDyad& value = quantity.MutableValue();
-  value = Value::SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  SymmetricDyad& value = quantity.MutableValue();
+  value = SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(ThermalConductivity, Print) {
@@ -237,8 +237,8 @@ TEST(ThermalConductivity, Print) {
 TEST(ThermalConductivity, SetValue) {
   ThermalConductivity quantity(
       {1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::ThermalConductivity::WattPerMetrePerKelvin);
-  quantity.SetValue(Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  quantity.SetValue(SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(ThermalConductivity, SizeOf) {
@@ -254,9 +254,9 @@ TEST(ThermalConductivity, StaticValue) {
   constexpr ThermalConductivity quantity =
       ThermalConductivity::Create<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
           1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  constexpr Value::SymmetricDyad value =
+  constexpr SymmetricDyad value =
       quantity.StaticValue<Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>();
-  EXPECT_EQ(value, Value::SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+  EXPECT_EQ(value, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(ThermalConductivity, Stream) {
@@ -272,11 +272,11 @@ TEST(ThermalConductivity, Value) {
   EXPECT_EQ(ThermalConductivity(
                 {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin)
                 .Value(),
-            Value::SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
   EXPECT_EQ(ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                                 Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
                 .Value(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
-            Value::SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+            SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(ThermalConductivity, XML) {

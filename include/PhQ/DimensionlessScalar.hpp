@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_HPP
 
 #include <cmath>
 #include <cstddef>
@@ -29,12 +29,12 @@ namespace PhQ {
 // Abstract base class that represents any dimensionless scalar physical quantity. Such a physical
 // quantity is composed only of a value where the value is a scalar number. Such a physical quantity
 // has no unit of measure and no dimension set.
-class DimensionlessScalarQuantity {
+class DimensionlessScalar {
 public:
   // Physical dimension set of this dimensionless physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
-  static constexpr const PhQ::Dimensions Dimensions() {
-    return {};
+  static constexpr PhQ::Dimensions Dimensions() {
+    return Dimensionless;
   }
 
   // Value of this dimensionless physical quantity.
@@ -82,35 +82,33 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless scalar physical quantity with an uninitialized
   // value.
-  DimensionlessScalarQuantity() = default;
+  DimensionlessScalar() = default;
 
   // Constructor. Constructs a dimensionless scalar physical quantity with a given value.
-  explicit constexpr DimensionlessScalarQuantity(const double value) : value_(value) {}
+  explicit constexpr DimensionlessScalar(const double value) : value_(value) {}
 
   // Destructor. Destroys this dimensionless scalar physical quantity.
-  ~DimensionlessScalarQuantity() noexcept = default;
+  ~DimensionlessScalar() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
-  constexpr DimensionlessScalarQuantity(const DimensionlessScalarQuantity& other) = default;
+  constexpr DimensionlessScalar(const DimensionlessScalar& other) = default;
 
   // Move constructor. Constructs a dimensionless scalar physical quantity by moving another one.
-  constexpr DimensionlessScalarQuantity(DimensionlessScalarQuantity&& other) noexcept = default;
+  constexpr DimensionlessScalar(DimensionlessScalar&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
   // another one.
-  constexpr DimensionlessScalarQuantity& operator=(
-      const DimensionlessScalarQuantity& other) = default;
+  constexpr DimensionlessScalar& operator=(const DimensionlessScalar& other) = default;
 
   // Move assignment operator. Assigns this dimensionless scalar physical quantity by moving another
   // one.
-  constexpr DimensionlessScalarQuantity& operator=(
-      DimensionlessScalarQuantity&& other) noexcept = default;
+  constexpr DimensionlessScalar& operator=(DimensionlessScalar&& other) noexcept = default;
 
   // Value of this dimensionless scalar physical quantity.
   double value_;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalarQuantity& quantity) {
+inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalar& quantity) {
   stream << quantity.Print();
   return stream;
 }
@@ -119,51 +117,49 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalarQ
 
 namespace std {
 
-inline constexpr double abs(const PhQ::DimensionlessScalarQuantity& quantity) {
+inline constexpr double abs(const PhQ::DimensionlessScalar& quantity) {
   return abs(quantity.Value());
 }
 
-inline double cbrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double cbrt(const PhQ::DimensionlessScalar& quantity) noexcept {
   return cbrt(quantity.Value());
 };
 
-inline double exp(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double exp(const PhQ::DimensionlessScalar& quantity) noexcept {
   return exp(quantity.Value());
 };
 
-inline double log(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double log(const PhQ::DimensionlessScalar& quantity) noexcept {
   return log(quantity.Value());
 };
 
-inline double log2(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double log2(const PhQ::DimensionlessScalar& quantity) noexcept {
   return log2(quantity.Value());
 };
 
-inline double log10(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double log10(const PhQ::DimensionlessScalar& quantity) noexcept {
   return log10(quantity.Value());
 };
 
-inline constexpr double pow(
-    const PhQ::DimensionlessScalarQuantity& quantity, const int64_t exponent) {
+inline constexpr double pow(const PhQ::DimensionlessScalar& quantity, const int64_t exponent) {
   return pow(quantity.Value(), exponent);
 };
 
-inline double pow(
-    const PhQ::DimensionlessScalarQuantity& quantity, const double exponent) noexcept {
+inline double pow(const PhQ::DimensionlessScalar& quantity, const double exponent) noexcept {
   return pow(quantity.Value(), exponent);
 };
 
-inline double sqrt(const PhQ::DimensionlessScalarQuantity& quantity) noexcept {
+inline double sqrt(const PhQ::DimensionlessScalar& quantity) noexcept {
   return sqrt(quantity.Value());
 };
 
 template <>
-struct hash<PhQ::DimensionlessScalarQuantity> {
-  inline size_t operator()(const PhQ::DimensionlessScalarQuantity& quantity) const {
+struct hash<PhQ::DimensionlessScalar> {
+  inline size_t operator()(const PhQ::DimensionlessScalar& quantity) const {
     return hash<double>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_QUANTITY_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_SCALAR_HPP

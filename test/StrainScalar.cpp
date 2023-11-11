@@ -99,7 +99,7 @@ TEST(StrainScalar, DefaultConstructor) {
 }
 
 TEST(StrainScalar, Dimensions) {
-  EXPECT_EQ(StrainScalar::Dimensions(), Dimensions{});
+  EXPECT_EQ(StrainScalar::Dimensions(), Dimensionless);
 }
 
 TEST(StrainScalar, Hash) {

@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 #include "DynamicViscosity.hpp"
 #include "KinematicViscosity.hpp"
 #include "SpecificIsobaricHeatCapacity.hpp"
@@ -28,13 +28,13 @@
 namespace PhQ {
 
 // Prandtl number of a fluid.
-class PrandtlNumber : public DimensionlessScalarQuantity {
+class PrandtlNumber : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a Prandtl number with an uninitialized value.
   PrandtlNumber() = default;
 
   // Constructor. Constructs a Prandtl number with a given value.
-  explicit constexpr PrandtlNumber(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr PrandtlNumber(const double value) : DimensionlessScalar(value) {}
 
   // Constructor. Constructs a Prandtl number from a given kinematic viscosity and thermal
   // diffusivity using the definition of the Prandtl number.

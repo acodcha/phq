@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/TemperatureDifference.hpp"
 
 namespace PhQ {
@@ -33,7 +33,7 @@ class VolumetricThermalExpansionCoefficient;
 
 // Temperature difference. Not to be confused with temperature. For example, a temperature
 // difference of 20 kelvin is very different from a temperature of 20 kelvin.
-class TemperatureDifference : public DimensionalScalarQuantity<Unit::TemperatureDifference> {
+class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference> {
 public:
   // Default constructor. Constructs a temperature difference with an uninitialized value.
   TemperatureDifference() = default;
@@ -41,7 +41,7 @@ public:
   // Constructor. Constructs a temperature difference with a given value expressed in a given
   // temperature unit.
   TemperatureDifference(const double value, const Unit::TemperatureDifference unit)
-    : DimensionalScalarQuantity<Unit::TemperatureDifference>(value, unit) {}
+    : DimensionalScalar<Unit::TemperatureDifference>(value, unit) {}
 
   // Constructor. Constructs a temperature difference from a given temperature gradient magnitude
   // and length using the definition of temperature gradient.
@@ -131,7 +131,7 @@ private:
   // Constructor. Constructs a temperature difference with a given value expressed in the standard
   // temperature difference unit.
   explicit constexpr TemperatureDifference(const double value)
-    : DimensionalScalarQuantity<Unit::TemperatureDifference>(value) {}
+    : DimensionalScalar<Unit::TemperatureDifference>(value) {}
 
   friend class Temperature;
 };

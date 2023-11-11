@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "MassDensity.hpp"
 #include "Speed.hpp"
 #include "StaticPressure.hpp"
@@ -30,7 +30,7 @@ class DynamicKinematicPressure;
 
 // Dynamic pressure, which is the additional pressure arising from a flowing fluid's kinetic energy.
 // Dynamic pressure can be thought of as a flowing fluid's kinetic energy per unit volume.
-class DynamicPressure : public DimensionalScalarQuantity<Unit::Pressure> {
+class DynamicPressure : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a dynamic pressure with an uninitialized value.
   DynamicPressure() = default;
@@ -38,7 +38,7 @@ public:
   // Constructor. Constructs a dynamic pressure with a given value expressed in a given pressure
   // unit.
   DynamicPressure(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a dynamic pressure from a given mass density and speed using the
   // definition of dynamic pressure.
@@ -126,7 +126,7 @@ private:
   // Constructor. Constructs a dynamic pressure with a given value expressed in the standard
   // pressure unit.
   explicit constexpr DynamicPressure(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+    : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(

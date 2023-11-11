@@ -20,13 +20,13 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Displacement.hpp"
 #include "Frequency.hpp"
 #include "Speed.hpp"
 #include "Time.hpp"
 #include "Unit/Speed.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -34,14 +34,14 @@ namespace PhQ {
 class Acceleration;
 
 // Velocity vector.
-class Velocity : public DimensionalVectorQuantity<Unit::Speed> {
+class Velocity : public DimensionalVector<Unit::Speed> {
 public:
   // Default constructor. Constructs a velocity with an uninitialized value.
   Velocity() = default;
 
   // Constructor. Constructs a velocity with a given value expressed in a given speed unit.
-  Velocity(const Value::Vector& value, const Unit::Speed unit)
-    : DimensionalVectorQuantity<Unit::Speed>(value, unit) {}
+  Velocity(const Vector& value, const Unit::Speed unit)
+    : DimensionalVector<Unit::Speed>(value, unit) {}
 
   // Constructor. Constructs a velocity from a given speed and direction.
   constexpr Velocity(const Speed& speed, const Direction& direction)
@@ -82,28 +82,26 @@ public:
 
   // Statically creates a velocity of zero.
   static constexpr Velocity Zero() {
-    return Velocity{Value::Vector::Zero()};
+    return Velocity{Vector::Zero()};
   }
 
   // Statically creates a velocity from the given x, y, and z Cartesian components expressed in a
   // given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const double x, const double y, const double z) {
-    return Velocity{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Value::Vector{x, y, z})};
+    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x, y, z})};
   }
 
   // Statically creates a velocity from the given x, y, and z Cartesian components expressed in a
   // given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const std::array<double, 3>& x_y_z) {
-    return Velocity{
-        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Value::Vector{x_y_z})};
+    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x_y_z})};
   }
 
   // Statically creates a velocity with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity Create(const Value::Vector& value) {
+  static constexpr Velocity Create(const Vector& value) {
     return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
@@ -163,8 +161,7 @@ public:
 
 private:
   // Constructor. Constructs a velocity with a given value expressed in the standard speed unit.
-  explicit constexpr Velocity(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Speed>(value) {}
+  explicit constexpr Velocity(const Vector& value) : DimensionalVector<Unit::Speed>(value) {}
 };
 
 inline constexpr bool operator==(const Velocity& left, const Velocity& right) noexcept {
@@ -244,7 +241,7 @@ namespace std {
 template <>
 struct hash<PhQ::Velocity> {
   inline size_t operator()(const PhQ::Velocity& velocity) const {
-    return hash<PhQ::Value::Vector>()(velocity.Value());
+    return hash<PhQ::Vector>()(velocity.Value());
   }
 };
 

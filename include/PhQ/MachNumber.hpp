@@ -18,20 +18,20 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 #include "SoundSpeed.hpp"
 #include "Speed.hpp"
 
 namespace PhQ {
 
 // Mach number of a fluid flow.
-class MachNumber : public DimensionlessScalarQuantity {
+class MachNumber : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
   MachNumber() = default;
 
   // Constructor. Constructs a Mach number with a given value.
-  explicit constexpr MachNumber(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr MachNumber(const double value) : DimensionlessScalar(value) {}
 
   // Constructor. Constructs a Mach number from a given speed and sound speed using the definition
   // of the Mach number.

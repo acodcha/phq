@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Time.hpp"
 #include "Unit/AngularSpeed.hpp"
@@ -31,7 +31,7 @@ class AngularAccelerationMagnitude;
 
 // Planar angular speed. Magnitude of angular velocity. Time rate of change of an angle. Typically
 // measured in radians per second. Can also represent a circular frequency.
-class AngularSpeed : public DimensionalScalarQuantity<Unit::AngularSpeed> {
+class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed> {
 public:
   // Default constructor. Constructs an angular speed with an uninitialized value.
   AngularSpeed() = default;
@@ -39,7 +39,7 @@ public:
   // Constructor. Constructs an angular speed with a given value expressed in a given angular speed
   // unit.
   AngularSpeed(const double value, const Unit::AngularSpeed unit)
-    : DimensionalScalarQuantity<Unit::AngularSpeed>(value, unit) {}
+    : DimensionalScalar<Unit::AngularSpeed>(value, unit) {}
 
   // Constructor. Constructs an angular speed from a given angle and time using the definition of
   // angular speed.
@@ -147,7 +147,7 @@ private:
   // Constructor. Constructs an angular speed with a given value expressed in the standard angular
   // speed unit.
   explicit constexpr AngularSpeed(const double value)
-    : DimensionalScalarQuantity<Unit::AngularSpeed>(value) {}
+    : DimensionalScalar<Unit::AngularSpeed>(value) {}
 };
 
 inline constexpr bool operator==(const AngularSpeed& left, const AngularSpeed& right) noexcept {

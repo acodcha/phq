@@ -28,7 +28,7 @@
 #include "../include/PhQ/Unit/Length.hpp"
 #include "../include/PhQ/Unit/Speed.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -140,7 +140,7 @@ TEST(Velocity, Create) {
   EXPECT_EQ(second, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
 
   constexpr Velocity third =
-      Velocity::Create<Unit::Speed::MetrePerSecond>(Value::Vector{1.11, -2.22, 3.33});
+      Velocity::Create<Unit::Speed::MetrePerSecond>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond));
 }
 
@@ -211,9 +211,9 @@ TEST(Velocity, MoveConstructor) {
 
 TEST(Velocity, MutableValue) {
   Velocity quantity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 2.225, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 2.225, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 2.225, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 2.225, -6.66));
 }
 
 TEST(Velocity, Print) {
@@ -227,7 +227,7 @@ TEST(Velocity, Print) {
 TEST(Velocity, SetValue) {
   Velocity quantity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(Velocity, SizeOf) {
@@ -241,8 +241,8 @@ TEST(Velocity, StandardConstructor) {
 TEST(Velocity, StaticValue) {
   constexpr Velocity quantity =
       Velocity::Create<Unit::Speed::MillimetrePerSecond>(1.11, -2.22, 3.33);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Speed::MillimetrePerSecond>();
-  EXPECT_EQ(value, Value::Vector(1.11, -2.22, 3.33));
+  constexpr Vector value = quantity.StaticValue<Unit::Speed::MillimetrePerSecond>();
+  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Velocity, Stream) {
@@ -257,10 +257,10 @@ TEST(Velocity, Unit) {
 
 TEST(Velocity, Value) {
   EXPECT_EQ(Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(Velocity({1.11, -2.22, 3.33}, Unit::Speed::MillimetrePerSecond)
                 .Value(Unit::Speed::MillimetrePerSecond),
-            Value::Vector(1.11, -2.22, 3.33));
+            Vector(1.11, -2.22, 3.33));
 }
 
 TEST(Velocity, XML) {

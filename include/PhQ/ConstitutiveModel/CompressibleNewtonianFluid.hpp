@@ -26,9 +26,9 @@
 #include "../Strain.hpp"
 #include "../StrainRate.hpp"
 #include "../Stress.hpp"
+#include "../SymmetricDyad.hpp"
 #include "../Unit/Frequency.hpp"
 #include "../Unit/Pressure.hpp"
-#include "../Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -113,8 +113,8 @@ public:
     const double a = 2.0 * dynamic_viscosity_.Value();
     const double b = bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace();
     return {
-        Value::SymmetricDyad{a * strain_rate.Value()}
-            + Value::SymmetricDyad{ b, 0.0, 0.0, b, 0.0, b},
+        SymmetricDyad{a * strain_rate.Value()}
+        + SymmetricDyad{ b, 0.0, 0.0, b, 0.0, b},
         Standard<Unit::Pressure>
     };
   }
@@ -138,7 +138,7 @@ public:
            * (2.0 * dynamic_viscosity_.Value() + 3.0 * bulk_dynamic_viscosity_.Value()));
     const double temporary = b * stress.Value().Trace();
     return {
-        a * stress.Value() + Value::SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
+        a * stress.Value() + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
         Standard<Unit::Frequency>
     };
   }

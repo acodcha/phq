@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 
 namespace PhQ {
 
@@ -34,13 +34,13 @@ class SpecificIsochoricHeatCapacity;
 // Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
 // coefficient. The heat capacity ratio is the ratio of the isobaric heat capacity of a material to
 // its isochoric heat capacity.
-class HeatCapacityRatio : public DimensionlessScalarQuantity {
+class HeatCapacityRatio : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a heat capacity ratio ratio with an uninitialized value.
   HeatCapacityRatio() = default;
 
   // Constructor. Constructs a heat capacity ratio with a given value.
-  explicit constexpr HeatCapacityRatio(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr HeatCapacityRatio(const double value) : DimensionlessScalar(value) {}
 
   // Constructor. Constructs a heat capacity ratio from a given specific gas constant and specific
   // isobaric heat capacity using Mayer's relation and the definition of the heat capacity ratio.

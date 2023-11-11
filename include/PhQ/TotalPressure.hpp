@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "DynamicPressure.hpp"
 #include "MassDensity.hpp"
 #include "StaticPressure.hpp"
@@ -30,14 +30,14 @@ namespace PhQ {
 class TotalKinematicPressure;
 
 // Total pressure, which is the sum of static pressure and dynamic pressure.
-class TotalPressure : public DimensionalScalarQuantity<Unit::Pressure> {
+class TotalPressure : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a total pressure with an uninitialized value.
   TotalPressure() = default;
 
   // Constructor. Constructs a total pressure with a given value expressed in a given pressure unit.
   TotalPressure(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a total pressure from a given static pressure and dynamic pressure
   // using the definition of total pressure.
@@ -125,8 +125,7 @@ public:
 private:
   // Constructor. Constructs a total pressure with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr TotalPressure(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr TotalPressure(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const TotalPressure& left, const TotalPressure& right) noexcept {

@@ -108,7 +108,7 @@ TEST(PrandtlNumber, DefaultConstructor) {
 }
 
 TEST(PrandtlNumber, Dimensions) {
-  EXPECT_EQ(PrandtlNumber::Dimensions(), Dimensions{});
+  EXPECT_EQ(PrandtlNumber::Dimensions(), Dimensionless);
 }
 
 TEST(PrandtlNumber, Hash) {

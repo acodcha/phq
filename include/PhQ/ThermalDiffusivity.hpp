@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "MassDensity.hpp"
 #include "SpecificIsobaricHeatCapacity.hpp"
 #include "ThermalConductivityScalar.hpp"
@@ -30,7 +30,7 @@ namespace PhQ {
 class PrandtlNumber;
 
 // Thermal diffusivity.
-class ThermalDiffusivity : public DimensionalScalarQuantity<Unit::Diffusivity> {
+class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity> {
 public:
   // Default constructor. Constructs a thermal diffusivity with an uninitialized value.
   ThermalDiffusivity() = default;
@@ -38,7 +38,7 @@ public:
   // Constructor. Constructs a thermal diffusivity with a given value expressed in a given
   // diffusivity unit.
   ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
-    : DimensionalScalarQuantity<Unit::Diffusivity>(value, unit) {}
+    : DimensionalScalar<Unit::Diffusivity>(value, unit) {}
 
   // Constructor. Constructs a thermal diffusivity from a given thermal conductivity scalar,
   // specific isobaric heat capacity, and mass density using the definition of the thermal
@@ -122,7 +122,7 @@ private:
   // Constructor. Constructs a thermal diffusivity with a given value expressed in the standard
   // diffusivity unit.
   explicit constexpr ThermalDiffusivity(const double value)
-    : DimensionalScalarQuantity<Unit::Diffusivity>(value) {}
+    : DimensionalScalar<Unit::Diffusivity>(value) {}
 };
 
 inline constexpr bool operator==(

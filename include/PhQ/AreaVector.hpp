@@ -21,22 +21,22 @@
 
 #include "Angle.hpp"
 #include "Area.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Unit/Area.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Vector area. The vector analog to a scalar area.
-class AreaVector : public DimensionalVectorQuantity<Unit::Area> {
+class AreaVector : public DimensionalVector<Unit::Area> {
 public:
   // Default constructor. Constructs a vector area with an uninitialized value.
   AreaVector() = default;
 
   // Constructor. Constructs a vector area with a given value expressedin a given area unit.
-  AreaVector(const Value::Vector& value, const Unit::Area unit)
-    : DimensionalVectorQuantity<Unit::Area>(value, unit) {}
+  AreaVector(const Vector& value, const Unit::Area unit)
+    : DimensionalVector<Unit::Area>(value, unit) {}
 
   // Constructor. Constructs a vector area from a given area and direction.
   constexpr AreaVector(const Area& area, const Direction& direction)
@@ -59,28 +59,26 @@ public:
 
   // Statically creates a vector area of zero.
   static constexpr AreaVector Zero() {
-    return AreaVector{Value::Vector::Zero()};
+    return AreaVector{Vector::Zero()};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
   static constexpr AreaVector Create(const double x, const double y, const double z) {
-    return AreaVector{
-        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Value::Vector{x, y, z})};
+    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x, y, z})};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
   static constexpr AreaVector Create(const std::array<double, 3>& x_y_z) {
-    return AreaVector{
-        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Value::Vector{x_y_z})};
+    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x_y_z})};
   }
 
   // Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr AreaVector Create(const Value::Vector& value) {
+  static constexpr AreaVector Create(const Vector& value) {
     return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
@@ -128,8 +126,7 @@ public:
 
 private:
   // Constructor. Constructs a vector area with a given value expressed in the standard area unit.
-  explicit constexpr AreaVector(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Area>(value) {}
+  explicit constexpr AreaVector(const Vector& value) : DimensionalVector<Unit::Area>(value) {}
 };
 
 inline constexpr bool operator==(const AreaVector& left, const AreaVector& right) noexcept {
@@ -187,7 +184,7 @@ namespace std {
 template <>
 struct hash<PhQ::AreaVector> {
   inline size_t operator()(const PhQ::AreaVector& area_vector) const {
-    return hash<PhQ::Value::Vector>()(area_vector.Value());
+    return hash<PhQ::Vector>()(area_vector.Value());
   }
 };
 

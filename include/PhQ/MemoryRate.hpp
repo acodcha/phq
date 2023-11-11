@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Memory.hpp"
 #include "Time.hpp"
@@ -27,14 +27,14 @@
 namespace PhQ {
 
 // Computer memory rate. Can represent the time rate of change of memory or a memory transfer speed.
-class MemoryRate : public DimensionalScalarQuantity<Unit::MemoryRate> {
+class MemoryRate : public DimensionalScalar<Unit::MemoryRate> {
 public:
   // Default constructor. Constructs a memory rate with an uninitialized value.
   MemoryRate() = default;
 
   // Constructor. Constructs a memory rate with a given value expressed in a given memory rate unit.
   MemoryRate(const double value, const Unit::MemoryRate unit)
-    : DimensionalScalarQuantity<Unit::MemoryRate>(value, unit) {}
+    : DimensionalScalar<Unit::MemoryRate>(value, unit) {}
 
   // Constructor. Constructs a memory rate from a given memory and time duration using the
   // definition of memory rate.
@@ -123,8 +123,7 @@ public:
 private:
   // Constructor. Constructs a memory rate quantity with a given value expressed in the standard
   // memory rate unit.
-  explicit constexpr MemoryRate(const double value)
-    : DimensionalScalarQuantity<Unit::MemoryRate>(value) {}
+  explicit constexpr MemoryRate(const double value) : DimensionalScalar<Unit::MemoryRate>(value) {}
 };
 
 inline constexpr bool operator==(const MemoryRate& left, const MemoryRate& right) noexcept {

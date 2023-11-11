@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "KinematicViscosity.hpp"
 #include "MassDensity.hpp"
 #include "Unit/DynamicViscosity.hpp"
@@ -33,7 +33,7 @@ class SpecificIsobaricHeatCapacity;
 // Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
 // relationship between the viscous stress of a material and its corresponding strain rate. Not to
 // be confused with kinematic viscosity, which is dynamic viscosity divided by mass density.
-class DynamicViscosity : public DimensionalScalarQuantity<Unit::DynamicViscosity> {
+class DynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity> {
 public:
   // Default constructor. Constructs a dynamic viscosity with an uninitialized value.
   DynamicViscosity() = default;
@@ -41,7 +41,7 @@ public:
   // Constructor. Constructs a dynamic viscosity with a given value expressed in a given dynamic
   // viscosity unit.
   DynamicViscosity(const double value, const Unit::DynamicViscosity unit)
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value, unit) {}
+    : DimensionalScalar<Unit::DynamicViscosity>(value, unit) {}
 
   // Constructor. Constructs a dynamic viscosity from a given mass density and kinematic viscosity
   // using the definition of kinematic viscosity.
@@ -136,7 +136,7 @@ private:
   // Constructor. Constructs a dynamic viscosity with a given value expressed in the standard
   // dynamic viscosity unit.
   explicit constexpr DynamicViscosity(const double value)
-    : DimensionalScalarQuantity<Unit::DynamicViscosity>(value) {}
+    : DimensionalScalar<Unit::DynamicViscosity>(value) {}
 };
 
 inline constexpr bool operator==(

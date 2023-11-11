@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "AngularSpeed.hpp"
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
 #include "Time.hpp"
 #include "Unit/AngularAcceleration.hpp"
@@ -28,7 +28,7 @@ namespace PhQ {
 
 // Planar angular acceleration scalar. Magnitude of angular acceleration vector. Time rate of change
 // of angular speed. Typically measured in radians per square second.
-class AngularAccelerationMagnitude : public DimensionalScalarQuantity<Unit::AngularAcceleration> {
+class AngularAccelerationMagnitude : public DimensionalScalar<Unit::AngularAcceleration> {
 public:
   // Default constructor. Constructs an angular acceleration magnitude with an uninitialized value.
   AngularAccelerationMagnitude() = default;
@@ -36,7 +36,7 @@ public:
   // Constructor. Constructs an angular acceleration magnitude with a given value expressed in a
   // given angular acceleration unit.
   AngularAccelerationMagnitude(const double value, const Unit::AngularAcceleration unit)
-    : DimensionalScalarQuantity<Unit::AngularAcceleration>(value, unit) {}
+    : DimensionalScalar<Unit::AngularAcceleration>(value, unit) {}
 
   // Constructor. Constructs an angular acceleration magnitude from a given angular speed and time
   // using the definition of angular acceleration.
@@ -137,7 +137,7 @@ private:
   // Constructor. Constructs an angular acceleration magnitude with a given value expressed in the
   // standard angular acceleration unit.
   explicit constexpr AngularAccelerationMagnitude(const double value)
-    : DimensionalScalarQuantity<Unit::AngularAcceleration>(value) {}
+    : DimensionalScalar<Unit::AngularAcceleration>(value) {}
 };
 
 inline constexpr bool operator==(

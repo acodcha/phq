@@ -20,11 +20,11 @@
 #include <ostream>
 
 #include "Angle.hpp"
-#include "DimensionalVectorQuantity.hpp"
+#include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Length.hpp"
 #include "Unit/Length.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
@@ -35,14 +35,14 @@ class Time;
 class Velocity;
 
 // Displacement vector. Not to be confused with position vector.
-class Displacement : public DimensionalVectorQuantity<Unit::Length> {
+class Displacement : public DimensionalVector<Unit::Length> {
 public:
   // Default constructor. Constructs a displacement with an uninitialized value.
   Displacement() = default;
 
   // Constructor. Constructs a displacement with a given value expressed in a given length unit.
-  Displacement(const Value::Vector& value, const Unit::Length unit)
-    : DimensionalVectorQuantity<Unit::Length>(value, unit) {}
+  Displacement(const Vector& value, const Unit::Length unit)
+    : DimensionalVector<Unit::Length>(value, unit) {}
 
   // Constructor. Constructs a displacement from a given length and direction.
   constexpr Displacement(const Length& length, const Direction& direction)
@@ -76,7 +76,7 @@ public:
 
   // Statically creates a displacement of zero.
   static constexpr Displacement Zero() {
-    return Displacement{Value::Vector::Zero()};
+    return Displacement{Vector::Zero()};
   }
 
   // Statically creates a displacement from the given x, y, and z Cartesian components expressed in
@@ -84,7 +84,7 @@ public:
   template <Unit::Length Unit>
   static constexpr Displacement Create(const double x, const double y, const double z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x, y, z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x, y, z})};
   }
 
   // Statically creates a displacement from the given x, y, and z Cartesian components expressed in
@@ -92,12 +92,12 @@ public:
   template <Unit::Length Unit>
   static constexpr Displacement Create(const std::array<double, 3>& x_y_z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Value::Vector{x_y_z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x_y_z})};
   }
 
   // Statically creates a displacement with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const Value::Vector& value) {
+  static constexpr Displacement Create(const Vector& value) {
     return Displacement{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
@@ -154,8 +154,7 @@ public:
 private:
   // Constructor. Constructs a displacement with a given value expressed in the standard length
   // unit.
-  explicit constexpr Displacement(const Value::Vector& value)
-    : DimensionalVectorQuantity<Unit::Length>(value) {}
+  explicit constexpr Displacement(const Vector& value) : DimensionalVector<Unit::Length>(value) {}
 
   friend class Position;
 };
@@ -208,7 +207,7 @@ namespace std {
 template <>
 struct hash<PhQ::Displacement> {
   inline size_t operator()(const PhQ::Displacement& displacement) const {
-    return hash<PhQ::Value::Vector>()(displacement.Value());
+    return hash<PhQ::Vector>()(displacement.Value());
   }
 };
 

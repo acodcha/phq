@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/ThermalExpansion.hpp"
 
@@ -26,8 +26,7 @@ namespace PhQ {
 
 // Volumetric thermal expansion coefficient. Not to be confused with the linear thermal expansion
 // coefficient.
-class VolumetricThermalExpansionCoefficient
-  : public DimensionalScalarQuantity<Unit::ThermalExpansion> {
+class VolumetricThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion> {
 public:
   // Default constructor. Constructs a volumetric thermal expansion coefficient with an
   // uninitialized value.
@@ -36,7 +35,7 @@ public:
   // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
   // in a given thermal expansion unit.
   VolumetricThermalExpansionCoefficient(const double value, const Unit::ThermalExpansion unit)
-    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value, unit) {}
+    : DimensionalScalar<Unit::ThermalExpansion>(value, unit) {}
 
   // Destructor. Destroys this volumetric thermal expansion coefficient.
   ~VolumetricThermalExpansionCoefficient() noexcept = default;
@@ -124,7 +123,7 @@ private:
   // Constructor. Constructs a volumetric thermal expansion coefficient with a given value expressed
   // in the standard thermal expansion unit.
   explicit constexpr VolumetricThermalExpansionCoefficient(const double value)
-    : DimensionalScalarQuantity<Unit::ThermalExpansion>(value) {}
+    : DimensionalScalar<Unit::ThermalExpansion>(value) {}
 };
 
 inline constexpr double TemperatureDifference::operator*(

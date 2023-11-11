@@ -24,7 +24,7 @@
 #include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Area.hpp"
-#include "../include/PhQ/Value/Vector.hpp"
+#include "../include/PhQ/Vector.hpp"
 
 namespace PhQ {
 
@@ -126,7 +126,7 @@ TEST(AreaVector, Create) {
   EXPECT_EQ(second, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 
   constexpr AreaVector third =
-      AreaVector::Create<Unit::Area::SquareMetre>(Value::Vector{1.11, -2.22, 3.33});
+      AreaVector::Create<Unit::Area::SquareMetre>(Vector{1.11, -2.22, 3.33});
   EXPECT_EQ(third, AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre));
 }
 
@@ -190,9 +190,9 @@ TEST(AreaVector, MoveConstructor) {
 
 TEST(AreaVector, MutableValue) {
   AreaVector quantity({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
-  Value::Vector& value = quantity.MutableValue();
-  value = Value::Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  Vector& value = quantity.MutableValue();
+  value = Vector{-4.44, 5.55, -6.66};
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(AreaVector, Print) {
@@ -206,7 +206,7 @@ TEST(AreaVector, Print) {
 TEST(AreaVector, SetValue) {
   AreaVector quantity({1.11, -2.22, 3.33}, Unit::Area::SquareMetre);
   quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Value::Vector(-4.44, 5.55, -6.66));
+  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
 }
 
 TEST(AreaVector, SizeOf) {
@@ -219,8 +219,8 @@ TEST(AreaVector, StandardConstructor) {
 
 TEST(AreaVector, StaticValue) {
   constexpr AreaVector quantity = AreaVector::Create<Unit::Area::SquareMillimetre>(1.0, -2.0, 3.0);
-  constexpr Value::Vector value = quantity.StaticValue<Unit::Area::SquareMillimetre>();
-  EXPECT_EQ(value, Value::Vector(1.0, -2.0, 3.0));
+  constexpr Vector value = quantity.StaticValue<Unit::Area::SquareMillimetre>();
+  EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
 
 TEST(AreaVector, Stream) {
@@ -234,11 +234,11 @@ TEST(AreaVector, Unit) {
 }
 
 TEST(AreaVector, Value) {
-  EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).Value(),
-            Value::Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(
+      AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).Value(), Vector(1.11, -2.22, 3.33));
   EXPECT_EQ(AreaVector({1.0, -2.0, 3.0}, Unit::Area::SquareMillimetre)
                 .Value(Unit::Area::SquareMillimetre),
-            Value::Vector(1.0, -2.0, 3.0));
+            Vector(1.0, -2.0, 3.0));
 }
 
 TEST(AreaVector, XML) {

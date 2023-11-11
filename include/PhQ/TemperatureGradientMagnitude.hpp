@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Length.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/TemperatureGradient.hpp"
@@ -30,7 +30,7 @@ class Direction;
 class TemperatureGradient;
 
 // Temperature gradient scalar. Magnitude of a temperature gradient vector.
-class TemperatureGradientMagnitude : public DimensionalScalarQuantity<Unit::TemperatureGradient> {
+class TemperatureGradientMagnitude : public DimensionalScalar<Unit::TemperatureGradient> {
 public:
   // Default constructor. Constructs a temperature gradient magnitude with an uninitialized value.
   TemperatureGradientMagnitude() = default;
@@ -38,7 +38,7 @@ public:
   // Constructor. Constructs a temperature gradient magnitude with a given value expressed in a
   // given temperature gradient unit.
   TemperatureGradientMagnitude(const double value, const Unit::TemperatureGradient unit)
-    : DimensionalScalarQuantity<Unit::TemperatureGradient>(value, unit) {}
+    : DimensionalScalar<Unit::TemperatureGradient>(value, unit) {}
 
   // Constructor. Constructs a temperature gradient magnitude from a given temperature gradient
   // vector.
@@ -48,7 +48,7 @@ public:
   // and length using the definition of temperature gradient.
   constexpr TemperatureGradientMagnitude(
       const TemperatureDifference& temperature_difference, const Length& length)
-    : DimensionalScalarQuantity<Unit::TemperatureGradient>(
+    : DimensionalScalar<Unit::TemperatureGradient>(
         temperature_difference.Value() / length.Value()) {}
 
   // Destructor. Destroys this temperature gradient magnitude.
@@ -133,7 +133,7 @@ private:
   // Constructor. Constructs a temperature gradient magnitude with a given value expressed in the
   // standard temperature gradient unit.
   explicit constexpr TemperatureGradientMagnitude(const double value)
-    : DimensionalScalarQuantity<Unit::TemperatureGradient>(value) {}
+    : DimensionalScalar<Unit::TemperatureGradient>(value) {}
 };
 
 inline constexpr bool operator==(

@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_QUANTITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_QUANTITY_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_HPP
 
 #include <array>
 #include <cstddef>
@@ -22,23 +22,23 @@
 
 #include "Base.hpp"
 #include "Dimensions.hpp"
-#include "Value/Vector.hpp"
+#include "Vector.hpp"
 
 namespace PhQ {
 
 // Abstract base class that represents any dimensionless vector physical quantity. Such a physical
-// quantity is composed only of a value where the value is a vector of dimension three. Such a
+// quantity is composed only of a value where the value is a three-dimensional vector. Such a
 // physical quantity has no unit of measure and no dimension set.
-class DimensionlessVectorQuantity {
+class DimensionlessVector {
 public:
   // Physical dimension set of this dimensionless physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
-  static constexpr const PhQ::Dimensions Dimensions() {
-    return {};
+  static constexpr PhQ::Dimensions Dimensions() {
+    return Dimensionless;
   }
 
   // Value of this dimensionless physical quantity.
-  [[nodiscard]] constexpr const Value::Vector& Value() const noexcept {
+  [[nodiscard]] constexpr const Vector& Value() const noexcept {
     return value_;
   }
 
@@ -72,45 +72,41 @@ public:
 protected:
   // Default constructor. Constructs a dimensionless vector physical quantity with an uninitialized
   // value.
-  DimensionlessVectorQuantity() = default;
+  DimensionlessVector() = default;
 
   // Constructor. Constructs a dimensionless vector physical quantity whose value has the given x,
   // y, and z Cartesian components.
-  constexpr DimensionlessVectorQuantity(const double x, const double y, const double z)
-    : value_(x, y, z) {}
+  constexpr DimensionlessVector(const double x, const double y, const double z) : value_(x, y, z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity from a given array
   // representing its value's x, y, and z Cartesian components.
-  explicit constexpr DimensionlessVectorQuantity(const std::array<double, 3>& x_y_z)
-    : value_(x_y_z) {}
+  explicit constexpr DimensionlessVector(const std::array<double, 3>& x_y_z) : value_(x_y_z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity with a given value.
-  explicit constexpr DimensionlessVectorQuantity(const Value::Vector& value) : value_(value) {}
+  explicit constexpr DimensionlessVector(const Vector& value) : value_(value) {}
 
   // Destructor. Destroys this dimensionless vector physical quantity.
-  ~DimensionlessVectorQuantity() noexcept = default;
+  ~DimensionlessVector() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
-  constexpr DimensionlessVectorQuantity(const DimensionlessVectorQuantity& other) = default;
+  constexpr DimensionlessVector(const DimensionlessVector& other) = default;
 
   // Move constructor. Constructs a dimensionless vector physical quantity by moving another one.
-  constexpr DimensionlessVectorQuantity(DimensionlessVectorQuantity&& other) noexcept = default;
+  constexpr DimensionlessVector(DimensionlessVector&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless vector physical quantity by copying
   // another one.
-  constexpr DimensionlessVectorQuantity& operator=(
-      const DimensionlessVectorQuantity& other) = default;
+  constexpr DimensionlessVector& operator=(const DimensionlessVector& other) = default;
 
   // Move assignment operator. Assigns this dimensionless vector physical quantity by moving another
   // one.
-  constexpr DimensionlessVectorQuantity& operator=(
-      DimensionlessVectorQuantity&& other) noexcept = default;
+  constexpr DimensionlessVector& operator=(DimensionlessVector&& other) noexcept = default;
 
   // Value of this dimensionless vector physical quantity.
-  Value::Vector value_;
+  Vector value_;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVectorQuantity& quantity) {
+inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVector& quantity) {
   stream << quantity.Print();
   return stream;
 }
@@ -120,12 +116,12 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVectorQ
 namespace std {
 
 template <>
-struct hash<PhQ::DimensionlessVectorQuantity> {
-  inline size_t operator()(const PhQ::DimensionlessVectorQuantity& quantity) const {
-    return hash<PhQ::Value::Vector>()(quantity.Value());
+struct hash<PhQ::DimensionlessVector> {
+  inline size_t operator()(const PhQ::DimensionlessVector& quantity) const {
+    return hash<PhQ::Vector>()(quantity.Value());
   }
 };
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_QUANTITY_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSIONLESS_VECTOR_HPP

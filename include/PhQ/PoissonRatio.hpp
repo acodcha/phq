@@ -18,18 +18,18 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionlessScalarQuantity.hpp"
+#include "DimensionlessScalar.hpp"
 
 namespace PhQ {
 
 // Poisson's ratio of a deformable solid material.
-class PoissonRatio : public DimensionlessScalarQuantity {
+class PoissonRatio : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a Poisson's ratio with an uninitialized value.
   PoissonRatio() = default;
 
   // Constructor. Constructs a Poisson's ratio with a given value.
-  explicit constexpr PoissonRatio(const double value) : DimensionlessScalarQuantity(value) {}
+  explicit constexpr PoissonRatio(const double value) : DimensionlessScalar(value) {}
 
   // Destructor. Destroys this Poisson's ratio.
   ~PoissonRatio() noexcept = default;

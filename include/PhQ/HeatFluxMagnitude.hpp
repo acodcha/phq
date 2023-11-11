@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "TemperatureGradientMagnitude.hpp"
 #include "ThermalConductivityScalar.hpp"
 #include "Unit/EnergyFlux.hpp"
@@ -29,7 +29,7 @@ namespace PhQ {
 class HeatFlux;
 
 // Heat flux scalar. Magnitude of the heat flux vector.
-class HeatFluxMagnitude : public DimensionalScalarQuantity<Unit::EnergyFlux> {
+class HeatFluxMagnitude : public DimensionalScalar<Unit::EnergyFlux> {
 public:
   // Default constructor. Constructs a heat flux magnitude with an uninitialized value.
   HeatFluxMagnitude() = default;
@@ -37,7 +37,7 @@ public:
   // Constructor. Constructs a heat flux magnitude with a given value expressed in a given energy
   // flux unit.
   HeatFluxMagnitude(const double value, const Unit::EnergyFlux unit)
-    : DimensionalScalarQuantity<Unit::EnergyFlux>(value, unit) {}
+    : DimensionalScalar<Unit::EnergyFlux>(value, unit) {}
 
   // Constructor. Constructs a heat flux magnitude from a given thermal conductivity scalar and
   // temperature gradient magnitude using Fourier's law of heat conduction. Since heat flows
@@ -120,7 +120,7 @@ private:
   // Constructor. Constructs a heat flux magnitude with a given value expressed in the standard
   // energy flux unit.
   explicit constexpr HeatFluxMagnitude(const double value)
-    : DimensionalScalarQuantity<Unit::EnergyFlux>(value) {}
+    : DimensionalScalar<Unit::EnergyFlux>(value) {}
 };
 
 inline constexpr bool operator==(

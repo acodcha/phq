@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Length.hpp"
 #include "Unit/Area.hpp"
 
@@ -33,14 +33,13 @@ class StaticPressure;
 class Traction;
 
 // Area. Scalar quantity. Can also represent the magnitude of a vector area.
-class Area : public DimensionalScalarQuantity<Unit::Area> {
+class Area : public DimensionalScalar<Unit::Area> {
 public:
   // Default constructor. Constructs an area with an uninitialized value.
   Area() = default;
 
   // Constructor. Constructs an area with a given value expressed in a given area unit.
-  Area(const double value, const Unit::Area unit)
-    : DimensionalScalarQuantity<Unit::Area>(value, unit) {}
+  Area(const double value, const Unit::Area unit) : DimensionalScalar<Unit::Area>(value, unit) {}
 
   // Constructor. Constructs an area from a given vector area.
   explicit Area(const AreaVector& area_vector);
@@ -130,7 +129,7 @@ public:
 
 private:
   // Constructor. Constructs an area with a given value expressed in the standard area unit.
-  explicit constexpr Area(const double value) : DimensionalScalarQuantity<Unit::Area>(value) {}
+  explicit constexpr Area(const double value) : DimensionalScalar<Unit::Area>(value) {}
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {

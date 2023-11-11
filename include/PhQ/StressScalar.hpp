@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
@@ -28,14 +28,14 @@ class Stress;
 
 // Stress scalar. Represents either a component of the Cauchy stress tensor or a related quantity
 // such as principal stress or Von Mises stress.
-class StressScalar : public DimensionalScalarQuantity<Unit::Pressure> {
+class StressScalar : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a stress scalar with an uninitialized value.
   StressScalar() = default;
 
   // Constructor. Constructs a stress scalar with a given value expressed in a given pressure unit.
   StressScalar(const double value, const Unit::Pressure unit)
-    : DimensionalScalarQuantity<Unit::Pressure>(value, unit) {}
+    : DimensionalScalar<Unit::Pressure>(value, unit) {}
 
   // Destructor. Destroys this stress scalar.
   ~StressScalar() noexcept = default;
@@ -102,8 +102,7 @@ public:
 private:
   // Constructor. Constructs a stress scalar with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr StressScalar(const double value)
-    : DimensionalScalarQuantity<Unit::Pressure>(value) {}
+  explicit constexpr StressScalar(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
 
   friend Stress;
 };

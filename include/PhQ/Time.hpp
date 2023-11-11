@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "Unit/Time.hpp"
 
 namespace PhQ {
@@ -50,14 +50,13 @@ class Volume;
 class VolumeRate;
 
 // Time. Can represent either a point in time, a time duration, or a period.
-class Time : public DimensionalScalarQuantity<Unit::Time> {
+class Time : public DimensionalScalar<Unit::Time> {
 public:
   // Default constructor. Constructs a time quantity with an uninitialized value.
   Time() = default;
 
   // Constructor. Constructs a time quantity with a given value expressed in a given time unit.
-  Time(const double value, const Unit::Time unit)
-    : DimensionalScalarQuantity<Unit::Time>(value, unit) {}
+  Time(const double value, const Unit::Time unit) : DimensionalScalar<Unit::Time>(value, unit) {}
 
   // Constructor. Constructs a time quantity from a given frequency using the definition of
   // frequency.
@@ -186,7 +185,7 @@ public:
 
 private:
   // Constructor. Constructs a time quantity with a given value expressed in the standard time unit.
-  explicit constexpr Time(const double value) : DimensionalScalarQuantity<Unit::Time>(value) {}
+  explicit constexpr Time(const double value) : DimensionalScalar<Unit::Time>(value) {}
 };
 
 inline constexpr bool operator==(const Time& left, const Time& right) noexcept {

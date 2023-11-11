@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DYAD_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DYAD_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYAD_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYAD_HPP
 
 #include <array>
 #include <cstddef>
@@ -21,58 +21,58 @@
 #include <ostream>
 #include <string>
 
-#include "../Base.hpp"
+#include "Base.hpp"
 #include "SymmetricDyad.hpp"
 #include "Vector.hpp"
 
-namespace PhQ::Value {
+namespace PhQ {
 
-// Three-dimensional dyadic tensor value in Cartesian coordinates. May be non-symmetric. Contains
-// nine components: xx, xy, xz, yx, yy, yz, zx, zy, and zz.
+// Three-dimensional dyadic tensor in Cartesian coordinates. May be non-symmetric. Contains nine
+// components: xx, xy, xz, yx, yy, yz, zx, zy, and zz.
 class Dyad {
 public:
-  // Default constructor. Constructs a three-dimensional dyadic tensor value with uninitialized xx,
-  // xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
+  // Default constructor. Constructs a three-dimensional dyadic tensor with uninitialized xx, xy,
+  // xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   Dyad() = default;
 
-  // Constructor. Constructs a three-dimensional dyadic tensor value from the given xx, xy, xz, yx,
-  // yy, yz, zx, zy, and zz Cartesian components.
+  // Constructor. Constructs a three-dimensional dyadic tensor from the given xx, xy, xz, yx, yy,
+  // yz, zx, zy, and zz Cartesian components.
   constexpr Dyad(
       const double xx, const double xy, const double xz, const double yx, const double yy,
       const double yz, const double zx, const double zy, const double zz)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_({xx, xy, xz, yx, yy, yz, zx, zy, zz}) {}
 
-  // Constructor. Constructs a three-dimensional dyadic tensor value from a given array representing
-  // its xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
+  // Constructor. Constructs a three-dimensional dyadic tensor from a given array representing its
+  // xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   explicit constexpr Dyad(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
-  // Constructor. Constructs a three-dimensional dyadic tensor value from a given three-dimensional
-  // symmetric dyadic tensor value.
+  // Constructor. Constructs a three-dimensional dyadic tensor from a given three-dimensional
+  // symmetric dyadic tensor.
   explicit constexpr Dyad(const SymmetricDyad& symdyad)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
         {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(), symdyad.yz(),
          symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
 
-  // Destructor. Destroys this three-dimensional dyadic tensor value.
+  // Destructor. Destroys this three-dimensional dyadic tensor.
   ~Dyad() noexcept = default;
 
-  // Copy constructor. Constructs a three-dimensional dyadic tensor value by copying another one.
+  // Copy constructor. Constructs a three-dimensional dyadic tensor by copying another one.
   constexpr Dyad(const Dyad& other) = default;
 
-  // Move constructor. Constructs a three-dimensional dyadic tensor value by moving another one.
+  // Move constructor. Constructs a three-dimensional dyadic tensor by moving another one.
   constexpr Dyad(Dyad&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this three-dimensional dyadic tensor value by copying another
+  // Copy assignment operator. Assigns this three-dimensional dyadic tensor by copying another
   // one.
   constexpr Dyad& operator=(const Dyad& other) = default;
 
-  // Move assignment operator. Assigns this three-dimensional dyadic tensor value by moving another
+  // Move assignment operator. Assigns this three-dimensional dyadic tensor by moving another
   // one.
   constexpr Dyad& operator=(Dyad&& other) noexcept = default;
 
-  // Assignment operator. Assigns this three-dimensional dyadic tensor value by copying a
-  // three-dimensional symmetric dyadic tensor value.
+  // Assignment operator. Assigns this three-dimensional dyadic tensor by copying a
+  // three-dimensional symmetric dyadic tensor.
   constexpr Dyad& operator=(const SymmetricDyad& other) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = other.xx();
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = other.xy();
@@ -86,132 +86,132 @@ public:
     return *this;
   }
 
-  // Assignment operator. Assigns this three-dimensional dyadic tensor value by copying a given
-  // array representing its xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
+  // Assignment operator. Assigns this three-dimensional dyadic tensor by copying a given array
+  // representing its xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr Dyad& operator=(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
     return *this;
   }
 
-  // Statically creates a three-dimensional dyadic tensor value with its xx, xy, xz, yx, yy, yz, zx,
-  // zy, and zz Cartesian components initialized to zero.
+  // Statically creates a three-dimensional dyadic tensor with its xx, xy, xz, yx, yy, yz, zx, zy,
+  // and zz Cartesian components initialized to zero.
   static constexpr Dyad Zero() {
     return Dyad{
         std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
     };
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's xx, xy, xz, yx, yy, yz, zx, zy,
-  // and zz Cartesian components as an array.
+  // Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yx, yy, yz, zx, zy, and zz
+  // Cartesian components as an array.
   [[nodiscard]] constexpr const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
-  // Returns this three-dimensional dyadic tensor value's xx Cartesian component.
+  // Returns this three-dimensional dyadic tensor's xx Cartesian component.
   [[nodiscard]] constexpr double xx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  // Returns this three-dimensional dyadic tensor value's xy Cartesian component.
+  // Returns this three-dimensional dyadic tensor's xy Cartesian component.
   [[nodiscard]] constexpr double xy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  // Returns this three-dimensional dyadic tensor value's xz Cartesian component.
+  // Returns this three-dimensional dyadic tensor's xz Cartesian component.
   [[nodiscard]] constexpr double xz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yx Cartesian component.
+  // Returns this three-dimensional dyadic tensor's yx Cartesian component.
   [[nodiscard]] constexpr double yx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yy Cartesian component.
+  // Returns this three-dimensional dyadic tensor's yy Cartesian component.
   [[nodiscard]] constexpr double yy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yz Cartesian component.
+  // Returns this three-dimensional dyadic tensor's yz Cartesian component.
   [[nodiscard]] constexpr double yz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zx Cartesian component.
+  // Returns this three-dimensional dyadic tensor's zx Cartesian component.
   [[nodiscard]] constexpr double zx() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zy Cartesian component.
+  // Returns this three-dimensional dyadic tensor's zy Cartesian component.
   [[nodiscard]] constexpr double zy() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zz Cartesian component.
+  // Returns this three-dimensional dyadic tensor's zz Cartesian component.
   [[nodiscard]] constexpr double zz() const noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  // Returns this three-dimensional symmetric dyadic tensor value's xx, xy, xz, yx, yy, yz, zx, zy,
-  // and zz Cartesian components as a mutable array.
+  // Returns this three-dimensional symmetric dyadic tensor's xx, xy, xz, yx, yy, yz, zx, zy, and zz
+  // Cartesian components as a mutable array.
   constexpr std::array<double, 9>& Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_;
   }
 
-  // Returns this three-dimensional dyadic tensor value's xx Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's xx Cartesian component as a mutable value.
   constexpr double& Mutable_xx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[0];
   }
 
-  // Returns this three-dimensional dyadic tensor value's xy Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's xy Cartesian component as a mutable value.
   constexpr double& Mutable_xy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[1];
   }
 
-  // Returns this three-dimensional dyadic tensor value's xz Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's xz Cartesian component as a mutable value.
   constexpr double& Mutable_xz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[2];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yx Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's yx Cartesian component as a mutable value.
   constexpr double& Mutable_yx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[3];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yy Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's yy Cartesian component as a mutable value.
   constexpr double& Mutable_yy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[4];
   }
 
-  // Returns this three-dimensional dyadic tensor value's yz Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's yz Cartesian component as a mutable value.
   constexpr double& Mutable_yz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[5];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zx Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's zx Cartesian component as a mutable value.
   constexpr double& Mutable_zx() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[6];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zy Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's zy Cartesian component as a mutable value.
   constexpr double& Mutable_zy() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[7];
   }
 
-  // Returns this three-dimensional dyadic tensor value's zz Cartesian component as a mutable value.
+  // Returns this three-dimensional dyadic tensor's zz Cartesian component as a mutable value.
   constexpr double& Mutable_zz() noexcept {
     return xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  // Sets this three-dimensional dyadic tensor value's xx, xy, xz, yx, yy, yz, zx, zy, and zz
-  // Cartesian components to the given values.
+  // Sets this three-dimensional dyadic tensor's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
+  // components to the given values.
   constexpr void Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_ = xx_xy_xz_yx_yy_yz_zx_zy_zz;
   }
 
-  // Sets this three-dimensional dyadic tensor value's xx, xy, xz, yx, yy, yz, zx, zy, and zz
-  // Cartesian components to the given values.
+  // Sets this three-dimensional dyadic tensor's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian
+  // components to the given values.
   constexpr void Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
       const double xx, const double xy, const double xz, const double yx, const double yy,
       const double yz, const double zx, const double zy, const double zz) noexcept {
@@ -226,73 +226,73 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = zz;
   }
 
-  // Sets this three-dimensional dyadic tensor value's xx Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's xx Cartesian component to a given value.
   constexpr void Set_xx(const double xx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = xx;
   }
 
-  // Sets this three-dimensional dyadic tensor value's xy Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's xy Cartesian component to a given value.
   constexpr void Set_xy(const double xy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = xy;
   }
 
-  // Sets this three-dimensional dyadic tensor value's xz Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's xz Cartesian component to a given value.
   constexpr void Set_xz(const double xz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = xz;
   }
 
-  // Sets this three-dimensional dyadic tensor value's yx Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's yx Cartesian component to a given value.
   constexpr void Set_yx(const double yx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = yx;
   }
 
-  // Sets this three-dimensional dyadic tensor value's yy Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's yy Cartesian component to a given value.
   constexpr void Set_yy(const double yy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = yy;
   }
 
-  // Sets this three-dimensional dyadic tensor value's yz Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's yz Cartesian component to a given value.
   constexpr void Set_yz(const double yz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = yz;
   }
 
-  // Sets this three-dimensional dyadic tensor value's zx Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's zx Cartesian component to a given value.
   constexpr void Set_zx(const double zx) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = zx;
   }
 
-  // Sets this three-dimensional dyadic tensor value's zy Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's zy Cartesian component to a given value.
   constexpr void Set_zy(const double zy) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = zy;
   }
 
-  // Sets this three-dimensional dyadic tensor value's zz Cartesian component to a given value.
+  // Sets this three-dimensional dyadic tensor's zz Cartesian component to a given value.
   constexpr void Set_zz(const double zz) noexcept {
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = zz;
   }
 
-  // Returns whether this three-dimensional dyadic tensor value is symmetric.
+  // Returns whether this three-dimensional dyadic tensor is symmetric.
   [[nodiscard]] constexpr bool IsSymmetric() const noexcept {
     return xy() == yx() && xz() == zx() && yz() == zy();
   }
 
-  // Returns the trace of this three-dimensional dyadic tensor value.
+  // Returns the trace of this three-dimensional dyadic tensor.
   [[nodiscard]] constexpr double Trace() const noexcept {
     return xx() + yy() + zz();
   }
 
-  // Returns the determinant of this three-dimensional dyadic tensor value.
+  // Returns the determinant of this three-dimensional dyadic tensor.
   [[nodiscard]] constexpr double Determinant() const noexcept {
     return (xx() * (yy() * zz() - yz() * zy()) + xy() * (yz() * zx() - yx() * zz())
             + xz() * (yx() * zy() - yy() * zx()));
   }
 
-  // Returns the transpose of this three-dimensional dyadic tensor value.
+  // Returns the transpose of this three-dimensional dyadic tensor.
   [[nodiscard]] constexpr Dyad Transpose() const {
     return {xx(), yx(), zx(), xy(), yy(), zy(), xz(), yz(), zz()};
   }
 
-  // Returns the cofactors of this three-dimensional dyadic tensor value.
+  // Returns the cofactors of this three-dimensional dyadic tensor.
   [[nodiscard]] constexpr Dyad Cofactors() const {
     const double cofactor_xx{yy() * zz() - yz() * zy()};
     const double cofactor_xy{yz() * zx() - yx() * zz()};
@@ -307,16 +307,16 @@ public:
             cofactor_yz, cofactor_zx, cofactor_zy, cofactor_zz};
   }
 
-  // Returns the adjugate of this three-dimensional dyadic tensor value.
+  // Returns the adjugate of this three-dimensional dyadic tensor.
   [[nodiscard]] constexpr Dyad Adjugate() const {
     return Cofactors().Transpose();
   }
 
-  // Returns the inverse of this three-dimensional dyadic tensor value if it exists, or std::nullopt
+  // Returns the inverse of this three-dimensional dyadic tensor if it exists, or std::nullopt
   // otherwise.
   [[nodiscard]] constexpr std::optional<Dyad> Inverse() const;
 
-  // Prints this three-dimensional dyadic tensor value as a string. Components are printed to double
+  // Prints this three-dimensional dyadic tensor as a string. Components are printed to double
   // floating point precision.
   [[nodiscard]] std::string Print() const {
     return "(" + PhQ::Print(xx()) + ", " + PhQ::Print(xy()) + ", " + PhQ::Print(xz()) + "; "
@@ -324,8 +324,8 @@ public:
            + PhQ::Print(zx()) + ", " + PhQ::Print(zy()) + ", " + PhQ::Print(zz()) + ")";
   }
 
-  // Prints this three-dimensional dyadic tensor value as a string. Components are printed to a
-  // given floating point precision.
+  // Prints this three-dimensional dyadic tensor as a string. Components are printed to a given
+  // floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
     return "(" + PhQ::Print(xx(), precision) + ", " + PhQ::Print(xy(), precision) + ", "
            + PhQ::Print(xz(), precision) + "; " + PhQ::Print(yx(), precision) + ", "
@@ -334,7 +334,7 @@ public:
            + PhQ::Print(zz(), precision) + ")";
   }
 
-  // Serializes this three-dimensional dyadic tensor value as a JSON message.
+  // Serializes this three-dimensional dyadic tensor as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy()) + ",\"xz\":"
            + PhQ::Print(xz()) + ",\"yx\":" + PhQ::Print(yx()) + ",\"yy\":" + PhQ::Print(yy())
@@ -342,7 +342,7 @@ public:
            + ",\"zy\":" + PhQ::Print(zy()) + ",\"zz\":" + PhQ::Print(zz()) + "}";
   }
 
-  // Serializes this three-dimensional dyadic tensor value as an XML message.
+  // Serializes this three-dimensional dyadic tensor as an XML message.
   [[nodiscard]] std::string XML() const {
     return "<xx>" + PhQ::Print(xx()) + "</xx><xy>" + PhQ::Print(xy()) + "</xy><xz>"
            + PhQ::Print(xz()) + "</xz><yx>" + PhQ::Print(yx()) + "</yx><yy>" + PhQ::Print(yy())
@@ -350,7 +350,7 @@ public:
            + PhQ::Print(zy()) + "</zy><zz>" + PhQ::Print(zz()) + "</zz>";
   }
 
-  // Serializes this three-dimensional dyadic tensor value as a YAML message.
+  // Serializes this three-dimensional dyadic tensor as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return "{xx:" + PhQ::Print(xx()) + ",xy:" + PhQ::Print(xy()) + ",xz:" + PhQ::Print(xz())
            + ",yx:" + PhQ::Print(yx()) + ",yy:" + PhQ::Print(yy()) + ",yz:" + PhQ::Print(yz())
@@ -407,7 +407,7 @@ public:
   }
 
 private:
-  // Cartesian components of this three-dimensional dyadic tensor value.
+  // Cartesian components of this three-dimensional dyadic tensor.
   std::array<double, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz_;
 };
 
@@ -586,13 +586,13 @@ inline constexpr Dyad Vector::Dyadic(const Vector& vector) const {
           x_y_z_[2] * vector.x_y_z_[0], x_y_z_[2] * vector.x_y_z_[1], x_y_z_[2] * vector.x_y_z_[2]};
 }
 
-}  // namespace PhQ::Value
+}  // namespace PhQ
 
 namespace std {
 
 template <>
-struct hash<PhQ::Value::Dyad> {
-  inline size_t operator()(const PhQ::Value::Dyad& dyad) const {
+struct hash<PhQ::Dyad> {
+  inline size_t operator()(const PhQ::Dyad& dyad) const {
     size_t result = 17;
     result = 31 * result + hash<double>()(dyad.xx());
     result = 31 * result + hash<double>()(dyad.xy());
@@ -609,4 +609,4 @@ struct hash<PhQ::Value::Dyad> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VALUE_DYAD_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYAD_HPP

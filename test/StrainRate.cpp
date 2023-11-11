@@ -21,10 +21,10 @@
 
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Strain.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
-#include "../include/PhQ/Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -136,7 +136,7 @@ TEST(StrainRate, Create) {
   EXPECT_EQ(second, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz));
 
   constexpr StrainRate third = StrainRate::Create<Unit::Frequency::Hertz>(
-      Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+      SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
   EXPECT_EQ(third, StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz));
 }
 
@@ -202,9 +202,9 @@ TEST(StrainRate, MoveConstructor) {
 
 TEST(StrainRate, MutableValue) {
   StrainRate quantity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz);
-  Value::SymmetricDyad& value = quantity.MutableValue();
-  value = Value::SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  SymmetricDyad& value = quantity.MutableValue();
+  value = SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(StrainRate, Print) {
@@ -219,8 +219,8 @@ TEST(StrainRate, Print) {
 
 TEST(StrainRate, SetValue) {
   StrainRate quantity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz);
-  quantity.SetValue(Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  quantity.SetValue(SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(StrainRate, SizeOf) {
@@ -234,8 +234,8 @@ TEST(StrainRate, StandardConstructor) {
 TEST(StrainRate, StaticValue) {
   constexpr StrainRate quantity =
       StrainRate::Create<Unit::Frequency::Kilohertz>(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  constexpr Value::SymmetricDyad value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
-  EXPECT_EQ(value, Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+  constexpr SymmetricDyad value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
+  EXPECT_EQ(value, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(StrainRate, Stream) {
@@ -247,10 +247,10 @@ TEST(StrainRate, Stream) {
 
 TEST(StrainRate, Value) {
   EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).Value(),
-            Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
   EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Kilohertz)
                 .Value(Unit::Frequency::Kilohertz),
-            Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(StrainRate, XML) {

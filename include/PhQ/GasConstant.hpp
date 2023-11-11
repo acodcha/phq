@@ -18,7 +18,7 @@
 #include <functional>
 #include <ostream>
 
-#include "DimensionalScalarQuantity.hpp"
+#include "DimensionalScalar.hpp"
 #include "HeatCapacityRatio.hpp"
 #include "IsobaricHeatCapacity.hpp"
 #include "IsochoricHeatCapacity.hpp"
@@ -31,7 +31,7 @@ class SpecificGasConstant;
 
 // Gas constant of a gas. Not to be confused with the molar gas constant or the specific gas
 // constant.
-class GasConstant : public DimensionalScalarQuantity<Unit::HeatCapacity> {
+class GasConstant : public DimensionalScalar<Unit::HeatCapacity> {
 public:
   // Default constructor. Constructs a gas constant with an uninitialized value.
   GasConstant() = default;
@@ -39,7 +39,7 @@ public:
   // Constructor. Constructs a gas constant with a given value expressed in a given heat capacity
   // unit.
   GasConstant(const double value, const Unit::HeatCapacity unit)
-    : DimensionalScalarQuantity<Unit::HeatCapacity>(value, unit) {}
+    : DimensionalScalar<Unit::HeatCapacity>(value, unit) {}
 
   // Constructor. Constructs a gas constant from a given isobaric heat capacity and isochoric heat
   // capacity using Mayer's relation.
@@ -139,7 +139,7 @@ private:
   // Constructor. Constructs a gas constant with a given value expressed in the standard heat
   // capacity unit.
   explicit constexpr GasConstant(const double value)
-    : DimensionalScalarQuantity<Unit::HeatCapacity>(value) {}
+    : DimensionalScalar<Unit::HeatCapacity>(value) {}
 };
 
 inline constexpr bool operator==(const GasConstant& left, const GasConstant& right) noexcept {

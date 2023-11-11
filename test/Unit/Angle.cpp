@@ -80,7 +80,7 @@ TEST(UnitAngle, Parse) {
 }
 
 TEST(UnitAngle, RelatedDimensions) {
-  EXPECT_EQ(RelatedDimensions<Angle>, Dimensions{});
+  EXPECT_EQ(RelatedDimensions<Angle>, Dimensionless);
 }
 
 TEST(UnitAngle, RelatedUnitSystem) {

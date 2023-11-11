@@ -22,8 +22,8 @@
 
 #include "../include/PhQ/StaticPressure.hpp"
 #include "../include/PhQ/StressScalar.hpp"
+#include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
-#include "../include/PhQ/Value/SymmetricDyad.hpp"
 
 namespace PhQ {
 
@@ -113,8 +113,8 @@ TEST(Stress, Create) {
       std::array<double, 6>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
   EXPECT_EQ(second, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal));
 
-  constexpr Stress third = Stress::Create<Unit::Pressure::Pascal>(
-      Value::SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
+  constexpr Stress third =
+      Stress::Create<Unit::Pressure::Pascal>(SymmetricDyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66});
   EXPECT_EQ(third, Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal));
 }
 
@@ -189,9 +189,9 @@ TEST(Stress, MoveConstructor) {
 
 TEST(Stress, MutableValue) {
   Stress quantity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal);
-  Value::SymmetricDyad& value = quantity.MutableValue();
-  value = Value::SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  SymmetricDyad& value = quantity.MutableValue();
+  value = SymmetricDyad{-7.77, 8.88, -9.99, 10.10, -11.11, 12.12};
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Stress, Print) {
@@ -206,8 +206,8 @@ TEST(Stress, Print) {
 
 TEST(Stress, SetValue) {
   Stress quantity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal);
-  quantity.SetValue(Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
-  EXPECT_EQ(quantity.Value(), Value::SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  quantity.SetValue(SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
+  EXPECT_EQ(quantity.Value(), SymmetricDyad(-7.77, 8.88, -9.99, 10.10, -11.11, 12.12));
 }
 
 TEST(Stress, SizeOf) {
@@ -221,8 +221,8 @@ TEST(Stress, StandardConstructor) {
 TEST(Stress, StaticValue) {
   constexpr Stress quantity =
       Stress::Create<Unit::Pressure::Kilopascal>(1.11, -2.22, 3.33, -4.44, 5.55, -6.66);
-  constexpr Value::SymmetricDyad value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+  constexpr SymmetricDyad value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
+  EXPECT_EQ(value, SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(Stress, Stream) {
@@ -234,10 +234,10 @@ TEST(Stress, Stream) {
 
 TEST(Stress, Value) {
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).Value(),
-            Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Kilopascal)
                 .Value(Unit::Pressure::Kilopascal),
-            Value::SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
+            SymmetricDyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66));
 }
 
 TEST(Stress, XML) {
