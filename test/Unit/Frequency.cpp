@@ -51,32 +51,30 @@ TEST(UnitFrequency, ConsistentUnit) {
 
 TEST(UnitFrequency, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::Hertz>(value, value);
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::Kilohertz>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::Megahertz>(
-      value, value * 0.000001);
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::Gigahertz>(
-      value, value * 0.000000001);
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::PerMinute>(
+
+  Internal::TestConversions(Frequency::Hertz, Frequency::Hertz, value, value);
+  Internal::TestConversions(Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001);
+  Internal::TestConversions(Frequency::Hertz, Frequency::Megahertz, value, value * 0.000001);
+  Internal::TestConversions(Frequency::Hertz, Frequency::Gigahertz, value, value * 0.000000001);
+  Internal::TestConversions(Frequency::Hertz, Frequency::PerMinute, value, value * 60.0);
+  Internal::TestConversions(Frequency::Hertz, Frequency::PerHour, value, value * 3600.0);
+
+  Internal::TestStaticConversions<Frequency, Frequency::Hertz, Frequency::PerMinute>(
       value, value * 60.0);
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::PerHour>(
-      value, value * 3600.0);
 }
 
 TEST(UnitFrequency, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Frequency, Frequency::Hertz, Frequency::Hertz>(value, value);
-  Internal::TestUnitConversions<Frequency, Frequency::Kilohertz, Frequency::Hertz>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<Frequency, Frequency::Megahertz, Frequency::Hertz>(
-      value, value * 1000000.0);
-  Internal::TestUnitConversions<Frequency, Frequency::Gigahertz, Frequency::Hertz>(
-      value, value * 1000000000.0);
-  Internal::TestUnitConversions<Frequency, Frequency::PerMinute, Frequency::Hertz>(
+
+  Internal::TestConversions(Frequency::Hertz, Frequency::Hertz, value, value);
+  Internal::TestConversions(Frequency::Kilohertz, Frequency::Hertz, value, value * 1000.0);
+  Internal::TestConversions(Frequency::Megahertz, Frequency::Hertz, value, value * 1000000.0);
+  Internal::TestConversions(Frequency::Gigahertz, Frequency::Hertz, value, value * 1000000000.0);
+  Internal::TestConversions(Frequency::PerMinute, Frequency::Hertz, value, value / 60.0);
+  Internal::TestConversions(Frequency::PerHour, Frequency::Hertz, value, value / 3600.0);
+
+  Internal::TestStaticConversions<Frequency, Frequency::PerMinute, Frequency::Hertz>(
       value, value / 60.0);
-  Internal::TestUnitConversions<Frequency, Frequency::PerHour, Frequency::Hertz>(
-      value, value / 3600.0);
 }
 
 TEST(UnitFrequency, Parse) {

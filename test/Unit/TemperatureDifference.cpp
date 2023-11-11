@@ -59,26 +59,34 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
 
 TEST(UnitTemperatureDifference, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                                TemperatureDifference::Kelvin>(value, value);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                                TemperatureDifference::Celsius>(value, value);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                                TemperatureDifference::Rankine>(value, value * 1.8);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                                TemperatureDifference::Fahrenheit>(value, value * 1.8);
+
+  Internal::TestConversions(
+      TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
+  Internal::TestConversions(
+      TemperatureDifference::Kelvin, TemperatureDifference::Celsius, value, value);
+  Internal::TestConversions(
+      TemperatureDifference::Kelvin, TemperatureDifference::Rankine, value, value * 1.8);
+  Internal::TestConversions(
+      TemperatureDifference::Kelvin, TemperatureDifference::Fahrenheit, value, value * 1.8);
+
+  Internal::TestStaticConversions<TemperatureDifference, TemperatureDifference::Kelvin,
+                                  TemperatureDifference::Rankine>(value, value * 1.8);
 }
 
 TEST(UnitTemperatureDifference, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                                TemperatureDifference::Kelvin>(value, value);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Celsius,
-                                TemperatureDifference::Kelvin>(value, value);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Rankine,
-                                TemperatureDifference::Kelvin>(value, value / 1.8);
-  Internal::TestUnitConversions<TemperatureDifference, TemperatureDifference::Fahrenheit,
-                                TemperatureDifference::Kelvin>(value, value / 1.8);
+
+  Internal::TestConversions(
+      TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
+  Internal::TestConversions(
+      TemperatureDifference::Celsius, TemperatureDifference::Kelvin, value, value);
+  Internal::TestConversions(
+      TemperatureDifference::Rankine, TemperatureDifference::Kelvin, value, value / 1.8);
+  Internal::TestConversions(
+      TemperatureDifference::Fahrenheit, TemperatureDifference::Kelvin, value, value / 1.8);
+
+  Internal::TestStaticConversions<TemperatureDifference, TemperatureDifference::Rankine,
+                                  TemperatureDifference::Kelvin>(value, value / 1.8);
 }
 
 TEST(UnitTemperatureDifference, Parse) {

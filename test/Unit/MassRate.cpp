@@ -68,70 +68,76 @@ TEST(UnitMassRate, ConsistentUnit) {
 
 TEST(UnitMassRate, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::KilogramPerSecond>(
-      value, value);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::GramPerSecond>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
+
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::GramPerSecond, value, value * 1000.0);
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlugPerSecond, value,
+                            value * 0.3048 / (0.45359237 * 9.80665));
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlinchPerSecond, value,
+                            value * 0.0254 / (0.45359237 * 9.80665));
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::PoundPerSecond, value, value / 0.45359237);
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::KilogramPerMinute, value, value * 60.0);
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::GramPerMinute, value, value * 60000.0);
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlugPerMinute, value,
+                            value * 60.0 * 0.3048 / (0.45359237 * 9.80665));
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlinchPerMinute, value,
+                            value * 60.0 * 0.0254 / (0.45359237 * 9.80665));
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::PoundPerMinute, value, value * 60.0 / 0.45359237);
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::KilogramPerHour, value, value * 3600.0);
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::GramPerHour, value, value * 3600000.0);
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlugPerHour, value,
+                            value * 3600.0 * 0.3048 / (0.45359237 * 9.80665));
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::SlinchPerHour, value,
+                            value * 3600.0 * 0.0254 / (0.45359237 * 9.80665));
+  Internal::TestConversions(
+      MassRate::KilogramPerSecond, MassRate::PoundPerHour, value, value * 3600.0 / 0.45359237);
+
+  Internal::TestStaticConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerSecond>(
       value, value * 0.3048 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlinchPerSecond>(
-      value, value * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::PoundPerSecond>(
-      value, value / 0.45359237);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::KilogramPerMinute>(
-      value, value * 60.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::GramPerMinute>(
-      value, value * 60000.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerMinute>(
-      value, value * 60.0 * 0.3048 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlinchPerMinute>(
-      value, value * 60.0 * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::PoundPerMinute>(
-      value, value * 60.0 / 0.45359237);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::KilogramPerHour>(
-      value, value * 3600.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::GramPerHour>(
-      value, value * 3600000.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlugPerHour>(
-      value, value * 3600.0 * 0.3048 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::SlinchPerHour>(
-      value, value * 3600.0 * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::PoundPerHour>(
-      value, value * 3600.0 / 0.45359237);
 }
 
 TEST(UnitMassRate, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerSecond, MassRate::KilogramPerSecond>(
-      value, value);
-  Internal::TestUnitConversions<MassRate, MassRate::GramPerSecond, MassRate::KilogramPerSecond>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<MassRate, MassRate::SlugPerSecond, MassRate::KilogramPerSecond>(
+
+  Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
+  Internal::TestConversions(
+      MassRate::GramPerSecond, MassRate::KilogramPerSecond, value, value * 0.001);
+  Internal::TestConversions(MassRate::SlugPerSecond, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / 0.3048);
+  Internal::TestConversions(MassRate::SlinchPerSecond, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / 0.0254);
+  Internal::TestConversions(
+      MassRate::PoundPerSecond, MassRate::KilogramPerSecond, value, value * 0.45359237);
+  Internal::TestConversions(
+      MassRate::KilogramPerMinute, MassRate::KilogramPerSecond, value, value / 60.0);
+  Internal::TestConversions(
+      MassRate::GramPerMinute, MassRate::KilogramPerSecond, value, value / 60000.0);
+  Internal::TestConversions(MassRate::SlugPerMinute, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / (0.3048 * 60.0));
+  Internal::TestConversions(MassRate::SlinchPerMinute, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / (0.0254 * 60.0));
+  Internal::TestConversions(
+      MassRate::PoundPerMinute, MassRate::KilogramPerSecond, value, value * 0.45359237 / 60.0);
+  Internal::TestConversions(
+      MassRate::KilogramPerHour, MassRate::KilogramPerSecond, value, value / 3600.0);
+  Internal::TestConversions(
+      MassRate::GramPerHour, MassRate::KilogramPerSecond, value, value / 3600000.0);
+  Internal::TestConversions(MassRate::SlugPerHour, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / (0.3048 * 3600.0));
+  Internal::TestConversions(MassRate::SlinchPerHour, MassRate::KilogramPerSecond, value,
+                            value * 0.45359237 * 9.80665 / (0.0254 * 3600.0));
+  Internal::TestConversions(
+      MassRate::PoundPerHour, MassRate::KilogramPerSecond, value, value * 0.45359237 / 3600.0);
+
+  Internal::TestStaticConversions<MassRate, MassRate::SlugPerSecond, MassRate::KilogramPerSecond>(
       value, value * 0.45359237 * 9.80665 / 0.3048);
-  Internal::TestUnitConversions<MassRate, MassRate::SlinchPerSecond, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 * 9.80665 / 0.0254);
-  Internal::TestUnitConversions<MassRate, MassRate::PoundPerSecond, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerMinute, MassRate::KilogramPerSecond>(
-      value, value / 60.0);
-  Internal::TestUnitConversions<MassRate, MassRate::GramPerMinute, MassRate::KilogramPerSecond>(
-      value, value / 60000.0);
-  Internal::TestUnitConversions<MassRate, MassRate::SlugPerMinute, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 * 9.80665 / (0.3048 * 60.0));
-  Internal::TestUnitConversions<MassRate, MassRate::SlinchPerMinute, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 * 9.80665 / (0.0254 * 60.0));
-  Internal::TestUnitConversions<MassRate, MassRate::PoundPerMinute, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 / 60.0);
-  Internal::TestUnitConversions<MassRate, MassRate::KilogramPerHour, MassRate::KilogramPerSecond>(
-      value, value / 3600.0);
-  Internal::TestUnitConversions<MassRate, MassRate::GramPerHour, MassRate::KilogramPerSecond>(
-      value, value / 3600000.0);
-  Internal::TestUnitConversions<MassRate, MassRate::SlugPerHour, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 * 9.80665 / (0.3048 * 3600.0));
-  Internal::TestUnitConversions<MassRate, MassRate::SlinchPerHour, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 * 9.80665 / (0.0254 * 3600.0));
-  Internal::TestUnitConversions<MassRate, MassRate::PoundPerHour, MassRate::KilogramPerSecond>(
-      value, value * 0.45359237 / 3600.0);
 }
 
 TEST(UnitMassRate, Parse) {

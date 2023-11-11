@@ -63,62 +63,70 @@ TEST(UnitArea, ConsistentUnit) {
 
 TEST(UnitArea, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMile>(
-      value, value / std::pow(1609.344, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareKilometre>(
-      value, value * std::pow(0.001, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Hectare>(value, value * 0.0001);
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::Acre>(
-      value, value * 640.0 / std::pow(1609.344, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(value, value);
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareYard>(
-      value, value / std::pow(0.9144, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareFoot>(
+
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareMile, value, value / std::pow(1609.344, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareKilometre, value, value * std::pow(0.001, 2));
+  Internal::TestConversions(Area::SquareMetre, Area::Hectare, value, value * 0.0001);
+  Internal::TestConversions(
+      Area::SquareMetre, Area::Acre, value, value * 640.0 / std::pow(1609.344, 2));
+  Internal::TestConversions(Area::SquareMetre, Area::SquareMetre, value, value);
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareYard, value, value / std::pow(0.9144, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareFoot, value, value / std::pow(0.3048, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareDecimetre, value, value * std::pow(10.0, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareInch, value, value / std::pow(0.0254, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareCentimetre, value, value * std::pow(100.0, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareMillimetre, value, value * std::pow(1000.0, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareMilliinch, value, value / std::pow(0.0000254, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareMicrometre, value, value * std::pow(1000000.0, 2));
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareMicroinch, value, value / std::pow(0.0000000254, 2));
+
+  Internal::TestStaticConversions<Area, Area::SquareMetre, Area::SquareFoot>(
       value, value / std::pow(0.3048, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareDecimetre>(
-      value, value * std::pow(10.0, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareInch>(
-      value, value / std::pow(0.0254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareCentimetre>(
-      value, value * std::pow(100.0, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMillimetre>(
-      value, value * std::pow(1000.0, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMilliinch>(
-      value, value / std::pow(0.0000254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMicrometre>(
-      value, value * std::pow(1000000.0, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMicroinch>(
-      value, value / std::pow(0.0000000254, 2));
 }
 
 TEST(UnitArea, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Area, Area::SquareMile, Area::SquareMetre>(
-      value, value * std::pow(1609.344, 2));
-  Internal::TestUnitConversions<Area, Area::SquareKilometre, Area::SquareMetre>(
-      value, value * std::pow(1000.0, 2));
-  Internal::TestUnitConversions<Area, Area::Hectare, Area::SquareMetre>(value, value * 10000.0);
-  Internal::TestUnitConversions<Area, Area::Acre, Area::SquareMetre>(
-      value, value * std::pow(1609.344, 2) / 640.0);
-  Internal::TestUnitConversions<Area, Area::SquareMetre, Area::SquareMetre>(value, value);
-  Internal::TestUnitConversions<Area, Area::SquareYard, Area::SquareMetre>(
-      value, value * std::pow(0.9144, 2));
-  Internal::TestUnitConversions<Area, Area::SquareFoot, Area::SquareMetre>(
+
+  Internal::TestConversions(
+      Area::SquareMile, Area::SquareMetre, value, value * std::pow(1609.344, 2));
+  Internal::TestConversions(
+      Area::SquareKilometre, Area::SquareMetre, value, value * std::pow(1000.0, 2));
+  Internal::TestConversions(Area::Hectare, Area::SquareMetre, value, value * 10000.0);
+  Internal::TestConversions(
+      Area::Acre, Area::SquareMetre, value, value * std::pow(1609.344, 2) / 640.0);
+  Internal::TestConversions(Area::SquareMetre, Area::SquareMetre, value, value);
+  Internal::TestConversions(
+      Area::SquareYard, Area::SquareMetre, value, value * std::pow(0.9144, 2));
+  Internal::TestConversions(
+      Area::SquareFoot, Area::SquareMetre, value, value * std::pow(0.3048, 2));
+  Internal::TestConversions(
+      Area::SquareDecimetre, Area::SquareMetre, value, value * std::pow(0.1, 2));
+  Internal::TestConversions(
+      Area::SquareInch, Area::SquareMetre, value, value * std::pow(0.0254, 2));
+  Internal::TestConversions(
+      Area::SquareCentimetre, Area::SquareMetre, value, value * std::pow(0.01, 2));
+  Internal::TestConversions(
+      Area::SquareMillimetre, Area::SquareMetre, value, value * std::pow(0.001, 2));
+  Internal::TestConversions(
+      Area::SquareMilliinch, Area::SquareMetre, value, value * std::pow(0.0000254, 2));
+  Internal::TestConversions(
+      Area::SquareMicrometre, Area::SquareMetre, value, value * std::pow(0.000001, 2));
+  Internal::TestConversions(
+      Area::SquareMicroinch, Area::SquareMetre, value, value * std::pow(0.0000000254, 2));
+
+  Internal::TestStaticConversions<Area, Area::SquareFoot, Area::SquareMetre>(
       value, value * std::pow(0.3048, 2));
-  Internal::TestUnitConversions<Area, Area::SquareDecimetre, Area::SquareMetre>(
-      value, value * std::pow(0.1, 2));
-  Internal::TestUnitConversions<Area, Area::SquareInch, Area::SquareMetre>(
-      value, value * std::pow(0.0254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareCentimetre, Area::SquareMetre>(
-      value, value * std::pow(0.01, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMillimetre, Area::SquareMetre>(
-      value, value * std::pow(0.001, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMilliinch, Area::SquareMetre>(
-      value, value * std::pow(0.0000254, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMicrometre, Area::SquareMetre>(
-      value, value * std::pow(0.000001, 2));
-  Internal::TestUnitConversions<Area, Area::SquareMicroinch, Area::SquareMetre>(
-      value, value * std::pow(0.0000000254, 2));
 }
 
 TEST(UnitArea, Parse) {

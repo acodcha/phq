@@ -57,30 +57,36 @@ TEST(UnitSpecificEnergy, ConsistentUnit) {
 
 TEST(UnitSpecificEnergy, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                SpecificEnergy::JoulePerKilogram>(value, value);
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                SpecificEnergy::NanojoulePerGram>(value, value * 1000000.0);
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                SpecificEnergy::FootPoundPerSlug>(
+
+  Internal::TestConversions(
+      SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);
+  Internal::TestConversions(
+      SpecificEnergy::JoulePerKilogram, SpecificEnergy::NanojoulePerGram, value, value * 1000000.0);
+  Internal::TestConversions(SpecificEnergy::JoulePerKilogram, SpecificEnergy::FootPoundPerSlug,
+                            value, value / std::pow(0.3048, 2));
+  Internal::TestConversions(SpecificEnergy::JoulePerKilogram, SpecificEnergy::InchPoundPerSlinch,
+                            value, value / std::pow(0.0254, 2));
+
+  Internal::TestStaticConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
+                                  SpecificEnergy::FootPoundPerSlug>(
       value, value / std::pow(0.3048, 2));
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                SpecificEnergy::InchPoundPerSlinch>(
-      value, value / std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificEnergy, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::JoulePerKilogram,
-                                SpecificEnergy::JoulePerKilogram>(value, value);
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::NanojoulePerGram,
-                                SpecificEnergy::JoulePerKilogram>(value, value * 0.000001);
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::FootPoundPerSlug,
-                                SpecificEnergy::JoulePerKilogram>(
+
+  Internal::TestConversions(
+      SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);
+  Internal::TestConversions(
+      SpecificEnergy::NanojoulePerGram, SpecificEnergy::JoulePerKilogram, value, value * 0.000001);
+  Internal::TestConversions(SpecificEnergy::FootPoundPerSlug, SpecificEnergy::JoulePerKilogram,
+                            value, value * std::pow(0.3048, 2));
+  Internal::TestConversions(SpecificEnergy::InchPoundPerSlinch, SpecificEnergy::JoulePerKilogram,
+                            value, value * std::pow(0.0254, 2));
+
+  Internal::TestStaticConversions<SpecificEnergy, SpecificEnergy::FootPoundPerSlug,
+                                  SpecificEnergy::JoulePerKilogram>(
       value, value * std::pow(0.3048, 2));
-  Internal::TestUnitConversions<SpecificEnergy, SpecificEnergy::InchPoundPerSlinch,
-                                SpecificEnergy::JoulePerKilogram>(
-      value, value * std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificEnergy, Parse) {

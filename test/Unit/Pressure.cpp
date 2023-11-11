@@ -64,38 +64,38 @@ TEST(UnitPressure, ConsistentUnit) {
 
 TEST(UnitPressure, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Pascal>(value, value);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Kilopascal>(
-      value, value * 0.001);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Megapascal>(
-      value, value * 0.000001);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Gigapascal>(
-      value, value * 0.000000001);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Bar>(value, value * 0.00001);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Atmosphere>(
-      value, value / 101325.0);
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
+
+  Internal::TestConversions(Pressure::Pascal, Pressure::Pascal, value, value);
+  Internal::TestConversions(Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001);
+  Internal::TestConversions(Pressure::Pascal, Pressure::Megapascal, value, value * 0.000001);
+  Internal::TestConversions(Pressure::Pascal, Pressure::Gigapascal, value, value * 0.000000001);
+  Internal::TestConversions(Pressure::Pascal, Pressure::Bar, value, value * 0.00001);
+  Internal::TestConversions(Pressure::Pascal, Pressure::Atmosphere, value, value / 101325.0);
+  Internal::TestConversions(Pressure::Pascal, Pressure::PoundPerSquareFoot, value,
+                            value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
+  Internal::TestConversions(Pressure::Pascal, Pressure::PoundPerSquareInch, value,
+                            value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
+
+  Internal::TestStaticConversions<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
       value, value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::PoundPerSquareInch>(
-      value, value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
 }
 
 TEST(UnitPressure, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<Pressure, Pressure::Pascal, Pressure::Pascal>(value, value);
-  Internal::TestUnitConversions<Pressure, Pressure::Kilopascal, Pressure::Pascal>(
-      value, value * 1000.0);
-  Internal::TestUnitConversions<Pressure, Pressure::Megapascal, Pressure::Pascal>(
-      value, value * 1000000.0);
-  Internal::TestUnitConversions<Pressure, Pressure::Gigapascal, Pressure::Pascal>(
-      value, value * 1000000000.0);
-  Internal::TestUnitConversions<Pressure, Pressure::Bar, Pressure::Pascal>(value, value * 100000.0);
-  Internal::TestUnitConversions<Pressure, Pressure::Atmosphere, Pressure::Pascal>(
-      value, value * 101325.0);
-  Internal::TestUnitConversions<Pressure, Pressure::PoundPerSquareFoot, Pressure::Pascal>(
+
+  Internal::TestConversions(Pressure::Pascal, Pressure::Pascal, value, value);
+  Internal::TestConversions(Pressure::Kilopascal, Pressure::Pascal, value, value * 1000.0);
+  Internal::TestConversions(Pressure::Megapascal, Pressure::Pascal, value, value * 1000000.0);
+  Internal::TestConversions(Pressure::Gigapascal, Pressure::Pascal, value, value * 1000000000.0);
+  Internal::TestConversions(Pressure::Bar, Pressure::Pascal, value, value * 100000.0);
+  Internal::TestConversions(Pressure::Atmosphere, Pressure::Pascal, value, value * 101325.0);
+  Internal::TestConversions(Pressure::PoundPerSquareFoot, Pressure::Pascal, value,
+                            value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
+  Internal::TestConversions(Pressure::PoundPerSquareInch, Pressure::Pascal, value,
+                            value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
+
+  Internal::TestStaticConversions<Pressure, Pressure::PoundPerSquareFoot, Pressure::Pascal>(
       value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
-  Internal::TestUnitConversions<Pressure, Pressure::PoundPerSquareInch, Pressure::Pascal>(
-      value, value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
 }
 
 TEST(UnitPressure, Parse) {

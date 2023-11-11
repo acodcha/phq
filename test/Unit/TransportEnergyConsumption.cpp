@@ -87,123 +87,113 @@ TEST(UnitTransportEnergyConsumption, ConsistentUnit) {
 
 TEST(UnitTransportEnergyConsumption, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::JoulePerMetre,
-                                TransportEnergyConsumption::JoulePerMile>(value, value * 1609.344);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::JoulePerKilometre>(value, value * 1000.0);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::JoulePerMetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::NanojoulePerMillimetre>(value, value * 1000000.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilojoulePerMile>(value, value * 1.609344);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattMinutePerMile>(value, value * 1609.344 / 60.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattHourPerMile>(value, value * 1609.344 / 3600.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattMinutePerKilometre>(value, value / 0.06);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattHourPerKilometre>(value, value / 3.6);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattMinutePerMetre>(value, value / 60.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::WattHourPerMetre>(value, value / 3600.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattMinutePerMile>(value, value * 1609.344 / 60000.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattHourPerMile>(value, value * 1609.344 / 3600000.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattMinutePerKilometre>(value, value / 60.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattHourPerKilometre>(value, value / 3600.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattMinutePerMetre>(value, value / 60000.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::KilowattHourPerMetre>(value, value / 3600000.0);
-  Internal::TestUnitConversions<
+
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::JoulePerMile, value, value * 1609.344);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::JoulePerKilometre, value, value * 1000.0);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::NanojoulePerMillimetre,
+      value, value * 1000000.0);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::KilojoulePerMile, value, value * 1.609344);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerMile,
+      value, value * 1609.344 / 60.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattHourPerMile, value,
+      value * 1609.344 / 3600.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::WattMinutePerKilometre,
+      value, value / 0.06);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::WattHourPerKilometre, value, value / 3.6);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::WattMinutePerMetre, value, value / 60.0);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::WattHourPerMetre, value, value / 3600.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMile,
+      value, value * 1609.344 / 60000.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMile,
+      value, value * 1609.344 / 3600000.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre,
+      TransportEnergyConsumption::KilowattMinutePerKilometre, value, value / 60.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre,
+      TransportEnergyConsumption::KilowattHourPerKilometre, value, value / 3600.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattMinutePerMetre,
+      value, value / 60000.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::KilowattHourPerMetre,
+      value, value / 3600000.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::FootPoundPerFoot,
+      value, value / (0.45359237 * 9.80665));
+  Internal::TestConversions(
+      TransportEnergyConsumption::JoulePerMetre, TransportEnergyConsumption::InchPoundPerInch,
+      value, value / (0.45359237 * 9.80665));
+
+  Internal::TestStaticConversions<
       TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
       TransportEnergyConsumption::FootPoundPerFoot>(value, value / (0.45359237 * 9.80665));
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::JoulePerMetre,
-      TransportEnergyConsumption::InchPoundPerInch>(value, value / (0.45359237 * 9.80665));
 }
 
 TEST(UnitTransportEnergyConsumption, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::JoulePerMile,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value / 1609.344);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::JoulePerKilometre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 0.001);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::JoulePerMetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::NanojoulePerMillimetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 0.000001);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::KilojoulePerMile,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value / 1.609344);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::WattMinutePerMile,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 60.0 / 1609.344);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::WattHourPerMile,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 3600.0 / 1609.344);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::WattMinutePerKilometre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 0.06);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::WattHourPerKilometre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 3.6);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::WattMinutePerMetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 60.0);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::WattHourPerMetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 3600.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::KilowattMinutePerMile,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 60000.0 / 1609.344);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::KilowattHourPerMile,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 3600000.0 / 1609.344);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::KilowattMinutePerKilometre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 60.0);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::KilowattHourPerKilometre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 3600.0);
-  Internal::TestUnitConversions<TransportEnergyConsumption,
-                                TransportEnergyConsumption::KilowattMinutePerMetre,
-                                TransportEnergyConsumption::JoulePerMetre>(value, value * 60000.0);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::KilowattHourPerMetre,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 3600000.0);
-  Internal::TestUnitConversions<
+
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMile,
+                            TransportEnergyConsumption::JoulePerMetre, value, value / 1609.344);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerKilometre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 0.001);
+  Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value);
+  Internal::TestConversions(TransportEnergyConsumption::NanojoulePerMillimetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 0.000001);
+  Internal::TestConversions(TransportEnergyConsumption::KilojoulePerMile,
+                            TransportEnergyConsumption::JoulePerMetre, value, value / 1.609344);
+  Internal::TestConversions(
+      TransportEnergyConsumption::WattMinutePerMile, TransportEnergyConsumption::JoulePerMetre,
+      value, value * 60.0 / 1609.344);
+  Internal::TestConversions(
+      TransportEnergyConsumption::WattHourPerMile, TransportEnergyConsumption::JoulePerMetre, value,
+      value * 3600.0 / 1609.344);
+  Internal::TestConversions(TransportEnergyConsumption::WattMinutePerKilometre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 0.06);
+  Internal::TestConversions(TransportEnergyConsumption::WattHourPerKilometre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 3.6);
+  Internal::TestConversions(TransportEnergyConsumption::WattMinutePerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 60.0);
+  Internal::TestConversions(TransportEnergyConsumption::WattHourPerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 3600.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::KilowattMinutePerMile, TransportEnergyConsumption::JoulePerMetre,
+      value, value * 60000.0 / 1609.344);
+  Internal::TestConversions(
+      TransportEnergyConsumption::KilowattHourPerMile, TransportEnergyConsumption::JoulePerMetre,
+      value, value * 3600000.0 / 1609.344);
+  Internal::TestConversions(TransportEnergyConsumption::KilowattMinutePerKilometre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 60.0);
+  Internal::TestConversions(TransportEnergyConsumption::KilowattHourPerKilometre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 3600.0);
+  Internal::TestConversions(TransportEnergyConsumption::KilowattMinutePerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 60000.0);
+  Internal::TestConversions(TransportEnergyConsumption::KilowattHourPerMetre,
+                            TransportEnergyConsumption::JoulePerMetre, value, value * 3600000.0);
+  Internal::TestConversions(
+      TransportEnergyConsumption::FootPoundPerFoot, TransportEnergyConsumption::JoulePerMetre,
+      value, value * 0.45359237 * 9.80665);
+  Internal::TestConversions(
+      TransportEnergyConsumption::InchPoundPerInch, TransportEnergyConsumption::JoulePerMetre,
+      value, value * 0.45359237 * 9.80665);
+
+  Internal::TestStaticConversions<
       TransportEnergyConsumption, TransportEnergyConsumption::FootPoundPerFoot,
-      TransportEnergyConsumption::JoulePerMetre>(value, value * 0.45359237 * 9.80665);
-  Internal::TestUnitConversions<
-      TransportEnergyConsumption, TransportEnergyConsumption::InchPoundPerInch,
       TransportEnergyConsumption::JoulePerMetre>(value, value * 0.45359237 * 9.80665);
 }
 

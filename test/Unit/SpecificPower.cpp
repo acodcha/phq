@@ -57,28 +57,38 @@ TEST(UnitSpecificPower, ConsistentUnit) {
 
 TEST(UnitSpecificPower, ConvertFromStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
-                                SpecificPower::WattPerKilogram>(value, value);
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
-                                SpecificPower::NanowattPerGram>(value, value * 1000000.0);
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
-                                SpecificPower::FootPoundPerSlugPerSecond>(
+
+  Internal::TestConversions(
+      SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);
+  Internal::TestConversions(
+      SpecificPower::WattPerKilogram, SpecificPower::NanowattPerGram, value, value * 1000000.0);
+  Internal::TestConversions(
+      SpecificPower::WattPerKilogram, SpecificPower::FootPoundPerSlugPerSecond, value,
+      value / std::pow(0.3048, 2));
+  Internal::TestConversions(
+      SpecificPower::WattPerKilogram, SpecificPower::InchPoundPerSlinchPerSecond, value,
+      value / std::pow(0.0254, 2));
+
+  Internal::TestStaticConversions<SpecificPower, SpecificPower::WattPerKilogram,
+                                  SpecificPower::FootPoundPerSlugPerSecond>(
       value, value / std::pow(0.3048, 2));
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
-                                SpecificPower::InchPoundPerSlinchPerSecond>(
-      value, value / std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificPower, ConvertToStandard) {
   constexpr double value{10.0};
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::WattPerKilogram,
-                                SpecificPower::WattPerKilogram>(value, value);
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::NanowattPerGram,
-                                SpecificPower::WattPerKilogram>(value, value * 0.000001);
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::FootPoundPerSlugPerSecond,
-                                SpecificPower::WattPerKilogram>(value, value * std::pow(0.3048, 2));
-  Internal::TestUnitConversions<SpecificPower, SpecificPower::InchPoundPerSlinchPerSecond,
-                                SpecificPower::WattPerKilogram>(value, value * std::pow(0.0254, 2));
+
+  Internal::TestConversions(
+      SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);
+  Internal::TestConversions(
+      SpecificPower::NanowattPerGram, SpecificPower::WattPerKilogram, value, value * 0.000001);
+  Internal::TestConversions(SpecificPower::FootPoundPerSlugPerSecond,
+                            SpecificPower::WattPerKilogram, value, value * std::pow(0.3048, 2));
+  Internal::TestConversions(SpecificPower::InchPoundPerSlinchPerSecond,
+                            SpecificPower::WattPerKilogram, value, value * std::pow(0.0254, 2));
+
+  Internal::TestStaticConversions<SpecificPower, SpecificPower::FootPoundPerSlugPerSecond,
+                                  SpecificPower::WattPerKilogram>(
+      value, value * std::pow(0.3048, 2));
 }
 
 TEST(UnitSpecificPower, Parse) {
