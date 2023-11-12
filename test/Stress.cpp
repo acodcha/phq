@@ -252,6 +252,27 @@ TEST(Stress, XML) {
             "value><unit>kPa</unit>");
 }
 
+TEST(Stress, XYZ) {
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xx(),
+            StressScalar(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xy(),
+            StressScalar(-2.22, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xz(),
+            StressScalar(3.33, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yx(),
+            StressScalar(-2.22, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yy(),
+            StressScalar(-4.44, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yz(),
+            StressScalar(5.55, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zx(),
+            StressScalar(3.33, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zy(),
+            StressScalar(5.55, Unit::Pressure::Pascal));
+  EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zz(),
+            StressScalar(-6.66, Unit::Pressure::Pascal));
+}
+
 TEST(Stress, YAML) {
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).YAML(),
             "{value:{xx:1.110000000000000,xy:-2.220000000000000,xz:3.330000000000000,yy:-4."

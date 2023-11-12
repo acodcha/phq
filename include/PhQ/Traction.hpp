@@ -32,76 +32,98 @@ namespace PhQ {
 // Traction vector.
 class Traction : public DimensionalVector<Unit::Pressure> {
 public:
-  // Default constructor. Constructs a traction with an uninitialized value.
+  // Default constructor. Constructs a traction vector with an uninitialized value.
   Traction() = default;
 
-  // Constructor. Constructs a traction with a given value expressed in a given pressure unit.
+  // Constructor. Constructs a traction vector with a given value expressed in a given pressure
+  // unit.
   Traction(const Vector& value, const Unit::Pressure unit)
     : DimensionalVector<Unit::Pressure>(value, unit) {}
 
-  // Constructor. Constructs a traction from a given static pressure and direction. Since pressure
-  // is compressive, the negative of the static pressure contributes to the traction.
+  // Constructor. Constructs a traction vector from a given static pressure and direction. Since
+  // pressure is compressive, the negative of the static pressure contributes to the traction
+  // vector.
   constexpr Traction(const StaticPressure& static_pressure, const Direction& direction)
     : Traction(-static_pressure.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a traction from a given force and area using the definition of
+  // Constructor. Constructs a traction vector from a given force and area using the definition of
   // traction.
   constexpr Traction(const Force& force, const Area& area)
     : Traction(force.Value() / area.Value()) {}
 
-  // Constructor. Constructs a traction from a given stress and direction using the definition of
-  // traction.
+  // Constructor. Constructs a traction vector from a given stress and direction using the
+  // definition of traction.
   constexpr Traction(const Stress& stress, const Direction& direction);
 
-  // Destructor. Destroys this traction.
+  // Destructor. Destroys this traction vector.
   ~Traction() noexcept = default;
 
-  // Copy constructor. Constructs a traction by copying another one.
+  // Copy constructor. Constructs a traction vector by copying another one.
   constexpr Traction(const Traction& other) = default;
 
-  // Move constructor. Constructs a traction by moving another one.
+  // Move constructor. Constructs a traction vector by moving another one.
   constexpr Traction(Traction&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this traction by copying another one.
+  // Copy assignment operator. Assigns this traction vector by copying another one.
   constexpr Traction& operator=(const Traction& other) = default;
 
-  // Move assignment operator. Assigns this traction by moving another one.
+  // Move assignment operator. Assigns this traction vector by moving another one.
   constexpr Traction& operator=(Traction&& other) noexcept = default;
 
-  // Statically creates a traction of zero.
+  // Statically creates a traction vector of zero.
   static constexpr Traction Zero() {
     return Traction{Vector::Zero()};
   }
 
-  // Statically creates a traction from the given x, y, and z Cartesian components expressed in a
-  // given pressure unit.
+  // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
+  // in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const double x, const double y, const double z) {
     return Traction{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x, y, z})};
   }
 
-  // Statically creates a traction from the given x, y, and z Cartesian components expressed in a
-  // given pressure unit.
+  // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
+  // in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const std::array<double, 3>& x_y_z) {
     return Traction{
         StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x_y_z})};
   }
 
-  // Statically creates a traction with a given value expressed in a given pressure unit.
+  // Statically creates a traction vector with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const Vector& value) {
     return Traction{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  // Returns the magnitude of this traction. Since pressure is compressive, the static pressure that
-  // corresponds to the magnitude of this traction is negative.
+  // Returns the x Cartesian component of this traction vector.
+  [[nodiscard]] constexpr StaticPressure x() const noexcept {
+    return StaticPressure{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this traction vector.
+  [[nodiscard]] constexpr StaticPressure y() const noexcept {
+    return StaticPressure{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this traction vector.
+  [[nodiscard]] constexpr StaticPressure z() const noexcept {
+    return StaticPressure{value_.z()};
+  }
+
+  // Returns the magnitude of this traction vector. Since pressure is compressive, the static
+  // pressure that corresponds to the magnitude of this traction vector is negative.
   [[nodiscard]] StaticPressure Magnitude() const {
     return StaticPressure{-value_.Magnitude()};
   }
 
-  // Returns the angle between this traction and another one.
+  // Returns the direction of this traction vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
+  }
+
+  // Returns the angle between this traction vector and another one.
   [[nodiscard]] PhQ::Angle Angle(const Traction& traction) const {
     return {*this, traction};
   }
@@ -143,7 +165,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a traction with a given value expressed in the standard pressure unit.
+  // Constructor. Constructs a traction vector with a given value expressed in the standard pressure
+  // unit.
   explicit constexpr Traction(const Vector& value) : DimensionalVector<Unit::Pressure>(value) {}
 };
 

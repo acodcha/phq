@@ -131,6 +131,11 @@ public:
 
   constexpr Velocity operator*(const Displacement& displacement) const;
 
+  constexpr VelocityGradient operator*(const DisplacementGradient& displacement_gradient) const;
+
+  constexpr VelocityGradientScalar operator*(
+      const DisplacementGradientScalar& displacement_gradient_scalar) const;
+
   constexpr MemoryRate operator*(const Memory& memory) const;
 
   constexpr AccelerationScalar operator*(const Speed& speed) const;

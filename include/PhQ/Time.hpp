@@ -30,6 +30,8 @@ class Angle;
 class AngularAccelerationScalar;
 class AngularSpeed;
 class Displacement;
+class DisplacementGradient;
+class DisplacementGradientScalar;
 class Energy;
 class Frequency;
 class Length;
@@ -46,6 +48,8 @@ class StrainRate;
 class StrainRateScalar;
 class StrainScalar;
 class Velocity;
+class VelocityGradient;
+class VelocityGradientScalar;
 class Volume;
 class VolumeRate;
 
@@ -156,6 +160,11 @@ public:
   constexpr StrainScalar operator*(const StrainRateScalar& strain_rate_scalar) const;
 
   constexpr Displacement operator*(const Velocity& velocity) const;
+
+  constexpr DisplacementGradient operator*(const VelocityGradient& velocity_gradient) const;
+
+  constexpr DisplacementGradientScalar operator*(
+      const VelocityGradientScalar& velocity_gradient_scalar) const;
 
   constexpr Volume operator*(const VolumeRate& volume_rate) const;
 

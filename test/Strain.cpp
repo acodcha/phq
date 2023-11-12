@@ -183,6 +183,18 @@ TEST(Strain, XML) {
             "xz><yy>-4.440000000000000</yy><yz>5.550000000000000</yz><zz>-6.660000000000000</zz>");
 }
 
+TEST(Strain, XYZ) {
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).xx(), StrainScalar(1.11));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).xy(), StrainScalar(-2.22));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).xz(), StrainScalar(3.33));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).yx(), StrainScalar(-2.22));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).yy(), StrainScalar(-4.44));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).yz(), StrainScalar(5.55));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).zx(), StrainScalar(3.33));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).zy(), StrainScalar(5.55));
+  EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).zz(), StrainScalar(-6.66));
+}
+
 TEST(Strain, YAML) {
   EXPECT_EQ(Strain(1.11, -2.22, 3.33, -4.44, 5.55, -6.66).YAML(),
             "{xx:1.110000000000000,xy:-2.220000000000000,xz:3.330000000000000,yy:-4."

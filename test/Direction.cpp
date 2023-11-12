@@ -205,6 +205,12 @@ TEST(Direction, XML) {
   EXPECT_EQ(Direction(0.0, -2.22, 0.0).XML(), "<x>0</x><y>-1.000000000000000</y><z>0</z>");
 }
 
+TEST(Direction, XYZ) {
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0).x(), 2.0 / 7.0);
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0).y(), -3.0 / 7.0);
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0).z(), 6.0 / 7.0);
+}
+
 TEST(Direction, YAML) {
   EXPECT_EQ(Direction(0.0, -2.22, 0.0).YAML(), "{x:0,y:-1.000000000000000,z:0}");
 }

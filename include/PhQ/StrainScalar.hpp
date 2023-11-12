@@ -29,7 +29,7 @@ class StrainRateScalar;
 class TemperatureDifference;
 class Time;
 
-// Scalar strain component or resultant of the strain tensor.
+// Scalar component or resultant of a strain tensor.
 class StrainScalar : public DimensionlessScalar {
 public:
   // Default constructor. Constructs a scalar strain with an uninitialized value.

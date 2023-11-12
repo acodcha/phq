@@ -83,6 +83,51 @@ public:
     return Strain{SymmetricDyad::Zero()};
   }
 
+  // Returns the xx Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar xx() const noexcept {
+    return StrainScalar{value_.xx()};
+  }
+
+  // Returns the xy = yx Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar xy() const noexcept {
+    return StrainScalar{value_.xy()};
+  }
+
+  // Returns the xz = zx Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar xz() const noexcept {
+    return StrainScalar{value_.xz()};
+  }
+
+  // Returns the yx = xy Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar yx() const noexcept {
+    return StrainScalar{value_.yx()};
+  }
+
+  // Returns the yy Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar yy() const noexcept {
+    return StrainScalar{value_.yy()};
+  }
+
+  // Returns the yz = zy Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar yz() const noexcept {
+    return StrainScalar{value_.yz()};
+  }
+
+  // Returns the zx = xz Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar zx() const noexcept {
+    return StrainScalar{value_.zx()};
+  }
+
+  // Returns the zy = yz Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar zy() const noexcept {
+    return StrainScalar{value_.zy()};
+  }
+
+  // Returns the zz Cartesian component of this strain tensor.
+  [[nodiscard]] constexpr StrainScalar zz() const noexcept {
+    return StrainScalar{value_.zz()};
+  }
+
   constexpr Strain operator+(const Strain& strain) const {
     return Strain{value_ + strain.value_};
   }

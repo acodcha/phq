@@ -121,6 +121,21 @@ public:
     return Direction{};
   }
 
+  // Returns the x Cartesian component of this direction.
+  [[nodiscard]] constexpr double x() const noexcept {
+    return value_.x();
+  }
+
+  // Returns the y Cartesian component of this direction.
+  [[nodiscard]] constexpr double y() const noexcept {
+    return value_.y();
+  }
+
+  // Returns the z Cartesian component of this direction.
+  [[nodiscard]] constexpr double z() const noexcept {
+    return value_.z();
+  }
+
   // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
   // unit vector. If x = 0, y = 0, and z = 0, sets the direction to the zero vector.
   constexpr void Set(const double x, const double y, const double z) {

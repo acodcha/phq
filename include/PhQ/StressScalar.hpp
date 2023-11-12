@@ -26,8 +26,7 @@ namespace PhQ {
 // Forward declaration for class StressScalar.
 class Stress;
 
-// Stress scalar. Represents either a component of the Cauchy stress tensor or a related quantity
-// such as principal stress or Von Mises stress.
+// Scalar component or resultant of a Cauchy stress tensor.
 class StressScalar : public DimensionalScalar<Unit::Pressure> {
 public:
   // Default constructor. Constructs a stress scalar with an uninitialized value.

@@ -20,9 +20,12 @@
 #include <ostream>
 
 #include "DimensionalDyad.hpp"
+#include "DisplacementGradient.hpp"
 #include "Dyad.hpp"
+#include "Frequency.hpp"
 #include "StrainRate.hpp"
 #include "Unit/Frequency.hpp"
+#include "VelocityGradientScalar.hpp"
 
 namespace PhQ {
 
@@ -36,6 +39,17 @@ public:
   // frequency unit.
   VelocityGradient(const Dyad& value, const Unit::Frequency& unit)
     : DimensionalDyad<Unit::Frequency>(value, unit) {}
+
+  // Constructor. Constructs a velocity gradient tensor from a given displacement gradient tensor
+  // and time using the definition of speed.
+  constexpr VelocityGradient(const DisplacementGradient& displacement_gradient, const Time& time)
+    : VelocityGradient(displacement_gradient.Value() / time.Value()) {}
+
+  // Constructor. Constructs a velocity gradient tensor from a given displacement gradient tensor
+  // and frequency using the definition of speed.
+  constexpr VelocityGradient(
+      const DisplacementGradient& displacement_gradient, const Frequency& frequency)
+    : VelocityGradient(displacement_gradient.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this velocity gradient tensor.
   ~VelocityGradient() noexcept = default;
@@ -84,6 +98,51 @@ public:
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
+  // Returns the xx Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar xx() const noexcept {
+    return VelocityGradientScalar{value_.xx()};
+  }
+
+  // Returns the xy Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar xy() const noexcept {
+    return VelocityGradientScalar{value_.xy()};
+  }
+
+  // Returns the xz Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar xz() const noexcept {
+    return VelocityGradientScalar{value_.xz()};
+  }
+
+  // Returns the yx Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar yx() const noexcept {
+    return VelocityGradientScalar{value_.yx()};
+  }
+
+  // Returns the yy Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar yy() const noexcept {
+    return VelocityGradientScalar{value_.yy()};
+  }
+
+  // Returns the yz Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar yz() const noexcept {
+    return VelocityGradientScalar{value_.yz()};
+  }
+
+  // Returns the zx Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar zx() const noexcept {
+    return VelocityGradientScalar{value_.zx()};
+  }
+
+  // Returns the zy Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar zy() const noexcept {
+    return VelocityGradientScalar{value_.zy()};
+  }
+
+  // Returns the zz Cartesian component of this velocity gradient tensor.
+  [[nodiscard]] constexpr VelocityGradientScalar zz() const noexcept {
+    return VelocityGradientScalar{value_.zz()};
+  }
+
   // Creates a strain rate tensor from this velocity gradient tensor using the definition of the
   // strain rate tensor.
   [[nodiscard]] constexpr PhQ::StrainRate StrainRate() const {
@@ -102,8 +161,16 @@ public:
     return VelocityGradient{value_ * number};
   }
 
+  constexpr DisplacementGradient operator*(const Time& time) const {
+    return {*this, time};
+  }
+
   constexpr VelocityGradient operator/(const double number) const {
     return VelocityGradient{value_ / number};
+  }
+
+  constexpr DisplacementGradient operator/(const Frequency& frequency) const {
+    return {*this, frequency};
   }
 
   constexpr void operator+=(const VelocityGradient& velocity_gradient) noexcept {
@@ -176,6 +243,33 @@ inline constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradien
                 velocity_gradient.Value().yy(),
                 0.5 * (velocity_gradient.Value().yz() + velocity_gradient.Value().zy()),
                 velocity_gradient.Value().zz()}) {}
+
+inline constexpr DisplacementGradient::DisplacementGradient(
+    const VelocityGradient& velocity_gradient_scalar, const Time& time)
+  : DisplacementGradient(velocity_gradient_scalar.Value() * time.Value()) {}
+
+inline constexpr DisplacementGradient::DisplacementGradient(
+    const VelocityGradient& velocity_gradient_scalar, const Frequency& frequency)
+  : DisplacementGradient(velocity_gradient_scalar.Value() / frequency.Value()) {}
+
+inline constexpr VelocityGradient DisplacementGradient::operator*(
+    const Frequency& frequency) const {
+  return {*this, frequency};
+}
+
+inline constexpr VelocityGradient DisplacementGradient::operator/(const Time& time) const {
+  return {*this, time};
+}
+
+inline constexpr DisplacementGradient Time::operator*(
+    const VelocityGradient& velocity_gradient) const {
+  return {velocity_gradient, *this};
+}
+
+inline constexpr VelocityGradient Frequency::operator*(
+    const DisplacementGradient& displacement_gradient) const {
+  return {displacement_gradient, *this};
+}
 
 }  // namespace PhQ
 

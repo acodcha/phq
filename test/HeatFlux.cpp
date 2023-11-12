@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/HeatFluxScalar.hpp"
 #include "../include/PhQ/TemperatureGradient.hpp"
 #include "../include/PhQ/ThermalConductivity.hpp"
@@ -143,6 +144,11 @@ TEST(HeatFlux, Dimensions) {
   EXPECT_EQ(HeatFlux::Dimensions(), RelatedDimensions<Unit::EnergyFlux>);
 }
 
+TEST(HeatFlux, Direction) {
+  EXPECT_EQ(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre).Direction(),
+            Direction(2.0, -3.0, 6.0));
+}
+
 TEST(HeatFlux, Hash) {
   const HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
   const HeatFlux second({1.11, -2.22, 3.330001}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
@@ -262,6 +268,15 @@ TEST(HeatFlux, XML) {
   EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .XML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>nW/mm^2</unit>");
+}
+
+TEST(HeatFlux, XYZ) {
+  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).x(),
+            HeatFluxScalar(1.11, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).y(),
+            HeatFluxScalar(-2.22, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).z(),
+            HeatFluxScalar(3.33, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, YAML) {

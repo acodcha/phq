@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Dimensions.hpp"
+#include "../include/PhQ/DisplacementGradientScalar.hpp"
 #include "../include/PhQ/Dyad.hpp"
 #include "../include/PhQ/Strain.hpp"
 
@@ -198,6 +199,27 @@ TEST(DisplacementGradient, XML) {
             "<xx>1.000000000000000</xx><xy>-2.000000000000000</xy><xz>3.000000000000000</"
             "xz><yx>-4.000000000000000</yx><yy>5.000000000000000</yy><yz>-6.000000000000000</"
             "yz><zx>7.000000000000000</zx><zy>-8.000000000000000</zy><zz>9.000000000000000</zz>");
+}
+
+TEST(DisplacementGradient, XYZ) {
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xx(),
+            DisplacementGradientScalar(1.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xy(),
+            DisplacementGradientScalar(-2.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xz(),
+            DisplacementGradientScalar(3.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yx(),
+            DisplacementGradientScalar(-4.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yy(),
+            DisplacementGradientScalar(5.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yz(),
+            DisplacementGradientScalar(-6.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zx(),
+            DisplacementGradientScalar(7.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zy(),
+            DisplacementGradientScalar(-8.0));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zz(),
+            DisplacementGradientScalar(9.0));
 }
 
 TEST(DisplacementGradient, YAML) {

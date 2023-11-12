@@ -21,6 +21,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Area.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Force.hpp"
 #include "../include/PhQ/StaticPressure.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
@@ -143,6 +144,11 @@ TEST(Traction, Dimensions) {
   EXPECT_EQ(Traction::Dimensions(), RelatedDimensions<Unit::Pressure>);
 }
 
+TEST(Traction, Direction) {
+  EXPECT_EQ(
+      Traction({2.0, -3.0, 6.0}, Unit::Pressure::Pascal).Direction(), Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Traction, Hash) {
   const Traction first({1.11, -2.22, 3.33}, Unit::Pressure::Kilopascal);
   const Traction second({1.11, -2.22, 3.330001}, Unit::Pressure::Kilopascal);
@@ -256,6 +262,15 @@ TEST(Traction, XML) {
             "value><unit>Pa</unit>");
   EXPECT_EQ(Traction({0.0, -2.22, 0.0}, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>kPa</unit>");
+}
+
+TEST(Traction, XYZ) {
+  EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).x(),
+            StaticPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).y(),
+            StaticPressure(-2.22, Unit::Pressure::Pascal));
+  EXPECT_EQ(Traction({1.11, -2.22, 3.33}, Unit::Pressure::Pascal).z(),
+            StaticPressure(3.33, Unit::Pressure::Pascal));
 }
 
 TEST(Traction, YAML) {

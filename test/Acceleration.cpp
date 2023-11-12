@@ -21,6 +21,7 @@
 
 #include "../include/PhQ/AccelerationScalar.hpp"
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Acceleration.hpp"
@@ -165,6 +166,11 @@ TEST(Acceleration, Dimensions) {
   EXPECT_EQ(Acceleration::Dimensions(), RelatedDimensions<Unit::Acceleration>);
 }
 
+TEST(Acceleration, Direction) {
+  EXPECT_EQ(Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond).Direction(),
+            Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Acceleration, Hash) {
   const Acceleration first({1.11, -2.22, 3.33}, Unit::Acceleration::MillimetrePerSquareSecond);
   const Acceleration second({1.11, -2.22, 3.330001}, Unit::Acceleration::MillimetrePerSquareSecond);
@@ -284,6 +290,15 @@ TEST(Acceleration, XML) {
                 .XML(Unit::Acceleration::MillimetrePerSquareSecond),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm/"
             "s^2</unit>");
+}
+
+TEST(Acceleration, XYZ) {
+  EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).x(),
+            AccelerationScalar(1.11, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).y(),
+            AccelerationScalar(-2.22, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).z(),
+            AccelerationScalar(3.33, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, YAML) {

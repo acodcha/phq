@@ -294,6 +294,45 @@ TEST(ThermalConductivity, XML) {
             "value><unit>nW/mm/K</unit>");
 }
 
+TEST(ThermalConductivity, XYZ) {
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .xx(),
+            ThermalConductivityScalar(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .xy(),
+            ThermalConductivityScalar(-2.22, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .xz(),
+            ThermalConductivityScalar(3.33, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .yx(),
+            ThermalConductivityScalar(-2.22, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .yy(),
+            ThermalConductivityScalar(-4.44, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .yz(),
+            ThermalConductivityScalar(5.55, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .zx(),
+            ThermalConductivityScalar(3.33, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .zy(),
+            ThermalConductivityScalar(5.55, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+  EXPECT_EQ(ThermalConductivity({1.11, -2.22, 3.33, -4.44, 5.55, -6.66},
+                                Unit::ThermalConductivity::WattPerMetrePerKelvin)
+                .zz(),
+            ThermalConductivityScalar(-6.66, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+}
+
 TEST(ThermalConductivity, YAML) {
   EXPECT_EQ(ThermalConductivity(
                 {1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::ThermalConductivity::WattPerMetrePerKelvin)

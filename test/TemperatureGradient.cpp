@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/TemperatureGradientScalar.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
@@ -151,6 +152,12 @@ TEST(TemperatureGradient, Dimensions) {
   EXPECT_EQ(TemperatureGradient::Dimensions(), RelatedDimensions<Unit::TemperatureGradient>);
 }
 
+TEST(TemperatureGradient, Direction) {
+  EXPECT_EQ(
+      TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre).Direction(),
+      Direction(2.0, -3.0, 6.0));
+}
+
 TEST(TemperatureGradient, Hash) {
   const TemperatureGradient first(
       {1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMillimetre);
@@ -273,6 +280,15 @@ TEST(TemperatureGradient, XML) {
   EXPECT_EQ(TemperatureGradient({0.0, -2.22, 0.0}, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .XML(Unit::TemperatureGradient::KelvinPerMillimetre),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>K/mm</unit>");
+}
+
+TEST(TemperatureGradient, XYZ) {
+  EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).x(),
+            TemperatureGradientScalar(1.11, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).y(),
+            TemperatureGradientScalar(-2.22, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).z(),
+            TemperatureGradientScalar(3.33, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, YAML) {

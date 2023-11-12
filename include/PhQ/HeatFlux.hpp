@@ -36,76 +36,100 @@ public:
   // Default constructor. Constructs a heat flux with an uninitialized value.
   HeatFlux() = default;
 
-  // Constructor. Constructs a heat flux with a given value expressed in a given energy flux unit.
+  // Constructor. Constructs a heat flux vector with a given value expressed in a given energy flux
+  // unit.
   HeatFlux(const Vector& value, const Unit::EnergyFlux unit)
     : DimensionalVector<Unit::EnergyFlux>(value, unit) {}
 
-  // Constructor. Constructs a heat flux from a given scalar heat flux magnitude and direction.
+  // Constructor. Constructs a heat flux vector from a given scalar heat flux magnitude and
+  // direction.
   constexpr HeatFlux(const HeatFluxScalar& heat_flux_scalar, const Direction& direction)
     : HeatFlux(heat_flux_scalar.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a heat flux from a given thermal conductivity scalar and temperature
-  // gradient using Fourier's law of heat conduction. Since heat flows opposite the temperature
-  // gradient, the resulting heat flux direction is opposite the temperature gradient direction.
+  // Constructor. Constructs a heat flux vector from a given thermal conductivity scalar and
+  // temperature gradient vector using Fourier's law of heat conduction. Since heat flows opposite
+  // the temperature gradient, the resulting heat flux direction is opposite the temperature
+  // gradient direction.
   constexpr HeatFlux(const ThermalConductivityScalar& thermal_conductivity_scalar,
                      const TemperatureGradient& temperature_gradient)
     : HeatFlux(-thermal_conductivity_scalar.Value() * temperature_gradient.Value()) {}
 
-  // Constructor. Constructs a heat flux from a given thermal conductivity and temperature gradient
-  // using Fourier's law of heat conduction. Since heat flows opposite the temperature gradient, the
-  // resulting heat flux direction is opposite the temperature gradient direction.
+  // Constructor. Constructs a heat flux vector from a given thermal conductivity tensor and
+  // temperature gradient vector using Fourier's law of heat conduction. Since heat flows opposite
+  // the temperature gradient, the resulting heat flux direction is opposite the temperature
+  // gradient direction.
   constexpr HeatFlux(const ThermalConductivity& thermal_conductivity,
                      const TemperatureGradient& temperature_gradient)
     : HeatFlux(-1.0 * thermal_conductivity.Value() * temperature_gradient.Value()) {}
 
-  // Destructor. Destroys this heat flux.
+  // Destructor. Destroys this heat flux vector.
   ~HeatFlux() noexcept = default;
 
-  // Copy constructor. Constructs a heat flux by copying another one.
+  // Copy constructor. Constructs a heat flux vector by copying another one.
   constexpr HeatFlux(const HeatFlux& other) = default;
 
-  // Move constructor. Constructs a heat flux by moving another one.
+  // Move constructor. Constructs a heat flux vector by moving another one.
   constexpr HeatFlux(HeatFlux&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this heat flux by copying another one.
+  // Copy assignment operator. Assigns this heat flux vector by copying another one.
   constexpr HeatFlux& operator=(const HeatFlux& other) = default;
 
-  // Move assignment operator. Assigns this heat flux by moving another one.
+  // Move assignment operator. Assigns this heat flux vector by moving another one.
   constexpr HeatFlux& operator=(HeatFlux&& other) noexcept = default;
 
-  // Statically creates a heat flux of zero.
+  // Statically creates a heat flux vector of zero.
   static constexpr HeatFlux Zero() {
     return HeatFlux{Vector::Zero()};
   }
 
-  // Statically creates a heat flux from the given x, y, and z Cartesian components expressed in a
-  // given energy flux unit.
+  // Statically creates a heat flux vector from the given x, y, and z Cartesian components expressed
+  // in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const double x, const double y, const double z) {
     return HeatFlux{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(Vector{x, y, z})};
   }
 
-  // Statically creates a heat flux from the given x, y, and z Cartesian components expressed in a
-  // given energy flux unit.
+  // Statically creates a heat flux vector from the given x, y, and z Cartesian components expressed
+  // in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const std::array<double, 3>& x_y_z) {
     return HeatFlux{
         StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(Vector{x_y_z})};
   }
 
-  // Statically creates a heat flux with a given value expressed in a given energy flux unit.
+  // Statically creates a heat flux vector with a given value expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const Vector& value) {
     return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
-  // Returns the magnitude of this heat flux.
+  // Returns the x Cartesian component of this heat flux vector.
+  [[nodiscard]] constexpr HeatFluxScalar x() const noexcept {
+    return HeatFluxScalar{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this heat flux vector.
+  [[nodiscard]] constexpr HeatFluxScalar y() const noexcept {
+    return HeatFluxScalar{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this heat flux vector.
+  [[nodiscard]] constexpr HeatFluxScalar z() const noexcept {
+    return HeatFluxScalar{value_.z()};
+  }
+
+  // Returns the magnitude of this heat flux vector.
   [[nodiscard]] HeatFluxScalar Magnitude() const {
     return HeatFluxScalar{value_.Magnitude()};
   }
 
-  // Returns the angle between this heat flux and another one.
+  // Returns the direction of this heat flux vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
+  }
+
+  // Returns the angle between this heat flux vector and another one.
   [[nodiscard]] PhQ::Angle Angle(const HeatFlux& heat_flux) const {
     return {*this, heat_flux};
   }
@@ -143,8 +167,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a heat flux with a given value expressed in the standard energy flux
-  // unit.
+  // Constructor. Constructs a heat flux vector with a given value expressed in the standard energy
+  // flux unit.
   explicit constexpr HeatFlux(const Vector& value) : DimensionalVector<Unit::EnergyFlux>(value) {}
 };
 

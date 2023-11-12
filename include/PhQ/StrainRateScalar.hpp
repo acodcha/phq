@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_PWAVE_MODULUS_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_PWAVE_MODULUS_HPP
+#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_RATE_SCALAR_HPP
+#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_RATE_SCALAR_HPP
 
 #include <cstddef>
 #include <functional>
@@ -26,8 +26,7 @@
 
 namespace PhQ {
 
-// Scalar component or resultant of the strain rate tensor. Time rate of change of a scalar strain
-// component.
+// Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar strain.
 class StrainRateScalar : public DimensionalScalar<Unit::Frequency> {
 public:
   // Default constructor. Constructs a scalar strain rate with an uninitialized value.
@@ -124,6 +123,8 @@ private:
   // frequency unit.
   explicit constexpr StrainRateScalar(const double value)
     : DimensionalScalar<Unit::Frequency>(value) {}
+
+  friend class StrainRate;
 };
 
 inline constexpr bool operator==(
@@ -203,4 +204,4 @@ struct hash<PhQ::StrainRateScalar> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_PWAVE_MODULUS_HPP
+#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_STRAIN_RATE_SCALAR_HPP

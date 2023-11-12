@@ -92,6 +92,51 @@ public:
             value)};
   }
 
+  // Returns the xx Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar xx() const noexcept {
+    return ThermalConductivityScalar{value_.xx()};
+  }
+
+  // Returns the xy = yx Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar xy() const noexcept {
+    return ThermalConductivityScalar{value_.xy()};
+  }
+
+  // Returns the xz = zx Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar xz() const noexcept {
+    return ThermalConductivityScalar{value_.xz()};
+  }
+
+  // Returns the yx = xy Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar yx() const noexcept {
+    return ThermalConductivityScalar{value_.yx()};
+  }
+
+  // Returns the yy Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar yy() const noexcept {
+    return ThermalConductivityScalar{value_.yy()};
+  }
+
+  // Returns the yz = zy Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar yz() const noexcept {
+    return ThermalConductivityScalar{value_.yz()};
+  }
+
+  // Returns the zx = xz Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar zx() const noexcept {
+    return ThermalConductivityScalar{value_.zx()};
+  }
+
+  // Returns the zy = yz Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar zy() const noexcept {
+    return ThermalConductivityScalar{value_.zy()};
+  }
+
+  // Returns the zz Cartesian component of this thermal conductivity tensor.
+  [[nodiscard]] constexpr ThermalConductivityScalar zz() const noexcept {
+    return ThermalConductivityScalar{value_.zz()};
+  }
+
   constexpr ThermalConductivity operator+(const ThermalConductivity& thermal_conductivity) const {
     return ThermalConductivity{value_ + thermal_conductivity.value_};
   }

@@ -21,6 +21,7 @@
 
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
+#include "Direction.hpp"
 #include "Displacement.hpp"
 #include "Frequency.hpp"
 #include "Speed.hpp"
@@ -36,81 +37,101 @@ class Acceleration;
 // Velocity vector.
 class Velocity : public DimensionalVector<Unit::Speed> {
 public:
-  // Default constructor. Constructs a velocity with an uninitialized value.
+  // Default constructor. Constructs a velocity vector with an uninitialized value.
   Velocity() = default;
 
-  // Constructor. Constructs a velocity with a given value expressed in a given speed unit.
+  // Constructor. Constructs a velocity vector with a given value expressed in a given speed unit.
   Velocity(const Vector& value, const Unit::Speed unit)
     : DimensionalVector<Unit::Speed>(value, unit) {}
 
-  // Constructor. Constructs a velocity from a given speed and direction.
+  // Constructor. Constructs a velocity vector from a given speed and direction.
   constexpr Velocity(const Speed& speed, const Direction& direction)
     : Velocity(speed.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a velocity from a given displacement and time using the definition of
-  // velocity.
+  // Constructor. Constructs a velocity vector from a given displacement vector and time using the
+  // definition of velocity.
   constexpr Velocity(const Displacement& displacement, const Time& time)
     : Velocity(displacement.Value() / time.Value()) {}
 
-  // Constructor. Constructs a velocity from a given displacement and frequency using the definition
-  // of velocity.
+  // Constructor. Constructs a velocity vector from a given displacement vector and frequency using
+  // the definition of velocity.
   constexpr Velocity(const Displacement& displacement, const Frequency& frequency)
     : Velocity(displacement.Value() * frequency.Value()) {}
 
-  // Constructor. Constructs a velocity from a given acceleration and time using the definition of
-  // acceleration.
+  // Constructor. Constructs a velocity vector from a given acceleration vector and time using the
+  // definition of acceleration.
   constexpr Velocity(const Acceleration& acceleration, const Time& time);
 
-  // Constructor. Constructs a velocity from a given acceleration and frequency using the definition
-  // of acceleration.
+  // Constructor. Constructs a velocity vector from a given acceleration vector and frequency using
+  // the definition of acceleration.
   constexpr Velocity(const Acceleration& acceleration, const Frequency& frequency);
 
-  // Destructor. Destroys this velocity.
+  // Destructor. Destroys this velocity vector.
   ~Velocity() noexcept = default;
 
-  // Copy constructor. Constructs a velocity by copying another one.
+  // Copy constructor. Constructs a velocity vector by copying another one.
   constexpr Velocity(const Velocity& other) = default;
 
-  // Move constructor. Constructs a velocity by moving another one.
+  // Move constructor. Constructs a velocity vector by moving another one.
   constexpr Velocity(Velocity&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this velocity by copying another one.
+  // Copy assignment operator. Assigns this velocity vector by copying another one.
   constexpr Velocity& operator=(const Velocity& other) = default;
 
-  // Move assignment operator. Assigns this velocity by moving another one.
+  // Move assignment operator. Assigns this velocity vector by moving another one.
   constexpr Velocity& operator=(Velocity&& other) noexcept = default;
 
-  // Statically creates a velocity of zero.
+  // Statically creates a velocity vector of zero.
   static constexpr Velocity Zero() {
     return Velocity{Vector::Zero()};
   }
 
-  // Statically creates a velocity from the given x, y, and z Cartesian components expressed in a
-  // given speed unit.
+  // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
+  // in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const double x, const double y, const double z) {
     return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x, y, z})};
   }
 
-  // Statically creates a velocity from the given x, y, and z Cartesian components expressed in a
-  // given speed unit.
+  // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
+  // in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const std::array<double, 3>& x_y_z) {
     return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x_y_z})};
   }
 
-  // Statically creates a velocity with a given value expressed in a given speed unit.
+  // Statically creates a velocity vector with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const Vector& value) {
     return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  // Returns the magnitude of this velocity.
+  // Returns the x Cartesian component of this velocity vector.
+  [[nodiscard]] constexpr Speed x() const noexcept {
+    return Speed{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this velocity vector.
+  [[nodiscard]] constexpr Speed y() const noexcept {
+    return Speed{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this velocity vector.
+  [[nodiscard]] constexpr Speed z() const noexcept {
+    return Speed{value_.z()};
+  }
+
+  // Returns the magnitude of this velocity vector.
   [[nodiscard]] Speed Magnitude() const {
     return Speed{value_.Magnitude()};
   }
 
-  // Returns the angle between this velocity and another one.
+  // Returns the direction of this velocity vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
+  }
+
+  // Returns the angle between this velocity vector and another one.
   [[nodiscard]] PhQ::Angle Angle(const Velocity& velocity) const {
     return {*this, velocity};
   }
@@ -160,7 +181,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a velocity with a given value expressed in the standard speed unit.
+  // Constructor. Constructs a velocity vector with a given value expressed in the standard speed
+  // unit.
   explicit constexpr Velocity(const Vector& value) : DimensionalVector<Unit::Speed>(value) {}
 };
 
