@@ -90,6 +90,51 @@ public:
     return Stress{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
+  // Returns the xx Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar xx() const noexcept {
+    return StressScalar{value_.xx()};
+  }
+
+  // Returns the xy = yx Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar xy() const noexcept {
+    return StressScalar{value_.xy()};
+  }
+
+  // Returns the xz = zx Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar xz() const noexcept {
+    return StressScalar{value_.xz()};
+  }
+
+  // Returns the yx = xy Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar yx() const noexcept {
+    return StressScalar{value_.yx()};
+  }
+
+  // Returns the yy Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar yy() const noexcept {
+    return StressScalar{value_.yy()};
+  }
+
+  // Returns the yz = zy Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar yz() const noexcept {
+    return StressScalar{value_.yz()};
+  }
+
+  // Returns the zx = xz Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar zx() const noexcept {
+    return StressScalar{value_.zx()};
+  }
+
+  // Returns the zy = yz Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar zy() const noexcept {
+    return StressScalar{value_.zy()};
+  }
+
+  // Returns the zz Cartesian component of this stress tensor.
+  [[nodiscard]] constexpr StressScalar zz() const noexcept {
+    return StressScalar{value_.zz()};
+  }
+
   // Creates a traction from this stress tensor using the definition of traction.
   [[nodiscard]] constexpr PhQ::Traction Traction(const Direction& direction) const {
     return {*this, direction};
@@ -178,7 +223,7 @@ inline constexpr Stress operator*(const double number, const Stress& stress) {
   return stress * number;
 }
 
-inline constexpr Traction::Traction(const Stress& stress, const Direction& direction)
+inline constexpr Traction::Traction(const Stress& stress, const PhQ::Direction& direction)
   : Traction({stress.Value() * direction}) {}
 
 inline constexpr PhQ::Stress StaticPressure::Stress() const {

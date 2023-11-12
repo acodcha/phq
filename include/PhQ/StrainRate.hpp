@@ -22,6 +22,7 @@
 #include "DimensionalSymmetricDyad.hpp"
 #include "Frequency.hpp"
 #include "Strain.hpp"
+#include "StrainRateScalar.hpp"
 #include "SymmetricDyad.hpp"
 #include "Unit/Frequency.hpp"
 
@@ -96,6 +97,51 @@ public:
   template <Unit::Frequency Unit>
   static constexpr StrainRate Create(const SymmetricDyad& value) {
     return StrainRate{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
+  }
+
+  // Returns the xx Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar xx() const noexcept {
+    return StrainRateScalar{value_.xx()};
+  }
+
+  // Returns the xy = yx Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar xy() const noexcept {
+    return StrainRateScalar{value_.xy()};
+  }
+
+  // Returns the xz = zx Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar xz() const noexcept {
+    return StrainRateScalar{value_.xz()};
+  }
+
+  // Returns the yx = xy Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar yx() const noexcept {
+    return StrainRateScalar{value_.yx()};
+  }
+
+  // Returns the yy Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar yy() const noexcept {
+    return StrainRateScalar{value_.yy()};
+  }
+
+  // Returns the yz = zy Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar yz() const noexcept {
+    return StrainRateScalar{value_.yz()};
+  }
+
+  // Returns the zx = xz Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar zx() const noexcept {
+    return StrainRateScalar{value_.zx()};
+  }
+
+  // Returns the zy = yz Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar zy() const noexcept {
+    return StrainRateScalar{value_.zy()};
+  }
+
+  // Returns the zz Cartesian component of this strain rate tensor.
+  [[nodiscard]] constexpr StrainRateScalar zz() const noexcept {
+    return StrainRateScalar{value_.zz()};
   }
 
   constexpr StrainRate operator+(const StrainRate& strain_rate) const {

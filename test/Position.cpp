@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
@@ -160,6 +161,10 @@ TEST(Position, Dimensions) {
   EXPECT_EQ(Position::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
+TEST(Position, Direction) {
+  EXPECT_EQ(Position({2.0, -3.0, 6.0}, Unit::Length::Metre).Direction(), Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Position, Hash) {
   const Position first({1.11, -2.22, 3.33}, Unit::Length::Millimetre);
   const Position second({1.11, -2.22, 3.330001}, Unit::Length::Millimetre);
@@ -264,6 +269,15 @@ TEST(Position, XML) {
             "value><unit>m</unit>");
   EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</unit>");
+}
+
+TEST(Position, XYZ) {
+  EXPECT_EQ(
+      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).x(), Length(1.11, Unit::Length::Metre));
+  EXPECT_EQ(
+      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).y(), Length(-2.22, Unit::Length::Metre));
+  EXPECT_EQ(
+      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).z(), Length(3.33, Unit::Length::Metre));
 }
 
 TEST(Position, YAML) {

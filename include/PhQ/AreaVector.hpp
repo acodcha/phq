@@ -82,9 +82,29 @@ public:
     return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
+  // Returns the x Cartesian component of this vector area.
+  [[nodiscard]] constexpr Area x() const noexcept {
+    return Area{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this vector area.
+  [[nodiscard]] constexpr Area y() const noexcept {
+    return Area{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this vector area.
+  [[nodiscard]] constexpr Area z() const noexcept {
+    return Area{value_.z()};
+  }
+
   // Returns the magnitude of this vector area.
   [[nodiscard]] Area Magnitude() const {
     return Area{value_.Magnitude()};
+  }
+
+  // Returns the direction of this vector area.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
   }
 
   // Returns the angle between this vector area and another one.

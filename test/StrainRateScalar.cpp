@@ -44,6 +44,9 @@ TEST(StrainRateScalar, ArithmeticOperatorDivision) {
 
   EXPECT_EQ(StrainScalar(8.0) / Time(4.0, Unit::Time::Second),
             StrainRateScalar(2.0, Unit::Frequency::Hertz));
+
+  EXPECT_EQ(StrainRateScalar(8.0, Unit::Frequency::Hertz) / Frequency(4.0, Unit::Frequency::Hertz),
+            StrainScalar(2.0));
 }
 
 TEST(StrainRateScalar, ArithmeticOperatorMultiplication) {
@@ -58,6 +61,9 @@ TEST(StrainRateScalar, ArithmeticOperatorMultiplication) {
 
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * StrainRateScalar(2.0, Unit::Frequency::Hertz),
             StrainScalar(8.0));
+
+  EXPECT_EQ(StrainScalar(2.0) * Frequency(4.0, Unit::Frequency::Hertz),
+            StrainRateScalar(8.0, Unit::Frequency::Hertz));
 
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * StrainScalar(2.0),
             StrainRateScalar(8.0, Unit::Frequency::Hertz));

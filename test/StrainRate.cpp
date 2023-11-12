@@ -21,6 +21,7 @@
 
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Strain.hpp"
+#include "../include/PhQ/StrainRateScalar.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
@@ -263,6 +264,27 @@ TEST(StrainRate, XML) {
             "<value><xx>1.110000000000000</xx><xy>-2.220000000000000</xy><xz>3.330000000000000</"
             "xz><yy>-4.440000000000000</yy><yz>5.550000000000000</yz><zz>-6.660000000000000</zz></"
             "value><unit>kHz</unit>");
+}
+
+TEST(StrainRate, XYZ) {
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).xx(),
+            StrainRateScalar(1.11, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).xy(),
+            StrainRateScalar(-2.22, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).xz(),
+            StrainRateScalar(3.33, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).yx(),
+            StrainRateScalar(-2.22, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).yy(),
+            StrainRateScalar(-4.44, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).yz(),
+            StrainRateScalar(5.55, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).zx(),
+            StrainRateScalar(3.33, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).zy(),
+            StrainRateScalar(5.55, Unit::Frequency::Hertz));
+  EXPECT_EQ(StrainRate({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Frequency::Hertz).zz(),
+            StrainRateScalar(-6.66, Unit::Frequency::Hertz));
 }
 
 TEST(StrainRate, YAML) {

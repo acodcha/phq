@@ -138,6 +138,11 @@ TEST(AreaVector, Dimensions) {
   EXPECT_EQ(AreaVector::Dimensions(), RelatedDimensions<Unit::Area>);
 }
 
+TEST(AreaVector, Direction) {
+  EXPECT_EQ(
+      AreaVector({2.0, -3.0, 6.0}, Unit::Area::SquareMetre).Direction(), Direction(2.0, -3.0, 6.0));
+}
+
 TEST(AreaVector, Hash) {
   const AreaVector first({1.11, -2.22, 3.33}, Unit::Area::SquareMillimetre);
   const AreaVector second({1.11, -2.22, 3.330001}, Unit::Area::SquareMillimetre);
@@ -246,6 +251,15 @@ TEST(AreaVector, XML) {
       AreaVector({0.0, -2.22, 0.0}, Unit::Area::SquareMillimetre).XML(Unit::Area::SquareMillimetre),
       "<value><x>0</x><y>-2.220000000000000</y><z>0</z></"
       "value><unit>mm^2</unit>");
+}
+
+TEST(AreaVector, XYZ) {
+  EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).x(),
+            Area(1.11, Unit::Area::SquareMetre));
+  EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).y(),
+            Area(-2.22, Unit::Area::SquareMetre));
+  EXPECT_EQ(AreaVector({1.11, -2.22, 3.33}, Unit::Area::SquareMetre).z(),
+            Area(3.33, Unit::Area::SquareMetre));
 }
 
 TEST(AreaVector, YAML) {

@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Length.hpp"
@@ -131,6 +132,11 @@ TEST(Displacement, Dimensions) {
   EXPECT_EQ(Displacement::Dimensions(), RelatedDimensions<Unit::Length>);
 }
 
+TEST(Displacement, Direction) {
+  EXPECT_EQ(
+      Displacement({2.0, -3.0, 6.0}, Unit::Length::Metre).Direction(), Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Displacement, Hash) {
   const Displacement first({1.11, -2.22, 3.33}, Unit::Length::Millimetre);
   const Displacement second({1.11, -2.22, 3.330001}, Unit::Length::Millimetre);
@@ -237,6 +243,15 @@ TEST(Displacement, XML) {
             "value><unit>m</unit>");
   EXPECT_EQ(Displacement({0.0, -2.22, 0.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</unit>");
+}
+
+TEST(Displacement, XYZ) {
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).x(),
+            Length(1.11, Unit::Length::Metre));
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).y(),
+            Length(-2.22, Unit::Length::Metre));
+  EXPECT_EQ(Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre).z(),
+            Length(3.33, Unit::Length::Metre));
 }
 
 TEST(Displacement, YAML) {

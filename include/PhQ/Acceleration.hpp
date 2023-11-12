@@ -22,6 +22,7 @@
 #include "AccelerationScalar.hpp"
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
+#include "Direction.hpp"
 #include "Frequency.hpp"
 #include "Time.hpp"
 #include "Unit/Acceleration.hpp"
@@ -100,9 +101,29 @@ public:
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
+  // Returns the x Cartesian component of this acceleration vector.
+  [[nodiscard]] constexpr AccelerationScalar x() const noexcept {
+    return AccelerationScalar{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this acceleration vector.
+  [[nodiscard]] constexpr AccelerationScalar y() const noexcept {
+    return AccelerationScalar{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this acceleration vector.
+  [[nodiscard]] constexpr AccelerationScalar z() const noexcept {
+    return AccelerationScalar{value_.z()};
+  }
+
   // Returns the magnitude of this acceleration vector.
   [[nodiscard]] AccelerationScalar Magnitude() const {
     return AccelerationScalar{value_.Magnitude()};
+  }
+
+  // Returns the direction of this acceleration vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
   }
 
   // Returns the angle between this acceleration vector and another one.

@@ -4,13 +4,26 @@
 
 C++ library of physical quantities, physical models, and units of measure for scientific computation.
 
-If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the inch-pound-second system?", "how do I compute a stress field given a strain field?", or "what the heck is a slug unit?", then this library is for you!
+Example:
 
-- Physical quantities are implemented efficiently with no memory overhead compared to using raw floating point numbers to represent the same data.
-- Mathematical operations between physical quantities are implemented efficiently with no runtime overhead compared to using raw floating point numbers to represent the same data.
-- Unit conversions are handled automatically. Never again will you make a unit conversion error!
-- Physical models allow complex mathematical calculations to be performed easily. Never again will you make a tensor-vector multiplication error!
-- Unit systems allow scientific data to be expressed in a consistent system of units for use in other applications. Never again will you accidentally use pounds when you should have used slugs!
+```C++
+const PhQ::Velocity velocity{{6.0, -3.0, 2.0}, PhQ::Unit::Speed::MetrePerSecond};
+const PhQ::Speed speed = velocity.Magnitude();
+const PhQ::Direction direction = velocity.Direction();
+std::cout << "Speed and direction: " << speed << " and " << direction << "." << std::endl;
+
+const PhQ::Time time{0.5, PhQ::Unit::Time::Minute};
+const PhQ::Displacement displacement = velocity * time;
+std::cout << "During " << time << ", the displacement is " << displacement << "." << std::endl;
+```
+
+If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the foot-pound-second system?", "how do I compute a stress field given a strain field?", or "what is a slug unit?", then this library is for you!
+
+- Physical quantities have no memory overhead compared to using raw floating point numbers to represent the same data.
+- Mathematical operations between physical quantities have no runtime overhead compared to using raw floating point numbers to perform the same operations.
+- Unit conversions are handled automatically. No more unit conversion errors!
+- Physical models enable tedious mathematical computations to be performed easily. No more tensor-vector multiplication errors!
+- Unit systems allow scientific data to be expressed in several consistent systems of units for use across applications. Never again will you accidentally use pounds when you should have used slugs!
 
 Contents:
 

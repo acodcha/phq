@@ -129,6 +129,8 @@ private:
   // standard thermal conductivity unit.
   explicit constexpr ThermalConductivityScalar(const double value)
     : DimensionalScalar<Unit::ThermalConductivity>(value) {}
+
+  friend class ThermalConductivity;
 };
 
 inline constexpr bool operator==(

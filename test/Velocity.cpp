@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Frequency.hpp"
 #include "../include/PhQ/Length.hpp"
 #include "../include/PhQ/Time.hpp"
@@ -152,6 +153,11 @@ TEST(Velocity, Dimensions) {
   EXPECT_EQ(Velocity::Dimensions(), RelatedDimensions<Unit::Speed>);
 }
 
+TEST(Velocity, Direction) {
+  EXPECT_EQ(Velocity({2.0, -3.0, 6.0}, Unit::Speed::MetrePerSecond).Direction(),
+            Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Velocity, Hash) {
   const Velocity first({1.11, -2.22, 3.33}, Unit::Speed::MillimetrePerSecond);
   const Velocity second({1.11, -2.22, 3.330001}, Unit::Speed::MillimetrePerSecond);
@@ -267,6 +273,15 @@ TEST(Velocity, XML) {
   EXPECT_EQ(Velocity({0.0, -2.22, 0.0}, Unit::Speed::MillimetrePerSecond)
                 .XML(Unit::Speed::MillimetrePerSecond),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm/s</unit>");
+}
+
+TEST(Velocity, XYZ) {
+  EXPECT_EQ(Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond).x(),
+            Speed(1.11, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond).y(),
+            Speed(-2.22, Unit::Speed::MetrePerSecond));
+  EXPECT_EQ(Velocity({1.11, -2.22, 3.33}, Unit::Speed::MetrePerSecond).z(),
+            Speed(3.33, Unit::Speed::MetrePerSecond));
 }
 
 TEST(Velocity, YAML) {

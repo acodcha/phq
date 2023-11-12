@@ -20,6 +20,7 @@
 #include <utility>
 
 #include "../include/PhQ/Angle.hpp"
+#include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/ForceScalar.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
@@ -136,6 +137,10 @@ TEST(Force, Dimensions) {
   EXPECT_EQ(Force::Dimensions(), RelatedDimensions<Unit::Force>);
 }
 
+TEST(Force, Direction) {
+  EXPECT_EQ(Force({2.0, -3.0, 6.0}, Unit::Force::Newton).Direction(), Direction(2.0, -3.0, 6.0));
+}
+
 TEST(Force, Hash) {
   const Force first({1.11, -2.22, 3.33}, Unit::Force::Pound);
   const Force second({1.11, -2.22, 3.330001}, Unit::Force::Pound);
@@ -237,6 +242,15 @@ TEST(Force, XML) {
             "value><unit>N</unit>");
   EXPECT_EQ(Force({0.0, -2.22, 0.0}, Unit::Force::Pound).XML(Unit::Force::Pound),
             "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>lbf</unit>");
+}
+
+TEST(Force, XYZ) {
+  EXPECT_EQ(
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).x(), ForceScalar(1.11, Unit::Force::Newton));
+  EXPECT_EQ(
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).y(), ForceScalar(-2.22, Unit::Force::Newton));
+  EXPECT_EQ(
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).z(), ForceScalar(3.33, Unit::Force::Newton));
 }
 
 TEST(Force, YAML) {

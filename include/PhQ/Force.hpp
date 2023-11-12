@@ -89,9 +89,29 @@ public:
     return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
+  // Returns the x Cartesian component of this force vector.
+  [[nodiscard]] constexpr ForceScalar x() const noexcept {
+    return ForceScalar{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this force vector.
+  [[nodiscard]] constexpr ForceScalar y() const noexcept {
+    return ForceScalar{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this force vector.
+  [[nodiscard]] constexpr ForceScalar z() const noexcept {
+    return ForceScalar{value_.z()};
+  }
+
   // Returns the magnitude of this force vector.
   [[nodiscard]] ForceScalar Magnitude() const {
     return ForceScalar{value_.Magnitude()};
+  }
+
+  // Returns the direction of this force vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
   }
 
   // Returns the angle between this force vector and another one.

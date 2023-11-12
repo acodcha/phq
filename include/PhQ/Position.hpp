@@ -32,66 +32,86 @@ namespace PhQ {
 // Position vector. Not to be confused with displacement vector.
 class Position : public DimensionalVector<Unit::Length> {
 public:
-  // Default constructor. Constructs a position with an uninitialized value.
+  // Default constructor. Constructs a position vector with an uninitialized value.
   Position() = default;
 
-  // Constructor. Constructs a position with a given value expressed in a given length unit.
+  // Constructor. Constructs a position vector with a given value expressed in a given length unit.
   Position(const Vector& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length>(value, unit) {}
 
-  // Constructor. Constructs a position from a given length and direction.
+  // Constructor. Constructs a position vector from a given length and direction.
   constexpr Position(const Length& length, const Direction& direction)
     : Position(length.Value() * direction.Value()) {}
 
-  // Constructor. Constructs a position from a given displacement from the origin.
+  // Constructor. Constructs a position vector from a given displacement vector from the origin.
   explicit constexpr Position(const Displacement& displacement) : Position(displacement.Value()) {}
 
-  // Destructor. Destroys this position.
+  // Destructor. Destroys this position vector.
   ~Position() noexcept = default;
 
-  // Copy constructor. Constructs a position by copying another one.
+  // Copy constructor. Constructs a position vector by copying another one.
   constexpr Position(const Position& other) = default;
 
-  // Move constructor. Constructs a position by moving another one.
+  // Move constructor. Constructs a position vector by moving another one.
   constexpr Position(Position&& other) noexcept = default;
 
-  // Copy assignment operator. Assigns this position by copying another one.
+  // Copy assignment operator. Assigns this position vector by copying another one.
   constexpr Position& operator=(const Position& other) = default;
 
-  // Move assignment operator. Assigns this position by moving another one.
+  // Move assignment operator. Assigns this position vector by moving another one.
   constexpr Position& operator=(Position&& other) noexcept = default;
 
-  // Statically creates a position of zero.
+  // Statically creates a position vector of zero.
   static constexpr Position Zero() {
     return Position{Vector::Zero()};
   }
 
-  // Statically creates a position from the given x, y, and z Cartesian components expressed in a
-  // given length unit.
+  // Statically creates a position vector from the given x, y, and z Cartesian components expressed
+  // in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const double x, const double y, const double z) {
     return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x, y, z})};
   }
 
-  // Statically creates a position from the given x, y, and z Cartesian components expressed in a
-  // given length unit.
+  // Statically creates a position vector from the given x, y, and z Cartesian components expressed
+  // in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const std::array<double, 3>& x_y_z) {
     return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x_y_z})};
   }
 
-  // Statically creates a position with a given value expressed in a given length unit.
+  // Statically creates a position vector with a given value expressed in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const Vector& value) {
     return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
-  // Returns the magnitude of this position.
+  // Returns the x Cartesian component of this position vector.
+  [[nodiscard]] constexpr Length x() const noexcept {
+    return Length{value_.x()};
+  }
+
+  // Returns the y Cartesian component of this position vector.
+  [[nodiscard]] constexpr Length y() const noexcept {
+    return Length{value_.y()};
+  }
+
+  // Returns the z Cartesian component of this position vector.
+  [[nodiscard]] constexpr Length z() const noexcept {
+    return Length{value_.z()};
+  }
+
+  // Returns the magnitude of this position vector.
   [[nodiscard]] Length Magnitude() const {
     return Length{value_.Magnitude()};
   }
 
-  // Returns the angle between this position and another one.
+  // Returns the direction of this position vector.
+  [[nodiscard]] PhQ::Direction Direction() const {
+    return value_.Direction();
+  }
+
+  // Returns the angle between this position vector and another one.
   [[nodiscard]] PhQ::Angle Angle(const Position& position) const {
     return {*this, position};
   }
@@ -145,7 +165,8 @@ public:
   }
 
 private:
-  // Constructor. Constructs a position with a given value expressed in the standard length unit.
+  // Constructor. Constructs a position vector with a given value expressed in the standard length
+  // unit.
   explicit constexpr Position(const Vector& value) : DimensionalVector<Unit::Length>(value) {}
 
   friend class Displacement;
