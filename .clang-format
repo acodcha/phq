@@ -142,7 +142,7 @@ PenaltyBreakString: 100
 PenaltyBreakTemplateDeclaration: 0
 PenaltyExcessCharacter: 10000
 PenaltyIndentedWhitespace: 1
-PenaltyReturnTypeOnItsOwnLine: 32
+PenaltyReturnTypeOnItsOwnLine: 50
 PointerAlignment: Left
 QualifierAlignment: Left
 RawStringFormats:
