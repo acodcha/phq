@@ -137,94 +137,94 @@ inline const std::unordered_map<std::string_view, Unit::Force> Spellings<Unit::F
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Newton>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Newton>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Kilonewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Kilonewton>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Meganewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Meganewton>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Giganewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Giganewton>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Millinewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Millinewton>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Micronewton>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Nanonewton>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Nanonewton>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Dyne>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Dyne>(
+    double& value) noexcept {
   value *= 100000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Pound>(
+    double& value) noexcept {
   value /= 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Newton>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Newton>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Kilonewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Kilonewton>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Meganewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Meganewton>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Giganewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Giganewton>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Millinewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Millinewton>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Micronewton>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Nanonewton>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Nanonewton>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
@@ -234,8 +234,8 @@ inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Dyne>(doubl
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Force, Unit::Force::Pound>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Pound>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665;
 }
 

@@ -112,58 +112,58 @@ inline const std::unordered_map<std::string_view, Unit::Angle> Spellings<Unit::A
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Radian>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(
+    double& value) noexcept {
   value *= 180.0 / Pi;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Angle, Unit::Angle::Arcminute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Arcminute>(
+    double& value) noexcept {
   value *= 10800.0 / Pi;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Angle, Unit::Angle::Arcsecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Arcsecond>(
+    double& value) noexcept {
   value *= 648000.0 / Pi;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Angle, Unit::Angle::Revolution>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Revolution>(
+    double& value) noexcept {
   value /= 2.0 * Pi;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Degree>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Degree>(
+    double& value) noexcept {
   value *= Pi / 180.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Arcminute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcminute>(
+    double& value) noexcept {
   value *= Pi / 10800.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Arcsecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcsecond>(
+    double& value) noexcept {
   value *= Pi / 648000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Angle, Unit::Angle::Revolution>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Revolution>(
+    double& value) noexcept {
   value *= 2.0 * Pi;
 }
 

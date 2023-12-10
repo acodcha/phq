@@ -109,46 +109,46 @@ inline const std::unordered_map<std::string_view, Unit::Temperature> Spellings<U
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Temperature, Unit::Temperature::Celsius>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Celsius>(
+    double& value) noexcept {
   value -= 273.15;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Temperature, Unit::Temperature::Rankine>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Rankine>(
+    double& value) noexcept {
   value *= 1.8;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
+    double& value) noexcept {
   value = (value * 1.8) - 459.67;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(
+    double& value) noexcept {
   value += 273.15;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Temperature, Unit::Temperature::Rankine>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Rankine>(
+    double& value) noexcept {
   value /= 1.8;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
+    double& value) noexcept {
   value = (value + 459.67) / 1.8;
 }
 

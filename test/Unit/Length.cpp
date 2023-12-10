@@ -29,13 +29,15 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Length, 12> Units = {
-    Length::Mile,       Length::Kilometre, Length::Metre,      Length::Yard,
-    Length::Foot,       Length::Decimetre, Length::Inch,       Length::Centimetre,
-    Length::Millimetre, Length::Milliinch, Length::Micrometre, Length::Microinch,
+constexpr std::array<Length, 13> Units = {
+    Length::NauticalMile, Length::Mile,       Length::Kilometre, Length::Metre,
+    Length::Yard,         Length::Foot,       Length::Decimetre, Length::Inch,
+    Length::Centimetre,   Length::Millimetre, Length::Milliinch, Length::Micrometre,
+    Length::Microinch,
 };
 
 TEST(UnitLength, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Length::NauticalMile), "nmi");
   EXPECT_EQ(Abbreviation(Length::Mile), "mi");
   EXPECT_EQ(Abbreviation(Length::Kilometre), "km");
   EXPECT_EQ(Abbreviation(Length::Metre), "m");
@@ -60,6 +62,7 @@ TEST(UnitLength, ConsistentUnit) {
 TEST(UnitLength, ConvertFromStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(Length::Metre, Length::NauticalMile, value, value / 1852.0);
   Internal::TestConversions(Length::Metre, Length::Mile, value, value / 1609.344);
   Internal::TestConversions(Length::Metre, Length::Kilometre, value, value * 0.001);
   Internal::TestConversions(Length::Metre, Length::Metre, value, value);
@@ -79,6 +82,7 @@ TEST(UnitLength, ConvertFromStandard) {
 TEST(UnitLength, ConvertToStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(Length::NauticalMile, Length::Metre, value, value * 1852.0);
   Internal::TestConversions(Length::Mile, Length::Metre, value, value * 1609.344);
   Internal::TestConversions(Length::Kilometre, Length::Metre, value, value * 1000.0);
   Internal::TestConversions(Length::Metre, Length::Metre, value, value);
@@ -97,6 +101,7 @@ TEST(UnitLength, ConvertToStandard) {
 
 TEST(UnitLength, Parse) {
   EXPECT_EQ(Parse<Length>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Length>("nmi"), Length::NauticalMile);
   EXPECT_EQ(Parse<Length>("mi"), Length::Mile);
   EXPECT_EQ(Parse<Length>("km"), Length::Kilometre);
   EXPECT_EQ(Parse<Length>("m"), Length::Metre);
@@ -116,6 +121,7 @@ TEST(UnitLength, RelatedDimensions) {
 }
 
 TEST(UnitLength, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(Length::NauticalMile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Mile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Kilometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Length::Metre), UnitSystem::MetreKilogramSecondKelvin);

@@ -164,86 +164,86 @@ inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::Kil
     double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
+    double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
+    double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
+    double& value) noexcept {
   value /= 0.45359237;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
+    double& value) noexcept {
   value *= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
+    double& value) noexcept {
   value *= 60000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
+    double& value) noexcept {
   value *= 60.0 * 0.3048 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
+    double& value) noexcept {
   value *= 60.0 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
+    double& value) noexcept {
   value *= 60.0 / 0.45359237;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
+    double& value) noexcept {
   value *= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
+    double& value) noexcept {
   value *= 3600000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
+    double& value) noexcept {
   value *= 3600.0 * 0.3048 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
+    double& value) noexcept {
   value *= 3600.0 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
+    double& value) noexcept {
   value *= 3600.0 / 0.45359237;
 }
 
@@ -252,86 +252,86 @@ inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::Kilog
     double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
+    double& value) noexcept {
   value *= 0.45359237;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
+    double& value) noexcept {
   value /= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
+    double& value) noexcept {
   value /= 60000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 60.0);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 60.0);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
+    double& value) noexcept {
   value *= 0.45359237 / 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
+    double& value) noexcept {
   value /= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
+    double& value) noexcept {
   value /= 3600000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 3600.0);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 3600.0);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
+    double& value) noexcept {
   value *= 0.45359237 / 3600.0;
 }
 

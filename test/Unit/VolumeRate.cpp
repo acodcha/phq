@@ -30,7 +30,8 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<VolumeRate, 42> Units = {
+constexpr std::array<VolumeRate, 45> Units = {
+    VolumeRate::CubicNauticalMilePerSecond,
     VolumeRate::CubicMilePerSecond,
     VolumeRate::CubicKilometrePerSecond,
     VolumeRate::CubicMetrePerSecond,
@@ -45,6 +46,7 @@ constexpr std::array<VolumeRate, 42> Units = {
     VolumeRate::CubicMilliinchPerSecond,
     VolumeRate::CubicMicrometrePerSecond,
     VolumeRate::CubicMicroinchPerSecond,
+    VolumeRate::CubicNauticalMilePerMinute,
     VolumeRate::CubicMilePerMinute,
     VolumeRate::CubicKilometrePerMinute,
     VolumeRate::CubicMetrePerMinute,
@@ -59,6 +61,7 @@ constexpr std::array<VolumeRate, 42> Units = {
     VolumeRate::CubicMilliinchPerMinute,
     VolumeRate::CubicMicrometrePerMinute,
     VolumeRate::CubicMicroinchPerMinute,
+    VolumeRate::CubicNauticalMilePerHour,
     VolumeRate::CubicMilePerHour,
     VolumeRate::CubicKilometrePerHour,
     VolumeRate::CubicMetrePerHour,
@@ -76,6 +79,7 @@ constexpr std::array<VolumeRate, 42> Units = {
 };
 
 TEST(UnitVolumeRate, Abbreviation) {
+  EXPECT_EQ(Abbreviation(VolumeRate::CubicNauticalMilePerSecond), "nmi^3/s");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMilePerSecond), "mi^3/s");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicKilometrePerSecond), "km^3/s");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMetrePerSecond), "m^3/s");
@@ -90,6 +94,7 @@ TEST(UnitVolumeRate, Abbreviation) {
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMilliinchPerSecond), "mil^3/s");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMicrometrePerSecond), "μm^3/s");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMicroinchPerSecond), "μin^3/s");
+  EXPECT_EQ(Abbreviation(VolumeRate::CubicNauticalMilePerMinute), "nmi^3/min");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMilePerMinute), "mi^3/min");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicKilometrePerMinute), "km^3/min");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMetrePerMinute), "m^3/min");
@@ -104,6 +109,7 @@ TEST(UnitVolumeRate, Abbreviation) {
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMilliinchPerMinute), "mil^3/min");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMicrometrePerMinute), "μm^3/min");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMicroinchPerMinute), "μin^3/min");
+  EXPECT_EQ(Abbreviation(VolumeRate::CubicNauticalMilePerHour), "nmi^3/hr");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMilePerHour), "mi^3/hr");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicKilometrePerHour), "km^3/hr");
   EXPECT_EQ(Abbreviation(VolumeRate::CubicMetrePerHour), "m^3/hr");
@@ -134,6 +140,8 @@ TEST(UnitVolumeRate, ConsistentUnit) {
 TEST(UnitVolumeRate, ConvertFromStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerSecond,
+                            value, value / std::pow(1852.0, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerSecond, value,
                             value / std::pow(1609.344, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerSecond,
@@ -162,6 +170,8 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
                             value, value * std::pow(1000000.0, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerSecond,
                             value, value / std::pow(0.0000000254, 3));
+  Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerMinute,
+                            value, value * 60.0 / std::pow(1852.0, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerMinute, value,
                             value * 60.0 / std::pow(1609.344, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerMinute,
@@ -190,6 +200,8 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
                             value, value * 60.0 * std::pow(1000000.0, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMicroinchPerMinute,
                             value, value * 60.0 / std::pow(0.0000000254, 3));
+  Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerHour,
+                            value, value * 3600.0 / std::pow(1852.0, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicMilePerHour, value,
                             value * 3600.0 / std::pow(1609.344, 3));
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicKilometrePerHour,
@@ -227,6 +239,8 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
 TEST(UnitVolumeRate, ConvertToStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(VolumeRate::CubicNauticalMilePerSecond, VolumeRate::CubicMetrePerSecond,
+                            value, value * std::pow(1852.0, 3));
   Internal::TestConversions(VolumeRate::CubicMilePerSecond, VolumeRate::CubicMetrePerSecond, value,
                             value * std::pow(1609.344, 3));
   Internal::TestConversions(VolumeRate::CubicKilometrePerSecond, VolumeRate::CubicMetrePerSecond,
@@ -255,6 +269,8 @@ TEST(UnitVolumeRate, ConvertToStandard) {
                             value, value * std::pow(0.000001, 3));
   Internal::TestConversions(VolumeRate::CubicMicroinchPerSecond, VolumeRate::CubicMetrePerSecond,
                             value, value * std::pow(0.0000000254, 3));
+  Internal::TestConversions(VolumeRate::CubicNauticalMilePerMinute, VolumeRate::CubicMetrePerSecond,
+                            value, value * std::pow(1852.0, 3) / 60.0);
   Internal::TestConversions(VolumeRate::CubicMilePerMinute, VolumeRate::CubicMetrePerSecond, value,
                             value * std::pow(1609.344, 3) / 60.0);
   Internal::TestConversions(VolumeRate::CubicKilometrePerMinute, VolumeRate::CubicMetrePerSecond,
@@ -283,6 +299,8 @@ TEST(UnitVolumeRate, ConvertToStandard) {
                             value, value * std::pow(0.000001, 3) / 60.0);
   Internal::TestConversions(VolumeRate::CubicMicroinchPerMinute, VolumeRate::CubicMetrePerSecond,
                             value, value * std::pow(0.0000000254, 3) / 60.0);
+  Internal::TestConversions(VolumeRate::CubicNauticalMilePerHour, VolumeRate::CubicMetrePerSecond,
+                            value, value * std::pow(1852.0, 3) / 3600.0);
   Internal::TestConversions(VolumeRate::CubicMilePerHour, VolumeRate::CubicMetrePerSecond, value,
                             value * std::pow(1609.344, 3) / 3600.0);
   Internal::TestConversions(VolumeRate::CubicKilometrePerHour, VolumeRate::CubicMetrePerSecond,
@@ -319,6 +337,7 @@ TEST(UnitVolumeRate, ConvertToStandard) {
 
 TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<VolumeRate>("nmi^3/s"), VolumeRate::CubicNauticalMilePerSecond);
   EXPECT_EQ(Parse<VolumeRate>("mi^3/s"), VolumeRate::CubicMilePerSecond);
   EXPECT_EQ(Parse<VolumeRate>("km^3/s"), VolumeRate::CubicKilometrePerSecond);
   EXPECT_EQ(Parse<VolumeRate>("m^3/s"), VolumeRate::CubicMetrePerSecond);
@@ -333,6 +352,7 @@ TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("mil^3/s"), VolumeRate::CubicMilliinchPerSecond);
   EXPECT_EQ(Parse<VolumeRate>("μm^3/s"), VolumeRate::CubicMicrometrePerSecond);
   EXPECT_EQ(Parse<VolumeRate>("μin^3/s"), VolumeRate::CubicMicroinchPerSecond);
+  EXPECT_EQ(Parse<VolumeRate>("nmi^3/min"), VolumeRate::CubicNauticalMilePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("mi^3/min"), VolumeRate::CubicMilePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("km^3/min"), VolumeRate::CubicKilometrePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("m^3/min"), VolumeRate::CubicMetrePerMinute);
@@ -347,6 +367,7 @@ TEST(UnitVolumeRate, Parse) {
   EXPECT_EQ(Parse<VolumeRate>("mil^3/min"), VolumeRate::CubicMilliinchPerMinute);
   EXPECT_EQ(Parse<VolumeRate>("μm^3/min"), VolumeRate::CubicMicrometrePerMinute);
   EXPECT_EQ(Parse<VolumeRate>("μin^3/min"), VolumeRate::CubicMicroinchPerMinute);
+  EXPECT_EQ(Parse<VolumeRate>("nmi^3/hr"), VolumeRate::CubicNauticalMilePerHour);
   EXPECT_EQ(Parse<VolumeRate>("mi^3/hr"), VolumeRate::CubicMilePerHour);
   EXPECT_EQ(Parse<VolumeRate>("km^3/hr"), VolumeRate::CubicKilometrePerHour);
   EXPECT_EQ(Parse<VolumeRate>("m^3/hr"), VolumeRate::CubicMetrePerHour);
@@ -368,6 +389,7 @@ TEST(UnitVolumeRate, RelatedDimensions) {
 }
 
 TEST(UnitVolumeRate, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicNauticalMilePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerSecond), std::nullopt);
   EXPECT_EQ(
@@ -384,6 +406,7 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerSecond), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicNauticalMilePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerMinute), std::nullopt);
@@ -398,6 +421,7 @@ TEST(UnitVolumeRate, RelatedUnitSystem) {
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilliinchPerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicrometrePerMinute), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMicroinchPerMinute), std::nullopt);
+  EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicNauticalMilePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMilePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicKilometrePerHour), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(VolumeRate::CubicMetrePerHour), std::nullopt);

@@ -276,382 +276,382 @@ inline const std::unordered_map<std::string_view, Unit::Energy> Spellings<Unit::
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Joule>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Millijoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Millijoule>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Microjoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Microjoule>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Nanojoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Nanojoule>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Kilojoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Kilojoule>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Megajoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Megajoule>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Gigajoule>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Gigajoule>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::WattMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::WattMinute>(
+    double& value) noexcept {
   value /= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::WattHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::WattHour>(
+    double& value) noexcept {
   value /= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::KilowattMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::KilowattMinute>(
+    double& value) noexcept {
   value /= 60000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::KilowattHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::KilowattHour>(
+    double& value) noexcept {
   value /= 3600000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::MegawattMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::MegawattMinute>(
+    double& value) noexcept {
   value /= 60000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::MegawattHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::MegawattHour>(
+    double& value) noexcept {
   value /= 3600000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::GigawattMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::GigawattMinute>(
+    double& value) noexcept {
   value /= 60000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::GigawattHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::GigawattHour>(
+    double& value) noexcept {
   value /= 3600000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::FootPound>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::FootPound>(
+    double& value) noexcept {
   value /= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::InchPound>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::InchPound>(
+    double& value) noexcept {
   value /= 0.0254 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Calorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Calorie>(
+    double& value) noexcept {
   value /= 4.184;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Millicalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Millicalorie>(
+    double& value) noexcept {
   value /= 0.004184;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Microcalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Microcalorie>(
+    double& value) noexcept {
   value /= 0.000004184;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Nanocalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Nanocalorie>(
+    double& value) noexcept {
   value /= 0.000000004184;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Kilocalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Kilocalorie>(
+    double& value) noexcept {
   value /= 4184.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Megacalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Megacalorie>(
+    double& value) noexcept {
   value /= 4184000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Gigacalorie>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Gigacalorie>(
+    double& value) noexcept {
   value /= 4184000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Electronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Electronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-19;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Millielectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Millielectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-22;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Microelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Microelectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-25;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Nanoelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Nanoelectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-28;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Kiloelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Kiloelectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-16;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Megaelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Megaelectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-13;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::Gigaelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::Gigaelectronvolt>(
+    double& value) noexcept {
   value /= 1.602176634e-10;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Energy, Unit::Energy::BritishThermalUnit>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Energy, Unit::Energy::BritishThermalUnit>(
+    double& value) noexcept {
   value *= 1.8 / (4.1868 * 453.59237);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Joule>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Joule>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Millijoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Millijoule>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Microjoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Microjoule>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Nanojoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Nanojoule>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Kilojoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Kilojoule>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Megajoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Megajoule>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Gigajoule>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Gigajoule>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::WattMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::WattMinute>(
+    double& value) noexcept {
   value *= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::WattHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::WattHour>(
+    double& value) noexcept {
   value *= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::KilowattMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::KilowattMinute>(
+    double& value) noexcept {
   value *= 60000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::KilowattHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::KilowattHour>(
+    double& value) noexcept {
   value *= 3600000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::MegawattMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::MegawattMinute>(
+    double& value) noexcept {
   value *= 60000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::MegawattHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::MegawattHour>(
+    double& value) noexcept {
   value *= 3600000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::GigawattMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::GigawattMinute>(
+    double& value) noexcept {
   value *= 60000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::GigawattHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::GigawattHour>(
+    double& value) noexcept {
   value *= 3600000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::FootPound>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::FootPound>(
+    double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::InchPound>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::InchPound>(
+    double& value) noexcept {
   value *= 0.0254 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Calorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Calorie>(
+    double& value) noexcept {
   value *= 4.184;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Millicalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Millicalorie>(
+    double& value) noexcept {
   value *= 0.004184;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Microcalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Microcalorie>(
+    double& value) noexcept {
   value *= 0.000004184;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Nanocalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Nanocalorie>(
+    double& value) noexcept {
   value *= 0.000000004184;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Kilocalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Kilocalorie>(
+    double& value) noexcept {
   value *= 4184.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Megacalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Megacalorie>(
+    double& value) noexcept {
   value *= 4184000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Gigacalorie>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Gigacalorie>(
+    double& value) noexcept {
   value *= 4184000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Electronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Electronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-19;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Millielectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Millielectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-22;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Microelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Microelectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-25;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Nanoelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Nanoelectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-28;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Kiloelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Kiloelectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-16;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Megaelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Megaelectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-13;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::Gigaelectronvolt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::Gigaelectronvolt>(
+    double& value) noexcept {
   value *= 1.602176634e-10;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Energy, Unit::Energy::BritishThermalUnit>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Energy, Unit::Energy::BritishThermalUnit>(
+    double& value) noexcept {
   value *= 4.1868 * 453.59237 / 1.8;
 }
 

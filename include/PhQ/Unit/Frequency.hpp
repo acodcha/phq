@@ -107,70 +107,70 @@ inline const std::unordered_map<std::string_view, Unit::Frequency> Spellings<Uni
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerMinute>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
+    double& value) noexcept {
   value *= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerHour>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerHour>(
+    double& value) noexcept {
   value *= 3600.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::Megahertz>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::PerMinute>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
+    double& value) noexcept {
   value /= 60.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Frequency, Unit::Frequency::PerHour>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerHour>(
+    double& value) noexcept {
   value /= 3600.0;
 }
 

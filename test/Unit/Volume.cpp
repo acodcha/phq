@@ -30,15 +30,16 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Volume, 14> Units = {
-    Volume::CubicMile,       Volume::CubicKilometre,  Volume::CubicMetre,
-    Volume::CubicYard,       Volume::CubicFoot,       Volume::CubicDecimetre,
-    Volume::Litre,           Volume::CubicInch,       Volume::CubicCentimetre,
-    Volume::Millilitre,      Volume::CubicMillimetre, Volume::CubicMilliinch,
-    Volume::CubicMicrometre, Volume::CubicMicroinch,
+constexpr std::array<Volume, 15> Units = {
+    Volume::CubicNauticalMile, Volume::CubicMile,       Volume::CubicKilometre,
+    Volume::CubicMetre,        Volume::CubicYard,       Volume::CubicFoot,
+    Volume::CubicDecimetre,    Volume::Litre,           Volume::CubicInch,
+    Volume::CubicCentimetre,   Volume::Millilitre,      Volume::CubicMillimetre,
+    Volume::CubicMilliinch,    Volume::CubicMicrometre, Volume::CubicMicroinch,
 };
 
 TEST(UnitVolume, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Volume::CubicNauticalMile), "nmi^3");
   EXPECT_EQ(Abbreviation(Volume::CubicMile), "mi^3");
   EXPECT_EQ(Abbreviation(Volume::CubicKilometre), "km^3");
   EXPECT_EQ(Abbreviation(Volume::CubicMetre), "m^3");
@@ -66,6 +67,8 @@ TEST(UnitVolume, ConsistentUnit) {
 TEST(UnitVolume, ConvertFromStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(
+      Volume::CubicMetre, Volume::CubicNauticalMile, value, value / std::pow(1852.0, 3));
   Internal::TestConversions(
       Volume::CubicMetre, Volume::CubicMile, value, value / std::pow(1609.344, 3));
   Internal::TestConversions(
@@ -101,6 +104,8 @@ TEST(UnitVolume, ConvertToStandard) {
   constexpr double value{10.0};
 
   Internal::TestConversions(
+      Volume::CubicNauticalMile, Volume::CubicMetre, value, value * std::pow(1852.0, 3));
+  Internal::TestConversions(
       Volume::CubicMile, Volume::CubicMetre, value, value * std::pow(1609.344, 3));
   Internal::TestConversions(
       Volume::CubicKilometre, Volume::CubicMetre, value, value * std::pow(1000.0, 3));
@@ -133,6 +138,7 @@ TEST(UnitVolume, ConvertToStandard) {
 
 TEST(UnitVolume, Parse) {
   EXPECT_EQ(Parse<Volume>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Volume>("nmi^3"), Volume::CubicNauticalMile);
   EXPECT_EQ(Parse<Volume>("mi^3"), Volume::CubicMile);
   EXPECT_EQ(Parse<Volume>("km^3"), Volume::CubicKilometre);
   EXPECT_EQ(Parse<Volume>("m^3"), Volume::CubicMetre);
@@ -154,6 +160,7 @@ TEST(UnitVolume, RelatedDimensions) {
 }
 
 TEST(UnitVolume, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(Volume::CubicNauticalMile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicMile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicKilometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Volume::CubicMetre), UnitSystem::MetreKilogramSecondKelvin);

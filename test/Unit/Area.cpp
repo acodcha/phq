@@ -30,14 +30,26 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Area, 14> Units = {
-    Area::SquareMile,       Area::SquareKilometre,  Area::Hectare,          Area::Acre,
-    Area::SquareMetre,      Area::SquareYard,       Area::SquareFoot,       Area::SquareDecimetre,
-    Area::SquareInch,       Area::SquareCentimetre, Area::SquareMillimetre, Area::SquareMilliinch,
-    Area::SquareMicrometre, Area::SquareMicroinch,
+constexpr std::array<Area, 15> Units = {
+    Area::SquareNauticalMile,
+    Area::SquareMile,
+    Area::SquareKilometre,
+    Area::Hectare,
+    Area::Acre,
+    Area::SquareMetre,
+    Area::SquareYard,
+    Area::SquareFoot,
+    Area::SquareDecimetre,
+    Area::SquareInch,
+    Area::SquareCentimetre,
+    Area::SquareMillimetre,
+    Area::SquareMilliinch,
+    Area::SquareMicrometre,
+    Area::SquareMicroinch,
 };
 
 TEST(UnitArea, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Area::SquareNauticalMile), "nmi^2");
   EXPECT_EQ(Abbreviation(Area::SquareMile), "mi^2");
   EXPECT_EQ(Abbreviation(Area::SquareKilometre), "km^2");
   EXPECT_EQ(Abbreviation(Area::Hectare), "ha");
@@ -64,6 +76,8 @@ TEST(UnitArea, ConsistentUnit) {
 TEST(UnitArea, ConvertFromStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(
+      Area::SquareMetre, Area::SquareNauticalMile, value, value / std::pow(1852.0, 2));
   Internal::TestConversions(
       Area::SquareMetre, Area::SquareMile, value, value / std::pow(1609.344, 2));
   Internal::TestConversions(
@@ -99,6 +113,8 @@ TEST(UnitArea, ConvertToStandard) {
   constexpr double value{10.0};
 
   Internal::TestConversions(
+      Area::SquareNauticalMile, Area::SquareMetre, value, value * std::pow(1852.0, 2));
+  Internal::TestConversions(
       Area::SquareMile, Area::SquareMetre, value, value * std::pow(1609.344, 2));
   Internal::TestConversions(
       Area::SquareKilometre, Area::SquareMetre, value, value * std::pow(1000.0, 2));
@@ -131,6 +147,7 @@ TEST(UnitArea, ConvertToStandard) {
 
 TEST(UnitArea, Parse) {
   EXPECT_EQ(Parse<Area>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Area>("nmi^2"), Area::SquareNauticalMile);
   EXPECT_EQ(Parse<Area>("mi^2"), Area::SquareMile);
   EXPECT_EQ(Parse<Area>("km^2"), Area::SquareKilometre);
   EXPECT_EQ(Parse<Area>("ha"), Area::Hectare);
@@ -152,6 +169,7 @@ TEST(UnitArea, RelatedDimensions) {
 }
 
 TEST(UnitArea, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(Area::SquareNauticalMile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareMile), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::SquareKilometre), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Area::Hectare), std::nullopt);

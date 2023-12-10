@@ -30,17 +30,26 @@ namespace PhQ::Unit {
 
 namespace {
 
-constexpr std::array<Diffusivity, 14> Units = {
-    Diffusivity::SquareMilePerSecond,       Diffusivity::SquareKilometrePerSecond,
-    Diffusivity::HectarePerSecond,          Diffusivity::AcrePerSecond,
-    Diffusivity::SquareMetrePerSecond,      Diffusivity::SquareYardPerSecond,
-    Diffusivity::SquareFootPerSecond,       Diffusivity::SquareDecimetrePerSecond,
-    Diffusivity::SquareInchPerSecond,       Diffusivity::SquareCentimetrePerSecond,
-    Diffusivity::SquareMillimetrePerSecond, Diffusivity::SquareMilliinchPerSecond,
-    Diffusivity::SquareMicrometrePerSecond, Diffusivity::SquareMicroinchPerSecond,
+constexpr std::array<Diffusivity, 15> Units = {
+    Diffusivity::SquareNauticalMilePerSecond,
+    Diffusivity::SquareMilePerSecond,
+    Diffusivity::SquareKilometrePerSecond,
+    Diffusivity::HectarePerSecond,
+    Diffusivity::AcrePerSecond,
+    Diffusivity::SquareMetrePerSecond,
+    Diffusivity::SquareYardPerSecond,
+    Diffusivity::SquareFootPerSecond,
+    Diffusivity::SquareDecimetrePerSecond,
+    Diffusivity::SquareInchPerSecond,
+    Diffusivity::SquareCentimetrePerSecond,
+    Diffusivity::SquareMillimetrePerSecond,
+    Diffusivity::SquareMilliinchPerSecond,
+    Diffusivity::SquareMicrometrePerSecond,
+    Diffusivity::SquareMicroinchPerSecond,
 };
 
 TEST(UnitDiffusivity, Abbreviation) {
+  EXPECT_EQ(Abbreviation(Diffusivity::SquareNauticalMilePerSecond), "nmi^2/s");
   EXPECT_EQ(Abbreviation(Diffusivity::SquareMilePerSecond), "mi^2/s");
   EXPECT_EQ(Abbreviation(Diffusivity::SquareKilometrePerSecond), "km^2/s");
   EXPECT_EQ(Abbreviation(Diffusivity::HectarePerSecond), "ha/s");
@@ -71,6 +80,9 @@ TEST(UnitDiffusivity, ConsistentUnit) {
 TEST(UnitDiffusivity, ConvertFromStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareNauticalMilePerSecond, value,
+      value / std::pow(1852.0, 2));
   Internal::TestConversions(Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMilePerSecond,
                             value, value / std::pow(1609.344, 2));
   Internal::TestConversions(
@@ -115,6 +127,8 @@ TEST(UnitDiffusivity, ConvertFromStandard) {
 TEST(UnitDiffusivity, ConvertToStandard) {
   constexpr double value{10.0};
 
+  Internal::TestConversions(Diffusivity::SquareNauticalMilePerSecond,
+                            Diffusivity::SquareMetrePerSecond, value, value * std::pow(1852.0, 2));
   Internal::TestConversions(Diffusivity::SquareMilePerSecond, Diffusivity::SquareMetrePerSecond,
                             value, value * std::pow(1609.344, 2));
   Internal::TestConversions(Diffusivity::SquareKilometrePerSecond,
@@ -154,6 +168,7 @@ TEST(UnitDiffusivity, ConvertToStandard) {
 
 TEST(UnitDiffusivity, Parse) {
   EXPECT_EQ(Parse<Diffusivity>("Hello world!"), std::nullopt);
+  EXPECT_EQ(Parse<Diffusivity>("nmi^2/s"), Diffusivity::SquareNauticalMilePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("mi^2/s"), Diffusivity::SquareMilePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("km^2/s"), Diffusivity::SquareKilometrePerSecond);
   EXPECT_EQ(Parse<Diffusivity>("ha/s"), Diffusivity::HectarePerSecond);
@@ -175,6 +190,7 @@ TEST(UnitDiffusivity, RelatedDimensions) {
 }
 
 TEST(UnitDiffusivity, RelatedUnitSystem) {
+  EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareNauticalMilePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareMilePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::SquareKilometrePerSecond), std::nullopt);
   EXPECT_EQ(RelatedUnitSystem(Diffusivity::HectarePerSecond), std::nullopt);
