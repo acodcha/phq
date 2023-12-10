@@ -39,11 +39,11 @@ public:
 
   // Constructor. Constructs a frequency from a given scalar acceleration and speed using the
   // definitions of acceleration and frequency.
-  constexpr Frequency(const AccelerationScalar& acceleration_scalar, const Speed& speed);
+  constexpr Frequency(const ScalarAcceleration& scalar_acceleration, const Speed& speed);
 
   // Constructor. Constructs a frequency from a given scalar angular acceleration and angular speed
   // using the definitions of angular acceleration and frequency.
-  constexpr Frequency(const AngularAccelerationScalar& angular_acceleration_scalar,
+  constexpr Frequency(const ScalarAngularAcceleration& scalar_angular_acceleration,
                       const AngularSpeed& angular_speed);
 
   // Constructor. Constructs a frequency from a given angular speed and angle using the definitions
@@ -133,14 +133,14 @@ public:
 
   constexpr VelocityGradient operator*(const DisplacementGradient& displacement_gradient) const;
 
-  constexpr VelocityGradientScalar operator*(
-      const DisplacementGradientScalar& displacement_gradient_scalar) const;
+  constexpr ScalarVelocityGradient operator*(
+      const ScalarDisplacementGradient& scalar_displacement_gradient) const;
 
   constexpr MemoryRate operator*(const Memory& memory) const;
 
-  constexpr AccelerationScalar operator*(const Speed& speed) const;
+  constexpr ScalarAcceleration operator*(const Speed& speed) const;
 
-  constexpr AngularAccelerationScalar operator*(const AngularSpeed& angular_speed) const;
+  constexpr ScalarAngularAcceleration operator*(const AngularSpeed& angular_speed) const;
 
   constexpr MassRate operator*(const Mass& mass) const;
 
@@ -152,7 +152,7 @@ public:
 
   constexpr StrainRate operator*(const Strain& strain) const;
 
-  constexpr StrainRateScalar operator*(const StrainScalar& strain_scalar) const;
+  constexpr ScalarStrainRate operator*(const ScalarStrain& scalar_strain) const;
 
   constexpr double operator/(const Frequency& frequency) const noexcept {
     return value_ / frequency.value_;

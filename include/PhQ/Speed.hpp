@@ -26,7 +26,6 @@
 namespace PhQ {
 
 // Forward declarations for class Speed.
-class AccelerationScalar;
 class Direction;
 class DynamicKinematicPressure;
 class DynamicPressure;
@@ -36,6 +35,7 @@ class MachNumber;
 class MassDensity;
 class Power;
 class ReynoldsNumber;
+class ScalarAcceleration;
 class SoundSpeed;
 class TransportEnergyConsumption;
 class Velocity;
@@ -60,11 +60,11 @@ public:
 
   // Constructor. Constructs a speed from a given scalar acceleration and time duration using the
   // definition of acceleration.
-  constexpr Speed(const AccelerationScalar& acceleration_scalar, const Time& time);
+  constexpr Speed(const ScalarAcceleration& scalar_acceleration, const Time& time);
 
   // Constructor. Constructs a speed from a given scalar acceleration and frequency using the
   // definition of acceleration.
-  constexpr Speed(const AccelerationScalar& acceleration_scalar, const Frequency& frequency);
+  constexpr Speed(const ScalarAcceleration& scalar_acceleration, const Frequency& frequency);
 
   // Constructor. Constructs a speed from a given dynamic pressure and mass density using the
   // definition of dynamic pressure.
@@ -134,7 +134,7 @@ public:
     return {*this, time};
   }
 
-  constexpr AccelerationScalar operator*(const Frequency& frequency) const;
+  constexpr ScalarAcceleration operator*(const Frequency& frequency) const;
 
   constexpr Velocity operator*(const Direction& direction) const;
 
@@ -152,9 +152,9 @@ public:
     return {*this, length};
   }
 
-  constexpr AccelerationScalar operator/(const Time& time) const;
+  constexpr ScalarAcceleration operator/(const Time& time) const;
 
-  constexpr Time operator/(const AccelerationScalar& acceleration_scalar) const;
+  constexpr Time operator/(const ScalarAcceleration& scalar_acceleration) const;
 
   constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
 

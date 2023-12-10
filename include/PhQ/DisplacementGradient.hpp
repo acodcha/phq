@@ -20,8 +20,8 @@
 #include <ostream>
 
 #include "DimensionlessDyad.hpp"
-#include "DisplacementGradientScalar.hpp"
 #include "Dyad.hpp"
+#include "ScalarDisplacementGradient.hpp"
 #include "Strain.hpp"
 
 namespace PhQ {
@@ -30,7 +30,7 @@ namespace PhQ {
 class VelocityGradient;
 
 // Displacement gradient dyadic tensor. Gradient of the displacement vector. In general, this dyadic
-// tensor is asymmetric.
+// tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
 class DisplacementGradient : public DimensionlessDyad {
 public:
   // Default constructor. Constructs a displacement gradient tensor with an uninitialized value.
@@ -81,48 +81,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar xx() const noexcept {
-    return DisplacementGradientScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient xx() const noexcept {
+    return ScalarDisplacementGradient{value_.xx()};
   }
 
   // Returns the xy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar xy() const noexcept {
-    return DisplacementGradientScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient xy() const noexcept {
+    return ScalarDisplacementGradient{value_.xy()};
   }
 
   // Returns the xz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar xz() const noexcept {
-    return DisplacementGradientScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient xz() const noexcept {
+    return ScalarDisplacementGradient{value_.xz()};
   }
 
   // Returns the yx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar yx() const noexcept {
-    return DisplacementGradientScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient yx() const noexcept {
+    return ScalarDisplacementGradient{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar yy() const noexcept {
-    return DisplacementGradientScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient yy() const noexcept {
+    return ScalarDisplacementGradient{value_.yy()};
   }
 
   // Returns the yz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar yz() const noexcept {
-    return DisplacementGradientScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient yz() const noexcept {
+    return ScalarDisplacementGradient{value_.yz()};
   }
 
   // Returns the zx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar zx() const noexcept {
-    return DisplacementGradientScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient zx() const noexcept {
+    return ScalarDisplacementGradient{value_.zx()};
   }
 
   // Returns the zy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar zy() const noexcept {
-    return DisplacementGradientScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient zy() const noexcept {
+    return ScalarDisplacementGradient{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr DisplacementGradientScalar zz() const noexcept {
-    return DisplacementGradientScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient zz() const noexcept {
+    return ScalarDisplacementGradient{value_.zz()};
   }
 
   // Creates a strain tensor from this displacement gradient tensor using the definition of the

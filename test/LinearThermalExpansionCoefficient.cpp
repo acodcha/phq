@@ -18,7 +18,7 @@
 #include <sstream>
 #include <utility>
 
-#include "../include/PhQ/StrainScalar.hpp"
+#include "../include/PhQ/ScalarStrain.hpp"
 #include "../include/PhQ/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/TemperatureDifference.hpp"
 #include "../include/PhQ/Unit/ThermalExpansion.hpp"
@@ -51,11 +51,11 @@ TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorMultiplication) {
 
   EXPECT_EQ(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin)
                 * TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin),
-            StrainScalar(8.0));
+            ScalarStrain(8.0));
 
   EXPECT_EQ(TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)
                 * LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
-            StrainScalar(8.0));
+            ScalarStrain(8.0));
 }
 
 TEST(LinearThermalExpansionCoefficient, ArithmeticOperatorSubtraction) {
@@ -148,9 +148,9 @@ TEST(LinearThermalExpansionCoefficient, JSON) {
 }
 
 TEST(LinearThermalExpansionCoefficient, MiscellaneousConstructors) {
-  EXPECT_EQ(StrainScalar(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
+  EXPECT_EQ(ScalarStrain(LinearThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
                          TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin)),
-            StrainScalar(8.0));
+            ScalarStrain(8.0));
 }
 
 TEST(LinearThermalExpansionCoefficient, MoveAssignmentOperator) {

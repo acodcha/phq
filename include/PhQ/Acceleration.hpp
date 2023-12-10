@@ -19,11 +19,11 @@
 #include <functional>
 #include <ostream>
 
-#include "AccelerationScalar.hpp"
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
 #include "Frequency.hpp"
+#include "ScalarAcceleration.hpp"
 #include "Time.hpp"
 #include "Unit/Acceleration.hpp"
 #include "Vector.hpp"
@@ -31,7 +31,7 @@
 
 namespace PhQ {
 
-// Acceleration vector.
+// Acceleration vector. See also PhQ::ScalarAcceleration.
 class Acceleration : public DimensionalVector<Unit::Acceleration> {
 public:
   // Default constructor. Constructs an acceleration vector with an uninitialized value.
@@ -44,8 +44,8 @@ public:
 
   // Constructor. Constructs an acceleration vector from a given scalar acceleration magnitude and
   // direction.
-  constexpr Acceleration(const AccelerationScalar& acceleration_scalar, const Direction& direction)
-    : Acceleration(acceleration_scalar.Value() * direction.Value()) {}
+  constexpr Acceleration(const ScalarAcceleration& scalar_acceleration, const Direction& direction)
+    : Acceleration(scalar_acceleration.Value() * direction.Value()) {}
 
   // Constructor. Constructs an acceleration vector from a given velocity and time using the
   // definition of acceleration.
@@ -102,23 +102,23 @@ public:
   }
 
   // Returns the x Cartesian component of this acceleration vector.
-  [[nodiscard]] constexpr AccelerationScalar x() const noexcept {
-    return AccelerationScalar{value_.x()};
+  [[nodiscard]] constexpr ScalarAcceleration x() const noexcept {
+    return ScalarAcceleration{value_.x()};
   }
 
   // Returns the y Cartesian component of this acceleration vector.
-  [[nodiscard]] constexpr AccelerationScalar y() const noexcept {
-    return AccelerationScalar{value_.y()};
+  [[nodiscard]] constexpr ScalarAcceleration y() const noexcept {
+    return ScalarAcceleration{value_.y()};
   }
 
   // Returns the z Cartesian component of this acceleration vector.
-  [[nodiscard]] constexpr AccelerationScalar z() const noexcept {
-    return AccelerationScalar{value_.z()};
+  [[nodiscard]] constexpr ScalarAcceleration z() const noexcept {
+    return ScalarAcceleration{value_.z()};
   }
 
   // Returns the magnitude of this acceleration vector.
-  [[nodiscard]] AccelerationScalar Magnitude() const {
-    return AccelerationScalar{value_.Magnitude()};
+  [[nodiscard]] ScalarAcceleration Magnitude() const {
+    return ScalarAcceleration{value_.Magnitude()};
   }
 
   // Returns the direction of this acceleration vector.
@@ -223,15 +223,15 @@ inline constexpr Velocity::Velocity(const Acceleration& acceleration, const Freq
   : Velocity(acceleration.Value() / frequency.Value()) {}
 
 inline constexpr Acceleration Direction::operator*(
-    const AccelerationScalar& acceleration_scalar) const {
-  return {acceleration_scalar, *this};
+    const ScalarAcceleration& scalar_acceleration) const {
+  return {scalar_acceleration, *this};
 }
 
 inline constexpr Velocity Time::operator*(const Acceleration& acceleration) const {
   return {acceleration, *this};
 }
 
-inline constexpr Acceleration AccelerationScalar::operator*(const Direction& direction) const {
+inline constexpr Acceleration ScalarAcceleration::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

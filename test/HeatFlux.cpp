@@ -21,10 +21,10 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
-#include "../include/PhQ/HeatFluxScalar.hpp"
+#include "../include/PhQ/ScalarHeatFlux.hpp"
+#include "../include/PhQ/ScalarThermalConductivity.hpp"
 #include "../include/PhQ/TemperatureGradient.hpp"
 #include "../include/PhQ/ThermalConductivity.hpp"
-#include "../include/PhQ/ThermalConductivityScalar.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/EnergyFlux.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
@@ -59,10 +59,10 @@ TEST(HeatFlux, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre),
             HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 
-  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre),
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ScalarHeatFlux(7.0, Unit::EnergyFlux::WattPerSquareMetre),
             HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 
-  EXPECT_EQ(HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre) * Direction(2.0, -3.0, 6.0),
+  EXPECT_EQ(ScalarHeatFlux(7.0, Unit::EnergyFlux::WattPerSquareMetre) * Direction(2.0, -3.0, 6.0),
             HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
@@ -170,7 +170,7 @@ TEST(HeatFlux, JSON) {
 
 TEST(HeatFlux, Magnitude) {
   EXPECT_EQ(HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre).Magnitude(),
-            HeatFluxScalar(7.0, Unit::EnergyFlux::WattPerSquareMetre));
+            ScalarHeatFlux(7.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MiscellaneousConstructors) {
@@ -182,7 +182,7 @@ TEST(HeatFlux, MiscellaneousConstructors) {
             Angle(90.0, Unit::Angle::Degree));
 
   EXPECT_EQ(
-      HeatFlux(ThermalConductivityScalar(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+      HeatFlux(ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
       HeatFlux({-2.0, 4.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 
@@ -272,11 +272,11 @@ TEST(HeatFlux, XML) {
 
 TEST(HeatFlux, XYZ) {
   EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).x(),
-            HeatFluxScalar(1.11, Unit::EnergyFlux::WattPerSquareMetre));
+            ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre));
   EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).y(),
-            HeatFluxScalar(-2.22, Unit::EnergyFlux::WattPerSquareMetre));
+            ScalarHeatFlux(-2.22, Unit::EnergyFlux::WattPerSquareMetre));
   EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).z(),
-            HeatFluxScalar(3.33, Unit::EnergyFlux::WattPerSquareMetre));
+            ScalarHeatFlux(3.33, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, YAML) {

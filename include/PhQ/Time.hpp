@@ -25,13 +25,10 @@ namespace PhQ {
 
 // Forward declarations for class Time.
 class Acceleration;
-class AccelerationScalar;
 class Angle;
-class AngularAccelerationScalar;
 class AngularSpeed;
 class Displacement;
 class DisplacementGradient;
-class DisplacementGradientScalar;
 class Energy;
 class Frequency;
 class Length;
@@ -40,16 +37,19 @@ class MassRate;
 class Memory;
 class MemoryRate;
 class Power;
+class ScalarAcceleration;
+class ScalarAngularAcceleration;
+class ScalarDisplacementGradient;
+class ScalarStrain;
+class ScalarStrainRate;
+class ScalarVelocityGradient;
 class SpecificEnergy;
 class SpecificPower;
 class Speed;
 class Strain;
 class StrainRate;
-class StrainRateScalar;
-class StrainScalar;
 class Velocity;
 class VelocityGradient;
-class VelocityGradientScalar;
 class Volume;
 class VolumeRate;
 
@@ -68,12 +68,12 @@ public:
 
   // Constructor. Constructs a time quantity from a given speed and scalar acceleration using the
   // definition of acceleration.
-  constexpr Time(const Speed& speed, const AccelerationScalar& acceleration_scalar);
+  constexpr Time(const Speed& speed, const ScalarAcceleration& scalar_acceleration);
 
   // Constructor. Constructs a time quantity from a given angular speed and scalar angular
   // acceleration using the definition of angular acceleration.
   constexpr Time(const AngularSpeed& angular_speed,
-                 const AngularAccelerationScalar& angular_acceleration_scalar);
+                 const ScalarAngularAcceleration& scalar_angular_acceleration);
 
   // Constructor. Constructs a time quantity from a given angle and angular speed using the
   // definition of angular speed.
@@ -147,7 +147,7 @@ public:
 
   constexpr Velocity operator*(const Acceleration& acceleration) const;
 
-  constexpr Speed operator*(const AccelerationScalar& acceleration_scalar) const;
+  constexpr Speed operator*(const ScalarAcceleration& scalar_acceleration) const;
 
   constexpr Mass operator*(const MassRate& mass_rate) const;
 
@@ -157,14 +157,14 @@ public:
 
   constexpr Strain operator*(const StrainRate& strain_rate) const;
 
-  constexpr StrainScalar operator*(const StrainRateScalar& strain_rate_scalar) const;
+  constexpr ScalarStrain operator*(const ScalarStrainRate& scalar_strain_rate) const;
 
   constexpr Displacement operator*(const Velocity& velocity) const;
 
   constexpr DisplacementGradient operator*(const VelocityGradient& velocity_gradient) const;
 
-  constexpr DisplacementGradientScalar operator*(
-      const VelocityGradientScalar& velocity_gradient_scalar) const;
+  constexpr ScalarDisplacementGradient operator*(
+      const ScalarVelocityGradient& scalar_velocity_gradient) const;
 
   constexpr Volume operator*(const VolumeRate& volume_rate) const;
 

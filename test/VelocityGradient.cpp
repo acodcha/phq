@@ -22,11 +22,11 @@
 #include "../include/PhQ/DisplacementGradient.hpp"
 #include "../include/PhQ/Dyad.hpp"
 #include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/ScalarVelocityGradient.hpp"
 #include "../include/PhQ/StrainRate.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Frequency.hpp"
 #include "../include/PhQ/Unit/Time.hpp"
-#include "../include/PhQ/VelocityGradientScalar.hpp"
 
 namespace PhQ {
 
@@ -363,39 +363,39 @@ TEST(VelocityGradient, XYZ) {
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .xx(),
-      VelocityGradientScalar(1.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(1.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .xy(),
-      VelocityGradientScalar(-2.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(-2.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .xz(),
-      VelocityGradientScalar(3.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(3.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .yx(),
-      VelocityGradientScalar(-4.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(-4.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .yy(),
-      VelocityGradientScalar(5.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(5.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .yz(),
-      VelocityGradientScalar(-6.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(-6.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .zx(),
-      VelocityGradientScalar(7.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(7.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .zy(),
-      VelocityGradientScalar(-8.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(-8.0, Unit::Frequency::Hertz));
   EXPECT_EQ(
       VelocityGradient({1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz)
           .zz(),
-      VelocityGradientScalar(9.0, Unit::Frequency::Hertz));
+      ScalarVelocityGradient(9.0, Unit::Frequency::Hertz));
 }
 
 TEST(VelocityGradient, YAML) {

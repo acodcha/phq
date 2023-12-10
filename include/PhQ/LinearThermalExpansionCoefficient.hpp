@@ -19,7 +19,7 @@
 #include <ostream>
 
 #include "DimensionalScalar.hpp"
-#include "StrainScalar.hpp"
+#include "ScalarStrain.hpp"
 #include "TemperatureDifference.hpp"
 #include "Unit/ThermalExpansion.hpp"
 
@@ -86,7 +86,7 @@ public:
     return LinearThermalExpansionCoefficient{value_ * number};
   }
 
-  constexpr StrainScalar operator*(const TemperatureDifference& temperature_difference) const {
+  constexpr ScalarStrain operator*(const TemperatureDifference& temperature_difference) const {
     return {*this, temperature_difference};
   }
 
@@ -94,8 +94,8 @@ public:
     return LinearThermalExpansionCoefficient{value_ / number};
   }
 
-  constexpr double
-  operator/(const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient)
+  constexpr double operator/(
+      const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient)
       const noexcept {
     return value_ / linear_thermal_expansion_coefficient.value_;
   }
@@ -168,12 +168,12 @@ inline constexpr LinearThermalExpansionCoefficient operator*(
   return linear_thermal_expansion_coefficient * number;
 }
 
-inline constexpr StrainScalar::StrainScalar(
+inline constexpr ScalarStrain::ScalarStrain(
     const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient,
     const TemperatureDifference& temperature_difference)
-  : StrainScalar(linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
+  : ScalarStrain(linear_thermal_expansion_coefficient.Value() * temperature_difference.Value()) {}
 
-inline constexpr StrainScalar TemperatureDifference::operator*(
+inline constexpr ScalarStrain TemperatureDifference::operator*(
     const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const {
   return {linear_thermal_expansion_coefficient, *this};
 }

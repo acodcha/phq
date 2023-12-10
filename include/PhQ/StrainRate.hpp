@@ -21,8 +21,8 @@
 
 #include "DimensionalSymmetricDyad.hpp"
 #include "Frequency.hpp"
+#include "ScalarStrainRate.hpp"
 #include "Strain.hpp"
-#include "StrainRateScalar.hpp"
 #include "SymmetricDyad.hpp"
 #include "Unit/Frequency.hpp"
 
@@ -32,6 +32,7 @@ namespace PhQ {
 class VelocityGradient;
 
 // Strain rate symmetric dyadic tensor. Time rate of change of the strain symmetric dyadic tensor.
+// See also PhQ::Strain and PhQ::ScalarStrainRate.
 class StrainRate : public DimensionalSymmetricDyad<Unit::Frequency> {
 public:
   // Default constructor. Constructs a strain rate tensor with an uninitialized value.
@@ -100,48 +101,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar xx() const noexcept {
-    return StrainRateScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarStrainRate xx() const noexcept {
+    return ScalarStrainRate{value_.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar xy() const noexcept {
-    return StrainRateScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarStrainRate xy() const noexcept {
+    return ScalarStrainRate{value_.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar xz() const noexcept {
-    return StrainRateScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarStrainRate xz() const noexcept {
+    return ScalarStrainRate{value_.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar yx() const noexcept {
-    return StrainRateScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarStrainRate yx() const noexcept {
+    return ScalarStrainRate{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar yy() const noexcept {
-    return StrainRateScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarStrainRate yy() const noexcept {
+    return ScalarStrainRate{value_.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar yz() const noexcept {
-    return StrainRateScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarStrainRate yz() const noexcept {
+    return ScalarStrainRate{value_.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar zx() const noexcept {
-    return StrainRateScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarStrainRate zx() const noexcept {
+    return ScalarStrainRate{value_.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar zy() const noexcept {
-    return StrainRateScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarStrainRate zy() const noexcept {
+    return ScalarStrainRate{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this strain rate tensor.
-  [[nodiscard]] constexpr StrainRateScalar zz() const noexcept {
-    return StrainRateScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarStrainRate zz() const noexcept {
+    return ScalarStrainRate{value_.zz()};
   }
 
   constexpr StrainRate operator+(const StrainRate& strain_rate) const {

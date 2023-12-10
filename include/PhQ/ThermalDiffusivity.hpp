@@ -20,8 +20,8 @@
 
 #include "DimensionalScalar.hpp"
 #include "MassDensity.hpp"
+#include "ScalarThermalConductivity.hpp"
 #include "SpecificIsobaricHeatCapacity.hpp"
-#include "ThermalConductivityScalar.hpp"
 #include "Unit/Diffusivity.hpp"
 
 namespace PhQ {
@@ -40,13 +40,13 @@ public:
   ThermalDiffusivity(const double value, const Unit::Diffusivity unit)
     : DimensionalScalar<Unit::Diffusivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal diffusivity from a given thermal conductivity scalar,
+  // Constructor. Constructs a thermal diffusivity from a given scalar thermal conductivity,
   // specific isobaric heat capacity, and mass density using the definition of the thermal
   // diffusivity.
   constexpr ThermalDiffusivity(
-      const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density,
+      const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-    : ThermalDiffusivity(thermal_conductivity_scalar.Value()
+    : ThermalDiffusivity(scalar_thermal_conductivity.Value()
                          / (mass_density.Value() * specific_isobaric_heat_capacity.Value())) {}
 
   // Constructor. Constructs a thermal diffusivity from a given kinematic viscosity and Prandtl
@@ -166,25 +166,25 @@ inline constexpr ThermalDiffusivity operator*(
   return thermal_diffusivity * number;
 }
 
-inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
+inline constexpr ScalarThermalConductivity::ScalarThermalConductivity(
     const MassDensity& mass_density,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
     const ThermalDiffusivity& thermal_diffusivity)
-  : ThermalConductivityScalar(mass_density.Value() * specific_isobaric_heat_capacity.Value()
+  : ScalarThermalConductivity(mass_density.Value() * specific_isobaric_heat_capacity.Value()
                               * thermal_diffusivity.Value()) {}
 
 inline constexpr MassDensity::MassDensity(
-    const ThermalConductivityScalar& thermal_conductivity_scalar,
+    const ScalarThermalConductivity& scalar_thermal_conductivity,
     const ThermalDiffusivity& thermal_diffusivity,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-  : MassDensity(thermal_conductivity_scalar.Value()
+  : MassDensity(scalar_thermal_conductivity.Value()
                 / (thermal_diffusivity.Value() * specific_isobaric_heat_capacity.Value())) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
-    const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density,
+    const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
     const ThermalDiffusivity& thermal_diffusivity)
   : SpecificIsobaricHeatCapacity(
-      thermal_conductivity_scalar.Value() / (mass_density.Value() * thermal_diffusivity.Value())) {}
+      scalar_thermal_conductivity.Value() / (mass_density.Value() * thermal_diffusivity.Value())) {}
 
 }  // namespace PhQ
 

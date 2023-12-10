@@ -23,13 +23,15 @@
 #include "DisplacementGradient.hpp"
 #include "Dyad.hpp"
 #include "Frequency.hpp"
+#include "ScalarVelocityGradient.hpp"
 #include "StrainRate.hpp"
+#include "Time.hpp"
 #include "Unit/Frequency.hpp"
-#include "VelocityGradientScalar.hpp"
 
 namespace PhQ {
 
-// Velocity gradient dyadic tensor. In general, this dyadic tensor is asymmetric.
+// Velocity gradient dyadic tensor. In general, this dyadic tensor is asymmetric. See also
+// PhQ::ScalarVelocityGradient and PhQ::DisplacementGradient.
 class VelocityGradient : public DimensionalDyad<Unit::Frequency> {
 public:
   // Default constructor. Constructs a velocity gradient tensor with an uninitialized value.
@@ -74,9 +76,9 @@ public:
   // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
   // zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient
-  Create(const double xx, const double xy, const double xz, const double yx, const double yy,
-         const double yz, const double zx, const double zy, const double zz) {
+  static constexpr VelocityGradient Create(
+      const double xx, const double xy, const double xz, const double yx, const double yy,
+      const double yz, const double zx, const double zy, const double zz) {
     return VelocityGradient{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
         Dyad{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
@@ -84,8 +86,8 @@ public:
   // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
   // zz Cartesian components expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient
-  Create(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
+  static constexpr VelocityGradient Create(
+      const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     return VelocityGradient{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
         Dyad{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
@@ -99,48 +101,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar xx() const noexcept {
-    return VelocityGradientScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient xx() const noexcept {
+    return ScalarVelocityGradient{value_.xx()};
   }
 
   // Returns the xy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar xy() const noexcept {
-    return VelocityGradientScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient xy() const noexcept {
+    return ScalarVelocityGradient{value_.xy()};
   }
 
   // Returns the xz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar xz() const noexcept {
-    return VelocityGradientScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient xz() const noexcept {
+    return ScalarVelocityGradient{value_.xz()};
   }
 
   // Returns the yx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar yx() const noexcept {
-    return VelocityGradientScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient yx() const noexcept {
+    return ScalarVelocityGradient{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar yy() const noexcept {
-    return VelocityGradientScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient yy() const noexcept {
+    return ScalarVelocityGradient{value_.yy()};
   }
 
   // Returns the yz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar yz() const noexcept {
-    return VelocityGradientScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient yz() const noexcept {
+    return ScalarVelocityGradient{value_.yz()};
   }
 
   // Returns the zx Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar zx() const noexcept {
-    return VelocityGradientScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarVelocityGradient zx() const noexcept {
+    return ScalarVelocityGradient{value_.zx()};
   }
 
   // Returns the zy Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar zy() const noexcept {
-    return VelocityGradientScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarVelocityGradient zy() const noexcept {
+    return ScalarVelocityGradient{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this velocity gradient tensor.
-  [[nodiscard]] constexpr VelocityGradientScalar zz() const noexcept {
-    return VelocityGradientScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarVelocityGradient zz() const noexcept {
+    return ScalarVelocityGradient{value_.zz()};
   }
 
   // Creates a strain rate tensor from this velocity gradient tensor using the definition of the
@@ -245,12 +247,12 @@ inline constexpr StrainRate::StrainRate(const VelocityGradient& velocity_gradien
                 velocity_gradient.Value().zz()}) {}
 
 inline constexpr DisplacementGradient::DisplacementGradient(
-    const VelocityGradient& velocity_gradient_scalar, const Time& time)
-  : DisplacementGradient(velocity_gradient_scalar.Value() * time.Value()) {}
+    const VelocityGradient& scalar_velocity_gradient, const Time& time)
+  : DisplacementGradient(scalar_velocity_gradient.Value() * time.Value()) {}
 
 inline constexpr DisplacementGradient::DisplacementGradient(
-    const VelocityGradient& velocity_gradient_scalar, const Frequency& frequency)
-  : DisplacementGradient(velocity_gradient_scalar.Value() / frequency.Value()) {}
+    const VelocityGradient& scalar_velocity_gradient, const Frequency& frequency)
+  : DisplacementGradient(scalar_velocity_gradient.Value() / frequency.Value()) {}
 
 inline constexpr VelocityGradient DisplacementGradient::operator*(
     const Frequency& frequency) const {

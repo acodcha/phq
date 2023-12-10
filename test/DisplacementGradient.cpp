@@ -20,8 +20,8 @@
 #include <utility>
 
 #include "../include/PhQ/Dimensions.hpp"
-#include "../include/PhQ/DisplacementGradientScalar.hpp"
 #include "../include/PhQ/Dyad.hpp"
+#include "../include/PhQ/ScalarDisplacementGradient.hpp"
 #include "../include/PhQ/Strain.hpp"
 
 namespace PhQ {
@@ -203,23 +203,23 @@ TEST(DisplacementGradient, XML) {
 
 TEST(DisplacementGradient, XYZ) {
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xx(),
-            DisplacementGradientScalar(1.0));
+            ScalarDisplacementGradient(1.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xy(),
-            DisplacementGradientScalar(-2.0));
+            ScalarDisplacementGradient(-2.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).xz(),
-            DisplacementGradientScalar(3.0));
+            ScalarDisplacementGradient(3.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yx(),
-            DisplacementGradientScalar(-4.0));
+            ScalarDisplacementGradient(-4.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yy(),
-            DisplacementGradientScalar(5.0));
+            ScalarDisplacementGradient(5.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).yz(),
-            DisplacementGradientScalar(-6.0));
+            ScalarDisplacementGradient(-6.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zx(),
-            DisplacementGradientScalar(7.0));
+            ScalarDisplacementGradient(7.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zy(),
-            DisplacementGradientScalar(-8.0));
+            ScalarDisplacementGradient(-8.0));
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).zz(),
-            DisplacementGradientScalar(9.0));
+            ScalarDisplacementGradient(9.0));
 }
 
 TEST(DisplacementGradient, YAML) {

@@ -20,7 +20,7 @@
 
 #include "Area.hpp"
 #include "DimensionalScalar.hpp"
-#include "ForceScalar.hpp"
+#include "ScalarForce.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
@@ -50,8 +50,8 @@ public:
 
   // Constructor. Constructs a static pressure from a given scalar force magnitude and area using
   // the definition of pressure.
-  constexpr StaticPressure(const ForceScalar& force_scalar, const Area& area)
-    : StaticPressure(force_scalar.Value() / area.Value()) {}
+  constexpr StaticPressure(const ScalarForce& scalar_force, const Area& area)
+    : StaticPressure(scalar_force.Value() / area.Value()) {}
 
   // Constructor. Constructs a static pressure from a given total pressure and dynamic pressure
   // using the definition of total pressure.
@@ -105,7 +105,7 @@ public:
     return StaticPressure{value_ * number};
   }
 
-  constexpr ForceScalar operator*(const Area& area) const {
+  constexpr ScalarForce operator*(const Area& area) const {
     return {*this, area};
   }
 
@@ -182,17 +182,17 @@ inline constexpr StaticPressure operator*(
   return static_pressure * number;
 }
 
-inline constexpr Area::Area(const ForceScalar& force_scalar, const StaticPressure& static_pressure)
-  : Area(force_scalar.Value() / static_pressure.Value()) {}
+inline constexpr Area::Area(const ScalarForce& scalar_force, const StaticPressure& static_pressure)
+  : Area(scalar_force.Value() / static_pressure.Value()) {}
 
-inline constexpr ForceScalar::ForceScalar(const StaticPressure& static_pressure, const Area& area)
-  : ForceScalar(static_pressure.Value() * area.Value()) {}
+inline constexpr ScalarForce::ScalarForce(const StaticPressure& static_pressure, const Area& area)
+  : ScalarForce(static_pressure.Value() * area.Value()) {}
 
-inline constexpr ForceScalar Area::operator*(const StaticPressure& static_pressure) const {
+inline constexpr ScalarForce Area::operator*(const StaticPressure& static_pressure) const {
   return {static_pressure, *this};
 }
 
-inline constexpr StaticPressure ForceScalar::operator/(const Area& area) const {
+inline constexpr StaticPressure ScalarForce::operator/(const Area& area) const {
   return {*this, area};
 }
 

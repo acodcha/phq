@@ -20,13 +20,13 @@
 #include <ostream>
 
 #include "DimensionalSymmetricDyad.hpp"
+#include "ScalarThermalConductivity.hpp"
 #include "SymmetricDyad.hpp"
-#include "ThermalConductivityScalar.hpp"
 #include "Unit/ThermalConductivity.hpp"
 
 namespace PhQ {
 
-// Thermal conductivity symmetric dyadic tensor.
+// Thermal conductivity symmetric dyadic tensor. See also PhQ::ScalarThermalConductivity.
 class ThermalConductivity : public DimensionalSymmetricDyad<Unit::ThermalConductivity> {
 public:
   // Default constructor. Constructs a thermal conductivity tensor with an uninitialized value.
@@ -37,12 +37,12 @@ public:
   ThermalConductivity(const SymmetricDyad& value, const Unit::ThermalConductivity unit)
     : DimensionalSymmetricDyad<Unit::ThermalConductivity>(value, unit) {}
 
-  // Constructor. Constructs a thermal conductivity tensor from a given thermal conductivity scalar.
+  // Constructor. Constructs a thermal conductivity tensor from a given scalar thermal conductivity.
   explicit constexpr ThermalConductivity(
-      const ThermalConductivityScalar& thermal_conductivity_scalar)
+      const ScalarThermalConductivity& scalar_thermal_conductivity)
     : ThermalConductivity(
-        {thermal_conductivity_scalar.Value(), 0.0, 0.0, thermal_conductivity_scalar.Value(), 0.0,
-         thermal_conductivity_scalar.Value()}) {}
+        {scalar_thermal_conductivity.Value(), 0.0, 0.0, scalar_thermal_conductivity.Value(), 0.0,
+         scalar_thermal_conductivity.Value()}) {}
 
   // Destructor. Destroys this thermal conductivity tensor.
   ~ThermalConductivity() noexcept = default;
@@ -93,48 +93,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar xx() const noexcept {
-    return ThermalConductivityScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarThermalConductivity xx() const noexcept {
+    return ScalarThermalConductivity{value_.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar xy() const noexcept {
-    return ThermalConductivityScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarThermalConductivity xy() const noexcept {
+    return ScalarThermalConductivity{value_.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar xz() const noexcept {
-    return ThermalConductivityScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarThermalConductivity xz() const noexcept {
+    return ScalarThermalConductivity{value_.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar yx() const noexcept {
-    return ThermalConductivityScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarThermalConductivity yx() const noexcept {
+    return ScalarThermalConductivity{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar yy() const noexcept {
-    return ThermalConductivityScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarThermalConductivity yy() const noexcept {
+    return ScalarThermalConductivity{value_.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar yz() const noexcept {
-    return ThermalConductivityScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarThermalConductivity yz() const noexcept {
+    return ScalarThermalConductivity{value_.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar zx() const noexcept {
-    return ThermalConductivityScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarThermalConductivity zx() const noexcept {
+    return ScalarThermalConductivity{value_.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar zy() const noexcept {
-    return ThermalConductivityScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarThermalConductivity zy() const noexcept {
+    return ScalarThermalConductivity{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this thermal conductivity tensor.
-  [[nodiscard]] constexpr ThermalConductivityScalar zz() const noexcept {
-    return ThermalConductivityScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarThermalConductivity zz() const noexcept {
+    return ScalarThermalConductivity{value_.zz()};
   }
 
   constexpr ThermalConductivity operator+(const ThermalConductivity& thermal_conductivity) const {

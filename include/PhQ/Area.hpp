@@ -25,14 +25,15 @@
 namespace PhQ {
 
 // Forward declarations for class Area.
-class AreaVector;
 class Direction;
 class Force;
-class ForceScalar;
+class ScalarForce;
 class StaticPressure;
 class Traction;
+class VectorArea;
 
-// Scalar area. Can also represent a component or the magnitude of a vector area.
+// Scalar area. Can also represent a component or the magnitude of a vector area (see
+// PhQ::VectorArea).
 class Area : public DimensionalScalar<Unit::Area> {
 public:
   // Default constructor. Constructs an area with an uninitialized value.
@@ -50,7 +51,7 @@ public:
 
   // Constructor. Constructs an area from a given scalar force magnitude and static pressure using
   // the definition of pressure.
-  constexpr Area(const ForceScalar& force_scalar, const StaticPressure& static_pressure);
+  constexpr Area(const ScalarForce& scalar_force, const StaticPressure& static_pressure);
 
   // Destructor. Destroys this area.
   ~Area() noexcept = default;
@@ -92,9 +93,9 @@ public:
 
   constexpr Volume operator*(const Length& length) const;
 
-  constexpr ForceScalar operator*(const StaticPressure& static_pressure) const;
+  constexpr ScalarForce operator*(const StaticPressure& static_pressure) const;
 
-  constexpr AreaVector operator*(const Direction& direction) const;
+  constexpr VectorArea operator*(const Direction& direction) const;
 
   constexpr Area operator/(const double number) const {
     return Area{value_ / number};
@@ -128,7 +129,7 @@ private:
   // Constructor. Constructs an area with a given value expressed in the standard area unit.
   explicit constexpr Area(const double value) : DimensionalScalar<Unit::Area>(value) {}
 
-  friend class AreaVector;
+  friend class VectorArea;
 };
 
 inline constexpr bool operator==(const Area& left, const Area& right) noexcept {

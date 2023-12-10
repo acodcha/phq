@@ -28,58 +28,58 @@
 
 namespace PhQ {
 
-// Vector area. The vector analog to a scalar area.
-class AreaVector : public DimensionalVector<Unit::Area> {
+// Vector area. The vector analog to a scalar area. See also PhQ::Area.
+class VectorArea : public DimensionalVector<Unit::Area> {
 public:
   // Default constructor. Constructs a vector area with an uninitialized value.
-  AreaVector() = default;
+  VectorArea() = default;
 
   // Constructor. Constructs a vector area with a given value expressedin a given area unit.
-  AreaVector(const Vector& value, const Unit::Area unit)
+  VectorArea(const Vector& value, const Unit::Area unit)
     : DimensionalVector<Unit::Area>(value, unit) {}
 
   // Constructor. Constructs a vector area from a given area and direction.
-  constexpr AreaVector(const Area& area, const Direction& direction)
-    : AreaVector(area.Value() * direction.Value()) {}
+  constexpr VectorArea(const Area& area, const Direction& direction)
+    : VectorArea(area.Value() * direction.Value()) {}
 
   // Destructor. Destroys this vector area.
-  ~AreaVector() noexcept = default;
+  ~VectorArea() noexcept = default;
 
   // Copy constructor. Constructs a vector area by copying another one.
-  constexpr AreaVector(const AreaVector& other) = default;
+  constexpr VectorArea(const VectorArea& other) = default;
 
   // Move constructor. Constructs a vector area by moving another one.
-  constexpr AreaVector(AreaVector&& other) noexcept = default;
+  constexpr VectorArea(VectorArea&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this vector area by copying another one.
-  constexpr AreaVector& operator=(const AreaVector& other) = default;
+  constexpr VectorArea& operator=(const VectorArea& other) = default;
 
   // Move assignment operator. Assigns this vector area by moving another one.
-  constexpr AreaVector& operator=(AreaVector&& other) noexcept = default;
+  constexpr VectorArea& operator=(VectorArea&& other) noexcept = default;
 
   // Statically creates a vector area of zero.
-  static constexpr AreaVector Zero() {
-    return AreaVector{Vector::Zero()};
+  static constexpr VectorArea Zero() {
+    return VectorArea{Vector::Zero()};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
-  static constexpr AreaVector Create(const double x, const double y, const double z) {
-    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x, y, z})};
+  static constexpr VectorArea Create(const double x, const double y, const double z) {
+    return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x, y, z})};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
-  static constexpr AreaVector Create(const std::array<double, 3>& x_y_z) {
-    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x_y_z})};
+  static constexpr VectorArea Create(const std::array<double, 3>& x_y_z) {
+    return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x_y_z})};
   }
 
   // Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr AreaVector Create(const Vector& value) {
-    return AreaVector{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
+  static constexpr VectorArea Create(const Vector& value) {
+    return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
   // Returns the x Cartesian component of this vector area.
@@ -108,32 +108,32 @@ public:
   }
 
   // Returns the angle between this vector area and another one.
-  [[nodiscard]] PhQ::Angle Angle(const AreaVector& area_vector) const {
-    return {*this, area_vector};
+  [[nodiscard]] PhQ::Angle Angle(const VectorArea& vector_area) const {
+    return {*this, vector_area};
   }
 
-  constexpr AreaVector operator+(const AreaVector& area_vector) const {
-    return AreaVector{value_ + area_vector.value_};
+  constexpr VectorArea operator+(const VectorArea& vector_area) const {
+    return VectorArea{value_ + vector_area.value_};
   }
 
-  constexpr AreaVector operator-(const AreaVector& area_vector) const {
-    return AreaVector{value_ - area_vector.value_};
+  constexpr VectorArea operator-(const VectorArea& vector_area) const {
+    return VectorArea{value_ - vector_area.value_};
   }
 
-  constexpr AreaVector operator*(const double number) const {
-    return AreaVector{value_ * number};
+  constexpr VectorArea operator*(const double number) const {
+    return VectorArea{value_ * number};
   }
 
-  constexpr AreaVector operator/(const double number) const {
-    return AreaVector{value_ / number};
+  constexpr VectorArea operator/(const double number) const {
+    return VectorArea{value_ / number};
   }
 
-  constexpr void operator+=(const AreaVector& area_vector) noexcept {
-    value_ += area_vector.value_;
+  constexpr void operator+=(const VectorArea& vector_area) noexcept {
+    value_ += vector_area.value_;
   }
 
-  constexpr void operator-=(const AreaVector& area_vector) noexcept {
-    value_ -= area_vector.value_;
+  constexpr void operator-=(const VectorArea& vector_area) noexcept {
+    value_ -= vector_area.value_;
   }
 
   constexpr void operator*=(const double number) noexcept {
@@ -146,52 +146,52 @@ public:
 
 private:
   // Constructor. Constructs a vector area with a given value expressed in the standard area unit.
-  explicit constexpr AreaVector(const Vector& value) : DimensionalVector<Unit::Area>(value) {}
+  explicit constexpr VectorArea(const Vector& value) : DimensionalVector<Unit::Area>(value) {}
 };
 
-inline constexpr bool operator==(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator==(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator!=(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator<(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator>(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator<=(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const AreaVector& left, const AreaVector& right) noexcept {
+inline constexpr bool operator>=(const VectorArea& left, const VectorArea& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const AreaVector& area_vector) {
-  stream << area_vector.Print();
+inline std::ostream& operator<<(std::ostream& stream, const VectorArea& vector_area) {
+  stream << vector_area.Print();
   return stream;
 }
 
-inline constexpr AreaVector operator*(const double number, const AreaVector& area_vector) {
-  return area_vector * number;
+inline constexpr VectorArea operator*(const double number, const VectorArea& vector_area) {
+  return vector_area * number;
 }
 
-inline Direction::Direction(const AreaVector& area_vector) : Direction(area_vector.Value()) {}
+inline Direction::Direction(const VectorArea& vector_area) : Direction(vector_area.Value()) {}
 
-inline Angle::Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2)
-  : Angle(area_vector_1.Value(), area_vector_2.Value()) {}
+inline Angle::Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2)
+  : Angle(vector_area_1.Value(), vector_area_2.Value()) {}
 
-inline constexpr AreaVector Direction::operator*(const Area& area) const {
+inline constexpr VectorArea Direction::operator*(const Area& area) const {
   return {area, *this};
 }
 
-inline constexpr AreaVector Area::operator*(const Direction& direction) const {
+inline constexpr VectorArea Area::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 
@@ -200,9 +200,9 @@ inline constexpr AreaVector Area::operator*(const Direction& direction) const {
 namespace std {
 
 template <>
-struct hash<PhQ::AreaVector> {
-  inline size_t operator()(const PhQ::AreaVector& area_vector) const {
-    return hash<PhQ::Vector>()(area_vector.Value());
+struct hash<PhQ::VectorArea> {
+  inline size_t operator()(const PhQ::VectorArea& vector_area) const {
+    return hash<PhQ::Vector>()(vector_area.Value());
   }
 };
 

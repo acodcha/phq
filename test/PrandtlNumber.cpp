@@ -21,8 +21,8 @@
 #include "../include/PhQ/Dimensions.hpp"
 #include "../include/PhQ/DynamicViscosity.hpp"
 #include "../include/PhQ/KinematicViscosity.hpp"
+#include "../include/PhQ/ScalarThermalConductivity.hpp"
 #include "../include/PhQ/SpecificIsobaricHeatCapacity.hpp"
-#include "../include/PhQ/ThermalConductivityScalar.hpp"
 #include "../include/PhQ/ThermalDiffusivity.hpp"
 #include "../include/PhQ/Unit/Diffusivity.hpp"
 #include "../include/PhQ/Unit/DynamicViscosity.hpp"
@@ -134,7 +134,7 @@ TEST(PrandtlNumber, MiscellaneousConstructors) {
       PrandtlNumber(
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
-          ThermalConductivityScalar(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
+          ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
       PrandtlNumber(16.0));
 
   EXPECT_EQ(ThermalDiffusivity(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
@@ -142,22 +142,22 @@ TEST(PrandtlNumber, MiscellaneousConstructors) {
             ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
 
   EXPECT_EQ(
-      ThermalConductivityScalar(
+      ScalarThermalConductivity(
           SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond), PrandtlNumber(2.0)),
-      ThermalConductivityScalar(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
           PrandtlNumber(8.0),
-          ThermalConductivityScalar(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
       SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 
   EXPECT_EQ(
       DynamicViscosity(
           PrandtlNumber(8.0),
-          ThermalConductivityScalar(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
 
@@ -169,7 +169,7 @@ TEST(PrandtlNumber, MiscellaneousConstructors) {
 TEST(PrandtlNumber, MiscellaneousMethods) {
   EXPECT_EQ(
       PrandtlNumber(8.0).DynamicViscosity(
-          ThermalConductivityScalar(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
 
@@ -179,15 +179,15 @@ TEST(PrandtlNumber, MiscellaneousMethods) {
 
   EXPECT_EQ(
       PrandtlNumber(8.0).SpecificIsobaricHeatCapacity(
-          ThermalConductivityScalar(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
       SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 
   EXPECT_EQ(
-      PrandtlNumber(2.0).ThermalConductivityScalar(
+      PrandtlNumber(2.0).ScalarThermalConductivity(
           SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)),
-      ThermalConductivityScalar(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 
   EXPECT_EQ(PrandtlNumber(4.0).ThermalDiffusivity(
                 KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),

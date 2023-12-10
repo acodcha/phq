@@ -28,7 +28,6 @@ namespace PhQ {
 // Forward declarations for class Angle.
 class Acceleration;
 class AngularSpeed;
-class AreaVector;
 class Direction;
 class Displacement;
 class Time;
@@ -38,6 +37,7 @@ class HeatFlux;
 class Position;
 class TemperatureGradient;
 class Traction;
+class VectorArea;
 class Velocity;
 
 // Planar angle.
@@ -74,7 +74,7 @@ public:
   Angle(const Acceleration& acceleration1, const Acceleration& acceleration2);
 
   // Constructor. Constructs an angle by computing the angle between two given vector areas.
-  Angle(const AreaVector& area_vector_1, const AreaVector& area_vector_2);
+  Angle(const VectorArea& vector_area_1, const VectorArea& vector_area_2);
 
   // Constructor. Constructs an angle by computing the angle between two given displacements.
   Angle(const Displacement& displacement1, const Displacement& displacement2);

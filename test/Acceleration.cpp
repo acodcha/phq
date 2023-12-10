@@ -19,10 +19,10 @@
 #include <sstream>
 #include <utility>
 
-#include "../include/PhQ/AccelerationScalar.hpp"
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
 #include "../include/PhQ/Frequency.hpp"
+#include "../include/PhQ/ScalarAcceleration.hpp"
 #include "../include/PhQ/Time.hpp"
 #include "../include/PhQ/Unit/Acceleration.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
@@ -68,11 +68,11 @@ TEST(Acceleration, ArithmeticOperatorMultiplication) {
             Acceleration({2.0, -4.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
   EXPECT_EQ(
-      Direction(2.0, -3.0, 6.0) * AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond),
+      Direction(2.0, -3.0, 6.0) * ScalarAcceleration(7.0, Unit::Acceleration::MetrePerSquareSecond),
       Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
   EXPECT_EQ(
-      AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond) * Direction(2.0, -3.0, 6.0),
+      ScalarAcceleration(7.0, Unit::Acceleration::MetrePerSquareSecond) * Direction(2.0, -3.0, 6.0),
       Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond));
 
   EXPECT_EQ(Acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond)
@@ -193,7 +193,7 @@ TEST(Acceleration, JSON) {
 
 TEST(Acceleration, Magnitude) {
   EXPECT_EQ(Acceleration({2.0, -3.0, 6.0}, Unit::Acceleration::MetrePerSquareSecond).Magnitude(),
-            AccelerationScalar(7.0, Unit::Acceleration::MetrePerSquareSecond));
+            ScalarAcceleration(7.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, MiscellaneousConstructors) {
@@ -294,11 +294,11 @@ TEST(Acceleration, XML) {
 
 TEST(Acceleration, XYZ) {
   EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).x(),
-            AccelerationScalar(1.11, Unit::Acceleration::MetrePerSquareSecond));
+            ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond));
   EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).y(),
-            AccelerationScalar(-2.22, Unit::Acceleration::MetrePerSquareSecond));
+            ScalarAcceleration(-2.22, Unit::Acceleration::MetrePerSquareSecond));
   EXPECT_EQ(Acceleration({1.11, -2.22, 3.33}, Unit::Acceleration::MetrePerSquareSecond).z(),
-            AccelerationScalar(3.33, Unit::Acceleration::MetrePerSquareSecond));
+            ScalarAcceleration(3.33, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(Acceleration, YAML) {

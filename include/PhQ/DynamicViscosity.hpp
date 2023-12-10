@@ -27,7 +27,7 @@ namespace PhQ {
 
 // Forward declarations for class DynamicViscosity.
 class ReynoldsNumber;
-class ThermalConductivityScalar;
+class ScalarThermalConductivity;
 class SpecificIsobaricHeatCapacity;
 
 // Dynamic viscosity, also known as molecular dynamic viscosity. Dynamic viscosity is the
@@ -54,10 +54,10 @@ public:
   constexpr DynamicViscosity(const MassDensity& mass_density, const Speed& speed,
                              const Length& length, const ReynoldsNumber& reynolds_number);
 
-  // Constructor. Constructs a dynamic viscosity from a given Prandtl number, thermal conductivity,
-  // and specific isobaric heat capacity using the definition of the Prandtl number.
+  // Constructor. Constructs a dynamic viscosity from a given Prandtl number, scalar thermal
+  // conductivity, and specific isobaric heat capacity using the definition of the Prandtl number.
   constexpr DynamicViscosity(const PrandtlNumber& prandtl_number,
-                             const ThermalConductivityScalar& thermal_conductivity_scalar,
+                             const ScalarThermalConductivity& scalar_thermal_conductivity,
                              const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 
   // Destructor. Destroys this dynamic viscosity.
