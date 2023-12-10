@@ -19,7 +19,7 @@
 #include <utility>
 
 #include "../include/PhQ/Area.hpp"
-#include "../include/PhQ/ForceScalar.hpp"
+#include "../include/PhQ/ScalarForce.hpp"
 #include "../include/PhQ/Unit/Area.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
@@ -42,7 +42,7 @@ TEST(StaticPressure, ArithmeticOperatorDivision) {
       StaticPressure(8.0, Unit::Pressure::Pascal) / StaticPressure(2.0, Unit::Pressure::Pascal),
       4.0);
 
-  EXPECT_EQ(ForceScalar(8.0, Unit::Force::Newton) / Area(4.0, Unit::Area::SquareMetre),
+  EXPECT_EQ(ScalarForce(8.0, Unit::Force::Newton) / Area(4.0, Unit::Area::SquareMetre),
             StaticPressure(2.0, Unit::Pressure::Pascal));
 }
 
@@ -54,10 +54,10 @@ TEST(StaticPressure, ArithmeticOperatorMultiplication) {
             StaticPressure(8.0, Unit::Pressure::Pascal));
 
   EXPECT_EQ(StaticPressure(4.0, Unit::Pressure::Pascal) * Area(2.0, Unit::Area::SquareMetre),
-            ForceScalar(8.0, Unit::Force::Newton));
+            ScalarForce(8.0, Unit::Force::Newton));
 
   EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * StaticPressure(2.0, Unit::Pressure::Pascal),
-            ForceScalar(8.0, Unit::Force::Newton));
+            ScalarForce(8.0, Unit::Force::Newton));
 }
 
 TEST(StaticPressure, ArithmeticOperatorSubtraction) {
@@ -148,16 +148,16 @@ TEST(StaticPressure, JSON) {
 
 TEST(StaticPressure, MiscellaneousConstructors) {
   EXPECT_EQ(
-      StaticPressure(ForceScalar(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
+      StaticPressure(ScalarForce(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
       StaticPressure(2.0, Unit::Pressure::Pascal));
 
   EXPECT_EQ(
-      Area(ForceScalar(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
+      Area(ScalarForce(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
       Area(2.0, Unit::Area::SquareMetre));
 
   EXPECT_EQ(
-      ForceScalar(StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
-      ForceScalar(8.0, Unit::Force::Newton));
+      ScalarForce(StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
+      ScalarForce(8.0, Unit::Force::Newton));
 }
 
 TEST(StaticPressure, MoveAssignmentOperator) {

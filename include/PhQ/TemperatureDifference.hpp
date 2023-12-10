@@ -26,9 +26,9 @@ namespace PhQ {
 // Forward declarations for class TemperatureDifference.
 class Length;
 class LinearThermalExpansionCoefficient;
-class StrainScalar;
+class ScalarStrain;
+class ScalarTemperatureGradient;
 class Temperature;
-class TemperatureGradientScalar;
 class VolumetricThermalExpansionCoefficient;
 
 // Temperature difference. Not to be confused with temperature. For example, a temperature
@@ -46,7 +46,7 @@ public:
   // Constructor. Constructs a temperature difference from a given scalar temperature gradient and
   // length using the definition of temperature gradient.
   constexpr TemperatureDifference(
-      const TemperatureGradientScalar& temperature_gradient_scalar, const Length& length);
+      const ScalarTemperatureGradient& scalar_temperature_gradient, const Length& length);
 
   // Destructor. Destroys this temperature difference.
   ~TemperatureDifference() noexcept = default;
@@ -95,7 +95,7 @@ public:
     return TemperatureDifference{value_ * number};
   }
 
-  constexpr StrainScalar operator*(
+  constexpr ScalarStrain operator*(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const;
 
   constexpr double operator*(
@@ -105,7 +105,7 @@ public:
     return TemperatureDifference{value_ / number};
   }
 
-  constexpr TemperatureGradientScalar operator/(const Length& length) const;
+  constexpr ScalarTemperatureGradient operator/(const Length& length) const;
 
   constexpr double operator/(const TemperatureDifference& temperature_difference) const noexcept {
     return value_ / temperature_difference.value_;

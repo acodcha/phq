@@ -20,7 +20,7 @@
 #include <ostream>
 
 #include "DimensionlessSymmetricDyad.hpp"
-#include "StrainScalar.hpp"
+#include "ScalarStrain.hpp"
 #include "SymmetricDyad.hpp"
 
 namespace PhQ {
@@ -31,7 +31,7 @@ class Time;
 class Frequency;
 class StrainRate;
 
-// Strain symmetric dyadic tensor.
+// Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
 class Strain : public DimensionlessSymmetricDyad {
 public:
   // Default constructor. Constructs a strain tensor with an uninitialized value.
@@ -84,48 +84,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar xx() const noexcept {
-    return StrainScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarStrain xx() const noexcept {
+    return ScalarStrain{value_.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar xy() const noexcept {
-    return StrainScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarStrain xy() const noexcept {
+    return ScalarStrain{value_.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar xz() const noexcept {
-    return StrainScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarStrain xz() const noexcept {
+    return ScalarStrain{value_.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar yx() const noexcept {
-    return StrainScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarStrain yx() const noexcept {
+    return ScalarStrain{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar yy() const noexcept {
-    return StrainScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarStrain yy() const noexcept {
+    return ScalarStrain{value_.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar yz() const noexcept {
-    return StrainScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarStrain yz() const noexcept {
+    return ScalarStrain{value_.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar zx() const noexcept {
-    return StrainScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarStrain zx() const noexcept {
+    return ScalarStrain{value_.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar zy() const noexcept {
-    return StrainScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarStrain zy() const noexcept {
+    return ScalarStrain{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this strain tensor.
-  [[nodiscard]] constexpr StrainScalar zz() const noexcept {
-    return StrainScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarStrain zz() const noexcept {
+    return ScalarStrain{value_.zz()};
   }
 
   constexpr Strain operator+(const Strain& strain) const {

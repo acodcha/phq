@@ -24,81 +24,81 @@
 
 namespace PhQ {
 
-// Forward declarations for class ForceScalar.
+// Forward declarations for class ScalarForce.
 class Direction;
 class Force;
 class StaticPressure;
 
-// Scalar force component or magnitude of a force vector.
-class ForceScalar : public DimensionalScalar<Unit::Force> {
+// Scalar force component or magnitude of a force vector. See also PhQ::Force.
+class ScalarForce : public DimensionalScalar<Unit::Force> {
 public:
   // Default constructor. Constructs a scalar force with an uninitialized value.
-  ForceScalar() = default;
+  ScalarForce() = default;
 
   // Constructor. Constructs a scalar force with a given value expressed in a given force unit.
-  ForceScalar(const double value, const Unit::Force unit)
+  ScalarForce(const double value, const Unit::Force unit)
     : DimensionalScalar<Unit::Force>(value, unit) {}
 
   // Constructor. Constructs a scalar force from a given static pressure and area using the
   // definition of pressure.
-  constexpr ForceScalar(const StaticPressure& static_pressure, const Area& area);
+  constexpr ScalarForce(const StaticPressure& static_pressure, const Area& area);
 
   // Destructor. Destroys this scalar force.
-  ~ForceScalar() noexcept = default;
+  ~ScalarForce() noexcept = default;
 
   // Copy constructor. Constructs a scalar force by copying another one.
-  constexpr ForceScalar(const ForceScalar& other) = default;
+  constexpr ScalarForce(const ScalarForce& other) = default;
 
   // Move constructor. Constructs a scalar force by moving another one.
-  constexpr ForceScalar(ForceScalar&& other) noexcept = default;
+  constexpr ScalarForce(ScalarForce&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar force by copying another one.
-  constexpr ForceScalar& operator=(const ForceScalar& other) = default;
+  constexpr ScalarForce& operator=(const ScalarForce& other) = default;
 
   // Move assignment operator. Assigns this scalar force by moving another one.
-  constexpr ForceScalar& operator=(ForceScalar&& other) noexcept = default;
+  constexpr ScalarForce& operator=(ScalarForce&& other) noexcept = default;
 
   // Statically creates a scalar force of zero.
-  static constexpr ForceScalar Zero() {
-    return ForceScalar{0.0};
+  static constexpr ScalarForce Zero() {
+    return ScalarForce{0.0};
   }
 
   // Statically creates a scalar force with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr ForceScalar Create(const double value) {
-    return ForceScalar{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
+  static constexpr ScalarForce Create(const double value) {
+    return ScalarForce{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
-  constexpr ForceScalar operator+(const ForceScalar& force_scalar) const {
-    return ForceScalar{value_ + force_scalar.value_};
+  constexpr ScalarForce operator+(const ScalarForce& scalar_force) const {
+    return ScalarForce{value_ + scalar_force.value_};
   }
 
-  constexpr ForceScalar operator-(const ForceScalar& force_scalar) const {
-    return ForceScalar{value_ - force_scalar.value_};
+  constexpr ScalarForce operator-(const ScalarForce& scalar_force) const {
+    return ScalarForce{value_ - scalar_force.value_};
   }
 
-  constexpr ForceScalar operator*(const double number) const {
-    return ForceScalar{value_ * number};
+  constexpr ScalarForce operator*(const double number) const {
+    return ScalarForce{value_ * number};
   }
 
   constexpr Force operator*(const Direction& direction) const;
 
-  constexpr ForceScalar operator/(const double number) const {
-    return ForceScalar{value_ / number};
+  constexpr ScalarForce operator/(const double number) const {
+    return ScalarForce{value_ / number};
   }
 
   constexpr StaticPressure operator/(const Area& area) const;
 
-  constexpr double operator/(const ForceScalar& force_scalar) const noexcept {
-    return value_ / force_scalar.value_;
+  constexpr double operator/(const ScalarForce& scalar_force) const noexcept {
+    return value_ / scalar_force.value_;
   }
 
-  constexpr void operator+=(const ForceScalar& force_scalar) noexcept {
-    value_ += force_scalar.value_;
+  constexpr void operator+=(const ScalarForce& scalar_force) noexcept {
+    value_ += scalar_force.value_;
   }
 
-  constexpr void operator-=(const ForceScalar& force_scalar) noexcept {
-    value_ -= force_scalar.value_;
+  constexpr void operator-=(const ScalarForce& scalar_force) noexcept {
+    value_ -= scalar_force.value_;
   }
 
   constexpr void operator*=(const double number) noexcept {
@@ -112,42 +112,42 @@ public:
 private:
   // Constructor. Constructs a scalar force with a given value expressed in the standard force
   // unit.
-  explicit constexpr ForceScalar(const double value) : DimensionalScalar<Unit::Force>(value) {}
+  explicit constexpr ScalarForce(const double value) : DimensionalScalar<Unit::Force>(value) {}
 
   friend class Force;
 };
 
-inline constexpr bool operator==(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator==(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator!=(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator<(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator>(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator<=(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ForceScalar& left, const ForceScalar& right) noexcept {
+inline constexpr bool operator>=(const ScalarForce& left, const ScalarForce& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const ForceScalar& force_scalar) {
-  stream << force_scalar.Print();
+inline std::ostream& operator<<(std::ostream& stream, const ScalarForce& scalar_force) {
+  stream << scalar_force.Print();
   return stream;
 }
 
-inline constexpr ForceScalar operator*(const double number, const ForceScalar& force_scalar) {
-  return force_scalar * number;
+inline constexpr ScalarForce operator*(const double number, const ScalarForce& scalar_force) {
+  return scalar_force * number;
 }
 
 }  // namespace PhQ
@@ -155,9 +155,9 @@ inline constexpr ForceScalar operator*(const double number, const ForceScalar& f
 namespace std {
 
 template <>
-struct hash<PhQ::ForceScalar> {
-  inline size_t operator()(const PhQ::ForceScalar& force_scalar) const {
-    return hash<double>()(force_scalar.Value());
+struct hash<PhQ::ScalarForce> {
+  inline size_t operator()(const PhQ::ScalarForce& scalar_force) const {
+    return hash<double>()(scalar_force.Value());
   }
 };
 

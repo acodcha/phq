@@ -30,7 +30,7 @@ namespace PhQ {
 class DynamicViscosity;
 class MassDensity;
 class PrandtlNumber;
-class ThermalConductivityScalar;
+class ScalarThermalConductivity;
 class ThermalDiffusivity;
 
 // Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
@@ -69,18 +69,18 @@ public:
       const IsobaricHeatCapacity& isobaric_heat_capacity, const Mass& mass)
     : SpecificIsobaricHeatCapacity(isobaric_heat_capacity.Value() / mass.Value()) {}
 
-  // Constructor. Constructs a specific isobaric heat capacity from a given thermal conductivity
-  // scalar, mass density, and thermal diffusivity using the definition of the specific isobaric
-  // heat capacity and Fourier's law of heat conduction.
+  // Constructor. Constructs a specific isobaric heat capacity from a given scalar thermal
+  // conductivity mass density, and thermal diffusivity using the definition of the specific
+  // isobaric heat capacity and Fourier's law of heat conduction.
   constexpr SpecificIsobaricHeatCapacity(
-      const ThermalConductivityScalar& thermal_conductivity_scalar, const MassDensity& mass_density,
+      const ScalarThermalConductivity& scalar_thermal_conductivity, const MassDensity& mass_density,
       const ThermalDiffusivity& thermal_diffusivity);
 
-  // Constructor. Constructs a specific isobaric heat capacity from a given Prandtl number, thermal
-  // conductivity scalar, and dynamic viscosity using the definition of the Prandtl number.
+  // Constructor. Constructs a specific isobaric heat capacity from a given Prandtl number, scalar
+  // thermal conductivity, and dynamic viscosity using the definition of the Prandtl number.
   constexpr SpecificIsobaricHeatCapacity(
       const PrandtlNumber& prandtl_number,
-      const ThermalConductivityScalar& thermal_conductivity_scalar,
+      const ScalarThermalConductivity& scalar_thermal_conductivity,
       const DynamicViscosity& dynamic_viscosity);
 
   // Destructor. Destroys this specific isobaric heat capacity.

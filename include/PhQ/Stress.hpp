@@ -22,15 +22,15 @@
 
 #include "DimensionalSymmetricDyad.hpp"
 #include "Direction.hpp"
+#include "ScalarStress.hpp"
 #include "StaticPressure.hpp"
-#include "StressScalar.hpp"
 #include "SymmetricDyad.hpp"
 #include "Traction.hpp"
 #include "Unit/Pressure.hpp"
 
 namespace PhQ {
 
-// Cauchy stress symmetric dyadic tensor.
+// Cauchy stress symmetric dyadic tensor. See also PhQ::ScalarStress.
 class Stress : public DimensionalSymmetricDyad<Unit::Pressure> {
 public:
   // Default constructor. Constructs a stress tensor with an uninitialized value.
@@ -91,48 +91,48 @@ public:
   }
 
   // Returns the xx Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar xx() const noexcept {
-    return StressScalar{value_.xx()};
+  [[nodiscard]] constexpr ScalarStress xx() const noexcept {
+    return ScalarStress{value_.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar xy() const noexcept {
-    return StressScalar{value_.xy()};
+  [[nodiscard]] constexpr ScalarStress xy() const noexcept {
+    return ScalarStress{value_.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar xz() const noexcept {
-    return StressScalar{value_.xz()};
+  [[nodiscard]] constexpr ScalarStress xz() const noexcept {
+    return ScalarStress{value_.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar yx() const noexcept {
-    return StressScalar{value_.yx()};
+  [[nodiscard]] constexpr ScalarStress yx() const noexcept {
+    return ScalarStress{value_.yx()};
   }
 
   // Returns the yy Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar yy() const noexcept {
-    return StressScalar{value_.yy()};
+  [[nodiscard]] constexpr ScalarStress yy() const noexcept {
+    return ScalarStress{value_.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar yz() const noexcept {
-    return StressScalar{value_.yz()};
+  [[nodiscard]] constexpr ScalarStress yz() const noexcept {
+    return ScalarStress{value_.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar zx() const noexcept {
-    return StressScalar{value_.zx()};
+  [[nodiscard]] constexpr ScalarStress zx() const noexcept {
+    return ScalarStress{value_.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar zy() const noexcept {
-    return StressScalar{value_.zy()};
+  [[nodiscard]] constexpr ScalarStress zy() const noexcept {
+    return ScalarStress{value_.zy()};
   }
 
   // Returns the zz Cartesian component of this stress tensor.
-  [[nodiscard]] constexpr StressScalar zz() const noexcept {
-    return StressScalar{value_.zz()};
+  [[nodiscard]] constexpr ScalarStress zz() const noexcept {
+    return ScalarStress{value_.zz()};
   }
 
   // Creates a traction from this stress tensor using the definition of traction.
@@ -141,8 +141,8 @@ public:
   }
 
   // Computes the von Mises stress of this stress tensor using the von Mises yield criterion.
-  [[nodiscard]] constexpr StressScalar VonMises() const {
-    return StressScalar{std::sqrt(
+  [[nodiscard]] constexpr ScalarStress VonMises() const {
+    return ScalarStress{std::sqrt(
         0.5
         * (std::pow(value_.xx() - value_.yy(), 2) + std::pow(value_.yy() - value_.zz(), 2)
            + std::pow(value_.zz() - value_.xx(), 2)

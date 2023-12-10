@@ -20,8 +20,8 @@
 #include <sstream>
 #include <utility>
 
+#include "../include/PhQ/ScalarStress.hpp"
 #include "../include/PhQ/StaticPressure.hpp"
-#include "../include/PhQ/StressScalar.hpp"
 #include "../include/PhQ/SymmetricDyad.hpp"
 #include "../include/PhQ/Unit/Pressure.hpp"
 
@@ -167,7 +167,7 @@ TEST(Stress, MiscellaneousMethods) {
 
   EXPECT_EQ(
       Stress({8.0, 1.0, 2.0, 16.0, 4.0, 32.0}, Unit::Pressure::Pascal).VonMises(),
-      StressScalar(
+      ScalarStress(
           std::sqrt(0.5
                     * (std::pow(8.0 - 16.0, 2) + std::pow(16.0 - 32.0, 2) + std::pow(32.0 - 8.0, 2)
                        + 6.0 * (std::pow(1.0, 2) + std::pow(2.0, 2) + std::pow(4.0, 2)))),
@@ -254,23 +254,23 @@ TEST(Stress, XML) {
 
 TEST(Stress, XYZ) {
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xx(),
-            StressScalar(1.11, Unit::Pressure::Pascal));
+            ScalarStress(1.11, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xy(),
-            StressScalar(-2.22, Unit::Pressure::Pascal));
+            ScalarStress(-2.22, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).xz(),
-            StressScalar(3.33, Unit::Pressure::Pascal));
+            ScalarStress(3.33, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yx(),
-            StressScalar(-2.22, Unit::Pressure::Pascal));
+            ScalarStress(-2.22, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yy(),
-            StressScalar(-4.44, Unit::Pressure::Pascal));
+            ScalarStress(-4.44, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).yz(),
-            StressScalar(5.55, Unit::Pressure::Pascal));
+            ScalarStress(5.55, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zx(),
-            StressScalar(3.33, Unit::Pressure::Pascal));
+            ScalarStress(3.33, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zy(),
-            StressScalar(5.55, Unit::Pressure::Pascal));
+            ScalarStress(5.55, Unit::Pressure::Pascal));
   EXPECT_EQ(Stress({1.11, -2.22, 3.33, -4.44, 5.55, -6.66}, Unit::Pressure::Pascal).zz(),
-            StressScalar(-6.66, Unit::Pressure::Pascal));
+            ScalarStress(-6.66, Unit::Pressure::Pascal));
 }
 
 TEST(Stress, YAML) {

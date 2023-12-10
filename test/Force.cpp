@@ -21,7 +21,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
-#include "../include/PhQ/ForceScalar.hpp"
+#include "../include/PhQ/ScalarForce.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/Force.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -54,10 +54,10 @@ TEST(Force, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(2.0 * Force({1.0, -2.0, 3.0}, Unit::Force::Newton),
             Force({2.0, -4.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ForceScalar(7.0, Unit::Force::Newton),
+  EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ScalarForce(7.0, Unit::Force::Newton),
             Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 
-  EXPECT_EQ(ForceScalar(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
+  EXPECT_EQ(ScalarForce(7.0, Unit::Force::Newton) * Direction(2.0, -3.0, 6.0),
             Force({2.0, -3.0, 6.0}, Unit::Force::Newton));
 }
 
@@ -161,7 +161,7 @@ TEST(Force, JSON) {
 
 TEST(Force, Magnitude) {
   EXPECT_EQ(Force({2.0, -3.0, 6.0}, Unit::Force::Newton).Magnitude(),
-            ForceScalar(7.0, Unit::Force::Newton));
+            ScalarForce(7.0, Unit::Force::Newton));
 }
 
 TEST(Force, MiscellaneousConstructors) {
@@ -246,11 +246,11 @@ TEST(Force, XML) {
 
 TEST(Force, XYZ) {
   EXPECT_EQ(
-      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).x(), ForceScalar(1.11, Unit::Force::Newton));
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).x(), ScalarForce(1.11, Unit::Force::Newton));
   EXPECT_EQ(
-      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).y(), ForceScalar(-2.22, Unit::Force::Newton));
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).y(), ScalarForce(-2.22, Unit::Force::Newton));
   EXPECT_EQ(
-      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).z(), ForceScalar(3.33, Unit::Force::Newton));
+      Force({1.11, -2.22, 3.33}, Unit::Force::Newton).z(), ScalarForce(3.33, Unit::Force::Newton));
 }
 
 TEST(Force, YAML) {

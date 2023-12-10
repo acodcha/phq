@@ -20,93 +20,94 @@
 
 #include "DimensionalScalar.hpp"
 #include "Frequency.hpp"
-#include "StrainScalar.hpp"
+#include "ScalarStrain.hpp"
 #include "Time.hpp"
 #include "Unit/Frequency.hpp"
 
 namespace PhQ {
 
 // Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar strain.
-class StrainRateScalar : public DimensionalScalar<Unit::Frequency> {
+// See also PhQ::StrainRate and PhQ::ScalarStrain.
+class ScalarStrainRate : public DimensionalScalar<Unit::Frequency> {
 public:
   // Default constructor. Constructs a scalar strain rate with an uninitialized value.
-  StrainRateScalar() = default;
+  ScalarStrainRate() = default;
 
   // Constructor. Constructs a scalar strain rate with a given value expressed in a given frequency
   // unit.
-  StrainRateScalar(const double value, const Unit::Frequency unit)
+  ScalarStrainRate(const double value, const Unit::Frequency unit)
     : DimensionalScalar<Unit::Frequency>(value, unit) {}
 
   // Constructor. Constructs a scalar strain rate from a given scalar strain and time using the
   // definition of strain rate.
-  constexpr StrainRateScalar(const StrainScalar& strain_scalar, const Time& time)
-    : StrainRateScalar(strain_scalar.Value() / time.Value()) {}
+  constexpr ScalarStrainRate(const ScalarStrain& scalar_strain, const Time& time)
+    : ScalarStrainRate(scalar_strain.Value() / time.Value()) {}
 
   // Constructor. Constructs a scalar strain rate from a given scalar strain and frequency using the
   // definition of strain rate.
-  constexpr StrainRateScalar(const StrainScalar& strain_scalar, const Frequency& frequency)
-    : StrainRateScalar(strain_scalar.Value() * frequency.Value()) {}
+  constexpr ScalarStrainRate(const ScalarStrain& scalar_strain, const Frequency& frequency)
+    : ScalarStrainRate(scalar_strain.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this scalar strain rate.
-  ~StrainRateScalar() noexcept = default;
+  ~ScalarStrainRate() noexcept = default;
 
   // Copy constructor. Constructs a scalar strain rate by copying another one.
-  constexpr StrainRateScalar(const StrainRateScalar& other) = default;
+  constexpr ScalarStrainRate(const ScalarStrainRate& other) = default;
 
   // Move constructor. Constructs a scalar strain rate by moving another one.
-  constexpr StrainRateScalar(StrainRateScalar&& other) noexcept = default;
+  constexpr ScalarStrainRate(ScalarStrainRate&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar strain rate by copying another one.
-  constexpr StrainRateScalar& operator=(const StrainRateScalar& other) = default;
+  constexpr ScalarStrainRate& operator=(const ScalarStrainRate& other) = default;
 
   // Move assignment operator. Assigns this scalar strain rate by moving another one.
-  constexpr StrainRateScalar& operator=(StrainRateScalar&& other) noexcept = default;
+  constexpr ScalarStrainRate& operator=(ScalarStrainRate&& other) noexcept = default;
 
   // Statically creates a scalar strain rate of zero.
-  static constexpr StrainRateScalar Zero() {
-    return StrainRateScalar{0.0};
+  static constexpr ScalarStrainRate Zero() {
+    return ScalarStrainRate{0.0};
   }
 
   // Statically creates a scalar strain rate with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr StrainRateScalar Create(const double value) {
-    return StrainRateScalar{
+  static constexpr ScalarStrainRate Create(const double value) {
+    return ScalarStrainRate{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
-  constexpr StrainRateScalar operator+(const StrainRateScalar& other) const {
-    return StrainRateScalar{value_ + other.value_};
+  constexpr ScalarStrainRate operator+(const ScalarStrainRate& other) const {
+    return ScalarStrainRate{value_ + other.value_};
   }
 
-  constexpr StrainRateScalar operator-(const StrainRateScalar& other) const {
-    return StrainRateScalar{value_ - other.value_};
+  constexpr ScalarStrainRate operator-(const ScalarStrainRate& other) const {
+    return ScalarStrainRate{value_ - other.value_};
   }
 
-  constexpr StrainRateScalar operator*(const double number) const {
-    return StrainRateScalar{value_ * number};
+  constexpr ScalarStrainRate operator*(const double number) const {
+    return ScalarStrainRate{value_ * number};
   }
 
-  constexpr StrainRateScalar operator/(const double number) const {
-    return StrainRateScalar{value_ / number};
+  constexpr ScalarStrainRate operator/(const double number) const {
+    return ScalarStrainRate{value_ / number};
   }
 
-  constexpr StrainScalar operator*(const Time& time) const {
+  constexpr ScalarStrain operator*(const Time& time) const {
     return {*this, time};
   }
 
-  constexpr double operator/(const StrainRateScalar& other) const noexcept {
+  constexpr double operator/(const ScalarStrainRate& other) const noexcept {
     return value_ / other.value_;
   }
 
-  constexpr StrainScalar operator/(const Frequency& frequency) const {
+  constexpr ScalarStrain operator/(const Frequency& frequency) const {
     return {*this, frequency};
   }
 
-  constexpr void operator+=(const StrainRateScalar& other) noexcept {
+  constexpr void operator+=(const ScalarStrainRate& other) noexcept {
     value_ += other.value_;
   }
 
-  constexpr void operator-=(const StrainRateScalar& other) noexcept {
+  constexpr void operator-=(const ScalarStrainRate& other) noexcept {
     value_ -= other.value_;
   }
 
@@ -121,74 +122,74 @@ public:
 private:
   // Constructor. Constructs a scalar strain rate with a given value expressed in the standard
   // frequency unit.
-  explicit constexpr StrainRateScalar(const double value)
+  explicit constexpr ScalarStrainRate(const double value)
     : DimensionalScalar<Unit::Frequency>(value) {}
 
   friend class StrainRate;
 };
 
 inline constexpr bool operator==(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() == right.Value();
 }
 
 inline constexpr bool operator!=(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() != right.Value();
 }
 
 inline constexpr bool operator<(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() < right.Value();
 }
 
 inline constexpr bool operator>(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() > right.Value();
 }
 
 inline constexpr bool operator<=(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() <= right.Value();
 }
 
 inline constexpr bool operator>=(
-    const StrainRateScalar& left, const StrainRateScalar& right) noexcept {
+    const ScalarStrainRate& left, const ScalarStrainRate& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const StrainRateScalar& strain_rate_scalar) {
-  stream << strain_rate_scalar.Print();
+inline std::ostream& operator<<(std::ostream& stream, const ScalarStrainRate& scalar_strain_rate) {
+  stream << scalar_strain_rate.Print();
   return stream;
 }
 
-inline constexpr StrainRateScalar operator*(
-    const double number, const StrainRateScalar& strain_rate_scalar) {
-  return strain_rate_scalar * number;
+inline constexpr ScalarStrainRate operator*(
+    const double number, const ScalarStrainRate& scalar_strain_rate) {
+  return scalar_strain_rate * number;
 }
 
-inline constexpr StrainScalar::StrainScalar(
-    const StrainRateScalar& strain_rate_scalar, const Time& time)
-  : StrainScalar(strain_rate_scalar.Value() * time.Value()) {}
+inline constexpr ScalarStrain::ScalarStrain(
+    const ScalarStrainRate& scalar_strain_rate, const Time& time)
+  : ScalarStrain(scalar_strain_rate.Value() * time.Value()) {}
 
-inline constexpr StrainScalar::StrainScalar(
-    const StrainRateScalar& strain_rate_scalar, const Frequency& frequency)
-  : StrainScalar(strain_rate_scalar.Value() / frequency.Value()) {}
+inline constexpr ScalarStrain::ScalarStrain(
+    const ScalarStrainRate& scalar_strain_rate, const Frequency& frequency)
+  : ScalarStrain(scalar_strain_rate.Value() / frequency.Value()) {}
 
-inline constexpr StrainRateScalar StrainScalar::operator*(const Frequency& frequency) const {
+inline constexpr ScalarStrainRate ScalarStrain::operator*(const Frequency& frequency) const {
   return {*this, frequency};
 }
 
-inline constexpr StrainRateScalar StrainScalar::operator/(const Time& time) const {
+inline constexpr ScalarStrainRate ScalarStrain::operator/(const Time& time) const {
   return {*this, time};
 }
 
-inline constexpr StrainScalar Time::operator*(const StrainRateScalar& strain_rate_scalar) const {
-  return {strain_rate_scalar, *this};
+inline constexpr ScalarStrain Time::operator*(const ScalarStrainRate& scalar_strain_rate) const {
+  return {scalar_strain_rate, *this};
 }
 
-inline constexpr StrainRateScalar Frequency::operator*(const StrainScalar& strain_scalar) const {
-  return {strain_scalar, *this};
+inline constexpr ScalarStrainRate Frequency::operator*(const ScalarStrain& scalar_strain) const {
+  return {scalar_strain, *this};
 }
 
 }  // namespace PhQ
@@ -196,9 +197,9 @@ inline constexpr StrainRateScalar Frequency::operator*(const StrainScalar& strai
 namespace std {
 
 template <>
-struct hash<PhQ::StrainRateScalar> {
-  inline size_t operator()(const PhQ::StrainRateScalar& strain_rate_scalar) const {
-    return hash<double>()(strain_rate_scalar.Value());
+struct hash<PhQ::ScalarStrainRate> {
+  inline size_t operator()(const PhQ::ScalarStrainRate& scalar_strain_rate) const {
+    return hash<double>()(scalar_strain_rate.Value());
   }
 };
 

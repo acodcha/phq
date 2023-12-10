@@ -31,10 +31,10 @@ class DynamicViscosity;
 class IsentropicBulkModulus;
 class KinematicViscosity;
 class ReynoldsNumber;
+class ScalarThermalConductivity;
 class SoundSpeed;
 class SpecificIsobaricHeatCapacity;
 class Speed;
-class ThermalConductivityScalar;
 class ThermalDiffusivity;
 
 // Mass density.
@@ -58,9 +58,9 @@ public:
   constexpr MassDensity(
       const DynamicViscosity& dynamic_viscosity, const KinematicViscosity& kinematic_viscosity);
 
-  // Constructor. Constructs a mass density from a given thermal conductivity, thermal diffusivity,
-  // and specific isobaric heat capacity using the definition of thermal diffusivity.
-  constexpr MassDensity(const ThermalConductivityScalar& thermal_conductivity_scalar,
+  // Constructor. Constructs a mass density from a given scalar thermal conductivity, thermal
+  // diffusivity, and specific isobaric heat capacity using the definition of thermal diffusivity.
+  constexpr MassDensity(const ScalarThermalConductivity& scalar_thermal_conductivity,
                         const ThermalDiffusivity& thermal_diffusivity,
                         const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
 

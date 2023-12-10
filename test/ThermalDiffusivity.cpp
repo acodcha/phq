@@ -19,8 +19,8 @@
 #include <utility>
 
 #include "../include/PhQ/MassDensity.hpp"
+#include "../include/PhQ/ScalarThermalConductivity.hpp"
 #include "../include/PhQ/SpecificIsobaricHeatCapacity.hpp"
-#include "../include/PhQ/ThermalConductivityScalar.hpp"
 #include "../include/PhQ/Unit/Diffusivity.hpp"
 #include "../include/PhQ/Unit/MassDensity.hpp"
 #include "../include/PhQ/Unit/SpecificHeatCapacity.hpp"
@@ -144,28 +144,28 @@ TEST(ThermalDiffusivity, JSON) {
 TEST(ThermalDiffusivity, MiscellaneousConstructors) {
   EXPECT_EQ(
       ThermalDiffusivity(
-          ThermalConductivityScalar(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 
   EXPECT_EQ(
-      ThermalConductivityScalar(
+      ScalarThermalConductivity(
           MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),
-      ThermalConductivityScalar(64.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      ScalarThermalConductivity(64.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 
   EXPECT_EQ(
       MassDensity(
-          ThermalConductivityScalar(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
 
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
-          ThermalConductivityScalar(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
+          ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
           ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
       SpecificIsobaricHeatCapacity(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));

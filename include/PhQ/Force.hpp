@@ -22,7 +22,7 @@
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
-#include "ForceScalar.hpp"
+#include "ScalarForce.hpp"
 #include "Unit/Force.hpp"
 #include "Vector.hpp"
 
@@ -31,7 +31,7 @@ namespace PhQ {
 // Forward declaration for class Force.
 class Traction;
 
-// Force vector.
+// Force vector. See also PhQ::ScalarForce.
 class Force : public DimensionalVector<Unit::Force> {
 public:
   // Default constructor. Constructs a force vector with an uninitialized value.
@@ -42,8 +42,8 @@ public:
     : DimensionalVector<Unit::Force>(value, unit) {}
 
   // Constructor. Constructs a force vector from a given scalar force magnitude and direction.
-  constexpr Force(const ForceScalar& force_scalar, const Direction& direction)
-    : Force(force_scalar.Value() * direction.Value()) {}
+  constexpr Force(const ScalarForce& scalar_force, const Direction& direction)
+    : Force(scalar_force.Value() * direction.Value()) {}
 
   // Constructor. Constructs a force vector from a given traction and area using the definition of
   // traction.
@@ -90,23 +90,23 @@ public:
   }
 
   // Returns the x Cartesian component of this force vector.
-  [[nodiscard]] constexpr ForceScalar x() const noexcept {
-    return ForceScalar{value_.x()};
+  [[nodiscard]] constexpr ScalarForce x() const noexcept {
+    return ScalarForce{value_.x()};
   }
 
   // Returns the y Cartesian component of this force vector.
-  [[nodiscard]] constexpr ForceScalar y() const noexcept {
-    return ForceScalar{value_.y()};
+  [[nodiscard]] constexpr ScalarForce y() const noexcept {
+    return ScalarForce{value_.y()};
   }
 
   // Returns the z Cartesian component of this force vector.
-  [[nodiscard]] constexpr ForceScalar z() const noexcept {
-    return ForceScalar{value_.z()};
+  [[nodiscard]] constexpr ScalarForce z() const noexcept {
+    return ScalarForce{value_.z()};
   }
 
   // Returns the magnitude of this force vector.
-  [[nodiscard]] ForceScalar Magnitude() const {
-    return ForceScalar{value_.Magnitude()};
+  [[nodiscard]] ScalarForce Magnitude() const {
+    return ScalarForce{value_.Magnitude()};
   }
 
   // Returns the direction of this force vector.
@@ -196,11 +196,11 @@ inline Direction::Direction(const Force& force) : Direction(force.Value()) {}
 inline Angle::Angle(const Force& force1, const Force& force2)
   : Angle(force1.Value(), force2.Value()) {}
 
-inline constexpr Force Direction::operator*(const ForceScalar& force_scalar) const {
-  return {force_scalar, *this};
+inline constexpr Force Direction::operator*(const ScalarForce& scalar_force) const {
+  return {scalar_force, *this};
 }
 
-inline constexpr Force ForceScalar::operator*(const Direction& direction) const {
+inline constexpr Force ScalarForce::operator*(const Direction& direction) const {
   return {*this, direction};
 }
 

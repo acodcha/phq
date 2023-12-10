@@ -31,21 +31,21 @@ namespace PhQ {
 
 // Forward declarations for class Direction.
 class Acceleration;
-class AccelerationScalar;
 class Area;
-class AreaVector;
 class Displacement;
 class Force;
-class ForceScalar;
 class HeatFlux;
-class HeatFluxScalar;
 class Length;
 class Position;
 class Speed;
+class ScalarAcceleration;
+class ScalarForce;
+class ScalarHeatFlux;
+class ScalarTemperatureGradient;
 class StaticPressure;
 class TemperatureGradient;
-class TemperatureGradientScalar;
 class Traction;
+class VectorArea;
 class Velocity;
 
 // Direction. This is guaranteed to be either a unit vector or the zero vector [0, 0, 0]. Use the
@@ -77,9 +77,6 @@ public:
   // Constructor. Constructs a direction from an acceleration.
   explicit Direction(const Acceleration& acceleration);
 
-  // Constructor. Constructs a direction from a vector area.
-  explicit Direction(const AreaVector& area_vector);
-
   // Constructor. Constructs a direction from a displacement.
   explicit Direction(const Displacement& displacement);
 
@@ -97,6 +94,9 @@ public:
 
   // Constructor. Constructs a direction from a traction.
   explicit Direction(const Traction& traction);
+
+  // Constructor. Constructs a direction from a vector area.
+  explicit Direction(const VectorArea& vector_area);
 
   // Constructor. Constructs a direction from a velocity.
   explicit Direction(const Velocity& velocity);
@@ -225,18 +225,18 @@ public:
     return PhQ::Angle{*this, direction};
   }
 
-  constexpr Acceleration operator*(const AccelerationScalar& acceleration_scalar) const;
+  constexpr Acceleration operator*(const ScalarAcceleration& scalar_acceleration) const;
 
-  constexpr AreaVector operator*(const Area& area) const;
+  constexpr VectorArea operator*(const Area& area) const;
 
   constexpr Position operator*(const Length& length) const;
 
-  constexpr Force operator*(const ForceScalar& force_scalar) const;
+  constexpr Force operator*(const ScalarForce& scalar_force) const;
 
-  constexpr HeatFlux operator*(const HeatFluxScalar& heat_flux_scalar) const;
+  constexpr HeatFlux operator*(const ScalarHeatFlux& scalar_heat_flux) const;
 
   constexpr TemperatureGradient operator*(
-      const TemperatureGradientScalar& temperature_gradient_scalar) const;
+      const ScalarTemperatureGradient& scalar_temperature_gradient) const;
 
   constexpr Traction operator*(const StaticPressure& static_pressure) const;
 

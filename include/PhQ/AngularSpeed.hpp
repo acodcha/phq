@@ -27,10 +27,11 @@
 namespace PhQ {
 
 // Forward declaration for class AngularSpeed.
-class AngularAccelerationScalar;
+class ScalarAngularAcceleration;
 
-// Planar angular speed component or magnitude of an angular velocity vector. Time rate of change of
-// an angle. Typically measured in radians per second. Can also represent a circular frequency.
+// Planar angular speed component or magnitude of an angular velocity pseudovector. Time rate of
+// change of an angle. Typically measured in radians per second. Can also represent a circular
+// frequency.
 class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed> {
 public:
   // Default constructor. Constructs an angular speed with an uninitialized value.
@@ -54,12 +55,12 @@ public:
   // Constructor. Constructs an angular speed from a given scalar angular acceleration and time
   // using the definition of angular acceleration.
   constexpr AngularSpeed(
-      const AngularAccelerationScalar& angular_acceleration_scalar, const Time& time);
+      const ScalarAngularAcceleration& scalar_angular_acceleration, const Time& time);
 
   // Constructor. Constructs an angular speed from a given scalar angular acceleration and frequency
   // using the definition of angular acceleration.
   constexpr AngularSpeed(
-      const AngularAccelerationScalar& angular_acceleration_scalar, const Frequency& frequency);
+      const ScalarAngularAcceleration& scalar_angular_acceleration, const Frequency& frequency);
 
   // Destructor. Destroys this angular speed.
   ~AngularSpeed() noexcept = default;
@@ -104,7 +105,7 @@ public:
     return {*this, time};
   }
 
-  constexpr AngularAccelerationScalar operator*(const Frequency& frequency) const;
+  constexpr ScalarAngularAcceleration operator*(const Frequency& frequency) const;
 
   constexpr AngularSpeed operator/(const double number) const {
     return AngularSpeed{value_ / number};
@@ -118,9 +119,9 @@ public:
     return {*this, angle};
   }
 
-  constexpr AngularAccelerationScalar operator/(const Time& time) const;
+  constexpr ScalarAngularAcceleration operator/(const Time& time) const;
 
-  constexpr Time operator/(const AngularAccelerationScalar& angular_acceleration_scalar) const;
+  constexpr Time operator/(const ScalarAngularAcceleration& scalar_angular_acceleration) const;
 
   constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
     return value_ / angular_speed.value_;

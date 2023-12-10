@@ -22,13 +22,13 @@
 #include "Angle.hpp"
 #include "DimensionalVector.hpp"
 #include "Direction.hpp"
-#include "TemperatureGradientScalar.hpp"
+#include "ScalarTemperatureGradient.hpp"
 #include "Unit/TemperatureGradient.hpp"
 #include "Vector.hpp"
 
 namespace PhQ {
 
-// Temperature gradient vector.
+// Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
 class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient> {
 public:
   // Default constructor. Constructs a temperature gradient vector with an uninitialized value.
@@ -42,8 +42,8 @@ public:
   // Constructor. Constructs a temperature gradient vector from a given scalar temperature gradient
   // magnitude and direction.
   constexpr TemperatureGradient(
-      const TemperatureGradientScalar& temperature_gradient_scalar, const Direction& direction)
-    : TemperatureGradient(temperature_gradient_scalar.Value() * direction.Value()) {}
+      const ScalarTemperatureGradient& scalar_temperature_gradient, const Direction& direction)
+    : TemperatureGradient(scalar_temperature_gradient.Value() * direction.Value()) {}
 
   // Destructor. Destroys this temperature gradient vector.
   ~TemperatureGradient() noexcept = default;
@@ -93,23 +93,23 @@ public:
   }
 
   // Returns the x Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr TemperatureGradientScalar x() const noexcept {
-    return TemperatureGradientScalar{value_.x()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient x() const noexcept {
+    return ScalarTemperatureGradient{value_.x()};
   }
 
   // Returns the y Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr TemperatureGradientScalar y() const noexcept {
-    return TemperatureGradientScalar{value_.y()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient y() const noexcept {
+    return ScalarTemperatureGradient{value_.y()};
   }
 
   // Returns the z Cartesian component of this temperature gradient vector.
-  [[nodiscard]] constexpr TemperatureGradientScalar z() const noexcept {
-    return TemperatureGradientScalar{value_.z()};
+  [[nodiscard]] constexpr ScalarTemperatureGradient z() const noexcept {
+    return ScalarTemperatureGradient{value_.z()};
   }
 
   // Returns the magnitude of this temperature gradient vector.
-  [[nodiscard]] TemperatureGradientScalar Magnitude() const {
-    return TemperatureGradientScalar{value_.Magnitude()};
+  [[nodiscard]] ScalarTemperatureGradient Magnitude() const {
+    return ScalarTemperatureGradient{value_.Magnitude()};
   }
 
   // Returns the direction of this temperature gradient vector.
@@ -210,11 +210,11 @@ inline Angle::Angle(const TemperatureGradient& temperature_gradient_1,
   : Angle(temperature_gradient_1.Value(), temperature_gradient_2.Value()) {}
 
 inline constexpr TemperatureGradient Direction::operator*(
-    const TemperatureGradientScalar& temperature_gradient_scalar) const {
-  return {temperature_gradient_scalar, *this};
+    const ScalarTemperatureGradient& scalar_temperature_gradient) const {
+  return {scalar_temperature_gradient, *this};
 }
 
-inline constexpr TemperatureGradient TemperatureGradientScalar::operator*(
+inline constexpr TemperatureGradient ScalarTemperatureGradient::operator*(
     const Direction& direction) const {
   return {*this, direction};
 }

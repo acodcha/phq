@@ -21,7 +21,7 @@
 
 #include "../include/PhQ/Angle.hpp"
 #include "../include/PhQ/Direction.hpp"
-#include "../include/PhQ/TemperatureGradientScalar.hpp"
+#include "../include/PhQ/ScalarTemperatureGradient.hpp"
 #include "../include/PhQ/Unit/Angle.hpp"
 #include "../include/PhQ/Unit/TemperatureGradient.hpp"
 #include "../include/PhQ/Vector.hpp"
@@ -56,10 +56,10 @@ TEST(TemperatureGradient, ArithmeticOperatorMultiplication) {
             TemperatureGradient({2.0, -4.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
   EXPECT_EQ(Direction(2.0, -3.0, 6.0)
-                * TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre),
+                * ScalarTemperatureGradient(7.0, Unit::TemperatureGradient::KelvinPerMetre),
             TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 
-  EXPECT_EQ(TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre)
+  EXPECT_EQ(ScalarTemperatureGradient(7.0, Unit::TemperatureGradient::KelvinPerMetre)
                 * Direction(2.0, -3.0, 6.0),
             TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre));
 }
@@ -184,7 +184,7 @@ TEST(TemperatureGradient, JSON) {
 TEST(TemperatureGradient, Magnitude) {
   EXPECT_EQ(
       TemperatureGradient({2.0, -3.0, 6.0}, Unit::TemperatureGradient::KelvinPerMetre).Magnitude(),
-      TemperatureGradientScalar(7.0, Unit::TemperatureGradient::KelvinPerMetre));
+      ScalarTemperatureGradient(7.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, MiscellaneousConstructors) {
@@ -284,11 +284,11 @@ TEST(TemperatureGradient, XML) {
 
 TEST(TemperatureGradient, XYZ) {
   EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).x(),
-            TemperatureGradientScalar(1.11, Unit::TemperatureGradient::KelvinPerMetre));
+            ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre));
   EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).y(),
-            TemperatureGradientScalar(-2.22, Unit::TemperatureGradient::KelvinPerMetre));
+            ScalarTemperatureGradient(-2.22, Unit::TemperatureGradient::KelvinPerMetre));
   EXPECT_EQ(TemperatureGradient({1.11, -2.22, 3.33}, Unit::TemperatureGradient::KelvinPerMetre).z(),
-            TemperatureGradientScalar(3.33, Unit::TemperatureGradient::KelvinPerMetre));
+            ScalarTemperatureGradient(3.33, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(TemperatureGradient, YAML) {

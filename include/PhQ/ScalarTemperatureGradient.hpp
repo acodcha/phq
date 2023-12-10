@@ -25,70 +25,71 @@
 
 namespace PhQ {
 
-// Forward declarations for class TemperatureGradientScalar.
+// Forward declarations for class ScalarTemperatureGradient.
 class Direction;
 class TemperatureGradient;
 
-// Scalar temperature gradient component or magnitude of a temperature gradient vector.
-class TemperatureGradientScalar : public DimensionalScalar<Unit::TemperatureGradient> {
+// Scalar temperature gradient component or magnitude of a temperature gradient vector. See also
+// PhQ::TemperatureGradient.
+class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient> {
 public:
   // Default constructor. Constructs a scalar temperature gradient with an uninitialized value.
-  TemperatureGradientScalar() = default;
+  ScalarTemperatureGradient() = default;
 
   // Constructor. Constructs a scalar temperature gradient with a given value expressed in a given
   // temperature gradient unit.
-  TemperatureGradientScalar(const double value, const Unit::TemperatureGradient unit)
+  ScalarTemperatureGradient(const double value, const Unit::TemperatureGradient unit)
     : DimensionalScalar<Unit::TemperatureGradient>(value, unit) {}
 
   // Constructor. Constructs a scalar temperature gradient from a given temperature difference and
   // length using the definition of temperature gradient.
-  constexpr TemperatureGradientScalar(
+  constexpr ScalarTemperatureGradient(
       const TemperatureDifference& temperature_difference, const Length& length)
     : DimensionalScalar<Unit::TemperatureGradient>(
         temperature_difference.Value() / length.Value()) {}
 
   // Destructor. Destroys this scalar temperature gradient.
-  ~TemperatureGradientScalar() noexcept = default;
+  ~ScalarTemperatureGradient() noexcept = default;
 
   // Copy constructor. Constructs a scalar temperature gradient by copying another one.
-  constexpr TemperatureGradientScalar(const TemperatureGradientScalar& other) = default;
+  constexpr ScalarTemperatureGradient(const ScalarTemperatureGradient& other) = default;
 
   // Move constructor. Constructs a scalar temperature gradient by moving another one.
-  constexpr TemperatureGradientScalar(TemperatureGradientScalar&& other) noexcept = default;
+  constexpr ScalarTemperatureGradient(ScalarTemperatureGradient&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar temperature gradient by copying another one.
-  constexpr TemperatureGradientScalar& operator=(const TemperatureGradientScalar& other) = default;
+  constexpr ScalarTemperatureGradient& operator=(const ScalarTemperatureGradient& other) = default;
 
   // Move assignment operator. Assigns this scalar temperature gradient by moving another one.
-  constexpr TemperatureGradientScalar& operator=(
-      TemperatureGradientScalar&& other) noexcept = default;
+  constexpr ScalarTemperatureGradient& operator=(
+      ScalarTemperatureGradient&& other) noexcept = default;
 
   // Statically creates a scalar temperature gradient of zero.
-  static constexpr TemperatureGradientScalar Zero() {
-    return TemperatureGradientScalar{0.0};
+  static constexpr ScalarTemperatureGradient Zero() {
+    return ScalarTemperatureGradient{0.0};
   }
 
   // Statically creates a scalar temperature gradient with a given value expressed in a given
   // temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradientScalar Create(const double value) {
-    return TemperatureGradientScalar{
+  static constexpr ScalarTemperatureGradient Create(const double value) {
+    return ScalarTemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
   }
 
-  constexpr TemperatureGradientScalar operator+(
-      const TemperatureGradientScalar& temperature_gradient_scalar) const {
-    return TemperatureGradientScalar{value_ + temperature_gradient_scalar.value_};
+  constexpr ScalarTemperatureGradient operator+(
+      const ScalarTemperatureGradient& scalar_temperature_gradient) const {
+    return ScalarTemperatureGradient{value_ + scalar_temperature_gradient.value_};
   }
 
-  constexpr TemperatureGradientScalar operator-(
-      const TemperatureGradientScalar& temperature_gradient_scalar) const {
-    return TemperatureGradientScalar{value_ - temperature_gradient_scalar.value_};
+  constexpr ScalarTemperatureGradient operator-(
+      const ScalarTemperatureGradient& scalar_temperature_gradient) const {
+    return ScalarTemperatureGradient{value_ - scalar_temperature_gradient.value_};
   }
 
-  constexpr TemperatureGradientScalar operator*(const double number) const {
-    return TemperatureGradientScalar{value_ * number};
+  constexpr ScalarTemperatureGradient operator*(const double number) const {
+    return ScalarTemperatureGradient{value_ * number};
   }
 
   constexpr TemperatureDifference operator*(const Length& length) const {
@@ -97,21 +98,21 @@ public:
 
   constexpr TemperatureGradient operator*(const Direction& direction) const;
 
-  constexpr TemperatureGradientScalar operator/(const double number) const {
-    return TemperatureGradientScalar{value_ / number};
+  constexpr ScalarTemperatureGradient operator/(const double number) const {
+    return ScalarTemperatureGradient{value_ / number};
   }
 
   constexpr double operator/(
-      const TemperatureGradientScalar& temperature_gradient_scalar) const noexcept {
-    return value_ / temperature_gradient_scalar.value_;
+      const ScalarTemperatureGradient& scalar_temperature_gradient) const noexcept {
+    return value_ / scalar_temperature_gradient.value_;
   }
 
-  constexpr void operator+=(const TemperatureGradientScalar& temperature_gradient_scalar) noexcept {
-    value_ += temperature_gradient_scalar.value_;
+  constexpr void operator+=(const ScalarTemperatureGradient& scalar_temperature_gradient) noexcept {
+    value_ += scalar_temperature_gradient.value_;
   }
 
-  constexpr void operator-=(const TemperatureGradientScalar& temperature_gradient_scalar) noexcept {
-    value_ -= temperature_gradient_scalar.value_;
+  constexpr void operator-=(const ScalarTemperatureGradient& scalar_temperature_gradient) noexcept {
+    value_ -= scalar_temperature_gradient.value_;
   }
 
   constexpr void operator*=(const double number) noexcept {
@@ -125,58 +126,58 @@ public:
 private:
   // Constructor. Constructs a scalar temperature gradient with a given value expressed in the
   // standard temperature gradient unit.
-  explicit constexpr TemperatureGradientScalar(const double value)
+  explicit constexpr ScalarTemperatureGradient(const double value)
     : DimensionalScalar<Unit::TemperatureGradient>(value) {}
 
   friend class TemperatureGradient;
 };
 
 inline constexpr bool operator==(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() == right.Value();
 }
 
 inline constexpr bool operator!=(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() != right.Value();
 }
 
 inline constexpr bool operator<(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() < right.Value();
 }
 
 inline constexpr bool operator>(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() > right.Value();
 }
 
 inline constexpr bool operator<=(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() <= right.Value();
 }
 
 inline constexpr bool operator>=(
-    const TemperatureGradientScalar& left, const TemperatureGradientScalar& right) noexcept {
+    const ScalarTemperatureGradient& left, const ScalarTemperatureGradient& right) noexcept {
   return left.Value() >= right.Value();
 }
 
 inline std::ostream& operator<<(
-    std::ostream& stream, const TemperatureGradientScalar& temperature_gradient_scalar) {
-  stream << temperature_gradient_scalar.Print();
+    std::ostream& stream, const ScalarTemperatureGradient& scalar_temperature_gradient) {
+  stream << scalar_temperature_gradient.Print();
   return stream;
 }
 
-inline constexpr TemperatureGradientScalar operator*(
-    const double number, const TemperatureGradientScalar& temperature_gradient_scalar) {
-  return temperature_gradient_scalar * number;
+inline constexpr ScalarTemperatureGradient operator*(
+    const double number, const ScalarTemperatureGradient& scalar_temperature_gradient) {
+  return scalar_temperature_gradient * number;
 }
 
 inline constexpr TemperatureDifference::TemperatureDifference(
-    const TemperatureGradientScalar& temperature_gradient_scalar, const Length& length)
-  : TemperatureDifference(temperature_gradient_scalar.Value() * length.Value()) {}
+    const ScalarTemperatureGradient& scalar_temperature_gradient, const Length& length)
+  : TemperatureDifference(scalar_temperature_gradient.Value() * length.Value()) {}
 
-inline constexpr TemperatureGradientScalar TemperatureDifference::operator/(
+inline constexpr ScalarTemperatureGradient TemperatureDifference::operator/(
     const Length& length) const {
   return {*this, length};
 }
@@ -186,10 +187,10 @@ inline constexpr TemperatureGradientScalar TemperatureDifference::operator/(
 namespace std {
 
 template <>
-struct hash<PhQ::TemperatureGradientScalar> {
+struct hash<PhQ::ScalarTemperatureGradient> {
   inline size_t operator()(
-      const PhQ::TemperatureGradientScalar& temperature_gradient_scalar) const {
-    return hash<double>()(temperature_gradient_scalar.Value());
+      const PhQ::ScalarTemperatureGradient& scalar_temperature_gradient) const {
+    return hash<double>()(scalar_temperature_gradient.Value());
   }
 };
 

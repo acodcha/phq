@@ -21,8 +21,8 @@
 #include "DimensionlessScalar.hpp"
 #include "DynamicViscosity.hpp"
 #include "KinematicViscosity.hpp"
+#include "ScalarThermalConductivity.hpp"
 #include "SpecificIsobaricHeatCapacity.hpp"
-#include "ThermalConductivityScalar.hpp"
 #include "ThermalDiffusivity.hpp"
 
 namespace PhQ {
@@ -43,12 +43,12 @@ public:
     : PrandtlNumber(kinematic_viscosity.Value() / thermal_diffusivity.Value()) {}
 
   // Constructor. Constructs a Prandtl number from a given specific isobaric heat capacity, dynamic
-  // viscosity, and thermal conductivity using the definition of the Prandtl number.
+  // viscosity, and scalar thermal conductivity using the definition of the Prandtl number.
   constexpr PrandtlNumber(const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
                           const DynamicViscosity& dynamic_viscosity,
-                          const ThermalConductivityScalar& thermal_conductivity_scalar)
+                          const ScalarThermalConductivity& scalar_thermal_conductivity)
     : PrandtlNumber(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
-                    / thermal_conductivity_scalar.Value()) {}
+                    / scalar_thermal_conductivity.Value()) {}
 
   // Destructor. Destroys this Prandtl number.
   ~PrandtlNumber() noexcept = default;
@@ -71,9 +71,9 @@ public:
   }
 
   [[nodiscard]] constexpr PhQ::DynamicViscosity DynamicViscosity(
-      const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar,
+      const PhQ::ScalarThermalConductivity& scalar_thermal_conductivity,
       const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return {*this, thermal_conductivity_scalar, specific_isobaric_heat_capacity};
+    return {*this, scalar_thermal_conductivity, specific_isobaric_heat_capacity};
   }
 
   [[nodiscard]] constexpr PhQ::KinematicViscosity KinematicViscosity(
@@ -82,12 +82,12 @@ public:
   }
 
   [[nodiscard]] constexpr PhQ::SpecificIsobaricHeatCapacity SpecificIsobaricHeatCapacity(
-      const PhQ::ThermalConductivityScalar& thermal_conductivity_scalar,
+      const PhQ::ScalarThermalConductivity& scalar_thermal_conductivity,
       const PhQ::DynamicViscosity& dynamic_viscosity) const {
-    return {*this, thermal_conductivity_scalar, dynamic_viscosity};
+    return {*this, scalar_thermal_conductivity, dynamic_viscosity};
   }
 
-  [[nodiscard]] constexpr PhQ::ThermalConductivityScalar ThermalConductivityScalar(
+  [[nodiscard]] constexpr PhQ::ScalarThermalConductivity ScalarThermalConductivity(
       const PhQ::SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
       const PhQ::DynamicViscosity& dynamic_viscosity) const {
     return {specific_isobaric_heat_capacity, dynamic_viscosity, *this};
@@ -172,24 +172,24 @@ inline constexpr ThermalDiffusivity::ThermalDiffusivity(
     const KinematicViscosity& kinematic_viscosity, const PrandtlNumber& prandtl_number)
   : ThermalDiffusivity(kinematic_viscosity.Value() / prandtl_number.Value()) {}
 
-inline constexpr ThermalConductivityScalar::ThermalConductivityScalar(
+inline constexpr ScalarThermalConductivity::ScalarThermalConductivity(
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity,
     const DynamicViscosity& dynamic_viscosity, const PrandtlNumber& prandtl_number)
-  : ThermalConductivityScalar(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
+  : ScalarThermalConductivity(specific_isobaric_heat_capacity.Value() * dynamic_viscosity.Value()
                               / prandtl_number.Value()) {}
 
 inline constexpr SpecificIsobaricHeatCapacity::SpecificIsobaricHeatCapacity(
     const PrandtlNumber& prandtl_number,
-    const ThermalConductivityScalar& thermal_conductivity_scalar,
+    const ScalarThermalConductivity& scalar_thermal_conductivity,
     const DynamicViscosity& dynamic_viscosity)
   : SpecificIsobaricHeatCapacity(
-      prandtl_number.Value() * thermal_conductivity_scalar.Value() / dynamic_viscosity.Value()) {}
+      prandtl_number.Value() * scalar_thermal_conductivity.Value() / dynamic_viscosity.Value()) {}
 
 inline constexpr DynamicViscosity::DynamicViscosity(
     const PrandtlNumber& prandtl_number,
-    const ThermalConductivityScalar& thermal_conductivity_scalar,
+    const ScalarThermalConductivity& scalar_thermal_conductivity,
     const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity)
-  : DynamicViscosity(prandtl_number.Value() * thermal_conductivity_scalar.Value()
+  : DynamicViscosity(prandtl_number.Value() * scalar_thermal_conductivity.Value()
                      / specific_isobaric_heat_capacity.Value()) {}
 
 inline constexpr KinematicViscosity::KinematicViscosity(
