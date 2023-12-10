@@ -35,6 +35,9 @@ namespace Unit {
 
 // Diffusivity units.
 enum class Diffusivity : int8_t {
+  // Square nautical mile per second (nmi^2/s) diffusivity unit.
+  SquareNauticalMilePerSecond,
+
   // Square mile per second (mi^2/s) diffusivity unit.
   SquareMilePerSecond,
 
@@ -116,61 +119,71 @@ inline const std::map<Unit::Diffusivity, UnitSystem> RelatedUnitSystems<Unit::Di
 
 template <>
 inline const std::map<Unit::Diffusivity, std::string_view> Abbreviations<Unit::Diffusivity>{
-    {Unit::Diffusivity::SquareMilePerSecond,       "mi^2/s" },
-    {Unit::Diffusivity::SquareKilometrePerSecond,  "km^2/s" },
-    {Unit::Diffusivity::HectarePerSecond,          "ha/s"   },
-    {Unit::Diffusivity::AcrePerSecond,             "ac/s"   },
-    {Unit::Diffusivity::SquareMetrePerSecond,      "m^2/s"  },
-    {Unit::Diffusivity::SquareYardPerSecond,       "yd^2/s" },
-    {Unit::Diffusivity::SquareFootPerSecond,       "ft^2/s" },
-    {Unit::Diffusivity::SquareDecimetrePerSecond,  "dm^2/s" },
-    {Unit::Diffusivity::SquareInchPerSecond,       "in^2/s" },
-    {Unit::Diffusivity::SquareCentimetrePerSecond, "cm^2/s" },
-    {Unit::Diffusivity::SquareMillimetrePerSecond, "mm^2/s" },
-    {Unit::Diffusivity::SquareMilliinchPerSecond,  "mil^2/s"},
-    {Unit::Diffusivity::SquareMicrometrePerSecond, "μm^2/s" },
-    {Unit::Diffusivity::SquareMicroinchPerSecond,  "μin^2/s"},
+    {Unit::Diffusivity::SquareNauticalMilePerSecond, "nmi^2/s"},
+    {Unit::Diffusivity::SquareMilePerSecond,         "mi^2/s" },
+    {Unit::Diffusivity::SquareKilometrePerSecond,    "km^2/s" },
+    {Unit::Diffusivity::HectarePerSecond,            "ha/s"   },
+    {Unit::Diffusivity::AcrePerSecond,               "ac/s"   },
+    {Unit::Diffusivity::SquareMetrePerSecond,        "m^2/s"  },
+    {Unit::Diffusivity::SquareYardPerSecond,         "yd^2/s" },
+    {Unit::Diffusivity::SquareFootPerSecond,         "ft^2/s" },
+    {Unit::Diffusivity::SquareDecimetrePerSecond,    "dm^2/s" },
+    {Unit::Diffusivity::SquareInchPerSecond,         "in^2/s" },
+    {Unit::Diffusivity::SquareCentimetrePerSecond,   "cm^2/s" },
+    {Unit::Diffusivity::SquareMillimetrePerSecond,   "mm^2/s" },
+    {Unit::Diffusivity::SquareMilliinchPerSecond,    "mil^2/s"},
+    {Unit::Diffusivity::SquareMicrometrePerSecond,   "μm^2/s" },
+    {Unit::Diffusivity::SquareMicroinchPerSecond,    "μin^2/s"},
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Diffusivity> Spellings<Unit::Diffusivity>{
-    {"mi^2/s",        Unit::Diffusivity::SquareMilePerSecond      },
-    {"mi2/s",         Unit::Diffusivity::SquareMilePerSecond      },
-    {"km^2/s",        Unit::Diffusivity::SquareKilometrePerSecond },
-    {"km2/s",         Unit::Diffusivity::SquareKilometrePerSecond },
-    {"ha/s",          Unit::Diffusivity::HectarePerSecond         },
-    {"ac/s",          Unit::Diffusivity::AcrePerSecond            },
-    {"m^2/s",         Unit::Diffusivity::SquareMetrePerSecond     },
-    {"m2/s",          Unit::Diffusivity::SquareMetrePerSecond     },
-    {"yd^2/s",        Unit::Diffusivity::SquareYardPerSecond      },
-    {"yd2/s",         Unit::Diffusivity::SquareYardPerSecond      },
-    {"ft^2/s",        Unit::Diffusivity::SquareFootPerSecond      },
-    {"ft2/s",         Unit::Diffusivity::SquareFootPerSecond      },
-    {"dm^2/s",        Unit::Diffusivity::SquareDecimetrePerSecond },
-    {"dm2/s",         Unit::Diffusivity::SquareDecimetrePerSecond },
-    {"in^2/s",        Unit::Diffusivity::SquareInchPerSecond      },
-    {"in2/s",         Unit::Diffusivity::SquareInchPerSecond      },
-    {"cm^2/s",        Unit::Diffusivity::SquareCentimetrePerSecond},
-    {"cm2/s",         Unit::Diffusivity::SquareCentimetrePerSecond},
-    {"mm^2/s",        Unit::Diffusivity::SquareMillimetrePerSecond},
-    {"mm2/s",         Unit::Diffusivity::SquareMillimetrePerSecond},
-    {"millinch^2/s",  Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"millinch2/s",   Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"milliinch^2/s", Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"milliinch2/s",  Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"mil^2/s",       Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"mil2/s",        Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"thou^2/s",      Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"thou2/s",       Unit::Diffusivity::SquareMilliinchPerSecond },
-    {"μm^2/s",        Unit::Diffusivity::SquareMicrometrePerSecond},
-    {"μm2/s",         Unit::Diffusivity::SquareMicrometrePerSecond},
-    {"um^2/s",        Unit::Diffusivity::SquareMicrometrePerSecond},
-    {"um2/s",         Unit::Diffusivity::SquareMicrometrePerSecond},
-    {"μin^2/s",       Unit::Diffusivity::SquareMicroinchPerSecond },
-    {"μin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond },
-    {"uin^2/s",       Unit::Diffusivity::SquareMicroinchPerSecond },
-    {"uin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond },
+    {"nmi^2/s",       Unit::Diffusivity::SquareNauticalMilePerSecond},
+    {"nmi2/s",        Unit::Diffusivity::SquareNauticalMilePerSecond},
+    {"mi^2/s",        Unit::Diffusivity::SquareMilePerSecond        },
+    {"mi2/s",         Unit::Diffusivity::SquareMilePerSecond        },
+    {"km^2/s",        Unit::Diffusivity::SquareKilometrePerSecond   },
+    {"km2/s",         Unit::Diffusivity::SquareKilometrePerSecond   },
+    {"ha/s",          Unit::Diffusivity::HectarePerSecond           },
+    {"ac/s",          Unit::Diffusivity::AcrePerSecond              },
+    {"m^2/s",         Unit::Diffusivity::SquareMetrePerSecond       },
+    {"m2/s",          Unit::Diffusivity::SquareMetrePerSecond       },
+    {"yd^2/s",        Unit::Diffusivity::SquareYardPerSecond        },
+    {"yd2/s",         Unit::Diffusivity::SquareYardPerSecond        },
+    {"ft^2/s",        Unit::Diffusivity::SquareFootPerSecond        },
+    {"ft2/s",         Unit::Diffusivity::SquareFootPerSecond        },
+    {"dm^2/s",        Unit::Diffusivity::SquareDecimetrePerSecond   },
+    {"dm2/s",         Unit::Diffusivity::SquareDecimetrePerSecond   },
+    {"in^2/s",        Unit::Diffusivity::SquareInchPerSecond        },
+    {"in2/s",         Unit::Diffusivity::SquareInchPerSecond        },
+    {"cm^2/s",        Unit::Diffusivity::SquareCentimetrePerSecond  },
+    {"cm2/s",         Unit::Diffusivity::SquareCentimetrePerSecond  },
+    {"mm^2/s",        Unit::Diffusivity::SquareMillimetrePerSecond  },
+    {"mm2/s",         Unit::Diffusivity::SquareMillimetrePerSecond  },
+    {"millinch^2/s",  Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"millinch2/s",   Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"milliinch^2/s", Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"milliinch2/s",  Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"mil^2/s",       Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"mil2/s",        Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"thou^2/s",      Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"thou2/s",       Unit::Diffusivity::SquareMilliinchPerSecond   },
+    {"μm^2/s",        Unit::Diffusivity::SquareMicrometrePerSecond  },
+    {"μm2/s",         Unit::Diffusivity::SquareMicrometrePerSecond  },
+    {"um^2/s",        Unit::Diffusivity::SquareMicrometrePerSecond  },
+    {"um2/s",         Unit::Diffusivity::SquareMicrometrePerSecond  },
+    {"μin^2/s",       Unit::Diffusivity::SquareMicroinchPerSecond   },
+    {"μin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond   },
+    {"uin^2/s",       Unit::Diffusivity::SquareMicroinchPerSecond   },
+    {"uin2/s",        Unit::Diffusivity::SquareMicroinchPerSecond   },
 };
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>(
+    double& value) noexcept {
+  value /= 1852.0 * 1852.0;
+}
 
 template <>
 inline constexpr void
@@ -269,6 +282,13 @@ ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerS
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>(
+    double& value) noexcept {
+  value *= 1852.0 * 1852.0;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
   value *= 1609.344 * 1609.344;
@@ -288,8 +308,8 @@ inline constexpr void ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity:
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>(
+    double& value) noexcept {
   value *= 1609.344 * 1609.344 / 640.0;
 }
 
@@ -364,6 +384,9 @@ ConversionToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSec
 template <>
 inline const std::map<Unit::Diffusivity, std::function<void(double* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Diffusivity>{
+        {Unit::Diffusivity::SquareNauticalMilePerSecond,
+         ConversionsFromStandard<Unit::Diffusivity,
+         Unit::Diffusivity::SquareNauticalMilePerSecond>                                         },
         {Unit::Diffusivity::SquareMilePerSecond,
          ConversionsFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>      },
         {Unit::Diffusivity::SquareKilometrePerSecond,
@@ -398,34 +421,36 @@ template <>
 inline const std::map<Unit::Diffusivity,
                       std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Diffusivity>{
+        {Unit::Diffusivity::SquareNauticalMilePerSecond,
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>},
         {Unit::Diffusivity::SquareMilePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>      },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>        },
         {Unit::Diffusivity::SquareKilometrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond> },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareKilometrePerSecond>   },
         {Unit::Diffusivity::HectarePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>         },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::HectarePerSecond>           },
         {Unit::Diffusivity::AcrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>            },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::AcrePerSecond>              },
         {Unit::Diffusivity::SquareMetrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>     },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMetrePerSecond>       },
         {Unit::Diffusivity::SquareYardPerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>      },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>        },
         {Unit::Diffusivity::SquareFootPerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>      },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>        },
         {Unit::Diffusivity::SquareDecimetrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond> },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareDecimetrePerSecond>   },
         {Unit::Diffusivity::SquareInchPerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>      },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>        },
         {Unit::Diffusivity::SquareCentimetrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>},
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareCentimetrePerSecond>  },
         {Unit::Diffusivity::SquareMillimetrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>},
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMillimetrePerSecond>  },
         {Unit::Diffusivity::SquareMilliinchPerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond> },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>   },
         {Unit::Diffusivity::SquareMicrometrePerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>},
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicrometrePerSecond>  },
         {Unit::Diffusivity::SquareMicroinchPerSecond,
-         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond> },
+         ConversionsToStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>   },
 };
 
 }  // namespace Internal

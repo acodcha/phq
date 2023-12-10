@@ -146,94 +146,94 @@ inline const std::unordered_map<std::string_view, Unit::Pressure> Spellings<Unit
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Bar>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Bar>(
+    double& value) noexcept {
   value *= 0.00001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
+    double& value) noexcept {
   value /= 101325.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
+    double& value) noexcept {
   value *= 0.3048 * 0.3048 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
+    double& value) noexcept {
   value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Megapascal>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(
+    double& value) noexcept {
   value *= 100000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
+    double& value) noexcept {
   value *= 101325.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
+    double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.0254 * 0.0254);
 }
 

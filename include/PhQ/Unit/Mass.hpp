@@ -107,8 +107,8 @@ inline const std::unordered_map<std::string_view, Unit::Mass> Spellings<Unit::Ma
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
@@ -121,20 +121,20 @@ inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slug>(doubl
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(
+    double& value) noexcept {
   value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
+    double& value) noexcept {
   value /= 0.45359237;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {

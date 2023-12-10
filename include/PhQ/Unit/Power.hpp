@@ -155,106 +155,106 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<Unit::P
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Watt>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
+    double& value) noexcept {
   value /= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
+    double& value) noexcept {
   value /= 0.0254 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Watt>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Watt>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
+    double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
+    double& value) noexcept {
   value *= 0.0254 * 0.45359237 * 9.80665;
 }
 

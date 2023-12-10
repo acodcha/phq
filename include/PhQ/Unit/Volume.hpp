@@ -35,6 +35,9 @@ namespace Unit {
 
 // Volume units.
 enum class Volume : int8_t {
+  // Cubic nautical mile (nmi^3) volume unit.
+  CubicNauticalMile,
+
   // Cubic mile (mi^3) volume unit.
   CubicMile,
 
@@ -115,276 +118,295 @@ inline const std::map<Unit::Volume, UnitSystem> RelatedUnitSystems<Unit::Volume>
 
 template <>
 inline const std::map<Unit::Volume, std::string_view> Abbreviations<Unit::Volume>{
-    {Unit::Volume::CubicMile,       "mi^3" },
-    {Unit::Volume::CubicKilometre,  "km^3" },
-    {Unit::Volume::CubicMetre,      "m^3"  },
-    {Unit::Volume::CubicYard,       "yd^3" },
-    {Unit::Volume::CubicFoot,       "ft^3" },
-    {Unit::Volume::CubicDecimetre,  "dm^3" },
-    {Unit::Volume::Litre,           "L"    },
-    {Unit::Volume::CubicInch,       "in^3" },
-    {Unit::Volume::CubicCentimetre, "cm^3" },
-    {Unit::Volume::Millilitre,      "mL"   },
-    {Unit::Volume::CubicMillimetre, "mm^3" },
-    {Unit::Volume::CubicMilliinch,  "mil^3"},
-    {Unit::Volume::CubicMicrometre, "μm^3" },
-    {Unit::Volume::CubicMicroinch,  "μin^3"},
+    {Unit::Volume::CubicNauticalMile, "nmi^3"},
+    {Unit::Volume::CubicMile,         "mi^3" },
+    {Unit::Volume::CubicKilometre,    "km^3" },
+    {Unit::Volume::CubicMetre,        "m^3"  },
+    {Unit::Volume::CubicYard,         "yd^3" },
+    {Unit::Volume::CubicFoot,         "ft^3" },
+    {Unit::Volume::CubicDecimetre,    "dm^3" },
+    {Unit::Volume::Litre,             "L"    },
+    {Unit::Volume::CubicInch,         "in^3" },
+    {Unit::Volume::CubicCentimetre,   "cm^3" },
+    {Unit::Volume::Millilitre,        "mL"   },
+    {Unit::Volume::CubicMillimetre,   "mm^3" },
+    {Unit::Volume::CubicMilliinch,    "mil^3"},
+    {Unit::Volume::CubicMicrometre,   "μm^3" },
+    {Unit::Volume::CubicMicroinch,    "μin^3"},
 };
 
 template <>
 inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::Volume>{
-    {"mi^3",        Unit::Volume::CubicMile      },
-    {"mi3",         Unit::Volume::CubicMile      },
-    {"km^3",        Unit::Volume::CubicKilometre },
-    {"km3",         Unit::Volume::CubicKilometre },
-    {"m^3",         Unit::Volume::CubicMetre     },
-    {"m3",          Unit::Volume::CubicMetre     },
-    {"yd^3",        Unit::Volume::CubicYard      },
-    {"yd3",         Unit::Volume::CubicYard      },
-    {"ft^3",        Unit::Volume::CubicFoot      },
-    {"ft3",         Unit::Volume::CubicFoot      },
-    {"dm^3",        Unit::Volume::CubicDecimetre },
-    {"dm3",         Unit::Volume::CubicDecimetre },
-    {"L",           Unit::Volume::Litre          },
-    {"in^3",        Unit::Volume::CubicInch      },
-    {"in3",         Unit::Volume::CubicInch      },
-    {"cm^3",        Unit::Volume::CubicCentimetre},
-    {"cm3",         Unit::Volume::CubicCentimetre},
-    {"mL",          Unit::Volume::Millilitre     },
-    {"mm^3",        Unit::Volume::CubicMillimetre},
-    {"mm3",         Unit::Volume::CubicMillimetre},
-    {"millinch^3",  Unit::Volume::CubicMilliinch },
-    {"millinch3",   Unit::Volume::CubicMilliinch },
-    {"milliinch^3", Unit::Volume::CubicMilliinch },
-    {"milliinch3",  Unit::Volume::CubicMilliinch },
-    {"mil^3",       Unit::Volume::CubicMilliinch },
-    {"mil3",        Unit::Volume::CubicMilliinch },
-    {"thou^3",      Unit::Volume::CubicMilliinch },
-    {"thou3",       Unit::Volume::CubicMilliinch },
-    {"μm^3",        Unit::Volume::CubicMicrometre},
-    {"μm3",         Unit::Volume::CubicMicrometre},
-    {"um^3",        Unit::Volume::CubicMicrometre},
-    {"um3",         Unit::Volume::CubicMicrometre},
-    {"μin^3",       Unit::Volume::CubicMicroinch },
-    {"μin3",        Unit::Volume::CubicMicroinch },
-    {"uin^3",       Unit::Volume::CubicMicroinch },
-    {"uin3",        Unit::Volume::CubicMicroinch },
+    {"nmi^3",       Unit::Volume::CubicNauticalMile},
+    {"nmi3",        Unit::Volume::CubicNauticalMile},
+    {"mi^3",        Unit::Volume::CubicMile        },
+    {"mi3",         Unit::Volume::CubicMile        },
+    {"km^3",        Unit::Volume::CubicKilometre   },
+    {"km3",         Unit::Volume::CubicKilometre   },
+    {"m^3",         Unit::Volume::CubicMetre       },
+    {"m3",          Unit::Volume::CubicMetre       },
+    {"yd^3",        Unit::Volume::CubicYard        },
+    {"yd3",         Unit::Volume::CubicYard        },
+    {"ft^3",        Unit::Volume::CubicFoot        },
+    {"ft3",         Unit::Volume::CubicFoot        },
+    {"dm^3",        Unit::Volume::CubicDecimetre   },
+    {"dm3",         Unit::Volume::CubicDecimetre   },
+    {"L",           Unit::Volume::Litre            },
+    {"in^3",        Unit::Volume::CubicInch        },
+    {"in3",         Unit::Volume::CubicInch        },
+    {"cm^3",        Unit::Volume::CubicCentimetre  },
+    {"cm3",         Unit::Volume::CubicCentimetre  },
+    {"mL",          Unit::Volume::Millilitre       },
+    {"mm^3",        Unit::Volume::CubicMillimetre  },
+    {"mm3",         Unit::Volume::CubicMillimetre  },
+    {"millinch^3",  Unit::Volume::CubicMilliinch   },
+    {"millinch3",   Unit::Volume::CubicMilliinch   },
+    {"milliinch^3", Unit::Volume::CubicMilliinch   },
+    {"milliinch3",  Unit::Volume::CubicMilliinch   },
+    {"mil^3",       Unit::Volume::CubicMilliinch   },
+    {"mil3",        Unit::Volume::CubicMilliinch   },
+    {"thou^3",      Unit::Volume::CubicMilliinch   },
+    {"thou3",       Unit::Volume::CubicMilliinch   },
+    {"μm^3",        Unit::Volume::CubicMicrometre  },
+    {"μm3",         Unit::Volume::CubicMicrometre  },
+    {"um^3",        Unit::Volume::CubicMicrometre  },
+    {"um3",         Unit::Volume::CubicMicrometre  },
+    {"μin^3",       Unit::Volume::CubicMicroinch   },
+    {"μin3",        Unit::Volume::CubicMicroinch   },
+    {"uin^3",       Unit::Volume::CubicMicroinch   },
+    {"uin3",        Unit::Volume::CubicMicroinch   },
 };
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicNauticalMile>(
+    double& value) noexcept {
+  value /= 1852.0 * 1852.0 * 1852.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(
+    double& value) noexcept {
   value /= 1609.344 * 1609.344 * 1609.344;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(double& /*value*/) noexcept {}
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMetre>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicYard>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicYard>(
+    double& value) noexcept {
   value /= 0.9144 * 0.9144 * 0.9144;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicFoot>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicFoot>(
+    double& value) noexcept {
   value /= 0.3048 * 0.3048 * 0.3048;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::Litre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::Litre>(
+    double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicInch>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicInch>(
+    double& value) noexcept {
   value /= 0.0254 * 0.0254 * 0.0254;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::Millilitre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::Millilitre>(
+    double& value) noexcept {
   value *= 1000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
+    double& value) noexcept {
   value /= 0.0000254 * 0.0000254 * 0.0000254;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
+    double& value) noexcept {
   value *= 1.0e18;
 }
 
 template <>
-inline constexpr void
-ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(double& value) noexcept {
+inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
+    double& value) noexcept {
   value /= 0.0000000254 * 0.0000000254 * 0.0000000254;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMile>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicNauticalMile>(
+    double& value) noexcept {
+  value *= 1852.0 * 1852.0 * 1852.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMile>(
+    double& value) noexcept {
   value *= 1609.344 * 1609.344 * 1609.344;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicKilometre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicKilometre>(
+    double& value) noexcept {
   value *= 1000000000.0;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(double& /*value*/) noexcept {}
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetre>(
+    double& /*value*/) noexcept {}
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicYard>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicYard>(
+    double& value) noexcept {
   value *= 0.9144 * 0.9144 * 0.9144;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicFoot>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicFoot>(
+    double& value) noexcept {
   value *= 0.3048 * 0.3048 * 0.3048;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicDecimetre>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::Litre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::Litre>(
+    double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicInch>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicInch>(
+    double& value) noexcept {
   value *= 0.0254 * 0.0254 * 0.0254;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicCentimetre>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::Millilitre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::Millilitre>(
+    double& value) noexcept {
   value *= 0.000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMillimetre>(
+    double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
+    double& value) noexcept {
   value *= 0.0000254 * 0.0000254 * 0.0000254;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicrometre>(
+    double& value) noexcept {
   value *= 1.0e-18;
 }
 
 template <>
-inline constexpr void
-ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(double& value) noexcept {
+inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
+    double& value) noexcept {
   value *= 0.0000000254 * 0.0000000254 * 0.0000000254;
 }
 
 template <>
 inline const std::map<Unit::Volume, std::function<void(double* const, const std::size_t size)>>
     MapOfConversionsFromStandard<Unit::Volume>{
-        {Unit::Volume::CubicMile,       ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMile>      },
+        {Unit::Volume::CubicNauticalMile,
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicNauticalMile>},
+        {Unit::Volume::CubicMile,         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMile>        },
         {Unit::Volume::CubicKilometre,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicKilometre> },
-        {Unit::Volume::CubicMetre,      ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMetre>     },
-        {Unit::Volume::CubicYard,       ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicYard>      },
-        {Unit::Volume::CubicFoot,       ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicFoot>      },
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicKilometre>   },
+        {Unit::Volume::CubicMetre,        ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicMetre>       },
+        {Unit::Volume::CubicYard,         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicYard>        },
+        {Unit::Volume::CubicFoot,         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicFoot>        },
         {Unit::Volume::CubicDecimetre,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicDecimetre> },
-        {Unit::Volume::Litre,           ConversionsFromStandard<Unit::Volume, Unit::Volume::Litre>          },
-        {Unit::Volume::CubicInch,       ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicInch>      },
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicDecimetre>   },
+        {Unit::Volume::Litre,             ConversionsFromStandard<Unit::Volume, Unit::Volume::Litre>            },
+        {Unit::Volume::CubicInch,         ConversionsFromStandard<Unit::Volume, Unit::Volume::CubicInch>        },
         {Unit::Volume::CubicCentimetre,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicCentimetre>},
-        {Unit::Volume::Millilitre,      ConversionsFromStandard<Unit::Volume, Unit::Volume::Millilitre>     },
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicCentimetre>  },
+        {Unit::Volume::Millilitre,        ConversionsFromStandard<Unit::Volume, Unit::Volume::Millilitre>       },
         {Unit::Volume::CubicMillimetre,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicMillimetre>},
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicMillimetre>  },
         {Unit::Volume::CubicMilliinch,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicMilliinch> },
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicMilliinch>   },
         {Unit::Volume::CubicMicrometre,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicMicrometre>},
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicMicrometre>  },
         {Unit::Volume::CubicMicroinch,
-         ConversionsFromStandard<Unit::Volume,                                Unit::Volume::CubicMicroinch> },
+         ConversionsFromStandard<Unit::Volume,                                  Unit::Volume::CubicMicroinch>   },
 };
 
 template <>
 inline const std::map<Unit::Volume, std::function<void(double* values, const std::size_t size)>>
     MapOfConversionsToStandard<Unit::Volume>{
-        {Unit::Volume::CubicMile,       ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMile>      },
+        {Unit::Volume::CubicNauticalMile,
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicNauticalMile>},
+        {Unit::Volume::CubicMile,         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMile>        },
         {Unit::Volume::CubicKilometre,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicKilometre> },
-        {Unit::Volume::CubicMetre,      ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMetre>     },
-        {Unit::Volume::CubicYard,       ConversionsToStandard<Unit::Volume, Unit::Volume::CubicYard>      },
-        {Unit::Volume::CubicFoot,       ConversionsToStandard<Unit::Volume, Unit::Volume::CubicFoot>      },
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicKilometre>   },
+        {Unit::Volume::CubicMetre,        ConversionsToStandard<Unit::Volume, Unit::Volume::CubicMetre>       },
+        {Unit::Volume::CubicYard,         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicYard>        },
+        {Unit::Volume::CubicFoot,         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicFoot>        },
         {Unit::Volume::CubicDecimetre,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicDecimetre> },
-        {Unit::Volume::Litre,           ConversionsToStandard<Unit::Volume, Unit::Volume::Litre>          },
-        {Unit::Volume::CubicInch,       ConversionsToStandard<Unit::Volume, Unit::Volume::CubicInch>      },
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicDecimetre>   },
+        {Unit::Volume::Litre,             ConversionsToStandard<Unit::Volume, Unit::Volume::Litre>            },
+        {Unit::Volume::CubicInch,         ConversionsToStandard<Unit::Volume, Unit::Volume::CubicInch>        },
         {Unit::Volume::CubicCentimetre,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicCentimetre>},
-        {Unit::Volume::Millilitre,      ConversionsToStandard<Unit::Volume, Unit::Volume::Millilitre>     },
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicCentimetre>  },
+        {Unit::Volume::Millilitre,        ConversionsToStandard<Unit::Volume, Unit::Volume::Millilitre>       },
         {Unit::Volume::CubicMillimetre,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicMillimetre>},
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicMillimetre>  },
         {Unit::Volume::CubicMilliinch,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicMilliinch> },
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicMilliinch>   },
         {Unit::Volume::CubicMicrometre,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicMicrometre>},
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicMicrometre>  },
         {Unit::Volume::CubicMicroinch,
-         ConversionsToStandard<Unit::Volume,                                Unit::Volume::CubicMicroinch> },
+         ConversionsToStandard<Unit::Volume,                                  Unit::Volume::CubicMicroinch>   },
 };
 
 }  // namespace Internal
