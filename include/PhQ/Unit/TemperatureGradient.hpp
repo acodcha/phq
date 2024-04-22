@@ -151,6 +151,11 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Kel
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
     double& value) noexcept {
   value *= 0.001;
@@ -158,7 +163,19 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Kel
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
     double& /*value*/) noexcept {}
 
 template <>
@@ -170,9 +187,23 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Cel
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
     double& value) noexcept {
   value *= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
+    double& value) noexcept {
+  value *= 1.0 / (1.8 * 0.3048);
 }
 
 template <>
@@ -184,9 +215,23 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Ran
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
+    double& value) noexcept {
+  value *= 1.0 / (1.8 * 0.0254);
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
     double& value) noexcept {
   value *= 1.8 * 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
+    double& value) noexcept {
+  value *= 1.0 / (1.8 * 0.3048);
 }
 
 template <>
@@ -198,54 +243,9 @@ ConversionFromStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::Fah
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMetre>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::KelvinPerMillimetre>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMetre>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::CelsiusPerMillimetre>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
-    double& value) noexcept {
-  value /= 1.8 * 0.3048;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
-    double& value) noexcept {
-  value /= 1.8 * 0.0254;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
-    double& value) noexcept {
-  value /= 1.8 * 0.3048;
-}
-
-template <>
-inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
     double& value) noexcept {
-  value /= 1.8 * 0.0254;
+  value *= 1.0 / (1.8 * 0.0254);
 }
 
 template <>

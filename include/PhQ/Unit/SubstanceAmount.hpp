@@ -113,6 +113,10 @@ inline constexpr void ConversionFromStandard<Unit::SubstanceAmount, Unit::Substa
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
     double& value) noexcept {
@@ -120,17 +124,35 @@ ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
 }
 
 template <>
+inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
 inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>(
     double& value) noexcept {
-  value *= 0.000001;
+  value *= 1.0e-6;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>(
+    double& value) noexcept {
+  value *= 1.0e6;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>(
     double& value) noexcept {
-  value *= 0.000000001;
+  value *= 1.0e-9;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>(
+    double& value) noexcept {
+  value *= 1.0e9;
 }
 
 template <>
@@ -141,31 +163,9 @@ ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole>(
-    double& value) noexcept {
-  value *= 1000000000.0;
-}
-
-template <>
 inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
     double& value) noexcept {
-  value /= 6.02214076e23;
+  value *= 1.0 / 6.02214076e23;
 }
 
 template <>

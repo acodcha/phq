@@ -227,30 +227,30 @@ ConversionFromStandard<Unit::ThermalConductivity, Unit::ThermalConductivity::Wat
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::ThermalConductivity,
-                       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::ThermalConductivity,
-                                             Unit::ThermalConductivity::PoundPerSecondPerRankine>(
-    double& value) noexcept {
-  value /= 0.45359237 * 9.80665 * 1.8;
-}
+ConversionToStandard<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::ThermalConductivity, Unit::ThermalConductivity::WattPerMetrePerKelvin>(
-    double& /*value*/) noexcept {}
+ConversionFromStandard<Unit::ThermalConductivity,
+                       Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
+    double& value) noexcept {
+  value *= 1.0e6;
+}
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::ThermalConductivity,
                      Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>(
     double& value) noexcept {
-  value *= 0.000001;
+  value *= 1.0e-6;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::ThermalConductivity,
+                                             Unit::ThermalConductivity::PoundPerSecondPerRankine>(
+    double& value) noexcept {
+  value *= 1.0 / (0.45359237 * 9.80665 * 1.8);
 }
 
 template <>

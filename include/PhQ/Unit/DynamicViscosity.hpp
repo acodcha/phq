@@ -173,9 +173,21 @@ ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSec
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
     double& value) noexcept {
   value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
 }
 
 template <>
@@ -187,15 +199,35 @@ ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Megapasca
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
     double& value) noexcept {
   value *= 0.000000001;
 }
 
 template <>
+inline constexpr void
+ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
+    double& value) noexcept {
+  value *= 1000000000.0;
+}
+
+template <>
 inline constexpr void ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
     double& value) noexcept {
   value *= 10.0;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
+    double& value) noexcept {
+  value *= 0.1;
 }
 
 template <>
@@ -207,48 +239,16 @@ ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSeco
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PascalSecond>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::KilopascalSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::MegapascalSecond>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::GigapascalSecond>(
-    double& value) noexcept {
-  value *= 1000000000.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::Poise>(
-    double& value) noexcept {
-  value *= 0.1;
-}
-
-template <>
-inline constexpr void
 ConversionToStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareFoot>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::DynamicViscosity, Unit::DynamicViscosity::PoundSecondPerSquareInch>(
+    double& value) noexcept {
+  value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>

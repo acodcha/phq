@@ -58,8 +58,17 @@ TEST(UnitSpecificHeatCapacity, ConsistentUnit) {
             SpecificHeatCapacity::InchPoundPerSlinchPerRankine);
 }
 
+TEST(UnitSpecificHeatCapacity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const SpecificHeatCapacity original_unit : Units) {
+    for (const SpecificHeatCapacity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitSpecificHeatCapacity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(SpecificHeatCapacity::JoulePerKilogramPerKelvin,
                             SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value);
@@ -79,7 +88,7 @@ TEST(UnitSpecificHeatCapacity, ConvertFromStandard) {
 }
 
 TEST(UnitSpecificHeatCapacity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(SpecificHeatCapacity::JoulePerKilogramPerKelvin,
                             SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value);

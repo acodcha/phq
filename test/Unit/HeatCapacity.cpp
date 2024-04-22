@@ -57,8 +57,17 @@ TEST(UnitHeatCapacity, ConsistentUnit) {
             HeatCapacity::InchPoundPerRankine);
 }
 
+TEST(UnitHeatCapacity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const HeatCapacity original_unit : Units) {
+    for (const HeatCapacity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitHeatCapacity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);
@@ -75,7 +84,7 @@ TEST(UnitHeatCapacity, ConvertFromStandard) {
 }
 
 TEST(UnitHeatCapacity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);

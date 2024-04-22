@@ -85,8 +85,17 @@ TEST(UnitTransportEnergyConsumption, ConsistentUnit) {
             TransportEnergyConsumption::InchPoundPerInch);
 }
 
+TEST(UnitTransportEnergyConsumption, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const TransportEnergyConsumption original_unit : Units) {
+    for (const TransportEnergyConsumption intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitTransportEnergyConsumption, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(TransportEnergyConsumption::JoulePerMetre,
                             TransportEnergyConsumption::JoulePerMile, value, value * 1609.344);
@@ -145,7 +154,7 @@ TEST(UnitTransportEnergyConsumption, ConvertFromStandard) {
 }
 
 TEST(UnitTransportEnergyConsumption, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(TransportEnergyConsumption::JoulePerMile,
                             TransportEnergyConsumption::JoulePerMetre, value, value / 1609.344);

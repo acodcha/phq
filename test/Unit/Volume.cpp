@@ -64,8 +64,17 @@ TEST(UnitVolume, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Volume>(UnitSystem::InchPoundSecondRankine), Volume::CubicInch);
 }
 
+TEST(UnitVolume, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Volume original_unit : Units) {
+    for (const Volume intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitVolume, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Volume::CubicMetre, Volume::CubicNauticalMile, value, value / std::pow(1852.0, 3));
@@ -101,7 +110,7 @@ TEST(UnitVolume, ConvertFromStandard) {
 }
 
 TEST(UnitVolume, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Volume::CubicNauticalMile, Volume::CubicMetre, value, value * std::pow(1852.0, 3));

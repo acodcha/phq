@@ -226,29 +226,15 @@ ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>(
     double& value) noexcept {
   value *= 1000000.0;
 }
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>(
-    double& value) noexcept {
-  value /= 0.3048 * 0.3048;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
-    double& value) noexcept {
-  value /= 0.0254 * 0.0254;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>(
-    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -259,9 +245,23 @@ ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>(
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.3048 * 0.3048);
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinchPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.0254 * 0.0254);
 }
 
 template <>

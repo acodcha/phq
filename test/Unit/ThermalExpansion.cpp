@@ -57,8 +57,17 @@ TEST(UnitThermalExpansion, ConsistentUnit) {
             ThermalExpansion::PerRankine);
 }
 
+TEST(UnitThermalExpansion, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const ThermalExpansion original_unit : Units) {
+    for (const ThermalExpansion intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitThermalExpansion, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(ThermalExpansion::PerKelvin, ThermalExpansion::PerKelvin, value, value);
   Internal::TestConversions(
@@ -73,7 +82,7 @@ TEST(UnitThermalExpansion, ConvertFromStandard) {
 }
 
 TEST(UnitThermalExpansion, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(ThermalExpansion::PerKelvin, ThermalExpansion::PerKelvin, value, value);
   Internal::TestConversions(

@@ -73,8 +73,17 @@ TEST(UnitArea, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Area>(UnitSystem::InchPoundSecondRankine), Area::SquareInch);
 }
 
+TEST(UnitArea, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Area original_unit : Units) {
+    for (const Area intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitArea, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Area::SquareMetre, Area::SquareNauticalMile, value, value / std::pow(1852.0, 2));
@@ -110,7 +119,7 @@ TEST(UnitArea, ConvertFromStandard) {
 }
 
 TEST(UnitArea, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Area::SquareNauticalMile, Area::SquareMetre, value, value * std::pow(1852.0, 2));

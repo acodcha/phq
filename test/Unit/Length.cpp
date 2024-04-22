@@ -59,8 +59,17 @@ TEST(UnitLength, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Length>(UnitSystem::InchPoundSecondRankine), Length::Inch);
 }
 
+TEST(UnitLength, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Length original_unit : Units) {
+    for (const Length intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitLength, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Length::Metre, Length::NauticalMile, value, value / 1852.0);
   Internal::TestConversions(Length::Metre, Length::Mile, value, value / 1609.344);
@@ -80,7 +89,7 @@ TEST(UnitLength, ConvertFromStandard) {
 }
 
 TEST(UnitLength, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Length::NauticalMile, Length::Metre, value, value * 1852.0);
   Internal::TestConversions(Length::Mile, Length::Metre, value, value * 1609.344);

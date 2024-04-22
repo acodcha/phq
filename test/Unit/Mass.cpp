@@ -49,8 +49,17 @@ TEST(UnitMass, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
+TEST(UnitMass, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Mass original_unit : Units) {
+    for (const Mass intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitMass, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Mass::Kilogram, Mass::Kilogram, value, value);
   Internal::TestConversions(Mass::Kilogram, Mass::Gram, value, value * 1000.0);
@@ -65,7 +74,7 @@ TEST(UnitMass, ConvertFromStandard) {
 }
 
 TEST(UnitMass, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Mass::Kilogram, Mass::Kilogram, value, value);
   Internal::TestConversions(Mass::Gram, Mass::Kilogram, value, value * 0.001);

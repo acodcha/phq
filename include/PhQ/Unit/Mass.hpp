@@ -111,13 +111,27 @@ inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Kilogram>(
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
   value *= 1000.0;
 }
 
 template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
+  value *= 0.001;
+}
+
+template <>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slug>(double& value) noexcept {
   value *= 0.3048 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slug>(double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / 0.3048;
 }
 
 template <>
@@ -127,28 +141,14 @@ inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Slinch>(
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
-    double& value) noexcept {
-  value /= 0.45359237;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Kilogram>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Gram>(double& value) noexcept {
-  value *= 0.001;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slug>(double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / 0.3048;
-}
-
-template <>
 inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slinch>(double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.0254;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
+    double& value) noexcept {
+  value *= 1.0 / 0.45359237;
 }
 
 template <>

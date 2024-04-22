@@ -55,8 +55,17 @@ TEST(UnitThermalConductivity, ConsistentUnit) {
             ThermalConductivity::PoundPerSecondPerRankine);
 }
 
+TEST(UnitThermalConductivity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const ThermalConductivity original_unit : Units) {
+    for (const ThermalConductivity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitThermalConductivity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::WattPerMetrePerKelvin, value, value);
@@ -73,7 +82,7 @@ TEST(UnitThermalConductivity, ConvertFromStandard) {
 }
 
 TEST(UnitThermalConductivity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::WattPerMetrePerKelvin, value, value);

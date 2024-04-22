@@ -46,8 +46,17 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine), Angle::Radian);
 }
 
+TEST(UnitAngle, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Angle original_unit : Units) {
+    for (const Angle intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitAngle, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Angle::Radian, Angle::Radian, value, value);
   Internal::TestConversions(Angle::Radian, Angle::Degree, value, value * 180.0 / Pi);
@@ -59,7 +68,7 @@ TEST(UnitAngle, ConvertFromStandard) {
 }
 
 TEST(UnitAngle, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Angle::Radian, Angle::Radian, value, value);
   Internal::TestConversions(Angle::Degree, Angle::Radian, value, value * Pi / 180.0);

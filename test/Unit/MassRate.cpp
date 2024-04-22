@@ -66,8 +66,17 @@ TEST(UnitMassRate, ConsistentUnit) {
       ConsistentUnit<MassRate>(UnitSystem::InchPoundSecondRankine), MassRate::SlinchPerSecond);
 }
 
+TEST(UnitMassRate, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const MassRate original_unit : Units) {
+    for (const MassRate intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitMassRate, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
   Internal::TestConversions(
@@ -104,7 +113,7 @@ TEST(UnitMassRate, ConvertFromStandard) {
 }
 
 TEST(UnitMassRate, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(MassRate::KilogramPerSecond, MassRate::KilogramPerSecond, value, value);
   Internal::TestConversions(

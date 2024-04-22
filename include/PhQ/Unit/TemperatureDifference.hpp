@@ -120,7 +120,17 @@ ConversionFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference:
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
     double& /*value*/) noexcept {}
 
 template <>
@@ -132,6 +142,13 @@ ConversionFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference:
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
+    double& value) noexcept {
+  value *= 5.0 / 9.0;
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
   value *= 1.8;
@@ -139,26 +156,9 @@ ConversionFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference:
 
 template <>
 inline constexpr void
-ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>(
-    double& value) noexcept {
-  value /= 1.8;
-}
-
-template <>
-inline constexpr void
 ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit>(
     double& value) noexcept {
-  value /= 1.8;
+  value *= 5.0 / 9.0;
 }
 
 template <>

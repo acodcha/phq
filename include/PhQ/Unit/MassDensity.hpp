@@ -137,6 +137,11 @@ ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMet
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
+    double& /*value*/) noexcept {}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>(
     double& value) noexcept {
   value *= 0.000001;
@@ -144,9 +149,22 @@ ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillime
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>(
+    double& value) noexcept {
+  value *= 1000000.0;
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 * 0.3048 * 0.3048 / (0.45359237 * 9.80665);
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);
 }
 
 template <>
@@ -158,9 +176,22 @@ ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>
 
 template <>
 inline constexpr void
+ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
+    double& value) noexcept {
+  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);
+}
+
+template <>
+inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
     double& value) noexcept {
   value *= 0.3048 * 0.3048 * 0.3048 / 0.45359237;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
+    double& value) noexcept {
+  value *= 0.45359237 / std::pow(0.3048, 3);
 }
 
 template <>
@@ -168,37 +199,6 @@ inline constexpr void
 ConversionFromStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicInch>(
     double& value) noexcept {
   value *= 0.0254 * 0.0254 * 0.0254 / 0.45359237;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::MassDensity, Unit::MassDensity::KilogramPerCubicMetre>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::MassDensity, Unit::MassDensity::GramPerCubicMillimetre>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlugPerCubicFoot>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / std::pow(0.3048, 4);
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::MassDensity, Unit::MassDensity::SlinchPerCubicInch>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / std::pow(0.0254, 4);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::MassDensity, Unit::MassDensity::PoundPerCubicFoot>(
-    double& value) noexcept {
-  value *= 0.45359237 / std::pow(0.3048, 3);
 }
 
 template <>

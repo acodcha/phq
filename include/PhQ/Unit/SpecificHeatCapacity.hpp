@@ -415,32 +415,16 @@ inline constexpr void ConversionFromStandard<Unit::SpecificHeatCapacity,
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
+                                           Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void ConversionFromStandard<Unit::SpecificHeatCapacity,
                                              Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
     double& value) noexcept {
   value *= 1000000.0;
 }
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::SpecificHeatCapacity,
-                       Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
-    double& value) noexcept {
-  value /= 1.8 * 0.3048 * 0.3048;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::SpecificHeatCapacity,
-                       Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
-    double& value) noexcept {
-  value /= 1.8 * 0.0254 * 0.0254;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
-                                           Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
-    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
@@ -450,10 +434,26 @@ inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
 }
 
 template <>
+inline constexpr void
+ConversionFromStandard<Unit::SpecificHeatCapacity,
+                       Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
+    double& value) noexcept {
+  value *= 1.0 / (1.8 * 0.3048 * 0.3048);
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::SpecificHeatCapacity,
                                            Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
     double& value) noexcept {
   value *= 1.8 * 0.3048 * 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::SpecificHeatCapacity,
+                       Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
+    double& value) noexcept {
+  value *= 1.0 / (1.8 * 0.0254 * 0.0254);
 }
 
 template <>

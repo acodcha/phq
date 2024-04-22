@@ -158,10 +158,21 @@ ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void
 ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
     double& value) noexcept {
   value *= 1000.0;
+}
+
+template <>
+inline constexpr void
+ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
+    double& value) noexcept {
+  value *= 0.001;
 }
 
 template <>
@@ -173,27 +184,16 @@ ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFoo
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
-    double& value) noexcept {
-  value *= 0.0254 / (0.45359237 * 9.80665);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::WattPerSquareMetre>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::NanowattPerSquareMillimetre>(
-    double& value) noexcept {
-  value *= 0.001;
-}
-
-template <>
-inline constexpr void
 ConversionToStandard<Unit::EnergyFlux, Unit::EnergyFlux::FootPoundPerSquareFootPerSecond>(
     double& value) noexcept {
   value *= 0.45359237 * 9.80665 / 0.3048;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::EnergyFlux, Unit::EnergyFlux::InchPoundPerSquareInchPerSecond>(
+    double& value) noexcept {
+  value *= 0.0254 / (0.45359237 * 9.80665);
 }
 
 template <>

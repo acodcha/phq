@@ -77,8 +77,17 @@ TEST(UnitDiffusivity, ConsistentUnit) {
             Diffusivity::SquareInchPerSecond);
 }
 
+TEST(UnitDiffusivity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Diffusivity original_unit : Units) {
+    for (const Diffusivity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitDiffusivity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Diffusivity::SquareMetrePerSecond, Diffusivity::SquareNauticalMilePerSecond, value,
@@ -125,7 +134,7 @@ TEST(UnitDiffusivity, ConvertFromStandard) {
 }
 
 TEST(UnitDiffusivity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Diffusivity::SquareNauticalMilePerSecond,
                             Diffusivity::SquareMetrePerSecond, value, value * std::pow(1852.0, 2));
