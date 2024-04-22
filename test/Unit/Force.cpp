@@ -54,8 +54,17 @@ TEST(UnitForce, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Force>(UnitSystem::InchPoundSecondRankine), Force::Pound);
 }
 
+TEST(UnitForce, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Force original_unit : Units) {
+    for (const Force intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitForce, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Force::Newton, Force::Newton, value, value);
   Internal::TestConversions(Force::Newton, Force::Kilonewton, value, value * 0.001);
@@ -72,7 +81,7 @@ TEST(UnitForce, ConvertFromStandard) {
 }
 
 TEST(UnitForce, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Force::Newton, Force::Newton, value, value);
   Internal::TestConversions(Force::Kilonewton, Force::Newton, value, value * 1000.0);

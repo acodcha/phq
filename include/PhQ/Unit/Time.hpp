@@ -119,13 +119,25 @@ inline const std::unordered_map<std::string_view, Unit::Time> Spellings<Unit::Ti
 template <>
 inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Nanosecond>(
     double& value) noexcept {
-  value *= 1000000000.0;
+  value *= 1.0e9;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Nanosecond>(
+    double& value) noexcept {
+  value *= 1.0e-9;
 }
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Microsecond>(
     double& value) noexcept {
-  value *= 1000000.0;
+  value *= 1.0e6;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Microsecond>(
+    double& value) noexcept {
+  value *= 1.0e-6;
 }
 
 template <>
@@ -135,45 +147,33 @@ inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Millisecond
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Second>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Minute>(
-    double& value) noexcept {
-  value /= 60.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Hour>(double& value) noexcept {
-  value /= 3600.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Nanosecond>(
-    double& value) noexcept {
-  value *= 0.000000001;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Microsecond>(
-    double& value) noexcept {
-  value *= 0.000001;
-}
-
-template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Millisecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
+inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Second>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Second>(
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Minute>(
+    double& value) noexcept {
+  value *= 1.0 / 60.0;
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Minute>(double& value) noexcept {
   value *= 60.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Hour>(double& value) noexcept {
+  value *= 1.0 / 3600.0;
 }
 
 template <>

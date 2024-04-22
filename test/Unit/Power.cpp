@@ -55,8 +55,17 @@ TEST(UnitPower, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Power>(UnitSystem::InchPoundSecondRankine), Power::InchPoundPerSecond);
 }
 
+TEST(UnitPower, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Power original_unit : Units) {
+    for (const Power intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitPower, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Power::Watt, Power::Watt, value, value);
   Internal::TestConversions(Power::Watt, Power::Milliwatt, value, value * 1000.0);
@@ -75,7 +84,7 @@ TEST(UnitPower, ConvertFromStandard) {
 }
 
 TEST(UnitPower, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Power::Watt, Power::Watt, value, value);
   Internal::TestConversions(Power::Milliwatt, Power::Watt, value, value * 0.001);

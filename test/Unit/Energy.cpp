@@ -107,8 +107,17 @@ TEST(UnitEnergy, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine), Energy::InchPound);
 }
 
+TEST(UnitEnergy, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Energy original_unit : Units) {
+    for (const Energy intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitEnergy, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Energy::Joule, Energy::Joule, value, value);
   Internal::TestConversions(Energy::Joule, Energy::Millijoule, value, value * 1000.0);
@@ -157,7 +166,7 @@ TEST(UnitEnergy, ConvertFromStandard) {
 }
 
 TEST(UnitEnergy, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Energy::Joule, Energy::Joule, value, value);
   Internal::TestConversions(Energy::Millijoule, Energy::Joule, value, value * 0.001);

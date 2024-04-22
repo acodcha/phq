@@ -137,8 +137,17 @@ TEST(UnitVolumeRate, ConsistentUnit) {
             VolumeRate::CubicInchPerSecond);
 }
 
+TEST(UnitVolumeRate, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const VolumeRate original_unit : Units) {
+    for (const VolumeRate intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitVolumeRate, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(VolumeRate::CubicMetrePerSecond, VolumeRate::CubicNauticalMilePerSecond,
                             value, value / std::pow(1852.0, 3));
@@ -237,7 +246,7 @@ TEST(UnitVolumeRate, ConvertFromStandard) {
 }
 
 TEST(UnitVolumeRate, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(VolumeRate::CubicNauticalMilePerSecond, VolumeRate::CubicMetrePerSecond,
                             value, value * std::pow(1852.0, 3));

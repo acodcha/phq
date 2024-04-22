@@ -146,29 +146,15 @@ ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
     double& value) noexcept {
   value *= 1000000000.0;
 }
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
-    double& value) noexcept {
-  value /= 0.3048 * 0.45359237 * 9.80665 * 1.8;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
-    double& value) noexcept {
-  value /= 0.0254 * 0.45359237 * 9.80665 * 1.8;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
-    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
@@ -179,9 +165,23 @@ ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
+    double& value) noexcept {
+  value *= 1.0 / (0.3048 * 0.45359237 * 9.80665 * 1.8);
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
     double& value) noexcept {
   value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
+    double& value) noexcept {
+  value *= 1.0 / (0.0254 * 0.45359237 * 9.80665 * 1.8);
 }
 
 template <>

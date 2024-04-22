@@ -113,9 +113,19 @@ inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperatur
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
+    double& /*value*/) noexcept {}
+
+template <>
 inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Celsius>(
     double& value) noexcept {
   value -= 273.15;
+}
+
+template <>
+inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(
+    double& value) noexcept {
+  value += 273.15;
 }
 
 template <>
@@ -125,25 +135,15 @@ inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperatur
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
-    double& value) noexcept {
-  value = (value * 1.8) - 459.67;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Kelvin>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Celsius>(
-    double& value) noexcept {
-  value += 273.15;
-}
-
-template <>
 inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature::Rankine>(
     double& value) noexcept {
-  value /= 1.8;
+  value *= 5.0 / 9.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>(
+    double& value) noexcept {
+  value = 1.8 * value - 459.67;
 }
 
 template <>

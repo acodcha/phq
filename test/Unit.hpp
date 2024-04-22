@@ -23,6 +23,20 @@
 
 namespace PhQ::Internal {
 
+// Tests that the unit conversion functions are reciprocal for a given unit of measure; that is,
+// tests that converting a value in a given unit to an intermediary unit and then converting back to
+// its original unit produces the original value. Due to the finiteness of floating point precision,
+// information regarding the unit in the last precision (ULP) may be lost in the process, so the
+// returned value may be within a few ULPs of the original.
+template <typename Unit>
+void TestConversionReciprocity(
+    const Unit original_unit, const Unit intermediary_unit, const double original_value) {
+  double converted_value = original_value;
+  Convert(converted_value, original_unit, intermediary_unit);
+  Convert(converted_value, intermediary_unit, original_unit);
+  EXPECT_DOUBLE_EQ(converted_value, original_value);
+}
+
 // Tests the PhQ::Convert and PhQ::ConvertCopy unit conversion functions for a given unit of
 // measure. Verifies that a given original value expressed in a given original unit correctly
 // converts to a given new value expressed in a given new unit.

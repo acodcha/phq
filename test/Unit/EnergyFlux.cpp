@@ -55,8 +55,17 @@ TEST(UnitEnergyFlux, ConsistentUnit) {
             EnergyFlux::InchPoundPerSquareInchPerSecond);
 }
 
+TEST(UnitEnergyFlux, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const EnergyFlux original_unit : Units) {
+    for (const EnergyFlux intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitEnergyFlux, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);
@@ -75,7 +84,7 @@ TEST(UnitEnergyFlux, ConvertFromStandard) {
 }
 
 TEST(UnitEnergyFlux, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       EnergyFlux::WattPerSquareMetre, EnergyFlux::WattPerSquareMetre, value, value);

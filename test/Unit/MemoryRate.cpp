@@ -134,8 +134,17 @@ TEST(UnitMemoryRate, ConsistentUnit) {
       ConsistentUnit<MemoryRate>(UnitSystem::InchPoundSecondRankine), MemoryRate::BitPerSecond);
 }
 
+TEST(UnitMemoryRate, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const MemoryRate original_unit : Units) {
+    for (const MemoryRate intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitMemoryRate, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);
   Internal::TestConversions(
@@ -274,7 +283,7 @@ TEST(UnitMemoryRate, ConvertFromStandard) {
 }
 
 TEST(UnitMemoryRate, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);
   Internal::TestConversions(

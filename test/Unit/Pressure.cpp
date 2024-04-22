@@ -62,8 +62,17 @@ TEST(UnitPressure, ConsistentUnit) {
       ConsistentUnit<Pressure>(UnitSystem::InchPoundSecondRankine), Pressure::PoundPerSquareInch);
 }
 
+TEST(UnitPressure, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Pressure original_unit : Units) {
+    for (const Pressure intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitPressure, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Pressure::Pascal, Pressure::Pascal, value, value);
   Internal::TestConversions(Pressure::Pascal, Pressure::Kilopascal, value, value * 0.001);
@@ -81,7 +90,7 @@ TEST(UnitPressure, ConvertFromStandard) {
 }
 
 TEST(UnitPressure, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Pressure::Pascal, Pressure::Pascal, value, value);
   Internal::TestConversions(Pressure::Kilopascal, Pressure::Pascal, value, value * 1000.0);

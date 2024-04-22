@@ -55,8 +55,17 @@ TEST(UnitTemperature, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::InchPoundSecondRankine), Temperature::Rankine);
 }
 
+TEST(UnitTemperature, ConversionReciprocity) {
+  constexpr double original_value{123.45};
+  for (const Temperature original_unit : Units) {
+    for (const Temperature intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitTemperature, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{123.4567890123456789};
 
   Internal::TestConversions(Temperature::Kelvin, Temperature::Kelvin, value, value);
   Internal::TestConversions(Temperature::Kelvin, Temperature::Celsius, value, value - 273.15);
@@ -69,7 +78,7 @@ TEST(UnitTemperature, ConvertFromStandard) {
 }
 
 TEST(UnitTemperature, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{123.4567890123456789};
 
   Internal::TestConversions(Temperature::Kelvin, Temperature::Kelvin, value, value);
   Internal::TestConversions(Temperature::Celsius, Temperature::Kelvin, value, value + 273.15);

@@ -129,26 +129,12 @@ ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(
+ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
     double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
-    double& value) noexcept {
-  value /= 1.8;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
-    double& value) noexcept {
-  value /= 1.8;
-}
-
-template <>
-inline constexpr void
-ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>(
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>(
     double& /*value*/) noexcept {}
 
 template <>
@@ -158,9 +144,23 @@ ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
+    double& value) noexcept {
+  value *= 5.0 / 9.0;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>(
     double& value) noexcept {
   value *= 1.8;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>(
+    double& value) noexcept {
+  value *= 5.0 / 9.0;
 }
 
 template <>

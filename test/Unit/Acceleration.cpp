@@ -124,8 +124,17 @@ TEST(UnitAcceleration, ConsistentUnit) {
             Acceleration::InchPerSquareSecond);
 }
 
+TEST(UnitAcceleration, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Acceleration original_unit : Units) {
+    for (const Acceleration intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitAcceleration, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Acceleration::MetrePerSquareSecond,
                             Acceleration::NauticalMilePerSquareSecond, value, value / 1852.0);
@@ -222,7 +231,7 @@ TEST(UnitAcceleration, ConvertFromStandard) {
 }
 
 TEST(UnitAcceleration, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Acceleration::NauticalMilePerSquareSecond,
                             Acceleration::MetrePerSquareSecond, value, value * 1852.0);

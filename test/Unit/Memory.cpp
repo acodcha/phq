@@ -68,8 +68,17 @@ TEST(UnitMemory, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Memory>(UnitSystem::InchPoundSecondRankine), Memory::Bit);
 }
 
+TEST(UnitMemory, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Memory original_unit : Units) {
+    for (const Memory intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitMemory, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Memory::Bit, Memory::Bit, value, value);
   Internal::TestConversions(Memory::Bit, Memory::Byte, value, value / 8.0);
@@ -107,7 +116,7 @@ TEST(UnitMemory, ConvertFromStandard) {
 }
 
 TEST(UnitMemory, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Memory::Bit, Memory::Bit, value, value);
   Internal::TestConversions(Memory::Byte, Memory::Bit, value, value * 8.0);

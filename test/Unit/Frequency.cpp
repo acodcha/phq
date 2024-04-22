@@ -49,8 +49,17 @@ TEST(UnitFrequency, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Frequency>(UnitSystem::InchPoundSecondRankine), Frequency::Hertz);
 }
 
+TEST(UnitFrequency, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Frequency original_unit : Units) {
+    for (const Frequency intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitFrequency, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Frequency::Hertz, Frequency::Hertz, value, value);
   Internal::TestConversions(Frequency::Hertz, Frequency::Kilohertz, value, value * 0.001);
@@ -64,7 +73,7 @@ TEST(UnitFrequency, ConvertFromStandard) {
 }
 
 TEST(UnitFrequency, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Frequency::Hertz, Frequency::Hertz, value, value);
   Internal::TestConversions(Frequency::Kilohertz, Frequency::Hertz, value, value * 1000.0);

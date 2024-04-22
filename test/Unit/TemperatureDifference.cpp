@@ -57,8 +57,17 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
             TemperatureDifference::Rankine);
 }
 
+TEST(UnitTemperatureDifference, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const TemperatureDifference original_unit : Units) {
+    for (const TemperatureDifference intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitTemperatureDifference, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
@@ -74,7 +83,7 @@ TEST(UnitTemperatureDifference, ConvertFromStandard) {
 }
 
 TEST(UnitTemperatureDifference, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);

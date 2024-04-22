@@ -57,8 +57,17 @@ TEST(UnitMassDensity, ConsistentUnit) {
             MassDensity::SlinchPerCubicInch);
 }
 
+TEST(UnitMassDensity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const MassDensity original_unit : Units) {
+    for (const MassDensity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitMassDensity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       MassDensity::KilogramPerCubicMetre, MassDensity::KilogramPerCubicMetre, value, value);
@@ -79,7 +88,7 @@ TEST(UnitMassDensity, ConvertFromStandard) {
 }
 
 TEST(UnitMassDensity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       MassDensity::KilogramPerCubicMetre, MassDensity::KilogramPerCubicMetre, value, value);

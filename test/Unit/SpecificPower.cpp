@@ -55,8 +55,17 @@ TEST(UnitSpecificPower, ConsistentUnit) {
             SpecificPower::InchPoundPerSlinchPerSecond);
 }
 
+TEST(UnitSpecificPower, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const SpecificPower original_unit : Units) {
+    for (const SpecificPower intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitSpecificPower, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);
@@ -75,7 +84,7 @@ TEST(UnitSpecificPower, ConvertFromStandard) {
 }
 
 TEST(UnitSpecificPower, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       SpecificPower::WattPerKilogram, SpecificPower::WattPerKilogram, value, value);

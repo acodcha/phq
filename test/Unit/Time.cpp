@@ -48,8 +48,17 @@ TEST(UnitTime, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine), Time::Second);
 }
 
+TEST(UnitTime, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Time original_unit : Units) {
+    for (const Time intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitTime, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Time::Second, Time::Nanosecond, value, value * 1000000000.0);
   Internal::TestConversions(Time::Second, Time::Microsecond, value, value * 1000000.0);
@@ -62,7 +71,7 @@ TEST(UnitTime, ConvertFromStandard) {
 }
 
 TEST(UnitTime, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(Time::Nanosecond, Time::Second, value, value * 0.000000001);
   Internal::TestConversions(Time::Microsecond, Time::Second, value, value * 0.000001);

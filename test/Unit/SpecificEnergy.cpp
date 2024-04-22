@@ -55,8 +55,17 @@ TEST(UnitSpecificEnergy, ConsistentUnit) {
             SpecificEnergy::InchPoundPerSlinch);
 }
 
+TEST(UnitSpecificEnergy, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const SpecificEnergy original_unit : Units) {
+    for (const SpecificEnergy intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitSpecificEnergy, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);
@@ -73,7 +82,7 @@ TEST(UnitSpecificEnergy, ConvertFromStandard) {
 }
 
 TEST(UnitSpecificEnergy, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       SpecificEnergy::JoulePerKilogram, SpecificEnergy::JoulePerKilogram, value, value);

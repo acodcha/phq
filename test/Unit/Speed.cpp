@@ -95,8 +95,17 @@ TEST(UnitSpeed, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Speed>(UnitSystem::InchPoundSecondRankine), Speed::InchPerSecond);
 }
 
+TEST(UnitSpeed, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const Speed original_unit : Units) {
+    for (const Speed intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitSpeed, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Speed::MetrePerSecond, Speed::NauticalMilePerSecond, value, value / 1852.0);
@@ -172,7 +181,7 @@ TEST(UnitSpeed, ConvertFromStandard) {
 }
 
 TEST(UnitSpeed, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       Speed::NauticalMilePerSecond, Speed::MetrePerSecond, value, value * 1852.0);

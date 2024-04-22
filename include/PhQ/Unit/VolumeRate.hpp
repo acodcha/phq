@@ -379,304 +379,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>(
     double& value) noexcept {
-  value /= 1852.0 * 1852.0 * 1852.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
-    double& value) noexcept {
-  value /= 1609.344 * 1609.344 * 1609.344;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>(
-    double& value) noexcept {
-  value *= 0.000000001;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
-    double& /*value*/) noexcept {}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
-    double& value) noexcept {
-  value /= 0.9144 * 0.9144 * 0.9144;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>(
-    double& value) noexcept {
-  value /= 0.3048 * 0.3048 * 0.3048;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>(
-    double& value) noexcept {
-  value /= 0.0254 * 0.0254 * 0.0254;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>(
-    double& value) noexcept {
-  value *= 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1000000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>(
-    double& value) noexcept {
-  value /= 0.0000254 * 0.0000254 * 0.0000254;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e18;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>(
-    double& value) noexcept {
-  value /= 0.0000000254 * 0.0000000254 * 0.0000000254;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (1852.0 * 1852.0 * 1852.0);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (1609.344 * 1609.344 * 1609.344);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 0.000000001;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.9144 * 0.9144 * 0.9144);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.3048 * 0.3048 * 0.3048);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0254 * 0.0254 * 0.0254);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1000000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0000254 * 0.0000254 * 0.0000254);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1.0e18;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (1852.0 * 1852.0 * 1852.0);
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (1609.344 * 1609.344 * 1609.344);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 0.000000001;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.9144 * 0.9144 * 0.9144);
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.3048 * 0.3048 * 0.3048);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0254 * 0.0254 * 0.0254);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1000000.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1000000000.0;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0000254 * 0.0000254 * 0.0000254);
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1.0e18;
-}
-
-template <>
-inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
+  value *= 1.0 / (1852.0 * 1852.0 * 1852.0);
 }
 
 template <>
@@ -687,6 +390,13 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSec
 }
 
 template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (1609.344 * 1609.344 * 1609.344);
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
     double& value) noexcept {
   value *= 1609.344 * 1609.344 * 1609.344;
@@ -694,19 +404,45 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>(
+    double& value) noexcept {
+  value *= 1.0e-9;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>(
     double& value) noexcept {
-  value *= 1000000000.0;
+  value *= 1.0e9;
 }
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
+    double& /*value*/) noexcept {}
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
     double& /*value*/) noexcept {}
 
 template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.9144 * 0.9144 * 0.9144);
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
     double& value) noexcept {
   value *= 0.9144 * 0.9144 * 0.9144;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.3048 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -717,15 +453,35 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>(
     double& value) noexcept {
   value *= 0.001;
 }
 
 template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>(
+    double& value) noexcept {
+  value *= 1000.0;
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>(
     double& value) noexcept {
   value *= 0.001;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.0254 * 0.0254 * 0.0254);
 }
 
 template <>
@@ -736,22 +492,50 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>(
+    double& value) noexcept {
+  value *= 1.0e6;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>(
     double& value) noexcept {
-  value *= 0.000001;
+  value *= 1.0e-6;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>(
+    double& value) noexcept {
+  value *= 1.0e6;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>(
     double& value) noexcept {
-  value *= 0.000001;
+  value *= 1.0e-6;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>(
+    double& value) noexcept {
+  value *= 1.0e9;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>(
     double& value) noexcept {
-  value *= 0.000000001;
+  value *= 1.0e-9;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.0000254 * 0.0000254 * 0.0000254);
 }
 
 template <>
@@ -763,9 +547,23 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>(
+    double& value) noexcept {
+  value *= 1.0e18;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>(
     double& value) noexcept {
   value *= 1.0e-18;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>(
+    double& value) noexcept {
+  value *= 1.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
 }
 
 template <>
@@ -777,9 +575,23 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (1852.0 * 1852.0 * 1852.0);
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>(
     double& value) noexcept {
   value *= 1852.0 * 1852.0 * 1852.0 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (1609.344 * 1609.344 * 1609.344);
 }
 
 template <>
@@ -790,21 +602,49 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / 1.0e9;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>(
     double& value) noexcept {
-  value *= 1000000000.0 / 60.0;
+  value *= 1.0e9 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
     double& value) noexcept {
-  value /= 60.0;
+  value *= 1.0 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (0.9144 * 0.9144 * 0.9144);
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>(
     double& value) noexcept {
   value *= 0.9144 * 0.9144 * 0.9144 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (0.3048 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -815,15 +655,35 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / 0.001;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>(
     double& value) noexcept {
   value *= 0.001 / 60.0;
 }
 
 template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / 0.001;
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>(
     double& value) noexcept {
   value *= 0.001 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (0.0254 * 0.0254 * 0.0254);
 }
 
 template <>
@@ -834,22 +694,50 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 * 1.0e6;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>(
     double& value) noexcept {
-  value *= 0.000001 / 60.0;
+  value *= 1.0e-6 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 * 1.0e6;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>(
     double& value) noexcept {
-  value *= 0.000001 / 60.0;
+  value *= 1.0e-6 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 * 1.0e9;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>(
     double& value) noexcept {
-  value *= 0.000000001 / 60.0;
+  value *= 1.0e-9 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (0.0000254 * 0.0000254 * 0.0000254);
 }
 
 template <>
@@ -861,9 +749,23 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>(
+    double& value) noexcept {
+  value *= 60.0 * 1.0e18;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>(
     double& value) noexcept {
   value *= 1.0e-18 / 60.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>(
+    double& value) noexcept {
+  value *= 60.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
 }
 
 template <>
@@ -875,9 +777,22 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (1852.0 * 1852.0 * 1852.0);
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>(
     double& value) noexcept {
   value *= 1852.0 * 1852.0 * 1852.0 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (1609.344 * 1609.344 * 1609.344);
 }
 
 template <>
@@ -888,21 +803,46 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / 1.0e9;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>(
     double& value) noexcept {
-  value *= 1000000000.0 / 3600.0;
+  value *= 1.0e9 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
     double& value) noexcept {
-  value /= 3600.0;
+  value *= 1.0 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (0.9144 * 0.9144 * 0.9144);
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>(
     double& value) noexcept {
   value *= 0.9144 * 0.9144 * 0.9144 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (0.3048 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -913,15 +853,34 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.001;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>(
     double& value) noexcept {
   value *= 0.001 / 3600.0;
 }
 
 template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / 0.001;
+}
+
+template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>(
     double& value) noexcept {
   value *= 0.001 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (0.0254 * 0.0254 * 0.0254);
 }
 
 template <>
@@ -932,22 +891,49 @@ inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::C
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 * 1.0e6;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>(
     double& value) noexcept {
-  value *= 0.000001 / 3600.0;
+  value *= 1.0e-6 / 3600.0;
+}
+
+template <>
+inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 * 1.0e6;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>(
     double& value) noexcept {
-  value *= 0.000001 / 3600.0;
+  value *= 1.0e-6 / 3600.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 * 1.0e9;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>(
     double& value) noexcept {
-  value *= 0.000000001 / 3600.0;
+  value *= 1.0e-9 / 3600.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (0.0000254 * 0.0000254 * 0.0000254);
 }
 
 template <>
@@ -959,9 +945,23 @@ ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>(
 
 template <>
 inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>(
+    double& value) noexcept {
+  value *= 3600.0 * 1.0e18;
+}
+
+template <>
+inline constexpr void
 ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>(
     double& value) noexcept {
   value *= 1.0e-18 / 3600.0;
+}
+
+template <>
+inline constexpr void
+ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>(
+    double& value) noexcept {
+  value *= 3600.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
 }
 
 template <>

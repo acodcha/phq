@@ -62,8 +62,17 @@ TEST(UnitDynamicViscosity, ConsistentUnit) {
             DynamicViscosity::PoundSecondPerSquareInch);
 }
 
+TEST(UnitDynamicViscosity, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const DynamicViscosity original_unit : Units) {
+    for (const DynamicViscosity intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitDynamicViscosity, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       DynamicViscosity::PascalSecond, DynamicViscosity::PascalSecond, value, value);
@@ -88,7 +97,7 @@ TEST(UnitDynamicViscosity, ConvertFromStandard) {
 }
 
 TEST(UnitDynamicViscosity, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       DynamicViscosity::PascalSecond, DynamicViscosity::PascalSecond, value, value);

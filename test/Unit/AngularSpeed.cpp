@@ -68,8 +68,17 @@ TEST(UnitAngularSpeed, ConsistentUnit) {
             AngularSpeed::RadianPerSecond);
 }
 
+TEST(UnitAngularSpeed, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const AngularSpeed original_unit : Units) {
+    for (const AngularSpeed intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitAngularSpeed, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerSecond, value, value);
@@ -107,7 +116,7 @@ TEST(UnitAngularSpeed, ConvertFromStandard) {
 }
 
 TEST(UnitAngularSpeed, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       AngularSpeed::RadianPerSecond, AngularSpeed::RadianPerSecond, value, value);

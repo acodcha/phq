@@ -61,8 +61,17 @@ TEST(UnitTemperatureGradient, ConsistentUnit) {
             TemperatureGradient::RankinePerInch);
 }
 
+TEST(UnitTemperatureGradient, ConversionReciprocity) {
+  constexpr double original_value{1.234567890123456789};
+  for (const TemperatureGradient original_unit : Units) {
+    for (const TemperatureGradient intermediary_unit : Units) {
+      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+    }
+  }
+}
+
 TEST(UnitTemperatureGradient, ConvertFromStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
@@ -86,7 +95,7 @@ TEST(UnitTemperatureGradient, ConvertFromStandard) {
 }
 
 TEST(UnitTemperatureGradient, ConvertToStandard) {
-  constexpr double value{10.0};
+  constexpr double value{1.234567890123456789};
 
   Internal::TestConversions(
       TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
