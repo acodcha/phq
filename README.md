@@ -17,7 +17,7 @@ const PhQ::Displacement displacement = velocity * time;
 std::cout << "During " << time << ", the displacement is " << displacement << "." << std::endl;
 ```
 
-If you have ever made a unit conversion error, or if you have ever asked yourself questions such as "what is the correct unit of mass density in the foot-pound-second system?", "how do I compute a stress field given a strain field?", or "what is a slug unit?", then this library is for you!
+If you have ever made a unit conversion error, or if you have ever asked yourself questions such as _"what is the correct unit of mass density in the foot-pound-second system?"_, _"how do I compute a stress field given a strain field?"_, or _"what is a slug unit?"_, then this library is for you!
 
 - Physical quantities have no memory overhead compared to using raw floating point numbers to represent the same data.
 - Mathematical operations between physical quantities have no runtime overhead compared to using raw floating point numbers to perform the same operations.
@@ -47,7 +47,7 @@ Contents:
 
 This library requires the following packages:
 
-- **C++17 Compiler:** Any C++17 compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
+- **C++17 Compiler:** Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
 - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`.
 
 [(Back to Top)](#physical-quantities)
@@ -76,9 +76,6 @@ Alternatively, if you have installed the Physical Quantities library on your sys
 
 ```cmake
 find_package(PhQ CONFIG REQUIRED)
-
-[...]
-
 target_link_libraries(your-target-name [other-options] PhQ)
 ```
 
