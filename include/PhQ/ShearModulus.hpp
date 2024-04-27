@@ -61,39 +61,39 @@ public:
   }
 
   constexpr ShearModulus operator+(const ShearModulus& shear_modulus) const {
-    return ShearModulus{value_ + shear_modulus.value_};
+    return ShearModulus{value + shear_modulus.value};
   }
 
   constexpr ShearModulus operator-(const ShearModulus& shear_modulus) const {
-    return ShearModulus{value_ - shear_modulus.value_};
+    return ShearModulus{value - shear_modulus.value};
   }
 
   constexpr ShearModulus operator*(const double number) const {
-    return ShearModulus{value_ * number};
+    return ShearModulus{value * number};
   }
 
   constexpr ShearModulus operator/(const double number) const {
-    return ShearModulus{value_ / number};
+    return ShearModulus{value / number};
   }
 
   constexpr double operator/(const ShearModulus& shear_modulus) const noexcept {
-    return value_ / shear_modulus.value_;
+    return value / shear_modulus.value;
   }
 
   constexpr void operator+=(const ShearModulus& shear_modulus) noexcept {
-    value_ += shear_modulus.value_;
+    value += shear_modulus.value;
   }
 
   constexpr void operator-=(const ShearModulus& shear_modulus) noexcept {
-    value_ -= shear_modulus.value_;
+    value -= shear_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -70,8 +70,8 @@ inline const std::unordered_map<std::string_view, Enumeration> Spellings;
 // PhQ::Unit::Time::Hour.
 template <typename Enumeration>
 std::optional<Enumeration> Parse(const std::string_view spelling) {
-  const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found =
-      Internal::Spellings<Enumeration>.find(spelling);
+  const typename std::unordered_map<std::string_view, Enumeration>::const_iterator found{
+      Internal::Spellings<Enumeration>.find(spelling)};
   if (found != Internal::Spellings<Enumeration>.cend()) {
     return found->second;
   }
@@ -128,8 +128,8 @@ inline std::string LowercaseCopy(const std::string_view text) {
 // Parses a given string into an integer. Returns the integer, or std::nullopt if the string cannot
 // be parsed into an integer.
 inline std::optional<int64_t> ParseToInteger(const std::string& text) {
-  char* end = nullptr;
-  const int64_t value = std::strtoll(text.c_str(), &end, 10);
+  char* end{nullptr};
+  const int64_t value{std::strtoll(text.c_str(), &end, 10)};
   if (end != text.c_str() && *end == '\0' && value != LLONG_MAX && value != LLONG_MIN) {
     return {static_cast<int64_t>(value)};
   }
@@ -139,8 +139,8 @@ inline std::optional<int64_t> ParseToInteger(const std::string& text) {
 // Parses a given string into a double-precision floating-point number. Returns the number, or
 // std::nullopt if the string cannot be parsed into a double-precision floating-point number.
 inline std::optional<double> ParseToDouble(const std::string& text) {
-  char* end = nullptr;
-  const double value = strtod(text.c_str(), &end);
+  char* end{nullptr};
+  const double value{strtod(text.c_str(), &end)};
   if (end != text.c_str() && *end == '\0' && value != HUGE_VAL && value != -HUGE_VAL) {
     return {value};
   }

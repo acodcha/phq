@@ -91,27 +91,27 @@ public:
 
   // Returns the x Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce x() const noexcept {
-    return ScalarForce{value_.x()};
+    return ScalarForce{value.x()};
   }
 
   // Returns the y Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce y() const noexcept {
-    return ScalarForce{value_.y()};
+    return ScalarForce{value.y()};
   }
 
   // Returns the z Cartesian component of this force vector.
   [[nodiscard]] constexpr ScalarForce z() const noexcept {
-    return ScalarForce{value_.z()};
+    return ScalarForce{value.z()};
   }
 
   // Returns the magnitude of this force vector.
   [[nodiscard]] ScalarForce Magnitude() const {
-    return ScalarForce{value_.Magnitude()};
+    return ScalarForce{value.Magnitude()};
   }
 
   // Returns the direction of this force vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this force vector and another one.
@@ -120,37 +120,37 @@ public:
   }
 
   constexpr Force operator+(const Force& force) const {
-    return Force{value_ + force.value_};
+    return Force{value + force.value};
   }
 
   constexpr Force operator-(const Force& force) const {
-    return Force{value_ - force.value_};
+    return Force{value - force.value};
   }
 
   constexpr Force operator*(const double number) const {
-    return Force{value_ * number};
+    return Force{value * number};
   }
 
   constexpr Force operator/(const double number) const {
-    return Force{value_ / number};
+    return Force{value / number};
   }
 
   constexpr Traction operator/(const Area& area) const;
 
   constexpr void operator+=(const Force& force) noexcept {
-    value_ += force.value_;
+    value += force.value;
   }
 
   constexpr void operator-=(const Force& force) noexcept {
-    value_ -= force.value_;
+    value -= force.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

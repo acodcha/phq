@@ -45,12 +45,12 @@ public:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   [[nodiscard]] constexpr const SymmetricDyad& Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
   [[nodiscard]] SymmetricDyad Value(const U unit) const {
-    SymmetricDyad result{value_};
+    SymmetricDyad result{value};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -59,31 +59,31 @@ public:
   // evaluated statically at compile-time.
   template <U NewUnit>
   [[nodiscard]] constexpr SymmetricDyad StaticValue() const {
-    return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
+    return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
   constexpr SymmetricDyad& MutableValue() noexcept {
-    return value_;
+    return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
   constexpr void SetValue(const SymmetricDyad& value) noexcept {
-    value_ = value;
+    this->value = value;
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
   // standard unit of measure and printed to double floating point precision.
   [[nodiscard]] std::string Print() const {
-    return value_.Print().append(" ").append(Abbreviation(Standard<U>));
+    return value.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
   // standard unit of measure and printed to the given floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
-    return value_.Print(precision).append(" ").append(Abbreviation(Standard<U>));
+    return value.Print(precision).append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in the
@@ -102,7 +102,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string JSON() const {
     return std::string{"{\"value\":"}
-        .append(value_.JSON())
+        .append(value.JSON())
         .append(R"(,"unit":")")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -122,7 +122,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string XML() const {
     return std::string{"<value>"}
-        .append(value_.XML())
+        .append(value.XML())
         .append("</value><unit>")
         .append(Abbreviation(Standard<U>))
         .append("</unit>");
@@ -142,7 +142,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string YAML() const {
     return std::string{"{value:"}
-        .append(value_.YAML())
+        .append(value.YAML())
         .append(",unit:\"")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -165,12 +165,12 @@ protected:
 
   // Constructor. Constructs a dimensional symmetric dyadic tensor physical quantity with a given
   // value expressed in its standard unit of measure.
-  explicit constexpr DimensionalSymmetricDyad(const SymmetricDyad& value) : value_(value) {}
+  explicit constexpr DimensionalSymmetricDyad(const SymmetricDyad& value) : value(value) {}
 
   // Constructor. Constructs a dimensional dimensional symmetric dyadic tensor physical quantity
   // with a given value expressed in a given unit of measure.
-  DimensionalSymmetricDyad(const SymmetricDyad& value, const U unit) : value_(value) {
-    Convert(value_, unit, Standard<U>);
+  DimensionalSymmetricDyad(const SymmetricDyad& value, const U unit) : value(value) {
+    Convert(this->value, unit, Standard<U>);
   }
 
   // Destructor. Destroys this dimensional symmetric dyadic tensor physical quantity.
@@ -195,7 +195,7 @@ protected:
 
   // Value of this dimensional symmetric dyadic tensor physical quantity expressed in its standard
   // unit of measure.
-  SymmetricDyad value_;
+  SymmetricDyad value;
 };
 
 template <typename U>

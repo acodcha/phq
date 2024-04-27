@@ -79,19 +79,19 @@ public:
   }
 
   constexpr ScalarVelocityGradient operator+(const ScalarVelocityGradient& other) const {
-    return ScalarVelocityGradient{value_ + other.value_};
+    return ScalarVelocityGradient{value + other.value};
   }
 
   constexpr ScalarVelocityGradient operator-(const ScalarVelocityGradient& other) const {
-    return ScalarVelocityGradient{value_ - other.value_};
+    return ScalarVelocityGradient{value - other.value};
   }
 
   constexpr ScalarVelocityGradient operator*(const double number) const {
-    return ScalarVelocityGradient{value_ * number};
+    return ScalarVelocityGradient{value * number};
   }
 
   constexpr ScalarVelocityGradient operator/(const double number) const {
-    return ScalarVelocityGradient{value_ / number};
+    return ScalarVelocityGradient{value / number};
   }
 
   constexpr ScalarDisplacementGradient operator*(const Time& time) const {
@@ -99,7 +99,7 @@ public:
   }
 
   constexpr double operator/(const ScalarVelocityGradient& other) const noexcept {
-    return value_ / other.value_;
+    return value / other.value;
   }
 
   constexpr ScalarDisplacementGradient operator/(const Frequency& frequency) const {
@@ -107,19 +107,19 @@ public:
   }
 
   constexpr void operator+=(const ScalarVelocityGradient& other) noexcept {
-    value_ += other.value_;
+    value += other.value;
   }
 
   constexpr void operator-=(const ScalarVelocityGradient& other) noexcept {
-    value_ -= other.value_;
+    value -= other.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

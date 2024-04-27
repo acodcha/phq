@@ -62,39 +62,39 @@ public:
   }
 
   constexpr YoungModulus operator+(const YoungModulus& young_modulus) const {
-    return YoungModulus{value_ + young_modulus.value_};
+    return YoungModulus{value + young_modulus.value};
   }
 
   constexpr YoungModulus operator-(const YoungModulus& young_modulus) const {
-    return YoungModulus{value_ - young_modulus.value_};
+    return YoungModulus{value - young_modulus.value};
   }
 
   constexpr YoungModulus operator*(const double number) const {
-    return YoungModulus{value_ * number};
+    return YoungModulus{value * number};
   }
 
   constexpr YoungModulus operator/(const double number) const {
-    return YoungModulus{value_ / number};
+    return YoungModulus{value / number};
   }
 
   constexpr double operator/(const YoungModulus& young_modulus) const noexcept {
-    return value_ / young_modulus.value_;
+    return value / young_modulus.value;
   }
 
   constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
-    value_ += young_modulus.value_;
+    value += young_modulus.value;
   }
 
   constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
-    value_ -= young_modulus.value_;
+    value -= young_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

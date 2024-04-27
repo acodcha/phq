@@ -51,17 +51,16 @@ public:
   // modulus and Poisson's ratio.
   ElasticIsotropicSolid(const YoungModulus& young_modulus, const PoissonRatio& poisson_ratio)
     : ConstitutiveModel(),
-      shear_modulus_(young_modulus.Value() / (2.0 * (1.0 + poisson_ratio.Value()))),
-      lame_first_modulus_(young_modulus.Value() * poisson_ratio.Value()
-                          / ((1.0 + poisson_ratio.Value()) * (1.0 - 2.0 * poisson_ratio.Value()))) {
-  }
+      shear_modulus(young_modulus.Value() / (2.0 * (1.0 + poisson_ratio.Value()))),
+      lame_first_modulus(young_modulus.Value() * poisson_ratio.Value()
+                         / ((1.0 + poisson_ratio.Value()) * (1.0 - 2.0 * poisson_ratio.Value()))) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and shear modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus, const ShearModulus& shear_modulus)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus),
-      lame_first_modulus_(
+    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      lame_first_modulus(
           (shear_modulus.Value() * (young_modulus.Value() - 2.0 * shear_modulus.Value()))
           / (3.0 * shear_modulus.Value() - young_modulus.Value())) {}
 
@@ -70,46 +69,46 @@ public:
   ElasticIsotropicSolid(
       const YoungModulus& young_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(3.0 * young_modulus.Value() * isentropic_bulk_modulus.Value()
-                     / (9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())),
-      lame_first_modulus_(3.0 * isentropic_bulk_modulus.Value()
-                          * (3.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())
-                          / (9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())) {}
+      shear_modulus(3.0 * young_modulus.Value() * isentropic_bulk_modulus.Value()
+                    / (9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())),
+      lame_first_modulus(3.0 * isentropic_bulk_modulus.Value()
+                         * (3.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())
+                         / (9.0 * isentropic_bulk_modulus.Value() - young_modulus.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and isothermal bulk modulus.
   ElasticIsotropicSolid(
       const YoungModulus& young_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(3.0 * young_modulus.Value() * isothermal_bulk_modulus.Value()
-                     / (9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())),
-      lame_first_modulus_(3.0 * isothermal_bulk_modulus.Value()
-                          * (3.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())
-                          / (9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())) {}
+      shear_modulus(3.0 * young_modulus.Value() * isothermal_bulk_modulus.Value()
+                    / (9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())),
+      lame_first_modulus(3.0 * isothermal_bulk_modulus.Value()
+                         * (3.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())
+                         / (9.0 * isothermal_bulk_modulus.Value() - young_modulus.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus, const LameFirstModulus& lame_first_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(0.25
-                     * (young_modulus.Value() - 3.0 * lame_first_modulus.Value()
-                        + ::std::sqrt(::std::pow(young_modulus.Value(), 2)
-                                      + 9.0 * ::std::pow(lame_first_modulus.Value(), 2)
-                                      + 2.0 * young_modulus.Value() * lame_first_modulus.Value()))),
-      lame_first_modulus_(lame_first_modulus) {}
+      shear_modulus(0.25
+                    * (young_modulus.Value() - 3.0 * lame_first_modulus.Value()
+                       + ::std::sqrt(::std::pow(young_modulus.Value(), 2)
+                                     + 9.0 * ::std::pow(lame_first_modulus.Value(), 2)
+                                     + 2.0 * young_modulus.Value() * lame_first_modulus.Value()))),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Young's
   // modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const YoungModulus& young_modulus, const PWaveModulus& p_wave_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(0.125
-                     * (3.0 * p_wave_modulus.Value() + young_modulus.Value()
-                        - ::std::sqrt(::std::pow(young_modulus.Value(), 2)
-                                      + 9.0 * ::std::pow(p_wave_modulus.Value(), 2)
-                                      - 10.0 * young_modulus.Value() * p_wave_modulus.Value()))),
-      lame_first_modulus_(
+      shear_modulus(0.125
+                    * (3.0 * p_wave_modulus.Value() + young_modulus.Value()
+                       - ::std::sqrt(::std::pow(young_modulus.Value(), 2)
+                                     + 9.0 * ::std::pow(p_wave_modulus.Value(), 2)
+                                     - 10.0 * young_modulus.Value() * p_wave_modulus.Value()))),
+      lame_first_modulus(
           0.25
           * (p_wave_modulus.Value() - young_modulus.Value()
              + ::std::sqrt(
@@ -120,114 +119,114 @@ public:
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const ShearModulus& shear_modulus, const PoissonRatio& poisson_ratio)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus),
-      lame_first_modulus_((2.0 * shear_modulus.Value() * poisson_ratio.Value())
-                          / (1.0 - 2.0 * poisson_ratio.Value())) {}
+    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      lame_first_modulus((2.0 * shear_modulus.Value() * poisson_ratio.Value())
+                         / (1.0 - 2.0 * poisson_ratio.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and isentropic bulk modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus& shear_modulus, const IsentropicBulkModulus& isentropic_bulk_modulus)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus),
-      lame_first_modulus_(isentropic_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
+    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      lame_first_modulus(isentropic_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and isothermal bulk modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus& shear_modulus, const IsothermalBulkModulus& isothermal_bulk_modulus)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus),
-      lame_first_modulus_(isothermal_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
+    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      lame_first_modulus(isothermal_bulk_modulus.Value() - 2.0 / 3.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus& shear_modulus, const LameFirstModulus& lame_first_modulus)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus), lame_first_modulus_(lame_first_modulus) {}
+    : ConstitutiveModel(), shear_modulus(shear_modulus), lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given shear
   // modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const ShearModulus& shear_modulus, const PWaveModulus& p_wave_modulus)
-    : ConstitutiveModel(), shear_modulus_(shear_modulus),
-      lame_first_modulus_(p_wave_modulus.Value() - 2.0 * shear_modulus.Value()) {}
+    : ConstitutiveModel(), shear_modulus(shear_modulus),
+      lame_first_modulus(p_wave_modulus.Value() - 2.0 * shear_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(const IsentropicBulkModulus& isentropic_bulk_modulus,
                                   const LameFirstModulus& lame_first_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(1.5 * (isentropic_bulk_modulus.Value() - lame_first_modulus.Value())),
-      lame_first_modulus_(lame_first_modulus) {}
+      shear_modulus(1.5 * (isentropic_bulk_modulus.Value() - lame_first_modulus.Value())),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and Lamé's first modulus.
   constexpr ElasticIsotropicSolid(const IsothermalBulkModulus& isothermal_bulk_modulus,
                                   const LameFirstModulus& lame_first_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value())),
-      lame_first_modulus_(lame_first_modulus) {}
+      shear_modulus(1.5 * (isothermal_bulk_modulus.Value() - lame_first_modulus.Value())),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const IsentropicBulkModulus& isentropic_bulk_modulus, const PWaveModulus& p_wave_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(0.75 * (p_wave_modulus.Value() - isentropic_bulk_modulus.Value())),
-      lame_first_modulus_(1.5 * isentropic_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
+      shear_modulus(0.75 * (p_wave_modulus.Value() - isentropic_bulk_modulus.Value())),
+      lame_first_modulus(1.5 * isentropic_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const IsothermalBulkModulus& isothermal_bulk_modulus, const PWaveModulus& p_wave_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(0.75 * (p_wave_modulus.Value() - isothermal_bulk_modulus.Value())),
-      lame_first_modulus_(1.5 * isothermal_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
+      shear_modulus(0.75 * (p_wave_modulus.Value() - isothermal_bulk_modulus.Value())),
+      lame_first_modulus(1.5 * isothermal_bulk_modulus.Value() - 0.5 * p_wave_modulus.Value()) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isentropic
   // bulk modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const IsentropicBulkModulus& isentropic_bulk_modulus, const PoissonRatio& poisson_ratio)
     : ConstitutiveModel(),
-      shear_modulus_(3.0 * isentropic_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
-                     / (2.0 + 2.0 * poisson_ratio.Value())),
-      lame_first_modulus_(3.0 * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
-                          / (1.0 + poisson_ratio.Value())) {}
+      shear_modulus(3.0 * isentropic_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+                    / (2.0 + 2.0 * poisson_ratio.Value())),
+      lame_first_modulus(3.0 * isentropic_bulk_modulus.Value() * poisson_ratio.Value()
+                         / (1.0 + poisson_ratio.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given isothermal
   // bulk modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const IsothermalBulkModulus& isothermal_bulk_modulus, const PoissonRatio& poisson_ratio)
     : ConstitutiveModel(),
-      shear_modulus_(3.0 * isothermal_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
-                     / (2.0 + 2.0 * poisson_ratio.Value())),
-      lame_first_modulus_(3.0 * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
-                          / (1.0 + poisson_ratio.Value())) {}
+      shear_modulus(3.0 * isothermal_bulk_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+                    / (2.0 + 2.0 * poisson_ratio.Value())),
+      lame_first_modulus(3.0 * isothermal_bulk_modulus.Value() * poisson_ratio.Value()
+                         / (1.0 + poisson_ratio.Value())) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
   // modulus and P-wave modulus.
   constexpr ElasticIsotropicSolid(
       const LameFirstModulus& lame_first_modulus, const PWaveModulus& p_wave_modulus)
     : ConstitutiveModel(),
-      shear_modulus_(0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value())),
-      lame_first_modulus_(lame_first_modulus) {}
+      shear_modulus(0.5 * (p_wave_modulus.Value() - lame_first_modulus.Value())),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given Lamé's first
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const LameFirstModulus& lame_first_modulus, const PoissonRatio& poisson_ratio)
     : ConstitutiveModel(),
-      shear_modulus_(lame_first_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
-                     / (2.0 * poisson_ratio.Value())),
-      lame_first_modulus_(lame_first_modulus) {}
+      shear_modulus(lame_first_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+                    / (2.0 * poisson_ratio.Value())),
+      lame_first_modulus(lame_first_modulus) {}
 
   // Constructor. Constructs an elastic isotropic solid constitutive model from a given P-wave
   // modulus and Poisson's ratio.
   constexpr ElasticIsotropicSolid(
       const PWaveModulus& p_wave_modulus, const PoissonRatio& poisson_ratio)
     : ConstitutiveModel(),
-      shear_modulus_(p_wave_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
-                     / (2.0 - 2.0 * poisson_ratio.Value())),
-      lame_first_modulus_(
+      shear_modulus(p_wave_modulus.Value() * (1.0 - 2.0 * poisson_ratio.Value())
+                    / (2.0 - 2.0 * poisson_ratio.Value())),
+      lame_first_modulus(
           p_wave_modulus.Value() * poisson_ratio.Value() / (1.0 - poisson_ratio.Value())) {}
 
   // Destructor. Destroys this elastic isotropic solid constitutive model.
@@ -251,43 +250,43 @@ public:
 
   // Shear modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::ShearModulus& ShearModulus() const noexcept {
-    return shear_modulus_;
+    return shear_modulus;
   }
 
   // Lamé's first modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::LameFirstModulus& LameFirstModulus() const noexcept {
-    return lame_first_modulus_;
+    return lame_first_modulus;
   }
 
   // Young's modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::YoungModulus YoungModulus() const {
-    const double numerator{shear_modulus_.Value()
-                           * (3.0 * lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value())};
-    const double denominator{shear_modulus_.Value() + lame_first_modulus_.Value()};
+    const double numerator{
+        shear_modulus.Value() * (3.0 * lame_first_modulus.Value() + 2.0 * shear_modulus.Value())};
+    const double denominator{shear_modulus.Value() + lame_first_modulus.Value()};
     return {numerator / denominator, Standard<Unit::Pressure>};
   }
 
   // Isentropic bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsentropicBulkModulus IsentropicBulkModulus() const {
     return {
-        lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(), Standard<Unit::Pressure>};
+        lame_first_modulus.Value() + 2.0 / 3.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // Isothermal bulk modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::IsothermalBulkModulus IsothermalBulkModulus() const {
     return {
-        lame_first_modulus_.Value() + 2.0 / 3.0 * shear_modulus_.Value(), Standard<Unit::Pressure>};
+        lame_first_modulus.Value() + 2.0 / 3.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // P-wave modulus of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::PWaveModulus PWaveModulus() const {
-    return {lame_first_modulus_.Value() + 2.0 * shear_modulus_.Value(), Standard<Unit::Pressure>};
+    return {lame_first_modulus.Value() + 2.0 * shear_modulus.Value(), Standard<Unit::Pressure>};
   }
 
   // Poisson's ratio of this elastic isotropic solid constitutive model.
   [[nodiscard]] inline PhQ::PoissonRatio PoissonRatio() const {
-    const double numerator{0.5 * lame_first_modulus_.Value()};
-    const double denominator{shear_modulus_.Value() + lame_first_modulus_.Value()};
+    const double numerator{0.5 * lame_first_modulus.Value()};
+    const double denominator{shear_modulus.Value() + lame_first_modulus.Value()};
     return PhQ::PoissonRatio{numerator / denominator};
   }
 
@@ -309,9 +308,9 @@ public:
     // stress = a * strain + b * trace(strain) * identity_matrix
     // a = 2 * shear_modulus
     // b = lame_first_modulus
-    const double temporary = lame_first_modulus_.Value() * strain.Value().Trace();
+    const double temporary{lame_first_modulus.Value() * strain.Value().Trace()};
     return {
-        2.0 * shear_modulus_.Value() * strain.Value()
+        2.0 * shear_modulus.Value() * strain.Value()
             + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
         Standard<Unit::Pressure>
     };
@@ -330,11 +329,11 @@ public:
     // a = 1 / (2 * shear_modulus)
     // b = -1 * lame_first_modulus / (2 * shear_modulus * (2 * shear_modulus + 3
     //     * lame_first_modulus))
-    const double a = 1.0 / (2.0 * shear_modulus_.Value());
-    const double b = -lame_first_modulus_.Value()
-                     / (2.0 * shear_modulus_.Value()
-                        * (2.0 * shear_modulus_.Value() + 3.0 * lame_first_modulus_.Value()));
-    const double temporary = b * stress.Value().Trace();
+    const double a{1.0 / (2.0 * shear_modulus.Value())};
+    const double b{-lame_first_modulus.Value()
+                   / (2.0 * shear_modulus.Value()
+                      * (2.0 * shear_modulus.Value() + 3.0 * lame_first_modulus.Value()))};
+    const double temporary{b * stress.Value().Trace()};
     return PhQ::Strain{
         a * stress.Value() + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary}
     };
@@ -350,33 +349,32 @@ public:
   // Prints this elastic isotropic solid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(GetType())} + ", Shear Modulus = "
-            + shear_modulus_.Print() + ", Lamé's First Modulus = " + lame_first_modulus_.Print()};
+            + shear_modulus.Print() + ", Lamé's First Modulus = " + lame_first_modulus.Print()};
   }
 
   // Serializes this elastic isotropic solid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
     return {R"({"type":")" + SnakeCaseCopy(Abbreviation(GetType())) + R"(","shear_modulus":)"
-            + shear_modulus_.JSON() + ",\"lame_first_modulus\":" + lame_first_modulus_.JSON()
-            + "}"};
+            + shear_modulus.JSON() + ",\"lame_first_modulus\":" + lame_first_modulus.JSON() + "}"};
   }
 
   // Serializes this elastic isotropic solid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(GetType())) + "</type><shear_modulus>"
-            + shear_modulus_.XML() + "</shear_modulus><lame_first_modulus>"
-            + lame_first_modulus_.XML() + "</lame_first_modulus>"};
+            + shear_modulus.XML() + "</shear_modulus><lame_first_modulus>"
+            + lame_first_modulus.XML() + "</lame_first_modulus>"};
   }
 
   // Serializes this elastic isotropic solid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType())) + "\",shear_modulus:"
-            + shear_modulus_.YAML() + ",lame_first_modulus:" + lame_first_modulus_.YAML() + "}"};
+            + shear_modulus.YAML() + ",lame_first_modulus:" + lame_first_modulus.YAML() + "}"};
   }
 
 private:
-  PhQ::ShearModulus shear_modulus_;
+  PhQ::ShearModulus shear_modulus;
 
-  PhQ::LameFirstModulus lame_first_modulus_;
+  PhQ::LameFirstModulus lame_first_modulus;
 };
 
 inline constexpr bool operator==(const ConstitutiveModel::ElasticIsotropicSolid& left,
@@ -430,7 +428,7 @@ namespace std {
 template <>
 struct hash<PhQ::ConstitutiveModel::ElasticIsotropicSolid> {
   size_t operator()(const PhQ::ConstitutiveModel::ElasticIsotropicSolid& model) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + hash<PhQ::ShearModulus>()(model.ShearModulus());
     result = 31 * result + hash<PhQ::LameFirstModulus>()(model.LameFirstModulus());
     return result;

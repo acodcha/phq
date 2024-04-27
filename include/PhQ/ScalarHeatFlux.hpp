@@ -74,41 +74,41 @@ public:
   }
 
   constexpr ScalarHeatFlux operator+(const ScalarHeatFlux& scalar_heat_flux) const {
-    return ScalarHeatFlux{value_ + scalar_heat_flux.value_};
+    return ScalarHeatFlux{value + scalar_heat_flux.value};
   }
 
   constexpr ScalarHeatFlux operator-(const ScalarHeatFlux& scalar_heat_flux) const {
-    return ScalarHeatFlux{value_ - scalar_heat_flux.value_};
+    return ScalarHeatFlux{value - scalar_heat_flux.value};
   }
 
   constexpr ScalarHeatFlux operator*(const double number) const {
-    return ScalarHeatFlux{value_ * number};
+    return ScalarHeatFlux{value * number};
   }
 
   constexpr HeatFlux operator*(const Direction& direction) const;
 
   constexpr ScalarHeatFlux operator/(const double number) const {
-    return ScalarHeatFlux{value_ / number};
+    return ScalarHeatFlux{value / number};
   }
 
   constexpr double operator/(const ScalarHeatFlux& scalar_heat_flux) const noexcept {
-    return value_ / scalar_heat_flux.value_;
+    return value / scalar_heat_flux.value;
   }
 
   constexpr void operator+=(const ScalarHeatFlux& scalar_heat_flux) noexcept {
-    value_ += scalar_heat_flux.value_;
+    value += scalar_heat_flux.value;
   }
 
   constexpr void operator-=(const ScalarHeatFlux& scalar_heat_flux) noexcept {
-    value_ -= scalar_heat_flux.value_;
+    value -= scalar_heat_flux.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

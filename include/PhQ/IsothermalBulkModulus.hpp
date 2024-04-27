@@ -64,40 +64,40 @@ public:
 
   constexpr IsothermalBulkModulus operator+(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus{value_ + isothermal_bulk_modulus.value_};
+    return IsothermalBulkModulus{value + isothermal_bulk_modulus.value};
   }
 
   constexpr IsothermalBulkModulus operator-(
       const IsothermalBulkModulus& isothermal_bulk_modulus) const {
-    return IsothermalBulkModulus{value_ - isothermal_bulk_modulus.value_};
+    return IsothermalBulkModulus{value - isothermal_bulk_modulus.value};
   }
 
   constexpr IsothermalBulkModulus operator*(const double number) const {
-    return IsothermalBulkModulus{value_ * number};
+    return IsothermalBulkModulus{value * number};
   }
 
   constexpr IsothermalBulkModulus operator/(const double number) const {
-    return IsothermalBulkModulus{value_ / number};
+    return IsothermalBulkModulus{value / number};
   }
 
   constexpr double operator/(const IsothermalBulkModulus& isothermal_bulk_modulus) const noexcept {
-    return value_ / isothermal_bulk_modulus.value_;
+    return value / isothermal_bulk_modulus.value;
   }
 
   constexpr void operator+=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
-    value_ += isothermal_bulk_modulus.value_;
+    value += isothermal_bulk_modulus.value;
   }
 
   constexpr void operator-=(const IsothermalBulkModulus& isothermal_bulk_modulus) noexcept {
-    value_ -= isothermal_bulk_modulus.value_;
+    value -= isothermal_bulk_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

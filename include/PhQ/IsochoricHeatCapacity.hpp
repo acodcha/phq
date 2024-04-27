@@ -85,24 +85,24 @@ public:
 
   constexpr IsochoricHeatCapacity operator+(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    return IsochoricHeatCapacity{value_ + isochoric_heat_capacity.value_};
+    return IsochoricHeatCapacity{value + isochoric_heat_capacity.value};
   }
 
   constexpr IsobaricHeatCapacity operator+(const GasConstant& gas_constant) const;
 
   constexpr IsochoricHeatCapacity operator-(
       const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    return IsochoricHeatCapacity{value_ - isochoric_heat_capacity.value_};
+    return IsochoricHeatCapacity{value - isochoric_heat_capacity.value};
   }
 
   constexpr IsochoricHeatCapacity operator*(const double number) const {
-    return IsochoricHeatCapacity{value_ * number};
+    return IsochoricHeatCapacity{value * number};
   }
 
   constexpr IsobaricHeatCapacity operator*(const HeatCapacityRatio& heat_capacity_ratio) const;
 
   constexpr IsochoricHeatCapacity operator/(const double number) const {
-    return IsochoricHeatCapacity{value_ / number};
+    return IsochoricHeatCapacity{value / number};
   }
 
   constexpr SpecificIsochoricHeatCapacity operator/(const Mass& mass) const;
@@ -111,23 +111,23 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const;
 
   constexpr double operator/(const IsochoricHeatCapacity& isochoric_heat_capacity) const noexcept {
-    return value_ / isochoric_heat_capacity.value_;
+    return value / isochoric_heat_capacity.value;
   }
 
   constexpr void operator+=(const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
-    value_ += isochoric_heat_capacity.value_;
+    value += isochoric_heat_capacity.value;
   }
 
   constexpr void operator-=(const IsochoricHeatCapacity& isochoric_heat_capacity) noexcept {
-    value_ -= isochoric_heat_capacity.value_;
+    value -= isochoric_heat_capacity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

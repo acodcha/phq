@@ -90,15 +90,15 @@ public:
   }
 
   constexpr AngularSpeed operator+(const AngularSpeed& angular_speed) const {
-    return AngularSpeed{value_ + angular_speed.value_};
+    return AngularSpeed{value + angular_speed.value};
   }
 
   constexpr AngularSpeed operator-(const AngularSpeed& angular_speed) const {
-    return AngularSpeed{value_ - angular_speed.value_};
+    return AngularSpeed{value - angular_speed.value};
   }
 
   constexpr AngularSpeed operator*(const double number) const {
-    return AngularSpeed{value_ * number};
+    return AngularSpeed{value * number};
   }
 
   constexpr Angle operator*(const Time& time) const {
@@ -108,7 +108,7 @@ public:
   constexpr ScalarAngularAcceleration operator*(const Frequency& frequency) const;
 
   constexpr AngularSpeed operator/(const double number) const {
-    return AngularSpeed{value_ / number};
+    return AngularSpeed{value / number};
   }
 
   constexpr Angle operator/(const Frequency& frequency) const {
@@ -124,23 +124,23 @@ public:
   constexpr Time operator/(const ScalarAngularAcceleration& scalar_angular_acceleration) const;
 
   constexpr double operator/(const AngularSpeed& angular_speed) const noexcept {
-    return value_ / angular_speed.value_;
+    return value / angular_speed.value;
   }
 
   constexpr void operator+=(const AngularSpeed& angular_speed) noexcept {
-    value_ += angular_speed.value_;
+    value += angular_speed.value;
   }
 
   constexpr void operator-=(const AngularSpeed& angular_speed) noexcept {
-    value_ -= angular_speed.value_;
+    value -= angular_speed.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

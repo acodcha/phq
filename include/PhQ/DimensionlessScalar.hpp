@@ -39,44 +39,44 @@ public:
 
   // Value of this dimensionless physical quantity.
   [[nodiscard]] inline constexpr double Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Returns the value of this dimensionless physical quantity as a mutable value.
   inline constexpr double& MutableValue() noexcept {
-    return value_;
+    return value;
   }
 
   // Sets the value of this dimensionless physical quantity to the given value.
   inline constexpr void SetValue(const double value) noexcept {
-    value_ = value;
+    this->value = value;
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to double floating point precision.
   [[nodiscard]] std::string Print() const {
-    return PhQ::Print(value_);
+    return PhQ::Print(value);
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to the given floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
-    return PhQ::Print(value_, precision);
+    return PhQ::Print(value, precision);
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
-    return PhQ::Print(value_);
+    return PhQ::Print(value);
   }
 
   // Serializes this dimensionless physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
-    return PhQ::Print(value_);
+    return PhQ::Print(value);
   }
 
   // Serializes this dimensionless physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
-    return PhQ::Print(value_);
+    return PhQ::Print(value);
   }
 
 protected:
@@ -85,7 +85,7 @@ protected:
   DimensionlessScalar() = default;
 
   // Constructor. Constructs a dimensionless scalar physical quantity with a given value.
-  explicit constexpr DimensionlessScalar(const double value) : value_(value) {}
+  explicit constexpr DimensionlessScalar(const double value) : value(value) {}
 
   // Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalar() noexcept = default;
@@ -105,7 +105,7 @@ protected:
   constexpr DimensionlessScalar& operator=(DimensionlessScalar&& other) noexcept = default;
 
   // Value of this dimensionless scalar physical quantity.
-  double value_;
+  double value;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalar& quantity) {

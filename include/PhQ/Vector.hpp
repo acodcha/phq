@@ -241,16 +241,16 @@ public:
     x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr void operator*=(const double real) noexcept {
-    x_y_z_[0] *= real;
-    x_y_z_[1] *= real;
-    x_y_z_[2] *= real;
+  constexpr void operator*=(const double number) noexcept {
+    x_y_z_[0] *= number;
+    x_y_z_[1] *= number;
+    x_y_z_[2] *= number;
   }
 
-  constexpr void operator/=(const double real) noexcept {
-    x_y_z_[0] /= real;
-    x_y_z_[1] /= real;
-    x_y_z_[2] /= real;
+  constexpr void operator/=(const double number) noexcept {
+    x_y_z_[0] /= number;
+    x_y_z_[1] /= number;
+    x_y_z_[2] /= number;
   }
 
 private:
@@ -302,16 +302,16 @@ inline constexpr Vector operator-(const Vector& left, const Vector& right) {
   return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
-inline constexpr Vector operator*(const Vector& vector, const double real) {
-  return {vector.x() * real, vector.y() * real, vector.z() * real};
+inline constexpr Vector operator*(const Vector& vector, const double number) {
+  return {vector.x() * number, vector.y() * number, vector.z() * number};
 }
 
-inline constexpr Vector operator*(const double real, const Vector& vector) {
-  return {vector * real};
+inline constexpr Vector operator*(const double number, const Vector& vector) {
+  return {vector * number};
 }
 
-inline constexpr Vector operator/(const Vector& vector, const double real) {
-  return {vector.x() / real, vector.y() / real, vector.z() / real};
+inline constexpr Vector operator/(const Vector& vector, const double number) {
+  return {vector.x() / number, vector.y() / number, vector.z() / number};
 }
 
 inline std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
@@ -326,7 +326,7 @@ namespace std {
 template <>
 struct hash<PhQ::Vector> {
   inline size_t operator()(const PhQ::Vector& vector) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + hash<double>()(vector.x());
     result = 31 * result + hash<double>()(vector.y());
     result = 31 * result + hash<double>()(vector.z());

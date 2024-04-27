@@ -80,15 +80,15 @@ public:
   }
 
   constexpr ScalarAcceleration operator+(const ScalarAcceleration& scalar_acceleration) const {
-    return ScalarAcceleration{value_ + scalar_acceleration.value_};
+    return ScalarAcceleration{value + scalar_acceleration.value};
   }
 
   constexpr ScalarAcceleration operator-(const ScalarAcceleration& scalar_acceleration) const {
-    return ScalarAcceleration{value_ - scalar_acceleration.value_};
+    return ScalarAcceleration{value - scalar_acceleration.value};
   }
 
   constexpr ScalarAcceleration operator*(const double number) const {
-    return ScalarAcceleration{value_ * number};
+    return ScalarAcceleration{value * number};
   }
 
   constexpr Speed operator*(const Time& time) const {
@@ -98,7 +98,7 @@ public:
   constexpr Acceleration operator*(const Direction& direction) const;
 
   constexpr ScalarAcceleration operator/(const double number) const {
-    return ScalarAcceleration{value_ / number};
+    return ScalarAcceleration{value / number};
   }
 
   constexpr Speed operator/(const Frequency& frequency) const {
@@ -110,23 +110,23 @@ public:
   }
 
   constexpr double operator/(const ScalarAcceleration& scalar_acceleration) const noexcept {
-    return value_ / scalar_acceleration.value_;
+    return value / scalar_acceleration.value;
   }
 
   constexpr void operator+=(const ScalarAcceleration& scalar_acceleration) noexcept {
-    value_ += scalar_acceleration.value_;
+    value += scalar_acceleration.value;
   }
 
   constexpr void operator-=(const ScalarAcceleration& scalar_acceleration) noexcept {
-    value_ -= scalar_acceleration.value_;
+    value -= scalar_acceleration.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

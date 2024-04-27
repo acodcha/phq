@@ -110,15 +110,15 @@ public:
   }
 
   constexpr Mass operator+(const Mass& mass) const {
-    return Mass{value_ + mass.value_};
+    return Mass{value + mass.value};
   }
 
   constexpr Mass operator-(const Mass& mass) const {
-    return Mass{value_ - mass.value_};
+    return Mass{value - mass.value};
   }
 
   constexpr Mass operator*(const double number) const {
-    return Mass{value_ * number};
+    return Mass{value * number};
   }
 
   constexpr MassRate operator*(const Frequency& frequency) const;
@@ -136,7 +136,7 @@ public:
   constexpr GasConstant operator*(const SpecificGasConstant& specific_gas_constant) const;
 
   constexpr Mass operator/(const double number) const {
-    return Mass{value_ / number};
+    return Mass{value / number};
   }
 
   constexpr MassDensity operator/(const Volume& volume) const;
@@ -148,23 +148,23 @@ public:
   constexpr Time operator/(const MassRate& mass_rate) const;
 
   constexpr double operator/(const Mass& mass) const noexcept {
-    return value_ / mass.value_;
+    return value / mass.value;
   }
 
   constexpr void operator+=(const Mass& mass) noexcept {
-    value_ += mass.value_;
+    value += mass.value;
   }
 
   constexpr void operator-=(const Mass& mass) noexcept {
-    value_ -= mass.value_;
+    value -= mass.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

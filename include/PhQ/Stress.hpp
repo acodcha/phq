@@ -92,47 +92,47 @@ public:
 
   // Returns the xx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress xx() const noexcept {
-    return ScalarStress{value_.xx()};
+    return ScalarStress{value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress xy() const noexcept {
-    return ScalarStress{value_.xy()};
+    return ScalarStress{value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress xz() const noexcept {
-    return ScalarStress{value_.xz()};
+    return ScalarStress{value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress yx() const noexcept {
-    return ScalarStress{value_.yx()};
+    return ScalarStress{value.yx()};
   }
 
   // Returns the yy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress yy() const noexcept {
-    return ScalarStress{value_.yy()};
+    return ScalarStress{value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress yz() const noexcept {
-    return ScalarStress{value_.yz()};
+    return ScalarStress{value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress zx() const noexcept {
-    return ScalarStress{value_.zx()};
+    return ScalarStress{value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress zy() const noexcept {
-    return ScalarStress{value_.zy()};
+    return ScalarStress{value.zy()};
   }
 
   // Returns the zz Cartesian component of this stress tensor.
   [[nodiscard]] constexpr ScalarStress zz() const noexcept {
-    return ScalarStress{value_.zz()};
+    return ScalarStress{value.zz()};
   }
 
   // Creates a traction from this stress tensor using the definition of traction.
@@ -144,43 +144,41 @@ public:
   [[nodiscard]] constexpr ScalarStress VonMises() const {
     return ScalarStress{std::sqrt(
         0.5
-        * (std::pow(value_.xx() - value_.yy(), 2) + std::pow(value_.yy() - value_.zz(), 2)
-           + std::pow(value_.zz() - value_.xx(), 2)
-           + 6.0
-                 * (std::pow(value_.xy(), 2) + std::pow(value_.xz(), 2)
-                    + std::pow(value_.yz(), 2))))};
+        * (std::pow(value.xx() - value.yy(), 2) + std::pow(value.yy() - value.zz(), 2)
+           + std::pow(value.zz() - value.xx(), 2)
+           + 6.0 * (std::pow(value.xy(), 2) + std::pow(value.xz(), 2) + std::pow(value.yz(), 2))))};
   }
 
   constexpr Stress operator+(const Stress& stress) const {
-    return Stress{value_ + stress.value_};
+    return Stress{value + stress.value};
   }
 
   constexpr Stress operator-(const Stress& stress) const {
-    return Stress{value_ - stress.value_};
+    return Stress{value - stress.value};
   }
 
   constexpr Stress operator*(const double number) const {
-    return Stress{value_ * number};
+    return Stress{value * number};
   }
 
   constexpr Stress operator/(const double number) const {
-    return Stress{value_ / number};
+    return Stress{value / number};
   }
 
   constexpr void operator+=(const Stress& stress) noexcept {
-    value_ += stress.value_;
+    value += stress.value;
   }
 
   constexpr void operator-=(const Stress& stress) noexcept {
-    value_ -= stress.value_;
+    value -= stress.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -87,41 +87,41 @@ public:
 
   constexpr ScalarThermalConductivity operator+(
       const ScalarThermalConductivity& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity{value_ + thermal_conductivity_scalar.value_};
+    return ScalarThermalConductivity{value + thermal_conductivity_scalar.value};
   }
 
   constexpr ScalarThermalConductivity operator-(
       const ScalarThermalConductivity& thermal_conductivity_scalar) const {
-    return ScalarThermalConductivity{value_ - thermal_conductivity_scalar.value_};
+    return ScalarThermalConductivity{value - thermal_conductivity_scalar.value};
   }
 
   constexpr ScalarThermalConductivity operator*(const double number) const {
-    return ScalarThermalConductivity{value_ * number};
+    return ScalarThermalConductivity{value * number};
   }
 
   constexpr ScalarThermalConductivity operator/(const double number) const {
-    return ScalarThermalConductivity{value_ / number};
+    return ScalarThermalConductivity{value / number};
   }
 
   constexpr double operator/(
       const ScalarThermalConductivity& thermal_conductivity_scalar) const noexcept {
-    return value_ / thermal_conductivity_scalar.value_;
+    return value / thermal_conductivity_scalar.value;
   }
 
   constexpr void operator+=(const ScalarThermalConductivity& thermal_conductivity_scalar) noexcept {
-    value_ += thermal_conductivity_scalar.value_;
+    value += thermal_conductivity_scalar.value;
   }
 
   constexpr void operator-=(const ScalarThermalConductivity& thermal_conductivity_scalar) noexcept {
-    value_ -= thermal_conductivity_scalar.value_;
+    value -= thermal_conductivity_scalar.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -52,39 +52,39 @@ public:
   }
 
   constexpr PoissonRatio operator+(const PoissonRatio& poisson_ratio) const {
-    return PoissonRatio{value_ + poisson_ratio.value_};
+    return PoissonRatio{value + poisson_ratio.value};
   }
 
   constexpr PoissonRatio operator-(const PoissonRatio& poisson_ratio) const {
-    return PoissonRatio{value_ - poisson_ratio.value_};
+    return PoissonRatio{value - poisson_ratio.value};
   }
 
   constexpr PoissonRatio operator*(const double number) const {
-    return PoissonRatio{value_ * number};
+    return PoissonRatio{value * number};
   }
 
   constexpr PoissonRatio operator/(const double number) const {
-    return PoissonRatio{value_ / number};
+    return PoissonRatio{value / number};
   }
 
   constexpr double operator/(const PoissonRatio& poisson_ratio) const noexcept {
-    return value_ / poisson_ratio.value_;
+    return value / poisson_ratio.value;
   }
 
   constexpr void operator+=(const PoissonRatio& poisson_ratio) noexcept {
-    value_ += poisson_ratio.value_;
+    value += poisson_ratio.value;
   }
 
   constexpr void operator-=(const PoissonRatio& poisson_ratio) noexcept {
-    value_ -= poisson_ratio.value_;
+    value -= poisson_ratio.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

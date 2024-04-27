@@ -341,40 +341,40 @@ public:
            + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyad& symdyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] += symdyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] += symdyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] += symdyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] += symdyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] += symdyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] += symdyad.xx_xy_xz_yy_yz_zz_[5];
+  constexpr void operator+=(const SymmetricDyad& symmetric_dyad) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator-=(const SymmetricDyad& symdyad) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] -= symdyad.xx_xy_xz_yy_yz_zz_[0];
-    xx_xy_xz_yy_yz_zz_[1] -= symdyad.xx_xy_xz_yy_yz_zz_[1];
-    xx_xy_xz_yy_yz_zz_[2] -= symdyad.xx_xy_xz_yy_yz_zz_[2];
-    xx_xy_xz_yy_yz_zz_[3] -= symdyad.xx_xy_xz_yy_yz_zz_[3];
-    xx_xy_xz_yy_yz_zz_[4] -= symdyad.xx_xy_xz_yy_yz_zz_[4];
-    xx_xy_xz_yy_yz_zz_[5] -= symdyad.xx_xy_xz_yy_yz_zz_[5];
+  constexpr void operator-=(const SymmetricDyad& symmetric_dyad) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
+    xx_xy_xz_yy_yz_zz_[1] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
+    xx_xy_xz_yy_yz_zz_[2] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
+    xx_xy_xz_yy_yz_zz_[3] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[3];
+    xx_xy_xz_yy_yz_zz_[4] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[4];
+    xx_xy_xz_yy_yz_zz_[5] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator*=(const double real) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] *= real;
-    xx_xy_xz_yy_yz_zz_[1] *= real;
-    xx_xy_xz_yy_yz_zz_[2] *= real;
-    xx_xy_xz_yy_yz_zz_[3] *= real;
-    xx_xy_xz_yy_yz_zz_[4] *= real;
-    xx_xy_xz_yy_yz_zz_[5] *= real;
+  constexpr void operator*=(const double number) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] *= number;
+    xx_xy_xz_yy_yz_zz_[1] *= number;
+    xx_xy_xz_yy_yz_zz_[2] *= number;
+    xx_xy_xz_yy_yz_zz_[3] *= number;
+    xx_xy_xz_yy_yz_zz_[4] *= number;
+    xx_xy_xz_yy_yz_zz_[5] *= number;
   }
 
-  constexpr void operator/=(const double real) noexcept {
-    xx_xy_xz_yy_yz_zz_[0] /= real;
-    xx_xy_xz_yy_yz_zz_[1] /= real;
-    xx_xy_xz_yy_yz_zz_[2] /= real;
-    xx_xy_xz_yy_yz_zz_[3] /= real;
-    xx_xy_xz_yy_yz_zz_[4] /= real;
-    xx_xy_xz_yy_yz_zz_[5] /= real;
+  constexpr void operator/=(const double number) noexcept {
+    xx_xy_xz_yy_yz_zz_[0] /= number;
+    xx_xy_xz_yy_yz_zz_[1] /= number;
+    xx_xy_xz_yy_yz_zz_[2] /= number;
+    xx_xy_xz_yy_yz_zz_[3] /= number;
+    xx_xy_xz_yy_yz_zz_[4] /= number;
+    xx_xy_xz_yy_yz_zz_[5] /= number;
   }
 
 private:
@@ -450,28 +450,31 @@ inline constexpr SymmetricDyad operator-(const SymmetricDyad& left, const Symmet
           left.yy() - right.yy(), left.yz() - right.yz(), left.zz() - right.zz()};
 }
 
-inline constexpr SymmetricDyad operator*(const SymmetricDyad& symdyad, const double real) {
-  return {symdyad.xx() * real, symdyad.xy() * real, symdyad.xz() * real,
-          symdyad.yy() * real, symdyad.yz() * real, symdyad.zz() * real};
+inline constexpr SymmetricDyad operator*(const SymmetricDyad& symmetric_dyad, const double number) {
+  return {symmetric_dyad.xx() * number, symmetric_dyad.xy() * number, symmetric_dyad.xz() * number,
+          symmetric_dyad.yy() * number, symmetric_dyad.yz() * number, symmetric_dyad.zz() * number};
 }
 
-inline constexpr SymmetricDyad operator*(const double real, const SymmetricDyad& symdyad) {
-  return {symdyad * real};
+inline constexpr SymmetricDyad operator*(const double number, const SymmetricDyad& symmetric_dyad) {
+  return {symmetric_dyad * number};
 }
 
-inline constexpr Vector operator*(const SymmetricDyad& symdyad, const Vector& vector) {
-  return {symdyad.xx() * vector.x() + symdyad.xy() * vector.y() + symdyad.xz() * vector.z(),
-          symdyad.xy() * vector.x() + symdyad.yy() * vector.y() + symdyad.yz() * vector.z(),
-          symdyad.xz() * vector.x() + symdyad.yz() * vector.y() + symdyad.zz() * vector.z()};
+inline constexpr Vector operator*(const SymmetricDyad& symmetric_dyad, const Vector& vector) {
+  return {symmetric_dyad.xx() * vector.x() + symmetric_dyad.xy() * vector.y()
+              + symmetric_dyad.xz() * vector.z(),
+          symmetric_dyad.xy() * vector.x() + symmetric_dyad.yy() * vector.y()
+              + symmetric_dyad.yz() * vector.z(),
+          symmetric_dyad.xz() * vector.x() + symmetric_dyad.yz() * vector.y()
+              + symmetric_dyad.zz() * vector.z()};
 }
 
 inline constexpr Dyad operator*(const SymmetricDyad& left, const SymmetricDyad& right);
 
-inline constexpr Dyad operator*(const SymmetricDyad& symdyad, const Dyad& dyad);
+inline constexpr Dyad operator*(const SymmetricDyad& symmetric_dyad, const Dyad& dyad);
 
-inline constexpr SymmetricDyad operator/(const SymmetricDyad& symdyad, const double real) {
-  return {symdyad.xx() / real, symdyad.xy() / real, symdyad.xz() / real,
-          symdyad.yy() / real, symdyad.yz() / real, symdyad.zz() / real};
+inline constexpr SymmetricDyad operator/(const SymmetricDyad& symmetric_dyad, const double number) {
+  return {symmetric_dyad.xx() / number, symmetric_dyad.xy() / number, symmetric_dyad.xz() / number,
+          symmetric_dyad.yy() / number, symmetric_dyad.yz() / number, symmetric_dyad.zz() / number};
 }
 
 inline std::optional<SymmetricDyad> SymmetricDyad::Inverse() const {
@@ -494,7 +497,7 @@ namespace std {
 template <>
 struct hash<PhQ::SymmetricDyad> {
   inline size_t operator()(const PhQ::SymmetricDyad& symmetric) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + hash<double>()(symmetric.xx());
     result = 31 * result + hash<double>()(symmetric.xy());
     result = 31 * result + hash<double>()(symmetric.xz());

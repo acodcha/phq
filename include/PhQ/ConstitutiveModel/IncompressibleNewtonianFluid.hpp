@@ -42,7 +42,7 @@ public:
   // Constructor. Constructs an incompressible Newtonian fluid constitutive model from a given
   // dynamic viscosity.
   explicit constexpr IncompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity) {}
+    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity) {}
 
   // Destructor. Destroys this incompressible Newtonian fluid constitutive model.
   ~IncompressibleNewtonianFluid() noexcept override = default;
@@ -65,7 +65,7 @@ public:
 
   // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::DynamicViscosity& DynamicViscosity() const noexcept {
-    return dynamic_viscosity_;
+    return dynamic_viscosity;
   }
 
   // Returns this constitutive model's type.
@@ -91,7 +91,7 @@ public:
   // Returns the stress resulting from a given strain rate.
   [[nodiscard]] inline PhQ::Stress Stress(const PhQ::StrainRate& strain_rate) const override {
     // stress = 2 * dynamic_viscosity * strain_rate
-    return {{2.0 * dynamic_viscosity_.Value() * strain_rate.Value()}, Standard<Unit::Pressure>};
+    return {{2.0 * dynamic_viscosity.Value() * strain_rate.Value()}, Standard<Unit::Pressure>};
   }
 
   // Returns the strain resulting from a given stress. Since this is an incompressible Newtonian
@@ -104,35 +104,35 @@ public:
   // Returns the strain rate resulting from a given stress.
   [[nodiscard]] inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
     // strain_rate = stress / (2 * dynamic_viscosity)
-    return {{stress.Value() / (2.0 * dynamic_viscosity_.Value())}, Standard<Unit::Frequency>};
+    return {{stress.Value() / (2.0 * dynamic_viscosity.Value())}, Standard<Unit::Frequency>};
   }
   // Prints this incompressible Newtonian fluid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(GetType())}
-            + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()};
+            + ", Dynamic Viscosity = " + dynamic_viscosity.Print()};
   }
 
   // Serializes this incompressible Newtonian fluid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
     return {R"({"type":")" + SnakeCaseCopy(Abbreviation(GetType())) + R"(","dynamic_viscosity":)"
-            + dynamic_viscosity_.JSON() + "}"};
+            + dynamic_viscosity.JSON() + "}"};
   }
 
   // Serializes this incompressible Newtonian fluid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(GetType())) + "</type><dynamic_viscosity>"
-            + dynamic_viscosity_.XML() + "</dynamic_viscosity>"};
+            + dynamic_viscosity.XML() + "</dynamic_viscosity>"};
   }
 
   // Serializes this incompressible Newtonian fluid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
-            + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML() + "}"};
+            + "\",dynamic_viscosity:" + dynamic_viscosity.YAML() + "}"};
   }
 
 private:
   // Dynamic viscosity of this incompressible Newtonian fluid constitutive model.
-  PhQ::DynamicViscosity dynamic_viscosity_;
+  PhQ::DynamicViscosity dynamic_viscosity;
 };
 
 inline constexpr bool operator==(

@@ -99,28 +99,28 @@ public:
 
   // Returns the x Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure x() const noexcept {
-    return StaticPressure{value_.x()};
+    return StaticPressure{value.x()};
   }
 
   // Returns the y Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure y() const noexcept {
-    return StaticPressure{value_.y()};
+    return StaticPressure{value.y()};
   }
 
   // Returns the z Cartesian component of this traction vector.
   [[nodiscard]] constexpr StaticPressure z() const noexcept {
-    return StaticPressure{value_.z()};
+    return StaticPressure{value.z()};
   }
 
   // Returns the magnitude of this traction vector. Since pressure is compressive, the static
   // pressure that corresponds to the magnitude of this traction vector is negative.
   [[nodiscard]] StaticPressure Magnitude() const {
-    return StaticPressure{-value_.Magnitude()};
+    return StaticPressure{-value.Magnitude()};
   }
 
   // Returns the direction of this traction vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this traction vector and another one.
@@ -129,15 +129,15 @@ public:
   }
 
   constexpr Traction operator+(const Traction& traction) const {
-    return Traction{value_ + traction.value_};
+    return Traction{value + traction.value};
   }
 
   constexpr Traction operator-(const Traction& traction) const {
-    return Traction{value_ - traction.value_};
+    return Traction{value - traction.value};
   }
 
   constexpr Traction operator*(const double number) const {
-    return Traction{value_ * number};
+    return Traction{value * number};
   }
 
   constexpr Force operator*(const Area& area) const {
@@ -145,23 +145,23 @@ public:
   }
 
   constexpr Traction operator/(const double number) const {
-    return Traction{value_ / number};
+    return Traction{value / number};
   }
 
   constexpr void operator+=(const Traction& traction) noexcept {
-    value_ += traction.value_;
+    value += traction.value;
   }
 
   constexpr void operator-=(const Traction& traction) noexcept {
-    value_ -= traction.value_;
+    value -= traction.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -52,9 +52,9 @@ public:
       const Dimension::Temperature& temperature = {},
       const Dimension::SubstanceAmount& substance_amount = {},
       const Dimension::LuminousIntensity& luminous_intensity = {})
-    : time_(time), length_(length), mass_(mass), electric_current_(electric_current),
-      temperature_(temperature), substance_amount_(substance_amount),
-      luminous_intensity_(luminous_intensity) {}
+    : time(time), length(length), mass(mass), electric_current(electric_current),
+      temperature(temperature), substance_amount(substance_amount),
+      luminous_intensity(luminous_intensity) {}
 
   // Destructor. Destroys this physical dimension set.
   ~Dimensions() noexcept = default;
@@ -75,85 +75,96 @@ public:
 
   // Base physical dimension of time of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Time& Time() const noexcept {
-    return time_;
+    return time;
   }
 
   // Base physical dimension of length of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Length& Length() const noexcept {
-    return length_;
+    return length;
   }
 
   // Base physical dimension of mass of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Mass& Mass() const noexcept {
-    return mass_;
+    return mass;
   }
 
   // Base physical dimension of electric current of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::ElectricCurrent& ElectricCurrent() const noexcept {
-    return electric_current_;
+    return electric_current;
   }
 
   // Base physical dimension of temperature of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::Temperature& Temperature() const noexcept {
-    return temperature_;
+    return temperature;
   }
 
   // Base physical dimension of amount of substance of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::SubstanceAmount& SubstanceAmount() const noexcept {
-    return substance_amount_;
+    return substance_amount;
   }
 
   // Base physical dimension of luminous intensity of this physical dimension set.
   [[nodiscard]] constexpr const Dimension::LuminousIntensity& LuminousIntensity() const noexcept {
-    return luminous_intensity_;
+    return luminous_intensity;
   }
 
   // Prints this physical dimension set as a string.
   [[nodiscard]] std::string Print() const {
     std::string text;
-    const std::string time{time_.Print()};
-    const std::string length{length_.Print()};
-    const std::string mass{mass_.Print()};
-    const std::string electric_current{electric_current_.Print()};
-    const std::string temperature{temperature_.Print()};
-    const std::string substance_amount{substance_amount_.Print()};
-    const std::string luminous_intensity{luminous_intensity_.Print()};
-    text.append(time);
-    if (!length.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    text.append(time.Print());
+    {
+      const std::string length_string{length.Print()};
+      if (!length_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(length_string);
       }
-      text.append(length);
     }
-    if (!mass.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    {
+      const std::string mass_string{mass.Print()};
+      if (!mass_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(mass_string);
       }
-      text.append(mass);
     }
-    if (!electric_current.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    {
+      const std::string electric_current_string{electric_current.Print()};
+      if (!electric_current_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(electric_current_string);
       }
-      text.append(electric_current);
     }
-    if (!temperature.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    {
+      const std::string temperature_string{temperature.Print()};
+      if (!temperature_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(temperature_string);
       }
-      text.append(temperature);
     }
-    if (!substance_amount.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    {
+      const std::string substance_amount_string{substance_amount.Print()};
+      if (!substance_amount_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(substance_amount_string);
       }
-      text.append(substance_amount);
     }
-    if (!luminous_intensity.empty()) {
-      if (!text.empty()) {
-        text.append("·");
+    {
+      const std::string luminous_intensity_string{luminous_intensity.Print()};
+      if (!luminous_intensity_string.empty()) {
+        if (!text.empty()) {
+          text.append("·");
+        }
+        text.append(luminous_intensity_string);
       }
-      text.append(luminous_intensity);
     }
     if (text.empty()) {
       return "1";
@@ -164,51 +175,51 @@ public:
   // Serializes this physical dimension set as a JSON message.
   [[nodiscard]] std::string JSON() const {
     std::string text;
-    if (time_.Value() != 0) {
+    if (time.Value() != 0) {
       text.append(
-          "\"" + SnakeCaseCopy(Dimension::Time::Label()) + "\":" + std::to_string(time_.Value()));
+          "\"" + SnakeCaseCopy(Dimension::Time::Label()) + "\":" + std::to_string(time.Value()));
     }
-    if (length_.Value() != 0) {
+    if (length.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append("\"" + SnakeCaseCopy(Dimension::Length::Label())
-                  + "\":" + std::to_string(length_.Value()));
+                  + "\":" + std::to_string(length.Value()));
     }
-    if (mass_.Value() != 0) {
+    if (mass.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append(
-          "\"" + SnakeCaseCopy(Dimension::Mass::Label()) + "\":" + std::to_string(mass_.Value()));
+          "\"" + SnakeCaseCopy(Dimension::Mass::Label()) + "\":" + std::to_string(mass.Value()));
     }
-    if (electric_current_.Value() != 0) {
+    if (electric_current.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append("\"" + SnakeCaseCopy(Dimension::ElectricCurrent::Label())
-                  + "\":" + std::to_string(electric_current_.Value()));
+                  + "\":" + std::to_string(electric_current.Value()));
     }
-    if (temperature_.Value() != 0) {
+    if (temperature.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append("\"" + SnakeCaseCopy(Dimension::Temperature::Label())
-                  + "\":" + std::to_string(temperature_.Value()));
+                  + "\":" + std::to_string(temperature.Value()));
     }
-    if (substance_amount_.Value() != 0) {
+    if (substance_amount.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append("\"" + SnakeCaseCopy(Dimension::SubstanceAmount::Label())
-                  + "\":" + std::to_string(substance_amount_.Value()));
+                  + "\":" + std::to_string(substance_amount.Value()));
     }
-    if (luminous_intensity_.Value() != 0) {
+    if (luminous_intensity.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append("\"" + SnakeCaseCopy(Dimension::LuminousIntensity::Label())
-                  + "\":" + std::to_string(luminous_intensity_.Value()));
+                  + "\":" + std::to_string(luminous_intensity.Value()));
     }
     return "{" + text + "}";
   }
@@ -216,36 +227,36 @@ public:
   // Serializes this physical dimension set as an XML message.
   [[nodiscard]] std::string XML() const {
     std::string text;
-    if (time_.Value() != 0) {
+    if (time.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::Time::Label())};
-      text.append("<" + label + ">" + std::to_string(time_.Value()) + "</" + label + ">");
+      text.append("<" + label + ">" + std::to_string(time.Value()) + "</" + label + ">");
     }
-    if (length_.Value() != 0) {
+    if (length.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::Length::Label())};
-      text.append("<" + label + ">" + std::to_string(length_.Value()) + "</" + label + ">");
+      text.append("<" + label + ">" + std::to_string(length.Value()) + "</" + label + ">");
     }
-    if (mass_.Value() != 0) {
+    if (mass.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::Mass::Label())};
-      text.append("<" + label + ">" + std::to_string(mass_.Value()) + "</" + label + ">");
+      text.append("<" + label + ">" + std::to_string(mass.Value()) + "</" + label + ">");
     }
-    if (electric_current_.Value() != 0) {
+    if (electric_current.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::ElectricCurrent::Label())};
       text.append(
-          "<" + label + ">" + std::to_string(electric_current_.Value()) + "</" + label + ">");
+          "<" + label + ">" + std::to_string(electric_current.Value()) + "</" + label + ">");
     }
-    if (temperature_.Value() != 0) {
+    if (temperature.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::Temperature::Label())};
-      text.append("<" + label + ">" + std::to_string(temperature_.Value()) + "</" + label + ">");
+      text.append("<" + label + ">" + std::to_string(temperature.Value()) + "</" + label + ">");
     }
-    if (substance_amount_.Value() != 0) {
+    if (substance_amount.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::SubstanceAmount::Label())};
       text.append(
-          "<" + label + ">" + std::to_string(substance_amount_.Value()) + "</" + label + ">");
+          "<" + label + ">" + std::to_string(substance_amount.Value()) + "</" + label + ">");
     }
-    if (luminous_intensity_.Value() != 0) {
+    if (luminous_intensity.Value() != 0) {
       const std::string label{SnakeCaseCopy(Dimension::LuminousIntensity::Label())};
       text.append(
-          "<" + label + ">" + std::to_string(luminous_intensity_.Value()) + "</" + label + ">");
+          "<" + label + ">" + std::to_string(luminous_intensity.Value()) + "</" + label + ">");
     }
     return text;
   }
@@ -253,74 +264,73 @@ public:
   // Serializes this physical dimension set as a YAML message.
   [[nodiscard]] std::string YAML() const {
     std::string text;
-    if (time_.Value() != 0) {
-      text.append(SnakeCaseCopy(Dimension::Time::Label()) + ":" + std::to_string(time_.Value()));
+    if (time.Value() != 0) {
+      text.append(SnakeCaseCopy(Dimension::Time::Label()) + ":" + std::to_string(time.Value()));
     }
-    if (length_.Value() != 0) {
+    if (length.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(
-          SnakeCaseCopy(Dimension::Length::Label()) + ":" + std::to_string(length_.Value()));
+      text.append(SnakeCaseCopy(Dimension::Length::Label()) + ":" + std::to_string(length.Value()));
     }
-    if (mass_.Value() != 0) {
+    if (mass.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
-      text.append(SnakeCaseCopy(Dimension::Mass::Label()) + ":" + std::to_string(mass_.Value()));
+      text.append(SnakeCaseCopy(Dimension::Mass::Label()) + ":" + std::to_string(mass.Value()));
     }
-    if (electric_current_.Value() != 0) {
+    if (electric_current.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append(SnakeCaseCopy(Dimension::ElectricCurrent::Label()) + ":"
-                  + std::to_string(electric_current_.Value()));
+                  + std::to_string(electric_current.Value()));
     }
-    if (temperature_.Value() != 0) {
+    if (temperature.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append(SnakeCaseCopy(Dimension::Temperature::Label()) + ":"
-                  + std::to_string(temperature_.Value()));
+                  + std::to_string(temperature.Value()));
     }
-    if (substance_amount_.Value() != 0) {
+    if (substance_amount.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append(SnakeCaseCopy(Dimension::SubstanceAmount::Label()) + ":"
-                  + std::to_string(substance_amount_.Value()));
+                  + std::to_string(substance_amount.Value()));
     }
-    if (luminous_intensity_.Value() != 0) {
+    if (luminous_intensity.Value() != 0) {
       if (!text.empty()) {
         text.append(",");
       }
       text.append(SnakeCaseCopy(Dimension::LuminousIntensity::Label()) + ":"
-                  + std::to_string(luminous_intensity_.Value()));
+                  + std::to_string(luminous_intensity.Value()));
     }
     return "{" + text + "}";
   }
 
 private:
   // Base physical dimension of time of this physical dimension set.
-  Dimension::Time time_;
+  Dimension::Time time;
 
   // Base physical dimension of length of this physical dimension set.
-  Dimension::Length length_;
+  Dimension::Length length;
 
   // Base physical dimension of mass of this physical dimension set.
-  Dimension::Mass mass_;
+  Dimension::Mass mass;
 
   // Base physical dimension of electric current of this physical dimension set.
-  Dimension::ElectricCurrent electric_current_;
+  Dimension::ElectricCurrent electric_current;
 
   // Base physical dimension of temperature of this physical dimension set.
-  Dimension::Temperature temperature_;
+  Dimension::Temperature temperature;
 
   // Base physical dimension of amount of substance of this physical dimension set.
-  Dimension::SubstanceAmount substance_amount_;
+  Dimension::SubstanceAmount substance_amount;
 
   // Base physical dimension of luminous intensity of this physical dimension set.
-  Dimension::LuminousIntensity luminous_intensity_;
+  Dimension::LuminousIntensity luminous_intensity;
 };
 
 inline constexpr bool operator==(const Dimensions& left, const Dimensions& right) noexcept {
@@ -407,7 +417,7 @@ namespace std {
 template <>
 struct hash<PhQ::Dimensions> {
   inline size_t operator()(const PhQ::Dimensions& dimensions) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + dimensions.Time().Value();
     result = 31 * result + dimensions.Length().Value();
     result = 31 * result + dimensions.Mass().Value();

@@ -104,27 +104,27 @@ public:
 
   // Returns the x Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length x() const noexcept {
-    return Length{value_.x()};
+    return Length{value.x()};
   }
 
   // Returns the y Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length y() const noexcept {
-    return Length{value_.y()};
+    return Length{value.y()};
   }
 
   // Returns the z Cartesian component of this displacement vector.
   [[nodiscard]] constexpr Length z() const noexcept {
-    return Length{value_.z()};
+    return Length{value.z()};
   }
 
   // Returns the magnitude of this displacement vector.
   [[nodiscard]] Length Magnitude() const {
-    return Length{value_.Magnitude()};
+    return Length{value.Magnitude()};
   }
 
   // Returns the direction of this displacement vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this displacement vector and another one.
@@ -135,41 +135,41 @@ public:
   constexpr Position operator+(const Position& position) const;
 
   constexpr Displacement operator+(const Displacement& displacement) const {
-    return Displacement{value_ + displacement.value_};
+    return Displacement{value + displacement.value};
   }
 
   constexpr Position operator-(const Position& position) const;
 
   constexpr Displacement operator-(const Displacement& displacement) const {
-    return Displacement{value_ - displacement.value_};
+    return Displacement{value - displacement.value};
   }
 
   constexpr Displacement operator*(const double number) const {
-    return Displacement{value_ * number};
+    return Displacement{value * number};
   }
 
   constexpr Velocity operator*(const Frequency& frequency) const;
 
   constexpr Displacement operator/(const double number) const {
-    return Displacement{value_ / number};
+    return Displacement{value / number};
   }
 
   constexpr Velocity operator/(const Time& time) const;
 
   constexpr void operator+=(const Displacement& displacement) noexcept {
-    value_ += displacement.value_;
+    value += displacement.value;
   }
 
   constexpr void operator-=(const Displacement& displacement) noexcept {
-    value_ -= displacement.value_;
+    value -= displacement.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

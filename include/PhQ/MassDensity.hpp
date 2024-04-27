@@ -107,15 +107,15 @@ public:
   }
 
   constexpr MassDensity operator+(const MassDensity& mass_density) const {
-    return MassDensity{value_ + mass_density.value_};
+    return MassDensity{value + mass_density.value};
   }
 
   constexpr MassDensity operator-(const MassDensity& mass_density) const {
-    return MassDensity{value_ - mass_density.value_};
+    return MassDensity{value - mass_density.value};
   }
 
   constexpr MassDensity operator*(const double number) const {
-    return MassDensity{value_ * number};
+    return MassDensity{value * number};
   }
 
   constexpr Mass operator*(const Volume& volume) const {
@@ -125,27 +125,27 @@ public:
   constexpr DynamicViscosity operator*(const KinematicViscosity& kinematic_viscosity) const;
 
   constexpr MassDensity operator/(const double number) const {
-    return MassDensity{value_ / number};
+    return MassDensity{value / number};
   }
 
   constexpr double operator/(const MassDensity& mass_density) const noexcept {
-    return value_ / mass_density.value_;
+    return value / mass_density.value;
   }
 
   constexpr void operator+=(const MassDensity& mass_density) noexcept {
-    value_ += mass_density.value_;
+    value += mass_density.value;
   }
 
   constexpr void operator-=(const MassDensity& mass_density) noexcept {
-    value_ -= mass_density.value_;
+    value -= mass_density.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

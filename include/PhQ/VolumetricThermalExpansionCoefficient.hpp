@@ -74,49 +74,49 @@ public:
   constexpr VolumetricThermalExpansionCoefficient operator+(
       const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient{
-        value_ + volumetric_thermal_expansion_coefficient.value_};
+        value + volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator-(
       const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
     return VolumetricThermalExpansionCoefficient{
-        value_ - volumetric_thermal_expansion_coefficient.value_};
+        value - volumetric_thermal_expansion_coefficient.value};
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator*(const double number) const {
-    return VolumetricThermalExpansionCoefficient{value_ * number};
+    return VolumetricThermalExpansionCoefficient{value * number};
   }
 
   constexpr double operator*(const TemperatureDifference& temperature_difference) const {
-    return value_ * temperature_difference.Value();
+    return value * temperature_difference.Value();
   }
 
   constexpr VolumetricThermalExpansionCoefficient operator/(const double number) const {
-    return VolumetricThermalExpansionCoefficient{value_ / number};
+    return VolumetricThermalExpansionCoefficient{value / number};
   }
 
-  constexpr double
-  operator/(const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient)
+  constexpr double operator/(
+      const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient)
       const noexcept {
-    return value_ / volumetric_thermal_expansion_coefficient.value_;
+    return value / volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator+=(const VolumetricThermalExpansionCoefficient&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value_ += volumetric_thermal_expansion_coefficient.value_;
+    value += volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator-=(const VolumetricThermalExpansionCoefficient&
                                 volumetric_thermal_expansion_coefficient) noexcept {
-    value_ -= volumetric_thermal_expansion_coefficient.value_;
+    value -= volumetric_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:
@@ -128,7 +128,7 @@ private:
 
 inline constexpr double TemperatureDifference::operator*(
     const VolumetricThermalExpansionCoefficient& volumetric_thermal_expansion_coefficient) const {
-  return value_ * volumetric_thermal_expansion_coefficient.Value();
+  return value * volumetric_thermal_expansion_coefficient.Value();
 }
 
 inline constexpr bool operator==(const VolumetricThermalExpansionCoefficient& left,

@@ -76,19 +76,19 @@ public:
   }
 
   constexpr ScalarStrainRate operator+(const ScalarStrainRate& other) const {
-    return ScalarStrainRate{value_ + other.value_};
+    return ScalarStrainRate{value + other.value};
   }
 
   constexpr ScalarStrainRate operator-(const ScalarStrainRate& other) const {
-    return ScalarStrainRate{value_ - other.value_};
+    return ScalarStrainRate{value - other.value};
   }
 
   constexpr ScalarStrainRate operator*(const double number) const {
-    return ScalarStrainRate{value_ * number};
+    return ScalarStrainRate{value * number};
   }
 
   constexpr ScalarStrainRate operator/(const double number) const {
-    return ScalarStrainRate{value_ / number};
+    return ScalarStrainRate{value / number};
   }
 
   constexpr ScalarStrain operator*(const Time& time) const {
@@ -96,7 +96,7 @@ public:
   }
 
   constexpr double operator/(const ScalarStrainRate& other) const noexcept {
-    return value_ / other.value_;
+    return value / other.value;
   }
 
   constexpr ScalarStrain operator/(const Frequency& frequency) const {
@@ -104,19 +104,19 @@ public:
   }
 
   constexpr void operator+=(const ScalarStrainRate& other) noexcept {
-    value_ += other.value_;
+    value += other.value;
   }
 
   constexpr void operator-=(const ScalarStrainRate& other) noexcept {
-    value_ -= other.value_;
+    value -= other.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -95,15 +95,15 @@ public:
   }
 
   constexpr HeatCapacityRatio operator+(const HeatCapacityRatio& heat_capacity_ratio) const {
-    return HeatCapacityRatio{value_ + heat_capacity_ratio.value_};
+    return HeatCapacityRatio{value + heat_capacity_ratio.value};
   }
 
   constexpr HeatCapacityRatio operator-(const HeatCapacityRatio& heat_capacity_ratio) const {
-    return HeatCapacityRatio{value_ - heat_capacity_ratio.value_};
+    return HeatCapacityRatio{value - heat_capacity_ratio.value};
   }
 
   constexpr HeatCapacityRatio operator*(const double number) const {
-    return HeatCapacityRatio{value_ * number};
+    return HeatCapacityRatio{value * number};
   }
 
   constexpr IsobaricHeatCapacity operator*(
@@ -113,27 +113,27 @@ public:
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const;
 
   constexpr HeatCapacityRatio operator/(const double number) const {
-    return HeatCapacityRatio{value_ / number};
+    return HeatCapacityRatio{value / number};
   }
 
   constexpr double operator/(const HeatCapacityRatio& heat_capacity_ratio) const noexcept {
-    return value_ / heat_capacity_ratio.value_;
+    return value / heat_capacity_ratio.value;
   }
 
   constexpr void operator+=(const HeatCapacityRatio& heat_capacity_ratio) noexcept {
-    value_ += heat_capacity_ratio.value_;
+    value += heat_capacity_ratio.value;
   }
 
   constexpr void operator-=(const HeatCapacityRatio& heat_capacity_ratio) noexcept {
-    value_ -= heat_capacity_ratio.value_;
+    value -= heat_capacity_ratio.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

@@ -59,15 +59,15 @@ public:
   }
 
   constexpr MachNumber operator+(const MachNumber& mach_number) const {
-    return MachNumber{value_ + mach_number.value_};
+    return MachNumber{value + mach_number.value};
   }
 
   constexpr MachNumber operator-(const MachNumber& mach_number) const {
-    return MachNumber{value_ - mach_number.value_};
+    return MachNumber{value - mach_number.value};
   }
 
   constexpr MachNumber operator*(const double number) const {
-    return MachNumber{value_ * number};
+    return MachNumber{value * number};
   }
 
   constexpr Speed operator*(const SoundSpeed& sound_speed) const {
@@ -75,27 +75,27 @@ public:
   }
 
   constexpr MachNumber operator/(const double number) const {
-    return MachNumber{value_ / number};
+    return MachNumber{value / number};
   }
 
   constexpr double operator/(const MachNumber& mach_number) const noexcept {
-    return value_ / mach_number.value_;
+    return value / mach_number.value;
   }
 
   constexpr void operator+=(const MachNumber& mach_number) noexcept {
-    value_ += mach_number.value_;
+    value += mach_number.value;
   }
 
   constexpr void operator-=(const MachNumber& mach_number) noexcept {
-    value_ -= mach_number.value_;
+    value -= mach_number.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

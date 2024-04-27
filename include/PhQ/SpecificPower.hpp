@@ -83,15 +83,15 @@ public:
   }
 
   constexpr SpecificPower operator+(const SpecificPower& specific_power) const {
-    return SpecificPower{value_ + specific_power.value_};
+    return SpecificPower{value + specific_power.value};
   }
 
   constexpr SpecificPower operator-(const SpecificPower& specific_power) const {
-    return SpecificPower{value_ - specific_power.value_};
+    return SpecificPower{value - specific_power.value};
   }
 
   constexpr SpecificPower operator*(const double number) const {
-    return SpecificPower{value_ * number};
+    return SpecificPower{value * number};
   }
 
   constexpr SpecificEnergy operator*(const Time& time) const {
@@ -103,7 +103,7 @@ public:
   }
 
   constexpr SpecificPower operator/(const double number) const {
-    return SpecificPower{value_ / number};
+    return SpecificPower{value / number};
   }
 
   constexpr SpecificEnergy operator/(const Frequency& frequency) const {
@@ -115,23 +115,23 @@ public:
   }
 
   constexpr double operator/(const SpecificPower& specific_power) const noexcept {
-    return value_ / specific_power.value_;
+    return value / specific_power.value;
   }
 
   constexpr void operator+=(const SpecificPower& specific_power) noexcept {
-    value_ += specific_power.value_;
+    value += specific_power.value;
   }
 
   constexpr void operator-=(const SpecificPower& specific_power) noexcept {
-    value_ -= specific_power.value_;
+    value -= specific_power.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

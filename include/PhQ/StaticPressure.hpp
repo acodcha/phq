@@ -92,17 +92,17 @@ public:
   [[nodiscard]] constexpr PhQ::Stress Stress() const;
 
   constexpr StaticPressure operator+(const StaticPressure& other) const {
-    return StaticPressure{value_ + other.value_};
+    return StaticPressure{value + other.value};
   }
 
   constexpr TotalPressure operator+(const DynamicPressure& dynamic_pressure) const;
 
   constexpr StaticPressure operator-(const StaticPressure& other) const {
-    return StaticPressure{value_ - other.value_};
+    return StaticPressure{value - other.value};
   }
 
   constexpr StaticPressure operator*(const double number) const {
-    return StaticPressure{value_ * number};
+    return StaticPressure{value * number};
   }
 
   constexpr ScalarForce operator*(const Area& area) const {
@@ -114,29 +114,29 @@ public:
   constexpr Traction operator*(const Direction& direction) const;
 
   constexpr StaticPressure operator/(const double number) const {
-    return StaticPressure{value_ / number};
+    return StaticPressure{value / number};
   }
 
   constexpr StaticKinematicPressure operator/(const MassDensity& mass_density) const;
 
   constexpr double operator/(const StaticPressure& other) const noexcept {
-    return value_ / other.value_;
+    return value / other.value;
   }
 
   constexpr void operator+=(const StaticPressure& other) noexcept {
-    value_ += other.value_;
+    value += other.value;
   }
 
   constexpr void operator-=(const StaticPressure& other) noexcept {
-    value_ -= other.value_;
+    value -= other.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

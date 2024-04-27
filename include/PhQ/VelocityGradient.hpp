@@ -102,47 +102,47 @@ public:
 
   // Returns the xx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient xx() const noexcept {
-    return ScalarVelocityGradient{value_.xx()};
+    return ScalarVelocityGradient{value.xx()};
   }
 
   // Returns the xy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient xy() const noexcept {
-    return ScalarVelocityGradient{value_.xy()};
+    return ScalarVelocityGradient{value.xy()};
   }
 
   // Returns the xz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient xz() const noexcept {
-    return ScalarVelocityGradient{value_.xz()};
+    return ScalarVelocityGradient{value.xz()};
   }
 
   // Returns the yx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient yx() const noexcept {
-    return ScalarVelocityGradient{value_.yx()};
+    return ScalarVelocityGradient{value.yx()};
   }
 
   // Returns the yy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient yy() const noexcept {
-    return ScalarVelocityGradient{value_.yy()};
+    return ScalarVelocityGradient{value.yy()};
   }
 
   // Returns the yz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient yz() const noexcept {
-    return ScalarVelocityGradient{value_.yz()};
+    return ScalarVelocityGradient{value.yz()};
   }
 
   // Returns the zx Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient zx() const noexcept {
-    return ScalarVelocityGradient{value_.zx()};
+    return ScalarVelocityGradient{value.zx()};
   }
 
   // Returns the zy Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient zy() const noexcept {
-    return ScalarVelocityGradient{value_.zy()};
+    return ScalarVelocityGradient{value.zy()};
   }
 
   // Returns the zz Cartesian component of this velocity gradient tensor.
   [[nodiscard]] constexpr ScalarVelocityGradient zz() const noexcept {
-    return ScalarVelocityGradient{value_.zz()};
+    return ScalarVelocityGradient{value.zz()};
   }
 
   // Creates a strain rate tensor from this velocity gradient tensor using the definition of the
@@ -152,15 +152,15 @@ public:
   }
 
   constexpr VelocityGradient operator+(const VelocityGradient& velocity_gradient) const {
-    return VelocityGradient{value_ + velocity_gradient.value_};
+    return VelocityGradient{value + velocity_gradient.value};
   }
 
   constexpr VelocityGradient operator-(const VelocityGradient& velocity_gradient) const {
-    return VelocityGradient{value_ - velocity_gradient.value_};
+    return VelocityGradient{value - velocity_gradient.value};
   }
 
   constexpr VelocityGradient operator*(const double number) const {
-    return VelocityGradient{value_ * number};
+    return VelocityGradient{value * number};
   }
 
   constexpr DisplacementGradient operator*(const Time& time) const {
@@ -168,7 +168,7 @@ public:
   }
 
   constexpr VelocityGradient operator/(const double number) const {
-    return VelocityGradient{value_ / number};
+    return VelocityGradient{value / number};
   }
 
   constexpr DisplacementGradient operator/(const Frequency& frequency) const {
@@ -176,19 +176,19 @@ public:
   }
 
   constexpr void operator+=(const VelocityGradient& velocity_gradient) noexcept {
-    value_ += velocity_gradient.value_;
+    value += velocity_gradient.value;
   }
 
   constexpr void operator-=(const VelocityGradient& velocity_gradient) noexcept {
-    value_ -= velocity_gradient.value_;
+    value -= velocity_gradient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

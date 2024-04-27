@@ -99,39 +99,39 @@ public:
   }
 
   constexpr PrandtlNumber operator+(const PrandtlNumber& prandtl_number) const {
-    return PrandtlNumber{value_ + prandtl_number.value_};
+    return PrandtlNumber{value + prandtl_number.value};
   }
 
   constexpr PrandtlNumber operator-(const PrandtlNumber& prandtl_number) const {
-    return PrandtlNumber{value_ - prandtl_number.value_};
+    return PrandtlNumber{value - prandtl_number.value};
   }
 
   constexpr PrandtlNumber operator*(const double number) const {
-    return PrandtlNumber{value_ * number};
+    return PrandtlNumber{value * number};
   }
 
   constexpr PrandtlNumber operator/(const double number) const {
-    return PrandtlNumber{value_ / number};
+    return PrandtlNumber{value / number};
   }
 
   constexpr double operator/(const PrandtlNumber& prandtl_number) const noexcept {
-    return value_ / prandtl_number.value_;
+    return value / prandtl_number.value;
   }
 
   constexpr void operator+=(const PrandtlNumber& prandtl_number) noexcept {
-    value_ += prandtl_number.value_;
+    value += prandtl_number.value;
   }
 
   constexpr void operator-=(const PrandtlNumber& prandtl_number) noexcept {
-    value_ -= prandtl_number.value_;
+    value -= prandtl_number.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

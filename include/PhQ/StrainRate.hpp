@@ -102,59 +102,59 @@ public:
 
   // Returns the xx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate xx() const noexcept {
-    return ScalarStrainRate{value_.xx()};
+    return ScalarStrainRate{value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate xy() const noexcept {
-    return ScalarStrainRate{value_.xy()};
+    return ScalarStrainRate{value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate xz() const noexcept {
-    return ScalarStrainRate{value_.xz()};
+    return ScalarStrainRate{value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate yx() const noexcept {
-    return ScalarStrainRate{value_.yx()};
+    return ScalarStrainRate{value.yx()};
   }
 
   // Returns the yy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate yy() const noexcept {
-    return ScalarStrainRate{value_.yy()};
+    return ScalarStrainRate{value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate yz() const noexcept {
-    return ScalarStrainRate{value_.yz()};
+    return ScalarStrainRate{value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate zx() const noexcept {
-    return ScalarStrainRate{value_.zx()};
+    return ScalarStrainRate{value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate zy() const noexcept {
-    return ScalarStrainRate{value_.zy()};
+    return ScalarStrainRate{value.zy()};
   }
 
   // Returns the zz Cartesian component of this strain rate tensor.
   [[nodiscard]] constexpr ScalarStrainRate zz() const noexcept {
-    return ScalarStrainRate{value_.zz()};
+    return ScalarStrainRate{value.zz()};
   }
 
   constexpr StrainRate operator+(const StrainRate& strain_rate) const {
-    return StrainRate{value_ + strain_rate.value_};
+    return StrainRate{value + strain_rate.value};
   }
 
   constexpr StrainRate operator-(const StrainRate& strain_rate) const {
-    return StrainRate{value_ - strain_rate.value_};
+    return StrainRate{value - strain_rate.value};
   }
 
   constexpr StrainRate operator*(const double number) const {
-    return StrainRate{value_ * number};
+    return StrainRate{value * number};
   }
 
   constexpr Strain operator*(const Time& time) const {
@@ -162,7 +162,7 @@ public:
   }
 
   constexpr StrainRate operator/(const double number) const {
-    return StrainRate{value_ / number};
+    return StrainRate{value / number};
   }
 
   constexpr Strain operator/(const Frequency& frequency) const {
@@ -170,19 +170,19 @@ public:
   }
 
   constexpr void operator+=(const StrainRate& strain_rate) noexcept {
-    value_ += strain_rate.value_;
+    value += strain_rate.value;
   }
 
   constexpr void operator-=(const StrainRate& strain_rate) noexcept {
-    value_ -= strain_rate.value_;
+    value -= strain_rate.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

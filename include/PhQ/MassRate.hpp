@@ -73,15 +73,15 @@ public:
   }
 
   constexpr MassRate operator+(const MassRate& mass_rate) const {
-    return MassRate{value_ + mass_rate.value_};
+    return MassRate{value + mass_rate.value};
   }
 
   constexpr MassRate operator-(const MassRate& mass_rate) const {
-    return MassRate{value_ - mass_rate.value_};
+    return MassRate{value - mass_rate.value};
   }
 
   constexpr MassRate operator*(const double number) const {
-    return MassRate{value_ * number};
+    return MassRate{value * number};
   }
 
   constexpr Mass operator*(const Time& time) const {
@@ -89,7 +89,7 @@ public:
   }
 
   constexpr MassRate operator/(const double number) const {
-    return MassRate{value_ / number};
+    return MassRate{value / number};
   }
 
   constexpr Frequency operator/(const Mass& mass) const {
@@ -101,23 +101,23 @@ public:
   }
 
   constexpr double operator/(const MassRate& mass_rate) const noexcept {
-    return value_ / mass_rate.value_;
+    return value / mass_rate.value;
   }
 
   constexpr void operator+=(const MassRate& mass_rate) noexcept {
-    value_ += mass_rate.value_;
+    value += mass_rate.value;
   }
 
   constexpr void operator-=(const MassRate& mass_rate) noexcept {
-    value_ -= mass_rate.value_;
+    value -= mass_rate.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -116,12 +116,12 @@ public:
 
   constexpr SpecificIsobaricHeatCapacity operator+(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity{value_ + specific_isobaric_heat_capacity.value_};
+    return SpecificIsobaricHeatCapacity{value + specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity operator-(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const {
-    return SpecificIsobaricHeatCapacity{value_ - specific_isobaric_heat_capacity.value_};
+    return SpecificIsobaricHeatCapacity{value - specific_isobaric_heat_capacity.value};
   }
 
   constexpr SpecificGasConstant operator-(
@@ -131,7 +131,7 @@ public:
       const SpecificGasConstant& specific_gas_constant) const;
 
   constexpr SpecificIsobaricHeatCapacity operator*(const double number) const {
-    return SpecificIsobaricHeatCapacity{value_ * number};
+    return SpecificIsobaricHeatCapacity{value * number};
   }
 
   constexpr IsobaricHeatCapacity operator*(const Mass& mass) const {
@@ -139,12 +139,12 @@ public:
   }
 
   constexpr SpecificIsobaricHeatCapacity operator/(const double number) const {
-    return SpecificIsobaricHeatCapacity{value_ / number};
+    return SpecificIsobaricHeatCapacity{value / number};
   }
 
   constexpr double operator/(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const noexcept {
-    return value_ / specific_isobaric_heat_capacity.value_;
+    return value / specific_isobaric_heat_capacity.value;
   }
 
   constexpr HeatCapacityRatio operator/(
@@ -159,20 +159,20 @@ public:
 
   constexpr void operator+=(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
-    value_ += specific_isobaric_heat_capacity.value_;
+    value += specific_isobaric_heat_capacity.value;
   }
 
   constexpr void operator-=(
       const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) noexcept {
-    value_ -= specific_isobaric_heat_capacity.value_;
+    value -= specific_isobaric_heat_capacity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:
