@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
+#ifndef PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
+#define PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
 
 #include <cmath>
 #include <cstddef>
@@ -199,4 +199,4 @@ struct hash<PhQ::DynamicKinematicPressure> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP
+#endif  // PHQ_DYNAMIC_KINEMATIC_PRESSURE_HPP

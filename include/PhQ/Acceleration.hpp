@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_ACCELERATION_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_ACCELERATION_HPP
+#ifndef PHQ_ACCELERATION_HPP
+#define PHQ_ACCELERATION_HPP
 
 #include <array>
 #include <cstddef>
@@ -256,4 +256,4 @@ struct hash<PhQ::Acceleration> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_ACCELERATION_HPP
+#endif  // PHQ_ACCELERATION_HPP

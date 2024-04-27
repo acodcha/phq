@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_SUBSTANCE_AMOUNT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_SUBSTANCE_AMOUNT_HPP
+#ifndef PHQ_SUBSTANCE_AMOUNT_HPP
+#define PHQ_SUBSTANCE_AMOUNT_HPP
 
 #include <cstddef>
 #include <functional>
@@ -158,4 +158,4 @@ struct hash<PhQ::SubstanceAmount> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_SUBSTANCE_AMOUNT_HPP
+#endif  // PHQ_SUBSTANCE_AMOUNT_HPP

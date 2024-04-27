@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP
+#ifndef PHQ_BASE_HPP
+#define PHQ_BASE_HPP
 
 #include <algorithm>
 #include <climits>
@@ -298,4 +298,4 @@ inline std::string UppercaseCopy(const std::string_view text) {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_BASE_HPP
+#endif  // PHQ_BASE_HPP

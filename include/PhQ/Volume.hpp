@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
+#ifndef PHQ_VOLUME_HPP
+#define PHQ_VOLUME_HPP
 
 #include <cstddef>
 #include <functional>
@@ -201,4 +201,4 @@ struct hash<PhQ::Volume> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUME_HPP
+#endif  // PHQ_VOLUME_HPP

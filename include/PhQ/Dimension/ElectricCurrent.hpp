@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_ELECTRIC_CURRENT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_ELECTRIC_CURRENT_HPP
+#ifndef PHQ_DIMENSION_ELECTRIC_CURRENT_HPP
+#define PHQ_DIMENSION_ELECTRIC_CURRENT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -136,4 +136,4 @@ struct hash<PhQ::Dimension::ElectricCurrent> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIMENSION_ELECTRIC_CURRENT_HPP
+#endif  // PHQ_DIMENSION_ELECTRIC_CURRENT_HPP

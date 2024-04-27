@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
+#ifndef PHQ_DIRECTION_HPP
+#define PHQ_DIRECTION_HPP
 
 #include <array>
 #include <cmath>
@@ -325,4 +325,4 @@ struct hash<PhQ::Direction> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_DIRECTION_HPP
+#endif  // PHQ_DIRECTION_HPP

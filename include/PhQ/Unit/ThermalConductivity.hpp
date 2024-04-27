@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP
+#ifndef PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP
+#define PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -294,4 +294,4 @@ inline const std::map<Unit::ThermalConductivity,
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP
+#endif  // PHQ_UNIT_THERMAL_CONDUCTIVITY_HPP

@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
+#ifndef PHQ_MASS_HPP
+#define PHQ_MASS_HPP
 
 #include <cstddef>
 #include <functional>
@@ -218,4 +218,4 @@ struct hash<PhQ::Mass> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_HPP
+#endif  // PHQ_MASS_HPP
