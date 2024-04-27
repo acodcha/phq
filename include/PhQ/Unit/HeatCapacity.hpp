@@ -1,4 +1,4 @@
-// Copyright 2020-2023 Alexandre Coderre-Chabot
+// Copyright 2020-2024 Alexandre Coderre-Chabot
 //
 // Physical Quantities (PhQ): A C++ library of physical quantities, physical models, and units of
 // measure for scientific computation. https://github.com/acodcha/physical-quantities
