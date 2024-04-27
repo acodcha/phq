@@ -77,57 +77,57 @@ public:
   }
 
   constexpr SoundSpeed operator+(const SoundSpeed& speed) const {
-    return SoundSpeed{value_ + speed.value_};
+    return SoundSpeed{value + speed.value};
   }
 
   constexpr Speed operator+(const Speed& speed) const {
-    return Speed{value_ + speed.value_};
+    return Speed{value + speed.value};
   }
 
   constexpr SoundSpeed operator-(const SoundSpeed& speed) const {
-    return SoundSpeed{value_ - speed.value_};
+    return SoundSpeed{value - speed.value};
   }
 
   constexpr Speed operator-(const Speed& speed) const {
-    return Speed{value_ - speed.value_};
+    return Speed{value - speed.value};
   }
 
   constexpr SoundSpeed operator*(const double number) const {
-    return SoundSpeed{value_ * number};
+    return SoundSpeed{value * number};
   }
 
   constexpr Speed operator*(const MachNumber& mach_number) const;
 
   constexpr SoundSpeed operator/(const double number) const {
-    return SoundSpeed{value_ / number};
+    return SoundSpeed{value / number};
   }
 
   constexpr double operator/(const SoundSpeed& sound_speed) const noexcept {
-    return value_ / sound_speed.value_;
+    return value / sound_speed.value;
   }
 
   constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
-    value_ += sound_speed.value_;
+    value += sound_speed.value;
   }
 
   constexpr void operator+=(const Speed& speed) noexcept {
-    value_ += speed.value_;
+    value += speed.value;
   }
 
   constexpr void operator-=(const SoundSpeed& sound_speed) noexcept {
-    value_ -= sound_speed.value_;
+    value -= sound_speed.value;
   }
 
   constexpr void operator-=(const Speed& speed) noexcept {
-    value_ -= speed.value_;
+    value -= speed.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:
@@ -169,19 +169,19 @@ inline constexpr SoundSpeed operator*(const double number, const SoundSpeed& sou
 }
 
 inline constexpr Speed Speed::operator+(const SoundSpeed& sound_speed) const {
-  return Speed{value_ + sound_speed.Value()};
+  return Speed{value + sound_speed.Value()};
 }
 
 inline constexpr Speed Speed::operator-(const SoundSpeed& sound_speed) const {
-  return Speed{value_ - sound_speed.Value()};
+  return Speed{value - sound_speed.Value()};
 }
 
 inline constexpr void Speed::operator+=(const SoundSpeed& speed) noexcept {
-  value_ += speed.Value();
+  value += speed.Value();
 }
 
 inline constexpr void Speed::operator-=(const SoundSpeed& speed) noexcept {
-  value_ -= speed.Value();
+  value -= speed.Value();
 }
 
 constexpr MassDensity::MassDensity(

@@ -73,43 +73,43 @@ public:
   }
 
   constexpr ScalarStrain operator+(const ScalarStrain& scalar_strain) const {
-    return ScalarStrain{value_ + scalar_strain.value_};
+    return ScalarStrain{value + scalar_strain.value};
   }
 
   constexpr ScalarStrain operator-(const ScalarStrain& scalar_strain) const {
-    return ScalarStrain{value_ - scalar_strain.value_};
+    return ScalarStrain{value - scalar_strain.value};
   }
 
   constexpr ScalarStrain operator*(const double number) const {
-    return ScalarStrain{value_ * number};
+    return ScalarStrain{value * number};
   }
 
   constexpr ScalarStrainRate operator*(const Frequency& frequency) const;
 
   constexpr ScalarStrain operator/(const double number) const {
-    return ScalarStrain{value_ / number};
+    return ScalarStrain{value / number};
   }
 
   constexpr ScalarStrainRate operator/(const Time& time) const;
 
   constexpr double operator/(const ScalarStrain& scalar_strain) const noexcept {
-    return value_ / scalar_strain.value_;
+    return value / scalar_strain.value;
   }
 
   constexpr void operator+=(const ScalarStrain& scalar_strain) noexcept {
-    value_ += scalar_strain.value_;
+    value += scalar_strain.value;
   }
 
   constexpr void operator-=(const ScalarStrain& scalar_strain) noexcept {
-    value_ -= scalar_strain.value_;
+    value -= scalar_strain.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

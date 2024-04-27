@@ -64,40 +64,40 @@ public:
 
   constexpr BulkDynamicViscosity operator+(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity{value_ + bulk_dynamic_viscosity.value_};
+    return BulkDynamicViscosity{value + bulk_dynamic_viscosity.value};
   }
 
   constexpr BulkDynamicViscosity operator-(
       const BulkDynamicViscosity& bulk_dynamic_viscosity) const {
-    return BulkDynamicViscosity{value_ - bulk_dynamic_viscosity.value_};
+    return BulkDynamicViscosity{value - bulk_dynamic_viscosity.value};
   }
 
   constexpr BulkDynamicViscosity operator*(const double number) const {
-    return BulkDynamicViscosity{value_ * number};
+    return BulkDynamicViscosity{value * number};
   }
 
   constexpr BulkDynamicViscosity operator/(const double number) const {
-    return BulkDynamicViscosity{value_ / number};
+    return BulkDynamicViscosity{value / number};
   }
 
   constexpr double operator/(const BulkDynamicViscosity& bulk_dynamic_viscosity) const noexcept {
-    return value_ / bulk_dynamic_viscosity.value_;
+    return value / bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator+=(const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
-    value_ += bulk_dynamic_viscosity.value_;
+    value += bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator-=(const BulkDynamicViscosity& bulk_dynamic_viscosity) noexcept {
-    value_ -= bulk_dynamic_viscosity.value_;
+    value -= bulk_dynamic_viscosity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

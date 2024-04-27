@@ -106,23 +106,23 @@ public:
   }
 
   constexpr Frequency operator+(const Frequency& frequency) const {
-    return Frequency{value_ + frequency.value_};
+    return Frequency{value + frequency.value};
   }
 
   constexpr Frequency operator-(const Frequency& frequency) const {
-    return Frequency{value_ - frequency.value_};
+    return Frequency{value - frequency.value};
   }
 
   constexpr Frequency operator*(const double number) const {
-    return Frequency{value_ * number};
+    return Frequency{value * number};
   }
 
   constexpr Frequency operator/(const double number) const {
-    return Frequency{value_ / number};
+    return Frequency{value / number};
   }
 
   constexpr double operator*(const Time& time) const noexcept {
-    return value_ * time.Value();
+    return value * time.Value();
   }
 
   constexpr Speed operator*(const Length& length) const;
@@ -155,23 +155,23 @@ public:
   constexpr ScalarStrainRate operator*(const ScalarStrain& scalar_strain) const;
 
   constexpr double operator/(const Frequency& frequency) const noexcept {
-    return value_ / frequency.value_;
+    return value / frequency.value;
   }
 
   constexpr void operator+=(const Frequency& frequency) noexcept {
-    value_ += frequency.value_;
+    value += frequency.value;
   }
 
   constexpr void operator-=(const Frequency& frequency) noexcept {
-    value_ -= frequency.value_;
+    value -= frequency.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:
@@ -220,7 +220,7 @@ inline constexpr PhQ::Frequency Time::Frequency() const {
 }
 
 inline constexpr double Time::operator*(const PhQ::Frequency& frequency) const noexcept {
-  return value_ * frequency.Value();
+  return value * frequency.Value();
 }
 
 }  // namespace PhQ

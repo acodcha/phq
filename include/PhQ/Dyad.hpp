@@ -49,10 +49,11 @@ public:
 
   // Constructor. Constructs a three-dimensional dyadic tensor from a given three-dimensional
   // symmetric dyadic tensor.
-  explicit constexpr Dyad(const SymmetricDyad& symdyad)
+  explicit constexpr Dyad(const SymmetricDyad& symmetric_dyad)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
-        {symdyad.xx(), symdyad.xy(), symdyad.xz(), symdyad.yx(), symdyad.yy(), symdyad.yz(),
-         symdyad.zx(), symdyad.zy(), symdyad.zz()}) {}
+        {symmetric_dyad.xx(), symmetric_dyad.xy(), symmetric_dyad.xz(), symmetric_dyad.yx(),
+         symmetric_dyad.yy(), symmetric_dyad.yz(), symmetric_dyad.zx(), symmetric_dyad.zy(),
+         symmetric_dyad.zz()}) {}
 
   // Destructor. Destroys this three-dimensional dyadic tensor.
   ~Dyad() noexcept = default;
@@ -382,28 +383,28 @@ public:
     xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] -= dyad.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8];
   }
 
-  constexpr void operator*=(const double real) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] *= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= real;
+  constexpr void operator*=(const double number) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= number;
   }
 
-  constexpr void operator/=(const double real) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= real;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= real;
+  constexpr void operator/=(const double number) noexcept {
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= number;
   }
 
 private:
@@ -499,13 +500,14 @@ inline constexpr Dyad operator-(const Dyad& left, const Dyad& right) {
           left.zx() - right.zx(), left.zy() - right.zy(), left.zz() - right.zz()};
 }
 
-inline constexpr Dyad operator*(const Dyad& dyad, const double real) {
-  return {dyad.xx() * real, dyad.xy() * real, dyad.xz() * real, dyad.yx() * real, dyad.yy() * real,
-          dyad.yz() * real, dyad.zx() * real, dyad.zy() * real, dyad.zz() * real};
+inline constexpr Dyad operator*(const Dyad& dyad, const double number) {
+  return {dyad.xx() * number, dyad.xy() * number, dyad.xz() * number,
+          dyad.yx() * number, dyad.yy() * number, dyad.yz() * number,
+          dyad.zx() * number, dyad.zy() * number, dyad.zz() * number};
 }
 
-inline constexpr Dyad operator*(const double real, const Dyad& dyad) {
-  return {dyad * real};
+inline constexpr Dyad operator*(const double number, const Dyad& dyad) {
+  return {dyad * number};
 }
 
 inline constexpr Vector operator*(const Dyad& dyad, const Vector& vector) {
@@ -526,28 +528,48 @@ inline constexpr Dyad operator*(const SymmetricDyad& left, const SymmetricDyad& 
           left.xz() * right.xz() + left.yz() * right.yz() + left.zz() * right.zz()};
 }
 
-inline constexpr Dyad operator*(const SymmetricDyad& symdyad, const Dyad& dyad) {
-  return {symdyad.xx() * dyad.xx() + symdyad.xy() * dyad.yx() + symdyad.xz() * dyad.zx(),
-          symdyad.xx() * dyad.xy() + symdyad.xy() * dyad.yy() + symdyad.xz() * dyad.zy(),
-          symdyad.xx() * dyad.xz() + symdyad.xy() * dyad.yz() + symdyad.xz() * dyad.zz(),
-          symdyad.xy() * dyad.xx() + symdyad.yy() * dyad.yx() + symdyad.yz() * dyad.zx(),
-          symdyad.xy() * dyad.xy() + symdyad.yy() * dyad.yy() + symdyad.yz() * dyad.zy(),
-          symdyad.xy() * dyad.xz() + symdyad.yy() * dyad.yz() + symdyad.yz() * dyad.zz(),
-          symdyad.xz() * dyad.xx() + symdyad.yz() * dyad.yx() + symdyad.zz() * dyad.zx(),
-          symdyad.xz() * dyad.xy() + symdyad.yz() * dyad.yy() + symdyad.zz() * dyad.zy(),
-          symdyad.xz() * dyad.xz() + symdyad.yz() * dyad.yz() + symdyad.zz() * dyad.zz()};
+inline constexpr Dyad operator*(const SymmetricDyad& symmetric_dyad, const Dyad& dyad) {
+  return {
+      symmetric_dyad.xx() * dyad.xx() + symmetric_dyad.xy() * dyad.yx()
+          + symmetric_dyad.xz() * dyad.zx(),
+      symmetric_dyad.xx() * dyad.xy() + symmetric_dyad.xy() * dyad.yy()
+          + symmetric_dyad.xz() * dyad.zy(),
+      symmetric_dyad.xx() * dyad.xz() + symmetric_dyad.xy() * dyad.yz()
+          + symmetric_dyad.xz() * dyad.zz(),
+      symmetric_dyad.xy() * dyad.xx() + symmetric_dyad.yy() * dyad.yx()
+          + symmetric_dyad.yz() * dyad.zx(),
+      symmetric_dyad.xy() * dyad.xy() + symmetric_dyad.yy() * dyad.yy()
+          + symmetric_dyad.yz() * dyad.zy(),
+      symmetric_dyad.xy() * dyad.xz() + symmetric_dyad.yy() * dyad.yz()
+          + symmetric_dyad.yz() * dyad.zz(),
+      symmetric_dyad.xz() * dyad.xx() + symmetric_dyad.yz() * dyad.yx()
+          + symmetric_dyad.zz() * dyad.zx(),
+      symmetric_dyad.xz() * dyad.xy() + symmetric_dyad.yz() * dyad.yy()
+          + symmetric_dyad.zz() * dyad.zy(),
+      symmetric_dyad.xz() * dyad.xz() + symmetric_dyad.yz() * dyad.yz()
+          + symmetric_dyad.zz() * dyad.zz()};
 }
 
-inline constexpr Dyad operator*(const Dyad& dyad, const SymmetricDyad& symdyad) {
-  return {dyad.xx() * symdyad.xx() + dyad.xy() * symdyad.yx() + dyad.xz() * symdyad.zx(),
-          dyad.xx() * symdyad.xy() + dyad.xy() * symdyad.yy() + dyad.xz() * symdyad.zy(),
-          dyad.xx() * symdyad.xz() + dyad.xy() * symdyad.yz() + dyad.xz() * symdyad.zz(),
-          dyad.yx() * symdyad.xx() + dyad.yy() * symdyad.yx() + dyad.yz() * symdyad.zx(),
-          dyad.yx() * symdyad.xy() + dyad.yy() * symdyad.yy() + dyad.yz() * symdyad.zy(),
-          dyad.yx() * symdyad.xz() + dyad.yy() * symdyad.yz() + dyad.yz() * symdyad.zz(),
-          dyad.zx() * symdyad.xx() + dyad.zy() * symdyad.yx() + dyad.zz() * symdyad.zx(),
-          dyad.zx() * symdyad.xy() + dyad.zy() * symdyad.yy() + dyad.zz() * symdyad.zy(),
-          dyad.zx() * symdyad.xz() + dyad.zy() * symdyad.yz() + dyad.zz() * symdyad.zz()};
+inline constexpr Dyad operator*(const Dyad& dyad, const SymmetricDyad& symmetric_dyad) {
+  return {
+      dyad.xx() * symmetric_dyad.xx() + dyad.xy() * symmetric_dyad.yx()
+          + dyad.xz() * symmetric_dyad.zx(),
+      dyad.xx() * symmetric_dyad.xy() + dyad.xy() * symmetric_dyad.yy()
+          + dyad.xz() * symmetric_dyad.zy(),
+      dyad.xx() * symmetric_dyad.xz() + dyad.xy() * symmetric_dyad.yz()
+          + dyad.xz() * symmetric_dyad.zz(),
+      dyad.yx() * symmetric_dyad.xx() + dyad.yy() * symmetric_dyad.yx()
+          + dyad.yz() * symmetric_dyad.zx(),
+      dyad.yx() * symmetric_dyad.xy() + dyad.yy() * symmetric_dyad.yy()
+          + dyad.yz() * symmetric_dyad.zy(),
+      dyad.yx() * symmetric_dyad.xz() + dyad.yy() * symmetric_dyad.yz()
+          + dyad.yz() * symmetric_dyad.zz(),
+      dyad.zx() * symmetric_dyad.xx() + dyad.zy() * symmetric_dyad.yx()
+          + dyad.zz() * symmetric_dyad.zx(),
+      dyad.zx() * symmetric_dyad.xy() + dyad.zy() * symmetric_dyad.yy()
+          + dyad.zz() * symmetric_dyad.zy(),
+      dyad.zx() * symmetric_dyad.xz() + dyad.zy() * symmetric_dyad.yz()
+          + dyad.zz() * symmetric_dyad.zz()};
 }
 
 inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) {
@@ -562,9 +584,10 @@ inline constexpr Dyad operator*(const Dyad& left, const Dyad& right) {
           left.zx() * right.xz() + left.zy() * right.yz() + left.zz() * right.zz()};
 }
 
-inline constexpr Dyad operator/(const Dyad& dyad, const double real) {
-  return {dyad.xx() / real, dyad.xy() / real, dyad.xz() / real, dyad.yx() / real, dyad.yy() / real,
-          dyad.yz() / real, dyad.zx() / real, dyad.zy() / real, dyad.zz() / real};
+inline constexpr Dyad operator/(const Dyad& dyad, const double number) {
+  return {dyad.xx() / number, dyad.xy() / number, dyad.xz() / number,
+          dyad.yx() / number, dyad.yy() / number, dyad.yz() / number,
+          dyad.zx() / number, dyad.zy() / number, dyad.zz() / number};
 }
 
 inline std::ostream& operator<<(std::ostream& stream, const Dyad& dyad) {
@@ -593,7 +616,7 @@ namespace std {
 template <>
 struct hash<PhQ::Dyad> {
   inline size_t operator()(const PhQ::Dyad& dyad) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + hash<double>()(dyad.xx());
     result = 31 * result + hash<double>()(dyad.xy());
     result = 31 * result + hash<double>()(dyad.xz());

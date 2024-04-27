@@ -66,8 +66,8 @@ namespace Internal {
 
 template <>
 inline const std::map<UnitSystem, std::string_view> Abbreviations<UnitSystem>{
-    {UnitSystem::MetreKilogramSecondKelvin,  "m·kg·s·K"    },
-    {UnitSystem::MillimetreGramSecondKelvin, "mm·g·s·K"    },
+    {UnitSystem::MetreKilogramSecondKelvin,  "m·kg·s·K"   },
+    {UnitSystem::MillimetreGramSecondKelvin, "mm·g·s·K"   },
     {UnitSystem::FootPoundSecondRankine,     "ft·lbf·s·°R"},
     {UnitSystem::InchPoundSecondRankine,     "in·lbf·s·°R"},
 };

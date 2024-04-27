@@ -126,21 +126,21 @@ public:
   }
 
   constexpr Angle operator+(const Angle& other) const {
-    return Angle{value_ + other.value_};
+    return Angle{value + other.value};
   }
 
   constexpr Angle operator-(const Angle& other) const {
-    return Angle{value_ - other.value_};
+    return Angle{value - other.value};
   }
 
   constexpr Angle operator*(const double number) const {
-    return Angle{value_ * number};
+    return Angle{value * number};
   }
 
   constexpr AngularSpeed operator*(const Frequency& frequency) const;
 
   constexpr Angle operator/(const double number) const {
-    return Angle{value_ / number};
+    return Angle{value / number};
   }
 
   constexpr AngularSpeed operator/(const Time& time) const;
@@ -148,23 +148,23 @@ public:
   constexpr Time operator/(const AngularSpeed& angular_speed) const;
 
   constexpr double operator/(const Angle& angle) const noexcept {
-    return value_ / angle.value_;
+    return value / angle.value;
   }
 
   constexpr void operator+=(const Angle& angle) noexcept {
-    value_ += angle.value_;
+    value += angle.value;
   }
 
   constexpr void operator-=(const Angle& angle) noexcept {
-    value_ -= angle.value_;
+    value -= angle.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -63,39 +63,39 @@ public:
   }
 
   constexpr SubstanceAmount operator+(const SubstanceAmount& substance_amount) const {
-    return SubstanceAmount{value_ + substance_amount.value_};
+    return SubstanceAmount{value + substance_amount.value};
   }
 
   constexpr SubstanceAmount operator-(const SubstanceAmount& substance_amount) const {
-    return SubstanceAmount{value_ - substance_amount.value_};
+    return SubstanceAmount{value - substance_amount.value};
   }
 
   constexpr SubstanceAmount operator*(const double number) const {
-    return SubstanceAmount{value_ * number};
+    return SubstanceAmount{value * number};
   }
 
   constexpr SubstanceAmount operator/(const double number) const {
-    return SubstanceAmount{value_ / number};
+    return SubstanceAmount{value / number};
   }
 
   constexpr double operator/(const SubstanceAmount& substance_amount) const noexcept {
-    return value_ / substance_amount.value_;
+    return value / substance_amount.value;
   }
 
   constexpr void operator+=(const SubstanceAmount& substance_amount) noexcept {
-    value_ += substance_amount.value_;
+    value += substance_amount.value;
   }
 
   constexpr void operator-=(const SubstanceAmount& substance_amount) noexcept {
-    value_ -= substance_amount.value_;
+    value -= substance_amount.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

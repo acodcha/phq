@@ -105,15 +105,15 @@ public:
   }
 
   constexpr Length operator+(const Length& length) const {
-    return Length{value_ + length.value_};
+    return Length{value + length.value};
   }
 
   constexpr Length operator-(const Length& length) const {
-    return Length{value_ - length.value_};
+    return Length{value - length.value};
   }
 
   constexpr Length operator*(const double number) const {
-    return Length{value_ * number};
+    return Length{value * number};
   }
 
   constexpr Area operator*(const Length& length) const;
@@ -127,7 +127,7 @@ public:
   constexpr Energy operator*(const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr Length operator/(const double number) const {
-    return Length{value_ / number};
+    return Length{value / number};
   }
 
   constexpr Speed operator/(const Time& time) const;
@@ -135,23 +135,23 @@ public:
   constexpr Time operator/(const Speed& speed) const;
 
   constexpr double operator/(const Length& length) const noexcept {
-    return value_ / length.value_;
+    return value / length.value;
   }
 
   constexpr void operator+=(const Length& length) noexcept {
-    value_ += length.value_;
+    value += length.value;
   }
 
   constexpr void operator-=(const Length& length) noexcept {
-    value_ -= length.value_;
+    value -= length.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

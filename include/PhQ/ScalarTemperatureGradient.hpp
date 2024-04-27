@@ -80,16 +80,16 @@ public:
 
   constexpr ScalarTemperatureGradient operator+(
       const ScalarTemperatureGradient& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient{value_ + scalar_temperature_gradient.value_};
+    return ScalarTemperatureGradient{value + scalar_temperature_gradient.value};
   }
 
   constexpr ScalarTemperatureGradient operator-(
       const ScalarTemperatureGradient& scalar_temperature_gradient) const {
-    return ScalarTemperatureGradient{value_ - scalar_temperature_gradient.value_};
+    return ScalarTemperatureGradient{value - scalar_temperature_gradient.value};
   }
 
   constexpr ScalarTemperatureGradient operator*(const double number) const {
-    return ScalarTemperatureGradient{value_ * number};
+    return ScalarTemperatureGradient{value * number};
   }
 
   constexpr TemperatureDifference operator*(const Length& length) const {
@@ -99,28 +99,28 @@ public:
   constexpr TemperatureGradient operator*(const Direction& direction) const;
 
   constexpr ScalarTemperatureGradient operator/(const double number) const {
-    return ScalarTemperatureGradient{value_ / number};
+    return ScalarTemperatureGradient{value / number};
   }
 
   constexpr double operator/(
       const ScalarTemperatureGradient& scalar_temperature_gradient) const noexcept {
-    return value_ / scalar_temperature_gradient.value_;
+    return value / scalar_temperature_gradient.value;
   }
 
   constexpr void operator+=(const ScalarTemperatureGradient& scalar_temperature_gradient) noexcept {
-    value_ += scalar_temperature_gradient.value_;
+    value += scalar_temperature_gradient.value;
   }
 
   constexpr void operator-=(const ScalarTemperatureGradient& scalar_temperature_gradient) noexcept {
-    value_ -= scalar_temperature_gradient.value_;
+    value -= scalar_temperature_gradient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

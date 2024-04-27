@@ -103,27 +103,27 @@ public:
 
   // Returns the x Cartesian component of this acceleration vector.
   [[nodiscard]] constexpr ScalarAcceleration x() const noexcept {
-    return ScalarAcceleration{value_.x()};
+    return ScalarAcceleration{value.x()};
   }
 
   // Returns the y Cartesian component of this acceleration vector.
   [[nodiscard]] constexpr ScalarAcceleration y() const noexcept {
-    return ScalarAcceleration{value_.y()};
+    return ScalarAcceleration{value.y()};
   }
 
   // Returns the z Cartesian component of this acceleration vector.
   [[nodiscard]] constexpr ScalarAcceleration z() const noexcept {
-    return ScalarAcceleration{value_.z()};
+    return ScalarAcceleration{value.z()};
   }
 
   // Returns the magnitude of this acceleration vector.
   [[nodiscard]] ScalarAcceleration Magnitude() const {
-    return ScalarAcceleration{value_.Magnitude()};
+    return ScalarAcceleration{value.Magnitude()};
   }
 
   // Returns the direction of this acceleration vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this acceleration vector and another one.
@@ -132,15 +132,15 @@ public:
   }
 
   constexpr Acceleration operator+(const Acceleration& acceleration) const {
-    return Acceleration{value_ + acceleration.value_};
+    return Acceleration{value + acceleration.value};
   }
 
   constexpr Acceleration operator-(const Acceleration& acceleration) const {
-    return Acceleration{value_ - acceleration.value_};
+    return Acceleration{value - acceleration.value};
   }
 
   constexpr Acceleration operator*(const double number) const {
-    return Acceleration{value_ * number};
+    return Acceleration{value * number};
   }
 
   constexpr Velocity operator*(const Time& time) const {
@@ -148,7 +148,7 @@ public:
   }
 
   constexpr Acceleration operator/(const double number) const {
-    return Acceleration{value_ / number};
+    return Acceleration{value / number};
   }
 
   constexpr Velocity operator/(const Frequency& frequency) const {
@@ -156,19 +156,19 @@ public:
   }
 
   constexpr void operator+=(const Acceleration& acceleration) noexcept {
-    value_ += acceleration.value_;
+    value += acceleration.value;
   }
 
   constexpr void operator-=(const Acceleration& acceleration) noexcept {
-    value_ -= acceleration.value_;
+    value -= acceleration.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

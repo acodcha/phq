@@ -87,12 +87,12 @@ public:
 
   constexpr IsobaricHeatCapacity operator+(
       const IsobaricHeatCapacity& isobaric_heat_capacity) const {
-    return IsobaricHeatCapacity{value_ + isobaric_heat_capacity.value_};
+    return IsobaricHeatCapacity{value + isobaric_heat_capacity.value};
   }
 
   constexpr IsobaricHeatCapacity operator-(
       const IsobaricHeatCapacity& isobaric_heat_capacity) const {
-    return IsobaricHeatCapacity{value_ - isobaric_heat_capacity.value_};
+    return IsobaricHeatCapacity{value - isobaric_heat_capacity.value};
   }
 
   constexpr GasConstant operator-(const IsochoricHeatCapacity& isochoric_heat_capacity) const;
@@ -100,15 +100,15 @@ public:
   constexpr IsochoricHeatCapacity operator-(const GasConstant& gas_constant) const;
 
   constexpr IsobaricHeatCapacity operator*(const double number) const {
-    return IsobaricHeatCapacity{value_ * number};
+    return IsobaricHeatCapacity{value * number};
   }
 
   constexpr IsobaricHeatCapacity operator/(const double number) const {
-    return IsobaricHeatCapacity{value_ / number};
+    return IsobaricHeatCapacity{value / number};
   }
 
   constexpr double operator/(const IsobaricHeatCapacity& isobaric_heat_capacity) const noexcept {
-    return value_ / isobaric_heat_capacity.value_;
+    return value / isobaric_heat_capacity.value;
   }
 
   constexpr SpecificIsobaricHeatCapacity operator/(const Mass& mass) const;
@@ -126,19 +126,19 @@ public:
   }
 
   constexpr void operator+=(const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
-    value_ += isobaric_heat_capacity.value_;
+    value += isobaric_heat_capacity.value;
   }
 
   constexpr void operator-=(const IsobaricHeatCapacity& isobaric_heat_capacity) noexcept {
-    value_ -= isobaric_heat_capacity.value_;
+    value -= isobaric_heat_capacity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

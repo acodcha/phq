@@ -83,39 +83,39 @@ public:
   }
 
   constexpr ThermalDiffusivity operator+(const ThermalDiffusivity& thermal_diffusivity) const {
-    return ThermalDiffusivity{value_ + thermal_diffusivity.value_};
+    return ThermalDiffusivity{value + thermal_diffusivity.value};
   }
 
   constexpr ThermalDiffusivity operator-(const ThermalDiffusivity& thermal_diffusivity) const {
-    return ThermalDiffusivity{value_ - thermal_diffusivity.value_};
+    return ThermalDiffusivity{value - thermal_diffusivity.value};
   }
 
   constexpr ThermalDiffusivity operator*(const double number) const {
-    return ThermalDiffusivity{value_ * number};
+    return ThermalDiffusivity{value * number};
   }
 
   constexpr ThermalDiffusivity operator/(const double number) const {
-    return ThermalDiffusivity{value_ / number};
+    return ThermalDiffusivity{value / number};
   }
 
   constexpr double operator/(const ThermalDiffusivity& thermal_diffusivity) const noexcept {
-    return value_ / thermal_diffusivity.value_;
+    return value / thermal_diffusivity.value;
   }
 
   constexpr void operator+=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
-    value_ += thermal_diffusivity.value_;
+    value += thermal_diffusivity.value;
   }
 
   constexpr void operator-=(const ThermalDiffusivity& thermal_diffusivity) noexcept {
-    value_ -= thermal_diffusivity.value_;
+    value -= thermal_diffusivity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

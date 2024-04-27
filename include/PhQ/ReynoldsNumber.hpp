@@ -109,39 +109,39 @@ public:
   }
 
   constexpr ReynoldsNumber operator+(const ReynoldsNumber& reynolds_number) const {
-    return ReynoldsNumber{value_ + reynolds_number.value_};
+    return ReynoldsNumber{value + reynolds_number.value};
   }
 
   constexpr ReynoldsNumber operator-(const ReynoldsNumber& reynolds_number) const {
-    return ReynoldsNumber{value_ - reynolds_number.value_};
+    return ReynoldsNumber{value - reynolds_number.value};
   }
 
   constexpr ReynoldsNumber operator*(const double number) const {
-    return ReynoldsNumber{value_ * number};
+    return ReynoldsNumber{value * number};
   }
 
   constexpr ReynoldsNumber operator/(const double number) const {
-    return ReynoldsNumber{value_ / number};
+    return ReynoldsNumber{value / number};
   }
 
   constexpr double operator/(const ReynoldsNumber& reynolds_number) const noexcept {
-    return value_ / reynolds_number.value_;
+    return value / reynolds_number.value;
   }
 
   constexpr void operator+=(const ReynoldsNumber& reynolds_number) noexcept {
-    value_ += reynolds_number.value_;
+    value += reynolds_number.value;
   }
 
   constexpr void operator-=(const ReynoldsNumber& reynolds_number) noexcept {
-    value_ -= reynolds_number.value_;
+    value -= reynolds_number.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

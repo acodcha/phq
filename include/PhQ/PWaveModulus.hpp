@@ -61,39 +61,39 @@ public:
   }
 
   constexpr PWaveModulus operator+(const PWaveModulus& p_wave_modulus) const {
-    return PWaveModulus{value_ + p_wave_modulus.value_};
+    return PWaveModulus{value + p_wave_modulus.value};
   }
 
   constexpr PWaveModulus operator-(const PWaveModulus& p_wave_modulus) const {
-    return PWaveModulus{value_ - p_wave_modulus.value_};
+    return PWaveModulus{value - p_wave_modulus.value};
   }
 
   constexpr PWaveModulus operator*(const double number) const {
-    return PWaveModulus{value_ * number};
+    return PWaveModulus{value * number};
   }
 
   constexpr PWaveModulus operator/(const double number) const {
-    return PWaveModulus{value_ / number};
+    return PWaveModulus{value / number};
   }
 
   constexpr double operator/(const PWaveModulus& p_wave_modulus) const noexcept {
-    return value_ / p_wave_modulus.value_;
+    return value / p_wave_modulus.value;
   }
 
   constexpr void operator+=(const PWaveModulus& p_wave_modulus) noexcept {
-    value_ += p_wave_modulus.value_;
+    value += p_wave_modulus.value;
   }
 
   constexpr void operator-=(const PWaveModulus& p_wave_modulus) noexcept {
-    value_ -= p_wave_modulus.value_;
+    value -= p_wave_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

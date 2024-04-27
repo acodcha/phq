@@ -40,44 +40,44 @@ public:
 
   // Value of this dimensionless physical quantity.
   [[nodiscard]] constexpr const Dyad& Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Returns the value of this dimensionless physical quantity as a mutable value.
   constexpr Dyad& MutableValue() noexcept {
-    return value_;
+    return value;
   }
 
   // Sets the value of this dimensionless physical quantity to the given value.
   constexpr void SetValue(const Dyad& value) noexcept {
-    value_ = value;
+    this->value = value;
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to double floating point precision.
   [[nodiscard]] std::string Print() const {
-    return value_.Print();
+    return value.Print();
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to the given floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
-    return value_.Print(precision);
+    return value.Print(precision);
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
-    return value_.JSON();
+    return value.JSON();
   }
 
   // Serializes this dimensionless physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
-    return value_.XML();
+    return value.XML();
   }
 
   // Serializes this dimensionless physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
-    return value_.YAML();
+    return value.YAML();
   }
 
 protected:
@@ -90,15 +90,15 @@ protected:
   constexpr DimensionlessDyad(
       const double xx, const double xy, const double xz, const double yx, const double yy,
       const double yz, const double zx, const double zy, const double zz)
-    : value_(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
+    : value(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
 
   // Constructor. Constructs a dimensionless dyadic tensor physical quantity from a given array
   // representing its value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
   explicit constexpr DimensionlessDyad(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
-    : value_(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+    : value(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Constructor. Constructs a dimensionless dyadic tensor physical quantity with a given value.
-  explicit constexpr DimensionlessDyad(const Dyad& value) : value_(value) {}
+  explicit constexpr DimensionlessDyad(const Dyad& value) : value(value) {}
 
   // Destructor. Destroys this dimensionless dyadic tensor physical quantity.
   ~DimensionlessDyad() noexcept = default;
@@ -120,7 +120,7 @@ protected:
   constexpr DimensionlessDyad& operator=(DimensionlessDyad&& other) noexcept = default;
 
   // Value of this dimensionless dyadic tensor physical quantity.
-  Dyad value_;
+  Dyad value;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const DimensionlessDyad& quantity) {

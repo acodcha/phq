@@ -43,12 +43,12 @@ public:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   [[nodiscard]] constexpr double Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
   [[nodiscard]] double Value(const U unit) const {
-    double result{value_};
+    double result{value};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -57,31 +57,31 @@ public:
   // evaluated statically at compile-time.
   template <U NewUnit>
   [[nodiscard]] constexpr double StaticValue() const {
-    return StaticConvertCopy<U, Standard<U>, NewUnit>(value_);
+    return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
   constexpr double& MutableValue() noexcept {
-    return value_;
+    return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
   constexpr void SetValue(const double value) noexcept {
-    value_ = value;
+    this->value = value;
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
   // standard unit of measure and printed to double floating point precision.
   [[nodiscard]] std::string Print() const {
-    return PhQ::Print(value_).append(" ").append(Abbreviation(Standard<U>));
+    return PhQ::Print(value).append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
   // standard unit of measure and printed to the given floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
-    return PhQ::Print(value_, precision).append(" ").append(Abbreviation(Standard<U>));
+    return PhQ::Print(value, precision).append(" ").append(Abbreviation(Standard<U>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in the
@@ -100,7 +100,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string JSON() const {
     return std::string{"{\"value\":"}
-        .append(PhQ::Print(value_))
+        .append(PhQ::Print(value))
         .append(R"(,"unit":")")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -120,7 +120,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string XML() const {
     return std::string{"<value>"}
-        .append(PhQ::Print(value_))
+        .append(PhQ::Print(value))
         .append("</value><unit>")
         .append(Abbreviation(Standard<U>))
         .append("</unit>");
@@ -140,7 +140,7 @@ public:
   // expressed in its standard unit of measure.
   [[nodiscard]] std::string YAML() const {
     return std::string{"{value:"}
-        .append(PhQ::Print(value_))
+        .append(PhQ::Print(value))
         .append(",unit:\"")
         .append(Abbreviation(Standard<U>))
         .append("\"}");
@@ -163,12 +163,12 @@ protected:
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given value expressed in
   // its standard unit of measure.
-  explicit constexpr DimensionalScalar(const double value) : value_(value) {}
+  explicit constexpr DimensionalScalar(const double value) : value(value) {}
 
   // Constructor. Constructs a dimensional scalar physical quantity with a given value expressed in
   // a given unit of measure.
-  DimensionalScalar(const double value, const U unit) : value_(value) {
-    Convert(value_, unit, Standard<U>);
+  DimensionalScalar(const double value, const U unit) : value(value) {
+    Convert(this->value, unit, Standard<U>);
   }
 
   // Destructor. Destroys this dimensional scalar physical quantity.
@@ -189,7 +189,7 @@ protected:
   constexpr DimensionalScalar& operator=(DimensionalScalar&& other) noexcept = default;
 
   // Value of this dimensional scalar physical quantity expressed in its standard unit of measure.
-  double value_;
+  double value;
 };
 
 template <typename U>

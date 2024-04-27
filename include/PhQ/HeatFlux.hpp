@@ -106,27 +106,27 @@ public:
 
   // Returns the x Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux x() const noexcept {
-    return ScalarHeatFlux{value_.x()};
+    return ScalarHeatFlux{value.x()};
   }
 
   // Returns the y Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux y() const noexcept {
-    return ScalarHeatFlux{value_.y()};
+    return ScalarHeatFlux{value.y()};
   }
 
   // Returns the z Cartesian component of this heat flux vector.
   [[nodiscard]] constexpr ScalarHeatFlux z() const noexcept {
-    return ScalarHeatFlux{value_.z()};
+    return ScalarHeatFlux{value.z()};
   }
 
   // Returns the magnitude of this heat flux vector.
   [[nodiscard]] ScalarHeatFlux Magnitude() const {
-    return ScalarHeatFlux{value_.Magnitude()};
+    return ScalarHeatFlux{value.Magnitude()};
   }
 
   // Returns the direction of this heat flux vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this heat flux vector and another one.
@@ -135,35 +135,35 @@ public:
   }
 
   constexpr HeatFlux operator+(const HeatFlux& heat_flux) const {
-    return HeatFlux{value_ + heat_flux.value_};
+    return HeatFlux{value + heat_flux.value};
   }
 
   constexpr HeatFlux operator-(const HeatFlux& heat_flux) const {
-    return HeatFlux{value_ - heat_flux.value_};
+    return HeatFlux{value - heat_flux.value};
   }
 
   constexpr HeatFlux operator*(const double number) const {
-    return HeatFlux{value_ * number};
+    return HeatFlux{value * number};
   }
 
   constexpr HeatFlux operator/(const double number) const {
-    return HeatFlux{value_ / number};
+    return HeatFlux{value / number};
   }
 
   constexpr void operator+=(const HeatFlux& heat_flux) noexcept {
-    value_ += heat_flux.value_;
+    value += heat_flux.value;
   }
 
   constexpr void operator-=(const HeatFlux& heat_flux) noexcept {
-    value_ -= heat_flux.value_;
+    value -= heat_flux.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

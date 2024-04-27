@@ -94,79 +94,79 @@ public:
 
   // Returns the xx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity xx() const noexcept {
-    return ScalarThermalConductivity{value_.xx()};
+    return ScalarThermalConductivity{value.xx()};
   }
 
   // Returns the xy = yx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity xy() const noexcept {
-    return ScalarThermalConductivity{value_.xy()};
+    return ScalarThermalConductivity{value.xy()};
   }
 
   // Returns the xz = zx Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity xz() const noexcept {
-    return ScalarThermalConductivity{value_.xz()};
+    return ScalarThermalConductivity{value.xz()};
   }
 
   // Returns the yx = xy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity yx() const noexcept {
-    return ScalarThermalConductivity{value_.yx()};
+    return ScalarThermalConductivity{value.yx()};
   }
 
   // Returns the yy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity yy() const noexcept {
-    return ScalarThermalConductivity{value_.yy()};
+    return ScalarThermalConductivity{value.yy()};
   }
 
   // Returns the yz = zy Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity yz() const noexcept {
-    return ScalarThermalConductivity{value_.yz()};
+    return ScalarThermalConductivity{value.yz()};
   }
 
   // Returns the zx = xz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity zx() const noexcept {
-    return ScalarThermalConductivity{value_.zx()};
+    return ScalarThermalConductivity{value.zx()};
   }
 
   // Returns the zy = yz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity zy() const noexcept {
-    return ScalarThermalConductivity{value_.zy()};
+    return ScalarThermalConductivity{value.zy()};
   }
 
   // Returns the zz Cartesian component of this thermal conductivity tensor.
   [[nodiscard]] constexpr ScalarThermalConductivity zz() const noexcept {
-    return ScalarThermalConductivity{value_.zz()};
+    return ScalarThermalConductivity{value.zz()};
   }
 
   constexpr ThermalConductivity operator+(const ThermalConductivity& thermal_conductivity) const {
-    return ThermalConductivity{value_ + thermal_conductivity.value_};
+    return ThermalConductivity{value + thermal_conductivity.value};
   }
 
   constexpr ThermalConductivity operator-(const ThermalConductivity& thermal_conductivity) const {
-    return ThermalConductivity{value_ - thermal_conductivity.value_};
+    return ThermalConductivity{value - thermal_conductivity.value};
   }
 
   constexpr ThermalConductivity operator*(const double number) const {
-    return ThermalConductivity{value_ * number};
+    return ThermalConductivity{value * number};
   }
 
   constexpr ThermalConductivity operator/(const double number) const {
-    return ThermalConductivity{value_ / number};
+    return ThermalConductivity{value / number};
   }
 
   constexpr void operator+=(const ThermalConductivity& thermal_conductivity) noexcept {
-    value_ += thermal_conductivity.value_;
+    value += thermal_conductivity.value;
   }
 
   constexpr void operator-=(const ThermalConductivity& thermal_conductivity) noexcept {
-    value_ -= thermal_conductivity.value_;
+    value -= thermal_conductivity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

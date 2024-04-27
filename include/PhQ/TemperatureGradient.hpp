@@ -94,27 +94,27 @@ public:
 
   // Returns the x Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient x() const noexcept {
-    return ScalarTemperatureGradient{value_.x()};
+    return ScalarTemperatureGradient{value.x()};
   }
 
   // Returns the y Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient y() const noexcept {
-    return ScalarTemperatureGradient{value_.y()};
+    return ScalarTemperatureGradient{value.y()};
   }
 
   // Returns the z Cartesian component of this temperature gradient vector.
   [[nodiscard]] constexpr ScalarTemperatureGradient z() const noexcept {
-    return ScalarTemperatureGradient{value_.z()};
+    return ScalarTemperatureGradient{value.z()};
   }
 
   // Returns the magnitude of this temperature gradient vector.
   [[nodiscard]] ScalarTemperatureGradient Magnitude() const {
-    return ScalarTemperatureGradient{value_.Magnitude()};
+    return ScalarTemperatureGradient{value.Magnitude()};
   }
 
   // Returns the direction of this temperature gradient vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this temperature gradient vector and another one.
@@ -123,35 +123,35 @@ public:
   }
 
   constexpr TemperatureGradient operator+(const TemperatureGradient& temperature_gradient) const {
-    return TemperatureGradient{value_ + temperature_gradient.value_};
+    return TemperatureGradient{value + temperature_gradient.value};
   }
 
   constexpr TemperatureGradient operator-(const TemperatureGradient& temperature_gradient) const {
-    return TemperatureGradient{value_ - temperature_gradient.value_};
+    return TemperatureGradient{value - temperature_gradient.value};
   }
 
   constexpr TemperatureGradient operator*(const double number) const {
-    return TemperatureGradient{value_ * number};
+    return TemperatureGradient{value * number};
   }
 
   constexpr TemperatureGradient operator/(const double number) const {
-    return TemperatureGradient{value_ / number};
+    return TemperatureGradient{value / number};
   }
 
   constexpr void operator+=(const TemperatureGradient& temperature_gradient) noexcept {
-    value_ += temperature_gradient.value_;
+    value += temperature_gradient.value;
   }
 
   constexpr void operator-=(const TemperatureGradient& temperature_gradient) noexcept {
-    value_ -= temperature_gradient.value_;
+    value -= temperature_gradient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

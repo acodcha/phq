@@ -74,16 +74,16 @@ public:
 
   constexpr LinearThermalExpansionCoefficient operator+(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const {
-    return LinearThermalExpansionCoefficient{value_ + linear_thermal_expansion_coefficient.value_};
+    return LinearThermalExpansionCoefficient{value + linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient operator-(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) const {
-    return LinearThermalExpansionCoefficient{value_ - linear_thermal_expansion_coefficient.value_};
+    return LinearThermalExpansionCoefficient{value - linear_thermal_expansion_coefficient.value};
   }
 
   constexpr LinearThermalExpansionCoefficient operator*(const double number) const {
-    return LinearThermalExpansionCoefficient{value_ * number};
+    return LinearThermalExpansionCoefficient{value * number};
   }
 
   constexpr ScalarStrain operator*(const TemperatureDifference& temperature_difference) const {
@@ -91,31 +91,31 @@ public:
   }
 
   constexpr LinearThermalExpansionCoefficient operator/(const double number) const {
-    return LinearThermalExpansionCoefficient{value_ / number};
+    return LinearThermalExpansionCoefficient{value / number};
   }
 
   constexpr double operator/(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient)
       const noexcept {
-    return value_ / linear_thermal_expansion_coefficient.value_;
+    return value / linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator+=(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) noexcept {
-    value_ += linear_thermal_expansion_coefficient.value_;
+    value += linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator-=(
       const LinearThermalExpansionCoefficient& linear_thermal_expansion_coefficient) noexcept {
-    value_ -= linear_thermal_expansion_coefficient.value_;
+    value -= linear_thermal_expansion_coefficient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

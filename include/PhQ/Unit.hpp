@@ -102,8 +102,8 @@ inline void Convert(double& value, const Unit original_unit, const Unit new_unit
 // Converts an array of values expressed in a given unit of measure to a new unit of measure. The
 // conversion is performed in-place.
 template <typename Unit, std::size_t Size>
-inline void
-Convert(std::array<double, Size>& values, const Unit original_unit, const Unit new_unit) {
+inline void Convert(
+    std::array<double, Size>& values, const Unit original_unit, const Unit new_unit) {
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit>.find(original_unit)->second(values.data(), Size);
   }
@@ -158,8 +158,8 @@ inline double ConvertCopy(const double value, const Unit original_unit, const Un
 // Converts an array of values expressed in a given unit of measure to a new unit of measure.
 // Returns a copy of the converted values. The original values remain unchanged.
 template <typename Unit, std::size_t Size>
-inline std::array<double, Size>
-ConvertCopy(const std::array<double, Size>& values, const Unit original_unit, const Unit new_unit) {
+inline std::array<double, Size> ConvertCopy(
+    const std::array<double, Size>& values, const Unit original_unit, const Unit new_unit) {
   std::array<double, Size> result{values};
   Convert<Unit, Size>(result, original_unit, new_unit);
   return result;
@@ -168,8 +168,8 @@ ConvertCopy(const std::array<double, Size>& values, const Unit original_unit, co
 // Converts a vector of values expressed in a given unit of measure to a new unit of measure.
 // Returns a copy of the converted values. The original values remain unchanged.
 template <typename Unit>
-inline std::vector<double>
-ConvertCopy(const std::vector<double>& values, const Unit original_unit, const Unit new_unit) {
+inline std::vector<double> ConvertCopy(
+    const std::vector<double>& values, const Unit original_unit, const Unit new_unit) {
   std::vector<double> result{values};
   Convert<Unit>(result, original_unit, new_unit);
   return result;
@@ -185,8 +185,8 @@ inline Vector ConvertCopy(const Vector& value, const Unit original_unit, const U
 // Converts a three-dimensional symmetric dyadic tensor expressed in a given unit of measure to a
 // new unit of measure. Returns a copy of the converted value. The original value remains unchanged.
 template <typename Unit>
-inline SymmetricDyad
-ConvertCopy(const SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
+inline SymmetricDyad ConvertCopy(
+    const SymmetricDyad& value, const Unit original_unit, const Unit new_unit) {
   return SymmetricDyad{ConvertCopy<Unit, 6>(value.xx_xy_xz_yy_yz_zz(), original_unit, new_unit)};
 }
 
@@ -212,8 +212,8 @@ inline constexpr double StaticConvertCopy(const double value) {
 // Returns a copy of the converted values. The original values remain unchanged. This function can
 // be evaluated at compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size>
-inline constexpr std::array<double, Size>
-StaticConvertCopy(const std::array<double, Size>& values) {
+inline constexpr std::array<double, Size> StaticConvertCopy(
+    const std::array<double, Size>& values) {
   std::array<double, Size> result{values};
   Internal::ConversionsToStandard<Unit, OriginalUnit>(result.data(), Size);
   Internal::ConversionsFromStandard<Unit, NewUnit>(result.data(), Size);

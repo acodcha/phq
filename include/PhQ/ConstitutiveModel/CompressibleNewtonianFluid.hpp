@@ -45,15 +45,15 @@ public:
   // Constructor. Constructs a compressible Newtonian fluid constitutive model from a given dynamic
   // viscosity. Initializes the bulk dynamic viscosity as -2/3 of the dynamic viscosity.
   explicit constexpr CompressibleNewtonianFluid(const DynamicViscosity& dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
-      bulk_dynamic_viscosity_(-2.0 / 3.0 * dynamic_viscosity.Value()) {}
+    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
+      bulk_dynamic_viscosity(-2.0 / 3.0 * dynamic_viscosity.Value()) {}
 
   // Constructor. Constructs a compressible Newtonian fluid constitutive model from a given dynamic
   // viscosity and bulk dynamic viscosity.
   constexpr CompressibleNewtonianFluid(
       const DynamicViscosity& dynamic_viscosity, const BulkDynamicViscosity& bulk_dynamic_viscosity)
-    : ConstitutiveModel(), dynamic_viscosity_(dynamic_viscosity),
-      bulk_dynamic_viscosity_(bulk_dynamic_viscosity) {}
+    : ConstitutiveModel(), dynamic_viscosity(dynamic_viscosity),
+      bulk_dynamic_viscosity(bulk_dynamic_viscosity) {}
 
   // Destructor. Destroys this compressible Newtonian fluid constitutive model.
   ~CompressibleNewtonianFluid() noexcept override = default;
@@ -76,13 +76,13 @@ public:
 
   // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::DynamicViscosity& DynamicViscosity() const noexcept {
-    return dynamic_viscosity_;
+    return dynamic_viscosity;
   }
 
   // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
   [[nodiscard]] inline constexpr const PhQ::BulkDynamicViscosity&
   BulkDynamicViscosity() const noexcept {
-    return bulk_dynamic_viscosity_;
+    return bulk_dynamic_viscosity;
   }
 
   // Returns this constitutive model's type.
@@ -110,8 +110,8 @@ public:
     // stress = a * strain_rate + b * trace(strain_rate) * identity_matrix
     // a = 2 * dynamic_viscosity
     // b = bulk_dynamic_viscosity
-    const double a = 2.0 * dynamic_viscosity_.Value();
-    const double b = bulk_dynamic_viscosity_.Value() * strain_rate.Value().Trace();
+    const double a{2.0 * dynamic_viscosity.Value()};
+    const double b{bulk_dynamic_viscosity.Value() * strain_rate.Value().Trace()};
     return {
         SymmetricDyad{a * strain_rate.Value()}
         + SymmetricDyad{ b, 0.0, 0.0, b, 0.0, b},
@@ -129,14 +129,13 @@ public:
   [[nodiscard]] inline PhQ::StrainRate StrainRate(const PhQ::Stress& stress) const override {
     // strain_rate = a * stress + b * trace(stress) * identity_matrix
     // a = 1 / (2 * dynamic_viscosity)
-    // b = -1 * bulk_dynamic_viscosity / (2 * dynamic_viscosity * (2 *
-    //     dynamic_viscosity + 3 * bulk_dynamic_viscosity))
-    const double a = 1.0 / (2.0 * dynamic_viscosity_.Value());
-    const double b =
-        -bulk_dynamic_viscosity_.Value()
-        / (2.0 * dynamic_viscosity_.Value()
-           * (2.0 * dynamic_viscosity_.Value() + 3.0 * bulk_dynamic_viscosity_.Value()));
-    const double temporary = b * stress.Value().Trace();
+    // b = -1 * bulk_dynamic_viscosity /
+    //     (2 * dynamic_viscosity * (2 * dynamic_viscosity + 3 * bulk_dynamic_viscosity))
+    const double a{1.0 / (2.0 * dynamic_viscosity.Value())};
+    const double b{-bulk_dynamic_viscosity.Value()
+                   / (2.0 * dynamic_viscosity.Value()
+                      * (2.0 * dynamic_viscosity.Value() + 3.0 * bulk_dynamic_viscosity.Value()))};
+    const double temporary{b * stress.Value().Trace()};
     return {
         a * stress.Value() + SymmetricDyad{temporary, 0.0, 0.0, temporary, 0.0, temporary},
         Standard<Unit::Frequency>
@@ -146,37 +145,37 @@ public:
   // Prints this compressible Newtonian fluid constitutive model as a string.
   [[nodiscard]] inline std::string Print() const override {
     return {"Type = " + std::string{Abbreviation(GetType())}
-            + ", Dynamic Viscosity = " + dynamic_viscosity_.Print()
-            + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity_.Print()};
+            + ", Dynamic Viscosity = " + dynamic_viscosity.Print()
+            + ", Bulk Dynamic Viscosity = " + bulk_dynamic_viscosity.Print()};
   }
 
   // Serializes this compressible Newtonian fluid constitutive model as a JSON message.
   [[nodiscard]] inline std::string JSON() const override {
     return {R"({"type":")" + SnakeCaseCopy(Abbreviation(GetType())) + R"(","dynamic_viscosity":)"
-            + dynamic_viscosity_.JSON()
-            + ",\"bulk_dynamic_viscosity\":" + bulk_dynamic_viscosity_.JSON() + "}"};
+            + dynamic_viscosity.JSON()
+            + ",\"bulk_dynamic_viscosity\":" + bulk_dynamic_viscosity.JSON() + "}"};
   }
 
   // Serializes this compressible Newtonian fluid constitutive model as an XML message.
   [[nodiscard]] inline std::string XML() const override {
     return {"<type>" + SnakeCaseCopy(Abbreviation(GetType())) + "</type><dynamic_viscosity>"
-            + dynamic_viscosity_.XML() + "</dynamic_viscosity><bulk_dynamic_viscosity>"
-            + bulk_dynamic_viscosity_.XML() + "</bulk_dynamic_viscosity>"};
+            + dynamic_viscosity.XML() + "</dynamic_viscosity><bulk_dynamic_viscosity>"
+            + bulk_dynamic_viscosity.XML() + "</bulk_dynamic_viscosity>"};
   }
 
   // Serializes this compressible Newtonian fluid constitutive model as a YAML message.
   [[nodiscard]] inline std::string YAML() const override {
     return {"{type:\"" + SnakeCaseCopy(Abbreviation(GetType()))
-            + "\",dynamic_viscosity:" + dynamic_viscosity_.YAML()
-            + ",bulk_dynamic_viscosity:" + bulk_dynamic_viscosity_.YAML() + "}"};
+            + "\",dynamic_viscosity:" + dynamic_viscosity.YAML()
+            + ",bulk_dynamic_viscosity:" + bulk_dynamic_viscosity.YAML() + "}"};
   }
 
 private:
   // Dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::DynamicViscosity dynamic_viscosity_;
+  PhQ::DynamicViscosity dynamic_viscosity;
 
   // Bulk dynamic viscosity of this compressible Newtonian fluid constitutive model.
-  PhQ::BulkDynamicViscosity bulk_dynamic_viscosity_;
+  PhQ::BulkDynamicViscosity bulk_dynamic_viscosity;
 };
 
 inline constexpr bool operator==(
@@ -236,7 +235,7 @@ namespace std {
 template <>
 struct hash<PhQ::ConstitutiveModel::CompressibleNewtonianFluid> {
   size_t operator()(const PhQ::ConstitutiveModel::CompressibleNewtonianFluid& model) const {
-    size_t result = 17;
+    size_t result{17};
     result = 31 * result + hash<PhQ::DynamicViscosity>()(model.DynamicViscosity());
     result = 31 * result + hash<PhQ::BulkDynamicViscosity>()(model.BulkDynamicViscosity());
     return result;

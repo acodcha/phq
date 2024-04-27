@@ -108,27 +108,27 @@ public:
 
   // Returns the x Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed x() const noexcept {
-    return Speed{value_.x()};
+    return Speed{value.x()};
   }
 
   // Returns the y Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed y() const noexcept {
-    return Speed{value_.y()};
+    return Speed{value.y()};
   }
 
   // Returns the z Cartesian component of this velocity vector.
   [[nodiscard]] constexpr Speed z() const noexcept {
-    return Speed{value_.z()};
+    return Speed{value.z()};
   }
 
   // Returns the magnitude of this velocity vector.
   [[nodiscard]] Speed Magnitude() const {
-    return Speed{value_.Magnitude()};
+    return Speed{value.Magnitude()};
   }
 
   // Returns the direction of this velocity vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this velocity vector and another one.
@@ -137,15 +137,15 @@ public:
   }
 
   constexpr Velocity operator+(const Velocity& velocity) const {
-    return Velocity{value_ + velocity.value_};
+    return Velocity{value + velocity.value};
   }
 
   constexpr Velocity operator-(const Velocity& velocity) const {
-    return Velocity{value_ - velocity.value_};
+    return Velocity{value - velocity.value};
   }
 
   constexpr Velocity operator*(const double number) const {
-    return Velocity{value_ * number};
+    return Velocity{value * number};
   }
 
   constexpr Displacement operator*(const Time& time) const {
@@ -155,7 +155,7 @@ public:
   constexpr Acceleration operator*(const Frequency& frequency) const;
 
   constexpr Velocity operator/(const double number) const {
-    return Velocity{value_ / number};
+    return Velocity{value / number};
   }
 
   constexpr Acceleration operator/(const Time& time) const;
@@ -165,19 +165,19 @@ public:
   }
 
   constexpr void operator+=(const Velocity& velocity) noexcept {
-    value_ += velocity.value_;
+    value += velocity.value;
   }
 
   constexpr void operator-=(const Velocity& velocity) noexcept {
-    value_ -= velocity.value_;
+    value -= velocity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

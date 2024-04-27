@@ -88,21 +88,21 @@ public:
   }
 
   constexpr Energy operator+(const Energy& energy) const {
-    return Energy{value_ + energy.value_};
+    return Energy{value + energy.value};
   }
 
   constexpr Energy operator-(const Energy& energy) const {
-    return Energy{value_ - energy.value_};
+    return Energy{value - energy.value};
   }
 
   constexpr Energy operator*(const double number) const {
-    return Energy{value_ * number};
+    return Energy{value * number};
   }
 
   constexpr Power operator*(const Frequency& frequency) const;
 
   constexpr Energy operator/(const double number) const {
-    return Energy{value_ / number};
+    return Energy{value / number};
   }
 
   constexpr Power operator/(const Time& time) const;
@@ -118,23 +118,23 @@ public:
   constexpr Length operator/(const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr double operator/(const Energy& energy) const noexcept {
-    return value_ / energy.value_;
+    return value / energy.value;
   }
 
   constexpr void operator+=(const Energy& energy) noexcept {
-    value_ += energy.value_;
+    value += energy.value;
   }
 
   constexpr void operator-=(const Energy& energy) noexcept {
-    value_ -= energy.value_;
+    value -= energy.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -115,19 +115,19 @@ public:
   }
 
   constexpr Speed operator+(const Speed& speed) const {
-    return Speed{value_ + speed.value_};
+    return Speed{value + speed.value};
   }
 
   constexpr Speed operator+(const SoundSpeed& sound_speed) const;
 
   constexpr Speed operator-(const Speed& speed) const {
-    return Speed{value_ - speed.value_};
+    return Speed{value - speed.value};
   }
 
   constexpr Speed operator-(const SoundSpeed& sound_speed) const;
 
   constexpr Speed operator*(const double number) const {
-    return Speed{value_ * number};
+    return Speed{value * number};
   }
 
   constexpr Length operator*(const Time& time) const {
@@ -141,7 +141,7 @@ public:
   constexpr Power operator*(const TransportEnergyConsumption& transport_energy_consumption) const;
 
   constexpr Speed operator/(const double number) const {
-    return Speed{value_ / number};
+    return Speed{value / number};
   }
 
   constexpr Length operator/(const Frequency& frequency) const {
@@ -159,27 +159,27 @@ public:
   constexpr MachNumber operator/(const SoundSpeed& sound_speed) const;
 
   constexpr double operator/(const Speed& speed) const noexcept {
-    return value_ / speed.value_;
+    return value / speed.value;
   }
 
   constexpr void operator+=(const Speed& speed) noexcept {
-    value_ += speed.value_;
+    value += speed.value;
   }
 
   constexpr void operator+=(const SoundSpeed& speed) noexcept;
 
   constexpr void operator-=(const Speed& speed) noexcept {
-    value_ -= speed.value_;
+    value -= speed.value;
   }
 
   constexpr void operator-=(const SoundSpeed& speed) noexcept;
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -81,16 +81,16 @@ public:
 
   constexpr ScalarAngularAcceleration operator+(
       const ScalarAngularAcceleration& scalar_angular_acceleration) const {
-    return ScalarAngularAcceleration{value_ + scalar_angular_acceleration.value_};
+    return ScalarAngularAcceleration{value + scalar_angular_acceleration.value};
   }
 
   constexpr ScalarAngularAcceleration operator-(
       const ScalarAngularAcceleration& scalar_angular_acceleration) const {
-    return ScalarAngularAcceleration{value_ - scalar_angular_acceleration.value_};
+    return ScalarAngularAcceleration{value - scalar_angular_acceleration.value};
   }
 
   constexpr ScalarAngularAcceleration operator*(const double number) const {
-    return ScalarAngularAcceleration{value_ * number};
+    return ScalarAngularAcceleration{value * number};
   }
 
   constexpr AngularSpeed operator*(const Time& time) const {
@@ -98,7 +98,7 @@ public:
   }
 
   constexpr ScalarAngularAcceleration operator/(const double number) const {
-    return ScalarAngularAcceleration{value_ / number};
+    return ScalarAngularAcceleration{value / number};
   }
 
   constexpr AngularSpeed operator/(const Frequency& frequency) const {
@@ -111,23 +111,23 @@ public:
 
   constexpr double operator/(
       const ScalarAngularAcceleration& scalar_angular_acceleration) const noexcept {
-    return value_ / scalar_angular_acceleration.value_;
+    return value / scalar_angular_acceleration.value;
   }
 
   constexpr void operator+=(const ScalarAngularAcceleration& scalar_angular_acceleration) noexcept {
-    value_ += scalar_angular_acceleration.value_;
+    value += scalar_angular_acceleration.value;
   }
 
   constexpr void operator-=(const ScalarAngularAcceleration& scalar_angular_acceleration) noexcept {
-    value_ -= scalar_angular_acceleration.value_;
+    value -= scalar_angular_acceleration.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

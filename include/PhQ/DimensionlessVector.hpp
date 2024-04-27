@@ -39,34 +39,34 @@ public:
 
   // Value of this dimensionless physical quantity.
   [[nodiscard]] constexpr const Vector& Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to double floating point precision.
   [[nodiscard]] std::string Print() const {
-    return value_.Print();
+    return value.Print();
   }
 
   // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
   // value is printed to the given floating point precision.
   [[nodiscard]] std::string Print(const Precision precision) const {
-    return value_.Print(precision);
+    return value.Print(precision);
   }
 
   // Serializes this dimensionless physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
-    return value_.JSON();
+    return value.JSON();
   }
 
   // Serializes this dimensionless physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
-    return value_.XML();
+    return value.XML();
   }
 
   // Serializes this dimensionless physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
-    return value_.YAML();
+    return value.YAML();
   }
 
 protected:
@@ -76,14 +76,14 @@ protected:
 
   // Constructor. Constructs a dimensionless vector physical quantity whose value has the given x,
   // y, and z Cartesian components.
-  constexpr DimensionlessVector(const double x, const double y, const double z) : value_(x, y, z) {}
+  constexpr DimensionlessVector(const double x, const double y, const double z) : value(x, y, z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity from a given array
   // representing its value's x, y, and z Cartesian components.
-  explicit constexpr DimensionlessVector(const std::array<double, 3>& x_y_z) : value_(x_y_z) {}
+  explicit constexpr DimensionlessVector(const std::array<double, 3>& x_y_z) : value(x_y_z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity with a given value.
-  explicit constexpr DimensionlessVector(const Vector& value) : value_(value) {}
+  explicit constexpr DimensionlessVector(const Vector& value) : value(value) {}
 
   // Destructor. Destroys this dimensionless vector physical quantity.
   ~DimensionlessVector() noexcept = default;
@@ -103,7 +103,7 @@ protected:
   constexpr DimensionlessVector& operator=(DimensionlessVector&& other) noexcept = default;
 
   // Value of this dimensionless vector physical quantity.
-  Vector value_;
+  Vector value;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVector& quantity) {

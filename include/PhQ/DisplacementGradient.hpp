@@ -82,47 +82,47 @@ public:
 
   // Returns the xx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient xx() const noexcept {
-    return ScalarDisplacementGradient{value_.xx()};
+    return ScalarDisplacementGradient{value.xx()};
   }
 
   // Returns the xy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient xy() const noexcept {
-    return ScalarDisplacementGradient{value_.xy()};
+    return ScalarDisplacementGradient{value.xy()};
   }
 
   // Returns the xz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient xz() const noexcept {
-    return ScalarDisplacementGradient{value_.xz()};
+    return ScalarDisplacementGradient{value.xz()};
   }
 
   // Returns the yx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient yx() const noexcept {
-    return ScalarDisplacementGradient{value_.yx()};
+    return ScalarDisplacementGradient{value.yx()};
   }
 
   // Returns the yy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient yy() const noexcept {
-    return ScalarDisplacementGradient{value_.yy()};
+    return ScalarDisplacementGradient{value.yy()};
   }
 
   // Returns the yz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient yz() const noexcept {
-    return ScalarDisplacementGradient{value_.yz()};
+    return ScalarDisplacementGradient{value.yz()};
   }
 
   // Returns the zx Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient zx() const noexcept {
-    return ScalarDisplacementGradient{value_.zx()};
+    return ScalarDisplacementGradient{value.zx()};
   }
 
   // Returns the zy Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient zy() const noexcept {
-    return ScalarDisplacementGradient{value_.zy()};
+    return ScalarDisplacementGradient{value.zy()};
   }
 
   // Returns the zz Cartesian component of this displacement gradient tensor.
   [[nodiscard]] constexpr ScalarDisplacementGradient zz() const noexcept {
-    return ScalarDisplacementGradient{value_.zz()};
+    return ScalarDisplacementGradient{value.zz()};
   }
 
   // Creates a strain tensor from this displacement gradient tensor using the definition of the
@@ -133,40 +133,40 @@ public:
 
   constexpr DisplacementGradient operator+(
       const DisplacementGradient& displacement_gradient) const {
-    return DisplacementGradient{value_ + displacement_gradient.value_};
+    return DisplacementGradient{value + displacement_gradient.value};
   }
 
   constexpr DisplacementGradient operator-(
       const DisplacementGradient& displacement_gradient) const {
-    return DisplacementGradient{value_ - displacement_gradient.value_};
+    return DisplacementGradient{value - displacement_gradient.value};
   }
 
   constexpr DisplacementGradient operator*(const double number) const {
-    return DisplacementGradient{value_ * number};
+    return DisplacementGradient{value * number};
   }
 
   constexpr VelocityGradient operator*(const Frequency& frequency) const;
 
   constexpr DisplacementGradient operator/(const double number) const {
-    return DisplacementGradient{value_ / number};
+    return DisplacementGradient{value / number};
   }
 
   constexpr VelocityGradient operator/(const Time& time) const;
 
   constexpr void operator+=(const DisplacementGradient& displacement_gradient) noexcept {
-    value_ += displacement_gradient.value_;
+    value += displacement_gradient.value;
   }
 
   constexpr void operator-=(const DisplacementGradient& displacement_gradient) noexcept {
-    value_ -= displacement_gradient.value_;
+    value -= displacement_gradient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

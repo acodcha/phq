@@ -73,15 +73,15 @@ public:
   }
 
   constexpr VolumeRate operator+(const VolumeRate& volume_rate) const {
-    return VolumeRate{value_ + volume_rate.value_};
+    return VolumeRate{value + volume_rate.value};
   }
 
   constexpr VolumeRate operator-(const VolumeRate& volume_rate) const {
-    return VolumeRate{value_ - volume_rate.value_};
+    return VolumeRate{value - volume_rate.value};
   }
 
   constexpr VolumeRate operator*(const double number) const {
-    return VolumeRate{value_ * number};
+    return VolumeRate{value * number};
   }
 
   constexpr Volume operator*(const Time& time) const {
@@ -89,7 +89,7 @@ public:
   }
 
   constexpr VolumeRate operator/(const double number) const {
-    return VolumeRate{value_ / number};
+    return VolumeRate{value / number};
   }
 
   constexpr Volume operator/(const Frequency& frequency) const {
@@ -101,23 +101,23 @@ public:
   }
 
   constexpr double operator/(const VolumeRate& volume_rate) const noexcept {
-    return value_ / volume_rate.value_;
+    return value / volume_rate.value;
   }
 
   constexpr void operator+=(const VolumeRate& volume_rate) noexcept {
-    value_ += volume_rate.value_;
+    value += volume_rate.value;
   }
 
   constexpr void operator-=(const VolumeRate& volume_rate) noexcept {
-    value_ -= volume_rate.value_;
+    value -= volume_rate.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

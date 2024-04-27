@@ -80,15 +80,15 @@ public:
   }
 
   constexpr Area operator+(const Area& area) const {
-    return Area{value_ + area.value_};
+    return Area{value + area.value};
   }
 
   constexpr Area operator-(const Area& area) const {
-    return Area{value_ - area.value_};
+    return Area{value - area.value};
   }
 
   constexpr Area operator*(const double number) const {
-    return Area{value_ * number};
+    return Area{value * number};
   }
 
   constexpr Volume operator*(const Length& length) const;
@@ -98,7 +98,7 @@ public:
   constexpr VectorArea operator*(const Direction& direction) const;
 
   constexpr Area operator/(const double number) const {
-    return Area{value_ / number};
+    return Area{value / number};
   }
 
   constexpr Length operator/(const Length& length) const {
@@ -106,23 +106,23 @@ public:
   }
 
   constexpr double operator/(const Area& area) const noexcept {
-    return value_ / area.value_;
+    return value / area.value;
   }
 
   constexpr void operator+=(const Area& area) noexcept {
-    value_ += area.value_;
+    value += area.value;
   }
 
   constexpr void operator-=(const Area& area) noexcept {
-    value_ -= area.value_;
+    value -= area.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

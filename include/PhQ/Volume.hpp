@@ -85,15 +85,15 @@ public:
   }
 
   constexpr Volume operator+(const Volume& volume) const {
-    return Volume{value_ + volume.value_};
+    return Volume{value + volume.value};
   }
 
   constexpr Volume operator-(const Volume& volume) const {
-    return Volume{value_ - volume.value_};
+    return Volume{value - volume.value};
   }
 
   constexpr Volume operator*(const double number) const {
-    return Volume{value_ * number};
+    return Volume{value * number};
   }
 
   constexpr Mass operator*(const MassDensity& mass_density) const;
@@ -101,7 +101,7 @@ public:
   constexpr VolumeRate operator*(const Frequency& frequency) const;
 
   constexpr Volume operator/(const double number) const {
-    return Volume{value_ / number};
+    return Volume{value / number};
   }
 
   constexpr Area operator/(const Length& length) const {
@@ -117,23 +117,23 @@ public:
   constexpr Time operator/(const VolumeRate& volume_rate) const;
 
   constexpr double operator/(const Volume& volume) const noexcept {
-    return value_ / volume.value_;
+    return value / volume.value;
   }
 
   constexpr void operator+=(const Volume& volume) noexcept {
-    value_ += volume.value_;
+    value += volume.value;
   }
 
   constexpr void operator-=(const Volume& volume) noexcept {
-    value_ -= volume.value_;
+    value -= volume.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

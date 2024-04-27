@@ -89,19 +89,19 @@ public:
   }
 
   constexpr DynamicViscosity operator+(const DynamicViscosity& dynamic_viscosity) const {
-    return DynamicViscosity{value_ + dynamic_viscosity.value_};
+    return DynamicViscosity{value + dynamic_viscosity.value};
   }
 
   constexpr DynamicViscosity operator-(const DynamicViscosity& dynamic_viscosity) const {
-    return DynamicViscosity{value_ - dynamic_viscosity.value_};
+    return DynamicViscosity{value - dynamic_viscosity.value};
   }
 
   constexpr DynamicViscosity operator*(const double number) const {
-    return DynamicViscosity{value_ * number};
+    return DynamicViscosity{value * number};
   }
 
   constexpr DynamicViscosity operator/(const double number) const {
-    return DynamicViscosity{value_ / number};
+    return DynamicViscosity{value / number};
   }
 
   constexpr KinematicViscosity operator/(const MassDensity& mass_density) const {
@@ -113,23 +113,23 @@ public:
   }
 
   constexpr double operator/(const DynamicViscosity& dynamic_viscosity) const noexcept {
-    return value_ / dynamic_viscosity.value_;
+    return value / dynamic_viscosity.value;
   }
 
   constexpr void operator+=(const DynamicViscosity& dynamic_viscosity) noexcept {
-    value_ += dynamic_viscosity.value_;
+    value += dynamic_viscosity.value;
   }
 
   constexpr void operator-=(const DynamicViscosity& dynamic_viscosity) noexcept {
-    value_ -= dynamic_viscosity.value_;
+    value -= dynamic_viscosity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

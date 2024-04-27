@@ -71,47 +71,47 @@ public:
 
   constexpr ScalarDisplacementGradient operator+(
       const ScalarDisplacementGradient& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient{value_ + scalar_displacement_gradient.value_};
+    return ScalarDisplacementGradient{value + scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient operator-(
       const ScalarDisplacementGradient& scalar_displacement_gradient) const {
-    return ScalarDisplacementGradient{value_ - scalar_displacement_gradient.value_};
+    return ScalarDisplacementGradient{value - scalar_displacement_gradient.value};
   }
 
   constexpr ScalarDisplacementGradient operator*(const double number) const {
-    return ScalarDisplacementGradient{value_ * number};
+    return ScalarDisplacementGradient{value * number};
   }
 
   constexpr ScalarVelocityGradient operator*(const Frequency& frequency) const;
 
   constexpr ScalarDisplacementGradient operator/(const double number) const {
-    return ScalarDisplacementGradient{value_ / number};
+    return ScalarDisplacementGradient{value / number};
   }
 
   constexpr ScalarVelocityGradient operator/(const Time& time) const;
 
   constexpr double operator/(
       const ScalarDisplacementGradient& scalar_displacement_gradient) const noexcept {
-    return value_ / scalar_displacement_gradient.value_;
+    return value / scalar_displacement_gradient.value;
   }
 
   constexpr void operator+=(
       const ScalarDisplacementGradient& scalar_displacement_gradient) noexcept {
-    value_ += scalar_displacement_gradient.value_;
+    value += scalar_displacement_gradient.value;
   }
 
   constexpr void operator-=(
       const ScalarDisplacementGradient& scalar_displacement_gradient) noexcept {
-    value_ -= scalar_displacement_gradient.value_;
+    value -= scalar_displacement_gradient.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 };
 

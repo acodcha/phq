@@ -97,7 +97,7 @@ public:
   }
 
   constexpr SpecificGasConstant operator+(const SpecificGasConstant& specific_gas_constant) const {
-    return SpecificGasConstant{value_ + specific_gas_constant.value_};
+    return SpecificGasConstant{value + specific_gas_constant.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity operator+(
@@ -106,11 +106,11 @@ public:
   }
 
   constexpr SpecificGasConstant operator-(const SpecificGasConstant& specific_gas_constant) const {
-    return SpecificGasConstant{value_ - specific_gas_constant.value_};
+    return SpecificGasConstant{value - specific_gas_constant.value};
   }
 
   constexpr SpecificGasConstant operator*(const double number) const {
-    return SpecificGasConstant{value_ * number};
+    return SpecificGasConstant{value * number};
   }
 
   constexpr GasConstant operator*(const Mass& mass) const {
@@ -118,27 +118,27 @@ public:
   }
 
   constexpr SpecificGasConstant operator/(const double number) const {
-    return SpecificGasConstant{value_ / number};
+    return SpecificGasConstant{value / number};
   }
 
   constexpr double operator/(const SpecificGasConstant& specific_gas_constant) const noexcept {
-    return value_ / specific_gas_constant.value_;
+    return value / specific_gas_constant.value;
   }
 
   constexpr void operator+=(const SpecificGasConstant& specific_gas_constant) noexcept {
-    value_ += specific_gas_constant.value_;
+    value += specific_gas_constant.value;
   }
 
   constexpr void operator-=(const SpecificGasConstant& specific_gas_constant) noexcept {
-    value_ -= specific_gas_constant.value_;
+    value -= specific_gas_constant.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

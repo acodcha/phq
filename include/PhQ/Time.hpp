@@ -132,15 +132,15 @@ public:
   [[nodiscard]] constexpr PhQ::Frequency Frequency() const;
 
   constexpr Time operator+(const Time& time) const {
-    return Time{value_ + time.value_};
+    return Time{value + time.value};
   }
 
   constexpr Time operator-(const Time& time) const {
-    return Time{value_ - time.value_};
+    return Time{value - time.value};
   }
 
   constexpr Time operator*(const double number) const {
-    return Time{value_ * number};
+    return Time{value * number};
   }
 
   constexpr double operator*(const PhQ::Frequency& frequency) const noexcept;
@@ -169,27 +169,27 @@ public:
   constexpr Volume operator*(const VolumeRate& volume_rate) const;
 
   constexpr Time operator/(const double number) const {
-    return Time{value_ / number};
+    return Time{value / number};
   }
 
   constexpr double operator/(const Time& time) const noexcept {
-    return value_ / time.value_;
+    return value / time.value;
   }
 
   constexpr void operator+=(const Time& time) noexcept {
-    value_ += time.value_;
+    value += time.value;
   }
 
   constexpr void operator-=(const Time& time) noexcept {
-    value_ -= time.value_;
+    value -= time.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

@@ -29,10 +29,10 @@ namespace PhQ::Dimension {
 class Temperature {
 public:
   // Default constructor. Constructs a base physical dimension of temperature with a value of zero.
-  constexpr Temperature() : value_(0) {}
+  constexpr Temperature() = default;
 
   // Constructor. Constructs a base physical dimension of temperature with a given value.
-  explicit constexpr Temperature(const int8_t value) : value_(value) {}
+  explicit constexpr Temperature(const int8_t value) : value(value) {}
 
   // Destructor. Destroys this base physical dimension of temperature.
   ~Temperature() noexcept = default;
@@ -53,7 +53,7 @@ public:
 
   // Value of this base physical dimension.
   [[nodiscard]] constexpr int8_t Value() const noexcept {
-    return value_;
+    return value;
   }
 
   // Abbreviation of this base physical dimension.
@@ -68,21 +68,21 @@ public:
 
   // Prints this base physical dimension as a string.
   [[nodiscard]] std::string Print() const noexcept {
-    if (value_ == 0) {
+    if (value == 0) {
       return {};
     }
     std::string text{Abbreviation()};
-    if (value_ >= 2) {
-      text.append("^" + std::to_string(value_));
-    } else if (value_ <= -1) {
-      text.append("^(" + std::to_string(value_) + ")");
+    if (value >= 2) {
+      text.append("^" + std::to_string(value));
+    } else if (value <= -1) {
+      text.append("^(" + std::to_string(value) + ")");
     }
     return text;
   }
 
 private:
   // Value of this base physical dimension.
-  int8_t value_;
+  int8_t value{0};
 };
 
 inline constexpr bool operator==(const Temperature& left, const Temperature& right) noexcept {

@@ -83,43 +83,43 @@ public:
   }
 
   constexpr DynamicPressure operator+(const DynamicPressure& dynamic_pressure) const {
-    return DynamicPressure{value_ + dynamic_pressure.value_};
+    return DynamicPressure{value + dynamic_pressure.value};
   }
 
   constexpr TotalPressure operator+(const StaticPressure& static_pressure) const;
 
   constexpr DynamicPressure operator-(const DynamicPressure& dynamic_pressure) const {
-    return DynamicPressure{value_ - dynamic_pressure.value_};
+    return DynamicPressure{value - dynamic_pressure.value};
   }
 
   constexpr DynamicPressure operator*(const double number) const {
-    return DynamicPressure{value_ * number};
+    return DynamicPressure{value * number};
   }
 
   constexpr DynamicPressure operator/(const double number) const {
-    return DynamicPressure{value_ / number};
+    return DynamicPressure{value / number};
   }
 
   constexpr double operator/(const DynamicPressure& dynamic_pressure) const noexcept {
-    return value_ / dynamic_pressure.value_;
+    return value / dynamic_pressure.value;
   }
 
   constexpr DynamicKinematicPressure operator/(const MassDensity& mass_density) const;
 
   constexpr void operator+=(const DynamicPressure& dynamic_pressure) noexcept {
-    value_ += dynamic_pressure.value_;
+    value += dynamic_pressure.value;
   }
 
   constexpr void operator-=(const DynamicPressure& dynamic_pressure) noexcept {
-    value_ -= dynamic_pressure.value_;
+    value -= dynamic_pressure.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

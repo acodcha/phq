@@ -77,16 +77,16 @@ public:
 
   constexpr TransportEnergyConsumption operator+(
       const TransportEnergyConsumption& transport_energy_consumption) const {
-    return TransportEnergyConsumption{value_ + transport_energy_consumption.value_};
+    return TransportEnergyConsumption{value + transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption operator-(
       const TransportEnergyConsumption& transport_energy_consumption) const {
-    return TransportEnergyConsumption{value_ - transport_energy_consumption.value_};
+    return TransportEnergyConsumption{value - transport_energy_consumption.value};
   }
 
   constexpr TransportEnergyConsumption operator*(const double number) const {
-    return TransportEnergyConsumption{value_ * number};
+    return TransportEnergyConsumption{value * number};
   }
 
   constexpr Energy operator*(const Length length) const {
@@ -98,30 +98,30 @@ public:
   }
 
   constexpr TransportEnergyConsumption operator/(const double number) const {
-    return TransportEnergyConsumption{value_ / number};
+    return TransportEnergyConsumption{value / number};
   }
 
   constexpr double operator/(
       const TransportEnergyConsumption& transport_energy_consumption) const noexcept {
-    return value_ / transport_energy_consumption.value_;
+    return value / transport_energy_consumption.value;
   }
 
   constexpr void operator+=(
       const TransportEnergyConsumption& transport_energy_consumption) noexcept {
-    value_ += transport_energy_consumption.value_;
+    value += transport_energy_consumption.value;
   }
 
   constexpr void operator-=(
       const TransportEnergyConsumption& transport_energy_consumption) noexcept {
-    value_ -= transport_energy_consumption.value_;
+    value -= transport_energy_consumption.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

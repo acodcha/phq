@@ -73,21 +73,21 @@ public:
   }
 
   constexpr Memory operator+(const Memory& memory) const {
-    return Memory{value_ + memory.value_};
+    return Memory{value + memory.value};
   }
 
   constexpr Memory operator-(const Memory& memory) const {
-    return Memory{value_ - memory.value_};
+    return Memory{value - memory.value};
   }
 
   constexpr Memory operator*(const double number) const {
-    return Memory{value_ * number};
+    return Memory{value * number};
   }
 
   constexpr MemoryRate operator*(const Frequency& frequency) const;
 
   constexpr Memory operator/(const double number) const {
-    return Memory{value_ / number};
+    return Memory{value / number};
   }
 
   constexpr MemoryRate operator/(const Time& time) const;
@@ -95,23 +95,23 @@ public:
   constexpr Time operator/(const MemoryRate& memory_rate) const;
 
   constexpr double operator/(const Memory& memory) const noexcept {
-    return value_ / memory.value_;
+    return value / memory.value;
   }
 
   constexpr void operator+=(const Memory& memory) noexcept {
-    value_ += memory.value_;
+    value += memory.value;
   }
 
   constexpr void operator-=(const Memory& memory) noexcept {
-    value_ -= memory.value_;
+    value -= memory.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

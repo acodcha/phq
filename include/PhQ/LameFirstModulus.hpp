@@ -64,39 +64,39 @@ public:
   }
 
   constexpr LameFirstModulus operator+(const LameFirstModulus& lame_first_modulus) const {
-    return LameFirstModulus{value_ + lame_first_modulus.value_};
+    return LameFirstModulus{value + lame_first_modulus.value};
   }
 
   constexpr LameFirstModulus operator-(const LameFirstModulus& lame_first_modulus) const {
-    return LameFirstModulus{value_ - lame_first_modulus.value_};
+    return LameFirstModulus{value - lame_first_modulus.value};
   }
 
   constexpr LameFirstModulus operator*(const double number) const {
-    return LameFirstModulus{value_ * number};
+    return LameFirstModulus{value * number};
   }
 
   constexpr LameFirstModulus operator/(const double number) const {
-    return LameFirstModulus{value_ / number};
+    return LameFirstModulus{value / number};
   }
 
   constexpr double operator/(const LameFirstModulus& lame_first_modulus) const noexcept {
-    return value_ / lame_first_modulus.value_;
+    return value / lame_first_modulus.value;
   }
 
   constexpr void operator+=(const LameFirstModulus& lame_first_modulus) noexcept {
-    value_ += lame_first_modulus.value_;
+    value += lame_first_modulus.value;
   }
 
   constexpr void operator-=(const LameFirstModulus& lame_first_modulus) noexcept {
-    value_ -= lame_first_modulus.value_;
+    value -= lame_first_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

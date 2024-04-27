@@ -70,43 +70,43 @@ public:
   }
 
   constexpr ScalarForce operator+(const ScalarForce& scalar_force) const {
-    return ScalarForce{value_ + scalar_force.value_};
+    return ScalarForce{value + scalar_force.value};
   }
 
   constexpr ScalarForce operator-(const ScalarForce& scalar_force) const {
-    return ScalarForce{value_ - scalar_force.value_};
+    return ScalarForce{value - scalar_force.value};
   }
 
   constexpr ScalarForce operator*(const double number) const {
-    return ScalarForce{value_ * number};
+    return ScalarForce{value * number};
   }
 
   constexpr Force operator*(const Direction& direction) const;
 
   constexpr ScalarForce operator/(const double number) const {
-    return ScalarForce{value_ / number};
+    return ScalarForce{value / number};
   }
 
   constexpr StaticPressure operator/(const Area& area) const;
 
   constexpr double operator/(const ScalarForce& scalar_force) const noexcept {
-    return value_ / scalar_force.value_;
+    return value / scalar_force.value;
   }
 
   constexpr void operator+=(const ScalarForce& scalar_force) noexcept {
-    value_ += scalar_force.value_;
+    value += scalar_force.value;
   }
 
   constexpr void operator-=(const ScalarForce& scalar_force) noexcept {
-    value_ -= scalar_force.value_;
+    value -= scalar_force.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

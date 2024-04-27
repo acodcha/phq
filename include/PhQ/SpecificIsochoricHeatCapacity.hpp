@@ -93,7 +93,7 @@ public:
 
   constexpr SpecificIsochoricHeatCapacity operator+(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const {
-    return SpecificIsochoricHeatCapacity{value_ + specific_isochoric_heat_capacity.value_};
+    return SpecificIsochoricHeatCapacity{value + specific_isochoric_heat_capacity.value};
   }
 
   constexpr SpecificIsobaricHeatCapacity operator+(
@@ -101,11 +101,11 @@ public:
 
   constexpr SpecificIsochoricHeatCapacity operator-(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const {
-    return SpecificIsochoricHeatCapacity{value_ - specific_isochoric_heat_capacity.value_};
+    return SpecificIsochoricHeatCapacity{value - specific_isochoric_heat_capacity.value};
   }
 
   constexpr SpecificIsochoricHeatCapacity operator*(const double number) const {
-    return SpecificIsochoricHeatCapacity{value_ * number};
+    return SpecificIsochoricHeatCapacity{value * number};
   }
 
   constexpr IsochoricHeatCapacity operator*(const Mass& mass) const {
@@ -116,30 +116,30 @@ public:
       const HeatCapacityRatio& heat_capacity_ratio) const;
 
   constexpr SpecificIsochoricHeatCapacity operator/(const double number) const {
-    return SpecificIsochoricHeatCapacity{value_ / number};
+    return SpecificIsochoricHeatCapacity{value / number};
   }
 
   constexpr double operator/(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const noexcept {
-    return value_ / specific_isochoric_heat_capacity.value_;
+    return value / specific_isochoric_heat_capacity.value;
   }
 
   constexpr void operator+=(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept {
-    value_ += specific_isochoric_heat_capacity.value_;
+    value += specific_isochoric_heat_capacity.value;
   }
 
   constexpr void operator-=(
       const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) noexcept {
-    value_ -= specific_isochoric_heat_capacity.value_;
+    value -= specific_isochoric_heat_capacity.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

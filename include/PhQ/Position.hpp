@@ -88,27 +88,27 @@ public:
 
   // Returns the x Cartesian component of this position vector.
   [[nodiscard]] constexpr Length x() const noexcept {
-    return Length{value_.x()};
+    return Length{value.x()};
   }
 
   // Returns the y Cartesian component of this position vector.
   [[nodiscard]] constexpr Length y() const noexcept {
-    return Length{value_.y()};
+    return Length{value.y()};
   }
 
   // Returns the z Cartesian component of this position vector.
   [[nodiscard]] constexpr Length z() const noexcept {
-    return Length{value_.z()};
+    return Length{value.z()};
   }
 
   // Returns the magnitude of this position vector.
   [[nodiscard]] Length Magnitude() const {
-    return Length{value_.Magnitude()};
+    return Length{value.Magnitude()};
   }
 
   // Returns the direction of this position vector.
   [[nodiscard]] PhQ::Direction Direction() const {
-    return value_.Direction();
+    return value.Direction();
   }
 
   // Returns the angle between this position vector and another one.
@@ -117,51 +117,51 @@ public:
   }
 
   constexpr Position operator+(const Position& position) const {
-    return Position{value_ + position.value_};
+    return Position{value + position.value};
   }
 
   constexpr Position operator+(const Displacement& displacement) const {
-    return Position{value_ + displacement.Value()};
+    return Position{value + displacement.Value()};
   }
 
   constexpr Displacement operator-(const Position& position) const {
-    return Displacement{value_ - position.value_};
+    return Displacement{value - position.value};
   }
 
   constexpr Position operator-(const Displacement& displacement) const {
-    return Position{value_ - displacement.Value()};
+    return Position{value - displacement.Value()};
   }
 
   constexpr Position operator*(const double number) const {
-    return Position{value_ * number};
+    return Position{value * number};
   }
 
   constexpr Position operator/(const double number) const {
-    return Position{value_ / number};
+    return Position{value / number};
   }
 
   constexpr void operator+=(const Position& position) noexcept {
-    value_ += position.value_;
+    value += position.value;
   }
 
   constexpr void operator+=(const Displacement& displacement) noexcept {
-    value_ += displacement.Value();
+    value += displacement.Value();
   }
 
   constexpr void operator-=(const Position& position) noexcept {
-    value_ -= position.value_;
+    value -= position.value;
   }
 
   constexpr void operator-=(const Displacement& displacement) noexcept {
-    value_ -= displacement.Value();
+    value -= displacement.Value();
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:
@@ -214,11 +214,11 @@ inline constexpr Displacement::Displacement(const Position& position)
   : Displacement(position.Value()) {}
 
 inline constexpr Position Displacement::operator+(const Position& position) const {
-  return Position{value_ + position.Value()};
+  return Position{value + position.Value()};
 }
 
 inline constexpr Position Displacement::operator-(const Position& position) const {
-  return Position{value_ - position.Value()};
+  return Position{value - position.Value()};
 }
 
 inline constexpr Position Direction::operator*(const Length& length) const {

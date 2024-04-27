@@ -63,39 +63,39 @@ public:
   }
 
   constexpr ScalarStress operator+(const ScalarStress& scalar_stress) const {
-    return ScalarStress{value_ + scalar_stress.value_};
+    return ScalarStress{value + scalar_stress.value};
   }
 
   constexpr ScalarStress operator-(const ScalarStress& scalar_stress) const {
-    return ScalarStress{value_ - scalar_stress.value_};
+    return ScalarStress{value - scalar_stress.value};
   }
 
   constexpr ScalarStress operator*(const double number) const {
-    return ScalarStress{value_ * number};
+    return ScalarStress{value * number};
   }
 
   constexpr ScalarStress operator/(const double number) const {
-    return ScalarStress{value_ / number};
+    return ScalarStress{value / number};
   }
 
   constexpr double operator/(const ScalarStress& scalar_stress) const noexcept {
-    return value_ / scalar_stress.value_;
+    return value / scalar_stress.value;
   }
 
   constexpr void operator+=(const ScalarStress& scalar_stress) noexcept {
-    value_ += scalar_stress.value_;
+    value += scalar_stress.value;
   }
 
   constexpr void operator-=(const ScalarStress& scalar_stress) noexcept {
-    value_ -= scalar_stress.value_;
+    value -= scalar_stress.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

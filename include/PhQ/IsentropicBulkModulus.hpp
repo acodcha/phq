@@ -72,40 +72,40 @@ public:
 
   constexpr IsentropicBulkModulus operator+(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const {
-    return IsentropicBulkModulus{value_ + isentropic_bulk_modulus.value_};
+    return IsentropicBulkModulus{value + isentropic_bulk_modulus.value};
   }
 
   constexpr IsentropicBulkModulus operator-(
       const IsentropicBulkModulus& isentropic_bulk_modulus) const {
-    return IsentropicBulkModulus{value_ - isentropic_bulk_modulus.value_};
+    return IsentropicBulkModulus{value - isentropic_bulk_modulus.value};
   }
 
   constexpr IsentropicBulkModulus operator*(const double number) const {
-    return IsentropicBulkModulus{value_ * number};
+    return IsentropicBulkModulus{value * number};
   }
 
   constexpr IsentropicBulkModulus operator/(const double number) const {
-    return IsentropicBulkModulus{value_ / number};
+    return IsentropicBulkModulus{value / number};
   }
 
   constexpr double operator/(const IsentropicBulkModulus& isentropic_bulk_modulus) const noexcept {
-    return value_ / isentropic_bulk_modulus.value_;
+    return value / isentropic_bulk_modulus.value;
   }
 
   constexpr void operator+=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
-    value_ += isentropic_bulk_modulus.value_;
+    value += isentropic_bulk_modulus.value;
   }
 
   constexpr void operator-=(const IsentropicBulkModulus& isentropic_bulk_modulus) noexcept {
-    value_ -= isentropic_bulk_modulus.value_;
+    value -= isentropic_bulk_modulus.value;
   }
 
   constexpr void operator*=(const double number) noexcept {
-    value_ *= number;
+    value *= number;
   }
 
   constexpr void operator/=(const double number) noexcept {
-    value_ /= number;
+    value /= number;
   }
 
 private:

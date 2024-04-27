@@ -123,17 +123,17 @@ public:
 
   // Returns the x Cartesian component of this direction.
   [[nodiscard]] constexpr double x() const noexcept {
-    return value_.x();
+    return value.x();
   }
 
   // Returns the y Cartesian component of this direction.
   [[nodiscard]] constexpr double y() const noexcept {
-    return value_.y();
+    return value.y();
   }
 
   // Returns the z Cartesian component of this direction.
   [[nodiscard]] constexpr double z() const noexcept {
-    return value_.z();
+    return value.z();
   }
 
   // Sets the value of this direction by normalizing the given x, y, and z Cartesian components to a
@@ -142,9 +142,9 @@ public:
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = Vector{x / magnitude, y / magnitude, z / magnitude};
+      value = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value_ = Vector::Zero();
+      value = Vector::Zero();
     }
   }
 
@@ -154,9 +154,9 @@ public:
     const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value_ = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
+      value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value_ = Vector::Zero();
+      value = Vector::Zero();
     }
   }
 
@@ -168,51 +168,51 @@ public:
 
   // Returns true if the direction is a unit vector, or false if it is the zero vector.
   [[nodiscard]] constexpr bool Valid() const noexcept {
-    return value_.x() != 0.0 || value_.y() != 0.0 || value_.z() != 0.0;
+    return value.x() != 0.0 || value.y() != 0.0 || value.z() != 0.0;
   }
 
   // Returns the square of the magnitude of the direction. This is guaranteed to be exactly 1 if the
   // direction is valid, or 0 if the direction is the zero vector.
   [[nodiscard]] constexpr double MagnitudeSquared() const noexcept {
-    return value_.MagnitudeSquared();
+    return value.MagnitudeSquared();
   }
 
   // Returns the magnitude of the direction. This is guaranteed to be exactly 1 if the direction is
   // valid, or 0 if the direction is the zero vector.
   [[nodiscard]] double Magnitude() const noexcept {
-    return value_.Magnitude();
+    return value.Magnitude();
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given vector.
   [[nodiscard]] constexpr double Dot(const Vector& vector) const noexcept {
-    return value_.Dot(vector);
+    return value.Dot(vector);
   }
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given other direction.
   [[nodiscard]] constexpr double Dot(const Direction& direction) const noexcept {
-    return value_.Dot(direction.value_);
+    return value.Dot(direction.value);
   }
 
   // Returns the cross product of the direction with the given vector.
   [[nodiscard]] constexpr Vector Cross(const Vector& vector) const {
-    return value_.Cross(vector);
+    return value.Cross(vector);
   }
 
   // Returns the cross product of the direction with the given other direction.
   [[nodiscard]] Direction Cross(const Direction& direction) const {
-    return Direction{value_.Cross(direction.value_)};
+    return Direction{value.Cross(direction.value)};
   }
 
   // Returns the dyadic product of the direction with the given vector.
   [[nodiscard]] constexpr Dyad Dyadic(const Vector& vector) const {
-    return value_.Dyadic(vector);
+    return value.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
   [[nodiscard]] constexpr Dyad Dyadic(const Direction& direction) const {
-    return value_.Dyadic(direction.value_);
+    return value.Dyadic(direction.value);
   }
 
   // Returns the angle between the direction and the given vector.
@@ -291,8 +291,8 @@ inline constexpr Dyad Vector::Dyadic(const PhQ::Direction& direction) const {
   return Dyadic(direction.Value());
 }
 
-inline constexpr Vector operator*(const SymmetricDyad& symdyad, const Direction& direction) {
-  return symdyad * direction.Value();
+inline constexpr Vector operator*(const SymmetricDyad& symmetric_dyad, const Direction& direction) {
+  return symmetric_dyad * direction.Value();
 }
 
 inline constexpr Vector operator*(const Dyad& dyad, const Direction& direction) {
