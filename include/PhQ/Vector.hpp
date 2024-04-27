@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VECTOR_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VECTOR_HPP
+#ifndef PHQ_VECTOR_HPP
+#define PHQ_VECTOR_HPP
 
 #include <array>
 #include <cmath>
@@ -336,4 +336,4 @@ struct hash<PhQ::Vector> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VECTOR_HPP
+#endif  // PHQ_VECTOR_HPP

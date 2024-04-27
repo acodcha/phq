@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP
+#ifndef PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP
+#define PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP
 
 #include <cstddef>
 #include <functional>
@@ -189,4 +189,4 @@ struct hash<PhQ::VolumetricThermalExpansionCoefficient> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP
+#endif  // PHQ_VOLUMETRIC_THERMAL_EXPANSION_COEFFICIENT_HPP

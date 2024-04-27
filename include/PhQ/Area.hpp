@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_AREA_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_AREA_HPP
+#ifndef PHQ_AREA_HPP
+#define PHQ_AREA_HPP
 
 #include <cstddef>
 #include <functional>
@@ -185,4 +185,4 @@ struct hash<PhQ::Area> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_AREA_HPP
+#endif  // PHQ_AREA_HPP

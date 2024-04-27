@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MACH_NUMBER_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MACH_NUMBER_HPP
+#ifndef PHQ_MACH_NUMBER_HPP
+#define PHQ_MACH_NUMBER_HPP
 
 #include <cstddef>
 #include <functional>
@@ -159,4 +159,4 @@ struct hash<PhQ::MachNumber> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_MACH_NUMBER_HPP
+#endif  // PHQ_MACH_NUMBER_HPP

@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SPECIFIC_ENERGY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SPECIFIC_ENERGY_HPP
+#ifndef PHQ_UNIT_SPECIFIC_ENERGY_HPP
+#define PHQ_UNIT_SPECIFIC_ENERGY_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -219,4 +219,4 @@ inline const std::map<Unit::SpecificEnergy,
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SPECIFIC_ENERGY_HPP
+#endif  // PHQ_UNIT_SPECIFIC_ENERGY_HPP

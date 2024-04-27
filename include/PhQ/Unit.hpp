@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP
+#ifndef PHQ_UNIT_HPP
+#define PHQ_UNIT_HPP
 
 #include <functional>
 #include <vector>
@@ -248,4 +248,4 @@ inline constexpr Dyad StaticConvertCopy(const Dyad& value) {
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_HPP
+#endif  // PHQ_UNIT_HPP

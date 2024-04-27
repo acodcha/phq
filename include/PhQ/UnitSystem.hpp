@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP
+#ifndef PHQ_UNIT_SYSTEM_HPP
+#define PHQ_UNIT_SYSTEM_HPP
 
 #include <cstdint>
 #include <map>
@@ -232,4 +232,4 @@ inline std::ostream& operator<<(std::ostream& stream, const UnitSystem unit_syst
 
 }  // namespace PhQ
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_UNIT_SYSTEM_HPP
+#endif  // PHQ_UNIT_SYSTEM_HPP

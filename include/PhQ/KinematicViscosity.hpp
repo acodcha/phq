@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
+#ifndef PHQ_KINEMATIC_VISCOSITY_HPP
+#define PHQ_KINEMATIC_VISCOSITY_HPP
 
 #include <cstddef>
 #include <functional>
@@ -186,4 +186,4 @@ struct hash<PhQ::KinematicViscosity> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_KINEMATIC_VISCOSITY_HPP
+#endif  // PHQ_KINEMATIC_VISCOSITY_HPP

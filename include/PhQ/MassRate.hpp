@@ -11,8 +11,8 @@
 // General Public License for more details. You should have received a copy of the GNU Lesser
 // General Public License along with Physical Quantities (PhQ). https://www.gnu.org/licenses
 
-#ifndef PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_RATE_HPP
-#define PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_RATE_HPP
+#ifndef PHQ_MASS_RATE_HPP
+#define PHQ_MASS_RATE_HPP
 
 #include <cstddef>
 #include <functional>
@@ -204,4 +204,4 @@ struct hash<PhQ::MassRate> {
 
 }  // namespace std
 
-#endif  // PHYSICAL_QUANTITIES_INCLUDE_PHQ_MASS_RATE_HPP
+#endif  // PHQ_MASS_RATE_HPP
