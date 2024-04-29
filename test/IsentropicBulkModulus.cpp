@@ -33,7 +33,6 @@ TEST(IsentropicBulkModulus, ArithmeticOperatorAddition) {
 TEST(IsentropicBulkModulus, ArithmeticOperatorDivision) {
   EXPECT_EQ(IsentropicBulkModulus(8.0, Unit::Pressure::Pascal) / 2.0,
             IsentropicBulkModulus(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(IsentropicBulkModulus(8.0, Unit::Pressure::Pascal)
                 / IsentropicBulkModulus(2.0, Unit::Pressure::Pascal),
             4.0);
@@ -42,7 +41,6 @@ TEST(IsentropicBulkModulus, ArithmeticOperatorDivision) {
 TEST(IsentropicBulkModulus, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(IsentropicBulkModulus(4.0, Unit::Pressure::Pascal) * 2.0,
             IsentropicBulkModulus(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(2.0 * IsentropicBulkModulus(4.0, Unit::Pressure::Pascal),
             IsentropicBulkModulus(8.0, Unit::Pressure::Pascal));
 }
@@ -54,32 +52,32 @@ TEST(IsentropicBulkModulus, ArithmeticOperatorSubtraction) {
 }
 
 TEST(IsentropicBulkModulus, AssignmentOperatorAddition) {
-  IsentropicBulkModulus quantity{1.0, Unit::Pressure::Pascal};
-  quantity += IsentropicBulkModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, IsentropicBulkModulus(3.0, Unit::Pressure::Pascal));
+  IsentropicBulkModulus isentropic_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  isentropic_bulk_modulus += IsentropicBulkModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(isentropic_bulk_modulus, IsentropicBulkModulus(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, AssignmentOperatorDivision) {
-  IsentropicBulkModulus quantity{8.0, Unit::Pressure::Pascal};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, IsentropicBulkModulus(4.0, Unit::Pressure::Pascal));
+  IsentropicBulkModulus isentropic_bulk_modulus{8.0, Unit::Pressure::Pascal};
+  isentropic_bulk_modulus /= 2.0;
+  EXPECT_EQ(isentropic_bulk_modulus, IsentropicBulkModulus(4.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, AssignmentOperatorMultiplication) {
-  IsentropicBulkModulus quantity{4.0, Unit::Pressure::Pascal};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, IsentropicBulkModulus(8.0, Unit::Pressure::Pascal));
+  IsentropicBulkModulus isentropic_bulk_modulus{4.0, Unit::Pressure::Pascal};
+  isentropic_bulk_modulus *= 2.0;
+  EXPECT_EQ(isentropic_bulk_modulus, IsentropicBulkModulus(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, AssignmentOperatorSubtraction) {
-  IsentropicBulkModulus quantity{3.0, Unit::Pressure::Pascal};
-  quantity -= IsentropicBulkModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, IsentropicBulkModulus(1.0, Unit::Pressure::Pascal));
+  IsentropicBulkModulus isentropic_bulk_modulus{3.0, Unit::Pressure::Pascal};
+  isentropic_bulk_modulus -= IsentropicBulkModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(isentropic_bulk_modulus, IsentropicBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, ComparisonOperators) {
-  const IsentropicBulkModulus first{1.11, Unit::Pressure::Pascal};
-  const IsentropicBulkModulus second{2.22, Unit::Pressure::Pascal};
+  const IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
+  const IsentropicBulkModulus second{2.0, Unit::Pressure::Pascal};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -91,22 +89,22 @@ TEST(IsentropicBulkModulus, ComparisonOperators) {
 }
 
 TEST(IsentropicBulkModulus, CopyAssignmentOperator) {
-  const IsentropicBulkModulus first{1.11, Unit::Pressure::Pascal};
+  const IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
   IsentropicBulkModulus second = IsentropicBulkModulus::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(IsentropicBulkModulus, CopyConstructor) {
-  const IsentropicBulkModulus first{1.11, Unit::Pressure::Pascal};
+  const IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
   const IsentropicBulkModulus second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(IsentropicBulkModulus, Create) {
-  constexpr IsentropicBulkModulus quantity =
-      IsentropicBulkModulus::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, IsentropicBulkModulus(1.11, Unit::Pressure::Pascal));
+  constexpr IsentropicBulkModulus isentropic_bulk_modulus =
+      IsentropicBulkModulus::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(isentropic_bulk_modulus, IsentropicBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, DefaultConstructor) {
@@ -118,9 +116,9 @@ TEST(IsentropicBulkModulus, Dimensions) {
 }
 
 TEST(IsentropicBulkModulus, Hash) {
-  const IsentropicBulkModulus first{1.11, Unit::Pressure::Kilopascal};
-  const IsentropicBulkModulus second{1.110001, Unit::Pressure::Kilopascal};
-  const IsentropicBulkModulus third{-1.11, Unit::Pressure::Kilopascal};
+  const IsentropicBulkModulus first{1.0, Unit::Pressure::Kilopascal};
+  const IsentropicBulkModulus second{1.00001, Unit::Pressure::Kilopascal};
+  const IsentropicBulkModulus third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<IsentropicBulkModulus> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -128,44 +126,43 @@ TEST(IsentropicBulkModulus, Hash) {
 }
 
 TEST(IsentropicBulkModulus, JSON) {
-  EXPECT_EQ(IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(
-      IsentropicBulkModulus(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-      "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(IsentropicBulkModulus, MoveAssignmentOperator) {
-  IsentropicBulkModulus first{1.11, Unit::Pressure::Pascal};
+  IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
   IsentropicBulkModulus second = IsentropicBulkModulus::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, IsentropicBulkModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, IsentropicBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, MoveConstructor) {
-  IsentropicBulkModulus first{1.11, Unit::Pressure::Pascal};
+  IsentropicBulkModulus first{1.0, Unit::Pressure::Pascal};
   const IsentropicBulkModulus second{std::move(first)};
-  EXPECT_EQ(second, IsentropicBulkModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, IsentropicBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsentropicBulkModulus, MutableValue) {
-  IsentropicBulkModulus quantity{1.11, Unit::Pressure::Pascal};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsentropicBulkModulus isentropic_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  double& value = isentropic_bulk_modulus.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(isentropic_bulk_modulus.Value(), 2.0);
 }
 
 TEST(IsentropicBulkModulus, Print) {
-  EXPECT_EQ(IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
   EXPECT_EQ(
-      IsentropicBulkModulus(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-      "-2.220000000000000 kPa");
+      IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+      Print(1.0) + " kPa");
 }
 
 TEST(IsentropicBulkModulus, SetValue) {
-  IsentropicBulkModulus quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsentropicBulkModulus isentropic_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  isentropic_bulk_modulus.SetValue(2.0);
+  EXPECT_EQ(isentropic_bulk_modulus.Value(), 2.0);
 }
 
 TEST(IsentropicBulkModulus, SizeOf) {
@@ -173,20 +170,20 @@ TEST(IsentropicBulkModulus, SizeOf) {
 }
 
 TEST(IsentropicBulkModulus, StandardConstructor) {
-  EXPECT_NO_THROW(IsentropicBulkModulus(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(IsentropicBulkModulus, StaticValue) {
-  constexpr IsentropicBulkModulus quantity =
+  constexpr IsentropicBulkModulus isentropic_bulk_modulus =
       IsentropicBulkModulus::Create<Unit::Pressure::Kilopascal>(2.0);
-  constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
+  constexpr double value = isentropic_bulk_modulus.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(IsentropicBulkModulus, Stream) {
   std::ostringstream stream;
-  stream << IsentropicBulkModulus(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).Print());
+  stream << IsentropicBulkModulus(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(IsentropicBulkModulus, Unit) {
@@ -194,26 +191,24 @@ TEST(IsentropicBulkModulus, Unit) {
 }
 
 TEST(IsentropicBulkModulus, Value) {
-  EXPECT_EQ(IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).Value(), 1.11);
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).Value(), 1.0);
   EXPECT_EQ(
       IsentropicBulkModulus(2.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal),
       2.0);
 }
 
 TEST(IsentropicBulkModulus, XML) {
-  EXPECT_EQ(IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(
-      IsentropicBulkModulus(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-      "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(IsentropicBulkModulus, YAML) {
-  EXPECT_EQ(IsentropicBulkModulus(1.11, Unit::Pressure::Pascal).YAML(),
-            "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(
-      IsentropicBulkModulus(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-      "{value:-2.220000000000000,unit:\"kPa\"}");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Pascal).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(IsentropicBulkModulus(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(IsentropicBulkModulus, Zero) {

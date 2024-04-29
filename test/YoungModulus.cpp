@@ -32,7 +32,6 @@ TEST(YoungModulus, ArithmeticOperatorAddition) {
 TEST(YoungModulus, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       YoungModulus(8.0, Unit::Pressure::Pascal) / 2.0, YoungModulus(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       YoungModulus(8.0, Unit::Pressure::Pascal) / YoungModulus(2.0, Unit::Pressure::Pascal), 4.0);
 }
@@ -40,7 +39,6 @@ TEST(YoungModulus, ArithmeticOperatorDivision) {
 TEST(YoungModulus, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       YoungModulus(4.0, Unit::Pressure::Pascal) * 2.0, YoungModulus(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       2.0 * YoungModulus(4.0, Unit::Pressure::Pascal), YoungModulus(8.0, Unit::Pressure::Pascal));
 }
@@ -51,32 +49,32 @@ TEST(YoungModulus, ArithmeticOperatorSubtraction) {
 }
 
 TEST(YoungModulus, AssignmentOperatorAddition) {
-  YoungModulus quantity{1.0, Unit::Pressure::Pascal};
-  quantity += YoungModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, YoungModulus(3.0, Unit::Pressure::Pascal));
+  YoungModulus young_modulus{1.0, Unit::Pressure::Pascal};
+  young_modulus += YoungModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(young_modulus, YoungModulus(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, AssignmentOperatorDivision) {
-  YoungModulus quantity{8.0, Unit::Pressure::Pascal};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, YoungModulus(4.0, Unit::Pressure::Pascal));
+  YoungModulus young_modulus{8.0, Unit::Pressure::Pascal};
+  young_modulus /= 2.0;
+  EXPECT_EQ(young_modulus, YoungModulus(4.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, AssignmentOperatorMultiplication) {
-  YoungModulus quantity{4.0, Unit::Pressure::Pascal};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, YoungModulus(8.0, Unit::Pressure::Pascal));
+  YoungModulus young_modulus{4.0, Unit::Pressure::Pascal};
+  young_modulus *= 2.0;
+  EXPECT_EQ(young_modulus, YoungModulus(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, AssignmentOperatorSubtraction) {
-  YoungModulus quantity{3.0, Unit::Pressure::Pascal};
-  quantity -= YoungModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, YoungModulus(1.0, Unit::Pressure::Pascal));
+  YoungModulus young_modulus{3.0, Unit::Pressure::Pascal};
+  young_modulus -= YoungModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(young_modulus, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, ComparisonOperators) {
-  const YoungModulus first{1.11, Unit::Pressure::Pascal};
-  const YoungModulus second{2.22, Unit::Pressure::Pascal};
+  const YoungModulus first{1.0, Unit::Pressure::Pascal};
+  const YoungModulus second{2.0, Unit::Pressure::Pascal};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -88,21 +86,21 @@ TEST(YoungModulus, ComparisonOperators) {
 }
 
 TEST(YoungModulus, CopyAssignmentOperator) {
-  const YoungModulus first{1.11, Unit::Pressure::Pascal};
+  const YoungModulus first{1.0, Unit::Pressure::Pascal};
   YoungModulus second = YoungModulus::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(YoungModulus, CopyConstructor) {
-  const YoungModulus first{1.11, Unit::Pressure::Pascal};
+  const YoungModulus first{1.0, Unit::Pressure::Pascal};
   const YoungModulus second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(YoungModulus, Create) {
-  constexpr YoungModulus quantity = YoungModulus::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, YoungModulus(1.11, Unit::Pressure::Pascal));
+  constexpr YoungModulus young_modulus = YoungModulus::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(young_modulus, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, DefaultConstructor) {
@@ -114,9 +112,9 @@ TEST(YoungModulus, Dimensions) {
 }
 
 TEST(YoungModulus, Hash) {
-  const YoungModulus first{1.11, Unit::Pressure::Kilopascal};
-  const YoungModulus second{1.110001, Unit::Pressure::Kilopascal};
-  const YoungModulus third{-1.11, Unit::Pressure::Kilopascal};
+  const YoungModulus first{1.0, Unit::Pressure::Kilopascal};
+  const YoungModulus second{1.000001, Unit::Pressure::Kilopascal};
+  const YoungModulus third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<YoungModulus> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -124,42 +122,42 @@ TEST(YoungModulus, Hash) {
 }
 
 TEST(YoungModulus, JSON) {
-  EXPECT_EQ(YoungModulus(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(YoungModulus(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(YoungModulus, MoveAssignmentOperator) {
-  YoungModulus first{1.11, Unit::Pressure::Pascal};
+  YoungModulus first{1.0, Unit::Pressure::Pascal};
   YoungModulus second = YoungModulus::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, YoungModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, MoveConstructor) {
-  YoungModulus first{1.11, Unit::Pressure::Pascal};
+  YoungModulus first{1.0, Unit::Pressure::Pascal};
   const YoungModulus second{std::move(first)};
-  EXPECT_EQ(second, YoungModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, YoungModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(YoungModulus, MutableValue) {
-  YoungModulus quantity{1.11, Unit::Pressure::Pascal};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  YoungModulus young_modulus{1.0, Unit::Pressure::Pascal};
+  double& value = young_modulus.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(young_modulus.Value(), 2.0);
 }
 
 TEST(YoungModulus, Print) {
-  EXPECT_EQ(YoungModulus(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
-  EXPECT_EQ(YoungModulus(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-            "-2.220000000000000 kPa");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+            Print(1.0) + " kPa");
 }
 
 TEST(YoungModulus, SetValue) {
-  YoungModulus quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  YoungModulus young_modulus{1.0, Unit::Pressure::Pascal};
+  young_modulus.SetValue(2.0);
+  EXPECT_EQ(young_modulus.Value(), 2.0);
 }
 
 TEST(YoungModulus, SizeOf) {
@@ -167,19 +165,19 @@ TEST(YoungModulus, SizeOf) {
 }
 
 TEST(YoungModulus, StandardConstructor) {
-  EXPECT_NO_THROW(YoungModulus(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(YoungModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(YoungModulus, StaticValue) {
-  constexpr YoungModulus quantity = YoungModulus::Create<Unit::Pressure::Kilopascal>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, 1.11);
+  constexpr YoungModulus young_modulus = YoungModulus::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr double value = young_modulus.StaticValue<Unit::Pressure::Kilopascal>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(YoungModulus, Stream) {
   std::ostringstream stream;
-  stream << YoungModulus(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), YoungModulus(1.11, Unit::Pressure::Pascal).Print());
+  stream << YoungModulus(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), YoungModulus(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(YoungModulus, Unit) {
@@ -187,22 +185,22 @@ TEST(YoungModulus, Unit) {
 }
 
 TEST(YoungModulus, Value) {
-  EXPECT_EQ(YoungModulus(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(YoungModulus(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Pascal).Value(), 1.0);
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.0);
 }
 
 TEST(YoungModulus, XML) {
-  EXPECT_EQ(YoungModulus(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(YoungModulus(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-            "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(YoungModulus, YAML) {
   EXPECT_EQ(
-      YoungModulus(1.11, Unit::Pressure::Pascal).YAML(), "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(YoungModulus(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-            "{value:-2.220000000000000,unit:\"kPa\"}");
+      YoungModulus(1.0, Unit::Pressure::Pascal).YAML(), "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(YoungModulus(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(YoungModulus, Zero) {

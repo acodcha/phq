@@ -35,13 +35,11 @@ TEST(SpecificGasConstant, ArithmeticOperatorAddition) {
   EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
                 + SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             SpecificGasConstant(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
           + SpecificIsochoricHeatCapacity(
               2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
       SpecificIsobaricHeatCapacity(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificIsochoricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
           + SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
@@ -51,14 +49,11 @@ TEST(SpecificGasConstant, ArithmeticOperatorAddition) {
 TEST(SpecificGasConstant, ArithmeticOperatorDivision) {
   EXPECT_EQ(SpecificGasConstant(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin) / 2.0,
             SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(SpecificGasConstant(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
                 / SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             4.0);
-
   EXPECT_EQ(GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin) / Mass(4.0, Unit::Mass::Kilogram),
             SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin)
                 / SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             Mass(2.0, Unit::Mass::Kilogram));
@@ -67,14 +62,11 @@ TEST(SpecificGasConstant, ArithmeticOperatorDivision) {
 TEST(SpecificGasConstant, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin) * 2.0,
             SpecificGasConstant(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(2.0 * SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             SpecificGasConstant(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
                 * Mass(2.0, Unit::Mass::Kilogram),
             GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(Mass(4.0, Unit::Mass::Kilogram)
                 * SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin));
@@ -84,12 +76,10 @@ TEST(SpecificGasConstant, ArithmeticOperatorSubtraction) {
   EXPECT_EQ(SpecificGasConstant(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
                 - SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(SpecificIsobaricHeatCapacity(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
                 - SpecificIsochoricHeatCapacity(
                     2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
             SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)
           - SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
@@ -125,8 +115,8 @@ TEST(SpecificGasConstant, AssignmentOperatorSubtraction) {
 }
 
 TEST(SpecificGasConstant, ComparisonOperators) {
-  const SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  const SpecificGasConstant second{2.22, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  const SpecificGasConstant second{2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -138,23 +128,23 @@ TEST(SpecificGasConstant, ComparisonOperators) {
 }
 
 TEST(SpecificGasConstant, CopyAssignmentOperator) {
-  const SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificGasConstant second = SpecificGasConstant::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(SpecificGasConstant, CopyConstructor) {
-  const SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   const SpecificGasConstant second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(SpecificGasConstant, Create) {
   constexpr SpecificGasConstant quantity =
-      SpecificGasConstant::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(1.11);
+      SpecificGasConstant::Create<Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>(1.0);
   EXPECT_EQ(
-      quantity, SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+      quantity, SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 
 TEST(SpecificGasConstant, DefaultConstructor) {
@@ -166,9 +156,9 @@ TEST(SpecificGasConstant, Dimensions) {
 }
 
 TEST(SpecificGasConstant, Hash) {
-  const SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
-  const SpecificGasConstant second{1.110001, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
-  const SpecificGasConstant third{-1.11, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
+  const SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
+  const SpecificGasConstant second{1.00001, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
+  const SpecificGasConstant third{-1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin};
   const std::hash<SpecificGasConstant> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -176,11 +166,11 @@ TEST(SpecificGasConstant, Hash) {
 }
 
 TEST(SpecificGasConstant, JSON) {
-  EXPECT_EQ(SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"J/kg/K\"}");
-  EXPECT_EQ(SpecificGasConstant(-2.22, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"J/kg/K\"}");
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
                 .JSON(Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-            "{\"value\":-2.220000000000000,\"unit\":\"nJ/g/K\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g/K\"}");
 }
 
 TEST(SpecificGasConstant, MiscellaneousConstructors) {
@@ -190,61 +180,50 @@ TEST(SpecificGasConstant, MiscellaneousConstructors) {
           SpecificIsochoricHeatCapacity(
               2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificGasConstant(
           HeatCapacityRatio(2.0),
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(SpecificGasConstant(HeatCapacityRatio(2.0),
                                 SpecificIsochoricHeatCapacity(
                                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
             SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(SpecificGasConstant(GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin),
                                 Mass(4.0, Unit::Mass::Kilogram)),
             SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       HeatCapacityRatio(
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       HeatCapacityRatio(2.0));
-
   EXPECT_EQ(HeatCapacityRatio(
                 SpecificGasConstant(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
                 SpecificIsochoricHeatCapacity(
                     4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
             HeatCapacityRatio(3.0));
-
   EXPECT_EQ(Mass(GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin),
                  SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
             Mass(2.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(
       GasConstant(SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
                   Mass(2.0, Unit::Mass::Kilogram)),
       GasConstant(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(
       SpecificIsochoricHeatCapacity(
           SpecificIsobaricHeatCapacity(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       SpecificIsochoricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificIsochoricHeatCapacity(
           SpecificGasConstant(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           HeatCapacityRatio(2.0)),
       SpecificIsochoricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
           SpecificIsochoricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       SpecificIsobaricHeatCapacity(3.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
           HeatCapacityRatio(2.0),
@@ -253,40 +232,39 @@ TEST(SpecificGasConstant, MiscellaneousConstructors) {
 }
 
 TEST(SpecificGasConstant, MoveAssignmentOperator) {
-  SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   SpecificGasConstant second = SpecificGasConstant::Zero();
   second = std::move(first);
   EXPECT_EQ(
-      second, SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+      second, SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 
 TEST(SpecificGasConstant, MoveConstructor) {
-  SpecificGasConstant first{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  SpecificGasConstant first{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   const SpecificGasConstant second{std::move(first)};
   EXPECT_EQ(
-      second, SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
+      second, SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
 }
 
 TEST(SpecificGasConstant, MutableValue) {
-  SpecificGasConstant quantity{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  SpecificGasConstant quantity{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(SpecificGasConstant, Print) {
-  EXPECT_EQ(
-      SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Print(),
-      "1.110000000000000 J/kg/K");
-  EXPECT_EQ(SpecificGasConstant(-2.22, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Print(),
+            Print(1.0) + " J/kg/K");
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
                 .Print(Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-            "-2.220000000000000 nJ/g/K");
+            Print(1.0) + " nJ/g/K");
 }
 
 TEST(SpecificGasConstant, SetValue) {
-  SpecificGasConstant quantity{1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  SpecificGasConstant quantity{1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(SpecificGasConstant, SizeOf) {
@@ -294,7 +272,7 @@ TEST(SpecificGasConstant, SizeOf) {
 }
 
 TEST(SpecificGasConstant, StandardConstructor) {
-  EXPECT_NO_THROW(SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
+  EXPECT_NO_THROW(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin));
 }
 
 TEST(SpecificGasConstant, StaticValue) {
@@ -307,10 +285,10 @@ TEST(SpecificGasConstant, StaticValue) {
 
 TEST(SpecificGasConstant, Stream) {
   std::ostringstream stream;
-  stream << SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
+  stream << SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin);
   EXPECT_EQ(
       stream.str(),
-      SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Print());
+      SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Print());
 }
 
 TEST(SpecificGasConstant, Unit) {
@@ -319,27 +297,26 @@ TEST(SpecificGasConstant, Unit) {
 
 TEST(SpecificGasConstant, Value) {
   EXPECT_EQ(
-      SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Value(),
-      1.11);
+      SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).Value(), 1.0);
   EXPECT_EQ(SpecificGasConstant(2.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
                 .Value(Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin),
             2.0);
 }
 
 TEST(SpecificGasConstant, XML) {
-  EXPECT_EQ(SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).XML(),
-            "<value>1.110000000000000</value><unit>J/kg/K</unit>");
-  EXPECT_EQ(SpecificGasConstant(-2.22, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).XML(),
+            "<value>" + Print(1.0) + "</value><unit>J/kg/K</unit>");
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
                 .XML(Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-            "<value>-2.220000000000000</value><unit>nJ/g/K</unit>");
+            "<value>" + Print(1.0) + "</value><unit>nJ/g/K</unit>");
 }
 
 TEST(SpecificGasConstant, YAML) {
-  EXPECT_EQ(SpecificGasConstant(1.11, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).YAML(),
-            "{value:1.110000000000000,unit:\"J/kg/K\"}");
-  EXPECT_EQ(SpecificGasConstant(-2.22, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"J/kg/K\"}");
+  EXPECT_EQ(SpecificGasConstant(1.0, Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin)
                 .YAML(Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin),
-            "{value:-2.220000000000000,unit:\"nJ/g/K\"}");
+            "{value:" + Print(1.0) + ",unit:\"nJ/g/K\"}");
 }
 
 TEST(SpecificGasConstant, Zero) {

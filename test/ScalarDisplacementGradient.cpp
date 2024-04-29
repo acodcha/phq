@@ -31,13 +31,11 @@ TEST(ScalarDisplacementGradient, ArithmeticOperatorAddition) {
 
 TEST(ScalarDisplacementGradient, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarDisplacementGradient(8.0) / 2.0, ScalarDisplacementGradient(4.0));
-
   EXPECT_EQ(ScalarDisplacementGradient(8.0) / ScalarDisplacementGradient(2.0), 4.0);
 }
 
 TEST(ScalarDisplacementGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarDisplacementGradient(4.0) * 2.0, ScalarDisplacementGradient(8.0));
-
   EXPECT_EQ(2.0 * ScalarDisplacementGradient(4.0), ScalarDisplacementGradient(8.0));
 }
 
@@ -71,8 +69,8 @@ TEST(ScalarDisplacementGradient, AssignmentOperatorSubtraction) {
 }
 
 TEST(ScalarDisplacementGradient, ComparisonOperators) {
-  const ScalarDisplacementGradient first{1.11};
-  const ScalarDisplacementGradient second{2.22};
+  const ScalarDisplacementGradient first{1.0};
+  const ScalarDisplacementGradient second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -84,14 +82,14 @@ TEST(ScalarDisplacementGradient, ComparisonOperators) {
 }
 
 TEST(ScalarDisplacementGradient, CopyAssignmentOperator) {
-  const ScalarDisplacementGradient first{1.11};
+  const ScalarDisplacementGradient first{1.0};
   ScalarDisplacementGradient second = ScalarDisplacementGradient::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarDisplacementGradient, CopyConstructor) {
-  const ScalarDisplacementGradient first{1.11};
+  const ScalarDisplacementGradient first{1.0};
   const ScalarDisplacementGradient second{first};
   EXPECT_EQ(second, first);
 }
@@ -105,9 +103,9 @@ TEST(ScalarDisplacementGradient, Dimensions) {
 }
 
 TEST(ScalarDisplacementGradient, Hash) {
-  const ScalarDisplacementGradient first{1.11};
-  const ScalarDisplacementGradient second{1.110001};
-  const ScalarDisplacementGradient third{-1.11};
+  const ScalarDisplacementGradient first{1.0};
+  const ScalarDisplacementGradient second{1.00001};
+  const ScalarDisplacementGradient third{-1.0};
   const std::hash<ScalarDisplacementGradient> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -115,37 +113,37 @@ TEST(ScalarDisplacementGradient, Hash) {
 }
 
 TEST(ScalarDisplacementGradient, JSON) {
-  EXPECT_EQ(ScalarDisplacementGradient(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(ScalarDisplacementGradient(1.0).JSON(), Print(1.0));
 }
 
 TEST(ScalarDisplacementGradient, MoveAssignmentOperator) {
-  ScalarDisplacementGradient first{1.11};
+  ScalarDisplacementGradient first{1.0};
   ScalarDisplacementGradient second = ScalarDisplacementGradient::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarDisplacementGradient(1.11));
+  EXPECT_EQ(second, ScalarDisplacementGradient(1.0));
 }
 
 TEST(ScalarDisplacementGradient, MoveConstructor) {
-  ScalarDisplacementGradient first{1.11};
+  ScalarDisplacementGradient first{1.0};
   const ScalarDisplacementGradient second{std::move(first)};
-  EXPECT_EQ(second, ScalarDisplacementGradient(1.11));
+  EXPECT_EQ(second, ScalarDisplacementGradient(1.0));
 }
 
 TEST(ScalarDisplacementGradient, MutableValue) {
-  ScalarDisplacementGradient quantity{1.11};
+  ScalarDisplacementGradient quantity{1.0};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarDisplacementGradient, Print) {
-  EXPECT_EQ(ScalarDisplacementGradient(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(ScalarDisplacementGradient(1.0).Print(), Print(1.0));
 }
 
 TEST(ScalarDisplacementGradient, SetValue) {
-  ScalarDisplacementGradient quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarDisplacementGradient quantity{1.0};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarDisplacementGradient, SizeOf) {
@@ -153,25 +151,25 @@ TEST(ScalarDisplacementGradient, SizeOf) {
 }
 
 TEST(ScalarDisplacementGradient, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarDisplacementGradient(1.11));
+  EXPECT_NO_THROW(ScalarDisplacementGradient(1.0));
 }
 
 TEST(ScalarDisplacementGradient, Stream) {
   std::ostringstream stream;
-  stream << ScalarDisplacementGradient(1.11);
-  EXPECT_EQ(stream.str(), ScalarDisplacementGradient(1.11).Print());
+  stream << ScalarDisplacementGradient(1.0);
+  EXPECT_EQ(stream.str(), ScalarDisplacementGradient(1.0).Print());
 }
 
 TEST(ScalarDisplacementGradient, Value) {
-  EXPECT_EQ(ScalarDisplacementGradient(1.11).Value(), 1.11);
+  EXPECT_EQ(ScalarDisplacementGradient(1.0).Value(), 1.0);
 }
 
 TEST(ScalarDisplacementGradient, XML) {
-  EXPECT_EQ(ScalarDisplacementGradient(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(ScalarDisplacementGradient(1.0).XML(), Print(1.0));
 }
 
 TEST(ScalarDisplacementGradient, YAML) {
-  EXPECT_EQ(ScalarDisplacementGradient(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(ScalarDisplacementGradient(1.0).YAML(), Print(1.0));
 }
 
 TEST(ScalarDisplacementGradient, Zero) {

@@ -37,14 +37,11 @@ TEST(ScalarStrainRate, ArithmeticOperatorAddition) {
 TEST(ScalarStrainRate, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarStrainRate(8.0, Unit::Frequency::Hertz) / 2.0,
             ScalarStrainRate(4.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(
       ScalarStrainRate(8.0, Unit::Frequency::Hertz) / ScalarStrainRate(2.0, Unit::Frequency::Hertz),
       4.0);
-
   EXPECT_EQ(ScalarStrain(8.0) / Time(4.0, Unit::Time::Second),
             ScalarStrainRate(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(ScalarStrainRate(8.0, Unit::Frequency::Hertz) / Frequency(4.0, Unit::Frequency::Hertz),
             ScalarStrain(2.0));
 }
@@ -52,19 +49,14 @@ TEST(ScalarStrainRate, ArithmeticOperatorDivision) {
 TEST(ScalarStrainRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarStrainRate(4.0, Unit::Frequency::Hertz) * 2.0,
             ScalarStrainRate(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(2.0 * ScalarStrainRate(4.0, Unit::Frequency::Hertz),
             ScalarStrainRate(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(ScalarStrainRate(4.0, Unit::Frequency::Hertz) * Time(2.0, Unit::Time::Second),
             ScalarStrain(8.0));
-
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * ScalarStrainRate(2.0, Unit::Frequency::Hertz),
             ScalarStrain(8.0));
-
   EXPECT_EQ(ScalarStrain(2.0) * Frequency(4.0, Unit::Frequency::Hertz),
             ScalarStrainRate(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * ScalarStrain(2.0),
             ScalarStrainRate(8.0, Unit::Frequency::Hertz));
 }
@@ -100,8 +92,8 @@ TEST(ScalarStrainRate, AssignmentOperatorSubtraction) {
 }
 
 TEST(ScalarStrainRate, ComparisonOperators) {
-  const ScalarStrainRate first{1.11, Unit::Frequency::Hertz};
-  const ScalarStrainRate second{2.22, Unit::Frequency::Hertz};
+  const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
+  const ScalarStrainRate second{2.0, Unit::Frequency::Hertz};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -113,21 +105,21 @@ TEST(ScalarStrainRate, ComparisonOperators) {
 }
 
 TEST(ScalarStrainRate, CopyAssignmentOperator) {
-  const ScalarStrainRate first{1.11, Unit::Frequency::Hertz};
+  const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
   ScalarStrainRate second = ScalarStrainRate::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarStrainRate, CopyConstructor) {
-  const ScalarStrainRate first{1.11, Unit::Frequency::Hertz};
+  const ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
   const ScalarStrainRate second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarStrainRate, Create) {
-  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Hertz>(1.11);
-  EXPECT_EQ(quantity, ScalarStrainRate(1.11, Unit::Frequency::Hertz));
+  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Hertz>(1.0);
+  EXPECT_EQ(quantity, ScalarStrainRate(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(ScalarStrainRate, DefaultConstructor) {
@@ -139,9 +131,9 @@ TEST(ScalarStrainRate, Dimensions) {
 }
 
 TEST(ScalarStrainRate, Hash) {
-  const ScalarStrainRate first{1.11, Unit::Frequency::Kilohertz};
-  const ScalarStrainRate second{1.110001, Unit::Frequency::Kilohertz};
-  const ScalarStrainRate third{-1.11, Unit::Frequency::Kilohertz};
+  const ScalarStrainRate first{1.0, Unit::Frequency::Kilohertz};
+  const ScalarStrainRate second{1.00001, Unit::Frequency::Kilohertz};
+  const ScalarStrainRate third{-1.0, Unit::Frequency::Kilohertz};
   const std::hash<ScalarStrainRate> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -149,58 +141,55 @@ TEST(ScalarStrainRate, Hash) {
 }
 
 TEST(ScalarStrainRate, JSON) {
-  EXPECT_EQ(ScalarStrainRate(1.11, Unit::Frequency::Hertz).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Hz\"}");
-  EXPECT_EQ(ScalarStrainRate(-2.22, Unit::Frequency::Kilohertz).JSON(Unit::Frequency::Kilohertz),
-            "{\"value\":-2.220000000000000,\"unit\":\"kHz\"}");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Hertz).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Hz\"}");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz).JSON(Unit::Frequency::Kilohertz),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kHz\"}");
 }
 
 TEST(ScalarStrainRate, MiscellaneousConstructors) {
   EXPECT_EQ(ScalarStrainRate(ScalarStrain(8.0), Time(4.0, Unit::Time::Second)),
             ScalarStrainRate(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(ScalarStrainRate(ScalarStrain(4.0), Frequency(2.0, Unit::Frequency::Hertz)),
             ScalarStrainRate(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(
       ScalarStrain(ScalarStrainRate(4.0, Unit::Frequency::Hertz), Time(2.0, Unit::Time::Second)),
       ScalarStrain(8.0));
-
   EXPECT_EQ(ScalarStrain(ScalarStrainRate(8.0, Unit::Frequency::Hertz),
                          Frequency(4.0, Unit::Frequency::Hertz)),
             ScalarStrain(2.0));
 }
 
 TEST(ScalarStrainRate, MoveAssignmentOperator) {
-  ScalarStrainRate first{1.11, Unit::Frequency::Hertz};
+  ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
   ScalarStrainRate second = ScalarStrainRate::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarStrainRate(1.11, Unit::Frequency::Hertz));
+  EXPECT_EQ(second, ScalarStrainRate(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(ScalarStrainRate, MoveConstructor) {
-  ScalarStrainRate first{1.11, Unit::Frequency::Hertz};
+  ScalarStrainRate first{1.0, Unit::Frequency::Hertz};
   const ScalarStrainRate second{std::move(first)};
-  EXPECT_EQ(second, ScalarStrainRate(1.11, Unit::Frequency::Hertz));
+  EXPECT_EQ(second, ScalarStrainRate(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(ScalarStrainRate, MutableValue) {
-  ScalarStrainRate quantity{1.11, Unit::Frequency::Hertz};
+  ScalarStrainRate quantity{1.0, Unit::Frequency::Hertz};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarStrainRate, Print) {
-  EXPECT_EQ(ScalarStrainRate(1.11, Unit::Frequency::Hertz).Print(), "1.110000000000000 Hz");
-  EXPECT_EQ(ScalarStrainRate(-2.22, Unit::Frequency::Kilohertz).Print(Unit::Frequency::Kilohertz),
-            "-2.220000000000000 kHz");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Hertz).Print(), Print(1.0) + " Hz");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz).Print(Unit::Frequency::Kilohertz),
+            Print(1.0) + " kHz");
 }
 
 TEST(ScalarStrainRate, SetValue) {
-  ScalarStrainRate quantity{1.11, Unit::Frequency::Hertz};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarStrainRate quantity{1.0, Unit::Frequency::Hertz};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarStrainRate, SizeOf) {
@@ -208,19 +197,19 @@ TEST(ScalarStrainRate, SizeOf) {
 }
 
 TEST(ScalarStrainRate, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarStrainRate(1.11, Unit::Frequency::Kilohertz));
+  EXPECT_NO_THROW(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz));
 }
 
 TEST(ScalarStrainRate, StaticValue) {
-  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Kilohertz>(1.11);
+  constexpr ScalarStrainRate quantity = ScalarStrainRate::Create<Unit::Frequency::Kilohertz>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
-  EXPECT_EQ(value, 1.11);
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(ScalarStrainRate, Stream) {
   std::ostringstream stream;
-  stream << ScalarStrainRate(1.11, Unit::Frequency::Hertz);
-  EXPECT_EQ(stream.str(), ScalarStrainRate(1.11, Unit::Frequency::Hertz).Print());
+  stream << ScalarStrainRate(1.0, Unit::Frequency::Hertz);
+  EXPECT_EQ(stream.str(), ScalarStrainRate(1.0, Unit::Frequency::Hertz).Print());
 }
 
 TEST(ScalarStrainRate, Unit) {
@@ -228,23 +217,23 @@ TEST(ScalarStrainRate, Unit) {
 }
 
 TEST(ScalarStrainRate, Value) {
-  EXPECT_EQ(ScalarStrainRate(1.11, Unit::Frequency::Hertz).Value(), 1.11);
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Hertz).Value(), 1.0);
   EXPECT_EQ(
-      ScalarStrainRate(1.11, Unit::Frequency::Kilohertz).Value(Unit::Frequency::Kilohertz), 1.11);
+      ScalarStrainRate(1.0, Unit::Frequency::Kilohertz).Value(Unit::Frequency::Kilohertz), 1.0);
 }
 
 TEST(ScalarStrainRate, XML) {
-  EXPECT_EQ(ScalarStrainRate(1.11, Unit::Frequency::Hertz).XML(),
-            "<value>1.110000000000000</value><unit>Hz</unit>");
-  EXPECT_EQ(ScalarStrainRate(-2.22, Unit::Frequency::Kilohertz).XML(Unit::Frequency::Kilohertz),
-            "<value>-2.220000000000000</value><unit>kHz</unit>");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Hertz).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Hz</unit>");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz).XML(Unit::Frequency::Kilohertz),
+            "<value>" + Print(1.0) + "</value><unit>kHz</unit>");
 }
 
 TEST(ScalarStrainRate, YAML) {
-  EXPECT_EQ(ScalarStrainRate(1.11, Unit::Frequency::Hertz).YAML(),
-            "{value:1.110000000000000,unit:\"Hz\"}");
-  EXPECT_EQ(ScalarStrainRate(-2.22, Unit::Frequency::Kilohertz).YAML(Unit::Frequency::Kilohertz),
-            "{value:-2.220000000000000,unit:\"kHz\"}");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Hertz).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"Hz\"}");
+  EXPECT_EQ(ScalarStrainRate(1.0, Unit::Frequency::Kilohertz).YAML(Unit::Frequency::Kilohertz),
+            "{value:" + Print(1.0) + ",unit:\"kHz\"}");
 }
 
 TEST(ScalarStrainRate, Zero) {

@@ -36,8 +36,8 @@ namespace PhQ {
 namespace {
 
 TEST(HeatFlux, Angle) {
-  EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::WattPerSquareMetre)
-                .Angle(HeatFlux({0.0, 0.0, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)),
+  EXPECT_EQ(HeatFlux({0.0, -2.0, 0.0}, Unit::EnergyFlux::WattPerSquareMetre)
+                .Angle(HeatFlux({0.0, 0.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
 }
 
@@ -55,13 +55,10 @@ TEST(HeatFlux, ArithmeticOperatorDivision) {
 TEST(HeatFlux, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre) * 2.0,
             HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(2.0 * HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre),
             HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(Direction(2.0, -3.0, 6.0) * ScalarHeatFlux(7.0, Unit::EnergyFlux::WattPerSquareMetre),
             HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(ScalarHeatFlux(7.0, Unit::EnergyFlux::WattPerSquareMetre) * Direction(2.0, -3.0, 6.0),
             HeatFlux({2.0, -3.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
@@ -73,32 +70,32 @@ TEST(HeatFlux, ArithmeticOperatorSubtraction) {
 }
 
 TEST(HeatFlux, AssignmentOperatorAddition) {
-  HeatFlux quantity({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity += HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(quantity, HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  HeatFlux heat_flux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  heat_flux += HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(heat_flux, HeatFlux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, AssignmentOperatorDivision) {
-  HeatFlux quantity({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  HeatFlux heat_flux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  heat_flux /= 2.0;
+  EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, AssignmentOperatorMultiplication) {
-  HeatFlux quantity({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  HeatFlux heat_flux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  heat_flux *= 2.0;
+  EXPECT_EQ(heat_flux, HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, AssignmentOperatorSubtraction) {
-  HeatFlux quantity({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity -= HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(quantity, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  HeatFlux heat_flux({3.0, -6.0, 9.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  heat_flux -= HeatFlux({2.0, -4.0, 6.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, ComparisonOperators) {
-  const HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  const HeatFlux second({1.11, -2.22, 3.330001}, Unit::EnergyFlux::WattPerSquareMetre);
+  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  const HeatFlux second({1.0, -2.0, 3.000001}, Unit::EnergyFlux::WattPerSquareMetre);
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -110,30 +107,34 @@ TEST(HeatFlux, ComparisonOperators) {
 }
 
 TEST(HeatFlux, CopyAssignmentOperator) {
-  const HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
   HeatFlux second = HeatFlux::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(HeatFlux, CopyConstructor) {
-  const HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
   const HeatFlux second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(HeatFlux, Create) {
-  constexpr HeatFlux first =
-      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.11, -2.22, 3.33);
-  EXPECT_EQ(first, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
-
-  constexpr HeatFlux second = HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(
-      std::array<double, 3>{1.11, -2.22, 3.33});
-  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
-
-  constexpr HeatFlux third =
-      HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(Vector{1.11, -2.22, 3.33});
-  EXPECT_EQ(third, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
+  {
+    constexpr HeatFlux heat_flux =
+        HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.0, -2.0, 3.0);
+    EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    constexpr HeatFlux heat_flux = HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(
+        std::array<double, 3>{1.0, -2.0, 3.0});
+    EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
+  {
+    constexpr HeatFlux heat_flux =
+        HeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(Vector{1.0, -2.0, 3.0});
+    EXPECT_EQ(heat_flux, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
+  }
 }
 
 TEST(HeatFlux, DefaultConstructor) {
@@ -150,9 +151,9 @@ TEST(HeatFlux, Direction) {
 }
 
 TEST(HeatFlux, Hash) {
-  const HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
-  const HeatFlux second({1.11, -2.22, 3.330001}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
-  const HeatFlux third({1.11, 2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
+  const HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
+  const HeatFlux second({1.0, -2.0, 3.000001}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
+  const HeatFlux third({1.0, 2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre);
   const std::hash<HeatFlux> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -160,12 +161,13 @@ TEST(HeatFlux, Hash) {
 }
 
 TEST(HeatFlux, JSON) {
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
-            "\"unit\":\"W/m^2\"}");
-  EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).JSON(),
+            "{\"value\":{\"x\":" + Print(1.0) + ",\"y\":" + Print(-2.0) + ",\"z\":" + Print(3.0)
+                + "},\"unit\":\"W/m^2\"}");
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .JSON(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"nW/mm^2\"}");
+            "{\"value\":{\"x\":" + Print(1.0) + ",\"y\":" + Print(-2.0) + ",\"z\":" + Print(3.0)
+                + "},\"unit\":\"nW/mm^2\"}");
 }
 
 TEST(HeatFlux, Magnitude) {
@@ -174,18 +176,15 @@ TEST(HeatFlux, Magnitude) {
 }
 
 TEST(HeatFlux, MiscellaneousConstructors) {
-  EXPECT_EQ(Direction(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)),
-            Direction(1.11, -2.22, 3.33));
-
-  EXPECT_EQ(Angle(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::WattPerSquareMetre),
-                  HeatFlux({0.0, 0.0, 3.33}, Unit::EnergyFlux::WattPerSquareMetre)),
+  EXPECT_EQ(Direction(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre)),
+            Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(HeatFlux({0.0, -2.0, 0.0}, Unit::EnergyFlux::WattPerSquareMetre),
+                  HeatFlux({0.0, 0.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre)),
             Angle(90.0, Unit::Angle::Degree));
-
   EXPECT_EQ(
       HeatFlux(ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
                TemperatureGradient({1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre)),
       HeatFlux({-2.0, 4.0, -6.0}, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(
       HeatFlux(ThermalConductivity({1.0, -2.0, 3.0, -4.0, 5.0, -6.0},
                                    Unit::ThermalConductivity::WattPerMetrePerKelvin),
@@ -194,37 +193,37 @@ TEST(HeatFlux, MiscellaneousConstructors) {
 }
 
 TEST(HeatFlux, MoveAssignmentOperator) {
-  HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
   HeatFlux second = HeatFlux::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(second, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MoveConstructor) {
-  HeatFlux first({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
+  HeatFlux first({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
   const HeatFlux second{std::move(first)};
-  EXPECT_EQ(second, HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(second, HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, MutableValue) {
-  HeatFlux quantity({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  Vector& value = quantity.MutableValue();
-  value = Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
+  HeatFlux heat_flux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  Vector& value = heat_flux.MutableValue();
+  value = Vector{-4.0, 5.0, -6.0};
+  EXPECT_EQ(heat_flux.Value(), Vector(-4.0, 5.0, -6.0));
 }
 
 TEST(HeatFlux, Print) {
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).Print(),
-            "(1.110000000000000, -2.220000000000000, 3.330000000000000) W/m^2");
-  EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).Print(),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + ") W/m^2");
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .Print(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "(0, -2.220000000000000, 0) nW/mm^2");
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + ") nW/mm^2");
 }
 
 TEST(HeatFlux, SetValue) {
-  HeatFlux quantity({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
+  HeatFlux heat_flux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  heat_flux.SetValue({-4.0, 5.0, -6.0});
+  EXPECT_EQ(heat_flux.Value(), Vector(-4.0, 5.0, -6.0));
 }
 
 TEST(HeatFlux, SizeOf) {
@@ -232,21 +231,20 @@ TEST(HeatFlux, SizeOf) {
 }
 
 TEST(HeatFlux, StandardConstructor) {
-  EXPECT_NO_THROW(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre));
+  EXPECT_NO_THROW(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre));
 }
 
 TEST(HeatFlux, StaticValue) {
-  constexpr HeatFlux quantity =
-      HeatFlux::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.11, -2.22, 3.33);
-  constexpr Vector value = quantity.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
-  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
+  constexpr HeatFlux heat_flux =
+      HeatFlux::Create<Unit::EnergyFlux::NanowattPerSquareMillimetre>(1.0, -2.0, 3.0);
+  constexpr Vector value = heat_flux.StaticValue<Unit::EnergyFlux::NanowattPerSquareMillimetre>();
+  EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
 
 TEST(HeatFlux, Stream) {
   std::ostringstream stream;
-  stream << HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(
-      stream.str(), HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).Print());
+  stream << HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(stream.str(), HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).Print());
 }
 
 TEST(HeatFlux, Unit) {
@@ -254,38 +252,40 @@ TEST(HeatFlux, Unit) {
 }
 
 TEST(HeatFlux, Value) {
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).Value(),
-            Vector(1.11, -2.22, 3.33));
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).Value(),
+            Vector(1.0, -2.0, 3.0));
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .Value(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            Vector(1.11, -2.22, 3.33));
+            Vector(1.0, -2.0, 3.0));
 }
 
 TEST(HeatFlux, XML) {
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
-            "value><unit>W/m^2</unit>");
-  EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).XML(),
+            "<value><x>" + Print(1.0) + "</x><y>" + Print(-2.0) + "</y><z>" + Print(3.0)
+                + "</z></value><unit>W/m^2</unit>");
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .XML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>nW/mm^2</unit>");
+            "<value><x>" + Print(1.0) + "</x><y>" + Print(-2.0) + "</y><z>" + Print(3.0)
+                + "</z></value><unit>nW/mm^2</unit>");
 }
 
 TEST(HeatFlux, XYZ) {
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).x(),
-            ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre));
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).y(),
-            ScalarHeatFlux(-2.22, Unit::EnergyFlux::WattPerSquareMetre));
-  EXPECT_EQ(HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).z(),
-            ScalarHeatFlux(3.33, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).x(),
+            ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).y(),
+            ScalarHeatFlux(-2.0, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).z(),
+            ScalarHeatFlux(3.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(HeatFlux, YAML) {
   EXPECT_EQ(
-      HeatFlux({1.11, -2.22, 3.33}, Unit::EnergyFlux::WattPerSquareMetre).YAML(),
-      "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"W/m^2\"}");
-  EXPECT_EQ(HeatFlux({0.0, -2.22, 0.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
-                .YAML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"nW/mm^2\"}");
+      HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre).YAML(),
+      "{value:{x:" + Print(1.0) + ",y:" + Print(-2.0) + ",z:" + Print(3.0) + "},unit:\"W/m^2\"}");
+  EXPECT_EQ(
+      HeatFlux({1.0, -2.0, 3.0}, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+          .YAML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
+      "{value:{x:" + Print(1.0) + ",y:" + Print(-2.0) + ",z:" + Print(3.0) + "},unit:\"nW/mm^2\"}");
 }
 
 TEST(HeatFlux, Zero) {

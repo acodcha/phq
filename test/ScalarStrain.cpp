@@ -30,13 +30,11 @@ TEST(ScalarStrain, ArithmeticOperatorAddition) {
 
 TEST(ScalarStrain, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarStrain(8.0) / 2.0, ScalarStrain(4.0));
-
   EXPECT_EQ(ScalarStrain(8.0) / ScalarStrain(2.0), 4.0);
 }
 
 TEST(ScalarStrain, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarStrain(4.0) * 2.0, ScalarStrain(8.0));
-
   EXPECT_EQ(2.0 * ScalarStrain(4.0), ScalarStrain(8.0));
 }
 
@@ -69,8 +67,8 @@ TEST(ScalarStrain, AssignmentOperatorSubtraction) {
 }
 
 TEST(ScalarStrain, ComparisonOperators) {
-  const ScalarStrain first{1.11};
-  const ScalarStrain second{2.22};
+  const ScalarStrain first{1.0};
+  const ScalarStrain second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -82,14 +80,14 @@ TEST(ScalarStrain, ComparisonOperators) {
 }
 
 TEST(ScalarStrain, CopyAssignmentOperator) {
-  const ScalarStrain first{1.11};
+  const ScalarStrain first{1.0};
   ScalarStrain second = ScalarStrain::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarStrain, CopyConstructor) {
-  const ScalarStrain first{1.11};
+  const ScalarStrain first{1.0};
   const ScalarStrain second{first};
   EXPECT_EQ(second, first);
 }
@@ -103,9 +101,9 @@ TEST(ScalarStrain, Dimensions) {
 }
 
 TEST(ScalarStrain, Hash) {
-  const ScalarStrain first{1.11};
-  const ScalarStrain second{1.110001};
-  const ScalarStrain third{-1.11};
+  const ScalarStrain first{1.0};
+  const ScalarStrain second{1.00001};
+  const ScalarStrain third{-1.0};
   const std::hash<ScalarStrain> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -113,37 +111,37 @@ TEST(ScalarStrain, Hash) {
 }
 
 TEST(ScalarStrain, JSON) {
-  EXPECT_EQ(ScalarStrain(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(ScalarStrain(1.0).JSON(), Print(1.0));
 }
 
 TEST(ScalarStrain, MoveAssignmentOperator) {
-  ScalarStrain first{1.11};
+  ScalarStrain first{1.0};
   ScalarStrain second = ScalarStrain::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarStrain(1.11));
+  EXPECT_EQ(second, ScalarStrain(1.0));
 }
 
 TEST(ScalarStrain, MoveConstructor) {
-  ScalarStrain first{1.11};
+  ScalarStrain first{1.0};
   const ScalarStrain second{std::move(first)};
-  EXPECT_EQ(second, ScalarStrain(1.11));
+  EXPECT_EQ(second, ScalarStrain(1.0));
 }
 
 TEST(ScalarStrain, MutableValue) {
-  ScalarStrain quantity{1.11};
+  ScalarStrain quantity{1.0};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarStrain, Print) {
-  EXPECT_EQ(ScalarStrain(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(ScalarStrain(1.0).Print(), Print(1.0));
 }
 
 TEST(ScalarStrain, SetValue) {
-  ScalarStrain quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarStrain quantity{1.0};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarStrain, SizeOf) {
@@ -151,25 +149,25 @@ TEST(ScalarStrain, SizeOf) {
 }
 
 TEST(ScalarStrain, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarStrain(1.11));
+  EXPECT_NO_THROW(ScalarStrain(1.0));
 }
 
 TEST(ScalarStrain, Stream) {
   std::ostringstream stream;
-  stream << ScalarStrain(1.11);
-  EXPECT_EQ(stream.str(), ScalarStrain(1.11).Print());
+  stream << ScalarStrain(1.0);
+  EXPECT_EQ(stream.str(), ScalarStrain(1.0).Print());
 }
 
 TEST(ScalarStrain, Value) {
-  EXPECT_EQ(ScalarStrain(1.11).Value(), 1.11);
+  EXPECT_EQ(ScalarStrain(1.0).Value(), 1.0);
 }
 
 TEST(ScalarStrain, XML) {
-  EXPECT_EQ(ScalarStrain(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(ScalarStrain(1.0).XML(), Print(1.0));
 }
 
 TEST(ScalarStrain, YAML) {
-  EXPECT_EQ(ScalarStrain(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(ScalarStrain(1.0).YAML(), Print(1.0));
 }
 
 TEST(ScalarStrain, Zero) {

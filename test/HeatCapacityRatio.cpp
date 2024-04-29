@@ -30,13 +30,11 @@ TEST(HeatCapacityRatio, ArithmeticOperatorAddition) {
 
 TEST(HeatCapacityRatio, ArithmeticOperatorDivision) {
   EXPECT_EQ(HeatCapacityRatio(8.0) / 2.0, HeatCapacityRatio(4.0));
-
   EXPECT_EQ(HeatCapacityRatio(8.0) / HeatCapacityRatio(2.0), 4.0);
 }
 
 TEST(HeatCapacityRatio, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(HeatCapacityRatio(4.0) * 2.0, HeatCapacityRatio(8.0));
-
   EXPECT_EQ(2.0 * HeatCapacityRatio(4.0), HeatCapacityRatio(8.0));
 }
 
@@ -45,32 +43,32 @@ TEST(HeatCapacityRatio, ArithmeticOperatorSubtraction) {
 }
 
 TEST(HeatCapacityRatio, AssignmentOperatorAddition) {
-  HeatCapacityRatio quantity{1.0};
-  quantity += HeatCapacityRatio(2.0);
-  EXPECT_EQ(quantity, HeatCapacityRatio(3.0));
+  HeatCapacityRatio heat_capacity_ratio{1.0};
+  heat_capacity_ratio += HeatCapacityRatio(2.0);
+  EXPECT_EQ(heat_capacity_ratio, HeatCapacityRatio(3.0));
 }
 
 TEST(HeatCapacityRatio, AssignmentOperatorDivision) {
-  HeatCapacityRatio quantity{8.0};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, HeatCapacityRatio(4.0));
+  HeatCapacityRatio heat_capacity_ratio{8.0};
+  heat_capacity_ratio /= 2.0;
+  EXPECT_EQ(heat_capacity_ratio, HeatCapacityRatio(4.0));
 }
 
 TEST(HeatCapacityRatio, AssignmentOperatorMultiplication) {
-  HeatCapacityRatio quantity{4.0};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, HeatCapacityRatio(8.0));
+  HeatCapacityRatio heat_capacity_ratio{4.0};
+  heat_capacity_ratio *= 2.0;
+  EXPECT_EQ(heat_capacity_ratio, HeatCapacityRatio(8.0));
 }
 
 TEST(HeatCapacityRatio, AssignmentOperatorSubtraction) {
-  HeatCapacityRatio quantity{3.0};
-  quantity -= HeatCapacityRatio(2.0);
-  EXPECT_EQ(quantity, HeatCapacityRatio(1.0));
+  HeatCapacityRatio heat_capacity_ratio{3.0};
+  heat_capacity_ratio -= HeatCapacityRatio(2.0);
+  EXPECT_EQ(heat_capacity_ratio, HeatCapacityRatio(1.0));
 }
 
 TEST(HeatCapacityRatio, ComparisonOperators) {
-  const HeatCapacityRatio first{1.11};
-  const HeatCapacityRatio second{2.22};
+  const HeatCapacityRatio first{1.0};
+  const HeatCapacityRatio second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -82,14 +80,14 @@ TEST(HeatCapacityRatio, ComparisonOperators) {
 }
 
 TEST(HeatCapacityRatio, CopyAssignmentOperator) {
-  const HeatCapacityRatio first{1.11};
+  const HeatCapacityRatio first{1.0};
   HeatCapacityRatio second = HeatCapacityRatio::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(HeatCapacityRatio, CopyConstructor) {
-  const HeatCapacityRatio first{1.11};
+  const HeatCapacityRatio first{1.0};
   const HeatCapacityRatio second{first};
   EXPECT_EQ(second, first);
 }
@@ -103,9 +101,9 @@ TEST(HeatCapacityRatio, Dimensions) {
 }
 
 TEST(HeatCapacityRatio, Hash) {
-  const HeatCapacityRatio first{1.11};
-  const HeatCapacityRatio second{1.110001};
-  const HeatCapacityRatio third{-1.11};
+  const HeatCapacityRatio first{1.0};
+  const HeatCapacityRatio second{1.000001};
+  const HeatCapacityRatio third{-1.0};
   const std::hash<HeatCapacityRatio> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -113,37 +111,37 @@ TEST(HeatCapacityRatio, Hash) {
 }
 
 TEST(HeatCapacityRatio, JSON) {
-  EXPECT_EQ(HeatCapacityRatio(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(HeatCapacityRatio(1.0).JSON(), Print(1.0));
 }
 
 TEST(HeatCapacityRatio, MoveAssignmentOperator) {
-  HeatCapacityRatio first{1.11};
+  HeatCapacityRatio first{1.0};
   HeatCapacityRatio second = HeatCapacityRatio::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, HeatCapacityRatio(1.11));
+  EXPECT_EQ(second, HeatCapacityRatio(1.0));
 }
 
 TEST(HeatCapacityRatio, MoveConstructor) {
-  HeatCapacityRatio first{1.11};
+  HeatCapacityRatio first{1.0};
   const HeatCapacityRatio second{std::move(first)};
-  EXPECT_EQ(second, HeatCapacityRatio(1.11));
+  EXPECT_EQ(second, HeatCapacityRatio(1.0));
 }
 
 TEST(HeatCapacityRatio, MutableValue) {
-  HeatCapacityRatio quantity{1.11};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  HeatCapacityRatio heat_capacity_ratio{1.0};
+  double& value = heat_capacity_ratio.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(heat_capacity_ratio.Value(), 2.0);
 }
 
 TEST(HeatCapacityRatio, Print) {
-  EXPECT_EQ(HeatCapacityRatio(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(HeatCapacityRatio(1.0).Print(), Print(1.0));
 }
 
 TEST(HeatCapacityRatio, SetValue) {
-  HeatCapacityRatio quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  HeatCapacityRatio heat_capacity_ratio{1.0};
+  heat_capacity_ratio.SetValue(2.0);
+  EXPECT_EQ(heat_capacity_ratio.Value(), 2.0);
 }
 
 TEST(HeatCapacityRatio, SizeOf) {
@@ -151,25 +149,25 @@ TEST(HeatCapacityRatio, SizeOf) {
 }
 
 TEST(HeatCapacityRatio, StandardConstructor) {
-  EXPECT_NO_THROW(HeatCapacityRatio(1.11));
+  EXPECT_NO_THROW(HeatCapacityRatio(1.0));
 }
 
 TEST(HeatCapacityRatio, Stream) {
   std::ostringstream stream;
-  stream << HeatCapacityRatio(1.11);
-  EXPECT_EQ(stream.str(), HeatCapacityRatio(1.11).Print());
+  stream << HeatCapacityRatio(1.0);
+  EXPECT_EQ(stream.str(), HeatCapacityRatio(1.0).Print());
 }
 
 TEST(HeatCapacityRatio, Value) {
-  EXPECT_EQ(HeatCapacityRatio(1.11).Value(), 1.11);
+  EXPECT_EQ(HeatCapacityRatio(1.0).Value(), 1.0);
 }
 
 TEST(HeatCapacityRatio, XML) {
-  EXPECT_EQ(HeatCapacityRatio(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(HeatCapacityRatio(1.0).XML(), Print(1.0));
 }
 
 TEST(HeatCapacityRatio, YAML) {
-  EXPECT_EQ(HeatCapacityRatio(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(HeatCapacityRatio(1.0).YAML(), Print(1.0));
 }
 
 TEST(HeatCapacityRatio, Zero) {

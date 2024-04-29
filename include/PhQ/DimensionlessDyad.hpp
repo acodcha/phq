@@ -59,12 +59,6 @@ public:
     return value.Print();
   }
 
-  // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
-  // value is printed to the given floating point precision.
-  [[nodiscard]] std::string Print(const Precision precision) const {
-    return value.Print(precision);
-  }
-
   // Serializes this dimensionless physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return value.JSON();

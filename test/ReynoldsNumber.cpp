@@ -40,13 +40,11 @@ TEST(ReynoldsNumber, ArithmeticOperatorAddition) {
 
 TEST(ReynoldsNumber, ArithmeticOperatorDivision) {
   EXPECT_EQ(ReynoldsNumber(8.0) / 2.0, ReynoldsNumber(4.0));
-
   EXPECT_EQ(ReynoldsNumber(8.0) / ReynoldsNumber(2.0), 4.0);
 }
 
 TEST(ReynoldsNumber, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ReynoldsNumber(4.0) * 2.0, ReynoldsNumber(8.0));
-
   EXPECT_EQ(2.0 * ReynoldsNumber(4.0), ReynoldsNumber(8.0));
 }
 
@@ -55,32 +53,32 @@ TEST(ReynoldsNumber, ArithmeticOperatorSubtraction) {
 }
 
 TEST(ReynoldsNumber, AssignmentOperatorAddition) {
-  ReynoldsNumber quantity{1.0};
-  quantity += ReynoldsNumber(2.0);
-  EXPECT_EQ(quantity, ReynoldsNumber(3.0));
+  ReynoldsNumber reynolds_number{1.0};
+  reynolds_number += ReynoldsNumber(2.0);
+  EXPECT_EQ(reynolds_number, ReynoldsNumber(3.0));
 }
 
 TEST(ReynoldsNumber, AssignmentOperatorDivision) {
-  ReynoldsNumber quantity{8.0};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, ReynoldsNumber(4.0));
+  ReynoldsNumber reynolds_number{8.0};
+  reynolds_number /= 2.0;
+  EXPECT_EQ(reynolds_number, ReynoldsNumber(4.0));
 }
 
 TEST(ReynoldsNumber, AssignmentOperatorMultiplication) {
-  ReynoldsNumber quantity{4.0};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, ReynoldsNumber(8.0));
+  ReynoldsNumber reynolds_number{4.0};
+  reynolds_number *= 2.0;
+  EXPECT_EQ(reynolds_number, ReynoldsNumber(8.0));
 }
 
 TEST(ReynoldsNumber, AssignmentOperatorSubtraction) {
-  ReynoldsNumber quantity{3.0};
-  quantity -= ReynoldsNumber(2.0);
-  EXPECT_EQ(quantity, ReynoldsNumber(1.0));
+  ReynoldsNumber reynolds_number{3.0};
+  reynolds_number -= ReynoldsNumber(2.0);
+  EXPECT_EQ(reynolds_number, ReynoldsNumber(1.0));
 }
 
 TEST(ReynoldsNumber, ComparisonOperators) {
-  const ReynoldsNumber first{1.11};
-  const ReynoldsNumber second{2.22};
+  const ReynoldsNumber first{1.0};
+  const ReynoldsNumber second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -92,14 +90,14 @@ TEST(ReynoldsNumber, ComparisonOperators) {
 }
 
 TEST(ReynoldsNumber, CopyAssignmentOperator) {
-  const ReynoldsNumber first{1.11};
+  const ReynoldsNumber first{1.0};
   ReynoldsNumber second = ReynoldsNumber::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ReynoldsNumber, CopyConstructor) {
-  const ReynoldsNumber first{1.11};
+  const ReynoldsNumber first{1.0};
   const ReynoldsNumber second{first};
   EXPECT_EQ(second, first);
 }
@@ -113,9 +111,9 @@ TEST(ReynoldsNumber, Dimensions) {
 }
 
 TEST(ReynoldsNumber, Hash) {
-  const ReynoldsNumber first{1.11};
-  const ReynoldsNumber second{1.110001};
-  const ReynoldsNumber third{-1.11};
+  const ReynoldsNumber first{1.0};
+  const ReynoldsNumber second{1.000001};
+  const ReynoldsNumber third{-1.0};
   const std::hash<ReynoldsNumber> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -123,7 +121,7 @@ TEST(ReynoldsNumber, Hash) {
 }
 
 TEST(ReynoldsNumber, JSON) {
-  EXPECT_EQ(ReynoldsNumber(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(ReynoldsNumber(1.0).JSON(), Print(1.0));
 }
 
 TEST(ReynoldsNumber, MiscellaneousConstructors) {
@@ -132,42 +130,34 @@ TEST(ReynoldsNumber, MiscellaneousConstructors) {
                      Speed(4.0, Unit::Speed::MetrePerSecond), Length(8.0, Unit::Length::Metre),
                      DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond)),
       ReynoldsNumber(4.0));
-
   EXPECT_EQ(
       ReynoldsNumber(Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre),
                      KinematicViscosity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
       ReynoldsNumber(16.0));
-
   EXPECT_EQ(
       Length(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
              MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
              Speed(2.0, Unit::Speed::MetrePerSecond)),
       Length(16.0, Unit::Length::Metre));
-
   EXPECT_EQ(
       Length(ReynoldsNumber(4.0), KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
              Speed(2.0, Unit::Speed::MetrePerSecond)),
       Length(16.0, Unit::Length::Metre));
-
   EXPECT_EQ(Speed(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
                   MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
                   Length(2.0, Unit::Length::Metre)),
             Speed(16.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(
       Speed(ReynoldsNumber(8.0), KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
             Length(2.0, Unit::Length::Metre)),
       Speed(16.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(
       MassDensity(ReynoldsNumber(16.0), DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
                   Speed(4.0, Unit::Speed::MetrePerSecond), Length(2.0, Unit::Length::Metre)),
       MassDensity(16.0, Unit::MassDensity::KilogramPerCubicMetre));
-
   EXPECT_EQ(KinematicViscosity(Speed(8.0, Unit::Speed::MetrePerSecond),
                                Length(4.0, Unit::Length::Metre), ReynoldsNumber(2.0)),
             KinematicViscosity(16.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(DynamicViscosity(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
                              Speed(4.0, Unit::Speed::MetrePerSecond),
                              Length(8.0, Unit::Length::Metre), ReynoldsNumber(16.0)),
@@ -179,31 +169,25 @@ TEST(ReynoldsNumber, MiscellaneousMethods) {
                 MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
                 Speed(4.0, Unit::Speed::MetrePerSecond), Length(8.0, Unit::Length::Metre)),
             DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
-
   EXPECT_EQ(ReynoldsNumber(2.0).KinematicViscosity(
                 Speed(8.0, Unit::Speed::MetrePerSecond), Length(4.0, Unit::Length::Metre)),
             KinematicViscosity(16.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(ReynoldsNumber(16.0).Length(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
                                         MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
                                         Speed(2.0, Unit::Speed::MetrePerSecond)),
             Length(16.0, Unit::Length::Metre));
-
   EXPECT_EQ(
       ReynoldsNumber(8.0).Length(KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
                                  Speed(2.0, Unit::Speed::MetrePerSecond)),
       Length(16.0, Unit::Length::Metre));
-
   EXPECT_EQ(ReynoldsNumber(16.0).MassDensity(
                 DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
                 Speed(4.0, Unit::Speed::MetrePerSecond), Length(2.0, Unit::Length::Metre)),
             MassDensity(16.0, Unit::MassDensity::KilogramPerCubicMetre));
-
   EXPECT_EQ(ReynoldsNumber(16.0).Speed(DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
                                        MassDensity(4.0, Unit::MassDensity::KilogramPerCubicMetre),
                                        Length(2.0, Unit::Length::Metre)),
             Speed(16.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(
       ReynoldsNumber(8.0).Speed(KinematicViscosity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
                                 Length(2.0, Unit::Length::Metre)),
@@ -211,33 +195,33 @@ TEST(ReynoldsNumber, MiscellaneousMethods) {
 }
 
 TEST(ReynoldsNumber, MoveAssignmentOperator) {
-  ReynoldsNumber first{1.11};
+  ReynoldsNumber first{1.0};
   ReynoldsNumber second = ReynoldsNumber::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ReynoldsNumber(1.11));
+  EXPECT_EQ(second, ReynoldsNumber(1.0));
 }
 
 TEST(ReynoldsNumber, MoveConstructor) {
-  ReynoldsNumber first{1.11};
+  ReynoldsNumber first{1.0};
   const ReynoldsNumber second{std::move(first)};
-  EXPECT_EQ(second, ReynoldsNumber(1.11));
+  EXPECT_EQ(second, ReynoldsNumber(1.0));
 }
 
 TEST(ReynoldsNumber, MutableValue) {
-  ReynoldsNumber quantity{1.11};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ReynoldsNumber reynolds_number{1.0};
+  double& value = reynolds_number.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(reynolds_number.Value(), 2.0);
 }
 
 TEST(ReynoldsNumber, Print) {
-  EXPECT_EQ(ReynoldsNumber(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(ReynoldsNumber(1.0).Print(), Print(1.0));
 }
 
 TEST(ReynoldsNumber, SetValue) {
-  ReynoldsNumber quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ReynoldsNumber reynolds_number{1.0};
+  reynolds_number.SetValue(2.0);
+  EXPECT_EQ(reynolds_number.Value(), 2.0);
 }
 
 TEST(ReynoldsNumber, SizeOf) {
@@ -245,25 +229,25 @@ TEST(ReynoldsNumber, SizeOf) {
 }
 
 TEST(ReynoldsNumber, StandardConstructor) {
-  EXPECT_NO_THROW(ReynoldsNumber(1.11));
+  EXPECT_NO_THROW(ReynoldsNumber(1.0));
 }
 
 TEST(ReynoldsNumber, Stream) {
   std::ostringstream stream;
-  stream << ReynoldsNumber(1.11);
-  EXPECT_EQ(stream.str(), ReynoldsNumber(1.11).Print());
+  stream << ReynoldsNumber(1.0);
+  EXPECT_EQ(stream.str(), ReynoldsNumber(1.0).Print());
 }
 
 TEST(ReynoldsNumber, Value) {
-  EXPECT_EQ(ReynoldsNumber(1.11).Value(), 1.11);
+  EXPECT_EQ(ReynoldsNumber(1.0).Value(), 1.0);
 }
 
 TEST(ReynoldsNumber, XML) {
-  EXPECT_EQ(ReynoldsNumber(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(ReynoldsNumber(1.0).XML(), Print(1.0));
 }
 
 TEST(ReynoldsNumber, YAML) {
-  EXPECT_EQ(ReynoldsNumber(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(ReynoldsNumber(1.0).YAML(), Print(1.0));
 }
 
 TEST(ReynoldsNumber, Zero) {

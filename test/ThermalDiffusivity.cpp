@@ -39,7 +39,6 @@ TEST(ThermalDiffusivity, ArithmeticOperatorAddition) {
 TEST(ThermalDiffusivity, ArithmeticOperatorDivision) {
   EXPECT_EQ(ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond) / 2.0,
             ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond)
                 / ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond),
             4.0);
@@ -48,7 +47,6 @@ TEST(ThermalDiffusivity, ArithmeticOperatorDivision) {
 TEST(ThermalDiffusivity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond) * 2.0,
             ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(2.0 * ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
             ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
@@ -60,32 +58,32 @@ TEST(ThermalDiffusivity, ArithmeticOperatorSubtraction) {
 }
 
 TEST(ThermalDiffusivity, AssignmentOperatorAddition) {
-  ThermalDiffusivity quantity{1.0, Unit::Diffusivity::SquareMetrePerSecond};
-  quantity += ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
-  EXPECT_EQ(quantity, ThermalDiffusivity(3.0, Unit::Diffusivity::SquareMetrePerSecond));
+  ThermalDiffusivity thermal_diffusivity{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  thermal_diffusivity += ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(thermal_diffusivity, ThermalDiffusivity(3.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, AssignmentOperatorDivision) {
-  ThermalDiffusivity quantity{8.0, Unit::Diffusivity::SquareMetrePerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond));
+  ThermalDiffusivity thermal_diffusivity{8.0, Unit::Diffusivity::SquareMetrePerSecond};
+  thermal_diffusivity /= 2.0;
+  EXPECT_EQ(thermal_diffusivity, ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, AssignmentOperatorMultiplication) {
-  ThermalDiffusivity quantity{4.0, Unit::Diffusivity::SquareMetrePerSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
+  ThermalDiffusivity thermal_diffusivity{4.0, Unit::Diffusivity::SquareMetrePerSecond};
+  thermal_diffusivity *= 2.0;
+  EXPECT_EQ(thermal_diffusivity, ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, AssignmentOperatorSubtraction) {
-  ThermalDiffusivity quantity{3.0, Unit::Diffusivity::SquareMetrePerSecond};
-  quantity -= ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
-  EXPECT_EQ(quantity, ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
+  ThermalDiffusivity thermal_diffusivity{3.0, Unit::Diffusivity::SquareMetrePerSecond};
+  thermal_diffusivity -= ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(thermal_diffusivity, ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, ComparisonOperators) {
-  const ThermalDiffusivity first{0.1, Unit::Diffusivity::SquareMetrePerSecond};
-  const ThermalDiffusivity second{0.2, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity second{2.0, Unit::Diffusivity::SquareMetrePerSecond};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -97,22 +95,22 @@ TEST(ThermalDiffusivity, ComparisonOperators) {
 }
 
 TEST(ThermalDiffusivity, CopyAssignmentOperator) {
-  const ThermalDiffusivity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
   ThermalDiffusivity second = ThermalDiffusivity::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ThermalDiffusivity, CopyConstructor) {
-  const ThermalDiffusivity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
   const ThermalDiffusivity second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ThermalDiffusivity, Create) {
-  constexpr ThermalDiffusivity quantity =
-      ThermalDiffusivity::Create<Unit::Diffusivity::SquareMetrePerSecond>(1.11);
-  EXPECT_EQ(quantity, ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
+  constexpr ThermalDiffusivity thermal_diffusivity =
+      ThermalDiffusivity::Create<Unit::Diffusivity::SquareMetrePerSecond>(1.0);
+  EXPECT_EQ(thermal_diffusivity, ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, DefaultConstructor) {
@@ -124,9 +122,9 @@ TEST(ThermalDiffusivity, Dimensions) {
 }
 
 TEST(ThermalDiffusivity, Hash) {
-  const ThermalDiffusivity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  const ThermalDiffusivity second{1.110001, Unit::Diffusivity::SquareMetrePerSecond};
-  const ThermalDiffusivity third{-1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity second{1.000001, Unit::Diffusivity::SquareMetrePerSecond};
+  const ThermalDiffusivity third{-1.0, Unit::Diffusivity::SquareMetrePerSecond};
   const std::hash<ThermalDiffusivity> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -134,11 +132,11 @@ TEST(ThermalDiffusivity, Hash) {
 }
 
 TEST(ThermalDiffusivity, JSON) {
-  EXPECT_EQ(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"m^2/s\"}");
-  EXPECT_EQ(ThermalDiffusivity(-2.22, Unit::Diffusivity::SquareMillimetrePerSecond)
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"m^2/s\"}");
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond)
                 .JSON(Unit::Diffusivity::SquareMillimetrePerSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"mm^2/s\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"mm^2/s\"}");
 }
 
 TEST(ThermalDiffusivity, MiscellaneousConstructors) {
@@ -148,21 +146,18 @@ TEST(ThermalDiffusivity, MiscellaneousConstructors) {
           MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(
       ScalarThermalConductivity(
           MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           ThermalDiffusivity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),
       ScalarThermalConductivity(64.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
   EXPECT_EQ(
       MassDensity(
           ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       MassDensity(1.0, Unit::MassDensity::KilogramPerCubicMetre));
-
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
           ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
@@ -172,37 +167,37 @@ TEST(ThermalDiffusivity, MiscellaneousConstructors) {
 }
 
 TEST(ThermalDiffusivity, MoveAssignmentOperator) {
-  ThermalDiffusivity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
   ThermalDiffusivity second = ThermalDiffusivity::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(second, ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, MoveConstructor) {
-  ThermalDiffusivity first{1.11, Unit::Diffusivity::SquareMetrePerSecond};
+  ThermalDiffusivity first{1.0, Unit::Diffusivity::SquareMetrePerSecond};
   const ThermalDiffusivity second{std::move(first)};
-  EXPECT_EQ(second, ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond));
+  EXPECT_EQ(second, ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, MutableValue) {
-  ThermalDiffusivity quantity{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ThermalDiffusivity thermal_diffusivity{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  double& value = thermal_diffusivity.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(thermal_diffusivity.Value(), 2.0);
 }
 
 TEST(ThermalDiffusivity, Print) {
-  EXPECT_EQ(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Print(),
-            "1.110000000000000 m^2/s");
-  EXPECT_EQ(ThermalDiffusivity(-2.22, Unit::Diffusivity::SquareMillimetrePerSecond)
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).Print(),
+            Print(1.0) + " m^2/s");
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond)
                 .Print(Unit::Diffusivity::SquareMillimetrePerSecond),
-            "-2.220000000000000 mm^2/s");
+            Print(1.0) + " mm^2/s");
 }
 
 TEST(ThermalDiffusivity, SetValue) {
-  ThermalDiffusivity quantity{1.11, Unit::Diffusivity::SquareMetrePerSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ThermalDiffusivity thermal_diffusivity{1.0, Unit::Diffusivity::SquareMetrePerSecond};
+  thermal_diffusivity.SetValue(2.0);
+  EXPECT_EQ(thermal_diffusivity.Value(), 2.0);
 }
 
 TEST(ThermalDiffusivity, SizeOf) {
@@ -210,21 +205,21 @@ TEST(ThermalDiffusivity, SizeOf) {
 }
 
 TEST(ThermalDiffusivity, StandardConstructor) {
-  EXPECT_NO_THROW(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMillimetrePerSecond));
+  EXPECT_NO_THROW(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond));
 }
 
 TEST(ThermalDiffusivity, StaticValue) {
-  constexpr ThermalDiffusivity quantity =
+  constexpr ThermalDiffusivity thermal_diffusivity =
       ThermalDiffusivity::Create<Unit::Diffusivity::SquareMillimetrePerSecond>(2.0);
-  constexpr double value = quantity.StaticValue<Unit::Diffusivity::SquareMillimetrePerSecond>();
+  constexpr double value =
+      thermal_diffusivity.StaticValue<Unit::Diffusivity::SquareMillimetrePerSecond>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(ThermalDiffusivity, Stream) {
   std::ostringstream stream;
-  stream << ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond);
-  EXPECT_EQ(
-      stream.str(), ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Print());
+  stream << ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond);
+  EXPECT_EQ(stream.str(), ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).Print());
 }
 
 TEST(ThermalDiffusivity, Unit) {
@@ -232,26 +227,26 @@ TEST(ThermalDiffusivity, Unit) {
 }
 
 TEST(ThermalDiffusivity, Value) {
-  EXPECT_EQ(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).Value(), 1.11);
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).Value(), 1.0);
   EXPECT_EQ(ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMillimetrePerSecond)
                 .Value(Unit::Diffusivity::SquareMillimetrePerSecond),
             2.0);
 }
 
 TEST(ThermalDiffusivity, XML) {
-  EXPECT_EQ(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).XML(),
-            "<value>1.110000000000000</value><unit>m^2/s</unit>");
-  EXPECT_EQ(ThermalDiffusivity(-2.22, Unit::Diffusivity::SquareMillimetrePerSecond)
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>m^2/s</unit>");
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond)
                 .XML(Unit::Diffusivity::SquareMillimetrePerSecond),
-            "<value>-2.220000000000000</value><unit>mm^2/s</unit>");
+            "<value>" + Print(1.0) + "</value><unit>mm^2/s</unit>");
 }
 
 TEST(ThermalDiffusivity, YAML) {
-  EXPECT_EQ(ThermalDiffusivity(1.11, Unit::Diffusivity::SquareMetrePerSecond).YAML(),
-            "{value:1.110000000000000,unit:\"m^2/s\"}");
-  EXPECT_EQ(ThermalDiffusivity(-2.22, Unit::Diffusivity::SquareMillimetrePerSecond)
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMetrePerSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"m^2/s\"}");
+  EXPECT_EQ(ThermalDiffusivity(1.0, Unit::Diffusivity::SquareMillimetrePerSecond)
                 .YAML(Unit::Diffusivity::SquareMillimetrePerSecond),
-            "{value:-2.220000000000000,unit:\"mm^2/s\"}");
+            "{value:" + Print(1.0) + ",unit:\"mm^2/s\"}");
 }
 
 TEST(ThermalDiffusivity, Zero) {

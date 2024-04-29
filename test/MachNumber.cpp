@@ -33,21 +33,16 @@ TEST(MachNumber, ArithmeticOperatorAddition) {
 
 TEST(MachNumber, ArithmeticOperatorDivision) {
   EXPECT_EQ(MachNumber(8.0) / 2.0, MachNumber(4.0));
-
   EXPECT_EQ(MachNumber(8.0) / MachNumber(2.0), 4.0);
-
   EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
             MachNumber(2.0));
 }
 
 TEST(MachNumber, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(MachNumber(4.0) * 2.0, MachNumber(8.0));
-
   EXPECT_EQ(2.0 * MachNumber(4.0), MachNumber(8.0));
-
   EXPECT_EQ(MachNumber(2.0) * SoundSpeed(4.0, Unit::Speed::MetrePerSecond),
             Speed(8.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(SoundSpeed(2.0, Unit::Speed::MetrePerSecond) * MachNumber(4.0),
             Speed(8.0, Unit::Speed::MetrePerSecond));
 }
@@ -57,32 +52,32 @@ TEST(MachNumber, ArithmeticOperatorSubtraction) {
 }
 
 TEST(MachNumber, AssignmentOperatorAddition) {
-  MachNumber quantity{1.0};
-  quantity += MachNumber(2.0);
-  EXPECT_EQ(quantity, MachNumber(3.0));
+  MachNumber mach_number{1.0};
+  mach_number += MachNumber(2.0);
+  EXPECT_EQ(mach_number, MachNumber(3.0));
 }
 
 TEST(MachNumber, AssignmentOperatorDivision) {
-  MachNumber quantity{8.0};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, MachNumber(4.0));
+  MachNumber mach_number{8.0};
+  mach_number /= 2.0;
+  EXPECT_EQ(mach_number, MachNumber(4.0));
 }
 
 TEST(MachNumber, AssignmentOperatorMultiplication) {
-  MachNumber quantity{4.0};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, MachNumber(8.0));
+  MachNumber mach_number{4.0};
+  mach_number *= 2.0;
+  EXPECT_EQ(mach_number, MachNumber(8.0));
 }
 
 TEST(MachNumber, AssignmentOperatorSubtraction) {
-  MachNumber quantity{3.0};
-  quantity -= MachNumber(2.0);
-  EXPECT_EQ(quantity, MachNumber(1.0));
+  MachNumber mach_number{3.0};
+  mach_number -= MachNumber(2.0);
+  EXPECT_EQ(mach_number, MachNumber(1.0));
 }
 
 TEST(MachNumber, ComparisonOperators) {
-  const MachNumber first{1.11};
-  const MachNumber second{2.22};
+  const MachNumber first{1.0};
+  const MachNumber second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -94,14 +89,14 @@ TEST(MachNumber, ComparisonOperators) {
 }
 
 TEST(MachNumber, CopyAssignmentOperator) {
-  const MachNumber first{1.11};
+  const MachNumber first{1.0};
   MachNumber second = MachNumber::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(MachNumber, CopyConstructor) {
-  const MachNumber first{1.11};
+  const MachNumber first{1.0};
   const MachNumber second{first};
   EXPECT_EQ(second, first);
 }
@@ -115,9 +110,9 @@ TEST(MachNumber, Dimensions) {
 }
 
 TEST(MachNumber, Hash) {
-  const MachNumber first{1.11};
-  const MachNumber second{1.110001};
-  const MachNumber third{-1.11};
+  const MachNumber first{1.0};
+  const MachNumber second{1.00001};
+  const MachNumber third{-1.0};
   const std::hash<MachNumber> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -125,49 +120,47 @@ TEST(MachNumber, Hash) {
 }
 
 TEST(MachNumber, JSON) {
-  EXPECT_EQ(MachNumber(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(MachNumber(1.0).JSON(), Print(1.0));
 }
 
 TEST(MachNumber, MiscellaneousConstructors) {
   EXPECT_EQ(MachNumber(Speed(8.0, Unit::Speed::MetrePerSecond),
                        SoundSpeed(4.0, Unit::Speed::MetrePerSecond)),
             MachNumber(2.0));
-
   EXPECT_EQ(SoundSpeed(Speed(8.0, Unit::Speed::MetrePerSecond), MachNumber(4.0)),
             SoundSpeed(2.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Speed(SoundSpeed(4.0, Unit::Speed::MetrePerSecond), MachNumber(2.0)),
             Speed(8.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(MachNumber, MoveAssignmentOperator) {
-  MachNumber first{1.11};
+  MachNumber first{1.0};
   MachNumber second = MachNumber::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, MachNumber(1.11));
+  EXPECT_EQ(second, MachNumber(1.0));
 }
 
 TEST(MachNumber, MoveConstructor) {
-  MachNumber first{1.11};
+  MachNumber first{1.0};
   const MachNumber second{std::move(first)};
-  EXPECT_EQ(second, MachNumber(1.11));
+  EXPECT_EQ(second, MachNumber(1.0));
 }
 
 TEST(MachNumber, MutableValue) {
-  MachNumber quantity{1.11};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  MachNumber mach_number{1.0};
+  double& value = mach_number.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(mach_number.Value(), 2.0);
 }
 
 TEST(MachNumber, Print) {
-  EXPECT_EQ(MachNumber(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(MachNumber(1.0).Print(), Print(1.0));
 }
 
 TEST(MachNumber, SetValue) {
-  MachNumber quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  MachNumber mach_number{1.0};
+  mach_number.SetValue(2.0);
+  EXPECT_EQ(mach_number.Value(), 2.0);
 }
 
 TEST(MachNumber, SizeOf) {
@@ -175,25 +168,25 @@ TEST(MachNumber, SizeOf) {
 }
 
 TEST(MachNumber, StandardConstructor) {
-  EXPECT_NO_THROW(MachNumber(1.11));
+  EXPECT_NO_THROW(MachNumber(1.0));
 }
 
 TEST(MachNumber, Stream) {
   std::ostringstream stream;
-  stream << MachNumber(1.11);
-  EXPECT_EQ(stream.str(), MachNumber(1.11).Print());
+  stream << MachNumber(1.0);
+  EXPECT_EQ(stream.str(), MachNumber(1.0).Print());
 }
 
 TEST(MachNumber, Value) {
-  EXPECT_EQ(MachNumber(1.11).Value(), 1.11);
+  EXPECT_EQ(MachNumber(1.0).Value(), 1.0);
 }
 
 TEST(MachNumber, XML) {
-  EXPECT_EQ(MachNumber(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(MachNumber(1.0).XML(), Print(1.0));
 }
 
 TEST(MachNumber, YAML) {
-  EXPECT_EQ(MachNumber(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(MachNumber(1.0).YAML(), Print(1.0));
 }
 
 TEST(MachNumber, Zero) {

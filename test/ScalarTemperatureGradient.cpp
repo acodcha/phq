@@ -37,11 +37,9 @@ TEST(ScalarTemperatureGradient, ArithmeticOperatorAddition) {
 TEST(ScalarTemperatureGradient, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarTemperatureGradient(8.0, Unit::TemperatureGradient::KelvinPerMetre) / 2.0,
             ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre));
-
   EXPECT_EQ(ScalarTemperatureGradient(8.0, Unit::TemperatureGradient::KelvinPerMetre)
                 / ScalarTemperatureGradient(2.0, Unit::TemperatureGradient::KelvinPerMetre),
             4.0);
-
   EXPECT_EQ(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin)
                 / Length(4.0, Unit::Length::Metre),
             ScalarTemperatureGradient(2.0, Unit::TemperatureGradient::KelvinPerMetre));
@@ -50,10 +48,8 @@ TEST(ScalarTemperatureGradient, ArithmeticOperatorDivision) {
 TEST(ScalarTemperatureGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre) * 2.0,
             ScalarTemperatureGradient(8.0, Unit::TemperatureGradient::KelvinPerMetre));
-
   EXPECT_EQ(2.0 * ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre),
             ScalarTemperatureGradient(8.0, Unit::TemperatureGradient::KelvinPerMetre));
-
   EXPECT_EQ(ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre)
                 * Length(2.0, Unit::Length::Metre),
             TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
@@ -103,22 +99,22 @@ TEST(ScalarTemperatureGradient, ComparisonOperators) {
 }
 
 TEST(ScalarTemperatureGradient, CopyAssignmentOperator) {
-  const ScalarTemperatureGradient first{1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  const ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   ScalarTemperatureGradient second = ScalarTemperatureGradient::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarTemperatureGradient, CopyConstructor) {
-  const ScalarTemperatureGradient first{1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  const ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   const ScalarTemperatureGradient second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarTemperatureGradient, Create) {
   constexpr ScalarTemperatureGradient quantity =
-      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.11);
-  EXPECT_EQ(quantity, ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre));
+      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMetre>(1.0);
+  EXPECT_EQ(quantity, ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(ScalarTemperatureGradient, DefaultConstructor) {
@@ -130,9 +126,9 @@ TEST(ScalarTemperatureGradient, Dimensions) {
 }
 
 TEST(ScalarTemperatureGradient, Hash) {
-  const ScalarTemperatureGradient first{1.11, Unit::TemperatureGradient::KelvinPerMetre};
-  const ScalarTemperatureGradient second{1.110001, Unit::TemperatureGradient::KelvinPerMetre};
-  const ScalarTemperatureGradient third{-1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  const ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
+  const ScalarTemperatureGradient second{1.00001, Unit::TemperatureGradient::KelvinPerMetre};
+  const ScalarTemperatureGradient third{-1.0, Unit::TemperatureGradient::KelvinPerMetre};
   const std::hash<ScalarTemperatureGradient> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -140,11 +136,11 @@ TEST(ScalarTemperatureGradient, Hash) {
 }
 
 TEST(ScalarTemperatureGradient, JSON) {
-  EXPECT_EQ(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"K/m\"}");
-  EXPECT_EQ(ScalarTemperatureGradient(-2.22, Unit::TemperatureGradient::KelvinPerMillimetre)
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"K/m\"}");
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .JSON(Unit::TemperatureGradient::KelvinPerMillimetre),
-            "{\"value\":-2.220000000000000,\"unit\":\"K/mm\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"K/mm\"}");
 }
 
 TEST(ScalarTemperatureGradient, MiscellaneousConstructors) {
@@ -152,7 +148,6 @@ TEST(ScalarTemperatureGradient, MiscellaneousConstructors) {
       ScalarTemperatureGradient(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin),
                                 Length(4.0, Unit::Length::Metre)),
       ScalarTemperatureGradient(2.0, Unit::TemperatureGradient::KelvinPerMetre));
-
   EXPECT_EQ(TemperatureDifference(
                 ScalarTemperatureGradient(4.0, Unit::TemperatureGradient::KelvinPerMetre),
                 Length(2.0, Unit::Length::Metre)),
@@ -160,37 +155,37 @@ TEST(ScalarTemperatureGradient, MiscellaneousConstructors) {
 }
 
 TEST(ScalarTemperatureGradient, MoveAssignmentOperator) {
-  ScalarTemperatureGradient first{1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   ScalarTemperatureGradient second = ScalarTemperatureGradient::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(second, ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(ScalarTemperatureGradient, MoveConstructor) {
-  ScalarTemperatureGradient first{1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  ScalarTemperatureGradient first{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   const ScalarTemperatureGradient second{std::move(first)};
-  EXPECT_EQ(second, ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre));
+  EXPECT_EQ(second, ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre));
 }
 
 TEST(ScalarTemperatureGradient, MutableValue) {
-  ScalarTemperatureGradient quantity{1.11, Unit::TemperatureGradient::KelvinPerMetre};
+  ScalarTemperatureGradient quantity{1.0, Unit::TemperatureGradient::KelvinPerMetre};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarTemperatureGradient, Print) {
-  EXPECT_EQ(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).Print(),
-            "1.110000000000000 K/m");
-  EXPECT_EQ(ScalarTemperatureGradient(-2.22, Unit::TemperatureGradient::KelvinPerMillimetre)
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).Print(),
+            Print(1.0) + " K/m");
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .Print(Unit::TemperatureGradient::KelvinPerMillimetre),
-            "-2.220000000000000 K/mm");
+            Print(1.0) + " K/mm");
 }
 
 TEST(ScalarTemperatureGradient, SetValue) {
-  ScalarTemperatureGradient quantity{1.11, Unit::TemperatureGradient::KelvinPerMetre};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarTemperatureGradient quantity{1.0, Unit::TemperatureGradient::KelvinPerMetre};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarTemperatureGradient, SizeOf) {
@@ -198,21 +193,21 @@ TEST(ScalarTemperatureGradient, SizeOf) {
 }
 
 TEST(ScalarTemperatureGradient, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMillimetre));
+  EXPECT_NO_THROW(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre));
 }
 
 TEST(ScalarTemperatureGradient, StaticValue) {
   constexpr ScalarTemperatureGradient quantity =
-      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.11);
+      ScalarTemperatureGradient::Create<Unit::TemperatureGradient::KelvinPerMillimetre>(1.0);
   constexpr double value = quantity.StaticValue<Unit::TemperatureGradient::KelvinPerMillimetre>();
-  EXPECT_EQ(value, 1.11);
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(ScalarTemperatureGradient, Stream) {
   std::ostringstream stream;
-  stream << ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre);
+  stream << ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre);
   EXPECT_EQ(stream.str(),
-            ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).Print());
+            ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).Print());
 }
 
 TEST(ScalarTemperatureGradient, Unit) {
@@ -220,27 +215,26 @@ TEST(ScalarTemperatureGradient, Unit) {
 }
 
 TEST(ScalarTemperatureGradient, Value) {
-  EXPECT_EQ(
-      ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).Value(), 1.11);
-  EXPECT_EQ(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMillimetre)
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).Value(), 1.0);
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .Value(Unit::TemperatureGradient::KelvinPerMillimetre),
-            1.11);
+            1.0);
 }
 
 TEST(ScalarTemperatureGradient, XML) {
-  EXPECT_EQ(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).XML(),
-            "<value>1.110000000000000</value><unit>K/m</unit>");
-  EXPECT_EQ(ScalarTemperatureGradient(-2.22, Unit::TemperatureGradient::KelvinPerMillimetre)
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).XML(),
+            "<value>" + Print(1.0) + "</value><unit>K/m</unit>");
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .XML(Unit::TemperatureGradient::KelvinPerMillimetre),
-            "<value>-2.220000000000000</value><unit>K/mm</unit>");
+            "<value>" + Print(1.0) + "</value><unit>K/mm</unit>");
 }
 
 TEST(ScalarTemperatureGradient, YAML) {
-  EXPECT_EQ(ScalarTemperatureGradient(1.11, Unit::TemperatureGradient::KelvinPerMetre).YAML(),
-            "{value:1.110000000000000,unit:\"K/m\"}");
-  EXPECT_EQ(ScalarTemperatureGradient(-2.22, Unit::TemperatureGradient::KelvinPerMillimetre)
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMetre).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"K/m\"}");
+  EXPECT_EQ(ScalarTemperatureGradient(1.0, Unit::TemperatureGradient::KelvinPerMillimetre)
                 .YAML(Unit::TemperatureGradient::KelvinPerMillimetre),
-            "{value:-2.220000000000000,unit:\"K/mm\"}");
+            "{value:" + Print(1.0) + ",unit:\"K/mm\"}");
 }
 
 TEST(ScalarTemperatureGradient, Zero) {

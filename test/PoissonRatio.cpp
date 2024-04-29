@@ -30,13 +30,11 @@ TEST(PoissonRatio, ArithmeticOperatorAddition) {
 
 TEST(PoissonRatio, ArithmeticOperatorDivision) {
   EXPECT_EQ(PoissonRatio(8.0) / 2.0, PoissonRatio(4.0));
-
   EXPECT_EQ(PoissonRatio(8.0) / PoissonRatio(2.0), 4.0);
 }
 
 TEST(PoissonRatio, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(PoissonRatio(4.0) * 2.0, PoissonRatio(8.0));
-
   EXPECT_EQ(2.0 * PoissonRatio(4.0), PoissonRatio(8.0));
 }
 
@@ -45,32 +43,32 @@ TEST(PoissonRatio, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PoissonRatio, AssignmentOperatorAddition) {
-  PoissonRatio quantity{1.0};
-  quantity += PoissonRatio(2.0);
-  EXPECT_EQ(quantity, PoissonRatio(3.0));
+  PoissonRatio poisson_ratio{1.0};
+  poisson_ratio += PoissonRatio(2.0);
+  EXPECT_EQ(poisson_ratio, PoissonRatio(3.0));
 }
 
 TEST(PoissonRatio, AssignmentOperatorDivision) {
-  PoissonRatio quantity{8.0};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, PoissonRatio(4.0));
+  PoissonRatio poisson_ratio{8.0};
+  poisson_ratio /= 2.0;
+  EXPECT_EQ(poisson_ratio, PoissonRatio(4.0));
 }
 
 TEST(PoissonRatio, AssignmentOperatorMultiplication) {
-  PoissonRatio quantity{4.0};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, PoissonRatio(8.0));
+  PoissonRatio poisson_ratio{4.0};
+  poisson_ratio *= 2.0;
+  EXPECT_EQ(poisson_ratio, PoissonRatio(8.0));
 }
 
 TEST(PoissonRatio, AssignmentOperatorSubtraction) {
-  PoissonRatio quantity{3.0};
-  quantity -= PoissonRatio(2.0);
-  EXPECT_EQ(quantity, PoissonRatio(1.0));
+  PoissonRatio poisson_ratio{3.0};
+  poisson_ratio -= PoissonRatio(2.0);
+  EXPECT_EQ(poisson_ratio, PoissonRatio(1.0));
 }
 
 TEST(PoissonRatio, ComparisonOperators) {
-  const PoissonRatio first{1.11};
-  const PoissonRatio second{2.22};
+  const PoissonRatio first{1.0};
+  const PoissonRatio second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -82,14 +80,14 @@ TEST(PoissonRatio, ComparisonOperators) {
 }
 
 TEST(PoissonRatio, CopyAssignmentOperator) {
-  const PoissonRatio first{1.11};
+  const PoissonRatio first{1.0};
   PoissonRatio second = PoissonRatio::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(PoissonRatio, CopyConstructor) {
-  const PoissonRatio first{1.11};
+  const PoissonRatio first{1.0};
   const PoissonRatio second{first};
   EXPECT_EQ(second, first);
 }
@@ -103,9 +101,9 @@ TEST(PoissonRatio, Dimensions) {
 }
 
 TEST(PoissonRatio, Hash) {
-  const PoissonRatio first{1.11};
-  const PoissonRatio second{1.110001};
-  const PoissonRatio third{-1.11};
+  const PoissonRatio first{1.0};
+  const PoissonRatio second{1.00001};
+  const PoissonRatio third{-1.0};
   const std::hash<PoissonRatio> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -113,37 +111,37 @@ TEST(PoissonRatio, Hash) {
 }
 
 TEST(PoissonRatio, JSON) {
-  EXPECT_EQ(PoissonRatio(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(PoissonRatio(1.0).JSON(), Print(1.0));
 }
 
 TEST(PoissonRatio, MoveAssignmentOperator) {
-  PoissonRatio first{1.11};
+  PoissonRatio first{1.0};
   PoissonRatio second = PoissonRatio::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, PoissonRatio(1.11));
+  EXPECT_EQ(second, PoissonRatio(1.0));
 }
 
 TEST(PoissonRatio, MoveConstructor) {
-  PoissonRatio first{1.11};
+  PoissonRatio first{1.0};
   const PoissonRatio second{std::move(first)};
-  EXPECT_EQ(second, PoissonRatio(1.11));
+  EXPECT_EQ(second, PoissonRatio(1.0));
 }
 
 TEST(PoissonRatio, MutableValue) {
-  PoissonRatio quantity{1.11};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  PoissonRatio poisson_ratio{1.0};
+  double& value = poisson_ratio.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(poisson_ratio.Value(), 2.0);
 }
 
 TEST(PoissonRatio, Print) {
-  EXPECT_EQ(PoissonRatio(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(PoissonRatio(1.0).Print(), Print(1.0));
 }
 
 TEST(PoissonRatio, SetValue) {
-  PoissonRatio quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  PoissonRatio poisson_ratio{1.0};
+  poisson_ratio.SetValue(2.0);
+  EXPECT_EQ(poisson_ratio.Value(), 2.0);
 }
 
 TEST(PoissonRatio, SizeOf) {
@@ -151,25 +149,25 @@ TEST(PoissonRatio, SizeOf) {
 }
 
 TEST(PoissonRatio, StandardConstructor) {
-  EXPECT_NO_THROW(PoissonRatio(1.11));
+  EXPECT_NO_THROW(PoissonRatio(1.0));
 }
 
 TEST(PoissonRatio, Stream) {
   std::ostringstream stream;
-  stream << PoissonRatio(1.11);
-  EXPECT_EQ(stream.str(), PoissonRatio(1.11).Print());
+  stream << PoissonRatio(1.0);
+  EXPECT_EQ(stream.str(), PoissonRatio(1.0).Print());
 }
 
 TEST(PoissonRatio, Value) {
-  EXPECT_EQ(PoissonRatio(1.11).Value(), 1.11);
+  EXPECT_EQ(PoissonRatio(1.0).Value(), 1.0);
 }
 
 TEST(PoissonRatio, XML) {
-  EXPECT_EQ(PoissonRatio(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(PoissonRatio(1.0).XML(), Print(1.0));
 }
 
 TEST(PoissonRatio, YAML) {
-  EXPECT_EQ(PoissonRatio(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(PoissonRatio(1.0).YAML(), Print(1.0));
 }
 
 TEST(PoissonRatio, Zero) {

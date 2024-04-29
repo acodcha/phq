@@ -37,11 +37,9 @@ TEST(StaticPressure, ArithmeticOperatorAddition) {
 TEST(StaticPressure, ArithmeticOperatorDivision) {
   EXPECT_EQ(StaticPressure(8.0, Unit::Pressure::Pascal) / 2.0,
             StaticPressure(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       StaticPressure(8.0, Unit::Pressure::Pascal) / StaticPressure(2.0, Unit::Pressure::Pascal),
       4.0);
-
   EXPECT_EQ(ScalarForce(8.0, Unit::Force::Newton) / Area(4.0, Unit::Area::SquareMetre),
             StaticPressure(2.0, Unit::Pressure::Pascal));
 }
@@ -49,13 +47,10 @@ TEST(StaticPressure, ArithmeticOperatorDivision) {
 TEST(StaticPressure, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(StaticPressure(4.0, Unit::Pressure::Pascal) * 2.0,
             StaticPressure(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(2.0 * StaticPressure(4.0, Unit::Pressure::Pascal),
             StaticPressure(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(StaticPressure(4.0, Unit::Pressure::Pascal) * Area(2.0, Unit::Area::SquareMetre),
             ScalarForce(8.0, Unit::Force::Newton));
-
   EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * StaticPressure(2.0, Unit::Pressure::Pascal),
             ScalarForce(8.0, Unit::Force::Newton));
 }
@@ -104,21 +99,21 @@ TEST(StaticPressure, ComparisonOperators) {
 }
 
 TEST(StaticPressure, CopyAssignmentOperator) {
-  const StaticPressure first{1.11, Unit::Pressure::Pascal};
+  const StaticPressure first{1.0, Unit::Pressure::Pascal};
   StaticPressure second = StaticPressure::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(StaticPressure, CopyConstructor) {
-  const StaticPressure first{1.11, Unit::Pressure::Pascal};
+  const StaticPressure first{1.0, Unit::Pressure::Pascal};
   const StaticPressure second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(StaticPressure, Create) {
-  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, StaticPressure(1.11, Unit::Pressure::Pascal));
+  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(quantity, StaticPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(StaticPressure, DefaultConstructor) {
@@ -130,9 +125,9 @@ TEST(StaticPressure, Dimensions) {
 }
 
 TEST(StaticPressure, Hash) {
-  const StaticPressure first{1.11, Unit::Pressure::Kilopascal};
-  const StaticPressure second{1.110001, Unit::Pressure::Kilopascal};
-  const StaticPressure third{-1.11, Unit::Pressure::Kilopascal};
+  const StaticPressure first{1.0, Unit::Pressure::Kilopascal};
+  const StaticPressure second{1.00001, Unit::Pressure::Kilopascal};
+  const StaticPressure third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<StaticPressure> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -140,56 +135,54 @@ TEST(StaticPressure, Hash) {
 }
 
 TEST(StaticPressure, JSON) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(StaticPressure, MiscellaneousConstructors) {
   EXPECT_EQ(
       StaticPressure(ScalarForce(8.0, Unit::Force::Newton), Area(4.0, Unit::Area::SquareMetre)),
       StaticPressure(2.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       Area(ScalarForce(8.0, Unit::Force::Newton), StaticPressure(4.0, Unit::Pressure::Pascal)),
       Area(2.0, Unit::Area::SquareMetre));
-
   EXPECT_EQ(
       ScalarForce(StaticPressure(4.0, Unit::Pressure::Pascal), Area(2.0, Unit::Area::SquareMetre)),
       ScalarForce(8.0, Unit::Force::Newton));
 }
 
 TEST(StaticPressure, MoveAssignmentOperator) {
-  StaticPressure first{1.11, Unit::Pressure::Pascal};
+  StaticPressure first{1.0, Unit::Pressure::Pascal};
   StaticPressure second = StaticPressure::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, StaticPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, StaticPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(StaticPressure, MoveConstructor) {
-  StaticPressure first{1.11, Unit::Pressure::Pascal};
+  StaticPressure first{1.0, Unit::Pressure::Pascal};
   const StaticPressure second{std::move(first)};
-  EXPECT_EQ(second, StaticPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, StaticPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(StaticPressure, MutableValue) {
-  StaticPressure quantity{1.11, Unit::Pressure::Pascal};
+  StaticPressure quantity{1.0, Unit::Pressure::Pascal};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(StaticPressure, Print) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-            "-2.220000000000000 kPa");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+            Print(1.0) + " kPa");
 }
 
 TEST(StaticPressure, SetValue) {
-  StaticPressure quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  StaticPressure quantity{1.0, Unit::Pressure::Pascal};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(StaticPressure, SizeOf) {
@@ -197,19 +190,19 @@ TEST(StaticPressure, SizeOf) {
 }
 
 TEST(StaticPressure, StandardConstructor) {
-  EXPECT_NO_THROW(StaticPressure(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(StaticPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(StaticPressure, StaticValue) {
-  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Kilopascal>(1.11);
+  constexpr StaticPressure quantity = StaticPressure::Create<Unit::Pressure::Kilopascal>(1.0);
   constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, 1.11);
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(StaticPressure, Stream) {
   std::ostringstream stream;
-  stream << StaticPressure(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), StaticPressure(1.11, Unit::Pressure::Pascal).Print());
+  stream << StaticPressure(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), StaticPressure(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(StaticPressure, Unit) {
@@ -217,23 +210,22 @@ TEST(StaticPressure, Unit) {
 }
 
 TEST(StaticPressure, Value) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(
-      StaticPressure(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Pascal).Value(), 1.0);
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.0);
 }
 
 TEST(StaticPressure, XML) {
-  EXPECT_EQ(StaticPressure(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-            "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(StaticPressure, YAML) {
   EXPECT_EQ(
-      StaticPressure(1.11, Unit::Pressure::Pascal).YAML(), "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(StaticPressure(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-            "{value:-2.220000000000000,unit:\"kPa\"}");
+      StaticPressure(1.0, Unit::Pressure::Pascal).YAML(), "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(StaticPressure(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(StaticPressure, Zero) {

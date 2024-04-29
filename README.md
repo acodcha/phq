@@ -47,7 +47,7 @@ Contents:
 
 This library requires the following packages:
 
-- **C++17 Compiler:** Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
+- **C++20 Compiler:** Any recent C++ compiler will do, such as GCC or Clang. On Ubuntu, install GCC with `sudo apt install g++` or Clang with `sudo apt install clang`.
 - **CMake:** On Ubuntu, install CMake with `sudo apt install cmake`.
 
 [(Back to Top)](#physical-quantities)

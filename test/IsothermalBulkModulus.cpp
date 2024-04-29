@@ -33,7 +33,6 @@ TEST(IsothermalBulkModulus, ArithmeticOperatorAddition) {
 TEST(IsothermalBulkModulus, ArithmeticOperatorDivision) {
   EXPECT_EQ(IsothermalBulkModulus(8.0, Unit::Pressure::Pascal) / 2.0,
             IsothermalBulkModulus(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(IsothermalBulkModulus(8.0, Unit::Pressure::Pascal)
                 / IsothermalBulkModulus(2.0, Unit::Pressure::Pascal),
             4.0);
@@ -42,7 +41,6 @@ TEST(IsothermalBulkModulus, ArithmeticOperatorDivision) {
 TEST(IsothermalBulkModulus, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(IsothermalBulkModulus(4.0, Unit::Pressure::Pascal) * 2.0,
             IsothermalBulkModulus(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(2.0 * IsothermalBulkModulus(4.0, Unit::Pressure::Pascal),
             IsothermalBulkModulus(8.0, Unit::Pressure::Pascal));
 }
@@ -54,32 +52,32 @@ TEST(IsothermalBulkModulus, ArithmeticOperatorSubtraction) {
 }
 
 TEST(IsothermalBulkModulus, AssignmentOperatorAddition) {
-  IsothermalBulkModulus quantity{1.0, Unit::Pressure::Pascal};
-  quantity += IsothermalBulkModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, IsothermalBulkModulus(3.0, Unit::Pressure::Pascal));
+  IsothermalBulkModulus isothermal_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  isothermal_bulk_modulus += IsothermalBulkModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, AssignmentOperatorDivision) {
-  IsothermalBulkModulus quantity{8.0, Unit::Pressure::Pascal};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, IsothermalBulkModulus(4.0, Unit::Pressure::Pascal));
+  IsothermalBulkModulus isothermal_bulk_modulus{8.0, Unit::Pressure::Pascal};
+  isothermal_bulk_modulus /= 2.0;
+  EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(4.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, AssignmentOperatorMultiplication) {
-  IsothermalBulkModulus quantity{4.0, Unit::Pressure::Pascal};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, IsothermalBulkModulus(8.0, Unit::Pressure::Pascal));
+  IsothermalBulkModulus isothermal_bulk_modulus{4.0, Unit::Pressure::Pascal};
+  isothermal_bulk_modulus *= 2.0;
+  EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, AssignmentOperatorSubtraction) {
-  IsothermalBulkModulus quantity{3.0, Unit::Pressure::Pascal};
-  quantity -= IsothermalBulkModulus(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
+  IsothermalBulkModulus isothermal_bulk_modulus{3.0, Unit::Pressure::Pascal};
+  isothermal_bulk_modulus -= IsothermalBulkModulus(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, ComparisonOperators) {
-  const IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
-  const IsothermalBulkModulus second{2.22, Unit::Pressure::Pascal};
+  const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
+  const IsothermalBulkModulus second{2.0, Unit::Pressure::Pascal};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -91,22 +89,22 @@ TEST(IsothermalBulkModulus, ComparisonOperators) {
 }
 
 TEST(IsothermalBulkModulus, CopyAssignmentOperator) {
-  const IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
+  const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
   IsothermalBulkModulus second = IsothermalBulkModulus::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(IsothermalBulkModulus, CopyConstructor) {
-  const IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
+  const IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
   const IsothermalBulkModulus second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(IsothermalBulkModulus, Create) {
-  constexpr IsothermalBulkModulus quantity =
-      IsothermalBulkModulus::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, IsothermalBulkModulus(1.11, Unit::Pressure::Pascal));
+  constexpr IsothermalBulkModulus isothermal_bulk_modulus =
+      IsothermalBulkModulus::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(isothermal_bulk_modulus, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, DefaultConstructor) {
@@ -118,9 +116,9 @@ TEST(IsothermalBulkModulus, Dimensions) {
 }
 
 TEST(IsothermalBulkModulus, Hash) {
-  const IsothermalBulkModulus first{1.11, Unit::Pressure::Kilopascal};
-  const IsothermalBulkModulus second{1.110001, Unit::Pressure::Kilopascal};
-  const IsothermalBulkModulus third{-1.11, Unit::Pressure::Kilopascal};
+  const IsothermalBulkModulus first{1.0, Unit::Pressure::Kilopascal};
+  const IsothermalBulkModulus second{1.00001, Unit::Pressure::Kilopascal};
+  const IsothermalBulkModulus third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<IsothermalBulkModulus> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -128,44 +126,43 @@ TEST(IsothermalBulkModulus, Hash) {
 }
 
 TEST(IsothermalBulkModulus, JSON) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(
-      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-      "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(IsothermalBulkModulus, MoveAssignmentOperator) {
-  IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
+  IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
   IsothermalBulkModulus second = IsothermalBulkModulus::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, IsothermalBulkModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, MoveConstructor) {
-  IsothermalBulkModulus first{1.11, Unit::Pressure::Pascal};
+  IsothermalBulkModulus first{1.0, Unit::Pressure::Pascal};
   const IsothermalBulkModulus second{std::move(first)};
-  EXPECT_EQ(second, IsothermalBulkModulus(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, IsothermalBulkModulus(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(IsothermalBulkModulus, MutableValue) {
-  IsothermalBulkModulus quantity{1.11, Unit::Pressure::Pascal};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsothermalBulkModulus isothermal_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  double& value = isothermal_bulk_modulus.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(isothermal_bulk_modulus.Value(), 2.0);
 }
 
 TEST(IsothermalBulkModulus, Print) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
   EXPECT_EQ(
-      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-      "-2.220000000000000 kPa");
+      IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+      Print(1.0) + " kPa");
 }
 
 TEST(IsothermalBulkModulus, SetValue) {
-  IsothermalBulkModulus quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsothermalBulkModulus isothermal_bulk_modulus{1.0, Unit::Pressure::Pascal};
+  isothermal_bulk_modulus.SetValue(2.0);
+  EXPECT_EQ(isothermal_bulk_modulus.Value(), 2.0);
 }
 
 TEST(IsothermalBulkModulus, SizeOf) {
@@ -173,20 +170,20 @@ TEST(IsothermalBulkModulus, SizeOf) {
 }
 
 TEST(IsothermalBulkModulus, StandardConstructor) {
-  EXPECT_NO_THROW(IsothermalBulkModulus(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(IsothermalBulkModulus, StaticValue) {
-  constexpr IsothermalBulkModulus quantity =
+  constexpr IsothermalBulkModulus isothermal_bulk_modulus =
       IsothermalBulkModulus::Create<Unit::Pressure::Kilopascal>(2.0);
-  constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
+  constexpr double value = isothermal_bulk_modulus.StaticValue<Unit::Pressure::Kilopascal>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(IsothermalBulkModulus, Stream) {
   std::ostringstream stream;
-  stream << IsothermalBulkModulus(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Print());
+  stream << IsothermalBulkModulus(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(IsothermalBulkModulus, Unit) {
@@ -194,26 +191,24 @@ TEST(IsothermalBulkModulus, Unit) {
 }
 
 TEST(IsothermalBulkModulus, Value) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).Value(), 1.11);
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).Value(), 1.0);
   EXPECT_EQ(
       IsothermalBulkModulus(2.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal),
       2.0);
 }
 
 TEST(IsothermalBulkModulus, XML) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(
-      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-      "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(IsothermalBulkModulus, YAML) {
-  EXPECT_EQ(IsothermalBulkModulus(1.11, Unit::Pressure::Pascal).YAML(),
-            "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(
-      IsothermalBulkModulus(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-      "{value:-2.220000000000000,unit:\"kPa\"}");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Pascal).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(IsothermalBulkModulus(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(IsothermalBulkModulus, Zero) {

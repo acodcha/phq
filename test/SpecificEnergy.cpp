@@ -37,15 +37,12 @@ TEST(SpecificEnergy, ArithmeticOperatorAddition) {
 TEST(SpecificEnergy, ArithmeticOperatorDivision) {
   EXPECT_EQ(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram) / 2.0,
             SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram));
-
   EXPECT_EQ(SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram)
                 / SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram),
             4.0);
-
   EXPECT_EQ(Energy(8.0, Unit::Energy::Joule)
                 / SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
             Mass(2.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / Mass(4.0, Unit::Mass::Kilogram),
             SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
@@ -53,14 +50,11 @@ TEST(SpecificEnergy, ArithmeticOperatorDivision) {
 TEST(SpecificEnergy, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram) * 2.0,
             SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
-
   EXPECT_EQ(2.0 * SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
             SpecificEnergy(8.0, Unit::SpecificEnergy::JoulePerKilogram));
-
   EXPECT_EQ(
       SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram) * Mass(2.0, Unit::Mass::Kilogram),
       Energy(8.0, Unit::Energy::Joule));
-
   EXPECT_EQ(
       Mass(4.0, Unit::Mass::Kilogram) * SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram),
       Energy(8.0, Unit::Energy::Joule));
@@ -97,8 +91,8 @@ TEST(SpecificEnergy, AssignmentOperatorSubtraction) {
 }
 
 TEST(SpecificEnergy, ComparisonOperators) {
-  const SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
-  const SpecificEnergy second{2.22, Unit::SpecificEnergy::JoulePerKilogram};
+  const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
+  const SpecificEnergy second{2.0, Unit::SpecificEnergy::JoulePerKilogram};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -110,22 +104,22 @@ TEST(SpecificEnergy, ComparisonOperators) {
 }
 
 TEST(SpecificEnergy, CopyAssignmentOperator) {
-  const SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
+  const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   SpecificEnergy second = SpecificEnergy::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(SpecificEnergy, CopyConstructor) {
-  const SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
+  const SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   const SpecificEnergy second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(SpecificEnergy, Create) {
   constexpr SpecificEnergy quantity =
-      SpecificEnergy::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.11);
-  EXPECT_EQ(quantity, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+      SpecificEnergy::Create<Unit::SpecificEnergy::JoulePerKilogram>(1.0);
+  EXPECT_EQ(quantity, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, DefaultConstructor) {
@@ -137,9 +131,9 @@ TEST(SpecificEnergy, Dimensions) {
 }
 
 TEST(SpecificEnergy, Hash) {
-  const SpecificEnergy first{1.11, Unit::SpecificEnergy::NanojoulePerGram};
-  const SpecificEnergy second{1.110001, Unit::SpecificEnergy::NanojoulePerGram};
-  const SpecificEnergy third{-1.11, Unit::SpecificEnergy::NanojoulePerGram};
+  const SpecificEnergy first{1.0, Unit::SpecificEnergy::NanojoulePerGram};
+  const SpecificEnergy second{1.00001, Unit::SpecificEnergy::NanojoulePerGram};
+  const SpecificEnergy third{-1.0, Unit::SpecificEnergy::NanojoulePerGram};
   const std::hash<SpecificEnergy> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -147,58 +141,56 @@ TEST(SpecificEnergy, Hash) {
 }
 
 TEST(SpecificEnergy, JSON) {
-  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"J/kg\"}");
-  EXPECT_EQ(SpecificEnergy(-2.22, Unit::SpecificEnergy::NanojoulePerGram)
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"J/kg\"}");
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .JSON(Unit::SpecificEnergy::NanojoulePerGram),
-            "{\"value\":-2.220000000000000,\"unit\":\"nJ/g\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/g\"}");
 }
 
 TEST(SpecificEnergy, MiscellaneousConstructors) {
   EXPECT_EQ(SpecificEnergy(Energy(8.0, Unit::Energy::Joule), Mass(4.0, Unit::Mass::Kilogram)),
             SpecificEnergy(2.0, Unit::SpecificEnergy::JoulePerKilogram));
-
   EXPECT_EQ(Mass(Energy(8.0, Unit::Energy::Joule),
                  SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram)),
             Mass(2.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Energy(SpecificEnergy(4.0, Unit::SpecificEnergy::JoulePerKilogram),
                    Mass(2.0, Unit::Mass::Kilogram)),
             Energy(8.0, Unit::Energy::Joule));
 }
 
 TEST(SpecificEnergy, MoveAssignmentOperator) {
-  SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
+  SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   SpecificEnergy second = SpecificEnergy::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(second, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, MoveConstructor) {
-  SpecificEnergy first{1.11, Unit::SpecificEnergy::JoulePerKilogram};
+  SpecificEnergy first{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   const SpecificEnergy second{std::move(first)};
-  EXPECT_EQ(second, SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram));
+  EXPECT_EQ(second, SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram));
 }
 
 TEST(SpecificEnergy, MutableValue) {
-  SpecificEnergy quantity{1.11, Unit::SpecificEnergy::JoulePerKilogram};
+  SpecificEnergy quantity{1.0, Unit::SpecificEnergy::JoulePerKilogram};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(SpecificEnergy, Print) {
-  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print(),
-            "1.110000000000000 J/kg");
-  EXPECT_EQ(SpecificEnergy(-2.22, Unit::SpecificEnergy::NanojoulePerGram)
+  EXPECT_EQ(
+      SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).Print(), Print(1.0) + " J/kg");
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .Print(Unit::SpecificEnergy::NanojoulePerGram),
-            "-2.220000000000000 nJ/g");
+            Print(1.0) + " nJ/g");
 }
 
 TEST(SpecificEnergy, SetValue) {
-  SpecificEnergy quantity{1.11, Unit::SpecificEnergy::JoulePerKilogram};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  SpecificEnergy quantity{1.0, Unit::SpecificEnergy::JoulePerKilogram};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(SpecificEnergy, SizeOf) {
@@ -206,7 +198,7 @@ TEST(SpecificEnergy, SizeOf) {
 }
 
 TEST(SpecificEnergy, StandardConstructor) {
-  EXPECT_NO_THROW(SpecificEnergy(1.11, Unit::SpecificEnergy::NanojoulePerGram));
+  EXPECT_NO_THROW(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram));
 }
 
 TEST(SpecificEnergy, StaticValue) {
@@ -218,8 +210,8 @@ TEST(SpecificEnergy, StaticValue) {
 
 TEST(SpecificEnergy, Stream) {
   std::ostringstream stream;
-  stream << SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram);
-  EXPECT_EQ(stream.str(), SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Print());
+  stream << SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram);
+  EXPECT_EQ(stream.str(), SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).Print());
 }
 
 TEST(SpecificEnergy, Unit) {
@@ -227,26 +219,26 @@ TEST(SpecificEnergy, Unit) {
 }
 
 TEST(SpecificEnergy, Value) {
-  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).Value(), 1.11);
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).Value(), 1.0);
   EXPECT_EQ(SpecificEnergy(2.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .Value(Unit::SpecificEnergy::NanojoulePerGram),
             2.0);
 }
 
 TEST(SpecificEnergy, XML) {
-  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).XML(),
-            "<value>1.110000000000000</value><unit>J/kg</unit>");
-  EXPECT_EQ(SpecificEnergy(-2.22, Unit::SpecificEnergy::NanojoulePerGram)
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).XML(),
+            "<value>" + Print(1.0) + "</value><unit>J/kg</unit>");
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .XML(Unit::SpecificEnergy::NanojoulePerGram),
-            "<value>-2.220000000000000</value><unit>nJ/g</unit>");
+            "<value>" + Print(1.0) + "</value><unit>nJ/g</unit>");
 }
 
 TEST(SpecificEnergy, YAML) {
-  EXPECT_EQ(SpecificEnergy(1.11, Unit::SpecificEnergy::JoulePerKilogram).YAML(),
-            "{value:1.110000000000000,unit:\"J/kg\"}");
-  EXPECT_EQ(SpecificEnergy(-2.22, Unit::SpecificEnergy::NanojoulePerGram)
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::JoulePerKilogram).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"J/kg\"}");
+  EXPECT_EQ(SpecificEnergy(1.0, Unit::SpecificEnergy::NanojoulePerGram)
                 .YAML(Unit::SpecificEnergy::NanojoulePerGram),
-            "{value:-2.220000000000000,unit:\"nJ/g\"}");
+            "{value:" + Print(1.0) + ",unit:\"nJ/g\"}");
 }
 
 TEST(SpecificEnergy, Zero) {

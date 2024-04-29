@@ -25,52 +25,51 @@ namespace PhQ {
 
 namespace {
 
-TEST(ValueVector, ArithmeticOperatorAddition) {
+TEST(Vector, ArithmeticOperatorAddition) {
   EXPECT_EQ(Vector(1.0, -2.0, 3.0) + Vector(2.0, -4.0, 6.0), Vector(3.0, -6.0, 9.0));
 }
 
-TEST(ValueVector, ArithmeticOperatorDivision) {
+TEST(Vector, ArithmeticOperatorDivision) {
   EXPECT_EQ(Vector(2.0, -4.0, 6.0) / 2.0, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, ArithmeticOperatorMultiplication) {
+TEST(Vector, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Vector(1.0, -2.0, 3.0) * 2.0, Vector(2.0, -4.0, 6.0));
-
   EXPECT_EQ(2.0 * Vector(1.0, -2.0, 3.0), Vector(2.0, -4.0, 6.0));
 }
 
-TEST(ValueVector, ArithmeticOperatorSubtraction) {
+TEST(Vector, ArithmeticOperatorSubtraction) {
   EXPECT_EQ(Vector(3.0, -6.0, 9.0) - Vector(2.0, -4.0, 6.0), Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, AssignmentOperatorAddition) {
-  Vector value{1.0, -2.0, 3.0};
-  value += Vector(2.0, -4.0, 6.0);
-  EXPECT_EQ(value, Vector(3.0, -6.0, 9.0));
+TEST(Vector, AssignmentOperatorAddition) {
+  Vector vector{1.0, -2.0, 3.0};
+  vector += Vector(2.0, -4.0, 6.0);
+  EXPECT_EQ(vector, Vector(3.0, -6.0, 9.0));
 }
 
-TEST(ValueVector, AssignmentOperatorDivision) {
-  Vector value{2.0, -4.0, 6.0};
-  value /= 2.0;
-  EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
+TEST(Vector, AssignmentOperatorDivision) {
+  Vector vector{2.0, -4.0, 6.0};
+  vector /= 2.0;
+  EXPECT_EQ(vector, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, AssignmentOperatorMultiplication) {
-  Vector value{1.0, -2.0, 3.0};
-  value *= 2.0;
-  EXPECT_EQ(value, Vector(2.0, -4.0, 6.0));
+TEST(Vector, AssignmentOperatorMultiplication) {
+  Vector vector{1.0, -2.0, 3.0};
+  vector *= 2.0;
+  EXPECT_EQ(vector, Vector(2.0, -4.0, 6.0));
 }
 
-TEST(ValueVector, AssignmentOperatorSubtraction) {
-  Vector value{3.0, -6.0, 9.0};
-  value -= Vector(2.0, -4.0, 6.0);
-  EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
+TEST(Vector, AssignmentOperatorSubtraction) {
+  Vector vector{3.0, -6.0, 9.0};
+  vector -= Vector(2.0, -4.0, 6.0);
+  EXPECT_EQ(vector, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, ComparisonOperators) {
-  constexpr Vector first{1.11, 2.22, 3.33};
-  constexpr Vector second{1.11, 2.23, 3.33};
-  constexpr Vector third{1.11, 2.23, 3.34};
+TEST(Vector, ComparisonOperators) {
+  constexpr Vector first{1.0, -2.0, 3.0};
+  constexpr Vector second{1.0, -2.0, 3.000001};
+  constexpr Vector third{1.0, 2.0, 3.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -85,142 +84,144 @@ TEST(ValueVector, ComparisonOperators) {
   EXPECT_GE(third, second);
 }
 
-TEST(ValueVector, CopyAssignmentOperator) {
-  constexpr Vector first(1.11, -2.22, 3.33);
+TEST(Vector, CopyAssignmentOperator) {
+  constexpr Vector first(1.0, -2.0, 3.0);
   Vector second = Vector::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
-TEST(ValueVector, CopyConstructor) {
-  constexpr Vector first(1.11, -2.22, 3.33);
+TEST(Vector, CopyConstructor) {
+  constexpr Vector first(1.0, -2.0, 3.0);
   constexpr Vector second{first};
   EXPECT_EQ(second, first);
 }
 
-TEST(ValueVector, Cross) {
-  EXPECT_EQ(Vector(10.0, 0.0, 0.0).Cross(Vector(0.0, 20.0, 0.0)), Vector(0.0, 0.0, 200.0));
+TEST(Vector, Cross) {
+  EXPECT_EQ(Vector(2.0, 0.0, 0.0).Cross(Vector(0.0, 4.0, 0.0)), Vector(0.0, 0.0, 8.0));
 }
 
-TEST(ValueVector, DefaultConstructor) {
+TEST(Vector, DefaultConstructor) {
   EXPECT_NO_THROW(Vector{});
 }
 
-TEST(ValueVector, Dot) {
-  constexpr Vector first{1.23, 4.56, 7.89};
-  EXPECT_EQ(first.Dot(first), first.MagnitudeSquared());
-  EXPECT_EQ(Vector(0.0, 10.0, -15.0).Dot(Vector(20.0, 0.0, 0.0)), 0.0);
-  EXPECT_EQ(first.Dot(Vector(-1.23, -4.56, -7.89)), -first.MagnitudeSquared());
+TEST(Vector, Dot) {
+  EXPECT_EQ(Vector(1.0, -2.0, 3.0).Dot(Vector(1.0, -2.0, 3.0)),
+            Vector(1.0, -2.0, 3.0).MagnitudeSquared());
+  EXPECT_EQ(Vector(0.0, 1.0, -2.0).Dot(Vector(3.0, 0.0, 0.0)), 0.0);
+  EXPECT_EQ(Vector(1.0, -2.0, 3.0).Dot(Vector(-1.0, 2.0, -3.0)),
+            -Vector(1.0, -2.0, 3.0).MagnitudeSquared());
 }
 
-TEST(ValueVector, Hash) {
-  constexpr Vector first(1.11, -2.22, 3.33);
-  constexpr Vector second(1.11, -2.22, 3.330001);
-  constexpr Vector third(1.11, 2.22, 3.33);
+TEST(Vector, Hash) {
+  constexpr Vector first(1.0, -2.0, 3.0);
+  constexpr Vector second(1.0, -2.0, 3.000001);
+  constexpr Vector third(1.0, 2.0, 3.0);
   const std::hash<Vector> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
 }
 
-TEST(ValueVector, JSON) {
-  EXPECT_EQ(
-      Vector(1.0, -2.0, 0.0).JSON(), "{\"x\":1.000000000000000,\"y\":-2.000000000000000,\"z\":0}");
+TEST(Vector, JSON) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).JSON(),
+            "{\"x\":" + Print(1.0) + ",\"y\":" + Print(-2.0) + ",\"z\":" + Print(0.0) + "}");
 }
 
-TEST(ValueVector, Magnitude) {
-  EXPECT_EQ(Vector(0.0, 0.0, 5.5e10).Magnitude(), 5.5e10);
-  EXPECT_EQ(Vector(-1.0, 2.0, -3.0).MagnitudeSquared(), 14.0);
+TEST(Vector, Magnitude) {
+  EXPECT_EQ(Vector(6.0, -3.0, 2.0).Magnitude(), 7.0);
+  EXPECT_EQ(Vector(1.0, -2.0, 3.0).MagnitudeSquared(), 14.0);
 }
 
-TEST(ValueVector, MoveAssignmentOperator) {
-  Vector first(1.11, -2.22, 3.33);
+TEST(Vector, MoveAssignmentOperator) {
+  Vector first(1.0, -2.0, 3.0);
   Vector second = Vector::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, MoveConstructor) {
-  Vector first(1.11, -2.22, 3.33);
+TEST(Vector, MoveConstructor) {
+  Vector first(1.0, -2.0, 3.0);
   const Vector second{std::move(first)};
-  EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
 }
 
-TEST(ValueVector, Mutable) {
-  Vector first(1.11, -2.22, 3.33);
-  std::array<double, 3>& mutable_x_y_z = first.Mutable_x_y_z();
-  mutable_x_y_z = {-4.44, 5.55, -6.66};
-  constexpr std::array<double, 3> result{-4.44, 5.55, -6.66};
-  EXPECT_EQ(first.x_y_z(), result);
-
-  Vector second(1.11, -2.22, 3.33);
-  double& mutable_x = second.Mutable_x();
-  mutable_x = -4.44;
-  double& mutable_y = second.Mutable_y();
-  mutable_y = 5.55;
-  double& mutable_z = second.Mutable_z();
-  mutable_z = -6.66;
-  EXPECT_EQ(second.x(), -4.44);
-  EXPECT_EQ(second.y(), 5.55);
-  EXPECT_EQ(second.z(), -6.66);
+TEST(Vector, Mutable) {
+  {
+    Vector vector(1.0, -2.0, 3.0);
+    std::array<double, 3>& mutable_x_y_z = vector.Mutable_x_y_z();
+    mutable_x_y_z = {-4.0, 5.0, -6.0};
+    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
+  }
+  {
+    Vector vector(1.0, -2.0, 3.0);
+    double& mutable_x = vector.Mutable_x();
+    mutable_x = -4.0;
+    double& mutable_y = vector.Mutable_y();
+    mutable_y = 5.0;
+    double& mutable_z = vector.Mutable_z();
+    mutable_z = -6.0;
+    EXPECT_EQ(vector.x(), -4.0);
+    EXPECT_EQ(vector.y(), 5.0);
+    EXPECT_EQ(vector.z(), -6.0);
+  }
 }
 
-TEST(ValueVector, Print) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(), "(1.000000000000000, -2.000000000000000, 0)");
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(Precision::Double),
-            "(1.000000000000000, -2.000000000000000, 0)");
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(Precision::Single), "(1.000000, -2.000000, 0)");
+TEST(Vector, Print) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).Print(),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(0.0) + ")");
 }
 
-TEST(ValueVector, Set) {
-  Vector first(1.11, -2.22, 3.33);
-  first.Set_x_y_z(std::array<double, 3>{-4.44, 5.55, -6.66});
-  EXPECT_EQ(first, Vector(-4.44, 5.55, -6.66));
-
-  Vector second(1.11, -2.22, 3.33);
-  second.Set_x_y_z(-4.44, 5.55, -6.66);
-  EXPECT_EQ(second, Vector(-4.44, 5.55, -6.66));
-
-  Vector third(1.11, -2.22, 3.33);
-  third.Set_x(-4.44);
-  third.Set_y(5.55);
-  third.Set_z(-6.66);
-  EXPECT_EQ(third, Vector(-4.44, 5.55, -6.66));
+TEST(Vector, Set) {
+  {
+    Vector vector(1.0, -2.0, 3.0);
+    vector.Set_x_y_z(std::array<double, 3>{-4.0, 5.0, -6.0});
+    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
+  }
+  {
+    Vector vector(1.0, -2.0, 3.0);
+    vector.Set_x_y_z(-4.0, 5.0, -6.0);
+    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
+  }
+  {
+    Vector vector(1.0, -2.0, 3.0);
+    vector.Set_x(-4.0);
+    vector.Set_y(5.0);
+    vector.Set_z(-6.0);
+    EXPECT_EQ(vector, Vector(-4.0, 5.0, -6.0));
+  }
 }
 
-TEST(ValueVector, SizeOf) {
+TEST(Vector, SizeOf) {
   EXPECT_EQ(sizeof(Vector{}), 3 * sizeof(double));
 }
 
-TEST(ValueVector, StandardConstructor) {
-  EXPECT_EQ(Vector(std::array<double, 3>{1.11, -2.22, 3.33}), Vector(1.11, -2.22, 3.33));
-
-  constexpr std::array<double, 3> first_x_y_z{1.11, -2.22, 3.33};
-  EXPECT_EQ(Vector(first_x_y_z), Vector(1.11, -2.22, 3.33));
-
-  constexpr std::array<double, 3> second_x_y_z{1.11, -2.22, 3.33};
-  Vector second = Vector::Zero();
-  second = second_x_y_z;
-  EXPECT_EQ(second, Vector(1.11, -2.22, 3.33));
+TEST(Vector, StandardConstructor) {
+  EXPECT_EQ(Vector(std::array<double, 3>{1.0, -2.0, 3.0}), Vector(1.0, -2.0, 3.0));
+  {
+    Vector vector = Vector::Zero();
+    vector = std::array<double, 3>{1.0, -2.0, 3.0};
+    EXPECT_EQ(vector, Vector(1.0, -2.0, 3.0));
+  }
 }
 
-TEST(ValueVector, Stream) {
-  constexpr Vector value{1.23, 4.56, 7.89};
+TEST(Vector, Stream) {
   std::ostringstream stream;
-  stream << value;
-  EXPECT_EQ(stream.str(), value.Print());
+  stream << Vector{1.0, -2.0, 3.0};
+  EXPECT_EQ(stream.str(), Vector(1.0, -2.0, 3.0).Print());
 }
 
-TEST(ValueVector, XML) {
-  EXPECT_EQ(
-      Vector(1.0, -2.0, 0.0).XML(), "<x>1.000000000000000</x><y>-2.000000000000000</y><z>0</z>");
+TEST(Vector, XML) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).XML(),
+            "<x>" + Print(1.0) + "</x><y>" + Print(-2.0) + "</y><z>" + Print(0.0) + "</z>");
 }
 
-TEST(ValueVector, YAML) {
-  EXPECT_EQ(Vector(1.0, -2.0, 0.0).YAML(), "{x:1.000000000000000,y:-2.000000000000000,z:0}");
+TEST(Vector, YAML) {
+  EXPECT_EQ(Vector(1.0, -2.0, 0.0).YAML(),
+            "{x:" + Print(1.0) + ",y:" + Print(-2.0) + ",z:" + Print(0.0) + "}");
 }
 
-TEST(ValueVector, Zero) {
+TEST(Vector, Zero) {
   EXPECT_EQ(Vector::Zero(), Vector(0.0, 0.0, 0.0));
 }
 

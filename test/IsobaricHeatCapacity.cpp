@@ -35,14 +35,11 @@ TEST(IsobaricHeatCapacity, ArithmeticOperatorAddition) {
 TEST(IsobaricHeatCapacity, ArithmeticOperatorDivision) {
   EXPECT_EQ(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin) / 2.0,
             IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin)
                 / IsobaricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin),
             4.0);
-
   EXPECT_EQ(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin) / HeatCapacityRatio(2.0),
             IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin)
                 / IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin),
             HeatCapacityRatio(2.0));
@@ -51,13 +48,10 @@ TEST(IsobaricHeatCapacity, ArithmeticOperatorDivision) {
 TEST(IsobaricHeatCapacity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin) * 2.0,
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(2.0 * IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin),
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(HeatCapacityRatio(2.0) * IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin),
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin) * HeatCapacityRatio(2.0),
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
 }
@@ -69,32 +63,32 @@ TEST(IsobaricHeatCapacity, ArithmeticOperatorSubtraction) {
 }
 
 TEST(IsobaricHeatCapacity, AssignmentOperatorAddition) {
-  IsobaricHeatCapacity quantity{1.0, Unit::HeatCapacity::JoulePerKelvin};
-  quantity += IsobaricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(quantity, IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin));
+  IsobaricHeatCapacity isobaric_heat_capacity{1.0, Unit::HeatCapacity::JoulePerKelvin};
+  isobaric_heat_capacity += IsobaricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin);
+  EXPECT_EQ(isobaric_heat_capacity, IsobaricHeatCapacity(3.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, AssignmentOperatorDivision) {
-  IsobaricHeatCapacity quantity{8.0, Unit::HeatCapacity::JoulePerKelvin};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
+  IsobaricHeatCapacity isobaric_heat_capacity{8.0, Unit::HeatCapacity::JoulePerKelvin};
+  isobaric_heat_capacity /= 2.0;
+  EXPECT_EQ(isobaric_heat_capacity, IsobaricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, AssignmentOperatorMultiplication) {
-  IsobaricHeatCapacity quantity{4.0, Unit::HeatCapacity::JoulePerKelvin};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
+  IsobaricHeatCapacity isobaric_heat_capacity{4.0, Unit::HeatCapacity::JoulePerKelvin};
+  isobaric_heat_capacity *= 2.0;
+  EXPECT_EQ(isobaric_heat_capacity, IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, AssignmentOperatorSubtraction) {
-  IsobaricHeatCapacity quantity{3.0, Unit::HeatCapacity::JoulePerKelvin};
-  quantity -= IsobaricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(quantity, IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
+  IsobaricHeatCapacity isobaric_heat_capacity{3.0, Unit::HeatCapacity::JoulePerKelvin};
+  isobaric_heat_capacity -= IsobaricHeatCapacity(2.0, Unit::HeatCapacity::JoulePerKelvin);
+  EXPECT_EQ(isobaric_heat_capacity, IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, ComparisonOperators) {
-  const IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::JoulePerKelvin};
-  const IsobaricHeatCapacity second{2.22, Unit::HeatCapacity::JoulePerKelvin};
+  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
+  const IsobaricHeatCapacity second{2.0, Unit::HeatCapacity::JoulePerKelvin};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -106,22 +100,22 @@ TEST(IsobaricHeatCapacity, ComparisonOperators) {
 }
 
 TEST(IsobaricHeatCapacity, CopyAssignmentOperator) {
-  const IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::JoulePerKelvin};
+  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
   IsobaricHeatCapacity second = IsobaricHeatCapacity::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(IsobaricHeatCapacity, CopyConstructor) {
-  const IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::JoulePerKelvin};
+  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
   const IsobaricHeatCapacity second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(IsobaricHeatCapacity, Create) {
-  constexpr IsobaricHeatCapacity quantity =
-      IsobaricHeatCapacity::Create<Unit::HeatCapacity::JoulePerKelvin>(1.11);
-  EXPECT_EQ(quantity, IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin));
+  constexpr IsobaricHeatCapacity isobaric_heat_capacity =
+      IsobaricHeatCapacity::Create<Unit::HeatCapacity::JoulePerKelvin>(1.0);
+  EXPECT_EQ(isobaric_heat_capacity, IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, DefaultConstructor) {
@@ -133,9 +127,9 @@ TEST(IsobaricHeatCapacity, Dimensions) {
 }
 
 TEST(IsobaricHeatCapacity, Hash) {
-  const IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::NanojoulePerKelvin};
-  const IsobaricHeatCapacity second{1.110001, Unit::HeatCapacity::NanojoulePerKelvin};
-  const IsobaricHeatCapacity third{-1.11, Unit::HeatCapacity::NanojoulePerKelvin};
+  const IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::NanojoulePerKelvin};
+  const IsobaricHeatCapacity second{1.00001, Unit::HeatCapacity::NanojoulePerKelvin};
+  const IsobaricHeatCapacity third{-1.0, Unit::HeatCapacity::NanojoulePerKelvin};
   const std::hash<IsobaricHeatCapacity> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -143,59 +137,57 @@ TEST(IsobaricHeatCapacity, Hash) {
 }
 
 TEST(IsobaricHeatCapacity, JSON) {
-  EXPECT_EQ(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"J/K\"}");
-  EXPECT_EQ(IsobaricHeatCapacity(-2.22, Unit::HeatCapacity::NanojoulePerKelvin)
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"J/K\"}");
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin)
                 .JSON(Unit::HeatCapacity::NanojoulePerKelvin),
-            "{\"value\":-2.220000000000000,\"unit\":\"nJ/K\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"nJ/K\"}");
 }
 
 TEST(IsobaricHeatCapacity, MiscellaneousConstructors) {
   EXPECT_EQ(IsobaricHeatCapacity(HeatCapacityRatio(2.0),
                                  IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
             IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin));
-
   EXPECT_EQ(HeatCapacityRatio(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
                               IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin)),
             HeatCapacityRatio(2.0));
-
   EXPECT_EQ(IsochoricHeatCapacity(IsobaricHeatCapacity(8.0, Unit::HeatCapacity::JoulePerKelvin),
                                   HeatCapacityRatio(2.0)),
             IsochoricHeatCapacity(4.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, MoveAssignmentOperator) {
-  IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::JoulePerKelvin};
+  IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
   IsobaricHeatCapacity second = IsobaricHeatCapacity::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(second, IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, MoveConstructor) {
-  IsobaricHeatCapacity first{1.11, Unit::HeatCapacity::JoulePerKelvin};
+  IsobaricHeatCapacity first{1.0, Unit::HeatCapacity::JoulePerKelvin};
   const IsobaricHeatCapacity second{std::move(first)};
-  EXPECT_EQ(second, IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin));
+  EXPECT_EQ(second, IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, MutableValue) {
-  IsobaricHeatCapacity quantity{1.11, Unit::HeatCapacity::JoulePerKelvin};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsobaricHeatCapacity isobaric_heat_capacity{1.0, Unit::HeatCapacity::JoulePerKelvin};
+  double& value = isobaric_heat_capacity.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(isobaric_heat_capacity.Value(), 2.0);
 }
 
 TEST(IsobaricHeatCapacity, Print) {
-  EXPECT_EQ(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).Print(),
-            "1.110000000000000 J/K");
-  EXPECT_EQ(IsobaricHeatCapacity(-2.22, Unit::HeatCapacity::NanojoulePerKelvin)
+  EXPECT_EQ(
+      IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).Print(), Print(1.0) + " J/K");
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin)
                 .Print(Unit::HeatCapacity::NanojoulePerKelvin),
-            "-2.220000000000000 nJ/K");
+            Print(1.0) + " nJ/K");
 }
 
 TEST(IsobaricHeatCapacity, SetValue) {
-  IsobaricHeatCapacity quantity{1.11, Unit::HeatCapacity::JoulePerKelvin};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  IsobaricHeatCapacity isobaric_heat_capacity{1.0, Unit::HeatCapacity::JoulePerKelvin};
+  isobaric_heat_capacity.SetValue(2.0);
+  EXPECT_EQ(isobaric_heat_capacity.Value(), 2.0);
 }
 
 TEST(IsobaricHeatCapacity, SizeOf) {
@@ -203,20 +195,21 @@ TEST(IsobaricHeatCapacity, SizeOf) {
 }
 
 TEST(IsobaricHeatCapacity, StandardConstructor) {
-  EXPECT_NO_THROW(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::NanojoulePerKelvin));
+  EXPECT_NO_THROW(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin));
 }
 
 TEST(IsobaricHeatCapacity, StaticValue) {
-  constexpr IsobaricHeatCapacity quantity =
+  constexpr IsobaricHeatCapacity isobaric_heat_capacity =
       IsobaricHeatCapacity::Create<Unit::HeatCapacity::NanojoulePerKelvin>(2.0);
-  constexpr double value = quantity.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
+  constexpr double value =
+      isobaric_heat_capacity.StaticValue<Unit::HeatCapacity::NanojoulePerKelvin>();
   EXPECT_EQ(value, 2.0);
 }
 
 TEST(IsobaricHeatCapacity, Stream) {
   std::ostringstream stream;
-  stream << IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin);
-  EXPECT_EQ(stream.str(), IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).Print());
+  stream << IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin);
+  EXPECT_EQ(stream.str(), IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).Print());
 }
 
 TEST(IsobaricHeatCapacity, Unit) {
@@ -224,26 +217,26 @@ TEST(IsobaricHeatCapacity, Unit) {
 }
 
 TEST(IsobaricHeatCapacity, Value) {
-  EXPECT_EQ(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).Value(), 1.11);
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).Value(), 1.0);
   EXPECT_EQ(IsobaricHeatCapacity(2.0, Unit::HeatCapacity::NanojoulePerKelvin)
                 .Value(Unit::HeatCapacity::NanojoulePerKelvin),
             2.0);
 }
 
 TEST(IsobaricHeatCapacity, XML) {
-  EXPECT_EQ(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).XML(),
-            "<value>1.110000000000000</value><unit>J/K</unit>");
-  EXPECT_EQ(IsobaricHeatCapacity(-2.22, Unit::HeatCapacity::NanojoulePerKelvin)
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).XML(),
+            "<value>" + Print(1.0) + "</value><unit>J/K</unit>");
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin)
                 .XML(Unit::HeatCapacity::NanojoulePerKelvin),
-            "<value>-2.220000000000000</value><unit>nJ/K</unit>");
+            "<value>" + Print(1.0) + "</value><unit>nJ/K</unit>");
 }
 
 TEST(IsobaricHeatCapacity, YAML) {
-  EXPECT_EQ(IsobaricHeatCapacity(1.11, Unit::HeatCapacity::JoulePerKelvin).YAML(),
-            "{value:1.110000000000000,unit:\"J/K\"}");
-  EXPECT_EQ(IsobaricHeatCapacity(-2.22, Unit::HeatCapacity::NanojoulePerKelvin)
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::JoulePerKelvin).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"J/K\"}");
+  EXPECT_EQ(IsobaricHeatCapacity(1.0, Unit::HeatCapacity::NanojoulePerKelvin)
                 .YAML(Unit::HeatCapacity::NanojoulePerKelvin),
-            "{value:-2.220000000000000,unit:\"nJ/K\"}");
+            "{value:" + Print(1.0) + ",unit:\"nJ/K\"}");
 }
 
 TEST(IsobaricHeatCapacity, Zero) {

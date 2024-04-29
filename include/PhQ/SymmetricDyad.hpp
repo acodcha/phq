@@ -304,17 +304,6 @@ public:
            + PhQ::Print(xx_xy_xz_yy_yz_zz_[4]) + "; " + PhQ::Print(xx_xy_xz_yy_yz_zz_[5]) + ")";
   }
 
-  // Prints this three-dimensional symmetric dyadic tensor as a string. Components are printed to a
-  // given floating point precision.
-  [[nodiscard]] std::string Print(const Precision precision) const {
-    return "(" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0], precision) + ", "
-           + PhQ::Print(xx_xy_xz_yy_yz_zz_[1], precision) + ", "
-           + PhQ::Print(xx_xy_xz_yy_yz_zz_[2], precision) + "; "
-           + PhQ::Print(xx_xy_xz_yy_yz_zz_[3], precision) + ", "
-           + PhQ::Print(xx_xy_xz_yy_yz_zz_[4], precision) + "; "
-           + PhQ::Print(xx_xy_xz_yy_yz_zz_[5], precision) + ")";
-  }
-
   // Serializes this three-dimensional symmetric dyadic tensor as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx_xy_xz_yy_yz_zz_[0]) + ",\"xy\":"
