@@ -167,7 +167,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.45359237 * 9.80665 * 1.8);
+  value /= (0.3048 * 0.45359237 * 9.80665 * 1.8);
 }
 
 template <>
@@ -181,7 +181,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.45359237 * 9.80665 * 1.8);
+  value /= (0.0254 * 0.45359237 * 9.80665 * 1.8);
 }
 
 template <>

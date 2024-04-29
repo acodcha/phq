@@ -196,7 +196,7 @@ inline const std::unordered_map<std::string_view, Unit::Length> Spellings<Unit::
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::NauticalMile>(
     double& value) noexcept {
-  value *= 1.0 / 1852.0;
+  value /= 1852.0;
 }
 
 template <>
@@ -208,7 +208,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::NauticalM
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Mile>(
     double& value) noexcept {
-  value *= 1.0 / 1609.344;
+  value /= 1609.344;
 }
 
 template <>
@@ -240,7 +240,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Metre>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Yard>(
     double& value) noexcept {
-  value *= 1.0 / 0.9144;
+  value /= 0.9144;
 }
 
 template <>
@@ -252,7 +252,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Yard>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Foot>(
     double& value) noexcept {
-  value *= 1.0 / 0.3048;
+  value /= 0.3048;
 }
 
 template <>
@@ -276,7 +276,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Decimetre
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Inch>(
     double& value) noexcept {
-  value *= 1.0 / 0.0254;
+  value /= 0.0254;
 }
 
 template <>
@@ -312,7 +312,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Millimetr
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Milliinch>(
     double& value) noexcept {
-  value *= 1.0 / 0.0000254;
+  value /= 0.0000254;
 }
 
 template <>
@@ -336,7 +336,7 @@ inline constexpr void ConversionToStandard<Unit::Length, Unit::Length::Micrometr
 template <>
 inline constexpr void ConversionFromStandard<Unit::Length, Unit::Length::Microinch>(
     double& value) noexcept {
-  value *= 1.0 / 0.0000000254;
+  value /= 0.0000000254;
 }
 
 template <>

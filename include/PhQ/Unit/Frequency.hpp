@@ -159,7 +159,7 @@ inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::P
 template <>
 inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -171,7 +171,7 @@ inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::P
 template <>
 inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerHour>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>

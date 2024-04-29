@@ -438,7 +438,7 @@ inline constexpr void
 ConversionFromStandard<Unit::SpecificHeatCapacity,
                        Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.3048 * 0.3048);
+  value /= (1.8 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -453,7 +453,7 @@ inline constexpr void
 ConversionFromStandard<Unit::SpecificHeatCapacity,
                        Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.0254 * 0.0254);
+  value /= (1.8 * 0.0254 * 0.0254);
 }
 
 template <>

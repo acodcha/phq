@@ -237,7 +237,7 @@ inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.45359237 * 9.80665);
+  value /= (0.3048 * 0.45359237 * 9.80665);
 }
 
 template <>
@@ -249,7 +249,7 @@ inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::FootPoundPe
 template <>
 inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.45359237 * 9.80665);
+  value /= (0.0254 * 0.45359237 * 9.80665);
 }
 
 template <>

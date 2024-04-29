@@ -180,7 +180,7 @@ inline const std::unordered_map<std::string_view, Unit::Volume> Spellings<Unit::
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicNauticalMile>(
     double& value) noexcept {
-  value *= 1.0 / (1852.0 * 1852.0 * 1852.0);
+  value /= (1852.0 * 1852.0 * 1852.0);
 }
 
 template <>
@@ -192,7 +192,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicNaut
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMile>(
     double& value) noexcept {
-  value *= 1.0 / (1609.344 * 1609.344 * 1609.344);
+  value /= (1609.344 * 1609.344 * 1609.344);
 }
 
 template <>
@@ -224,7 +224,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMetr
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicYard>(
     double& value) noexcept {
-  value *= 1.0 / (0.9144 * 0.9144 * 0.9144);
+  value /= (0.9144 * 0.9144 * 0.9144);
 }
 
 template <>
@@ -236,7 +236,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicYard
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicFoot>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.3048 * 0.3048);
+  value /= (0.3048 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -272,7 +272,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::Litre>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicInch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.0254 * 0.0254);
+  value /= (0.0254 * 0.0254 * 0.0254);
 }
 
 template <>
@@ -320,7 +320,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMill
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMilliinch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000254 * 0.0000254 * 0.0000254);
+  value /= (0.0000254 * 0.0000254 * 0.0000254);
 }
 
 template <>
@@ -344,7 +344,7 @@ inline constexpr void ConversionToStandard<Unit::Volume, Unit::Volume::CubicMicr
 template <>
 inline constexpr void ConversionFromStandard<Unit::Volume, Unit::Volume::CubicMicroinch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
+  value /= (0.0000000254 * 0.0000000254 * 0.0000000254);
 }
 
 template <>

@@ -148,7 +148,7 @@ inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Slinch>(doubl
 template <>
 inline constexpr void ConversionFromStandard<Unit::Mass, Unit::Mass::Pound>(
     double& value) noexcept {
-  value *= 1.0 / 0.45359237;
+  value /= 0.45359237;
 }
 
 template <>

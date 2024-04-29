@@ -403,7 +403,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 1852.0;
+  value /= 1852.0;
 }
 
 template <>
@@ -443,7 +443,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 1609.344;
+  value /= 1609.344;
 }
 
 template <>
@@ -544,7 +544,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>
@@ -558,14 +558,14 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>(
     double& value) noexcept {
-  value *= 1.0 / 12960000.0;
+  value /= 12960000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.9144;
+  value /= 0.9144;
 }
 
 template <>
@@ -607,7 +607,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.3048;
+  value /= 0.3048;
 }
 
 template <>
@@ -691,7 +691,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.0254;
+  value /= 0.0254;
 }
 
 template <>
@@ -817,7 +817,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.0000254;
+  value /= 0.0000254;
 }
 
 template <>
@@ -901,7 +901,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.0000000254;
+  value /= 0.0000000254;
 }
 
 template <>
