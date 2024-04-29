@@ -81,32 +81,32 @@ TEST(AngularSpeed, ArithmeticOperatorSubtraction) {
 }
 
 TEST(AngularSpeed, AssignmentOperatorAddition) {
-  AngularSpeed quantity{1.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity += AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(quantity, AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond));
+  AngularSpeed angular_speed{1.0, Unit::AngularSpeed::RadianPerSecond};
+  angular_speed += AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(angular_speed, AngularSpeed(3.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, AssignmentOperatorDivision) {
-  AngularSpeed quantity{8.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
+  AngularSpeed angular_speed{8.0, Unit::AngularSpeed::RadianPerSecond};
+  angular_speed /= 2.0;
+  EXPECT_EQ(angular_speed, AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, AssignmentOperatorMultiplication) {
-  AngularSpeed quantity{4.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
+  AngularSpeed angular_speed{4.0, Unit::AngularSpeed::RadianPerSecond};
+  angular_speed *= 2.0;
+  EXPECT_EQ(angular_speed, AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, AssignmentOperatorSubtraction) {
-  AngularSpeed quantity{3.0, Unit::AngularSpeed::RadianPerSecond};
-  quantity -= AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(quantity, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
+  AngularSpeed angular_speed{3.0, Unit::AngularSpeed::RadianPerSecond};
+  angular_speed -= AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(angular_speed, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, ComparisonOperators) {
-  const AngularSpeed first{0.1, Unit::AngularSpeed::RadianPerSecond};
-  const AngularSpeed second{0.2, Unit::AngularSpeed::RadianPerSecond};
+  const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
+  const AngularSpeed second{2.0, Unit::AngularSpeed::RadianPerSecond};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -118,21 +118,22 @@ TEST(AngularSpeed, ComparisonOperators) {
 }
 
 TEST(AngularSpeed, CopyAssignmentOperator) {
-  const AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
   AngularSpeed second = AngularSpeed::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(AngularSpeed, CopyConstructor) {
-  const AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  const AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
   const AngularSpeed second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(AngularSpeed, Create) {
-  constexpr AngularSpeed quantity = AngularSpeed::Create<Unit::AngularSpeed::RadianPerSecond>(1.11);
-  EXPECT_EQ(quantity, AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond));
+  constexpr AngularSpeed angular_speed =
+      AngularSpeed::Create<Unit::AngularSpeed::RadianPerSecond>(1.0);
+  EXPECT_EQ(angular_speed, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, DefaultConstructor) {
@@ -144,9 +145,9 @@ TEST(AngularSpeed, Dimensions) {
 }
 
 TEST(AngularSpeed, Hash) {
-  const AngularSpeed first{1.11, Unit::AngularSpeed::DegreePerSecond};
-  const AngularSpeed second{1.110001, Unit::AngularSpeed::DegreePerSecond};
-  const AngularSpeed third{-1.11, Unit::AngularSpeed::DegreePerSecond};
+  const AngularSpeed first{1.0, Unit::AngularSpeed::DegreePerSecond};
+  const AngularSpeed second{1.000001, Unit::AngularSpeed::DegreePerSecond};
+  const AngularSpeed third{-1.0, Unit::AngularSpeed::DegreePerSecond};
   const std::hash<AngularSpeed> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -154,11 +155,11 @@ TEST(AngularSpeed, Hash) {
 }
 
 TEST(AngularSpeed, JSON) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"rad/s\"}");
-  EXPECT_EQ(AngularSpeed(-2.22, Unit::AngularSpeed::DegreePerSecond)
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"rad/s\"}");
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond)
                 .JSON(Unit::AngularSpeed::DegreePerSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"deg/s\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"deg/s\"}");
 }
 
 TEST(AngularSpeed, MiscellaneousConstructors) {
@@ -186,37 +187,36 @@ TEST(AngularSpeed, MiscellaneousConstructors) {
 }
 
 TEST(AngularSpeed, MoveAssignmentOperator) {
-  AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
   AngularSpeed second = AngularSpeed::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(second, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, MoveConstructor) {
-  AngularSpeed first{1.11, Unit::AngularSpeed::RadianPerSecond};
+  AngularSpeed first{1.0, Unit::AngularSpeed::RadianPerSecond};
   const AngularSpeed second{std::move(first)};
-  EXPECT_EQ(second, AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond));
+  EXPECT_EQ(second, AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond));
 }
 
 TEST(AngularSpeed, MutableValue) {
-  AngularSpeed quantity{1.11, Unit::AngularSpeed::RadianPerSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  AngularSpeed angular_speed{1.0, Unit::AngularSpeed::RadianPerSecond};
+  double& value = angular_speed.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(angular_speed.Value(), 2.0);
 }
 
 TEST(AngularSpeed, Print) {
-  EXPECT_EQ(
-      AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Print(), "1.110000000000000 rad/s");
-  EXPECT_EQ(AngularSpeed(-2.22, Unit::AngularSpeed::DegreePerSecond)
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).Print(), Print(1.0) + " rad/s");
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond)
                 .Print(Unit::AngularSpeed::DegreePerSecond),
-            "-2.220000000000000 deg/s");
+            Print(1.0) + " deg/s");
 }
 
 TEST(AngularSpeed, SetValue) {
-  AngularSpeed quantity{1.11, Unit::AngularSpeed::RadianPerSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  AngularSpeed angular_speed{1.0, Unit::AngularSpeed::RadianPerSecond};
+  angular_speed.SetValue(2.0);
+  EXPECT_EQ(angular_speed.Value(), 2.0);
 }
 
 TEST(AngularSpeed, SizeOf) {
@@ -224,19 +224,20 @@ TEST(AngularSpeed, SizeOf) {
 }
 
 TEST(AngularSpeed, StandardConstructor) {
-  EXPECT_NO_THROW(AngularSpeed(1.11, Unit::AngularSpeed::DegreePerSecond));
+  EXPECT_NO_THROW(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond));
 }
 
 TEST(AngularSpeed, StaticValue) {
-  constexpr AngularSpeed quantity = AngularSpeed::Create<Unit::AngularSpeed::DegreePerSecond>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::AngularSpeed::DegreePerSecond>();
-  EXPECT_EQ(value, 1.11);
+  constexpr AngularSpeed angular_speed =
+      AngularSpeed::Create<Unit::AngularSpeed::DegreePerSecond>(1.0);
+  constexpr double value = angular_speed.StaticValue<Unit::AngularSpeed::DegreePerSecond>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(AngularSpeed, Stream) {
   std::ostringstream stream;
-  stream << AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond);
-  EXPECT_EQ(stream.str(), AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Print());
+  stream << AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond);
+  EXPECT_EQ(stream.str(), AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).Print());
 }
 
 TEST(AngularSpeed, Unit) {
@@ -244,26 +245,26 @@ TEST(AngularSpeed, Unit) {
 }
 
 TEST(AngularSpeed, Value) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).Value(), 1.11);
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::DegreePerSecond)
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).Value(), 1.0);
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond)
                 .Value(Unit::AngularSpeed::DegreePerSecond),
-            1.11);
+            1.0);
 }
 
 TEST(AngularSpeed, XML) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).XML(),
-            "<value>1.110000000000000</value><unit>rad/s</unit>");
-  EXPECT_EQ(AngularSpeed(-2.22, Unit::AngularSpeed::DegreePerSecond)
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>rad/s</unit>");
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond)
                 .XML(Unit::AngularSpeed::DegreePerSecond),
-            "<value>-2.220000000000000</value><unit>deg/s</unit>");
+            "<value>" + Print(1.0) + "</value><unit>deg/s</unit>");
 }
 
 TEST(AngularSpeed, YAML) {
-  EXPECT_EQ(AngularSpeed(1.11, Unit::AngularSpeed::RadianPerSecond).YAML(),
-            "{value:1.110000000000000,unit:\"rad/s\"}");
-  EXPECT_EQ(AngularSpeed(-2.22, Unit::AngularSpeed::DegreePerSecond)
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::RadianPerSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"rad/s\"}");
+  EXPECT_EQ(AngularSpeed(1.0, Unit::AngularSpeed::DegreePerSecond)
                 .YAML(Unit::AngularSpeed::DegreePerSecond),
-            "{value:-2.220000000000000,unit:\"deg/s\"}");
+            "{value:" + Print(1.0) + ",unit:\"deg/s\"}");
 }
 
 TEST(AngularSpeed, Zero) {

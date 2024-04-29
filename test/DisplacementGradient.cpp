@@ -42,7 +42,6 @@ TEST(DisplacementGradient, ArithmeticOperatorDivision) {
 TEST(DisplacementGradient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0) * 2.0,
             DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
-
   EXPECT_EQ(2.0 * DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0),
             DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
 }
@@ -54,33 +53,38 @@ TEST(DisplacementGradient, ArithmeticOperatorSubtraction) {
 }
 
 TEST(DisplacementGradient, AssignmentOperatorAddition) {
-  DisplacementGradient quantity(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  quantity += DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
-  EXPECT_EQ(quantity, DisplacementGradient(3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0));
+  DisplacementGradient displacement_gradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  displacement_gradient +=
+      DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
+  EXPECT_EQ(displacement_gradient,
+            DisplacementGradient(3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0));
 }
 
 TEST(DisplacementGradient, AssignmentOperatorDivision) {
-  DisplacementGradient quantity(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  DisplacementGradient displacement_gradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
+  displacement_gradient /= 2.0;
+  EXPECT_EQ(
+      displacement_gradient, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, AssignmentOperatorMultiplication) {
-  DisplacementGradient quantity(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
+  DisplacementGradient displacement_gradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  displacement_gradient *= 2.0;
+  EXPECT_EQ(displacement_gradient,
+            DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0));
 }
 
 TEST(DisplacementGradient, AssignmentOperatorSubtraction) {
-  DisplacementGradient quantity(3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0);
-  quantity -= DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
-  EXPECT_EQ(quantity, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  DisplacementGradient displacement_gradient(3.0, -6.0, 9.0, -12.0, 15.0, -18.0, 21.0, -24.0, 27.0);
+  displacement_gradient -=
+      DisplacementGradient(2.0, -4.0, 6.0, -8.0, 10.0, -12.0, 14.0, -16.0, 18.0);
+  EXPECT_EQ(
+      displacement_gradient, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, ComparisonOperators) {
-  constexpr DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  constexpr DisplacementGradient second(
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.990001);
+  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  constexpr DisplacementGradient second(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.000001);
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -92,16 +96,16 @@ TEST(DisplacementGradient, ComparisonOperators) {
 }
 
 TEST(DisplacementGradient, CopyAssignmentOperator) {
-  constexpr DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   DisplacementGradient second = DisplacementGradient::Zero();
   second = first;
-  EXPECT_EQ(second, DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, CopyConstructor) {
-  constexpr DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   constexpr DisplacementGradient second{first};
-  EXPECT_EQ(second, DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, DefaultConstructor) {
@@ -113,10 +117,9 @@ TEST(DisplacementGradient, Dimensions) {
 }
 
 TEST(DisplacementGradient, Hash) {
-  constexpr DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  constexpr DisplacementGradient second(
-      1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.990001);
-  constexpr DisplacementGradient third(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, 8.88, 9.99);
+  constexpr DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  constexpr DisplacementGradient second(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.00001);
+  constexpr DisplacementGradient third(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, 8.0, 9.0);
   const std::hash<DisplacementGradient> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -124,10 +127,11 @@ TEST(DisplacementGradient, Hash) {
 }
 
 TEST(DisplacementGradient, JSON) {
-  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).JSON(),
-            "{\"xx\":1.000000000000000,\"xy\":-2.000000000000000,\"xz\":3.000000000000000,\"yx\":-"
-            "4.000000000000000,\"yy\":5.000000000000000,\"yz\":-6.000000000000000,\"zx\":7."
-            "000000000000000,\"zy\":-8.000000000000000,\"zz\":9.000000000000000}");
+  EXPECT_EQ(
+      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).JSON(),
+      "{\"xx\":" + Print(1.0) + ",\"xy\":" + Print(-2.0) + ",\"xz\":" + Print(3.0)
+          + ",\"yx\":" + Print(-4.0) + ",\"yy\":" + Print(5.0) + ",\"yz\":" + Print(-6.0)
+          + ",\"zx\":" + Print(7.0) + ",\"zy\":" + Print(-8.0) + ",\"zz\":" + Print(9.0) + "}");
 }
 
 TEST(DisplacementGradient, MiscellaneousConstructors) {
@@ -136,38 +140,39 @@ TEST(DisplacementGradient, MiscellaneousConstructors) {
 }
 
 TEST(DisplacementGradient, MoveAssignmentOperator) {
-  DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   DisplacementGradient second = DisplacementGradient::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, MoveConstructor) {
-  DisplacementGradient first(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
+  DisplacementGradient first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
   const DisplacementGradient second{std::move(first)};
-  EXPECT_EQ(second, DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(second, DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, MutableValue) {
-  DisplacementGradient quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  Dyad& value = quantity.MutableValue();
-  value = Dyad{-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
-  EXPECT_EQ(
-      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  DisplacementGradient displacement_gradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  Dyad& value = displacement_gradient.MutableValue();
+  value = Dyad{-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
+  EXPECT_EQ(displacement_gradient.Value(),
+            Dyad(-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(DisplacementGradient, Print) {
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).Print(),
-            "(1.000000000000000, -2.000000000000000, 3.000000000000000; -4.000000000000000, "
-            "5.000000000000000, -6.000000000000000; 7.000000000000000, -8.000000000000000, "
-            "9.000000000000000)");
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + "; " + Print(-4.0) + ", "
+                + Print(5.0) + ", " + Print(-6.0) + "; " + Print(7.0) + ", " + Print(-8.0) + ", "
+                + Print(9.0) + ")");
 }
 
 TEST(DisplacementGradient, SetValue) {
-  DisplacementGradient quantity(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  quantity.SetValue(Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
-  EXPECT_EQ(
-      quantity.Value(), Dyad(-10.10, 11.11, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  DisplacementGradient displacement_gradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  displacement_gradient.SetValue(
+      Dyad(-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
+  EXPECT_EQ(displacement_gradient.Value(),
+            Dyad(-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));
 }
 
 TEST(DisplacementGradient, SizeOf) {
@@ -175,30 +180,30 @@ TEST(DisplacementGradient, SizeOf) {
 }
 
 TEST(DisplacementGradient, StandardConstructor) {
-  EXPECT_EQ(DisplacementGradient(
-                std::array<double, 9>{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}),
-            DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
-  EXPECT_EQ(DisplacementGradient(Dyad{1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99}),
-            DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(
+      DisplacementGradient(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
+      DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+  EXPECT_EQ(DisplacementGradient(Dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
+            DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, Stream) {
   std::ostringstream stream;
-  stream << DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99);
-  EXPECT_EQ(stream.str(),
-            DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99).Print());
+  stream << DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  EXPECT_EQ(
+      stream.str(), DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).Print());
 }
 
 TEST(DisplacementGradient, Value) {
-  EXPECT_EQ(DisplacementGradient(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99).Value(),
-            Dyad(1.11, -2.22, 3.33, -4.44, 5.55, -6.66, 7.77, -8.88, 9.99));
+  EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).Value(),
+            Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(DisplacementGradient, XML) {
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).XML(),
-            "<xx>1.000000000000000</xx><xy>-2.000000000000000</xy><xz>3.000000000000000</"
-            "xz><yx>-4.000000000000000</yx><yy>5.000000000000000</yy><yz>-6.000000000000000</"
-            "yz><zx>7.000000000000000</zx><zy>-8.000000000000000</zy><zz>9.000000000000000</zz>");
+            "<xx>" + Print(1.0) + "</xx><xy>" + Print(-2.0) + "</xy><xz>" + Print(3.0) + "</xz><yx>"
+                + Print(-4.0) + "</yx><yy>" + Print(5.0) + "</yy><yz>" + Print(-6.0) + "</yz><zx>"
+                + Print(7.0) + "</zx><zy>" + Print(-8.0) + "</zy><zz>" + Print(9.0) + "</zz>");
 }
 
 TEST(DisplacementGradient, XYZ) {
@@ -224,9 +229,9 @@ TEST(DisplacementGradient, XYZ) {
 
 TEST(DisplacementGradient, YAML) {
   EXPECT_EQ(DisplacementGradient(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).YAML(),
-            "{xx:1.000000000000000,xy:-2.000000000000000,xz:3.000000000000000,yx:-4."
-            "000000000000000,yy:5.000000000000000,yz:-6.000000000000000,zx:7.000000000000000,zy:-8."
-            "000000000000000,zz:9.000000000000000}");
+            "{xx:" + Print(1.0) + ",xy:" + Print(-2.0) + ",xz:" + Print(3.0) + ",yx:" + Print(-4.0)
+                + ",yy:" + Print(5.0) + ",yz:" + Print(-6.0) + ",zx:" + Print(7.0)
+                + ",zy:" + Print(-8.0) + ",zz:" + Print(9.0) + "}");
 }
 
 TEST(DisplacementGradient, Zero) {

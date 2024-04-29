@@ -39,21 +39,16 @@ TEST(MassRate, ArithmeticOperatorAddition) {
 TEST(MassRate, ArithmeticOperatorDivision) {
   EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond) / 2.0,
             MassRate(4.0, Unit::MassRate::KilogramPerSecond));
-
   EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond)
                 / MassRate(2.0, Unit::MassRate::KilogramPerSecond),
             4.0);
-
   EXPECT_EQ(
       MassRate(8.0, Unit::MassRate::KilogramPerSecond) / Frequency(4.0, Unit::Frequency::Hertz),
       Mass(2.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(MassRate(8.0, Unit::MassRate::KilogramPerSecond) / Mass(4.0, Unit::Mass::Kilogram),
             Frequency(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / MassRate(4.0, Unit::MassRate::KilogramPerSecond),
             Time(2.0, Unit::Time::Second));
-
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / Time(4.0, Unit::Time::Second),
             MassRate(2.0, Unit::MassRate::KilogramPerSecond));
 }
@@ -61,13 +56,10 @@ TEST(MassRate, ArithmeticOperatorDivision) {
 TEST(MassRate, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(MassRate(4.0, Unit::MassRate::KilogramPerSecond) * 2.0,
             MassRate(8.0, Unit::MassRate::KilogramPerSecond));
-
   EXPECT_EQ(2.0 * MassRate(4.0, Unit::MassRate::KilogramPerSecond),
             MassRate(8.0, Unit::MassRate::KilogramPerSecond));
-
   EXPECT_EQ(MassRate(4.0, Unit::MassRate::KilogramPerSecond) * Time(2.0, Unit::Time::Second),
             Mass(8.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * MassRate(2.0, Unit::MassRate::KilogramPerSecond),
             Mass(8.0, Unit::Mass::Kilogram));
 }
@@ -79,32 +71,32 @@ TEST(MassRate, ArithmeticOperatorSubtraction) {
 }
 
 TEST(MassRate, AssignmentOperatorAddition) {
-  MassRate quantity{1.0, Unit::MassRate::KilogramPerSecond};
-  quantity += MassRate(2.0, Unit::MassRate::KilogramPerSecond);
-  EXPECT_EQ(quantity, MassRate(3.0, Unit::MassRate::KilogramPerSecond));
+  MassRate mass_rate{1.0, Unit::MassRate::KilogramPerSecond};
+  mass_rate += MassRate(2.0, Unit::MassRate::KilogramPerSecond);
+  EXPECT_EQ(mass_rate, MassRate(3.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, AssignmentOperatorDivision) {
-  MassRate quantity{8.0, Unit::MassRate::KilogramPerSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, MassRate(4.0, Unit::MassRate::KilogramPerSecond));
+  MassRate mass_rate{8.0, Unit::MassRate::KilogramPerSecond};
+  mass_rate /= 2.0;
+  EXPECT_EQ(mass_rate, MassRate(4.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, AssignmentOperatorMultiplication) {
-  MassRate quantity{4.0, Unit::MassRate::KilogramPerSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, MassRate(8.0, Unit::MassRate::KilogramPerSecond));
+  MassRate mass_rate{4.0, Unit::MassRate::KilogramPerSecond};
+  mass_rate *= 2.0;
+  EXPECT_EQ(mass_rate, MassRate(8.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, AssignmentOperatorSubtraction) {
-  MassRate quantity{3.0, Unit::MassRate::KilogramPerSecond};
-  quantity -= MassRate(2.0, Unit::MassRate::KilogramPerSecond);
-  EXPECT_EQ(quantity, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
+  MassRate mass_rate{3.0, Unit::MassRate::KilogramPerSecond};
+  mass_rate -= MassRate(2.0, Unit::MassRate::KilogramPerSecond);
+  EXPECT_EQ(mass_rate, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, ComparisonOperators) {
-  const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
-  const MassRate second{2.22, Unit::MassRate::KilogramPerSecond};
+  const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
+  const MassRate second{2.0, Unit::MassRate::KilogramPerSecond};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -116,21 +108,21 @@ TEST(MassRate, ComparisonOperators) {
 }
 
 TEST(MassRate, CopyAssignmentOperator) {
-  const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
   MassRate second = MassRate::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(MassRate, CopyConstructor) {
-  const MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  const MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
   const MassRate second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(MassRate, Create) {
-  constexpr MassRate quantity = MassRate::Create<Unit::MassRate::KilogramPerSecond>(1.11);
-  EXPECT_EQ(quantity, MassRate(1.11, Unit::MassRate::KilogramPerSecond));
+  constexpr MassRate mass_rate = MassRate::Create<Unit::MassRate::KilogramPerSecond>(1.0);
+  EXPECT_EQ(mass_rate, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, DefaultConstructor) {
@@ -142,9 +134,9 @@ TEST(MassRate, Dimensions) {
 }
 
 TEST(MassRate, Hash) {
-  const MassRate first{1.11, Unit::MassRate::GramPerSecond};
-  const MassRate second{1.110001, Unit::MassRate::GramPerSecond};
-  const MassRate third{-1.11, Unit::MassRate::GramPerSecond};
+  const MassRate first{1.0, Unit::MassRate::GramPerSecond};
+  const MassRate second{1.00001, Unit::MassRate::GramPerSecond};
+  const MassRate third{-1.0, Unit::MassRate::GramPerSecond};
   const std::hash<MassRate> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -152,58 +144,55 @@ TEST(MassRate, Hash) {
 }
 
 TEST(MassRate, JSON) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"kg/s\"}");
-  EXPECT_EQ(MassRate(-2.22, Unit::MassRate::GramPerSecond).JSON(Unit::MassRate::GramPerSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"g/s\"}");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kg/s\"}");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::GramPerSecond).JSON(Unit::MassRate::GramPerSecond),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"g/s\"}");
 }
 
 TEST(MassRate, MiscellaneousConstructors) {
   EXPECT_EQ(Mass(MassRate(4.0, Unit::MassRate::KilogramPerSecond), Time(2.0, Unit::Time::Second)),
             Mass(8.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Mass(MassRate(8.0, Unit::MassRate::KilogramPerSecond),
                  Frequency(4.0, Unit::Frequency::Hertz)),
             Mass(2.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Time(Mass(8.0, Unit::Mass::Kilogram), MassRate(4.0, Unit::MassRate::KilogramPerSecond)),
             Time(2.0, Unit::Time::Second));
-
   EXPECT_EQ(
       Frequency(MassRate(8.0, Unit::MassRate::KilogramPerSecond), Mass(4.0, Unit::Mass::Kilogram)),
       Frequency(2.0, Unit::Frequency::Hertz));
 }
 
 TEST(MassRate, MoveAssignmentOperator) {
-  MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
   MassRate second = MassRate::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, MassRate(1.11, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(second, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, MoveConstructor) {
-  MassRate first{1.11, Unit::MassRate::KilogramPerSecond};
+  MassRate first{1.0, Unit::MassRate::KilogramPerSecond};
   const MassRate second{std::move(first)};
-  EXPECT_EQ(second, MassRate(1.11, Unit::MassRate::KilogramPerSecond));
+  EXPECT_EQ(second, MassRate(1.0, Unit::MassRate::KilogramPerSecond));
 }
 
 TEST(MassRate, MutableValue) {
-  MassRate quantity{1.11, Unit::MassRate::KilogramPerSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  MassRate mass_rate{1.0, Unit::MassRate::KilogramPerSecond};
+  double& value = mass_rate.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(mass_rate.Value(), 2.0);
 }
 
 TEST(MassRate, Print) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Print(), "1.110000000000000 kg/s");
-  EXPECT_EQ(MassRate(-2.22, Unit::MassRate::GramPerSecond).Print(Unit::MassRate::GramPerSecond),
-            "-2.220000000000000 g/s");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond).Print(), Print(1.0) + " kg/s");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::GramPerSecond).Print(Unit::MassRate::GramPerSecond),
+            Print(1.0) + " g/s");
 }
 
 TEST(MassRate, SetValue) {
-  MassRate quantity{1.11, Unit::MassRate::KilogramPerSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  MassRate mass_rate{1.0, Unit::MassRate::KilogramPerSecond};
+  mass_rate.SetValue(2.0);
+  EXPECT_EQ(mass_rate.Value(), 2.0);
 }
 
 TEST(MassRate, SizeOf) {
@@ -211,19 +200,19 @@ TEST(MassRate, SizeOf) {
 }
 
 TEST(MassRate, StandardConstructor) {
-  EXPECT_NO_THROW(MassRate(1.11, Unit::MassRate::GramPerSecond));
+  EXPECT_NO_THROW(MassRate(1.0, Unit::MassRate::GramPerSecond));
 }
 
 TEST(MassRate, StaticValue) {
-  constexpr MassRate quantity = MassRate::Create<Unit::MassRate::GramPerSecond>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::MassRate::GramPerSecond>();
-  EXPECT_EQ(value, 1.11);
+  constexpr MassRate mass_rate = MassRate::Create<Unit::MassRate::GramPerSecond>(1.0);
+  constexpr double value = mass_rate.StaticValue<Unit::MassRate::GramPerSecond>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(MassRate, Stream) {
   std::ostringstream stream;
-  stream << MassRate(1.11, Unit::MassRate::KilogramPerSecond);
-  EXPECT_EQ(stream.str(), MassRate(1.11, Unit::MassRate::KilogramPerSecond).Print());
+  stream << MassRate(1.0, Unit::MassRate::KilogramPerSecond);
+  EXPECT_EQ(stream.str(), MassRate(1.0, Unit::MassRate::KilogramPerSecond).Print());
 }
 
 TEST(MassRate, Unit) {
@@ -231,23 +220,22 @@ TEST(MassRate, Unit) {
 }
 
 TEST(MassRate, Value) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).Value(), 1.11);
-  EXPECT_EQ(
-      MassRate(1.11, Unit::MassRate::GramPerSecond).Value(Unit::MassRate::GramPerSecond), 1.11);
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond).Value(), 1.0);
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::GramPerSecond).Value(Unit::MassRate::GramPerSecond), 1.0);
 }
 
 TEST(MassRate, XML) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).XML(),
-            "<value>1.110000000000000</value><unit>kg/s</unit>");
-  EXPECT_EQ(MassRate(-2.22, Unit::MassRate::GramPerSecond).XML(Unit::MassRate::GramPerSecond),
-            "<value>-2.220000000000000</value><unit>g/s</unit>");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>kg/s</unit>");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::GramPerSecond).XML(Unit::MassRate::GramPerSecond),
+            "<value>" + Print(1.0) + "</value><unit>g/s</unit>");
 }
 
 TEST(MassRate, YAML) {
-  EXPECT_EQ(MassRate(1.11, Unit::MassRate::KilogramPerSecond).YAML(),
-            "{value:1.110000000000000,unit:\"kg/s\"}");
-  EXPECT_EQ(MassRate(-2.22, Unit::MassRate::GramPerSecond).YAML(Unit::MassRate::GramPerSecond),
-            "{value:-2.220000000000000,unit:\"g/s\"}");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::KilogramPerSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"kg/s\"}");
+  EXPECT_EQ(MassRate(1.0, Unit::MassRate::GramPerSecond).YAML(Unit::MassRate::GramPerSecond),
+            "{value:" + Print(1.0) + ",unit:\"g/s\"}");
 }
 
 TEST(MassRate, Zero) {

@@ -39,13 +39,11 @@ TEST(PrandtlNumber, ArithmeticOperatorAddition) {
 
 TEST(PrandtlNumber, ArithmeticOperatorDivision) {
   EXPECT_EQ(PrandtlNumber(8.0) / 2.0, PrandtlNumber(4.0));
-
   EXPECT_EQ(PrandtlNumber(8.0) / PrandtlNumber(2.0), 4.0);
 }
 
 TEST(PrandtlNumber, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(PrandtlNumber(4.0) * 2.0, PrandtlNumber(8.0));
-
   EXPECT_EQ(2.0 * PrandtlNumber(4.0), PrandtlNumber(8.0));
 }
 
@@ -54,32 +52,32 @@ TEST(PrandtlNumber, ArithmeticOperatorSubtraction) {
 }
 
 TEST(PrandtlNumber, AssignmentOperatorAddition) {
-  PrandtlNumber quantity{1.0};
-  quantity += PrandtlNumber(2.0);
-  EXPECT_EQ(quantity, PrandtlNumber(3.0));
+  PrandtlNumber prandtl_number{1.0};
+  prandtl_number += PrandtlNumber(2.0);
+  EXPECT_EQ(prandtl_number, PrandtlNumber(3.0));
 }
 
 TEST(PrandtlNumber, AssignmentOperatorDivision) {
-  PrandtlNumber quantity{8.0};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, PrandtlNumber(4.0));
+  PrandtlNumber prandtl_number{8.0};
+  prandtl_number /= 2.0;
+  EXPECT_EQ(prandtl_number, PrandtlNumber(4.0));
 }
 
 TEST(PrandtlNumber, AssignmentOperatorMultiplication) {
-  PrandtlNumber quantity{4.0};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, PrandtlNumber(8.0));
+  PrandtlNumber prandtl_number{4.0};
+  prandtl_number *= 2.0;
+  EXPECT_EQ(prandtl_number, PrandtlNumber(8.0));
 }
 
 TEST(PrandtlNumber, AssignmentOperatorSubtraction) {
-  PrandtlNumber quantity{3.0};
-  quantity -= PrandtlNumber(2.0);
-  EXPECT_EQ(quantity, PrandtlNumber(1.0));
+  PrandtlNumber prandtl_number{3.0};
+  prandtl_number -= PrandtlNumber(2.0);
+  EXPECT_EQ(prandtl_number, PrandtlNumber(1.0));
 }
 
 TEST(PrandtlNumber, ComparisonOperators) {
-  const PrandtlNumber first{1.11};
-  const PrandtlNumber second{2.22};
+  const PrandtlNumber first{1.0};
+  const PrandtlNumber second{2.0};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -91,14 +89,14 @@ TEST(PrandtlNumber, ComparisonOperators) {
 }
 
 TEST(PrandtlNumber, CopyAssignmentOperator) {
-  const PrandtlNumber first{1.11};
+  const PrandtlNumber first{1.0};
   PrandtlNumber second = PrandtlNumber::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(PrandtlNumber, CopyConstructor) {
-  const PrandtlNumber first{1.11};
+  const PrandtlNumber first{1.0};
   const PrandtlNumber second{first};
   EXPECT_EQ(second, first);
 }
@@ -112,9 +110,9 @@ TEST(PrandtlNumber, Dimensions) {
 }
 
 TEST(PrandtlNumber, Hash) {
-  const PrandtlNumber first{1.11};
-  const PrandtlNumber second{1.110001};
-  const PrandtlNumber third{-1.11};
+  const PrandtlNumber first{1.0};
+  const PrandtlNumber second{1.000001};
+  const PrandtlNumber third{-1.0};
   const std::hash<PrandtlNumber> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -122,45 +120,39 @@ TEST(PrandtlNumber, Hash) {
 }
 
 TEST(PrandtlNumber, JSON) {
-  EXPECT_EQ(PrandtlNumber(1.11).JSON(), "1.110000000000000");
+  EXPECT_EQ(PrandtlNumber(1.0).JSON(), Print(1.0));
 }
 
 TEST(PrandtlNumber, MiscellaneousConstructors) {
   EXPECT_EQ(PrandtlNumber(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
                           ThermalDiffusivity(4.0, Unit::Diffusivity::SquareMetrePerSecond)),
             PrandtlNumber(2.0));
-
   EXPECT_EQ(
       PrandtlNumber(
           SpecificIsobaricHeatCapacity(4.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond),
           ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)),
       PrandtlNumber(16.0));
-
   EXPECT_EQ(ThermalDiffusivity(KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond),
                                PrandtlNumber(4.0)),
             ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(
       ScalarThermalConductivity(
           SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond), PrandtlNumber(2.0)),
       ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
   EXPECT_EQ(
       SpecificIsobaricHeatCapacity(
           PrandtlNumber(8.0),
           ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
       SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       DynamicViscosity(
           PrandtlNumber(8.0),
           ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
-
   EXPECT_EQ(KinematicViscosity(PrandtlNumber(4.0),
                                ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
             KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
@@ -172,56 +164,52 @@ TEST(PrandtlNumber, MiscellaneousMethods) {
           ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           SpecificIsobaricHeatCapacity(2.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin)),
       DynamicViscosity(16.0, Unit::DynamicViscosity::PascalSecond));
-
   EXPECT_EQ(PrandtlNumber(4.0).KinematicViscosity(
                 ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond)),
             KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond));
-
   EXPECT_EQ(
       PrandtlNumber(8.0).SpecificIsobaricHeatCapacity(
           ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
           DynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond)),
       SpecificIsobaricHeatCapacity(16.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin));
-
   EXPECT_EQ(
       PrandtlNumber(2.0).ScalarThermalConductivity(
           SpecificIsobaricHeatCapacity(8.0, Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin),
           DynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond)),
       ScalarThermalConductivity(16.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
   EXPECT_EQ(PrandtlNumber(4.0).ThermalDiffusivity(
                 KinematicViscosity(8.0, Unit::Diffusivity::SquareMetrePerSecond)),
             ThermalDiffusivity(2.0, Unit::Diffusivity::SquareMetrePerSecond));
 }
 
 TEST(PrandtlNumber, MoveAssignmentOperator) {
-  PrandtlNumber first{1.11};
+  PrandtlNumber first{1.0};
   PrandtlNumber second = PrandtlNumber::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, PrandtlNumber(1.11));
+  EXPECT_EQ(second, PrandtlNumber(1.0));
 }
 
 TEST(PrandtlNumber, MoveConstructor) {
-  PrandtlNumber first{1.11};
+  PrandtlNumber first{1.0};
   const PrandtlNumber second{std::move(first)};
-  EXPECT_EQ(second, PrandtlNumber(1.11));
+  EXPECT_EQ(second, PrandtlNumber(1.0));
 }
 
 TEST(PrandtlNumber, MutableValue) {
-  PrandtlNumber quantity{1.11};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  PrandtlNumber prandtl_number{1.0};
+  double& value = prandtl_number.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(prandtl_number.Value(), 2.0);
 }
 
 TEST(PrandtlNumber, Print) {
-  EXPECT_EQ(PrandtlNumber(1.11).Print(), "1.110000000000000");
+  EXPECT_EQ(PrandtlNumber(1.0).Print(), Print(1.0));
 }
 
 TEST(PrandtlNumber, SetValue) {
-  PrandtlNumber quantity{1.11};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  PrandtlNumber prandtl_number{1.0};
+  prandtl_number.SetValue(2.0);
+  EXPECT_EQ(prandtl_number.Value(), 2.0);
 }
 
 TEST(PrandtlNumber, SizeOf) {
@@ -229,25 +217,25 @@ TEST(PrandtlNumber, SizeOf) {
 }
 
 TEST(PrandtlNumber, StandardConstructor) {
-  EXPECT_NO_THROW(PrandtlNumber(1.11));
+  EXPECT_NO_THROW(PrandtlNumber(1.0));
 }
 
 TEST(PrandtlNumber, Stream) {
   std::ostringstream stream;
-  stream << PrandtlNumber(1.11);
-  EXPECT_EQ(stream.str(), PrandtlNumber(1.11).Print());
+  stream << PrandtlNumber(1.0);
+  EXPECT_EQ(stream.str(), PrandtlNumber(1.0).Print());
 }
 
 TEST(PrandtlNumber, Value) {
-  EXPECT_EQ(PrandtlNumber(1.11).Value(), 1.11);
+  EXPECT_EQ(PrandtlNumber(1.0).Value(), 1.0);
 }
 
 TEST(PrandtlNumber, XML) {
-  EXPECT_EQ(PrandtlNumber(1.11).XML(), "1.110000000000000");
+  EXPECT_EQ(PrandtlNumber(1.0).XML(), Print(1.0));
 }
 
 TEST(PrandtlNumber, YAML) {
-  EXPECT_EQ(PrandtlNumber(1.11).YAML(), "1.110000000000000");
+  EXPECT_EQ(PrandtlNumber(1.0).YAML(), Print(1.0));
 }
 
 TEST(PrandtlNumber, Zero) {

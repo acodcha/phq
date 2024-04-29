@@ -37,7 +37,6 @@ TEST(DynamicPressure, ArithmeticOperatorAddition) {
 TEST(DynamicPressure, ArithmeticOperatorDivision) {
   EXPECT_EQ(DynamicPressure(8.0, Unit::Pressure::Pascal) / 2.0,
             DynamicPressure(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       DynamicPressure(8.0, Unit::Pressure::Pascal) / DynamicPressure(2.0, Unit::Pressure::Pascal),
       4.0);
@@ -46,7 +45,6 @@ TEST(DynamicPressure, ArithmeticOperatorDivision) {
 TEST(DynamicPressure, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(DynamicPressure(4.0, Unit::Pressure::Pascal) * 2.0,
             DynamicPressure(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(2.0 * DynamicPressure(4.0, Unit::Pressure::Pascal),
             DynamicPressure(8.0, Unit::Pressure::Pascal));
 }
@@ -58,32 +56,32 @@ TEST(DynamicPressure, ArithmeticOperatorSubtraction) {
 }
 
 TEST(DynamicPressure, AssignmentOperatorAddition) {
-  DynamicPressure quantity{1.0, Unit::Pressure::Pascal};
-  quantity += DynamicPressure(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, DynamicPressure(3.0, Unit::Pressure::Pascal));
+  DynamicPressure dynamic_pressure{1.0, Unit::Pressure::Pascal};
+  dynamic_pressure += DynamicPressure(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(dynamic_pressure, DynamicPressure(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, AssignmentOperatorDivision) {
-  DynamicPressure quantity{8.0, Unit::Pressure::Pascal};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, DynamicPressure(4.0, Unit::Pressure::Pascal));
+  DynamicPressure dynamic_pressure{8.0, Unit::Pressure::Pascal};
+  dynamic_pressure /= 2.0;
+  EXPECT_EQ(dynamic_pressure, DynamicPressure(4.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, AssignmentOperatorMultiplication) {
-  DynamicPressure quantity{4.0, Unit::Pressure::Pascal};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, DynamicPressure(8.0, Unit::Pressure::Pascal));
+  DynamicPressure dynamic_pressure{4.0, Unit::Pressure::Pascal};
+  dynamic_pressure *= 2.0;
+  EXPECT_EQ(dynamic_pressure, DynamicPressure(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, AssignmentOperatorSubtraction) {
-  DynamicPressure quantity{3.0, Unit::Pressure::Pascal};
-  quantity -= DynamicPressure(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, DynamicPressure(1.0, Unit::Pressure::Pascal));
+  DynamicPressure dynamic_pressure{3.0, Unit::Pressure::Pascal};
+  dynamic_pressure -= DynamicPressure(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(dynamic_pressure, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, ComparisonOperators) {
-  const DynamicPressure first{1.11, Unit::Pressure::Pascal};
-  const DynamicPressure second{2.22, Unit::Pressure::Pascal};
+  const DynamicPressure first{1.0, Unit::Pressure::Pascal};
+  const DynamicPressure second{2.0, Unit::Pressure::Pascal};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -95,21 +93,21 @@ TEST(DynamicPressure, ComparisonOperators) {
 }
 
 TEST(DynamicPressure, CopyAssignmentOperator) {
-  const DynamicPressure first{1.11, Unit::Pressure::Pascal};
+  const DynamicPressure first{1.0, Unit::Pressure::Pascal};
   DynamicPressure second = DynamicPressure::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(DynamicPressure, CopyConstructor) {
-  const DynamicPressure first{1.11, Unit::Pressure::Pascal};
+  const DynamicPressure first{1.0, Unit::Pressure::Pascal};
   const DynamicPressure second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(DynamicPressure, Create) {
-  constexpr DynamicPressure quantity = DynamicPressure::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, DynamicPressure(1.11, Unit::Pressure::Pascal));
+  constexpr DynamicPressure dynamic_pressure = DynamicPressure::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(dynamic_pressure, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, DefaultConstructor) {
@@ -121,9 +119,9 @@ TEST(DynamicPressure, Dimensions) {
 }
 
 TEST(DynamicPressure, Hash) {
-  const DynamicPressure first{1.11, Unit::Pressure::Kilopascal};
-  const DynamicPressure second{1.110001, Unit::Pressure::Kilopascal};
-  const DynamicPressure third{-1.11, Unit::Pressure::Kilopascal};
+  const DynamicPressure first{1.0, Unit::Pressure::Kilopascal};
+  const DynamicPressure second{1.000001, Unit::Pressure::Kilopascal};
+  const DynamicPressure third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<DynamicPressure> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -131,56 +129,54 @@ TEST(DynamicPressure, Hash) {
 }
 
 TEST(DynamicPressure, JSON) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(DynamicPressure, MiscellaneousConstructors) {
   EXPECT_EQ(DynamicPressure(MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre),
                             Speed(4.0, Unit::Speed::MetrePerSecond)),
             DynamicPressure(16.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(MassDensity(DynamicPressure(16.0, Unit::Pressure::Pascal),
                         Speed(4.0, Unit::Speed::MetrePerSecond)),
             MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre));
-
   EXPECT_EQ(Speed(DynamicPressure(16.0, Unit::Pressure::Pascal),
                   MassDensity(2.0, Unit::MassDensity::KilogramPerCubicMetre)),
             Speed(4.0, Unit::Speed::MetrePerSecond));
 }
 
 TEST(DynamicPressure, MoveAssignmentOperator) {
-  DynamicPressure first{1.11, Unit::Pressure::Pascal};
+  DynamicPressure first{1.0, Unit::Pressure::Pascal};
   DynamicPressure second = DynamicPressure::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, DynamicPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, MoveConstructor) {
-  DynamicPressure first{1.11, Unit::Pressure::Pascal};
+  DynamicPressure first{1.0, Unit::Pressure::Pascal};
   const DynamicPressure second{std::move(first)};
-  EXPECT_EQ(second, DynamicPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(DynamicPressure, MutableValue) {
-  DynamicPressure quantity{1.11, Unit::Pressure::Pascal};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  DynamicPressure dynamic_pressure{1.0, Unit::Pressure::Pascal};
+  double& value = dynamic_pressure.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(dynamic_pressure.Value(), 2.0);
 }
 
 TEST(DynamicPressure, Print) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-            "-2.220000000000000 kPa");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+            Print(1.0) + " kPa");
 }
 
 TEST(DynamicPressure, SetValue) {
-  DynamicPressure quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  DynamicPressure dynamic_pressure{1.0, Unit::Pressure::Pascal};
+  dynamic_pressure.SetValue(2.0);
+  EXPECT_EQ(dynamic_pressure.Value(), 2.0);
 }
 
 TEST(DynamicPressure, SizeOf) {
@@ -188,19 +184,20 @@ TEST(DynamicPressure, SizeOf) {
 }
 
 TEST(DynamicPressure, StandardConstructor) {
-  EXPECT_NO_THROW(DynamicPressure(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(DynamicPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(DynamicPressure, StaticValue) {
-  constexpr DynamicPressure quantity = DynamicPressure::Create<Unit::Pressure::Kilopascal>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, 1.11);
+  constexpr DynamicPressure dynamic_pressure =
+      DynamicPressure::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr double value = dynamic_pressure.StaticValue<Unit::Pressure::Kilopascal>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(DynamicPressure, Stream) {
   std::ostringstream stream;
-  stream << DynamicPressure(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), DynamicPressure(1.11, Unit::Pressure::Pascal).Print());
+  stream << DynamicPressure(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), DynamicPressure(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(DynamicPressure, Unit) {
@@ -208,23 +205,23 @@ TEST(DynamicPressure, Unit) {
 }
 
 TEST(DynamicPressure, Value) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).Value(), 1.11);
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal).Value(), 1.0);
   EXPECT_EQ(
-      DynamicPressure(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
+      DynamicPressure(1.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.0);
 }
 
 TEST(DynamicPressure, XML) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-            "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(DynamicPressure, YAML) {
-  EXPECT_EQ(DynamicPressure(1.11, Unit::Pressure::Pascal).YAML(),
-            "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(DynamicPressure(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-            "{value:-2.220000000000000,unit:\"kPa\"}");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Pascal).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(DynamicPressure(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(DynamicPressure, Zero) {

@@ -33,17 +33,13 @@ TEST(Frequency, ArithmeticOperatorAddition) {
 
 TEST(Frequency, ArithmeticOperatorDivision) {
   EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / 2.0, Frequency(4.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Frequency(8.0, Unit::Frequency::Hertz) / Frequency(2.0, Unit::Frequency::Hertz), 4.0);
 }
 
 TEST(Frequency, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * 2.0, Frequency(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(2.0 * Frequency(4.0, Unit::Frequency::Hertz), Frequency(8.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Time(2.0, Unit::Time::Second), 8.0);
-
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * Frequency(2.0, Unit::Frequency::Hertz), 8.0);
 }
 
@@ -53,27 +49,27 @@ TEST(Frequency, ArithmeticOperatorSubtraction) {
 }
 
 TEST(Frequency, AssignmentOperatorAddition) {
-  Frequency quantity{1.0, Unit::Frequency::Hertz};
-  quantity += Frequency(2.0, Unit::Frequency::Hertz);
-  EXPECT_EQ(quantity, Frequency(3.0, Unit::Frequency::Hertz));
+  Frequency frequency{1.0, Unit::Frequency::Hertz};
+  frequency += Frequency(2.0, Unit::Frequency::Hertz);
+  EXPECT_EQ(frequency, Frequency(3.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, AssignmentOperatorDivision) {
-  Frequency quantity{8.0, Unit::Frequency::Hertz};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Frequency(4.0, Unit::Frequency::Hertz));
+  Frequency frequency{8.0, Unit::Frequency::Hertz};
+  frequency /= 2.0;
+  EXPECT_EQ(frequency, Frequency(4.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, AssignmentOperatorMultiplication) {
-  Frequency quantity{4.0, Unit::Frequency::Hertz};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Frequency(8.0, Unit::Frequency::Hertz));
+  Frequency frequency{4.0, Unit::Frequency::Hertz};
+  frequency *= 2.0;
+  EXPECT_EQ(frequency, Frequency(8.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, AssignmentOperatorSubtraction) {
-  Frequency quantity{3.0, Unit::Frequency::Hertz};
-  quantity -= Frequency(2.0, Unit::Frequency::Hertz);
-  EXPECT_EQ(quantity, Frequency(1.0, Unit::Frequency::Hertz));
+  Frequency frequency{3.0, Unit::Frequency::Hertz};
+  frequency -= Frequency(2.0, Unit::Frequency::Hertz);
+  EXPECT_EQ(frequency, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, ComparisonOperators) {
@@ -90,21 +86,21 @@ TEST(Frequency, ComparisonOperators) {
 }
 
 TEST(Frequency, CopyAssignmentOperator) {
-  const Frequency first{1.11, Unit::Frequency::Hertz};
+  const Frequency first{1.0, Unit::Frequency::Hertz};
   Frequency second = Frequency::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Frequency, CopyConstructor) {
-  const Frequency first{1.11, Unit::Frequency::Hertz};
+  const Frequency first{1.0, Unit::Frequency::Hertz};
   const Frequency second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Frequency, Create) {
-  constexpr Frequency quantity = Frequency::Create<Unit::Frequency::Hertz>(1.11);
-  EXPECT_EQ(quantity, Frequency(1.11, Unit::Frequency::Hertz));
+  constexpr Frequency frequency = Frequency::Create<Unit::Frequency::Hertz>(1.0);
+  EXPECT_EQ(frequency, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, DefaultConstructor) {
@@ -116,9 +112,9 @@ TEST(Frequency, Dimensions) {
 }
 
 TEST(Frequency, Hash) {
-  const Frequency first{1.11, Unit::Frequency::Hertz};
-  const Frequency second{1.110001, Unit::Frequency::Hertz};
-  const Frequency third{-1.11, Unit::Frequency::Hertz};
+  const Frequency first{1.0, Unit::Frequency::Hertz};
+  const Frequency second{1.000001, Unit::Frequency::Hertz};
+  const Frequency third{-1.0, Unit::Frequency::Hertz};
   const std::hash<Frequency> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -126,10 +122,10 @@ TEST(Frequency, Hash) {
 }
 
 TEST(Frequency, JSON) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Hz\"}");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).JSON(Unit::Frequency::Kilohertz),
-            "{\"value\":-2.220000000000000,\"unit\":\"kHz\"}");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Hz\"}");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Kilohertz).JSON(Unit::Frequency::Kilohertz),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kHz\"}");
 }
 
 TEST(Frequency, MiscellaneousConstructors) {
@@ -142,35 +138,35 @@ TEST(Frequency, MiscellaneousMethods) {
 }
 
 TEST(Frequency, MoveAssignmentOperator) {
-  Frequency first{1.11, Unit::Frequency::Hertz};
+  Frequency first{1.0, Unit::Frequency::Hertz};
   Frequency second = Frequency::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Frequency(1.11, Unit::Frequency::Hertz));
+  EXPECT_EQ(second, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, MoveConstructor) {
-  Frequency first{1.11, Unit::Frequency::Hertz};
+  Frequency first{1.0, Unit::Frequency::Hertz};
   const Frequency second{std::move(first)};
-  EXPECT_EQ(second, Frequency(1.11, Unit::Frequency::Hertz));
+  EXPECT_EQ(second, Frequency(1.0, Unit::Frequency::Hertz));
 }
 
 TEST(Frequency, MutableValue) {
-  Frequency quantity{1.11, Unit::Frequency::Hertz};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Frequency frequency{1.0, Unit::Frequency::Hertz};
+  double& value = frequency.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(frequency.Value(), 2.0);
 }
 
 TEST(Frequency, Print) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).Print(), "1.110000000000000 Hz");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).Print(Unit::Frequency::Kilohertz),
-            "-2.220000000000000 kHz");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz).Print(), Print(1.0) + " Hz");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Kilohertz).Print(Unit::Frequency::Kilohertz),
+            Print(1.0) + " kHz");
 }
 
 TEST(Frequency, SetValue) {
-  Frequency quantity{1.11, Unit::Frequency::Hertz};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Frequency frequency{1.0, Unit::Frequency::Hertz};
+  frequency.SetValue(2.0);
+  EXPECT_EQ(frequency.Value(), 2.0);
 }
 
 TEST(Frequency, SizeOf) {
@@ -178,19 +174,19 @@ TEST(Frequency, SizeOf) {
 }
 
 TEST(Frequency, StandardConstructor) {
-  EXPECT_NO_THROW(Frequency(1.11, Unit::Frequency::Kilohertz));
+  EXPECT_NO_THROW(Frequency(1.0, Unit::Frequency::Kilohertz));
 }
 
 TEST(Frequency, StaticValue) {
-  constexpr Frequency quantity = Frequency::Create<Unit::Frequency::Kilohertz>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Frequency::Kilohertz>();
-  EXPECT_EQ(value, 1.11);
+  constexpr Frequency frequency = Frequency::Create<Unit::Frequency::Kilohertz>(1.0);
+  constexpr double value = frequency.StaticValue<Unit::Frequency::Kilohertz>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(Frequency, Stream) {
   std::ostringstream stream;
-  stream << Frequency(1.11, Unit::Frequency::Hertz);
-  EXPECT_EQ(stream.str(), Frequency(1.11, Unit::Frequency::Hertz).Print());
+  stream << Frequency(1.0, Unit::Frequency::Hertz);
+  EXPECT_EQ(stream.str(), Frequency(1.0, Unit::Frequency::Hertz).Print());
 }
 
 TEST(Frequency, Unit) {
@@ -198,22 +194,22 @@ TEST(Frequency, Unit) {
 }
 
 TEST(Frequency, Value) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).Value(), 1.11);
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Kilohertz).Value(Unit::Frequency::Kilohertz), 1.11);
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz).Value(), 1.0);
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Kilohertz).Value(Unit::Frequency::Kilohertz), 1.0);
 }
 
 TEST(Frequency, XML) {
-  EXPECT_EQ(Frequency(1.11, Unit::Frequency::Hertz).XML(),
-            "<value>1.110000000000000</value><unit>Hz</unit>");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).XML(Unit::Frequency::Kilohertz),
-            "<value>-2.220000000000000</value><unit>kHz</unit>");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Hertz).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Hz</unit>");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Kilohertz).XML(Unit::Frequency::Kilohertz),
+            "<value>" + Print(1.0) + "</value><unit>kHz</unit>");
 }
 
 TEST(Frequency, YAML) {
   EXPECT_EQ(
-      Frequency(1.11, Unit::Frequency::Hertz).YAML(), "{value:1.110000000000000,unit:\"Hz\"}");
-  EXPECT_EQ(Frequency(-2.22, Unit::Frequency::Kilohertz).YAML(Unit::Frequency::Kilohertz),
-            "{value:-2.220000000000000,unit:\"kHz\"}");
+      Frequency(1.0, Unit::Frequency::Hertz).YAML(), "{value:" + Print(1.0) + ",unit:\"Hz\"}");
+  EXPECT_EQ(Frequency(1.0, Unit::Frequency::Kilohertz).YAML(Unit::Frequency::Kilohertz),
+            "{value:" + Print(1.0) + ",unit:\"kHz\"}");
 }
 
 TEST(Frequency, Zero) {

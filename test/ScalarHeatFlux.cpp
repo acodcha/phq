@@ -37,7 +37,6 @@ TEST(ScalarHeatFlux, ArithmeticOperatorAddition) {
 TEST(ScalarHeatFlux, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarHeatFlux(8.0, Unit::EnergyFlux::WattPerSquareMetre) / 2.0,
             ScalarHeatFlux(4.0, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(ScalarHeatFlux(8.0, Unit::EnergyFlux::WattPerSquareMetre)
                 / ScalarHeatFlux(2.0, Unit::EnergyFlux::WattPerSquareMetre),
             4.0);
@@ -46,7 +45,6 @@ TEST(ScalarHeatFlux, ArithmeticOperatorDivision) {
 TEST(ScalarHeatFlux, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarHeatFlux(4.0, Unit::EnergyFlux::WattPerSquareMetre) * 2.0,
             ScalarHeatFlux(8.0, Unit::EnergyFlux::WattPerSquareMetre));
-
   EXPECT_EQ(2.0 * ScalarHeatFlux(4.0, Unit::EnergyFlux::WattPerSquareMetre),
             ScalarHeatFlux(8.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
@@ -82,8 +80,8 @@ TEST(ScalarHeatFlux, AssignmentOperatorSubtraction) {
 }
 
 TEST(ScalarHeatFlux, ComparisonOperators) {
-  const ScalarHeatFlux first{1.11, Unit::EnergyFlux::WattPerSquareMetre};
-  const ScalarHeatFlux second{2.22, Unit::EnergyFlux::WattPerSquareMetre};
+  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
+  const ScalarHeatFlux second{2.0, Unit::EnergyFlux::WattPerSquareMetre};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -95,22 +93,22 @@ TEST(ScalarHeatFlux, ComparisonOperators) {
 }
 
 TEST(ScalarHeatFlux, CopyAssignmentOperator) {
-  const ScalarHeatFlux first{1.11, Unit::EnergyFlux::WattPerSquareMetre};
+  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   ScalarHeatFlux second = ScalarHeatFlux::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarHeatFlux, CopyConstructor) {
-  const ScalarHeatFlux first{1.11, Unit::EnergyFlux::WattPerSquareMetre};
+  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   const ScalarHeatFlux second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarHeatFlux, Create) {
   constexpr ScalarHeatFlux quantity =
-      ScalarHeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.11);
-  EXPECT_EQ(quantity, ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre));
+      ScalarHeatFlux::Create<Unit::EnergyFlux::WattPerSquareMetre>(1.0);
+  EXPECT_EQ(quantity, ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(ScalarHeatFlux, DefaultConstructor) {
@@ -122,9 +120,9 @@ TEST(ScalarHeatFlux, Dimensions) {
 }
 
 TEST(ScalarHeatFlux, Hash) {
-  const ScalarHeatFlux first{1.11, Unit::EnergyFlux::NanowattPerSquareMillimetre};
-  const ScalarHeatFlux second{1.110001, Unit::EnergyFlux::NanowattPerSquareMillimetre};
-  const ScalarHeatFlux third{-1.11, Unit::EnergyFlux::NanowattPerSquareMillimetre};
+  const ScalarHeatFlux first{1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre};
+  const ScalarHeatFlux second{1.00001, Unit::EnergyFlux::NanowattPerSquareMillimetre};
+  const ScalarHeatFlux third{-1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre};
   const std::hash<ScalarHeatFlux> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -132,11 +130,11 @@ TEST(ScalarHeatFlux, Hash) {
 }
 
 TEST(ScalarHeatFlux, JSON) {
-  EXPECT_EQ(ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"W/m^2\"}");
-  EXPECT_EQ(ScalarHeatFlux(-2.22, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"W/m^2\"}");
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .JSON(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "{\"value\":-2.220000000000000,\"unit\":\"nW/mm^2\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"nW/mm^2\"}");
 }
 
 TEST(ScalarHeatFlux, MiscellaneousConstructor) {
@@ -147,37 +145,37 @@ TEST(ScalarHeatFlux, MiscellaneousConstructor) {
 }
 
 TEST(ScalarHeatFlux, MoveAssignmentOperator) {
-  ScalarHeatFlux first{1.11, Unit::EnergyFlux::WattPerSquareMetre};
+  ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   ScalarHeatFlux second = ScalarHeatFlux::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(second, ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(ScalarHeatFlux, MoveConstructor) {
-  ScalarHeatFlux first{1.11, Unit::EnergyFlux::WattPerSquareMetre};
+  ScalarHeatFlux first{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   const ScalarHeatFlux second{std::move(first)};
-  EXPECT_EQ(second, ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre));
+  EXPECT_EQ(second, ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre));
 }
 
 TEST(ScalarHeatFlux, MutableValue) {
-  ScalarHeatFlux quantity{1.11, Unit::EnergyFlux::WattPerSquareMetre};
+  ScalarHeatFlux quantity{1.0, Unit::EnergyFlux::WattPerSquareMetre};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarHeatFlux, Print) {
-  EXPECT_EQ(ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).Print(),
-            "1.110000000000000 W/m^2");
-  EXPECT_EQ(ScalarHeatFlux(-2.22, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(
+      ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).Print(), Print(1.0) + " W/m^2");
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .Print(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "-2.220000000000000 nW/mm^2");
+            Print(1.0) + " nW/mm^2");
 }
 
 TEST(ScalarHeatFlux, SetValue) {
-  ScalarHeatFlux quantity{1.11, Unit::EnergyFlux::WattPerSquareMetre};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarHeatFlux quantity{1.0, Unit::EnergyFlux::WattPerSquareMetre};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarHeatFlux, SizeOf) {
@@ -185,7 +183,7 @@ TEST(ScalarHeatFlux, SizeOf) {
 }
 
 TEST(ScalarHeatFlux, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarHeatFlux(1.11, Unit::EnergyFlux::NanowattPerSquareMillimetre));
+  EXPECT_NO_THROW(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre));
 }
 
 TEST(ScalarHeatFlux, StaticValue) {
@@ -197,8 +195,8 @@ TEST(ScalarHeatFlux, StaticValue) {
 
 TEST(ScalarHeatFlux, Stream) {
   std::ostringstream stream;
-  stream << ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre);
-  EXPECT_EQ(stream.str(), ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).Print());
+  stream << ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre);
+  EXPECT_EQ(stream.str(), ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).Print());
 }
 
 TEST(ScalarHeatFlux, Unit) {
@@ -206,26 +204,26 @@ TEST(ScalarHeatFlux, Unit) {
 }
 
 TEST(ScalarHeatFlux, Value) {
-  EXPECT_EQ(ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).Value(), 1.11);
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).Value(), 1.0);
   EXPECT_EQ(ScalarHeatFlux(2.0, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .Value(Unit::EnergyFlux::NanowattPerSquareMillimetre),
             2.0);
 }
 
 TEST(ScalarHeatFlux, XML) {
-  EXPECT_EQ(ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).XML(),
-            "<value>1.110000000000000</value><unit>W/m^2</unit>");
-  EXPECT_EQ(ScalarHeatFlux(-2.22, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).XML(),
+            "<value>" + Print(1.0) + "</value><unit>W/m^2</unit>");
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .XML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "<value>-2.220000000000000</value><unit>nW/mm^2</unit>");
+            "<value>" + Print(1.0) + "</value><unit>nW/mm^2</unit>");
 }
 
 TEST(ScalarHeatFlux, YAML) {
-  EXPECT_EQ(ScalarHeatFlux(1.11, Unit::EnergyFlux::WattPerSquareMetre).YAML(),
-            "{value:1.110000000000000,unit:\"W/m^2\"}");
-  EXPECT_EQ(ScalarHeatFlux(-2.22, Unit::EnergyFlux::NanowattPerSquareMillimetre)
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::WattPerSquareMetre).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"W/m^2\"}");
+  EXPECT_EQ(ScalarHeatFlux(1.0, Unit::EnergyFlux::NanowattPerSquareMillimetre)
                 .YAML(Unit::EnergyFlux::NanowattPerSquareMillimetre),
-            "{value:-2.220000000000000,unit:\"nW/mm^2\"}");
+            "{value:" + Print(1.0) + ",unit:\"nW/mm^2\"}");
 }
 
 TEST(ScalarHeatFlux, Zero) {

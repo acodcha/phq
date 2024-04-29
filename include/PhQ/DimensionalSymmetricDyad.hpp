@@ -80,22 +80,10 @@ public:
     return value.Print().append(" ").append(Abbreviation(Standard<U>));
   }
 
-  // Prints this physical quantity as a string. This physical quantity's value is expressed in its
-  // standard unit of measure and printed to the given floating point precision.
-  [[nodiscard]] std::string Print(const Precision precision) const {
-    return value.Print(precision).append(" ").append(Abbreviation(Standard<U>));
-  }
-
   // Prints this physical quantity as a string. This physical quantity's value is expressed in the
   // given unit of measure and printed to double floating point precision.
   [[nodiscard]] std::string Print(const U unit) const {
     return Value(unit).Print().append(" ").append(Abbreviation(unit));
-  }
-
-  // Prints this physical quantity as a string. This physical quantity's value is expressed in the
-  // given unit of measure and printed to the given floating point precision.
-  [[nodiscard]] std::string Print(const U unit, const Precision precision) const {
-    return Value(unit).Print(precision).append(" ").append(Abbreviation(unit));
   }
 
   // Serializes this physical quantity as a JSON message. This physical quantity's value is

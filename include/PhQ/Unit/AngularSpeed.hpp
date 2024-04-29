@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <numbers>
 #include <ostream>
 #include <string_view>
 #include <unordered_map>
@@ -189,164 +190,164 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
-  value *= 180.0 / Pi;
+  value *= 180.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerSecond>(
     double& value) noexcept {
-  value *= Pi / 180.0;
+  value *= std::numbers::pi_v<double> / 180.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
-  value *= 10800.0 / Pi;
+  value *= 10800.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerMinute>(
     double& value) noexcept {
-  value *= Pi / 10800.0;
+  value *= std::numbers::pi_v<double> / 10800.0;
 }
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
-  value *= 648000.0 / Pi;
+  value *= 648000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::DegreePerHour>(
     double& value) noexcept {
-  value *= Pi / 648000.0;
+  value *= std::numbers::pi_v<double> / 648000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>(
     double& value) noexcept {
-  value *= 10800.0 / Pi;
+  value *= 10800.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerSecond>(
     double& value) noexcept {
-  value *= Pi / 10800.0;
+  value *= std::numbers::pi_v<double> / 10800.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>(
     double& value) noexcept {
-  value *= 648000.0 / Pi;
+  value *= 648000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerMinute>(
     double& value) noexcept {
-  value *= Pi / 648000.0;
+  value *= std::numbers::pi_v<double> / 648000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
     double& value) noexcept {
-  value *= 38880000.0 / Pi;
+  value *= 38880000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcminutePerHour>(
     double& value) noexcept {
-  value *= Pi / 38880000.0;
+  value *= std::numbers::pi_v<double> / 38880000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>(
     double& value) noexcept {
-  value *= 648000.0 / Pi;
+  value *= 648000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerSecond>(
     double& value) noexcept {
-  value *= Pi / 648000.0;
+  value *= std::numbers::pi_v<double> / 648000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>(
     double& value) noexcept {
-  value *= 38880000.0 / Pi;
+  value *= 38880000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerMinute>(
     double& value) noexcept {
-  value *= Pi / 38880000.0;
+  value *= std::numbers::pi_v<double> / 38880000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
     double& value) noexcept {
-  value *= 2332800000.0 / Pi;
+  value *= 2332800000.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::ArcsecondPerHour>(
     double& value) noexcept {
-  value *= Pi / 2332800000.0;
+  value *= std::numbers::pi_v<double> / 2332800000.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
-  value *= 0.5 / Pi;
+  value *= 0.5 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerSecond>(
     double& value) noexcept {
-  value *= 2.0 * Pi;
+  value *= 2.0 * std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
-  value *= 30.0 / Pi;
+  value *= 30.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerMinute>(
     double& value) noexcept {
-  value *= Pi / 30.0;
+  value *= std::numbers::pi_v<double> / 30.0;
 }
 
 template <>
 inline constexpr void
 ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
-  value *= 1800.0 / Pi;
+  value *= 1800.0 / std::numbers::pi_v<double>;
 }
 
 template <>
 inline constexpr void
 ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RevolutionPerHour>(
     double& value) noexcept {
-  value *= Pi / 1800.0;
+  value *= std::numbers::pi_v<double> / 1800.0;
 }
 
 template <>

@@ -35,7 +35,6 @@ TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorAddition) {
 TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorDivision) {
   EXPECT_EQ(VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin) / 2.0,
             VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin));
-
   EXPECT_EQ(VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin)
                 / VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin),
             4.0);
@@ -44,10 +43,8 @@ TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorDivision) {
 TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin) * 2.0,
             VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
-
   EXPECT_EQ(2.0 * VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin),
             VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
-
   EXPECT_EQ(VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin)
                 * TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
             8.0);
@@ -60,36 +57,42 @@ TEST(VolumetricThermalExpansionCoefficient, ArithmeticOperatorSubtraction) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorAddition) {
-  VolumetricThermalExpansionCoefficient quantity{1.0, Unit::ThermalExpansion::PerKelvin};
-  quantity += VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
-  EXPECT_EQ(
-      quantity, VolumetricThermalExpansionCoefficient(3.0, Unit::ThermalExpansion::PerKelvin));
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      1.0, Unit::ThermalExpansion::PerKelvin};
+  volumetric_thermal_expansion_coefficient +=
+      VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient,
+            VolumetricThermalExpansionCoefficient(3.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorDivision) {
-  VolumetricThermalExpansionCoefficient quantity{8.0, Unit::ThermalExpansion::PerKelvin};
-  quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin));
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      8.0, Unit::ThermalExpansion::PerKelvin};
+  volumetric_thermal_expansion_coefficient /= 2.0;
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient,
+            VolumetricThermalExpansionCoefficient(4.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorMultiplication) {
-  VolumetricThermalExpansionCoefficient quantity{4.0, Unit::ThermalExpansion::PerKelvin};
-  quantity *= 2.0;
-  EXPECT_EQ(
-      quantity, VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      4.0, Unit::ThermalExpansion::PerKelvin};
+  volumetric_thermal_expansion_coefficient *= 2.0;
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient,
+            VolumetricThermalExpansionCoefficient(8.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, AssignmentOperatorSubtraction) {
-  VolumetricThermalExpansionCoefficient quantity{3.0, Unit::ThermalExpansion::PerKelvin};
-  quantity -= VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
-  EXPECT_EQ(
-      quantity, VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      3.0, Unit::ThermalExpansion::PerKelvin};
+  volumetric_thermal_expansion_coefficient -=
+      VolumetricThermalExpansionCoefficient(2.0, Unit::ThermalExpansion::PerKelvin);
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient,
+            VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, ComparisonOperators) {
-  const VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerKelvin};
-  const VolumetricThermalExpansionCoefficient second{2.22, Unit::ThermalExpansion::PerKelvin};
+  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
+  const VolumetricThermalExpansionCoefficient second{2.0, Unit::ThermalExpansion::PerKelvin};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -101,23 +104,23 @@ TEST(VolumetricThermalExpansionCoefficient, ComparisonOperators) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, CopyAssignmentOperator) {
-  const VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerKelvin};
+  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, CopyConstructor) {
-  const VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerKelvin};
+  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   const VolumetricThermalExpansionCoefficient second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Create) {
-  constexpr VolumetricThermalExpansionCoefficient quantity =
-      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerKelvin>(1.11);
-  EXPECT_EQ(
-      quantity, VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin));
+  constexpr VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient =
+      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerKelvin>(1.0);
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient,
+            VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, DefaultConstructor) {
@@ -130,9 +133,9 @@ TEST(VolumetricThermalExpansionCoefficient, Dimensions) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Hash) {
-  const VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerRankine};
-  const VolumetricThermalExpansionCoefficient second{1.110001, Unit::ThermalExpansion::PerRankine};
-  const VolumetricThermalExpansionCoefficient third{-1.11, Unit::ThermalExpansion::PerRankine};
+  const VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerRankine};
+  const VolumetricThermalExpansionCoefficient second{1.000001, Unit::ThermalExpansion::PerRankine};
+  const VolumetricThermalExpansionCoefficient third{-1.0, Unit::ThermalExpansion::PerRankine};
   const std::hash<VolumetricThermalExpansionCoefficient> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -140,45 +143,47 @@ TEST(VolumetricThermalExpansionCoefficient, Hash) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, JSON) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"/K\"}");
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(-2.22, Unit::ThermalExpansion::PerRankine)
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"/K\"}");
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .JSON(Unit::ThermalExpansion::PerRankine),
-            "{\"value\":-2.220000000000000,\"unit\":\"/°R\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"/°R\"}");
 }
 
 TEST(VolumetricThermalExpansionCoefficient, MoveAssignmentOperator) {
-  VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerKelvin};
+  VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   VolumetricThermalExpansionCoefficient second = VolumetricThermalExpansionCoefficient::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(second, VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, MoveConstructor) {
-  VolumetricThermalExpansionCoefficient first{1.11, Unit::ThermalExpansion::PerKelvin};
+  VolumetricThermalExpansionCoefficient first{1.0, Unit::ThermalExpansion::PerKelvin};
   const VolumetricThermalExpansionCoefficient second{std::move(first)};
-  EXPECT_EQ(second, VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin));
+  EXPECT_EQ(second, VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, MutableValue) {
-  VolumetricThermalExpansionCoefficient quantity{1.11, Unit::ThermalExpansion::PerKelvin};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      1.0, Unit::ThermalExpansion::PerKelvin};
+  double& value = volumetric_thermal_expansion_coefficient.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient.Value(), 2.0);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Print) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).Print(),
-            "1.110000000000000 /K");
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(-2.22, Unit::ThermalExpansion::PerRankine)
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Print(),
+            Print(1.0) + " /K");
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .Print(Unit::ThermalExpansion::PerRankine),
-            "-2.220000000000000 /°R");
+            Print(1.0) + " /°R");
 }
 
 TEST(VolumetricThermalExpansionCoefficient, SetValue) {
-  VolumetricThermalExpansionCoefficient quantity{1.11, Unit::ThermalExpansion::PerKelvin};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient{
+      1.0, Unit::ThermalExpansion::PerKelvin};
+  volumetric_thermal_expansion_coefficient.SetValue(2.0);
+  EXPECT_EQ(volumetric_thermal_expansion_coefficient.Value(), 2.0);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, SizeOf) {
@@ -186,21 +191,22 @@ TEST(VolumetricThermalExpansionCoefficient, SizeOf) {
 }
 
 TEST(VolumetricThermalExpansionCoefficient, StandardConstructor) {
-  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerRankine));
+  EXPECT_NO_THROW(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine));
 }
 
 TEST(VolumetricThermalExpansionCoefficient, StaticValue) {
-  constexpr VolumetricThermalExpansionCoefficient quantity =
-      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerRankine>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::ThermalExpansion::PerRankine>();
-  EXPECT_EQ(value, 1.11);
+  constexpr VolumetricThermalExpansionCoefficient volumetric_thermal_expansion_coefficient =
+      VolumetricThermalExpansionCoefficient::Create<Unit::ThermalExpansion::PerRankine>(1.0);
+  constexpr double value =
+      volumetric_thermal_expansion_coefficient.StaticValue<Unit::ThermalExpansion::PerRankine>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Stream) {
   std::ostringstream stream;
-  stream << VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin);
+  stream << VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin);
   EXPECT_EQ(stream.str(),
-            VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).Print());
+            VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Print());
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Unit) {
@@ -209,26 +215,26 @@ TEST(VolumetricThermalExpansionCoefficient, Unit) {
 
 TEST(VolumetricThermalExpansionCoefficient, Value) {
   EXPECT_EQ(
-      VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).Value(), 1.11);
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerRankine)
+      VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).Value(), 1.0);
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .Value(Unit::ThermalExpansion::PerRankine),
-            1.11);
+            1.0);
 }
 
 TEST(VolumetricThermalExpansionCoefficient, XML) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).XML(),
-            "<value>1.110000000000000</value><unit>/K</unit>");
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(-2.22, Unit::ThermalExpansion::PerRankine)
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).XML(),
+            "<value>" + Print(1.0) + "</value><unit>/K</unit>");
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .XML(Unit::ThermalExpansion::PerRankine),
-            "<value>-2.220000000000000</value><unit>/°R</unit>");
+            "<value>" + Print(1.0) + "</value><unit>/°R</unit>");
 }
 
 TEST(VolumetricThermalExpansionCoefficient, YAML) {
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.11, Unit::ThermalExpansion::PerKelvin).YAML(),
-            "{value:1.110000000000000,unit:\"/K\"}");
-  EXPECT_EQ(VolumetricThermalExpansionCoefficient(-2.22, Unit::ThermalExpansion::PerRankine)
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerKelvin).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"/K\"}");
+  EXPECT_EQ(VolumetricThermalExpansionCoefficient(1.0, Unit::ThermalExpansion::PerRankine)
                 .YAML(Unit::ThermalExpansion::PerRankine),
-            "{value:-2.220000000000000,unit:\"/°R\"}");
+            "{value:" + Print(1.0) + ",unit:\"/°R\"}");
 }
 
 TEST(VolumetricThermalExpansionCoefficient, Zero) {

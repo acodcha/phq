@@ -37,36 +37,26 @@ TEST(Power, ArithmeticOperatorAddition) {
 
 TEST(Power, ArithmeticOperatorDivision) {
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / 2.0, Power(4.0, Unit::Power::Watt));
-
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Power(2.0, Unit::Power::Watt), 4.0);
-
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Frequency(4.0, Unit::Frequency::Hertz),
             Energy(2.0, Unit::Energy::Joule));
-
   EXPECT_EQ(Power(8.0, Unit::Power::Watt) / Energy(4.0, Unit::Energy::Joule),
             Frequency(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / Time(4.0, Unit::Time::Second),
             Power(2.0, Unit::Power::Watt));
-
   EXPECT_EQ(Energy(8.0, Unit::Energy::Joule) / Power(4.0, Unit::Power::Watt),
             Time(2.0, Unit::Time::Second));
 }
 
 TEST(Power, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Power(4.0, Unit::Power::Watt) * 2.0, Power(8.0, Unit::Power::Watt));
-
   EXPECT_EQ(2.0 * Power(4.0, Unit::Power::Watt), Power(8.0, Unit::Power::Watt));
-
   EXPECT_EQ(Power(4.0, Unit::Power::Watt) * Time(2.0, Unit::Time::Second),
             Energy(8.0, Unit::Energy::Joule));
-
   EXPECT_EQ(Time(4.0, Unit::Time::Second) * Power(2.0, Unit::Power::Watt),
             Energy(8.0, Unit::Energy::Joule));
-
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz) * Energy(2.0, Unit::Energy::Joule),
             Power(8.0, Unit::Power::Watt));
-
   EXPECT_EQ(Energy(4.0, Unit::Energy::Joule) * Frequency(2.0, Unit::Frequency::Hertz),
             Power(8.0, Unit::Power::Watt));
 }
@@ -77,32 +67,32 @@ TEST(Power, ArithmeticOperatorSubtraction) {
 }
 
 TEST(Power, AssignmentOperatorAddition) {
-  Power quantity{1.0, Unit::Power::Watt};
-  quantity += Power(2.0, Unit::Power::Watt);
-  EXPECT_EQ(quantity, Power(3.0, Unit::Power::Watt));
+  Power power{1.0, Unit::Power::Watt};
+  power += Power(2.0, Unit::Power::Watt);
+  EXPECT_EQ(power, Power(3.0, Unit::Power::Watt));
 }
 
 TEST(Power, AssignmentOperatorDivision) {
-  Power quantity{8.0, Unit::Power::Watt};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Power(4.0, Unit::Power::Watt));
+  Power power{8.0, Unit::Power::Watt};
+  power /= 2.0;
+  EXPECT_EQ(power, Power(4.0, Unit::Power::Watt));
 }
 
 TEST(Power, AssignmentOperatorMultiplication) {
-  Power quantity{4.0, Unit::Power::Watt};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Power(8.0, Unit::Power::Watt));
+  Power power{4.0, Unit::Power::Watt};
+  power *= 2.0;
+  EXPECT_EQ(power, Power(8.0, Unit::Power::Watt));
 }
 
 TEST(Power, AssignmentOperatorSubtraction) {
-  Power quantity{3.0, Unit::Power::Watt};
-  quantity -= Power(2.0, Unit::Power::Watt);
-  EXPECT_EQ(quantity, Power(1.0, Unit::Power::Watt));
+  Power power{3.0, Unit::Power::Watt};
+  power -= Power(2.0, Unit::Power::Watt);
+  EXPECT_EQ(power, Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, ComparisonOperators) {
-  const Power first{1.11, Unit::Power::Watt};
-  const Power second{2.22, Unit::Power::Watt};
+  const Power first{1.0, Unit::Power::Watt};
+  const Power second{2.0, Unit::Power::Watt};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -114,21 +104,21 @@ TEST(Power, ComparisonOperators) {
 }
 
 TEST(Power, CopyAssignmentOperator) {
-  const Power first{1.11, Unit::Power::Watt};
+  const Power first{1.0, Unit::Power::Watt};
   Power second = Power::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Power, CopyConstructor) {
-  const Power first{1.11, Unit::Power::Watt};
+  const Power first{1.0, Unit::Power::Watt};
   const Power second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Power, Create) {
-  constexpr Power quantity = Power::Create<Unit::Power::Watt>(1.11);
-  EXPECT_EQ(quantity, Power(1.11, Unit::Power::Watt));
+  constexpr Power power = Power::Create<Unit::Power::Watt>(1.0);
+  EXPECT_EQ(power, Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, DefaultConstructor) {
@@ -140,9 +130,9 @@ TEST(Power, Dimensions) {
 }
 
 TEST(Power, Hash) {
-  const Power first{1.11, Unit::Power::Kilowatt};
-  const Power second{1.110001, Unit::Power::Kilowatt};
-  const Power third{-1.11, Unit::Power::Kilowatt};
+  const Power first{1.0, Unit::Power::Kilowatt};
+  const Power second{1.000001, Unit::Power::Kilowatt};
+  const Power third{-1.0, Unit::Power::Kilowatt};
   const std::hash<Power> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -150,61 +140,55 @@ TEST(Power, Hash) {
 }
 
 TEST(Power, JSON) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).JSON(), "{\"value\":1.110000000000000,\"unit\":\"W\"}");
-  EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).JSON(Unit::Power::Kilowatt),
-            "{\"value\":-2.220000000000000,\"unit\":\"kW\"}");
+  EXPECT_EQ(Power(1.0, Unit::Power::Watt).JSON(), "{\"value\":" + Print(1.0) + ",\"unit\":\"W\"}");
+  EXPECT_EQ(Power(1.0, Unit::Power::Kilowatt).JSON(Unit::Power::Kilowatt),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kW\"}");
 }
 
 TEST(Power, MiscellaneousConstructors) {
   EXPECT_EQ(Power(Energy(8.0, Unit::Energy::Joule), Time(4.0, Unit::Time::Second)),
             Power(2.0, Unit::Power::Watt));
-
   EXPECT_EQ(Power(Energy(4.0, Unit::Energy::Joule), Frequency(2.0, Unit::Frequency::Hertz)),
             Power(8.0, Unit::Power::Watt));
-
   EXPECT_EQ(Time(Energy(8.0, Unit::Energy::Joule), Power(4.0, Unit::Power::Watt)),
             Time(2.0, Unit::Time::Second));
-
   EXPECT_EQ(Frequency(Power(8.0, Unit::Power::Watt), Energy(4.0, Unit::Energy::Joule)),
             Frequency(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Energy(Power(4.0, Unit::Power::Watt), Time(2.0, Unit::Time::Second)),
             Energy(8.0, Unit::Energy::Joule));
-
   EXPECT_EQ(Energy(Power(8.0, Unit::Power::Watt), Frequency(4.0, Unit::Frequency::Hertz)),
             Energy(2.0, Unit::Energy::Joule));
 }
 
 TEST(Power, MoveAssignmentOperator) {
-  Power first{1.11, Unit::Power::Watt};
+  Power first{1.0, Unit::Power::Watt};
   Power second = Power::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Power(1.11, Unit::Power::Watt));
+  EXPECT_EQ(second, Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, MoveConstructor) {
-  Power first{1.11, Unit::Power::Watt};
+  Power first{1.0, Unit::Power::Watt};
   const Power second{std::move(first)};
-  EXPECT_EQ(second, Power(1.11, Unit::Power::Watt));
+  EXPECT_EQ(second, Power(1.0, Unit::Power::Watt));
 }
 
 TEST(Power, MutableValue) {
-  Power quantity{1.11, Unit::Power::Watt};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Power power{1.0, Unit::Power::Watt};
+  double& value = power.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(power.Value(), 2.0);
 }
 
 TEST(Power, Print) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).Print(), "1.110000000000000 W");
-  EXPECT_EQ(
-      Power(-2.22, Unit::Power::Kilowatt).Print(Unit::Power::Kilowatt), "-2.220000000000000 kW");
+  EXPECT_EQ(Power(1.0, Unit::Power::Watt).Print(), Print(1.0) + " W");
+  EXPECT_EQ(Power(1.0, Unit::Power::Kilowatt).Print(Unit::Power::Kilowatt), Print(1.0) + " kW");
 }
 
 TEST(Power, SetValue) {
-  Power quantity{1.11, Unit::Power::Watt};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Power power{1.0, Unit::Power::Watt};
+  power.SetValue(2.0);
+  EXPECT_EQ(power.Value(), 2.0);
 }
 
 TEST(Power, SizeOf) {
@@ -212,19 +196,19 @@ TEST(Power, SizeOf) {
 }
 
 TEST(Power, StandardConstructor) {
-  EXPECT_NO_THROW(Power(1.11, Unit::Power::Kilowatt));
+  EXPECT_NO_THROW(Power(1.0, Unit::Power::Kilowatt));
 }
 
 TEST(Power, StaticValue) {
-  constexpr Power quantity = Power::Create<Unit::Power::Kilowatt>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Power::Kilowatt>();
-  EXPECT_EQ(value, 1.11);
+  constexpr Power power = Power::Create<Unit::Power::Kilowatt>(1.0);
+  constexpr double value = power.StaticValue<Unit::Power::Kilowatt>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(Power, Stream) {
   std::ostringstream stream;
-  stream << Power(1.11, Unit::Power::Watt);
-  EXPECT_EQ(stream.str(), Power(1.11, Unit::Power::Watt).Print());
+  stream << Power(1.0, Unit::Power::Watt);
+  EXPECT_EQ(stream.str(), Power(1.0, Unit::Power::Watt).Print());
 }
 
 TEST(Power, Unit) {
@@ -232,20 +216,20 @@ TEST(Power, Unit) {
 }
 
 TEST(Power, Value) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).Value(), 1.11);
-  EXPECT_EQ(Power(1.11, Unit::Power::Kilowatt).Value(Unit::Power::Kilowatt), 1.11);
+  EXPECT_EQ(Power(1.0, Unit::Power::Watt).Value(), 1.0);
+  EXPECT_EQ(Power(1.0, Unit::Power::Kilowatt).Value(Unit::Power::Kilowatt), 1.0);
 }
 
 TEST(Power, XML) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).XML(), "<value>1.110000000000000</value><unit>W</unit>");
-  EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).XML(Unit::Power::Kilowatt),
-            "<value>-2.220000000000000</value><unit>kW</unit>");
+  EXPECT_EQ(Power(1.0, Unit::Power::Watt).XML(), "<value>" + Print(1.0) + "</value><unit>W</unit>");
+  EXPECT_EQ(Power(1.0, Unit::Power::Kilowatt).XML(Unit::Power::Kilowatt),
+            "<value>" + Print(1.0) + "</value><unit>kW</unit>");
 }
 
 TEST(Power, YAML) {
-  EXPECT_EQ(Power(1.11, Unit::Power::Watt).YAML(), "{value:1.110000000000000,unit:\"W\"}");
-  EXPECT_EQ(Power(-2.22, Unit::Power::Kilowatt).YAML(Unit::Power::Kilowatt),
-            "{value:-2.220000000000000,unit:\"kW\"}");
+  EXPECT_EQ(Power(1.0, Unit::Power::Watt).YAML(), "{value:" + Print(1.0) + ",unit:\"W\"}");
+  EXPECT_EQ(Power(1.0, Unit::Power::Kilowatt).YAML(Unit::Power::Kilowatt),
+            "{value:" + Print(1.0) + ",unit:\"kW\"}");
 }
 
 TEST(Power, Zero) {

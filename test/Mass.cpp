@@ -31,13 +31,11 @@ TEST(Mass, ArithmeticOperatorAddition) {
 
 TEST(Mass, ArithmeticOperatorDivision) {
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / 2.0, Mass(4.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(Mass(8.0, Unit::Mass::Kilogram) / Mass(2.0, Unit::Mass::Kilogram), 4.0);
 }
 
 TEST(Mass, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Mass(4.0, Unit::Mass::Kilogram) * 2.0, Mass(8.0, Unit::Mass::Kilogram));
-
   EXPECT_EQ(2.0 * Mass(4.0, Unit::Mass::Kilogram), Mass(8.0, Unit::Mass::Kilogram));
 }
 
@@ -47,32 +45,32 @@ TEST(Mass, ArithmeticOperatorSubtraction) {
 }
 
 TEST(Mass, AssignmentOperatorAddition) {
-  Mass quantity{1.0, Unit::Mass::Kilogram};
-  quantity += Mass(2.0, Unit::Mass::Kilogram);
-  EXPECT_EQ(quantity, Mass(3.0, Unit::Mass::Kilogram));
+  Mass mass{1.0, Unit::Mass::Kilogram};
+  mass += Mass(2.0, Unit::Mass::Kilogram);
+  EXPECT_EQ(mass, Mass(3.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, AssignmentOperatorDivision) {
-  Mass quantity{8.0, Unit::Mass::Kilogram};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Mass(4.0, Unit::Mass::Kilogram));
+  Mass mass{8.0, Unit::Mass::Kilogram};
+  mass /= 2.0;
+  EXPECT_EQ(mass, Mass(4.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, AssignmentOperatorMultiplication) {
-  Mass quantity{4.0, Unit::Mass::Kilogram};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Mass(8.0, Unit::Mass::Kilogram));
+  Mass mass{4.0, Unit::Mass::Kilogram};
+  mass *= 2.0;
+  EXPECT_EQ(mass, Mass(8.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, AssignmentOperatorSubtraction) {
-  Mass quantity{3.0, Unit::Mass::Kilogram};
-  quantity -= Mass(2.0, Unit::Mass::Kilogram);
-  EXPECT_EQ(quantity, Mass(1.0, Unit::Mass::Kilogram));
+  Mass mass{3.0, Unit::Mass::Kilogram};
+  mass -= Mass(2.0, Unit::Mass::Kilogram);
+  EXPECT_EQ(mass, Mass(1.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, ComparisonOperators) {
-  const Mass first{0.1, Unit::Mass::Kilogram};
-  const Mass second{0.2, Unit::Mass::Kilogram};
+  const Mass first{1.0, Unit::Mass::Kilogram};
+  const Mass second{2.0, Unit::Mass::Kilogram};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -84,21 +82,21 @@ TEST(Mass, ComparisonOperators) {
 }
 
 TEST(Mass, CopyAssignmentOperator) {
-  const Mass first{1.11, Unit::Mass::Kilogram};
+  const Mass first{1.0, Unit::Mass::Kilogram};
   Mass second = Mass::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Mass, CopyConstructor) {
-  const Mass first{1.11, Unit::Mass::Kilogram};
+  const Mass first{1.0, Unit::Mass::Kilogram};
   const Mass second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Mass, Create) {
-  constexpr Mass quantity = Mass::Create<Unit::Mass::Kilogram>(1.11);
-  EXPECT_EQ(quantity, Mass(1.11, Unit::Mass::Kilogram));
+  constexpr Mass mass = Mass::Create<Unit::Mass::Kilogram>(1.0);
+  EXPECT_EQ(mass, Mass(1.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, DefaultConstructor) {
@@ -110,9 +108,9 @@ TEST(Mass, Dimensions) {
 }
 
 TEST(Mass, Hash) {
-  const Mass first{1.11, Unit::Mass::Gram};
-  const Mass second{1.110001, Unit::Mass::Gram};
-  const Mass third{-1.11, Unit::Mass::Gram};
+  const Mass first{1.0, Unit::Mass::Gram};
+  const Mass second{1.00001, Unit::Mass::Gram};
+  const Mass third{-1.0, Unit::Mass::Gram};
   const std::hash<Mass> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -121,40 +119,40 @@ TEST(Mass, Hash) {
 
 TEST(Mass, JSON) {
   EXPECT_EQ(
-      Mass(1.11, Unit::Mass::Kilogram).JSON(), "{\"value\":1.110000000000000,\"unit\":\"kg\"}");
-  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).JSON(Unit::Mass::Gram),
-            "{\"value\":-2.220000000000000,\"unit\":\"g\"}");
+      Mass(1.0, Unit::Mass::Kilogram).JSON(), "{\"value\":" + Print(1.0) + ",\"unit\":\"kg\"}");
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Gram).JSON(Unit::Mass::Gram),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"g\"}");
 }
 
 TEST(Mass, MoveAssignmentOperator) {
-  Mass first{1.11, Unit::Mass::Kilogram};
+  Mass first{1.0, Unit::Mass::Kilogram};
   Mass second = Mass::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Mass(1.11, Unit::Mass::Kilogram));
+  EXPECT_EQ(second, Mass(1.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, MoveConstructor) {
-  Mass first{1.11, Unit::Mass::Kilogram};
+  Mass first{1.0, Unit::Mass::Kilogram};
   const Mass second{std::move(first)};
-  EXPECT_EQ(second, Mass(1.11, Unit::Mass::Kilogram));
+  EXPECT_EQ(second, Mass(1.0, Unit::Mass::Kilogram));
 }
 
 TEST(Mass, MutableValue) {
-  Mass quantity{1.11, Unit::Mass::Kilogram};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Mass mass{1.0, Unit::Mass::Kilogram};
+  double& value = mass.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(mass.Value(), 2.0);
 }
 
 TEST(Mass, Print) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Print(), "1.110000000000000 kg");
-  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).Print(Unit::Mass::Gram), "-2.220000000000000 g");
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Kilogram).Print(), Print(1.0) + " kg");
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Gram).Print(Unit::Mass::Gram), Print(1.0) + " g");
 }
 
 TEST(Mass, SetValue) {
-  Mass quantity{1.11, Unit::Mass::Kilogram};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Mass mass{1.0, Unit::Mass::Kilogram};
+  mass.SetValue(2.0);
+  EXPECT_EQ(mass.Value(), 2.0);
 }
 
 TEST(Mass, SizeOf) {
@@ -162,19 +160,19 @@ TEST(Mass, SizeOf) {
 }
 
 TEST(Mass, StandardConstructor) {
-  EXPECT_NO_THROW(Mass(1.11, Unit::Mass::Gram));
+  EXPECT_NO_THROW(Mass(1.0, Unit::Mass::Gram));
 }
 
 TEST(Mass, StaticValue) {
-  constexpr Mass quantity = Mass::Create<Unit::Mass::Gram>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Mass::Gram>();
-  EXPECT_EQ(value, 1.11);
+  constexpr Mass mass = Mass::Create<Unit::Mass::Gram>(1.0);
+  constexpr double value = mass.StaticValue<Unit::Mass::Gram>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(Mass, Stream) {
   std::ostringstream stream;
-  stream << Mass(1.11, Unit::Mass::Kilogram);
-  EXPECT_EQ(stream.str(), Mass(1.11, Unit::Mass::Kilogram).Print());
+  stream << Mass(1.0, Unit::Mass::Kilogram);
+  EXPECT_EQ(stream.str(), Mass(1.0, Unit::Mass::Kilogram).Print());
 }
 
 TEST(Mass, Unit) {
@@ -182,21 +180,21 @@ TEST(Mass, Unit) {
 }
 
 TEST(Mass, Value) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).Value(), 1.11);
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Gram).Value(Unit::Mass::Gram), 1.11);
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Kilogram).Value(), 1.0);
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Gram).Value(Unit::Mass::Gram), 1.0);
 }
 
 TEST(Mass, XML) {
   EXPECT_EQ(
-      Mass(1.11, Unit::Mass::Kilogram).XML(), "<value>1.110000000000000</value><unit>kg</unit>");
-  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).XML(Unit::Mass::Gram),
-            "<value>-2.220000000000000</value><unit>g</unit>");
+      Mass(1.0, Unit::Mass::Kilogram).XML(), "<value>" + Print(1.0) + "</value><unit>kg</unit>");
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Gram).XML(Unit::Mass::Gram),
+            "<value>" + Print(1.0) + "</value><unit>g</unit>");
 }
 
 TEST(Mass, YAML) {
-  EXPECT_EQ(Mass(1.11, Unit::Mass::Kilogram).YAML(), "{value:1.110000000000000,unit:\"kg\"}");
-  EXPECT_EQ(Mass(-2.22, Unit::Mass::Gram).YAML(Unit::Mass::Gram),
-            "{value:-2.220000000000000,unit:\"g\"}");
+  EXPECT_EQ(Mass(1.0, Unit::Mass::Kilogram).YAML(), "{value:" + Print(1.0) + ",unit:\"kg\"}");
+  EXPECT_EQ(
+      Mass(1.0, Unit::Mass::Gram).YAML(Unit::Mass::Gram), "{value:" + Print(1.0) + ",unit:\"g\"}");
 }
 
 TEST(Mass, Zero) {

@@ -31,8 +31,8 @@ namespace PhQ {
 namespace {
 
 TEST(Position, Angle) {
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Metre)
-                .Angle(Position({0.0, 0.0, 3.33}, Unit::Length::Metre)),
+  EXPECT_EQ(Position({0.0, -2.0, 0.0}, Unit::Length::Metre)
+                .Angle(Position({0.0, 0.0, 3.0}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
 }
 
@@ -40,11 +40,9 @@ TEST(Position, ArithmeticOperatorAddition) {
   EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)
                 + Position({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)
                 + Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre)
                 + Position({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
@@ -58,13 +56,10 @@ TEST(Position, ArithmeticOperatorDivision) {
 TEST(Position, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre) * 2.0,
             Position({2.0, -4.0, 6.0}, Unit::Length::Metre));
-
   EXPECT_EQ(2.0 * Position({1.0, -2.0, 3.0}, Unit::Length::Metre),
             Position({2.0, -4.0, 6.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Direction(2.0, -3.0, 6.0) * Length(7.0, Unit::Length::Metre),
             Position({2.0, -3.0, 6.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Length(7.0, Unit::Length::Metre) * Direction(2.0, -3.0, 6.0),
             Position({2.0, -3.0, 6.0}, Unit::Length::Metre));
 }
@@ -73,51 +68,55 @@ TEST(Position, ArithmeticOperatorSubtraction) {
   EXPECT_EQ(Position({3.0, -6.0, 9.0}, Unit::Length::Metre)
                 - Position({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Position({3.0, -6.0, 9.0}, Unit::Length::Metre)
                 - Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
   EXPECT_EQ(Displacement({3.0, -6.0, 9.0}, Unit::Length::Metre)
                 - Position({2.0, -4.0, 6.0}, Unit::Length::Metre),
             Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, AssignmentOperatorAddition) {
-  Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  first += Position({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  EXPECT_EQ(first, Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
-
-  Position second({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  second += Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  EXPECT_EQ(second, Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
+  {
+    Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    position += Position({2.0, -4.0, 6.0}, Unit::Length::Metre);
+    EXPECT_EQ(position, Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
+  }
+  {
+    Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+    position += Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
+    EXPECT_EQ(position, Position({3.0, -6.0, 9.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Position, AssignmentOperatorDivision) {
-  Position quantity({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  Position position({2.0, -4.0, 6.0}, Unit::Length::Metre);
+  position /= 2.0;
+  EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, AssignmentOperatorMultiplication) {
-  Position quantity({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Position({2.0, -4.0, 6.0}, Unit::Length::Metre));
+  Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  position *= 2.0;
+  EXPECT_EQ(position, Position({2.0, -4.0, 6.0}, Unit::Length::Metre));
 }
 
 TEST(Position, AssignmentOperatorSubtraction) {
-  Position first({3.0, -6.0, 9.0}, Unit::Length::Metre);
-  first -= Position({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  EXPECT_EQ(first, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
-
-  Position second({3.0, -6.0, 9.0}, Unit::Length::Metre);
-  second -= Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
-  EXPECT_EQ(second, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  {
+    Position position({3.0, -6.0, 9.0}, Unit::Length::Metre);
+    position -= Position({2.0, -4.0, 6.0}, Unit::Length::Metre);
+    EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    Position position({3.0, -6.0, 9.0}, Unit::Length::Metre);
+    position -= Displacement({2.0, -4.0, 6.0}, Unit::Length::Metre);
+    EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Position, ComparisonOperators) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  const Position second({1.11, -2.22, 3.330001}, Unit::Length::Metre);
+  const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  const Position second({1.0, -2.0, 3.000001}, Unit::Length::Metre);
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -129,28 +128,32 @@ TEST(Position, ComparisonOperators) {
 }
 
 TEST(Position, CopyAssignmentOperator) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   Position second = Position::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Position, CopyConstructor) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  const Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   const Position second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Position, Create) {
-  constexpr Position first = Position::Create<Unit::Length::Metre>(1.11, -2.22, 3.33);
-  EXPECT_EQ(first, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
-
-  constexpr Position second =
-      Position::Create<Unit::Length::Metre>(std::array<double, 3>{1.11, -2.22, 3.33});
-  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
-
-  constexpr Position third = Position::Create<Unit::Length::Metre>(Vector{1.11, -2.22, 3.33});
-  EXPECT_EQ(third, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  {
+    constexpr Position position = Position::Create<Unit::Length::Metre>(1.0, -2.0, 3.0);
+    EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    constexpr Position position =
+        Position::Create<Unit::Length::Metre>(std::array<double, 3>{1.0, -2.0, 3.0});
+    EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
+  {
+    constexpr Position position = Position::Create<Unit::Length::Metre>(Vector{1.0, -2.0, 3.0});
+    EXPECT_EQ(position, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
+  }
 }
 
 TEST(Position, DefaultConstructor) {
@@ -166,9 +169,9 @@ TEST(Position, Direction) {
 }
 
 TEST(Position, Hash) {
-  const Position first({1.11, -2.22, 3.33}, Unit::Length::Millimetre);
-  const Position second({1.11, -2.22, 3.330001}, Unit::Length::Millimetre);
-  const Position third({1.11, 2.22, 3.33}, Unit::Length::Millimetre);
+  const Position first({1.0, -2.0, 3.0}, Unit::Length::Millimetre);
+  const Position second({1.0, -2.0, 3.000001}, Unit::Length::Millimetre);
+  const Position third({1.0, 2.0, 3.0}, Unit::Length::Millimetre);
   const std::hash<Position> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -176,11 +179,12 @@ TEST(Position, Hash) {
 }
 
 TEST(Position, JSON) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).JSON(),
-            "{\"value\":{\"x\":1.110000000000000,\"y\":-2.220000000000000,\"z\":3.330000000000000},"
-            "\"unit\":\"m\"}");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
-            "{\"value\":{\"x\":0,\"y\":-2.220000000000000,\"z\":0},\"unit\":\"mm\"}");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).JSON(),
+            "{\"value\":{\"x\":" + Print(1.0) + ",\"y\":" + Print(-2.0) + ",\"z\":" + Print(3.0)
+                + "},\"unit\":\"m\"}");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
+            "{\"value\":{\"x\":" + Print(1.0) + ",\"y\":" + Print(-2.0) + ",\"z\":" + Print(3.0)
+                + "},\"unit\":\"mm\"}");
 }
 
 TEST(Position, Magnitude) {
@@ -189,48 +193,45 @@ TEST(Position, Magnitude) {
 }
 
 TEST(Position, MiscellaneousConstructors) {
-  EXPECT_EQ(
-      Direction(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)), Direction(1.11, -2.22, 3.33));
-
-  EXPECT_EQ(Angle(Position({0.0, -2.22, 0.0}, Unit::Length::Metre),
-                  Position({0.0, 0.0, 3.33}, Unit::Length::Metre)),
+  EXPECT_EQ(Direction(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)), Direction(1.0, -2.0, 3.0));
+  EXPECT_EQ(Angle(Position({0.0, -2.0, 0.0}, Unit::Length::Metre),
+                  Position({0.0, 0.0, 3.0}, Unit::Length::Metre)),
             Angle(90.0, Unit::Angle::Degree));
-
-  EXPECT_EQ(Displacement(Position({1.11, -2.22, 3.33}, Unit::Length::Metre)),
-            Displacement({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  EXPECT_EQ(Displacement(Position({1.0, -2.0, 3.0}, Unit::Length::Metre)),
+            Displacement({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, MoveAssignmentOperator) {
-  Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   Position second = Position::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  EXPECT_EQ(second, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, MoveConstructor) {
-  Position first({1.11, -2.22, 3.33}, Unit::Length::Metre);
+  Position first({1.0, -2.0, 3.0}, Unit::Length::Metre);
   const Position second{std::move(first)};
-  EXPECT_EQ(second, Position({1.11, -2.22, 3.33}, Unit::Length::Metre));
+  EXPECT_EQ(second, Position({1.0, -2.0, 3.0}, Unit::Length::Metre));
 }
 
 TEST(Position, MutableValue) {
-  Position quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  Vector& value = quantity.MutableValue();
-  value = Vector{-4.44, 5.55, -6.66};
-  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
+  Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  Vector& value = position.MutableValue();
+  value = Vector{-4.0, 5.0, -6.0};
+  EXPECT_EQ(position.Value(), Vector(-4.0, 5.0, -6.0));
 }
 
 TEST(Position, Print) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print(),
-            "(1.110000000000000, -2.220000000000000, 3.330000000000000) m");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
-            "(0, -2.220000000000000, 0) mm");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).Print(),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + ") m");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + ") mm");
 }
 
 TEST(Position, SetValue) {
-  Position quantity({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  quantity.SetValue({-4.44, 5.55, -6.66});
-  EXPECT_EQ(quantity.Value(), Vector(-4.44, 5.55, -6.66));
+  Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  position.SetValue({-4.0, 5.0, -6.0});
+  EXPECT_EQ(position.Value(), Vector(-4.0, 5.0, -6.0));
 }
 
 TEST(Position, SizeOf) {
@@ -238,19 +239,19 @@ TEST(Position, SizeOf) {
 }
 
 TEST(Position, StandardConstructor) {
-  EXPECT_NO_THROW(Position({1.11, -2.22, 3.33}, Unit::Length::Millimetre));
+  EXPECT_NO_THROW(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre));
 }
 
 TEST(Position, StaticValue) {
-  constexpr Position quantity = Position::Create<Unit::Length::Millimetre>(1.11, -2.22, 3.33);
-  constexpr Vector value = quantity.StaticValue<Unit::Length::Millimetre>();
-  EXPECT_EQ(value, Vector(1.11, -2.22, 3.33));
+  constexpr Position position = Position::Create<Unit::Length::Millimetre>(1.0, -2.0, 3.0);
+  constexpr Vector value = position.StaticValue<Unit::Length::Millimetre>();
+  EXPECT_EQ(value, Vector(1.0, -2.0, 3.0));
 }
 
 TEST(Position, Stream) {
   std::ostringstream stream;
-  stream << Position({1.11, -2.22, 3.33}, Unit::Length::Metre);
-  EXPECT_EQ(stream.str(), Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Print());
+  stream << Position({1.0, -2.0, 3.0}, Unit::Length::Metre);
+  EXPECT_EQ(stream.str(), Position({1.0, -2.0, 3.0}, Unit::Length::Metre).Print());
 }
 
 TEST(Position, Unit) {
@@ -258,33 +259,32 @@ TEST(Position, Unit) {
 }
 
 TEST(Position, Value) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).Value(), Vector(1.11, -2.22, 3.33));
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
-            Vector(1.11, -2.22, 3.33));
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).Value(), Vector(1.0, -2.0, 3.0));
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre).Value(Unit::Length::Millimetre),
+            Vector(1.0, -2.0, 3.0));
 }
 
 TEST(Position, XML) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).XML(),
-            "<value><x>1.110000000000000</x><y>-2.220000000000000</y><z>3.330000000000000</z></"
-            "value><unit>m</unit>");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
-            "<value><x>0</x><y>-2.220000000000000</y><z>0</z></value><unit>mm</unit>");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).XML(),
+            "<value><x>" + Print(1.0) + "</x><y>" + Print(-2.0) + "</y><z>" + Print(3.0)
+                + "</z></value><unit>m</unit>");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
+            "<value><x>" + Print(1.0) + "</x><y>" + Print(-2.0) + "</y><z>" + Print(3.0)
+                + "</z></value><unit>mm</unit>");
 }
 
 TEST(Position, XYZ) {
-  EXPECT_EQ(
-      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).x(), Length(1.11, Unit::Length::Metre));
-  EXPECT_EQ(
-      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).y(), Length(-2.22, Unit::Length::Metre));
-  EXPECT_EQ(
-      Position({1.11, -2.22, 3.33}, Unit::Length::Metre).z(), Length(3.33, Unit::Length::Metre));
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).x(), Length(1.0, Unit::Length::Metre));
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).y(), Length(-2.0, Unit::Length::Metre));
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).z(), Length(3.0, Unit::Length::Metre));
 }
 
 TEST(Position, YAML) {
-  EXPECT_EQ(Position({1.11, -2.22, 3.33}, Unit::Length::Metre).YAML(),
-            "{value:{x:1.110000000000000,y:-2.220000000000000,z:3.330000000000000},unit:\"m\"}");
-  EXPECT_EQ(Position({0.0, -2.22, 0.0}, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
-            "{value:{x:0,y:-2.220000000000000,z:0},unit:\"mm\"}");
+  EXPECT_EQ(Position({1.0, -2.0, 3.0}, Unit::Length::Metre).YAML(),
+            "{value:{x:" + Print(1.0) + ",y:" + Print(-2.0) + ",z:" + Print(3.0) + "},unit:\"m\"}");
+  EXPECT_EQ(
+      Position({1.0, -2.0, 3.0}, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
+      "{value:{x:" + Print(1.0) + ",y:" + Print(-2.0) + ",z:" + Print(3.0) + "},unit:\"mm\"}");
 }
 
 TEST(Position, Zero) {

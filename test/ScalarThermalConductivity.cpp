@@ -33,7 +33,6 @@ TEST(ScalarThermalConductivity, ArithmeticOperatorAddition) {
 TEST(ScalarThermalConductivity, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin) / 2.0,
             ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
   EXPECT_EQ(ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin)
                 / ScalarThermalConductivity(2.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
             4.0);
@@ -42,7 +41,6 @@ TEST(ScalarThermalConductivity, ArithmeticOperatorDivision) {
 TEST(ScalarThermalConductivity, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin) * 2.0,
             ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
-
   EXPECT_EQ(2.0 * ScalarThermalConductivity(4.0, Unit::ThermalConductivity::WattPerMetrePerKelvin),
             ScalarThermalConductivity(8.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
@@ -95,23 +93,23 @@ TEST(ScalarThermalConductivity, ComparisonOperators) {
 }
 
 TEST(ScalarThermalConductivity, CopyAssignmentOperator) {
-  const ScalarThermalConductivity first{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   ScalarThermalConductivity second = ScalarThermalConductivity::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarThermalConductivity, CopyConstructor) {
-  const ScalarThermalConductivity first{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   const ScalarThermalConductivity second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarThermalConductivity, Create) {
   constexpr ScalarThermalConductivity quantity =
-      ScalarThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(1.11);
+      ScalarThermalConductivity::Create<Unit::ThermalConductivity::WattPerMetrePerKelvin>(1.0);
   EXPECT_EQ(
-      quantity, ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      quantity, ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
 TEST(ScalarThermalConductivity, DefaultConstructor) {
@@ -123,10 +121,9 @@ TEST(ScalarThermalConductivity, Dimensions) {
 }
 
 TEST(ScalarThermalConductivity, Hash) {
-  const ScalarThermalConductivity first{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  const ScalarThermalConductivity second{
-      1.110001, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  const ScalarThermalConductivity third{-1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  const ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  const ScalarThermalConductivity second{1.00001, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  const ScalarThermalConductivity third{-1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   const std::hash<ScalarThermalConductivity> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -134,51 +131,50 @@ TEST(ScalarThermalConductivity, Hash) {
 }
 
 TEST(ScalarThermalConductivity, JSON) {
+  EXPECT_EQ(ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"W/m/K\"}");
   EXPECT_EQ(
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).JSON(),
-      "{\"value\":1.110000000000000,\"unit\":\"W/m/K\"}");
-  EXPECT_EQ(
-      ScalarThermalConductivity(-2.22, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
           .JSON(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
-      "{\"value\":-2.220000000000000,\"unit\":\"nW/mm/K\"}");
+      "{\"value\":" + Print(1.0) + ",\"unit\":\"nW/mm/K\"}");
 }
 
 TEST(ScalarThermalConductivity, MoveAssignmentOperator) {
-  ScalarThermalConductivity first{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   ScalarThermalConductivity second = ScalarThermalConductivity::Zero();
   second = std::move(first);
   EXPECT_EQ(
-      second, ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      second, ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
 TEST(ScalarThermalConductivity, MoveConstructor) {
-  ScalarThermalConductivity first{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  ScalarThermalConductivity first{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   const ScalarThermalConductivity second{std::move(first)};
   EXPECT_EQ(
-      second, ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin));
+      second, ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin));
 }
 
 TEST(ScalarThermalConductivity, MutableValue) {
-  ScalarThermalConductivity quantity{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  ScalarThermalConductivity quantity{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarThermalConductivity, Print) {
   EXPECT_EQ(
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).Print(),
-      "1.110000000000000 W/m/K");
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).Print(),
+      Print(1.0) + " W/m/K");
   EXPECT_EQ(
-      ScalarThermalConductivity(-2.22, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
           .Print(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
-      "-2.220000000000000 nW/mm/K");
+      Print(1.0) + " nW/mm/K");
 }
 
 TEST(ScalarThermalConductivity, SetValue) {
-  ScalarThermalConductivity quantity{1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarThermalConductivity quantity{1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarThermalConductivity, SizeOf) {
@@ -187,7 +183,7 @@ TEST(ScalarThermalConductivity, SizeOf) {
 
 TEST(ScalarThermalConductivity, StandardConstructor) {
   EXPECT_NO_THROW(
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin));
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin));
 }
 
 TEST(ScalarThermalConductivity, StaticValue) {
@@ -201,10 +197,10 @@ TEST(ScalarThermalConductivity, StaticValue) {
 
 TEST(ScalarThermalConductivity, Stream) {
   std::ostringstream stream;
-  stream << ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin);
+  stream << ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin);
   EXPECT_EQ(
       stream.str(),
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).Print());
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).Print());
 }
 
 TEST(ScalarThermalConductivity, Unit) {
@@ -213,8 +209,8 @@ TEST(ScalarThermalConductivity, Unit) {
 
 TEST(ScalarThermalConductivity, Value) {
   EXPECT_EQ(
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).Value(),
-      1.11);
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).Value(),
+      1.0);
   EXPECT_EQ(
       ScalarThermalConductivity(2.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
           .Value(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
@@ -222,22 +218,21 @@ TEST(ScalarThermalConductivity, Value) {
 }
 
 TEST(ScalarThermalConductivity, XML) {
-  EXPECT_EQ(ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).XML(),
-            "<value>1.110000000000000</value><unit>W/m/K</unit>");
+  EXPECT_EQ(ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).XML(),
+            "<value>" + Print(1.0) + "</value><unit>W/m/K</unit>");
   EXPECT_EQ(
-      ScalarThermalConductivity(-2.22, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
           .XML(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
-      "<value>-2.220000000000000</value><unit>nW/mm/K</unit>");
+      "<value>" + Print(1.0) + "</value><unit>nW/mm/K</unit>");
 }
 
 TEST(ScalarThermalConductivity, YAML) {
+  EXPECT_EQ(ScalarThermalConductivity(1.0, Unit::ThermalConductivity::WattPerMetrePerKelvin).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"W/m/K\"}");
   EXPECT_EQ(
-      ScalarThermalConductivity(1.11, Unit::ThermalConductivity::WattPerMetrePerKelvin).YAML(),
-      "{value:1.110000000000000,unit:\"W/m/K\"}");
-  EXPECT_EQ(
-      ScalarThermalConductivity(-2.22, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
+      ScalarThermalConductivity(1.0, Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin)
           .YAML(Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin),
-      "{value:-2.220000000000000,unit:\"nW/mm/K\"}");
+      "{value:" + Print(1.0) + ",unit:\"nW/mm/K\"}");
 }
 
 TEST(ScalarThermalConductivity, Zero) {

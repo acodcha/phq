@@ -39,22 +39,17 @@ TEST(ScalarAngularAcceleration, ArithmeticOperatorAddition) {
 TEST(ScalarAngularAcceleration, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond) / 2.0,
             ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
   EXPECT_EQ(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 / ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             4.0);
-
   EXPECT_EQ(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 / AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond),
             Frequency(2.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond)
                 / Frequency(4.0, Unit::Frequency::Hertz),
             AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond));
-
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond) / Time(4.0, Unit::Time::Second),
             ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
   EXPECT_EQ(AngularSpeed(8.0, Unit::AngularSpeed::RadianPerSecond)
                 / ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             Time(2.0, Unit::Time::Second));
@@ -63,14 +58,11 @@ TEST(ScalarAngularAcceleration, ArithmeticOperatorDivision) {
 TEST(ScalarAngularAcceleration, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond) * 2.0,
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
   EXPECT_EQ(2.0 * ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond),
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
   EXPECT_EQ(AngularSpeed(4.0, Unit::AngularSpeed::RadianPerSecond)
                 * Frequency(2.0, Unit::Frequency::Hertz),
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
-
   EXPECT_EQ(Frequency(4.0, Unit::Frequency::Hertz)
                 * AngularSpeed(2.0, Unit::AngularSpeed::RadianPerSecond),
             ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
@@ -83,31 +75,37 @@ TEST(ScalarAngularAcceleration, ArithmeticOperatorSubtraction) {
 }
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorAddition) {
-  ScalarAngularAcceleration quantity{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity += ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
-  EXPECT_EQ(
-      quantity, ScalarAngularAcceleration(3.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  scalar_angular_acceleration +=
+      ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
+  EXPECT_EQ(scalar_angular_acceleration,
+            ScalarAngularAcceleration(3.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorDivision) {
-  ScalarAngularAcceleration quantity{8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(
-      quantity, ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      8.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  scalar_angular_acceleration /= 2.0;
+  EXPECT_EQ(scalar_angular_acceleration,
+            ScalarAngularAcceleration(4.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorMultiplication) {
-  ScalarAngularAcceleration quantity{4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(
-      quantity, ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      4.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  scalar_angular_acceleration *= 2.0;
+  EXPECT_EQ(scalar_angular_acceleration,
+            ScalarAngularAcceleration(8.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, AssignmentOperatorSubtraction) {
-  ScalarAngularAcceleration quantity{3.0, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity -= ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
-  EXPECT_EQ(
-      quantity, ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      3.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  scalar_angular_acceleration -=
+      ScalarAngularAcceleration(2.0, Unit::AngularAcceleration::RadianPerSquareSecond);
+  EXPECT_EQ(scalar_angular_acceleration,
+            ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, ComparisonOperators) {
@@ -124,23 +122,23 @@ TEST(ScalarAngularAcceleration, ComparisonOperators) {
 }
 
 TEST(ScalarAngularAcceleration, CopyAssignmentOperator) {
-  const ScalarAngularAcceleration first{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   ScalarAngularAcceleration second = ScalarAngularAcceleration::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarAngularAcceleration, CopyConstructor) {
-  const ScalarAngularAcceleration first{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   const ScalarAngularAcceleration second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarAngularAcceleration, Create) {
-  constexpr ScalarAngularAcceleration quantity =
-      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::RadianPerSquareSecond>(1.11);
-  EXPECT_EQ(
-      quantity, ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond));
+  constexpr ScalarAngularAcceleration scalar_angular_acceleration =
+      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::RadianPerSquareSecond>(1.0);
+  EXPECT_EQ(scalar_angular_acceleration,
+            ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, DefaultConstructor) {
@@ -152,10 +150,10 @@ TEST(ScalarAngularAcceleration, Dimensions) {
 }
 
 TEST(ScalarAngularAcceleration, Hash) {
-  const ScalarAngularAcceleration first{10.0, Unit::AngularAcceleration::DegreePerSquareSecond};
+  const ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const ScalarAngularAcceleration second{
-      10.000001, Unit::AngularAcceleration::DegreePerSquareSecond};
-  const ScalarAngularAcceleration third{11.0, Unit::AngularAcceleration::DegreePerSquareSecond};
+      1.000001, Unit::AngularAcceleration::DegreePerSquareSecond};
+  const ScalarAngularAcceleration third{-1.0, Unit::AngularAcceleration::DegreePerSquareSecond};
   const std::hash<ScalarAngularAcceleration> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -163,12 +161,11 @@ TEST(ScalarAngularAcceleration, Hash) {
 }
 
 TEST(ScalarAngularAcceleration, JSON) {
-  EXPECT_EQ(
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).JSON(),
-      "{\"value\":1.110000000000000,\"unit\":\"rad/s^2\"}");
-  EXPECT_EQ(ScalarAngularAcceleration(-2.22, Unit::AngularAcceleration::DegreePerSquareSecond)
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"rad/s^2\"}");
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond)
                 .JSON(Unit::AngularAcceleration::DegreePerSquareSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"deg/s^2\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"deg/s^2\"}");
 }
 
 TEST(ScalarAngularAcceleration, MiscellaneousConstructors) {
@@ -201,40 +198,42 @@ TEST(ScalarAngularAcceleration, MiscellaneousConstructors) {
 }
 
 TEST(ScalarAngularAcceleration, MoveAssignmentOperator) {
-  ScalarAngularAcceleration first{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   ScalarAngularAcceleration second = ScalarAngularAcceleration::Zero();
   second = std::move(first);
   EXPECT_EQ(
-      second, ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond));
+      second, ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, MoveConstructor) {
-  ScalarAngularAcceleration first{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
+  ScalarAngularAcceleration first{1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
   const ScalarAngularAcceleration second{std::move(first)};
   EXPECT_EQ(
-      second, ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond));
+      second, ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, MutableValue) {
-  ScalarAngularAcceleration quantity{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  double& value = scalar_angular_acceleration.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(scalar_angular_acceleration.Value(), 2.0);
 }
 
 TEST(ScalarAngularAcceleration, Print) {
   EXPECT_EQ(
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).Print(),
-      "1.110000000000000 rad/s^2");
-  EXPECT_EQ(ScalarAngularAcceleration(-2.22, Unit::AngularAcceleration::DegreePerSquareSecond)
+      ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).Print(),
+      Print(1.0) + " rad/s^2");
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond)
                 .Print(Unit::AngularAcceleration::DegreePerSquareSecond),
-            "-2.220000000000000 deg/s^2");
+            Print(1.0) + " deg/s^2");
 }
 
 TEST(ScalarAngularAcceleration, SetValue) {
-  ScalarAngularAcceleration quantity{1.11, Unit::AngularAcceleration::RadianPerSquareSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarAngularAcceleration scalar_angular_acceleration{
+      1.0, Unit::AngularAcceleration::RadianPerSquareSecond};
+  scalar_angular_acceleration.SetValue(2.0);
+  EXPECT_EQ(scalar_angular_acceleration.Value(), 2.0);
 }
 
 TEST(ScalarAngularAcceleration, SizeOf) {
@@ -242,23 +241,23 @@ TEST(ScalarAngularAcceleration, SizeOf) {
 }
 
 TEST(ScalarAngularAcceleration, StandardConstructor) {
-  EXPECT_NO_THROW(
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::DegreePerSquareSecond));
+  EXPECT_NO_THROW(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond));
 }
 
 TEST(ScalarAngularAcceleration, StaticValue) {
-  constexpr ScalarAngularAcceleration quantity =
-      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::DegreePerSquareSecond>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::AngularAcceleration::DegreePerSquareSecond>();
-  EXPECT_EQ(value, 1.11);
+  constexpr ScalarAngularAcceleration scalar_angular_acceleration =
+      ScalarAngularAcceleration::Create<Unit::AngularAcceleration::DegreePerSquareSecond>(1.0);
+  constexpr double value =
+      scalar_angular_acceleration.StaticValue<Unit::AngularAcceleration::DegreePerSquareSecond>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(ScalarAngularAcceleration, Stream) {
   std::ostringstream stream;
-  stream << ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond);
+  stream << ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond);
   EXPECT_EQ(
       stream.str(),
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).Print());
+      ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).Print());
 }
 
 TEST(ScalarAngularAcceleration, Unit) {
@@ -267,28 +266,27 @@ TEST(ScalarAngularAcceleration, Unit) {
 
 TEST(ScalarAngularAcceleration, Value) {
   EXPECT_EQ(
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).Value(),
-      1.11);
-  EXPECT_EQ(ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::DegreePerSquareSecond)
+      ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).Value(),
+      1.0);
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond)
                 .Value(Unit::AngularAcceleration::DegreePerSquareSecond),
-            1.11);
+            1.0);
 }
 
 TEST(ScalarAngularAcceleration, XML) {
-  EXPECT_EQ(ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).XML(),
-            "<value>1.110000000000000</value><unit>rad/s^2</unit>");
-  EXPECT_EQ(ScalarAngularAcceleration(-2.22, Unit::AngularAcceleration::DegreePerSquareSecond)
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>rad/s^2</unit>");
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond)
                 .XML(Unit::AngularAcceleration::DegreePerSquareSecond),
-            "<value>-2.220000000000000</value><unit>deg/s^2</unit>");
+            "<value>" + Print(1.0) + "</value><unit>deg/s^2</unit>");
 }
 
 TEST(ScalarAngularAcceleration, YAML) {
-  EXPECT_EQ(
-      ScalarAngularAcceleration(1.11, Unit::AngularAcceleration::RadianPerSquareSecond).YAML(),
-      "{value:1.110000000000000,unit:\"rad/s^2\"}");
-  EXPECT_EQ(ScalarAngularAcceleration(-2.22, Unit::AngularAcceleration::DegreePerSquareSecond)
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::RadianPerSquareSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"rad/s^2\"}");
+  EXPECT_EQ(ScalarAngularAcceleration(1.0, Unit::AngularAcceleration::DegreePerSquareSecond)
                 .YAML(Unit::AngularAcceleration::DegreePerSquareSecond),
-            "{value:-2.220000000000000,unit:\"deg/s^2\"}");
+            "{value:" + Print(1.0) + ",unit:\"deg/s^2\"}");
 }
 
 TEST(ScalarAngularAcceleration, Zero) {

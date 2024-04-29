@@ -31,14 +31,12 @@ namespace PhQ {
 namespace {
 
 TEST(Direction, Angle) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Angle(Direction(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
-
   EXPECT_EQ(
-      Direction(0.0, -2.22, 0.0).Angle(Vector(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
-
+      Direction(0.0, -2.0, 0.0).Angle(Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
   EXPECT_EQ(
-      Vector(0.0, -2.22, 0.0).Angle(Direction(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
+      Direction(0.0, -2.0, 0.0).Angle(Vector(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Vector(0.0, -2.0, 0.0).Angle(Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
 }
 
 TEST(Direction, ArithmeticOperatorMultiplication) {
@@ -65,14 +63,14 @@ TEST(Direction, ComparisonOperators) {
 }
 
 TEST(Direction, CopyAssignmentOperator) {
-  const Direction first(1.11, -2.22, 3.33);
+  const Direction first(1.0, -2.0, 3.0);
   Direction second = Direction::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Direction, CopyConstructor) {
-  const Direction first(1.11, -2.22, 3.33);
+  const Direction first(1.0, -2.0, 3.0);
   const Direction second{first};
   EXPECT_EQ(second, first);
 }
@@ -109,9 +107,9 @@ TEST(Direction, Dyadic) {
 }
 
 TEST(Direction, Hash) {
-  const Direction first{1.11, -2.22, 3.33};
-  const Direction second{1.11, -2.22, 3.330001};
-  const Direction third{1.11, 2.22, 3.33};
+  const Direction first{1.0, -2.0, 3.0};
+  const Direction second{1.0, -2.0, 3.000001};
+  const Direction third{1.0, 2.0, 3.0};
   const std::hash<Direction> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -119,25 +117,23 @@ TEST(Direction, Hash) {
 }
 
 TEST(Direction, JSON) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).JSON(), "{\"x\":0,\"y\":-1.000000000000000,\"z\":0}");
+  EXPECT_EQ(Direction(0.0, -2.0, 0.0).JSON(),
+            "{\"x\":" + Print(0.0) + ",\"y\":" + Print(-1.0) + ",\"z\":" + Print(0.0) + "}");
 }
 
 TEST(Direction, Magnitude) {
-  EXPECT_EQ(Direction(1.11, -2.22, 3.33).Magnitude(), 1.0);
+  EXPECT_EQ(Direction(1.0, -2.0, 3.0).Magnitude(), 1.0);
   EXPECT_EQ(Direction(0.0, 0.0, 0.0).Magnitude(), 0.0);
 }
 
 TEST(Direction, MiscellaneousConstructors) {
   EXPECT_EQ(Vector(7.0, Direction(2.0, -3.0, 6.0)), Vector(2.0, -3.0, 6.0));
-
-  EXPECT_EQ(Angle(Direction(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)),
-            Angle(90.0, Unit::Angle::Degree));
-
   EXPECT_EQ(
-      Angle(Direction(0.0, -2.22, 0.0), Vector(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
-
+      Angle(Direction(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
   EXPECT_EQ(
-      Angle(Vector(0.0, -2.22, 0.0), Direction(0.0, 0.0, 3.33)), Angle(90.0, Unit::Angle::Degree));
+      Angle(Direction(0.0, -2.0, 0.0), Vector(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
+  EXPECT_EQ(
+      Angle(Vector(0.0, -2.0, 0.0), Direction(0.0, 0.0, 3.0)), Angle(90.0, Unit::Angle::Degree));
 }
 
 TEST(Direction, MiscellaneousMethods) {
@@ -145,35 +141,40 @@ TEST(Direction, MiscellaneousMethods) {
 }
 
 TEST(Direction, MoveAssignmentOperator) {
-  Direction first(1.11, -2.22, 3.33);
+  Direction first(1.0, -2.0, 3.0);
   Direction second = Direction::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Direction(1.11, -2.22, 3.33));
+  EXPECT_EQ(second, Direction(1.0, -2.0, 3.0));
 }
 
 TEST(Direction, MoveConstructor) {
-  Direction first(1.11, -2.22, 3.33);
+  Direction first(1.0, -2.0, 3.0);
   const Direction second{std::move(first)};
-  EXPECT_EQ(second, Direction(1.11, -2.22, 3.33));
+  EXPECT_EQ(second, Direction(1.0, -2.0, 3.0));
 }
 
 TEST(Direction, Print) {
-  EXPECT_EQ(Direction{}.Print(), "(0, 0, 0)");
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Print(), "(0, -1.000000000000000, 0)");
+  EXPECT_EQ(Direction{}.Print(), "(" + Print(0.0) + ", " + Print(0.0) + ", " + Print(0.0) + ")");
+  EXPECT_EQ(Direction(0.0, -2.0, 0.0).Print(),
+            "(" + Print(0.0) + ", " + Print(-1.0) + ", " + Print(0.0) + ")");
 }
 
 TEST(Direction, Set) {
-  Direction first(1.11, -2.22, 3.33);
-  first.Set(0.0, -2.22, 0.0);
-  EXPECT_EQ(first.Value(), Vector(0, -1.0, 0.0));
-
-  Direction second(1.11, -2.22, 3.33);
-  second.Set(std::array<double, 3>{0.0, -2.22, 0.0});
-  EXPECT_EQ(second.Value(), Vector(0, -1.0, 0.0));
-
-  Direction third(1.11, -2.22, 3.33);
-  third.Set(Vector{0.0, -2.22, 0.0});
-  EXPECT_EQ(third.Value(), Vector(0, -1.0, 0.0));
+  {
+    Direction direction(1.0, -2.0, 3.0);
+    direction.Set(0.0, -2.0, 0.0);
+    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+  }
+  {
+    Direction direction(1.0, -2.0, 3.0);
+    direction.Set(std::array<double, 3>{0.0, -2.0, 0.0});
+    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+  }
+  {
+    Direction direction(1.0, -2.0, 3.0);
+    direction.Set(Vector{0.0, -2.0, 0.0});
+    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+  }
 }
 
 TEST(Direction, SizeOf) {
@@ -181,28 +182,29 @@ TEST(Direction, SizeOf) {
 }
 
 TEST(Direction, StandardConstructor) {
-  EXPECT_NO_THROW(Direction(1.11, -2.22, 3.33));
-  EXPECT_NO_THROW(Direction(std::array<double, 3>{1.11, -2.22, 3.33}));
-  EXPECT_NO_THROW(Direction(Vector{1.11, -2.22, 3.33}));
+  EXPECT_NO_THROW(Direction(1.0, -2.0, 3.0));
+  EXPECT_NO_THROW(Direction(std::array<double, 3>{1.0, -2.0, 3.0}));
+  EXPECT_NO_THROW(Direction(Vector{1.0, -2.0, 3.0}));
 }
 
 TEST(Direction, Stream) {
   std::ostringstream stream;
-  stream << Direction(1.11, -2.22, 3.33);
-  EXPECT_EQ(stream.str(), Direction(1.11, -2.22, 3.33).Print());
+  stream << Direction(1.0, -2.0, 3.0);
+  EXPECT_EQ(stream.str(), Direction(1.0, -2.0, 3.0).Print());
 }
 
 TEST(Direction, Valid) {
-  EXPECT_TRUE(Direction(1.11, -2.22, 3.33).Valid());
+  EXPECT_TRUE(Direction(1.0, -2.0, 3.0).Valid());
   EXPECT_FALSE(Direction(0.0, 0.0, 0.0).Valid());
 }
 
 TEST(Direction, Value) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).Value(), Vector(0.0, -1.0, 0.0));
+  EXPECT_EQ(Direction(0.0, -2.0, 0.0).Value(), Vector(0.0, -1.0, 0.0));
 }
 
 TEST(Direction, XML) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).XML(), "<x>0</x><y>-1.000000000000000</y><z>0</z>");
+  EXPECT_EQ(Direction(0.0, -2.0, 0.0).XML(),
+            "<x>" + Print(0.0) + "</x><y>" + Print(-1.0) + "</y><z>" + Print(0.0) + "</z>");
 }
 
 TEST(Direction, XYZ) {
@@ -212,7 +214,8 @@ TEST(Direction, XYZ) {
 }
 
 TEST(Direction, YAML) {
-  EXPECT_EQ(Direction(0.0, -2.22, 0.0).YAML(), "{x:0,y:-1.000000000000000,z:0}");
+  EXPECT_EQ(Direction(0.0, -2.0, 0.0).YAML(),
+            "{x:" + Print(0.0) + ",y:" + Print(-1.0) + ",z:" + Print(0.0) + "}");
 }
 
 TEST(Direction, Zero) {

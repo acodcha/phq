@@ -31,13 +31,11 @@ TEST(ScalarForce, ArithmeticOperatorAddition) {
 
 TEST(ScalarForce, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarForce(8.0, Unit::Force::Newton) / 2.0, ScalarForce(4.0, Unit::Force::Newton));
-
   EXPECT_EQ(ScalarForce(8.0, Unit::Force::Newton) / ScalarForce(2.0, Unit::Force::Newton), 4.0);
 }
 
 TEST(ScalarForce, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarForce(4.0, Unit::Force::Newton) * 2.0, ScalarForce(8.0, Unit::Force::Newton));
-
   EXPECT_EQ(2.0 * ScalarForce(4.0, Unit::Force::Newton), ScalarForce(8.0, Unit::Force::Newton));
 }
 
@@ -71,8 +69,8 @@ TEST(ScalarForce, AssignmentOperatorSubtraction) {
 }
 
 TEST(ScalarForce, ComparisonOperators) {
-  const ScalarForce first{1.11, Unit::Force::Newton};
-  const ScalarForce second{2.22, Unit::Force::Newton};
+  const ScalarForce first{1.0, Unit::Force::Newton};
+  const ScalarForce second{2.0, Unit::Force::Newton};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -84,21 +82,21 @@ TEST(ScalarForce, ComparisonOperators) {
 }
 
 TEST(ScalarForce, CopyAssignmentOperator) {
-  const ScalarForce first{1.11, Unit::Force::Newton};
+  const ScalarForce first{1.0, Unit::Force::Newton};
   ScalarForce second = ScalarForce::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarForce, CopyConstructor) {
-  const ScalarForce first{1.11, Unit::Force::Newton};
+  const ScalarForce first{1.0, Unit::Force::Newton};
   const ScalarForce second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarForce, Create) {
-  constexpr ScalarForce quantity = ScalarForce::Create<Unit::Force::Newton>(1.11);
-  EXPECT_EQ(quantity, ScalarForce(1.11, Unit::Force::Newton));
+  constexpr ScalarForce quantity = ScalarForce::Create<Unit::Force::Newton>(1.0);
+  EXPECT_EQ(quantity, ScalarForce(1.0, Unit::Force::Newton));
 }
 
 TEST(ScalarForce, DefaultConstructor) {
@@ -110,9 +108,9 @@ TEST(ScalarForce, Dimensions) {
 }
 
 TEST(ScalarForce, Hash) {
-  const ScalarForce first{1.11, Unit::Force::Micronewton};
-  const ScalarForce second{1.110001, Unit::Force::Micronewton};
-  const ScalarForce third{-1.11, Unit::Force::Micronewton};
+  const ScalarForce first{1.0, Unit::Force::Micronewton};
+  const ScalarForce second{1.00001, Unit::Force::Micronewton};
+  const ScalarForce third{-1.0, Unit::Force::Micronewton};
   const std::hash<ScalarForce> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -120,42 +118,42 @@ TEST(ScalarForce, Hash) {
 }
 
 TEST(ScalarForce, JSON) {
-  EXPECT_EQ(ScalarForce(1.11, Unit::Force::Newton).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"N\"}");
-  EXPECT_EQ(ScalarForce(-2.22, Unit::Force::Micronewton).JSON(Unit::Force::Micronewton),
-            "{\"value\":-2.220000000000000,\"unit\":\"μN\"}");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Newton).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"N\"}");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Micronewton).JSON(Unit::Force::Micronewton),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"μN\"}");
 }
 
 TEST(ScalarForce, MoveAssignmentOperator) {
-  ScalarForce first{1.11, Unit::Force::Newton};
+  ScalarForce first{1.0, Unit::Force::Newton};
   ScalarForce second = ScalarForce::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarForce(1.11, Unit::Force::Newton));
+  EXPECT_EQ(second, ScalarForce(1.0, Unit::Force::Newton));
 }
 
 TEST(ScalarForce, MoveConstructor) {
-  ScalarForce first{1.11, Unit::Force::Newton};
+  ScalarForce first{1.0, Unit::Force::Newton};
   const ScalarForce second{std::move(first)};
-  EXPECT_EQ(second, ScalarForce(1.11, Unit::Force::Newton));
+  EXPECT_EQ(second, ScalarForce(1.0, Unit::Force::Newton));
 }
 
 TEST(ScalarForce, MutableValue) {
-  ScalarForce quantity{1.11, Unit::Force::Newton};
+  ScalarForce quantity{1.0, Unit::Force::Newton};
   double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  value = 2.0;
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarForce, Print) {
-  EXPECT_EQ(ScalarForce(1.11, Unit::Force::Newton).Print(), "1.110000000000000 N");
-  EXPECT_EQ(ScalarForce(-2.22, Unit::Force::Micronewton).Print(Unit::Force::Micronewton),
-            "-2.220000000000000 μN");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Newton).Print(), Print(1.0) + " N");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Micronewton).Print(Unit::Force::Micronewton),
+            Print(1.0) + " μN");
 }
 
 TEST(ScalarForce, SetValue) {
-  ScalarForce quantity{1.11, Unit::Force::Newton};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarForce quantity{1.0, Unit::Force::Newton};
+  quantity.SetValue(2.0);
+  EXPECT_EQ(quantity.Value(), 2.0);
 }
 
 TEST(ScalarForce, SizeOf) {
@@ -163,7 +161,7 @@ TEST(ScalarForce, SizeOf) {
 }
 
 TEST(ScalarForce, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarForce(1.11, Unit::Force::Micronewton));
+  EXPECT_NO_THROW(ScalarForce(1.0, Unit::Force::Micronewton));
 }
 
 TEST(ScalarForce, StaticValue) {
@@ -174,8 +172,8 @@ TEST(ScalarForce, StaticValue) {
 
 TEST(ScalarForce, Stream) {
   std::ostringstream stream;
-  stream << ScalarForce(1.11, Unit::Force::Newton);
-  EXPECT_EQ(stream.str(), ScalarForce(1.11, Unit::Force::Newton).Print());
+  stream << ScalarForce(1.0, Unit::Force::Newton);
+  EXPECT_EQ(stream.str(), ScalarForce(1.0, Unit::Force::Newton).Print());
 }
 
 TEST(ScalarForce, Unit) {
@@ -183,21 +181,21 @@ TEST(ScalarForce, Unit) {
 }
 
 TEST(ScalarForce, Value) {
-  EXPECT_EQ(ScalarForce(1.11, Unit::Force::Newton).Value(), 1.11);
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Newton).Value(), 1.0);
   EXPECT_EQ(ScalarForce(2.0, Unit::Force::Micronewton).Value(Unit::Force::Micronewton), 2.0);
 }
 
 TEST(ScalarForce, XML) {
-  EXPECT_EQ(ScalarForce(1.11, Unit::Force::Newton).XML(),
-            "<value>1.110000000000000</value><unit>N</unit>");
-  EXPECT_EQ(ScalarForce(-2.22, Unit::Force::Micronewton).XML(Unit::Force::Micronewton),
-            "<value>-2.220000000000000</value><unit>μN</unit>");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Newton).XML(),
+            "<value>" + Print(1.0) + "</value><unit>N</unit>");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Micronewton).XML(Unit::Force::Micronewton),
+            "<value>" + Print(1.0) + "</value><unit>μN</unit>");
 }
 
 TEST(ScalarForce, YAML) {
-  EXPECT_EQ(ScalarForce(1.11, Unit::Force::Newton).YAML(), "{value:1.110000000000000,unit:\"N\"}");
-  EXPECT_EQ(ScalarForce(-2.22, Unit::Force::Micronewton).YAML(Unit::Force::Micronewton),
-            "{value:-2.220000000000000,unit:\"μN\"}");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Newton).YAML(), "{value:" + Print(1.0) + ",unit:\"N\"}");
+  EXPECT_EQ(ScalarForce(1.0, Unit::Force::Micronewton).YAML(Unit::Force::Micronewton),
+            "{value:" + Print(1.0) + ",unit:\"μN\"}");
 }
 
 TEST(ScalarForce, Zero) {

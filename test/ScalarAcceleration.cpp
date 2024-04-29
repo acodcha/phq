@@ -39,22 +39,17 @@ TEST(ScalarAcceleration, ArithmeticOperatorAddition) {
 TEST(ScalarAcceleration, ArithmeticOperatorDivision) {
   EXPECT_EQ(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond) / 2.0,
             ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond)
                 / ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond),
             4.0);
-
   EXPECT_EQ(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond)
                 / Frequency(2.0, Unit::Frequency::Hertz),
             Speed(4.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond)
                 / Speed(2.0, Unit::Speed::MetrePerSecond),
             Frequency(4.0, Unit::Frequency::Hertz));
-
   EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond) / Time(2.0, Unit::Time::Second),
             ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(Speed(8.0, Unit::Speed::MetrePerSecond)
                 / ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond),
             Time(4.0, Unit::Time::Second));
@@ -63,21 +58,16 @@ TEST(ScalarAcceleration, ArithmeticOperatorDivision) {
 TEST(ScalarAcceleration, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond) * 2.0,
             ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(2.0 * ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond),
             ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond)
                 * Time(4.0, Unit::Time::Second),
             Speed(8.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Time(2.0, Unit::Time::Second)
                 * ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond),
             Speed(8.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Speed(2.0, Unit::Speed::MetrePerSecond) * Frequency(4.0, Unit::Frequency::Hertz),
             ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(Frequency(2.0, Unit::Frequency::Hertz) * Speed(4.0, Unit::Speed::MetrePerSecond),
             ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
 }
@@ -89,27 +79,27 @@ TEST(ScalarAcceleration, ArithmeticOperatorSubtraction) {
 }
 
 TEST(ScalarAcceleration, AssignmentOperatorAddition) {
-  ScalarAcceleration quantity{1.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity += ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(quantity, ScalarAcceleration(3.0, Unit::Acceleration::MetrePerSquareSecond));
+  ScalarAcceleration scalar_acceleration{1.0, Unit::Acceleration::MetrePerSquareSecond};
+  scalar_acceleration += ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(scalar_acceleration, ScalarAcceleration(3.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, AssignmentOperatorDivision) {
-  ScalarAcceleration quantity{8.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond));
+  ScalarAcceleration scalar_acceleration{8.0, Unit::Acceleration::MetrePerSquareSecond};
+  scalar_acceleration /= 2.0;
+  EXPECT_EQ(scalar_acceleration, ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, AssignmentOperatorMultiplication) {
-  ScalarAcceleration quantity{4.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
+  ScalarAcceleration scalar_acceleration{4.0, Unit::Acceleration::MetrePerSquareSecond};
+  scalar_acceleration *= 2.0;
+  EXPECT_EQ(scalar_acceleration, ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, AssignmentOperatorSubtraction) {
-  ScalarAcceleration quantity{3.0, Unit::Acceleration::MetrePerSquareSecond};
-  quantity -= ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond);
-  EXPECT_EQ(quantity, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
+  ScalarAcceleration scalar_acceleration{3.0, Unit::Acceleration::MetrePerSquareSecond};
+  scalar_acceleration -= ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond);
+  EXPECT_EQ(scalar_acceleration, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, ComparisonOperators) {
@@ -126,22 +116,22 @@ TEST(ScalarAcceleration, ComparisonOperators) {
 }
 
 TEST(ScalarAcceleration, CopyAssignmentOperator) {
-  const ScalarAcceleration first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  const ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
   ScalarAcceleration second = ScalarAcceleration::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(ScalarAcceleration, CopyConstructor) {
-  const ScalarAcceleration first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  const ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
   const ScalarAcceleration second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Angle, Create) {
-  constexpr ScalarAcceleration quantity =
-      ScalarAcceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(1.11);
-  EXPECT_EQ(quantity, ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond));
+  constexpr ScalarAcceleration scalar_acceleration =
+      ScalarAcceleration::Create<Unit::Acceleration::MetrePerSquareSecond>(1.0);
+  EXPECT_EQ(scalar_acceleration, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, DefaultConstructor) {
@@ -153,9 +143,9 @@ TEST(ScalarAcceleration, Dimensions) {
 }
 
 TEST(ScalarAcceleration, Hash) {
-  const ScalarAcceleration first{1.11, Unit::Acceleration::FootPerSquareSecond};
-  const ScalarAcceleration second{1.110001, Unit::Acceleration::FootPerSquareSecond};
-  const ScalarAcceleration third{-1.11, Unit::Acceleration::FootPerSquareSecond};
+  const ScalarAcceleration first{1.0, Unit::Acceleration::MillimetrePerSquareSecond};
+  const ScalarAcceleration second{1.000001, Unit::Acceleration::MillimetrePerSquareSecond};
+  const ScalarAcceleration third{-1.0, Unit::Acceleration::MillimetrePerSquareSecond};
   const std::hash<ScalarAcceleration> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -163,71 +153,66 @@ TEST(ScalarAcceleration, Hash) {
 }
 
 TEST(ScalarAcceleration, JSON) {
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"m/s^2\"}");
-  EXPECT_EQ(ScalarAcceleration(-2.22, Unit::Acceleration::FootPerSquareSecond)
-                .JSON(Unit::Acceleration::FootPerSquareSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"ft/s^2\"}");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"m/s^2\"}");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond)
+                .JSON(Unit::Acceleration::MillimetrePerSquareSecond),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"mm/s^2\"}");
 }
 
 TEST(ScalarAcceleration, MiscellaneousConstructors) {
   EXPECT_EQ(
       ScalarAcceleration(Speed(8.0, Unit::Speed::MetrePerSecond), Time(2.0, Unit::Time::Second)),
       ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(ScalarAcceleration(
                 Speed(4.0, Unit::Speed::MetrePerSecond), Frequency(2.0, Unit::Frequency::Hertz)),
             ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond));
-
   EXPECT_EQ(Speed(ScalarAcceleration(4.0, Unit::Acceleration::MetrePerSquareSecond),
                   Time(2.0, Unit::Time::Second)),
             Speed(8.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Speed(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond),
                   Frequency(2.0, Unit::Frequency::Hertz)),
             Speed(4.0, Unit::Speed::MetrePerSecond));
-
   EXPECT_EQ(Time(Speed(8.0, Unit::Speed::MetrePerSecond),
                  ScalarAcceleration(2.0, Unit::Acceleration::MetrePerSquareSecond)),
             Time(4.0, Unit::Time::Second));
-
   EXPECT_EQ(Frequency(ScalarAcceleration(8.0, Unit::Acceleration::MetrePerSquareSecond),
                       Speed(2.0, Unit::Speed::MetrePerSecond)),
             Frequency(4.0, Unit::Frequency::Hertz));
 }
 
 TEST(ScalarAcceleration, MoveAssignmentOperator) {
-  ScalarAcceleration first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
   ScalarAcceleration second = ScalarAcceleration::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(second, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, MoveConstructor) {
-  ScalarAcceleration first{1.11, Unit::Acceleration::MetrePerSquareSecond};
+  ScalarAcceleration first{1.0, Unit::Acceleration::MetrePerSquareSecond};
   const ScalarAcceleration second{std::move(first)};
-  EXPECT_EQ(second, ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond));
+  EXPECT_EQ(second, ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, MutableValue) {
-  ScalarAcceleration quantity{1.11, Unit::Acceleration::MetrePerSquareSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarAcceleration scalar_acceleration{1.0, Unit::Acceleration::MetrePerSquareSecond};
+  double& value = scalar_acceleration.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(scalar_acceleration.Value(), 2.0);
 }
 
 TEST(ScalarAcceleration, Print) {
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).Print(),
-            "1.110000000000000 m/s^2");
-  EXPECT_EQ(ScalarAcceleration(-2.22, Unit::Acceleration::FootPerSquareSecond)
-                .Print(Unit::Acceleration::FootPerSquareSecond),
-            "-2.220000000000000 ft/s^2");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).Print(),
+            Print(1.0) + " m/s^2");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond)
+                .Print(Unit::Acceleration::MillimetrePerSquareSecond),
+            Print(1.0) + " mm/s^2");
 }
 
 TEST(ScalarAcceleration, SetValue) {
-  ScalarAcceleration quantity{1.11, Unit::Acceleration::MetrePerSquareSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  ScalarAcceleration scalar_acceleration{1.0, Unit::Acceleration::MetrePerSquareSecond};
+  scalar_acceleration.SetValue(2.0);
+  EXPECT_EQ(scalar_acceleration.Value(), 2.0);
 }
 
 TEST(ScalarAcceleration, SizeOf) {
@@ -235,21 +220,22 @@ TEST(ScalarAcceleration, SizeOf) {
 }
 
 TEST(ScalarAcceleration, StandardConstructor) {
-  EXPECT_NO_THROW(ScalarAcceleration(1.11, Unit::Acceleration::FootPerSquareSecond));
+  EXPECT_NO_THROW(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond));
 }
 
 TEST(ScalarAcceleration, StaticValue) {
-  constexpr ScalarAcceleration quantity =
-      ScalarAcceleration::Create<Unit::Acceleration::FootPerSquareSecond>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Acceleration::FootPerSquareSecond>();
-  EXPECT_EQ(value, 1.11);
+  constexpr ScalarAcceleration scalar_acceleration =
+      ScalarAcceleration::Create<Unit::Acceleration::MillimetrePerSquareSecond>(1.0);
+  constexpr double value =
+      scalar_acceleration.StaticValue<Unit::Acceleration::MillimetrePerSquareSecond>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(ScalarAcceleration, Stream) {
   std::ostringstream stream;
-  stream << ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond);
+  stream << ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond);
   EXPECT_EQ(
-      stream.str(), ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).Print());
+      stream.str(), ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).Print());
 }
 
 TEST(ScalarAcceleration, Unit) {
@@ -257,26 +243,26 @@ TEST(ScalarAcceleration, Unit) {
 }
 
 TEST(ScalarAcceleration, Value) {
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).Value(), 1.11);
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::FootPerSquareSecond)
-                .Value(Unit::Acceleration::FootPerSquareSecond),
-            1.11);
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).Value(), 1.0);
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond)
+                .Value(Unit::Acceleration::MillimetrePerSquareSecond),
+            1.0);
 }
 
 TEST(ScalarAcceleration, XML) {
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).XML(),
-            "<value>1.110000000000000</value><unit>m/s^2</unit>");
-  EXPECT_EQ(ScalarAcceleration(-2.22, Unit::Acceleration::FootPerSquareSecond)
-                .XML(Unit::Acceleration::FootPerSquareSecond),
-            "<value>-2.220000000000000</value><unit>ft/s^2</unit>");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>m/s^2</unit>");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond)
+                .XML(Unit::Acceleration::MillimetrePerSquareSecond),
+            "<value>" + Print(1.0) + "</value><unit>mm/s^2</unit>");
 }
 
 TEST(ScalarAcceleration, YAML) {
-  EXPECT_EQ(ScalarAcceleration(1.11, Unit::Acceleration::MetrePerSquareSecond).YAML(),
-            "{value:1.110000000000000,unit:\"m/s^2\"}");
-  EXPECT_EQ(ScalarAcceleration(-2.22, Unit::Acceleration::FootPerSquareSecond)
-                .YAML(Unit::Acceleration::FootPerSquareSecond),
-            "{value:-2.220000000000000,unit:\"ft/s^2\"}");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MetrePerSquareSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"m/s^2\"}");
+  EXPECT_EQ(ScalarAcceleration(1.0, Unit::Acceleration::MillimetrePerSquareSecond)
+                .YAML(Unit::Acceleration::MillimetrePerSquareSecond),
+            "{value:" + Print(1.0) + ",unit:\"mm/s^2\"}");
 }
 
 TEST(ScalarAcceleration, Zero) {

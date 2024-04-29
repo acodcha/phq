@@ -31,13 +31,11 @@ TEST(Length, ArithmeticOperatorAddition) {
 
 TEST(Length, ArithmeticOperatorDivision) {
   EXPECT_EQ(Length(8.0, Unit::Length::Metre) / 2.0, Length(4.0, Unit::Length::Metre));
-
   EXPECT_EQ(Length(8.0, Unit::Length::Metre) / Length(2.0, Unit::Length::Metre), 4.0);
 }
 
 TEST(Length, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Length(4.0, Unit::Length::Metre) * 2.0, Length(8.0, Unit::Length::Metre));
-
   EXPECT_EQ(2.0 * Length(4.0, Unit::Length::Metre), Length(8.0, Unit::Length::Metre));
 }
 
@@ -47,27 +45,27 @@ TEST(Length, ArithmeticOperatorSubtraction) {
 }
 
 TEST(Length, AssignmentOperatorAddition) {
-  Length quantity{1.0, Unit::Length::Metre};
-  quantity += Length(2.0, Unit::Length::Metre);
-  EXPECT_EQ(quantity, Length(3.0, Unit::Length::Metre));
+  Length length{1.0, Unit::Length::Metre};
+  length += Length(2.0, Unit::Length::Metre);
+  EXPECT_EQ(length, Length(3.0, Unit::Length::Metre));
 }
 
 TEST(Length, AssignmentOperatorDivision) {
-  Length quantity{8.0, Unit::Length::Metre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Length(4.0, Unit::Length::Metre));
+  Length length{8.0, Unit::Length::Metre};
+  length /= 2.0;
+  EXPECT_EQ(length, Length(4.0, Unit::Length::Metre));
 }
 
 TEST(Length, AssignmentOperatorMultiplication) {
-  Length quantity{4.0, Unit::Length::Metre};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Length(8.0, Unit::Length::Metre));
+  Length length{4.0, Unit::Length::Metre};
+  length *= 2.0;
+  EXPECT_EQ(length, Length(8.0, Unit::Length::Metre));
 }
 
 TEST(Length, AssignmentOperatorSubtraction) {
-  Length quantity{3.0, Unit::Length::Metre};
-  quantity -= Length(2.0, Unit::Length::Metre);
-  EXPECT_EQ(quantity, Length(1.0, Unit::Length::Metre));
+  Length length{3.0, Unit::Length::Metre};
+  length -= Length(2.0, Unit::Length::Metre);
+  EXPECT_EQ(length, Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, ComparisonOperators) {
@@ -84,21 +82,21 @@ TEST(Length, ComparisonOperators) {
 }
 
 TEST(Length, CopyAssignmentOperator) {
-  const Length first{1.11, Unit::Length::Metre};
+  const Length first{1.0, Unit::Length::Metre};
   Length second = Length::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Length, CopyConstructor) {
-  const Length first{1.11, Unit::Length::Metre};
+  const Length first{1.0, Unit::Length::Metre};
   const Length second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Length, Create) {
-  constexpr Length quantity = Length::Create<Unit::Length::Metre>(1.11);
-  EXPECT_EQ(quantity, Length(1.11, Unit::Length::Metre));
+  constexpr Length length = Length::Create<Unit::Length::Metre>(1.0);
+  EXPECT_EQ(length, Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, DefaultConstructor) {
@@ -110,9 +108,9 @@ TEST(Length, Dimensions) {
 }
 
 TEST(Length, Hash) {
-  const Length first{1.11, Unit::Length::Millimetre};
-  const Length second{1.110001, Unit::Length::Millimetre};
-  const Length third{-1.11, Unit::Length::Millimetre};
+  const Length first{1.0, Unit::Length::Millimetre};
+  const Length second{1.00001, Unit::Length::Millimetre};
+  const Length third{-1.0, Unit::Length::Millimetre};
   const std::hash<Length> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -121,41 +119,41 @@ TEST(Length, Hash) {
 
 TEST(Length, JSON) {
   EXPECT_EQ(
-      Length(1.11, Unit::Length::Metre).JSON(), "{\"value\":1.110000000000000,\"unit\":\"m\"}");
-  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
-            "{\"value\":-2.220000000000000,\"unit\":\"mm\"}");
+      Length(1.0, Unit::Length::Metre).JSON(), "{\"value\":" + Print(1.0) + ",\"unit\":\"m\"}");
+  EXPECT_EQ(Length(1.0, Unit::Length::Millimetre).JSON(Unit::Length::Millimetre),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"mm\"}");
 }
 
 TEST(Length, MoveAssignmentOperator) {
-  Length first{1.11, Unit::Length::Metre};
+  Length first{1.0, Unit::Length::Metre};
   Length second = Length::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Length(1.11, Unit::Length::Metre));
+  EXPECT_EQ(second, Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, MoveConstructor) {
-  Length first{1.11, Unit::Length::Metre};
+  Length first{1.0, Unit::Length::Metre};
   const Length second{std::move(first)};
-  EXPECT_EQ(second, Length(1.11, Unit::Length::Metre));
+  EXPECT_EQ(second, Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, MutableValue) {
-  Length quantity{1.11, Unit::Length::Metre};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Length length{1.0, Unit::Length::Metre};
+  double& value = length.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(length.Value(), 2.0);
 }
 
 TEST(Length, Print) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).Print(), "1.110000000000000 m");
-  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).Print(Unit::Length::Millimetre),
-            "-2.220000000000000 mm");
+  EXPECT_EQ(Length(1.0, Unit::Length::Metre).Print(), Print(1.0) + " m");
+  EXPECT_EQ(
+      Length(1.0, Unit::Length::Millimetre).Print(Unit::Length::Millimetre), Print(1.0) + " mm");
 }
 
 TEST(Length, SetValue) {
-  Length quantity{1.11, Unit::Length::Metre};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Length length{1.0, Unit::Length::Metre};
+  length.SetValue(2.0);
+  EXPECT_EQ(length.Value(), 2.0);
 }
 
 TEST(Length, SizeOf) {
@@ -163,19 +161,19 @@ TEST(Length, SizeOf) {
 }
 
 TEST(Length, StandardConstructor) {
-  EXPECT_NO_THROW(Length(1.11, Unit::Length::Metre));
+  EXPECT_NO_THROW(Length(1.0, Unit::Length::Metre));
 }
 
 TEST(Length, StaticValue) {
-  constexpr Length quantity = Length::Create<Unit::Length::Metre>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Length::Metre>();
-  EXPECT_EQ(value, 1.11);
+  constexpr Length length = Length::Create<Unit::Length::Metre>(1.0);
+  constexpr double value = length.StaticValue<Unit::Length::Metre>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(Length, Stream) {
   std::ostringstream stream;
-  stream << Length(1.11, Unit::Length::Metre);
-  EXPECT_EQ(stream.str(), Length(1.11, Unit::Length::Metre).Print());
+  stream << Length(1.0, Unit::Length::Metre);
+  EXPECT_EQ(stream.str(), Length(1.0, Unit::Length::Metre).Print());
 }
 
 TEST(Length, Unit) {
@@ -183,21 +181,21 @@ TEST(Length, Unit) {
 }
 
 TEST(Length, Value) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).Value(), 1.11);
-  EXPECT_EQ(Length(1.11, Unit::Length::Millimetre).Value(Unit::Length::Millimetre), 1.11);
+  EXPECT_EQ(Length(1.0, Unit::Length::Metre).Value(), 1.0);
+  EXPECT_EQ(Length(1.0, Unit::Length::Millimetre).Value(Unit::Length::Millimetre), 1.0);
 }
 
 TEST(Length, XML) {
   EXPECT_EQ(
-      Length(1.11, Unit::Length::Metre).XML(), "<value>1.110000000000000</value><unit>m</unit>");
-  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
-            "<value>-2.220000000000000</value><unit>mm</unit>");
+      Length(1.0, Unit::Length::Metre).XML(), "<value>" + Print(1.0) + "</value><unit>m</unit>");
+  EXPECT_EQ(Length(1.0, Unit::Length::Millimetre).XML(Unit::Length::Millimetre),
+            "<value>" + Print(1.0) + "</value><unit>mm</unit>");
 }
 
 TEST(Length, YAML) {
-  EXPECT_EQ(Length(1.11, Unit::Length::Metre).YAML(), "{value:1.110000000000000,unit:\"m\"}");
-  EXPECT_EQ(Length(-2.22, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
-            "{value:-2.220000000000000,unit:\"mm\"}");
+  EXPECT_EQ(Length(1.0, Unit::Length::Metre).YAML(), "{value:" + Print(1.0) + ",unit:\"m\"}");
+  EXPECT_EQ(Length(1.0, Unit::Length::Millimetre).YAML(Unit::Length::Millimetre),
+            "{value:" + Print(1.0) + ",unit:\"mm\"}");
 }
 
 TEST(Length, Zero) {

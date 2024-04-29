@@ -54,32 +54,36 @@ TEST(BulkDynamicViscosity, ArithmeticOperatorSubtraction) {
 }
 
 TEST(BulkDynamicViscosity, AssignmentOperatorAddition) {
-  BulkDynamicViscosity quantity{1.0, Unit::DynamicViscosity::PascalSecond};
-  quantity += BulkDynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
-  EXPECT_EQ(quantity, BulkDynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond));
+  BulkDynamicViscosity bulk_dynamic_viscosity{1.0, Unit::DynamicViscosity::PascalSecond};
+  bulk_dynamic_viscosity += BulkDynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(
+      bulk_dynamic_viscosity, BulkDynamicViscosity(3.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, AssignmentOperatorDivision) {
-  BulkDynamicViscosity quantity{8.0, Unit::DynamicViscosity::PascalSecond};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, BulkDynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
+  BulkDynamicViscosity bulk_dynamic_viscosity{8.0, Unit::DynamicViscosity::PascalSecond};
+  bulk_dynamic_viscosity /= 2.0;
+  EXPECT_EQ(
+      bulk_dynamic_viscosity, BulkDynamicViscosity(4.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, AssignmentOperatorMultiplication) {
-  BulkDynamicViscosity quantity{4.0, Unit::DynamicViscosity::PascalSecond};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, BulkDynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
+  BulkDynamicViscosity bulk_dynamic_viscosity{4.0, Unit::DynamicViscosity::PascalSecond};
+  bulk_dynamic_viscosity *= 2.0;
+  EXPECT_EQ(
+      bulk_dynamic_viscosity, BulkDynamicViscosity(8.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, AssignmentOperatorSubtraction) {
-  BulkDynamicViscosity quantity{3.0, Unit::DynamicViscosity::PascalSecond};
-  quantity -= BulkDynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
-  EXPECT_EQ(quantity, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
+  BulkDynamicViscosity bulk_dynamic_viscosity{3.0, Unit::DynamicViscosity::PascalSecond};
+  bulk_dynamic_viscosity -= BulkDynamicViscosity(2.0, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(
+      bulk_dynamic_viscosity, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, ComparisonOperators) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
-  const BulkDynamicViscosity second{2.22, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity second{2.0, Unit::DynamicViscosity::PascalSecond};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -91,22 +95,23 @@ TEST(BulkDynamicViscosity, ComparisonOperators) {
 }
 
 TEST(BulkDynamicViscosity, CopyAssignmentOperator) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
   BulkDynamicViscosity second = BulkDynamicViscosity::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(BulkDynamicViscosity, CopyConstructor) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
   const BulkDynamicViscosity second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(BulkDynamicViscosity, Create) {
-  constexpr BulkDynamicViscosity quantity =
-      BulkDynamicViscosity::Create<Unit::DynamicViscosity::PascalSecond>(1.11);
-  EXPECT_EQ(quantity, BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
+  constexpr BulkDynamicViscosity bulk_dynamic_viscosity =
+      BulkDynamicViscosity::Create<Unit::DynamicViscosity::PascalSecond>(1.0);
+  EXPECT_EQ(
+      bulk_dynamic_viscosity, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, DefaultConstructor) {
@@ -118,9 +123,9 @@ TEST(BulkDynamicViscosity, Dimensions) {
 }
 
 TEST(BulkDynamicViscosity, Hash) {
-  const BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::KilopascalSecond};
-  const BulkDynamicViscosity second{1.110001, Unit::DynamicViscosity::KilopascalSecond};
-  const BulkDynamicViscosity third{-1.11, Unit::DynamicViscosity::KilopascalSecond};
+  const BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::KilopascalSecond};
+  const BulkDynamicViscosity second{1.000001, Unit::DynamicViscosity::KilopascalSecond};
+  const BulkDynamicViscosity third{-1.0, Unit::DynamicViscosity::KilopascalSecond};
   const std::hash<BulkDynamicViscosity> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -128,45 +133,45 @@ TEST(BulkDynamicViscosity, Hash) {
 }
 
 TEST(BulkDynamicViscosity, JSON) {
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa·s\"}");
-  EXPECT_EQ(BulkDynamicViscosity(-2.22, Unit::DynamicViscosity::KilopascalSecond)
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa·s\"}");
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond)
                 .JSON(Unit::DynamicViscosity::KilopascalSecond),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa·s\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa·s\"}");
 }
 
 TEST(BulkDynamicViscosity, MoveAssignmentOperator) {
-  BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
   BulkDynamicViscosity second = BulkDynamicViscosity::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
+  EXPECT_EQ(second, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, MoveConstructor) {
-  BulkDynamicViscosity first{1.11, Unit::DynamicViscosity::PascalSecond};
+  BulkDynamicViscosity first{1.0, Unit::DynamicViscosity::PascalSecond};
   const BulkDynamicViscosity second{std::move(first)};
-  EXPECT_EQ(second, BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond));
+  EXPECT_EQ(second, BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond));
 }
 
 TEST(BulkDynamicViscosity, MutableValue) {
-  BulkDynamicViscosity quantity{1.11, Unit::DynamicViscosity::PascalSecond};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  BulkDynamicViscosity bulk_dynamic_viscosity{1.0, Unit::DynamicViscosity::PascalSecond};
+  double& value = bulk_dynamic_viscosity.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(bulk_dynamic_viscosity.Value(), 2.0);
 }
 
 TEST(BulkDynamicViscosity, Print) {
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print(),
-            "1.110000000000000 Pa·s");
-  EXPECT_EQ(BulkDynamicViscosity(-2.22, Unit::DynamicViscosity::KilopascalSecond)
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).Print(),
+            Print(1.0) + " Pa·s");
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond)
                 .Print(Unit::DynamicViscosity::KilopascalSecond),
-            "-2.220000000000000 kPa·s");
+            Print(1.0) + " kPa·s");
 }
 
 TEST(BulkDynamicViscosity, SetValue) {
-  BulkDynamicViscosity quantity{1.11, Unit::DynamicViscosity::PascalSecond};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  BulkDynamicViscosity bulk_dynamic_viscosity{1.0, Unit::DynamicViscosity::PascalSecond};
+  bulk_dynamic_viscosity.SetValue(2.0);
+  EXPECT_EQ(bulk_dynamic_viscosity.Value(), 2.0);
 }
 
 TEST(BulkDynamicViscosity, SizeOf) {
@@ -174,20 +179,21 @@ TEST(BulkDynamicViscosity, SizeOf) {
 }
 
 TEST(BulkDynamicViscosity, StandardConstructor) {
-  EXPECT_NO_THROW(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::KilopascalSecond));
+  EXPECT_NO_THROW(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond));
 }
 
 TEST(BulkDynamicViscosity, StaticValue) {
-  constexpr BulkDynamicViscosity quantity =
-      BulkDynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::DynamicViscosity::KilopascalSecond>();
-  EXPECT_EQ(value, 1.11);
+  constexpr BulkDynamicViscosity bulk_dynamic_viscosity =
+      BulkDynamicViscosity::Create<Unit::DynamicViscosity::KilopascalSecond>(1.0);
+  constexpr double value =
+      bulk_dynamic_viscosity.StaticValue<Unit::DynamicViscosity::KilopascalSecond>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(BulkDynamicViscosity, Stream) {
   std::ostringstream stream;
-  stream << BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond);
-  EXPECT_EQ(stream.str(), BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Print());
+  stream << BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond);
+  EXPECT_EQ(stream.str(), BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).Print());
 }
 
 TEST(BulkDynamicViscosity, Unit) {
@@ -195,26 +201,26 @@ TEST(BulkDynamicViscosity, Unit) {
 }
 
 TEST(BulkDynamicViscosity, Value) {
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).Value(), 1.11);
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::KilopascalSecond)
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).Value(), 1.0);
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond)
                 .Value(Unit::DynamicViscosity::KilopascalSecond),
-            1.11);
+            1.0);
 }
 
 TEST(BulkDynamicViscosity, XML) {
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).XML(),
-            "<value>1.110000000000000</value><unit>Pa·s</unit>");
-  EXPECT_EQ(BulkDynamicViscosity(-2.22, Unit::DynamicViscosity::KilopascalSecond)
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa·s</unit>");
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond)
                 .XML(Unit::DynamicViscosity::KilopascalSecond),
-            "<value>-2.220000000000000</value><unit>kPa·s</unit>");
+            "<value>" + Print(1.0) + "</value><unit>kPa·s</unit>");
 }
 
 TEST(BulkDynamicViscosity, YAML) {
-  EXPECT_EQ(BulkDynamicViscosity(1.11, Unit::DynamicViscosity::PascalSecond).YAML(),
-            "{value:1.110000000000000,unit:\"Pa·s\"}");
-  EXPECT_EQ(BulkDynamicViscosity(-2.22, Unit::DynamicViscosity::KilopascalSecond)
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::PascalSecond).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"Pa·s\"}");
+  EXPECT_EQ(BulkDynamicViscosity(1.0, Unit::DynamicViscosity::KilopascalSecond)
                 .YAML(Unit::DynamicViscosity::KilopascalSecond),
-            "{value:-2.220000000000000,unit:\"kPa·s\"}");
+            "{value:" + Print(1.0) + ",unit:\"kPa·s\"}");
 }
 
 TEST(BulkDynamicViscosity, Zero) {

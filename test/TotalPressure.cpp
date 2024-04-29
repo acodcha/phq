@@ -29,11 +29,9 @@ namespace {
 TEST(TotalPressure, ArithmeticOperatorAddition) {
   EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Pascal) + TotalPressure(2.0, Unit::Pressure::Pascal),
             TotalPressure(3.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       StaticPressure(2.0, Unit::Pressure::Pascal) + DynamicPressure(1.0, Unit::Pressure::Pascal),
       TotalPressure(3.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       DynamicPressure(1.0, Unit::Pressure::Pascal) + StaticPressure(2.0, Unit::Pressure::Pascal),
       TotalPressure(3.0, Unit::Pressure::Pascal));
@@ -42,7 +40,6 @@ TEST(TotalPressure, ArithmeticOperatorAddition) {
 TEST(TotalPressure, ArithmeticOperatorDivision) {
   EXPECT_EQ(
       TotalPressure(8.0, Unit::Pressure::Pascal) / 2.0, TotalPressure(4.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       TotalPressure(8.0, Unit::Pressure::Pascal) / TotalPressure(2.0, Unit::Pressure::Pascal), 4.0);
 }
@@ -50,7 +47,6 @@ TEST(TotalPressure, ArithmeticOperatorDivision) {
 TEST(TotalPressure, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(
       TotalPressure(4.0, Unit::Pressure::Pascal) * 2.0, TotalPressure(8.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       2.0 * TotalPressure(4.0, Unit::Pressure::Pascal), TotalPressure(8.0, Unit::Pressure::Pascal));
 }
@@ -58,43 +54,41 @@ TEST(TotalPressure, ArithmeticOperatorMultiplication) {
 TEST(TotalPressure, ArithmeticOperatorSubtraction) {
   EXPECT_EQ(TotalPressure(3.0, Unit::Pressure::Pascal) - TotalPressure(2.0, Unit::Pressure::Pascal),
             TotalPressure(1.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       TotalPressure(3.0, Unit::Pressure::Pascal) - StaticPressure(2.0, Unit::Pressure::Pascal),
       DynamicPressure(1.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(
       TotalPressure(3.0, Unit::Pressure::Pascal) - DynamicPressure(1.0, Unit::Pressure::Pascal),
       StaticPressure(2.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, AssignmentOperatorAddition) {
-  TotalPressure quantity{1.0, Unit::Pressure::Pascal};
-  quantity += TotalPressure(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, TotalPressure(3.0, Unit::Pressure::Pascal));
+  TotalPressure total_pressure{1.0, Unit::Pressure::Pascal};
+  total_pressure += TotalPressure(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(total_pressure, TotalPressure(3.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, AssignmentOperatorDivision) {
-  TotalPressure quantity{8.0, Unit::Pressure::Pascal};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, TotalPressure(4.0, Unit::Pressure::Pascal));
+  TotalPressure total_pressure{8.0, Unit::Pressure::Pascal};
+  total_pressure /= 2.0;
+  EXPECT_EQ(total_pressure, TotalPressure(4.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, AssignmentOperatorMultiplication) {
-  TotalPressure quantity{4.0, Unit::Pressure::Pascal};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, TotalPressure(8.0, Unit::Pressure::Pascal));
+  TotalPressure total_pressure{4.0, Unit::Pressure::Pascal};
+  total_pressure *= 2.0;
+  EXPECT_EQ(total_pressure, TotalPressure(8.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, AssignmentOperatorSubtraction) {
-  TotalPressure quantity{3.0, Unit::Pressure::Pascal};
-  quantity -= TotalPressure(2.0, Unit::Pressure::Pascal);
-  EXPECT_EQ(quantity, TotalPressure(1.0, Unit::Pressure::Pascal));
+  TotalPressure total_pressure{3.0, Unit::Pressure::Pascal};
+  total_pressure -= TotalPressure(2.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(total_pressure, TotalPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, ComparisonOperators) {
-  const TotalPressure first{1.11, Unit::Pressure::Pascal};
-  const TotalPressure second{2.22, Unit::Pressure::Pascal};
+  const TotalPressure first{1.0, Unit::Pressure::Pascal};
+  const TotalPressure second{2.0, Unit::Pressure::Pascal};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -106,21 +100,21 @@ TEST(TotalPressure, ComparisonOperators) {
 }
 
 TEST(TotalPressure, CopyAssignmentOperator) {
-  const TotalPressure first{1.11, Unit::Pressure::Pascal};
+  const TotalPressure first{1.0, Unit::Pressure::Pascal};
   TotalPressure second = TotalPressure::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(TotalPressure, CopyConstructor) {
-  const TotalPressure first{1.11, Unit::Pressure::Pascal};
+  const TotalPressure first{1.0, Unit::Pressure::Pascal};
   const TotalPressure second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(TotalPressure, Create) {
-  constexpr TotalPressure quantity = TotalPressure::Create<Unit::Pressure::Pascal>(1.11);
-  EXPECT_EQ(quantity, TotalPressure(1.11, Unit::Pressure::Pascal));
+  constexpr TotalPressure total_pressure = TotalPressure::Create<Unit::Pressure::Pascal>(1.0);
+  EXPECT_EQ(total_pressure, TotalPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, DefaultConstructor) {
@@ -132,9 +126,9 @@ TEST(TotalPressure, Dimensions) {
 }
 
 TEST(TotalPressure, Hash) {
-  const TotalPressure first{1.11, Unit::Pressure::Kilopascal};
-  const TotalPressure second{1.110001, Unit::Pressure::Kilopascal};
-  const TotalPressure third{-1.11, Unit::Pressure::Kilopascal};
+  const TotalPressure first{1.0, Unit::Pressure::Kilopascal};
+  const TotalPressure second{1.000001, Unit::Pressure::Kilopascal};
+  const TotalPressure third{-1.0, Unit::Pressure::Kilopascal};
   const std::hash<TotalPressure> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
@@ -142,56 +136,54 @@ TEST(TotalPressure, Hash) {
 }
 
 TEST(TotalPressure, JSON) {
-  EXPECT_EQ(TotalPressure(1.11, Unit::Pressure::Pascal).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"Pa\"}");
-  EXPECT_EQ(TotalPressure(-2.22, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
-            "{\"value\":-2.220000000000000,\"unit\":\"kPa\"}");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Pascal).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"Pa\"}");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Kilopascal).JSON(Unit::Pressure::Kilopascal),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"kPa\"}");
 }
 
 TEST(TotalPressure, MiscellaneousConstructors) {
   EXPECT_EQ(TotalPressure(StaticPressure(2.0, Unit::Pressure::Pascal),
                           DynamicPressure(1.0, Unit::Pressure::Pascal)),
             TotalPressure(3.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(StaticPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
                            DynamicPressure(1.0, Unit::Pressure::Pascal)),
             StaticPressure(2.0, Unit::Pressure::Pascal));
-
   EXPECT_EQ(DynamicPressure(TotalPressure(3.0, Unit::Pressure::Pascal),
                             StaticPressure(2.0, Unit::Pressure::Pascal)),
             DynamicPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, MoveAssignmentOperator) {
-  TotalPressure first{1.11, Unit::Pressure::Pascal};
+  TotalPressure first{1.0, Unit::Pressure::Pascal};
   TotalPressure second = TotalPressure::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, TotalPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, TotalPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, MoveConstructor) {
-  TotalPressure first{1.11, Unit::Pressure::Pascal};
+  TotalPressure first{1.0, Unit::Pressure::Pascal};
   const TotalPressure second{std::move(first)};
-  EXPECT_EQ(second, TotalPressure(1.11, Unit::Pressure::Pascal));
+  EXPECT_EQ(second, TotalPressure(1.0, Unit::Pressure::Pascal));
 }
 
 TEST(TotalPressure, MutableValue) {
-  TotalPressure quantity{1.11, Unit::Pressure::Pascal};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  TotalPressure total_pressure{1.0, Unit::Pressure::Pascal};
+  double& value = total_pressure.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(total_pressure.Value(), 2.0);
 }
 
 TEST(TotalPressure, Print) {
-  EXPECT_EQ(TotalPressure(1.11, Unit::Pressure::Pascal).Print(), "1.110000000000000 Pa");
-  EXPECT_EQ(TotalPressure(-2.22, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
-            "-2.220000000000000 kPa");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Pascal).Print(), Print(1.0) + " Pa");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Kilopascal).Print(Unit::Pressure::Kilopascal),
+            Print(1.0) + " kPa");
 }
 
 TEST(TotalPressure, SetValue) {
-  TotalPressure quantity{1.11, Unit::Pressure::Pascal};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  TotalPressure total_pressure{1.0, Unit::Pressure::Pascal};
+  total_pressure.SetValue(2.0);
+  EXPECT_EQ(total_pressure.Value(), 2.0);
 }
 
 TEST(TotalPressure, SizeOf) {
@@ -199,19 +191,19 @@ TEST(TotalPressure, SizeOf) {
 }
 
 TEST(TotalPressure, StandardConstructor) {
-  EXPECT_NO_THROW(TotalPressure(1.11, Unit::Pressure::Kilopascal));
+  EXPECT_NO_THROW(TotalPressure(1.0, Unit::Pressure::Kilopascal));
 }
 
 TEST(TotalPressure, StaticValue) {
-  constexpr TotalPressure quantity = TotalPressure::Create<Unit::Pressure::Kilopascal>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Pressure::Kilopascal>();
-  EXPECT_EQ(value, 1.11);
+  constexpr TotalPressure total_pressure = TotalPressure::Create<Unit::Pressure::Kilopascal>(1.0);
+  constexpr double value = total_pressure.StaticValue<Unit::Pressure::Kilopascal>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(TotalPressure, Stream) {
   std::ostringstream stream;
-  stream << TotalPressure(1.11, Unit::Pressure::Pascal);
-  EXPECT_EQ(stream.str(), TotalPressure(1.11, Unit::Pressure::Pascal).Print());
+  stream << TotalPressure(1.0, Unit::Pressure::Pascal);
+  EXPECT_EQ(stream.str(), TotalPressure(1.0, Unit::Pressure::Pascal).Print());
 }
 
 TEST(TotalPressure, Unit) {
@@ -219,23 +211,22 @@ TEST(TotalPressure, Unit) {
 }
 
 TEST(TotalPressure, Value) {
-  EXPECT_EQ(TotalPressure(1.11, Unit::Pressure::Pascal).Value(), 1.11);
-  EXPECT_EQ(
-      TotalPressure(1.11, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.11);
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Pascal).Value(), 1.0);
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Kilopascal).Value(Unit::Pressure::Kilopascal), 1.0);
 }
 
 TEST(TotalPressure, XML) {
-  EXPECT_EQ(TotalPressure(1.11, Unit::Pressure::Pascal).XML(),
-            "<value>1.110000000000000</value><unit>Pa</unit>");
-  EXPECT_EQ(TotalPressure(-2.22, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
-            "<value>-2.220000000000000</value><unit>kPa</unit>");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Pascal).XML(),
+            "<value>" + Print(1.0) + "</value><unit>Pa</unit>");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Kilopascal).XML(Unit::Pressure::Kilopascal),
+            "<value>" + Print(1.0) + "</value><unit>kPa</unit>");
 }
 
 TEST(TotalPressure, YAML) {
   EXPECT_EQ(
-      TotalPressure(1.11, Unit::Pressure::Pascal).YAML(), "{value:1.110000000000000,unit:\"Pa\"}");
-  EXPECT_EQ(TotalPressure(-2.22, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
-            "{value:-2.220000000000000,unit:\"kPa\"}");
+      TotalPressure(1.0, Unit::Pressure::Pascal).YAML(), "{value:" + Print(1.0) + ",unit:\"Pa\"}");
+  EXPECT_EQ(TotalPressure(1.0, Unit::Pressure::Kilopascal).YAML(Unit::Pressure::Kilopascal),
+            "{value:" + Print(1.0) + ",unit:\"kPa\"}");
 }
 
 TEST(TotalPressure, Zero) {

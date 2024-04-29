@@ -325,16 +325,6 @@ public:
            + PhQ::Print(zx()) + ", " + PhQ::Print(zy()) + ", " + PhQ::Print(zz()) + ")";
   }
 
-  // Prints this three-dimensional dyadic tensor as a string. Components are printed to a given
-  // floating point precision.
-  [[nodiscard]] std::string Print(const Precision precision) const {
-    return "(" + PhQ::Print(xx(), precision) + ", " + PhQ::Print(xy(), precision) + ", "
-           + PhQ::Print(xz(), precision) + "; " + PhQ::Print(yx(), precision) + ", "
-           + PhQ::Print(yy(), precision) + ", " + PhQ::Print(yz(), precision) + "; "
-           + PhQ::Print(zx(), precision) + ", " + PhQ::Print(zy(), precision) + ", "
-           + PhQ::Print(zz(), precision) + ")";
-  }
-
   // Serializes this three-dimensional dyadic tensor as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return "{\"xx\":" + PhQ::Print(xx()) + ",\"xy\":" + PhQ::Print(xy()) + ",\"xz\":"

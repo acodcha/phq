@@ -33,7 +33,6 @@ TEST(TemperatureDifference, ArithmeticOperatorAddition) {
 TEST(TemperatureDifference, ArithmeticOperatorDivision) {
   EXPECT_EQ(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin) / 2.0,
             TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin));
-
   EXPECT_EQ(TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin)
                 / TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin),
             4.0);
@@ -42,7 +41,6 @@ TEST(TemperatureDifference, ArithmeticOperatorDivision) {
 TEST(TemperatureDifference, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin) * 2.0,
             TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
-
   EXPECT_EQ(2.0 * TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin),
             TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
 }
@@ -54,32 +52,36 @@ TEST(TemperatureDifference, ArithmeticOperatorSubtraction) {
 }
 
 TEST(TemperatureDifference, AssignmentOperatorAddition) {
-  TemperatureDifference quantity{1.0, Unit::TemperatureDifference::Kelvin};
-  quantity += TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin);
-  EXPECT_EQ(quantity, TemperatureDifference(3.0, Unit::TemperatureDifference::Kelvin));
+  TemperatureDifference temperature_difference{1.0, Unit::TemperatureDifference::Kelvin};
+  temperature_difference += TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin);
+  EXPECT_EQ(
+      temperature_difference, TemperatureDifference(3.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, AssignmentOperatorDivision) {
-  TemperatureDifference quantity{8.0, Unit::TemperatureDifference::Kelvin};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin));
+  TemperatureDifference temperature_difference{8.0, Unit::TemperatureDifference::Kelvin};
+  temperature_difference /= 2.0;
+  EXPECT_EQ(
+      temperature_difference, TemperatureDifference(4.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, AssignmentOperatorMultiplication) {
-  TemperatureDifference quantity{4.0, Unit::TemperatureDifference::Kelvin};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
+  TemperatureDifference temperature_difference{4.0, Unit::TemperatureDifference::Kelvin};
+  temperature_difference *= 2.0;
+  EXPECT_EQ(
+      temperature_difference, TemperatureDifference(8.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, AssignmentOperatorSubtraction) {
-  TemperatureDifference quantity{3.0, Unit::TemperatureDifference::Kelvin};
-  quantity -= TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin);
-  EXPECT_EQ(quantity, TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
+  TemperatureDifference temperature_difference{3.0, Unit::TemperatureDifference::Kelvin};
+  temperature_difference -= TemperatureDifference(2.0, Unit::TemperatureDifference::Kelvin);
+  EXPECT_EQ(
+      temperature_difference, TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, ComparisonOperators) {
-  const TemperatureDifference first{0.1, Unit::TemperatureDifference::Kelvin};
-  const TemperatureDifference second{0.2, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference second{2.0, Unit::TemperatureDifference::Kelvin};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -91,22 +93,23 @@ TEST(TemperatureDifference, ComparisonOperators) {
 }
 
 TEST(TemperatureDifference, CopyAssignmentOperator) {
-  const TemperatureDifference first{1.11, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
   TemperatureDifference second = TemperatureDifference::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(TemperatureDifference, CopyConstructor) {
-  const TemperatureDifference first{1.11, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
   const TemperatureDifference second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(TemperatureDifference, Create) {
-  constexpr TemperatureDifference quantity =
-      TemperatureDifference::Create<Unit::TemperatureDifference::Kelvin>(1.11);
-  EXPECT_EQ(quantity, TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin));
+  constexpr TemperatureDifference temperature_difference =
+      TemperatureDifference::Create<Unit::TemperatureDifference::Kelvin>(1.0);
+  EXPECT_EQ(
+      temperature_difference, TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, DefaultConstructor) {
@@ -118,9 +121,9 @@ TEST(TemperatureDifference, Dimensions) {
 }
 
 TEST(TemperatureDifference, Hash) {
-  const TemperatureDifference first{1.11, Unit::TemperatureDifference::Kelvin};
-  const TemperatureDifference second{1.110001, Unit::TemperatureDifference::Kelvin};
-  const TemperatureDifference third{-1.11, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference second{1.000001, Unit::TemperatureDifference::Kelvin};
+  const TemperatureDifference third{-1.0, Unit::TemperatureDifference::Kelvin};
   const std::hash<TemperatureDifference> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -128,45 +131,45 @@ TEST(TemperatureDifference, Hash) {
 }
 
 TEST(TemperatureDifference, JSON) {
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"K\"}");
-  EXPECT_EQ(TemperatureDifference(-2.22, Unit::TemperatureDifference::Rankine)
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"K\"}");
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine)
                 .JSON(Unit::TemperatureDifference::Rankine),
-            "{\"value\":-2.220000000000000,\"unit\":\"°R\"}");
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"°R\"}");
 }
 
 TEST(TemperatureDifference, MoveAssignmentOperator) {
-  TemperatureDifference first{1.11, Unit::TemperatureDifference::Kelvin};
+  TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
   TemperatureDifference second = TemperatureDifference::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin));
+  EXPECT_EQ(second, TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, MoveConstructor) {
-  TemperatureDifference first{1.11, Unit::TemperatureDifference::Kelvin};
+  TemperatureDifference first{1.0, Unit::TemperatureDifference::Kelvin};
   const TemperatureDifference second{std::move(first)};
-  EXPECT_EQ(second, TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin));
+  EXPECT_EQ(second, TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin));
 }
 
 TEST(TemperatureDifference, MutableValue) {
-  TemperatureDifference quantity{1.11, Unit::TemperatureDifference::Kelvin};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  TemperatureDifference temperature_difference{1.0, Unit::TemperatureDifference::Kelvin};
+  double& value = temperature_difference.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(temperature_difference.Value(), 2.0);
 }
 
 TEST(TemperatureDifference, Print) {
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).Print(),
-            "1.110000000000000 K");
-  EXPECT_EQ(TemperatureDifference(-2.22, Unit::TemperatureDifference::Rankine)
+  EXPECT_EQ(
+      TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).Print(), Print(1.0) + " K");
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine)
                 .Print(Unit::TemperatureDifference::Rankine),
-            "-2.220000000000000 °R");
+            Print(1.0) + " °R");
 }
 
 TEST(TemperatureDifference, SetValue) {
-  TemperatureDifference quantity{1.11, Unit::TemperatureDifference::Kelvin};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  TemperatureDifference temperature_difference{1.0, Unit::TemperatureDifference::Kelvin};
+  temperature_difference.SetValue(2.0);
+  EXPECT_EQ(temperature_difference.Value(), 2.0);
 }
 
 TEST(TemperatureDifference, SizeOf) {
@@ -174,20 +177,21 @@ TEST(TemperatureDifference, SizeOf) {
 }
 
 TEST(TemperatureDifference, StandardConstructor) {
-  EXPECT_NO_THROW(TemperatureDifference(1.11, Unit::TemperatureDifference::Rankine));
+  EXPECT_NO_THROW(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine));
 }
 
 TEST(TemperatureDifference, StaticValue) {
-  constexpr TemperatureDifference quantity =
-      TemperatureDifference::Create<Unit::TemperatureDifference::Rankine>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::TemperatureDifference::Rankine>();
-  EXPECT_EQ(value, 1.11);
+  constexpr TemperatureDifference temperature_difference =
+      TemperatureDifference::Create<Unit::TemperatureDifference::Rankine>(1.0);
+  constexpr double value =
+      temperature_difference.StaticValue<Unit::TemperatureDifference::Rankine>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(TemperatureDifference, Stream) {
   std::ostringstream stream;
-  stream << TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin);
-  EXPECT_EQ(stream.str(), TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).Print());
+  stream << TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin);
+  EXPECT_EQ(stream.str(), TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).Print());
 }
 
 TEST(TemperatureDifference, Unit) {
@@ -195,26 +199,26 @@ TEST(TemperatureDifference, Unit) {
 }
 
 TEST(TemperatureDifference, Value) {
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).Value(), 1.11);
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Rankine)
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).Value(), 1.0);
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine)
                 .Value(Unit::TemperatureDifference::Rankine),
-            1.11);
+            1.0);
 }
 
 TEST(TemperatureDifference, XML) {
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).XML(),
-            "<value>1.110000000000000</value><unit>K</unit>");
-  EXPECT_EQ(TemperatureDifference(-2.22, Unit::TemperatureDifference::Rankine)
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).XML(),
+            "<value>" + Print(1.0) + "</value><unit>K</unit>");
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine)
                 .XML(Unit::TemperatureDifference::Rankine),
-            "<value>-2.220000000000000</value><unit>°R</unit>");
+            "<value>" + Print(1.0) + "</value><unit>°R</unit>");
 }
 
 TEST(TemperatureDifference, YAML) {
-  EXPECT_EQ(TemperatureDifference(1.11, Unit::TemperatureDifference::Kelvin).YAML(),
-            "{value:1.110000000000000,unit:\"K\"}");
-  EXPECT_EQ(TemperatureDifference(-2.22, Unit::TemperatureDifference::Rankine)
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Kelvin).YAML(),
+            "{value:" + Print(1.0) + ",unit:\"K\"}");
+  EXPECT_EQ(TemperatureDifference(1.0, Unit::TemperatureDifference::Rankine)
                 .YAML(Unit::TemperatureDifference::Rankine),
-            "{value:-2.220000000000000,unit:\"°R\"}");
+            "{value:" + Print(1.0) + ",unit:\"°R\"}");
 }
 
 TEST(TemperatureDifference, Zero) {

@@ -35,24 +35,18 @@ TEST(Volume, ArithmeticOperatorAddition) {
 
 TEST(Volume, ArithmeticOperatorDivision) {
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / 2.0, Volume(4.0, Unit::Volume::CubicMetre));
-
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / Volume(2.0, Unit::Volume::CubicMetre), 4.0);
-
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / Length(4.0, Unit::Length::Metre),
             Area(2.0, Unit::Area::SquareMetre));
-
   EXPECT_EQ(Volume(8.0, Unit::Volume::CubicMetre) / Area(4.0, Unit::Area::SquareMetre),
             Length(2.0, Unit::Length::Metre));
 }
 
 TEST(Volume, ArithmeticOperatorMultiplication) {
   EXPECT_EQ(Volume(4.0, Unit::Volume::CubicMetre) * 2.0, Volume(8.0, Unit::Volume::CubicMetre));
-
   EXPECT_EQ(2.0 * Volume(4.0, Unit::Volume::CubicMetre), Volume(8.0, Unit::Volume::CubicMetre));
-
   EXPECT_EQ(Length(4.0, Unit::Length::Metre) * Area(2.0, Unit::Area::SquareMetre),
             Volume(8.0, Unit::Volume::CubicMetre));
-
   EXPECT_EQ(Area(4.0, Unit::Area::SquareMetre) * Length(2.0, Unit::Length::Metre),
             Volume(8.0, Unit::Volume::CubicMetre));
 }
@@ -63,32 +57,32 @@ TEST(Volume, ArithmeticOperatorSubtraction) {
 }
 
 TEST(Volume, AssignmentOperatorAddition) {
-  Volume quantity{1.0, Unit::Volume::CubicMetre};
-  quantity += Volume(2.0, Unit::Volume::CubicMetre);
-  EXPECT_EQ(quantity, Volume(3.0, Unit::Volume::CubicMetre));
+  Volume volume{1.0, Unit::Volume::CubicMetre};
+  volume += Volume(2.0, Unit::Volume::CubicMetre);
+  EXPECT_EQ(volume, Volume(3.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, AssignmentOperatorDivision) {
-  Volume quantity{8.0, Unit::Volume::CubicMetre};
-  quantity /= 2.0;
-  EXPECT_EQ(quantity, Volume(4.0, Unit::Volume::CubicMetre));
+  Volume volume{8.0, Unit::Volume::CubicMetre};
+  volume /= 2.0;
+  EXPECT_EQ(volume, Volume(4.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, AssignmentOperatorMultiplication) {
-  Volume quantity{4.0, Unit::Volume::CubicMetre};
-  quantity *= 2.0;
-  EXPECT_EQ(quantity, Volume(8.0, Unit::Volume::CubicMetre));
+  Volume volume{4.0, Unit::Volume::CubicMetre};
+  volume *= 2.0;
+  EXPECT_EQ(volume, Volume(8.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, AssignmentOperatorSubtraction) {
-  Volume quantity{3.0, Unit::Volume::CubicMetre};
-  quantity -= Volume(2.0, Unit::Volume::CubicMetre);
-  EXPECT_EQ(quantity, Volume(1.0, Unit::Volume::CubicMetre));
+  Volume volume{3.0, Unit::Volume::CubicMetre};
+  volume -= Volume(2.0, Unit::Volume::CubicMetre);
+  EXPECT_EQ(volume, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, ComparisonOperators) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
-  const Volume second{2.22, Unit::Volume::CubicMetre};
+  const Volume first{1.0, Unit::Volume::CubicMetre};
+  const Volume second{2.0, Unit::Volume::CubicMetre};
   EXPECT_EQ(first, first);
   EXPECT_NE(first, second);
   EXPECT_LT(first, second);
@@ -100,21 +94,21 @@ TEST(Volume, ComparisonOperators) {
 }
 
 TEST(Volume, CopyAssignmentOperator) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
+  const Volume first{1.0, Unit::Volume::CubicMetre};
   Volume second = Volume::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
 
 TEST(Volume, CopyConstructor) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
+  const Volume first{1.0, Unit::Volume::CubicMetre};
   const Volume second{first};
   EXPECT_EQ(second, first);
 }
 
 TEST(Volume, Create) {
-  constexpr Volume quantity = Volume::Create<Unit::Volume::CubicMetre>(1.11);
-  EXPECT_EQ(quantity, Volume(1.11, Unit::Volume::CubicMetre));
+  constexpr Volume volume = Volume::Create<Unit::Volume::CubicMetre>(1.0);
+  EXPECT_EQ(volume, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, DefaultConstructor) {
@@ -126,9 +120,9 @@ TEST(Volume, Dimensions) {
 }
 
 TEST(Volume, Hash) {
-  const Volume first{1.11, Unit::Volume::CubicMetre};
-  const Volume second{1.110001, Unit::Volume::CubicMetre};
-  const Volume third{-1.11, Unit::Volume::CubicMetre};
+  const Volume first{1.0, Unit::Volume::CubicMetre};
+  const Volume second{1.000001, Unit::Volume::CubicMetre};
+  const Volume third{-1.0, Unit::Volume::CubicMetre};
   const std::hash<Volume> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
@@ -136,42 +130,42 @@ TEST(Volume, Hash) {
 }
 
 TEST(Volume, JSON) {
-  EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).JSON(),
-            "{\"value\":1.110000000000000,\"unit\":\"m^3\"}");
-  EXPECT_EQ(Volume(-2.22, Unit::Volume::CubicMillimetre).JSON(Unit::Volume::CubicMillimetre),
-            "{\"value\":-2.220000000000000,\"unit\":\"mm^3\"}");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMetre).JSON(),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"m^3\"}");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMillimetre).JSON(Unit::Volume::CubicMillimetre),
+            "{\"value\":" + Print(1.0) + ",\"unit\":\"mm^3\"}");
 }
 
 TEST(Volume, MoveAssignmentOperator) {
-  Volume first{1.11, Unit::Volume::CubicMetre};
+  Volume first{1.0, Unit::Volume::CubicMetre};
   Volume second = Volume::Zero();
   second = std::move(first);
-  EXPECT_EQ(second, Volume(1.11, Unit::Volume::CubicMetre));
+  EXPECT_EQ(second, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, MoveConstructor) {
-  Volume first{1.11, Unit::Volume::CubicMetre};
+  Volume first{1.0, Unit::Volume::CubicMetre};
   const Volume second{std::move(first)};
-  EXPECT_EQ(second, Volume(1.11, Unit::Volume::CubicMetre));
+  EXPECT_EQ(second, Volume(1.0, Unit::Volume::CubicMetre));
 }
 
 TEST(Volume, MutableValue) {
-  Volume quantity{1.11, Unit::Volume::CubicMetre};
-  double& value = quantity.MutableValue();
-  value = 2.22;
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Volume volume{1.0, Unit::Volume::CubicMetre};
+  double& value = volume.MutableValue();
+  value = 2.0;
+  EXPECT_EQ(volume.Value(), 2.0);
 }
 
 TEST(Volume, Print) {
-  EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).Print(), "1.110000000000000 m^3");
-  EXPECT_EQ(Volume(-2.22, Unit::Volume::CubicMillimetre).Print(Unit::Volume::CubicMillimetre),
-            "-2.220000000000000 mm^3");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMetre).Print(), Print(1.0) + " m^3");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMillimetre).Print(Unit::Volume::CubicMillimetre),
+            Print(1.0) + " mm^3");
 }
 
 TEST(Volume, SetValue) {
-  Volume quantity{1.11, Unit::Volume::CubicMetre};
-  quantity.SetValue(2.22);
-  EXPECT_EQ(quantity.Value(), 2.22);
+  Volume volume{1.0, Unit::Volume::CubicMetre};
+  volume.SetValue(2.0);
+  EXPECT_EQ(volume.Value(), 2.0);
 }
 
 TEST(Volume, SizeOf) {
@@ -179,19 +173,19 @@ TEST(Volume, SizeOf) {
 }
 
 TEST(Volume, StandardConstructor) {
-  EXPECT_NO_THROW(Volume(1.11, Unit::Volume::CubicMillimetre));
+  EXPECT_NO_THROW(Volume(1.0, Unit::Volume::CubicMillimetre));
 }
 
 TEST(Volume, StaticValue) {
-  constexpr Volume quantity = Volume::Create<Unit::Volume::CubicMillimetre>(1.11);
-  constexpr double value = quantity.StaticValue<Unit::Volume::CubicMillimetre>();
-  EXPECT_EQ(value, 1.11);
+  constexpr Volume volume = Volume::Create<Unit::Volume::CubicMillimetre>(1.0);
+  constexpr double value = volume.StaticValue<Unit::Volume::CubicMillimetre>();
+  EXPECT_EQ(value, 1.0);
 }
 
 TEST(Volume, Stream) {
   std::ostringstream stream;
-  stream << Volume(1.11, Unit::Volume::CubicMetre);
-  EXPECT_EQ(stream.str(), Volume(1.11, Unit::Volume::CubicMetre).Print());
+  stream << Volume(1.0, Unit::Volume::CubicMetre);
+  EXPECT_EQ(stream.str(), Volume(1.0, Unit::Volume::CubicMetre).Print());
 }
 
 TEST(Volume, Unit) {
@@ -199,22 +193,22 @@ TEST(Volume, Unit) {
 }
 
 TEST(Volume, Value) {
-  EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).Value(), 1.11);
-  EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMillimetre).Value(Unit::Volume::CubicMillimetre), 1.11);
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMetre).Value(), 1.0);
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMillimetre).Value(Unit::Volume::CubicMillimetre), 1.0);
 }
 
 TEST(Volume, XML) {
-  EXPECT_EQ(Volume(1.11, Unit::Volume::CubicMetre).XML(),
-            "<value>1.110000000000000</value><unit>m^3</unit>");
-  EXPECT_EQ(Volume(-2.22, Unit::Volume::CubicMillimetre).XML(Unit::Volume::CubicMillimetre),
-            "<value>-2.220000000000000</value><unit>mm^3</unit>");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMetre).XML(),
+            "<value>" + Print(1.0) + "</value><unit>m^3</unit>");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMillimetre).XML(Unit::Volume::CubicMillimetre),
+            "<value>" + Print(1.0) + "</value><unit>mm^3</unit>");
 }
 
 TEST(Volume, YAML) {
   EXPECT_EQ(
-      Volume(1.11, Unit::Volume::CubicMetre).YAML(), "{value:1.110000000000000,unit:\"m^3\"}");
-  EXPECT_EQ(Volume(-2.22, Unit::Volume::CubicMillimetre).YAML(Unit::Volume::CubicMillimetre),
-            "{value:-2.220000000000000,unit:\"mm^3\"}");
+      Volume(1.0, Unit::Volume::CubicMetre).YAML(), "{value:" + Print(1.0) + ",unit:\"m^3\"}");
+  EXPECT_EQ(Volume(1.0, Unit::Volume::CubicMillimetre).YAML(Unit::Volume::CubicMillimetre),
+            "{value:" + Print(1.0) + ",unit:\"mm^3\"}");
 }
 
 TEST(Volume, Zero) {
