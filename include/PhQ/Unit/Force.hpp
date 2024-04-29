@@ -230,7 +230,7 @@ inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Dyne>(doubl
 template <>
 inline constexpr void ConversionFromStandard<Unit::Force, Unit::Force::Pound>(
     double& value) noexcept {
-  value *= 1.0 / (0.45359237 * 9.80665);
+  value /= (0.45359237 * 9.80665);
 }
 
 template <>

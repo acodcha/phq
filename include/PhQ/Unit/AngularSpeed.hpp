@@ -171,7 +171,7 @@ ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerMinute>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -183,7 +183,7 @@ inline constexpr void ConversionFromStandard<Unit::AngularSpeed, Unit::AngularSp
 template <>
 inline constexpr void ConversionToStandard<Unit::AngularSpeed, Unit::AngularSpeed::RadianPerHour>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>

@@ -182,7 +182,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareNauticalMilePerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (1852.0 * 1852.0);
+  value /= (1852.0 * 1852.0);
 }
 
 template <>
@@ -196,7 +196,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilePerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (1609.344 * 1609.344);
+  value /= (1609.344 * 1609.344);
 }
 
 template <>
@@ -259,7 +259,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareYardPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.9144 * 0.9144);
+  value /= (0.9144 * 0.9144);
 }
 
 template <>
@@ -273,7 +273,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareFootPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.3048);
+  value /= (0.3048 * 0.3048);
 }
 
 template <>
@@ -301,7 +301,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareInchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.0254);
+  value /= (0.0254 * 0.0254);
 }
 
 template <>
@@ -343,7 +343,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMilliinchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000254 * 0.0000254);
+  value /= (0.0000254 * 0.0000254);
 }
 
 template <>
@@ -371,7 +371,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::Diffusivity, Unit::Diffusivity::SquareMicroinchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000000254 * 0.0000000254);
+  value /= (0.0000000254 * 0.0000000254);
 }
 
 template <>

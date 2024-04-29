@@ -204,7 +204,7 @@ inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
     double& value) noexcept {
-  value *= 1.0 / (101325.0);
+  value /= 101325.0;
 }
 
 template <>

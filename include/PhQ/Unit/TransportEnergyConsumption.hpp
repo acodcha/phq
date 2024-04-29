@@ -208,7 +208,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
                      Unit::TransportEnergyConsumption::JoulePerMile>(double& value) noexcept {
-  value *= 1.0 / 1609.344;
+  value /= 1609.344;
 }
 
 template <>
@@ -262,7 +262,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TransportEnergyConsumption,
                      Unit::TransportEnergyConsumption::KilojoulePerMile>(double& value) noexcept {
-  value *= 1.0 / 1.609344;
+  value /= 1.609344;
 }
 
 template <>
@@ -298,7 +298,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::WattMinutePerKilometre>(
     double& value) noexcept {
-  value *= 1.0 / 0.06;
+  value /= 0.06;
 }
 
 template <>
@@ -314,7 +314,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::WattHourPerKilometre>(
     double& value) noexcept {
-  value *= 1.0 / 3.6;
+  value /= 3.6;
 }
 
 template <>
@@ -328,7 +328,7 @@ template <>
 inline constexpr void ConversionFromStandard<Unit::TransportEnergyConsumption,
                                              Unit::TransportEnergyConsumption::WattMinutePerMetre>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -342,7 +342,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::WattHourPerMetre>(double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>
@@ -386,7 +386,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::KilowattMinutePerKilometre>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -402,7 +402,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::KilowattHourPerKilometre>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>
@@ -418,7 +418,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::KilowattMinutePerMetre>(
     double& value) noexcept {
-  value *= 1.0 / 60000.0;
+  value /= 60000.0;
 }
 
 template <>
@@ -434,7 +434,7 @@ inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::KilowattHourPerMetre>(
     double& value) noexcept {
-  value *= 1.0 / 3600000.0;
+  value /= 3600000.0;
 }
 
 template <>
@@ -448,7 +448,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::FootPoundPerFoot>(double& value) noexcept {
-  value *= 1.0 / (0.45359237 * 9.80665);
+  value /= (0.45359237 * 9.80665);
 }
 
 template <>
@@ -462,7 +462,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::TransportEnergyConsumption,
                        Unit::TransportEnergyConsumption::InchPoundPerInch>(double& value) noexcept {
-  value *= 1.0 / (0.45359237 * 9.80665);
+  value /= (0.45359237 * 9.80665);
 }
 
 template <>

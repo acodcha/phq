@@ -165,7 +165,7 @@ ConversionFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
 template <>
 inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>(
     double& value) noexcept {
-  value *= 1.0 / 6.02214076e23;
+  value /= 6.02214076e23;
 }
 
 template <>

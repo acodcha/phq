@@ -250,7 +250,7 @@ template <>
 inline constexpr void ConversionFromStandard<Unit::ThermalConductivity,
                                              Unit::ThermalConductivity::PoundPerSecondPerRankine>(
     double& value) noexcept {
-  value *= 1.0 / (0.45359237 * 9.80665 * 1.8);
+  value /= (0.45359237 * 9.80665 * 1.8);
 }
 
 template <>

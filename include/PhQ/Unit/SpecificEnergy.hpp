@@ -163,7 +163,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.3048);
+  value /= (0.3048 * 0.3048);
 }
 
 template <>
@@ -177,7 +177,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.0254);
+  value /= (0.0254 * 0.0254);
 }
 
 template <>

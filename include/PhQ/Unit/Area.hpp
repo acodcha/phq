@@ -182,7 +182,7 @@ inline const std::unordered_map<std::string_view, Unit::Area> Spellings<Unit::Ar
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareNauticalMile>(
     double& value) noexcept {
-  value *= 1.0 / (1852.0 * 1852.0);
+  value /= (1852.0 * 1852.0);
 }
 
 template <>
@@ -194,7 +194,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareNautica
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareMile>(
     double& value) noexcept {
-  value *= 1.0 / (1609.344 * 1609.344);
+  value /= (1609.344 * 1609.344);
 }
 
 template <>
@@ -248,7 +248,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMetre>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareYard>(
     double& value) noexcept {
-  value *= 1.0 / (0.9144 * 0.9144);
+  value /= (0.9144 * 0.9144);
 }
 
 template <>
@@ -260,7 +260,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareYard>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareFoot>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.3048);
+  value /= (0.3048 * 0.3048);
 }
 
 template <>
@@ -284,7 +284,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareDecimet
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareInch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.0254);
+  value /= (0.0254 * 0.0254);
 }
 
 template <>
@@ -320,7 +320,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMillime
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareMilliinch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000254 * 0.0000254);
+  value /= (0.0000254 * 0.0000254);
 }
 
 template <>
@@ -344,7 +344,7 @@ inline constexpr void ConversionToStandard<Unit::Area, Unit::Area::SquareMicrome
 template <>
 inline constexpr void ConversionFromStandard<Unit::Area, Unit::Area::SquareMicroinch>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000000254 * 0.0000000254);
+  value /= (0.0000000254 * 0.0000000254);
 }
 
 template <>

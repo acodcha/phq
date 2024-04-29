@@ -203,7 +203,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerFoot>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.3048);
+  value /= (1.8 * 0.3048);
 }
 
 template <>
@@ -217,7 +217,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::RankinePerInch>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.0254);
+  value /= (1.8 * 0.0254);
 }
 
 template <>
@@ -231,7 +231,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerFoot>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.3048);
+  value /= (1.8 * 0.3048);
 }
 
 template <>
@@ -245,7 +245,7 @@ template <>
 inline constexpr void
 ConversionToStandard<Unit::TemperatureGradient, Unit::TemperatureGradient::FahrenheitPerInch>(
     double& value) noexcept {
-  value *= 1.0 / (1.8 * 0.0254);
+  value /= (1.8 * 0.0254);
 }
 
 template <>

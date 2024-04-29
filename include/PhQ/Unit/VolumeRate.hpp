@@ -379,7 +379,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (1852.0 * 1852.0 * 1852.0);
+  value /= (1852.0 * 1852.0 * 1852.0);
 }
 
 template <>
@@ -393,7 +393,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (1609.344 * 1609.344 * 1609.344);
+  value /= (1609.344 * 1609.344 * 1609.344);
 }
 
 template <>
@@ -429,7 +429,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.9144 * 0.9144 * 0.9144);
+  value /= (0.9144 * 0.9144 * 0.9144);
 }
 
 template <>
@@ -442,7 +442,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.3048 * 0.3048 * 0.3048);
+  value /= (0.3048 * 0.3048 * 0.3048);
 }
 
 template <>
@@ -481,7 +481,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0254 * 0.0254 * 0.0254);
+  value /= (0.0254 * 0.0254 * 0.0254);
 }
 
 template <>
@@ -535,7 +535,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000254 * 0.0000254 * 0.0000254);
+  value /= (0.0000254 * 0.0000254 * 0.0000254);
 }
 
 template <>
@@ -563,7 +563,7 @@ template <>
 inline constexpr void
 ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
+  value /= (0.0000000254 * 0.0000000254 * 0.0000000254);
 }
 
 template <>
@@ -624,7 +624,7 @@ ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -824,7 +824,7 @@ inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate:
 template <>
 inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>

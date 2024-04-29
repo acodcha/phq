@@ -206,7 +206,7 @@ inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::Slinc
 template <>
 inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
     double& value) noexcept {
-  value *= 1.0 / 0.45359237;
+  value /= 0.45359237;
 }
 
 template <>
@@ -224,7 +224,7 @@ inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::Kil
 template <>
 inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -236,7 +236,7 @@ inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::Gra
 template <>
 inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
     double& value) noexcept {
-  value *= 1.0 / 60000.0;
+  value /= 60000.0;
 }
 
 template <>
@@ -284,7 +284,7 @@ inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::Kil
 template <>
 inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
     double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>
@@ -296,7 +296,7 @@ inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::Gra
 template <>
 inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
     double& value) noexcept {
-  value *= 1.0 / 3600000.0;
+  value /= 3600000.0;
 }
 
 template <>

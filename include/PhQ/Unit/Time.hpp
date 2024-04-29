@@ -163,7 +163,7 @@ inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Second>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Minute>(
     double& value) noexcept {
-  value *= 1.0 / 60.0;
+  value /= 60.0;
 }
 
 template <>
@@ -173,7 +173,7 @@ inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Minute>(doubl
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Time, Unit::Time::Hour>(double& value) noexcept {
-  value *= 1.0 / 3600.0;
+  value /= 3600.0;
 }
 
 template <>
