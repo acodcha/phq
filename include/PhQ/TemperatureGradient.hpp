@@ -36,7 +36,7 @@ public:
 
   // Constructor. Constructs a temperature gradient vector with a given value expressed in a given
   // temperature gradient unit.
-  TemperatureGradient(const Vector& value, const Unit::TemperatureGradient unit)
+  TemperatureGradient(const Vector<double>& value, const Unit::TemperatureGradient unit)
     : DimensionalVector<Unit::TemperatureGradient>(value, unit) {}
 
   // Constructor. Constructs a temperature gradient vector from a given scalar temperature gradient
@@ -62,7 +62,7 @@ public:
 
   // Statically creates a temperature gradient vector of zero.
   static constexpr TemperatureGradient Zero() {
-    return TemperatureGradient{Vector::Zero()};
+    return TemperatureGradient{Vector<double>::Zero()};
   }
 
   // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
@@ -71,7 +71,7 @@ public:
   static constexpr TemperatureGradient Create(const double x, const double y, const double z) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector{x, y, z})};
+            Vector<double>{x, y, z})};
   }
 
   // Statically creates a temperature gradient vector from the given x, y, and z Cartesian
@@ -80,13 +80,13 @@ public:
   static constexpr TemperatureGradient Create(const std::array<double, 3>& x_y_z) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
-            Vector{x_y_z})};
+            Vector<double>{x_y_z})};
   }
 
   // Statically creates a temperature gradient vector with a given value expressed in a given
   // temperature gradient unit.
   template <Unit::TemperatureGradient Unit>
-  static constexpr TemperatureGradient Create(const Vector& value) {
+  static constexpr TemperatureGradient Create(const Vector<double>& value) {
     return TemperatureGradient{
         StaticConvertCopy<Unit::TemperatureGradient, Unit, Standard<Unit::TemperatureGradient>>(
             value)};
@@ -157,7 +157,7 @@ public:
 private:
   // Constructor. Constructs a temperature gradient vector with a given value expressed in the
   // standard temperature gradient unit.
-  explicit constexpr TemperatureGradient(const Vector& value)
+  explicit constexpr TemperatureGradient(const Vector<double>& value)
     : DimensionalVector<Unit::TemperatureGradient>(value) {}
 };
 
@@ -226,7 +226,7 @@ namespace std {
 template <>
 struct hash<PhQ::TemperatureGradient> {
   inline size_t operator()(const PhQ::TemperatureGradient& temperature_gradient) const {
-    return hash<PhQ::Vector>()(temperature_gradient.Value());
+    return hash<PhQ::Vector<double>>()(temperature_gradient.Value());
   }
 };
 

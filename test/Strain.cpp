@@ -138,7 +138,7 @@ TEST(Strain, MoveConstructor) {
 
 TEST(Strain, MutableValue) {
   Strain strain(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  SymmetricDyad& value = strain.MutableValue();
+  SymmetricDyad<double>& value = strain.MutableValue();
   value = SymmetricDyad{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
   EXPECT_EQ(strain.Value(), SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
 }

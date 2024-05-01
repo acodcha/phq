@@ -39,7 +39,7 @@ public:
 
   // Constructor. Constructs an acceleration vector with a given value expressed in a given
   // acceleration unit.
-  Acceleration(const Vector& value, const Unit::Acceleration unit)
+  Acceleration(const Vector<double>& value, const Unit::Acceleration unit)
     : DimensionalVector<Unit::Acceleration>(value, unit) {}
 
   // Constructor. Constructs an acceleration vector from a given scalar acceleration magnitude and
@@ -74,29 +74,29 @@ public:
 
   // Statically creates an acceleration vector of zero.
   static constexpr Acceleration Zero() {
-    return Acceleration{Vector::Zero()};
+    return Acceleration{Vector<double>::Zero()};
   }
 
   // Statically creates an acceleration vector from the given x, y, and z Cartesian components
   // expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
   static constexpr Acceleration Create(const double x, const double y, const double z) {
-    return Acceleration{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(Vector{x, y, z})};
+    return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+        Vector<double>{x, y, z})};
   }
 
   // Statically creates an acceleration vector from the given x, y, and z Cartesian components
   // expressed in a given acceleration unit.
   template <Unit::Acceleration Unit>
   static constexpr Acceleration Create(const std::array<double, 3>& x_y_z) {
-    return Acceleration{
-        StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(Vector{x_y_z})};
+    return Acceleration{StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(
+        Vector<double>{x_y_z})};
   }
 
   // Statically creates an acceleration vector with a given value expressed in a given acceleration
   // unit.
   template <Unit::Acceleration Unit>
-  static constexpr Acceleration Create(const Vector& value) {
+  static constexpr Acceleration Create(const Vector<double>& value) {
     return Acceleration{
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
@@ -174,7 +174,7 @@ public:
 private:
   // Constructor. Constructs an acceleration vector with a given value expressed in the standard
   // acceleration unit.
-  explicit constexpr Acceleration(const Vector& value)
+  explicit constexpr Acceleration(const Vector<double>& value)
     : DimensionalVector<Unit::Acceleration>(value) {}
 };
 
@@ -250,7 +250,7 @@ namespace std {
 template <>
 struct hash<PhQ::Acceleration> {
   inline size_t operator()(const PhQ::Acceleration& acceleration) const {
-    return hash<PhQ::Vector>()(acceleration.Value());
+    return hash<PhQ::Vector<double>>()(acceleration.Value());
   }
 };
 

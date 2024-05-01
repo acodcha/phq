@@ -41,7 +41,7 @@ public:
   Velocity() = default;
 
   // Constructor. Constructs a velocity vector with a given value expressed in a given speed unit.
-  Velocity(const Vector& value, const Unit::Speed unit)
+  Velocity(const Vector<double>& value, const Unit::Speed unit)
     : DimensionalVector<Unit::Speed>(value, unit) {}
 
   // Constructor. Constructs a velocity vector from a given speed and direction.
@@ -83,26 +83,28 @@ public:
 
   // Statically creates a velocity vector of zero.
   static constexpr Velocity Zero() {
-    return Velocity{Vector::Zero()};
+    return Velocity{Vector<double>::Zero()};
   }
 
   // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
   // in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const double x, const double y, const double z) {
-    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x, y, z})};
+    return Velocity{
+        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed
   // in a given speed unit.
   template <Unit::Speed Unit>
   static constexpr Velocity Create(const std::array<double, 3>& x_y_z) {
-    return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector{x_y_z})};
+    return Velocity{
+        StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a velocity vector with a given value expressed in a given speed unit.
   template <Unit::Speed Unit>
-  static constexpr Velocity Create(const Vector& value) {
+  static constexpr Velocity Create(const Vector<double>& value) {
     return Velocity{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
@@ -183,7 +185,8 @@ public:
 private:
   // Constructor. Constructs a velocity vector with a given value expressed in the standard speed
   // unit.
-  explicit constexpr Velocity(const Vector& value) : DimensionalVector<Unit::Speed>(value) {}
+  explicit constexpr Velocity(const Vector<double>& value)
+    : DimensionalVector<Unit::Speed>(value) {}
 };
 
 inline constexpr bool operator==(const Velocity& left, const Velocity& right) noexcept {
@@ -261,7 +264,7 @@ namespace std {
 template <>
 struct hash<PhQ::Velocity> {
   inline size_t operator()(const PhQ::Velocity& velocity) const {
-    return hash<PhQ::Vector>()(velocity.Value());
+    return hash<PhQ::Vector<double>>()(velocity.Value());
   }
 };
 

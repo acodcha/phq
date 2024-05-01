@@ -228,7 +228,7 @@ TEST(Acceleration, MoveConstructor) {
 
 TEST(Acceleration, MutableValue) {
   Acceleration acceleration({1.0, -2.0, 3.0}, Unit::Acceleration::MetrePerSquareSecond);
-  Vector& value = acceleration.MutableValue();
+  Vector<double>& value = acceleration.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(acceleration.Value(), Vector(-4.0, 5.0, -6.0));
 }

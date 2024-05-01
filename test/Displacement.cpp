@@ -188,7 +188,7 @@ TEST(Displacement, MoveConstructor) {
 
 TEST(Displacement, MutableValue) {
   Displacement displacement({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Vector& value = displacement.MutableValue();
+  Vector<double>& value = displacement.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(displacement.Value(), Vector(-4.0, 5.0, -6.0));
 }

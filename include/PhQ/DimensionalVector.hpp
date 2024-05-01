@@ -44,13 +44,13 @@ public:
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const Vector& Value() const noexcept {
+  [[nodiscard]] constexpr const Vector<double>& Value() const noexcept {
     return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] Vector Value(const U unit) const {
-    Vector result{value};
+  [[nodiscard]] Vector<double> Value(const U unit) const {
+    Vector<double> result{value};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -58,19 +58,19 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
   template <U NewUnit>
-  [[nodiscard]] constexpr Vector StaticValue() const {
+  [[nodiscard]] constexpr Vector<double> StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr Vector& MutableValue() noexcept {
+  constexpr Vector<double>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const Vector& value) noexcept {
+  constexpr void SetValue(const Vector<double>& value) noexcept {
     this->value = value;
   }
 
@@ -153,11 +153,11 @@ protected:
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // its standard unit of measure.
-  explicit constexpr DimensionalVector(const Vector& value) : value(value) {}
+  explicit constexpr DimensionalVector(const Vector<double>& value) : value(value) {}
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // a given unit of measure.
-  DimensionalVector(const Vector& value, const U unit) : value(value) {
+  DimensionalVector(const Vector<double>& value, const U unit) : value(value) {
     Convert(this->value, unit, Standard<U>);
   }
 
@@ -179,7 +179,7 @@ protected:
   constexpr DimensionalVector& operator=(DimensionalVector&& other) noexcept = default;
 
   // Value of this dimensional vector physical quantity expressed in its standard unit of measure.
-  Vector value;
+  Vector<double> value;
 };
 
 template <typename U>
@@ -195,7 +195,7 @@ namespace std {
 template <typename U>
 struct hash<PhQ::DimensionalVector<U>> {
   inline size_t operator()(const PhQ::DimensionalVector<U>& quantity) const {
-    return hash<PhQ::Vector>()(quantity.Value());
+    return hash<PhQ::Vector<double>>()(quantity.Value());
   }
 };
 

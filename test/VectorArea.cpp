@@ -192,7 +192,7 @@ TEST(VectorArea, MoveConstructor) {
 
 TEST(VectorArea, MutableValue) {
   VectorArea vector_area({1.0, -2.0, 3.0}, Unit::Area::SquareMetre);
-  Vector& value = vector_area.MutableValue();
+  Vector<double>& value = vector_area.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(vector_area.Value(), Vector(-4.0, 5.0, -6.0));
 }

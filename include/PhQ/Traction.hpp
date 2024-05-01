@@ -37,7 +37,7 @@ public:
 
   // Constructor. Constructs a traction vector with a given value expressed in a given pressure
   // unit.
-  Traction(const Vector& value, const Unit::Pressure unit)
+  Traction(const Vector<double>& value, const Unit::Pressure unit)
     : DimensionalVector<Unit::Pressure>(value, unit) {}
 
   // Constructor. Constructs a traction vector from a given static pressure and direction. Since
@@ -72,7 +72,7 @@ public:
 
   // Statically creates a traction vector of zero.
   static constexpr Traction Zero() {
-    return Traction{Vector::Zero()};
+    return Traction{Vector<double>::Zero()};
   }
 
   // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
@@ -80,7 +80,7 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const double x, const double y, const double z) {
     return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x, y, z})};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a traction vector from the given x, y, and z Cartesian components expressed
@@ -88,12 +88,12 @@ public:
   template <Unit::Pressure Unit>
   static constexpr Traction Create(const std::array<double, 3>& x_y_z) {
     return Traction{
-        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector{x_y_z})};
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a traction vector with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr Traction Create(const Vector& value) {
+  static constexpr Traction Create(const Vector<double>& value) {
     return Traction{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
@@ -167,7 +167,8 @@ public:
 private:
   // Constructor. Constructs a traction vector with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr Traction(const Vector& value) : DimensionalVector<Unit::Pressure>(value) {}
+  explicit constexpr Traction(const Vector<double>& value)
+    : DimensionalVector<Unit::Pressure>(value) {}
 };
 
 inline constexpr bool operator==(const Traction& left, const Traction& right) noexcept {
@@ -230,7 +231,7 @@ namespace std {
 template <>
 struct hash<PhQ::Traction> {
   inline size_t operator()(const PhQ::Traction& traction) const {
-    return hash<PhQ::Vector>()(traction.Value());
+    return hash<PhQ::Vector<double>>()(traction.Value());
   }
 };
 

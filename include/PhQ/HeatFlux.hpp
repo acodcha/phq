@@ -38,7 +38,7 @@ public:
 
   // Constructor. Constructs a heat flux vector with a given value expressed in a given energy flux
   // unit.
-  HeatFlux(const Vector& value, const Unit::EnergyFlux unit)
+  HeatFlux(const Vector<double>& value, const Unit::EnergyFlux unit)
     : DimensionalVector<Unit::EnergyFlux>(value, unit) {}
 
   // Constructor. Constructs a heat flux vector from a given scalar heat flux magnitude and
@@ -79,28 +79,28 @@ public:
 
   // Statically creates a heat flux vector of zero.
   static constexpr HeatFlux Zero() {
-    return HeatFlux{Vector::Zero()};
+    return HeatFlux{Vector<double>::Zero()};
   }
 
   // Statically creates a heat flux vector from the given x, y, and z Cartesian components expressed
   // in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const double x, const double y, const double z) {
-    return HeatFlux{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(Vector{x, y, z})};
+    return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        Vector<double>{x, y, z})};
   }
 
   // Statically creates a heat flux vector from the given x, y, and z Cartesian components expressed
   // in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
   static constexpr HeatFlux Create(const std::array<double, 3>& x_y_z) {
-    return HeatFlux{
-        StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(Vector{x_y_z})};
+    return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(
+        Vector<double>{x_y_z})};
   }
 
   // Statically creates a heat flux vector with a given value expressed in a given energy flux unit.
   template <Unit::EnergyFlux Unit>
-  static constexpr HeatFlux Create(const Vector& value) {
+  static constexpr HeatFlux Create(const Vector<double>& value) {
     return HeatFlux{StaticConvertCopy<Unit::EnergyFlux, Unit, Standard<Unit::EnergyFlux>>(value)};
   }
 
@@ -169,7 +169,8 @@ public:
 private:
   // Constructor. Constructs a heat flux vector with a given value expressed in the standard energy
   // flux unit.
-  explicit constexpr HeatFlux(const Vector& value) : DimensionalVector<Unit::EnergyFlux>(value) {}
+  explicit constexpr HeatFlux(const Vector<double>& value)
+    : DimensionalVector<Unit::EnergyFlux>(value) {}
 };
 
 inline constexpr bool operator==(const HeatFlux& left, const HeatFlux& right) noexcept {
@@ -225,7 +226,7 @@ namespace std {
 template <>
 struct hash<PhQ::HeatFlux> {
   inline size_t operator()(const PhQ::HeatFlux& heat_flux) const {
-    return hash<PhQ::Vector>()(heat_flux.Value());
+    return hash<PhQ::Vector<double>>()(heat_flux.Value());
   }
 };
 

@@ -28,10 +28,10 @@ namespace PhQ::Internal {
 // its original unit produces the original value. Due to the finiteness of floating point precision,
 // information regarding the unit in the last precision (ULP) may be lost in the process, so the
 // returned value may be within a few ULPs of the original.
-template <typename Unit>
+template <typename Unit, typename NumberType>
 void TestConversionReciprocity(
-    const Unit original_unit, const Unit intermediary_unit, const double original_value) {
-  double converted_value = original_value;
+    const Unit original_unit, const Unit intermediary_unit, const NumberType original_value) {
+  NumberType converted_value = original_value;
   Convert(converted_value, original_unit, intermediary_unit);
   Convert(converted_value, intermediary_unit, original_unit);
   EXPECT_DOUBLE_EQ(converted_value, original_value);
@@ -40,22 +40,22 @@ void TestConversionReciprocity(
 // Tests the PhQ::Convert and PhQ::ConvertCopy unit conversion functions for a given unit of
 // measure. Verifies that a given original value expressed in a given original unit correctly
 // converts to a given new value expressed in a given new unit.
-template <typename Unit>
-void TestConversions(const Unit original_unit, const Unit new_unit, const double original_value,
-                     const double new_value) {
+template <typename Unit, typename NumberType>
+void TestConversions(const Unit original_unit, const Unit new_unit, const NumberType original_value,
+                     const NumberType new_value) {
   {
-    double converted_value = original_value;
+    NumberType converted_value = original_value;
     Convert(converted_value, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(converted_value, new_value);
   }
 
   {
-    const double copied_converted_value = ConvertCopy(original_value, original_unit, new_unit);
+    const NumberType copied_converted_value = ConvertCopy(original_value, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_value, new_value);
   }
 
   {
-    std::array<double, 3> converted_array{original_value, original_value, original_value};
+    std::array<NumberType, 3> converted_array{original_value, original_value, original_value};
     Convert(converted_array, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(converted_array[0], new_value);
     EXPECT_DOUBLE_EQ(converted_array[1], new_value);
@@ -63,8 +63,8 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    const std::array<double, 3> copied_converted_array =
-        ConvertCopy(std::array<double, 3>{original_value, original_value, original_value},
+    const std::array<NumberType, 3> copied_converted_array =
+        ConvertCopy(std::array<NumberType, 3>{original_value, original_value, original_value},
                     original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_array[0], new_value);
     EXPECT_DOUBLE_EQ(copied_converted_array[1], new_value);
@@ -72,7 +72,7 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    std::vector<double> converted_std_vector{original_value, original_value, original_value};
+    std::vector<NumberType> converted_std_vector{original_value, original_value, original_value};
     Convert(converted_std_vector, original_unit, new_unit);
     EXPECT_DOUBLE_EQ(converted_std_vector[0], new_value);
     EXPECT_DOUBLE_EQ(converted_std_vector[1], new_value);
@@ -80,8 +80,8 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
   }
 
   {
-    const std::vector<double> copied_converted_std_vector =
-        ConvertCopy(std::vector<double>{original_value, original_value, original_value},
+    const std::vector<NumberType> copied_converted_std_vector =
+        ConvertCopy(std::vector<NumberType>{original_value, original_value, original_value},
                     original_unit, new_unit);
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[0], new_value);
     EXPECT_DOUBLE_EQ(copied_converted_std_vector[1], new_value);
@@ -165,16 +165,18 @@ void TestConversions(const Unit original_unit, const Unit new_unit, const double
 // Tests the PhQ::StaticConvertCopy unit conversion functions for a given unit of measure. Verifies
 // that a given original value expressed in a given original unit correctly converts to a given new
 // value expressed in a given new unit.
-template <typename Unit, Unit OriginalUnit, Unit NewUnit>
-void TestStaticConversions(const double original_value, const double new_value) {
+template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename NumberType>
+void TestStaticConversions(const NumberType original_value, const NumberType new_value) {
   {
-    const double converted_value = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_value);
+    const NumberType converted_value =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(original_value);
     EXPECT_DOUBLE_EQ(converted_value, new_value);
   }
 
   {
-    const std::array<double, 3> converted_array = StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
-        std::array<double, 3>{original_value, original_value, original_value});
+    const std::array<NumberType, 3> converted_array =
+        StaticConvertCopy<Unit, OriginalUnit, NewUnit>(
+            std::array<NumberType, 3>{original_value, original_value, original_value});
     EXPECT_DOUBLE_EQ(converted_array[0], new_value);
     EXPECT_DOUBLE_EQ(converted_array[1], new_value);
     EXPECT_DOUBLE_EQ(converted_array[2], new_value);

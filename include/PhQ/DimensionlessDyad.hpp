@@ -39,17 +39,17 @@ public:
   }
 
   // Value of this dimensionless physical quantity.
-  [[nodiscard]] constexpr const Dyad& Value() const noexcept {
+  [[nodiscard]] constexpr const Dyad<double>& Value() const noexcept {
     return value;
   }
 
   // Returns the value of this dimensionless physical quantity as a mutable value.
-  constexpr Dyad& MutableValue() noexcept {
+  constexpr Dyad<double>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this dimensionless physical quantity to the given value.
-  constexpr void SetValue(const Dyad& value) noexcept {
+  constexpr void SetValue(const Dyad<double>& value) noexcept {
     this->value = value;
   }
 
@@ -92,7 +92,7 @@ protected:
     : value(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Constructor. Constructs a dimensionless dyadic tensor physical quantity with a given value.
-  explicit constexpr DimensionlessDyad(const Dyad& value) : value(value) {}
+  explicit constexpr DimensionlessDyad(const Dyad<double>& value) : value(value) {}
 
   // Destructor. Destroys this dimensionless dyadic tensor physical quantity.
   ~DimensionlessDyad() noexcept = default;
@@ -114,7 +114,7 @@ protected:
   constexpr DimensionlessDyad& operator=(DimensionlessDyad&& other) noexcept = default;
 
   // Value of this dimensionless dyadic tensor physical quantity.
-  Dyad value;
+  Dyad<double> value;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const DimensionlessDyad& quantity) {
@@ -129,7 +129,7 @@ namespace std {
 template <>
 struct hash<PhQ::DimensionlessDyad> {
   inline size_t operator()(const PhQ::DimensionlessDyad& quantity) const {
-    return hash<PhQ::Dyad>()(quantity.Value());
+    return hash<PhQ::Dyad<double>>()(quantity.Value());
   }
 };
 

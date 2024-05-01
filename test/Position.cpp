@@ -216,7 +216,7 @@ TEST(Position, MoveConstructor) {
 
 TEST(Position, MutableValue) {
   Position position({1.0, -2.0, 3.0}, Unit::Length::Metre);
-  Vector& value = position.MutableValue();
+  Vector<double>& value = position.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(position.Value(), Vector(-4.0, 5.0, -6.0));
 }

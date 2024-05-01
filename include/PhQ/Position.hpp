@@ -36,7 +36,7 @@ public:
   Position() = default;
 
   // Constructor. Constructs a position vector with a given value expressed in a given length unit.
-  Position(const Vector& value, const Unit::Length unit)
+  Position(const Vector<double>& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length>(value, unit) {}
 
   // Constructor. Constructs a position vector from a given length and direction.
@@ -63,26 +63,28 @@ public:
 
   // Statically creates a position vector of zero.
   static constexpr Position Zero() {
-    return Position{Vector::Zero()};
+    return Position{Vector<double>::Zero()};
   }
 
   // Statically creates a position vector from the given x, y, and z Cartesian components expressed
   // in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const double x, const double y, const double z) {
-    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x, y, z})};
+    return Position{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a position vector from the given x, y, and z Cartesian components expressed
   // in a given length unit.
   template <Unit::Length Unit>
   static constexpr Position Create(const std::array<double, 3>& x_y_z) {
-    return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x_y_z})};
+    return Position{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a position vector with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Position Create(const Vector& value) {
+  static constexpr Position Create(const Vector<double>& value) {
     return Position{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
@@ -167,7 +169,8 @@ public:
 private:
   // Constructor. Constructs a position vector with a given value expressed in the standard length
   // unit.
-  explicit constexpr Position(const Vector& value) : DimensionalVector<Unit::Length>(value) {}
+  explicit constexpr Position(const Vector<double>& value)
+    : DimensionalVector<Unit::Length>(value) {}
 
   friend class Displacement;
 };
@@ -236,7 +239,7 @@ namespace std {
 template <>
 struct hash<PhQ::Position> {
   inline size_t operator()(const PhQ::Position& position) const {
-    return hash<PhQ::Vector>()(position.Value());
+    return hash<PhQ::Vector<double>>()(position.Value());
   }
 };
 

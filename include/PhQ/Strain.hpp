@@ -49,7 +49,8 @@ public:
     : DimensionlessSymmetricDyad(xx_xy_xz_yy_yz_zz) {}
 
   // Constructor. Constructs a strain tensor with a given value.
-  explicit constexpr Strain(const SymmetricDyad& value) : DimensionlessSymmetricDyad(value) {}
+  explicit constexpr Strain(const SymmetricDyad<double>& value)
+    : DimensionlessSymmetricDyad(value) {}
 
   // Constructor. Constructs a strain tensor from a given strain rate tensor and time using the
   // definition of the strain rate tensor.
@@ -80,7 +81,7 @@ public:
 
   // Statically creates a strain tensor of zero.
   static constexpr Strain Zero() {
-    return Strain{SymmetricDyad::Zero()};
+    return Strain{SymmetricDyad<double>::Zero()};
   }
 
   // Returns the xx Cartesian component of this strain tensor.
@@ -205,7 +206,7 @@ namespace std {
 template <>
 struct hash<PhQ::Strain> {
   inline size_t operator()(const PhQ::Strain& strain) const {
-    return hash<PhQ::SymmetricDyad>()(strain.Value());
+    return hash<PhQ::SymmetricDyad<double>>()(strain.Value());
   }
 };
 

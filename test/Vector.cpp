@@ -86,7 +86,7 @@ TEST(Vector, ComparisonOperators) {
 
 TEST(Vector, CopyAssignmentOperator) {
   constexpr Vector first(1.0, -2.0, 3.0);
-  Vector second = Vector::Zero();
+  Vector second = Vector<double>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -117,7 +117,7 @@ TEST(Vector, Hash) {
   constexpr Vector first(1.0, -2.0, 3.0);
   constexpr Vector second(1.0, -2.0, 3.000001);
   constexpr Vector third(1.0, 2.0, 3.0);
-  const std::hash<Vector> hash;
+  const std::hash<Vector<double>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -135,7 +135,7 @@ TEST(Vector, Magnitude) {
 
 TEST(Vector, MoveAssignmentOperator) {
   Vector first(1.0, -2.0, 3.0);
-  Vector second = Vector::Zero();
+  Vector second = Vector<double>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
 }
@@ -193,13 +193,13 @@ TEST(Vector, Set) {
 }
 
 TEST(Vector, SizeOf) {
-  EXPECT_EQ(sizeof(Vector{}), 3 * sizeof(double));
+  EXPECT_EQ(sizeof(Vector<double>{}), 3 * sizeof(double));
 }
 
 TEST(Vector, StandardConstructor) {
   EXPECT_EQ(Vector(std::array<double, 3>{1.0, -2.0, 3.0}), Vector(1.0, -2.0, 3.0));
   {
-    Vector vector = Vector::Zero();
+    Vector vector = Vector<double>::Zero();
     vector = std::array<double, 3>{1.0, -2.0, 3.0};
     EXPECT_EQ(vector, Vector(1.0, -2.0, 3.0));
   }
@@ -222,7 +222,7 @@ TEST(Vector, YAML) {
 }
 
 TEST(Vector, Zero) {
-  EXPECT_EQ(Vector::Zero(), Vector(0.0, 0.0, 0.0));
+  EXPECT_EQ(Vector<double>::Zero(), Vector(0.0, 0.0, 0.0));
 }
 
 }  // namespace

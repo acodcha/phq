@@ -44,13 +44,13 @@ public:
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const Dyad& Value() const noexcept {
+  [[nodiscard]] constexpr const Dyad<double>& Value() const noexcept {
     return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] Dyad Value(const U unit) const {
-    Dyad result{value};
+  [[nodiscard]] Dyad<double> Value(const U unit) const {
+    Dyad<double> result{value};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -58,19 +58,19 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
   template <U NewUnit>
-  [[nodiscard]] constexpr Dyad StaticValue() const {
+  [[nodiscard]] constexpr Dyad<double> StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr Dyad& MutableValue() noexcept {
+  constexpr Dyad<double>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const Dyad& value) noexcept {
+  constexpr void SetValue(const Dyad<double>& value) noexcept {
     this->value = value;
   }
 
@@ -153,11 +153,11 @@ protected:
 
   // Constructor. Constructs a dimensional dyadic tensor physical quantity with a given value
   // expressed in its standard unit of measure.
-  explicit constexpr DimensionalDyad(const Dyad& value) : value(value) {}
+  explicit constexpr DimensionalDyad(const Dyad<double>& value) : value(value) {}
 
   // Constructor. Constructs a dimensional dimensional dyadic tensor physical quantity with a given
   // value expressed in a given unit of measure.
-  DimensionalDyad(const Dyad& value, const U unit) : value(value) {
+  DimensionalDyad(const Dyad<double>& value, const U unit) : value(value) {
     Convert(this->value, unit, Standard<U>);
   }
 
@@ -182,7 +182,7 @@ protected:
 
   // Value of this dimensional dyadic tensor physical quantity expressed in its standard unit of
   // measure.
-  Dyad value;
+  Dyad<double> value;
 };
 
 template <typename U>
@@ -198,7 +198,7 @@ namespace std {
 template <typename U>
 struct hash<PhQ::DimensionalDyad<U>> {
   inline size_t operator()(const PhQ::DimensionalDyad<U>& quantity) const {
-    return hash<PhQ::Dyad>()(quantity.Value());
+    return hash<PhQ::Dyad<double>>()(quantity.Value());
   }
 };
 

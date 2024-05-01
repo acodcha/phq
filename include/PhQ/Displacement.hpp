@@ -42,7 +42,7 @@ public:
 
   // Constructor. Constructs a displacement vector with a given value expressed in a given length
   // unit.
-  Displacement(const Vector& value, const Unit::Length unit)
+  Displacement(const Vector<double>& value, const Unit::Length unit)
     : DimensionalVector<Unit::Length>(value, unit) {}
 
   // Constructor. Constructs a displacement vector from a given length and direction.
@@ -77,7 +77,7 @@ public:
 
   // Statically creates a displacement vector of zero.
   static constexpr Displacement Zero() {
-    return Displacement{Vector::Zero()};
+    return Displacement{Vector<double>::Zero()};
   }
 
   // Statically creates a displacement vector from the given x, y, and z Cartesian components
@@ -85,7 +85,7 @@ public:
   template <Unit::Length Unit>
   static constexpr Displacement Create(const double x, const double y, const double z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x, y, z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a displacement vector from the given x, y, and z Cartesian components
@@ -93,12 +93,12 @@ public:
   template <Unit::Length Unit>
   static constexpr Displacement Create(const std::array<double, 3>& x_y_z) {
     return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector{x_y_z})};
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a displacement vector with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const Vector& value) {
+  static constexpr Displacement Create(const Vector<double>& value) {
     return Displacement{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
@@ -175,7 +175,8 @@ public:
 private:
   // Constructor. Constructs a displacement vector with a given value expressed in the standard
   // length unit.
-  explicit constexpr Displacement(const Vector& value) : DimensionalVector<Unit::Length>(value) {}
+  explicit constexpr Displacement(const Vector<double>& value)
+    : DimensionalVector<Unit::Length>(value) {}
 
   friend class Position;
 };
@@ -225,7 +226,7 @@ namespace std {
 template <>
 struct hash<PhQ::Displacement> {
   inline size_t operator()(const PhQ::Displacement& displacement) const {
-    return hash<PhQ::Vector>()(displacement.Value());
+    return hash<PhQ::Vector<double>>()(displacement.Value());
   }
 };
 

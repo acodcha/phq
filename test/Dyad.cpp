@@ -120,7 +120,7 @@ TEST(Dyad, ComparisonOperators) {
 
 TEST(Dyad, CopyAssignmentOperator) {
   constexpr Dyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  Dyad second = Dyad::Zero();
+  Dyad second = Dyad<double>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -148,7 +148,7 @@ TEST(Dyad, Hash) {
   constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
   constexpr Dyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.000001};
   constexpr Dyad third{1.0, -2.0, 3.0, -4.0, 5.0, 6.0, 7.0, -8.0, 9.0};
-  constexpr std::hash<Dyad> hash;
+  constexpr std::hash<Dyad<double>> hash;
   EXPECT_NE(hash(first), hash(second));
   EXPECT_NE(hash(first), hash(third));
   EXPECT_NE(hash(second), hash(third));
@@ -157,7 +157,7 @@ TEST(Dyad, Hash) {
 TEST(Dyad, Inverse) {
   {
     constexpr Dyad dyad{64.0, 4.0, 1.0, 16.0, 128.0, 8.0, 2.0, 32.0, 256.0};
-    const std::optional<Dyad> inverse{dyad.Inverse()};
+    const std::optional<Dyad<double>> inverse{dyad.Inverse()};
     ASSERT_TRUE(inverse.has_value());
     EXPECT_DOUBLE_EQ(inverse.value().xx(), 32512.0 / 2064704.0);
     EXPECT_DOUBLE_EQ(inverse.value().xy(), -992.0 / 2064704.0);
@@ -171,7 +171,7 @@ TEST(Dyad, Inverse) {
   }
   {
     constexpr Dyad dyad{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    const std::optional<Dyad> inverse{dyad.Inverse()};
+    const std::optional<Dyad<double>> inverse{dyad.Inverse()};
     EXPECT_FALSE(inverse.has_value());
   }
 }
@@ -191,7 +191,7 @@ TEST(Dyad, JSON) {
 
 TEST(Dyad, MoveAssignmentOperator) {
   Dyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  Dyad second = Dyad::Zero();
+  Dyad second = Dyad<double>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
@@ -278,14 +278,14 @@ TEST(Dyad, Set) {
 }
 
 TEST(Dyad, SizeOf) {
-  EXPECT_EQ(sizeof(Dyad{}), 9 * sizeof(double));
+  EXPECT_EQ(sizeof(Dyad<double>{}), 9 * sizeof(double));
 }
 
 TEST(Dyad, StandardConstructor) {
   EXPECT_EQ(Dyad(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
             Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
   {
-    Dyad dyad = Dyad::Zero();
+    Dyad dyad = Dyad<double>::Zero();
     dyad = std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     EXPECT_EQ(dyad, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
   }
@@ -321,7 +321,7 @@ TEST(Dyad, YAML) {
 }
 
 TEST(Dyad, Zero) {
-  EXPECT_EQ(Dyad::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(Dyad<double>::Zero(), Dyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 }
 
 }  // namespace

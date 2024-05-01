@@ -213,7 +213,7 @@ TEST(TemperatureGradient, MoveConstructor) {
 TEST(TemperatureGradient, MutableValue) {
   TemperatureGradient temperature_gradient(
       {1.0, -2.0, 3.0}, Unit::TemperatureGradient::KelvinPerMetre);
-  Vector& value = temperature_gradient.MutableValue();
+  Vector<double>& value = temperature_gradient.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(temperature_gradient.Value(), Vector(-4.0, 5.0, -6.0));
 }
