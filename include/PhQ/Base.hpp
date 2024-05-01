@@ -17,7 +17,6 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
-#include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <iomanip>
@@ -34,6 +33,26 @@
 
 // Namespace that encompasses all of the Physical Quantities library's content.
 namespace PhQ {
+
+// The mathematical constant π = 3.14...
+template <typename NumberType>
+inline constexpr NumberType Pi;
+
+// The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
+// floating-point number.
+template <>
+inline constexpr float Pi<float>{3.1415927F};
+
+// The mathematical constant π = 3.14... expressed as a double-precision 64-bit binary
+// floating-point number.
+template <>
+inline constexpr double Pi<double>{3.14159265358979323846};
+
+// The mathematical constant π = 3.14... expressed as a "long double". The exact implementation of
+// the "long double" type varies by system; the most common implementations are 64-bit, 80-bit, or
+// 128-bit binary floating-point numbers.
+template <>
+inline constexpr const long double Pi<long double>{3.141592653589793238462643383279502884L};
 
 // Namespace that contains internal implementation details of the Physical Quantities library.
 // Contents within this namespace are not meant to be used except by the the Physical Quantities
@@ -76,55 +95,6 @@ std::optional<Enumeration> Parse(const std::string_view spelling) {
   return std::nullopt;
 }
 
-// Precision used when printing a floating-point number as a string. This library supports
-// computations using various floating-point number types. When printing a floating-point number as
-// a string, it may be printed as a different type for convenience.
-enum class Precision : int8_t {
-  // Single floating-point precision. Corresponds to a 32-bit binary floating-point number, such as
-  // "float". Results in 6 decimal digits of precision.
-  Single,
-
-  // Double floating-point precision. Corresponds to a 64-bit binary floating-point number, such as
-  // "double". Results in 15 decimal digits of precision.
-  Double,
-
-  // Triple floating-point precision. Corresponds to an 80-bit binary floating-point number, such as
-  // "long double" on certain systems. Results in 18 decimal digits of precision.
-  Triple,
-
-  // Quadruple floating-point precision. Corresponds to a 128-bit binary floating-point number, such
-  // as "long double" on certain systems. Results in 33 decimal digits of precision.
-  Quadruple,
-};
-
-namespace Internal {
-
-template <>
-inline const std::map<Precision, std::string_view> Abbreviations<Precision>{
-    {Precision::Single,    "Single"   },
-    {Precision::Double,    "Double"   },
-    {Precision::Triple,    "Triple"   },
-    {Precision::Quadruple, "Quadruple"},
-};
-
-template <>
-inline const std::unordered_map<std::string_view, Precision> Spellings<Precision>{
-    {"SINGLE",    Precision::Single   },
-    {"Single",    Precision::Single   },
-    {"single",    Precision::Single   },
-    {"DOUBLE",    Precision::Double   },
-    {"Double",    Precision::Double   },
-    {"double",    Precision::Double   },
-    {"TRIPLE",    Precision::Triple   },
-    {"Triple",    Precision::Triple   },
-    {"triple",    Precision::Triple   },
-    {"QUADRUPLE", Precision::Quadruple},
-    {"Quadruple", Precision::Quadruple},
-    {"quadruple", Precision::Quadruple},
-};
-
-}  // namespace Internal
-
 // Transforms a given string such that all of its characters are lowercase.
 inline void Lowercase(std::string& text) {
   std::transform(text.begin(), text.end(), text.begin(), [](int character) {
@@ -141,11 +111,8 @@ inline void Lowercase(std::string& text) {
   return result;
 }
 
-template <typename Type>
-concept NumericType = std::integral<Type> || std::floating_point<Type>;
-
-template <NumericType Number>
-[[nodiscard]] inline std::optional<Number> ParseToNumber(const std::string& text);
+template <typename NumberType>
+[[nodiscard]] inline std::optional<NumberType> ParseToNumber(const std::string& text);
 
 template <>
 [[nodiscard]] inline std::optional<float> ParseToNumber(const std::string& text) {
@@ -182,9 +149,9 @@ template <>
 
 // Prints a given floating-point number as a string. Prints enough digits to represent the number
 // exactly. The printed number of digits depends on the type of the floating-point number.
-template <std::floating_point FloatingPointType>
-[[nodiscard]] inline std::string Print(const FloatingPointType value) {
-  const FloatingPointType absolute{std::abs(value)};
+template <typename NumberType>
+[[nodiscard]] inline std::string Print(const NumberType value) {
+  const NumberType absolute{std::abs(value)};
   std::ostringstream stream;
   if (absolute < 1.0) {
     // Interval: [0, 1[
@@ -196,7 +163,7 @@ template <std::floating_point FloatingPointType>
       } else {
         // Interval: ]0, 0.001[
         stream << std::scientific
-               << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10) << value;
+               << std::setprecision(std::numeric_limits<NumberType>::max_digits10) << value;
       }
     } else {
       // Interval: [0.001, 1[
@@ -205,19 +172,16 @@ template <std::floating_point FloatingPointType>
         if (absolute < 0.01) {
           // Interval: [0.001, 0.01[
           stream << std::fixed
-                 << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 + 3)
-                 << value;
+                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 3) << value;
         } else {
           // Interval: [0.01, 0.1[
           stream << std::fixed
-                 << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 + 2)
-                 << value;
+                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 2) << value;
         }
       } else {
         // Interval: [0.1, 1[
-        stream
-            << std::fixed
-            << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 + 1) << value;
+        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 1)
+               << value;
       }
     }
   } else {
@@ -226,33 +190,30 @@ template <std::floating_point FloatingPointType>
       // Interval: [1, 1000[
       if (absolute < 10.0) {
         // Interval: [1, 10[
-        stream << std::fixed
-               << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10) << value;
+        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10)
+               << value;
       } else {
         // Interval: [10, 1000[
         if (absolute < 100.0) {
           // Interval: [10, 100[
           stream << std::fixed
-                 << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 - 1)
-                 << value;
+                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 1) << value;
         } else {
           // Interval: [100, 1000[
           stream << std::fixed
-                 << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 - 2)
-                 << value;
+                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 2) << value;
         }
       }
     } else {
       // Interval: [1000, +inf[
       if (absolute < 10000.0) {
         // Interval: [1000, 10000[
-        stream
-            << std::fixed
-            << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10 - 3) << value;
+        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 3)
+               << value;
       } else {
         // Interval: [10000, +inf[
         stream << std::scientific
-               << std::setprecision(std::numeric_limits<FloatingPointType>::max_digits10) << value;
+               << std::setprecision(std::numeric_limits<NumberType>::max_digits10) << value;
       }
     }
   }

@@ -15,7 +15,6 @@
 
 #include <array>
 #include <gtest/gtest.h>
-#include <numbers>
 #include <optional>
 #include <sstream>
 
@@ -89,44 +88,44 @@ TEST(UnitAngularAcceleration, ConvertFromStandard) {
                             AngularAcceleration::RadianPerSquareHour, value, value * 12960000.0);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareSecond, value,
-      value * 180.0 / std::numbers::pi_v<double>);
+      value * 180.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareMinute, value,
-      value * 648000.0 / std::numbers::pi_v<double>);
+      value * 648000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::DegreePerSquareHour, value,
-      value * 2332800000.0 / std::numbers::pi_v<double>);
+      value * 2332800000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareSecond,
-      value, value * 10800.0 / std::numbers::pi_v<double>);
+      value, value * 10800.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareMinute,
-      value, value * 38880000.0 / std::numbers::pi_v<double>);
+      value, value * 38880000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcminutePerSquareHour,
-      value, value * 139968000000.0 / std::numbers::pi_v<double>);
+      value, value * 139968000000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareSecond,
-      value, value * 648000.0 / std::numbers::pi_v<double>);
+      value, value * 648000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareMinute,
-      value, value * 2332800000.0 / std::numbers::pi_v<double>);
+      value, value * 2332800000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::ArcsecondPerSquareHour,
-      value, value * 8398080000000.0 / std::numbers::pi_v<double>);
+      value, value * 8398080000000.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareSecond,
-      value, value * 0.5 / std::numbers::pi_v<double>);
+      value, value * 0.5 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareMinute,
-      value, value * 1800.0 / std::numbers::pi_v<double>);
+      value, value * 1800.0 / Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RadianPerSquareSecond, AngularAcceleration::RevolutionPerSquareHour,
-      value, value * 6480000.0 / std::numbers::pi_v<double>);
+      value, value * 6480000.0 / Pi<double>);
 
   Internal::TestStaticConversions<AngularAcceleration, AngularAcceleration::RadianPerSquareSecond,
                                   AngularAcceleration::DegreePerSquareSecond>(
-      value, value * 180.0 / std::numbers::pi_v<double>);
+      value, value * 180.0 / Pi<double>);
 }
 
 TEST(UnitAngularAcceleration, ConvertToStandard) {
@@ -140,44 +139,44 @@ TEST(UnitAngularAcceleration, ConvertToStandard) {
                             AngularAcceleration::RadianPerSquareSecond, value, value / 12960000.0);
   Internal::TestConversions(
       AngularAcceleration::DegreePerSquareSecond, AngularAcceleration::RadianPerSquareSecond, value,
-      value * std::numbers::pi_v<double> / 180.0);
+      value * Pi<double> / 180.0);
   Internal::TestConversions(
       AngularAcceleration::DegreePerSquareMinute, AngularAcceleration::RadianPerSquareSecond, value,
-      value * std::numbers::pi_v<double> / 648000.0);
+      value * Pi<double> / 648000.0);
   Internal::TestConversions(
       AngularAcceleration::DegreePerSquareHour, AngularAcceleration::RadianPerSquareSecond, value,
-      value * std::numbers::pi_v<double> / 2332800000.0);
+      value * Pi<double> / 2332800000.0);
   Internal::TestConversions(
       AngularAcceleration::ArcminutePerSquareSecond, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 10800.0);
+      value, value * Pi<double> / 10800.0);
   Internal::TestConversions(
       AngularAcceleration::ArcminutePerSquareMinute, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 38880000.0);
+      value, value * Pi<double> / 38880000.0);
   Internal::TestConversions(
       AngularAcceleration::ArcminutePerSquareHour, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 139968000000.0);
+      value, value * Pi<double> / 139968000000.0);
   Internal::TestConversions(
       AngularAcceleration::ArcsecondPerSquareSecond, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 648000.0);
+      value, value * Pi<double> / 648000.0);
   Internal::TestConversions(
       AngularAcceleration::ArcsecondPerSquareMinute, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 2332800000.0);
+      value, value * Pi<double> / 2332800000.0);
   Internal::TestConversions(
       AngularAcceleration::ArcsecondPerSquareHour, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 8398080000000.0);
+      value, value * Pi<double> / 8398080000000.0);
   Internal::TestConversions(
       AngularAcceleration::RevolutionPerSquareSecond, AngularAcceleration::RadianPerSquareSecond,
-      value, value * 2.0 * std::numbers::pi_v<double>);
+      value, value * 2.0 * Pi<double>);
   Internal::TestConversions(
       AngularAcceleration::RevolutionPerSquareMinute, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 1800.0);
+      value, value * Pi<double> / 1800.0);
   Internal::TestConversions(
       AngularAcceleration::RevolutionPerSquareHour, AngularAcceleration::RadianPerSquareSecond,
-      value, value * std::numbers::pi_v<double> / 6480000.0);
+      value, value * Pi<double> / 6480000.0);
 
   Internal::TestStaticConversions<AngularAcceleration, AngularAcceleration::DegreePerSquareSecond,
                                   AngularAcceleration::RadianPerSquareSecond>(
-      value, value * std::numbers::pi_v<double> / 180.0);
+      value, value * Pi<double> / 180.0);
 }
 
 TEST(UnitAngularAcceleration, Parse) {
