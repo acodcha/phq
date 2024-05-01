@@ -24,20 +24,6 @@ namespace PhQ {
 
 namespace {
 
-TEST(Base, PrecisionAbbreviation) {
-  EXPECT_EQ(Abbreviation(Precision::Double), "Double");
-  EXPECT_EQ(Abbreviation(Precision::Single), "Single");
-}
-
-TEST(Base, PrecisionParse) {
-  EXPECT_EQ(Parse<Precision>("DOUBLE"), Precision::Double);
-  EXPECT_EQ(Parse<Precision>("Double"), Precision::Double);
-  EXPECT_EQ(Parse<Precision>("double"), Precision::Double);
-  EXPECT_EQ(Parse<Precision>("SINGLE"), Precision::Single);
-  EXPECT_EQ(Parse<Precision>("Single"), Precision::Single);
-  EXPECT_EQ(Parse<Precision>("single"), Precision::Single);
-}
-
 TEST(Base, Lowercase) {
   {
     std::string text;
@@ -54,33 +40,6 @@ TEST(Base, Lowercase) {
 TEST(Base, LowercaseCopy) {
   EXPECT_EQ(LowercaseCopy(""), "");
   EXPECT_EQ(LowercaseCopy("AbCd123!?^-_"), "abcd123!?^-_");
-}
-
-TEST(Base, ParseToNumberFloat) {
-  EXPECT_EQ(ParseToNumber<float>(""), std::nullopt);
-  EXPECT_EQ(ParseToNumber<float>("Hello world!"), std::nullopt);
-  ASSERT_TRUE(ParseToNumber<float>("NaN").has_value());
-  EXPECT_EQ(ParseToNumber<float>("NaN").value(), std::numeric_limits<float>::quiet_NaN());
-  ASSERT_TRUE(ParseToNumber<float>("-NaN").has_value());
-  EXPECT_EQ(ParseToNumber<float>("-NaN").value(), std::numeric_limits<float>::quiet_NaN());
-  ASSERT_TRUE(ParseToNumber<float>("infinity").has_value());
-  EXPECT_EQ(ParseToNumber<float>("infinity").value(), std::numeric_limits<float>::infinity());
-  ASSERT_TRUE(ParseToNumber<float>("inf").has_value());
-  EXPECT_EQ(ParseToNumber<float>("inf").value(), std::numeric_limits<float>::infinity());
-  ASSERT_TRUE(ParseToNumber<float>("-infinity").has_value());
-  EXPECT_EQ(ParseToNumber<float>("-infinity").value(), -std::numeric_limits<float>::infinity());
-  ASSERT_TRUE(ParseToNumber<float>("-inf").has_value());
-  EXPECT_EQ(ParseToNumber<float>("-inf").value(), -std::numeric_limits<float>::infinity());
-  EXPECT_EQ(ParseToNumber<float>("-1.0e1000000"), std::nullopt);
-  EXPECT_EQ(ParseToNumber<float>("-1.23456789e12"), -1.23456789e12F);
-  EXPECT_EQ(ParseToNumber<float>("-100"), -100.0F);
-  EXPECT_EQ(ParseToNumber<float>("-1.23456789"), -1.23456789F);
-  EXPECT_EQ(ParseToNumber<float>("-0"), 0.0F);
-  EXPECT_EQ(ParseToNumber<float>("0"), 0.0F);
-  EXPECT_EQ(ParseToNumber<float>("1.23456789"), 1.23456789F);
-  EXPECT_EQ(ParseToNumber<float>("100"), 100.0F);
-  EXPECT_EQ(ParseToNumber<float>("1.23456789e12"), 1.23456789e12F);
-  EXPECT_EQ(ParseToNumber<float>("1.0e1000000"), std::nullopt);
 }
 
 TEST(Base, ParseToNumberDouble) {
@@ -108,6 +67,33 @@ TEST(Base, ParseToNumberDouble) {
   EXPECT_EQ(ParseToNumber<double>("100"), 100.0);
   EXPECT_EQ(ParseToNumber<double>("1.23456789e12"), 1.23456789e12);
   EXPECT_EQ(ParseToNumber<double>("1.0e1000000"), std::nullopt);
+}
+
+TEST(Base, ParseToNumberFloat) {
+  EXPECT_EQ(ParseToNumber<float>(""), std::nullopt);
+  EXPECT_EQ(ParseToNumber<float>("Hello world!"), std::nullopt);
+  ASSERT_TRUE(ParseToNumber<float>("NaN").has_value());
+  EXPECT_EQ(ParseToNumber<float>("NaN").value(), std::numeric_limits<float>::quiet_NaN());
+  ASSERT_TRUE(ParseToNumber<float>("-NaN").has_value());
+  EXPECT_EQ(ParseToNumber<float>("-NaN").value(), std::numeric_limits<float>::quiet_NaN());
+  ASSERT_TRUE(ParseToNumber<float>("infinity").has_value());
+  EXPECT_EQ(ParseToNumber<float>("infinity").value(), std::numeric_limits<float>::infinity());
+  ASSERT_TRUE(ParseToNumber<float>("inf").has_value());
+  EXPECT_EQ(ParseToNumber<float>("inf").value(), std::numeric_limits<float>::infinity());
+  ASSERT_TRUE(ParseToNumber<float>("-infinity").has_value());
+  EXPECT_EQ(ParseToNumber<float>("-infinity").value(), -std::numeric_limits<float>::infinity());
+  ASSERT_TRUE(ParseToNumber<float>("-inf").has_value());
+  EXPECT_EQ(ParseToNumber<float>("-inf").value(), -std::numeric_limits<float>::infinity());
+  EXPECT_EQ(ParseToNumber<float>("-1.0e1000000"), std::nullopt);
+  EXPECT_EQ(ParseToNumber<float>("-1.23456789e12"), -1.23456789e12F);
+  EXPECT_EQ(ParseToNumber<float>("-100"), -100.0F);
+  EXPECT_EQ(ParseToNumber<float>("-1.23456789"), -1.23456789F);
+  EXPECT_EQ(ParseToNumber<float>("-0"), 0.0F);
+  EXPECT_EQ(ParseToNumber<float>("0"), 0.0F);
+  EXPECT_EQ(ParseToNumber<float>("1.23456789"), 1.23456789F);
+  EXPECT_EQ(ParseToNumber<float>("100"), 100.0F);
+  EXPECT_EQ(ParseToNumber<float>("1.23456789e12"), 1.23456789e12F);
+  EXPECT_EQ(ParseToNumber<float>("1.0e1000000"), std::nullopt);
 }
 
 TEST(Base, ParseToNumberLongDouble) {
@@ -141,6 +127,12 @@ TEST(Base, ParseToNumberLongDouble) {
   EXPECT_EQ(ParseToNumber<long double>("100"), 100.0L);
   EXPECT_EQ(ParseToNumber<long double>("1.23456789e12"), 1.23456789e12L);
   EXPECT_EQ(ParseToNumber<long double>("1.0e1000000"), std::nullopt);
+}
+
+TEST(Base, Pi) {
+  EXPECT_EQ(Pi<float>, static_cast<float>(3.141592653589793238462643383279502884L));
+  EXPECT_EQ(Pi<double>, static_cast<double>(3.141592653589793238462643383279502884L));
+  EXPECT_EQ(Pi<long double>, 3.141592653589793238462643383279502884L);
 }
 
 TEST(Base, PrintFloat) {

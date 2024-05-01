@@ -18,7 +18,6 @@
 #include <cstdint>
 #include <functional>
 #include <map>
-#include <numbers>
 #include <ostream>
 #include <string_view>
 #include <unordered_map>
@@ -123,49 +122,49 @@ inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Radian>(
 template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Degree>(
     double& value) noexcept {
-  value *= 180.0 / std::numbers::pi_v<double>;
+  value *= 180.0 / Pi<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Degree>(
     double& value) noexcept {
-  value *= std::numbers::pi_v<double> / 180.0;
+  value *= Pi<double> / 180.0;
 }
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Arcminute>(
     double& value) noexcept {
-  value *= 10800.0 / std::numbers::pi_v<double>;
+  value *= 10800.0 / Pi<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcminute>(
     double& value) noexcept {
-  value *= std::numbers::pi_v<double> / 10800.0;
+  value *= Pi<double> / 10800.0;
 }
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Arcsecond>(
     double& value) noexcept {
-  value *= 648000.0 / std::numbers::pi_v<double>;
+  value *= 648000.0 / Pi<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Arcsecond>(
     double& value) noexcept {
-  value *= std::numbers::pi_v<double> / 648000.0;
+  value *= Pi<double> / 648000.0;
 }
 
 template <>
 inline constexpr void ConversionFromStandard<Unit::Angle, Unit::Angle::Revolution>(
     double& value) noexcept {
-  value *= 0.5 / std::numbers::pi_v<double>;
+  value *= 0.5 / Pi<double>;
 }
 
 template <>
 inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Revolution>(
     double& value) noexcept {
-  value *= 2.0 * std::numbers::pi_v<double>;
+  value *= 2.0 * Pi<double>;
 }
 
 template <>
