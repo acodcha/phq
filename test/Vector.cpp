@@ -258,106 +258,106 @@ TEST(Vector, ComparisonOperators) {
 
 TEST(Vector, CopyAssignmentOperator) {
   {
-    constexpr Vector<float> first{1.0F, -2.0F, 3.0F};
-    Vector<float> second{-4.0F, 5.0F, -6.0F};
+    constexpr Vector first{1.0F, -2.0F, 3.0F};
+    Vector second{-4.0F, 5.0F, -6.0F};
     second = first;
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<float> first{1.0F, -2.0F, 3.0F};
-    Vector<double> second{-4.0, 5.0, -6.0};
+    constexpr Vector first{1.0F, -2.0F, 3.0F};
+    Vector second{-4.0, 5.0, -6.0};
     second = first;
-    EXPECT_EQ(second, Vector<double>{first});
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<float> first{1.0F, -2.0F, 3.0F};
-    Vector<long double> second{-4.0L, 5.0L, -6.0L};
+    constexpr Vector first{1.0F, -2.0F, 3.0F};
+    Vector second{-4.0L, 5.0L, -6.0L};
     second = first;
-    EXPECT_EQ(second, Vector<long double>{first});
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
   {
-    constexpr Vector<double> first{1.0, -2.0, 3.0};
-    Vector<float> second{-4.0F, 5.0F, -6.0F};
+    constexpr Vector first{1.0, -2.0, 3.0};
+    Vector second{-4.0F, 5.0F, -6.0F};
     second = first;
-    EXPECT_EQ(second, Vector<float>{first});
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<double> first{1.0, -2.0, 3.0};
-    Vector<double> second{-4.0, 5.0, -6.0};
+    constexpr Vector first{1.0, -2.0, 3.0};
+    Vector second{-4.0, 5.0, -6.0};
     second = first;
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<double> first{1.0, -2.0, 3.0};
-    Vector<long double> second{-4.0L, 5.0L, -6.0L};
+    constexpr Vector first{1.0, -2.0, 3.0};
+    Vector second{-4.0L, 5.0L, -6.0L};
     second = first;
-    EXPECT_EQ(second, Vector<long double>{first});
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
   {
-    constexpr Vector<long double> first{1.0L, -2.0L, 3.0L};
-    Vector<float> second{-4.0F, 5.0F, -6.0F};
+    constexpr Vector first{1.0L, -2.0L, 3.0L};
+    Vector second{-4.0F, 5.0F, -6.0F};
     second = first;
-    EXPECT_EQ(second, Vector<float>{first});
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<long double> first{1.0L, -2.0L, 3.0L};
-    Vector<double> second{-4.0, 5.0, -6.0};
+    constexpr Vector first{1.0L, -2.0L, 3.0L};
+    Vector second{-4.0, 5.0, -6.0};
     second = first;
-    EXPECT_EQ(second, Vector<double>{first});
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<long double> first{1.0L, -2.0L, 3.0L};
-    Vector<long double> second{-4.0L, 5.0L, -6.0L};
+    constexpr Vector first{1.0L, -2.0L, 3.0L};
+    Vector second{-4.0L, 5.0L, -6.0L};
     second = first;
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
 }
 
 TEST(Vector, CopyConstructor) {
   {
-    constexpr Vector<float> first(1.0F, -2.0F, 3.0F);
+    constexpr Vector first(1.0F, -2.0F, 3.0F);
     constexpr Vector<float> second{first};
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<float> first(1.0F, -2.0F, 3.0F);
+    constexpr Vector first(1.0F, -2.0F, 3.0F);
     constexpr Vector<double> second{first};
-    EXPECT_EQ(second, Vector<double>{first});
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<float> first(1.0F, -2.0F, 3.0F);
+    constexpr Vector first(1.0F, -2.0F, 3.0F);
     constexpr Vector<long double> second{first};
-    EXPECT_EQ(second, Vector<long double>{first});
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
   {
-    constexpr Vector<double> first(1.0, -2.0, 3.0);
+    constexpr Vector first(1.0, -2.0, 3.0);
     constexpr Vector<float> second{first};
-    EXPECT_EQ(second, Vector<float>{first});
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<double> first(1.0, -2.0, 3.0);
+    constexpr Vector first(1.0, -2.0, 3.0);
     constexpr Vector<double> second{first};
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<double> first(1.0, -2.0, 3.0);
+    constexpr Vector first(1.0, -2.0, 3.0);
     constexpr Vector<long double> second{first};
-    EXPECT_EQ(second, Vector<long double>{first});
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
   {
-    constexpr Vector<long double> first(1.0L, -2.0L, 3.0L);
+    constexpr Vector first(1.0L, -2.0L, 3.0L);
     constexpr Vector<float> second{first};
-    EXPECT_EQ(second, Vector<float>{first});
+    EXPECT_EQ(second, Vector(1.0F, -2.0F, 3.0F));
   }
   {
-    constexpr Vector<long double> first(1.0L, -2.0L, 3.0L);
+    constexpr Vector first(1.0L, -2.0L, 3.0L);
     constexpr Vector<double> second{first};
-    EXPECT_EQ(second, Vector<double>{first});
+    EXPECT_EQ(second, Vector(1.0, -2.0, 3.0));
   }
   {
-    constexpr Vector<long double> first(1.0L, -2.0L, 3.0L);
+    constexpr Vector first(1.0L, -2.0L, 3.0L);
     constexpr Vector<long double> second{first};
-    EXPECT_EQ(second, first);
+    EXPECT_EQ(second, Vector(1.0L, -2.0L, 3.0L));
   }
 }
 
@@ -369,6 +369,7 @@ TEST(Vector, Cross) {
 
 TEST(Vector, DefaultConstructor) {
   EXPECT_NO_THROW(Vector{});
+  EXPECT_NO_THROW(Vector<>{});
   EXPECT_NO_THROW(Vector<float>{});
   EXPECT_NO_THROW(Vector<double>{});
   EXPECT_NO_THROW(Vector<long double>{});
@@ -385,7 +386,7 @@ TEST(Vector, Hash) {
     constexpr Vector first(1.0F, -2.0F, 3.0F);
     constexpr Vector second(1.0F, -2.0F, 3.000001F);
     constexpr Vector third(1.0F, 2.0F, 3.0F);
-    const std::hash<Vector<>> hash;
+    const std::hash<Vector<float>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
@@ -403,7 +404,7 @@ TEST(Vector, Hash) {
     constexpr Vector first(1.0L, -2.0L, 3.0L);
     constexpr Vector second(1.0L, -2.0L, 3.000001L);
     constexpr Vector third(1.0L, 2.0L, 3.0L);
-    const std::hash<Vector<>> hash;
+    const std::hash<Vector<long double>> hash;
     EXPECT_NE(hash(first), hash(second));
     EXPECT_NE(hash(first), hash(third));
     EXPECT_NE(hash(second), hash(third));
