@@ -70,7 +70,16 @@ public:
   // Copy constructor. Constructs a three-dimensional dyadic tensor by copying another one.
   template <typename OtherNumber>
   constexpr Dyad(const Dyad<OtherNumber>& other)
-    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_)) {}
+    : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
+        {static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]),
+         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8])}) {}
 
   // Move constructor. Constructs a three-dimensional dyadic tensor by moving another one.
   constexpr Dyad(Dyad&& other) noexcept = default;
@@ -83,7 +92,15 @@ public:
   // one.
   template <typename OtherNumber>
   constexpr Dyad& operator=(const Dyad<OtherNumber>& other) {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_ = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]);
     return *this;
   }
 
@@ -393,28 +410,28 @@ public:
 
   template <typename OtherNumber>
   constexpr void operator*=(const OtherNumber number) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] *= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] *= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] *= static_cast<Number>(number);
   }
 
   template <typename OtherNumber>
   constexpr void operator/=(const OtherNumber number) noexcept {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= number;
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= number;
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] /= static_cast<Number>(number);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] /= static_cast<Number>(number);
   }
 
 private:
@@ -523,9 +540,11 @@ inline constexpr Dyad<Number> operator-(const Dyad<Number>& left, const Dyad<Num
 
 template <typename Number, typename OtherNumber>
 inline constexpr Dyad<Number> operator*(const Dyad<Number>& dyad, const OtherNumber number) {
-  return {dyad.xx() * number, dyad.xy() * number, dyad.xz() * number,
-          dyad.yx() * number, dyad.yy() * number, dyad.yz() * number,
-          dyad.zx() * number, dyad.zy() * number, dyad.zz() * number};
+  return {dyad.xx() * static_cast<Number>(number), dyad.xy() * static_cast<Number>(number),
+          dyad.xz() * static_cast<Number>(number), dyad.yx() * static_cast<Number>(number),
+          dyad.yy() * static_cast<Number>(number), dyad.yz() * static_cast<Number>(number),
+          dyad.zx() * static_cast<Number>(number), dyad.zy() * static_cast<Number>(number),
+          dyad.zz() * static_cast<Number>(number)};
 }
 
 template <typename Number, typename OtherNumber>
@@ -617,9 +636,11 @@ inline constexpr Dyad<Number> operator*(const Dyad<Number>& left, const Dyad<Num
 
 template <typename Number, typename OtherNumber>
 inline constexpr Dyad<Number> operator/(const Dyad<Number>& dyad, const OtherNumber number) {
-  return {dyad.xx() / number, dyad.xy() / number, dyad.xz() / number,
-          dyad.yx() / number, dyad.yy() / number, dyad.yz() / number,
-          dyad.zx() / number, dyad.zy() / number, dyad.zz() / number};
+  return {dyad.xx() / static_cast<Number>(number), dyad.xy() / static_cast<Number>(number),
+          dyad.xz() / static_cast<Number>(number), dyad.yx() / static_cast<Number>(number),
+          dyad.yy() / static_cast<Number>(number), dyad.yz() / static_cast<Number>(number),
+          dyad.zx() / static_cast<Number>(number), dyad.zy() / static_cast<Number>(number),
+          dyad.zz() / static_cast<Number>(number)};
 }
 
 template <typename Number>

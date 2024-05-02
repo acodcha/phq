@@ -106,8 +106,8 @@ TEST(SymmetricDyad, ComparisonOperators) {
 }
 
 TEST(SymmetricDyad, CopyAssignmentOperator) {
-  constexpr SymmetricDyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  SymmetricDyad second = SymmetricDyad<>::Zero();
+  constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+  SymmetricDyad second{7.0, -8.0, 9.0, -10.0, 11.0, -12.0};
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -157,33 +157,33 @@ TEST(SymmetricDyad, Inverse) {
 
 TEST(SymmetricDyad, JSON) {
   EXPECT_EQ(
-      SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).JSON(),
-      "{\"xx\":" + Print(1.0) + ",\"xy\":" + Print(-2.0) + ",\"xz\":" + Print(4.0)
-          + ",\"yy\":" + Print(0.0) + ",\"yz\":" + Print(-4.0) + ",\"zz\":" + Print(0.0) + "}");
+      SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0).JSON(),
+      "{\"xx\":" + Print(1.0) + ",\"xy\":" + Print(-2.0) + ",\"xz\":" + Print(3.0)
+          + ",\"yy\":" + Print(-4.0) + ",\"yz\":" + Print(5.0) + ",\"zz\":" + Print(-6.0) + "}");
 }
 
 TEST(SymmetricDyad, MoveAssignmentOperator) {
-  SymmetricDyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  SymmetricDyad second = SymmetricDyad<>::Zero();
+  SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+  SymmetricDyad second{7.0, -8.0, 9.0, -10.0, 11.0, -12.0};
   second = std::move(first);
   EXPECT_EQ(second, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(SymmetricDyad, MoveConstructor) {
-  SymmetricDyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+  SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
   const SymmetricDyad second{std::move(first)};
   EXPECT_EQ(second, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
 
 TEST(SymmetricDyad, Mutable) {
   {
-    SymmetricDyad symmetric_dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     std::array<double, 6>& mutable_xx_xy_xz_yy_yz_zz = symmetric_dyad.Mutable_xx_xy_xz_yy_yz_zz();
     mutable_xx_xy_xz_yy_yz_zz = {-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
     EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
   }
   {
-    SymmetricDyad second(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     double& mutable_xx = second.Mutable_xx();
     mutable_xx = -7.0;
     double& mutable_xy = second.Mutable_xy();
@@ -204,7 +204,7 @@ TEST(SymmetricDyad, Mutable) {
     EXPECT_EQ(second.zz(), 12.0);
   }
   {
-    SymmetricDyad symmetric_dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     double& mutable_yx = symmetric_dyad.Mutable_yx();
     mutable_yx = -13.0;
     double& mutable_zx = symmetric_dyad.Mutable_zx();
@@ -218,24 +218,24 @@ TEST(SymmetricDyad, Mutable) {
 }
 
 TEST(SymmetricDyad, Print) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).Print(),
-            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(4.0) + "; " + Print(0.0) + ", "
-                + Print(-4.0) + "; " + Print(0.0) + ")");
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0).Print(),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + "; " + Print(-4.0) + ", "
+                + Print(5.0) + "; " + Print(-6.0) + ")");
 }
 
 TEST(SymmetricDyad, Set) {
   {
-    SymmetricDyad symmetric_dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     symmetric_dyad.Set_xx_xy_xz_yy_yz_zz(std::array<double, 6>{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0});
     EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
   }
   {
-    SymmetricDyad symmetric_dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     symmetric_dyad.Set_xx_xy_xz_yy_yz_zz(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0);
     EXPECT_EQ(symmetric_dyad, SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
   }
   {
-    SymmetricDyad symmetric_dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     symmetric_dyad.Set_xx(-7.0);
     symmetric_dyad.Set_xy(8.0);
     symmetric_dyad.Set_xz(-9.0);
@@ -254,9 +254,9 @@ TEST(SymmetricDyad, StandardConstructor) {
   EXPECT_EQ(SymmetricDyad(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
             SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
   {
-    SymmetricDyad symmetric_dyad = SymmetricDyad<>::Zero();
-    symmetric_dyad = std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
-    EXPECT_EQ(symmetric_dyad, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
+    SymmetricDyad symmetric_dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
+    symmetric_dyad = std::array<double, 6>{7.0, -8.0, 9.0, -10.0, 11.0, -12.0};
+    EXPECT_EQ(symmetric_dyad, SymmetricDyad(7.0, -8.0, 9.0, -10.0, 11.0, -12.0));
   }
 }
 
@@ -276,15 +276,15 @@ TEST(SymmetricDyad, Transpose) {
 }
 
 TEST(SymmetricDyad, XML) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).XML(),
-            "<xx>" + Print(1.0) + "</xx><xy>" + Print(-2.0) + "</xy><xz>" + Print(4.0) + "</xz><yy>"
-                + Print(0.0) + "</yy><yz>" + Print(-4.0) + "</yz><zz>" + Print(0.0) + "</zz>");
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0).XML(),
+            "<xx>" + Print(1.0) + "</xx><xy>" + Print(-2.0) + "</xy><xz>" + Print(3.0) + "</xz><yy>"
+                + Print(-4.0) + "</yy><yz>" + Print(5.0) + "</yz><zz>" + Print(-6.0) + "</zz>");
 }
 
 TEST(SymmetricDyad, YAML) {
-  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 4.0, 0.0, -4.0, 0.0).YAML(),
-            "{xx:" + Print(1.0) + ",xy:" + Print(-2.0) + ",xz:" + Print(4.0) + ",yy:" + Print(0.0)
-                + ",yz:" + Print(-4.0) + ",zz:" + Print(0.0) + "}");
+  EXPECT_EQ(SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0).YAML(),
+            "{xx:" + Print(1.0) + ",xy:" + Print(-2.0) + ",xz:" + Print(3.0) + ",yy:" + Print(-4.0)
+                + ",yz:" + Print(5.0) + ",zz:" + Print(-6.0) + "}");
 }
 
 TEST(SymmetricDyad, Zero) {

@@ -65,7 +65,9 @@ public:
 
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
   template <typename OtherNumber>
-  constexpr Vector(const Vector<OtherNumber>& other) : x_y_z_(static_cast<Number>(other.x_y_z_)) {}
+  constexpr Vector(const Vector<OtherNumber>& other)
+    : x_y_z_({static_cast<Number>(other.x_y_z_[0]), static_cast<Number>(other.x_y_z_[1]),
+              static_cast<Number>(other.x_y_z_[2])}) {}
 
   // Move constructor. Constructs a three-dimensional vector by moving another one.
   constexpr Vector(Vector&& other) noexcept = default;
@@ -76,7 +78,9 @@ public:
   // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
   template <typename OtherNumber>
   constexpr Vector& operator=(const Vector<OtherNumber>& other) {
-    x_y_z_ = static_cast<Number>(other.x_y_z_);
+    x_y_z_[0] = static_cast<Number>(other.x_y_z_[0]);
+    x_y_z_[1] = static_cast<Number>(other.x_y_z_[1]);
+    x_y_z_[2] = static_cast<Number>(other.x_y_z_[2]);
     return *this;
   }
 
@@ -253,16 +257,16 @@ public:
 
   template <typename OtherNumber>
   constexpr void operator*=(const OtherNumber number) noexcept {
-    x_y_z_[0] *= number;
-    x_y_z_[1] *= number;
-    x_y_z_[2] *= number;
+    x_y_z_[0] *= static_cast<Number>(number);
+    x_y_z_[1] *= static_cast<Number>(number);
+    x_y_z_[2] *= static_cast<Number>(number);
   }
 
   template <typename OtherNumber>
   constexpr void operator/=(const OtherNumber number) noexcept {
-    x_y_z_[0] /= number;
-    x_y_z_[1] /= number;
-    x_y_z_[2] /= number;
+    x_y_z_[0] /= static_cast<Number>(number);
+    x_y_z_[1] /= static_cast<Number>(number);
+    x_y_z_[2] /= static_cast<Number>(number);
   }
 
 private:
@@ -327,7 +331,8 @@ inline constexpr Vector<Number> operator-(const Vector<Number>& left, const Vect
 
 template <typename Number, typename OtherNumber>
 inline constexpr Vector<Number> operator*(const Vector<Number>& vector, const OtherNumber number) {
-  return {vector.x() * number, vector.y() * number, vector.z() * number};
+  return {vector.x() * static_cast<Number>(number), vector.y() * static_cast<Number>(number),
+          vector.z() * static_cast<Number>(number)};
 }
 
 template <typename Number, typename OtherNumber>
@@ -337,7 +342,8 @@ inline constexpr Vector<Number> operator*(const OtherNumber number, const Vector
 
 template <typename Number, typename OtherNumber>
 inline constexpr Vector<Number> operator/(const Vector<Number>& vector, const OtherNumber number) {
-  return {vector.x() / number, vector.y() / number, vector.z() / number};
+  return {vector.x() / static_cast<Number>(number), vector.y() / static_cast<Number>(number),
+          vector.z() / static_cast<Number>(number)};
 }
 
 template <typename Number>

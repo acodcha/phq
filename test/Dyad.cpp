@@ -119,8 +119,8 @@ TEST(Dyad, ComparisonOperators) {
 }
 
 TEST(Dyad, CopyAssignmentOperator) {
-  constexpr Dyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  Dyad second = Dyad<>::Zero();
+  constexpr Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+  Dyad second{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -183,28 +183,28 @@ TEST(Dyad, IsSymmetric) {
 
 TEST(Dyad, JSON) {
   EXPECT_EQ(
-      Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).JSON(),
-      "{\"xx\":" + Print(1.0) + ",\"xy\":" + Print(-2.0) + ",\"xz\":" + Print(0.0)
-          + ",\"yx\":" + Print(2.0) + ",\"yy\":" + Print(-4.0) + ",\"yz\":" + Print(0.0)
-          + ",\"zx\":" + Print(4.0) + ",\"zy\":" + Print(-8.0) + ",\"zz\":" + Print(0.0) + "}");
+      Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).JSON(),
+      "{\"xx\":" + Print(1.0) + ",\"xy\":" + Print(-2.0) + ",\"xz\":" + Print(3.0)
+          + ",\"yx\":" + Print(-4.0) + ",\"yy\":" + Print(5.0) + ",\"yz\":" + Print(-6.0)
+          + ",\"zx\":" + Print(7.0) + ",\"zy\":" + Print(-8.0) + ",\"zz\":" + Print(9.0) + "}");
 }
 
 TEST(Dyad, MoveAssignmentOperator) {
-  Dyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
-  Dyad second = Dyad<>::Zero();
+  Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+  Dyad second{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
   second = std::move(first);
   EXPECT_EQ(second, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(Dyad, MoveConstructor) {
-  Dyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+  Dyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
   const Dyad second{std::move(first)};
   EXPECT_EQ(second, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
 }
 
 TEST(Dyad, Mutable) {
   {
-    Dyad dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     std::array<double, 9>& mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz =
         dyad.Mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz();
     mutable_xx_xy_xz_yx_yy_yz_zx_zy_zz = {
@@ -212,7 +212,7 @@ TEST(Dyad, Mutable) {
     EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
   }
   {
-    Dyad dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     double& mutable_xx = dyad.Mutable_xx();
     mutable_xx = -10.0;
     double& mutable_xy = dyad.Mutable_xy();
@@ -244,26 +244,26 @@ TEST(Dyad, Mutable) {
 }
 
 TEST(Dyad, Print) {
-  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).Print(),
-            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(0.0) + "; " + Print(2.0) + ", "
-                + Print(-4.0) + ", " + Print(0.0) + "; " + Print(4.0) + ", " + Print(-8.0) + ", "
-                + Print(0.0) + ")");
+  EXPECT_EQ(Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).Print(),
+            "(" + Print(1.0) + ", " + Print(-2.0) + ", " + Print(3.0) + "; " + Print(-4.0) + ", "
+                + Print(5.0) + ", " + Print(-6.0) + "; " + Print(7.0) + ", " + Print(-8.0) + ", "
+                + Print(9.0) + ")");
 }
 
 TEST(Dyad, Set) {
   {
-    Dyad dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     dyad.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0);
     EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
   }
   {
-    Dyad dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     dyad.Set_xx_xy_xz_yx_yy_yz_zx_zy_zz(
         std::array<double, 9>{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0});
     EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
   }
   {
-    Dyad dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0);
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
     dyad.Set_xx(-10.0);
     dyad.Set_xy(11.0);
     dyad.Set_xz(-12.0);
@@ -285,9 +285,9 @@ TEST(Dyad, StandardConstructor) {
   EXPECT_EQ(Dyad(std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}),
             Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
   {
-    Dyad dyad = Dyad<>::Zero();
-    dyad = std::array<double, 9>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
-    EXPECT_EQ(dyad, Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0));
+    Dyad dyad{1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0};
+    dyad = std::array<double, 9>{-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0};
+    EXPECT_EQ(dyad, Dyad(-10.0, 11.0, -12.0, 13.0, -14.0, 15.0, -16.0, 17.0, -18.0));
   }
 }
 
@@ -307,17 +307,17 @@ TEST(Dyad, Transpose) {
 }
 
 TEST(Dyad, XML) {
-  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).XML(),
-            "<xx>" + Print(1.0) + "</xx><xy>" + Print(-2.0) + "</xy><xz>" + Print(0.0) + "</xz><yx>"
-                + Print(2.0) + "</yx><yy>" + Print(-4.0) + "</yy><yz>" + Print(0.0) + "</yz><zx>"
-                + Print(4.0) + "</zx><zy>" + Print(-8.0) + "</zy><zz>" + Print(0.0) + "</zz>");
+  EXPECT_EQ(Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).XML(),
+            "<xx>" + Print(1.0) + "</xx><xy>" + Print(-2.0) + "</xy><xz>" + Print(3.0) + "</xz><yx>"
+                + Print(-4.0) + "</yx><yy>" + Print(5.0) + "</yy><yz>" + Print(-6.0) + "</yz><zx>"
+                + Print(7.0) + "</zx><zy>" + Print(-8.0) + "</zy><zz>" + Print(9.0) + "</zz>");
 }
 
 TEST(Dyad, YAML) {
-  EXPECT_EQ(Dyad(1.0, -2.0, 0.0, 2.0, -4.0, 0.0, 4.0, -8.0, 0.0).YAML(),
-            "{xx:" + Print(1.0) + ",xy:" + Print(-2.0) + ",xz:" + Print(0.0) + ",yx:" + Print(2.0)
-                + ",yy:" + Print(-4.0) + ",yz:" + Print(0.0) + ",zx:" + Print(4.0)
-                + ",zy:" + Print(-8.0) + ",zz:" + Print(0.0) + "}");
+  EXPECT_EQ(Dyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0).YAML(),
+            "{xx:" + Print(1.0) + ",xy:" + Print(-2.0) + ",xz:" + Print(3.0) + ",yx:" + Print(-4.0)
+                + ",yy:" + Print(5.0) + ",yz:" + Print(-6.0) + ",zx:" + Print(7.0)
+                + ",zy:" + Print(-8.0) + ",zz:" + Print(9.0) + "}");
 }
 
 TEST(Dyad, Zero) {
