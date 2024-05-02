@@ -66,28 +66,24 @@ TEST(UnitTemperature, ConversionReciprocity) {
 
 TEST(UnitTemperature, ConvertFromStandard) {
   constexpr double value{123.4567890123456789};
-
-  Internal::TestConversions(Temperature::Kelvin, Temperature::Kelvin, value, value);
-  Internal::TestConversions(Temperature::Kelvin, Temperature::Celsius, value, value - 273.15);
-  Internal::TestConversions(Temperature::Kelvin, Temperature::Rankine, value, value * 1.8);
-  Internal::TestConversions(
-      Temperature::Kelvin, Temperature::Fahrenheit, value, (value * 1.8) - 459.67);
-
-  Internal::TestStaticConversions<Temperature, Temperature::Kelvin, Temperature::Rankine>(
+  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
+  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Celsius>(
+      value, value - 273.15);
+  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Rankine>(
       value, value * 1.8);
+  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
+      value, (value * 1.8) - 459.67);
 }
 
 TEST(UnitTemperature, ConvertToStandard) {
   constexpr double value{123.4567890123456789};
-
-  Internal::TestConversions(Temperature::Kelvin, Temperature::Kelvin, value, value);
-  Internal::TestConversions(Temperature::Celsius, Temperature::Kelvin, value, value + 273.15);
-  Internal::TestConversions(Temperature::Rankine, Temperature::Kelvin, value, value / 1.8);
-  Internal::TestConversions(
-      Temperature::Fahrenheit, Temperature::Kelvin, value, (value + 459.67) / 1.8);
-
-  Internal::TestStaticConversions<Temperature, Temperature::Rankine, Temperature::Kelvin>(
+  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
+  Internal::TestConversions<Temperature, Temperature::Celsius, Temperature::Kelvin>(
+      value, value + 273.15);
+  Internal::TestConversions<Temperature, Temperature::Rankine, Temperature::Kelvin>(
       value, value / 1.8);
+  Internal::TestConversions<Temperature, Temperature::Fahrenheit, Temperature::Kelvin>(
+      value, (value + 459.67) / 1.8);
 }
 
 TEST(UnitTemperature, Parse) {

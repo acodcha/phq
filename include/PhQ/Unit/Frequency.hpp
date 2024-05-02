@@ -176,35 +176,37 @@ inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Per
 
 template <>
 inline const std::map<Unit::Frequency, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Frequency>{
-        {Unit::Frequency::Hertz,     ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Hertz>    },
+    MapOfConversionsFromStandard<Unit::Frequency, double>{
+        {Unit::Frequency::Hertz,
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Hertz,     double>},
         {Unit::Frequency::Kilohertz,
-         ConversionsFromStandard<Unit::Frequency,                             Unit::Frequency::Kilohertz>},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz, double>},
         {Unit::Frequency::Megahertz,
-         ConversionsFromStandard<Unit::Frequency,                             Unit::Frequency::Megahertz>},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Megahertz, double>},
         {Unit::Frequency::Gigahertz,
-         ConversionsFromStandard<Unit::Frequency,                             Unit::Frequency::Gigahertz>},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz, double>},
         {Unit::Frequency::PerMinute,
-         ConversionsFromStandard<Unit::Frequency,                             Unit::Frequency::PerMinute>},
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerMinute, double>},
         {Unit::Frequency::PerHour,
-         ConversionsFromStandard<Unit::Frequency,                             Unit::Frequency::PerHour>  },
+         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerHour,   double>},
 };
 
 template <>
 inline const std::map<Unit::Frequency,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Frequency>{
-        {Unit::Frequency::Hertz,     ConversionsToStandard<Unit::Frequency, Unit::Frequency::Hertz>    },
+    MapOfConversionsToStandard<Unit::Frequency, double>{
+        {Unit::Frequency::Hertz,
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Hertz,     double>},
         {Unit::Frequency::Kilohertz,
-         ConversionsToStandard<Unit::Frequency,                             Unit::Frequency::Kilohertz>},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Kilohertz, double>},
         {Unit::Frequency::Megahertz,
-         ConversionsToStandard<Unit::Frequency,                             Unit::Frequency::Megahertz>},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Megahertz, double>},
         {Unit::Frequency::Gigahertz,
-         ConversionsToStandard<Unit::Frequency,                             Unit::Frequency::Gigahertz>},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Gigahertz, double>},
         {Unit::Frequency::PerMinute,
-         ConversionsToStandard<Unit::Frequency,                             Unit::Frequency::PerMinute>},
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerMinute, double>},
         {Unit::Frequency::PerHour,
-         ConversionsToStandard<Unit::Frequency,                             Unit::Frequency::PerHour>  },
+         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerHour,   double>},
 };
 
 }  // namespace Internal

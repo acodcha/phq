@@ -158,22 +158,22 @@ inline constexpr void ConversionToStandard<Unit::Mass, Unit::Mass::Pound>(double
 
 template <>
 inline const std::map<Unit::Mass, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Mass>{
-        {Unit::Mass::Kilogram, ConversionsFromStandard<Unit::Mass, Unit::Mass::Kilogram>},
-        {Unit::Mass::Gram,     ConversionsFromStandard<Unit::Mass, Unit::Mass::Gram>    },
-        {Unit::Mass::Slug,     ConversionsFromStandard<Unit::Mass, Unit::Mass::Slug>    },
-        {Unit::Mass::Slinch,   ConversionsFromStandard<Unit::Mass, Unit::Mass::Slinch>  },
-        {Unit::Mass::Pound,    ConversionsFromStandard<Unit::Mass, Unit::Mass::Pound>   },
+    MapOfConversionsFromStandard<Unit::Mass, double>{
+        {Unit::Mass::Kilogram, ConversionsFromStandard<Unit::Mass, Unit::Mass::Kilogram, double>},
+        {Unit::Mass::Gram,     ConversionsFromStandard<Unit::Mass, Unit::Mass::Gram,     double>},
+        {Unit::Mass::Slug,     ConversionsFromStandard<Unit::Mass, Unit::Mass::Slug,     double>},
+        {Unit::Mass::Slinch,   ConversionsFromStandard<Unit::Mass, Unit::Mass::Slinch,   double>},
+        {Unit::Mass::Pound,    ConversionsFromStandard<Unit::Mass, Unit::Mass::Pound,    double>},
 };
 
 template <>
 inline const std::map<Unit::Mass, std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Mass>{
-        {Unit::Mass::Kilogram, ConversionsToStandard<Unit::Mass, Unit::Mass::Kilogram>},
-        {Unit::Mass::Gram,     ConversionsToStandard<Unit::Mass, Unit::Mass::Gram>    },
-        {Unit::Mass::Slug,     ConversionsToStandard<Unit::Mass, Unit::Mass::Slug>    },
-        {Unit::Mass::Slinch,   ConversionsToStandard<Unit::Mass, Unit::Mass::Slinch>  },
-        {Unit::Mass::Pound,    ConversionsToStandard<Unit::Mass, Unit::Mass::Pound>   },
+    MapOfConversionsToStandard<Unit::Mass, double>{
+        {Unit::Mass::Kilogram, ConversionsToStandard<Unit::Mass, Unit::Mass::Kilogram, double>},
+        {Unit::Mass::Gram,     ConversionsToStandard<Unit::Mass, Unit::Mass::Gram,     double>},
+        {Unit::Mass::Slug,     ConversionsToStandard<Unit::Mass, Unit::Mass::Slug,     double>},
+        {Unit::Mass::Slinch,   ConversionsToStandard<Unit::Mass, Unit::Mass::Slinch,   double>},
+        {Unit::Mass::Pound,    ConversionsToStandard<Unit::Mass, Unit::Mass::Pound,    double>},
 };
 
 }  // namespace Internal

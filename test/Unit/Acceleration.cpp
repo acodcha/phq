@@ -135,189 +135,182 @@ TEST(UnitAcceleration, ConversionReciprocity) {
 
 TEST(UnitAcceleration, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::NauticalMilePerSquareSecond, value, value / 1852.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareSecond,
-                            value, value / 1609.344);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::KilometrePerSquareSecond, value, value * 0.001);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareSecond, value, value);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareSecond, value, value / 0.9144);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareSecond, value, value / 0.3048);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::DecimetrePerSquareSecond, value, value * 10.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareSecond, value, value / 0.0254);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::CentimetrePerSquareSecond, value, value * 100.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::MillimetrePerSquareSecond, value, value * 1000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::MilliinchPerSquareSecond, value, value / 0.0000254);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::MicrometrePerSquareSecond, value, value * 1000000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::MicroinchPerSquareSecond, value, value / 0.0000000254);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::NauticalMilePerSquareMinute, value,
-      value / 1852.0 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareMinute,
-                            value, value / 1609.344 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::KilometrePerSquareMinute, value, value * 0.001 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareMinute,
-                            value, value * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareMinute,
-                            value, value / 0.9144 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareMinute,
-                            value, value / 0.3048 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::DecimetrePerSquareMinute, value, value * 10.0 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareMinute,
-                            value, value / 0.0254 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::CentimetrePerSquareMinute, value, value * 100.0 * 3600.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareMinute, value,
-      value * 1000.0 * 3600.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareMinute, value,
-      value / 0.0000254 * 3600.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareMinute, value,
-      value * 1000000.0 * 3600.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareMinute, value,
-      value / 0.0000000254 * 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::KnotPerHour, value,
-                            value / 1852.0 * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::MilePerSquareHour,
-                            value, value / 1609.344 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::KilometrePerSquareHour, value,
-      value * 0.001 * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareHour,
-                            value, value * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::YardPerSquareHour,
-                            value, value / 0.9144 * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::FootPerSquareHour,
-                            value, value / 0.3048 * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond,
-                            Acceleration::DecimetrePerSquareHour, value, value * 10.0 * 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareSecond, Acceleration::InchPerSquareHour,
-                            value, value / 0.0254 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::CentimetrePerSquareHour, value,
-      value * 100.0 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MillimetrePerSquareHour, value,
-      value * 1000.0 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MilliinchPerSquareHour, value,
-      value / 0.0000254 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MicrometrePerSquareHour, value,
-      value * 1000000.0 * 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MicroinchPerSquareHour, value,
-      value / 0.0000000254 * 12960000.0);
-
-  Internal::TestStaticConversions<Acceleration, Acceleration::MetrePerSquareSecond,
-                                  Acceleration::FootPerSquareSecond>(value, value / 0.3048);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::NauticalMilePerSquareSecond>(value, value / 1852.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilePerSquareSecond>(value, value / 1609.344);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::KilometrePerSquareSecond>(value, value * 0.001);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::YardPerSquareSecond>(value, value / 0.9144);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::FootPerSquareSecond>(value, value / 0.3048);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::DecimetrePerSquareSecond>(value, value * 10.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::InchPerSquareSecond>(value, value / 0.0254);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::CentimetrePerSquareSecond>(value, value * 100.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MillimetrePerSquareSecond>(value, value * 1000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilliinchPerSquareSecond>(value, value / 0.0000254);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicrometrePerSquareSecond>(value, value * 1000000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicroinchPerSquareSecond>(value, value / 0.0000000254);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::NauticalMilePerSquareMinute>(
+      value, value / 1852.0 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilePerSquareMinute>(value, value / 1609.344 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::KilometrePerSquareMinute>(value, value * 0.001 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MetrePerSquareMinute>(value, value * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::YardPerSquareMinute>(value, value / 0.9144 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::FootPerSquareMinute>(value, value / 0.3048 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::DecimetrePerSquareMinute>(value, value * 10.0 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::InchPerSquareMinute>(value, value / 0.0254 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::CentimetrePerSquareMinute>(value, value * 100.0 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MillimetrePerSquareMinute>(
+      value, value * 1000.0 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilliinchPerSquareMinute>(
+      value, value / 0.0000254 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicrometrePerSquareMinute>(
+      value, value * 1000000.0 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicroinchPerSquareMinute>(
+      value, value / 0.0000000254 * 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::KnotPerHour>(value, value / 1852.0 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilePerSquareHour>(value, value / 1609.344 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::KilometrePerSquareHour>(
+      value, value * 0.001 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MetrePerSquareHour>(value, value * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::YardPerSquareHour>(value, value / 0.9144 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::FootPerSquareHour>(value, value / 0.3048 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::DecimetrePerSquareHour>(value, value * 10.0 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::InchPerSquareHour>(value, value / 0.0254 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::CentimetrePerSquareHour>(
+      value, value * 100.0 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MillimetrePerSquareHour>(
+      value, value * 1000.0 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MilliinchPerSquareHour>(
+      value, value / 0.0000254 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicrometrePerSquareHour>(
+      value, value * 1000000.0 * 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MicroinchPerSquareHour>(
+      value, value / 0.0000000254 * 12960000.0);
 }
 
 TEST(UnitAcceleration, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Acceleration::NauticalMilePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 1852.0);
-  Internal::TestConversions(Acceleration::MilePerSquareSecond, Acceleration::MetrePerSquareSecond,
-                            value, value * 1609.344);
-  Internal::TestConversions(Acceleration::KilometrePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 1000.0);
-  Internal::TestConversions(
-      Acceleration::MetrePerSquareSecond, Acceleration::MetrePerSquareSecond, value, value);
-  Internal::TestConversions(
-      Acceleration::YardPerSquareSecond, Acceleration::MetrePerSquareSecond, value, value * 0.9144);
-  Internal::TestConversions(
-      Acceleration::FootPerSquareSecond, Acceleration::MetrePerSquareSecond, value, value * 0.3048);
-  Internal::TestConversions(Acceleration::DecimetrePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.1);
-  Internal::TestConversions(
-      Acceleration::InchPerSquareSecond, Acceleration::MetrePerSquareSecond, value, value * 0.0254);
-  Internal::TestConversions(Acceleration::CentimetrePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.01);
-  Internal::TestConversions(Acceleration::MillimetrePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.001);
-  Internal::TestConversions(Acceleration::MilliinchPerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.0000254);
-  Internal::TestConversions(Acceleration::MicrometrePerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.000001);
-  Internal::TestConversions(Acceleration::MicroinchPerSquareSecond,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.0000000254);
-  Internal::TestConversions(Acceleration::NauticalMilePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 1852.0 / 3600.0);
-  Internal::TestConversions(Acceleration::MilePerSquareMinute, Acceleration::MetrePerSquareSecond,
-                            value, value * 1609.344 / 3600.0);
-  Internal::TestConversions(Acceleration::KilometrePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 1000.0 / 3600.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareMinute, Acceleration::MetrePerSquareSecond,
-                            value, value / 3600.0);
-  Internal::TestConversions(Acceleration::YardPerSquareMinute, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.9144 / 3600.0);
-  Internal::TestConversions(Acceleration::FootPerSquareMinute, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.3048 / 3600.0);
-  Internal::TestConversions(Acceleration::DecimetrePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.1 / 3600.0);
-  Internal::TestConversions(Acceleration::InchPerSquareMinute, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.0254 / 3600.0);
-  Internal::TestConversions(Acceleration::CentimetrePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.01 / 3600.0);
-  Internal::TestConversions(Acceleration::MillimetrePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.001 / 3600.0);
-  Internal::TestConversions(Acceleration::MilliinchPerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.0000254 / 3600.0);
-  Internal::TestConversions(Acceleration::MicrometrePerSquareMinute,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.000001 / 3600.0);
-  Internal::TestConversions(
-      Acceleration::MicroinchPerSquareMinute, Acceleration::MetrePerSquareSecond, value,
-      value * 0.0000000254 / 3600.0);
-  Internal::TestConversions(Acceleration::KnotPerHour, Acceleration::MetrePerSquareSecond, value,
-                            value * 1852.0 / 12960000.0);
-  Internal::TestConversions(Acceleration::MilePerSquareHour, Acceleration::MetrePerSquareSecond,
-                            value, value * 1609.344 / 12960000.0);
-  Internal::TestConversions(Acceleration::KilometrePerSquareHour,
-                            Acceleration::MetrePerSquareSecond, value, value * 1000.0 / 12960000.0);
-  Internal::TestConversions(Acceleration::MetrePerSquareHour, Acceleration::MetrePerSquareSecond,
-                            value, value / 12960000.0);
-  Internal::TestConversions(Acceleration::YardPerSquareHour, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.9144 / 12960000.0);
-  Internal::TestConversions(Acceleration::FootPerSquareHour, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.3048 / 12960000.0);
-  Internal::TestConversions(Acceleration::DecimetrePerSquareHour,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.1 / 12960000.0);
-  Internal::TestConversions(Acceleration::InchPerSquareHour, Acceleration::MetrePerSquareSecond,
-                            value, value * 0.0254 / 12960000.0);
-  Internal::TestConversions(Acceleration::CentimetrePerSquareHour,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.01 / 12960000.0);
-  Internal::TestConversions(Acceleration::MillimetrePerSquareHour,
-                            Acceleration::MetrePerSquareSecond, value, value * 0.001 / 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MilliinchPerSquareHour, Acceleration::MetrePerSquareSecond, value,
-      value * 0.0000254 / 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MicrometrePerSquareHour, Acceleration::MetrePerSquareSecond, value,
-      value * 0.000001 / 12960000.0);
-  Internal::TestConversions(
-      Acceleration::MicroinchPerSquareHour, Acceleration::MetrePerSquareSecond, value,
-      value * 0.0000000254 / 12960000.0);
-
-  Internal::TestStaticConversions<Acceleration, Acceleration::FootPerSquareSecond,
-                                  Acceleration::MetrePerSquareSecond>(value, value * 0.3048);
+  Internal::TestConversions<Acceleration, Acceleration::NauticalMilePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1852.0);
+  Internal::TestConversions<Acceleration, Acceleration::MilePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1609.344);
+  Internal::TestConversions<Acceleration, Acceleration::KilometrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value);
+  Internal::TestConversions<Acceleration, Acceleration::YardPerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.9144);
+  Internal::TestConversions<Acceleration, Acceleration::FootPerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.3048);
+  Internal::TestConversions<Acceleration, Acceleration::DecimetrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.1);
+  Internal::TestConversions<Acceleration, Acceleration::InchPerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0254);
+  Internal::TestConversions<Acceleration, Acceleration::CentimetrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.01);
+  Internal::TestConversions<Acceleration, Acceleration::MillimetrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.001);
+  Internal::TestConversions<Acceleration, Acceleration::MilliinchPerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0000254);
+  Internal::TestConversions<Acceleration, Acceleration::MicrometrePerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.000001);
+  Internal::TestConversions<Acceleration, Acceleration::MicroinchPerSquareSecond,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0000000254);
+  Internal::TestConversions<Acceleration, Acceleration::NauticalMilePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1852.0 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MilePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1609.344 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::KilometrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1000.0 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::YardPerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.9144 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::FootPerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.3048 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::DecimetrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.1 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::InchPerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0254 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::CentimetrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.01 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MillimetrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.001 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MilliinchPerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0000254 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MicrometrePerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.000001 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::MicroinchPerSquareMinute,
+                            Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0000000254 / 3600.0);
+  Internal::TestConversions<Acceleration, Acceleration::KnotPerHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1852.0 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MilePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(
+      value, value * 1609.344 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::KilometrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 1000.0 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MetrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::YardPerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.9144 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::FootPerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.3048 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::DecimetrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.1 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::InchPerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.0254 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::CentimetrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.01 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MillimetrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(value, value * 0.001 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MilliinchPerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0000254 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MicrometrePerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(
+      value, value * 0.000001 / 12960000.0);
+  Internal::TestConversions<Acceleration, Acceleration::MicroinchPerSquareHour,
+                            Acceleration::MetrePerSquareSecond>(
+      value, value * 0.0000000254 / 12960000.0);
 }
 
 TEST(UnitAcceleration, Parse) {

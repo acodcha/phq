@@ -60,32 +60,24 @@ TEST(UnitMass, ConversionReciprocity) {
 
 TEST(UnitMass, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Mass::Kilogram, Mass::Kilogram, value, value);
-  Internal::TestConversions(Mass::Kilogram, Mass::Gram, value, value * 1000.0);
-  Internal::TestConversions(
-      Mass::Kilogram, Mass::Slug, value, value * 0.3048 / (0.45359237 * 9.80665));
-  Internal::TestConversions(
-      Mass::Kilogram, Mass::Slinch, value, value * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestConversions(Mass::Kilogram, Mass::Pound, value, value / 0.45359237);
-
-  Internal::TestStaticConversions<Mass, Mass::Kilogram, Mass::Slug>(
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Gram>(value, value * 1000.0);
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Slug>(
       value, value * 0.3048 / (0.45359237 * 9.80665));
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Slinch>(
+      value, value * 0.0254 / (0.45359237 * 9.80665));
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Pound>(value, value / 0.45359237);
 }
 
 TEST(UnitMass, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Mass::Kilogram, Mass::Kilogram, value, value);
-  Internal::TestConversions(Mass::Gram, Mass::Kilogram, value, value * 0.001);
-  Internal::TestConversions(
-      Mass::Slug, Mass::Kilogram, value, value * 0.45359237 * 9.80665 / 0.3048);
-  Internal::TestConversions(
-      Mass::Slinch, Mass::Kilogram, value, value * 0.45359237 * 9.80665 / 0.0254);
-  Internal::TestConversions(Mass::Pound, Mass::Kilogram, value, value * 0.45359237);
-
-  Internal::TestStaticConversions<Mass, Mass::Slug, Mass::Kilogram>(
+  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
+  Internal::TestConversions<Mass, Mass::Gram, Mass::Kilogram>(value, value * 0.001);
+  Internal::TestConversions<Mass, Mass::Slug, Mass::Kilogram>(
       value, value * 0.45359237 * 9.80665 / 0.3048);
+  Internal::TestConversions<Mass, Mass::Slinch, Mass::Kilogram>(
+      value, value * 0.45359237 * 9.80665 / 0.0254);
+  Internal::TestConversions<Mass, Mass::Pound, Mass::Kilogram>(value, value * 0.45359237);
 }
 
 TEST(UnitMass, Parse) {

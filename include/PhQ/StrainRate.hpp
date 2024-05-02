@@ -40,7 +40,7 @@ public:
 
   // Constructor. Constructs a strain rate tensor with a given value expressed in a given frequency
   // unit.
-  StrainRate(const SymmetricDyad& value, Unit::Frequency unit)
+  StrainRate(const SymmetricDyad<double>& value, Unit::Frequency unit)
     : DimensionalSymmetricDyad<Unit::Frequency>(value, unit) {}
 
   // Constructor. Constructs a strain rate tensor from a given strain tensor and time using the
@@ -74,7 +74,7 @@ public:
 
   // Statically creates a strain rate tensor of zero.
   static constexpr StrainRate Zero() {
-    return StrainRate{SymmetricDyad::Zero()};
+    return StrainRate{SymmetricDyad<>::Zero()};
   }
 
   // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
@@ -83,7 +83,7 @@ public:
   static constexpr StrainRate Create(const double xx, const double xy, const double xz,
                                      const double yy, const double yz, const double zz) {
     return StrainRate{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-        SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+        SymmetricDyad<double>{xx, xy, xz, yy, yz, zz})};
   }
 
   // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
@@ -91,12 +91,12 @@ public:
   template <Unit::Frequency Unit>
   static constexpr StrainRate Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
     return StrainRate{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-        SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+        SymmetricDyad<double>{xx_xy_xz_yy_yz_zz})};
   }
 
   // Statically creates a strain rate tensor with a given value expressed in a given frequency unit.
   template <Unit::Frequency Unit>
-  static constexpr StrainRate Create(const SymmetricDyad& value) {
+  static constexpr StrainRate Create(const SymmetricDyad<double>& value) {
     return StrainRate{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
 
@@ -188,7 +188,7 @@ public:
 private:
   // Constructor. Constructs a strain rate tensor with a given value expressed in the standard
   // frequency unit.
-  explicit constexpr StrainRate(const SymmetricDyad& value)
+  explicit constexpr StrainRate(const SymmetricDyad<double>& value)
     : DimensionalSymmetricDyad<Unit::Frequency>(value) {}
 };
 
@@ -254,7 +254,7 @@ namespace std {
 template <>
 struct hash<PhQ::StrainRate> {
   inline size_t operator()(const PhQ::StrainRate& strain_rate) const {
-    return hash<PhQ::SymmetricDyad>()(strain_rate.Value());
+    return hash<PhQ::SymmetricDyad<double>>()(strain_rate.Value());
   }
 };
 

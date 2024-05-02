@@ -38,7 +38,7 @@ public:
   Force() = default;
 
   // Constructor. Constructs a force vector with a given value expressed in a given force unit.
-  Force(const Vector& value, const Unit::Force unit)
+  Force(const Vector<double>& value, const Unit::Force unit)
     : DimensionalVector<Unit::Force>(value, unit) {}
 
   // Constructor. Constructs a force vector from a given scalar force magnitude and direction.
@@ -66,26 +66,28 @@ public:
 
   // Statically creates a force vector of zero.
   static constexpr Force Zero() {
-    return Force{Vector::Zero()};
+    return Force{Vector<>::Zero()};
   }
 
   // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
   // a given force unit.
   template <Unit::Force Unit>
   static constexpr Force Create(const double x, const double y, const double z) {
-    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector{x, y, z})};
+    return Force{
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a force vector from the given x, y, and z Cartesian components expressed in
   // a given force unit.
   template <Unit::Force Unit>
   static constexpr Force Create(const std::array<double, 3>& x_y_z) {
-    return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector{x_y_z})};
+    return Force{
+        StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a force vector with a given value expressed in a given force unit.
   template <Unit::Force Unit>
-  static constexpr Force Create(const Vector& value) {
+  static constexpr Force Create(const Vector<double>& value) {
     return Force{StaticConvertCopy<Unit::Force, Unit, Standard<Unit::Force>>(value)};
   }
 
@@ -155,7 +157,7 @@ public:
 
 private:
   // Constructor. Constructs a force vector with a given value expressed in the standard force unit.
-  explicit constexpr Force(const Vector& value) : DimensionalVector<Unit::Force>(value) {}
+  explicit constexpr Force(const Vector<double>& value) : DimensionalVector<Unit::Force>(value) {}
 };
 
 inline constexpr bool operator==(const Force& left, const Force& right) noexcept {
@@ -211,7 +213,7 @@ namespace std {
 template <>
 struct hash<PhQ::Force> {
   inline size_t operator()(const PhQ::Force& force) const {
-    return hash<PhQ::Vector>()(force.Value());
+    return hash<PhQ::Vector<double>>()(force.Value());
   }
 };
 

@@ -72,51 +72,42 @@ TEST(UnitTemperatureGradient, ConversionReciprocity) {
 
 TEST(UnitTemperatureGradient, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(
-      TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::KelvinPerMillimetre, value, value * 0.001);
-  Internal::TestConversions(
-      TemperatureGradient::KelvinPerMetre, TemperatureGradient::CelsiusPerMetre, value, value);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::CelsiusPerMillimetre, value, value * 0.001);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::RankinePerFoot, value, value * 1.8 * 0.3048);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::RankinePerInch, value, value * 1.8 * 0.0254);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::FahrenheitPerFoot, value, value * 1.8 * 0.3048);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMetre,
-                            TemperatureGradient::FahrenheitPerInch, value, value * 1.8 * 0.0254);
-
-  Internal::TestStaticConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
-                                  TemperatureGradient::RankinePerFoot>(value, value * 1.8 * 0.3048);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::KelvinPerMetre>(value, value);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::KelvinPerMillimetre>(value, value * 0.001);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::CelsiusPerMetre>(value, value);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::CelsiusPerMillimetre>(value, value * 0.001);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::RankinePerFoot>(value, value * 1.8 * 0.3048);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::RankinePerInch>(value, value * 1.8 * 0.0254);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::FahrenheitPerFoot>(value, value * 1.8 * 0.3048);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::FahrenheitPerInch>(value, value * 1.8 * 0.0254);
 }
 
 TEST(UnitTemperatureGradient, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(
-      TemperatureGradient::KelvinPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
-  Internal::TestConversions(TemperatureGradient::KelvinPerMillimetre,
-                            TemperatureGradient::KelvinPerMetre, value, value * 1000.0);
-  Internal::TestConversions(
-      TemperatureGradient::CelsiusPerMetre, TemperatureGradient::KelvinPerMetre, value, value);
-  Internal::TestConversions(TemperatureGradient::CelsiusPerMillimetre,
-                            TemperatureGradient::KelvinPerMetre, value, value * 1000.0);
-  Internal::TestConversions(TemperatureGradient::RankinePerFoot,
-                            TemperatureGradient::KelvinPerMetre, value, value / (1.8 * 0.3048));
-  Internal::TestConversions(TemperatureGradient::RankinePerInch,
-                            TemperatureGradient::KelvinPerMetre, value, value / (1.8 * 0.0254));
-  Internal::TestConversions(TemperatureGradient::FahrenheitPerFoot,
-                            TemperatureGradient::KelvinPerMetre, value, value / (1.8 * 0.3048));
-  Internal::TestConversions(TemperatureGradient::FahrenheitPerInch,
-                            TemperatureGradient::KelvinPerMetre, value, value / (1.8 * 0.0254));
-
-  Internal::TestStaticConversions<TemperatureGradient, TemperatureGradient::RankinePerFoot,
-                                  TemperatureGradient::KelvinPerMetre>(
-      value, value / (1.8 * 0.3048));
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMetre,
+                            TemperatureGradient::KelvinPerMetre>(value, value);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::KelvinPerMillimetre,
+                            TemperatureGradient::KelvinPerMetre>(value, value * 1000.0);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::CelsiusPerMetre,
+                            TemperatureGradient::KelvinPerMetre>(value, value);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::CelsiusPerMillimetre,
+                            TemperatureGradient::KelvinPerMetre>(value, value * 1000.0);
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::RankinePerFoot,
+                            TemperatureGradient::KelvinPerMetre>(value, value / (1.8 * 0.3048));
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::RankinePerInch,
+                            TemperatureGradient::KelvinPerMetre>(value, value / (1.8 * 0.0254));
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::FahrenheitPerFoot,
+                            TemperatureGradient::KelvinPerMetre>(value, value / (1.8 * 0.3048));
+  Internal::TestConversions<TemperatureGradient, TemperatureGradient::FahrenheitPerInch,
+                            TemperatureGradient::KelvinPerMetre>(value, value / (1.8 * 0.0254));
 }
 
 TEST(UnitTemperatureGradient, Parse) {

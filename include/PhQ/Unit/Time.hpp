@@ -183,24 +183,29 @@ inline constexpr void ConversionToStandard<Unit::Time, Unit::Time::Hour>(double&
 
 template <>
 inline const std::map<Unit::Time, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Time>{
-        {Unit::Time::Nanosecond,  ConversionsFromStandard<Unit::Time, Unit::Time::Nanosecond> },
-        {Unit::Time::Microsecond, ConversionsFromStandard<Unit::Time, Unit::Time::Microsecond>},
-        {Unit::Time::Millisecond, ConversionsFromStandard<Unit::Time, Unit::Time::Millisecond>},
-        {Unit::Time::Second,      ConversionsFromStandard<Unit::Time, Unit::Time::Second>     },
-        {Unit::Time::Minute,      ConversionsFromStandard<Unit::Time, Unit::Time::Minute>     },
-        {Unit::Time::Hour,        ConversionsFromStandard<Unit::Time, Unit::Time::Hour>       },
+    MapOfConversionsFromStandard<Unit::Time, double>{
+        {Unit::Time::Nanosecond,
+         ConversionsFromStandard<Unit::Time,                          Unit::Time::Nanosecond,  double>},
+        {Unit::Time::Microsecond,
+         ConversionsFromStandard<Unit::Time,                          Unit::Time::Microsecond, double>},
+        {Unit::Time::Millisecond,
+         ConversionsFromStandard<Unit::Time,                          Unit::Time::Millisecond, double>},
+        {Unit::Time::Second,      ConversionsFromStandard<Unit::Time, Unit::Time::Second,      double>},
+        {Unit::Time::Minute,      ConversionsFromStandard<Unit::Time, Unit::Time::Minute,      double>},
+        {Unit::Time::Hour,        ConversionsFromStandard<Unit::Time, Unit::Time::Hour,        double>},
 };
 
 template <>
 inline const std::map<Unit::Time, std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Time>{
-        {Unit::Time::Nanosecond,  ConversionsToStandard<Unit::Time, Unit::Time::Nanosecond> },
-        {Unit::Time::Microsecond, ConversionsToStandard<Unit::Time, Unit::Time::Microsecond>},
-        {Unit::Time::Millisecond, ConversionsToStandard<Unit::Time, Unit::Time::Millisecond>},
-        {Unit::Time::Second,      ConversionsToStandard<Unit::Time, Unit::Time::Second>     },
-        {Unit::Time::Minute,      ConversionsToStandard<Unit::Time, Unit::Time::Minute>     },
-        {Unit::Time::Hour,        ConversionsToStandard<Unit::Time, Unit::Time::Hour>       },
+    MapOfConversionsToStandard<Unit::Time, double>{
+        {Unit::Time::Nanosecond,  ConversionsToStandard<Unit::Time, Unit::Time::Nanosecond,  double>},
+        {Unit::Time::Microsecond,
+         ConversionsToStandard<Unit::Time,                          Unit::Time::Microsecond, double>},
+        {Unit::Time::Millisecond,
+         ConversionsToStandard<Unit::Time,                          Unit::Time::Millisecond, double>},
+        {Unit::Time::Second,      ConversionsToStandard<Unit::Time, Unit::Time::Second,      double>},
+        {Unit::Time::Minute,      ConversionsToStandard<Unit::Time, Unit::Time::Minute,      double>},
+        {Unit::Time::Hour,        ConversionsToStandard<Unit::Time, Unit::Time::Hour,        double>},
 };
 
 }  // namespace Internal

@@ -44,13 +44,13 @@ public:
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const SymmetricDyad& Value() const noexcept {
+  [[nodiscard]] constexpr const SymmetricDyad<double>& Value() const noexcept {
     return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] SymmetricDyad Value(const U unit) const {
-    SymmetricDyad result{value};
+  [[nodiscard]] SymmetricDyad<double> Value(const U unit) const {
+    SymmetricDyad<double> result{value};
     Convert(result, Standard<U>, unit);
     return result;
   }
@@ -58,19 +58,19 @@ public:
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
   template <U NewUnit>
-  [[nodiscard]] constexpr SymmetricDyad StaticValue() const {
+  [[nodiscard]] constexpr SymmetricDyad<double> StaticValue() const {
     return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr SymmetricDyad& MutableValue() noexcept {
+  constexpr SymmetricDyad<double>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const SymmetricDyad& value) noexcept {
+  constexpr void SetValue(const SymmetricDyad<double>& value) noexcept {
     this->value = value;
   }
 
@@ -153,11 +153,11 @@ protected:
 
   // Constructor. Constructs a dimensional symmetric dyadic tensor physical quantity with a given
   // value expressed in its standard unit of measure.
-  explicit constexpr DimensionalSymmetricDyad(const SymmetricDyad& value) : value(value) {}
+  explicit constexpr DimensionalSymmetricDyad(const SymmetricDyad<double>& value) : value(value) {}
 
   // Constructor. Constructs a dimensional dimensional symmetric dyadic tensor physical quantity
   // with a given value expressed in a given unit of measure.
-  DimensionalSymmetricDyad(const SymmetricDyad& value, const U unit) : value(value) {
+  DimensionalSymmetricDyad(const SymmetricDyad<double>& value, const U unit) : value(value) {
     Convert(this->value, unit, Standard<U>);
   }
 
@@ -183,7 +183,7 @@ protected:
 
   // Value of this dimensional symmetric dyadic tensor physical quantity expressed in its standard
   // unit of measure.
-  SymmetricDyad value;
+  SymmetricDyad<double> value;
 };
 
 template <typename U>
@@ -199,7 +199,7 @@ namespace std {
 template <typename U>
 struct hash<PhQ::DimensionalSymmetricDyad<U>> {
   inline size_t operator()(const PhQ::DimensionalSymmetricDyad<U>& quantity) const {
-    return hash<PhQ::SymmetricDyad>()(quantity.Value());
+    return hash<PhQ::SymmetricDyad<double>>()(quantity.Value());
   }
 };
 

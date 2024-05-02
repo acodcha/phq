@@ -20,6 +20,7 @@
 #include <functional>
 #include <ostream>
 #include <string>
+#include <type_traits>
 
 #include "Base.hpp"
 
@@ -30,10 +31,16 @@ class Angle;
 class Direction;
 
 // Forward declaration for class PhQ::Vector.
+template <typename>
 class Dyad;
 
 // Three-dimensional vector in Cartesian coordinates. Contains three components: x, y, and z.
+template <typename Number = double>
 class Vector {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of PhQ::Vector<Number> must be a floating-point number type.");
+
 public:
   // Default constructor. Constructs a three-dimensional vector with uninitialized x, y, and z
   // Cartesian components.
@@ -41,14 +48,14 @@ public:
 
   // Constructor. Constructs a three-dimensional vector from the given x, y, and z Cartesian
   // components.
-  constexpr Vector(const double x, const double y, const double z) : x_y_z_({x, y, z}) {}
+  constexpr Vector(const Number x, const Number y, const Number z) : x_y_z_({x, y, z}) {}
 
   // Constructor. Constructs a three-dimensional vector from a given array representing its x, y,
   // and z Cartesian components.
-  explicit constexpr Vector(const std::array<double, 3>& x_y_z) : x_y_z_(x_y_z) {}
+  explicit constexpr Vector(const std::array<Number, 3>& x_y_z) : x_y_z_(x_y_z) {}
 
   // Constructor. Constructs a three-dimensional vector given a magnitude and a direction.
-  constexpr Vector(double magnitude, const Direction& direction);
+  constexpr Vector(Number magnitude, const Direction& direction);
 
   // Destructor. Destroys this three-dimensional vector.
   ~Vector() noexcept = default;
@@ -56,18 +63,33 @@ public:
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
   constexpr Vector(const Vector& other) = default;
 
+  // Copy constructor. Constructs a three-dimensional vector by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Vector(const Vector<OtherNumber>& other)
+    : x_y_z_({static_cast<Number>(other.x_y_z_[0]), static_cast<Number>(other.x_y_z_[1]),
+              static_cast<Number>(other.x_y_z_[2])}) {}
+
   // Move constructor. Constructs a three-dimensional vector by moving another one.
   constexpr Vector(Vector&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
   constexpr Vector& operator=(const Vector& other) = default;
 
+  // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
+  template <typename OtherNumber>
+  constexpr Vector& operator=(const Vector<OtherNumber>& other) {
+    x_y_z_[0] = static_cast<Number>(other.x_y_z_[0]);
+    x_y_z_[1] = static_cast<Number>(other.x_y_z_[1]);
+    x_y_z_[2] = static_cast<Number>(other.x_y_z_[2]);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this three-dimensional vector by moving another one.
   constexpr Vector& operator=(Vector&& other) noexcept = default;
 
   // Assignment operator. Assigns this three-dimensional vector by copying a given array
   // representing its x, y, and z Cartesian components.
-  constexpr Vector& operator=(const std::array<double, 3>& x_y_z) {
+  constexpr Vector& operator=(const std::array<Number, 3>& x_y_z) {
     x_y_z_ = x_y_z;
     return *this;
   }
@@ -76,84 +98,84 @@ public:
   // initialized to zero.
   static constexpr Vector Zero() {
     return Vector{
-        std::array<double, 3>{0.0, 0.0, 0.0}
+        std::array<Number, 3>{0.0, 0.0, 0.0}
     };
   }
 
   // Returns this three-dimensional vector's x, y, and z Cartesian components as an array.
-  [[nodiscard]] constexpr const std::array<double, 3>& x_y_z() const noexcept {
+  [[nodiscard]] constexpr const std::array<Number, 3>& x_y_z() const noexcept {
     return x_y_z_;
   }
 
   // Returns this three-dimensional vector's x Cartesian component.
-  [[nodiscard]] constexpr double x() const noexcept {
+  [[nodiscard]] constexpr Number x() const noexcept {
     return x_y_z_[0];
   }
 
   // Returns this three-dimensional vector's y Cartesian component.
-  [[nodiscard]] constexpr double y() const noexcept {
+  [[nodiscard]] constexpr Number y() const noexcept {
     return x_y_z_[1];
   }
 
   // Returns this three-dimensional vector's z Cartesian component.
-  [[nodiscard]] constexpr double z() const noexcept {
+  [[nodiscard]] constexpr Number z() const noexcept {
     return x_y_z_[2];
   }
 
   // Returns this three-dimensional vector's x, y, and z Cartesian components as a mutable array.
-  constexpr std::array<double, 3>& Mutable_x_y_z() noexcept {
+  constexpr std::array<Number, 3>& Mutable_x_y_z() noexcept {
     return x_y_z_;
   }
 
   // Returns this three-dimensional vector's x Cartesian component as a mutable value.
-  constexpr double& Mutable_x() noexcept {
+  constexpr Number& Mutable_x() noexcept {
     return x_y_z_[0];
   }
 
   // Returns this three-dimensional vector's y Cartesian component as a mutable value.
-  constexpr double& Mutable_y() noexcept {
+  constexpr Number& Mutable_y() noexcept {
     return x_y_z_[1];
   }
 
   // Returns this three-dimensional vector's z Cartesian component as a mutable value.
-  constexpr double& Mutable_z() noexcept {
+  constexpr Number& Mutable_z() noexcept {
     return x_y_z_[2];
   }
 
   // Sets this three-dimensional vector's x, y, and z Cartesian components to the given values.
-  constexpr void Set_x_y_z(const std::array<double, 3>& x_y_z) noexcept {
+  constexpr void Set_x_y_z(const std::array<Number, 3>& x_y_z) noexcept {
     x_y_z_ = x_y_z;
   }
 
   // Sets this three-dimensional vector's x, y, and z Cartesian components to the given values.
-  constexpr void Set_x_y_z(const double x, const double y, const double z) noexcept {
+  constexpr void Set_x_y_z(const Number x, const Number y, const Number z) noexcept {
     x_y_z_[0] = x;
     x_y_z_[1] = y;
     x_y_z_[2] = z;
   }
 
   // Sets this three-dimensional vector's x Cartesian component to a given value.
-  constexpr void Set_x(const double x) noexcept {
+  constexpr void Set_x(const Number x) noexcept {
     x_y_z_[0] = x;
   }
 
   // Sets this three-dimensional vector's y Cartesian component to a given value.
-  constexpr void Set_y(const double y) noexcept {
+  constexpr void Set_y(const Number y) noexcept {
     x_y_z_[1] = y;
   }
 
   // Sets this three-dimensional vector's z Cartesian component to a given value.
-  constexpr void Set_z(const double z) noexcept {
+  constexpr void Set_z(const Number z) noexcept {
     x_y_z_[2] = z;
   }
 
   // Returns the square of the magnitude of this three-dimensional vector.
-  [[nodiscard]] constexpr double MagnitudeSquared() const noexcept {
+  [[nodiscard]] constexpr Number MagnitudeSquared() const noexcept {
     return x_y_z_[0] * x_y_z_[0] + x_y_z_[1] * x_y_z_[1] + x_y_z_[2] * x_y_z_[2];
   }
 
   // Returns the magnitude (also known as the L2 norm) of this three-dimensional vector.
-  [[nodiscard]] double Magnitude() const noexcept {
+  [[nodiscard]] Number Magnitude() const noexcept {
     return std::sqrt(MagnitudeSquared());
   }
 
@@ -162,14 +184,14 @@ public:
 
   // Returns the dot product (also known as the inner product or scalar product) of this
   // three-dimensional vector and another one.
-  [[nodiscard]] constexpr double Dot(const Vector& vector) const noexcept {
+  [[nodiscard]] constexpr Number Dot(const Vector& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
            + x_y_z_[2] * vector.x_y_z_[2];
   }
 
   // Returns the dot product (also known as the inner product or scalar product) of this
   // three-dimensional vector and a given direction.
-  [[nodiscard]] constexpr double Dot(const PhQ::Direction& direction) const noexcept;
+  [[nodiscard]] constexpr Number Dot(const PhQ::Direction& direction) const noexcept;
 
   // Returns the cross product (also known as the vector product) of this three-dimensional vector
   // and another one.
@@ -185,11 +207,11 @@ public:
 
   // Returns the dyadic tensor product (also known as the outer product) of this three-dimensional
   // vector and another one.
-  [[nodiscard]] constexpr Dyad Dyadic(const Vector& vector) const;
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector& vector) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this three-dimensional
   // vector and a given direction.
-  [[nodiscard]] constexpr Dyad Dyadic(const PhQ::Direction& direction) const;
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const PhQ::Direction& direction) const;
 
   // Returns the angle between this three-dimensional vector and another one.
   [[nodiscard]] PhQ::Angle Angle(const Vector& vector) const;
@@ -197,8 +219,7 @@ public:
   // Returns the angle between this three-dimensional vector and a given direction.
   [[nodiscard]] PhQ::Angle Angle(const PhQ::Direction& direction) const;
 
-  // Prints this three-dimensional vector as a string. Components are printed to double floating
-  // point precision.
+  // Prints this three-dimensional vector as a string.
   [[nodiscard]] std::string Print() const {
     return "(" + PhQ::Print(x_y_z_[0]) + ", " + PhQ::Print(x_y_z_[1]) + ", " + PhQ::Print(x_y_z_[2])
            + ")";
@@ -234,32 +255,40 @@ public:
     x_y_z_[2] -= vector.x_y_z_[2];
   }
 
-  constexpr void operator*=(const double number) noexcept {
-    x_y_z_[0] *= number;
-    x_y_z_[1] *= number;
-    x_y_z_[2] *= number;
+  template <typename OtherNumber>
+  constexpr void operator*=(const OtherNumber number) noexcept {
+    x_y_z_[0] *= static_cast<Number>(number);
+    x_y_z_[1] *= static_cast<Number>(number);
+    x_y_z_[2] *= static_cast<Number>(number);
   }
 
-  constexpr void operator/=(const double number) noexcept {
-    x_y_z_[0] /= number;
-    x_y_z_[1] /= number;
-    x_y_z_[2] /= number;
+  template <typename OtherNumber>
+  constexpr void operator/=(const OtherNumber number) noexcept {
+    x_y_z_[0] /= static_cast<Number>(number);
+    x_y_z_[1] /= static_cast<Number>(number);
+    x_y_z_[2] /= static_cast<Number>(number);
   }
 
 private:
   // Cartesian components of this three-dimensional vector.
-  std::array<double, 3> x_y_z_;
+  std::array<Number, 3> x_y_z_;
+
+  template <typename OtherNumber>
+  friend class Vector;
 };
 
-inline constexpr bool operator==(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   return left.x() == right.x() && left.y() == right.y() && left.z() == right.z();
 }
 
-inline constexpr bool operator!=(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   return left.x() != right.x() || left.y() != right.y() || left.z() != right.z();
 }
 
-inline constexpr bool operator<(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() < right.x();
   }
@@ -269,7 +298,8 @@ inline constexpr bool operator<(const Vector& left, const Vector& right) noexcep
   return left.z() < right.z();
 }
 
-inline constexpr bool operator>(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   if (left.x() != right.x()) {
     return left.x() > right.x();
   }
@@ -279,35 +309,45 @@ inline constexpr bool operator>(const Vector& left, const Vector& right) noexcep
   return left.z() > right.z();
 }
 
-inline constexpr bool operator<=(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   return !(left > right);
 }
 
-inline constexpr bool operator>=(const Vector& left, const Vector& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Vector<Number>& left, const Vector<Number>& right) noexcept {
   return !(left < right);
 }
 
-inline constexpr Vector operator+(const Vector& left, const Vector& right) {
+template <typename Number>
+inline constexpr Vector<Number> operator+(const Vector<Number>& left, const Vector<Number>& right) {
   return {left.x() + right.x(), left.y() + right.y(), left.z() + right.z()};
 }
 
-inline constexpr Vector operator-(const Vector& left, const Vector& right) {
+template <typename Number>
+inline constexpr Vector<Number> operator-(const Vector<Number>& left, const Vector<Number>& right) {
   return {left.x() - right.x(), left.y() - right.y(), left.z() - right.z()};
 }
 
-inline constexpr Vector operator*(const Vector& vector, const double number) {
-  return {vector.x() * number, vector.y() * number, vector.z() * number};
+template <typename Number, typename OtherNumber>
+inline constexpr Vector<Number> operator*(const Vector<Number>& vector, const OtherNumber number) {
+  return {vector.x() * static_cast<Number>(number), vector.y() * static_cast<Number>(number),
+          vector.z() * static_cast<Number>(number)};
 }
 
-inline constexpr Vector operator*(const double number, const Vector& vector) {
+template <typename Number, typename OtherNumber>
+inline constexpr Vector<Number> operator*(const OtherNumber number, const Vector<Number>& vector) {
   return {vector * number};
 }
 
-inline constexpr Vector operator/(const Vector& vector, const double number) {
-  return {vector.x() / number, vector.y() / number, vector.z() / number};
+template <typename Number, typename OtherNumber>
+inline constexpr Vector<Number> operator/(const Vector<Number>& vector, const OtherNumber number) {
+  return {vector.x() / static_cast<Number>(number), vector.y() / static_cast<Number>(number),
+          vector.z() / static_cast<Number>(number)};
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Vector<Number>& vector) {
   stream << vector.Print();
   return stream;
 }
@@ -316,13 +356,13 @@ inline std::ostream& operator<<(std::ostream& stream, const Vector& vector) {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Vector> {
-  inline size_t operator()(const PhQ::Vector& vector) const {
+template <typename Number>
+struct hash<PhQ::Vector<Number>> {
+  inline size_t operator()(const PhQ::Vector<Number>& vector) const {
     size_t result{17};
-    result = 31 * result + hash<double>()(vector.x());
-    result = 31 * result + hash<double>()(vector.y());
-    result = 31 * result + hash<double>()(vector.z());
+    result = 31 * result + hash<Number>()(vector.x());
+    result = 31 * result + hash<Number>()(vector.y());
+    result = 31 * result + hash<Number>()(vector.z());
     return result;
   }
 };

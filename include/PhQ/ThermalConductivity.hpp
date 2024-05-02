@@ -34,7 +34,7 @@ public:
 
   // Constructor. Constructs a thermal conductivity tensor with a given value expressed in a given
   // thermal conductivity unit.
-  ThermalConductivity(const SymmetricDyad& value, const Unit::ThermalConductivity unit)
+  ThermalConductivity(const SymmetricDyad<double>& value, const Unit::ThermalConductivity unit)
     : DimensionalSymmetricDyad<Unit::ThermalConductivity>(value, unit) {}
 
   // Constructor. Constructs a thermal conductivity tensor from a given scalar thermal conductivity.
@@ -61,7 +61,7 @@ public:
 
   // Statically creates a thermal conductivity tensor of zero.
   static constexpr ThermalConductivity Zero() {
-    return ThermalConductivity{SymmetricDyad::Zero()};
+    return ThermalConductivity{SymmetricDyad<>::Zero()};
   }
 
   // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
@@ -71,7 +71,7 @@ public:
                                               const double yy, const double yz, const double zz) {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            SymmetricDyad{xx, xy, xz, yy, yz, zz})};
+            SymmetricDyad<double>{xx, xy, xz, yy, yz, zz})};
   }
 
   // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz
@@ -80,13 +80,13 @@ public:
   static constexpr ThermalConductivity Create(const std::array<double, 6>& xx_xy_xz_yy_yz_zz) {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
-            SymmetricDyad{xx_xy_xz_yy_yz_zz})};
+            SymmetricDyad<double>{xx_xy_xz_yy_yz_zz})};
   }
 
   // Statically creates a thermal conductivity tensor with a given value expressed in a given
   // thermal conductivity unit.
   template <Unit::ThermalConductivity Unit>
-  static constexpr ThermalConductivity Create(const SymmetricDyad& value) {
+  static constexpr ThermalConductivity Create(const SymmetricDyad<double>& value) {
     return ThermalConductivity{
         StaticConvertCopy<Unit::ThermalConductivity, Unit, Standard<Unit::ThermalConductivity>>(
             value)};
@@ -172,7 +172,7 @@ public:
 private:
   // Constructor. Constructs a thermal conductivity tensor with a given value expressed in the
   // standard thermal conductivity unit.
-  explicit constexpr ThermalConductivity(const SymmetricDyad& value)
+  explicit constexpr ThermalConductivity(const SymmetricDyad<double>& value)
     : DimensionalSymmetricDyad<Unit::ThermalConductivity>(value) {}
 };
 
@@ -224,7 +224,7 @@ namespace std {
 template <>
 struct hash<PhQ::ThermalConductivity> {
   inline size_t operator()(const PhQ::ThermalConductivity& thermal_conductivity) const {
-    return hash<PhQ::SymmetricDyad>()(thermal_conductivity.Value());
+    return hash<PhQ::SymmetricDyad<double>>()(thermal_conductivity.Value());
   }
 };
 

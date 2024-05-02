@@ -69,42 +69,33 @@ TEST(UnitSpecificHeatCapacity, ConversionReciprocity) {
 
 TEST(UnitSpecificHeatCapacity, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                            SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value);
-  Internal::TestConversions(
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-      SpecificHeatCapacity::NanojoulePerGramPerKelvin, value, value * 1000000.0);
-  Internal::TestConversions(
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-      SpecificHeatCapacity::FootPoundPerSlugPerRankine, value, value / (1.8 * std::pow(0.3048, 2)));
-  Internal::TestConversions(SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                            SpecificHeatCapacity::InchPoundPerSlinchPerRankine, value,
-                            value / (1.8 * std::pow(0.0254, 2)));
-
-  Internal::TestStaticConversions<
-      SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-      SpecificHeatCapacity::FootPoundPerSlugPerRankine>(value, value / (1.8 * std::pow(0.3048, 2)));
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value);
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::NanojoulePerGramPerKelvin>(
+      value, value * 1000000.0);
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::FootPoundPerSlugPerRankine>(
+      value, value / (1.8 * std::pow(0.3048, 2)));
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::InchPoundPerSlinchPerRankine>(
+      value, value / (1.8 * std::pow(0.0254, 2)));
 }
 
 TEST(UnitSpecificHeatCapacity, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(SpecificHeatCapacity::JoulePerKilogramPerKelvin,
-                            SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value);
-  Internal::TestConversions(
-      SpecificHeatCapacity::NanojoulePerGramPerKelvin,
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value * 0.000001);
-  Internal::TestConversions(
-      SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value * 1.8 * std::pow(0.3048, 2));
-  Internal::TestConversions(
-      SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin, value, value * 1.8 * std::pow(0.0254, 2));
-
-  Internal::TestStaticConversions<
-      SpecificHeatCapacity, SpecificHeatCapacity::FootPoundPerSlugPerRankine,
-      SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value * 1.8 * std::pow(0.3048, 2));
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::JoulePerKilogramPerKelvin,
+                            SpecificHeatCapacity::JoulePerKilogramPerKelvin>(value, value);
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::NanojoulePerGramPerKelvin,
+                            SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      value, value * 0.000001);
+  Internal::TestConversions<SpecificHeatCapacity, SpecificHeatCapacity::FootPoundPerSlugPerRankine,
+                            SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      value, value * 1.8 * std::pow(0.3048, 2));
+  Internal::TestConversions<SpecificHeatCapacity,
+                            SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
+                            SpecificHeatCapacity::JoulePerKilogramPerKelvin>(
+      value, value * 1.8 * std::pow(0.0254, 2));
 }
 
 TEST(UnitSpecificHeatCapacity, Parse) {

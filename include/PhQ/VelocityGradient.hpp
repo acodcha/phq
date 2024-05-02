@@ -39,7 +39,7 @@ public:
 
   // Constructor. Constructs a velocity gradient tensor with a given value expressed in a given
   // frequency unit.
-  VelocityGradient(const Dyad& value, const Unit::Frequency& unit)
+  VelocityGradient(const Dyad<double>& value, const Unit::Frequency& unit)
     : DimensionalDyad<Unit::Frequency>(value, unit) {}
 
   // Constructor. Constructs a velocity gradient tensor from a given displacement gradient tensor
@@ -70,7 +70,7 @@ public:
 
   // Statically creates a velocity gradient tensor of zero.
   static constexpr VelocityGradient Zero() {
-    return VelocityGradient{Dyad::Zero()};
+    return VelocityGradient{Dyad<>::Zero()};
   }
 
   // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
@@ -80,7 +80,7 @@ public:
       const double xx, const double xy, const double xz, const double yx, const double yy,
       const double yz, const double zx, const double zy, const double zz) {
     return VelocityGradient{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-        Dyad{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
+        Dyad<double>{xx, xy, xz, yx, yy, yz, zx, zy, zz})};
   }
 
   // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and
@@ -89,13 +89,13 @@ public:
   static constexpr VelocityGradient Create(
       const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz) {
     return VelocityGradient{StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(
-        Dyad{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
+        Dyad<double>{xx_xy_xz_yx_yy_yz_zx_zy_zz})};
   }
 
   // Statically creates a velocity gradient tensor with a given value expressed in a given frequency
   // unit.
   template <Unit::Frequency Unit>
-  static constexpr VelocityGradient Create(const Dyad& value) {
+  static constexpr VelocityGradient Create(const Dyad<double>& value) {
     return VelocityGradient{
         StaticConvertCopy<Unit::Frequency, Unit, Standard<Unit::Frequency>>(value)};
   }
@@ -194,7 +194,7 @@ public:
 private:
   // Constructor. Constructs a velocity gradient tensor with a given value expressed in the standard
   // frequency unit.
-  explicit constexpr VelocityGradient(const Dyad& value)
+  explicit constexpr VelocityGradient(const Dyad<double>& value)
     : DimensionalDyad<Unit::Frequency>(value) {}
 };
 
@@ -280,7 +280,7 @@ namespace std {
 template <>
 struct hash<PhQ::VelocityGradient> {
   inline size_t operator()(const PhQ::VelocityGradient& velocity_gradient) const {
-    return hash<PhQ::Dyad>()(velocity_gradient.Value());
+    return hash<PhQ::Dyad<double>>()(velocity_gradient.Value());
   }
 };
 

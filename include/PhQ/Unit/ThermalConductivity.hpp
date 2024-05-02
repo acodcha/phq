@@ -263,31 +263,32 @@ ConversionToStandard<Unit::ThermalConductivity,
 template <>
 inline const std::map<Unit::ThermalConductivity,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ThermalConductivity>{
+    MapOfConversionsFromStandard<Unit::ThermalConductivity, double>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
          ConversionsFromStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>         },
+         Unit::ThermalConductivity::WattPerMetrePerKelvin,          double>},
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          ConversionsFromStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
+         double>                                                           },
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
          ConversionsFromStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>      },
+         Unit::ThermalConductivity::PoundPerSecondPerRankine,       double>},
 };
 
 template <>
 inline const std::map<Unit::ThermalConductivity,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::ThermalConductivity>{
+    MapOfConversionsToStandard<Unit::ThermalConductivity, double>{
         {Unit::ThermalConductivity::WattPerMetrePerKelvin,
          ConversionsToStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::WattPerMetrePerKelvin>         },
+         Unit::ThermalConductivity::WattPerMetrePerKelvin,          double>},
         {Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin,
          ConversionsToStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin>},
+         Unit::ThermalConductivity::NanowattPerMillimetrePerKelvin, double>},
         {Unit::ThermalConductivity::PoundPerSecondPerRankine,
          ConversionsToStandard<Unit::ThermalConductivity,
-         Unit::ThermalConductivity::PoundPerSecondPerRankine>      },
+         Unit::ThermalConductivity::PoundPerSecondPerRankine,       double>},
 };
 
 }  // namespace Internal

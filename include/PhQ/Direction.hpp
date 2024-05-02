@@ -53,7 +53,7 @@ class Velocity;
 class Direction : public DimensionlessVector {
 public:
   // Default constructor. Initializes the direction to the zero vector.
-  constexpr Direction() : DimensionlessVector(Vector::Zero()) {}
+  constexpr Direction() : DimensionlessVector(Vector<>::Zero()) {}
 
   // Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian components
   // to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero vector.
@@ -70,7 +70,7 @@ public:
 
   // Constructor. Constructs a direction by normalizing the given vector to a unit vector. If the
   // given vector is a zero vector, initializes the direction to the zero vector.
-  explicit Direction(const Vector& value) : DimensionlessVector() {
+  explicit Direction(const Vector<double>& value) : DimensionlessVector() {
     Set(value);
   }
 
@@ -144,7 +144,7 @@ public:
       const double magnitude{std::sqrt(magnitude_squared)};
       value = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value = Vector::Zero();
+      value = Vector<>::Zero();
     }
   }
 
@@ -156,13 +156,13 @@ public:
       const double magnitude{std::sqrt(magnitude_squared)};
       value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value = Vector::Zero();
+      value = Vector<>::Zero();
     }
   }
 
   // Sets the value of this direction by normalizing the given vector to a unit vector. If the given
   // vector is a zero vector, sets the direction to the zero vector.
-  constexpr void Set(const Vector& value) {
+  constexpr void Set(const Vector<double>& value) {
     Set(value.x_y_z());
   }
 
@@ -185,7 +185,7 @@ public:
 
   // Returns the dot product (also known as the scalar product or the inner product) of the
   // direction with the given vector.
-  [[nodiscard]] constexpr double Dot(const Vector& vector) const noexcept {
+  [[nodiscard]] constexpr double Dot(const Vector<double>& vector) const noexcept {
     return value.Dot(vector);
   }
 
@@ -196,7 +196,7 @@ public:
   }
 
   // Returns the cross product of the direction with the given vector.
-  [[nodiscard]] constexpr Vector Cross(const Vector& vector) const {
+  [[nodiscard]] constexpr Vector<double> Cross(const Vector<double>& vector) const {
     return value.Cross(vector);
   }
 
@@ -206,17 +206,17 @@ public:
   }
 
   // Returns the dyadic product of the direction with the given vector.
-  [[nodiscard]] constexpr Dyad Dyadic(const Vector& vector) const {
+  [[nodiscard]] constexpr Dyad<double> Dyadic(const Vector<double>& vector) const {
     return value.Dyadic(vector);
   }
 
   // Returns the dyadic product of the direction with the given other direction.
-  [[nodiscard]] constexpr Dyad Dyadic(const Direction& direction) const {
+  [[nodiscard]] constexpr Dyad<double> Dyadic(const Direction& direction) const {
     return value.Dyadic(direction.value);
   }
 
   // Returns the angle between the direction and the given vector.
-  [[nodiscard]] PhQ::Angle Angle(const Vector& vector) const {
+  [[nodiscard]] PhQ::Angle Angle(const Vector<double>& vector) const {
     return PhQ::Angle{*this, vector};
   }
 
@@ -272,41 +272,50 @@ inline std::ostream& operator<<(std::ostream& stream, const Direction& direction
   return stream;
 }
 
-inline constexpr Vector::Vector(const double magnitude, const PhQ::Direction& direction)
-  : x_y_z_(std::array<double, 3>{(direction.Value() * magnitude).x_y_z_}) {}
+template <typename Number>
+inline constexpr Vector<Number>::Vector(const Number magnitude, const PhQ::Direction& direction)
+  : x_y_z_(std::array<Number, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
-inline PhQ::Direction Vector::Direction() const {
+template <typename Number>
+inline PhQ::Direction Vector<Number>::Direction() const {
   return PhQ::Direction{*this};
 }
 
-inline constexpr double Vector::Dot(const PhQ::Direction& direction) const noexcept {
+template <typename Number>
+inline constexpr Number Vector<Number>::Dot(const PhQ::Direction& direction) const noexcept {
   return Dot(direction.Value());
 }
 
-inline constexpr Vector Vector::Cross(const PhQ::Direction& direction) const {
+template <typename Number>
+inline constexpr Vector<Number> Vector<Number>::Cross(const PhQ::Direction& direction) const {
   return Cross(direction.Value());
 }
 
-inline constexpr Dyad Vector::Dyadic(const PhQ::Direction& direction) const {
+template <typename Number>
+inline constexpr Dyad<Number> Vector<Number>::Dyadic(const PhQ::Direction& direction) const {
   return Dyadic(direction.Value());
 }
 
-inline constexpr Vector operator*(const SymmetricDyad& symmetric_dyad, const Direction& direction) {
+template <typename Number>
+inline constexpr Vector<Number> operator*(
+    const SymmetricDyad<Number>& symmetric_dyad, const Direction& direction) {
   return symmetric_dyad * direction.Value();
 }
 
-inline constexpr Vector operator*(const Dyad& dyad, const Direction& direction) {
+template <typename Number>
+inline constexpr Vector<Number> operator*(const Dyad<Number>& dyad, const Direction& direction) {
   return dyad * direction.Value();
 }
 
-inline Angle Vector::Angle(const PhQ::Direction& direction) const {
+template <typename Number>
+inline Angle Vector<Number>::Angle(const PhQ::Direction& direction) const {
   return PhQ::Angle{*this, direction};
 }
 
-inline Angle::Angle(const Vector& vector, const Direction& direction)
+inline Angle::Angle(const Vector<double>& vector, const Direction& direction)
   : Angle(std::acos(vector.Dot(direction) / vector.Magnitude())) {}
 
-inline Angle::Angle(const Direction& direction, const Vector& vector)
+inline Angle::Angle(const Direction& direction, const Vector<double>& vector)
   : Angle(std::acos(direction.Dot(vector) / vector.Magnitude())) {}
 
 inline Angle::Angle(const Direction& direction1, const Direction& direction2)
@@ -319,7 +328,7 @@ namespace std {
 template <>
 struct hash<PhQ::Direction> {
   inline size_t operator()(const PhQ::Direction& direction) const {
-    return hash<PhQ::Vector>()(direction.Value());
+    return hash<PhQ::Vector<double>>()(direction.Value());
   }
 };
 

@@ -49,7 +49,7 @@ public:
     : DimensionlessDyad(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Constructor. Constructs a displacement gradient tensor with a given value.
-  explicit constexpr DisplacementGradient(const Dyad& value) : DimensionlessDyad(value) {}
+  explicit constexpr DisplacementGradient(const Dyad<double>& value) : DimensionlessDyad(value) {}
 
   // Constructor. Constructs a displacement gradient tensor from a given velocity gradient tensor
   // and time using the definition of speed.
@@ -77,7 +77,7 @@ public:
 
   // Statically creates a displacement gradient tensor of zero.
   static constexpr DisplacementGradient Zero() {
-    return DisplacementGradient{Dyad::Zero()};
+    return DisplacementGradient{Dyad<>::Zero()};
   }
 
   // Returns the xx Cartesian component of this displacement gradient tensor.
@@ -226,7 +226,7 @@ namespace std {
 template <>
 struct hash<PhQ::DisplacementGradient> {
   inline size_t operator()(const PhQ::DisplacementGradient& displacement_gradient) const {
-    return hash<PhQ::Dyad>()(displacement_gradient.Value());
+    return hash<PhQ::Dyad<double>>()(displacement_gradient.Value());
   }
 };
 

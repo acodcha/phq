@@ -202,7 +202,7 @@ TEST(Traction, MoveConstructor) {
 
 TEST(Traction, MutableValue) {
   Traction traction({1.0, -2.0, 3.0}, Unit::Pressure::Pascal);
-  Vector& value = traction.MutableValue();
+  Vector<>& value = traction.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(traction.Value(), Vector(-4.0, 5.0, -6.0));
 }

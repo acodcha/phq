@@ -163,17 +163,17 @@ TEST(Direction, Set) {
   {
     Direction direction(1.0, -2.0, 3.0);
     direction.Set(0.0, -2.0, 0.0);
-    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+    EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }
   {
     Direction direction(1.0, -2.0, 3.0);
     direction.Set(std::array<double, 3>{0.0, -2.0, 0.0});
-    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+    EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }
   {
     Direction direction(1.0, -2.0, 3.0);
     direction.Set(Vector{0.0, -2.0, 0.0});
-    EXPECT_EQ(direction.Value(), Vector(0, -1.0, 0.0));
+    EXPECT_EQ(direction.Value(), Vector(0.0, -1.0, 0.0));
   }
 }
 

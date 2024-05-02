@@ -35,7 +35,7 @@ public:
   VectorArea() = default;
 
   // Constructor. Constructs a vector area with a given value expressedin a given area unit.
-  VectorArea(const Vector& value, const Unit::Area unit)
+  VectorArea(const Vector<double>& value, const Unit::Area unit)
     : DimensionalVector<Unit::Area>(value, unit) {}
 
   // Constructor. Constructs a vector area from a given area and direction.
@@ -59,26 +59,28 @@ public:
 
   // Statically creates a vector area of zero.
   static constexpr VectorArea Zero() {
-    return VectorArea{Vector::Zero()};
+    return VectorArea{Vector<>::Zero()};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
   static constexpr VectorArea Create(const double x, const double y, const double z) {
-    return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x, y, z})};
+    return VectorArea{
+        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector<double>{x, y, z})};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a
   // given area unit.
   template <Unit::Area Unit>
   static constexpr VectorArea Create(const std::array<double, 3>& x_y_z) {
-    return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector{x_y_z})};
+    return VectorArea{
+        StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(Vector<double>{x_y_z})};
   }
 
   // Statically creates a vector area with a given value expressed in a given area unit.
   template <Unit::Area Unit>
-  static constexpr VectorArea Create(const Vector& value) {
+  static constexpr VectorArea Create(const Vector<double>& value) {
     return VectorArea{StaticConvertCopy<Unit::Area, Unit, Standard<Unit::Area>>(value)};
   }
 
@@ -146,7 +148,8 @@ public:
 
 private:
   // Constructor. Constructs a vector area with a given value expressed in the standard area unit.
-  explicit constexpr VectorArea(const Vector& value) : DimensionalVector<Unit::Area>(value) {}
+  explicit constexpr VectorArea(const Vector<double>& value)
+    : DimensionalVector<Unit::Area>(value) {}
 };
 
 inline constexpr bool operator==(const VectorArea& left, const VectorArea& right) noexcept {
@@ -202,7 +205,7 @@ namespace std {
 template <>
 struct hash<PhQ::VectorArea> {
   inline size_t operator()(const PhQ::VectorArea& vector_area) const {
-    return hash<PhQ::Vector>()(vector_area.Value());
+    return hash<PhQ::Vector<double>>()(vector_area.Value());
   }
 };
 

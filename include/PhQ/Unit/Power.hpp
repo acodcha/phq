@@ -260,35 +260,43 @@ inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::InchPoundPe
 
 template <>
 inline const std::map<Unit::Power, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Power>{
-        {Unit::Power::Watt,               ConversionsFromStandard<Unit::Power, Unit::Power::Watt>              },
-        {Unit::Power::Milliwatt,          ConversionsFromStandard<Unit::Power, Unit::Power::Milliwatt>         },
-        {Unit::Power::Microwatt,          ConversionsFromStandard<Unit::Power, Unit::Power::Microwatt>         },
-        {Unit::Power::Nanowatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Nanowatt>          },
-        {Unit::Power::Kilowatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Kilowatt>          },
-        {Unit::Power::Megawatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Megawatt>          },
-        {Unit::Power::Gigawatt,           ConversionsFromStandard<Unit::Power, Unit::Power::Gigawatt>          },
+    MapOfConversionsFromStandard<Unit::Power, double>{
+        {Unit::Power::Watt,               ConversionsFromStandard<Unit::Power, Unit::Power::Watt,               double>},
+        {Unit::Power::Milliwatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Milliwatt,          double>},
+        {Unit::Power::Microwatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Microwatt,          double>},
+        {Unit::Power::Nanowatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Nanowatt,           double>},
+        {Unit::Power::Kilowatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Kilowatt,           double>},
+        {Unit::Power::Megawatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Megawatt,           double>},
+        {Unit::Power::Gigawatt,
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Gigawatt,           double>},
         {Unit::Power::FootPoundPerSecond,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond>},
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond, double>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond>},
+         ConversionsFromStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond, double>},
 };
 
 template <>
 inline const std::map<Unit::Power,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Power>{
-        {Unit::Power::Watt,               ConversionsToStandard<Unit::Power, Unit::Power::Watt>              },
-        {Unit::Power::Milliwatt,          ConversionsToStandard<Unit::Power, Unit::Power::Milliwatt>         },
-        {Unit::Power::Microwatt,          ConversionsToStandard<Unit::Power, Unit::Power::Microwatt>         },
-        {Unit::Power::Nanowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt>          },
-        {Unit::Power::Kilowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt>          },
-        {Unit::Power::Megawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Megawatt>          },
-        {Unit::Power::Gigawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt>          },
+    MapOfConversionsToStandard<Unit::Power, double>{
+        {Unit::Power::Watt,               ConversionsToStandard<Unit::Power, Unit::Power::Watt,               double>},
+        {Unit::Power::Milliwatt,
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::Milliwatt,          double>},
+        {Unit::Power::Microwatt,
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::Microwatt,          double>},
+        {Unit::Power::Nanowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt,           double>},
+        {Unit::Power::Kilowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt,           double>},
+        {Unit::Power::Megawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Megawatt,           double>},
+        {Unit::Power::Gigawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt,           double>},
         {Unit::Power::FootPoundPerSecond,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond>},
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond, double>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond>},
+         ConversionsToStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond, double>},
 };
 
 }  // namespace Internal

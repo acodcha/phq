@@ -194,29 +194,34 @@ ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine
 template <>
 inline const std::map<Unit::HeatCapacity,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::HeatCapacity>{
+    MapOfConversionsFromStandard<Unit::HeatCapacity, double>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>     },
+         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin,      double>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin> },
+         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin,
+         double>                                                                                     },
         {Unit::HeatCapacity::FootPoundPerRankine,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>},
+         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine,
+         double>                                                                                     },
         {Unit::HeatCapacity::InchPoundPerRankine,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>},
+         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine,
+         double>                                                                                     },
 };
 
 template <>
 inline const std::map<Unit::HeatCapacity,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::HeatCapacity>{
+    MapOfConversionsToStandard<Unit::HeatCapacity, double>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>     },
+         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin,      double>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin> },
+         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin,  double>},
         {Unit::HeatCapacity::FootPoundPerRankine,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>},
+         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine,
+         double>                                                                                   },
         {Unit::HeatCapacity::InchPoundPerRankine,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>},
+         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine,
+         double>                                                                                   },
 };
 
 }  // namespace Internal

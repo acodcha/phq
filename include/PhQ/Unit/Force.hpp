@@ -241,31 +241,43 @@ inline constexpr void ConversionToStandard<Unit::Force, Unit::Force::Pound>(
 
 template <>
 inline const std::map<Unit::Force, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Force>{
-        {Unit::Force::Newton,      ConversionsFromStandard<Unit::Force, Unit::Force::Newton>     },
-        {Unit::Force::Kilonewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Kilonewton> },
-        {Unit::Force::Meganewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Meganewton> },
-        {Unit::Force::Giganewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Giganewton> },
-        {Unit::Force::Millinewton, ConversionsFromStandard<Unit::Force, Unit::Force::Millinewton>},
-        {Unit::Force::Micronewton, ConversionsFromStandard<Unit::Force, Unit::Force::Micronewton>},
-        {Unit::Force::Nanonewton,  ConversionsFromStandard<Unit::Force, Unit::Force::Nanonewton> },
-        {Unit::Force::Dyne,        ConversionsFromStandard<Unit::Force, Unit::Force::Dyne>       },
-        {Unit::Force::Pound,       ConversionsFromStandard<Unit::Force, Unit::Force::Pound>      },
+    MapOfConversionsFromStandard<Unit::Force, double>{
+        {Unit::Force::Newton,      ConversionsFromStandard<Unit::Force, Unit::Force::Newton,      double>},
+        {Unit::Force::Kilonewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Kilonewton,  double>},
+        {Unit::Force::Meganewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Meganewton,  double>},
+        {Unit::Force::Giganewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Giganewton,  double>},
+        {Unit::Force::Millinewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Millinewton, double>},
+        {Unit::Force::Micronewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Micronewton, double>},
+        {Unit::Force::Nanonewton,
+         ConversionsFromStandard<Unit::Force,                           Unit::Force::Nanonewton,  double>},
+        {Unit::Force::Dyne,        ConversionsFromStandard<Unit::Force, Unit::Force::Dyne,        double>},
+        {Unit::Force::Pound,       ConversionsFromStandard<Unit::Force, Unit::Force::Pound,       double>},
 };
 
 template <>
 inline const std::map<Unit::Force,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Force>{
-        {Unit::Force::Newton,      ConversionsToStandard<Unit::Force, Unit::Force::Newton>     },
-        {Unit::Force::Kilonewton,  ConversionsToStandard<Unit::Force, Unit::Force::Kilonewton> },
-        {Unit::Force::Meganewton,  ConversionsToStandard<Unit::Force, Unit::Force::Meganewton> },
-        {Unit::Force::Giganewton,  ConversionsToStandard<Unit::Force, Unit::Force::Giganewton> },
-        {Unit::Force::Millinewton, ConversionsToStandard<Unit::Force, Unit::Force::Millinewton>},
-        {Unit::Force::Micronewton, ConversionsToStandard<Unit::Force, Unit::Force::Micronewton>},
-        {Unit::Force::Nanonewton,  ConversionsToStandard<Unit::Force, Unit::Force::Nanonewton> },
-        {Unit::Force::Dyne,        ConversionsToStandard<Unit::Force, Unit::Force::Dyne>       },
-        {Unit::Force::Pound,       ConversionsToStandard<Unit::Force, Unit::Force::Pound>      },
+    MapOfConversionsToStandard<Unit::Force, double>{
+        {Unit::Force::Newton,      ConversionsToStandard<Unit::Force, Unit::Force::Newton,      double>},
+        {Unit::Force::Kilonewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Kilonewton,  double>},
+        {Unit::Force::Meganewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Meganewton,  double>},
+        {Unit::Force::Giganewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Giganewton,  double>},
+        {Unit::Force::Millinewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Millinewton, double>},
+        {Unit::Force::Micronewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Micronewton, double>},
+        {Unit::Force::Nanonewton,
+         ConversionsToStandard<Unit::Force,                           Unit::Force::Nanonewton,  double>},
+        {Unit::Force::Dyne,        ConversionsToStandard<Unit::Force, Unit::Force::Dyne,        double>},
+        {Unit::Force::Pound,       ConversionsToStandard<Unit::Force, Unit::Force::Pound,       double>},
 };
 
 }  // namespace Internal

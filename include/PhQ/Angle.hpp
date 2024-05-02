@@ -50,14 +50,14 @@ public:
   Angle(const double value, const Unit::Angle unit) : DimensionalScalar<Unit::Angle>(value, unit) {}
 
   // Constructor. Constructs an angle by computing the angle between two given vector values.
-  Angle(const Vector& vector1, const Vector& vector2)
+  Angle(const Vector<double>& vector1, const Vector<double>& vector2)
     : Angle(std::acos(vector1.Dot(vector2) / (vector1.Magnitude() * vector2.Magnitude()))) {}
 
   // Constructor. Constructs an angle by computing the angle between a given vector and direction.
-  Angle(const Vector& vector, const Direction& direction);
+  Angle(const Vector<double>& vector, const Direction& direction);
 
   // Constructor. Constructs an angle by computing the angle between a given direction and vector.
-  Angle(const Direction& direction, const Vector& vector);
+  Angle(const Direction& direction, const Vector<double>& vector);
 
   // Constructor. Constructs an angle by computing the angle between two given directions.
   Angle(const Direction& direction1, const Direction& direction2);
@@ -205,7 +205,8 @@ inline constexpr Angle operator*(const double number, const Angle& angle) {
   return angle * number;
 }
 
-inline PhQ::Angle Vector::Angle(const Vector& vector) const {
+template <typename Number>
+inline PhQ::Angle Vector<Number>::Angle(const Vector<Number>& vector) const {
   return PhQ::Angle{*this, vector};
 }
 

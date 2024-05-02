@@ -38,7 +38,7 @@ public:
   }
 
   // Value of this dimensionless physical quantity.
-  [[nodiscard]] constexpr const Vector& Value() const noexcept {
+  [[nodiscard]] constexpr const Vector<double>& Value() const noexcept {
     return value;
   }
 
@@ -77,7 +77,7 @@ protected:
   explicit constexpr DimensionlessVector(const std::array<double, 3>& x_y_z) : value(x_y_z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity with a given value.
-  explicit constexpr DimensionlessVector(const Vector& value) : value(value) {}
+  explicit constexpr DimensionlessVector(const Vector<double>& value) : value(value) {}
 
   // Destructor. Destroys this dimensionless vector physical quantity.
   ~DimensionlessVector() noexcept = default;
@@ -97,7 +97,7 @@ protected:
   constexpr DimensionlessVector& operator=(DimensionlessVector&& other) noexcept = default;
 
   // Value of this dimensionless vector physical quantity.
-  Vector value;
+  Vector<double> value;
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVector& quantity) {
@@ -112,7 +112,7 @@ namespace std {
 template <>
 struct hash<PhQ::DimensionlessVector> {
   inline size_t operator()(const PhQ::DimensionlessVector& quantity) const {
-    return hash<PhQ::Vector>()(quantity.Value());
+    return hash<PhQ::Vector<double>>()(quantity.Value());
   }
 };
 

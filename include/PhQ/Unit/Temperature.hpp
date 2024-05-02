@@ -155,29 +155,29 @@ inline constexpr void ConversionToStandard<Unit::Temperature, Unit::Temperature:
 template <>
 inline const std::map<Unit::Temperature,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Temperature>{
+    MapOfConversionsFromStandard<Unit::Temperature, double>{
         {Unit::Temperature::Kelvin,
-         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Kelvin>    },
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Kelvin,     double>},
         {Unit::Temperature::Celsius,
-         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Celsius>   },
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Celsius,    double>},
         {Unit::Temperature::Rankine,
-         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Rankine>   },
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Rankine,    double>},
         {Unit::Temperature::Fahrenheit,
-         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>},
+         ConversionsFromStandard<Unit::Temperature, Unit::Temperature::Fahrenheit, double>},
 };
 
 template <>
 inline const std::map<Unit::Temperature,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Temperature>{
+    MapOfConversionsToStandard<Unit::Temperature, double>{
         {Unit::Temperature::Kelvin,
-         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Kelvin>    },
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Kelvin,     double>},
         {Unit::Temperature::Celsius,
-         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Celsius>   },
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Celsius,    double>},
         {Unit::Temperature::Rankine,
-         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Rankine>   },
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Rankine,    double>},
         {Unit::Temperature::Fahrenheit,
-         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit>},
+         ConversionsToStandard<Unit::Temperature, Unit::Temperature::Fahrenheit, double>},
 };
 
 }  // namespace Internal

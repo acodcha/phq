@@ -274,33 +274,35 @@ ConversionToStandard<Unit::SpecificPower, Unit::SpecificPower::InchPoundPerSlinc
 template <>
 inline const std::map<Unit::SpecificPower,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificPower>{
+    MapOfConversionsFromStandard<Unit::SpecificPower, double>{
         {Unit::SpecificPower::WattPerKilogram,
-         ConversionsFromStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>},
+         ConversionsFromStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram,
+         double>                                                                                   },
         {Unit::SpecificPower::NanowattPerGram,
-         ConversionsFromStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>},
+         ConversionsFromStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram,
+         double>                                                                                   },
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
          ConversionsFromStandard<Unit::SpecificPower,
-         Unit::SpecificPower::FootPoundPerSlugPerSecond>                                   },
+         Unit::SpecificPower::FootPoundPerSlugPerSecond,                                    double>},
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
          ConversionsFromStandard<Unit::SpecificPower,
-         Unit::SpecificPower::InchPoundPerSlinchPerSecond>                                 },
+         Unit::SpecificPower::InchPoundPerSlinchPerSecond,                                  double>},
 };
 
 template <>
 inline const std::map<Unit::SpecificPower,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificPower>{
+    MapOfConversionsToStandard<Unit::SpecificPower, double>{
         {Unit::SpecificPower::WattPerKilogram,
-         ConversionsToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram>},
+         ConversionsToStandard<Unit::SpecificPower, Unit::SpecificPower::WattPerKilogram,           double>},
         {Unit::SpecificPower::NanowattPerGram,
-         ConversionsToStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram>},
+         ConversionsToStandard<Unit::SpecificPower, Unit::SpecificPower::NanowattPerGram,           double>},
         {Unit::SpecificPower::FootPoundPerSlugPerSecond,
-         ConversionsToStandard<Unit::SpecificPower,
-         Unit::SpecificPower::FootPoundPerSlugPerSecond>                                 },
+         ConversionsToStandard<Unit::SpecificPower, Unit::SpecificPower::FootPoundPerSlugPerSecond,
+         double>                                                                                           },
         {Unit::SpecificPower::InchPoundPerSlinchPerSecond,
          ConversionsToStandard<Unit::SpecificPower,
-         Unit::SpecificPower::InchPoundPerSlinchPerSecond>                               },
+         Unit::SpecificPower::InchPoundPerSlinchPerSecond,                                          double>},
 };
 
 }  // namespace Internal

@@ -145,280 +145,274 @@ TEST(UnitMemoryRate, ConversionReciprocity) {
 
 TEST(UnitMemoryRate, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::BytePerSecond, value, value / 8.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KilobitPerSecond, value, value / 1000.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KibibitPerSecond, value, value / 1024.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KilobytePerSecond, value, value / (8.0 * 1000.0));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KibibytePerSecond, value, value / (8.0 * 1024.0));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::MegabitPerSecond, value, value / std::pow(1000.0, 2));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::MebibitPerSecond, value, value / std::pow(1024.0, 2));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MegabytePerSecond, value,
-                            value / (8.0 * std::pow(1000.0, 2)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MebibytePerSecond, value,
-                            value / (8.0 * std::pow(1024.0, 2)));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::GigabitPerSecond, value, value / std::pow(1000.0, 3));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::GibibitPerSecond, value, value / std::pow(1024.0, 3));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GigabytePerSecond, value,
-                            value / (8.0 * std::pow(1000.0, 3)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GibibytePerSecond, value,
-                            value / (8.0 * std::pow(1024.0, 3)));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::TerabitPerSecond, value, value / std::pow(1000.0, 4));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::TebibitPerSecond, value, value / std::pow(1024.0, 4));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TerabytePerSecond, value,
-                            value / (8.0 * std::pow(1000.0, 4)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TebibytePerSecond, value,
-                            value / (8.0 * std::pow(1024.0, 4)));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::PetabitPerSecond, value, value / std::pow(1000.0, 5));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::PebibitPerSecond, value, value / std::pow(1024.0, 5));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PetabytePerSecond, value,
-                            value / (8.0 * std::pow(1000.0, 5)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PebibytePerSecond, value,
-                            value / (8.0 * std::pow(1024.0, 5)));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::BitPerMinute, value, value * 60.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::BytePerMinute, value, value * 60.0 / 8.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KilobitPerMinute, value, value * 60.0 / 1000.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KibibitPerMinute, value, value * 60.0 / 1024.0);
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::KilobytePerMinute, value,
-                            value * 60.0 / (8.0 * 1000.0));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::KibibytePerMinute, value,
-                            value * 60.0 / (8.0 * 1024.0));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MegabitPerMinute, value,
-                            value * 60.0 / std::pow(1000.0, 2));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MebibitPerMinute, value,
-                            value * 60.0 / std::pow(1024.0, 2));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MegabytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1000.0, 2)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MebibytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1024.0, 2)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GigabitPerMinute, value,
-                            value * 60.0 / std::pow(1000.0, 3));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GibibitPerMinute, value,
-                            value * 60.0 / std::pow(1024.0, 3));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GigabytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1000.0, 3)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GibibytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1024.0, 3)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TerabitPerMinute, value,
-                            value * 60.0 / std::pow(1000.0, 4));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TebibitPerMinute, value,
-                            value * 60.0 / std::pow(1024.0, 4));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TerabytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1000.0, 4)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TebibytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1024.0, 4)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PetabitPerMinute, value,
-                            value * 60.0 / std::pow(1000.0, 5));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PebibitPerMinute, value,
-                            value * 60.0 / std::pow(1024.0, 5));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PetabytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1000.0, 5)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PebibytePerMinute, value,
-                            value * 60.0 / (8.0 * std::pow(1024.0, 5)));
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::BitPerHour, value, value * 3600.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::BytePerHour, value, value * 3600.0 / 8.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KilobitPerHour, value, value * 3600.0 / 1000.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerSecond, MemoryRate::KibibitPerHour, value, value * 3600.0 / 1024.0);
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::KilobytePerHour, value,
-                            value * 3600.0 / (8.0 * 1000.0));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::KibibytePerHour, value,
-                            value * 3600.0 / (8.0 * 1024.0));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MegabitPerHour, value,
-                            value * 3600.0 / std::pow(1000.0, 2));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MebibitPerHour, value,
-                            value * 3600.0 / std::pow(1024.0, 2));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MegabytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1000.0, 2)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::MebibytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1024.0, 2)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GigabitPerHour, value,
-                            value * 3600.0 / std::pow(1000.0, 3));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GibibitPerHour, value,
-                            value * 3600.0 / std::pow(1024.0, 3));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GigabytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1000.0, 3)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::GibibytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1024.0, 3)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TerabitPerHour, value,
-                            value * 3600.0 / std::pow(1000.0, 4));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TebibitPerHour, value,
-                            value * 3600.0 / std::pow(1024.0, 4));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TerabytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1000.0, 4)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::TebibytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1024.0, 4)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PetabitPerHour, value,
-                            value * 3600.0 / std::pow(1000.0, 5));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PebibitPerHour, value,
-                            value * 3600.0 / std::pow(1024.0, 5));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PetabytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1000.0, 5)));
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::PebibytePerHour, value,
-                            value * 3600.0 / (8.0 * std::pow(1024.0, 5)));
-
-  Internal::TestStaticConversions<MemoryRate, MemoryRate::BitPerSecond,
-                                  MemoryRate::KibibytePerSecond>(value, value / (8.0 * 1024.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BitPerSecond>(
+      value, value);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BytePerSecond>(
+      value, value / 8.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobitPerSecond>(
+      value, value / 1000.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibitPerSecond>(
+      value, value / 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobytePerSecond>(
+      value, value / (8.0 * 1000.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibytePerSecond>(
+      value, value / (8.0 * 1024.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabitPerSecond>(
+      value, value / std::pow(1000.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibitPerSecond>(
+      value, value / std::pow(1024.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabytePerSecond>(
+      value, value / (8.0 * std::pow(1000.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibytePerSecond>(
+      value, value / (8.0 * std::pow(1024.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabitPerSecond>(
+      value, value / std::pow(1000.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibitPerSecond>(
+      value, value / std::pow(1024.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabytePerSecond>(
+      value, value / (8.0 * std::pow(1000.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibytePerSecond>(
+      value, value / (8.0 * std::pow(1024.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabitPerSecond>(
+      value, value / std::pow(1000.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibitPerSecond>(
+      value, value / std::pow(1024.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabytePerSecond>(
+      value, value / (8.0 * std::pow(1000.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibytePerSecond>(
+      value, value / (8.0 * std::pow(1024.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabitPerSecond>(
+      value, value / std::pow(1000.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibitPerSecond>(
+      value, value / std::pow(1024.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabytePerSecond>(
+      value, value / (8.0 * std::pow(1000.0, 5)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibytePerSecond>(
+      value, value / (8.0 * std::pow(1024.0, 5)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BitPerMinute>(
+      value, value * 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BytePerMinute>(
+      value, value * 60.0 / 8.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobitPerMinute>(
+      value, value * 60.0 / 1000.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibitPerMinute>(
+      value, value * 60.0 / 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobytePerMinute>(
+      value, value * 60.0 / (8.0 * 1000.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibytePerMinute>(
+      value, value * 60.0 / (8.0 * 1024.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabitPerMinute>(
+      value, value * 60.0 / std::pow(1000.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibitPerMinute>(
+      value, value * 60.0 / std::pow(1024.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1000.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1024.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabitPerMinute>(
+      value, value * 60.0 / std::pow(1000.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibitPerMinute>(
+      value, value * 60.0 / std::pow(1024.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1000.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1024.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabitPerMinute>(
+      value, value * 60.0 / std::pow(1000.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibitPerMinute>(
+      value, value * 60.0 / std::pow(1024.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1000.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1024.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabitPerMinute>(
+      value, value * 60.0 / std::pow(1000.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibitPerMinute>(
+      value, value * 60.0 / std::pow(1024.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1000.0, 5)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibytePerMinute>(
+      value, value * 60.0 / (8.0 * std::pow(1024.0, 5)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BitPerHour>(
+      value, value * 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BytePerHour>(
+      value, value * 3600.0 / 8.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobitPerHour>(
+      value, value * 3600.0 / 1000.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibitPerHour>(
+      value, value * 3600.0 / 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KilobytePerHour>(
+      value, value * 3600.0 / (8.0 * 1000.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::KibibytePerHour>(
+      value, value * 3600.0 / (8.0 * 1024.0));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabitPerHour>(
+      value, value * 3600.0 / std::pow(1000.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibitPerHour>(
+      value, value * 3600.0 / std::pow(1024.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MegabytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1000.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::MebibytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1024.0, 2)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabitPerHour>(
+      value, value * 3600.0 / std::pow(1000.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibitPerHour>(
+      value, value * 3600.0 / std::pow(1024.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GigabytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1000.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::GibibytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1024.0, 3)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabitPerHour>(
+      value, value * 3600.0 / std::pow(1000.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibitPerHour>(
+      value, value * 3600.0 / std::pow(1024.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TerabytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1000.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::TebibytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1024.0, 4)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabitPerHour>(
+      value, value * 3600.0 / std::pow(1000.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibitPerHour>(
+      value, value * 3600.0 / std::pow(1024.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PetabytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1000.0, 5)));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::PebibytePerHour>(
+      value, value * 3600.0 / (8.0 * std::pow(1024.0, 5)));
 }
 
 TEST(UnitMemoryRate, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(MemoryRate::BitPerSecond, MemoryRate::BitPerSecond, value, value);
-  Internal::TestConversions(
-      MemoryRate::BytePerSecond, MemoryRate::BitPerSecond, value, value * 8.0);
-  Internal::TestConversions(
-      MemoryRate::KilobitPerSecond, MemoryRate::BitPerSecond, value, value * 1000.0);
-  Internal::TestConversions(
-      MemoryRate::KibibitPerSecond, MemoryRate::BitPerSecond, value, value * 1024.0);
-  Internal::TestConversions(
-      MemoryRate::KilobytePerSecond, MemoryRate::BitPerSecond, value, value * 8.0 * 1000.0);
-  Internal::TestConversions(
-      MemoryRate::KibibytePerSecond, MemoryRate::BitPerSecond, value, value * 8.0 * 1024.0);
-  Internal::TestConversions(
-      MemoryRate::MegabitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1000.0, 2));
-  Internal::TestConversions(
-      MemoryRate::MebibitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1024.0, 2));
-  Internal::TestConversions(MemoryRate::MegabytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 2));
-  Internal::TestConversions(MemoryRate::MebibytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 2));
-  Internal::TestConversions(
-      MemoryRate::GigabitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1000.0, 3));
-  Internal::TestConversions(
-      MemoryRate::GibibitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1024.0, 3));
-  Internal::TestConversions(MemoryRate::GigabytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 3));
-  Internal::TestConversions(MemoryRate::GibibytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 3));
-  Internal::TestConversions(
-      MemoryRate::TerabitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1000.0, 4));
-  Internal::TestConversions(
-      MemoryRate::TebibitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1024.0, 4));
-  Internal::TestConversions(MemoryRate::TerabytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 4));
-  Internal::TestConversions(MemoryRate::TebibytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 4));
-  Internal::TestConversions(
-      MemoryRate::PetabitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1000.0, 5));
-  Internal::TestConversions(
-      MemoryRate::PebibitPerSecond, MemoryRate::BitPerSecond, value, value * std::pow(1024.0, 5));
-  Internal::TestConversions(MemoryRate::PetabytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 5));
-  Internal::TestConversions(MemoryRate::PebibytePerSecond, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 5));
-  Internal::TestConversions(
-      MemoryRate::BitPerMinute, MemoryRate::BitPerSecond, value, value / 60.0);
-  Internal::TestConversions(
-      MemoryRate::BytePerMinute, MemoryRate::BitPerSecond, value, value * 8.0 / 60.0);
-  Internal::TestConversions(
-      MemoryRate::KilobitPerMinute, MemoryRate::BitPerSecond, value, value * 1000.0 / 60.0);
-  Internal::TestConversions(
-      MemoryRate::KibibitPerMinute, MemoryRate::BitPerSecond, value, value * 1024.0 / 60.0);
-  Internal::TestConversions(
-      MemoryRate::KilobytePerMinute, MemoryRate::BitPerSecond, value, value * 8.0 * 1000.0 / 60.0);
-  Internal::TestConversions(
-      MemoryRate::KibibytePerMinute, MemoryRate::BitPerSecond, value, value * 8.0 * 1024.0 / 60.0);
-  Internal::TestConversions(MemoryRate::MegabitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 2) / 60.0);
-  Internal::TestConversions(MemoryRate::MebibitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 2) / 60.0);
-  Internal::TestConversions(MemoryRate::MegabytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 2) / 60.0);
-  Internal::TestConversions(MemoryRate::MebibytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 2) / 60.0);
-  Internal::TestConversions(MemoryRate::GigabitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 3) / 60.0);
-  Internal::TestConversions(MemoryRate::GibibitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 3) / 60.0);
-  Internal::TestConversions(MemoryRate::GigabytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 3) / 60.0);
-  Internal::TestConversions(MemoryRate::GibibytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 3) / 60.0);
-  Internal::TestConversions(MemoryRate::TerabitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 4) / 60.0);
-  Internal::TestConversions(MemoryRate::TebibitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 4) / 60.0);
-  Internal::TestConversions(MemoryRate::TerabytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 4) / 60.0);
-  Internal::TestConversions(MemoryRate::TebibytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 4) / 60.0);
-  Internal::TestConversions(MemoryRate::PetabitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 5) / 60.0);
-  Internal::TestConversions(MemoryRate::PebibitPerMinute, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 5) / 60.0);
-  Internal::TestConversions(MemoryRate::PetabytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 5) / 60.0);
-  Internal::TestConversions(MemoryRate::PebibytePerMinute, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 5) / 60.0);
-  Internal::TestConversions(
-      MemoryRate::BitPerHour, MemoryRate::BitPerSecond, value, value / 3600.0);
-  Internal::TestConversions(
-      MemoryRate::BytePerHour, MemoryRate::BitPerSecond, value, value * 8.0 / 3600.0);
-  Internal::TestConversions(
-      MemoryRate::KilobitPerHour, MemoryRate::BitPerSecond, value, value * 1000.0 / 3600.0);
-  Internal::TestConversions(
-      MemoryRate::KibibitPerHour, MemoryRate::BitPerSecond, value, value * 1024.0 / 3600.0);
-  Internal::TestConversions(
-      MemoryRate::KilobytePerHour, MemoryRate::BitPerSecond, value, value * 8.0 * 1000.0 / 3600.0);
-  Internal::TestConversions(
-      MemoryRate::KibibytePerHour, MemoryRate::BitPerSecond, value, value * 8.0 * 1024.0 / 3600.0);
-  Internal::TestConversions(MemoryRate::MegabitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 2) / 3600.0);
-  Internal::TestConversions(MemoryRate::MebibitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 2) / 3600.0);
-  Internal::TestConversions(MemoryRate::MegabytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 2) / 3600.0);
-  Internal::TestConversions(MemoryRate::MebibytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 2) / 3600.0);
-  Internal::TestConversions(MemoryRate::GigabitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 3) / 3600.0);
-  Internal::TestConversions(MemoryRate::GibibitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 3) / 3600.0);
-  Internal::TestConversions(MemoryRate::GigabytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 3) / 3600.0);
-  Internal::TestConversions(MemoryRate::GibibytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 3) / 3600.0);
-  Internal::TestConversions(MemoryRate::TerabitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 4) / 3600.0);
-  Internal::TestConversions(MemoryRate::TebibitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 4) / 3600.0);
-  Internal::TestConversions(MemoryRate::TerabytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 4) / 3600.0);
-  Internal::TestConversions(MemoryRate::TebibytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 4) / 3600.0);
-  Internal::TestConversions(MemoryRate::PetabitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1000.0, 5) / 3600.0);
-  Internal::TestConversions(MemoryRate::PebibitPerHour, MemoryRate::BitPerSecond, value,
-                            value * std::pow(1024.0, 5) / 3600.0);
-  Internal::TestConversions(MemoryRate::PetabytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1000.0, 5) / 3600.0);
-  Internal::TestConversions(MemoryRate::PebibytePerHour, MemoryRate::BitPerSecond, value,
-                            value * 8.0 * std::pow(1024.0, 5) / 3600.0);
-
-  Internal::TestStaticConversions<MemoryRate, MemoryRate::KibibytePerSecond,
-                                  MemoryRate::BitPerSecond>(value, value * 8.0 * 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerSecond, MemoryRate::BitPerSecond>(
+      value, value);
+  Internal::TestConversions<MemoryRate, MemoryRate::BytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * 1000.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1000.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1024.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 2));
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 3));
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 4));
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibitPerSecond, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibytePerSecond, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 5));
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerMinute, MemoryRate::BitPerSecond>(
+      value, value / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * 1000.0 / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * 1024.0 / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1000.0 / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1024.0 / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 2) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 2) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 2) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 2) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 3) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 3) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 3) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 3) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 4) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 4) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 4) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 4) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 5) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibitPerMinute, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 5) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 5) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibytePerMinute, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 5) / 60.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BitPerHour, MemoryRate::BitPerSecond>(
+      value, value / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::BytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobitPerHour, MemoryRate::BitPerSecond>(
+      value, value * 1000.0 / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibitPerHour, MemoryRate::BitPerSecond>(
+      value, value * 1024.0 / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KilobytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1000.0 / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::KibibytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * 1024.0 / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 2) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 2) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MegabytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 2) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::MebibytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 2) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 3) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 3) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GigabytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 3) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::GibibytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 3) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 4) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 4) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TerabytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 4) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::TebibytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 4) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1000.0, 5) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibitPerHour, MemoryRate::BitPerSecond>(
+      value, value * std::pow(1024.0, 5) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PetabytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1000.0, 5) / 3600.0);
+  Internal::TestConversions<MemoryRate, MemoryRate::PebibytePerHour, MemoryRate::BitPerSecond>(
+      value, value * 8.0 * std::pow(1024.0, 5) / 3600.0);
 }
 
 TEST(UnitMemoryRate, Parse) {
