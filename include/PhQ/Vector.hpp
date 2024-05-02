@@ -65,7 +65,7 @@ public:
 
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
   template <typename OtherNumber>
-  constexpr Vector(const Vector<OtherNumber>& other)
+  explicit constexpr Vector(const Vector<OtherNumber>& other)
     : x_y_z_({static_cast<Number>(other.x_y_z_[0]), static_cast<Number>(other.x_y_z_[1]),
               static_cast<Number>(other.x_y_z_[2])}) {}
 

@@ -69,7 +69,7 @@ public:
 
   // Copy constructor. Constructs a three-dimensional dyadic tensor by copying another one.
   template <typename OtherNumber>
-  constexpr Dyad(const Dyad<OtherNumber>& other)
+  explicit constexpr Dyad(const Dyad<OtherNumber>& other)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
         {static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]),
          static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]),
