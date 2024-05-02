@@ -118,100 +118,108 @@ TEST(UnitEnergy, ConversionReciprocity) {
 
 TEST(UnitEnergy, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Energy::Joule, Energy::Joule, value, value);
-  Internal::TestConversions(Energy::Joule, Energy::Millijoule, value, value * 1000.0);
-  Internal::TestConversions(Energy::Joule, Energy::Microjoule, value, value * 1000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::Nanojoule, value, value * 1000000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::Kilojoule, value, value * 0.001);
-  Internal::TestConversions(Energy::Joule, Energy::Megajoule, value, value * 0.000001);
-  Internal::TestConversions(Energy::Joule, Energy::Gigajoule, value, value * 0.000000001);
-  Internal::TestConversions(Energy::Joule, Energy::WattMinute, value, value / 60.0);
-  Internal::TestConversions(Energy::Joule, Energy::WattHour, value, value / 3600.0);
-  Internal::TestConversions(Energy::Joule, Energy::KilowattMinute, value, value / 60000.0);
-  Internal::TestConversions(Energy::Joule, Energy::KilowattHour, value, value / 3600000.0);
-  Internal::TestConversions(Energy::Joule, Energy::MegawattMinute, value, value / 60000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::MegawattHour, value, value / 3600000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::GigawattMinute, value, value / 60000000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::GigawattHour, value, value / 3600000000000.0);
-  Internal::TestConversions(
-      Energy::Joule, Energy::FootPound, value, value / (0.3048 * 0.45359237 * 9.80665));
-  Internal::TestConversions(
-      Energy::Joule, Energy::InchPound, value, value / (0.0254 * 0.45359237 * 9.80665));
-  Internal::TestConversions(Energy::Joule, Energy::Calorie, value, value / 4.184);
-  Internal::TestConversions(Energy::Joule, Energy::Millicalorie, value, value / 0.004184);
-  Internal::TestConversions(Energy::Joule, Energy::Microcalorie, value, value / 0.000004184);
-  Internal::TestConversions(Energy::Joule, Energy::Nanocalorie, value, value / 0.000000004184);
-  Internal::TestConversions(Energy::Joule, Energy::Kilocalorie, value, value / 4184.0);
-  Internal::TestConversions(Energy::Joule, Energy::Megacalorie, value, value / 4184000.0);
-  Internal::TestConversions(Energy::Joule, Energy::Gigacalorie, value, value / 4184000000.0);
-  Internal::TestConversions(Energy::Joule, Energy::Electronvolt, value, value / 1.602176634e-19);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Millielectronvolt, value, value / 1.602176634e-22);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Microelectronvolt, value, value / 1.602176634e-25);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Nanoelectronvolt, value, value / 1.602176634e-28);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Kiloelectronvolt, value, value / 1.602176634e-16);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Megaelectronvolt, value, value / 1.602176634e-13);
-  Internal::TestConversions(
-      Energy::Joule, Energy::Gigaelectronvolt, value, value / 1.602176634e-10);
-  Internal::TestConversions(
-      Energy::Joule, Energy::BritishThermalUnit, value, value * 1.8 / (4.1868 * 453.59237));
-
-  Internal::TestStaticConversions<Energy, Energy::Joule, Energy::FootPound>(
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Millijoule>(value, value * 1000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Microjoule>(value, value * 1000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanojoule>(value, value * 1000000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Kilojoule>(value, value * 0.001);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Megajoule>(value, value * 0.000001);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigajoule>(value, value * 0.000000001);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::WattMinute>(value, value / 60.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::WattHour>(value, value / 3600.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::KilowattMinute>(value, value / 60000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::KilowattHour>(value, value / 3600000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::MegawattMinute>(
+      value, value / 60000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::MegawattHour>(
+      value, value / 3600000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::GigawattMinute>(
+      value, value / 60000000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::GigawattHour>(
+      value, value / 3600000000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::FootPound>(
       value, value / (0.3048 * 0.45359237 * 9.80665));
+  Internal::TestConversions<Energy, Energy::Joule, Energy::InchPound>(
+      value, value / (0.0254 * 0.45359237 * 9.80665));
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Calorie>(value, value / 4.184);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Millicalorie>(value, value / 0.004184);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Microcalorie>(
+      value, value / 0.000004184);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanocalorie>(
+      value, value / 0.000000004184);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Kilocalorie>(value, value / 4184.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Megacalorie>(value, value / 4184000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigacalorie>(
+      value, value / 4184000000.0);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Electronvolt>(
+      value, value / 1.602176634e-19);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Millielectronvolt>(
+      value, value / 1.602176634e-22);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Microelectronvolt>(
+      value, value / 1.602176634e-25);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanoelectronvolt>(
+      value, value / 1.602176634e-28);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Kiloelectronvolt>(
+      value, value / 1.602176634e-16);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Megaelectronvolt>(
+      value, value / 1.602176634e-13);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigaelectronvolt>(
+      value, value / 1.602176634e-10);
+  Internal::TestConversions<Energy, Energy::Joule, Energy::BritishThermalUnit>(
+      value, value * 1.8 / (4.1868 * 453.59237));
 }
 
 TEST(UnitEnergy, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Energy::Joule, Energy::Joule, value, value);
-  Internal::TestConversions(Energy::Millijoule, Energy::Joule, value, value * 0.001);
-  Internal::TestConversions(Energy::Microjoule, Energy::Joule, value, value * 0.000001);
-  Internal::TestConversions(Energy::Nanojoule, Energy::Joule, value, value * 0.000000001);
-  Internal::TestConversions(Energy::Kilojoule, Energy::Joule, value, value * 1000.0);
-  Internal::TestConversions(Energy::Megajoule, Energy::Joule, value, value * 1000000.0);
-  Internal::TestConversions(Energy::Gigajoule, Energy::Joule, value, value * 1000000000.0);
-  Internal::TestConversions(Energy::WattMinute, Energy::Joule, value, value * 60.0);
-  Internal::TestConversions(Energy::WattHour, Energy::Joule, value, value * 3600.0);
-  Internal::TestConversions(Energy::KilowattMinute, Energy::Joule, value, value * 60000.0);
-  Internal::TestConversions(Energy::KilowattHour, Energy::Joule, value, value * 3600000.0);
-  Internal::TestConversions(Energy::MegawattMinute, Energy::Joule, value, value * 60000000.0);
-  Internal::TestConversions(Energy::MegawattHour, Energy::Joule, value, value * 3600000000.0);
-  Internal::TestConversions(Energy::GigawattMinute, Energy::Joule, value, value * 60000000000.0);
-  Internal::TestConversions(Energy::GigawattHour, Energy::Joule, value, value * 3600000000000.0);
-  Internal::TestConversions(
-      Energy::FootPound, Energy::Joule, value, value * (0.3048 * 0.45359237 * 9.80665));
-  Internal::TestConversions(
-      Energy::InchPound, Energy::Joule, value, value * (0.0254 * 0.45359237 * 9.80665));
-  Internal::TestConversions(Energy::Calorie, Energy::Joule, value, value * 4.184);
-  Internal::TestConversions(Energy::Millicalorie, Energy::Joule, value, value * 0.004184);
-  Internal::TestConversions(Energy::Microcalorie, Energy::Joule, value, value * 0.000004184);
-  Internal::TestConversions(Energy::Nanocalorie, Energy::Joule, value, value * 0.000000004184);
-  Internal::TestConversions(Energy::Kilocalorie, Energy::Joule, value, value * 4184.0);
-  Internal::TestConversions(Energy::Megacalorie, Energy::Joule, value, value * 4184000.0);
-  Internal::TestConversions(Energy::Gigacalorie, Energy::Joule, value, value * 4184000000.0);
-  Internal::TestConversions(Energy::Electronvolt, Energy::Joule, value, value * 1.602176634e-19);
-  Internal::TestConversions(
-      Energy::Millielectronvolt, Energy::Joule, value, value * 1.602176634e-22);
-  Internal::TestConversions(
-      Energy::Microelectronvolt, Energy::Joule, value, value * 1.602176634e-25);
-  Internal::TestConversions(
-      Energy::Nanoelectronvolt, Energy::Joule, value, value * 1.602176634e-28);
-  Internal::TestConversions(
-      Energy::Kiloelectronvolt, Energy::Joule, value, value * 1.602176634e-16);
-  Internal::TestConversions(
-      Energy::Megaelectronvolt, Energy::Joule, value, value * 1.602176634e-13);
-  Internal::TestConversions(
-      Energy::Gigaelectronvolt, Energy::Joule, value, value * 1.602176634e-10);
-  Internal::TestConversions(
-      Energy::BritishThermalUnit, Energy::Joule, value, value * 4.1868 * 453.59237 / 1.8);
-
-  Internal::TestStaticConversions<Energy, Energy::FootPound, Energy::Joule>(
+  Internal::TestConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
+  Internal::TestConversions<Energy, Energy::Millijoule, Energy::Joule>(value, value * 0.001);
+  Internal::TestConversions<Energy, Energy::Microjoule, Energy::Joule>(value, value * 0.000001);
+  Internal::TestConversions<Energy, Energy::Nanojoule, Energy::Joule>(value, value * 0.000000001);
+  Internal::TestConversions<Energy, Energy::Kilojoule, Energy::Joule>(value, value * 1000.0);
+  Internal::TestConversions<Energy, Energy::Megajoule, Energy::Joule>(value, value * 1000000.0);
+  Internal::TestConversions<Energy, Energy::Gigajoule, Energy::Joule>(value, value * 1000000000.0);
+  Internal::TestConversions<Energy, Energy::WattMinute, Energy::Joule>(value, value * 60.0);
+  Internal::TestConversions<Energy, Energy::WattHour, Energy::Joule>(value, value * 3600.0);
+  Internal::TestConversions<Energy, Energy::KilowattMinute, Energy::Joule>(value, value * 60000.0);
+  Internal::TestConversions<Energy, Energy::KilowattHour, Energy::Joule>(value, value * 3600000.0);
+  Internal::TestConversions<Energy, Energy::MegawattMinute, Energy::Joule>(
+      value, value * 60000000.0);
+  Internal::TestConversions<Energy, Energy::MegawattHour, Energy::Joule>(
+      value, value * 3600000000.0);
+  Internal::TestConversions<Energy, Energy::GigawattMinute, Energy::Joule>(
+      value, value * 60000000000.0);
+  Internal::TestConversions<Energy, Energy::GigawattHour, Energy::Joule>(
+      value, value * 3600000000000.0);
+  Internal::TestConversions<Energy, Energy::FootPound, Energy::Joule>(
       value, value * (0.3048 * 0.45359237 * 9.80665));
+  Internal::TestConversions<Energy, Energy::InchPound, Energy::Joule>(
+      value, value * (0.0254 * 0.45359237 * 9.80665));
+  Internal::TestConversions<Energy, Energy::Calorie, Energy::Joule>(value, value * 4.184);
+  Internal::TestConversions<Energy, Energy::Millicalorie, Energy::Joule>(value, value * 0.004184);
+  Internal::TestConversions<Energy, Energy::Microcalorie, Energy::Joule>(
+      value, value * 0.000004184);
+  Internal::TestConversions<Energy, Energy::Nanocalorie, Energy::Joule>(
+      value, value * 0.000000004184);
+  Internal::TestConversions<Energy, Energy::Kilocalorie, Energy::Joule>(value, value * 4184.0);
+  Internal::TestConversions<Energy, Energy::Megacalorie, Energy::Joule>(value, value * 4184000.0);
+  Internal::TestConversions<Energy, Energy::Gigacalorie, Energy::Joule>(
+      value, value * 4184000000.0);
+  Internal::TestConversions<Energy, Energy::Electronvolt, Energy::Joule>(
+      value, value * 1.602176634e-19);
+  Internal::TestConversions<Energy, Energy::Millielectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-22);
+  Internal::TestConversions<Energy, Energy::Microelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-25);
+  Internal::TestConversions<Energy, Energy::Nanoelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-28);
+  Internal::TestConversions<Energy, Energy::Kiloelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-16);
+  Internal::TestConversions<Energy, Energy::Megaelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-13);
+  Internal::TestConversions<Energy, Energy::Gigaelectronvolt, Energy::Joule>(
+      value, value * 1.602176634e-10);
+  Internal::TestConversions<Energy, Energy::BritishThermalUnit, Energy::Joule>(
+      value, value * 4.1868 * 453.59237 / 1.8);
 }
 
 TEST(UnitEnergy, Parse) {

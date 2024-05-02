@@ -66,40 +66,32 @@ TEST(UnitPower, ConversionReciprocity) {
 
 TEST(UnitPower, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Power::Watt, Power::Watt, value, value);
-  Internal::TestConversions(Power::Watt, Power::Milliwatt, value, value * 1000.0);
-  Internal::TestConversions(Power::Watt, Power::Microwatt, value, value * 1000000.0);
-  Internal::TestConversions(Power::Watt, Power::Nanowatt, value, value * 1000000000.0);
-  Internal::TestConversions(Power::Watt, Power::Kilowatt, value, value * 0.001);
-  Internal::TestConversions(Power::Watt, Power::Megawatt, value, value * 0.000001);
-  Internal::TestConversions(Power::Watt, Power::Gigawatt, value, value * 0.000000001);
-  Internal::TestConversions(
-      Power::Watt, Power::FootPoundPerSecond, value, value / (0.3048 * 0.45359237 * 9.80665));
-  Internal::TestConversions(
-      Power::Watt, Power::InchPoundPerSecond, value, value / (0.0254 * 0.45359237 * 9.80665));
-
-  Internal::TestStaticConversions<Power, Power::Watt, Power::FootPoundPerSecond>(
+  Internal::TestConversions<Power, Power::Watt, Power::Watt>(value, value);
+  Internal::TestConversions<Power, Power::Watt, Power::Milliwatt>(value, value * 1000.0);
+  Internal::TestConversions<Power, Power::Watt, Power::Microwatt>(value, value * 1000000.0);
+  Internal::TestConversions<Power, Power::Watt, Power::Nanowatt>(value, value * 1000000000.0);
+  Internal::TestConversions<Power, Power::Watt, Power::Kilowatt>(value, value * 0.001);
+  Internal::TestConversions<Power, Power::Watt, Power::Megawatt>(value, value * 0.000001);
+  Internal::TestConversions<Power, Power::Watt, Power::Gigawatt>(value, value * 0.000000001);
+  Internal::TestConversions<Power, Power::Watt, Power::FootPoundPerSecond>(
       value, value / (0.3048 * 0.45359237 * 9.80665));
+  Internal::TestConversions<Power, Power::Watt, Power::InchPoundPerSecond>(
+      value, value / (0.0254 * 0.45359237 * 9.80665));
 }
 
 TEST(UnitPower, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(Power::Watt, Power::Watt, value, value);
-  Internal::TestConversions(Power::Milliwatt, Power::Watt, value, value * 0.001);
-  Internal::TestConversions(Power::Microwatt, Power::Watt, value, value * 0.000001);
-  Internal::TestConversions(Power::Nanowatt, Power::Watt, value, value * 0.000000001);
-  Internal::TestConversions(Power::Kilowatt, Power::Watt, value, value * 1000.0);
-  Internal::TestConversions(Power::Megawatt, Power::Watt, value, value * 1000000.0);
-  Internal::TestConversions(Power::Gigawatt, Power::Watt, value, value * 1000000000.0);
-  Internal::TestConversions(
-      Power::FootPoundPerSecond, Power::Watt, value, value * 0.3048 * 0.45359237 * 9.80665);
-  Internal::TestConversions(
-      Power::InchPoundPerSecond, Power::Watt, value, value * 0.0254 * 0.45359237 * 9.80665);
-
-  Internal::TestStaticConversions<Power, Power::FootPoundPerSecond, Power::Watt>(
+  Internal::TestConversions<Power, Power::Watt, Power::Watt>(value, value);
+  Internal::TestConversions<Power, Power::Milliwatt, Power::Watt>(value, value * 0.001);
+  Internal::TestConversions<Power, Power::Microwatt, Power::Watt>(value, value * 0.000001);
+  Internal::TestConversions<Power, Power::Nanowatt, Power::Watt>(value, value * 0.000000001);
+  Internal::TestConversions<Power, Power::Kilowatt, Power::Watt>(value, value * 1000.0);
+  Internal::TestConversions<Power, Power::Megawatt, Power::Watt>(value, value * 1000000.0);
+  Internal::TestConversions<Power, Power::Gigawatt, Power::Watt>(value, value * 1000000000.0);
+  Internal::TestConversions<Power, Power::FootPoundPerSecond, Power::Watt>(
       value, value * 0.3048 * 0.45359237 * 9.80665);
+  Internal::TestConversions<Power, Power::InchPoundPerSecond, Power::Watt>(
+      value, value * 0.0254 * 0.45359237 * 9.80665);
 }
 
 TEST(UnitPower, Parse) {

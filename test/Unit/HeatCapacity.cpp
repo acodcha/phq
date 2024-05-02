@@ -68,36 +68,30 @@ TEST(UnitHeatCapacity, ConversionReciprocity) {
 
 TEST(UnitHeatCapacity, ConvertFromStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(
-      HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);
-  Internal::TestConversions(
-      HeatCapacity::JoulePerKelvin, HeatCapacity::NanojoulePerKelvin, value, value * 1000000000.0);
-  Internal::TestConversions(HeatCapacity::JoulePerKelvin, HeatCapacity::FootPoundPerRankine, value,
-                            value / (0.3048 * 0.45359237 * 9.80665 * 1.8));
-  Internal::TestConversions(HeatCapacity::JoulePerKelvin, HeatCapacity::InchPoundPerRankine, value,
-                            value / (0.0254 * 0.45359237 * 9.80665 * 1.8));
-
-  Internal::TestStaticConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
-                                  HeatCapacity::FootPoundPerRankine>(
+  Internal::TestConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                            HeatCapacity::JoulePerKelvin>(value, value);
+  Internal::TestConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                            HeatCapacity::NanojoulePerKelvin>(value, value * 1000000000.0);
+  Internal::TestConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                            HeatCapacity::FootPoundPerRankine>(
       value, value / (0.3048 * 0.45359237 * 9.80665 * 1.8));
+  Internal::TestConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                            HeatCapacity::InchPoundPerRankine>(
+      value, value / (0.0254 * 0.45359237 * 9.80665 * 1.8));
 }
 
 TEST(UnitHeatCapacity, ConvertToStandard) {
   constexpr double value{1.234567890123456789};
-
-  Internal::TestConversions(
-      HeatCapacity::JoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value);
-  Internal::TestConversions(
-      HeatCapacity::NanojoulePerKelvin, HeatCapacity::JoulePerKelvin, value, value * 0.000000001);
-  Internal::TestConversions(HeatCapacity::FootPoundPerRankine, HeatCapacity::JoulePerKelvin, value,
-                            value * 0.3048 * 0.45359237 * 9.80665 * 1.8);
-  Internal::TestConversions(HeatCapacity::InchPoundPerRankine, HeatCapacity::JoulePerKelvin, value,
-                            value * 0.0254 * 0.45359237 * 9.80665 * 1.8);
-
-  Internal::TestStaticConversions<HeatCapacity, HeatCapacity::FootPoundPerRankine,
-                                  HeatCapacity::JoulePerKelvin>(
+  Internal::TestConversions<HeatCapacity, HeatCapacity::JoulePerKelvin,
+                            HeatCapacity::JoulePerKelvin>(value, value);
+  Internal::TestConversions<HeatCapacity, HeatCapacity::NanojoulePerKelvin,
+                            HeatCapacity::JoulePerKelvin>(value, value * 0.000000001);
+  Internal::TestConversions<HeatCapacity, HeatCapacity::FootPoundPerRankine,
+                            HeatCapacity::JoulePerKelvin>(
       value, value * 0.3048 * 0.45359237 * 9.80665 * 1.8);
+  Internal::TestConversions<HeatCapacity, HeatCapacity::InchPoundPerRankine,
+                            HeatCapacity::JoulePerKelvin>(
+      value, value * 0.0254 * 0.45359237 * 9.80665 * 1.8);
 }
 
 TEST(UnitHeatCapacity, Parse) {
