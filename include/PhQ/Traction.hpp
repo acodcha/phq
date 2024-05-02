@@ -72,7 +72,7 @@ public:
 
   // Statically creates a traction vector of zero.
   static constexpr Traction Zero() {
-    return Traction{Vector<double>::Zero()};
+    return Traction{Vector<>::Zero()};
   }
 
   // Statically creates a traction vector from the given x, y, and z Cartesian components expressed

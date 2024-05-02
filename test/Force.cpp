@@ -188,7 +188,7 @@ TEST(Force, MoveConstructor) {
 
 TEST(Force, MutableValue) {
   Force force({1.0, -2.0, 3.0}, Unit::Force::Newton);
-  Vector<double>& value = force.MutableValue();
+  Vector<>& value = force.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(force.Value(), Vector(-4.0, 5.0, -6.0));
 }

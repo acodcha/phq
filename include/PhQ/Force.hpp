@@ -66,7 +66,7 @@ public:
 
   // Statically creates a force vector of zero.
   static constexpr Force Zero() {
-    return Force{Vector<double>::Zero()};
+    return Force{Vector<>::Zero()};
   }
 
   // Statically creates a force vector from the given x, y, and z Cartesian components expressed in

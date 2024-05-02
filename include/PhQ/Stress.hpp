@@ -64,7 +64,7 @@ public:
 
   // Statically creates a stress tensor of zero.
   static constexpr Stress Zero() {
-    return Stress{SymmetricDyad<double>::Zero()};
+    return Stress{SymmetricDyad<>::Zero()};
   }
 
   // Statically creates a stress tensor from the given xx, xy, xz, yy, yz, and zz Cartesian

@@ -79,7 +79,7 @@ public:
 
   // Statically creates a heat flux vector of zero.
   static constexpr HeatFlux Zero() {
-    return HeatFlux{Vector<double>::Zero()};
+    return HeatFlux{Vector<>::Zero()};
   }
 
   // Statically creates a heat flux vector from the given x, y, and z Cartesian components expressed

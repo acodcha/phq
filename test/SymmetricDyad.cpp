@@ -107,7 +107,7 @@ TEST(SymmetricDyad, ComparisonOperators) {
 
 TEST(SymmetricDyad, CopyAssignmentOperator) {
   constexpr SymmetricDyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  SymmetricDyad second = SymmetricDyad<double>::Zero();
+  SymmetricDyad second = SymmetricDyad<>::Zero();
   second = first;
   EXPECT_EQ(second, first);
 }
@@ -130,7 +130,7 @@ TEST(SymmetricDyad, Hash) {
   constexpr SymmetricDyad first{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
   constexpr SymmetricDyad second{1.0, -2.0, 3.0, -4.0, 5.0, -6.000001};
   constexpr SymmetricDyad third{1.0, -2.0, 3.0, 4.0, 5.0, -6.0};
-  constexpr std::hash<SymmetricDyad<double>> hasher;
+  constexpr std::hash<SymmetricDyad<>> hasher;
   EXPECT_NE(hasher(first), hasher(second));
   EXPECT_NE(hasher(first), hasher(third));
   EXPECT_NE(hasher(second), hasher(third));
@@ -139,7 +139,7 @@ TEST(SymmetricDyad, Hash) {
 TEST(SymmetricDyad, Inverse) {
   {
     constexpr SymmetricDyad symmetric_dyad{8.0, 2.0, 1.0, 16.0, 4.0, 32.0};
-    const std::optional<SymmetricDyad<double>> inverse{symmetric_dyad.Inverse()};
+    const std::optional<SymmetricDyad<>> inverse{symmetric_dyad.Inverse()};
     ASSERT_TRUE(inverse.has_value());
     EXPECT_DOUBLE_EQ(inverse.value().xx(), 496.0 / 3840.0);
     EXPECT_DOUBLE_EQ(inverse.value().xy(), -60.0 / 3840.0);
@@ -150,7 +150,7 @@ TEST(SymmetricDyad, Inverse) {
   }
   {
     constexpr SymmetricDyad symmetric_dyad{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    const std::optional<SymmetricDyad<double>> inverse{symmetric_dyad.Inverse()};
+    const std::optional<SymmetricDyad<>> inverse{symmetric_dyad.Inverse()};
     EXPECT_FALSE(inverse.has_value());
   }
 }
@@ -164,7 +164,7 @@ TEST(SymmetricDyad, JSON) {
 
 TEST(SymmetricDyad, MoveAssignmentOperator) {
   SymmetricDyad first(1.0, -2.0, 3.0, -4.0, 5.0, -6.0);
-  SymmetricDyad second = SymmetricDyad<double>::Zero();
+  SymmetricDyad second = SymmetricDyad<>::Zero();
   second = std::move(first);
   EXPECT_EQ(second, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
 }
@@ -247,14 +247,14 @@ TEST(SymmetricDyad, Set) {
 }
 
 TEST(SymmetricDyad, SizeOf) {
-  EXPECT_EQ(sizeof(SymmetricDyad<double>{}), 6 * sizeof(double));
+  EXPECT_EQ(sizeof(SymmetricDyad<>{}), 6 * sizeof(double));
 }
 
 TEST(SymmetricDyad, StandardConstructor) {
   EXPECT_EQ(SymmetricDyad(std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0}),
             SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
   {
-    SymmetricDyad symmetric_dyad = SymmetricDyad<double>::Zero();
+    SymmetricDyad symmetric_dyad = SymmetricDyad<>::Zero();
     symmetric_dyad = std::array<double, 6>{1.0, -2.0, 3.0, -4.0, 5.0, -6.0};
     EXPECT_EQ(symmetric_dyad, SymmetricDyad(1.0, -2.0, 3.0, -4.0, 5.0, -6.0));
   }
@@ -288,7 +288,7 @@ TEST(SymmetricDyad, YAML) {
 }
 
 TEST(SymmetricDyad, Zero) {
-  EXPECT_EQ(SymmetricDyad<double>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+  EXPECT_EQ(SymmetricDyad<>::Zero(), SymmetricDyad(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 }
 
 }  // namespace

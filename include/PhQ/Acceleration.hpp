@@ -74,7 +74,7 @@ public:
 
   // Statically creates an acceleration vector of zero.
   static constexpr Acceleration Zero() {
-    return Acceleration{Vector<double>::Zero()};
+    return Acceleration{Vector<>::Zero()};
   }
 
   // Statically creates an acceleration vector from the given x, y, and z Cartesian components

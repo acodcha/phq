@@ -31,7 +31,7 @@ class Angle;
 class Direction;
 
 // Forward declaration for class PhQ::Vector.
-template <typename NumberType>
+template <typename>
 class Dyad;
 
 // Three-dimensional vector in Cartesian coordinates. Contains three components: x, y, and z.

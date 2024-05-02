@@ -63,7 +63,7 @@ public:
 
   // Statically creates a position vector of zero.
   static constexpr Position Zero() {
-    return Position{Vector<double>::Zero()};
+    return Position{Vector<>::Zero()};
   }
 
   // Statically creates a position vector from the given x, y, and z Cartesian components expressed

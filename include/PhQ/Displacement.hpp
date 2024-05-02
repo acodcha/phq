@@ -77,7 +77,7 @@ public:
 
   // Statically creates a displacement vector of zero.
   static constexpr Displacement Zero() {
-    return Displacement{Vector<double>::Zero()};
+    return Displacement{Vector<>::Zero()};
   }
 
   // Statically creates a displacement vector from the given x, y, and z Cartesian components

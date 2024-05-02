@@ -53,7 +53,7 @@ class Velocity;
 class Direction : public DimensionlessVector {
 public:
   // Default constructor. Initializes the direction to the zero vector.
-  constexpr Direction() : DimensionlessVector(Vector<double>::Zero()) {}
+  constexpr Direction() : DimensionlessVector(Vector<>::Zero()) {}
 
   // Constructor. Constructs a direction by normalizing the given x, y, and z Cartesian components
   // to a unit vector. If x = 0, y = 0, and z = 0, initializes the direction to the zero vector.
@@ -142,9 +142,9 @@ public:
     const double magnitude_squared{x * x + y * y + z * z};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value = Vector<double>{x / magnitude, y / magnitude, z / magnitude};
+      value = Vector{x / magnitude, y / magnitude, z / magnitude};
     } else {
-      value = Vector<double>::Zero();
+      value = Vector<>::Zero();
     }
   }
 
@@ -154,9 +154,9 @@ public:
     const double magnitude_squared{x_y_z[0] * x_y_z[0] + x_y_z[1] * x_y_z[1] + x_y_z[2] * x_y_z[2]};
     if (magnitude_squared > 0.0) {
       const double magnitude{std::sqrt(magnitude_squared)};
-      value = Vector<double>{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
+      value = Vector{x_y_z[0] / magnitude, x_y_z[1] / magnitude, x_y_z[2] / magnitude};
     } else {
-      value = Vector<double>::Zero();
+      value = Vector<>::Zero();
     }
   }
 

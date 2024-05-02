@@ -61,7 +61,7 @@ public:
 
   // Statically creates a thermal conductivity tensor of zero.
   static constexpr ThermalConductivity Zero() {
-    return ThermalConductivity{SymmetricDyad<double>::Zero()};
+    return ThermalConductivity{SymmetricDyad<>::Zero()};
   }
 
   // Statically creates a thermal conductivity tensor from the given xx, xy, xz, yy, yz, and zz

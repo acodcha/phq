@@ -70,7 +70,7 @@ public:
 
   // Statically creates a velocity gradient tensor of zero.
   static constexpr VelocityGradient Zero() {
-    return VelocityGradient{Dyad<double>::Zero()};
+    return VelocityGradient{Dyad<>::Zero()};
   }
 
   // Statically creates a velocity gradient tensor from the given xx, xy, xz, yx, yy, yz, zx,zy, and

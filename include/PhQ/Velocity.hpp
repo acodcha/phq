@@ -83,7 +83,7 @@ public:
 
   // Statically creates a velocity vector of zero.
   static constexpr Velocity Zero() {
-    return Velocity{Vector<double>::Zero()};
+    return Velocity{Vector<>::Zero()};
   }
 
   // Statically creates a velocity vector from the given x, y, and z Cartesian components expressed

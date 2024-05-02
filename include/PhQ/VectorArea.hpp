@@ -59,7 +59,7 @@ public:
 
   // Statically creates a vector area of zero.
   static constexpr VectorArea Zero() {
-    return VectorArea{Vector<double>::Zero()};
+    return VectorArea{Vector<>::Zero()};
   }
 
   // Statically creates a vector area from the given x, y, and z Cartesian components expressed in a

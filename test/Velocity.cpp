@@ -210,7 +210,7 @@ TEST(Velocity, MoveConstructor) {
 
 TEST(Velocity, MutableValue) {
   Velocity velocity({1.0, -2.0, 3.0}, Unit::Speed::MetrePerSecond);
-  Vector<double>& value = velocity.MutableValue();
+  Vector<>& value = velocity.MutableValue();
   value = Vector{-4.0, 2.05, -6.0};
   EXPECT_EQ(velocity.Value(), Vector(-4.0, 2.05, -6.0));
 }

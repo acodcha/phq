@@ -62,7 +62,7 @@ public:
 
   // Statically creates a temperature gradient vector of zero.
   static constexpr TemperatureGradient Zero() {
-    return TemperatureGradient{Vector<double>::Zero()};
+    return TemperatureGradient{Vector<>::Zero()};
   }
 
   // Statically creates a temperature gradient vector from the given x, y, and z Cartesian

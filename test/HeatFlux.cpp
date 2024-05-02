@@ -207,7 +207,7 @@ TEST(HeatFlux, MoveConstructor) {
 
 TEST(HeatFlux, MutableValue) {
   HeatFlux heat_flux({1.0, -2.0, 3.0}, Unit::EnergyFlux::WattPerSquareMetre);
-  Vector<double>& value = heat_flux.MutableValue();
+  Vector<>& value = heat_flux.MutableValue();
   value = Vector{-4.0, 5.0, -6.0};
   EXPECT_EQ(heat_flux.Value(), Vector(-4.0, 5.0, -6.0));
 }

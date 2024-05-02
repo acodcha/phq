@@ -42,6 +42,33 @@ TEST(Base, LowercaseCopy) {
   EXPECT_EQ(LowercaseCopy("AbCd123!?^-_"), "abcd123!?^-_");
 }
 
+TEST(Base, ParseToNumberDefault) {
+  EXPECT_EQ(ParseToNumber<>(""), std::nullopt);
+  EXPECT_EQ(ParseToNumber<>("Hello world!"), std::nullopt);
+  ASSERT_TRUE(ParseToNumber<>("NaN").has_value());
+  EXPECT_EQ(ParseToNumber<>("NaN").value(), std::numeric_limits<double>::quiet_NaN());
+  ASSERT_TRUE(ParseToNumber<>("-NaN").has_value());
+  EXPECT_EQ(ParseToNumber<>("-NaN").value(), std::numeric_limits<double>::quiet_NaN());
+  ASSERT_TRUE(ParseToNumber<>("infinity").has_value());
+  EXPECT_EQ(ParseToNumber<>("infinity").value(), std::numeric_limits<double>::infinity());
+  ASSERT_TRUE(ParseToNumber<>("inf").has_value());
+  EXPECT_EQ(ParseToNumber<>("inf").value(), std::numeric_limits<double>::infinity());
+  ASSERT_TRUE(ParseToNumber<>("-infinity").has_value());
+  EXPECT_EQ(ParseToNumber<>("-infinity").value(), -std::numeric_limits<double>::infinity());
+  ASSERT_TRUE(ParseToNumber<>("-inf").has_value());
+  EXPECT_EQ(ParseToNumber<>("-inf").value(), -std::numeric_limits<double>::infinity());
+  EXPECT_EQ(ParseToNumber<>("-1.0e1000000"), std::nullopt);
+  EXPECT_EQ(ParseToNumber<>("-1.23456789e12"), -1.23456789e12);
+  EXPECT_EQ(ParseToNumber<>("-100"), -100.0);
+  EXPECT_EQ(ParseToNumber<>("-1.23456789"), -1.23456789);
+  EXPECT_EQ(ParseToNumber<>("-0"), 0.0);
+  EXPECT_EQ(ParseToNumber<>("0"), 0.0);
+  EXPECT_EQ(ParseToNumber<>("1.23456789"), 1.23456789);
+  EXPECT_EQ(ParseToNumber<>("100"), 100.0);
+  EXPECT_EQ(ParseToNumber<>("1.23456789e12"), 1.23456789e12);
+  EXPECT_EQ(ParseToNumber<>("1.0e1000000"), std::nullopt);
+}
+
 TEST(Base, ParseToNumberDouble) {
   EXPECT_EQ(ParseToNumber<double>(""), std::nullopt);
   EXPECT_EQ(ParseToNumber<double>("Hello world!"), std::nullopt);
@@ -130,6 +157,7 @@ TEST(Base, ParseToNumberLongDouble) {
 }
 
 TEST(Base, Pi) {
+  EXPECT_EQ(Pi<>, static_cast<double>(3.141592653589793238462643383279502884L));
   EXPECT_EQ(Pi<float>, static_cast<float>(3.141592653589793238462643383279502884L));
   EXPECT_EQ(Pi<double>, static_cast<double>(3.141592653589793238462643383279502884L));
   EXPECT_EQ(Pi<long double>, 3.141592653589793238462643383279502884L);

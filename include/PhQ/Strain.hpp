@@ -81,7 +81,7 @@ public:
 
   // Statically creates a strain tensor of zero.
   static constexpr Strain Zero() {
-    return Strain{SymmetricDyad<double>::Zero()};
+    return Strain{SymmetricDyad<>::Zero()};
   }
 
   // Returns the xx Cartesian component of this strain tensor.

@@ -191,7 +191,7 @@ TEST(Stress, MoveConstructor) {
 
 TEST(Stress, MutableValue) {
   Stress stress({1.0, -2.0, 3.0, -4.0, 5.0, -6.0}, Unit::Pressure::Pascal);
-  SymmetricDyad<double>& value = stress.MutableValue();
+  SymmetricDyad<>& value = stress.MutableValue();
   value = SymmetricDyad{-7.0, 8.0, -9.0, 10.0, -11.0, 12.0};
   EXPECT_EQ(stress.Value(), SymmetricDyad(-7.0, 8.0, -9.0, 10.0, -11.0, 12.0));
 }

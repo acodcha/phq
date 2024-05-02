@@ -270,7 +270,7 @@ TEST(VelocityGradient, MoveConstructor) {
 TEST(VelocityGradient, MutableValue) {
   VelocityGradient velocity_gradient(
       {1.0, -2.0, 3.0, -4.0, 5.0, -6.0, 7.0, -8.0, 9.0}, Unit::Frequency::Hertz);
-  Dyad<double>& value = velocity_gradient.MutableValue();
+  Dyad<>& value = velocity_gradient.MutableValue();
   value = Dyad{-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18};
   EXPECT_EQ(velocity_gradient.Value(),
             Dyad(-10.10, 11.0, -12.12, 13.13, -14.14, 15.15, -16.16, 17.17, -18.18));

@@ -35,7 +35,7 @@
 namespace PhQ {
 
 // The mathematical constant π = 3.14...
-template <typename NumberType>
+template <typename NumberType = double>
 inline constexpr NumberType Pi;
 
 // The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
@@ -111,7 +111,7 @@ inline void Lowercase(std::string& text) {
   return result;
 }
 
-template <typename NumberType>
+template <typename NumberType = double>
 [[nodiscard]] inline std::optional<NumberType> ParseToNumber(const std::string& text);
 
 template <>

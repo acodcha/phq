@@ -77,7 +77,7 @@ public:
 
   // Statically creates a displacement gradient tensor of zero.
   static constexpr DisplacementGradient Zero() {
-    return DisplacementGradient{Dyad<double>::Zero()};
+    return DisplacementGradient{Dyad<>::Zero()};
   }
 
   // Returns the xx Cartesian component of this displacement gradient tensor.

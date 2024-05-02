@@ -74,7 +74,7 @@ public:
 
   // Statically creates a strain rate tensor of zero.
   static constexpr StrainRate Zero() {
-    return StrainRate{SymmetricDyad<double>::Zero()};
+    return StrainRate{SymmetricDyad<>::Zero()};
   }
 
   // Statically creates a strain rate tensor from the given xx, xy, xz, yy, yz, and zz Cartesian
