@@ -164,33 +164,37 @@ ConversionToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::F
 template <>
 inline const std::map<Unit::TemperatureDifference,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::TemperatureDifference>{
+    MapOfConversionsFromStandard<Unit::TemperatureDifference, double>{
         {Unit::TemperatureDifference::Kelvin,
-         ConversionsFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin>},
+         ConversionsFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin,
+         double>                                                                                           },
         {Unit::TemperatureDifference::Celsius,
-         ConversionsFromStandard<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Celsius>                                                    },
+         ConversionsFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius,
+         double>                                                                                           },
         {Unit::TemperatureDifference::Rankine,
-         ConversionsFromStandard<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Rankine>                                                    },
+         ConversionsFromStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine,
+         double>                                                                                           },
         {Unit::TemperatureDifference::Fahrenheit,
          ConversionsFromStandard<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Fahrenheit>                                                 },
+         Unit::TemperatureDifference::Fahrenheit,                                                   double>},
 };
 
 template <>
 inline const std::map<Unit::TemperatureDifference,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::TemperatureDifference>{
+    MapOfConversionsToStandard<Unit::TemperatureDifference, double>{
         {Unit::TemperatureDifference::Kelvin,
-         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin> },
+         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Kelvin,
+         double>},
         {Unit::TemperatureDifference::Celsius,
-         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius>},
+         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Celsius,
+         double>},
         {Unit::TemperatureDifference::Rankine,
-         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine>},
+         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Rankine,
+         double>},
         {Unit::TemperatureDifference::Fahrenheit,
-         ConversionsToStandard<Unit::TemperatureDifference,
-         Unit::TemperatureDifference::Fahrenheit>                                                },
+         ConversionsToStandard<Unit::TemperatureDifference, Unit::TemperatureDifference::Fahrenheit,
+         double>},
 };
 
 }  // namespace Internal

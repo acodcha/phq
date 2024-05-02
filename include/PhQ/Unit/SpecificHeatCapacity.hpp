@@ -467,37 +467,37 @@ ConversionToStandard<Unit::SpecificHeatCapacity,
 template <>
 inline const std::map<Unit::SpecificHeatCapacity,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificHeatCapacity>{
+    MapOfConversionsFromStandard<Unit::SpecificHeatCapacity, double>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
          ConversionsFromStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>   },
+         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,    double>},
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
          ConversionsFromStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>   },
+         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,    double>},
         {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,
          ConversionsFromStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>  },
+         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,   double>},
         {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
          ConversionsFromStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>},
+         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, double>},
 };
 
 template <>
 inline const std::map<Unit::SpecificHeatCapacity,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificHeatCapacity>{
+    MapOfConversionsToStandard<Unit::SpecificHeatCapacity, double>{
         {Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,
          ConversionsToStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin>   },
+         Unit::SpecificHeatCapacity::JoulePerKilogramPerKelvin,    double>},
         {Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,
          ConversionsToStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin>   },
+         Unit::SpecificHeatCapacity::NanojoulePerGramPerKelvin,    double>},
         {Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,
          ConversionsToStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine>  },
+         Unit::SpecificHeatCapacity::FootPoundPerSlugPerRankine,   double>},
         {Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine,
          ConversionsToStandard<Unit::SpecificHeatCapacity,
-         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine>},
+         Unit::SpecificHeatCapacity::InchPoundPerSlinchPerRankine, double>},
 };
 
 }  // namespace Internal

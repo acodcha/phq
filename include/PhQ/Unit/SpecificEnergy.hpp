@@ -190,29 +190,37 @@ ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSli
 template <>
 inline const std::map<Unit::SpecificEnergy,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificEnergy>{
+    MapOfConversionsFromStandard<Unit::SpecificEnergy, double>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>  },
+         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram,
+         double>},
         {Unit::SpecificEnergy::NanojoulePerGram,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>  },
+         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram,
+         double>},
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>  },
+         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug,
+         double>},
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>},
+         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch,
+         double>},
 };
 
 template <>
 inline const std::map<Unit::SpecificEnergy,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificEnergy>{
+    MapOfConversionsToStandard<Unit::SpecificEnergy, double>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>  },
+         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram,
+         double>},
         {Unit::SpecificEnergy::NanojoulePerGram,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>  },
+         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram,
+         double>},
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>  },
+         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug,
+         double>},
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>},
+         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch,
+         double>},
 };
 
 }  // namespace Internal

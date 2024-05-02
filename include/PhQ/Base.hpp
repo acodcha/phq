@@ -27,6 +27,7 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -35,8 +36,8 @@
 namespace PhQ {
 
 // The mathematical constant π = 3.14...
-template <typename NumberType = double>
-inline constexpr NumberType Pi;
+template <typename Number = double>
+inline constexpr Number Pi;
 
 // The mathematical constant π = 3.14... expressed as a single-precision 32-bit binary
 // floating-point number.
@@ -111,8 +112,8 @@ inline void Lowercase(std::string& text) {
   return result;
 }
 
-template <typename NumberType = double>
-[[nodiscard]] inline std::optional<NumberType> ParseToNumber(const std::string& text);
+template <typename Number = double>
+[[nodiscard]] inline std::optional<Number> ParseToNumber(const std::string& text);
 
 template <>
 [[nodiscard]] inline std::optional<float> ParseToNumber(const std::string& text) {
@@ -149,9 +150,12 @@ template <>
 
 // Prints a given floating-point number as a string. Prints enough digits to represent the number
 // exactly. The printed number of digits depends on the type of the floating-point number.
-template <typename NumberType>
-[[nodiscard]] inline std::string Print(const NumberType value) {
-  const NumberType absolute{std::abs(value)};
+template <typename Number>
+[[nodiscard]] inline std::string Print(const Number value) {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of PhQ::Print<Number> must be a floating-point number type.");
+  const Number absolute{std::abs(value)};
   std::ostringstream stream;
   if (absolute < 1.0) {
     // Interval: [0, 1[
@@ -162,8 +166,8 @@ template <typename NumberType>
         stream << 0;
       } else {
         // Interval: ]0, 0.001[
-        stream << std::scientific
-               << std::setprecision(std::numeric_limits<NumberType>::max_digits10) << value;
+        stream << std::scientific << std::setprecision(std::numeric_limits<Number>::max_digits10)
+               << value;
       }
     } else {
       // Interval: [0.001, 1[
@@ -171,16 +175,16 @@ template <typename NumberType>
         // Interval: [0.001, 0.1[
         if (absolute < 0.01) {
           // Interval: [0.001, 0.01[
-          stream << std::fixed
-                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 3) << value;
+          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 3)
+                 << value;
         } else {
           // Interval: [0.01, 0.1[
-          stream << std::fixed
-                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 2) << value;
+          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 2)
+                 << value;
         }
       } else {
         // Interval: [0.1, 1[
-        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10 + 1)
+        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 + 1)
                << value;
       }
     }
@@ -190,30 +194,30 @@ template <typename NumberType>
       // Interval: [1, 1000[
       if (absolute < 10.0) {
         // Interval: [1, 10[
-        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10)
+        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10)
                << value;
       } else {
         // Interval: [10, 1000[
         if (absolute < 100.0) {
           // Interval: [10, 100[
-          stream << std::fixed
-                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 1) << value;
+          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 1)
+                 << value;
         } else {
           // Interval: [100, 1000[
-          stream << std::fixed
-                 << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 2) << value;
+          stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 2)
+                 << value;
         }
       }
     } else {
       // Interval: [1000, +inf[
       if (absolute < 10000.0) {
         // Interval: [1000, 10000[
-        stream << std::fixed << std::setprecision(std::numeric_limits<NumberType>::max_digits10 - 3)
+        stream << std::fixed << std::setprecision(std::numeric_limits<Number>::max_digits10 - 3)
                << value;
       } else {
         // Interval: [10000, +inf[
-        stream << std::scientific
-               << std::setprecision(std::numeric_limits<NumberType>::max_digits10) << value;
+        stream << std::scientific << std::setprecision(std::numeric_limits<Number>::max_digits10)
+               << value;
       }
     }
   }

@@ -239,41 +239,43 @@ inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Pound
 
 template <>
 inline const std::map<Unit::Pressure, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Pressure>{
-        {Unit::Pressure::Pascal,             ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Pascal>            },
+    MapOfConversionsFromStandard<Unit::Pressure, double>{
+        {Unit::Pressure::Pascal,
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Pascal,             double>},
         {Unit::Pressure::Kilopascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal>        },
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal,         double>},
         {Unit::Pressure::Megapascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal>        },
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal,         double>},
         {Unit::Pressure::Gigapascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal>        },
-        {Unit::Pressure::Bar,                ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Bar>               },
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal,         double>},
+        {Unit::Pressure::Bar,                ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Bar,                double>},
         {Unit::Pressure::Atmosphere,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere>        },
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere,         double>},
         {Unit::Pressure::PoundPerSquareFoot,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot>},
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot, double>},
         {Unit::Pressure::PoundPerSquareInch,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch>},
+         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch, double>},
 };
 
 template <>
 inline const std::map<Unit::Pressure,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Pressure>{
-        {Unit::Pressure::Pascal,             ConversionsToStandard<Unit::Pressure, Unit::Pressure::Pascal>            },
+    MapOfConversionsToStandard<Unit::Pressure, double>{
+        {Unit::Pressure::Pascal,
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Pascal,             double>},
         {Unit::Pressure::Kilopascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal>        },
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal,         double>},
         {Unit::Pressure::Megapascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal>        },
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal,         double>},
         {Unit::Pressure::Gigapascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal>        },
-        {Unit::Pressure::Bar,                ConversionsToStandard<Unit::Pressure, Unit::Pressure::Bar>               },
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal,         double>},
+        {Unit::Pressure::Bar,                ConversionsToStandard<Unit::Pressure, Unit::Pressure::Bar,                double>},
         {Unit::Pressure::Atmosphere,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere>        },
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere,         double>},
         {Unit::Pressure::PoundPerSquareFoot,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot>},
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot, double>},
         {Unit::Pressure::PoundPerSquareInch,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch>},
+         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch, double>},
 };
 
 }  // namespace Internal

@@ -169,23 +169,29 @@ inline constexpr void ConversionToStandard<Unit::Angle, Unit::Angle::Revolution>
 
 template <>
 inline const std::map<Unit::Angle, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Angle>{
-        {Unit::Angle::Radian,     ConversionsFromStandard<Unit::Angle, Unit::Angle::Radian>    },
-        {Unit::Angle::Degree,     ConversionsFromStandard<Unit::Angle, Unit::Angle::Degree>    },
-        {Unit::Angle::Arcminute,  ConversionsFromStandard<Unit::Angle, Unit::Angle::Arcminute> },
-        {Unit::Angle::Arcsecond,  ConversionsFromStandard<Unit::Angle, Unit::Angle::Arcsecond> },
-        {Unit::Angle::Revolution, ConversionsFromStandard<Unit::Angle, Unit::Angle::Revolution>},
+    MapOfConversionsFromStandard<Unit::Angle, double>{
+        {Unit::Angle::Radian,     ConversionsFromStandard<Unit::Angle, Unit::Angle::Radian,     double>},
+        {Unit::Angle::Degree,     ConversionsFromStandard<Unit::Angle, Unit::Angle::Degree,     double>},
+        {Unit::Angle::Arcminute,
+         ConversionsFromStandard<Unit::Angle,                          Unit::Angle::Arcminute,  double>},
+        {Unit::Angle::Arcsecond,
+         ConversionsFromStandard<Unit::Angle,                          Unit::Angle::Arcsecond,  double>},
+        {Unit::Angle::Revolution,
+         ConversionsFromStandard<Unit::Angle,                          Unit::Angle::Revolution, double>},
 };
 
 template <>
 inline const std::map<Unit::Angle,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Angle>{
-        {Unit::Angle::Radian,     ConversionsToStandard<Unit::Angle, Unit::Angle::Radian>    },
-        {Unit::Angle::Degree,     ConversionsToStandard<Unit::Angle, Unit::Angle::Degree>    },
-        {Unit::Angle::Arcminute,  ConversionsToStandard<Unit::Angle, Unit::Angle::Arcminute> },
-        {Unit::Angle::Arcsecond,  ConversionsToStandard<Unit::Angle, Unit::Angle::Arcsecond> },
-        {Unit::Angle::Revolution, ConversionsToStandard<Unit::Angle, Unit::Angle::Revolution>},
+    MapOfConversionsToStandard<Unit::Angle, double>{
+        {Unit::Angle::Radian,     ConversionsToStandard<Unit::Angle, Unit::Angle::Radian,     double>},
+        {Unit::Angle::Degree,     ConversionsToStandard<Unit::Angle, Unit::Angle::Degree,     double>},
+        {Unit::Angle::Arcminute,
+         ConversionsToStandard<Unit::Angle,                          Unit::Angle::Arcminute,  double>},
+        {Unit::Angle::Arcsecond,
+         ConversionsToStandard<Unit::Angle,                          Unit::Angle::Arcsecond,  double>},
+        {Unit::Angle::Revolution,
+         ConversionsToStandard<Unit::Angle,                          Unit::Angle::Revolution, double>},
 };
 
 }  // namespace Internal

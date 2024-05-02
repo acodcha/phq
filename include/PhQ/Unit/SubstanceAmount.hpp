@@ -171,33 +171,33 @@ inline constexpr void ConversionToStandard<Unit::SubstanceAmount, Unit::Substanc
 template <>
 inline const std::map<Unit::SubstanceAmount,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SubstanceAmount>{
+    MapOfConversionsFromStandard<Unit::SubstanceAmount, double>{
         {Unit::SubstanceAmount::Mole,
-         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>     },
+         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole,      double>},
         {Unit::SubstanceAmount::Kilomole,
-         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole> },
+         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole,  double>},
         {Unit::SubstanceAmount::Megamole,
-         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole> },
+         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole,  double>},
         {Unit::SubstanceAmount::Gigamole,
-         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole> },
+         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole,  double>},
         {Unit::SubstanceAmount::Particles,
-         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>},
+         ConversionsFromStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles, double>},
 };
 
 template <>
 inline const std::map<Unit::SubstanceAmount,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SubstanceAmount>{
+    MapOfConversionsToStandard<Unit::SubstanceAmount, double>{
         {Unit::SubstanceAmount::Mole,
-         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole>     },
+         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Mole,      double>},
         {Unit::SubstanceAmount::Kilomole,
-         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole> },
+         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Kilomole,  double>},
         {Unit::SubstanceAmount::Megamole,
-         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole> },
+         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Megamole,  double>},
         {Unit::SubstanceAmount::Gigamole,
-         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole> },
+         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Gigamole,  double>},
         {Unit::SubstanceAmount::Particles,
-         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles>},
+         ConversionsToStandard<Unit::SubstanceAmount, Unit::SubstanceAmount::Particles, double>},
 };
 
 }  // namespace Internal

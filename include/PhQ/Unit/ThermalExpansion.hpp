@@ -173,29 +173,34 @@ ConversionToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenhe
 template <>
 inline const std::map<Unit::ThermalExpansion,
                       std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::ThermalExpansion>{
+    MapOfConversionsFromStandard<Unit::ThermalExpansion, double>{
         {Unit::ThermalExpansion::PerKelvin,
-         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>    },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin,
+         double>},
         {Unit::ThermalExpansion::PerCelsius,
-         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>   },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius,
+         double>},
         {Unit::ThermalExpansion::PerRankine,
-         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>   },
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine,
+         double>},
         {Unit::ThermalExpansion::PerFahrenheit,
-         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>},
+         ConversionsFromStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit,
+         double>},
 };
 
 template <>
 inline const std::map<Unit::ThermalExpansion,
                       std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::ThermalExpansion>{
+    MapOfConversionsToStandard<Unit::ThermalExpansion, double>{
         {Unit::ThermalExpansion::PerKelvin,
-         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin>    },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerKelvin,     double>},
         {Unit::ThermalExpansion::PerCelsius,
-         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius>   },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerCelsius,    double>},
         {Unit::ThermalExpansion::PerRankine,
-         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine>   },
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerRankine,    double>},
         {Unit::ThermalExpansion::PerFahrenheit,
-         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit>},
+         ConversionsToStandard<Unit::ThermalExpansion, Unit::ThermalExpansion::PerFahrenheit,
+         double>                                                                                     },
 };
 
 }  // namespace Internal

@@ -272,48 +272,43 @@ inline std::ostream& operator<<(std::ostream& stream, const Direction& direction
   return stream;
 }
 
-template <typename NumberType>
-inline constexpr Vector<NumberType>::Vector(
-    const NumberType magnitude, const PhQ::Direction& direction)
-  : x_y_z_(std::array<NumberType, 3>{(direction.Value() * magnitude).x_y_z_}) {}
+template <typename Number>
+inline constexpr Vector<Number>::Vector(const Number magnitude, const PhQ::Direction& direction)
+  : x_y_z_(std::array<Number, 3>{(direction.Value() * magnitude).x_y_z_}) {}
 
-template <typename NumberType>
-inline PhQ::Direction Vector<NumberType>::Direction() const {
+template <typename Number>
+inline PhQ::Direction Vector<Number>::Direction() const {
   return PhQ::Direction{*this};
 }
 
-template <typename NumberType>
-inline constexpr NumberType Vector<NumberType>::Dot(
-    const PhQ::Direction& direction) const noexcept {
+template <typename Number>
+inline constexpr Number Vector<Number>::Dot(const PhQ::Direction& direction) const noexcept {
   return Dot(direction.Value());
 }
 
-template <typename NumberType>
-inline constexpr Vector<NumberType> Vector<NumberType>::Cross(
-    const PhQ::Direction& direction) const {
+template <typename Number>
+inline constexpr Vector<Number> Vector<Number>::Cross(const PhQ::Direction& direction) const {
   return Cross(direction.Value());
 }
 
-template <typename NumberType>
-inline constexpr Dyad<NumberType> Vector<NumberType>::Dyadic(
-    const PhQ::Direction& direction) const {
+template <typename Number>
+inline constexpr Dyad<Number> Vector<Number>::Dyadic(const PhQ::Direction& direction) const {
   return Dyadic(direction.Value());
 }
 
-template <typename NumberType>
-inline constexpr Vector<NumberType> operator*(
-    const SymmetricDyad<NumberType>& symmetric_dyad, const Direction& direction) {
+template <typename Number>
+inline constexpr Vector<Number> operator*(
+    const SymmetricDyad<Number>& symmetric_dyad, const Direction& direction) {
   return symmetric_dyad * direction.Value();
 }
 
-template <typename NumberType>
-inline constexpr Vector<NumberType> operator*(
-    const Dyad<NumberType>& dyad, const Direction& direction) {
+template <typename Number>
+inline constexpr Vector<Number> operator*(const Dyad<Number>& dyad, const Direction& direction) {
   return dyad * direction.Value();
 }
 
-template <typename NumberType>
-inline Angle Vector<NumberType>::Angle(const PhQ::Direction& direction) const {
+template <typename Number>
+inline Angle Vector<Number>::Angle(const PhQ::Direction& direction) const {
   return PhQ::Angle{*this, direction};
 }
 

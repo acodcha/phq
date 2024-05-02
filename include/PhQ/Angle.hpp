@@ -205,8 +205,8 @@ inline constexpr Angle operator*(const double number, const Angle& angle) {
   return angle * number;
 }
 
-template <typename NumberType>
-inline PhQ::Angle Vector<NumberType>::Angle(const Vector<NumberType>& vector) const {
+template <typename Number>
+inline PhQ::Angle Vector<Number>::Angle(const Vector<Number>& vector) const {
   return PhQ::Angle{*this, vector};
 }
 
