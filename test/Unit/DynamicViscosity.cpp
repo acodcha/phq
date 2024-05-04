@@ -63,7 +63,7 @@ TEST(UnitDynamicViscosity, ConsistentUnit) {
 }
 
 TEST(UnitDynamicViscosity, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const DynamicViscosity original_unit : Units) {
     for (const DynamicViscosity intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -72,43 +72,43 @@ TEST(UnitDynamicViscosity, ConversionReciprocity) {
 }
 
 TEST(UnitDynamicViscosity, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
                             DynamicViscosity::PascalSecond>(value, value);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
-                            DynamicViscosity::KilopascalSecond>(value, value * 0.001);
+                            DynamicViscosity::KilopascalSecond>(value, value * 0.001L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
-                            DynamicViscosity::MegapascalSecond>(value, value * 0.000001);
+                            DynamicViscosity::MegapascalSecond>(value, value * 0.000001L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
-                            DynamicViscosity::GigapascalSecond>(value, value * 0.000000001);
+                            DynamicViscosity::GigapascalSecond>(value, value * 0.000000001L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
-                            DynamicViscosity::Poise>(value, value * 10.0);
+                            DynamicViscosity::Poise>(value, value * 10.0L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
                             DynamicViscosity::PoundSecondPerSquareFoot>(
-      value, value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
+      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
                             DynamicViscosity::PoundSecondPerSquareInch>(
-      value, value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
+      value, value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitDynamicViscosity, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PascalSecond,
                             DynamicViscosity::PascalSecond>(value, value);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::KilopascalSecond,
-                            DynamicViscosity::PascalSecond>(value, value * 1000.0);
+                            DynamicViscosity::PascalSecond>(value, value * 1000.0L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::MegapascalSecond,
-                            DynamicViscosity::PascalSecond>(value, value * 1000000.0);
+                            DynamicViscosity::PascalSecond>(value, value * 1000000.0L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::GigapascalSecond,
-                            DynamicViscosity::PascalSecond>(value, value * 1000000000.0);
+                            DynamicViscosity::PascalSecond>(value, value * 1000000000.0L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::Poise,
-                            DynamicViscosity::PascalSecond>(value, value * 0.1);
+                            DynamicViscosity::PascalSecond>(value, value * 0.1L);
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PoundSecondPerSquareFoot,
                             DynamicViscosity::PascalSecond>(
-      value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
+      value, value * 0.45359237L * 9.80665L / std::pow(0.3048L, 2));
   Internal::TestConversions<DynamicViscosity, DynamicViscosity::PoundSecondPerSquareInch,
                             DynamicViscosity::PascalSecond>(
-      value, value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
+      value, value * 0.45359237L * 9.80665L / std::pow(0.0254L, 2));
 }
 
 TEST(UnitDynamicViscosity, Parse) {

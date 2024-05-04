@@ -47,7 +47,7 @@ TEST(UnitAngle, ConsistentUnit) {
 }
 
 TEST(UnitAngle, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const Angle original_unit : Units) {
     for (const Angle intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -56,27 +56,29 @@ TEST(UnitAngle, ConversionReciprocity) {
 }
 
 TEST(UnitAngle, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Angle, Angle::Radian, Angle::Radian>(value, value);
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Degree>(value, value * 180.0 / Pi<double>);
+  Internal::TestConversions<Angle, Angle::Radian, Angle::Degree>(
+      value, value * 180.0L / Pi<long double>);
   Internal::TestConversions<Angle, Angle::Radian, Angle::Arcminute>(
-      value, value * 10800.0 / Pi<double>);
+      value, value * 10800.0L / Pi<long double>);
   Internal::TestConversions<Angle, Angle::Radian, Angle::Arcsecond>(
-      value, value * 648000.0 / Pi<double>);
+      value, value * 648000.0L / Pi<long double>);
   Internal::TestConversions<Angle, Angle::Radian, Angle::Revolution>(
-      value, value / (2.0 * Pi<double>));
+      value, value / (2.0L * Pi<long double>));
 }
 
 TEST(UnitAngle, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Angle, Angle::Radian, Angle::Radian>(value, value);
-  Internal::TestConversions<Angle, Angle::Degree, Angle::Radian>(value, value * Pi<double> / 180.0);
+  Internal::TestConversions<Angle, Angle::Degree, Angle::Radian>(
+      value, value * Pi<long double> / 180.0L);
   Internal::TestConversions<Angle, Angle::Arcminute, Angle::Radian>(
-      value, value * Pi<double> / 10800.0);
+      value, value * Pi<long double> / 10800.0L);
   Internal::TestConversions<Angle, Angle::Arcsecond, Angle::Radian>(
-      value, value * Pi<double> / 648000.0);
+      value, value * Pi<long double> / 648000.0L);
   Internal::TestConversions<Angle, Angle::Revolution, Angle::Radian>(
-      value, value * 2.0 * Pi<double>);
+      value, value * 2.0L * Pi<long double>);
 }
 
 TEST(UnitAngle, Parse) {

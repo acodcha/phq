@@ -60,7 +60,7 @@ TEST(UnitLength, ConsistentUnit) {
 }
 
 TEST(UnitLength, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const Length original_unit : Units) {
     for (const Length intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -69,37 +69,37 @@ TEST(UnitLength, ConversionReciprocity) {
 }
 
 TEST(UnitLength, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Length, Length::Metre, Length::NauticalMile>(value, value / 1852.0);
-  Internal::TestConversions<Length, Length::Metre, Length::Mile>(value, value / 1609.344);
-  Internal::TestConversions<Length, Length::Metre, Length::Kilometre>(value, value * 0.001);
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConversions<Length, Length::Metre, Length::NauticalMile>(value, value / 1852.0L);
+  Internal::TestConversions<Length, Length::Metre, Length::Mile>(value, value / 1609.344L);
+  Internal::TestConversions<Length, Length::Metre, Length::Kilometre>(value, value * 0.001L);
   Internal::TestConversions<Length, Length::Metre, Length::Metre>(value, value);
-  Internal::TestConversions<Length, Length::Metre, Length::Yard>(value, value / 0.9144);
-  Internal::TestConversions<Length, Length::Metre, Length::Foot>(value, value / 0.3048);
-  Internal::TestConversions<Length, Length::Metre, Length::Decimetre>(value, value * 10.0);
-  Internal::TestConversions<Length, Length::Metre, Length::Inch>(value, value / 0.0254);
-  Internal::TestConversions<Length, Length::Metre, Length::Centimetre>(value, value * 100.0);
-  Internal::TestConversions<Length, Length::Metre, Length::Millimetre>(value, value * 1000.0);
-  Internal::TestConversions<Length, Length::Metre, Length::Milliinch>(value, value / 0.0000254);
-  Internal::TestConversions<Length, Length::Metre, Length::Micrometre>(value, value * 1000000.0);
-  Internal::TestConversions<Length, Length::Metre, Length::Microinch>(value, value / 0.0000000254);
+  Internal::TestConversions<Length, Length::Metre, Length::Yard>(value, value / 0.9144L);
+  Internal::TestConversions<Length, Length::Metre, Length::Foot>(value, value / 0.3048L);
+  Internal::TestConversions<Length, Length::Metre, Length::Decimetre>(value, value * 10.0L);
+  Internal::TestConversions<Length, Length::Metre, Length::Inch>(value, value / 0.0254L);
+  Internal::TestConversions<Length, Length::Metre, Length::Centimetre>(value, value * 100.0L);
+  Internal::TestConversions<Length, Length::Metre, Length::Millimetre>(value, value * 1000.0L);
+  Internal::TestConversions<Length, Length::Metre, Length::Milliinch>(value, value / 0.0000254L);
+  Internal::TestConversions<Length, Length::Metre, Length::Micrometre>(value, value * 1000000.0L);
+  Internal::TestConversions<Length, Length::Metre, Length::Microinch>(value, value / 0.0000000254L);
 }
 
 TEST(UnitLength, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Length, Length::NauticalMile, Length::Metre>(value, value * 1852.0);
-  Internal::TestConversions<Length, Length::Mile, Length::Metre>(value, value * 1609.344);
-  Internal::TestConversions<Length, Length::Kilometre, Length::Metre>(value, value * 1000.0);
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConversions<Length, Length::NauticalMile, Length::Metre>(value, value * 1852.0L);
+  Internal::TestConversions<Length, Length::Mile, Length::Metre>(value, value * 1609.344L);
+  Internal::TestConversions<Length, Length::Kilometre, Length::Metre>(value, value * 1000.0L);
   Internal::TestConversions<Length, Length::Metre, Length::Metre>(value, value);
-  Internal::TestConversions<Length, Length::Yard, Length::Metre>(value, value * 0.9144);
-  Internal::TestConversions<Length, Length::Foot, Length::Metre>(value, value * 0.3048);
-  Internal::TestConversions<Length, Length::Decimetre, Length::Metre>(value, value * 0.1);
-  Internal::TestConversions<Length, Length::Inch, Length::Metre>(value, value * 0.0254);
-  Internal::TestConversions<Length, Length::Centimetre, Length::Metre>(value, value * 0.01);
-  Internal::TestConversions<Length, Length::Millimetre, Length::Metre>(value, value * 0.001);
-  Internal::TestConversions<Length, Length::Milliinch, Length::Metre>(value, value * 0.0000254);
-  Internal::TestConversions<Length, Length::Micrometre, Length::Metre>(value, value * 0.000001);
-  Internal::TestConversions<Length, Length::Microinch, Length::Metre>(value, value * 0.0000000254);
+  Internal::TestConversions<Length, Length::Yard, Length::Metre>(value, value * 0.9144L);
+  Internal::TestConversions<Length, Length::Foot, Length::Metre>(value, value * 0.3048L);
+  Internal::TestConversions<Length, Length::Decimetre, Length::Metre>(value, value * 0.1L);
+  Internal::TestConversions<Length, Length::Inch, Length::Metre>(value, value * 0.0254L);
+  Internal::TestConversions<Length, Length::Centimetre, Length::Metre>(value, value * 0.01L);
+  Internal::TestConversions<Length, Length::Millimetre, Length::Metre>(value, value * 0.001L);
+  Internal::TestConversions<Length, Length::Milliinch, Length::Metre>(value, value * 0.0000254L);
+  Internal::TestConversions<Length, Length::Micrometre, Length::Metre>(value, value * 0.000001L);
+  Internal::TestConversions<Length, Length::Microinch, Length::Metre>(value, value * 0.0000000254L);
 }
 
 TEST(UnitLength, Parse) {

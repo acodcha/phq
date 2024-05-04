@@ -400,782 +400,865 @@ inline const std::unordered_map<std::string_view, Unit::Acceleration> Spellings<
 };
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond>(
-    double& value) noexcept {
-  value /= 1852.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(1852.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond>(
-    double& value) noexcept {
-  value *= 1852.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1852.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 1852.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(1852.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareMinute>(
-    double& value) noexcept {
-  value *= 1852.0 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1852.0L) / static_cast<Number>(3600.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::KnotPerHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 1852.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Acceleration, Unit::Acceleration::KnotPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(1852.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Acceleration, Unit::Acceleration::KnotPerHour>(
-    double& value) noexcept {
-  value *= 1852.0 / 12960000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Acceleration, Unit::Acceleration::KnotPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1852.0L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>(
-    double& value) noexcept {
-  value /= 1609.344;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(1609.344L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>(
-    double& value) noexcept {
-  value *= 1609.344;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 1609.344;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(1609.344L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute>(
-    double& value) noexcept {
-  value *= 1609.344 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 1609.344;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(1609.344L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>(
-    double& value) noexcept {
-  value *= 1609.344 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.001;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3.6;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3.6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 1000.0 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour>(
-    double& value) noexcept {
-  value *= 12960.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour>(
-    double& value) noexcept {
-  value *= 1000.0 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>(
-    double& value) noexcept {
-  value /= 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>(
-    double& value) noexcept {
-  value /= 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>(
-    double& value) noexcept {
-  value /= 0.9144;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.9144L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.9144;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.9144L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.9144;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.9144L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.9144 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.9144L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 0.9144;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(0.9144L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>(
-    double& value) noexcept {
-  value *= 0.9144 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.9144L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>(
-    double& value) noexcept {
-  value /= 0.3048;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.3048;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.3048;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.3048 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 0.3048;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>(
-    double& value) noexcept {
-  value *= 0.3048 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 10.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(10.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.1;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.1L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 36000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(36000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.1 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.1L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 129600000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(129600000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 0.1 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.1L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>(
-    double& value) noexcept {
-  value /= 0.0254;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.0254;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.0254;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.0254 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 0.0254;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>(
-    double& value) noexcept {
-  value *= 0.0254 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 100.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(100.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.01;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.01L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 360000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(360000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.01 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.01L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 1296000000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1296000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 0.01 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.01L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.001;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.001 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour>(
-    double& value) noexcept {
-  value *= 0.001 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>(
-    double& value) noexcept {
-  value /= 0.0000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.0000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.0000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.0000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.0000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.0000254 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 0.0000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(0.0000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour>(
-    double& value) noexcept {
-  value *= 0.0000254 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 1000000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.000001;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600000000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.000001 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000000000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour>(
-    double& value) noexcept {
-  value *= 0.000001 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L) / static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>(
-    double& value) noexcept {
-  value /= 0.0000000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.0000000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.0000000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.0000000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.0000000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute>(
-    double& value) noexcept {
-  value *= 0.0000000254 / 3600.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0 / 0.0000000254;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L) / static_cast<Number>(0.0000000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour>(
-    double& value) noexcept {
-  value *= 0.0000000254 / 12960000.0;
+Conversion<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L) / static_cast<Number>(12960000.0L);
 }
 
-template <>
+template <typename Number>
 inline const std::map<Unit::Acceleration,
-                      std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Acceleration, double>{
+                      std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Acceleration, Number>{
         {Unit::Acceleration::NauticalMilePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration,
-         Unit::Acceleration::NauticalMilePerSquareSecond,                                           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::NauticalMilePerSquareSecond>::FromStandard<Number>                },
         {Unit::Acceleration::NauticalMilePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration,
-         Unit::Acceleration::NauticalMilePerSquareMinute,                                           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::NauticalMilePerSquareMinute>::FromStandard<Number>                },
         {Unit::Acceleration::KnotPerHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::KnotPerHour,               double>},
+         Conversions<Unit::Acceleration, Unit::Acceleration::KnotPerHour>::FromStandard<Number>},
         {Unit::Acceleration::MilePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareSecond>::FromStandard<Number>                        },
         {Unit::Acceleration::MilePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareMinute>::FromStandard<Number>                        },
         {Unit::Acceleration::MilePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareHour>::FromStandard<Number>                          },
         {Unit::Acceleration::KilometrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareSecond>::FromStandard<Number>                   },
         {Unit::Acceleration::KilometrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareMinute>::FromStandard<Number>                   },
         {Unit::Acceleration::KilometrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareHour>::FromStandard<Number>                     },
         {Unit::Acceleration::MetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareSecond>::FromStandard<Number>                       },
         {Unit::Acceleration::MetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>::FromStandard<Number>                       },
         {Unit::Acceleration::MetrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>::FromStandard<Number>                         },
         {Unit::Acceleration::YardPerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareSecond>::FromStandard<Number>                        },
         {Unit::Acceleration::YardPerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareMinute>::FromStandard<Number>                        },
         {Unit::Acceleration::YardPerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareHour>::FromStandard<Number>                          },
         {Unit::Acceleration::FootPerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareSecond>::FromStandard<Number>                        },
         {Unit::Acceleration::FootPerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareMinute>::FromStandard<Number>                        },
         {Unit::Acceleration::FootPerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareHour>::FromStandard<Number>                          },
         {Unit::Acceleration::DecimetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareSecond>::FromStandard<Number>                   },
         {Unit::Acceleration::DecimetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareMinute>::FromStandard<Number>                   },
         {Unit::Acceleration::DecimetrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareHour>::FromStandard<Number>                     },
         {Unit::Acceleration::InchPerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareSecond>::FromStandard<Number>                        },
         {Unit::Acceleration::InchPerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareMinute>::FromStandard<Number>                        },
         {Unit::Acceleration::InchPerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareHour>::FromStandard<Number>                          },
         {Unit::Acceleration::CentimetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareSecond>::FromStandard<Number>                  },
         {Unit::Acceleration::CentimetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareMinute>::FromStandard<Number>                  },
         {Unit::Acceleration::CentimetrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareHour>::FromStandard<Number>                    },
         {Unit::Acceleration::MillimetrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareSecond>::FromStandard<Number>                  },
         {Unit::Acceleration::MillimetrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareMinute>::FromStandard<Number>                  },
         {Unit::Acceleration::MillimetrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareHour>::FromStandard<Number>                    },
         {Unit::Acceleration::MilliinchPerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareSecond>::FromStandard<Number>                   },
         {Unit::Acceleration::MilliinchPerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareMinute>::FromStandard<Number>                   },
         {Unit::Acceleration::MilliinchPerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareHour>::FromStandard<Number>                     },
         {Unit::Acceleration::MicrometrePerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareSecond>::FromStandard<Number>                  },
         {Unit::Acceleration::MicrometrePerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareMinute>::FromStandard<Number>                  },
         {Unit::Acceleration::MicrometrePerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareHour>::FromStandard<Number>                    },
         {Unit::Acceleration::MicroinchPerSquareSecond,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareSecond>::FromStandard<Number>                   },
         {Unit::Acceleration::MicroinchPerSquareMinute,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareMinute>::FromStandard<Number>                   },
         {Unit::Acceleration::MicroinchPerSquareHour,
-         ConversionsFromStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareHour>::FromStandard<Number>                     },
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::Acceleration,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Acceleration, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Acceleration, Number>{
         {Unit::Acceleration::NauticalMilePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::NauticalMilePerSquareSecond>::ToStandard<Number>                },
         {Unit::Acceleration::NauticalMilePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::NauticalMilePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::NauticalMilePerSquareMinute>::ToStandard<Number>                },
         {Unit::Acceleration::KnotPerHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::KnotPerHour,                 double>},
+         Conversions<Unit::Acceleration, Unit::Acceleration::KnotPerHour>::ToStandard<Number>},
         {Unit::Acceleration::MilePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareSecond>::ToStandard<Number>                        },
         {Unit::Acceleration::MilePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareMinute>::ToStandard<Number>                        },
         {Unit::Acceleration::MilePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilePerSquareHour,           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilePerSquareHour>::ToStandard<Number>                          },
         {Unit::Acceleration::KilometrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareSecond>::ToStandard<Number>                   },
         {Unit::Acceleration::KilometrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareMinute>::ToStandard<Number>                   },
         {Unit::Acceleration::KilometrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::KilometrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::KilometrePerSquareHour>::ToStandard<Number>                     },
         {Unit::Acceleration::MetrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareSecond>::ToStandard<Number>                       },
         {Unit::Acceleration::MetrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareMinute>::ToStandard<Number>                       },
         {Unit::Acceleration::MetrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MetrePerSquareHour,          double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MetrePerSquareHour>::ToStandard<Number>                         },
         {Unit::Acceleration::YardPerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareSecond>::ToStandard<Number>                        },
         {Unit::Acceleration::YardPerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareMinute>::ToStandard<Number>                        },
         {Unit::Acceleration::YardPerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::YardPerSquareHour,           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::YardPerSquareHour>::ToStandard<Number>                          },
         {Unit::Acceleration::FootPerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareSecond>::ToStandard<Number>                        },
         {Unit::Acceleration::FootPerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareMinute>::ToStandard<Number>                        },
         {Unit::Acceleration::FootPerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::FootPerSquareHour,           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::FootPerSquareHour>::ToStandard<Number>                          },
         {Unit::Acceleration::DecimetrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareSecond>::ToStandard<Number>                   },
         {Unit::Acceleration::DecimetrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareMinute>::ToStandard<Number>                   },
         {Unit::Acceleration::DecimetrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::DecimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::DecimetrePerSquareHour>::ToStandard<Number>                     },
         {Unit::Acceleration::InchPerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareSecond>::ToStandard<Number>                        },
         {Unit::Acceleration::InchPerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareMinute>::ToStandard<Number>                        },
         {Unit::Acceleration::InchPerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::InchPerSquareHour,           double>},
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::InchPerSquareHour>::ToStandard<Number>                          },
         {Unit::Acceleration::CentimetrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareSecond>::ToStandard<Number>                  },
         {Unit::Acceleration::CentimetrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareMinute>::ToStandard<Number>                  },
         {Unit::Acceleration::CentimetrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::CentimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::CentimetrePerSquareHour>::ToStandard<Number>                    },
         {Unit::Acceleration::MillimetrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareSecond>::ToStandard<Number>                  },
         {Unit::Acceleration::MillimetrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareMinute>::ToStandard<Number>                  },
         {Unit::Acceleration::MillimetrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MillimetrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MillimetrePerSquareHour>::ToStandard<Number>                    },
         {Unit::Acceleration::MilliinchPerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareSecond>::ToStandard<Number>                   },
         {Unit::Acceleration::MilliinchPerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareMinute>::ToStandard<Number>                   },
         {Unit::Acceleration::MilliinchPerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MilliinchPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MilliinchPerSquareHour>::ToStandard<Number>                     },
         {Unit::Acceleration::MicrometrePerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareSecond>::ToStandard<Number>                  },
         {Unit::Acceleration::MicrometrePerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareMinute>::ToStandard<Number>                  },
         {Unit::Acceleration::MicrometrePerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicrometrePerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicrometrePerSquareHour>::ToStandard<Number>                    },
         {Unit::Acceleration::MicroinchPerSquareSecond,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareSecond,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareSecond>::ToStandard<Number>                   },
         {Unit::Acceleration::MicroinchPerSquareMinute,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareMinute,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareMinute>::ToStandard<Number>                   },
         {Unit::Acceleration::MicroinchPerSquareHour,
-         ConversionsToStandard<Unit::Acceleration, Unit::Acceleration::MicroinchPerSquareHour,
-         double>                                                                                           },
+         Conversions<Unit::Acceleration,
+         Unit::Acceleration::MicroinchPerSquareHour>::ToStandard<Number>                     },
 };
 
 }  // namespace Internal

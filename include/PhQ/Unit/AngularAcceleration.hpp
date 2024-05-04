@@ -144,21 +144,21 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spe
     {"rad/hr^2",       Unit::AngularAcceleration::RadianPerSquareHour      },
     {"rad/hr2",        Unit::AngularAcceleration::RadianPerSquareHour      },
     {"rad/hr/hr",      Unit::AngularAcceleration::RadianPerSquareHour      },
-    {"°/s^2",          Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/s2",           Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/s/s",          Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s^2",         Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s2",          Unit::AngularAcceleration::DegreePerSquareSecond    },
+    {"°/s/s",         Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s^2",        Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s2",         Unit::AngularAcceleration::DegreePerSquareSecond    },
     {"deg/s/s",        Unit::AngularAcceleration::DegreePerSquareSecond    },
-    {"°/min^2",        Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/min2",         Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/min/min",      Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min^2",       Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min2",        Unit::AngularAcceleration::DegreePerSquareMinute    },
+    {"°/min/min",     Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min^2",      Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min2",       Unit::AngularAcceleration::DegreePerSquareMinute    },
     {"deg/min/min",    Unit::AngularAcceleration::DegreePerSquareMinute    },
-    {"°/hr^2",         Unit::AngularAcceleration::DegreePerSquareHour      },
-    {"°/hr2",          Unit::AngularAcceleration::DegreePerSquareHour      },
-    {"°/hr/hr",        Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr^2",        Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr2",         Unit::AngularAcceleration::DegreePerSquareHour      },
+    {"°/hr/hr",       Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr^2",       Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr2",        Unit::AngularAcceleration::DegreePerSquareHour      },
     {"deg/hr/hr",      Unit::AngularAcceleration::DegreePerSquareHour      },
@@ -192,312 +192,341 @@ inline const std::unordered_map<std::string_view, Unit::AngularAcceleration> Spe
 };
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>::
+    FromStandard(Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareSecond>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareMinute>(
-    double& value) noexcept {
-  value *= 3600.0;
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::RadianPerSquareMinute>::FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareMinute>(
-    double& value) noexcept {
-  value /= 3600.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>(
-    double& value) noexcept {
-  value *= 12960000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>(
-    double& value) noexcept {
-  value /= 12960000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RadianPerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(12960000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareSecond>(
-    double& value) noexcept {
-  value *= 180.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::DegreePerSquareSecond>::FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(180.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareSecond>(
-    double& value) noexcept {
-  value *= Pi<double> / 180.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(180.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareMinute>(
-    double& value) noexcept {
-  value *= 648000.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::DegreePerSquareMinute>::FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(648000.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareMinute>(
-    double& value) noexcept {
-  value *= Pi<double> / 648000.0;
-  ;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(648000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>(
-    double& value) noexcept {
-  value *= 2332800000.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(2332800000.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>(
-    double& value) noexcept {
-  value *= Pi<double> / 2332800000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::DegreePerSquareHour>::ToStandard(
+    Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(2332800000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::ArcminutePerSquareSecond>(
-    double& value) noexcept {
-  value *= 10800.0 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::ArcminutePerSquareSecond>(double& value) noexcept {
-  value *= Pi<double> / 10800.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareSecond>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(10800.0L) / Pi<Number>;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::ArcminutePerSquareMinute>(
-    double& value) noexcept {
-  value *= 38880000.0 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::ArcminutePerSquareMinute>(double& value) noexcept {
-  value *= Pi<double> / 38880000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareSecond>::
+    ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(10800.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration,
-                       Unit::AngularAcceleration::ArcminutePerSquareHour>(double& value) noexcept {
-  value *= 139968000000.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareMinute>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(38880000.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareHour>(
-    double& value) noexcept {
-  value *= Pi<double> / 139968000000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareMinute>::
+    ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(38880000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::ArcsecondPerSquareSecond>(
-    double& value) noexcept {
-  value *= 648000.0 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::ArcsecondPerSquareSecond>(double& value) noexcept {
-  value *= Pi<double> / 648000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcminutePerSquareHour>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(139968000000.0L) / Pi<Number>;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::ArcsecondPerSquareMinute>(
-    double& value) noexcept {
-  value *= 2332800000.0 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::ArcsecondPerSquareMinute>(double& value) noexcept {
-  value *= Pi<double> / 2332800000.0;
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::ArcminutePerSquareHour>::ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(139968000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration,
-                       Unit::AngularAcceleration::ArcsecondPerSquareHour>(double& value) noexcept {
-  value *= 8398080000000.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareSecond>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(648000.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareHour>(
-    double& value) noexcept {
-  value *= Pi<double> / 8398080000000.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareSecond>::
+    ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(648000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::RevolutionPerSquareSecond>(
-    double& value) noexcept {
-  value *= 0.5 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::RevolutionPerSquareSecond>(double& value) noexcept {
-  value *= 2.0 * Pi<double>;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareMinute>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(2332800000.0L) / Pi<Number>;
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::AngularAcceleration,
-                                             Unit::AngularAcceleration::RevolutionPerSquareMinute>(
-    double& value) noexcept {
-  value *= 1800.0 / Pi<double>;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration,
-                     Unit::AngularAcceleration::RevolutionPerSquareMinute>(double& value) noexcept {
-  value *= Pi<double> / 1800.0;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareMinute>::
+    ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(2332800000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::AngularAcceleration,
-                       Unit::AngularAcceleration::RevolutionPerSquareHour>(double& value) noexcept {
-  value *= 6480000.0 / Pi<double>;
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::ArcsecondPerSquareHour>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(8398080000000.0L) / Pi<Number>;
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareHour>(
-    double& value) noexcept {
-  value *= Pi<double> / 6480000.0;
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::ArcsecondPerSquareHour>::ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(8398080000000.0L);
 }
 
 template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareSecond>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(0.5L) / Pi<Number>;
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareSecond>::
+    ToStandard(Number& value) noexcept {
+  value *= static_cast<Number>(2.0L) * Pi<Number>;
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareMinute>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(1800.0L) / Pi<Number>;
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareMinute>::
+    ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(1800.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration, Unit::AngularAcceleration::RevolutionPerSquareHour>::
+    FromStandard(Number& value) noexcept {
+  value *= static_cast<Number>(6480000.0L) / Pi<Number>;
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::AngularAcceleration,
+           Unit::AngularAcceleration::RevolutionPerSquareHour>::ToStandard(Number& value) noexcept {
+  value *= Pi<Number> / static_cast<Number>(6480000.0L);
+}
+
+template <typename Number>
 inline const std::map<Unit::AngularAcceleration,
-                      std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::AngularAcceleration, double>{
+                      std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::AngularAcceleration, Number>{
         {Unit::AngularAcceleration::RadianPerSquareSecond,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareSecond,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareSecond>::FromStandard<Number>    },
         {Unit::AngularAcceleration::RadianPerSquareMinute,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareMinute,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareMinute>::FromStandard<Number>    },
         {Unit::AngularAcceleration::RadianPerSquareHour,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareHour,       double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareHour>::FromStandard<Number>      },
         {Unit::AngularAcceleration::DegreePerSquareSecond,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareSecond,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareSecond>::FromStandard<Number>    },
         {Unit::AngularAcceleration::DegreePerSquareMinute,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareMinute,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareMinute>::FromStandard<Number>    },
         {Unit::AngularAcceleration::DegreePerSquareHour,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareHour,       double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareHour>::FromStandard<Number>      },
         {Unit::AngularAcceleration::ArcminutePerSquareSecond,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareSecond,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareSecond>::FromStandard<Number> },
         {Unit::AngularAcceleration::ArcminutePerSquareMinute,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareMinute,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareMinute>::FromStandard<Number> },
         {Unit::AngularAcceleration::ArcminutePerSquareHour,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareHour,    double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareHour>::FromStandard<Number>   },
         {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareSecond,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareSecond>::FromStandard<Number> },
         {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareMinute,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareMinute>::FromStandard<Number> },
         {Unit::AngularAcceleration::ArcsecondPerSquareHour,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareHour,    double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareHour>::FromStandard<Number>   },
         {Unit::AngularAcceleration::RevolutionPerSquareSecond,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareSecond, double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareSecond>::FromStandard<Number>},
         {Unit::AngularAcceleration::RevolutionPerSquareMinute,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareMinute, double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareMinute>::FromStandard<Number>},
         {Unit::AngularAcceleration::RevolutionPerSquareHour,
-         ConversionsFromStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareHour,   double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareHour>::FromStandard<Number>  },
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::AngularAcceleration,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::AngularAcceleration, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::AngularAcceleration, Number>{
         {Unit::AngularAcceleration::RadianPerSquareSecond,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareSecond,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareSecond>::ToStandard<Number>    },
         {Unit::AngularAcceleration::RadianPerSquareMinute,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareMinute,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareMinute>::ToStandard<Number>    },
         {Unit::AngularAcceleration::RadianPerSquareHour,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RadianPerSquareHour,       double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RadianPerSquareHour>::ToStandard<Number>      },
         {Unit::AngularAcceleration::DegreePerSquareSecond,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareSecond,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareSecond>::ToStandard<Number>    },
         {Unit::AngularAcceleration::DegreePerSquareMinute,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareMinute,     double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareMinute>::ToStandard<Number>    },
         {Unit::AngularAcceleration::DegreePerSquareHour,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::DegreePerSquareHour,       double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::DegreePerSquareHour>::ToStandard<Number>      },
         {Unit::AngularAcceleration::ArcminutePerSquareSecond,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareSecond,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareSecond>::ToStandard<Number> },
         {Unit::AngularAcceleration::ArcminutePerSquareMinute,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareMinute,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareMinute>::ToStandard<Number> },
         {Unit::AngularAcceleration::ArcminutePerSquareHour,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcminutePerSquareHour,    double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcminutePerSquareHour>::ToStandard<Number>   },
         {Unit::AngularAcceleration::ArcsecondPerSquareSecond,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareSecond,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareSecond>::ToStandard<Number> },
         {Unit::AngularAcceleration::ArcsecondPerSquareMinute,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareMinute,  double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareMinute>::ToStandard<Number> },
         {Unit::AngularAcceleration::ArcsecondPerSquareHour,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::ArcsecondPerSquareHour,    double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::ArcsecondPerSquareHour>::ToStandard<Number>   },
         {Unit::AngularAcceleration::RevolutionPerSquareSecond,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareSecond, double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareSecond>::ToStandard<Number>},
         {Unit::AngularAcceleration::RevolutionPerSquareMinute,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareMinute, double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareMinute>::ToStandard<Number>},
         {Unit::AngularAcceleration::RevolutionPerSquareHour,
-         ConversionsToStandard<Unit::AngularAcceleration,
-         Unit::AngularAcceleration::RevolutionPerSquareHour,   double>},
+         Conversions<Unit::AngularAcceleration,
+         Unit::AngularAcceleration::RevolutionPerSquareHour>::ToStandard<Number>  },
 };
 
 }  // namespace Internal

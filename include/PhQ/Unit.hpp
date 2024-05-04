@@ -15,6 +15,7 @@
 #define PHQ_UNIT_HPP
 
 #include <functional>
+#include <type_traits>
 #include <vector>
 
 #include "Dimensions.hpp"
@@ -35,39 +36,59 @@ inline constexpr Dimensions RelatedDimensions;
 
 namespace Internal {
 
-// Abstract function for converting a value expressed in the standard unit of measure of a given
-// type to any given unit of measure of that type. Internal implementation detail not intended to be
-// used outside of the PhQ::Internal::ConversionsFromStandard function.
-template <typename Unit, Unit NewUnit, typename Number>
-inline constexpr void ConversionFromStandard(Number& value) noexcept;
+// Abstract class for converting a value expressed in a unit of measure to or from the standard unit
+// of measure of that type. Internal implementation detail not intended to be used outside of the
+// PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+template <typename Unit, Unit UnitValue>
+class Conversion {
+public:
+  // Converts a value expressed in the standard unit of measure of a given unit type to any given
+  // unit of measure of that type. Internal implementation detail not intended to be used outside of
+  // the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  template <typename Number>
+  static inline constexpr void FromStandard(Number& value) noexcept;
 
-// Abstract function for converting a value expressed in any given unit of measure of a given type
-// to the standard unit of measure of that type. Internal implementation detail not intended to be
-// used outside of the PhQ::Internal::ConversionsToStandard function.
-template <typename Unit, Unit OriginalUnit, typename Number>
-inline constexpr void ConversionToStandard(Number& value) noexcept;
+  // Converts a value expressed in any given unit of measure of a given unit type to the standard
+  // unit of measure of that type. Internal implementation detail not intended to be used outside of
+  // the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  template <typename Number>
+  static inline constexpr void ToStandard(Number& value) noexcept;
+};
 
-// Function for converting a series of values expressed in the standard unit of measure of a given
-// type to any given unit of measure of that type. Internal implementation detail not intended to be
-// used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
-template <typename Unit, Unit NewUnit, typename Number>
-inline constexpr void ConversionsFromStandard(Number* values, const std::size_t size) noexcept {
-  const Number* const end{values + size};
-  for (; values < end; ++values) {
-    ConversionFromStandard<Unit, NewUnit, Number>(*values);
+// Abstract class for converting a series of values expressed in a unit of measure to or from the
+// standard unit of measure of that type. Internal implementation detail not intended to be used
+// outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+template <typename Unit, Unit UnitValue>
+class Conversions {
+public:
+  // Converts a series of values expressed in the standard unit of measure of a given unit type to
+  // any given unit of measure of that type. Internal implementation detail not intended to be used
+  // outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  template <typename Number>
+  static inline constexpr void FromStandard(Number* values, const std::size_t size) noexcept {
+    static_assert(std::is_floating_point<Number>::value,
+                  "The Number template parameter of PhQ::Conversions::FromStandard must be a "
+                  "floating-point number type.");
+    const Number* const end{values + size};
+    for (; values < end; ++values) {
+      Conversion<Unit, UnitValue>::FromStandard(*values);
+    }
   }
-}
 
-// Function for converting a series of values expressed in any given unit of measure of a given type
-// to the standard unit of measure of that type. Internal implementation detail not intended to be
-// used outside of the functions: PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy.
-template <typename Unit, Unit OriginalUnit, typename Number>
-inline constexpr void ConversionsToStandard(Number* values, const std::size_t size) noexcept {
-  const Number* const end{values + size};
-  for (; values < end; ++values) {
-    ConversionToStandard<Unit, OriginalUnit, Number>(*values);
+  // Converts a series of values expressed in any given unit of measure of a given unit type to the
+  // standard unit of measure of that type. Internal implementation detail not intended to be used
+  // outside of the PhQ::Convert, PhQ::ConvertCopy, and PhQ::StaticConvertCopy functions.
+  template <typename Number>
+  static inline constexpr void ToStandard(Number* values, const std::size_t size) noexcept {
+    static_assert(std::is_floating_point<Number>::value,
+                  "The Number template parameter of PhQ::Conversions::ToStandard must be a "
+                  "floating-point number type.");
+    const Number* const end{values + size};
+    for (; values < end; ++values) {
+      Conversion<Unit, UnitValue>::ToStandard(*values);
+    }
   }
-}
+};
 
 // Abstract map of functions for converting a series of values expressed in the standard unit of
 // measure of a given type to any given unit of measure of that type. Internal implementation detail
@@ -91,6 +112,9 @@ inline const std::map<Unit, std::function<void(Number* values, const std::size_t
 // performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(Number& value, const Unit original_unit, const Unit new_unit) {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of PhQ::Convert must be a floating-point number type.");
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit, Number>.find(original_unit)->second(&value, 1);
   }
@@ -104,6 +128,9 @@ inline void Convert(Number& value, const Unit original_unit, const Unit new_unit
 template <typename Unit, std::size_t Size, typename Number>
 inline void Convert(
     std::array<Number, Size>& values, const Unit original_unit, const Unit new_unit) {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of PhQ::Convert must be a floating-point number type.");
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit, Number>.find(original_unit)->second(values.data(), Size);
   }
@@ -117,6 +144,9 @@ inline void Convert(
 // conversion is performed in-place.
 template <typename Unit, typename Number>
 inline void Convert(std::vector<Number>& values, const Unit original_unit, const Unit new_unit) {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of PhQ::Convert must be a floating-point number type.");
   if (original_unit != Standard<Unit>) {
     Internal::MapOfConversionsToStandard<Unit, Number>.find(original_unit)->second(values.data(), values.size());
   }
@@ -207,9 +237,12 @@ inline Dyad<Number> ConvertCopy(
 // compile time.
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, typename Number>
 inline constexpr Number StaticConvertCopy(const Number value) {
+  static_assert(std::is_floating_point<Number>::value,
+                "The Number template parameter of PhQ::StaticConvertCopy must be a floating-point "
+                "number type.");
   Number result{value};
-  Internal::ConversionToStandard<Unit, OriginalUnit, Number>(result);
-  Internal::ConversionFromStandard<Unit, NewUnit, Number>(result);
+  Internal::Conversion<Unit, OriginalUnit>::ToStandard(result);
+  Internal::Conversion<Unit, NewUnit>::FromStandard(result);
   return result;
 }
 
@@ -219,9 +252,12 @@ inline constexpr Number StaticConvertCopy(const Number value) {
 template <typename Unit, Unit OriginalUnit, Unit NewUnit, std::size_t Size, typename Number>
 inline constexpr std::array<Number, Size> StaticConvertCopy(
     const std::array<Number, Size>& values) {
+  static_assert(std::is_floating_point<Number>::value,
+                "The Number template parameter of PhQ::StaticConvertCopy must be a floating-point "
+                "number type.");
   std::array<Number, Size> result{values};
-  Internal::ConversionsToStandard<Unit, OriginalUnit, Number>(result.data(), Size);
-  Internal::ConversionsFromStandard<Unit, NewUnit, Number>(result.data(), Size);
+  Internal::Conversions<Unit, OriginalUnit>::ToStandard(result.data(), Size);
+  Internal::Conversions<Unit, NewUnit>::FromStandard(result.data(), Size);
   return result;
 }
 

@@ -55,7 +55,7 @@ TEST(UnitForce, ConsistentUnit) {
 }
 
 TEST(UnitForce, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const Force original_unit : Units) {
     for (const Force intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -64,31 +64,31 @@ TEST(UnitForce, ConversionReciprocity) {
 }
 
 TEST(UnitForce, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Force, Force::Newton, Force::Newton>(value, value);
-  Internal::TestConversions<Force, Force::Newton, Force::Kilonewton>(value, value * 0.001);
-  Internal::TestConversions<Force, Force::Newton, Force::Meganewton>(value, value * 0.000001);
-  Internal::TestConversions<Force, Force::Newton, Force::Giganewton>(value, value * 0.000000001);
-  Internal::TestConversions<Force, Force::Newton, Force::Millinewton>(value, value * 1000.0);
-  Internal::TestConversions<Force, Force::Newton, Force::Micronewton>(value, value * 1000000.0);
-  Internal::TestConversions<Force, Force::Newton, Force::Nanonewton>(value, value * 1000000000.0);
-  Internal::TestConversions<Force, Force::Newton, Force::Dyne>(value, value * 100000.0);
+  Internal::TestConversions<Force, Force::Newton, Force::Kilonewton>(value, value * 0.001L);
+  Internal::TestConversions<Force, Force::Newton, Force::Meganewton>(value, value * 0.000001L);
+  Internal::TestConversions<Force, Force::Newton, Force::Giganewton>(value, value * 0.000000001L);
+  Internal::TestConversions<Force, Force::Newton, Force::Millinewton>(value, value * 1000.0L);
+  Internal::TestConversions<Force, Force::Newton, Force::Micronewton>(value, value * 1000000.0L);
+  Internal::TestConversions<Force, Force::Newton, Force::Nanonewton>(value, value * 1000000000.0L);
+  Internal::TestConversions<Force, Force::Newton, Force::Dyne>(value, value * 100000.0L);
   Internal::TestConversions<Force, Force::Newton, Force::Pound>(
-      value, value / (0.45359237 * 9.80665));
+      value, value / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitForce, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Force, Force::Newton, Force::Newton>(value, value);
-  Internal::TestConversions<Force, Force::Kilonewton, Force::Newton>(value, value * 1000.0);
-  Internal::TestConversions<Force, Force::Meganewton, Force::Newton>(value, value * 1000000.0);
-  Internal::TestConversions<Force, Force::Giganewton, Force::Newton>(value, value * 1000000000.0);
-  Internal::TestConversions<Force, Force::Millinewton, Force::Newton>(value, value * 0.001);
-  Internal::TestConversions<Force, Force::Micronewton, Force::Newton>(value, value * 0.000001);
-  Internal::TestConversions<Force, Force::Nanonewton, Force::Newton>(value, value * 0.000000001);
-  Internal::TestConversions<Force, Force::Dyne, Force::Newton>(value, value * 0.00001);
+  Internal::TestConversions<Force, Force::Kilonewton, Force::Newton>(value, value * 1000.0L);
+  Internal::TestConversions<Force, Force::Meganewton, Force::Newton>(value, value * 1000000.0L);
+  Internal::TestConversions<Force, Force::Giganewton, Force::Newton>(value, value * 1000000000.0L);
+  Internal::TestConversions<Force, Force::Millinewton, Force::Newton>(value, value * 0.001L);
+  Internal::TestConversions<Force, Force::Micronewton, Force::Newton>(value, value * 0.000001L);
+  Internal::TestConversions<Force, Force::Nanonewton, Force::Newton>(value, value * 0.000000001L);
+  Internal::TestConversions<Force, Force::Dyne, Force::Newton>(value, value * 0.00001L);
   Internal::TestConversions<Force, Force::Pound, Force::Newton>(
-      value, value * 0.45359237 * 9.80665);
+      value, value * 0.45359237L * 9.80665L);
 }
 
 TEST(UnitForce, Parse) {
