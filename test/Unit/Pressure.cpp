@@ -63,7 +63,7 @@ TEST(UnitPressure, ConsistentUnit) {
 }
 
 TEST(UnitPressure, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const Pressure original_unit : Units) {
     for (const Pressure intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -72,38 +72,39 @@ TEST(UnitPressure, ConversionReciprocity) {
 }
 
 TEST(UnitPressure, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Pascal>(value, value);
-  Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Kilopascal>(value, value * 0.001);
+  Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Kilopascal>(
+      value, value * 0.001L);
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Megapascal>(
-      value, value * 0.000001);
+      value, value * 0.000001L);
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Gigapascal>(
-      value, value * 0.000000001);
-  Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Bar>(value, value * 0.00001);
+      value, value * 0.000000001L);
+  Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Bar>(value, value * 0.00001L);
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Atmosphere>(
-      value, value / 101325.0);
+      value, value / 101325.0L);
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::PoundPerSquareFoot>(
-      value, value * std::pow(0.3048, 2) / (0.45359237 * 9.80665));
+      value, value * std::pow(0.3048L, 2) / (0.45359237L * 9.80665L));
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::PoundPerSquareInch>(
-      value, value * std::pow(0.0254, 2) / (0.45359237 * 9.80665));
+      value, value * std::pow(0.0254L, 2) / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitPressure, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<Pressure, Pressure::Pascal, Pressure::Pascal>(value, value);
   Internal::TestConversions<Pressure, Pressure::Kilopascal, Pressure::Pascal>(
-      value, value * 1000.0);
+      value, value * 1000.0L);
   Internal::TestConversions<Pressure, Pressure::Megapascal, Pressure::Pascal>(
-      value, value * 1000000.0);
+      value, value * 1000000.0L);
   Internal::TestConversions<Pressure, Pressure::Gigapascal, Pressure::Pascal>(
-      value, value * 1000000000.0);
-  Internal::TestConversions<Pressure, Pressure::Bar, Pressure::Pascal>(value, value * 100000.0);
+      value, value * 1000000000.0L);
+  Internal::TestConversions<Pressure, Pressure::Bar, Pressure::Pascal>(value, value * 100000.0L);
   Internal::TestConversions<Pressure, Pressure::Atmosphere, Pressure::Pascal>(
-      value, value * 101325.0);
+      value, value * 101325.0L);
   Internal::TestConversions<Pressure, Pressure::PoundPerSquareFoot, Pressure::Pascal>(
-      value, value * 0.45359237 * 9.80665 / std::pow(0.3048, 2));
+      value, value * 0.45359237L * 9.80665L / std::pow(0.3048L, 2));
   Internal::TestConversions<Pressure, Pressure::PoundPerSquareInch, Pressure::Pascal>(
-      value, value * 0.45359237 * 9.80665 / std::pow(0.0254, 2));
+      value, value * 0.45359237L * 9.80665L / std::pow(0.0254L, 2));
 }
 
 TEST(UnitPressure, Parse) {

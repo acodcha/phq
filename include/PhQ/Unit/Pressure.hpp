@@ -146,136 +146,157 @@ inline const std::unordered_map<std::string_view, Unit::Pressure> Spellings<Unit
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Pascal>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Pascal>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Pascal>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Pascal>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
-    double& value) noexcept {
-  value *= 0.001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Kilopascal>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Kilopascal>(
-    double& value) noexcept {
-  value *= 1000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Kilopascal>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
-    double& value) noexcept {
-  value *= 0.000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Megapascal>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Megapascal>(
-    double& value) noexcept {
-  value *= 1000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Megapascal>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
-    double& value) noexcept {
-  value *= 0.000000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Gigapascal>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Gigapascal>(
-    double& value) noexcept {
-  value *= 1000000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Gigapascal>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Bar>(
-    double& value) noexcept {
-  value *= 0.00001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Bar>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.00001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Bar>(
-    double& value) noexcept {
-  value *= 100000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Bar>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(100000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
-    double& value) noexcept {
-  value /= 101325.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Atmosphere>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(101325.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::Atmosphere>(
-    double& value) noexcept {
-  value *= 101325.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::Atmosphere>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(101325.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.3048 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.3048 * 0.3048);
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L));
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.0254 * 0.0254);
+template <typename Number>
+inline constexpr void Conversion<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L));
 }
 
-template <>
-inline const std::map<Unit::Pressure, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Pressure, double>{
+template <typename Number>
+inline const std::map<Unit::Pressure, std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Pressure, Number>{
         {Unit::Pressure::Pascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Pascal,             double>},
+         Conversions<Unit::Pressure, Unit::Pressure::Pascal>::FromStandard<Number>            },
         {Unit::Pressure::Kilopascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal,         double>},
+         Conversions<Unit::Pressure, Unit::Pressure::Kilopascal>::FromStandard<Number>        },
         {Unit::Pressure::Megapascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal,         double>},
+         Conversions<Unit::Pressure, Unit::Pressure::Megapascal>::FromStandard<Number>        },
         {Unit::Pressure::Gigapascal,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal,         double>},
-        {Unit::Pressure::Bar,                ConversionsFromStandard<Unit::Pressure, Unit::Pressure::Bar,                double>},
+         Conversions<Unit::Pressure, Unit::Pressure::Gigapascal>::FromStandard<Number>        },
+        {Unit::Pressure::Bar,
+         Conversions<Unit::Pressure, Unit::Pressure::Bar>::FromStandard<Number>               },
         {Unit::Pressure::Atmosphere,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere,         double>},
+         Conversions<Unit::Pressure, Unit::Pressure::Atmosphere>::FromStandard<Number>        },
         {Unit::Pressure::PoundPerSquareFoot,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot, double>},
+         Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareFoot>::FromStandard<Number>},
         {Unit::Pressure::PoundPerSquareInch,
-         ConversionsFromStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch, double>},
+         Conversions<Unit::Pressure, Unit::Pressure::PoundPerSquareInch>::FromStandard<Number>},
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::Pressure,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Pressure, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Pressure, Number>{
         {Unit::Pressure::Pascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Pascal,             double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::Pascal>::ToStandard<Number>            },
         {Unit::Pressure::Kilopascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Kilopascal,         double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::Kilopascal>::ToStandard<Number>        },
         {Unit::Pressure::Megapascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Megapascal,         double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::Megapascal>::ToStandard<Number>        },
         {Unit::Pressure::Gigapascal,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Gigapascal,         double>},
-        {Unit::Pressure::Bar,                ConversionsToStandard<Unit::Pressure, Unit::Pressure::Bar,                double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::Gigapascal>::ToStandard<Number>        },
+        {Unit::Pressure::Bar,                Conversions<Unit::Pressure, Unit::Pressure::Bar>::ToStandard<Number>               },
         {Unit::Pressure::Atmosphere,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::Atmosphere,         double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::Atmosphere>::ToStandard<Number>        },
         {Unit::Pressure::PoundPerSquareFoot,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot, double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareFoot>::ToStandard<Number>},
         {Unit::Pressure::PoundPerSquareInch,
-         ConversionsToStandard<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch, double>},
+         Conversions<Unit::Pressure,                                     Unit::Pressure::PoundPerSquareInch>::ToStandard<Number>},
 };
 
 }  // namespace Internal
