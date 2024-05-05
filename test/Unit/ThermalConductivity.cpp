@@ -56,7 +56,7 @@ TEST(UnitThermalConductivity, ConsistentUnit) {
 }
 
 TEST(UnitThermalConductivity, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const ThermalConductivity original_unit : Units) {
     for (const ThermalConductivity intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -65,27 +65,27 @@ TEST(UnitThermalConductivity, ConversionReciprocity) {
 }
 
 TEST(UnitThermalConductivity, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::WattPerMetrePerKelvin>(value, value);
   Internal::TestConversions<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::NanowattPerMillimetrePerKelvin>(
-      value, value * 1000000.0);
+      value, value * 1000000.0L);
   Internal::TestConversions<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::PoundPerSecondPerRankine>(
-      value, value / (0.45359237 * 9.80665 * 1.8));
+      value, value / (0.45359237L * 9.80665L * 1.8L));
 }
 
 TEST(UnitThermalConductivity, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<ThermalConductivity, ThermalConductivity::WattPerMetrePerKelvin,
                             ThermalConductivity::WattPerMetrePerKelvin>(value, value);
   Internal::TestConversions<ThermalConductivity,
                             ThermalConductivity::NanowattPerMillimetrePerKelvin,
-                            ThermalConductivity::WattPerMetrePerKelvin>(value, value * 0.000001);
+                            ThermalConductivity::WattPerMetrePerKelvin>(value, value * 0.000001L);
   Internal::TestConversions<ThermalConductivity, ThermalConductivity::PoundPerSecondPerRankine,
                             ThermalConductivity::WattPerMetrePerKelvin>(
-      value, value * 0.45359237 * 9.80665 * 1.8);
+      value, value * 0.45359237L * 9.80665L * 1.8L);
 }
 
 TEST(UnitThermalConductivity, Parse) {

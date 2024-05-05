@@ -58,7 +58,7 @@ TEST(UnitThermalExpansion, ConsistentUnit) {
 }
 
 TEST(UnitThermalExpansion, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const ThermalExpansion original_unit : Units) {
     for (const ThermalExpansion intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -67,27 +67,27 @@ TEST(UnitThermalExpansion, ConversionReciprocity) {
 }
 
 TEST(UnitThermalExpansion, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
                             ThermalExpansion::PerKelvin>(value, value);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
                             ThermalExpansion::PerCelsius>(value, value);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
-                            ThermalExpansion::PerRankine>(value, value / 1.8);
+                            ThermalExpansion::PerRankine>(value, value / 1.8L);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
-                            ThermalExpansion::PerFahrenheit>(value, value / 1.8);
+                            ThermalExpansion::PerFahrenheit>(value, value / 1.8L);
 }
 
 TEST(UnitThermalExpansion, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
+  constexpr long double value{1.234567890123456789L};
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerKelvin,
                             ThermalExpansion::PerKelvin>(value, value);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerCelsius,
                             ThermalExpansion::PerKelvin>(value, value);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerRankine,
-                            ThermalExpansion::PerKelvin>(value, value * 1.8);
+                            ThermalExpansion::PerKelvin>(value, value * 1.8L);
   Internal::TestConversions<ThermalExpansion, ThermalExpansion::PerFahrenheit,
-                            ThermalExpansion::PerKelvin>(value, value * 1.8);
+                            ThermalExpansion::PerKelvin>(value, value * 1.8L);
 }
 
 TEST(UnitThermalExpansion, Parse) {

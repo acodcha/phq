@@ -49,7 +49,7 @@ TEST(UnitTime, ConsistentUnit) {
 }
 
 TEST(UnitTime, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
+  constexpr long double original_value{1.234567890123456789L};
   for (const Time original_unit : Units) {
     for (const Time intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -58,23 +58,23 @@ TEST(UnitTime, ConversionReciprocity) {
 }
 
 TEST(UnitTime, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Time, Time::Second, Time::Nanosecond>(value, value * 1000000000.0);
-  Internal::TestConversions<Time, Time::Second, Time::Microsecond>(value, value * 1000000.0);
-  Internal::TestConversions<Time, Time::Second, Time::Millisecond>(value, value * 1000.0);
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConversions<Time, Time::Second, Time::Nanosecond>(value, value * 1000000000.0L);
+  Internal::TestConversions<Time, Time::Second, Time::Microsecond>(value, value * 1000000.0L);
+  Internal::TestConversions<Time, Time::Second, Time::Millisecond>(value, value * 1000.0L);
   Internal::TestConversions<Time, Time::Second, Time::Second>(value, value);
-  Internal::TestConversions<Time, Time::Second, Time::Minute>(value, value / 60.0);
-  Internal::TestConversions<Time, Time::Second, Time::Hour>(value, value / 3600.0);
+  Internal::TestConversions<Time, Time::Second, Time::Minute>(value, value / 60.0L);
+  Internal::TestConversions<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
 }
 
 TEST(UnitTime, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Time, Time::Nanosecond, Time::Second>(value, value * 0.000000001);
-  Internal::TestConversions<Time, Time::Microsecond, Time::Second>(value, value * 0.000001);
-  Internal::TestConversions<Time, Time::Millisecond, Time::Second>(value, value * 0.001);
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConversions<Time, Time::Nanosecond, Time::Second>(value, value * 0.000000001L);
+  Internal::TestConversions<Time, Time::Microsecond, Time::Second>(value, value * 0.000001L);
+  Internal::TestConversions<Time, Time::Millisecond, Time::Second>(value, value * 0.001L);
   Internal::TestConversions<Time, Time::Second, Time::Second>(value, value);
-  Internal::TestConversions<Time, Time::Minute, Time::Second>(value, value * 60.0);
-  Internal::TestConversions<Time, Time::Hour, Time::Second>(value, value * 3600.0);
+  Internal::TestConversions<Time, Time::Minute, Time::Second>(value, value * 60.0L);
+  Internal::TestConversions<Time, Time::Hour, Time::Second>(value, value * 3600.0L);
 }
 
 TEST(UnitTime, Parse) {

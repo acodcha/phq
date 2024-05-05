@@ -56,7 +56,7 @@ TEST(UnitTemperature, ConsistentUnit) {
 }
 
 TEST(UnitTemperature, ConversionReciprocity) {
-  constexpr double original_value{123.45};
+  constexpr long double original_value{123.45L};
   for (const Temperature original_unit : Units) {
     for (const Temperature intermediary_unit : Units) {
       Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
@@ -65,25 +65,25 @@ TEST(UnitTemperature, ConversionReciprocity) {
 }
 
 TEST(UnitTemperature, ConvertFromStandard) {
-  constexpr double value{123.4567890123456789};
+  constexpr long double value{123.4567890123456789L};
   Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
   Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Celsius>(
-      value, value - 273.15);
+      value, value - 273.15L);
   Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Rankine>(
-      value, value * 1.8);
+      value, value * 1.8L);
   Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
-      value, (value * 1.8) - 459.67);
+      value, (value * 1.8L) - 459.67L);
 }
 
 TEST(UnitTemperature, ConvertToStandard) {
-  constexpr double value{123.4567890123456789};
+  constexpr long double value{123.4567890123456789L};
   Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
   Internal::TestConversions<Temperature, Temperature::Celsius, Temperature::Kelvin>(
-      value, value + 273.15);
+      value, value + 273.15L);
   Internal::TestConversions<Temperature, Temperature::Rankine, Temperature::Kelvin>(
-      value, value / 1.8);
+      value, value / 1.8L);
   Internal::TestConversions<Temperature, Temperature::Fahrenheit, Temperature::Kelvin>(
-      value, (value + 459.67) / 1.8);
+      value, (value + 459.67L) / 1.8L);
 }
 
 TEST(UnitTemperature, Parse) {
