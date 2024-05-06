@@ -55,35 +55,16 @@ TEST(UnitTemperature, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Temperature>(UnitSystem::InchPoundSecondRankine), Temperature::Rankine);
 }
 
-TEST(UnitTemperature, ConversionReciprocity) {
-  constexpr double original_value{123.45};
-  for (const Temperature original_unit : Units) {
-    for (const Temperature intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitTemperature, ConvertFromStandard) {
-  constexpr double value{123.4567890123456789};
-  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
-  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Celsius>(
-      value, value - 273.15);
-  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Rankine>(
-      value, value * 1.8);
-  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
-      value, (value * 1.8) - 459.67);
-}
-
-TEST(UnitTemperature, ConvertToStandard) {
-  constexpr double value{123.4567890123456789};
-  Internal::TestConversions<Temperature, Temperature::Kelvin, Temperature::Kelvin>(value, value);
-  Internal::TestConversions<Temperature, Temperature::Celsius, Temperature::Kelvin>(
-      value, value + 273.15);
-  Internal::TestConversions<Temperature, Temperature::Rankine, Temperature::Kelvin>(
-      value, value / 1.8);
-  Internal::TestConversions<Temperature, Temperature::Fahrenheit, Temperature::Kelvin>(
-      value, (value + 459.67) / 1.8);
+TEST(UnitTemperature, ConvertAndConvertCopy) {
+  constexpr long double value{123.4567890123456789L};
+  Internal::TestConvertAndConvertCopy<Temperature>(
+      Temperature::Kelvin, Temperature::Kelvin, value, value);
+  Internal::TestConvertAndConvertCopy<Temperature>(
+      Temperature::Kelvin, Temperature::Celsius, value, value - 273.15L);
+  Internal::TestConvertAndConvertCopy<Temperature>(
+      Temperature::Kelvin, Temperature::Rankine, value, value * 1.8L);
+  Internal::TestConvertAndConvertCopy<Temperature>(
+      Temperature::Kelvin, Temperature::Fahrenheit, value, (value * 1.8L) - 459.67L);
 }
 
 TEST(UnitTemperature, Parse) {
@@ -109,6 +90,12 @@ TEST(UnitTemperature, RelatedUnitSystem) {
 
 TEST(UnitTemperature, Standard) {
   EXPECT_EQ(Standard<Temperature>, Temperature::Kelvin);
+}
+
+TEST(UnitTemperature, StaticConvertCopy) {
+  constexpr long double value{123.4567890123456789L};
+  Internal::TestStaticConvertCopy<Temperature, Temperature::Kelvin, Temperature::Fahrenheit>(
+      value, (value * 1.8L) - 459.67L);
 }
 
 TEST(UnitTemperature, Stream) {

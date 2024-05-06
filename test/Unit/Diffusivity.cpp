@@ -77,95 +77,51 @@ TEST(UnitDiffusivity, ConsistentUnit) {
             Diffusivity::SquareInchPerSecond);
 }
 
-TEST(UnitDiffusivity, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
-  for (const Diffusivity original_unit : Units) {
-    for (const Diffusivity intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitDiffusivity, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareNauticalMilePerSecond>(
-      value, value / std::pow(1852.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMilePerSecond>(value, value / std::pow(1609.344, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareKilometrePerSecond>(
-      value, value * std::pow(0.001, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::HectarePerSecond>(value, value * 0.0001);
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::AcrePerSecond>(
-      value, value * 640.0 / std::pow(1609.344, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value);
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareYardPerSecond>(value, value / std::pow(0.9144, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareFootPerSecond>(value, value / std::pow(0.3048, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareDecimetrePerSecond>(
-      value, value * std::pow(10.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareInchPerSecond>(value, value / std::pow(0.0254, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareCentimetrePerSecond>(
-      value, value * std::pow(100.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMillimetrePerSecond>(
-      value, value * std::pow(1000.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMilliinchPerSecond>(
-      value, value / std::pow(0.0000254, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMicrometrePerSecond>(
-      value, value * std::pow(1000000.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMicroinchPerSecond>(
-      value, value / std::pow(0.0000000254, 2));
-}
-
-TEST(UnitDiffusivity, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareNauticalMilePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(1852.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMilePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(
-      value, value * std::pow(1609.344, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareKilometrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(1000.0, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::HectarePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * 10000.0);
-  Internal::TestConversions<Diffusivity, Diffusivity::AcrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(
-      value, value * std::pow(1609.344, 2) / 640.0);
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMetrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value);
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareYardPerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.9144, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareFootPerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.3048, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareDecimetrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.1, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareInchPerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.0254, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareCentimetrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.01, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMillimetrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(value, value * std::pow(0.001, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMilliinchPerSecond,
-                            Diffusivity::SquareMetrePerSecond>(
-      value, value * std::pow(0.0000254, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMicrometrePerSecond,
-                            Diffusivity::SquareMetrePerSecond>(
-      value, value * std::pow(0.000001, 2));
-  Internal::TestConversions<Diffusivity, Diffusivity::SquareMicroinchPerSecond,
-                            Diffusivity::SquareMetrePerSecond>(
-      value, value * std::pow(0.0000000254, 2));
+TEST(UnitDiffusivity, ConvertAndConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareNauticalMilePerSecond, value,
+      value / std::pow(1852.0L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMilePerSecond, value,
+      value / std::pow(1609.344L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareKilometrePerSecond, value,
+      value * std::pow(0.001L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::HectarePerSecond, value, value * 0.0001L);
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::AcrePerSecond, value,
+      value * 640.0L / std::pow(1609.344L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMetrePerSecond, value, value);
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareYardPerSecond, value,
+      value / std::pow(0.9144L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareFootPerSecond, value,
+      value / std::pow(0.3048L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareDecimetrePerSecond, value,
+      value * std::pow(10.0L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareInchPerSecond, value,
+      value / std::pow(0.0254L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareCentimetrePerSecond, value,
+      value * std::pow(100.0L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMillimetrePerSecond, value,
+      value * std::pow(1000.0L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMilliinchPerSecond, value,
+      value / std::pow(0.0000254L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMicrometrePerSecond, value,
+      value * std::pow(1000000.0L, 2));
+  Internal::TestConvertAndConvertCopy<Diffusivity>(
+      Diffusivity::SquareMetrePerSecond, Diffusivity::SquareMicroinchPerSecond, value,
+      value / std::pow(0.0000000254L, 2));
 }
 
 TEST(UnitDiffusivity, Parse) {
@@ -215,6 +171,13 @@ TEST(UnitDiffusivity, RelatedUnitSystem) {
 
 TEST(UnitDiffusivity, Standard) {
   EXPECT_EQ(Standard<Diffusivity>, Diffusivity::SquareMetrePerSecond);
+}
+
+TEST(UnitDiffusivity, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<Diffusivity, Diffusivity::SquareMetrePerSecond,
+                                  Diffusivity::SquareFootPerSecond>(
+      value, value / std::pow(0.3048L, 2));
 }
 
 TEST(UnitDiffusivity, Stream) {

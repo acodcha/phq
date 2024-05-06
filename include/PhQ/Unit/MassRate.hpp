@@ -160,250 +160,292 @@ inline const std::unordered_map<std::string_view, Unit::MassRate> Spellings<Unit
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerSecond>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerSecond>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond>(
-    double& value) noexcept {
-  value *= 0.001;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
-    double& value) noexcept {
-  value *= 0.3048 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / 0.3048;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / static_cast<Number>(0.3048L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
-    double& value) noexcept {
-  value *= 0.0254 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / 0.0254;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / static_cast<Number>(0.0254L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
-    double& value) noexcept {
-  value /= 0.45359237;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.45359237L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond>(
-    double& value) noexcept {
-  value *= 0.45359237;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
-    double& value) noexcept {
-  value *= 60.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute>(
-    double& value) noexcept {
-  value /= 60.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
-    double& value) noexcept {
-  value *= 60000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute>(
-    double& value) noexcept {
-  value /= 60000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(60000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 0.3048 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(0.3048L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.3048 * 60.0);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.3048L) * static_cast<Number>(60.0L));
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 0.0254 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(0.0254L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.0254 * 60.0);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.0254L) * static_cast<Number>(60.0L));
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / 0.45359237;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) / static_cast<Number>(0.45359237L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute>(
-    double& value) noexcept {
-  value *= 0.45359237 / 60.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
-    double& value) noexcept {
-  value *= 3600.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour>(
-    double& value) noexcept {
-  value /= 3600.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::KilogramPerHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
-    double& value) noexcept {
-  value *= 3600000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::GramPerHour>(
-    double& value) noexcept {
-  value /= 3600000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::GramPerHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 0.3048 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(0.3048L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.3048 * 3600.0);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlugPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.3048L) * static_cast<Number>(3600.0L));
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 0.0254 / (0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(0.0254L)
+           / (static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour>(
-    double& value) noexcept {
-  value *= 0.45359237 * 9.80665 / (0.0254 * 3600.0);
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::SlinchPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) * static_cast<Number>(9.80665L)
+           / (static_cast<Number>(0.0254L) * static_cast<Number>(3600.0L));
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.45359237;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.45359237L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour>(
-    double& value) noexcept {
-  value *= 0.45359237 / 3600.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::MassRate, Unit::MassRate::PoundPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.45359237L) / static_cast<Number>(3600.0L);
 }
 
-template <>
-inline const std::map<Unit::MassRate, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::MassRate, double>{
+template <typename Number>
+inline const std::map<Unit::MassRate, std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::MassRate, Number>{
         {Unit::MassRate::KilogramPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond, double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerSecond>::FromStandard<Number>},
         {Unit::MassRate::GramPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerSecond,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerSecond>::FromStandard<Number>    },
         {Unit::MassRate::SlugPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerSecond>::FromStandard<Number>    },
         {Unit::MassRate::SlinchPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerSecond>::FromStandard<Number>  },
         {Unit::MassRate::PoundPerSecond,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond,    double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerSecond>::FromStandard<Number>   },
         {Unit::MassRate::KilogramPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute, double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerMinute>::FromStandard<Number>},
         {Unit::MassRate::GramPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerMinute,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerMinute>::FromStandard<Number>    },
         {Unit::MassRate::SlugPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerMinute>::FromStandard<Number>    },
         {Unit::MassRate::SlinchPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerMinute>::FromStandard<Number>  },
         {Unit::MassRate::PoundPerMinute,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute,    double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerMinute>::FromStandard<Number>   },
         {Unit::MassRate::KilogramPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerHour>::FromStandard<Number>  },
         {Unit::MassRate::GramPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::GramPerHour,       double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerHour>::FromStandard<Number>      },
         {Unit::MassRate::SlugPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlugPerHour,       double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerHour>::FromStandard<Number>      },
         {Unit::MassRate::SlinchPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerHour>::FromStandard<Number>    },
         {Unit::MassRate::PoundPerHour,
-         ConversionsFromStandard<Unit::MassRate, Unit::MassRate::PoundPerHour,      double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerHour>::FromStandard<Number>     },
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::MassRate,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::MassRate, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::MassRate, Number>{
         {Unit::MassRate::KilogramPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::KilogramPerSecond, double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerSecond>::ToStandard<Number>},
         {Unit::MassRate::GramPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerSecond,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerSecond>::ToStandard<Number>    },
         {Unit::MassRate::SlugPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerSecond,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerSecond>::ToStandard<Number>    },
         {Unit::MassRate::SlinchPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerSecond,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerSecond>::ToStandard<Number>  },
         {Unit::MassRate::PoundPerSecond,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerSecond,    double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerSecond>::ToStandard<Number>   },
         {Unit::MassRate::KilogramPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::KilogramPerMinute, double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerMinute>::ToStandard<Number>},
         {Unit::MassRate::GramPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerMinute,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerMinute>::ToStandard<Number>    },
         {Unit::MassRate::SlugPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerMinute,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerMinute>::ToStandard<Number>    },
         {Unit::MassRate::SlinchPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerMinute,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerMinute>::ToStandard<Number>  },
         {Unit::MassRate::PoundPerMinute,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerMinute,    double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerMinute>::ToStandard<Number>   },
         {Unit::MassRate::KilogramPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::KilogramPerHour,   double>},
+         Conversions<Unit::MassRate, Unit::MassRate::KilogramPerHour>::ToStandard<Number>  },
         {Unit::MassRate::GramPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::GramPerHour,       double>},
+         Conversions<Unit::MassRate, Unit::MassRate::GramPerHour>::ToStandard<Number>      },
         {Unit::MassRate::SlugPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlugPerHour,       double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlugPerHour>::ToStandard<Number>      },
         {Unit::MassRate::SlinchPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::SlinchPerHour,     double>},
+         Conversions<Unit::MassRate, Unit::MassRate::SlinchPerHour>::ToStandard<Number>    },
         {Unit::MassRate::PoundPerHour,
-         ConversionsToStandard<Unit::MassRate, Unit::MassRate::PoundPerHour,      double>},
+         Conversions<Unit::MassRate, Unit::MassRate::PoundPerHour>::ToStandard<Number>     },
 };
 
 }  // namespace Internal

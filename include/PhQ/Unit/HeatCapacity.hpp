@@ -141,87 +141,101 @@ inline const std::unordered_map<std::string_view, Unit::HeatCapacity> Spellings<
 };
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
-    double& value) noexcept {
-  value *= 1000000000.0;
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>(
-    double& value) noexcept {
-  value *= 0.000000001;
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000000001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
-    double& value) noexcept {
-  value /= (0.3048 * 0.45359237 * 9.80665 * 1.8);
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L) * static_cast<Number>(1.8L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.45359237 * 9.80665 * 1.8;
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L) * static_cast<Number>(1.8L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
-    double& value) noexcept {
-  value /= (0.0254 * 0.45359237 * 9.80665 * 1.8);
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L) * static_cast<Number>(1.8L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.45359237 * 9.80665 * 1.8;
+Conversion<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L) * static_cast<Number>(1.8L);
 }
 
-template <>
+template <typename Number>
 inline const std::map<Unit::HeatCapacity,
-                      std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::HeatCapacity, double>{
+                      std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::HeatCapacity, Number>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin,      double>},
+         Conversions<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>::FromStandard<Number>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin,
-         double>                                                                                     },
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::NanojoulePerKelvin>::FromStandard<Number>                            },
         {Unit::HeatCapacity::FootPoundPerRankine,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine,
-         double>                                                                                     },
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::FootPoundPerRankine>::FromStandard<Number>                           },
         {Unit::HeatCapacity::InchPoundPerRankine,
-         ConversionsFromStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine,
-         double>                                                                                     },
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::InchPoundPerRankine>::FromStandard<Number>                           },
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::HeatCapacity,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::HeatCapacity, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::HeatCapacity, Number>{
         {Unit::HeatCapacity::JoulePerKelvin,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin,      double>},
+         Conversions<Unit::HeatCapacity, Unit::HeatCapacity::JoulePerKelvin>::ToStandard<Number>},
         {Unit::HeatCapacity::NanojoulePerKelvin,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::NanojoulePerKelvin,  double>},
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::NanojoulePerKelvin>::ToStandard<Number>                            },
         {Unit::HeatCapacity::FootPoundPerRankine,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::FootPoundPerRankine,
-         double>                                                                                   },
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::FootPoundPerRankine>::ToStandard<Number>                           },
         {Unit::HeatCapacity::InchPoundPerRankine,
-         ConversionsToStandard<Unit::HeatCapacity, Unit::HeatCapacity::InchPoundPerRankine,
-         double>                                                                                   },
+         Conversions<Unit::HeatCapacity,
+         Unit::HeatCapacity::InchPoundPerRankine>::ToStandard<Number>                           },
 };
 
 }  // namespace Internal

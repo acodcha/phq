@@ -49,35 +49,16 @@ TEST(UnitMass, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Mass>(UnitSystem::InchPoundSecondRankine), Mass::Slinch);
 }
 
-TEST(UnitMass, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
-  for (const Mass original_unit : Units) {
-    for (const Mass intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitMass, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Gram>(value, value * 1000.0);
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Slug>(
-      value, value * 0.3048 / (0.45359237 * 9.80665));
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Slinch>(
-      value, value * 0.0254 / (0.45359237 * 9.80665));
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Pound>(value, value / 0.45359237);
-}
-
-TEST(UnitMass, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Mass, Mass::Kilogram, Mass::Kilogram>(value, value);
-  Internal::TestConversions<Mass, Mass::Gram, Mass::Kilogram>(value, value * 0.001);
-  Internal::TestConversions<Mass, Mass::Slug, Mass::Kilogram>(
-      value, value * 0.45359237 * 9.80665 / 0.3048);
-  Internal::TestConversions<Mass, Mass::Slinch, Mass::Kilogram>(
-      value, value * 0.45359237 * 9.80665 / 0.0254);
-  Internal::TestConversions<Mass, Mass::Pound, Mass::Kilogram>(value, value * 0.45359237);
+TEST(UnitMass, ConvertAndConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Kilogram, value, value);
+  Internal::TestConvertAndConvertCopy<Mass>(Mass::Kilogram, Mass::Gram, value, value * 1000.0L);
+  Internal::TestConvertAndConvertCopy<Mass>(
+      Mass::Kilogram, Mass::Slug, value, value * 0.3048L / (0.45359237L * 9.80665L));
+  Internal::TestConvertAndConvertCopy<Mass>(
+      Mass::Kilogram, Mass::Slinch, value, value * 0.0254L / (0.45359237L * 9.80665L));
+  Internal::TestConvertAndConvertCopy<Mass>(
+      Mass::Kilogram, Mass::Pound, value, value / 0.45359237L);
 }
 
 TEST(UnitMass, Parse) {
@@ -104,6 +85,12 @@ TEST(UnitMass, RelatedUnitSystem) {
 
 TEST(UnitMass, Standard) {
   EXPECT_EQ(Standard<Mass>, Mass::Kilogram);
+}
+
+TEST(UnitMass, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<Mass, Mass::Kilogram, Mass::Slug>(
+      value, value * 0.3048L / (0.45359237L * 9.80665L));
 }
 
 TEST(UnitMass, Stream) {

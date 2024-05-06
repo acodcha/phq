@@ -46,37 +46,17 @@ TEST(UnitAngle, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Angle>(UnitSystem::InchPoundSecondRankine), Angle::Radian);
 }
 
-TEST(UnitAngle, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
-  for (const Angle original_unit : Units) {
-    for (const Angle intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitAngle, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Radian>(value, value);
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Degree>(value, value * 180.0 / Pi<double>);
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Arcminute>(
-      value, value * 10800.0 / Pi<double>);
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Arcsecond>(
-      value, value * 648000.0 / Pi<double>);
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Revolution>(
-      value, value / (2.0 * Pi<double>));
-}
-
-TEST(UnitAngle, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<Angle, Angle::Radian, Angle::Radian>(value, value);
-  Internal::TestConversions<Angle, Angle::Degree, Angle::Radian>(value, value * Pi<double> / 180.0);
-  Internal::TestConversions<Angle, Angle::Arcminute, Angle::Radian>(
-      value, value * Pi<double> / 10800.0);
-  Internal::TestConversions<Angle, Angle::Arcsecond, Angle::Radian>(
-      value, value * Pi<double> / 648000.0);
-  Internal::TestConversions<Angle, Angle::Revolution, Angle::Radian>(
-      value, value * 2.0 * Pi<double>);
+TEST(UnitAngle, ConvertAndConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertAndConvertCopy<Angle>(Angle::Radian, Angle::Radian, value, value);
+  Internal::TestConvertAndConvertCopy<Angle>(
+      Angle::Radian, Angle::Degree, value, value * 180.0L / Pi<long double>);
+  Internal::TestConvertAndConvertCopy<Angle>(
+      Angle::Radian, Angle::Arcminute, value, value * 10800.0L / Pi<long double>);
+  Internal::TestConvertAndConvertCopy<Angle>(
+      Angle::Radian, Angle::Arcsecond, value, value * 648000.0L / Pi<long double>);
+  Internal::TestConvertAndConvertCopy<Angle>(
+      Angle::Radian, Angle::Revolution, value, value / (2.0L * Pi<long double>));
 }
 
 TEST(UnitAngle, Parse) {
@@ -102,6 +82,12 @@ TEST(UnitAngle, RelatedUnitSystem) {
 
 TEST(UnitAngle, Standard) {
   EXPECT_EQ(Standard<Angle>, Angle::Radian);
+}
+
+TEST(UnitAngle, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<Angle, Angle::Radian, Angle::Degree>(
+      value, value * 180.0L / Pi<long double>);
 }
 
 TEST(UnitAngle, Stream) {

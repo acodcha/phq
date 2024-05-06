@@ -57,37 +57,16 @@ TEST(UnitTemperatureDifference, ConsistentUnit) {
             TemperatureDifference::Rankine);
 }
 
-TEST(UnitTemperatureDifference, ConversionReciprocity) {
-  constexpr double original_value{1.234567890123456789};
-  for (const TemperatureDifference original_unit : Units) {
-    for (const TemperatureDifference intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitTemperatureDifference, ConvertFromStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                            TemperatureDifference::Kelvin>(value, value);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                            TemperatureDifference::Celsius>(value, value);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                            TemperatureDifference::Rankine>(value, value * 1.8);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                            TemperatureDifference::Fahrenheit>(value, value * 1.8);
-}
-
-TEST(UnitTemperatureDifference, ConvertToStandard) {
-  constexpr double value{1.234567890123456789};
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Kelvin,
-                            TemperatureDifference::Kelvin>(value, value);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Celsius,
-                            TemperatureDifference::Kelvin>(value, value);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Rankine,
-                            TemperatureDifference::Kelvin>(value, value / 1.8);
-  Internal::TestConversions<TemperatureDifference, TemperatureDifference::Fahrenheit,
-                            TemperatureDifference::Kelvin>(value, value / 1.8);
+TEST(UnitTemperatureDifference, ConvertAndConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+      TemperatureDifference::Kelvin, TemperatureDifference::Kelvin, value, value);
+  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+      TemperatureDifference::Kelvin, TemperatureDifference::Celsius, value, value);
+  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+      TemperatureDifference::Kelvin, TemperatureDifference::Rankine, value, value * 1.8L);
+  Internal::TestConvertAndConvertCopy<TemperatureDifference>(
+      TemperatureDifference::Kelvin, TemperatureDifference::Fahrenheit, value, value * 1.8L);
 }
 
 TEST(UnitTemperatureDifference, Parse) {
@@ -113,6 +92,12 @@ TEST(UnitTemperatureDifference, RelatedUnitSystem) {
 
 TEST(UnitTemperatureDifference, Standard) {
   EXPECT_EQ(Standard<TemperatureDifference>, TemperatureDifference::Kelvin);
+}
+
+TEST(UnitTemperatureDifference, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<TemperatureDifference, TemperatureDifference::Kelvin,
+                                  TemperatureDifference::Fahrenheit>(value, value * 1.8L);
 }
 
 TEST(UnitTemperatureDifference, Stream) {

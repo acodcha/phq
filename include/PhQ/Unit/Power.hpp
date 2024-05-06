@@ -155,148 +155,174 @@ inline const std::unordered_map<std::string_view, Unit::Power> Spellings<Unit::P
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Watt>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Watt>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Watt>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Watt>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Milliwatt>(
-    double& value) noexcept {
-  value *= 1000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Milliwatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Milliwatt>(
-    double& value) noexcept {
-  value *= 0.001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Milliwatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Microwatt>(
-    double& value) noexcept {
-  value *= 1000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Microwatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Microwatt>(
-    double& value) noexcept {
-  value *= 0.000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Microwatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Nanowatt>(
-    double& value) noexcept {
-  value *= 1000000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Nanowatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000000.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Nanowatt>(
-    double& value) noexcept {
-  value *= 0.000000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Nanowatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000000001L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Kilowatt>(
-    double& value) noexcept {
-  value *= 0.001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Kilowatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Kilowatt>(
-    double& value) noexcept {
-  value *= 1000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Kilowatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Megawatt>(
-    double& value) noexcept {
-  value *= 0.000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Megawatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Megawatt>(
-    double& value) noexcept {
-  value *= 1000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Megawatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::Gigawatt>(
-    double& value) noexcept {
-  value *= 0.000000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Gigawatt>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::Gigawatt>(
-    double& value) noexcept {
-  value *= 1000000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::Gigawatt>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
-    double& value) noexcept {
-  value /= (0.3048 * 0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::FootPoundPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= (static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
+            * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::FootPoundPerSecond>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.45359237 * 9.80665;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::FootPoundPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
-    double& value) noexcept {
-  value /= (0.0254 * 0.45359237 * 9.80665);
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::InchPoundPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= (static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
+            * static_cast<Number>(9.80665L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Power, Unit::Power::InchPoundPerSecond>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.45359237 * 9.80665;
+template <typename Number>
+inline constexpr void Conversion<Unit::Power, Unit::Power::InchPoundPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.45359237L)
+           * static_cast<Number>(9.80665L);
 }
 
-template <>
-inline const std::map<Unit::Power, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Power, double>{
-        {Unit::Power::Watt,               ConversionsFromStandard<Unit::Power, Unit::Power::Watt,               double>},
+template <typename Number>
+inline const std::map<Unit::Power, std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Power, Number>{
+        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::FromStandard<Number>              },
         {Unit::Power::Milliwatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Milliwatt,          double>},
+         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::FromStandard<Number>         },
         {Unit::Power::Microwatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Microwatt,          double>},
+         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::FromStandard<Number>         },
         {Unit::Power::Nanowatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Nanowatt,           double>},
+         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::FromStandard<Number>          },
         {Unit::Power::Kilowatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Kilowatt,           double>},
+         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::FromStandard<Number>          },
         {Unit::Power::Megawatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Megawatt,           double>},
+         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::FromStandard<Number>          },
         {Unit::Power::Gigawatt,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::Gigawatt,           double>},
+         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::FromStandard<Number>          },
         {Unit::Power::FootPoundPerSecond,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond, double>},
+         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::FromStandard<Number>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsFromStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond, double>},
+         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::FromStandard<Number>},
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::Power,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Power, double>{
-        {Unit::Power::Watt,               ConversionsToStandard<Unit::Power, Unit::Power::Watt,               double>},
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Power, Number>{
+        {Unit::Power::Watt,               Conversions<Unit::Power, Unit::Power::Watt>::ToStandard<Number>              },
         {Unit::Power::Milliwatt,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::Milliwatt,          double>},
+         Conversions<Unit::Power,                                  Unit::Power::Milliwatt>::ToStandard<Number>         },
         {Unit::Power::Microwatt,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::Microwatt,          double>},
-        {Unit::Power::Nanowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Nanowatt,           double>},
-        {Unit::Power::Kilowatt,           ConversionsToStandard<Unit::Power, Unit::Power::Kilowatt,           double>},
-        {Unit::Power::Megawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Megawatt,           double>},
-        {Unit::Power::Gigawatt,           ConversionsToStandard<Unit::Power, Unit::Power::Gigawatt,           double>},
+         Conversions<Unit::Power,                                  Unit::Power::Microwatt>::ToStandard<Number>         },
+        {Unit::Power::Nanowatt,
+         Conversions<Unit::Power,                                  Unit::Power::Nanowatt>::ToStandard<Number>          },
+        {Unit::Power::Kilowatt,
+         Conversions<Unit::Power,                                  Unit::Power::Kilowatt>::ToStandard<Number>          },
+        {Unit::Power::Megawatt,
+         Conversions<Unit::Power,                                  Unit::Power::Megawatt>::ToStandard<Number>          },
+        {Unit::Power::Gigawatt,
+         Conversions<Unit::Power,                                  Unit::Power::Gigawatt>::ToStandard<Number>          },
         {Unit::Power::FootPoundPerSecond,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::FootPoundPerSecond, double>},
+         Conversions<Unit::Power,                                  Unit::Power::FootPoundPerSecond>::ToStandard<Number>},
         {Unit::Power::InchPoundPerSecond,
-         ConversionsToStandard<Unit::Power,                                  Unit::Power::InchPoundPerSecond, double>},
+         Conversions<Unit::Power,                                  Unit::Power::InchPoundPerSecond>::ToStandard<Number>},
 };
 
 }  // namespace Internal

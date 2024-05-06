@@ -107,106 +107,118 @@ inline const std::unordered_map<std::string_view, Unit::Frequency> Spellings<Uni
 };
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Hertz>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Hertz>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Hertz>(
-    double& /*value*/) noexcept {}
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Hertz>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
-    double& value) noexcept {
-  value *= 0.001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Kilohertz>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Kilohertz>(
-    double& value) noexcept {
-  value *= 1000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Kilohertz>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
-    double& value) noexcept {
-  value *= 0.000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Megahertz>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Megahertz>(
-    double& value) noexcept {
-  value *= 1000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Megahertz>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
-    double& value) noexcept {
-  value *= 0.000000001;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Gigahertz>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000000001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::Gigahertz>(
-    double& value) noexcept {
-  value *= 1000000000.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::Gigahertz>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000000.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
-    double& value) noexcept {
-  value *= 60.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::PerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerMinute>(
-    double& value) noexcept {
-  value /= 60.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::PerMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::Frequency, Unit::Frequency::PerHour>(
-    double& value) noexcept {
-  value *= 3600.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::PerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::Frequency, Unit::Frequency::PerHour>(
-    double& value) noexcept {
-  value /= 3600.0;
+template <typename Number>
+inline constexpr void Conversion<Unit::Frequency, Unit::Frequency::PerHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600.0L);
 }
 
-template <>
-inline const std::map<Unit::Frequency, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::Frequency, double>{
+template <typename Number>
+inline const std::map<Unit::Frequency, std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::Frequency, Number>{
         {Unit::Frequency::Hertz,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Hertz,     double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Hertz>::FromStandard<Number>    },
         {Unit::Frequency::Kilohertz,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Kilohertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Kilohertz>::FromStandard<Number>},
         {Unit::Frequency::Megahertz,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Megahertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Megahertz>::FromStandard<Number>},
         {Unit::Frequency::Gigahertz,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::Gigahertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Gigahertz>::FromStandard<Number>},
         {Unit::Frequency::PerMinute,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerMinute, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::PerMinute>::FromStandard<Number>},
         {Unit::Frequency::PerHour,
-         ConversionsFromStandard<Unit::Frequency, Unit::Frequency::PerHour,   double>},
+         Conversions<Unit::Frequency, Unit::Frequency::PerHour>::FromStandard<Number>  },
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::Frequency,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::Frequency, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::Frequency, Number>{
         {Unit::Frequency::Hertz,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Hertz,     double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Hertz>::ToStandard<Number>    },
         {Unit::Frequency::Kilohertz,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Kilohertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Kilohertz>::ToStandard<Number>},
         {Unit::Frequency::Megahertz,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Megahertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Megahertz>::ToStandard<Number>},
         {Unit::Frequency::Gigahertz,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::Gigahertz, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::Gigahertz>::ToStandard<Number>},
         {Unit::Frequency::PerMinute,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerMinute, double>},
+         Conversions<Unit::Frequency, Unit::Frequency::PerMinute>::ToStandard<Number>},
         {Unit::Frequency::PerHour,
-         ConversionsToStandard<Unit::Frequency, Unit::Frequency::PerHour,   double>},
+         Conversions<Unit::Frequency, Unit::Frequency::PerHour>::ToStandard<Number>  },
 };
 
 }  // namespace Internal

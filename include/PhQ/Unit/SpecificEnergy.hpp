@@ -136,91 +136,99 @@ inline const std::unordered_map<std::string_view, Unit::SpecificEnergy> Spelling
 };
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>(
-    double& value) noexcept {
-  value *= 1000000.0;
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>(
-    double& value) noexcept {
-  value *= 0.000001;
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.000001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>(
-    double& value) noexcept {
-  value /= (0.3048 * 0.3048);
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.3048;
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>(
-    double& value) noexcept {
-  value /= (0.0254 * 0.0254);
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::FromStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254;
+Conversion<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
 }
 
-template <>
+template <typename Number>
 inline const std::map<Unit::SpecificEnergy,
-                      std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::SpecificEnergy, double>{
+                      std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::SpecificEnergy, Number>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::JoulePerKilogram>::FromStandard<Number>  },
         {Unit::SpecificEnergy::NanojoulePerGram,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::NanojoulePerGram>::FromStandard<Number>  },
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::FootPoundPerSlug>::FromStandard<Number>  },
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         ConversionsFromStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::InchPoundPerSlinch>::FromStandard<Number>},
 };
 
-template <>
+template <typename Number>
 inline const std::map<Unit::SpecificEnergy,
-                      std::function<void(double* const values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::SpecificEnergy, double>{
+                      std::function<void(Number* const values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::SpecificEnergy, Number>{
         {Unit::SpecificEnergy::JoulePerKilogram,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::JoulePerKilogram,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::JoulePerKilogram>::ToStandard<Number>  },
         {Unit::SpecificEnergy::NanojoulePerGram,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::NanojoulePerGram,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::NanojoulePerGram>::ToStandard<Number>  },
         {Unit::SpecificEnergy::FootPoundPerSlug,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::FootPoundPerSlug,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::FootPoundPerSlug>::ToStandard<Number>  },
         {Unit::SpecificEnergy::InchPoundPerSlinch,
-         ConversionsToStandard<Unit::SpecificEnergy, Unit::SpecificEnergy::InchPoundPerSlinch,
-         double>},
+         Conversions<Unit::SpecificEnergy,
+         Unit::SpecificEnergy::InchPoundPerSlinch>::ToStandard<Number>},
 };
 
 }  // namespace Internal
