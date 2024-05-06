@@ -111,7 +111,19 @@ TEST(UnitEnergy, ConversionReciprocity) {
   constexpr long double original_value{1.234567890123456789L};
   for (const Energy original_unit : Units) {
     for (const Energy intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+      // Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
+      {
+        double converted_value{static_cast<double>(original_value)};
+        Convert(converted_value, original_unit, intermediary_unit);
+        Convert(converted_value, intermediary_unit, original_unit);
+        EXPECT_DOUBLE_EQ(converted_value, original_value);
+      }
+      {
+        long double converted_value{original_value};
+        Convert(converted_value, original_unit, intermediary_unit);
+        Convert(converted_value, intermediary_unit, original_unit);
+        EXPECT_DOUBLE_EQ(converted_value, original_value);
+      }
     }
   }
 }

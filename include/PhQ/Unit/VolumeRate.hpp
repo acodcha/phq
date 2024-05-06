@@ -376,830 +376,1005 @@ inline const std::unordered_map<std::string_view, Unit::VolumeRate> Spellings<Un
 };
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>(
-    double& value) noexcept {
-  value /= (1852.0 * 1852.0 * 1852.0);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /=
+      (static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>(
-    double& value) noexcept {
-  value *= 1852.0 * 1852.0 * 1852.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *=
+      static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
-    double& value) noexcept {
-  value /= (1609.344 * 1609.344 * 1609.344);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+            * static_cast<Number>(1609.344L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>(
-    double& value) noexcept {
-  value *= 1609.344 * 1609.344 * 1609.344;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e-9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+           * static_cast<Number>(1609.344L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-9L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
-    double& /*value*/) noexcept {}
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E9L);
+}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>(
-    double& /*value*/) noexcept {}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
-    double& value) noexcept {
-  value /= (0.9144 * 0.9144 * 0.9144);
-}
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>::FromStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>(
-    double& value) noexcept {
-  value *= 0.9144 * 0.9144 * 0.9144;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>(
-    double& value) noexcept {
-  value /= (0.3048 * 0.3048 * 0.3048);
-}
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>::ToStandard(
+    Number& /*value*/) noexcept {}
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.3048 * 0.3048;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /=
+      (static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>(
-    double& value) noexcept {
-  value *= 0.001;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *=
+      static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>(
-    double& value) noexcept {
-  value *= 1000.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>(
-    double& value) noexcept {
-  value *= 0.001;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>(
-    double& value) noexcept {
-  value /= (0.0254 * 0.0254 * 0.0254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /=
+      (static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254 * 0.0254;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *=
+      static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e-6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e-6;
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1000.0L);
 }
 
 template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L);
+}
+
+template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /=
+      (static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e-9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *=
+      static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>(
-    double& value) noexcept {
-  value /= (0.0000254 * 0.0000254 * 0.0000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>(
-    double& value) noexcept {
-  value *= 0.0000254 * 0.0000254 * 0.0000254;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e18;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>(
-    double& value) noexcept {
-  value *= 1.0e-18;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>(
-    double& value) noexcept {
-  value /= (0.0000000254 * 0.0000000254 * 0.0000000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E9L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>(
-    double& value) noexcept {
-  value *= 0.0000000254 * 0.0000000254 * 0.0000000254;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-9L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (1852.0 * 1852.0 * 1852.0);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= (static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+            * static_cast<Number>(0.0000254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>(
-    double& value) noexcept {
-  value *= 1852.0 * 1852.0 * 1852.0 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+           * static_cast<Number>(0.0000254L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (1609.344 * 1609.344 * 1609.344);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E18L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>(
-    double& value) noexcept {
-  value *= 1609.344 * 1609.344 * 1609.344 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-18L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>(
-    double& value) noexcept {
-  value *= 1.0e9 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>::FromStandard(
+    Number& value) noexcept {
+  value /= (static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+            * static_cast<Number>(0.0000000254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+           * static_cast<Number>(0.0000000254L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>(
-    double& value) noexcept {
-  value /= 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.9144 * 0.9144 * 0.9144);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L)
+              * static_cast<Number>(1852.0L));
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>(
-    double& value) noexcept {
-  value *= 0.9144 * 0.9144 * 0.9144 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.3048 * 0.3048 * 0.3048);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L)
+           * static_cast<Number>(1852.0L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.3048 * 0.3048 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / 0.001;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+              * static_cast<Number>(1609.344L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>(
-    double& value) noexcept {
-  value *= 0.001 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+           * static_cast<Number>(1609.344L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / 0.001;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>(
-    double& value) noexcept {
-  value *= 0.001 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0254 * 0.0254 * 0.0254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) / static_cast<Number>(1.0E9L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254 * 0.0254 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1.0e6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E9L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>(
-    double& value) noexcept {
-  value *= 1.0e-6 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1.0e6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>(
-    double& value) noexcept {
-  value *= 1.0e-6 / 60.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L)
+              * static_cast<Number>(0.9144L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>(
-    double& value) noexcept {
-  value *= 1.0e-9 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L)
+           * static_cast<Number>(0.9144L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0000254 * 0.0000254 * 0.0000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
+              * static_cast<Number>(0.3048L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>(
-    double& value) noexcept {
-  value *= 0.0000254 * 0.0000254 * 0.0000254 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
+           * static_cast<Number>(0.3048L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>(
-    double& value) noexcept {
-  value *= 60.0 * 1.0e18;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) / static_cast<Number>(0.001L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>(
-    double& value) noexcept {
-  value *= 1.0e-18 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) / static_cast<Number>(0.001L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(60.0L);
+}
+
+template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>(
-    double& value) noexcept {
-  value *= 60.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
+              * static_cast<Number>(0.0254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>(
-    double& value) noexcept {
-  value *= 0.0000000254 * 0.0000000254 * 0.0000000254 / 60.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
+           * static_cast<Number>(0.0254L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (1852.0 * 1852.0 * 1852.0);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(1.0E6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>(
-    double& value) noexcept {
-  value *= 1852.0 * 1852.0 * 1852.0 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (1609.344 * 1609.344 * 1609.344);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>(
-    double& value) noexcept {
-  value *= 1609.344 * 1609.344 * 1609.344 / 3600.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(1.0E6L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>(
-    double& value) noexcept {
-  value *= 1.0e9 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>(
-    double& value) noexcept {
-  value /= 3600.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.9144 * 0.9144 * 0.9144);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>(
-    double& value) noexcept {
-  value *= 0.9144 * 0.9144 * 0.9144 / 3600.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.3048 * 0.3048 * 0.3048);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>(
-    double& value) noexcept {
-  value *= 0.3048 * 0.3048 * 0.3048 / 3600.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.001;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(1.0E9L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>(
-    double& value) noexcept {
-  value *= 0.001 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-9L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / 0.001;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>(
-    double& value) noexcept {
-  value *= 0.001 / 3600.0;
-}
-
-template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0254 * 0.0254 * 0.0254);
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>(
-    double& value) noexcept {
-  value *= 0.0254 * 0.0254 * 0.0254 / 3600.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1.0e6;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+              * static_cast<Number>(0.0000254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>(
-    double& value) noexcept {
-  value *= 1.0e-6 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+           * static_cast<Number>(0.0000254L) / static_cast<Number>(60.0L);
 }
 
 template <>
-inline constexpr void ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1.0e6;
-}
-
-template <>
-inline constexpr void ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>(
-    double& value) noexcept {
-  value *= 1.0e-6 / 3600.0;
-}
-
-template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1.0e9;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L) * static_cast<Number>(1.0E18L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>(
-    double& value) noexcept {
-  value *= 1.0e-9 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-18L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0000254 * 0.0000254 * 0.0000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(60.0L)
+           / (static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+              * static_cast<Number>(0.0000000254L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>(
-    double& value) noexcept {
-  value *= 0.0000254 * 0.0000254 * 0.0000254 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+           * static_cast<Number>(0.0000000254L) / static_cast<Number>(60.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>(
-    double& value) noexcept {
-  value *= 3600.0 * 1.0e18;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L)
+              * static_cast<Number>(1852.0L));
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>(
-    double& value) noexcept {
-  value *= 1.0e-18 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1852.0L) * static_cast<Number>(1852.0L)
+           * static_cast<Number>(1852.0L) / static_cast<Number>(3600.0L);
 }
 
 template <>
+template <typename Number>
 inline constexpr void
-ConversionFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>(
-    double& value) noexcept {
-  value *= 3600.0 / (0.0000000254 * 0.0000000254 * 0.0000000254);
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+              * static_cast<Number>(1609.344L));
 }
 
 template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1609.344L) * static_cast<Number>(1609.344L)
+           * static_cast<Number>(1609.344L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
 inline constexpr void
-ConversionToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>(
-    double& value) noexcept {
-  value *= 0.0000000254 * 0.0000000254 * 0.0000000254 / 3600.0;
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(1.0E9L);
 }
 
 template <>
-inline const std::map<Unit::VolumeRate, std::function<void(double* const, const std::size_t size)>>
-    MapOfConversionsFromStandard<Unit::VolumeRate, double>{
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E9L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value /= static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L)
+              * static_cast<Number>(0.9144L));
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.9144L) * static_cast<Number>(0.9144L)
+           * static_cast<Number>(0.9144L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
+              * static_cast<Number>(0.3048L));
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.3048L) * static_cast<Number>(0.3048L)
+           * static_cast<Number>(0.3048L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.001L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) / static_cast<Number>(0.001L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.001L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
+              * static_cast<Number>(0.0254L));
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0254L) * static_cast<Number>(0.0254L)
+           * static_cast<Number>(0.0254L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(1.0E6L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(1.0E6L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void Conversion<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-6L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(1.0E9L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-9L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+              * static_cast<Number>(0.0000254L));
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000254L) * static_cast<Number>(0.0000254L)
+           * static_cast<Number>(0.0000254L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L) * static_cast<Number>(1.0E18L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(1.0E-18L) / static_cast<Number>(3600.0L);
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>::FromStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(3600.0L)
+           / (static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+              * static_cast<Number>(0.0000000254L));
+}
+
+template <>
+template <typename Number>
+inline constexpr void
+Conversion<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour>::ToStandard(
+    Number& value) noexcept {
+  value *= static_cast<Number>(0.0000000254L) * static_cast<Number>(0.0000000254L)
+           * static_cast<Number>(0.0000000254L) / static_cast<Number>(3600.0L);
+}
+
+template <typename Number>
+inline const std::map<Unit::VolumeRate, std::function<void(Number* const, const std::size_t size)>>
+    MapOfConversionsFromStandard<Unit::VolumeRate, Number>{
         {Unit::VolumeRate::CubicNauticalMilePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerSecond>::FromStandard<Number>                      },
         {Unit::VolumeRate::CubicMilePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>::FromStandard<Number>},
         {Unit::VolumeRate::CubicKilometrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerSecond>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicMetrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond,        double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMetrePerSecond>::FromStandard<Number>                             },
         {Unit::VolumeRate::CubicYardPerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>::FromStandard<Number>},
         {Unit::VolumeRate::CubicFootPerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>::FromStandard<Number>},
         {Unit::VolumeRate::CubicDecimetrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerSecond>::FromStandard<Number>                         },
         {Unit::VolumeRate::LitrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond,             double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>::FromStandard<Number>    },
         {Unit::VolumeRate::CubicInchPerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>::FromStandard<Number>},
         {Unit::VolumeRate::CubicCentimetrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerSecond>::FromStandard<Number>                        },
         {Unit::VolumeRate::MillilitrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond,        double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::MillilitrePerSecond>::FromStandard<Number>                             },
         {Unit::VolumeRate::CubicMillimetrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerSecond>::FromStandard<Number>                        },
         {Unit::VolumeRate::CubicMilliinchPerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerSecond>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicMicrometrePerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerSecond>::FromStandard<Number>                        },
         {Unit::VolumeRate::CubicMicroinchPerSecond,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerSecond>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicNauticalMilePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerMinute>::FromStandard<Number>                      },
         {Unit::VolumeRate::CubicMilePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>::FromStandard<Number>},
         {Unit::VolumeRate::CubicKilometrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerMinute>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicMetrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute,        double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMetrePerMinute>::FromStandard<Number>                             },
         {Unit::VolumeRate::CubicYardPerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>::FromStandard<Number>},
         {Unit::VolumeRate::CubicFootPerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>::FromStandard<Number>},
         {Unit::VolumeRate::CubicDecimetrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerMinute>::FromStandard<Number>                         },
         {Unit::VolumeRate::LitrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute,             double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>::FromStandard<Number>    },
         {Unit::VolumeRate::CubicInchPerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>::FromStandard<Number>},
         {Unit::VolumeRate::CubicCentimetrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerMinute>::FromStandard<Number>                        },
         {Unit::VolumeRate::MillilitrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute,        double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::MillilitrePerMinute>::FromStandard<Number>                             },
         {Unit::VolumeRate::CubicMillimetrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerMinute>::FromStandard<Number>                        },
         {Unit::VolumeRate::CubicMilliinchPerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerMinute>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicMicrometrePerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerMinute>::FromStandard<Number>                        },
         {Unit::VolumeRate::CubicMicroinchPerMinute,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerMinute>::FromStandard<Number>                         },
         {Unit::VolumeRate::CubicNauticalMilePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerHour>::FromStandard<Number>                        },
         {Unit::VolumeRate::CubicMilePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>::FromStandard<Number>  },
         {Unit::VolumeRate::CubicKilometrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerHour>::FromStandard<Number>                           },
         {Unit::VolumeRate::CubicMetrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour,          double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>::FromStandard<Number> },
         {Unit::VolumeRate::CubicYardPerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>::FromStandard<Number>  },
         {Unit::VolumeRate::CubicFootPerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>::FromStandard<Number>  },
         {Unit::VolumeRate::CubicDecimetrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerHour>::FromStandard<Number>                           },
         {Unit::VolumeRate::LitrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour,               double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>::FromStandard<Number>      },
         {Unit::VolumeRate::CubicInchPerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>::FromStandard<Number>  },
         {Unit::VolumeRate::CubicCentimetrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerHour>::FromStandard<Number>                          },
         {Unit::VolumeRate::MillilitrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour,          double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>::FromStandard<Number> },
         {Unit::VolumeRate::CubicMillimetrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerHour>::FromStandard<Number>                          },
         {Unit::VolumeRate::CubicMilliinchPerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerHour>::FromStandard<Number>                           },
         {Unit::VolumeRate::CubicMicrometrePerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerHour>::FromStandard<Number>                          },
         {Unit::VolumeRate::CubicMicroinchPerHour,
-         ConversionsFromStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour,
-         double>                                                                                        },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerHour>::FromStandard<Number>                           },
 };
 
-template <>
-inline const std::map<Unit::VolumeRate, std::function<void(double* values, const std::size_t size)>>
-    MapOfConversionsToStandard<Unit::VolumeRate, double>{
+template <typename Number>
+inline const std::map<Unit::VolumeRate, std::function<void(Number* values, const std::size_t size)>>
+    MapOfConversionsToStandard<Unit::VolumeRate, Number>{
         {Unit::VolumeRate::CubicNauticalMilePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerSecond>::ToStandard<Number>                       },
         {Unit::VolumeRate::CubicMilePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerSecond>::ToStandard<Number> },
         {Unit::VolumeRate::CubicKilometrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerSecond>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicMetrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond,        double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerSecond>::ToStandard<Number>},
         {Unit::VolumeRate::CubicYardPerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerSecond>::ToStandard<Number> },
         {Unit::VolumeRate::CubicFootPerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerSecond>::ToStandard<Number> },
         {Unit::VolumeRate::CubicDecimetrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerSecond>::ToStandard<Number>                          },
         {Unit::VolumeRate::LitrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond,             double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerSecond>::ToStandard<Number>     },
         {Unit::VolumeRate::CubicInchPerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerSecond>::ToStandard<Number> },
         {Unit::VolumeRate::CubicCentimetrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerSecond>::ToStandard<Number>                         },
         {Unit::VolumeRate::MillilitrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond,        double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerSecond>::ToStandard<Number>},
         {Unit::VolumeRate::CubicMillimetrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerSecond>::ToStandard<Number>                         },
         {Unit::VolumeRate::CubicMilliinchPerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerSecond>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicMicrometrePerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerSecond>::ToStandard<Number>                         },
         {Unit::VolumeRate::CubicMicroinchPerSecond,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerSecond,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerSecond>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicNauticalMilePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerMinute>::ToStandard<Number>                       },
         {Unit::VolumeRate::CubicMilePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerMinute>::ToStandard<Number> },
         {Unit::VolumeRate::CubicKilometrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerMinute>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicMetrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute,        double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerMinute>::ToStandard<Number>},
         {Unit::VolumeRate::CubicYardPerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerMinute>::ToStandard<Number> },
         {Unit::VolumeRate::CubicFootPerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerMinute>::ToStandard<Number> },
         {Unit::VolumeRate::CubicDecimetrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerMinute>::ToStandard<Number>                          },
         {Unit::VolumeRate::LitrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute,             double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerMinute>::ToStandard<Number>     },
         {Unit::VolumeRate::CubicInchPerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute,         double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerMinute>::ToStandard<Number> },
         {Unit::VolumeRate::CubicCentimetrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerMinute>::ToStandard<Number>                         },
         {Unit::VolumeRate::MillilitrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute,        double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerMinute>::ToStandard<Number>},
         {Unit::VolumeRate::CubicMillimetrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerMinute>::ToStandard<Number>                         },
         {Unit::VolumeRate::CubicMilliinchPerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerMinute>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicMicrometrePerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerMinute>::ToStandard<Number>                         },
         {Unit::VolumeRate::CubicMicroinchPerMinute,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerMinute,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerMinute>::ToStandard<Number>                          },
         {Unit::VolumeRate::CubicNauticalMilePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicNauticalMilePerHour,
-         double>                                                                                      },
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicNauticalMilePerHour>::ToStandard<Number>                         },
         {Unit::VolumeRate::CubicMilePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMilePerHour>::ToStandard<Number>   },
         {Unit::VolumeRate::CubicKilometrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicKilometrePerHour,      double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicKilometrePerHour>::ToStandard<Number>                            },
         {Unit::VolumeRate::CubicMetrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour,          double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicMetrePerHour>::ToStandard<Number>  },
         {Unit::VolumeRate::CubicYardPerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicYardPerHour>::ToStandard<Number>   },
         {Unit::VolumeRate::CubicFootPerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicFootPerHour>::ToStandard<Number>   },
         {Unit::VolumeRate::CubicDecimetrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicDecimetrePerHour,      double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicDecimetrePerHour>::ToStandard<Number>                            },
         {Unit::VolumeRate::LitrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour,               double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::LitrePerHour>::ToStandard<Number>       },
         {Unit::VolumeRate::CubicInchPerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour,           double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::CubicInchPerHour>::ToStandard<Number>   },
         {Unit::VolumeRate::CubicCentimetrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicCentimetrePerHour,     double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicCentimetrePerHour>::ToStandard<Number>                           },
         {Unit::VolumeRate::MillilitrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour,          double>},
+         Conversions<Unit::VolumeRate, Unit::VolumeRate::MillilitrePerHour>::ToStandard<Number>  },
         {Unit::VolumeRate::CubicMillimetrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMillimetrePerHour,     double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMillimetrePerHour>::ToStandard<Number>                           },
         {Unit::VolumeRate::CubicMilliinchPerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMilliinchPerHour,      double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMilliinchPerHour>::ToStandard<Number>                            },
         {Unit::VolumeRate::CubicMicrometrePerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicrometrePerHour,     double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicrometrePerHour>::ToStandard<Number>                           },
         {Unit::VolumeRate::CubicMicroinchPerHour,
-         ConversionsToStandard<Unit::VolumeRate, Unit::VolumeRate::CubicMicroinchPerHour,      double>},
+         Conversions<Unit::VolumeRate,
+         Unit::VolumeRate::CubicMicroinchPerHour>::ToStandard<Number>                            },
 };
 
 }  // namespace Internal
