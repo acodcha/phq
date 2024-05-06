@@ -48,33 +48,17 @@ TEST(UnitTime, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Time>(UnitSystem::InchPoundSecondRankine), Time::Second);
 }
 
-TEST(UnitTime, ConversionReciprocity) {
-  constexpr long double original_value{1.234567890123456789L};
-  for (const Time original_unit : Units) {
-    for (const Time intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitTime, ConvertFromStandard) {
+TEST(UnitTime, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<Time, Time::Second, Time::Nanosecond>(value, value * 1000000000.0L);
-  Internal::TestConversions<Time, Time::Second, Time::Microsecond>(value, value * 1000000.0L);
-  Internal::TestConversions<Time, Time::Second, Time::Millisecond>(value, value * 1000.0L);
-  Internal::TestConversions<Time, Time::Second, Time::Second>(value, value);
-  Internal::TestConversions<Time, Time::Second, Time::Minute>(value, value / 60.0L);
-  Internal::TestConversions<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
-}
-
-TEST(UnitTime, ConvertToStandard) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<Time, Time::Nanosecond, Time::Second>(value, value * 0.000000001L);
-  Internal::TestConversions<Time, Time::Microsecond, Time::Second>(value, value * 0.000001L);
-  Internal::TestConversions<Time, Time::Millisecond, Time::Second>(value, value * 0.001L);
-  Internal::TestConversions<Time, Time::Second, Time::Second>(value, value);
-  Internal::TestConversions<Time, Time::Minute, Time::Second>(value, value * 60.0L);
-  Internal::TestConversions<Time, Time::Hour, Time::Second>(value, value * 3600.0L);
+  Internal::TestConvertAndConvertCopy<Time>(
+      Time::Second, Time::Nanosecond, value, value * 1000000000.0L);
+  Internal::TestConvertAndConvertCopy<Time>(
+      Time::Second, Time::Microsecond, value, value * 1000000.0L);
+  Internal::TestConvertAndConvertCopy<Time>(
+      Time::Second, Time::Millisecond, value, value * 1000.0L);
+  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Second, value, value);
+  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Minute, value, value / 60.0L);
+  Internal::TestConvertAndConvertCopy<Time>(Time::Second, Time::Hour, value, value / 3600.0L);
 }
 
 TEST(UnitTime, Parse) {
@@ -102,6 +86,11 @@ TEST(UnitTime, RelatedUnitSystem) {
 
 TEST(UnitTime, Standard) {
   EXPECT_EQ(Standard<Time>, Time::Second);
+}
+
+TEST(UnitTime, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<Time, Time::Second, Time::Hour>(value, value / 3600.0L);
 }
 
 TEST(UnitTime, Stream) {

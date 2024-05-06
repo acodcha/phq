@@ -107,131 +107,71 @@ TEST(UnitEnergy, ConsistentUnit) {
   EXPECT_EQ(ConsistentUnit<Energy>(UnitSystem::InchPoundSecondRankine), Energy::InchPound);
 }
 
-TEST(UnitEnergy, ConversionReciprocity) {
-  constexpr long double original_value{1.234567890123456789L};
-  for (const Energy original_unit : Units) {
-    for (const Energy intermediary_unit : Units) {
-      // Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-      {
-        double converted_value{static_cast<double>(original_value)};
-        Convert(converted_value, original_unit, intermediary_unit);
-        Convert(converted_value, intermediary_unit, original_unit);
-        EXPECT_DOUBLE_EQ(converted_value, original_value);
-      }
-      {
-        long double converted_value{original_value};
-        Convert(converted_value, original_unit, intermediary_unit);
-        Convert(converted_value, intermediary_unit, original_unit);
-        EXPECT_DOUBLE_EQ(converted_value, original_value);
-      }
-    }
-  }
-}
-
-TEST(UnitEnergy, ConvertFromStandard) {
+TEST(UnitEnergy, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Millijoule>(value, value * 1000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Microjoule>(value, value * 1000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanojoule>(value, value * 1000000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Kilojoule>(value, value * 0.001L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Megajoule>(value, value * 0.000001L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigajoule>(value, value * 0.000000001L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::WattMinute>(value, value / 60.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::WattHour>(value, value / 3600.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::KilowattMinute>(value, value / 60000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::KilowattHour>(value, value / 3600000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::MegawattMinute>(
-      value, value / 60000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::MegawattHour>(
-      value, value / 3600000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::GigawattMinute>(
-      value, value / 60000000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::GigawattHour>(
-      value, value / 3600000000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::FootPound>(
-      value, value / (0.3048L * 0.45359237L * 9.80665L));
-  Internal::TestConversions<Energy, Energy::Joule, Energy::InchPound>(
-      value, value / (0.0254L * 0.45359237L * 9.80665L));
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Calorie>(value, value / 4.184L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Millicalorie>(value, value / 0.004184L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Microcalorie>(
-      value, value / 0.000004184L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanocalorie>(
-      value, value / 0.000000004184L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Kilocalorie>(value, value / 4184.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Megacalorie>(value, value / 4184000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigacalorie>(
-      value, value / 4184000000.0L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Electronvolt>(
-      value, value / 1.602176634e-19L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Millielectronvolt>(
-      value, value / 1.602176634e-22L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Microelectronvolt>(
-      value, value / 1.602176634e-25L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Nanoelectronvolt>(
-      value, value / 1.602176634e-28L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Kiloelectronvolt>(
-      value, value / 1.602176634e-16L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Megaelectronvolt>(
-      value, value / 1.602176634e-13L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Gigaelectronvolt>(
-      value, value / 1.602176634e-10L);
-  Internal::TestConversions<Energy, Energy::Joule, Energy::BritishThermalUnit>(
-      value, value * 1.8L / (4.1868L * 453.59237L));
-}
-
-TEST(UnitEnergy, ConvertToStandard) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<Energy, Energy::Joule, Energy::Joule>(value, value);
-  Internal::TestConversions<Energy, Energy::Millijoule, Energy::Joule>(value, value * 0.001L);
-  Internal::TestConversions<Energy, Energy::Microjoule, Energy::Joule>(value, value * 0.000001L);
-  Internal::TestConversions<Energy, Energy::Nanojoule, Energy::Joule>(value, value * 0.000000001L);
-  Internal::TestConversions<Energy, Energy::Kilojoule, Energy::Joule>(value, value * 1000.0L);
-  Internal::TestConversions<Energy, Energy::Megajoule, Energy::Joule>(value, value * 1000000.0L);
-  Internal::TestConversions<Energy, Energy::Gigajoule, Energy::Joule>(value, value * 1000000000.0L);
-  Internal::TestConversions<Energy, Energy::WattMinute, Energy::Joule>(value, value * 60.0L);
-  Internal::TestConversions<Energy, Energy::WattHour, Energy::Joule>(value, value * 3600.0L);
-  Internal::TestConversions<Energy, Energy::KilowattMinute, Energy::Joule>(value, value * 60000.0L);
-  Internal::TestConversions<Energy, Energy::KilowattHour, Energy::Joule>(value, value * 3600000.0L);
-  Internal::TestConversions<Energy, Energy::MegawattMinute, Energy::Joule>(
-      value, value * 60000000.0L);
-  Internal::TestConversions<Energy, Energy::MegawattHour, Energy::Joule>(
-      value, value * 3600000000.0L);
-  Internal::TestConversions<Energy, Energy::GigawattMinute, Energy::Joule>(
-      value, value * 60000000000.0L);
-  Internal::TestConversions<Energy, Energy::GigawattHour, Energy::Joule>(
-      value, value * 3600000000000.0L);
-  Internal::TestConversions<Energy, Energy::FootPound, Energy::Joule>(
-      value, value * (0.3048L * 0.45359237L * 9.80665L));
-  Internal::TestConversions<Energy, Energy::InchPound, Energy::Joule>(
-      value, value * (0.0254L * 0.45359237L * 9.80665L));
-  Internal::TestConversions<Energy, Energy::Calorie, Energy::Joule>(value, value * 4.184L);
-  Internal::TestConversions<Energy, Energy::Millicalorie, Energy::Joule>(value, value * 0.004184L);
-  Internal::TestConversions<Energy, Energy::Microcalorie, Energy::Joule>(
-      value, value * 0.000004184L);
-  Internal::TestConversions<Energy, Energy::Nanocalorie, Energy::Joule>(
-      value, value * 0.000000004184L);
-  Internal::TestConversions<Energy, Energy::Kilocalorie, Energy::Joule>(value, value * 4184.0L);
-  Internal::TestConversions<Energy, Energy::Megacalorie, Energy::Joule>(value, value * 4184000.0L);
-  Internal::TestConversions<Energy, Energy::Gigacalorie, Energy::Joule>(
-      value, value * 4184000000.0L);
-  Internal::TestConversions<Energy, Energy::Electronvolt, Energy::Joule>(
-      value, value * 1.602176634e-19L);
-  Internal::TestConversions<Energy, Energy::Millielectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-22L);
-  Internal::TestConversions<Energy, Energy::Microelectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-25L);
-  Internal::TestConversions<Energy, Energy::Nanoelectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-28L);
-  Internal::TestConversions<Energy, Energy::Kiloelectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-16L);
-  Internal::TestConversions<Energy, Energy::Megaelectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-13L);
-  Internal::TestConversions<Energy, Energy::Gigaelectronvolt, Energy::Joule>(
-      value, value * 1.602176634e-10L);
-  Internal::TestConversions<Energy, Energy::BritishThermalUnit, Energy::Joule>(
-      value, value * 4.1868L * 453.59237L / 1.8L);
+  Internal::TestConvertAndConvertCopy<Energy>(Energy::Joule, Energy::Joule, value, value);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Millijoule, value, value * 1000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Microjoule, value, value * 1000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Nanojoule, value, value * 1000000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Kilojoule, value, value * 0.001L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Megajoule, value, value * 0.000001L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Gigajoule, value, value * 0.000000001L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::WattMinute, value, value / 60.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::WattHour, value, value / 3600.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::KilowattMinute, value, value / 60000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::KilowattHour, value, value / 3600000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::MegawattMinute, value, value / 60000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::MegawattHour, value, value / 3600000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::GigawattMinute, value, value / 60000000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::GigawattHour, value, value / 3600000000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::FootPound, value, value / (0.3048L * 0.45359237L * 9.80665L));
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::InchPound, value, value / (0.0254L * 0.45359237L * 9.80665L));
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Calorie, value, value / 4.184L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Millicalorie, value, value / 0.004184L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Microcalorie, value, value / 0.000004184L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Nanocalorie, value, value / 0.000000004184L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Kilocalorie, value, value / 4184.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Megacalorie, value, value / 4184000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Gigacalorie, value, value / 4184000000.0L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Electronvolt, value, value / 1.602176634e-19L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Millielectronvolt, value, value / 1.602176634e-22L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Microelectronvolt, value, value / 1.602176634e-25L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Nanoelectronvolt, value, value / 1.602176634e-28L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Kiloelectronvolt, value, value / 1.602176634e-16L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Megaelectronvolt, value, value / 1.602176634e-13L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::Gigaelectronvolt, value, value / 1.602176634e-10L);
+  Internal::TestConvertAndConvertCopy<Energy>(
+      Energy::Joule, Energy::BritishThermalUnit, value, value * 1.8L / (4.1868L * 453.59237L));
 }
 
 TEST(UnitEnergy, Parse) {
@@ -304,6 +244,12 @@ TEST(UnitEnergy, RelatedUnitSystem) {
 
 TEST(UnitEnergy, Standard) {
   EXPECT_EQ(Standard<Energy>, Energy::Joule);
+}
+
+TEST(UnitEnergy, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<Energy, Energy::Joule, Energy::FootPound>(
+      value, value / (0.3048L * 0.45359237L * 9.80665L));
 }
 
 TEST(UnitEnergy, Stream) {

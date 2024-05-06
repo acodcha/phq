@@ -57,41 +57,18 @@ TEST(UnitSubstanceAmount, ConsistentUnit) {
       ConsistentUnit<SubstanceAmount>(UnitSystem::InchPoundSecondRankine), SubstanceAmount::Mole);
 }
 
-TEST(UnitSubstanceAmount, ConversionReciprocity) {
-  constexpr long double original_value{1.234567890123456789L};
-  for (const SubstanceAmount original_unit : Units) {
-    for (const SubstanceAmount intermediary_unit : Units) {
-      Internal::TestConversionReciprocity(original_unit, intermediary_unit, original_value);
-    }
-  }
-}
-
-TEST(UnitSubstanceAmount, ConvertFromStandard) {
+TEST(UnitSubstanceAmount, ConvertAndConvertCopy) {
   constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
-      value, value);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Kilomole>(
-      value, value * 0.001L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Megamole>(
-      value, value * 0.000001L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Gigamole>(
-      value, value * 0.000000001L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Particles>(
-      value, value * 6.02214076E23L);
-}
-
-TEST(UnitSubstanceAmount, ConvertToStandard) {
-  constexpr long double value{1.234567890123456789L};
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Mole, SubstanceAmount::Mole>(
-      value, value);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Kilomole, SubstanceAmount::Mole>(
-      value, value * 1000.0L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Megamole, SubstanceAmount::Mole>(
-      value, value * 1000000.0L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Gigamole, SubstanceAmount::Mole>(
-      value, value * 1000000000.0L);
-  Internal::TestConversions<SubstanceAmount, SubstanceAmount::Particles, SubstanceAmount::Mole>(
-      value, value / 6.02214076E23L);
+  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+      SubstanceAmount::Mole, SubstanceAmount::Mole, value, value);
+  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+      SubstanceAmount::Mole, SubstanceAmount::Kilomole, value, value * 0.001L);
+  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+      SubstanceAmount::Mole, SubstanceAmount::Megamole, value, value * 0.000001L);
+  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+      SubstanceAmount::Mole, SubstanceAmount::Gigamole, value, value * 0.000000001L);
+  Internal::TestConvertAndConvertCopy<SubstanceAmount>(
+      SubstanceAmount::Mole, SubstanceAmount::Particles, value, value * 6.02214076E23L);
 }
 
 TEST(UnitSubstanceAmount, Parse) {
@@ -120,6 +97,12 @@ TEST(UnitSubstanceAmount, RelatedUnitSystem) {
 
 TEST(UnitSubstanceAmount, Standard) {
   EXPECT_EQ(Standard<SubstanceAmount>, SubstanceAmount::Mole);
+}
+
+TEST(UnitSubstanceAmount, StaticConvertCopy) {
+  constexpr long double value{1.234567890123456789L};
+  Internal::TestStaticConvertCopy<SubstanceAmount, SubstanceAmount::Mole,
+                                  SubstanceAmount::Particles>(value, value * 6.02214076E23L);
 }
 
 TEST(UnitSubstanceAmount, Stream) {
