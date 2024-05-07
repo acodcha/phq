@@ -20,6 +20,7 @@
 #include <functional>
 #include <ostream>
 #include <string>
+#include <type_traits>
 
 #include "Base.hpp"
 #include "Dimensions.hpp"
@@ -29,46 +30,50 @@ namespace PhQ {
 // Abstract base class that represents any dimensionless scalar physical quantity. Such a physical
 // quantity is composed only of a value where the value is a scalar number. Such a physical quantity
 // has no unit of measure and no dimension set.
+template <typename Number = double>
 class DimensionlessScalar {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of a physical quantity must be a floating-point number type.");
+
 public:
-  // Physical dimension set of this dimensionless physical quantity. Since this physical quantity is
+  // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
     return Dimensionless;
   }
 
-  // Value of this dimensionless physical quantity.
-  [[nodiscard]] inline constexpr double Value() const noexcept {
+  // Value of this physical quantity.
+  [[nodiscard]] inline constexpr Number Value() const noexcept {
     return value;
   }
 
-  // Returns the value of this dimensionless physical quantity as a mutable value.
-  inline constexpr double& MutableValue() noexcept {
+  // Returns the value of this physical quantity as a mutable value.
+  inline constexpr Number& MutableValue() noexcept {
     return value;
   }
 
-  // Sets the value of this dimensionless physical quantity to the given value.
-  inline constexpr void SetValue(const double value) noexcept {
+  // Sets the value of this physical quantity to the given value.
+  inline constexpr void SetValue(const Number value) noexcept {
     this->value = value;
   }
 
-  // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
-  // value is printed to double floating point precision.
+  // Prints this physical quantity as a string.
   [[nodiscard]] std::string Print() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this dimensionless physical quantity as a JSON message.
+  // Serializes this physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this dimensionless physical quantity as an XML message.
+  // Serializes this physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
     return PhQ::Print(value);
   }
 
-  // Serializes this dimensionless physical quantity as a YAML message.
+  // Serializes this physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return PhQ::Print(value);
   }
@@ -79,13 +84,18 @@ protected:
   DimensionlessScalar() = default;
 
   // Constructor. Constructs a dimensionless scalar physical quantity with a given value.
-  explicit constexpr DimensionlessScalar(const double value) : value(value) {}
+  explicit constexpr DimensionlessScalar(const Number value) : value(value) {}
 
   // Destructor. Destroys this dimensionless scalar physical quantity.
   ~DimensionlessScalar() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
   constexpr DimensionlessScalar(const DimensionlessScalar& other) = default;
+
+  // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumber>& other)
+    : value(static_cast<Number>(other.value)) {}
 
   // Move constructor. Constructs a dimensionless scalar physical quantity by moving another one.
   constexpr DimensionlessScalar(DimensionlessScalar&& other) noexcept = default;
@@ -94,16 +104,29 @@ protected:
   // another one.
   constexpr DimensionlessScalar& operator=(const DimensionlessScalar& other) = default;
 
+  // Copy assignment operator. Assigns this dimensionless scalar physical quantity by copying
+  // another one.
+  template <typename OtherNumber>
+  constexpr DimensionlessScalar& operator=(const DimensionlessScalar<OtherNumber>& other) {
+    value = static_cast<Number>(other.value);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this dimensionless scalar physical quantity by moving another
   // one.
   constexpr DimensionlessScalar& operator=(DimensionlessScalar&& other) noexcept = default;
 
-  // Value of this dimensionless scalar physical quantity.
-  double value;
+  // Value of this physical quantity.
+  Number value;
+
+  template <typename OtherNumber>
+  friend class DimensionlessScalar;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalar& quantity) {
-  stream << quantity.Print();
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) {
+  stream << dimensionless_scalar.Print();
   return stream;
 }
 
@@ -111,46 +134,57 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionlessScalar&
 
 namespace std {
 
-inline constexpr double abs(const PhQ::DimensionlessScalar& quantity) {
-  return abs(quantity.Value());
+template <typename Number>
+inline constexpr Number abs(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) {
+  return abs(dimensionless_scalar.Value());
 }
 
-inline double cbrt(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return cbrt(quantity.Value());
+template <typename Number>
+inline Number cbrt(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return cbrt(dimensionless_scalar.Value());
 };
 
-inline double exp(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return exp(quantity.Value());
+template <typename Number>
+inline Number exp(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return exp(dimensionless_scalar.Value());
 };
 
-inline double log(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return log(quantity.Value());
+template <typename Number>
+inline Number log(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return log(dimensionless_scalar.Value());
 };
 
-inline double log2(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return log2(quantity.Value());
+template <typename Number>
+inline Number log2(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return log2(dimensionless_scalar.Value());
 };
 
-inline double log10(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return log10(quantity.Value());
+template <typename Number>
+inline Number log10(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return log10(dimensionless_scalar.Value());
 };
 
-inline constexpr double pow(const PhQ::DimensionlessScalar& quantity, const int64_t exponent) {
-  return pow(quantity.Value(), exponent);
+template <typename Number>
+inline constexpr Number pow(
+    const PhQ::DimensionlessScalar<Number>& dimensionless_scalar, const int64_t exponent) {
+  return pow(dimensionless_scalar.Value(), exponent);
 };
 
-inline double pow(const PhQ::DimensionlessScalar& quantity, const double exponent) noexcept {
-  return pow(quantity.Value(), exponent);
+template <typename Number>
+inline Number pow(
+    const PhQ::DimensionlessScalar<Number>& dimensionless_scalar, const Number exponent) noexcept {
+  return pow(dimensionless_scalar.Value(), exponent);
 };
 
-inline double sqrt(const PhQ::DimensionlessScalar& quantity) noexcept {
-  return sqrt(quantity.Value());
+template <typename Number>
+inline Number sqrt(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
+  return sqrt(dimensionless_scalar.Value());
 };
 
-template <>
-struct hash<PhQ::DimensionlessScalar> {
-  inline size_t operator()(const PhQ::DimensionlessScalar& quantity) const {
-    return hash<double>()(quantity.Value());
+template <typename Number>
+struct hash<PhQ::DimensionlessScalar<Number>> {
+  inline size_t operator()(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) const {
+    return hash<Number>()(dimensionless_scalar.Value());
   }
 };
 

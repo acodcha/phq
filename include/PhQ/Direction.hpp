@@ -50,7 +50,7 @@ class Velocity;
 
 // Direction. This is guaranteed to be either a unit vector or the zero vector [0, 0, 0]. Use the
 // Valid() method to check whether the direction is a unit vector or the zero vector.
-class Direction : public DimensionlessVector {
+class Direction : public DimensionlessVector<double> {
 public:
   // Default constructor. Initializes the direction to the zero vector.
   constexpr Direction() : DimensionlessVector(Vector<>::Zero()) {}

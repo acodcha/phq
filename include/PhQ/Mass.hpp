@@ -41,7 +41,7 @@ class SpecificPower;
 class Volume;
 
 // Mass.
-class Mass : public DimensionalScalar<Unit::Mass> {
+class Mass : public DimensionalScalar<Unit::Mass, double> {
 public:
   // Default constructor. Constructs a mass with an uninitialized value.
   Mass() = default;

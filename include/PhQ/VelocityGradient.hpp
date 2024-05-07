@@ -32,7 +32,7 @@ namespace PhQ {
 
 // Velocity gradient dyadic tensor. In general, this dyadic tensor is asymmetric. See also
 // PhQ::ScalarVelocityGradient and PhQ::DisplacementGradient.
-class VelocityGradient : public DimensionalDyad<Unit::Frequency> {
+class VelocityGradient : public DimensionalDyad<Unit::Frequency, double> {
 public:
   // Default constructor. Constructs a velocity gradient tensor with an uninitialized value.
   VelocityGradient() = default;

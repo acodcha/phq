@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Dynamic kinematic pressure, which is dynamic pressure divided by mass density.
-class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy> {
+class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, double> {
 public:
   // Default constructor. Constructs a dynamic kinematic pressure with an uninitialized value.
   DynamicKinematicPressure() = default;

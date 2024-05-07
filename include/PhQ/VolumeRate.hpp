@@ -27,7 +27,7 @@
 namespace PhQ {
 
 // Volume rate. Can represent a time rate of change of a volume or a volume flow rate.
-class VolumeRate : public DimensionalScalar<Unit::VolumeRate> {
+class VolumeRate : public DimensionalScalar<Unit::VolumeRate, double> {
 public:
   // Default constructor. Constructs a volume rate with an uninitialized value.
   VolumeRate() = default;

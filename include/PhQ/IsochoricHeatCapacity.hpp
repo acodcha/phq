@@ -25,7 +25,7 @@
 namespace PhQ {
 
 // Isochoric heat capacity, also known as heat capacity at constant volume.
-class IsochoricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity> {
+class IsochoricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity, double> {
 public:
   // Default constructor. Constructs an isochoric heat capacity with an uninitialized value.
   IsochoricHeatCapacity() = default;

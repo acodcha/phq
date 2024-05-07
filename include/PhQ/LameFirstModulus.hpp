@@ -25,7 +25,7 @@ namespace PhQ {
 
 // Lamé's first modulus of elasticity of a deformable solid material. First of the two Lamé
 // parameters. A measure of a deformable solid material's elastic modulus.
-class LameFirstModulus : public DimensionalScalar<Unit::Pressure> {
+class LameFirstModulus : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a Lamé's first modulus with an uninitialized value.
   LameFirstModulus() = default;

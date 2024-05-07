@@ -30,7 +30,7 @@ class TemperatureDifference;
 class Time;
 
 // Scalar component or resultant of a strain tensor. See also PhQ::Strain and PhQ::ScalarStrainRate.
-class ScalarStrain : public DimensionlessScalar {
+class ScalarStrain : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a scalar strain with an uninitialized value.
   ScalarStrain() = default;

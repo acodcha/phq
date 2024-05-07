@@ -34,7 +34,7 @@ class ThermalDiffusivity;
 
 // Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic viscosity is defined
 // as dynamic viscosity divided by mass density.
-class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity> {
+class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity, double> {
 public:
   // Default constructor. Constructs a kinematic viscosity with an uninitialized value.
   KinematicViscosity() = default;

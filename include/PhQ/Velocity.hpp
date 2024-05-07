@@ -35,7 +35,7 @@ namespace PhQ {
 class Acceleration;
 
 // Velocity vector.
-class Velocity : public DimensionalVector<Unit::Speed> {
+class Velocity : public DimensionalVector<Unit::Speed, double> {
 public:
   // Default constructor. Constructs a velocity vector with an uninitialized value.
   Velocity() = default;

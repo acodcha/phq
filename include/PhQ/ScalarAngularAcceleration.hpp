@@ -29,7 +29,7 @@ namespace PhQ {
 // Planar scalar angular acceleration component or magnitude of an angular acceleration
 // pseudovector. Time rate of change of angular speed. Typically measured in radians per square
 // second.
-class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration> {
+class ScalarAngularAcceleration : public DimensionalScalar<Unit::AngularAcceleration, double> {
 public:
   // Default constructor. Constructs a scalar angular acceleration with an uninitialized value.
   ScalarAngularAcceleration() = default;

@@ -30,7 +30,7 @@ namespace PhQ {
 class TotalKinematicPressure;
 
 // Total pressure, which is the sum of static pressure and dynamic pressure.
-class TotalPressure : public DimensionalScalar<Unit::Pressure> {
+class TotalPressure : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a total pressure with an uninitialized value.
   TotalPressure() = default;

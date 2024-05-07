@@ -29,61 +29,61 @@ namespace PhQ {
 // Abstract base class that represents any dimensional vector physical quantity. Such a physical
 // quantity is composed of a value and a unit of measure where the value is a three-dimensional
 // vector.
-template <typename U>
+template <typename UnitType, typename Number = double>
 class DimensionalVector {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() {
-    return RelatedDimensions<U>;
+    return PhQ::RelatedDimensions<UnitType>;
   }
 
   // Standard unit of measure for this physical quantity. This physical quantity's value is stored
   // internally in this unit of measure.
-  static constexpr U Unit() {
-    return Standard<U>;
+  static constexpr UnitType Unit() {
+    return PhQ::Standard<UnitType>;
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const Vector<double>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::Vector<Number>& Value() const noexcept {
     return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] Vector<double> Value(const U unit) const {
-    Vector<double> result{value};
-    Convert(result, Standard<U>, unit);
+  [[nodiscard]] PhQ::Vector<Number> Value(const UnitType unit) const {
+    PhQ::Vector<Number> result{value};
+    PhQ::Convert(result, PhQ::Standard<UnitType>, unit);
     return result;
   }
 
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
-  template <U NewUnit>
-  [[nodiscard]] constexpr Vector<double> StaticValue() const {
-    return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
+  template <UnitType NewUnit>
+  [[nodiscard]] constexpr PhQ::Vector<Number> StaticValue() const {
+    return PhQ::StaticConvertCopy<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr Vector<double>& MutableValue() noexcept {
+  constexpr PhQ::Vector<Number>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const Vector<double>& value) noexcept {
+  constexpr void SetValue(const PhQ::Vector<Number>& value) noexcept {
     this->value = value;
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
-  // standard unit of measure and printed to double floating point precision.
+  // standard unit of measure and printed to Number floating point precision.
   [[nodiscard]] std::string Print() const {
-    return value.Print().append(" ").append(Abbreviation(Standard<U>));
+    return value.Print().append(" ").append(PhQ::Abbreviation(PhQ::Standard<UnitType>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in the
-  // given unit of measure and printed to double floating point precision.
-  [[nodiscard]] std::string Print(const U unit) const {
-    return Value(unit).Print().append(" ").append(Abbreviation(unit));
+  // given unit of measure and printed to Number floating point precision.
+  [[nodiscard]] std::string Print(const UnitType unit) const {
+    return Value(unit).Print().append(" ").append(PhQ::Abbreviation(unit));
   }
 
   // Serializes this physical quantity as a JSON message. This physical quantity's value is
@@ -92,17 +92,17 @@ public:
     return std::string{"{\"value\":"}
         .append(value.JSON())
         .append(R"(,"unit":")")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("\"}");
   }
 
   // Serializes this physical quantity as a JSON message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string JSON(const U unit) const {
+  [[nodiscard]] std::string JSON(const UnitType unit) const {
     return std::string{"{\"value\":"}
         .append(Value(unit).JSON())
         .append(R"(,"unit":")")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("\"}");
   }
 
@@ -112,17 +112,17 @@ public:
     return std::string{"<value>"}
         .append(value.XML())
         .append("</value><unit>")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("</unit>");
   }
 
   // Serializes this physical quantity as an XML message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string XML(const U unit) const {
+  [[nodiscard]] std::string XML(const UnitType unit) const {
     return std::string{"<value>"}
         .append(Value(unit).XML())
         .append("</value><unit>")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("</unit>");
   }
 
@@ -132,33 +132,33 @@ public:
     return std::string{"{value:"}
         .append(value.YAML())
         .append(",unit:\"")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("\"}");
   }
 
   // Serializes this physical quantity as a YAML message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string YAML(const U unit) const {
+  [[nodiscard]] std::string YAML(const UnitType unit) const {
     return std::string{"{value:"}
         .append(Value(unit).YAML())
         .append(",unit:\"")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("\"}");
   }
 
 protected:
   // Default constructor. Constructs a dimensional vector physical quantity with an uninitialized
-  // value expressed in its standard unit of measure.
+  // value.
   DimensionalVector() = default;
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // its standard unit of measure.
-  explicit constexpr DimensionalVector(const Vector<double>& value) : value(value) {}
+  explicit constexpr DimensionalVector(const PhQ::Vector<Number>& value) : value(value) {}
 
   // Constructor. Constructs a dimensional vector physical quantity with a given value expressed in
   // a given unit of measure.
-  DimensionalVector(const Vector<double>& value, const U unit) : value(value) {
-    Convert(this->value, unit, Standard<U>);
+  DimensionalVector(const PhQ::Vector<Number>& value, const UnitType unit) : value(value) {
+    Convert(this->value, unit, PhQ::Standard<UnitType>);
   }
 
   // Destructor. Destroys this dimensional vector physical quantity.
@@ -167,6 +167,11 @@ protected:
   // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
   constexpr DimensionalVector(const DimensionalVector& other) = default;
 
+  // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DimensionalVector(const DimensionalVector<UnitType, OtherNumber>& other)
+    : value(static_cast<PhQ::Vector<Number>>(other.value)) {}
+
   // Move constructor. Constructs a dimensional vector physical quantity by moving another one.
   constexpr DimensionalVector(DimensionalVector&& other) noexcept = default;
 
@@ -174,17 +179,29 @@ protected:
   // one.
   constexpr DimensionalVector& operator=(const DimensionalVector& other) = default;
 
+  // Copy assignment operator. Assigns this dimensional vector physical quantity by copying another
+  // one.
+  template <typename OtherNumber>
+  constexpr DimensionalVector& operator=(const DimensionalVector<UnitType, OtherNumber>& other) {
+    value = static_cast<PhQ::Vector<Number>>(other.value);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this dimensional vector physical quantity by moving another
   // one.
   constexpr DimensionalVector& operator=(DimensionalVector&& other) noexcept = default;
 
-  // Value of this dimensional vector physical quantity expressed in its standard unit of measure.
-  Vector<double> value;
+  // Value of this physical quantity expressed in its standard unit of measure.
+  PhQ::Vector<Number> value;
+
+  template <typename OtherUnitType, typename OtherNumber>
+  friend class DimensionalVector;
 };
 
-template <typename U>
-inline std::ostream& operator<<(std::ostream& stream, const DimensionalVector<U>& quantity) {
-  stream << quantity.Print();
+template <typename UnitType, typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) {
+  stream << dimensional_vector.Print();
   return stream;
 }
 
@@ -192,10 +209,11 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionalVector<U>
 
 namespace std {
 
-template <typename U>
-struct hash<PhQ::DimensionalVector<U>> {
-  inline size_t operator()(const PhQ::DimensionalVector<U>& quantity) const {
-    return hash<PhQ::Vector<double>>()(quantity.Value());
+template <typename UnitType, typename Number>
+struct hash<PhQ::DimensionalVector<UnitType, Number>> {
+  inline size_t operator()(
+      const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) const {
+    return hash<PhQ::Vector<Number>>()(dimensional_vector.Value());
   }
 };
 

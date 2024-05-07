@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Specific gas constant of a gas. Gas constant per unit mass.
-class SpecificGasConstant : public DimensionalScalar<Unit::SpecificHeatCapacity> {
+class SpecificGasConstant : public DimensionalScalar<Unit::SpecificHeatCapacity, double> {
 public:
   // Default constructor. Constructs a specific gas constant with an uninitialized value.
   SpecificGasConstant() = default;

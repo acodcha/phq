@@ -32,7 +32,7 @@
 namespace PhQ {
 
 // Acceleration vector. See also PhQ::ScalarAcceleration.
-class Acceleration : public DimensionalVector<Unit::Acceleration> {
+class Acceleration : public DimensionalVector<Unit::Acceleration, double> {
 public:
   // Default constructor. Constructs an acceleration vector with an uninitialized value.
   Acceleration() = default;

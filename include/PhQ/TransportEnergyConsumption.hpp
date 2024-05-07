@@ -29,7 +29,8 @@ namespace PhQ {
 // Transport energy consumption, also known as energy consumption in transport. A measure of energy
 // use per distance traveled. Energy consumption in transport is often measured in joules per metre
 // (J/m), kilowatt-hours per kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
-class TransportEnergyConsumption : public DimensionalScalar<Unit::TransportEnergyConsumption> {
+class TransportEnergyConsumption
+  : public DimensionalScalar<Unit::TransportEnergyConsumption, double> {
 public:
   // Default constructor. Constructs a transport energy consumption with an uninitialized value.
   TransportEnergyConsumption() = default;

@@ -31,7 +31,7 @@
 namespace PhQ {
 
 // Cauchy stress symmetric dyadic tensor. See also PhQ::ScalarStress.
-class Stress : public DimensionalSymmetricDyad<Unit::Pressure> {
+class Stress : public DimensionalSymmetricDyad<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a stress tensor with an uninitialized value.
   Stress() = default;

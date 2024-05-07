@@ -31,7 +31,7 @@ class TemperatureGradient;
 
 // Scalar temperature gradient component or magnitude of a temperature gradient vector. See also
 // PhQ::TemperatureGradient.
-class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient> {
+class ScalarTemperatureGradient : public DimensionalScalar<Unit::TemperatureGradient, double> {
 public:
   // Default constructor. Constructs a scalar temperature gradient with an uninitialized value.
   ScalarTemperatureGradient() = default;

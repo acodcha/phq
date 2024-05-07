@@ -41,7 +41,7 @@ class VectorArea;
 class Velocity;
 
 // Planar angle.
-class Angle : public DimensionalScalar<Unit::Angle> {
+class Angle : public DimensionalScalar<Unit::Angle, double> {
 public:
   // Default constructor. Constructs an angle with an uninitialized value.
   Angle() = default;

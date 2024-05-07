@@ -27,7 +27,7 @@
 namespace PhQ {
 
 // Thermal conductivity symmetric dyadic tensor. See also PhQ::ScalarThermalConductivity.
-class ThermalConductivity : public DimensionalSymmetricDyad<Unit::ThermalConductivity> {
+class ThermalConductivity : public DimensionalSymmetricDyad<Unit::ThermalConductivity, double> {
 public:
   // Default constructor. Constructs a thermal conductivity tensor with an uninitialized value.
   ThermalConductivity() = default;

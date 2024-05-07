@@ -33,7 +33,7 @@ class VolumetricThermalExpansionCoefficient;
 
 // Temperature difference. Not to be confused with temperature. For example, a temperature
 // difference of 20 kelvin is very different from a temperature of 20 kelvin.
-class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference> {
+class TemperatureDifference : public DimensionalScalar<Unit::TemperatureDifference, double> {
 public:
   // Default constructor. Constructs a temperature difference with an uninitialized value.
   TemperatureDifference() = default;

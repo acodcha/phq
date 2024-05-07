@@ -31,7 +31,7 @@ class VelocityGradient;
 
 // Displacement gradient dyadic tensor. Gradient of the displacement vector. In general, this dyadic
 // tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
-class DisplacementGradient : public DimensionlessDyad {
+class DisplacementGradient : public DimensionlessDyad<double> {
 public:
   // Default constructor. Constructs a displacement gradient tensor with an uninitialized value.
   DisplacementGradient() = default;

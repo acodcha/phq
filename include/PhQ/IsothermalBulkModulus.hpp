@@ -24,7 +24,7 @@
 namespace PhQ {
 
 // Isothermal bulk modulus. Not to be confused with the isentropic bulk modulus.
-class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure> {
+class IsothermalBulkModulus : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs an isothermal bulk modulus with an uninitialized value.
   IsothermalBulkModulus() = default;

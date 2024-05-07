@@ -31,7 +31,7 @@ class Speed;
 class TransportEnergyConsumption;
 
 // Power. Time rate of change of energy. Can also represent an energy transfer rate.
-class Power : public DimensionalScalar<Unit::Power> {
+class Power : public DimensionalScalar<Unit::Power, double> {
 public:
   // Default constructor. Constructs a power quantity with an uninitialized value.
   Power() = default;

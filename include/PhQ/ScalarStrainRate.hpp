@@ -28,7 +28,7 @@ namespace PhQ {
 
 // Scalar component or resultant of a strain rate tensor. Time rate of change of a scalar strain.
 // See also PhQ::StrainRate and PhQ::ScalarStrain.
-class ScalarStrainRate : public DimensionalScalar<Unit::Frequency> {
+class ScalarStrainRate : public DimensionalScalar<Unit::Frequency, double> {
 public:
   // Default constructor. Constructs a scalar strain rate with an uninitialized value.
   ScalarStrainRate() = default;

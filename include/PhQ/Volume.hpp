@@ -33,7 +33,7 @@ class MassDensity;
 class VolumeRate;
 
 // Volume.
-class Volume : public DimensionalScalar<Unit::Volume> {
+class Volume : public DimensionalScalar<Unit::Volume, double> {
 public:
   // Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;

@@ -34,7 +34,7 @@ class ScalarThermalConductivity;
 class ThermalDiffusivity;
 
 // Specific isobaric heat capacity. Isobaric heat capacity per unit mass.
-class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity> {
+class SpecificIsobaricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, double> {
 public:
   // Default constructor. Constructs a specific isobaric heat capacity with an uninitialized value.
   SpecificIsobaricHeatCapacity() = default;

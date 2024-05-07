@@ -27,7 +27,7 @@ namespace PhQ {
 
 // Linear thermal expansion coefficient. Not to be confused with the volumetric thermal expansion
 // coefficient.
-class LinearThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion> {
+class LinearThermalExpansionCoefficient : public DimensionalScalar<Unit::ThermalExpansion, double> {
 public:
   // Default constructor. Constructs a linear thermal expansion coefficient with an uninitialized
   // value.

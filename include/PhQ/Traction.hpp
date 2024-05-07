@@ -30,7 +30,7 @@
 namespace PhQ {
 
 // Traction vector.
-class Traction : public DimensionalVector<Unit::Pressure> {
+class Traction : public DimensionalVector<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a traction vector with an uninitialized value.
   Traction() = default;

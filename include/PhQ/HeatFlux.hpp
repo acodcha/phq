@@ -31,7 +31,7 @@
 namespace PhQ {
 
 // Heat flux vector. See also PhQ::ScalarHeatFlux.
-class HeatFlux : public DimensionalVector<Unit::EnergyFlux> {
+class HeatFlux : public DimensionalVector<Unit::EnergyFlux, double> {
 public:
   // Default constructor. Constructs a heat flux with an uninitialized value.
   HeatFlux() = default;

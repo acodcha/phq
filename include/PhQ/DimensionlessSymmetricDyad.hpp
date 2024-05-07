@@ -19,6 +19,7 @@
 #include <functional>
 #include <ostream>
 #include <string>
+#include <type_traits>
 
 #include "Base.hpp"
 #include "Dimensions.hpp"
@@ -29,46 +30,50 @@ namespace PhQ {
 // Abstract base class that represents any dimensionless symmetric dyadic tensor physical quantity.
 // Such a physical quantity is composed only of a value where the value is a three-dimensional
 // symmetric dyadic tensor. Such a physical quantity has no unit of measure and no dimension set.
+template <typename Number = double>
 class DimensionlessSymmetricDyad {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of a physical quantity must be a floating-point number type.");
+
 public:
-  // Physical dimension set of this dimensionless physical quantity. Since this physical quantity is
+  // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
     return Dimensionless;
   }
 
-  // Value of this dimensionless physical quantity.
-  [[nodiscard]] constexpr const SymmetricDyad<double>& Value() const noexcept {
+  // Value of this physical quantity.
+  [[nodiscard]] constexpr const PhQ::SymmetricDyad<Number>& Value() const noexcept {
     return value;
   }
 
-  // Returns the value of this dimensionless physical quantity as a mutable value.
-  constexpr SymmetricDyad<double>& MutableValue() noexcept {
+  // Returns the value of this physical quantity as a mutable value.
+  constexpr PhQ::SymmetricDyad<Number>& MutableValue() noexcept {
     return value;
   }
 
-  // Sets the value of this dimensionless physical quantity to the given value.
-  constexpr void SetValue(const SymmetricDyad<double>& value) noexcept {
+  // Sets the value of this physical quantity to the given value.
+  constexpr void SetValue(const PhQ::SymmetricDyad<Number>& value) noexcept {
     this->value = value;
   }
 
-  // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
-  // value is printed to double floating point precision.
+  // Prints this physical quantity as a string.
   [[nodiscard]] std::string Print() const {
     return value.Print();
   }
 
-  // Serializes this dimensionless physical quantity as a JSON message.
+  // Serializes this physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return value.JSON();
   }
 
-  // Serializes this dimensionless physical quantity as an XML message.
+  // Serializes this physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
     return value.XML();
   }
 
-  // Serializes this dimensionless physical quantity as a YAML message.
+  // Serializes this physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return value.YAML();
   }
@@ -80,18 +85,18 @@ protected:
 
   // Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity whose value
   // has the given xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr DimensionlessSymmetricDyad(const double xx, const double xy, const double xz,
-                                       const double yy, const double yz, const double zz)
+  constexpr DimensionlessSymmetricDyad(const Number xx, const Number xy, const Number xz,
+                                       const Number yy, const Number yz, const Number zz)
     : value(xx, xy, xz, yy, yz, zz) {}
 
   // Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity from a given
   // array representing its value's xx, xy, xz, yy, yz, and zz Cartesian components.
-  explicit constexpr DimensionlessSymmetricDyad(const std::array<double, 6>& xx_xy_xz_yy_yz_zz)
+  explicit constexpr DimensionlessSymmetricDyad(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz)
     : value(xx_xy_xz_yy_yz_zz) {}
 
   // Constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity with a given
   // value.
-  explicit constexpr DimensionlessSymmetricDyad(const SymmetricDyad<double>& value)
+  explicit constexpr DimensionlessSymmetricDyad(const PhQ::SymmetricDyad<Number>& value)
     : value(value) {}
 
   // Destructor. Destroys this dimensionless symmetric dyadic tensor physical quantity.
@@ -100,6 +105,13 @@ protected:
   // Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // copying another one.
   constexpr DimensionlessSymmetricDyad(const DimensionlessSymmetricDyad& other) = default;
+
+  // Copy constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
+  // copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DimensionlessSymmetricDyad(
+      const DimensionlessSymmetricDyad<OtherNumber>& other)
+    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.value)) {}
 
   // Move constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // moving another one.
@@ -110,17 +122,32 @@ protected:
   constexpr DimensionlessSymmetricDyad& operator=(
       const DimensionlessSymmetricDyad& other) = default;
 
+  // Copy assignment operator. Assigns this dimensionless symmetric dyadic tensor physical quantity
+  // by copying another one.
+  template <typename OtherNumber>
+  constexpr DimensionlessSymmetricDyad& operator=(
+      const DimensionlessSymmetricDyad<OtherNumber>& other) {
+    value = static_cast<PhQ::SymmetricDyad<Number>>(other.value);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this dimensionless symmetric dyadic tensor physical quantity
   // by moving another one.
   constexpr DimensionlessSymmetricDyad& operator=(
       DimensionlessSymmetricDyad&& other) noexcept = default;
 
-  // Value of this dimensionless symmetric dyadic tensor physical quantity.
-  SymmetricDyad<double> value;
+  // Value of this physical quantity.
+  PhQ::SymmetricDyad<Number> value;
+
+  template <typename OtherNumber>
+  friend class DimensionlessSymmetricDyad;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, const DimensionlessSymmetricDyad& quantity) {
-  stream << quantity.Print();
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream,
+    const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) {
+  stream << dimensionless_symmetric_dyad.Print();
   return stream;
 }
 
@@ -128,10 +155,11 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionlessSymmetr
 
 namespace std {
 
-template <>
-struct hash<PhQ::DimensionlessSymmetricDyad> {
-  inline size_t operator()(const PhQ::DimensionlessSymmetricDyad& quantity) const {
-    return hash<PhQ::SymmetricDyad<double>>()(quantity.Value());
+template <typename Number>
+struct hash<PhQ::DimensionlessSymmetricDyad<Number>> {
+  inline size_t operator()(
+      const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) const {
+    return hash<PhQ::SymmetricDyad<Number>>()(dimensionless_symmetric_dyad.Value());
   }
 };
 

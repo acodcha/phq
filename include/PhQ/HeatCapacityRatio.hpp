@@ -34,7 +34,7 @@ class SpecificIsochoricHeatCapacity;
 // Heat capacity ratio, also known as ratio of specific heats, adiabatic index, or Laplace's
 // coefficient. The heat capacity ratio is the ratio of the isobaric heat capacity of a material to
 // its isochoric heat capacity.
-class HeatCapacityRatio : public DimensionlessScalar {
+class HeatCapacityRatio : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a heat capacity ratio ratio with an uninitialized value.
   HeatCapacityRatio() = default;

@@ -25,7 +25,7 @@ namespace PhQ {
 
 // P-wave modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class PWaveModulus : public DimensionalScalar<Unit::Pressure> {
+class PWaveModulus : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a P-wave modulus with an uninitialized value.
   PWaveModulus() = default;

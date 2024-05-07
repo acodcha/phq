@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Vector area. The vector analog to a scalar area. See also PhQ::Area.
-class VectorArea : public DimensionalVector<Unit::Area> {
+class VectorArea : public DimensionalVector<Unit::Area, double> {
 public:
   // Default constructor. Constructs a vector area with an uninitialized value.
   VectorArea() = default;

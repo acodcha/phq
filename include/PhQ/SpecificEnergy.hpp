@@ -32,7 +32,7 @@ namespace PhQ {
 class SpecificPower;
 
 // Specific energy. Energy per unit mass.
-class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy> {
+class SpecificEnergy : public DimensionalScalar<Unit::SpecificEnergy, double> {
 public:
   // Default constructor. Constructs a specific energy quantity with an uninitialized value.
   SpecificEnergy() = default;

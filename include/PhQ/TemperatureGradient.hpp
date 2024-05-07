@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Temperature gradient vector. See also PhQ::ScalarTemperatureGradient.
-class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient> {
+class TemperatureGradient : public DimensionalVector<Unit::TemperatureGradient, double> {
 public:
   // Default constructor. Constructs a temperature gradient vector with an uninitialized value.
   TemperatureGradient() = default;

@@ -27,7 +27,7 @@
 namespace PhQ {
 
 // Computer memory rate. Can represent the time rate of change of memory or a memory transfer speed.
-class MemoryRate : public DimensionalScalar<Unit::MemoryRate> {
+class MemoryRate : public DimensionalScalar<Unit::MemoryRate, double> {
 public:
   // Default constructor. Constructs a memory rate with an uninitialized value.
   MemoryRate() = default;

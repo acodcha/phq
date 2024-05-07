@@ -29,61 +29,61 @@ namespace PhQ {
 // Abstract base class that represents any dimensional symmetric dyadic tensor physical quantity.
 // Such a physical quantity is composed of a value and a unit of measure where the value is a
 // three-dimensional symmetric dyadic tensor.
-template <typename U>
+template <typename UnitType, typename Number = double>
 class DimensionalSymmetricDyad {
 public:
   // Physical dimension set of this physical quantity.
   static constexpr const PhQ::Dimensions& Dimensions() {
-    return RelatedDimensions<U>;
+    return PhQ::RelatedDimensions<UnitType>;
   }
 
   // Standard unit of measure for this physical quantity. This physical quantity's value is stored
   // internally in this unit of measure.
-  static constexpr U Unit() {
-    return Standard<U>;
+  static constexpr UnitType Unit() {
+    return PhQ::Standard<UnitType>;
   }
 
   // Value of this physical quantity expressed in its standard unit of measure.
-  [[nodiscard]] constexpr const SymmetricDyad<double>& Value() const noexcept {
+  [[nodiscard]] constexpr const PhQ::SymmetricDyad<Number>& Value() const noexcept {
     return value;
   }
 
   // Value of this physical quantity expressed in a given unit of measure.
-  [[nodiscard]] SymmetricDyad<double> Value(const U unit) const {
-    SymmetricDyad<double> result{value};
-    Convert(result, Standard<U>, unit);
+  [[nodiscard]] PhQ::SymmetricDyad<Number> Value(const UnitType unit) const {
+    PhQ::SymmetricDyad<Number> result{value};
+    PhQ::Convert(result, PhQ::Standard<UnitType>, unit);
     return result;
   }
 
   // Value of this physical quantity expressed in a given unit of measure. This method can be
   // evaluated statically at compile-time.
-  template <U NewUnit>
-  [[nodiscard]] constexpr SymmetricDyad<double> StaticValue() const {
-    return StaticConvertCopy<U, Standard<U>, NewUnit>(value);
+  template <UnitType NewUnit>
+  [[nodiscard]] constexpr PhQ::SymmetricDyad<Number> StaticValue() const {
+    return PhQ::StaticConvertCopy<UnitType, PhQ::Standard<UnitType>, NewUnit>(value);
   }
 
   // Returns the value of this physical quantity expressed in its standard unit of measure as a
   // mutable value.
-  constexpr SymmetricDyad<double>& MutableValue() noexcept {
+  constexpr PhQ::SymmetricDyad<Number>& MutableValue() noexcept {
     return value;
   }
 
   // Sets the value of this physical quantity expressed in its standard unit of measure to the given
   // value.
-  constexpr void SetValue(const SymmetricDyad<double>& value) noexcept {
+  constexpr void SetValue(const PhQ::SymmetricDyad<Number>& value) noexcept {
     this->value = value;
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in its
-  // standard unit of measure and printed to double floating point precision.
+  // standard unit of measure and printed to Number floating point precision.
   [[nodiscard]] std::string Print() const {
-    return value.Print().append(" ").append(Abbreviation(Standard<U>));
+    return value.Print().append(" ").append(PhQ::Abbreviation(PhQ::Standard<UnitType>));
   }
 
   // Prints this physical quantity as a string. This physical quantity's value is expressed in the
-  // given unit of measure and printed to double floating point precision.
-  [[nodiscard]] std::string Print(const U unit) const {
-    return Value(unit).Print().append(" ").append(Abbreviation(unit));
+  // given unit of measure and printed to Number floating point precision.
+  [[nodiscard]] std::string Print(const UnitType unit) const {
+    return Value(unit).Print().append(" ").append(PhQ::Abbreviation(unit));
   }
 
   // Serializes this physical quantity as a JSON message. This physical quantity's value is
@@ -92,17 +92,17 @@ public:
     return std::string{"{\"value\":"}
         .append(value.JSON())
         .append(R"(,"unit":")")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("\"}");
   }
 
   // Serializes this physical quantity as a JSON message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string JSON(const U unit) const {
+  [[nodiscard]] std::string JSON(const UnitType unit) const {
     return std::string{"{\"value\":"}
         .append(Value(unit).JSON())
         .append(R"(,"unit":")")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("\"}");
   }
 
@@ -112,17 +112,17 @@ public:
     return std::string{"<value>"}
         .append(value.XML())
         .append("</value><unit>")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("</unit>");
   }
 
   // Serializes this physical quantity as an XML message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string XML(const U unit) const {
+  [[nodiscard]] std::string XML(const UnitType unit) const {
     return std::string{"<value>"}
         .append(Value(unit).XML())
         .append("</value><unit>")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("</unit>");
   }
 
@@ -132,33 +132,35 @@ public:
     return std::string{"{value:"}
         .append(value.YAML())
         .append(",unit:\"")
-        .append(Abbreviation(Standard<U>))
+        .append(PhQ::Abbreviation(PhQ::Standard<UnitType>))
         .append("\"}");
   }
 
   // Serializes this physical quantity as a YAML message. This physical quantity's value is
   // expressed in the given unit of measure.
-  [[nodiscard]] std::string YAML(const U unit) const {
+  [[nodiscard]] std::string YAML(const UnitType unit) const {
     return std::string{"{value:"}
         .append(Value(unit).YAML())
         .append(",unit:\"")
-        .append(Abbreviation(unit))
+        .append(PhQ::Abbreviation(unit))
         .append("\"}");
   }
 
 protected:
   // Default constructor. Constructs a dimensional symmetric dyadic tensor physical quantity with an
-  // uninitialized value expressed in its standard unit of measure.
+  // uninitialized value.
   DimensionalSymmetricDyad() = default;
 
   // Constructor. Constructs a dimensional symmetric dyadic tensor physical quantity with a given
   // value expressed in its standard unit of measure.
-  explicit constexpr DimensionalSymmetricDyad(const SymmetricDyad<double>& value) : value(value) {}
+  explicit constexpr DimensionalSymmetricDyad(const PhQ::SymmetricDyad<Number>& value)
+    : value(value) {}
 
   // Constructor. Constructs a dimensional dimensional symmetric dyadic tensor physical quantity
   // with a given value expressed in a given unit of measure.
-  DimensionalSymmetricDyad(const SymmetricDyad<double>& value, const U unit) : value(value) {
-    Convert(this->value, unit, Standard<U>);
+  DimensionalSymmetricDyad(const PhQ::SymmetricDyad<Number>& value, const UnitType unit)
+    : value(value) {
+    Convert(this->value, unit, PhQ::Standard<UnitType>);
   }
 
   // Destructor. Destroys this dimensional symmetric dyadic tensor physical quantity.
@@ -168,6 +170,13 @@ protected:
   // another one.
   constexpr DimensionalSymmetricDyad(const DimensionalSymmetricDyad& other) = default;
 
+  // Copy constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by copying
+  // another one.
+  template <typename OtherNumber>
+  explicit constexpr DimensionalSymmetricDyad(
+      const DimensionalSymmetricDyad<UnitType, OtherNumber>& other)
+    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.value)) {}
+
   // Move constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by moving
   // another one.
   constexpr DimensionalSymmetricDyad(DimensionalSymmetricDyad&& other) noexcept = default;
@@ -176,19 +185,32 @@ protected:
   // copying another one.
   constexpr DimensionalSymmetricDyad& operator=(const DimensionalSymmetricDyad& other) = default;
 
+  // Copy assignment operator. Assigns this dimensional symmetric dyadic tensor physical quantity by
+  // copying another one.
+  template <typename OtherNumber>
+  constexpr DimensionalSymmetricDyad& operator=(
+      const DimensionalSymmetricDyad<UnitType, OtherNumber>& other) {
+    value = static_cast<PhQ::SymmetricDyad<Number>>(other.value);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this dimensional symmetric dyadic tensor physical quantity by
   // moving another one.
   constexpr DimensionalSymmetricDyad& operator=(
       DimensionalSymmetricDyad&& other) noexcept = default;
 
-  // Value of this dimensional symmetric dyadic tensor physical quantity expressed in its standard
-  // unit of measure.
-  SymmetricDyad<double> value;
+  // Value of this physical quantity expressed in its standard unit of measure.
+  PhQ::SymmetricDyad<Number> value;
+
+  template <typename OtherUnitType, typename OtherNumber>
+  friend class DimensionalSymmetricDyad;
 };
 
-template <typename U>
-inline std::ostream& operator<<(std::ostream& stream, const DimensionalSymmetricDyad<U>& quantity) {
-  stream << quantity.Print();
+template <typename UnitType, typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream,
+    const PhQ::DimensionalSymmetricDyad<UnitType, Number>& dimensional_symmetric_dyad) {
+  stream << dimensional_symmetric_dyad.Print();
   return stream;
 }
 
@@ -196,10 +218,11 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionalSymmetric
 
 namespace std {
 
-template <typename U>
-struct hash<PhQ::DimensionalSymmetricDyad<U>> {
-  inline size_t operator()(const PhQ::DimensionalSymmetricDyad<U>& quantity) const {
-    return hash<PhQ::SymmetricDyad<double>>()(quantity.Value());
+template <typename UnitType, typename Number>
+struct hash<PhQ::DimensionalSymmetricDyad<UnitType, Number>> {
+  inline size_t operator()(
+      const PhQ::DimensionalSymmetricDyad<UnitType, Number>& dimensional_symmetric_dyad) const {
+    return hash<PhQ::SymmetricDyad<Number>>()(dimensional_symmetric_dyad.Value());
   }
 };
 

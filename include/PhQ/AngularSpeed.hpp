@@ -32,7 +32,7 @@ class ScalarAngularAcceleration;
 // Planar angular speed component or magnitude of an angular velocity pseudovector. Time rate of
 // change of an angle. Typically measured in radians per second. Can also represent a circular
 // frequency.
-class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed> {
+class AngularSpeed : public DimensionalScalar<Unit::AngularSpeed, double> {
 public:
   // Default constructor. Constructs an angular speed with an uninitialized value.
   AngularSpeed() = default;

@@ -30,7 +30,7 @@ class DynamicKinematicPressure;
 
 // Dynamic pressure, which is the additional pressure arising from a flowing fluid's kinetic energy.
 // Dynamic pressure can be thought of as a flowing fluid's kinetic energy per unit volume.
-class DynamicPressure : public DimensionalScalar<Unit::Pressure> {
+class DynamicPressure : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a dynamic pressure with an uninitialized value.
   DynamicPressure() = default;

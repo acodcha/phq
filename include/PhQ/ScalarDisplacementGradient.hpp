@@ -29,7 +29,7 @@ class Time;
 
 // Scalar component or resultant of a displacement gradient tensor. See also
 // PhQ::DisplacementGradient and PhQ::ScalarVelocityGradient.
-class ScalarDisplacementGradient : public DimensionlessScalar {
+class ScalarDisplacementGradient : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a scalar displacement gradient with an uninitialized value.
   ScalarDisplacementGradient() = default;

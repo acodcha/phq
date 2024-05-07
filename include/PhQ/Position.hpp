@@ -30,7 +30,7 @@
 namespace PhQ {
 
 // Position vector. Not to be confused with displacement vector.
-class Position : public DimensionalVector<Unit::Length> {
+class Position : public DimensionalVector<Unit::Length, double> {
 public:
   // Default constructor. Constructs a position vector with an uninitialized value.
   Position() = default;

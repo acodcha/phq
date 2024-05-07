@@ -23,7 +23,7 @@
 namespace PhQ {
 
 // Poisson's ratio of a deformable solid material.
-class PoissonRatio : public DimensionlessScalar {
+class PoissonRatio : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a Poisson's ratio with an uninitialized value.
   PoissonRatio() = default;
