@@ -28,7 +28,7 @@ namespace PhQ {
 
 // Mass rate. Can represent the time rate of change of a mass or a mass flow
 // rate.
-class MassRate : public DimensionalScalar<Unit::MassRate> {
+class MassRate : public DimensionalScalar<Unit::MassRate, double> {
 public:
   // Default constructor. Constructs a mass rate with an uninitialized value.
   MassRate() = default;

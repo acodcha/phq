@@ -29,7 +29,7 @@
 namespace PhQ {
 
 // Specific power. Power per unit mass.
-class SpecificPower : public DimensionalScalar<Unit::SpecificPower> {
+class SpecificPower : public DimensionalScalar<Unit::SpecificPower, double> {
 public:
   // Default constructor. Constructs a specific power quantity with an uninitialized value.
   SpecificPower() = default;

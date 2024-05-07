@@ -25,7 +25,7 @@
 namespace PhQ {
 
 // Mach number of a fluid flow.
-class MachNumber : public DimensionlessScalar {
+class MachNumber : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a Mach number with an uninitialized value.
   MachNumber() = default;

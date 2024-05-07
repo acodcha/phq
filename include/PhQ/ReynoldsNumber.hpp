@@ -28,7 +28,7 @@
 namespace PhQ {
 
 // Reynolds number of a fluid flow.
-class ReynoldsNumber : public DimensionlessScalar {
+class ReynoldsNumber : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a Reynolds number with an uninitialized value.
   ReynoldsNumber() = default;

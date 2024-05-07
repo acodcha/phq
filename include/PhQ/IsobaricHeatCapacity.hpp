@@ -26,7 +26,7 @@
 namespace PhQ {
 
 // Isobaric heat capacity, also known as heat capacity at constant pressure.
-class IsobaricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity> {
+class IsobaricHeatCapacity : public DimensionalScalar<Unit::HeatCapacity, double> {
 public:
   // Default constructor. Constructs an isobaric heat capacity with an uninitialized value.
   IsobaricHeatCapacity() = default;

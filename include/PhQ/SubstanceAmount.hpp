@@ -24,7 +24,7 @@
 namespace PhQ {
 
 // Amount of substance scalar quantity.
-class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount> {
+class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount, double> {
 public:
   // Default constructor. Constructs a substance amount with an uninitialized value.
   SubstanceAmount() = default;

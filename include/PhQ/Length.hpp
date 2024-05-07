@@ -41,7 +41,7 @@ class Volume;
 
 // Length, size, or distance. Can also represent the magnitude of a position vector or displacement
 // vector.
-class Length : public DimensionalScalar<Unit::Length> {
+class Length : public DimensionalScalar<Unit::Length, double> {
 public:
   // Default constructor. Constructs a length with an uninitialized value.
   Length() = default;

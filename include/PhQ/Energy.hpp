@@ -35,7 +35,7 @@ class TransportEnergyConsumption;
 
 // Energy physical quantity. Can represent any kind of energy, such as kinetic energy, potential
 // energy, internal energy, and so on.
-class Energy : public DimensionalScalar<Unit::Energy> {
+class Energy : public DimensionalScalar<Unit::Energy, double> {
 public:
   // Default constructor. Constructs an energy quantity with an uninitialized value.
   Energy() = default;

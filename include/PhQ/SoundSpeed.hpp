@@ -34,7 +34,7 @@ class MachNumber;
 class Speed;
 
 // Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
-class SoundSpeed : public DimensionalScalar<Unit::Speed> {
+class SoundSpeed : public DimensionalScalar<Unit::Speed, double> {
 public:
   // Default constructor. Constructs a sound speed with an uninitialized value.
   SoundSpeed() = default;

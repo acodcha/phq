@@ -38,7 +38,7 @@ class Speed;
 class ThermalDiffusivity;
 
 // Mass density.
-class MassDensity : public DimensionalScalar<Unit::MassDensity> {
+class MassDensity : public DimensionalScalar<Unit::MassDensity, double> {
 public:
   // Default constructor. Constructs a mass density with an uninitialized value.
   MassDensity() = default;

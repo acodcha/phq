@@ -32,7 +32,7 @@ class Frequency;
 class StrainRate;
 
 // Strain symmetric dyadic tensor. See also PhQ::ScalarStrain.
-class Strain : public DimensionlessSymmetricDyad {
+class Strain : public DimensionlessSymmetricDyad<double> {
 public:
   // Default constructor. Constructs a strain tensor with an uninitialized value.
   Strain() = default;

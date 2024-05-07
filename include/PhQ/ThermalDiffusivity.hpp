@@ -30,7 +30,7 @@ namespace PhQ {
 class PrandtlNumber;
 
 // Thermal diffusivity.
-class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity> {
+class ThermalDiffusivity : public DimensionalScalar<Unit::Diffusivity, double> {
 public:
   // Default constructor. Constructs a thermal diffusivity with an uninitialized value.
   ThermalDiffusivity() = default;

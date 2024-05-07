@@ -25,7 +25,7 @@ namespace PhQ {
 
 // Shear modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class ShearModulus : public DimensionalScalar<Unit::Pressure> {
+class ShearModulus : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a shear modulus with an uninitialized value.
   ShearModulus() = default;

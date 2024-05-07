@@ -28,7 +28,7 @@
 namespace PhQ {
 
 // Prandtl number of a fluid.
-class PrandtlNumber : public DimensionlessScalar {
+class PrandtlNumber : public DimensionlessScalar<double> {
 public:
   // Default constructor. Constructs a Prandtl number with an uninitialized value.
   PrandtlNumber() = default;

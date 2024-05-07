@@ -54,7 +54,7 @@ class Volume;
 class VolumeRate;
 
 // Time. Can represent either a point in time, a time duration, or a period.
-class Time : public DimensionalScalar<Unit::Time> {
+class Time : public DimensionalScalar<Unit::Time, double> {
 public:
   // Default constructor. Constructs a time quantity with an uninitialized value.
   Time() = default;

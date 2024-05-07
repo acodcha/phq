@@ -28,7 +28,7 @@ namespace PhQ {
 
 // Scalar component or resultant of a velocity gradient tensor. Time rate of change of a scalar
 // displacement gradient. See also PhQ::VelocityGradient and PhQ::ScalarDisplacementGradient.
-class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency> {
+class ScalarVelocityGradient : public DimensionalScalar<Unit::Frequency, double> {
 public:
   // Default constructor. Constructs a scalar velocity gradient with an uninitialized value.
   ScalarVelocityGradient() = default;

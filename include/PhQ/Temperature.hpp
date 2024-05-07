@@ -25,7 +25,7 @@
 namespace PhQ {
 
 // Temperature.
-class Temperature : public DimensionalScalar<Unit::Temperature> {
+class Temperature : public DimensionalScalar<Unit::Temperature, double> {
 public:
   // Default constructor. Constructs a temperature with an uninitialized value.
   Temperature() = default;

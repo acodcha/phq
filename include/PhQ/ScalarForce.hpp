@@ -30,7 +30,7 @@ class Force;
 class StaticPressure;
 
 // Scalar force component or magnitude of a force vector. See also PhQ::Force.
-class ScalarForce : public DimensionalScalar<Unit::Force> {
+class ScalarForce : public DimensionalScalar<Unit::Force, double> {
 public:
   // Default constructor. Constructs a scalar force with an uninitialized value.
   ScalarForce() = default;

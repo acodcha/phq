@@ -28,7 +28,7 @@ class MassDensity;
 class SoundSpeed;
 
 // Isentropic bulk modulus. Not to be confused with the isothermal bulk modulus.
-class IsentropicBulkModulus : public DimensionalScalar<Unit::Pressure> {
+class IsentropicBulkModulus : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs an isentropic bulk modulus with an uninitialized value.
   IsentropicBulkModulus() = default;

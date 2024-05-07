@@ -30,7 +30,7 @@ class DynamicKinematicPressure;
 class TotalKinematicPressure;
 
 // Static kinematic pressure, which is static pressure divided by mass density.
-class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy> {
+class StaticKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, double> {
 public:
   // Default constructor. Constructs a static kinematic pressure with an uninitialized value.
   StaticKinematicPressure() = default;

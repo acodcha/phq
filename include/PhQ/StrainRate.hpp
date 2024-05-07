@@ -33,7 +33,7 @@ class VelocityGradient;
 
 // Strain rate symmetric dyadic tensor. Time rate of change of the strain symmetric dyadic tensor.
 // See also PhQ::Strain and PhQ::ScalarStrainRate.
-class StrainRate : public DimensionalSymmetricDyad<Unit::Frequency> {
+class StrainRate : public DimensionalSymmetricDyad<Unit::Frequency, double> {
 public:
   // Default constructor. Constructs a strain rate tensor with an uninitialized value.
   StrainRate() = default;

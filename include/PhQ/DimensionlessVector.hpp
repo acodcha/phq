@@ -19,6 +19,7 @@
 #include <functional>
 #include <ostream>
 #include <string>
+#include <type_traits>
 
 #include "Base.hpp"
 #include "Dimensions.hpp"
@@ -29,36 +30,40 @@ namespace PhQ {
 // Abstract base class that represents any dimensionless vector physical quantity. Such a physical
 // quantity is composed only of a value where the value is a three-dimensional vector. Such a
 // physical quantity has no unit of measure and no dimension set.
+template <typename Number = double>
 class DimensionlessVector {
+  static_assert(
+      std::is_floating_point<Number>::value,
+      "The Number template parameter of a physical quantity must be a floating-point number type.");
+
 public:
-  // Physical dimension set of this dimensionless physical quantity. Since this physical quantity is
+  // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
     return Dimensionless;
   }
 
-  // Value of this dimensionless physical quantity.
-  [[nodiscard]] constexpr const Vector<double>& Value() const noexcept {
+  // Value of this physical quantity.
+  [[nodiscard]] constexpr const PhQ::Vector<Number>& Value() const noexcept {
     return value;
   }
 
-  // Prints this dimensionless physical quantity as a string. This dimensionless physical quantity's
-  // value is printed to double floating point precision.
+  // Prints this physical quantity as a string.
   [[nodiscard]] std::string Print() const {
     return value.Print();
   }
 
-  // Serializes this dimensionless physical quantity as a JSON message.
+  // Serializes this physical quantity as a JSON message.
   [[nodiscard]] std::string JSON() const {
     return value.JSON();
   }
 
-  // Serializes this dimensionless physical quantity as an XML message.
+  // Serializes this physical quantity as an XML message.
   [[nodiscard]] std::string XML() const {
     return value.XML();
   }
 
-  // Serializes this dimensionless physical quantity as a YAML message.
+  // Serializes this physical quantity as a YAML message.
   [[nodiscard]] std::string YAML() const {
     return value.YAML();
   }
@@ -70,20 +75,25 @@ protected:
 
   // Constructor. Constructs a dimensionless vector physical quantity whose value has the given x,
   // y, and z Cartesian components.
-  constexpr DimensionlessVector(const double x, const double y, const double z) : value(x, y, z) {}
+  constexpr DimensionlessVector(const Number x, const Number y, const Number z) : value(x, y, z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity from a given array
   // representing its value's x, y, and z Cartesian components.
-  explicit constexpr DimensionlessVector(const std::array<double, 3>& x_y_z) : value(x_y_z) {}
+  explicit constexpr DimensionlessVector(const std::array<Number, 3>& x_y_z) : value(x_y_z) {}
 
   // Constructor. Constructs a dimensionless vector physical quantity with a given value.
-  explicit constexpr DimensionlessVector(const Vector<double>& value) : value(value) {}
+  explicit constexpr DimensionlessVector(const PhQ::Vector<Number>& value) : value(value) {}
 
   // Destructor. Destroys this dimensionless vector physical quantity.
   ~DimensionlessVector() noexcept = default;
 
   // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
   constexpr DimensionlessVector(const DimensionlessVector& other) = default;
+
+  // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DimensionlessVector(const DimensionlessVector<OtherNumber>& other)
+    : value(static_cast<PhQ::Vector<Number>>(other.value)) {}
 
   // Move constructor. Constructs a dimensionless vector physical quantity by moving another one.
   constexpr DimensionlessVector(DimensionlessVector&& other) noexcept = default;
@@ -92,16 +102,29 @@ protected:
   // another one.
   constexpr DimensionlessVector& operator=(const DimensionlessVector& other) = default;
 
+  // Copy assignment operator. Assigns this dimensionless vector physical quantity by copying
+  // another one.
+  template <typename OtherNumber>
+  constexpr DimensionlessVector& operator=(const DimensionlessVector<OtherNumber>& other) {
+    value = static_cast<PhQ::Vector<Number>>(other.value);
+    return *this;
+  }
+
   // Move assignment operator. Assigns this dimensionless vector physical quantity by moving another
   // one.
   constexpr DimensionlessVector& operator=(DimensionlessVector&& other) noexcept = default;
 
-  // Value of this dimensionless vector physical quantity.
-  Vector<double> value;
+  // Value of this physical quantity.
+  PhQ::Vector<Number> value;
+
+  template <typename OtherNumber>
+  friend class DimensionlessVector;
 };
 
-inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVector& quantity) {
-  stream << quantity.Print();
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const PhQ::DimensionlessVector<Number>& dimensionless_vector) {
+  stream << dimensionless_vector.Print();
   return stream;
 }
 
@@ -109,10 +132,10 @@ inline std::ostream& operator<<(std::ostream& stream, const DimensionlessVector&
 
 namespace std {
 
-template <>
-struct hash<PhQ::DimensionlessVector> {
-  inline size_t operator()(const PhQ::DimensionlessVector& quantity) const {
-    return hash<PhQ::Vector<double>>()(quantity.Value());
+template <typename Number>
+struct hash<PhQ::DimensionlessVector<Number>> {
+  inline size_t operator()(const PhQ::DimensionlessVector<Number>& dimensionless_vector) const {
+    return hash<PhQ::Vector<Number>>()(dimensionless_vector.Value());
   }
 };
 

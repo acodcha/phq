@@ -35,7 +35,7 @@ class Time;
 class Velocity;
 
 // Displacement vector. Not to be confused with position vector.
-class Displacement : public DimensionalVector<Unit::Length> {
+class Displacement : public DimensionalVector<Unit::Length, double> {
 public:
   // Default constructor. Constructs a displacement vector with an uninitialized value.
   Displacement() = default;

@@ -27,7 +27,7 @@ namespace PhQ {
 class Stress;
 
 // Scalar component or resultant of a Cauchy stress tensor. See also PhQ::Stress.
-class ScalarStress : public DimensionalScalar<Unit::Pressure> {
+class ScalarStress : public DimensionalScalar<Unit::Pressure, double> {
 public:
   // Default constructor. Constructs a scalar stress with an uninitialized value.
   ScalarStress() = default;

@@ -32,7 +32,7 @@ namespace PhQ {
 class Traction;
 
 // Force vector. See also PhQ::ScalarForce.
-class Force : public DimensionalVector<Unit::Force> {
+class Force : public DimensionalVector<Unit::Force, double> {
 public:
   // Default constructor. Constructs a force vector with an uninitialized value.
   Force() = default;

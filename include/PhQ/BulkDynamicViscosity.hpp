@@ -24,7 +24,7 @@
 namespace PhQ {
 
 // Bulk dynamic viscosity, also known as volume dynamic viscosity or dilatational dynamic viscosity.
-class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity> {
+class BulkDynamicViscosity : public DimensionalScalar<Unit::DynamicViscosity, double> {
 public:
   // Default constructor. Constructs a bulk dynamic viscosity with an uninitialized value.
   BulkDynamicViscosity() = default;

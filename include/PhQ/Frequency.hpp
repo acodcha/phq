@@ -25,7 +25,7 @@
 namespace PhQ {
 
 // Frequency.
-class Frequency : public DimensionalScalar<Unit::Frequency> {
+class Frequency : public DimensionalScalar<Unit::Frequency, double> {
 public:
   // Default constructor. Constructs a frequency with an uninitialized value.
   Frequency() = default;

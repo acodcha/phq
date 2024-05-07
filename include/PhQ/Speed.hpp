@@ -41,7 +41,7 @@ class TransportEnergyConsumption;
 class Velocity;
 
 // Speed scalar. Magnitude of the velocity vector.
-class Speed : public DimensionalScalar<Unit::Speed> {
+class Speed : public DimensionalScalar<Unit::Speed, double> {
 public:
   // Default constructor. Constructs a speed with an uninitialized value.
   Speed() = default;

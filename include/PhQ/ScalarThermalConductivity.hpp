@@ -32,7 +32,7 @@ class ThermalDiffusivity;
 
 // Thermal conductivity scalar. For materials that are isotropic, thermal conductivity can be
 // represented by a scalar rather than a dyadic tensor. See also PhQ::ThermalConductivity.
-class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity> {
+class ScalarThermalConductivity : public DimensionalScalar<Unit::ThermalConductivity, double> {
 public:
   // Default constructor. Constructs a thermal conductivity scalar with an uninitialized value.
   ScalarThermalConductivity() = default;

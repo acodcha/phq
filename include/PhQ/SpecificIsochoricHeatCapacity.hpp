@@ -27,7 +27,7 @@
 namespace PhQ {
 
 // Specific isochoric heat capacity. Isochoric heat capacity per unit mass.
-class SpecificIsochoricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity> {
+class SpecificIsochoricHeatCapacity : public DimensionalScalar<Unit::SpecificHeatCapacity, double> {
 public:
   // Default constructor. Constructs a specific isochoric heat capacity with an uninitialized value.
   SpecificIsochoricHeatCapacity() = default;

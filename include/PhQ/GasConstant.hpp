@@ -31,7 +31,7 @@ class SpecificGasConstant;
 
 // Gas constant of a gas. Not to be confused with the molar gas constant or the specific gas
 // constant.
-class GasConstant : public DimensionalScalar<Unit::HeatCapacity> {
+class GasConstant : public DimensionalScalar<Unit::HeatCapacity, double> {
 public:
   // Default constructor. Constructs a gas constant with an uninitialized value.
   GasConstant() = default;

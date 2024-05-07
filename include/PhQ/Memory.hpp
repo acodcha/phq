@@ -29,7 +29,7 @@ class Frequency;
 class MemoryRate;
 
 // Computer memory.
-class Memory : public DimensionalScalar<Unit::Memory> {
+class Memory : public DimensionalScalar<Unit::Memory, double> {
 public:
   // Default constructor. Constructs a memory quantity with an uninitialized value.
   Memory() = default;

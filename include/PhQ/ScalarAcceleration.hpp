@@ -31,7 +31,7 @@ class Acceleration;
 class Direction;
 
 // Scalar acceleration component or magnitude of an acceleration vector. See also PhQ::Acceleration.
-class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration> {
+class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration, double> {
 public:
   // Default constructor. Constructs a scalar acceleration with an uninitialized value.
   ScalarAcceleration() = default;

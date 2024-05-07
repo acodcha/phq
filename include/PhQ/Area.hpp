@@ -34,7 +34,7 @@ class VectorArea;
 
 // Scalar area. Can also represent a component or the magnitude of a vector area (see
 // PhQ::VectorArea).
-class Area : public DimensionalScalar<Unit::Area> {
+class Area : public DimensionalScalar<Unit::Area, double> {
 public:
   // Default constructor. Constructs an area with an uninitialized value.
   Area() = default;
