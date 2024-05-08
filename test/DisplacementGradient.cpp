@@ -113,7 +113,7 @@ TEST(DisplacementGradient, DefaultConstructor) {
 }
 
 TEST(DisplacementGradient, Dimensions) {
-  EXPECT_EQ(DisplacementGradient::Dimensions(), Dimensions());
+  EXPECT_EQ(DisplacementGradient::Dimensions(), Dimensionless);
 }
 
 TEST(DisplacementGradient, Hash) {

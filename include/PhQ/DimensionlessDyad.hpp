@@ -41,7 +41,7 @@ public:
   // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
-    return Dimensionless;
+    return PhQ::Dimensionless;
   }
 
   // Value of this physical quantity.
@@ -110,7 +110,7 @@ protected:
   // one.
   template <typename OtherNumber>
   explicit constexpr DimensionlessDyad(const DimensionlessDyad<OtherNumber>& other)
-    : value(static_cast<PhQ::Dyad<Number>>(other.value)) {}
+    : value(static_cast<PhQ::Dyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless dyadic tensor physical quantity by moving another
   // one.
@@ -124,7 +124,7 @@ protected:
   // another one.
   template <typename OtherNumber>
   constexpr DimensionlessDyad& operator=(const DimensionlessDyad<OtherNumber>& other) {
-    value = static_cast<PhQ::Dyad<Number>>(other.value);
+    value = static_cast<PhQ::Dyad<Number>>(other.Value());
     return *this;
   }
 
@@ -134,9 +134,6 @@ protected:
 
   // Value of this physical quantity.
   PhQ::Dyad<Number> value;
-
-  template <typename OtherNumber>
-  friend class DimensionlessDyad;
 };
 
 template <typename Number>

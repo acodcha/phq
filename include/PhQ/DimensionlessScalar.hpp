@@ -40,7 +40,7 @@ public:
   // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
-    return Dimensionless;
+    return PhQ::Dimensionless;
   }
 
   // Value of this physical quantity.
@@ -95,7 +95,7 @@ protected:
   // Copy constructor. Constructs a dimensionless scalar physical quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DimensionlessScalar(const DimensionlessScalar<OtherNumber>& other)
-    : value(static_cast<Number>(other.value)) {}
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless scalar physical quantity by moving another one.
   constexpr DimensionlessScalar(DimensionlessScalar&& other) noexcept = default;
@@ -108,7 +108,7 @@ protected:
   // another one.
   template <typename OtherNumber>
   constexpr DimensionlessScalar& operator=(const DimensionlessScalar<OtherNumber>& other) {
-    value = static_cast<Number>(other.value);
+    value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -118,9 +118,6 @@ protected:
 
   // Value of this physical quantity.
   Number value;
-
-  template <typename OtherNumber>
-  friend class DimensionlessScalar;
 };
 
 template <typename Number>
@@ -164,15 +161,9 @@ inline Number log10(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar
   return log10(dimensionless_scalar.Value());
 };
 
-template <typename Number>
-inline constexpr Number pow(
-    const PhQ::DimensionlessScalar<Number>& dimensionless_scalar, const int64_t exponent) {
-  return pow(dimensionless_scalar.Value(), exponent);
-};
-
-template <typename Number>
-inline Number pow(
-    const PhQ::DimensionlessScalar<Number>& dimensionless_scalar, const Number exponent) noexcept {
+template <typename Number, typename OtherNumber>
+inline Number pow(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar,
+                  const OtherNumber exponent) noexcept {
   return pow(dimensionless_scalar.Value(), exponent);
 };
 

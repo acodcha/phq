@@ -175,7 +175,7 @@ protected:
   template <typename OtherNumber>
   explicit constexpr DimensionalSymmetricDyad(
       const DimensionalSymmetricDyad<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.value)) {}
+    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by moving
   // another one.
@@ -190,7 +190,7 @@ protected:
   template <typename OtherNumber>
   constexpr DimensionalSymmetricDyad& operator=(
       const DimensionalSymmetricDyad<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::SymmetricDyad<Number>>(other.value);
+    value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 
@@ -201,9 +201,6 @@ protected:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::SymmetricDyad<Number> value;
-
-  template <typename OtherUnitType, typename OtherNumber>
-  friend class DimensionalSymmetricDyad;
 };
 
 template <typename UnitType, typename Number>
