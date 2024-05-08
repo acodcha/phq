@@ -195,25 +195,6 @@ protected:
   PhQ::Vector<Number> value;
 };
 
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) {
-  stream << dimensional_vector.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalVector<UnitType, Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) const {
-    return hash<PhQ::Vector<Number>>()(dimensional_vector.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_VECTOR_HPP

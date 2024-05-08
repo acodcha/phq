@@ -118,24 +118,6 @@ protected:
   PhQ::Vector<Number> value;
 };
 
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionlessVector<Number>& dimensionless_vector) {
-  stream << dimensionless_vector.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename Number>
-struct hash<PhQ::DimensionlessVector<Number>> {
-  inline size_t operator()(const PhQ::DimensionlessVector<Number>& dimensionless_vector) const {
-    return hash<PhQ::Vector<Number>>()(dimensionless_vector.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONLESS_VECTOR_HPP

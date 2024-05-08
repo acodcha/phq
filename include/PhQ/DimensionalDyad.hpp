@@ -198,24 +198,6 @@ protected:
   PhQ::Dyad<Number> value;
 };
 
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalDyad<UnitType, Number>& quantity) {
-  stream << quantity.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalDyad<UnitType, Number>> {
-  inline size_t operator()(const PhQ::DimensionalDyad<UnitType, Number>& quantity) const {
-    return hash<PhQ::Dyad<Number>>()(quantity.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_DYAD_HPP

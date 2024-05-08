@@ -124,38 +124,6 @@ if(TEST_PHQ_LIBRARY)
   target_link_libraries(dimension_time GTest::gtest_main)
   gtest_discover_tests(dimension_time)
 
-  add_executable(dimensional_dyad ${PROJECT_SOURCE_DIR}/test/DimensionalDyad.cpp)
-  target_link_libraries(dimensional_dyad GTest::gtest_main)
-  gtest_discover_tests(dimensional_dyad)
-
-  add_executable(dimensional_scalar ${PROJECT_SOURCE_DIR}/test/DimensionalScalar.cpp)
-  target_link_libraries(dimensional_scalar GTest::gtest_main)
-  gtest_discover_tests(dimensional_scalar)
-
-  add_executable(dimensional_symmetric_dyad ${PROJECT_SOURCE_DIR}/test/DimensionalSymmetricDyad.cpp)
-  target_link_libraries(dimensional_symmetric_dyad GTest::gtest_main)
-  gtest_discover_tests(dimensional_symmetric_dyad)
-
-  add_executable(dimensional_vector ${PROJECT_SOURCE_DIR}/test/DimensionalVector.cpp)
-  target_link_libraries(dimensional_vector GTest::gtest_main)
-  gtest_discover_tests(dimensional_vector)
-
-  add_executable(dimensionless_dyad ${PROJECT_SOURCE_DIR}/test/DimensionlessDyad.cpp)
-  target_link_libraries(dimensionless_dyad GTest::gtest_main)
-  gtest_discover_tests(dimensionless_dyad)
-
-  add_executable(dimensionless_scalar ${PROJECT_SOURCE_DIR}/test/DimensionlessScalar.cpp)
-  target_link_libraries(dimensionless_scalar GTest::gtest_main)
-  gtest_discover_tests(dimensionless_scalar)
-
-  add_executable(dimensionless_symmetric_dyad ${PROJECT_SOURCE_DIR}/test/DimensionlessSymmetricDyad.cpp)
-  target_link_libraries(dimensionless_symmetric_dyad GTest::gtest_main)
-  gtest_discover_tests(dimensionless_symmetric_dyad)
-
-  add_executable(dimensionless_vector ${PROJECT_SOURCE_DIR}/test/DimensionlessVector.cpp)
-  target_link_libraries(dimensionless_vector GTest::gtest_main)
-  gtest_discover_tests(dimensionless_vector)
-
   add_executable(dimensions ${PROJECT_SOURCE_DIR}/test/Dimensions.cpp)
   target_link_libraries(dimensions GTest::gtest_main)
   gtest_discover_tests(dimensions)

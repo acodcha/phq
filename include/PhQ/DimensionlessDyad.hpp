@@ -136,24 +136,6 @@ protected:
   PhQ::Dyad<Number> value;
 };
 
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionlessDyad<Number>& dimensionless_dyad) {
-  stream << dimensionless_dyad.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename Number>
-struct hash<PhQ::DimensionlessDyad<Number>> {
-  inline size_t operator()(const PhQ::DimensionlessDyad<Number>& dimensionless_dyad) const {
-    return hash<PhQ::Dyad<Number>>()(dimensionless_dyad.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONLESS_DYAD_HPP

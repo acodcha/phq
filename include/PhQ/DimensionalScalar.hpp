@@ -198,25 +198,6 @@ protected:
   Number value;
 };
 
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalScalar<UnitType, Number>& dimensional_scalar) {
-  stream << dimensional_scalar.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalScalar<UnitType, Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionalScalar<UnitType, Number>& dimensional_scalar) const {
-    return hash<Number>()(dimensional_scalar.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_SCALAR_HPP

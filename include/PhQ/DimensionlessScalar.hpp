@@ -120,13 +120,6 @@ protected:
   Number value;
 };
 
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) {
-  stream << dimensionless_scalar.Print();
-  return stream;
-}
-
 }  // namespace PhQ
 
 namespace std {
@@ -170,13 +163,6 @@ inline Number pow(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar,
 template <typename Number>
 inline Number sqrt(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) noexcept {
   return sqrt(dimensionless_scalar.Value());
-};
-
-template <typename Number>
-struct hash<PhQ::DimensionlessScalar<Number>> {
-  inline size_t operator()(const PhQ::DimensionlessScalar<Number>& dimensionless_scalar) const {
-    return hash<Number>()(dimensionless_scalar.Value());
-  }
 };
 
 }  // namespace std

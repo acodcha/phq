@@ -140,26 +140,6 @@ protected:
   PhQ::SymmetricDyad<Number> value;
 };
 
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream,
-    const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) {
-  stream << dimensionless_symmetric_dyad.Print();
-  return stream;
-}
-
 }  // namespace PhQ
-
-namespace std {
-
-template <typename Number>
-struct hash<PhQ::DimensionlessSymmetricDyad<Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) const {
-    return hash<PhQ::SymmetricDyad<Number>>()(dimensionless_symmetric_dyad.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONLESS_SYMMETRIC_DYAD_HPP
