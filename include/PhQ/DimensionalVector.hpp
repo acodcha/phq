@@ -170,7 +170,7 @@ protected:
   // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DimensionalVector(const DimensionalVector<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::Vector<Number>>(other.value)) {}
+    : value(static_cast<PhQ::Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional vector physical quantity by moving another one.
   constexpr DimensionalVector(DimensionalVector&& other) noexcept = default;
@@ -183,7 +183,7 @@ protected:
   // one.
   template <typename OtherNumber>
   constexpr DimensionalVector& operator=(const DimensionalVector<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::Vector<Number>>(other.value);
+    value = static_cast<PhQ::Vector<Number>>(other.Value());
     return *this;
   }
 
@@ -193,30 +193,8 @@ protected:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::Vector<Number> value;
-
-  template <typename OtherUnitType, typename OtherNumber>
-  friend class DimensionalVector;
 };
-
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) {
-  stream << dimensional_vector.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalVector<UnitType, Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionalVector<UnitType, Number>& dimensional_vector) const {
-    return hash<PhQ::Vector<Number>>()(dimensional_vector.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_VECTOR_HPP

@@ -40,7 +40,7 @@ public:
   // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
-    return Dimensionless;
+    return PhQ::Dimensionless;
   }
 
   // Value of this physical quantity.
@@ -111,7 +111,7 @@ protected:
   template <typename OtherNumber>
   explicit constexpr DimensionlessSymmetricDyad(
       const DimensionlessSymmetricDyad<OtherNumber>& other)
-    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.value)) {}
+    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless symmetric dyadic tensor physical quantity by
   // moving another one.
@@ -127,7 +127,7 @@ protected:
   template <typename OtherNumber>
   constexpr DimensionlessSymmetricDyad& operator=(
       const DimensionlessSymmetricDyad<OtherNumber>& other) {
-    value = static_cast<PhQ::SymmetricDyad<Number>>(other.value);
+    value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 
@@ -138,31 +138,8 @@ protected:
 
   // Value of this physical quantity.
   PhQ::SymmetricDyad<Number> value;
-
-  template <typename OtherNumber>
-  friend class DimensionlessSymmetricDyad;
 };
-
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream,
-    const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) {
-  stream << dimensionless_symmetric_dyad.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename Number>
-struct hash<PhQ::DimensionlessSymmetricDyad<Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionlessSymmetricDyad<Number>& dimensionless_symmetric_dyad) const {
-    return hash<PhQ::SymmetricDyad<Number>>()(dimensionless_symmetric_dyad.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONLESS_SYMMETRIC_DYAD_HPP

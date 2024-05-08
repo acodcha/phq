@@ -175,7 +175,7 @@ protected:
   template <typename OtherNumber>
   explicit constexpr DimensionalSymmetricDyad(
       const DimensionalSymmetricDyad<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.value)) {}
+    : value(static_cast<PhQ::SymmetricDyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional symmetric dyadic tensor physical quantity by moving
   // another one.
@@ -190,7 +190,7 @@ protected:
   template <typename OtherNumber>
   constexpr DimensionalSymmetricDyad& operator=(
       const DimensionalSymmetricDyad<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::SymmetricDyad<Number>>(other.value);
+    value = static_cast<PhQ::SymmetricDyad<Number>>(other.Value());
     return *this;
   }
 
@@ -201,31 +201,8 @@ protected:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::SymmetricDyad<Number> value;
-
-  template <typename OtherUnitType, typename OtherNumber>
-  friend class DimensionalSymmetricDyad;
 };
-
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream,
-    const PhQ::DimensionalSymmetricDyad<UnitType, Number>& dimensional_symmetric_dyad) {
-  stream << dimensional_symmetric_dyad.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalSymmetricDyad<UnitType, Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionalSymmetricDyad<UnitType, Number>& dimensional_symmetric_dyad) const {
-    return hash<PhQ::SymmetricDyad<Number>>()(dimensional_symmetric_dyad.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_SYMMETRIC_DYAD_HPP

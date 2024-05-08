@@ -13,6 +13,7 @@
 
 #include "../include/PhQ/ScalarStrain.hpp"
 
+#include <cmath>
 #include <functional>
 #include <gtest/gtest.h>
 #include <sstream>
@@ -112,6 +113,22 @@ TEST(ScalarStrain, Hash) {
 
 TEST(ScalarStrain, JSON) {
   EXPECT_EQ(ScalarStrain(1.0).JSON(), Print(1.0));
+}
+
+TEST(ScalarStrain, Mathematics) {
+  EXPECT_EQ(std::abs(ScalarStrain(-1.0)), std::abs(-1.0));
+  EXPECT_EQ(std::cbrt(ScalarStrain(-8.0)), std::cbrt(-8.0));
+  EXPECT_EQ(std::exp(ScalarStrain(2.0)), std::exp(2.0));
+  EXPECT_EQ(std::log(ScalarStrain(2.0)), std::log(2.0));
+  EXPECT_EQ(std::log2(ScalarStrain(8.0)), std::log2(8.0));
+  EXPECT_EQ(std::log10(ScalarStrain(100.0)), std::log10(100.0));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3), std::pow(4.0, 3));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3L), std::pow(4.0, 3L));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3LL), std::pow(4.0, 3LL));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3.0F), std::pow(4.0, 3.0F));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3.0), std::pow(4.0, 3.0));
+  EXPECT_EQ(std::pow(ScalarStrain(4.0), 3.0L), std::pow(4.0, 3.0L));
+  EXPECT_EQ(std::sqrt(ScalarStrain(9.0)), std::sqrt(9.0));
 }
 
 TEST(ScalarStrain, MoveAssignmentOperator) {

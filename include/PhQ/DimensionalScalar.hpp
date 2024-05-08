@@ -173,7 +173,7 @@ protected:
   // Copy constructor. Constructs a dimensional scalar physical quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DimensionalScalar(const DimensionalScalar<UnitType, OtherNumber>& other)
-    : value(static_cast<Number>(other.value)) {}
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional scalar physical quantity by moving another one.
   constexpr DimensionalScalar(DimensionalScalar&& other) noexcept = default;
@@ -186,7 +186,7 @@ protected:
   // one.
   template <typename OtherNumber>
   constexpr DimensionalScalar& operator=(const DimensionalScalar<UnitType, OtherNumber>& other) {
-    value = static_cast<Number>(other.value);
+    value = static_cast<Number>(other.Value());
     return *this;
   }
 
@@ -196,30 +196,8 @@ protected:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   Number value;
-
-  template <typename OtherUnitType, typename OtherNumber>
-  friend class DimensionalScalar;
 };
-
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalScalar<UnitType, Number>& dimensional_scalar) {
-  stream << dimensional_scalar.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalScalar<UnitType, Number>> {
-  inline size_t operator()(
-      const PhQ::DimensionalScalar<UnitType, Number>& dimensional_scalar) const {
-    return hash<Number>()(dimensional_scalar.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_SCALAR_HPP

@@ -40,7 +40,7 @@ public:
   // Physical dimension set of this physical quantity. Since this physical quantity is
   // dimensionless, its physical dimension set is simply the null set.
   static constexpr PhQ::Dimensions Dimensions() {
-    return Dimensionless;
+    return PhQ::Dimensionless;
   }
 
   // Value of this physical quantity.
@@ -93,7 +93,7 @@ protected:
   // Copy constructor. Constructs a dimensionless vector physical quantity by copying another one.
   template <typename OtherNumber>
   explicit constexpr DimensionlessVector(const DimensionlessVector<OtherNumber>& other)
-    : value(static_cast<PhQ::Vector<Number>>(other.value)) {}
+    : value(static_cast<PhQ::Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensionless vector physical quantity by moving another one.
   constexpr DimensionlessVector(DimensionlessVector&& other) noexcept = default;
@@ -106,7 +106,7 @@ protected:
   // another one.
   template <typename OtherNumber>
   constexpr DimensionlessVector& operator=(const DimensionlessVector<OtherNumber>& other) {
-    value = static_cast<PhQ::Vector<Number>>(other.value);
+    value = static_cast<PhQ::Vector<Number>>(other.Value());
     return *this;
   }
 
@@ -116,29 +116,8 @@ protected:
 
   // Value of this physical quantity.
   PhQ::Vector<Number> value;
-
-  template <typename OtherNumber>
-  friend class DimensionlessVector;
 };
-
-template <typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionlessVector<Number>& dimensionless_vector) {
-  stream << dimensionless_vector.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename Number>
-struct hash<PhQ::DimensionlessVector<Number>> {
-  inline size_t operator()(const PhQ::DimensionlessVector<Number>& dimensionless_vector) const {
-    return hash<PhQ::Vector<Number>>()(dimensionless_vector.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONLESS_VECTOR_HPP

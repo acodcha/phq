@@ -66,8 +66,8 @@ public:
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
   template <typename OtherNumber>
   explicit constexpr Vector(const Vector<OtherNumber>& other)
-    : x_y_z_({static_cast<Number>(other.x_y_z_[0]), static_cast<Number>(other.x_y_z_[1]),
-              static_cast<Number>(other.x_y_z_[2])}) {}
+    : x_y_z_({static_cast<Number>(other.x()), static_cast<Number>(other.y()),
+              static_cast<Number>(other.z())}) {}
 
   // Move constructor. Constructs a three-dimensional vector by moving another one.
   constexpr Vector(Vector&& other) noexcept = default;
@@ -78,9 +78,9 @@ public:
   // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
   template <typename OtherNumber>
   constexpr Vector& operator=(const Vector<OtherNumber>& other) {
-    x_y_z_[0] = static_cast<Number>(other.x_y_z_[0]);
-    x_y_z_[1] = static_cast<Number>(other.x_y_z_[1]);
-    x_y_z_[2] = static_cast<Number>(other.x_y_z_[2]);
+    x_y_z_[0] = static_cast<Number>(other.x());
+    x_y_z_[1] = static_cast<Number>(other.y());
+    x_y_z_[2] = static_cast<Number>(other.z());
     return *this;
   }
 
@@ -272,9 +272,6 @@ public:
 private:
   // Cartesian components of this three-dimensional vector.
   std::array<Number, 3> x_y_z_;
-
-  template <typename OtherNumber>
-  friend class Vector;
 };
 
 template <typename Number>

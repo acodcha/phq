@@ -172,7 +172,7 @@ protected:
   // one.
   template <typename OtherNumber>
   explicit constexpr DimensionalDyad(const DimensionalDyad<UnitType, OtherNumber>& other)
-    : value(static_cast<PhQ::Dyad<Number>>(other.value)) {}
+    : value(static_cast<PhQ::Dyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional dyadic tensor physical quantity by moving another
   // one.
@@ -186,7 +186,7 @@ protected:
   // another one.
   template <typename OtherNumber>
   constexpr DimensionalDyad& operator=(const DimensionalDyad<UnitType, OtherNumber>& other) {
-    value = static_cast<PhQ::Dyad<Number>>(other.value);
+    value = static_cast<PhQ::Dyad<Number>>(other.Value());
     return *this;
   }
 
@@ -196,29 +196,8 @@ protected:
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::Dyad<Number> value;
-
-  template <typename OtherUnitType, typename OtherNumber>
-  friend class DimensionalDyad;
 };
-
-template <typename UnitType, typename Number>
-inline std::ostream& operator<<(
-    std::ostream& stream, const PhQ::DimensionalDyad<UnitType, Number>& quantity) {
-  stream << quantity.Print();
-  return stream;
-}
 
 }  // namespace PhQ
-
-namespace std {
-
-template <typename UnitType, typename Number>
-struct hash<PhQ::DimensionalDyad<UnitType, Number>> {
-  inline size_t operator()(const PhQ::DimensionalDyad<UnitType, Number>& quantity) const {
-    return hash<PhQ::Dyad<Number>>()(quantity.Value());
-  }
-};
-
-}  // namespace std
 
 #endif  // PHQ_DIMENSIONAL_DYAD_HPP

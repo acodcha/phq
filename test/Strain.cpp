@@ -103,7 +103,7 @@ TEST(Strain, DefaultConstructor) {
 }
 
 TEST(Strain, Dimensions) {
-  EXPECT_EQ(Strain::Dimensions(), Dimensions());
+  EXPECT_EQ(Strain::Dimensions(), Dimensionless);
 }
 
 TEST(Strain, Hash) {
