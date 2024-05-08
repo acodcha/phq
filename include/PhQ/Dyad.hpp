@@ -71,15 +71,11 @@ public:
   template <typename OtherNumber>
   explicit constexpr Dyad(const Dyad<OtherNumber>& other)
     : xx_xy_xz_yx_yy_yz_zx_zy_zz_(
-        {static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]),
-         static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8])}) {}
+        {static_cast<Number>(other.xx()), static_cast<Number>(other.xy()),
+         static_cast<Number>(other.xz()), static_cast<Number>(other.yx()),
+         static_cast<Number>(other.yy()), static_cast<Number>(other.yz()),
+         static_cast<Number>(other.zx()), static_cast<Number>(other.zy()),
+         static_cast<Number>(other.zz())}) {}
 
   // Move constructor. Constructs a three-dimensional dyadic tensor by moving another one.
   constexpr Dyad(Dyad&& other) noexcept = default;
@@ -92,15 +88,15 @@ public:
   // one.
   template <typename OtherNumber>
   constexpr Dyad& operator=(const Dyad<OtherNumber>& other) {
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[0]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[1]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[2]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[3]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[4]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[5]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[6]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[7]);
-    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = static_cast<Number>(other.xx_xy_xz_yx_yy_yz_zx_zy_zz_[8]);
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[0] = static_cast<Number>(other.xx());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[1] = static_cast<Number>(other.xy());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[2] = static_cast<Number>(other.xz());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[3] = static_cast<Number>(other.yx());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[4] = static_cast<Number>(other.yy());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[5] = static_cast<Number>(other.yz());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[6] = static_cast<Number>(other.zx());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[7] = static_cast<Number>(other.zy());
+    xx_xy_xz_yx_yy_yz_zx_zy_zz_[8] = static_cast<Number>(other.zz());
     return *this;
   }
 
@@ -437,9 +433,6 @@ public:
 private:
   // Cartesian components of this three-dimensional dyadic tensor.
   std::array<Number, 9> xx_xy_xz_yx_yy_yz_zx_zy_zz_;
-
-  template <typename OtherNumber>
-  friend class Dyad;
 };
 
 template <typename Number>

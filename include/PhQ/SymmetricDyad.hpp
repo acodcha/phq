@@ -62,13 +62,9 @@ public:
   // one.
   template <typename OtherNumber>
   explicit constexpr SymmetricDyad(const SymmetricDyad<OtherNumber>& other)
-    : xx_xy_xz_yy_yz_zz_(
-        {static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[0]),
-         static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[1]),
-         static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[2]),
-         static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[3]),
-         static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[4]),
-         static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[5])}) {}
+    : xx_xy_xz_yy_yz_zz_({static_cast<Number>(other.xx()), static_cast<Number>(other.xy()),
+                          static_cast<Number>(other.xz()), static_cast<Number>(other.yy()),
+                          static_cast<Number>(other.yz()), static_cast<Number>(other.zz())}) {}
 
   // Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving another one.
   constexpr SymmetricDyad(SymmetricDyad&& other) noexcept = default;
@@ -81,12 +77,12 @@ public:
   // another one.
   template <typename OtherNumber>
   constexpr SymmetricDyad& operator=(const SymmetricDyad<OtherNumber>& other) {
-    xx_xy_xz_yy_yz_zz_[0] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[0]);
-    xx_xy_xz_yy_yz_zz_[1] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[1]);
-    xx_xy_xz_yy_yz_zz_[2] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[2]);
-    xx_xy_xz_yy_yz_zz_[3] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[3]);
-    xx_xy_xz_yy_yz_zz_[4] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[4]);
-    xx_xy_xz_yy_yz_zz_[5] = static_cast<Number>(other.xx_xy_xz_yy_yz_zz_[5]);
+    xx_xy_xz_yy_yz_zz_[0] = static_cast<Number>(other.xx());
+    xx_xy_xz_yy_yz_zz_[1] = static_cast<Number>(other.xy());
+    xx_xy_xz_yy_yz_zz_[2] = static_cast<Number>(other.xz());
+    xx_xy_xz_yy_yz_zz_[3] = static_cast<Number>(other.yy());
+    xx_xy_xz_yy_yz_zz_[4] = static_cast<Number>(other.yz());
+    xx_xy_xz_yy_yz_zz_[5] = static_cast<Number>(other.zz());
     return *this;
   }
 
@@ -401,9 +397,6 @@ public:
 private:
   // Cartesian components of this three-dimensional symmetric dyadic tensor.
   std::array<Number, 6> xx_xy_xz_yy_yz_zz_;
-
-  template <typename OtherNumber>
-  friend class SymmetricDyad;
 
   friend class Dyad<Number>;
 };
