@@ -104,7 +104,7 @@ protected:
 
   // Copy constructor. Constructs a dimensionless dyadic tensor physical quantity by copying another
   // one.
-  constexpr DimensionlessDyad(const DimensionlessDyad& other) = default;
+  constexpr DimensionlessDyad(const DimensionlessDyad<Number>& other) = default;
 
   // Copy constructor. Constructs a dimensionless dyadic tensor physical quantity by copying another
   // one.
@@ -114,23 +114,24 @@ protected:
 
   // Move constructor. Constructs a dimensionless dyadic tensor physical quantity by moving another
   // one.
-  constexpr DimensionlessDyad(DimensionlessDyad&& other) noexcept = default;
+  constexpr DimensionlessDyad(DimensionlessDyad<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensionless dyadic tensor physical quantity by copying
   // another one.
-  constexpr DimensionlessDyad& operator=(const DimensionlessDyad& other) = default;
+  constexpr DimensionlessDyad<Number>& operator=(const DimensionlessDyad<Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensionless dyadic tensor physical quantity by copying
   // another one.
   template <typename OtherNumber>
-  constexpr DimensionlessDyad& operator=(const DimensionlessDyad<OtherNumber>& other) {
+  constexpr DimensionlessDyad<Number>& operator=(const DimensionlessDyad<OtherNumber>& other) {
     value = static_cast<PhQ::Dyad<Number>>(other.Value());
     return *this;
   }
 
   // Move assignment operator. Assigns this dimensionless dyadic tensor physical quantity by moving
   // another one.
-  constexpr DimensionlessDyad& operator=(DimensionlessDyad&& other) noexcept = default;
+  constexpr DimensionlessDyad<Number>& operator=(
+      DimensionlessDyad<Number>&& other) noexcept = default;
 
   // Value of this physical quantity.
   PhQ::Dyad<Number> value;

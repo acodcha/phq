@@ -28,205 +28,249 @@
 
 namespace PhQ {
 
-// Forward declarations for class Displacement.
+// Forward declaration for class PhQ::Displacement.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Displacement.
+template <typename Number>
 class Position;
+
+// Forward declaration for class PhQ::Displacement.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Displacement.
+template <typename Number>
 class Velocity;
 
 // Displacement vector. Not to be confused with position vector.
-class Displacement : public DimensionalVector<Unit::Length, double> {
+template <typename Number = double>
+class Displacement : public DimensionalVector<Unit::Length, Number> {
 public:
   // Default constructor. Constructs a displacement vector with an uninitialized value.
   Displacement() = default;
 
   // Constructor. Constructs a displacement vector with a given value expressed in a given length
   // unit.
-  Displacement(const Vector<double>& value, const Unit::Length unit)
-    : DimensionalVector<Unit::Length>(value, unit) {}
+  Displacement(const Vector<Number>& value, const Unit::Length unit)
+    : DimensionalVector<Unit::Length, Number>(value, unit) {}
 
   // Constructor. Constructs a displacement vector from a given length and direction.
-  constexpr Displacement(const Length& length, const Direction& direction)
-    : Displacement(length.Value() * direction.Value()) {}
+  constexpr Displacement(const Length<Number>& length, const Direction<Number>& direction)
+    : Displacement<Number>(length.Value() * direction.Value()) {}
 
   // Constructor. Constructs a displacement vector from a given velocity vector and time using the
   // definition of velocity.
-  constexpr Displacement(const Velocity& velocity, const Time& time);
+  constexpr Displacement(const Velocity<Number>& velocity, const Time<Number>& time);
 
   // Constructor. Constructs a displacement vector from a given velocity vector and frequency using
   // the definition of velocity.
-  constexpr Displacement(const Velocity& velocity, const Frequency& frequency);
+  constexpr Displacement(const Velocity<Number>& velocity, const Frequency<Number>& frequency);
 
   // Constructor. Constructs a displacement vector between a given position vector and the origin.
-  explicit constexpr Displacement(const Position& position);
+  explicit constexpr Displacement(const Position<Number>& position);
 
   // Destructor. Destroys this displacement vector.
   ~Displacement() noexcept = default;
 
   // Copy constructor. Constructs a displacement vector by copying another one.
-  constexpr Displacement(const Displacement& other) = default;
+  constexpr Displacement(const Displacement<Number>& other) = default;
+
+  // Copy constructor. Constructs a displacement by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Displacement(const Displacement<OtherNumber>& other)
+    : value(static_cast<Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a displacement vector by moving another one.
-  constexpr Displacement(Displacement&& other) noexcept = default;
+  constexpr Displacement(Displacement<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this displacement vector by copying another one.
-  constexpr Displacement& operator=(const Displacement& other) = default;
+  constexpr Displacement<Number>& operator=(const Displacement<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this displacement by copying another one.
+  template <typename OtherNumber>
+  constexpr Displacement<Number>& operator=(const Displacement<OtherNumber>& other) {
+    value = static_cast<Vector<Number>>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this displacement vector by moving another one.
-  constexpr Displacement& operator=(Displacement&& other) noexcept = default;
+  constexpr Displacement<Number>& operator=(Displacement<Number>&& other) noexcept = default;
 
   // Statically creates a displacement vector of zero.
-  static constexpr Displacement Zero() {
-    return Displacement{Vector<>::Zero()};
+  static constexpr Displacement<Number> Zero() {
+    return Displacement<Number>{Vector<Number>::Zero()};
   }
 
   // Statically creates a displacement vector from the given x, y, and z Cartesian components
   // expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const double x, const double y, const double z) {
-    return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x, y, z})};
+  static constexpr Displacement<Number> Create(const Number x, const Number y, const Number z) {
+    return Displacement<Number>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x, y, z})};
   }
 
   // Statically creates a displacement vector from the given x, y, and z Cartesian components
   // expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const std::array<double, 3>& x_y_z) {
-    return Displacement{
-        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<double>{x_y_z})};
+  static constexpr Displacement<Number> Create(const std::array<Number, 3>& x_y_z) {
+    return Displacement<Number>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(Vector<Number>{x_y_z})};
   }
 
   // Statically creates a displacement vector with a given value expressed in a given length unit.
   template <Unit::Length Unit>
-  static constexpr Displacement Create(const Vector<double>& value) {
-    return Displacement{StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
+  static constexpr Displacement<Number> Create(const Vector<Number>& value) {
+    return Displacement<Number>{
+        StaticConvertCopy<Unit::Length, Unit, Standard<Unit::Length>>(value)};
   }
 
   // Returns the x Cartesian component of this displacement vector.
-  [[nodiscard]] constexpr Length x() const noexcept {
-    return Length{value.x()};
+  [[nodiscard]] constexpr Length<Number> x() const noexcept {
+    return Length<Number>{value.x()};
   }
 
   // Returns the y Cartesian component of this displacement vector.
-  [[nodiscard]] constexpr Length y() const noexcept {
-    return Length{value.y()};
+  [[nodiscard]] constexpr Length<Number> y() const noexcept {
+    return Length<Number>{value.y()};
   }
 
   // Returns the z Cartesian component of this displacement vector.
-  [[nodiscard]] constexpr Length z() const noexcept {
-    return Length{value.z()};
+  [[nodiscard]] constexpr Length<Number> z() const noexcept {
+    return Length<Number>{value.z()};
   }
 
   // Returns the magnitude of this displacement vector.
-  [[nodiscard]] Length Magnitude() const {
-    return Length{value.Magnitude()};
+  [[nodiscard]] Length<Number> Magnitude() const {
+    return Length<Number>{value.Magnitude()};
   }
 
   // Returns the direction of this displacement vector.
-  [[nodiscard]] PhQ::Direction Direction() const {
+  [[nodiscard]] PhQ::Direction<Number> Direction() const {
     return value.Direction();
   }
 
   // Returns the angle between this displacement vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const Displacement& displacement) const {
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Displacement<Number>& displacement) const {
     return {*this, displacement};
   }
 
-  constexpr Position operator+(const Position& position) const;
+  constexpr Position<Number> operator+(const Position<Number>& position) const;
 
-  constexpr Displacement operator+(const Displacement& displacement) const {
-    return Displacement{value + displacement.value};
+  constexpr Displacement<Number> operator+(const Displacement<Number>& displacement) const {
+    return Displacement<Number>{value + displacement.value};
   }
 
-  constexpr Position operator-(const Position& position) const;
+  constexpr Position<Number> operator-(const Position<Number>& position) const;
 
-  constexpr Displacement operator-(const Displacement& displacement) const {
-    return Displacement{value - displacement.value};
+  constexpr Displacement<Number> operator-(const Displacement<Number>& displacement) const {
+    return Displacement<Number>{value - displacement.value};
   }
 
-  constexpr Displacement operator*(const double number) const {
-    return Displacement{value * number};
+  constexpr Displacement<Number> operator*(const Number number) const {
+    return Displacement<Number>{value * number};
   }
 
-  constexpr Velocity operator*(const Frequency& frequency) const;
+  constexpr Velocity<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Displacement operator/(const double number) const {
-    return Displacement{value / number};
+  constexpr Displacement<Number> operator/(const Number number) const {
+    return Displacement<Number>{value / number};
   }
 
-  constexpr Velocity operator/(const Time& time) const;
+  constexpr Velocity<Number> operator/(const Time<Number>& time) const;
 
-  constexpr void operator+=(const Displacement& displacement) noexcept {
+  constexpr void operator+=(const Displacement<Number>& displacement) noexcept {
     value += displacement.value;
   }
 
-  constexpr void operator-=(const Displacement& displacement) noexcept {
+  constexpr void operator-=(const Displacement<Number>& displacement) noexcept {
     value -= displacement.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a displacement vector with a given value expressed in the standard
   // length unit.
-  explicit constexpr Displacement(const Vector<double>& value)
-    : DimensionalVector<Unit::Length>(value) {}
+  explicit constexpr Displacement(const Vector<Number>& value)
+    : DimensionalVector<Unit::Length, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Position;
 };
 
-inline constexpr bool operator==(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Displacement& left, const Displacement& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const Displacement<Number>& left, const Displacement<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Displacement& displacement) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Displacement<Number>& displacement) {
   stream << displacement.Print();
   return stream;
 }
 
-inline constexpr Displacement operator*(const double number, const Displacement& displacement) {
+template <typename Number>
+inline constexpr Displacement<Number> operator*(
+    const Number number, const Displacement<Number>& displacement) {
   return displacement * number;
 }
 
-inline Direction::Direction(const Displacement& displacement) : Direction(displacement.Value()) {}
+template <typename Number>
+inline Direction<Number>::Direction(const Displacement<Number>& displacement)
+  : Direction<Number>(displacement.Value()) {}
 
-inline Angle::Angle(const Displacement& displacement1, const Displacement& displacement2)
-  : Angle(displacement1.Value(), displacement2.Value()) {}
+template <typename Number>
+inline Angle<Number>::Angle(
+    const Displacement<Number>& displacement1, const Displacement<Number>& displacement2)
+  : Angle<Number>(displacement1.Value(), displacement2.Value()) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Displacement> {
-  inline size_t operator()(const PhQ::Displacement& displacement) const {
-    return hash<PhQ::Vector<double>>()(displacement.Value());
+template <typename Number>
+struct hash<PhQ::Displacement<Number>> {
+  inline size_t operator()(const PhQ::Displacement<Number>& displacement) const {
+    return hash<PhQ::Vector<Number>>()(displacement.Value());
   }
 };
 

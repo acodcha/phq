@@ -26,201 +26,247 @@
 
 namespace PhQ {
 
-// Forward declarations for class ScalarAcceleration.
+// Forward declaration for class PhQ::ScalarAcceleration.
+template <typename Number>
 class Acceleration;
+
+// Forward declaration for class PhQ::ScalarAcceleration.
+template <typename Number>
 class Direction;
 
 // Scalar acceleration component or magnitude of an acceleration vector. See also PhQ::Acceleration.
-class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration, double> {
+template <typename Number = double>
+class ScalarAcceleration : public DimensionalScalar<Unit::Acceleration, Number> {
 public:
   // Default constructor. Constructs a scalar acceleration with an uninitialized value.
   ScalarAcceleration() = default;
 
   // Constructor. Constructs a scalar acceleration with a given value expressed in a given
   // acceleration unit.
-  ScalarAcceleration(const double value, const Unit::Acceleration unit)
-    : DimensionalScalar<Unit::Acceleration>(value, unit) {}
+  ScalarAcceleration(const Number value, const Unit::Acceleration unit)
+    : DimensionalScalar<Unit::Acceleration, Number>(value, unit) {}
 
   // Constructor. Constructs a scalar acceleration from a given speed and time using the definition
   // of acceleration.
-  constexpr ScalarAcceleration(const Speed& speed, const Time& time)
-    : ScalarAcceleration(speed.Value() / time.Value()) {}
+  constexpr ScalarAcceleration(const Speed<Number>& speed, const Time<Number>& time)
+    : ScalarAcceleration<Number>(speed.Value() / time.Value()) {}
 
   // Constructor. Constructs a scalar acceleration from a given speed and frequency using the
   // definition of acceleration.
-  constexpr ScalarAcceleration(const Speed& speed, const Frequency& frequency)
-    : ScalarAcceleration(speed.Value() * frequency.Value()) {}
+  constexpr ScalarAcceleration(const Speed<Number>& speed, const Frequency<Number>& frequency)
+    : ScalarAcceleration<Number>(speed.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this acceleration scalar.
   ~ScalarAcceleration() noexcept = default;
 
   // Copy constructor. Constructs a scalar acceleration by copying another one.
-  constexpr ScalarAcceleration(const ScalarAcceleration& other) = default;
+  constexpr ScalarAcceleration(const ScalarAcceleration<Number>& other) = default;
+
+  // Copy constructor. Constructs a scalar acceleration by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr ScalarAcceleration(const ScalarAcceleration<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a scalar acceleration by moving another one.
-  constexpr ScalarAcceleration(ScalarAcceleration&& other) noexcept = default;
+  constexpr ScalarAcceleration(ScalarAcceleration<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this scalar acceleration by copying another one.
-  constexpr ScalarAcceleration& operator=(const ScalarAcceleration& other) = default;
+  constexpr ScalarAcceleration<Number>& operator=(
+      const ScalarAcceleration<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this scalar acceleration by copying another one.
+  template <typename OtherNumber>
+  constexpr ScalarAcceleration<Number>& operator=(const ScalarAcceleration<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this scalar acceleration by moving another one.
-  constexpr ScalarAcceleration& operator=(ScalarAcceleration&& other) noexcept = default;
+  constexpr ScalarAcceleration<Number>& operator=(
+      ScalarAcceleration<Number>&& other) noexcept = default;
 
   // Statically creates a scalar acceleration of zero.
-  static constexpr ScalarAcceleration Zero() {
-    return ScalarAcceleration{0.0};
+  static constexpr ScalarAcceleration<Number> Zero() {
+    return ScalarAcceleration<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a scalar acceleration with a given value expressed in a given acceleration
   // unit.
   template <Unit::Acceleration Unit>
-  static constexpr ScalarAcceleration Create(const double value) {
-    return ScalarAcceleration{
+  static constexpr ScalarAcceleration<Number> Create(const Number value) {
+    return ScalarAcceleration<Number>{
         StaticConvertCopy<Unit::Acceleration, Unit, Standard<Unit::Acceleration>>(value)};
   }
 
-  constexpr ScalarAcceleration operator+(const ScalarAcceleration& scalar_acceleration) const {
-    return ScalarAcceleration{value + scalar_acceleration.value};
+  constexpr ScalarAcceleration<Number> operator+(
+      const ScalarAcceleration<Number>& scalar_acceleration) const {
+    return ScalarAcceleration<Number>{value + scalar_acceleration.value};
   }
 
-  constexpr ScalarAcceleration operator-(const ScalarAcceleration& scalar_acceleration) const {
-    return ScalarAcceleration{value - scalar_acceleration.value};
+  constexpr ScalarAcceleration<Number> operator-(
+      const ScalarAcceleration<Number>& scalar_acceleration) const {
+    return ScalarAcceleration<Number>{value - scalar_acceleration.value};
   }
 
-  constexpr ScalarAcceleration operator*(const double number) const {
-    return ScalarAcceleration{value * number};
+  constexpr ScalarAcceleration<Number> operator*(const Number number) const {
+    return ScalarAcceleration<Number>{value * number};
   }
 
-  constexpr Speed operator*(const Time& time) const {
-    return {*this, time};
+  constexpr Speed<Number> operator*(const Time<Number>& time) const {
+    return Speed<Number>{*this, time};
   }
 
-  constexpr Acceleration operator*(const Direction& direction) const;
+  constexpr Acceleration<Number> operator*(const Direction<Number>& direction) const;
 
-  constexpr ScalarAcceleration operator/(const double number) const {
-    return ScalarAcceleration{value / number};
+  constexpr ScalarAcceleration<Number> operator/(const Number number) const {
+    return ScalarAcceleration<Number>{value / number};
   }
 
-  constexpr Speed operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr Speed<Number> operator/(const Frequency<Number>& frequency) const {
+    return Speed<Number>{*this, frequency};
   }
 
-  constexpr Frequency operator/(const Speed& speed) const {
-    return {*this, speed};
+  constexpr Frequency<Number> operator/(const Speed<Number>& speed) const {
+    return Frequency<Number>{*this, speed};
   }
 
-  constexpr double operator/(const ScalarAcceleration& scalar_acceleration) const noexcept {
+  constexpr Number operator/(const ScalarAcceleration<Number>& scalar_acceleration) const noexcept {
     return value / scalar_acceleration.value;
   }
 
-  constexpr void operator+=(const ScalarAcceleration& scalar_acceleration) noexcept {
+  constexpr void operator+=(const ScalarAcceleration<Number>& scalar_acceleration) noexcept {
     value += scalar_acceleration.value;
   }
 
-  constexpr void operator-=(const ScalarAcceleration& scalar_acceleration) noexcept {
+  constexpr void operator-=(const ScalarAcceleration<Number>& scalar_acceleration) noexcept {
     value -= scalar_acceleration.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a scalar acceleration with a given value expressed in the standard
   // acceleration unit.
-  explicit constexpr ScalarAcceleration(const double value)
-    : DimensionalScalar<Unit::Acceleration>(value) {}
+  explicit constexpr ScalarAcceleration(const Number value)
+    : DimensionalScalar<Unit::Acceleration, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class Acceleration;
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const ScalarAcceleration& left, const ScalarAcceleration& right) noexcept {
+    const ScalarAcceleration<Number>& left, const ScalarAcceleration<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const ScalarAcceleration& scalar_acceleration) {
+    std::ostream& stream, const ScalarAcceleration<Number>& scalar_acceleration) {
   stream << scalar_acceleration.Print();
   return stream;
 }
 
-inline constexpr ScalarAcceleration operator*(
-    const double number, const ScalarAcceleration& scalar_acceleration) {
+template <typename Number>
+inline constexpr ScalarAcceleration<Number> operator*(
+    const Number number, const ScalarAcceleration<Number>& scalar_acceleration) {
   return scalar_acceleration * number;
 }
 
-inline constexpr Time::Time(const Speed& speed, const ScalarAcceleration& scalar_acceleration)
-  : Time(speed.Value() / scalar_acceleration.Value()) {}
+template <typename Number>
+inline constexpr Time<Number>::Time(
+    const Speed<Number>& speed, const ScalarAcceleration<Number>& scalar_acceleration)
+  : Time<Number>(speed.Value() / scalar_acceleration.Value()) {}
 
-inline constexpr Frequency::Frequency(
-    const ScalarAcceleration& scalar_acceleration, const Speed& speed)
-  : Frequency(scalar_acceleration.Value() / speed.Value()) {}
+template <typename Number>
+inline constexpr Frequency<Number>::Frequency(
+    const ScalarAcceleration<Number>& scalar_acceleration, const Speed<Number>& speed)
+  : Frequency<Number>(scalar_acceleration.Value() / speed.Value()) {}
 
-inline constexpr Speed::Speed(const ScalarAcceleration& scalar_acceleration, const Time& time)
-  : Speed(scalar_acceleration.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr Speed<Number>::Speed(
+    const ScalarAcceleration<Number>& scalar_acceleration, const Time<Number>& time)
+  : Speed<Number>(scalar_acceleration.Value() * time.Value()) {}
 
-inline constexpr Speed::Speed(
-    const ScalarAcceleration& scalar_acceleration, const Frequency& frequency)
-  : Speed(scalar_acceleration.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr Speed<Number>::Speed(
+    const ScalarAcceleration<Number>& scalar_acceleration, const Frequency<Number>& frequency)
+  : Speed<Number>(scalar_acceleration.Value() / frequency.Value()) {}
 
-inline constexpr ScalarAcceleration Frequency::operator*(const Speed& speed) const {
-  return {speed, *this};
+template <typename Number>
+inline constexpr ScalarAcceleration<Number> Frequency<Number>::operator*(
+    const Speed<Number>& speed) const {
+  return ScalarAcceleration<Number>{speed, *this};
 }
 
-inline constexpr Speed Time::operator*(const ScalarAcceleration& scalar_acceleration) const {
-  return {scalar_acceleration, *this};
+template <typename Number>
+inline constexpr Speed<Number> Time<Number>::operator*(
+    const ScalarAcceleration<Number>& scalar_acceleration) const {
+  return Speed<Number>{scalar_acceleration, *this};
 }
 
-inline constexpr ScalarAcceleration Speed::operator*(const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr ScalarAcceleration<Number> Speed<Number>::operator*(
+    const Frequency<Number>& frequency) const {
+  return ScalarAcceleration<Number>{*this, frequency};
 }
 
-inline constexpr ScalarAcceleration Speed::operator/(const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr ScalarAcceleration<Number> Speed<Number>::operator/(
+    const Time<Number>& time) const {
+  return ScalarAcceleration<Number>{*this, time};
 }
 
-inline constexpr Time Speed::operator/(const ScalarAcceleration& scalar_acceleration) const {
-  return {*this, scalar_acceleration};
+template <typename Number>
+inline constexpr Time<Number> Speed<Number>::operator/(
+    const ScalarAcceleration<Number>& scalar_acceleration) const {
+  return Time<Number>{*this, scalar_acceleration};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::ScalarAcceleration> {
-  inline size_t operator()(const PhQ::ScalarAcceleration& scalar_acceleration) const {
-    return hash<double>()(scalar_acceleration.Value());
+template <typename Number>
+struct hash<PhQ::ScalarAcceleration<Number>> {
+  inline size_t operator()(const PhQ::ScalarAcceleration<Number>& scalar_acceleration) const {
+    return hash<Number>()(scalar_acceleration.Value());
   }
 };
 

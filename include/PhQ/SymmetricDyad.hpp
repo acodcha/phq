@@ -56,27 +56,27 @@ public:
 
   // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying another
   // one.
-  constexpr SymmetricDyad(const SymmetricDyad& other) = default;
+  constexpr SymmetricDyad(const SymmetricDyad<Number>& other) = default;
 
   // Copy constructor. Constructs a three-dimensional symmetric dyadic tensor by copying another
   // one.
   template <typename OtherNumber>
-  explicit constexpr SymmetricDyad(const SymmetricDyad<OtherNumber>& other)
+  explicit constexpr SymmetricDyad<Number>(const SymmetricDyad<OtherNumber>& other)
     : xx_xy_xz_yy_yz_zz_({static_cast<Number>(other.xx()), static_cast<Number>(other.xy()),
                           static_cast<Number>(other.xz()), static_cast<Number>(other.yy()),
                           static_cast<Number>(other.yz()), static_cast<Number>(other.zz())}) {}
 
   // Move constructor. Constructs a three-dimensional symmetric dyadic tensor by moving another one.
-  constexpr SymmetricDyad(SymmetricDyad&& other) noexcept = default;
+  constexpr SymmetricDyad<Number>(SymmetricDyad<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
   // another one.
-  constexpr SymmetricDyad& operator=(const SymmetricDyad& other) = default;
+  constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<Number>& other) = default;
 
   // Copy assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying
   // another one.
   template <typename OtherNumber>
-  constexpr SymmetricDyad& operator=(const SymmetricDyad<OtherNumber>& other) {
+  constexpr SymmetricDyad<Number>& operator=(const SymmetricDyad<OtherNumber>& other) {
     xx_xy_xz_yy_yz_zz_[0] = static_cast<Number>(other.xx());
     xx_xy_xz_yy_yz_zz_[1] = static_cast<Number>(other.xy());
     xx_xy_xz_yy_yz_zz_[2] = static_cast<Number>(other.xz());
@@ -88,20 +88,22 @@ public:
 
   // Move assignment operator. Assigns this three-dimensional symmetric dyadic tensor by moving
   // another one.
-  constexpr SymmetricDyad& operator=(SymmetricDyad&& other) noexcept = default;
+  constexpr SymmetricDyad<Number>& operator=(SymmetricDyad<Number>&& other) noexcept = default;
 
   // Assignment operator. Assigns this three-dimensional symmetric dyadic tensor by copying a given
   // array representing its xx, xy, xz, yy, yz, and zz Cartesian components.
-  constexpr SymmetricDyad& operator=(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
+  constexpr SymmetricDyad<Number>& operator=(const std::array<Number, 6>& xx_xy_xz_yy_yz_zz) {
     xx_xy_xz_yy_yz_zz_ = xx_xy_xz_yy_yz_zz;
     return *this;
   }
 
   // Statically creates a three-dimensional symmetric dyadic tensor with its xx, xy, xz, yy, yz, and
   // zz Cartesian components initialized to zero.
-  static constexpr SymmetricDyad Zero() {
-    return SymmetricDyad{
-        std::array<Number, 6>{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+  static constexpr SymmetricDyad<Number> Zero() {
+    return SymmetricDyad<Number>{
+        std::array<Number, 6>{
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0),
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0)}
     };
   }
 
@@ -297,12 +299,12 @@ public:
   }
 
   // Returns the transpose of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr const SymmetricDyad& Transpose() const noexcept {
+  [[nodiscard]] constexpr const SymmetricDyad<Number>& Transpose() const noexcept {
     return *this;
   }
 
   // Returns the cofactors of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr SymmetricDyad Cofactors() const {
+  [[nodiscard]] constexpr SymmetricDyad<Number> Cofactors() const {
     const Number cofactor_xx{yy() * zz() - yz() * yz()};
     const Number cofactor_xy{xz() * yz() - xy() * zz()};
     const Number cofactor_xz{xy() * yz() - xz() * yy()};
@@ -313,7 +315,7 @@ public:
   }
 
   // Returns the adjugate of this three-dimensional symmetric dyadic tensor.
-  [[nodiscard]] constexpr SymmetricDyad Adjugate() const {
+  [[nodiscard]] constexpr SymmetricDyad<Number> Adjugate() const {
     // In general, for a dyadic tensor, this is cofactors().transpose(), but since this is a
     // symmetric dyadic tensor, the transpose is redundant.
     return Cofactors();
@@ -321,7 +323,7 @@ public:
 
   // Returns the inverse of this three-dimensional symmetric dyadic tensor if it exists, or
   // std::nullopt otherwise.
-  [[nodiscard]] std::optional<SymmetricDyad> Inverse() const;
+  [[nodiscard]] std::optional<SymmetricDyad<Number>> Inverse() const;
 
   // Prints this three-dimensional symmetric dyadic tensor as a string.
   [[nodiscard]] std::string Print() const {
@@ -356,7 +358,7 @@ public:
            + "}";
   }
 
-  constexpr void operator+=(const SymmetricDyad& symmetric_dyad) noexcept {
+  constexpr void operator+=(const SymmetricDyad<Number>& symmetric_dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];
@@ -365,7 +367,7 @@ public:
     xx_xy_xz_yy_yz_zz_[5] += symmetric_dyad.xx_xy_xz_yy_yz_zz_[5];
   }
 
-  constexpr void operator-=(const SymmetricDyad& symmetric_dyad) noexcept {
+  constexpr void operator-=(const SymmetricDyad<Number>& symmetric_dyad) noexcept {
     xx_xy_xz_yy_yz_zz_[0] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[0];
     xx_xy_xz_yy_yz_zz_[1] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[1];
     xx_xy_xz_yy_yz_zz_[2] -= symmetric_dyad.xx_xy_xz_yy_yz_zz_[2];

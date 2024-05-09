@@ -25,177 +25,215 @@
 
 namespace PhQ {
 
-// Forward declarations for class Volume.
+// Forward declaration for class PhQ::Volume.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Volume.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Volume.
+template <typename Number>
 class Mass;
+
+// Forward declaration for class PhQ::Volume.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::Volume.
+template <typename Number>
 class VolumeRate;
 
 // Volume.
-class Volume : public DimensionalScalar<Unit::Volume, double> {
+template <typename Number = double>
+class Volume : public DimensionalScalar<Unit::Volume, Number> {
 public:
   // Default constructor. Constructs a volume with an uninitialized value.
   Volume() = default;
 
   // Constructor. Constructs a volume with a given value expressed in a given volume unit.
-  Volume(const double value, const Unit::Volume unit)
-    : DimensionalScalar<Unit::Volume>(value, unit) {}
+  Volume(const Number value, const Unit::Volume unit)
+    : DimensionalScalar<Unit::Volume, Number>(value, unit) {}
 
   // Constructor. Constructs a volume from a given area and length.
-  constexpr Volume(const Area& area, const Length& length)
-    : Volume(area.Value() * length.Value()) {}
+  constexpr Volume(const Area<Number>& area, const Length<Number>& length)
+    : Volume<Number>(area.Value() * length.Value()) {}
 
   // Constructor. Constructs a volume from a given volume rate and time using the definition of
   // volume rate.
-  constexpr Volume(const VolumeRate& volume_rate, const Time& time);
+  constexpr Volume(const VolumeRate<Number>& volume_rate, const Time<Number>& time);
 
   // Constructor. Constructs a volume from a given volume rate and frequency using the definition of
   // volume rate.
-  constexpr Volume(const VolumeRate& volume_rate, const Frequency& frequency);
+  constexpr Volume(const VolumeRate<Number>& volume_rate, const Frequency<Number>& frequency);
 
   // Constructor. Constructs a volume from a given mass and mass density using the definition of
   // volume.
-  constexpr Volume(const Mass& mass, const MassDensity& mass_density);
+  constexpr Volume(const Mass<Number>& mass, const MassDensity<Number>& mass_density);
 
   // Destructor. Destroys this volume.
   ~Volume() noexcept = default;
 
   // Copy constructor. Constructs a volume by copying another one.
-  constexpr Volume(const Volume& other) = default;
+  constexpr Volume(const Volume<Number>& other) = default;
+
+  // Copy constructor. Constructs a volume by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Volume(const Volume<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a volume by moving another one.
-  constexpr Volume(Volume&& other) noexcept = default;
+  constexpr Volume(Volume<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this volume by copying another one.
-  constexpr Volume& operator=(const Volume& other) = default;
+  constexpr Volume<Number>& operator=(const Volume<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this volume by copying another one.
+  template <typename OtherNumber>
+  constexpr Volume<Number>& operator=(const Volume<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this volume by moving another one.
-  constexpr Volume& operator=(Volume&& other) noexcept = default;
+  constexpr Volume<Number>& operator=(Volume<Number>&& other) noexcept = default;
 
   // Statically creates a volume of zero.
-  static constexpr Volume Zero() {
-    return Volume{0.0};
+  static constexpr Volume<Number> Zero() {
+    return Volume<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a volume with a given value expressed in a given volume unit.
   template <Unit::Volume Unit>
-  static constexpr Volume Create(const double value) {
-    return Volume{StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
+  static constexpr Volume<Number> Create(const Number value) {
+    return Volume<Number>{StaticConvertCopy<Unit::Volume, Unit, Standard<Unit::Volume>>(value)};
   }
 
-  constexpr Volume operator+(const Volume& volume) const {
-    return Volume{value + volume.value};
+  constexpr Volume<Number> operator+(const Volume<Number>& volume) const {
+    return Volume<Number>{value + volume.value};
   }
 
-  constexpr Volume operator-(const Volume& volume) const {
-    return Volume{value - volume.value};
+  constexpr Volume<Number> operator-(const Volume<Number>& volume) const {
+    return Volume<Number>{value - volume.value};
   }
 
-  constexpr Volume operator*(const double number) const {
-    return Volume{value * number};
+  constexpr Volume<Number> operator*(const Number number) const {
+    return Volume<Number>{value * number};
   }
 
-  constexpr Mass operator*(const MassDensity& mass_density) const;
+  constexpr Mass<Number> operator*(const MassDensity<Number>& mass_density) const;
 
-  constexpr VolumeRate operator*(const Frequency& frequency) const;
+  constexpr VolumeRate<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Volume operator/(const double number) const {
-    return Volume{value / number};
+  constexpr Volume<Number> operator/(const Number number) const {
+    return Volume<Number>{value / number};
   }
 
-  constexpr Area operator/(const Length& length) const {
-    return Area{*this, length};
+  constexpr Area<Number> operator/(const Length<Number>& length) const {
+    return Area<Number>{*this, length};
   }
 
-  constexpr Length operator/(const Area& area) const {
-    return Length{*this, area};
+  constexpr Length<Number> operator/(const Area<Number>& area) const {
+    return Length<Number>{*this, area};
   }
 
-  constexpr VolumeRate operator/(const Time& time) const;
+  constexpr VolumeRate<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const VolumeRate& volume_rate) const;
+  constexpr Time<Number> operator/(const VolumeRate<Number>& volume_rate) const;
 
-  constexpr double operator/(const Volume& volume) const noexcept {
+  constexpr Number operator/(const Volume<Number>& volume) const noexcept {
     return value / volume.value;
   }
 
-  constexpr void operator+=(const Volume& volume) noexcept {
+  constexpr void operator+=(const Volume<Number>& volume) noexcept {
     value += volume.value;
   }
 
-  constexpr void operator-=(const Volume& volume) noexcept {
+  constexpr void operator-=(const Volume<Number>& volume) noexcept {
     value -= volume.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a volume with a given value expressed in the standard volume unit.
-  explicit constexpr Volume(const double value) : DimensionalScalar<Unit::Volume>(value) {}
+  explicit constexpr Volume(const Number value) : DimensionalScalar<Unit::Volume, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Volume& left, const Volume& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Volume<Number>& left, const Volume<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Volume& volume) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Volume<Number>& volume) {
   stream << volume.Print();
   return stream;
 }
 
-inline constexpr Volume operator*(const double number, const Volume& volume) {
+template <typename Number>
+inline constexpr Volume<Number> operator*(const Number number, const Volume<Number>& volume) {
   return volume * number;
 }
 
-inline constexpr Length::Length(const Volume& volume, const Area& area)
-  : Length(volume.Value() / area.Value()) {}
+template <typename Number>
+inline constexpr Length<Number>::Length(const Volume<Number>& volume, const Area<Number>& area)
+  : Length<Number>(volume.Value() / area.Value()) {}
 
-inline constexpr Area::Area(const Volume& volume, const Length& length)
-  : Area(volume.Value() / length.Value()) {}
+template <typename Number>
+inline constexpr Area<Number>::Area(const Volume<Number>& volume, const Length<Number>& length)
+  : Area<Number>(volume.Value() / length.Value()) {}
 
-inline constexpr Volume Length::operator*(const Area& area) const {
-  return Volume{area, *this};
+template <typename Number>
+inline constexpr Volume<Number> Length<Number>::operator*(const Area<Number>& area) const {
+  return Volume<Number>{area, *this};
 }
 
-inline constexpr Volume Area::operator*(const Length& length) const {
-  return Volume{*this, length};
+template <typename Number>
+inline constexpr Volume<Number> Area<Number>::operator*(const Length<Number>& length) const {
+  return Volume<Number>{*this, length};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::Volume> {
-  inline size_t operator()(const PhQ::Volume& volume) const {
-    return hash<double>()(volume.Value());
+template <typename Number>
+struct hash<PhQ::Volume<Number>> {
+  inline size_t operator()(const PhQ::Volume<Number>& volume) const {
+    return hash<Number>()(volume.Value());
   }
 };
 

@@ -26,12 +26,14 @@
 
 namespace PhQ {
 
-// Forward declaration for class DisplacementGradient.
+// Forward declaration for class PhQ::DisplacementGradient.
+template <typename Number>
 class VelocityGradient;
 
 // Displacement gradient dyadic tensor. Gradient of the displacement vector. In general, this dyadic
 // tensor is asymmetric. See also PhQ::ScalarDisplacementGradient.
-class DisplacementGradient : public DimensionlessDyad<double> {
+template <typename Number = double>
+class DisplacementGradient : public DimensionlessDyad<Number> {
 public:
   // Default constructor. Constructs a displacement gradient tensor with an uninitialized value.
   DisplacementGradient() = default;
@@ -39,194 +41,220 @@ public:
   // Constructor. Constructs a displacement gradient tensor whose value has the given xx, xy, xz,
   // yx, yy, yz, zx, zy, and zz Cartesian components.
   constexpr DisplacementGradient(
-      const double xx, const double xy, const double xz, const double yx, const double yy,
-      const double yz, const double zx, const double zy, const double zz)
-    : DimensionlessDyad(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
+      const Number xx, const Number xy, const Number xz, const Number yx, const Number yy,
+      const Number yz, const Number zx, const Number zy, const Number zz)
+    : DimensionlessDyad<Number>(xx, xy, xz, yx, yy, yz, zx, zy, zz) {}
 
   // Constructor. Constructs a displacement gradient tensor from a given array representing its
   // value's xx, xy, xz, yx, yy, yz, zx, zy, and zz Cartesian components.
-  explicit constexpr DisplacementGradient(const std::array<double, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
-    : DimensionlessDyad(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
+  explicit constexpr DisplacementGradient(const std::array<Number, 9>& xx_xy_xz_yx_yy_yz_zx_zy_zz)
+    : DimensionlessDyad<Number>(xx_xy_xz_yx_yy_yz_zx_zy_zz) {}
 
   // Constructor. Constructs a displacement gradient tensor with a given value.
-  explicit constexpr DisplacementGradient(const Dyad<double>& value) : DimensionlessDyad(value) {}
+  explicit constexpr DisplacementGradient(const Dyad<Number>& value)
+    : DimensionlessDyad<Number>(value) {}
 
   // Constructor. Constructs a displacement gradient tensor from a given velocity gradient tensor
   // and time using the definition of speed.
-  constexpr DisplacementGradient(const VelocityGradient& velocity_gradient, const Time& time);
+  constexpr DisplacementGradient(
+      const VelocityGradient<Number>& velocity_gradient, const Time<Number>& time);
 
   // Constructor. Constructs a displacement gradient tensor from a given velocity gradient tensor
   // and frequency using the definition of speed.
   constexpr DisplacementGradient(
-      const VelocityGradient& velocity_gradient, const Frequency& frequency);
+      const VelocityGradient<Number>& velocity_gradient, const Frequency<Number>& frequency);
 
   // Destructor. Destroys this displacement gradient tensor.
   ~DisplacementGradient() noexcept = default;
 
   // Copy constructor. Constructs a displacement gradient tensor by copying another one.
-  constexpr DisplacementGradient(const DisplacementGradient& other) = default;
+  constexpr DisplacementGradient(const DisplacementGradient<Number>& other) = default;
+
+  // Copy constructor. Constructs a displacement gradient tensor by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DisplacementGradient(const DisplacementGradient<OtherNumber>& other)
+    : value(static_cast<Dyad<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a displacement gradient tensor by moving another one.
-  constexpr DisplacementGradient(DisplacementGradient&& other) noexcept = default;
+  constexpr DisplacementGradient(DisplacementGradient<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this displacement gradient tensor by copying another one.
-  constexpr DisplacementGradient& operator=(const DisplacementGradient& other) = default;
+  constexpr DisplacementGradient<Number>& operator=(
+      const DisplacementGradient<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this displacement gradient tensor by copying another one.
+  template <typename OtherNumber>
+  constexpr DisplacementGradient<Number>& operator=(
+      const DisplacementGradient<OtherNumber>& other) {
+    value = static_cast<Dyad<Number>>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this displacement gradient tensor by moving another one.
-  constexpr DisplacementGradient& operator=(DisplacementGradient&& other) noexcept = default;
+  constexpr DisplacementGradient<Number>& operator=(
+      DisplacementGradient<Number>&& other) noexcept = default;
 
   // Statically creates a displacement gradient tensor of zero.
-  static constexpr DisplacementGradient Zero() {
-    return DisplacementGradient{Dyad<>::Zero()};
+  static constexpr DisplacementGradient<Number> Zero() {
+    return DisplacementGradient<Number>{Dyad<Number>::Zero()};
   }
 
   // Returns the xx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient xx() const noexcept {
-    return ScalarDisplacementGradient{value.xx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xx() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.xx()};
   }
 
   // Returns the xy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient xy() const noexcept {
-    return ScalarDisplacementGradient{value.xy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xy() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.xy()};
   }
 
   // Returns the xz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient xz() const noexcept {
-    return ScalarDisplacementGradient{value.xz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> xz() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.xz()};
   }
 
   // Returns the yx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient yx() const noexcept {
-    return ScalarDisplacementGradient{value.yx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yx() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.yx()};
   }
 
   // Returns the yy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient yy() const noexcept {
-    return ScalarDisplacementGradient{value.yy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yy() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.yy()};
   }
 
   // Returns the yz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient yz() const noexcept {
-    return ScalarDisplacementGradient{value.yz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> yz() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.yz()};
   }
 
   // Returns the zx Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient zx() const noexcept {
-    return ScalarDisplacementGradient{value.zx()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zx() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.zx()};
   }
 
   // Returns the zy Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient zy() const noexcept {
-    return ScalarDisplacementGradient{value.zy()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zy() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.zy()};
   }
 
   // Returns the zz Cartesian component of this displacement gradient tensor.
-  [[nodiscard]] constexpr ScalarDisplacementGradient zz() const noexcept {
-    return ScalarDisplacementGradient{value.zz()};
+  [[nodiscard]] constexpr ScalarDisplacementGradient<Number> zz() const noexcept {
+    return ScalarDisplacementGradient<Number>{value.zz()};
   }
 
   // Creates a strain tensor from this displacement gradient tensor using the definition of the
   // strain tensor.
-  [[nodiscard]] constexpr PhQ::Strain Strain() const {
-    return PhQ::Strain{*this};
+  [[nodiscard]] constexpr PhQ::Strain<Number> Strain() const {
+    return PhQ::Strain<Number>{*this};
   }
 
-  constexpr DisplacementGradient operator+(
-      const DisplacementGradient& displacement_gradient) const {
-    return DisplacementGradient{value + displacement_gradient.value};
+  constexpr DisplacementGradient<Number> operator+(
+      const DisplacementGradient<Number>& displacement_gradient) const {
+    return DisplacementGradient<Number>{value + displacement_gradient.value};
   }
 
-  constexpr DisplacementGradient operator-(
-      const DisplacementGradient& displacement_gradient) const {
-    return DisplacementGradient{value - displacement_gradient.value};
+  constexpr DisplacementGradient<Number> operator-(
+      const DisplacementGradient<Number>& displacement_gradient) const {
+    return DisplacementGradient<Number>{value - displacement_gradient.value};
   }
 
-  constexpr DisplacementGradient operator*(const double number) const {
-    return DisplacementGradient{value * number};
+  constexpr DisplacementGradient<Number> operator*(const Number number) const {
+    return DisplacementGradient<Number>{value * number};
   }
 
-  constexpr VelocityGradient operator*(const Frequency& frequency) const;
+  constexpr VelocityGradient<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr DisplacementGradient operator/(const double number) const {
-    return DisplacementGradient{value / number};
+  constexpr DisplacementGradient<Number> operator/(const Number number) const {
+    return DisplacementGradient<Number>{value / number};
   }
 
-  constexpr VelocityGradient operator/(const Time& time) const;
+  constexpr VelocityGradient<Number> operator/(const Time<Number>& time) const;
 
-  constexpr void operator+=(const DisplacementGradient& displacement_gradient) noexcept {
+  constexpr void operator+=(const DisplacementGradient<Number>& displacement_gradient) noexcept {
     value += displacement_gradient.value;
   }
 
-  constexpr void operator-=(const DisplacementGradient& displacement_gradient) noexcept {
+  constexpr void operator-=(const DisplacementGradient<Number>& displacement_gradient) noexcept {
     value -= displacement_gradient.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const DisplacementGradient& left, const DisplacementGradient& right) noexcept {
+    const DisplacementGradient<Number>& left, const DisplacementGradient<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const DisplacementGradient& displacement_gradient) {
+    std::ostream& stream, const DisplacementGradient<Number>& displacement_gradient) {
   stream << displacement_gradient.Print();
   return stream;
 }
 
-inline constexpr DisplacementGradient operator*(
-    const double number, const DisplacementGradient& displacement_gradient) {
+template <typename Number>
+inline constexpr DisplacementGradient<Number> operator*(
+    const Number number, const DisplacementGradient<Number>& displacement_gradient) {
   return displacement_gradient * number;
 }
 
-inline constexpr Strain::Strain(const DisplacementGradient& displacement_gradient)
-  : Strain(displacement_gradient.Value().xx(),
-           0.5 * (displacement_gradient.Value().xy() + displacement_gradient.Value().yx()),
-           0.5 * (displacement_gradient.Value().xz() + displacement_gradient.Value().zx()),
-           displacement_gradient.Value().yy(),
-           0.5 * (displacement_gradient.Value().yz() + displacement_gradient.Value().zy()),
-           displacement_gradient.Value().zz()) {}
+template <typename Number>
+inline constexpr Strain<Number>::Strain(const DisplacementGradient<Number>& displacement_gradient)
+  : Strain<Number>(displacement_gradient.Value().xx(),
+                   0.5 * (displacement_gradient.Value().xy() + displacement_gradient.Value().yx()),
+                   0.5 * (displacement_gradient.Value().xz() + displacement_gradient.Value().zx()),
+                   displacement_gradient.Value().yy(),
+                   0.5 * (displacement_gradient.Value().yz() + displacement_gradient.Value().zy()),
+                   displacement_gradient.Value().zz()) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DisplacementGradient> {
-  inline size_t operator()(const PhQ::DisplacementGradient& displacement_gradient) const {
-    return hash<PhQ::Dyad<double>>()(displacement_gradient.Value());
+template <typename Number>
+struct hash<PhQ::DisplacementGradient<Number>> {
+  inline size_t operator()(const PhQ::DisplacementGradient<Number>& displacement_gradient) const {
+    return hash<PhQ::Dyad<Number>>()(displacement_gradient.Value());
   }
 };
 

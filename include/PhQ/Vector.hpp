@@ -27,7 +27,11 @@
 namespace PhQ {
 
 // Forward declarations for class PhQ::Vector.
+template <typename Number>
 class Angle;
+
+// Forward declaration for class PhQ::Vector.
+template <typename Number>
 class Direction;
 
 // Forward declaration for class PhQ::Vector.
@@ -55,13 +59,13 @@ public:
   explicit constexpr Vector(const std::array<Number, 3>& x_y_z) : x_y_z_(x_y_z) {}
 
   // Constructor. Constructs a three-dimensional vector given a magnitude and a direction.
-  constexpr Vector(Number magnitude, const Direction& direction);
+  constexpr Vector(Number magnitude, const Direction<Number>& direction);
 
   // Destructor. Destroys this three-dimensional vector.
   ~Vector() noexcept = default;
 
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
-  constexpr Vector(const Vector& other) = default;
+  constexpr Vector(const Vector<Number>& other) = default;
 
   // Copy constructor. Constructs a three-dimensional vector by copying another one.
   template <typename OtherNumber>
@@ -70,14 +74,14 @@ public:
               static_cast<Number>(other.z())}) {}
 
   // Move constructor. Constructs a three-dimensional vector by moving another one.
-  constexpr Vector(Vector&& other) noexcept = default;
+  constexpr Vector(Vector<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
-  constexpr Vector& operator=(const Vector& other) = default;
+  constexpr Vector<Number>& operator=(const Vector<Number>& other) = default;
 
   // Copy assignment operator. Assigns this three-dimensional vector by copying another one.
   template <typename OtherNumber>
-  constexpr Vector& operator=(const Vector<OtherNumber>& other) {
+  constexpr Vector<Number>& operator=(const Vector<OtherNumber>& other) {
     x_y_z_[0] = static_cast<Number>(other.x());
     x_y_z_[1] = static_cast<Number>(other.y());
     x_y_z_[2] = static_cast<Number>(other.z());
@@ -85,20 +89,21 @@ public:
   }
 
   // Move assignment operator. Assigns this three-dimensional vector by moving another one.
-  constexpr Vector& operator=(Vector&& other) noexcept = default;
+  constexpr Vector<Number>& operator=(Vector<Number>&& other) noexcept = default;
 
   // Assignment operator. Assigns this three-dimensional vector by copying a given array
   // representing its x, y, and z Cartesian components.
-  constexpr Vector& operator=(const std::array<Number, 3>& x_y_z) {
+  constexpr Vector<Number>& operator=(const std::array<Number, 3>& x_y_z) {
     x_y_z_ = x_y_z;
     return *this;
   }
 
   // Statically creates a three-dimensional vector with its x, y, and z Cartesian components
   // initialized to zero.
-  static constexpr Vector Zero() {
-    return Vector{
-        std::array<Number, 3>{0.0, 0.0, 0.0}
+  static constexpr Vector<Number> Zero() {
+    return Vector<Number>{
+        std::array<Number, 3>{
+                              static_cast<Number>(0), static_cast<Number>(0), static_cast<Number>(0)}
     };
   }
 
@@ -180,22 +185,22 @@ public:
   }
 
   // Returns the direction of this three-dimensional vector.
-  [[nodiscard]] PhQ::Direction Direction() const;
+  [[nodiscard]] PhQ::Direction<Number> Direction() const;
 
   // Returns the dot product (also known as the inner product or scalar product) of this
   // three-dimensional vector and another one.
-  [[nodiscard]] constexpr Number Dot(const Vector& vector) const noexcept {
+  [[nodiscard]] constexpr Number Dot(const Vector<Number>& vector) const noexcept {
     return x_y_z_[0] * vector.x_y_z_[0] + x_y_z_[1] * vector.x_y_z_[1]
            + x_y_z_[2] * vector.x_y_z_[2];
   }
 
   // Returns the dot product (also known as the inner product or scalar product) of this
   // three-dimensional vector and a given direction.
-  [[nodiscard]] constexpr Number Dot(const PhQ::Direction& direction) const noexcept;
+  [[nodiscard]] constexpr Number Dot(const PhQ::Direction<Number>& direction) const noexcept;
 
   // Returns the cross product (also known as the vector product) of this three-dimensional vector
   // and another one.
-  [[nodiscard]] constexpr Vector Cross(const Vector& vector) const {
+  [[nodiscard]] constexpr Vector<Number> Cross(const Vector<Number>& vector) const {
     return {x_y_z_[1] * vector.x_y_z_[2] - x_y_z_[2] * vector.x_y_z_[1],
             x_y_z_[2] * vector.x_y_z_[0] - x_y_z_[0] * vector.x_y_z_[2],
             x_y_z_[0] * vector.x_y_z_[1] - x_y_z_[1] * vector.x_y_z_[0]};
@@ -203,21 +208,21 @@ public:
 
   // Returns the cross product (also known as the vector product) of this three-dimensional vector
   // and a given direction.
-  [[nodiscard]] constexpr Vector Cross(const PhQ::Direction& direction) const;
+  [[nodiscard]] constexpr Vector<Number> Cross(const PhQ::Direction<Number>& direction) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this three-dimensional
   // vector and another one.
-  [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector& vector) const;
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const Vector<Number>& vector) const;
 
   // Returns the dyadic tensor product (also known as the outer product) of this three-dimensional
   // vector and a given direction.
-  [[nodiscard]] constexpr Dyad<Number> Dyadic(const PhQ::Direction& direction) const;
+  [[nodiscard]] constexpr Dyad<Number> Dyadic(const PhQ::Direction<Number>& direction) const;
 
   // Returns the angle between this three-dimensional vector and another one.
-  [[nodiscard]] PhQ::Angle Angle(const Vector& vector) const;
+  [[nodiscard]] PhQ::Angle<Number> Angle(const Vector<Number>& vector) const;
 
   // Returns the angle between this three-dimensional vector and a given direction.
-  [[nodiscard]] PhQ::Angle Angle(const PhQ::Direction& direction) const;
+  [[nodiscard]] PhQ::Angle<Number> Angle(const PhQ::Direction<Number>& direction) const;
 
   // Prints this three-dimensional vector as a string.
   [[nodiscard]] std::string Print() const {
@@ -243,13 +248,13 @@ public:
            + ",z:" + PhQ::Print(x_y_z_[2]) + "}";
   }
 
-  constexpr void operator+=(const Vector& vector) noexcept {
+  constexpr void operator+=(const Vector<Number>& vector) noexcept {
     x_y_z_[0] += vector.x_y_z_[0];
     x_y_z_[1] += vector.x_y_z_[1];
     x_y_z_[2] += vector.x_y_z_[2];
   }
 
-  constexpr void operator-=(const Vector& vector) noexcept {
+  constexpr void operator-=(const Vector<Number>& vector) noexcept {
     x_y_z_[0] -= vector.x_y_z_[0];
     x_y_z_[1] -= vector.x_y_z_[1];
     x_y_z_[2] -= vector.x_y_z_[2];

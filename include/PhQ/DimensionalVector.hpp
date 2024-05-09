@@ -165,7 +165,7 @@ protected:
   ~DimensionalVector() noexcept = default;
 
   // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
-  constexpr DimensionalVector(const DimensionalVector& other) = default;
+  constexpr DimensionalVector(const DimensionalVector<UnitType, Number>& other) = default;
 
   // Copy constructor. Constructs a dimensional vector physical quantity by copying another one.
   template <typename OtherNumber>
@@ -173,23 +173,26 @@ protected:
     : value(static_cast<PhQ::Vector<Number>>(other.Value())) {}
 
   // Move constructor. Constructs a dimensional vector physical quantity by moving another one.
-  constexpr DimensionalVector(DimensionalVector&& other) noexcept = default;
+  constexpr DimensionalVector(DimensionalVector<UnitType, Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dimensional vector physical quantity by copying another
   // one.
-  constexpr DimensionalVector& operator=(const DimensionalVector& other) = default;
+  constexpr DimensionalVector<UnitType, Number>& operator=(
+      const DimensionalVector<UnitType, Number>& other) = default;
 
   // Copy assignment operator. Assigns this dimensional vector physical quantity by copying another
   // one.
   template <typename OtherNumber>
-  constexpr DimensionalVector& operator=(const DimensionalVector<UnitType, OtherNumber>& other) {
+  constexpr DimensionalVector<UnitType, Number>& operator=(
+      const DimensionalVector<UnitType, OtherNumber>& other) {
     value = static_cast<PhQ::Vector<Number>>(other.Value());
     return *this;
   }
 
   // Move assignment operator. Assigns this dimensional vector physical quantity by moving another
   // one.
-  constexpr DimensionalVector& operator=(DimensionalVector&& other) noexcept = default;
+  constexpr DimensionalVector<UnitType, Number>& operator=(
+      DimensionalVector<UnitType, Number>&& other) noexcept = default;
 
   // Value of this physical quantity expressed in its standard unit of measure.
   PhQ::Vector<Number> value;
