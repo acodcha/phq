@@ -26,204 +26,248 @@
 
 namespace PhQ {
 
-// Forward declaration for class GasConstant.
+// Forward declaration for class PhQ::GasConstant.
+template <typename Number>
 class SpecificGasConstant;
 
 // Gas constant of a gas. Not to be confused with the molar gas constant or the specific gas
 // constant.
-class GasConstant : public DimensionalScalar<Unit::HeatCapacity, double> {
+template <typename Number = double>
+class GasConstant : public DimensionalScalar<Unit::HeatCapacity, Number> {
 public:
   // Default constructor. Constructs a gas constant with an uninitialized value.
   GasConstant() = default;
 
   // Constructor. Constructs a gas constant with a given value expressed in a given heat capacity
   // unit.
-  GasConstant(const double value, const Unit::HeatCapacity unit)
-    : DimensionalScalar<Unit::HeatCapacity>(value, unit) {}
+  GasConstant(const Number value, const Unit::HeatCapacity unit)
+    : DimensionalScalar<Unit::HeatCapacity, Number>(value, unit) {}
 
   // Constructor. Constructs a gas constant from a given isobaric heat capacity and isochoric heat
   // capacity using Mayer's relation.
-  constexpr GasConstant(const IsobaricHeatCapacity& isobaric_heat_capacity,
-                        const IsochoricHeatCapacity& isochoric_heat_capacity)
-    : GasConstant(isobaric_heat_capacity.Value() - isochoric_heat_capacity.Value()) {}
+  constexpr GasConstant(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
+                        const IsochoricHeatCapacity<Number>& isochoric_heat_capacity)
+    : GasConstant<Number>(isobaric_heat_capacity.Value() - isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a gas constant from a given isobaric heat capacity and heat capacity
   // ratio using the definition of the heat capacity ratio and Mayer's relation.
-  constexpr GasConstant(const HeatCapacityRatio& heat_capacity_ratio,
-                        const IsobaricHeatCapacity& isobaric_heat_capacity)
-    : GasConstant((1.0 - 1.0 / heat_capacity_ratio.Value()) * isobaric_heat_capacity.Value()) {}
+  constexpr GasConstant(const HeatCapacityRatio<Number>& heat_capacity_ratio,
+                        const IsobaricHeatCapacity<Number>& isobaric_heat_capacity)
+    : GasConstant<Number>(
+        (1.0 - 1.0 / heat_capacity_ratio.Value()) * isobaric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a gas constant from a given isochoric heat capacity and heat capacity
   // ratio using the definition of the heat capacity ratio and Mayer's relation.
-  constexpr GasConstant(const HeatCapacityRatio& heat_capacity_ratio,
-                        const IsochoricHeatCapacity& isochoric_heat_capacity)
-    : GasConstant((heat_capacity_ratio.Value() - 1.0) * isochoric_heat_capacity.Value()) {}
+  constexpr GasConstant(const HeatCapacityRatio<Number>& heat_capacity_ratio,
+                        const IsochoricHeatCapacity<Number>& isochoric_heat_capacity)
+    : GasConstant<Number>((heat_capacity_ratio.Value() - 1.0) * isochoric_heat_capacity.Value()) {}
 
   // Constructor. Constructs a gas constant from a given specific gas constant and mass using the
   // definition of the specific gas constant.
-  constexpr GasConstant(const SpecificGasConstant& specific_gas_constant, const Mass& mass);
+  constexpr GasConstant(
+      const SpecificGasConstant<Number>& specific_gas_constant, const Mass<Number>& mass);
 
   // Destructor. Destroys this gas constant.
   ~GasConstant() noexcept = default;
 
   // Copy constructor. Constructs a gas constant by copying another one.
-  constexpr GasConstant(const GasConstant& other) = default;
+  constexpr GasConstant(const GasConstant<Number>& other) = default;
+
+  // Copy constructor. Constructs a gas constant by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr GasConstant(const GasConstant<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a gas constant by moving another one.
-  constexpr GasConstant(GasConstant&& other) noexcept = default;
+  constexpr GasConstant(GasConstant<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this gas constant by copying another one.
-  constexpr GasConstant& operator=(const GasConstant& other) = default;
+  constexpr GasConstant<Number>& operator=(const GasConstant<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this gas constant by copying another one.
+  template <typename OtherNumber>
+  constexpr GasConstant<Number>& operator=(const GasConstant<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this gas constant by moving another one.
-  constexpr GasConstant& operator=(GasConstant&& other) noexcept = default;
+  constexpr GasConstant<Number>& operator=(GasConstant<Number>&& other) noexcept = default;
 
   // Statically creates a gas constant of zero.
-  static constexpr GasConstant Zero() {
-    return GasConstant{0.0};
+  static constexpr GasConstant<Number> Zero() {
+    return GasConstant<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a gas constant with a given value expressed in a given heat capacity unit.
   template <Unit::HeatCapacity Unit>
-  static constexpr GasConstant Create(const double value) {
-    return GasConstant{
+  static constexpr GasConstant<Number> Create(const Number value) {
+    return GasConstant<Number>{
         StaticConvertCopy<Unit::HeatCapacity, Unit, Standard<Unit::HeatCapacity>>(value)};
   }
 
-  constexpr GasConstant operator+(const GasConstant& gas_constant) const {
-    return GasConstant{value + gas_constant.value};
+  constexpr GasConstant<Number> operator+(const GasConstant<Number>& gas_constant) const {
+    return GasConstant<Number>{value + gas_constant.value};
   }
 
-  constexpr IsobaricHeatCapacity operator+(
-      const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-    return {isochoric_heat_capacity, *this};
+  constexpr IsobaricHeatCapacity<Number> operator+(
+      const IsochoricHeatCapacity<Number>& isochoric_heat_capacity) const {
+    return IsobaricHeatCapacity<Number>{isochoric_heat_capacity, *this};
   }
 
-  constexpr GasConstant operator-(const GasConstant& gas_constant) const {
-    return GasConstant{value - gas_constant.value};
+  constexpr GasConstant<Number> operator-(const GasConstant<Number>& gas_constant) const {
+    return GasConstant<Number>{value - gas_constant.value};
   }
 
-  constexpr GasConstant operator*(const double number) const {
-    return GasConstant{value * number};
+  constexpr GasConstant<Number> operator*(const Number number) const {
+    return GasConstant<Number>{value * number};
   }
 
-  constexpr GasConstant operator/(const double number) const {
-    return GasConstant{value / number};
+  constexpr GasConstant<Number> operator/(const Number number) const {
+    return GasConstant<Number>{value / number};
   }
 
-  constexpr SpecificGasConstant operator/(const Mass& mass) const;
+  constexpr SpecificGasConstant<Number> operator/(const Mass<Number>& mass) const;
 
-  constexpr Mass operator/(const SpecificGasConstant& specific_gas_constant) const;
+  constexpr Mass<Number> operator/(const SpecificGasConstant<Number>& specific_gas_constant) const;
 
-  constexpr double operator/(const GasConstant& gas_constant) const noexcept {
+  constexpr Number operator/(const GasConstant<Number>& gas_constant) const noexcept {
     return value / gas_constant.value;
   }
 
-  constexpr void operator+=(const GasConstant& gas_constant) noexcept {
+  constexpr void operator+=(const GasConstant<Number>& gas_constant) noexcept {
     value += gas_constant.value;
   }
 
-  constexpr void operator-=(const GasConstant& gas_constant) noexcept {
+  constexpr void operator-=(const GasConstant<Number>& gas_constant) noexcept {
     value -= gas_constant.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a gas constant with a given value expressed in the standard heat
   // capacity unit.
-  explicit constexpr GasConstant(const double value)
-    : DimensionalScalar<Unit::HeatCapacity>(value) {}
+  explicit constexpr GasConstant(const Number value)
+    : DimensionalScalar<Unit::HeatCapacity, Number>(value) {}
 };
 
-inline constexpr bool operator==(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const GasConstant& left, const GasConstant& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const GasConstant<Number>& left, const GasConstant<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const GasConstant& gas_constant) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const GasConstant<Number>& gas_constant) {
   stream << gas_constant.Print();
   return stream;
 }
 
-inline constexpr GasConstant operator*(const double number, const GasConstant& gas_constant) {
+template <typename Number>
+inline constexpr GasConstant<Number> operator*(
+    const Number number, const GasConstant<Number>& gas_constant) {
   return gas_constant * number;
 }
 
-inline constexpr HeatCapacityRatio::HeatCapacityRatio(
-    const IsobaricHeatCapacity& isobaric_heat_capacity, const GasConstant& gas_constant)
-  : HeatCapacityRatio(
+template <typename Number>
+inline constexpr HeatCapacityRatio<Number>::HeatCapacityRatio(
+    const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
+    const GasConstant<Number>& gas_constant)
+  : HeatCapacityRatio<Number>(
       isobaric_heat_capacity.Value() / (isobaric_heat_capacity.Value() - gas_constant.Value())) {}
 
-inline constexpr HeatCapacityRatio::HeatCapacityRatio(
-    const GasConstant& gas_constant, const IsochoricHeatCapacity& isochoric_heat_capacity)
-  : HeatCapacityRatio(gas_constant.Value() / isochoric_heat_capacity.Value() + 1.0) {}
+template <typename Number>
+inline constexpr HeatCapacityRatio<Number>::HeatCapacityRatio(
+    const GasConstant<Number>& gas_constant,
+    const IsochoricHeatCapacity<Number>& isochoric_heat_capacity)
+  : HeatCapacityRatio<Number>(gas_constant.Value() / isochoric_heat_capacity.Value() + 1.0) {}
 
-inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
-    const IsobaricHeatCapacity& isobaric_heat_capacity, const GasConstant& gas_constant)
-  : IsochoricHeatCapacity(isobaric_heat_capacity.Value() - gas_constant.Value()) {}
+template <typename Number>
+inline constexpr IsochoricHeatCapacity<Number>::IsochoricHeatCapacity(
+    const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
+    const GasConstant<Number>& gas_constant)
+  : IsochoricHeatCapacity<Number>(isobaric_heat_capacity.Value() - gas_constant.Value()) {}
 
-inline constexpr IsochoricHeatCapacity::IsochoricHeatCapacity(
-    const GasConstant& gas_constant, const HeatCapacityRatio& heat_capacity_ratio)
-  : IsochoricHeatCapacity(gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
+template <typename Number>
+inline constexpr IsochoricHeatCapacity<Number>::IsochoricHeatCapacity(
+    const GasConstant<Number>& gas_constant, const HeatCapacityRatio<Number>& heat_capacity_ratio)
+  : IsochoricHeatCapacity<Number>(gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
-inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
-    const IsochoricHeatCapacity& isochoric_heat_capacity, const GasConstant& gas_constant)
-  : IsobaricHeatCapacity(isochoric_heat_capacity.Value() + gas_constant.Value()) {}
+template <typename Number>
+inline constexpr IsobaricHeatCapacity<Number>::IsobaricHeatCapacity(
+    const IsochoricHeatCapacity<Number>& isochoric_heat_capacity,
+    const GasConstant<Number>& gas_constant)
+  : IsobaricHeatCapacity<Number>(isochoric_heat_capacity.Value() + gas_constant.Value()) {}
 
-inline constexpr IsobaricHeatCapacity::IsobaricHeatCapacity(
-    const HeatCapacityRatio& heat_capacity_ratio, const GasConstant& gas_constant)
-  : IsobaricHeatCapacity(
+template <typename Number>
+inline constexpr IsobaricHeatCapacity<Number>::IsobaricHeatCapacity(
+    const HeatCapacityRatio<Number>& heat_capacity_ratio, const GasConstant<Number>& gas_constant)
+  : IsobaricHeatCapacity<Number>(
       heat_capacity_ratio.Value() * gas_constant.Value() / (heat_capacity_ratio.Value() - 1.0)) {}
 
-inline constexpr IsobaricHeatCapacity IsochoricHeatCapacity::operator+(
-    const GasConstant& gas_constant) const {
-  return {*this, gas_constant};
+template <typename Number>
+inline constexpr IsobaricHeatCapacity<Number> IsochoricHeatCapacity<Number>::operator+(
+    const GasConstant<Number>& gas_constant) const {
+  return IsobaricHeatCapacity<Number>{*this, gas_constant};
 }
 
-inline constexpr GasConstant IsobaricHeatCapacity::operator-(
-    const IsochoricHeatCapacity& isochoric_heat_capacity) const {
-  return {*this, isochoric_heat_capacity};
+template <typename Number>
+inline constexpr GasConstant<Number> IsobaricHeatCapacity<Number>::operator-(
+    const IsochoricHeatCapacity<Number>& isochoric_heat_capacity) const {
+  return IsochoricHeatCapacity<Number>{*this, isochoric_heat_capacity};
 }
 
-inline constexpr IsochoricHeatCapacity IsobaricHeatCapacity::operator-(
-    const GasConstant& gas_constant) const {
-  return {*this, gas_constant};
+template <typename Number>
+inline constexpr IsochoricHeatCapacity<Number> IsobaricHeatCapacity<Number>::operator-(
+    const GasConstant<Number>& gas_constant) const {
+  return IsochoricHeatCapacity<Number>{*this, gas_constant};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::GasConstant> {
-  inline size_t operator()(const PhQ::GasConstant& gas_constant) const {
-    return hash<double>()(gas_constant.Value());
+template <typename Number>
+struct hash<PhQ::GasConstant<Number>> {
+  inline size_t operator()(const PhQ::GasConstant<Number>& gas_constant) const {
+    return hash<Number>()(gas_constant.Value());
   }
 };
 

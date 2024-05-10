@@ -29,177 +29,236 @@
 
 namespace PhQ {
 
-// Forward declarations for class SoundSpeed.
+// Forward declaration for class PhQ::SoundSpeed.
+template <typename Number>
 class MachNumber;
+
+// Forward declaration for class PhQ::SoundSpeed.
+template <typename Number>
 class Speed;
 
 // Speed of sound. Applies to any deformable medium, including fluids and elastic solids.
-class SoundSpeed : public DimensionalScalar<Unit::Speed, double> {
+template <typename Number = double>
+class SoundSpeed : public DimensionalScalar<Unit::Speed, Number> {
 public:
   // Default constructor. Constructs a sound speed with an uninitialized value.
   SoundSpeed() = default;
 
   // Constructs a sound speed from a given value and speed unit.
-  SoundSpeed(const double value, const Unit::Speed unit)
-    : DimensionalScalar<Unit::Speed>(value, unit) {}
+  SoundSpeed(const Number value, const Unit::Speed unit)
+    : DimensionalScalar<Unit::Speed, Number>(value, unit) {}
 
   // Constructs a sound speed from an isentropic bulk modulus and a mass density. This is the
   // definition of the sound speed; this relation always holds true.
-  SoundSpeed(const IsentropicBulkModulus& isentropic_bulk_modulus, const MassDensity& mass_density)
-    : SoundSpeed(std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
+  SoundSpeed(const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+             const MassDensity<Number>& mass_density)
+    : SoundSpeed<Number>(std::sqrt(isentropic_bulk_modulus.Value() / mass_density.Value())) {}
 
   // Constructs a sound speed from a heat capacity ratio, a static pressure, and a mass density.
   // This relation applies only to an ideal gas.
-  SoundSpeed(const HeatCapacityRatio& heat_capacity_ratio, const StaticPressure& static_pressure,
-             const MassDensity& mass_density)
-    : SoundSpeed(
+  SoundSpeed(const HeatCapacityRatio<Number>& heat_capacity_ratio,
+             const StaticPressure<Number>& static_pressure, const MassDensity<Number>& mass_density)
+    : SoundSpeed<Number>(
         std::sqrt(heat_capacity_ratio.Value() * static_pressure.Value() / mass_density.Value())) {}
 
   // Constructs a sound speed from a heat capacity ratio, a specific gas constant, and a
   // temperature. This relation applies only to an ideal gas.
-  SoundSpeed(const HeatCapacityRatio& heat_capacity_ratio,
-             const SpecificGasConstant& specific_gas_constant, const Temperature& temperature)
-    : SoundSpeed(std::sqrt(
+  SoundSpeed(const HeatCapacityRatio<Number>& heat_capacity_ratio,
+             const SpecificGasConstant<Number>& specific_gas_constant,
+             const Temperature<Number>& temperature)
+    : SoundSpeed<Number>(std::sqrt(
         heat_capacity_ratio.Value() * specific_gas_constant.Value() * temperature.Value())) {}
 
   // Constructs a sound speed from a speed and a Mach number. This uses the definition of the Mach
   // number; this relation always holds true.
-  constexpr SoundSpeed(const Speed& speed, const MachNumber& mach_number);
+  constexpr SoundSpeed(const Speed<Number>& speed, const MachNumber<Number>& mach_number);
 
-  static constexpr SoundSpeed Zero() {
-    return SoundSpeed{0.0};
+  // Destructor. Destroys this sound speed.
+  ~SoundSpeed() noexcept = default;
+
+  // Copy constructor. Constructs a sound speed by copying another one.
+  constexpr SoundSpeed(const SoundSpeed<Number>& other) = default;
+
+  // Copy constructor. Constructs a sound speed by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr SoundSpeed(const SoundSpeed<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
+
+  // Move constructor. Constructs a sound speed by moving another one.
+  constexpr SoundSpeed(SoundSpeed<Number>&& other) noexcept = default;
+
+  // Copy assignment operator. Assigns this sound speed by copying another one.
+  constexpr SoundSpeed<Number>& operator=(const SoundSpeed<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this sound speed by copying another one.
+  template <typename OtherNumber>
+  constexpr SoundSpeed<Number>& operator=(const SoundSpeed<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
+
+  // Move assignment operator. Assigns this sound speed by moving another one.
+  constexpr SoundSpeed<Number>& operator=(SoundSpeed<Number>&& other) noexcept = default;
+
+  static constexpr SoundSpeed<Number> Zero() {
+    return SoundSpeed<Number>{static_cast<Number>(0)};
   }
 
   // Creates a sound speed from a given value and speed unit.
   template <Unit::Speed Unit>
-  static constexpr SoundSpeed Create(const double value) {
-    return SoundSpeed{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
+  static constexpr SoundSpeed<Number> Create(const Number value) {
+    return SoundSpeed<Number>{StaticConvertCopy<Unit::Speed, Unit, Standard<Unit::Speed>>(value)};
   }
 
-  constexpr SoundSpeed operator+(const SoundSpeed& speed) const {
-    return SoundSpeed{value + speed.value};
+  constexpr SoundSpeed<Number> operator+(const SoundSpeed<Number>& speed) const {
+    return SoundSpeed<Number>{value + speed.value};
   }
 
-  constexpr Speed operator+(const Speed& speed) const {
-    return Speed{value + speed.value};
+  constexpr Speed<Number> operator+(const Speed<Number>& speed) const {
+    return Speed<Number>{value + speed.value};
   }
 
-  constexpr SoundSpeed operator-(const SoundSpeed& speed) const {
-    return SoundSpeed{value - speed.value};
+  constexpr SoundSpeed<Number> operator-(const SoundSpeed<Number>& speed) const {
+    return SoundSpeed<Number>{value - speed.value};
   }
 
-  constexpr Speed operator-(const Speed& speed) const {
-    return Speed{value - speed.value};
+  constexpr Speed<Number> operator-(const Speed<Number>& speed) const {
+    return Speed<Number>{value - speed.value};
   }
 
-  constexpr SoundSpeed operator*(const double number) const {
-    return SoundSpeed{value * number};
+  constexpr SoundSpeed<Number> operator*(const Number number) const {
+    return SoundSpeed<Number>{value * number};
   }
 
-  constexpr Speed operator*(const MachNumber& mach_number) const;
+  constexpr Speed<Number> operator*(const MachNumber<Number>& mach_number) const;
 
-  constexpr SoundSpeed operator/(const double number) const {
-    return SoundSpeed{value / number};
+  constexpr SoundSpeed<Number> operator/(const Number number) const {
+    return SoundSpeed<Number>{value / number};
   }
 
-  constexpr double operator/(const SoundSpeed& sound_speed) const noexcept {
+  constexpr Number operator/(const SoundSpeed<Number>& sound_speed) const noexcept {
     return value / sound_speed.value;
   }
 
-  constexpr void operator+=(const SoundSpeed& sound_speed) noexcept {
+  constexpr void operator+=(const SoundSpeed<Number>& sound_speed) noexcept {
     value += sound_speed.value;
   }
 
-  constexpr void operator+=(const Speed& speed) noexcept {
+  constexpr void operator+=(const Speed<Number>& speed) noexcept {
     value += speed.value;
   }
 
-  constexpr void operator-=(const SoundSpeed& sound_speed) noexcept {
+  constexpr void operator-=(const SoundSpeed<Number>& sound_speed) noexcept {
     value -= sound_speed.value;
   }
 
-  constexpr void operator-=(const Speed& speed) noexcept {
+  constexpr void operator-=(const Speed<Number>& speed) noexcept {
     value -= speed.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a sound speed with a given value expressed in the standard speed unit.
-  explicit constexpr SoundSpeed(const double value) : DimensionalScalar<Unit::Speed>(value) {}
+  explicit constexpr SoundSpeed(const Number value)
+    : DimensionalScalar<Unit::Speed, Number>(value) {}
 };
 
-inline constexpr bool operator==(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const SoundSpeed& left, const SoundSpeed& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const SoundSpeed<Number>& left, const SoundSpeed<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const SoundSpeed& sound_speed) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const SoundSpeed<Number>& sound_speed) {
   stream << sound_speed.Print();
   return stream;
 }
 
-inline constexpr SoundSpeed operator*(const double number, const SoundSpeed& sound_speed) {
+template <typename Number>
+inline constexpr SoundSpeed<Number> operator*(
+    const Number number, const SoundSpeed<Number>& sound_speed) {
   return sound_speed * number;
 }
 
-inline constexpr Speed Speed::operator+(const SoundSpeed& sound_speed) const {
-  return Speed{value + sound_speed.Value()};
+template <typename Number>
+inline constexpr Speed<Number> Speed<Number>::operator+(
+    const SoundSpeed<Number>& sound_speed) const {
+  return Speed<Number>{value + sound_speed.Value()};
 }
 
-inline constexpr Speed Speed::operator-(const SoundSpeed& sound_speed) const {
-  return Speed{value - sound_speed.Value()};
+template <typename Number>
+inline constexpr Speed<Number> Speed<Number>::operator-(
+    const SoundSpeed<Number>& sound_speed) const {
+  return Speed<Number>{value - sound_speed.Value()};
 }
 
-inline constexpr void Speed::operator+=(const SoundSpeed& speed) noexcept {
+template <typename Number>
+inline constexpr void Speed<Number>::operator+=(const SoundSpeed<Number>& speed) noexcept {
   value += speed.Value();
 }
 
-inline constexpr void Speed::operator-=(const SoundSpeed& speed) noexcept {
+template <typename Number>
+inline constexpr void Speed<Number>::operator-=(const SoundSpeed<Number>& speed) noexcept {
   value -= speed.Value();
 }
 
-constexpr MassDensity::MassDensity(
-    const IsentropicBulkModulus& isentropic_bulk_modulus, const SoundSpeed& sound_speed)
-  : MassDensity(isentropic_bulk_modulus.Value() / std::pow(sound_speed.Value(), 2)) {}
+template <typename Number>
+constexpr MassDensity<Number>::MassDensity(
+    const IsentropicBulkModulus<Number>& isentropic_bulk_modulus,
+    const SoundSpeed<Number>& sound_speed)
+  : MassDensity<Number>(isentropic_bulk_modulus.Value() / std::pow(sound_speed.Value(), 2)) {}
 
-constexpr IsentropicBulkModulus::IsentropicBulkModulus(
-    const MassDensity& mass_density, const SoundSpeed& sound_speed)
-  : IsentropicBulkModulus(mass_density.Value() * std::pow(sound_speed.Value(), 2)) {}
+template <typename Number>
+constexpr IsentropicBulkModulus<Number>::IsentropicBulkModulus(
+    const MassDensity<Number>& mass_density, const SoundSpeed<Number>& sound_speed)
+  : IsentropicBulkModulus<Number>(mass_density.Value() * std::pow(sound_speed.Value(), 2)) {}
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::SoundSpeed> {
-  inline size_t operator()(const PhQ::SoundSpeed& sound_speed) const {
-    return hash<double>()(sound_speed.Value());
+template <typename Number>
+struct hash<PhQ::SoundSpeed<Number>> {
+  inline size_t operator()(const PhQ::SoundSpeed<Number>& sound_speed) const {
+    return hash<Number>()(sound_speed.Value());
   }
 };
 

@@ -23,153 +23,197 @@
 
 namespace PhQ {
 
-// Forward declarations for class KinematicViscosity.
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class DynamicViscosity;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class Length;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class PrandtlNumber;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class ReynoldsNumber;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class Speed;
+
+// Forward declaration for class PhQ::KinematicViscosity.
+template <typename Number>
 class ThermalDiffusivity;
 
 // Kinematic viscosity, also known as molecular kinematic viscosity. Kinematic viscosity is defined
 // as dynamic viscosity divided by mass density.
-class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity, double> {
+template <typename Number = double>
+class KinematicViscosity : public DimensionalScalar<Unit::Diffusivity, Number> {
 public:
   // Default constructor. Constructs a kinematic viscosity with an uninitialized value.
   KinematicViscosity() = default;
 
   // Constructor. Constructs a kinematic viscosity with a given value expressed in a given
   // diffusivity unit.
-  KinematicViscosity(const double value, const Unit::Diffusivity unit)
-    : DimensionalScalar<Unit::Diffusivity>(value, unit) {}
+  KinematicViscosity(const Number value, const Unit::Diffusivity unit)
+    : DimensionalScalar<Unit::Diffusivity, Number>(value, unit) {}
 
   // Constructor. Constructs a kinematic viscosity from a given dynamic viscosity and mass density
   // using the definition of kinematic viscosity.
   constexpr KinematicViscosity(
-      const DynamicViscosity& dynamic_viscosity, const MassDensity& mass_density);
+      const DynamicViscosity<Number>& dynamic_viscosity, const MassDensity<Number>& mass_density);
 
   // Constructor. Constructs a kinematic viscosity from a given speed, length, and Reynolds number
   // using the definition of the Reynolds number.
-  constexpr KinematicViscosity(
-      const Speed& speed, const Length& length, const ReynoldsNumber& reynolds_number);
+  constexpr KinematicViscosity(const Speed<Number>& speed, const Length<Number>& length,
+                               const ReynoldsNumber<Number>& reynolds_number);
 
   // Constructor. Constructs a kinematic viscosity from a given Prandtl number and thermal
   // diffusivity using the definition of Prandtl number.
-  constexpr KinematicViscosity(
-      const PrandtlNumber& prandtl_number, const ThermalDiffusivity& thermal_diffusivity);
+  constexpr KinematicViscosity(const PrandtlNumber<Number>& prandtl_number,
+                               const ThermalDiffusivity<Number>& thermal_diffusivity);
 
   // Destructor. Destroys this kinematic viscosity.
   ~KinematicViscosity() noexcept = default;
 
   // Copy constructor. Constructs a kinematic viscosity by copying another one.
-  constexpr KinematicViscosity(const KinematicViscosity& other) = default;
+  constexpr KinematicViscosity(const KinematicViscosity<Number>& other) = default;
+
+  // Copy constructor. Constructs a kinematic viscosity by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr KinematicViscosity(const KinematicViscosity<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a kinematic viscosity by moving another one.
-  constexpr KinematicViscosity(KinematicViscosity&& other) noexcept = default;
+  constexpr KinematicViscosity(KinematicViscosity<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this kinematic viscosity by copying another one.
-  constexpr KinematicViscosity& operator=(const KinematicViscosity& other) = default;
+  constexpr KinematicViscosity<Number>& operator=(
+      const KinematicViscosity<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this kinematic viscosity by copying another one.
+  template <typename OtherNumber>
+  constexpr KinematicViscosity<Number>& operator=(const KinematicViscosity<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this kinematic viscosity by moving another one.
-  constexpr KinematicViscosity& operator=(KinematicViscosity&& other) noexcept = default;
+  constexpr KinematicViscosity<Number>& operator=(
+      KinematicViscosity<Number>&& other) noexcept = default;
 
   // Statically creates a kinematic viscosity of zero.
-  static constexpr KinematicViscosity Zero() {
-    return KinematicViscosity{0.0};
+  static constexpr KinematicViscosity<Number> Zero() {
+    return KinematicViscosity<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a kinematic viscosity with a given value expressed in a given diffusivity
   // unit.
   template <Unit::Diffusivity Unit>
-  static constexpr KinematicViscosity Create(const double value) {
-    return KinematicViscosity{
+  static constexpr KinematicViscosity<Number> Create(const Number value) {
+    return KinematicViscosity<Number>{
         StaticConvertCopy<Unit::Diffusivity, Unit, Standard<Unit::Diffusivity>>(value)};
   }
 
-  constexpr KinematicViscosity operator+(const KinematicViscosity& kinematic_viscosity) const {
-    return KinematicViscosity{value + kinematic_viscosity.value};
+  constexpr KinematicViscosity<Number> operator+(
+      const KinematicViscosity<Number>& kinematic_viscosity) const {
+    return KinematicViscosity<Number>{value + kinematic_viscosity.value};
   }
 
-  constexpr KinematicViscosity operator-(const KinematicViscosity& kinematic_viscosity) const {
-    return KinematicViscosity{value - kinematic_viscosity.value};
+  constexpr KinematicViscosity<Number> operator-(
+      const KinematicViscosity<Number>& kinematic_viscosity) const {
+    return KinematicViscosity<Number>{value - kinematic_viscosity.value};
   }
 
-  constexpr KinematicViscosity operator*(const double number) const {
-    return KinematicViscosity{value * number};
+  constexpr KinematicViscosity<Number> operator*(const Number number) const {
+    return KinematicViscosity<Number>{value * number};
   }
 
-  constexpr DynamicViscosity operator*(const MassDensity& mass_density) const;
+  constexpr DynamicViscosity<Number> operator*(const MassDensity<Number>& mass_density) const;
 
-  constexpr KinematicViscosity operator/(const double number) const {
-    return KinematicViscosity{value / number};
+  constexpr KinematicViscosity<Number> operator/(const Number number) const {
+    return KinematicViscosity<Number>{value / number};
   }
 
-  constexpr double operator/(const KinematicViscosity& kinematic_viscosity) const noexcept {
+  constexpr Number operator/(const KinematicViscosity<Number>& kinematic_viscosity) const noexcept {
     return value / kinematic_viscosity.value;
   }
 
-  constexpr void operator+=(const KinematicViscosity& kinematic_viscosity) noexcept {
+  constexpr void operator+=(const KinematicViscosity<Number>& kinematic_viscosity) noexcept {
     value += kinematic_viscosity.value;
   }
 
-  constexpr void operator-=(const KinematicViscosity& kinematic_viscosity) noexcept {
+  constexpr void operator-=(const KinematicViscosity<Number>& kinematic_viscosity) noexcept {
     value -= kinematic_viscosity.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a kinematic viscosity with a given value expressed in the standard
   // diffusivity unit.
-  explicit constexpr KinematicViscosity(const double value)
-    : DimensionalScalar<Unit::Diffusivity>(value) {}
+  explicit constexpr KinematicViscosity(const Number value)
+    : DimensionalScalar<Unit::Diffusivity, Number>(value) {}
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const KinematicViscosity& left, const KinematicViscosity& right) noexcept {
+    const KinematicViscosity<Number>& left, const KinematicViscosity<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const KinematicViscosity& kinematic_viscosity) {
+    std::ostream& stream, const KinematicViscosity<Number>& kinematic_viscosity) {
   stream << kinematic_viscosity.Print();
   return stream;
 }
 
-inline constexpr KinematicViscosity operator*(
-    const double number, const KinematicViscosity& kinematic_viscosity) {
+template <typename Number>
+inline constexpr KinematicViscosity<Number> operator*(
+    const Number number, const KinematicViscosity<Number>& kinematic_viscosity) {
   return kinematic_viscosity * number;
 }
 
@@ -177,10 +221,10 @@ inline constexpr KinematicViscosity operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::KinematicViscosity> {
-  inline size_t operator()(const PhQ::KinematicViscosity& kinematic_viscosity) const {
-    return hash<double>()(kinematic_viscosity.Value());
+template <typename Number>
+struct hash<PhQ::KinematicViscosity<Number>> {
+  inline size_t operator()(const PhQ::KinematicViscosity<Number>& kinematic_viscosity) const {
+    return hash<Number>()(kinematic_viscosity.Value());
   }
 };
 

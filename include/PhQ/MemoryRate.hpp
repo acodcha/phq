@@ -27,174 +27,219 @@
 namespace PhQ {
 
 // Computer memory rate. Can represent the time rate of change of memory or a memory transfer speed.
-class MemoryRate : public DimensionalScalar<Unit::MemoryRate, double> {
+template <typename Number = double>
+class MemoryRate : public DimensionalScalar<Unit::MemoryRate, Number> {
 public:
   // Default constructor. Constructs a memory rate with an uninitialized value.
   MemoryRate() = default;
 
   // Constructor. Constructs a memory rate with a given value expressed in a given memory rate unit.
-  MemoryRate(const double value, const Unit::MemoryRate unit)
-    : DimensionalScalar<Unit::MemoryRate>(value, unit) {}
+  MemoryRate(const Number value, const Unit::MemoryRate unit)
+    : DimensionalScalar<Unit::MemoryRate, Number>(value, unit) {}
 
   // Constructor. Constructs a memory rate from a given memory and time duration using the
   // definition of memory rate.
-  constexpr MemoryRate(const Memory& memory, const Time& time)
-    : MemoryRate(memory.Value() / time.Value()) {}
+  constexpr MemoryRate(const Memory<Number>& memory, const Time<Number>& time)
+    : MemoryRate<Number>(memory.Value() / time.Value()) {}
 
   // Constructor. Constructs a memory rate from a given memory and frequency using the definition of
   // memory rate.
-  constexpr MemoryRate(const Memory& memory, const Frequency& frequency)
-    : MemoryRate(memory.Value() * frequency.Value()) {}
+  constexpr MemoryRate(const Memory<Number>& memory, const Frequency<Number>& frequency)
+    : MemoryRate<Number>(memory.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this memory rate.
   ~MemoryRate() noexcept = default;
 
   // Copy constructor. Constructs a memory rate by copying another one.
-  constexpr MemoryRate(const MemoryRate& other) = default;
+  constexpr MemoryRate(const MemoryRate<Number>& other) = default;
+
+  // Copy constructor. Constructs a memory rate by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr MemoryRate(const MemoryRate<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a memory rate by moving another one.
-  constexpr MemoryRate(MemoryRate&& other) noexcept = default;
+  constexpr MemoryRate(MemoryRate<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this memory rate by copying another one.
-  constexpr MemoryRate& operator=(const MemoryRate& other) = default;
+  constexpr MemoryRate<Number>& operator=(const MemoryRate<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this memory rate by copying another one.
+  template <typename OtherNumber>
+  constexpr MemoryRate<Number>& operator=(const MemoryRate<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this memory rate by moving another one.
-  constexpr MemoryRate& operator=(MemoryRate&& other) noexcept = default;
+  constexpr MemoryRate<Number>& operator=(MemoryRate<Number>&& other) noexcept = default;
 
   // Statically creates a memory rate of zero.
-  static constexpr MemoryRate Zero() {
-    return MemoryRate{0.0};
+  static constexpr MemoryRate<Number> Zero() {
+    return MemoryRate<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a memory rate with a given value expressed in a given memory rate unit.
   template <Unit::MemoryRate Unit>
-  static constexpr MemoryRate Create(const double value) {
-    return MemoryRate{StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(value)};
+  static constexpr MemoryRate<Number> Create(const Number value) {
+    return MemoryRate<Number>{
+        StaticConvertCopy<Unit::MemoryRate, Unit, Standard<Unit::MemoryRate>>(value)};
   }
 
-  constexpr MemoryRate operator+(const MemoryRate& memory_rate) const {
-    return MemoryRate{value + memory_rate.value};
+  constexpr MemoryRate<Number> operator+(const MemoryRate<Number>& memory_rate) const {
+    return MemoryRate<Number>{value + memory_rate.value};
   }
 
-  constexpr MemoryRate operator-(const MemoryRate& memory_rate) const {
-    return MemoryRate{value - memory_rate.value};
+  constexpr MemoryRate<Number> operator-(const MemoryRate<Number>& memory_rate) const {
+    return MemoryRate<Number>{value - memory_rate.value};
   }
 
-  constexpr MemoryRate operator*(const double number) const {
-    return MemoryRate{value * number};
+  constexpr MemoryRate<Number> operator*(const Number number) const {
+    return MemoryRate<Number>{value * number};
   }
 
-  constexpr Memory operator*(const Time& time) const {
-    return {*this, time};
+  constexpr Memory<Number> operator*(const Time<Number>& time) const {
+    return Memory<Number>{*this, time};
   }
 
-  constexpr MemoryRate operator/(const double number) const {
-    return MemoryRate{value / number};
+  constexpr MemoryRate<Number> operator/(const Number number) const {
+    return MemoryRate<Number>{value / number};
   }
 
-  constexpr Memory operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr Memory<Number> operator/(const Frequency<Number>& frequency) const {
+    return Memory<Number>{*this, frequency};
   }
 
-  constexpr Frequency operator/(const Memory& memory) const {
-    return {*this, memory};
+  constexpr Frequency<Number> operator/(const Memory<Number>& memory) const {
+    return Frequency<Number>{*this, memory};
   }
 
-  constexpr double operator/(const MemoryRate& memory_rate) const noexcept {
+  constexpr Number operator/(const MemoryRate<Number>& memory_rate) const noexcept {
     return value / memory_rate.value;
   }
 
-  constexpr void operator+=(const MemoryRate& memory_rate) noexcept {
+  constexpr void operator+=(const MemoryRate<Number>& memory_rate) noexcept {
     value += memory_rate.value;
   }
 
-  constexpr void operator-=(const MemoryRate& memory_rate) noexcept {
+  constexpr void operator-=(const MemoryRate<Number>& memory_rate) noexcept {
     value -= memory_rate.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a memory rate quantity with a given value expressed in the standard
   // memory rate unit.
-  explicit constexpr MemoryRate(const double value) : DimensionalScalar<Unit::MemoryRate>(value) {}
+  explicit constexpr MemoryRate(const Number value)
+    : DimensionalScalar<Unit::MemoryRate, Number>(value) {}
 };
 
-inline constexpr bool operator==(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MemoryRate& left, const MemoryRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const MemoryRate<Number>& left, const MemoryRate<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const MemoryRate& memory_rate) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const MemoryRate<Number>& memory_rate) {
   stream << memory_rate.Print();
   return stream;
 }
 
-inline constexpr MemoryRate operator*(const double number, const MemoryRate& memory_rate) {
+template <typename Number>
+inline constexpr MemoryRate<Number> operator*(
+    const Number number, const MemoryRate<Number>& memory_rate) {
   return memory_rate * number;
 }
 
-inline constexpr Time::Time(const Memory& memory, const MemoryRate& memory_rate)
-  : Time(memory.Value() / memory_rate.Value()) {}
+template <typename Number>
+inline constexpr Time<Number>::Time(
+    const Memory<Number>& memory, const MemoryRate<Number>& memory_rate)
+  : Time<Number>(memory.Value() / memory_rate.Value()) {}
 
-inline constexpr Frequency::Frequency(const MemoryRate& memory_rate, const Memory& memory)
-  : Frequency(memory_rate.Value() / memory.Value()) {}
+template <typename Number>
+inline constexpr Frequency<Number>::Frequency(
+    const MemoryRate<Number>& memory_rate, const Memory<Number>& memory)
+  : Frequency<Number>(memory_rate.Value() / memory.Value()) {}
 
-inline constexpr Memory::Memory(const MemoryRate& memory_rate, const Time& time)
-  : Memory(memory_rate.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr Memory<Number>::Memory(
+    const MemoryRate<Number>& memory_rate, const Time<Number>& time)
+  : Memory<Number>(memory_rate.Value() * time.Value()) {}
 
-inline constexpr Memory::Memory(const MemoryRate& memory_rate, const Frequency& frequency)
-  : Memory(memory_rate.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr Memory<Number>::Memory(
+    const MemoryRate<Number>& memory_rate, const Frequency<Number>& frequency)
+  : Memory<Number>(memory_rate.Value() / frequency.Value()) {}
 
-inline constexpr MemoryRate Frequency::operator*(const Memory& memory) const {
-  return {memory, *this};
+template <typename Number>
+inline constexpr MemoryRate<Number> Frequency<Number>::operator*(
+    const Memory<Number>& memory) const {
+  return MemoryRate<Number>{memory, *this};
 }
 
-inline constexpr MemoryRate Memory::operator*(const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr MemoryRate<Number> Memory<Number>::operator*(
+    const Frequency<Number>& frequency) const {
+  return MemoryRate<Number>{*this, frequency};
 }
 
-inline constexpr MemoryRate Memory::operator/(const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr MemoryRate<Number> Memory<Number>::operator/(const Time<Number>& time) const {
+  return MemoryRate<Number>{*this, time};
 }
 
-inline constexpr Time Memory::operator/(const MemoryRate& memory_rate) const {
-  return {*this, memory_rate};
+template <typename Number>
+inline constexpr Time<Number> Memory<Number>::operator/(
+    const MemoryRate<Number>& memory_rate) const {
+  return Time<Number>{*this, memory_rate};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::MemoryRate> {
-  inline size_t operator()(const PhQ::MemoryRate& memory_rate) const {
-    return hash<double>()(memory_rate.Value());
+template <typename Number>
+struct hash<PhQ::MemoryRate<Number>> {
+  inline size_t operator()(const PhQ::MemoryRate<Number>& memory_rate) const {
+    return hash<Number>()(memory_rate.Value());
   }
 };
 

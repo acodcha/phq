@@ -24,124 +24,148 @@
 namespace PhQ {
 
 // Amount of substance scalar quantity.
-class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount, double> {
+template <typename Number = double>
+class SubstanceAmount : public DimensionalScalar<Unit::SubstanceAmount, Number> {
 public:
   // Default constructor. Constructs a substance amount with an uninitialized value.
   SubstanceAmount() = default;
 
   // Constructor. Constructs a substance amount with a given value expressed in a given substance
   // amount unit.
-  SubstanceAmount(const double value, const Unit::SubstanceAmount unit)
-    : DimensionalScalar<Unit::SubstanceAmount>(value, unit) {}
+  SubstanceAmount(const Number value, const Unit::SubstanceAmount unit)
+    : DimensionalScalar<Unit::SubstanceAmount, Number>(value, unit) {}
 
   // Destructor. Destroys this substance amount.
   ~SubstanceAmount() noexcept = default;
 
   // Copy constructor. Constructs a substance amount by copying another one.
-  constexpr SubstanceAmount(const SubstanceAmount& other) = default;
+  constexpr SubstanceAmount(const SubstanceAmount<Number>& other) = default;
+
+  // Copy constructor. Constructs a substance amount by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr SubstanceAmount(const SubstanceAmount<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a substance amount by moving another one.
-  constexpr SubstanceAmount(SubstanceAmount&& other) noexcept = default;
+  constexpr SubstanceAmount(SubstanceAmount<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this substance amount by copying another one.
-  constexpr SubstanceAmount& operator=(const SubstanceAmount& other) = default;
+  constexpr SubstanceAmount<Number>& operator=(const SubstanceAmount<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this substance amount by copying another one.
+  template <typename OtherNumber>
+  constexpr SubstanceAmount<Number>& operator=(const SubstanceAmount<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this substance amount by moving another one.
-  constexpr SubstanceAmount& operator=(SubstanceAmount&& other) noexcept = default;
+  constexpr SubstanceAmount<Number>& operator=(SubstanceAmount<Number>&& other) noexcept = default;
 
   // Statically creates a substance amount of zero.
-  static constexpr SubstanceAmount Zero() {
-    return SubstanceAmount{0.0};
+  static constexpr SubstanceAmount<Number> Zero() {
+    return SubstanceAmount<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a substance amount with a given value expressed in a given substance amount
   // unit.
   template <Unit::SubstanceAmount Unit>
-  static constexpr SubstanceAmount Create(const double value) {
-    return SubstanceAmount{
+  static constexpr SubstanceAmount<Number> Create(const Number value) {
+    return SubstanceAmount<Number>{
         StaticConvertCopy<Unit::SubstanceAmount, Unit, Standard<Unit::SubstanceAmount>>(value)};
   }
 
-  constexpr SubstanceAmount operator+(const SubstanceAmount& substance_amount) const {
-    return SubstanceAmount{value + substance_amount.value};
+  constexpr SubstanceAmount<Number> operator+(
+      const SubstanceAmount<Number>& substance_amount) const {
+    return SubstanceAmount<Number>{value + substance_amount.value};
   }
 
-  constexpr SubstanceAmount operator-(const SubstanceAmount& substance_amount) const {
-    return SubstanceAmount{value - substance_amount.value};
+  constexpr SubstanceAmount<Number> operator-(
+      const SubstanceAmount<Number>& substance_amount) const {
+    return SubstanceAmount<Number>{value - substance_amount.value};
   }
 
-  constexpr SubstanceAmount operator*(const double number) const {
-    return SubstanceAmount{value * number};
+  constexpr SubstanceAmount<Number> operator*(const Number number) const {
+    return SubstanceAmount<Number>{value * number};
   }
 
-  constexpr SubstanceAmount operator/(const double number) const {
-    return SubstanceAmount{value / number};
+  constexpr SubstanceAmount<Number> operator/(const Number number) const {
+    return SubstanceAmount<Number>{value / number};
   }
 
-  constexpr double operator/(const SubstanceAmount& substance_amount) const noexcept {
+  constexpr Number operator/(const SubstanceAmount<Number>& substance_amount) const noexcept {
     return value / substance_amount.value;
   }
 
-  constexpr void operator+=(const SubstanceAmount& substance_amount) noexcept {
+  constexpr void operator+=(const SubstanceAmount<Number>& substance_amount) noexcept {
     value += substance_amount.value;
   }
 
-  constexpr void operator-=(const SubstanceAmount& substance_amount) noexcept {
+  constexpr void operator-=(const SubstanceAmount<Number>& substance_amount) noexcept {
     value -= substance_amount.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a substance amount with a given value expressed in the standard
   // substance amount unit.
-  explicit constexpr SubstanceAmount(const double value)
-    : DimensionalScalar<Unit::SubstanceAmount>(value) {}
+  explicit constexpr SubstanceAmount(const Number value)
+    : DimensionalScalar<Unit::SubstanceAmount, Number>(value) {}
 };
 
+template <typename Number>
 inline constexpr bool operator==(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator!=(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator<=(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
+template <typename Number>
 inline constexpr bool operator>=(
-    const SubstanceAmount& left, const SubstanceAmount& right) noexcept {
+    const SubstanceAmount<Number>& left, const SubstanceAmount<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const SubstanceAmount& substance_amount) {
+template <typename Number>
+inline std::ostream& operator<<(
+    std::ostream& stream, const SubstanceAmount<Number>& substance_amount) {
   stream << substance_amount.Print();
   return stream;
 }
 
-inline constexpr SubstanceAmount operator*(
-    const double number, const SubstanceAmount& substance_amount) {
+template <typename Number>
+inline constexpr SubstanceAmount<Number> operator*(
+    const Number number, const SubstanceAmount<Number>& substance_amount) {
   return substance_amount * number;
 }
 
@@ -149,10 +173,10 @@ inline constexpr SubstanceAmount operator*(
 
 namespace std {
 
-template <>
-struct hash<PhQ::SubstanceAmount> {
-  inline size_t operator()(const PhQ::SubstanceAmount& substance_amount) const {
-    return hash<double>()(substance_amount.Value());
+template <typename Number>
+struct hash<PhQ::SubstanceAmount<Number>> {
+  inline size_t operator()(const PhQ::SubstanceAmount<Number>& substance_amount) const {
+    return hash<Number>()(substance_amount.Value());
   }
 };
 

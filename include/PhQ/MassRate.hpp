@@ -28,177 +28,220 @@ namespace PhQ {
 
 // Mass rate. Can represent the time rate of change of a mass or a mass flow
 // rate.
-class MassRate : public DimensionalScalar<Unit::MassRate, double> {
+template <typename Number = double>
+class MassRate : public DimensionalScalar<Unit::MassRate, Number> {
 public:
   // Default constructor. Constructs a mass rate with an uninitialized value.
   MassRate() = default;
 
   // Constructor. Constructs a mass rate with a given value expressed in a given mass rate unit.
-  MassRate(const double value, const Unit::MassRate unit)
-    : DimensionalScalar<Unit::MassRate>(value, unit) {}
+  MassRate(const Number value, const Unit::MassRate unit)
+    : DimensionalScalar<Unit::MassRate, Number>(value, unit) {}
 
   // Constructor. Constructs a mass rate from a given mass and time using the definition of mass
   // rate.
-  constexpr MassRate(const Mass& mass, const Time& time) : MassRate(mass.Value() / time.Value()) {}
+  constexpr MassRate(const Mass<Number>& mass, const Time<Number>& time)
+    : MassRate<Number>(mass.Value() / time.Value()) {}
 
   // Constructor. Constructs a mass rate from a given mass and frequency using the definition of
   // mass rate.
-  constexpr MassRate(const Mass& mass, const Frequency& frequency)
-    : MassRate(mass.Value() * frequency.Value()) {}
+  constexpr MassRate(const Mass<Number>& mass, const Frequency<Number>& frequency)
+    : MassRate<Number>(mass.Value() * frequency.Value()) {}
 
   // Destructor. Destroys this mass rate.
   ~MassRate() noexcept = default;
 
   // Copy constructor. Constructs a mass rate by copying another one.
-  constexpr MassRate(const MassRate& other) = default;
+  constexpr MassRate(const MassRate<Number>& other) = default;
+
+  // Copy constructor. Constructs a mass rate by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr MassRate(const MassRate<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a mass rate by moving another one.
-  constexpr MassRate(MassRate&& other) noexcept = default;
+  constexpr MassRate(MassRate<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this mass rate by copying another one.
-  constexpr MassRate& operator=(const MassRate& other) = default;
+  constexpr MassRate<Number>& operator=(const MassRate<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this mass rate by copying another one.
+  template <typename OtherNumber>
+  constexpr MassRate<Number>& operator=(const MassRate<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this mass rate by moving another one.
-  constexpr MassRate& operator=(MassRate&& other) noexcept = default;
+  constexpr MassRate<Number>& operator=(MassRate<Number>&& other) noexcept = default;
 
   // Statically creates a mass rate of zero.
-  static constexpr MassRate Zero() {
-    return MassRate{0.0};
+  static constexpr MassRate<Number> Zero() {
+    return MassRate<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a mass rate with a given value expressed in a given mass rate unit.
   template <Unit::MassRate Unit>
-  static constexpr MassRate Create(const double value) {
-    return MassRate{StaticConvertCopy<Unit::MassRate, Unit, Standard<Unit::MassRate>>(value)};
+  static constexpr MassRate<Number> Create(const Number value) {
+    return MassRate<Number>{
+        StaticConvertCopy<Unit::MassRate, Unit, Standard<Unit::MassRate>>(value)};
   }
 
-  constexpr MassRate operator+(const MassRate& mass_rate) const {
-    return MassRate{value + mass_rate.value};
+  constexpr MassRate<Number> operator+(const MassRate<Number>& mass_rate) const {
+    return MassRate<Number>{value + mass_rate.value};
   }
 
-  constexpr MassRate operator-(const MassRate& mass_rate) const {
-    return MassRate{value - mass_rate.value};
+  constexpr MassRate<Number> operator-(const MassRate<Number>& mass_rate) const {
+    return MassRate<Number>{value - mass_rate.value};
   }
 
-  constexpr MassRate operator*(const double number) const {
-    return MassRate{value * number};
+  constexpr MassRate<Number> operator*(const Number number) const {
+    return MassRate<Number>{value * number};
   }
 
-  constexpr Mass operator*(const Time& time) const {
-    return {*this, time};
+  constexpr Mass<Number> operator*(const Time<Number>& time) const {
+    return Mass<Number>{*this, time};
   }
 
-  constexpr MassRate operator/(const double number) const {
-    return MassRate{value / number};
+  constexpr MassRate<Number> operator/(const Number number) const {
+    return MassRate<Number>{value / number};
   }
 
-  constexpr Frequency operator/(const Mass& mass) const {
-    return {*this, mass};
+  constexpr Frequency<Number> operator/(const Mass<Number>& mass) const {
+    return Frequency<Number>{*this, mass};
   }
 
-  constexpr Mass operator/(const Frequency& frequency) const {
-    return {*this, frequency};
+  constexpr Mass<Number> operator/(const Frequency<Number>& frequency) const {
+    return Mass<Number>{*this, frequency};
   }
 
-  constexpr double operator/(const MassRate& mass_rate) const noexcept {
+  constexpr Number operator/(const MassRate<Number>& mass_rate) const noexcept {
     return value / mass_rate.value;
   }
 
-  constexpr void operator+=(const MassRate& mass_rate) noexcept {
+  constexpr void operator+=(const MassRate<Number>& mass_rate) noexcept {
     value += mass_rate.value;
   }
 
-  constexpr void operator-=(const MassRate& mass_rate) noexcept {
+  constexpr void operator-=(const MassRate<Number>& mass_rate) noexcept {
     value -= mass_rate.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a mass rate with a given value expressed in the standard mass rate
   // unit.
-  explicit constexpr MassRate(const double value) : DimensionalScalar<Unit::MassRate>(value) {}
+  explicit constexpr MassRate(const Number value)
+    : DimensionalScalar<Unit::MassRate, Number>(value) {}
 };
 
-inline constexpr bool operator==(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const MassRate& left, const MassRate& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const MassRate<Number>& left, const MassRate<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const MassRate& mass_rate) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const MassRate<Number>& mass_rate) {
   stream << mass_rate.Print();
   return stream;
 }
 
-inline constexpr MassRate operator*(const double number, const MassRate& mass_rate) {
+template <typename Number>
+inline constexpr MassRate<Number> operator*(
+    const Number number, const MassRate<Number>& mass_rate) {
   return mass_rate * number;
 }
 
-inline constexpr Time::Time(const Mass& mass, const MassRate& mass_rate)
-  : Time(mass.Value() / mass_rate.Value()) {}
+template <typename Number>
+inline constexpr Time<Number>::Time(const Mass<Number>& mass, const MassRate<Number>& mass_rate)
+  : Time<Number>(mass.Value() / mass_rate.Value()) {}
 
-inline constexpr Frequency::Frequency(const MassRate& mass_rate, const Mass& mass)
-  : Frequency(mass_rate.Value() / mass.Value()) {}
+template <typename Number>
+inline constexpr Frequency<Number>::Frequency(
+    const MassRate<Number>& mass_rate, const Mass<Number>& mass)
+  : Frequency<Number>(mass_rate.Value() / mass.Value()) {}
 
-inline constexpr Mass::Mass(const MassRate& mass_rate, const Time& time)
-  : Mass(mass_rate.Value() * time.Value()) {}
+template <typename Number>
+inline constexpr Mass<Number>::Mass(const MassRate<Number>& mass_rate, const Time<Number>& time)
+  : Mass<Number>(mass_rate.Value() * time.Value()) {}
 
-inline constexpr Mass::Mass(const MassRate& mass_rate, const Frequency& frequency)
-  : Mass(mass_rate.Value() / frequency.Value()) {}
+template <typename Number>
+inline constexpr Mass<Number>::Mass(
+    const MassRate<Number>& mass_rate, const Frequency<Number>& frequency)
+  : Mass<Number>(mass_rate.Value() / frequency.Value()) {}
 
-inline constexpr Mass Time::operator*(const MassRate& mass_rate) const {
-  return {mass_rate, *this};
+template <typename Number>
+inline constexpr Mass<Number> Time<Number>::operator*(const MassRate<Number>& mass_rate) const {
+  return Mass<Number>{mass_rate, *this};
 }
 
-inline constexpr MassRate Mass::operator*(const Frequency& frequency) const {
-  return {*this, frequency};
+template <typename Number>
+inline constexpr MassRate<Number> Mass<Number>::operator*(
+    const Frequency<Number>& frequency) const {
+  return MassRate<Number>{*this, frequency};
 }
 
-inline constexpr MassRate Frequency::operator*(const Mass& mass) const {
-  return {mass, *this};
+template <typename Number>
+inline constexpr MassRate<Number> Frequency<Number>::operator*(const Mass<Number>& mass) const {
+  return MassRate<Number>{mass, *this};
 }
 
-inline constexpr MassRate Mass::operator/(const Time& time) const {
-  return {*this, time};
+template <typename Number>
+inline constexpr MassRate<Number> Mass<Number>::operator/(const Time<Number>& time) const {
+  return MassRate<Number>{*this, time};
 }
 
-inline constexpr Time Mass::operator/(const MassRate& mass_rate) const {
-  return {*this, mass_rate};
+template <typename Number>
+inline constexpr Time<Number> Mass<Number>::operator/(const MassRate<Number>& mass_rate) const {
+  return Time<Number>{*this, mass_rate};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::MassRate> {
-  inline size_t operator()(const PhQ::MassRate& mass_rate) const {
-    return hash<double>()(mass_rate.Value());
+template <typename Number>
+struct hash<PhQ::MassRate<Number>> {
+  inline size_t operator()(const PhQ::MassRate<Number>& mass_rate) const {
+    return hash<Number>()(mass_rate.Value());
   }
 };
 

@@ -25,115 +25,146 @@ namespace PhQ {
 
 // Shear modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class ShearModulus : public DimensionalScalar<Unit::Pressure, double> {
+template <typename Number = double>
+class ShearModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs a shear modulus with an uninitialized value.
   ShearModulus() = default;
 
   // Constructor. Constructs a shear modulus with a given value expressed in a given pressure unit.
-  ShearModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure>(value, unit) {}
+  ShearModulus(const Number value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
   // Destructor. Destroys this shear modulus.
   ~ShearModulus() noexcept = default;
 
   // Copy constructor. Constructs a shear modulus by copying another one.
-  constexpr ShearModulus(const ShearModulus& other) = default;
+  constexpr ShearModulus(const ShearModulus<Number>& other) = default;
+
+  // Copy constructor. Constructs a shear modulus by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr ShearModulus(const ShearModulus<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a shear modulus by moving another one.
-  constexpr ShearModulus(ShearModulus&& other) noexcept = default;
+  constexpr ShearModulus(ShearModulus<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this shear modulus by copying another one.
-  constexpr ShearModulus& operator=(const ShearModulus& other) = default;
+  constexpr ShearModulus<Number>& operator=(const ShearModulus<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this shear modulus by copying another one.
+  template <typename OtherNumber>
+  constexpr ShearModulus<Number>& operator=(const ShearModulus<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this shear modulus by moving another one.
-  constexpr ShearModulus& operator=(ShearModulus&& other) noexcept = default;
+  constexpr ShearModulus<Number>& operator=(ShearModulus<Number>&& other) noexcept = default;
 
   // Statically creates a shear modulus of zero.
-  static constexpr ShearModulus Zero() {
-    return ShearModulus{0.0};
+  static constexpr ShearModulus<Number> Zero() {
+    return ShearModulus<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a shear modulus with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr ShearModulus Create(const double value) {
-    return ShearModulus{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr ShearModulus<Number> Create(const Number value) {
+    return ShearModulus<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr ShearModulus operator+(const ShearModulus& shear_modulus) const {
-    return ShearModulus{value + shear_modulus.value};
+  constexpr ShearModulus<Number> operator+(const ShearModulus<Number>& shear_modulus) const {
+    return ShearModulus<Number>{value + shear_modulus.value};
   }
 
-  constexpr ShearModulus operator-(const ShearModulus& shear_modulus) const {
-    return ShearModulus{value - shear_modulus.value};
+  constexpr ShearModulus<Number> operator-(const ShearModulus<Number>& shear_modulus) const {
+    return ShearModulus<Number>{value - shear_modulus.value};
   }
 
-  constexpr ShearModulus operator*(const double number) const {
-    return ShearModulus{value * number};
+  constexpr ShearModulus<Number> operator*(const Number number) const {
+    return ShearModulus<Number>{value * number};
   }
 
-  constexpr ShearModulus operator/(const double number) const {
-    return ShearModulus{value / number};
+  constexpr ShearModulus<Number> operator/(const Number number) const {
+    return ShearModulus<Number>{value / number};
   }
 
-  constexpr double operator/(const ShearModulus& shear_modulus) const noexcept {
+  constexpr Number operator/(const ShearModulus<Number>& shear_modulus) const noexcept {
     return value / shear_modulus.value;
   }
 
-  constexpr void operator+=(const ShearModulus& shear_modulus) noexcept {
+  constexpr void operator+=(const ShearModulus<Number>& shear_modulus) noexcept {
     value += shear_modulus.value;
   }
 
-  constexpr void operator-=(const ShearModulus& shear_modulus) noexcept {
+  constexpr void operator-=(const ShearModulus<Number>& shear_modulus) noexcept {
     value -= shear_modulus.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a shear modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr ShearModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
+  explicit constexpr ShearModulus(const Number value)
+    : DimensionalScalar<Unit::Pressure, Number>(value) {}
 
+  template <typename OtherNumber>
   friend class ConstitutiveModel;
 };
 
-inline constexpr bool operator==(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const ShearModulus& left, const ShearModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const ShearModulus<Number>& left, const ShearModulus<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const ShearModulus& shear_modulus) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const ShearModulus<Number>& shear_modulus) {
   stream << shear_modulus.Print();
   return stream;
 }
 
-inline constexpr ShearModulus operator*(const double number, const ShearModulus& shear_modulus) {
+template <typename Number>
+inline constexpr ShearModulus<Number> operator*(
+    const Number number, const ShearModulus<Number>& shear_modulus) {
   return shear_modulus * number;
 }
 
@@ -141,10 +172,10 @@ inline constexpr ShearModulus operator*(const double number, const ShearModulus&
 
 namespace std {
 
-template <>
-struct hash<PhQ::ShearModulus> {
-  inline size_t operator()(const PhQ::ShearModulus& shear_modulus) const {
-    return hash<double>()(shear_modulus.Value());
+template <typename Number>
+struct hash<PhQ::ShearModulus<Number>> {
+  inline size_t operator()(const PhQ::ShearModulus<Number>& shear_modulus) const {
+    return hash<Number>()(shear_modulus.Value());
   }
 };
 

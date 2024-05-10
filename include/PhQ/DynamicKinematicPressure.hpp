@@ -29,171 +29,202 @@
 namespace PhQ {
 
 // Dynamic kinematic pressure, which is dynamic pressure divided by mass density.
-class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, double> {
+template <typename Number = double>
+class DynamicKinematicPressure : public DimensionalScalar<Unit::SpecificEnergy, Number> {
 public:
   // Default constructor. Constructs a dynamic kinematic pressure with an uninitialized value.
   DynamicKinematicPressure() = default;
 
   // Constructor. Constructs a dynamic kinematic pressure with a given value expressed in a given
   // specific energy unit.
-  DynamicKinematicPressure(const double value, const Unit::SpecificEnergy unit)
-    : DimensionalScalar<Unit::SpecificEnergy>(value, unit) {}
+  DynamicKinematicPressure(const Number value, const Unit::SpecificEnergy unit)
+    : DimensionalScalar<Unit::SpecificEnergy, Number>(value, unit) {}
 
   // Constructor. Constructs a dynamic kinematic pressure from a given speed using the definition of
   // dynamic kinematic pressure.
-  explicit constexpr DynamicKinematicPressure(const Speed& speed)
-    : DynamicKinematicPressure(0.5 * std::pow(speed.Value(), 2)) {}
+  explicit constexpr DynamicKinematicPressure(const Speed<Number>& speed)
+    : DynamicKinematicPressure<Number>(0.5 * std::pow(speed.Value(), 2)) {}
 
   // Constructor. Constructs a dynamic kinematic pressure from a given total kinematic pressure and
   // static kinematic pressure using the definition of total kinematic pressure.
-  constexpr DynamicKinematicPressure(const TotalKinematicPressure& total_kinematic_pressure,
-                                     const StaticKinematicPressure& static_kinematic_pressure);
+  constexpr DynamicKinematicPressure(
+      const TotalKinematicPressure<Number>& total_kinematic_pressure,
+      const StaticKinematicPressure<Number>& static_kinematic_pressure);
 
   // Constructor. Constructs a dynamic kinematic pressure from a given dynamic pressure and mass
   // density using the definition of dynamic kinematic pressure.
   constexpr DynamicKinematicPressure(
-      const DynamicPressure& dynamic_pressure, const MassDensity& mass_density)
-    : DynamicKinematicPressure(dynamic_pressure.Value() / mass_density.Value()) {}
+      const DynamicPressure<Number>& dynamic_pressure, const MassDensity<Number>& mass_density)
+    : DynamicKinematicPressure<Number>(dynamic_pressure.Value() / mass_density.Value()) {}
 
   // Destructor. Destroys this dynamic kinematic pressure.
   ~DynamicKinematicPressure() noexcept = default;
 
   // Copy constructor. Constructs a dynamic kinematic pressure by copying another one.
-  constexpr DynamicKinematicPressure(const DynamicKinematicPressure& other) = default;
+  constexpr DynamicKinematicPressure(const DynamicKinematicPressure<Number>& other) = default;
+
+  // Copy constructor. Constructs a dynamic kinematic pressure by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr DynamicKinematicPressure(const DynamicKinematicPressure<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a dynamic kinematic pressure by moving another one.
-  constexpr DynamicKinematicPressure(DynamicKinematicPressure&& other) noexcept = default;
+  constexpr DynamicKinematicPressure(DynamicKinematicPressure<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this dynamic kinematic pressure by copying another one.
-  constexpr DynamicKinematicPressure& operator=(const DynamicKinematicPressure& other) = default;
+  constexpr DynamicKinematicPressure<Number>& operator=(
+      const DynamicKinematicPressure<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this dynamic kinematic pressure by copying another one.
+  template <typename OtherNumber>
+  constexpr DynamicKinematicPressure<Number>& operator=(
+      const DynamicKinematicPressure<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this dynamic kinematic pressure by moving another one.
-  constexpr DynamicKinematicPressure& operator=(
-      DynamicKinematicPressure&& other) noexcept = default;
+  constexpr DynamicKinematicPressure<Number>& operator=(
+      DynamicKinematicPressure<Number>&& other) noexcept = default;
 
   // Statically creates a dynamic kinematic pressure of zero.
-  static constexpr DynamicKinematicPressure Zero() {
-    return DynamicKinematicPressure{0.0};
+  static constexpr DynamicKinematicPressure<Number> Zero() {
+    return DynamicKinematicPressure<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a dynamic kinematic pressure with a given value expressed in a given
   // specific energy unit.
   template <Unit::SpecificEnergy Unit>
-  static constexpr DynamicKinematicPressure Create(const double value) {
-    return DynamicKinematicPressure{
+  static constexpr DynamicKinematicPressure<Number> Create(const Number value) {
+    return DynamicKinematicPressure<Number>{
         StaticConvertCopy<Unit::SpecificEnergy, Unit, Standard<Unit::SpecificEnergy>>(value)};
   }
 
-  constexpr DynamicKinematicPressure operator+(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure) const {
-    return DynamicKinematicPressure{value + dynamic_kinematic_pressure.value};
+  constexpr DynamicKinematicPressure<Number> operator+(
+      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const {
+    return DynamicKinematicPressure<Number>{value + dynamic_kinematic_pressure.value};
   }
 
-  constexpr TotalKinematicPressure operator+(
-      const StaticKinematicPressure& static_kinematic_pressure) const;
+  constexpr TotalKinematicPressure<Number> operator+(
+      const StaticKinematicPressure<Number>& static_kinematic_pressure) const;
 
-  constexpr DynamicKinematicPressure operator-(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure) const {
-    return DynamicKinematicPressure{value - dynamic_kinematic_pressure.value};
+  constexpr DynamicKinematicPressure<Number> operator-(
+      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const {
+    return DynamicKinematicPressure<Number>{value - dynamic_kinematic_pressure.value};
   }
 
-  constexpr DynamicKinematicPressure operator*(const double number) const {
-    return DynamicKinematicPressure{value * number};
+  constexpr DynamicKinematicPressure<Number> operator*(const Number number) const {
+    return DynamicKinematicPressure<Number>{value * number};
   }
 
-  constexpr DynamicKinematicPressure operator/(const double number) const {
-    return DynamicKinematicPressure{value / number};
+  constexpr DynamicKinematicPressure<Number> operator/(const Number number) const {
+    return DynamicKinematicPressure<Number>{value / number};
   }
 
-  constexpr double operator/(
-      const DynamicKinematicPressure& dynamic_kinematic_pressure) const noexcept {
+  constexpr Number operator/(
+      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const noexcept {
     return value / dynamic_kinematic_pressure.value;
   }
 
-  constexpr void operator+=(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
+  constexpr void operator+=(
+      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) noexcept {
     value += dynamic_kinematic_pressure.value;
   }
 
-  constexpr void operator-=(const DynamicKinematicPressure& dynamic_kinematic_pressure) noexcept {
+  constexpr void operator-=(
+      const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) noexcept {
     value -= dynamic_kinematic_pressure.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a dynamic kinematic pressure with a given value expressed in the
   // standard specific energy unit.
-  explicit constexpr DynamicKinematicPressure(const double value)
-    : DimensionalScalar<Unit::SpecificEnergy>(value) {}
+  explicit constexpr DynamicKinematicPressure(const Number value)
+    : DimensionalScalar<Unit::SpecificEnergy, Number>(value) {}
 };
 
-inline constexpr bool operator==(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const DynamicKinematicPressure<Number>& left,
+                                 const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const DynamicKinematicPressure<Number>& left,
+                                 const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const DynamicKinematicPressure<Number>& left,
+                                const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const DynamicKinematicPressure<Number>& left,
+                                const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const DynamicKinematicPressure<Number>& left,
+                                 const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const DynamicKinematicPressure& left, const DynamicKinematicPressure& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const DynamicKinematicPressure<Number>& left,
+                                 const DynamicKinematicPressure<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const DynamicKinematicPressure& dynamic_kinematic_pressure) {
+    std::ostream& stream, const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) {
   stream << dynamic_kinematic_pressure.Print();
   return stream;
 }
 
-inline constexpr DynamicKinematicPressure operator*(
-    const double number, const DynamicKinematicPressure& dynamic_kinematic_pressure) {
+template <typename Number>
+inline constexpr DynamicKinematicPressure<Number> operator*(
+    const Number number, const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) {
   return dynamic_kinematic_pressure * number;
 }
 
-inline Speed::Speed(const DynamicKinematicPressure& dynamic_kinematic_pressure)
-  : Speed(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
+template <typename Number>
+inline Speed<Number>::Speed(const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure)
+  : Speed<Number>(std::sqrt(2.0 * dynamic_kinematic_pressure.Value())) {}
 
-inline constexpr DynamicPressure::DynamicPressure(
-    const MassDensity& mass_density, const DynamicKinematicPressure& dynamic_kinematic_pressure)
-  : DynamicPressure(mass_density.Value() * dynamic_kinematic_pressure.Value()) {}
+template <typename Number>
+inline constexpr DynamicPressure<Number>::DynamicPressure(
+    const MassDensity<Number>& mass_density,
+    const DynamicKinematicPressure<Number>& dynamic_kinematic_pressure)
+  : DynamicPressure<Number>(mass_density.Value() * dynamic_kinematic_pressure.Value()) {}
 
-inline constexpr DynamicKinematicPressure DynamicPressure::operator/(
-    const MassDensity& mass_density) const {
-  return {*this, mass_density};
+template <typename Number>
+inline constexpr DynamicKinematicPressure<Number> DynamicPressure<Number>::operator/(
+    const MassDensity<Number>& mass_density) const {
+  return DynamicKinematicPressure<Number>{*this, mass_density};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::DynamicKinematicPressure> {
-  inline size_t operator()(const PhQ::DynamicKinematicPressure& dynamic_kinematic_pressure) const {
-    return hash<double>()(dynamic_kinematic_pressure.Value());
+template <typename Number>
+struct hash<PhQ::DynamicKinematicPressure<Number>> {
+  inline size_t operator()(
+      const PhQ::DynamicKinematicPressure<Number>& dynamic_kinematic_pressure) const {
+    return hash<Number>()(dynamic_kinematic_pressure.Value());
   }
 };
 

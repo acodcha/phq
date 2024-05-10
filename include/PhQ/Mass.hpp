@@ -23,185 +23,252 @@
 
 namespace PhQ {
 
-// Forward declarations for class Mass.
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class Time;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class Energy;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class Frequency;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class GasConstant;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class IsobaricHeatCapacity;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class IsochoricHeatCapacity;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class MassDensity;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class MassRate;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class Power;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class SpecificEnergy;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class SpecificGasConstant;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class SpecificIsobaricHeatCapacity;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class SpecificIsochoricHeatCapacity;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class SpecificPower;
+
+// Forward declaration for class PhQ::Mass.
+template <typename Number>
 class Volume;
 
 // Mass.
-class Mass : public DimensionalScalar<Unit::Mass, double> {
+template <typename Number = double>
+class Mass : public DimensionalScalar<Unit::Mass, Number> {
 public:
   // Default constructor. Constructs a mass with an uninitialized value.
   Mass() = default;
 
   // Constructor. Constructs a mass with a given value expressed in a given mass unit.
-  Mass(const double value, const Unit::Mass unit) : DimensionalScalar<Unit::Mass>(value, unit) {}
+  Mass(const Number value, const Unit::Mass unit)
+    : DimensionalScalar<Unit::Mass, Number>(value, unit) {}
 
   // Constructor. Constructs a mass from a given mass density and volume using the definition of
   // mass density.
-  constexpr Mass(const MassDensity& mass_density, const Volume& volume);
+  constexpr Mass(const MassDensity<Number>& mass_density, const Volume<Number>& volume);
 
   // Constructor. Constructs a mass from a given mass rate and time using the definition of mass
   // rate.
-  constexpr Mass(const MassRate& mass_rate, const Time& time);
+  constexpr Mass(const MassRate<Number>& mass_rate, const Time<Number>& time);
 
   // Constructor. Constructs a mass from a given mass rate and frequency using the definition of
   // mass rate.
-  constexpr Mass(const MassRate& mass_rate, const Frequency& frequency);
+  constexpr Mass(const MassRate<Number>& mass_rate, const Frequency<Number>& frequency);
 
   // Constructor. Constructs a mass from a given energy and specific energy using the definition of
   // specific energy.
-  constexpr Mass(const Energy& energy, const SpecificEnergy& specific_energy);
+  constexpr Mass(const Energy<Number>& energy, const SpecificEnergy<Number>& specific_energy);
 
   // Constructor. Constructs a mass from a given power and specific power using the definition of
   // specific power.
-  constexpr Mass(const Power& power, const SpecificPower& specific_power);
+  constexpr Mass(const Power<Number>& power, const SpecificPower<Number>& specific_power);
 
   // Constructor. Constructs a mass from a given gas constant and specific gas constant using the
   // definition of the specific gas constant.
-  constexpr Mass(const GasConstant& gas_constant, const SpecificGasConstant& specific_gas_constant);
+  constexpr Mass(const GasConstant<Number>& gas_constant,
+                 const SpecificGasConstant<Number>& specific_gas_constant);
 
   // Constructor. Constructs a mass from a given isobaric heat capacity and specific isobaric heat
   // capacity using the definition of the specific isobaric heat capacity.
-  constexpr Mass(const IsobaricHeatCapacity& isobaric_heat_capacity,
-                 const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity);
+  constexpr Mass(const IsobaricHeatCapacity<Number>& isobaric_heat_capacity,
+                 const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity);
 
   // Constructor. Constructs a mass from a given isochoric heat capacity and specific isochoric heat
   // capacity using the definition of the specific isochoric heat capacity.
-  constexpr Mass(const IsochoricHeatCapacity& isochoric_heat_capacity,
-                 const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity);
+  constexpr Mass(const IsochoricHeatCapacity<Number>& isochoric_heat_capacity,
+                 const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity);
 
   // Destructor. Destroys this mass.
   ~Mass() noexcept = default;
 
   // Copy constructor. Constructs a mass by copying another one.
-  constexpr Mass(const Mass& other) = default;
+  constexpr Mass(const Mass<Number>& other) = default;
+
+  // Copy constructor. Constructs a mass by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr Mass(const Mass<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a mass by moving another one.
-  constexpr Mass(Mass&& other) noexcept = default;
+  constexpr Mass(Mass<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this mass by copying another one.
-  constexpr Mass& operator=(const Mass& other) = default;
+  constexpr Mass<Number>& operator=(const Mass<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this mass by copying another one.
+  template <typename OtherNumber>
+  constexpr Mass<Number>& operator=(const Mass<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this mass by moving another one.
-  constexpr Mass& operator=(Mass&& other) noexcept = default;
+  constexpr Mass<Number>& operator=(Mass<Number>&& other) noexcept = default;
 
   // Statically creates a mass of zero.
-  static constexpr Mass Zero() {
-    return Mass{0.0};
+  static constexpr Mass<Number> Zero() {
+    return Mass<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a mass with a given value expressed in a given mass unit.
   template <Unit::Mass Unit>
-  static constexpr Mass Create(const double value) {
-    return Mass{StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
+  static constexpr Mass<Number> Create(const Number value) {
+    return Mass<Number>{StaticConvertCopy<Unit::Mass, Unit, Standard<Unit::Mass>>(value)};
   }
 
-  constexpr Mass operator+(const Mass& mass) const {
-    return Mass{value + mass.value};
+  constexpr Mass<Number> operator+(const Mass<Number>& mass) const {
+    return Mass<Number>{value + mass.value};
   }
 
-  constexpr Mass operator-(const Mass& mass) const {
-    return Mass{value - mass.value};
+  constexpr Mass<Number> operator-(const Mass<Number>& mass) const {
+    return Mass<Number>{value - mass.value};
   }
 
-  constexpr Mass operator*(const double number) const {
-    return Mass{value * number};
+  constexpr Mass<Number> operator*(const Number number) const {
+    return Mass<Number>{value * number};
   }
 
-  constexpr MassRate operator*(const Frequency& frequency) const;
+  constexpr MassRate<Number> operator*(const Frequency<Number>& frequency) const;
 
-  constexpr Energy operator*(const SpecificEnergy& specific_energy) const;
+  constexpr Energy<Number> operator*(const SpecificEnergy<Number>& specific_energy) const;
 
-  constexpr Power operator*(const SpecificPower& specific_power) const;
+  constexpr Power<Number> operator*(const SpecificPower<Number>& specific_power) const;
 
-  constexpr IsobaricHeatCapacity operator*(
-      const SpecificIsobaricHeatCapacity& specific_isobaric_heat_capacity) const;
+  constexpr IsobaricHeatCapacity<Number> operator*(
+      const SpecificIsobaricHeatCapacity<Number>& specific_isobaric_heat_capacity) const;
 
-  constexpr IsochoricHeatCapacity operator*(
-      const SpecificIsochoricHeatCapacity& specific_isochoric_heat_capacity) const;
+  constexpr IsochoricHeatCapacity<Number> operator*(
+      const SpecificIsochoricHeatCapacity<Number>& specific_isochoric_heat_capacity) const;
 
-  constexpr GasConstant operator*(const SpecificGasConstant& specific_gas_constant) const;
+  constexpr GasConstant<Number> operator*(
+      const SpecificGasConstant<Number>& specific_gas_constant) const;
 
-  constexpr Mass operator/(const double number) const {
-    return Mass{value / number};
+  constexpr Mass<Number> operator/(const Number number) const {
+    return Mass<Number>{value / number};
   }
 
-  constexpr MassDensity operator/(const Volume& volume) const;
+  constexpr MassDensity<Number> operator/(const Volume<Number>& volume) const;
 
-  constexpr Volume operator/(const MassDensity& mass_density) const;
+  constexpr Volume<Number> operator/(const MassDensity<Number>& mass_density) const;
 
-  constexpr MassRate operator/(const Time& time) const;
+  constexpr MassRate<Number> operator/(const Time<Number>& time) const;
 
-  constexpr Time operator/(const MassRate& mass_rate) const;
+  constexpr Time<Number> operator/(const MassRate<Number>& mass_rate) const;
 
-  constexpr double operator/(const Mass& mass) const noexcept {
+  constexpr Number operator/(const Mass<Number>& mass) const noexcept {
     return value / mass.value;
   }
 
-  constexpr void operator+=(const Mass& mass) noexcept {
+  constexpr void operator+=(const Mass<Number>& mass) noexcept {
     value += mass.value;
   }
 
-  constexpr void operator-=(const Mass& mass) noexcept {
+  constexpr void operator-=(const Mass<Number>& mass) noexcept {
     value -= mass.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a mass with a given value expressed in the standard mass unit.
-  explicit constexpr Mass(const double value) : DimensionalScalar<Unit::Mass>(value) {}
+  explicit constexpr Mass(const Number value) : DimensionalScalar<Unit::Mass, Number>(value) {}
 };
 
-inline constexpr bool operator==(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const Mass& left, const Mass& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const Mass<Number>& left, const Mass<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const Mass& mass) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const Mass<Number>& mass) {
   stream << mass.Print();
   return stream;
 }
 
-inline constexpr Mass operator*(const double number, const Mass& mass) {
+template <typename Number>
+inline constexpr Mass<Number> operator*(const Number number, const Mass<Number>& mass) {
   return mass * number;
 }
 
@@ -209,10 +276,10 @@ inline constexpr Mass operator*(const double number, const Mass& mass) {
 
 namespace std {
 
-template <>
-struct hash<PhQ::Mass> {
-  inline size_t operator()(const PhQ::Mass& mass) const {
-    return hash<double>()(mass.Value());
+template <typename Number>
+struct hash<PhQ::Mass<Number>> {
+  inline size_t operator()(const PhQ::Mass<Number>& mass) const {
+    return hash<Number>()(mass.Value());
   }
 };
 
