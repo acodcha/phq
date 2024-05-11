@@ -29,190 +29,225 @@ namespace PhQ {
 // Transport energy consumption, also known as energy consumption in transport. A measure of energy
 // use per distance traveled. Energy consumption in transport is often measured in joules per metre
 // (J/m), kilowatt-hours per kilometre (kW·hr/km), or kilowatt-hours per mile (kW·hr/mi).
+template <typename Number = double>
 class TransportEnergyConsumption
-  : public DimensionalScalar<Unit::TransportEnergyConsumption, double> {
+  : public DimensionalScalar<Unit::TransportEnergyConsumption, Number> {
 public:
   // Default constructor. Constructs a transport energy consumption with an uninitialized value.
   TransportEnergyConsumption() = default;
 
   // Constructor. Constructs a transport energy consumption with a given value expressed in a given
   // transport energy consumption unit.
-  TransportEnergyConsumption(const double value, const Unit::TransportEnergyConsumption unit)
-    : DimensionalScalar<Unit::TransportEnergyConsumption>(value, unit) {}
+  TransportEnergyConsumption(const Number value, const Unit::TransportEnergyConsumption unit)
+    : DimensionalScalar<Unit::TransportEnergyConsumption, Number>(value, unit) {}
 
   // Constructor. Constructs a transport energy consumption from a given energy and length using the
   // definition of transport energy consumption.
-  constexpr TransportEnergyConsumption(const Energy& energy, const Length& length)
-    : TransportEnergyConsumption(energy.Value() / length.Value()) {}
+  constexpr TransportEnergyConsumption(const Energy<Number>& energy, const Length<Number>& length)
+    : TransportEnergyConsumption<Number>(energy.Value() / length.Value()) {}
 
   // Destructor. Destroys this transport energy consumption.
   ~TransportEnergyConsumption() noexcept = default;
 
   // Copy constructor. Constructs a transport energy consumption by copying another one.
-  constexpr TransportEnergyConsumption(const TransportEnergyConsumption& other) = default;
+  constexpr TransportEnergyConsumption(const TransportEnergyConsumption<Number>& other) = default;
+
+  // Copy constructor. Constructs a transport energy consumption by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr TransportEnergyConsumption(
+      const TransportEnergyConsumption<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a transport energy consumption by moving another one.
-  constexpr TransportEnergyConsumption(TransportEnergyConsumption&& other) noexcept = default;
+  constexpr TransportEnergyConsumption(
+      TransportEnergyConsumption<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this transport energy consumption by copying another one.
-  constexpr TransportEnergyConsumption& operator=(
-      const TransportEnergyConsumption& other) = default;
+  constexpr TransportEnergyConsumption<Number>& operator=(
+      const TransportEnergyConsumption<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this transport energy consumption by copying another one.
+  template <typename OtherNumber>
+  constexpr TransportEnergyConsumption<Number>& operator=(
+      const TransportEnergyConsumption<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this transport energy consumption by moving another one.
-  constexpr TransportEnergyConsumption& operator=(
-      TransportEnergyConsumption&& other) noexcept = default;
+  constexpr TransportEnergyConsumption<Number>& operator=(
+      TransportEnergyConsumption<Number>&& other) noexcept = default;
 
   // Statically creates a transport energy consumption of zero.
-  static constexpr TransportEnergyConsumption Zero() {
-    return TransportEnergyConsumption{0.0};
+  static constexpr TransportEnergyConsumption<Number> Zero() {
+    return TransportEnergyConsumption<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a transport energy consumption with a given value expressed in a given
   // transport energy consumption unit.
   template <Unit::TransportEnergyConsumption Unit>
-  static constexpr TransportEnergyConsumption Create(const double value) {
-    return TransportEnergyConsumption{
+  static constexpr TransportEnergyConsumption<Number> Create(const Number value) {
+    return TransportEnergyConsumption<Number>{
         StaticConvertCopy<Unit::TransportEnergyConsumption, Unit,
                           Standard<Unit::TransportEnergyConsumption>>(value)};
   }
 
-  constexpr TransportEnergyConsumption operator+(
-      const TransportEnergyConsumption& transport_energy_consumption) const {
-    return TransportEnergyConsumption{value + transport_energy_consumption.value};
+  constexpr TransportEnergyConsumption<Number> operator+(
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+    return TransportEnergyConsumption<Number>{value + transport_energy_consumption.value};
   }
 
-  constexpr TransportEnergyConsumption operator-(
-      const TransportEnergyConsumption& transport_energy_consumption) const {
-    return TransportEnergyConsumption{value - transport_energy_consumption.value};
+  constexpr TransportEnergyConsumption<Number> operator-(
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+    return TransportEnergyConsumption<Number>{value - transport_energy_consumption.value};
   }
 
-  constexpr TransportEnergyConsumption operator*(const double number) const {
-    return TransportEnergyConsumption{value * number};
+  constexpr TransportEnergyConsumption<Number> operator*(const Number number) const {
+    return TransportEnergyConsumption<Number>{value * number};
   }
 
-  constexpr Energy operator*(const Length length) const {
-    return Energy{*this, length};
+  constexpr Energy<Number> operator*(const Length<Number> length) const {
+    return Energy<Number>{*this, length};
   }
 
-  constexpr Power operator*(const Speed speed) const {
-    return Power{*this, speed};
+  constexpr Power<Number> operator*(const Speed<Number> speed) const {
+    return Power<Number>{*this, speed};
   }
 
-  constexpr TransportEnergyConsumption operator/(const double number) const {
-    return TransportEnergyConsumption{value / number};
+  constexpr TransportEnergyConsumption<Number> operator/(const Number number) const {
+    return TransportEnergyConsumption<Number>{value / number};
   }
 
-  constexpr double operator/(
-      const TransportEnergyConsumption& transport_energy_consumption) const noexcept {
+  constexpr Number operator/(
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) const noexcept {
     return value / transport_energy_consumption.value;
   }
 
   constexpr void operator+=(
-      const TransportEnergyConsumption& transport_energy_consumption) noexcept {
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) noexcept {
     value += transport_energy_consumption.value;
   }
 
   constexpr void operator-=(
-      const TransportEnergyConsumption& transport_energy_consumption) noexcept {
+      const TransportEnergyConsumption<Number>& transport_energy_consumption) noexcept {
     value -= transport_energy_consumption.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a transport energy consumption with a given value expressed in the
   // standard transport energy consumption unit.
-  explicit constexpr TransportEnergyConsumption(const double value)
-    : DimensionalScalar<Unit::TransportEnergyConsumption>(value) {}
+  explicit constexpr TransportEnergyConsumption(const Number value)
+    : DimensionalScalar<Unit::TransportEnergyConsumption, Number>(value) {}
 };
 
-inline constexpr bool operator==(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(const TransportEnergyConsumption<Number>& left,
+                                 const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(const TransportEnergyConsumption<Number>& left,
+                                 const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(const TransportEnergyConsumption<Number>& left,
+                                const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(const TransportEnergyConsumption<Number>& left,
+                                const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(const TransportEnergyConsumption<Number>& left,
+                                 const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(
-    const TransportEnergyConsumption& left, const TransportEnergyConsumption& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(const TransportEnergyConsumption<Number>& left,
+                                 const TransportEnergyConsumption<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
+template <typename Number>
 inline std::ostream& operator<<(
-    std::ostream& stream, const TransportEnergyConsumption& transport_energy_consumption) {
+    std::ostream& stream, const TransportEnergyConsumption<Number>& transport_energy_consumption) {
   stream << transport_energy_consumption.Print();
   return stream;
 }
 
-inline constexpr TransportEnergyConsumption operator*(
-    const double number, const TransportEnergyConsumption& transport_energy_consumption) {
+template <typename Number>
+inline constexpr TransportEnergyConsumption<Number> operator*(
+    const Number number, const TransportEnergyConsumption<Number>& transport_energy_consumption) {
   return transport_energy_consumption * number;
 }
 
-inline constexpr Length::Length(
-    const Energy& energy, const TransportEnergyConsumption& transport_energy_consumption)
-  : Length(energy.Value() / transport_energy_consumption.Value()) {}
+template <typename Number>
+inline constexpr Length<Number>::Length(
+    const Energy<Number>& energy,
+    const TransportEnergyConsumption<Number>& transport_energy_consumption)
+  : Length<Number>(energy.Value() / transport_energy_consumption.Value()) {}
 
-inline constexpr Energy::Energy(
-    const TransportEnergyConsumption& transport_energy_consumption, const Length& length)
-  : Energy(transport_energy_consumption.Value() * length.Value()) {}
+template <typename Number>
+inline constexpr Energy<Number>::Energy(
+    const TransportEnergyConsumption<Number>& transport_energy_consumption,
+    const Length<Number>& length)
+  : Energy<Number>(transport_energy_consumption.Value() * length.Value()) {}
 
-inline constexpr Power::Power(
-    const TransportEnergyConsumption& transport_energy_consumption, const Speed& speed)
-  : Power(speed.Value() * transport_energy_consumption.Value()) {}
+template <typename Number>
+inline constexpr Power<Number>::Power(
+    const TransportEnergyConsumption<Number>& transport_energy_consumption,
+    const Speed<Number>& speed)
+  : Power<Number>(speed.Value() * transport_energy_consumption.Value()) {}
 
-inline constexpr Energy Length::operator*(
-    const TransportEnergyConsumption& transport_energy_consumption) const {
-  return {transport_energy_consumption, *this};
+template <typename Number>
+inline constexpr Energy<Number> Length<Number>::operator*(
+    const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+  return Energy<Number>{transport_energy_consumption, *this};
 }
 
-inline constexpr Power Speed::operator*(
-    const TransportEnergyConsumption& transport_energy_consumption) const {
-  return {transport_energy_consumption, *this};
+template <typename Number>
+inline constexpr Power<Number> Speed<Number>::operator*(
+    const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+  return Power<Number>{transport_energy_consumption, *this};
 }
 
-inline constexpr TransportEnergyConsumption Energy::operator/(const Length& length) const {
-  return {*this, length};
+template <typename Number>
+inline constexpr TransportEnergyConsumption<Number> Energy<Number>::operator/(
+    const Length<Number>& length) const {
+  return TransportEnergyConsumption<Number>{*this, length};
 }
 
-inline constexpr Length Energy::operator/(
-    const TransportEnergyConsumption& transport_energy_consumption) const {
-  return {*this, transport_energy_consumption};
+template <typename Number>
+inline constexpr Length<Number> Energy<Number>::operator/(
+    const TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+  return Length<Number>{*this, transport_energy_consumption};
 }
 
 }  // namespace PhQ
 
 namespace std {
 
-template <>
-struct hash<PhQ::TransportEnergyConsumption> {
+template <typename Number>
+struct hash<PhQ::TransportEnergyConsumption<Number>> {
   inline size_t operator()(
-      const PhQ::TransportEnergyConsumption& transport_energy_consumption) const {
-    return hash<double>()(transport_energy_consumption.Value());
+      const PhQ::TransportEnergyConsumption<Number>& transport_energy_consumption) const {
+    return hash<Number>()(transport_energy_consumption.Value());
   }
 };
 

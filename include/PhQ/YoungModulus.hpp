@@ -25,114 +25,144 @@ namespace PhQ {
 
 // Young's modulus of elasticity of a deformable solid material. A measure of a deformable solid
 // material's elastic modulus.
-class YoungModulus : public DimensionalScalar<Unit::Pressure, double> {
+template <typename Number = double>
+class YoungModulus : public DimensionalScalar<Unit::Pressure, Number> {
 public:
   // Default constructor. Constructs a Young's modulus with an uninitialized value.
   YoungModulus() = default;
 
   // Constructor. Constructs a Young's modulus with a given value expressed in a given pressure
   // unit.
-  YoungModulus(const double value, const Unit::Pressure unit)
-    : DimensionalScalar<Unit::Pressure>(value, unit) {}
+  YoungModulus(const Number value, const Unit::Pressure unit)
+    : DimensionalScalar<Unit::Pressure, Number>(value, unit) {}
 
   // Destructor. Destroys this Young's modulus.
   ~YoungModulus() noexcept = default;
 
   // Copy constructor. Constructs a Young's modulus by copying another one.
-  constexpr YoungModulus(const YoungModulus& other) = default;
+  constexpr YoungModulus(const YoungModulus<Number>& other) = default;
+
+  // Copy constructor. Constructs a Young's modulus by copying another one.
+  template <typename OtherNumber>
+  explicit constexpr YoungModulus(const YoungModulus<OtherNumber>& other)
+    : value(static_cast<Number>(other.Value())) {}
 
   // Move constructor. Constructs a Young's modulus by moving another one.
-  constexpr YoungModulus(YoungModulus&& other) noexcept = default;
+  constexpr YoungModulus(YoungModulus<Number>&& other) noexcept = default;
 
   // Copy assignment operator. Assigns this Young's modulus by copying another one.
-  constexpr YoungModulus& operator=(const YoungModulus& other) = default;
+  constexpr YoungModulus<Number>& operator=(const YoungModulus<Number>& other) = default;
+
+  // Copy assignment operator. Assigns this Young's modulus by copying another one.
+  template <typename OtherNumber>
+  constexpr YoungModulus<Number>& operator=(const YoungModulus<OtherNumber>& other) {
+    value = static_cast<Number>(other.Value());
+    return *this;
+  }
 
   // Move assignment operator. Assigns this Young's modulus by moving another one.
-  constexpr YoungModulus& operator=(YoungModulus&& other) noexcept = default;
+  constexpr YoungModulus<Number>& operator=(YoungModulus<Number>&& other) noexcept = default;
 
   // Statically creates a Young's modulus of zero.
-  static constexpr YoungModulus Zero() {
-    return YoungModulus{0.0};
+  static constexpr YoungModulus<Number> Zero() {
+    return YoungModulus<Number>{static_cast<Number>(0)};
   }
 
   // Statically creates a Young's modulus with a given value expressed in a given pressure unit.
   template <Unit::Pressure Unit>
-  static constexpr YoungModulus Create(const double value) {
-    return YoungModulus{StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
+  static constexpr YoungModulus<Number> Create(const Number value) {
+    return YoungModulus<Number>{
+        StaticConvertCopy<Unit::Pressure, Unit, Standard<Unit::Pressure>>(value)};
   }
 
-  constexpr YoungModulus operator+(const YoungModulus& young_modulus) const {
-    return YoungModulus{value + young_modulus.value};
+  constexpr YoungModulus<Number> operator+(const YoungModulus<Number>& young_modulus) const {
+    return YoungModulus<Number>{value + young_modulus.value};
   }
 
-  constexpr YoungModulus operator-(const YoungModulus& young_modulus) const {
-    return YoungModulus{value - young_modulus.value};
+  constexpr YoungModulus<Number> operator-(const YoungModulus<Number>& young_modulus) const {
+    return YoungModulus<Number>{value - young_modulus.value};
   }
 
-  constexpr YoungModulus operator*(const double number) const {
-    return YoungModulus{value * number};
+  constexpr YoungModulus<Number> operator*(const Number number) const {
+    return YoungModulus<Number>{value * number};
   }
 
-  constexpr YoungModulus operator/(const double number) const {
-    return YoungModulus{value / number};
+  constexpr YoungModulus<Number> operator/(const Number number) const {
+    return YoungModulus<Number>{value / number};
   }
 
-  constexpr double operator/(const YoungModulus& young_modulus) const noexcept {
+  constexpr Number operator/(const YoungModulus<Number>& young_modulus) const noexcept {
     return value / young_modulus.value;
   }
 
-  constexpr void operator+=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator+=(const YoungModulus<Number>& young_modulus) noexcept {
     value += young_modulus.value;
   }
 
-  constexpr void operator-=(const YoungModulus& young_modulus) noexcept {
+  constexpr void operator-=(const YoungModulus<Number>& young_modulus) noexcept {
     value -= young_modulus.value;
   }
 
-  constexpr void operator*=(const double number) noexcept {
+  constexpr void operator*=(const Number number) noexcept {
     value *= number;
   }
 
-  constexpr void operator/=(const double number) noexcept {
+  constexpr void operator/=(const Number number) noexcept {
     value /= number;
   }
 
 private:
   // Constructor. Constructs a Young's modulus with a given value expressed in the standard pressure
   // unit.
-  explicit constexpr YoungModulus(const double value) : DimensionalScalar<Unit::Pressure>(value) {}
+  explicit constexpr YoungModulus(const Number value)
+    : DimensionalScalar<Unit::Pressure, Number>(value) {}
 };
 
-inline constexpr bool operator==(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator==(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() == right.Value();
 }
 
-inline constexpr bool operator!=(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator!=(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() != right.Value();
 }
 
-inline constexpr bool operator<(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() < right.Value();
 }
 
-inline constexpr bool operator>(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() > right.Value();
 }
 
-inline constexpr bool operator<=(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator<=(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() <= right.Value();
 }
 
-inline constexpr bool operator>=(const YoungModulus& left, const YoungModulus& right) noexcept {
+template <typename Number>
+inline constexpr bool operator>=(
+    const YoungModulus<Number>& left, const YoungModulus<Number>& right) noexcept {
   return left.Value() >= right.Value();
 }
 
-inline std::ostream& operator<<(std::ostream& stream, const YoungModulus& young_modulus) {
+template <typename Number>
+inline std::ostream& operator<<(std::ostream& stream, const YoungModulus<Number>& young_modulus) {
   stream << young_modulus.Print();
   return stream;
 }
 
-inline constexpr YoungModulus operator*(const double number, const YoungModulus& young_modulus) {
+template <typename Number>
+inline constexpr YoungModulus<Number> operator*(
+    const Number number, const YoungModulus<Number>& young_modulus) {
   return young_modulus * number;
 }
 
@@ -140,10 +170,10 @@ inline constexpr YoungModulus operator*(const double number, const YoungModulus&
 
 namespace std {
 
-template <>
-struct hash<PhQ::YoungModulus> {
-  inline size_t operator()(const PhQ::YoungModulus& young_modulus) const {
-    return hash<double>()(young_modulus.Value());
+template <typename Number>
+struct hash<PhQ::YoungModulus<Number>> {
+  inline size_t operator()(const PhQ::YoungModulus<Number>& young_modulus) const {
+    return hash<Number>()(young_modulus.Value());
   }
 };
 
